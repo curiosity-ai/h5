@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HighFive.Builder": {
+      "commandName": "Project",
+      "commandLineArgs": "-p \"$(SolutionDir)HighFive\\HighFive\\HighFive.csproj\" -b \"$(SolutionDir) -cfg \"$(Configuration)\" --platform \"$(Platform)\""
+    }
+  }
+}

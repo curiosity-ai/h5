@@ -51,7 +51,7 @@ namespace HighFive.Builder
             }
             catch (Exception ex)
             {
-                var ee = processor.Translator != null ? processor.Translator.CreateExceptionFromLastNode() : null;
+                var ee = processor.Translator?.CreateExceptionFromLastNode();
 
                 if (ee != null)
                 {
@@ -94,7 +94,6 @@ namespace HighFive.Builder
 -r --rebuild               Force assembly rebuilding.
 --nocore                   Do not extract core javascript files.
 -D --define <const-list>   Semicolon-delimited list of project constants.
--b --highfive <file>         HighFive.dll file location (currently unused).
 -s --source <file>         Source files name/pattern [default: *.cs].
 -f --folder <path>         Builder working directory relative to current WD
                            [default: current wd].

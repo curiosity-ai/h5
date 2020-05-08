@@ -189,7 +189,10 @@ namespace HighFive.Translator
 
             logger.Trace("Current domain " + AppDomain.CurrentDomain.FriendlyName);
 
+#if NETSTANDARD2_0
+#else
             logger.Trace("Application base: " + AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
+#endif
 
             logger.Trace("Loaded assemblies:");
             foreach (var a in AppDomain.CurrentDomain.GetAssemblies())

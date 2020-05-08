@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("quz", true), {
+H5.merge(new System.Globalization.CultureInfo("quz", true), {
     englishName: "Quechua",
     nativeName: "Runasimi",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("quz", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["int","kil","ati","quy","Ch'","Ill","k'u"],
         abbreviatedMonthGenitiveNames: ["Qul","Hat","Pau","ayr","Aym","Int","Ant","Qha","Uma","Kan","Aya","Kap",""],
         abbreviatedMonthNames: ["Qul","Hat","Pau","ayr","Aym","Int","Ant","Qha","Uma","Kan","Aya","Kap",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("quz", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "quz-BO",
         EBCDICCodePage: 20284,

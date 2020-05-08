@@ -1,8 +1,8 @@
 namespace System.Diagnostics.Contracts
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("System.Object")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("System.Object")]
     public sealed class ContractFailedEventArgs : EventArgs
     {
         public extern ContractFailedEventArgs(ContractFailureKind failureKind, String message, String condition, Exception originalException);

@@ -1,4 +1,4 @@
-    HighFive.define("System.MissingMethodException", {
+    H5.define("System.MissingMethodException", {
         inherits: [System.Exception],
         ctors: {
             ctor: function () {

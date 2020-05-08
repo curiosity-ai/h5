@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NRAttribute = ICSharpCode.NRefactory.CSharp.Attribute;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Inspector : Visitor
     {
@@ -67,18 +67,18 @@ namespace HighFive.Translator
 
         protected virtual bool IsObjectLiteral(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.HighFive_ASSEMBLY + ".ObjectLiteral");
+            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".ObjectLiteral");
         }
 
         protected virtual bool IsNonScriptable(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.HighFive_ASSEMBLY + ".NonScriptable");
+            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".NonScriptable");
         }
 
         protected virtual bool HasExternal(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.HighFive_ASSEMBLY + ".External") ||
-                   this.HasAttribute(declaration, Translator.HighFive_ASSEMBLY + ".Ignore") ||
+            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".External") ||
+                   this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Ignore") ||
                    this.IsVirtual(declaration as TypeDeclaration);
         }
 
@@ -96,12 +96,12 @@ namespace HighFive.Translator
 
         protected virtual bool HasTemplate(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.HighFive_ASSEMBLY + ".Template");
+            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Template");
         }
 
         protected virtual bool HasScript(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.HighFive_ASSEMBLY + ".Script");
+            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Script");
         }
 
         private Expression GetDefaultFieldInitializer(AstType type)
@@ -174,8 +174,8 @@ namespace HighFive.Translator
             {
                 var parameter = type as ITypeParameter;
                 if (parameter != null && (
-                    parameter.Owner.Attributes.Any(a => a.AttributeType.FullName == "HighFive.IgnoreGenericAttribute") ||
-                    parameter.Owner.DeclaringTypeDefinition != null && parameter.Owner.DeclaringTypeDefinition.Attributes.Any(a => a.AttributeType.FullName == "HighFive.IgnoreGenericAttribute")))
+                    parameter.Owner.Attributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute") ||
+                    parameter.Owner.DeclaringTypeDefinition != null && parameter.Owner.DeclaringTypeDefinition.Attributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute")))
                 {
                     return null;
                 }
@@ -254,7 +254,7 @@ namespace HighFive.Translator
                 return "{}";
             }
 
-            return string.Concat("new ", isGeneric ? "(" : "", HighFiveTypes.ToJsName(type, emitter), isGeneric ? ")" : "", "()");
+            return string.Concat("new ", isGeneric ? "(" : "", H5Types.ToJsName(type, emitter), isGeneric ? ")" : "", "()");
         }
 
         protected virtual bool IsValidStaticInitializer(Expression expr)
@@ -304,17 +304,17 @@ namespace HighFive.Translator
         }
 
         /// <summary>
-        /// Checks if the namespace name is likely to conflict with HighFive.NET namespace.
+        /// Checks if the namespace name is likely to conflict with H5.NET namespace.
         /// </summary>
         /// <param name="namespaceName"></param>
         /// <returns></returns>
         protected static bool IsConflictingNamespace(string namespaceName)
         {
-            return (namespaceName == Translator.HighFive_ASSEMBLY);
+            return (namespaceName == Translator.H5_ASSEMBLY);
         }
 
         /// <summary>
-        /// Validates the type's namespace attribute (if present) against conflicts with HighFive.NET's namespaces.
+        /// Validates the type's namespace attribute (if present) against conflicts with H5.NET's namespaces.
         /// </summary>
         /// <param name="tpDecl">The TypeDefinition object of the validated item.</param>
         private void ValidateNamespace(TypeDeclaration tpDecl)
@@ -328,28 +328,28 @@ namespace HighFive.Translator
             if (this.TryGetAttribute(tpDecl, "Namespace", out nsAt))
             {
                 var nsName = nsAt.Arguments.FirstOrNullObject().ToString().Trim('"');
-                if (HighFive.Translator.Inspector.IsConflictingNamespace(nsName))
+                if (H5.Translator.Inspector.IsConflictingNamespace(nsName))
                 {
                     throw new EmitterException(nsAt, "Custom attribute '[" + nsAt.ToString() +
-                        "]' uses reserved namespace name 'HighFive'."
-                        + HighFive.Translator.Emitter.NEW_LINE
-                        + "This name is reserved for HighFive.NET core.");
+                        "]' uses reserved namespace name 'H5'."
+                        + H5.Translator.Emitter.NEW_LINE
+                        + "This name is reserved for H5.NET core.");
                 }
             }
         }
 
         /// <summary>
-        /// Validates the namespace name against conflicts with HighFive.NET's namespaces.
+        /// Validates the namespace name against conflicts with H5.NET's namespaces.
         /// </summary>
         /// <param name="nsDecl">The NamespaceDefinition object of the validated item.</param>
         private void ValidateNamespace(NamespaceDeclaration nsDecl)
         {
-            if (HighFive.Translator.Inspector.IsConflictingNamespace(nsDecl.FullName))
+            if (H5.Translator.Inspector.IsConflictingNamespace(nsDecl.FullName))
             {
                 throw new EmitterException(nsDecl, "Namespace '" + nsDecl.FullName +
-                    "' uses reserved name 'HighFive'."
-                    + HighFive.Translator.Emitter.NEW_LINE
-                    + "This name is reserved for HighFive.NET core.");
+                    "' uses reserved name 'H5'."
+                    + H5.Translator.Emitter.NEW_LINE
+                    + "This name is reserved for H5.NET core.");
             }
         }
     }

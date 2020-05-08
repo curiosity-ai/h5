@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.BitArray.BitArrayEnumeratorSimple", {
+    H5.define("System.Collections.BitArray.BitArrayEnumeratorSimple", {
         inherits: [System.Collections.IEnumerator],
         $kind: "nested class",
         fields: {
@@ -16,7 +16,7 @@
                     if (this.index >= this.bitarray.Count) {
                         throw new System.InvalidOperationException.$ctor1("Enumeration already finished.");
                     }
-                    return HighFive.box(this.currentElement, System.Boolean, System.Boolean.toString);
+                    return H5.box(this.currentElement, System.Boolean, System.Boolean.toString);
                 }
             }
         },

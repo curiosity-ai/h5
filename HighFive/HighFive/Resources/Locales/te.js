@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("te", true), {
+H5.merge(new System.Globalization.CultureInfo("te", true), {
     englishName: "Telugu",
     nativeName: "తెలుగు",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("te", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ఆది.","సోమ.","మంగళ.","బుధ.","గురు.","శుక్ర.","శని."],
         abbreviatedMonthGenitiveNames: ["జనవరి","ఫిబ్రవరి","మార్చి","ఏప్రిల్","మే","జూన్","జూలై","ఆగస్టు","సెప్టెంబర్","అక్టోబర్","నవంబర్","డిసెంబర్",""],
         abbreviatedMonthNames: ["జనవరి","ఫిబ్రవరి","మార్చి","ఏప్రిల్","మే","జూన్","జూలై","ఆగస్టు","సెప్టెంబర్","అక్టోబర్","నవంబర్","డిసెంబర్",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("te", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "te-IN",
         EBCDICCodePage: 500,

@@ -1,4 +1,4 @@
-    HighFive.define("System.Net.WebSockets.ClientWebSocket", {
+    H5.define("System.Net.WebSockets.ClientWebSocket", {
         inherits: [System.IDisposable],
 
         ctor: function () {
@@ -184,7 +184,7 @@
             var task,
                 tcs = new System.Threading.Tasks.TaskCompletionSource(),
                 self = this,
-                asyncBody = HighFive.fn.bind(this, function () {
+                asyncBody = H5.fn.bind(this, function () {
                     try {
                         if (cancellationToken.getIsCancellationRequested()) {
                             tcs.setException(new System.Threading.Tasks.TaskCanceledException("Receive has been cancelled.", tcs.task));
@@ -315,7 +315,7 @@
         }
     });
 
-    HighFive.define("System.Net.WebSockets.ClientWebSocketOptions", {
+    H5.define("System.Net.WebSockets.ClientWebSocketOptions", {
         ctor: function () {
             this.$initialize();
             this.isReadOnly = false;
@@ -343,7 +343,7 @@
         }
     });
 
-    HighFive.define("System.Net.WebSockets.WebSocketReceiveResult", {
+    H5.define("System.Net.WebSockets.WebSocketReceiveResult", {
         ctor: function (count, messageType, endOfMessage, closeStatus, closeStatusDescription) {
             this.$initialize();
             this.count = count;

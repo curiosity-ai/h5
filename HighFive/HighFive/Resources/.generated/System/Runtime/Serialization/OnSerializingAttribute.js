@@ -1,3 +1,3 @@
-    HighFive.define("System.Runtime.Serialization.OnSerializingAttribute", {
+    H5.define("System.Runtime.Serialization.OnSerializingAttribute", {
         inherits: [System.Attribute]
     });

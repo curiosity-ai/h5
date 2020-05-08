@@ -1,4 +1,4 @@
-    HighFive.define("System.NotImplemented", {
+    H5.define("System.NotImplemented", {
         statics: {
             props: {
                 ByDesign: {

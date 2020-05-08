@@ -1,6 +1,6 @@
 using ICSharpCode.NRefactory.CSharp;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public abstract partial class Visitor : IAstVisitor
     {

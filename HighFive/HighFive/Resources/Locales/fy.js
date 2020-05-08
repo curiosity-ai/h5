@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("fy", true), {
+H5.merge(new System.Globalization.CultureInfo("fy", true), {
     englishName: "Western Frisian",
     nativeName: "Frysk",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("fy", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["si","mo","ti","wo","to","fr","so"],
         abbreviatedMonthGenitiveNames: ["Jan","Feb","Mrt","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Des",""],
         abbreviatedMonthNames: ["Jan","Feb","Mrt","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Des",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("fy", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "fy-NL",
         EBCDICCodePage: 500,

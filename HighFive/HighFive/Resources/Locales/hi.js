@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("hi", true), {
+H5.merge(new System.Globalization.CultureInfo("hi", true), {
     englishName: "Hindi",
     nativeName: "हिंदी",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hi", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["रवि.","सोम.","मंगल.","बुध.","गुरु.","शुक्र.","शनि."],
         abbreviatedMonthGenitiveNames: ["जनवरी","फरवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितम्बर","अक्तूबर","नवम्बर","दिसम्बर",""],
         abbreviatedMonthNames: ["जनवरी","फरवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितम्बर","अक्तूबर","नवम्बर","दिसम्बर",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hi", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "hi-IN",
         EBCDICCodePage: 500,

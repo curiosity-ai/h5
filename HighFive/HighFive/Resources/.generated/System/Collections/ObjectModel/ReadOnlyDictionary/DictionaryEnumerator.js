@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.ObjectModel.ReadOnlyDictionary$2.DictionaryEnumerator", function (TKey, TValue) { return {
+    H5.define("System.Collections.ObjectModel.ReadOnlyDictionary$2.DictionaryEnumerator", function (TKey, TValue) { return {
         inherits: [System.Collections.IDictionaryEnumerator],
         $kind: "nested struct",
         statics: {
@@ -13,17 +13,17 @@
         props: {
             Entry: {
                 get: function () {
-                    return new System.Collections.DictionaryEntry.$ctor1(this._enumerator[HighFive.geti(this._enumerator, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")].key, this._enumerator[HighFive.geti(this._enumerator, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")].value);
+                    return new System.Collections.DictionaryEntry.$ctor1(this._enumerator[H5.geti(this._enumerator, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")].key, this._enumerator[H5.geti(this._enumerator, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")].value);
                 }
             },
             Key: {
                 get: function () {
-                    return this._enumerator[HighFive.geti(this._enumerator, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")].key;
+                    return this._enumerator[H5.geti(this._enumerator, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")].key;
                 }
             },
             Value: {
                 get: function () {
-                    return this._enumerator[HighFive.geti(this._enumerator, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")].value;
+                    return this._enumerator[H5.geti(this._enumerator, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")].value;
                 }
             },
             Current: {
@@ -44,7 +44,7 @@
             $ctor1: function (dictionary) {
                 this.$initialize();
                 this._dictionary = dictionary;
-                this._enumerator = HighFive.getEnumerator(this._dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
+                this._enumerator = H5.getEnumerator(this._dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
             },
             ctor: function () {
                 this.$initialize();
@@ -58,14 +58,14 @@
                 this._enumerator.System$Collections$IEnumerator$reset();
             },
             getHashCode: function () {
-                var h = HighFive.addHash([9276503029, this._dictionary, this._enumerator]);
+                var h = H5.addHash([9276503029, this._dictionary, this._enumerator]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.ObjectModel.ReadOnlyDictionary$2.DictionaryEnumerator(TKey,TValue))) {
+                if (!H5.is(o, System.Collections.ObjectModel.ReadOnlyDictionary$2.DictionaryEnumerator(TKey,TValue))) {
                     return false;
                 }
-                return HighFive.equals(this._dictionary, o._dictionary) && HighFive.equals(this._enumerator, o._enumerator);
+                return H5.equals(this._dictionary, o._dictionary) && H5.equals(this._enumerator, o._enumerator);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.ObjectModel.ReadOnlyDictionary$2.DictionaryEnumerator(TKey,TValue))();

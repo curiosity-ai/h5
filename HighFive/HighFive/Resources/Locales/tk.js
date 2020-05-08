@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("tk", true), {
+H5.merge(new System.Globalization.CultureInfo("tk", true), {
     englishName: "Turkmen",
     nativeName: "Türkmen dili",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "san däl",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tk", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Ýb","Db","Sb","Çb","Pb","An","Şb"],
         abbreviatedMonthGenitiveNames: ["Ýan","Few","Mart","Apr","Maý","lýun","lýul","Awg","Sen","Okt","Noý","Dek",""],
         abbreviatedMonthNames: ["Ýan","Few","Mart","Apr","Maý","lýun","lýul","Awg","Sen","Okt","Noý","Dek",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tk", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1250,
         CultureName: "tk-TM",
         EBCDICCodePage: 20880,

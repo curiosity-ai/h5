@@ -1,4 +1,4 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using Mono.Cecil;
@@ -11,11 +11,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class Plugins : IPlugins
     {
-        private const string PLUGIN_RESOURCE_NAME_PREFIX = "HighFive.Plugins.";
+        private const string PLUGIN_RESOURCE_NAME_PREFIX = "H5.Plugins.";
 
         public static bool IsLoaded { get; set; }
 
@@ -29,7 +29,7 @@ namespace HighFive.Translator
             }
             else
             {
-                path = Path.Combine(translator.FolderMode ? translator.Location : Path.GetDirectoryName(translator.Location), "HighFive" + Path.DirectorySeparatorChar + "plugins");
+                path = Path.Combine(translator.FolderMode ? translator.Location : Path.GetDirectoryName(translator.Location), "H5" + Path.DirectorySeparatorChar + "plugins");
             }
 
             return path;

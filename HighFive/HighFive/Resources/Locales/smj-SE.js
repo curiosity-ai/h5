@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("smj-SE", true), {
+H5.merge(new System.Globalization.CultureInfo("smj-SE", true), {
     englishName: "Sami, Lule (Sweden)",
     nativeName: "julevusámegiella (Svierik)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("smj-SE", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ájl","mán","dis","gas","duor","bier","láv"],
         abbreviatedMonthGenitiveNames: ["ådåj","guov","snju","vuor","moar","bieh","snji","bårg","ragá","gålg","basá","javl",""],
         abbreviatedMonthNames: ["ådåj","guov","snju","vuor","moar","bieh","snji","bårg","ragá","gålg","basá","javl",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("smj-SE", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "smj-SE",
         EBCDICCodePage: 20278,

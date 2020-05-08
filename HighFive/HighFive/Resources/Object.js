@@ -1,1 +1,1 @@
-    HighFive.define("System.Object", { });
+    H5.define("System.Object", { });

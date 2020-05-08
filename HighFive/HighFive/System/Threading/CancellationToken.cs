@@ -1,13 +1,13 @@
 namespace System.Threading
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public struct CancellationToken
     {
         public extern CancellationToken(bool canceled);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public static extern CancellationToken None
         {
             get;
@@ -15,13 +15,13 @@ namespace System.Threading
 
         public extern bool CanBeCanceled
         {
-            [HighFive.Template("getCanBeCanceled()")]
+            [H5.Template("getCanBeCanceled()")]
             get;
         }
 
         public extern bool IsCancellationRequested
         {
-            [HighFive.Template("getIsCancellationRequested()")]
+            [H5.Template("getIsCancellationRequested()")]
             get;
         }
 
@@ -29,12 +29,12 @@ namespace System.Threading
 
         public extern CancellationTokenRegistration Register(Action callback);
 
-        [HighFive.Template("{this}.register({callback})")]
+        [H5.Template("{this}.register({callback})")]
         public extern CancellationTokenRegistration Register(Action callback, bool useSynchronizationContext);
 
         public extern CancellationTokenRegistration Register(Action<object> callback, object state);
 
-        [HighFive.Template("{this}.register({callback}, {state})")]
+        [H5.Template("{this}.register({callback}, {state})")]
         public extern CancellationTokenRegistration Register(Action<object> callback, object state, bool useSynchronizationContext);
     }
 }

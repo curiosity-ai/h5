@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HighFive.Contract.Constants
+namespace H5.Contract.Constants
 {
     public class Messages
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     /// <summary>
     /// This enum defines the possibilities for default member reflectability.

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("vai-Latn", true), {
+H5.merge(new System.Globalization.CultureInfo("vai-Latn", true), {
     englishName: "Vai (Latin)",
     nativeName: "Vai",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("vai-Latn", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["lahadi","tɛɛnɛɛ","talata","alaba","aimisa","aijima","siɓiti"],
         abbreviatedMonthGenitiveNames: ["luukao kemã","ɓandaɓu","vɔɔ","fulu","goo","6","7","kɔnde","saah","galo","kenpkato ɓololɔ","luukao lɔma",""],
         abbreviatedMonthNames: ["luukao kemã","ɓandaɓu","vɔɔ","fulu","goo","6","7","kɔnde","saah","galo","kenpkato ɓololɔ","luukao lɔma",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("vai-Latn", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "vai-Latn-LR",
         EBCDICCodePage: 500,

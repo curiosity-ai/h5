@@ -38,7 +38,7 @@ namespace System.Runtime.Serialization
         public object Context => _additionalContext;
     }
 
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.Enum(H5.Emit.Value)]
     [Flags]
     public enum StreamingContextStates
     {

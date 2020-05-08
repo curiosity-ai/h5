@@ -3,10 +3,10 @@ namespace System.ComponentModel.DataAnnotations.Schema
     /// <summary>
     /// Specifies the database column that a property is mapped to.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    [HighFive.External]
-    [HighFive.NonScriptable]
+    [H5.External]
+    [H5.NonScriptable]
     public class ColumnAttribute : Attribute
     {
         /// <summary>

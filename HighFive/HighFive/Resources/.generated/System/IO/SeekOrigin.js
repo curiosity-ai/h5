@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.SeekOrigin", {
+    H5.define("System.IO.SeekOrigin", {
         $kind: "enum",
         statics: {
             fields: {

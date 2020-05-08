@@ -1,11 +1,11 @@
-    HighFive.define("System.IO.Stream.SynchronousAsyncResult", {
+    H5.define("System.IO.Stream.SynchronousAsyncResult", {
         inherits: [System.IAsyncResult],
         $kind: "nested class",
         statics: {
             methods: {
                 EndRead: function (asyncResult) {
 
-                    var ar = HighFive.as(asyncResult, System.IO.Stream.SynchronousAsyncResult);
+                    var ar = H5.as(asyncResult, System.IO.Stream.SynchronousAsyncResult);
                     if (ar == null || ar._isWrite) {
                         System.IO.__Error.WrongAsyncResult();
                     }
@@ -21,7 +21,7 @@
                 },
                 EndWrite: function (asyncResult) {
 
-                    var ar = HighFive.as(asyncResult, System.IO.Stream.SynchronousAsyncResult);
+                    var ar = H5.as(asyncResult, System.IO.Stream.SynchronousAsyncResult);
                     if (ar == null || !ar._isWrite) {
                         System.IO.__Error.WrongAsyncResult();
                     }

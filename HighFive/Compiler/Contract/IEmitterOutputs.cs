@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IEmitterOutputs : IDictionary<string, IEmitterOutput>
     {

@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class HashHelper
     {

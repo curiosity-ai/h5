@@ -1,10 +1,10 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using System.Linq;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class PropertyBlock : TypeScriptBlock
     {
@@ -63,13 +63,13 @@ namespace HighFive.Translator.TypeScript
             this.Write(name);
 
             var property_rr = this.Emitter.Resolver.ResolveNode(p, this.Emitter);
-            if (property_rr is MemberResolveResult mrr && mrr.Member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.OptionalAttribute"))
+            if (property_rr is MemberResolveResult mrr && mrr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.OptionalAttribute"))
             {
                 this.Write("?");
             }
 
             this.WriteColon();
-            name = HighFiveTypes.ToTypeScriptName(p.ReturnType, this.Emitter);
+            name = H5Types.ToTypeScriptName(p.ReturnType, this.Emitter);
             this.Write(name);
 
             var resolveResult = this.Emitter.Resolver.ResolveNode(p.ReturnType, this.Emitter);

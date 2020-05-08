@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.BidiCategory", {
+    H5.define("System.Globalization.BidiCategory", {
         $kind: "enum",
         statics: {
             fields: {

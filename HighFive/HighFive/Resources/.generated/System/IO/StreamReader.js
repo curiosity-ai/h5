@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.StreamReader", {
+    H5.define("System.IO.StreamReader", {
         inherits: [System.IO.TextReader],
         statics: {
             fields: {
@@ -259,13 +259,13 @@
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
                     $returnValue, 
                     $async_e, 
-                    $asyncBody = HighFive.fn.bind(this, function () {
+                    $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
                                 $step = System.Array.min([0,1,2,3,4], $step);
                                 switch ($step) {
                                     case 0: {
-                                        if (HighFive.is(this.stream, System.IO.FileStream)) {
+                                        if (H5.is(this.stream, System.IO.FileStream)) {
                                             $step = 1;
                                             continue;
                                         } 

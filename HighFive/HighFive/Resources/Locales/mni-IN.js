@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mni-IN", true), {
+H5.merge(new System.Globalization.CultureInfo("mni-IN", true), {
     englishName: "Manipuri (India)",
     nativeName: "মৈতৈলোন্ (India)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mni-IN", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["নোংমাইজিং","নিংথৌকাঃবা","লৈঃপাক পোকপা","য়ুমশা কৈশা","সগোনসেল","ইরাই","থাংজা"],
         abbreviatedMonthGenitiveNames: ["ৱাকিচঙ","লাঘাফাইরেল","লমদা","সজিবু","কালেন্","ইঙাঃ","ইঙেন","থৱান","লাংবন","মেরাঃ","হাগৈঃ","পোইনু",""],
         abbreviatedMonthNames: ["ৱাকিচঙ","লাঘাফাইরেল","লমদা","সজিবু","কালেন্","ইঙাঃ","ইঙেন","থৱান","লাংবন","মেরাঃ","হাগৈঃ","পোইনু",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mni-IN", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mni-IN",
         EBCDICCodePage: 500,

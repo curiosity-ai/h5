@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("saq-KE", true), {
+H5.merge(new System.Globalization.CultureInfo("saq-KE", true), {
     englishName: "Samburu (Kenya)",
     nativeName: "Kisampur (Kenya)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("saq-KE", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Are","Kun","Ong","Ine","Ile","Sap","Kwe"],
         abbreviatedMonthGenitiveNames: ["Obo","Waa","Oku","Ong","Ime","Ile","Sap","Isi","Saa","Tom","Tob","Tow",""],
         abbreviatedMonthNames: ["Obo","Waa","Oku","Ong","Ime","Ile","Sap","Isi","Saa","Tom","Tob","Tow",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("saq-KE", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "saq-KE",
         EBCDICCodePage: 500,

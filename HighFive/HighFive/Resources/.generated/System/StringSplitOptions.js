@@ -1,4 +1,4 @@
-    HighFive.define("System.StringSplitOptions", {
+    H5.define("System.StringSplitOptions", {
         $kind: "enum",
         statics: {
             fields: {

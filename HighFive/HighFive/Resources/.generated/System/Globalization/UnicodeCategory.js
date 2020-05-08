@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.UnicodeCategory", {
+    H5.define("System.Globalization.UnicodeCategory", {
         $kind: "enum",
         statics: {
             fields: {

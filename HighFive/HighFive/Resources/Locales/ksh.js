@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ksh", true), {
+H5.merge(new System.Globalization.CultureInfo("ksh", true), {
     englishName: "Colognian",
     nativeName: "Kölsch",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "¤¤¤",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ksh", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Su.","Mo.","Di.","Me.","Du.","Fr.","Sa."],
         abbreviatedMonthGenitiveNames: ["Jan","Fäb","Mäz","Apr","Mai","Jun","Jul","Ouj","Säp","Okt","Nov","Dez",""],
         abbreviatedMonthNames: ["Jan.","Fäb.","Mäz.","Apr.","Mai","Jun.","Jul.","Ouj.","Säp.","Okt.","Nov.","Dez.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ksh", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ksh-DE",
         EBCDICCodePage: 500,

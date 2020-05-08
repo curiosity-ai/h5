@@ -5,9 +5,9 @@ namespace System.Text.RegularExpressions
     /// <summary>
     /// Returns the set of captured groups in a single match.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public class GroupCollection : ICollection
     {
         internal extern GroupCollection();
@@ -17,7 +17,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern object SyncRoot
         {
-            [HighFive.Template("getSyncRoot()")]
+            [H5.Template("getSyncRoot()")]
             get;
         }
 
@@ -26,7 +26,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern bool IsSynchronized
         {
-            [HighFive.Template("getIsSynchronized()")]
+            [H5.Template("getIsSynchronized()")]
             get;
         }
 
@@ -35,7 +35,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern bool IsReadOnly
         {
-            [HighFive.Template("getIsReadOnly()")]
+            [H5.Template("getIsReadOnly()")]
             get;
         }
 
@@ -44,7 +44,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern int Count
         {
-            [HighFive.Template("getCount()")]
+            [H5.Template("getCount()")]
             get;
         }
 
@@ -53,7 +53,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern Group this[int groupnum]
         {
-            [HighFive.Template("get({0})")]
+            [H5.Template("get({0})")]
             get;
         }
 
@@ -62,7 +62,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern new Group this[string groupname]
         {
-            [HighFive.Template("getByName({0})")]
+            [H5.Template("getByName({0})")]
             get;
         }
 
@@ -74,7 +74,7 @@ namespace System.Text.RegularExpressions
         /// <summary>
         /// Provides an enumerator that iterates through the collection.
         /// </summary>
-        [HighFive.Convention(HighFive.Notation.None)]
+        [H5.Convention(H5.Notation.None)]
         public extern IEnumerator GetEnumerator();
     }
 }

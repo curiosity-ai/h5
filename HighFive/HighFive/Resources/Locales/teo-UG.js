@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("teo-UG", true), {
+H5.merge(new System.Globalization.CultureInfo("teo-UG", true), {
     englishName: "Teso (Uganda)",
     nativeName: "Kiteso (Uganda)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("teo-UG", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Jum","Bar","Aar","Uni","Ung","Kan","Sab"],
         abbreviatedMonthGenitiveNames: ["Rar","Muk","Kwa","Dun","Mar","Mod","Jol","Ped","Sok","Tib","Lab","Poo",""],
         abbreviatedMonthNames: ["Rar","Muk","Kwa","Dun","Mar","Mod","Jol","Ped","Sok","Tib","Lab","Poo",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("teo-UG", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "teo-UG",
         EBCDICCodePage: 500,

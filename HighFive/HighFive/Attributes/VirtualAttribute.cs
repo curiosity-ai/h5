@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     [NonScriptable]
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate, AllowMultiple = false)]

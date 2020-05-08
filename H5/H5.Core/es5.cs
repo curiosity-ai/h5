@@ -4,7 +4,7 @@
 // MVID: EC57AC2B-0E02-4A1C-B567-F790F377783B
 // Assembly location: C:\work\curiosity\tesserae\Tesserae\bin\Debug\net461\H5.es5.dll
 
-using HighFive;
+using H5;
 using H5.Core;
 using System;
 using System.Collections;
@@ -1398,7 +1398,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("ArrayConstructor")]
         [FormerInterface]
-        public class Array<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IHighFiveClass, IReadOnlyList<T>, IReadOnlyCollection<T>, ICollection, IObject
+        public class Array<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IH5Class, IReadOnlyList<T>, IReadOnlyCollection<T>, ICollection, IObject
         {
             public extern Array();
 
@@ -1562,10 +1562,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<T> IEnumerable<T>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern T IReadOnlyList<T>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -2019,7 +2019,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Int8ArrayConstructor")]
         [FormerInterface]
-        public class Int8Array : IList<sbyte>, ICollection<sbyte>, IEnumerable<sbyte>, IEnumerable, IHighFiveClass, IReadOnlyList<sbyte>, IReadOnlyCollection<sbyte>, ICollection, IObject
+        public class Int8Array : IList<sbyte>, ICollection<sbyte>, IEnumerable<sbyte>, IEnumerable, IH5Class, IReadOnlyList<sbyte>, IReadOnlyCollection<sbyte>, ICollection, IObject
         {
             public extern Int8Array(uint length);
 
@@ -2226,10 +2226,10 @@ namespace H5.Core
         ;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<sbyte> IEnumerable<sbyte>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern sbyte IReadOnlyList<sbyte>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -2376,7 +2376,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Uint8ArrayConstructor")]
         [FormerInterface]
-        public class Uint8Array : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IHighFiveClass, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
+        public class Uint8Array : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IH5Class, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
         {
             public extern Uint8Array(uint length);
 
@@ -2582,10 +2582,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<byte> IEnumerable<byte>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern byte IReadOnlyList<byte>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -2732,7 +2732,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Uint8ClampedArrayConstructor")]
         [FormerInterface]
-        public class Uint8ClampedArray : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IHighFiveClass, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
+        public class Uint8ClampedArray : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IH5Class, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
         {
 
             public extern Uint8ClampedArray(uint length);
@@ -2948,10 +2948,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<byte> IEnumerable<byte>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern byte IReadOnlyList<byte>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -3101,7 +3101,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Int16ArrayConstructor")]
         [FormerInterface]
-        public class Int16Array : IList<short>, ICollection<short>, IEnumerable<short>, IEnumerable, IHighFiveClass, IReadOnlyList<short>, IReadOnlyCollection<short>, ICollection, IObject
+        public class Int16Array : IList<short>, ICollection<short>, IEnumerable<short>, IEnumerable, IH5Class, IReadOnlyList<short>, IReadOnlyCollection<short>, ICollection, IObject
         {
             public extern Int16Array(uint length);
 
@@ -3307,10 +3307,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<short> IEnumerable<short>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern short IReadOnlyList<short>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -3457,7 +3457,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Uint16ArrayConstructor")]
         [FormerInterface]
-        public class Uint16Array : IList<ushort>, ICollection<ushort>, IEnumerable<ushort>, IEnumerable, IHighFiveClass, IReadOnlyList<ushort>, IReadOnlyCollection<ushort>, ICollection, IObject
+        public class Uint16Array : IList<ushort>, ICollection<ushort>, IEnumerable<ushort>, IEnumerable, IH5Class, IReadOnlyList<ushort>, IReadOnlyCollection<ushort>, ICollection, IObject
         {
             public extern Uint16Array(uint length);
 
@@ -3663,10 +3663,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<ushort> IEnumerable<ushort>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern ushort IReadOnlyList<ushort>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -3813,7 +3813,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Int32ArrayConstructor")]
         [FormerInterface]
-        public class Int32Array : IList<int>, ICollection<int>, IEnumerable<int>, IEnumerable, IHighFiveClass, IReadOnlyList<int>, IReadOnlyCollection<int>, ICollection, IObject
+        public class Int32Array : IList<int>, ICollection<int>, IEnumerable<int>, IEnumerable, IH5Class, IReadOnlyList<int>, IReadOnlyCollection<int>, ICollection, IObject
         {
 
             public extern Int32Array(uint length);
@@ -4019,10 +4019,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<int> IEnumerable<int>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern int IReadOnlyList<int>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -4169,7 +4169,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Uint32ArrayConstructor")]
         [FormerInterface]
-        public class Uint32Array : IList<uint>, ICollection<uint>, IEnumerable<uint>, IEnumerable, IHighFiveClass, IReadOnlyList<uint>, IReadOnlyCollection<uint>, ICollection, IObject
+        public class Uint32Array : IList<uint>, ICollection<uint>, IEnumerable<uint>, IEnumerable, IH5Class, IReadOnlyList<uint>, IReadOnlyCollection<uint>, ICollection, IObject
         {
 
             public extern Uint32Array(uint length);
@@ -4376,10 +4376,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<uint> IEnumerable<uint>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern uint IReadOnlyList<uint>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -4526,7 +4526,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Float32ArrayConstructor")]
         [FormerInterface]
-        public class Float32Array : IList<float>, ICollection<float>, IEnumerable<float>, IEnumerable, IHighFiveClass, IReadOnlyList<float>, IReadOnlyCollection<float>, ICollection, IObject
+        public class Float32Array : IList<float>, ICollection<float>, IEnumerable<float>, IEnumerable, IH5Class, IReadOnlyList<float>, IReadOnlyCollection<float>, ICollection, IObject
         {
             public extern Float32Array(uint length);
 
@@ -4734,10 +4734,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<float> IEnumerable<float>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern float IReadOnlyList<float>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -4884,7 +4884,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Float64ArrayConstructor")]
         [FormerInterface]
-        public class Float64Array : IList<double>, ICollection<double>, IEnumerable<double>, IEnumerable, IHighFiveClass, IReadOnlyList<double>, IReadOnlyCollection<double>, ICollection, IObject
+        public class Float64Array : IList<double>, ICollection<double>, IEnumerable<double>, IEnumerable, IH5Class, IReadOnlyList<double>, IReadOnlyCollection<double>, ICollection, IObject
         {
 
             public extern Float64Array(uint length);
@@ -5093,10 +5093,10 @@ namespace H5.Core
                 get;
             }
 
-            [Template("HighFive.getEnumerator({this}, {T})")]
+            [Template("H5.getEnumerator({this}, {T})")]
             extern IEnumerator<double> IEnumerable<double>.GetEnumerator();
 
-            [Template("HighFive.getEnumerator({this})")]
+            [Template("H5.getEnumerator({this})")]
             extern IEnumerator IEnumerable.GetEnumerator();
 
             extern double IReadOnlyList<double>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }

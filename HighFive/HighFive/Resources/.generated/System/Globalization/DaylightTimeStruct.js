@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.DaylightTimeStruct", {
+    H5.define("System.Globalization.DaylightTimeStruct", {
         $kind: "struct",
         statics: {
             methods: {
@@ -28,14 +28,14 @@
         },
         methods: {
             getHashCode: function () {
-                var h = HighFive.addHash([7445027511, this.Start, this.End, this.Delta]);
+                var h = H5.addHash([7445027511, this.Start, this.End, this.Delta]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Globalization.DaylightTimeStruct)) {
+                if (!H5.is(o, System.Globalization.DaylightTimeStruct)) {
                     return false;
                 }
-                return HighFive.equals(this.Start, o.Start) && HighFive.equals(this.End, o.End) && HighFive.equals(this.Delta, o.Delta);
+                return H5.equals(this.Start, o.Start) && H5.equals(this.End, o.End) && H5.equals(this.Delta, o.Delta);
             },
             $clone: function (to) {
                 var s = to || new System.Globalization.DaylightTimeStruct();

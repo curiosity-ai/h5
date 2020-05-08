@@ -1,4 +1,4 @@
-    HighFive.define("System.RegexMatchTimeoutException", {
+    H5.define("System.RegexMatchTimeoutException", {
         inherits: [System.TimeoutException],
 
         _regexInput: "",

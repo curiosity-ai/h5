@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// Controls a type or type members case notation in the script output.

@@ -1,4 +1,4 @@
-    HighFive.define("HighFive.ArrayEnumerator", {
+    H5.define("H5.ArrayEnumerator", {
         inherits: [System.Collections.IEnumerator, System.IDisposable],
 
         statics: {
@@ -35,10 +35,10 @@
             this.reset();
 
             if (T) {
-                this["System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$getCurrent$1"] = this.getCurrent;
+                this["System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$getCurrent$1"] = this.getCurrent;
                 this["System$Collections$Generic$IEnumerator$1$getCurrent$1"] = this.getCurrent;
 
-                Object.defineProperty(this, "System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", {
+                Object.defineProperty(this, "System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", {
                     get: this.getCurrent,
                     enumerable: true
                 });
@@ -68,10 +68,10 @@
             this.index = -1;
         },
 
-        Dispose: HighFive.emptyFn
+        Dispose: H5.emptyFn
     });
 
-    HighFive.define("HighFive.ArrayEnumerable", {
+    H5.define("H5.ArrayEnumerable", {
         inherits: [System.Collections.IEnumerable],
 
         config: {
@@ -86,6 +86,6 @@
         },
 
         GetEnumerator: function () {
-            return new HighFive.ArrayEnumerator(this.array);
+            return new H5.ArrayEnumerator(this.array);
         }
     });

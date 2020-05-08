@@ -1,4 +1,4 @@
-    HighFive.define("System.StringComparer", {
+    H5.define("System.StringComparer", {
         inherits: [System.Collections.Generic.IComparer$1(System.String),System.Collections.Generic.IEqualityComparer$1(System.String)],
         statics: {
             fields: {
@@ -26,7 +26,7 @@
         },
         methods: {
             Compare: function (x, y) {
-                if (HighFive.referenceEquals(x, y)) {
+                if (H5.referenceEquals(x, y)) {
                     return 0;
                 }
                 if (x == null) {
@@ -36,48 +36,48 @@
                     return 1;
                 }
 
-                var sa = HighFive.as(x, System.String);
+                var sa = H5.as(x, System.String);
                 if (sa != null) {
-                    var sb = HighFive.as(y, System.String);
+                    var sb = H5.as(y, System.String);
                     if (sb != null) {
                         return this.compare(sa, sb);
                     }
                 }
 
-                var ia = HighFive.as(x, System.IComparable);
+                var ia = H5.as(x, System.IComparable);
                 if (ia != null) {
-                    return HighFive.compare(ia, y);
+                    return H5.compare(ia, y);
                 }
 
                 throw new System.ArgumentException.$ctor1("At least one object must implement IComparable.");
             },
             Equals: function (x, y) {
-                if (HighFive.referenceEquals(x, y)) {
+                if (H5.referenceEquals(x, y)) {
                     return true;
                 }
                 if (x == null || y == null) {
                     return false;
                 }
 
-                var sa = HighFive.as(x, System.String);
+                var sa = H5.as(x, System.String);
                 if (sa != null) {
-                    var sb = HighFive.as(y, System.String);
+                    var sb = H5.as(y, System.String);
                     if (sb != null) {
                         return this.equals2(sa, sb);
                     }
                 }
-                return HighFive.equals(x, y);
+                return H5.equals(x, y);
             },
             GetHashCode: function (obj) {
                 if (obj == null) {
                     throw new System.ArgumentNullException.$ctor1("obj");
                 }
 
-                var s = HighFive.as(obj, System.String);
+                var s = H5.as(obj, System.String);
                 if (s != null) {
                     return this.getHashCode2(s);
                 }
-                return HighFive.getHashCode(obj);
+                return H5.getHashCode(obj);
             }
         }
     });

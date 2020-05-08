@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.StreamingContext", {
+    H5.define("System.Runtime.Serialization.StreamingContext", {
         $kind: "struct",
         statics: {
             methods: {
@@ -36,11 +36,11 @@
         },
         methods: {
             equals: function (obj) {
-                if (!(HighFive.is(obj, System.Runtime.Serialization.StreamingContext))) {
+                if (!(H5.is(obj, System.Runtime.Serialization.StreamingContext))) {
                     return false;
                 }
-                var ctx = System.Nullable.getValue(HighFive.cast(HighFive.unbox(obj, System.Runtime.Serialization.StreamingContext), System.Runtime.Serialization.StreamingContext));
-                return HighFive.referenceEquals(ctx._additionalContext, this._additionalContext) && ctx._state === this._state;
+                var ctx = System.Nullable.getValue(H5.cast(H5.unbox(obj, System.Runtime.Serialization.StreamingContext), System.Runtime.Serialization.StreamingContext));
+                return H5.referenceEquals(ctx._additionalContext, this._additionalContext) && ctx._state === this._state;
             },
             getHashCode: function () {
                 return this._state;

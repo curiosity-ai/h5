@@ -1,7 +1,7 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class TypeBlock : AbstractEmitterBlock
     {
@@ -27,7 +27,7 @@ namespace HighFive.Translator
         {
             AstType astType = this.Type;
 
-            this.Write(HighFiveTypes.ToJsName(astType, this.Emitter));
+            this.Write(H5Types.ToJsName(astType, this.Emitter));
         }
     }
 }

@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.SortedList$2.Enumerator", function (TKey, TValue) { return {
+    H5.define("System.Collections.Generic.SortedList$2.Enumerator", function (TKey, TValue) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(System.Collections.Generic.KeyValuePair$2(TKey,TValue)),System.Collections.IDictionaryEnumerator],
         $kind: "nested struct",
         statics: {
@@ -18,8 +18,8 @@
         },
         fields: {
             _sortedList: null,
-            key: HighFive.getDefaultValue(TKey),
-            value: HighFive.getDefaultValue(TValue),
+            key: H5.getDefaultValue(TKey),
+            value: H5.getDefaultValue(TValue),
             index: 0,
             version: 0,
             getEnumeratorRetType: 0
@@ -74,7 +74,7 @@
         alias: [
             "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", ["System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
+            "Current", ["System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             $ctor1: function (sortedList, getEnumeratorRetType) {
@@ -83,8 +83,8 @@
                 this.index = 0;
                 this.version = this._sortedList.version;
                 this.getEnumeratorRetType = getEnumeratorRetType;
-                this.key = HighFive.getDefaultValue(TKey);
-                this.value = HighFive.getDefaultValue(TValue);
+                this.key = H5.getDefaultValue(TKey);
+                this.value = H5.getDefaultValue(TValue);
             },
             ctor: function () {
                 this.$initialize();
@@ -93,8 +93,8 @@
         methods: {
             Dispose: function () {
                 this.index = 0;
-                this.key = HighFive.getDefaultValue(TKey);
-                this.value = HighFive.getDefaultValue(TValue);
+                this.key = H5.getDefaultValue(TKey);
+                this.value = H5.getDefaultValue(TValue);
             },
             moveNext: function () {
                 var $t, $t1;
@@ -110,8 +110,8 @@
                 }
 
                 this.index = (this._sortedList.Count + 1) | 0;
-                this.key = HighFive.getDefaultValue(TKey);
-                this.value = HighFive.getDefaultValue(TValue);
+                this.key = H5.getDefaultValue(TKey);
+                this.value = H5.getDefaultValue(TValue);
                 return false;
             },
             System$Collections$IEnumerator$reset: function () {
@@ -120,18 +120,18 @@
                 }
 
                 this.index = 0;
-                this.key = HighFive.getDefaultValue(TKey);
-                this.value = HighFive.getDefaultValue(TValue);
+                this.key = H5.getDefaultValue(TKey);
+                this.value = H5.getDefaultValue(TValue);
             },
             getHashCode: function () {
-                var h = HighFive.addHash([3788985113, this._sortedList, this.key, this.value, this.index, this.version, this.getEnumeratorRetType]);
+                var h = H5.addHash([3788985113, this._sortedList, this.key, this.value, this.index, this.version, this.getEnumeratorRetType]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.SortedList$2.Enumerator(TKey,TValue))) {
+                if (!H5.is(o, System.Collections.Generic.SortedList$2.Enumerator(TKey,TValue))) {
                     return false;
                 }
-                return HighFive.equals(this._sortedList, o._sortedList) && HighFive.equals(this.key, o.key) && HighFive.equals(this.value, o.value) && HighFive.equals(this.index, o.index) && HighFive.equals(this.version, o.version) && HighFive.equals(this.getEnumeratorRetType, o.getEnumeratorRetType);
+                return H5.equals(this._sortedList, o._sortedList) && H5.equals(this.key, o.key) && H5.equals(this.value, o.value) && H5.equals(this.index, o.index) && H5.equals(this.version, o.version) && H5.equals(this.getEnumeratorRetType, o.getEnumeratorRetType);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.Generic.SortedList$2.Enumerator(TKey,TValue))();

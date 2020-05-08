@@ -1,7 +1,7 @@
-    HighFive.assembly("System", {}, function ($asm, globals) {
+    H5.assembly("System", {}, function ($asm, globals) {
         "use strict";
 
-        HighFive.define("System.Uri", {
+        H5.define("System.Uri", {
             statics: {
                 methods: {
                     equals: function (uri1, uri2) {
@@ -40,7 +40,7 @@
             },
 
             equals: function (uri) {
-                if (uri == null || !HighFive.is(uri, System.Uri)) {
+                if (uri == null || !H5.is(uri, System.Uri)) {
                     return false;
                 }
 

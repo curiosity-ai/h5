@@ -1,5 +1,5 @@
-﻿using HighFive.Contract;
-using HighFive.Contract.Constants;
+﻿using H5.Contract;
+using H5.Contract.Constants;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading;
 using Microsoft.CodeAnalysis.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     /// <summary>
     /// Contains useful helper methods to generate Roslyn syntax tree parts.
@@ -906,7 +906,7 @@ namespace HighFive.Translator
 
                 if (symbol.ContainingType != null && symbol.ContainingType.TypeKind == TypeKind.Enum && symbol is IFieldSymbol)
                 {
-                    string enumAttr = Translator.HighFive_ASSEMBLY + ".EnumAttribute";
+                    string enumAttr = Translator.H5_ASSEMBLY + ".EnumAttribute";
                     enumMode = 7;
 
                     foreach (var attr in symbol.ContainingType.GetAttributes())
@@ -919,7 +919,7 @@ namespace HighFive.Translator
                     }
                 }
 
-                var nameAttr = SyntaxHelper.GetInheritedAttribute(symbol, HighFive.Translator.Translator.HighFive_ASSEMBLY + ".NameAttribute");
+                var nameAttr = SyntaxHelper.GetInheritedAttribute(symbol, H5.Translator.Translator.H5_ASSEMBLY + ".NameAttribute");
                 bool isIgnore = symbol.ContainingType != null && SyntaxHelper.IsExternalType(symbol.ContainingType);
 
                 name = symbol.Name;
@@ -974,9 +974,9 @@ namespace HighFive.Translator
 
         private static bool IsExternalType(INamedTypeSymbol symbol)
         {
-            string externalAttr = Translator.HighFive_ASSEMBLY + ".ExternalAttribute";
-            string virtualAttr = Translator.HighFive_ASSEMBLY + ".VirtualAttribute";
-            string objectLiteralAttr = Translator.HighFive_ASSEMBLY + ".ObjectLiteralAttribute";
+            string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
+            string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
+            string objectLiteralAttr = Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute";
 
             var result = SyntaxHelper.HasAttribute(symbol.GetAttributes(), externalAttr)
                    || SyntaxHelper.HasAttribute(symbol.GetAttributes(), objectLiteralAttr)

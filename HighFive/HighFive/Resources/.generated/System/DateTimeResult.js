@@ -1,4 +1,4 @@
-    HighFive.define("System.DateTimeResult", {
+    H5.define("System.DateTimeResult", {
         $kind: "struct",
         statics: {
             methods: {
@@ -57,14 +57,14 @@
                 this.failureArgumentName = failureArgumentName;
             },
             getHashCode: function () {
-                var h = HighFive.addHash([5374321750, this.Year, this.Month, this.Day, this.Hour, this.Minute, this.Second, this.fraction, this.era, this.flags, this.timeZoneOffset, this.calendar, this.parsedDate, this.failure, this.failureMessageID, this.failureMessageFormatArgument, this.failureArgumentName]);
+                var h = H5.addHash([5374321750, this.Year, this.Month, this.Day, this.Hour, this.Minute, this.Second, this.fraction, this.era, this.flags, this.timeZoneOffset, this.calendar, this.parsedDate, this.failure, this.failureMessageID, this.failureMessageFormatArgument, this.failureArgumentName]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.DateTimeResult)) {
+                if (!H5.is(o, System.DateTimeResult)) {
                     return false;
                 }
-                return HighFive.equals(this.Year, o.Year) && HighFive.equals(this.Month, o.Month) && HighFive.equals(this.Day, o.Day) && HighFive.equals(this.Hour, o.Hour) && HighFive.equals(this.Minute, o.Minute) && HighFive.equals(this.Second, o.Second) && HighFive.equals(this.fraction, o.fraction) && HighFive.equals(this.era, o.era) && HighFive.equals(this.flags, o.flags) && HighFive.equals(this.timeZoneOffset, o.timeZoneOffset) && HighFive.equals(this.calendar, o.calendar) && HighFive.equals(this.parsedDate, o.parsedDate) && HighFive.equals(this.failure, o.failure) && HighFive.equals(this.failureMessageID, o.failureMessageID) && HighFive.equals(this.failureMessageFormatArgument, o.failureMessageFormatArgument) && HighFive.equals(this.failureArgumentName, o.failureArgumentName);
+                return H5.equals(this.Year, o.Year) && H5.equals(this.Month, o.Month) && H5.equals(this.Day, o.Day) && H5.equals(this.Hour, o.Hour) && H5.equals(this.Minute, o.Minute) && H5.equals(this.Second, o.Second) && H5.equals(this.fraction, o.fraction) && H5.equals(this.era, o.era) && H5.equals(this.flags, o.flags) && H5.equals(this.timeZoneOffset, o.timeZoneOffset) && H5.equals(this.calendar, o.calendar) && H5.equals(this.parsedDate, o.parsedDate) && H5.equals(this.failure, o.failure) && H5.equals(this.failureMessageID, o.failureMessageID) && H5.equals(this.failureMessageFormatArgument, o.failureMessageFormatArgument) && H5.equals(this.failureArgumentName, o.failureArgumentName);
             },
             $clone: function (to) {
                 var s = to || new System.DateTimeResult();

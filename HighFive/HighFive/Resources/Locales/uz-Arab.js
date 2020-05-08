@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("uz-Arab", true), {
+H5.merge(new System.Globalization.CultureInfo("uz-Arab", true), {
     englishName: "Uzbek (Perso-Arabic)",
     nativeName: "اوزبیک",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("uz-Arab", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ی.","د.","س.","چ.","پ.","ج.","ش."],
         abbreviatedMonthGenitiveNames: ["حمل","ثور","جوزا","سرطان","اسد","سنبله","میزان","عقرب","قوس","جدی","دلو","حوت",""],
         abbreviatedMonthNames: ["حمل","ثور","جوزا","سرطان","اسد","سنبله","میزان","عقرب","قوس","جدی","دلو","حوت",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("uz-Arab", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "uz-Arab-AF",
         EBCDICCodePage: 500,

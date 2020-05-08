@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.Stream", {
+    H5.define("System.IO.Stream", {
         inherits: [System.IDisposable],
         statics: {
             fields: {
@@ -177,7 +177,7 @@
                 } catch ($e1) {
                     $e1 = System.Exception.create($e1);
                     var ex;
-                    if (HighFive.is($e1, System.IO.IOException)) {
+                    if (H5.is($e1, System.IO.IOException)) {
                         ex = $e1;
                         asyncResult = new System.IO.Stream.SynchronousAsyncResult.ctor(ex, state, false);
                     } else {
@@ -185,7 +185,7 @@
                     }
                 }
 
-                if (!HighFive.staticEquals(callback, null)) {
+                if (!H5.staticEquals(callback, null)) {
                     callback(asyncResult);
                 }
 
@@ -200,7 +200,7 @@
                 } catch ($e1) {
                     $e1 = System.Exception.create($e1);
                     var ex;
-                    if (HighFive.is($e1, System.IO.IOException)) {
+                    if (H5.is($e1, System.IO.IOException)) {
                         ex = $e1;
                         asyncResult = new System.IO.Stream.SynchronousAsyncResult.ctor(ex, state, true);
                     } else {
@@ -208,7 +208,7 @@
                     }
                 }
 
-                if (!HighFive.staticEquals(callback, null)) {
+                if (!H5.staticEquals(callback, null)) {
                     callback(asyncResult);
                 }
 

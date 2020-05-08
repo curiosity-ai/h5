@@ -1,4 +1,4 @@
-    HighFive.define("System.ArraySegment", {
+    H5.define("System.ArraySegment", {
         $kind: "struct",
 
         statics: {
@@ -24,7 +24,7 @@
 
             this.array = array;
 
-            if (HighFive.isNumber(offset)) {
+            if (H5.isNumber(offset)) {
                 if (offset < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("offset");
                 }
@@ -34,7 +34,7 @@
                 this.offset = 0;
             }
 
-            if (HighFive.isNumber(count)) {
+            if (H5.isNumber(count)) {
                 if (count < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
@@ -62,17 +62,17 @@
         },
 
         getHashCode: function () {
-            var h = HighFive.addHash([5322976039, this.array, this.count, this.offset]);
+            var h = H5.addHash([5322976039, this.array, this.count, this.offset]);
 
             return h;
         },
 
         equals: function (o) {
-            if (!HighFive.is(o, System.ArraySegment)) {
+            if (!H5.is(o, System.ArraySegment)) {
                 return false;
             }
 
-            return HighFive.equals(this.array, o.array) && HighFive.equals(this.count, o.count) && HighFive.equals(this.offset, o.offset);
+            return H5.equals(this.array, o.array) && H5.equals(this.count, o.count) && H5.equals(this.offset, o.offset);
         },
 
         $clone: function (to) { return this; }

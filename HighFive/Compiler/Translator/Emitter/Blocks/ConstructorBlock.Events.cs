@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class ConstructorBlock
     {
@@ -89,7 +89,7 @@ namespace HighFive.Translator
 
                         var baseTypes = resolveResult.Type.GetAllBaseTypes().ToArray();
 
-                        if (baseTypes.Any(t => t.FullName == "HighFive.AdapterAttribute"))
+                        if (baseTypes.Any(t => t.FullName == "H5.AdapterAttribute"))
                         {
                             if (methodGroup.Value.Count > 1)
                             {
@@ -194,7 +194,7 @@ namespace HighFive.Translator
 
                                 if (memberResolveResult != null && memberResolveResult.Member.Attributes.Count > 0)
                                 {
-                                    var template = this.Emitter.Validator.GetAttribute(memberResolveResult.Member.Attributes, "HighFive.TemplateAttribute");
+                                    var template = this.Emitter.Validator.GetAttribute(memberResolveResult.Member.Attributes, "H5.TemplateAttribute");
 
                                     if (template != null)
                                     {
@@ -232,7 +232,7 @@ namespace HighFive.Translator
 
                                     if (fields.Count() > 0)
                                     {
-                                        var template = this.Emitter.Validator.GetAttribute(fields.First().Attributes, "HighFive.TemplateAttribute");
+                                        var template = this.Emitter.Validator.GetAttribute(fields.First().Attributes, "H5.TemplateAttribute");
 
                                         if (template != null)
                                         {
@@ -251,7 +251,7 @@ namespace HighFive.Translator
 
         private void LogWarning(string message)
         {
-            var logger = this.Emitter.Log as HighFive.Translator.Logging.Logger;
+            var logger = this.Emitter.Log as H5.Translator.Logging.Logger;
             bool? wrappingValue = null;
 
             if (logger != null && logger.UseTimeStamp)

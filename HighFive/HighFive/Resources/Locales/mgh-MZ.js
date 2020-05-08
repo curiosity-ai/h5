@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mgh-MZ", true), {
+H5.merge(new System.Globalization.CultureInfo("mgh-MZ", true), {
     englishName: "Makhuwa-Meetto (Mozambique)",
     nativeName: "Makua (Umozambiki)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mgh-MZ", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Sab","Jtt","Jnn","Jtn","Ara","Iju","Jmo"],
         abbreviatedMonthGenitiveNames: ["Kwa","Una","Rar","Che","Tha","Moc","Sab","Nan","Tis","Kum","Moj","Yel",""],
         abbreviatedMonthNames: ["Kwa","Una","Rar","Che","Tha","Moc","Sab","Nan","Tis","Kum","Moj","Yel",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mgh-MZ", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mgh-MZ",
         EBCDICCodePage: 500,

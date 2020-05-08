@@ -1,7 +1,7 @@
 using ICSharpCode.NRefactory.TypeSystem;
 using Mono.Cecil;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IValidator
     {
@@ -59,9 +59,9 @@ namespace HighFive.Contract
 
         bool IsExternalType(IEntity enity, bool ignoreLiteral = false);
 
-        bool IsHighFiveClass(Mono.Cecil.TypeDefinition type);
+        bool IsH5Class(Mono.Cecil.TypeDefinition type);
 
-        bool IsHighFiveClass(IType type);
+        bool IsH5Class(IType type);
 
         bool IsObjectLiteral(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type);
 

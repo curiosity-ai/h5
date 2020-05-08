@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("pt-TL", true), {
+H5.merge(new System.Globalization.CultureInfo("pt-TL", true), {
     englishName: "Portuguese (Timor-Leste)",
     nativeName: "português (Timor-Leste)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("pt-TL", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["domingo","segunda","terça","quarta","quinta","sexta","sábado"],
         abbreviatedMonthGenitiveNames: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez",""],
         abbreviatedMonthNames: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("pt-TL", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "pt-TL",
         EBCDICCodePage: 500,

@@ -1,8 +1,8 @@
-    HighFive.define("System.ComponentModel.INotifyPropertyChanged", {
+    H5.define("System.ComponentModel.INotifyPropertyChanged", {
         $kind: "interface"
     });
 
-    HighFive.define("System.ComponentModel.PropertyChangedEventArgs", {
+    H5.define("System.ComponentModel.PropertyChangedEventArgs", {
         ctor: function (propertyName, newValue, oldValue) {
             this.$initialize();
             this.propertyName = propertyName;

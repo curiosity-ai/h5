@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("hr-BA", true), {
+H5.merge(new System.Globalization.CultureInfo("hr-BA", true), {
     englishName: "Croatian (Bosnia and Herzegovina)",
     nativeName: "hrvatski (Bosna i Hercegovina)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hr-BA", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ned","pon","uto","sri","čet","pet","sub"],
         abbreviatedMonthGenitiveNames: ["sij","velj","ožu","tra","svi","lip","srp","kol","ruj","lis","stu","pro",""],
         abbreviatedMonthNames: ["sij","velj","ožu","tra","svi","lip","srp","kol","ruj","lis","stu","pro",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hr-BA", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1250,
         CultureName: "hr-BA",
         EBCDICCodePage: 870,

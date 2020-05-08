@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.KeyValuePair$2", function (TKey, TValue) { return {
+    H5.define("System.Collections.Generic.KeyValuePair$2", function (TKey, TValue) { return {
         $kind: "struct",
         statics: {
             methods: {
@@ -6,8 +6,8 @@
             }
         },
         fields: {
-            key$1: HighFive.getDefaultValue(TKey),
-            value$1: HighFive.getDefaultValue(TValue)
+            key$1: H5.getDefaultValue(TKey),
+            value$1: H5.getDefaultValue(TValue)
         },
         props: {
             key: {
@@ -36,11 +36,11 @@
                 var s = System.Text.StringBuilderCache.Acquire();
                 s.append(String.fromCharCode(91));
                 if (this.key != null) {
-                    s.append(HighFive.toString(this.key));
+                    s.append(H5.toString(this.key));
                 }
                 s.append(", ");
                 if (this.value != null) {
-                    s.append(HighFive.toString(this.value));
+                    s.append(H5.toString(this.value));
                 }
                 s.append(String.fromCharCode(93));
                 return System.Text.StringBuilderCache.GetStringAndRelease(s);
@@ -50,14 +50,14 @@
                 value.v = this.value;
             },
             getHashCode: function () {
-                var h = HighFive.addHash([5072499452, this.key$1, this.value$1]);
+                var h = H5.addHash([5072499452, this.key$1, this.value$1]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.KeyValuePair$2(TKey,TValue))) {
+                if (!H5.is(o, System.Collections.Generic.KeyValuePair$2(TKey,TValue))) {
                     return false;
                 }
-                return HighFive.equals(this.key$1, o.key$1) && HighFive.equals(this.value$1, o.value$1);
+                return H5.equals(this.key$1, o.key$1) && H5.equals(this.value$1, o.value$1);
             },
             $clone: function (to) { return this; }
         }

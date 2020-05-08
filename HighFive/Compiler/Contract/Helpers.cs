@@ -1,4 +1,4 @@
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ArrayType = ICSharpCode.NRefactory.TypeSystem.ArrayType;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public static partial class Helpers
     {
@@ -206,17 +206,17 @@ namespace HighFive.Contract
 
         public static bool IsIgnoreGeneric(ITypeDefinition type)
         {
-            return type.Attributes.Any(a => a.AttributeType.FullName == "HighFive.IgnoreGenericAttribute") || type.DeclaringTypeDefinition != null && Helpers.IsIgnoreGeneric(type.DeclaringTypeDefinition);
+            return type.Attributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute") || type.DeclaringTypeDefinition != null && Helpers.IsIgnoreGeneric(type.DeclaringTypeDefinition);
         }
 
         public static bool IsIgnoreGeneric(TypeDefinition type)
         {
-            return type.CustomAttributes.Any(a => a.AttributeType.FullName == "HighFive.IgnoreGenericAttribute") || type.DeclaringType != null && Helpers.IsIgnoreGeneric(type.DeclaringType);
+            return type.CustomAttributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute") || type.DeclaringType != null && Helpers.IsIgnoreGeneric(type.DeclaringType);
         }
 
         public static bool IsIgnoreGeneric(IType type, IEmitter emitter, bool allowInTypeScript = false)
         {
-            var attr = type.GetDefinition().Attributes.FirstOrDefault(a => a.AttributeType.FullName == "HighFive.IgnoreGenericAttribute");
+            var attr = type.GetDefinition().Attributes.FirstOrDefault(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute");
 
             if (attr != null)
             {
@@ -235,7 +235,7 @@ namespace HighFive.Contract
 
         public static bool IsIgnoreGeneric(IEntity member, IEmitter emitter)
         {
-            return emitter.Validator.HasAttribute(member.Attributes, "HighFive.IgnoreGenericAttribute");
+            return emitter.Validator.HasAttribute(member.Attributes, "H5.IgnoreGenericAttribute");
         }
 
         public static bool IsIgnoreGeneric(MethodDeclaration method, IEmitter emitter)
@@ -256,7 +256,7 @@ namespace HighFive.Contract
                 return true;
             }
 
-            var typeDef = emitter.HighFiveTypes.ToType(astType).GetDefinition();
+            var typeDef = emitter.H5Types.ToType(astType).GetDefinition();
 
             if (typeDef == null)
             {
@@ -268,7 +268,7 @@ namespace HighFive.Contract
                 return true;
             }
 
-            var ctorAttr = emitter.Validator.GetAttribute(typeDef.Attributes, "HighFive.ConstructorAttribute");
+            var ctorAttr = emitter.Validator.GetAttribute(typeDef.Attributes, "H5.ConstructorAttribute");
 
             if (ctorAttr != null)
             {
@@ -279,8 +279,8 @@ namespace HighFive.Contract
                 }
             }
 
-            return emitter.Validator.HasAttribute(typeDef.Attributes, "HighFive.IgnoreCastAttribute") ||
-                   emitter.Validator.HasAttribute(typeDef.Attributes, "HighFive.ObjectLiteralAttribute");
+            return emitter.Validator.HasAttribute(typeDef.Attributes, "H5.IgnoreCastAttribute") ||
+                   emitter.Validator.HasAttribute(typeDef.Attributes, "H5.ObjectLiteralAttribute");
         }
 
         public static bool IsIgnoreCast(ITypeDefinition typeDef, IEmitter emitter)
@@ -300,7 +300,7 @@ namespace HighFive.Contract
                 return true;
             }
 
-            var ctorAttr = emitter.Validator.GetAttribute(typeDef.Attributes, "HighFive.ConstructorAttribute");
+            var ctorAttr = emitter.Validator.GetAttribute(typeDef.Attributes, "H5.ConstructorAttribute");
 
             if (ctorAttr != null)
             {
@@ -311,7 +311,7 @@ namespace HighFive.Contract
                 }
             }
 
-            return emitter.Validator.HasAttribute(typeDef.Attributes, "HighFive.IgnoreCastAttribute");
+            return emitter.Validator.HasAttribute(typeDef.Attributes, "H5.IgnoreCastAttribute");
         }
 
         public static bool IsIntegerType(IType type, IMemberResolver resolver)
@@ -793,7 +793,7 @@ namespace HighFive.Contract
                 }
 
                 string enumStringName = member.Name;
-                var attr = emitter.GetAttribute(member.Attributes, "HighFive.NameAttribute");
+                var attr = emitter.GetAttribute(member.Attributes, "H5.NameAttribute");
 
                 if (attr != null)
                 {
@@ -1134,12 +1134,12 @@ namespace HighFive.Contract
 
         public static bool IsNonScriptable(ITypeDefinition type)
         {
-            return Helpers.GetInheritedAttribute(type, "HighFive.NonScriptableAttribute") != null;
+            return Helpers.GetInheritedAttribute(type, "H5.NonScriptableAttribute") != null;
         }
 
         public static bool IsNonScriptable(IEntity entity)
         {
-            return Helpers.GetInheritedAttribute(entity, "HighFive.NonScriptableAttribute") != null;
+            return Helpers.GetInheritedAttribute(entity, "H5.NonScriptableAttribute") != null;
         }
 
         public static bool IsEntryPointMethod(IEmitter emitter, MethodDeclaration methodDeclaration)
@@ -1261,7 +1261,7 @@ namespace HighFive.Contract
 
         public static int EnumEmitMode(ITypeDefinition type)
         {
-            string enumAttr = "HighFive.EnumAttribute";
+            string enumAttr = "H5.EnumAttribute";
             int result = 7;
             type.Attributes.Any(attr =>
             {
@@ -1279,7 +1279,7 @@ namespace HighFive.Contract
 
         public static int EnumEmitMode(IType type)
         {
-            string enumAttr = "HighFive.EnumAttribute";
+            string enumAttr = "H5.EnumAttribute";
             int result = 7;
             type.GetDefinition().Attributes.Any(attr =>
             {
@@ -1330,13 +1330,13 @@ namespace HighFive.Contract
                     break;
                 case NamedFunctionMode.FullName:
                     var td = member.DeclaringTypeDefinition;
-                    name = td != null ? HighFiveTypes.ToJsName(td, emitter, true) : "";
+                    name = td != null ? H5Types.ToJsName(td, emitter, true) : "";
                     name = name.Replace(".", "_");
                     name += "_" + overloads.GetOverloadName(false, null, true);
                     break;
                 case NamedFunctionMode.ClassName:
                     var t = member.DeclaringType;
-                    name = HighFiveTypes.ToJsName(t, emitter, true, true);
+                    name = H5Types.ToJsName(t, emitter, true, true);
                     name = name.Replace(".", "_");
                     name += "_" + overloads.GetOverloadName(false, null, true);
                     break;
@@ -1412,7 +1412,7 @@ namespace HighFive.Contract
                     }
                     else
                     {
-                        sb.Append(HighFiveTypes.ToJsName(typeParameter, emitter));
+                        sb.Append(H5Types.ToJsName(typeParameter, emitter));
                     }
                     comma = true;
                 }
@@ -1428,7 +1428,7 @@ namespace HighFive.Contract
                 sb.Append("{");
 
                 if (parameter.IsParams &&
-                    method.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute"))
+                    method.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute"))
                 {
                     sb.Append("*");
                 }

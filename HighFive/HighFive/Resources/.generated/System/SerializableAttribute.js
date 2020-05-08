@@ -1,4 +1,4 @@
-    HighFive.define("System.SerializableAttribute", {
+    H5.define("System.SerializableAttribute", {
         inherits: [System.Attribute],
         ctors: {
             ctor: function () {

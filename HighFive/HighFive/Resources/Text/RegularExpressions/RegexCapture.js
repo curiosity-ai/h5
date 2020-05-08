@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.Capture", {
+    H5.define("System.Text.RegularExpressions.Capture", {
         _text: "",
         _index: 0,
         _length: 0,

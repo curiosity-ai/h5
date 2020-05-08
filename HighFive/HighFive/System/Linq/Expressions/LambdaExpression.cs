@@ -2,19 +2,19 @@ using System.Collections.ObjectModel;
 
 namespace System.Linq.Expressions
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("System.Object")]
-    [HighFive.Cast("{this}.ntype === 18")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("System.Object")]
+    [H5.Cast("{this}.ntype === 18")]
     public abstract class LambdaExpression : Expression
     {
-        [HighFive.Name("p")]
+        [H5.Name("p")]
         public extern ReadOnlyCollection<ParameterExpression> Parameters { get; private set; }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern Expression Body { get; private set; }
 
-        [HighFive.Name("rt")]
+        [H5.Name("rt")]
         public extern Expression ReturnType { get; private set; }
 
         internal extern LambdaExpression();

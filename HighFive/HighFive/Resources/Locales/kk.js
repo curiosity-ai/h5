@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("kk", true), {
+H5.merge(new System.Globalization.CultureInfo("kk", true), {
     englishName: "Kazakh",
     nativeName: "қазақ тілі",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "сан емес",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("kk", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Жс","Дс","Сс","Ср","Бс","Жм","Сб"],
         abbreviatedMonthGenitiveNames: ["қаң.","ақп.","нау.","сәу.","мам.","мау.","шіл.","там.","қыр.","қаз.","қар.","жел.",""],
         abbreviatedMonthNames: ["Қаң.","Ақп.","Нау.","Сәу.","Мам.","Мау.","Шіл.","Там.","Қыр.","Қаз.","Қар.","Жел.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("kk", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "kk-KZ",
         EBCDICCodePage: 500,

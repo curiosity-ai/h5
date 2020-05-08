@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.HashHelpers", {
+    H5.define("System.Collections.HashHelpers", {
         statics: {
             fields: {
                 HashPrime: 0,
@@ -94,7 +94,7 @@
                 },
                 IsPrime: function (candidate) {
                     if ((candidate & 1) !== 0) {
-                        var limit = HighFive.Int.clip32(Math.sqrt(candidate));
+                        var limit = H5.Int.clip32(Math.sqrt(candidate));
                         for (var divisor = 3; divisor <= limit; divisor = (divisor + 2) | 0) {
                             if ((candidate % divisor) === 0) {
                                 return false;
@@ -125,7 +125,7 @@
                     return System.Collections.HashHelpers.primes[System.Array.index(0, System.Collections.HashHelpers.primes)];
                 },
                 ExpandPrime: function (oldSize) {
-                    var newSize = HighFive.Int.mul(2, oldSize);
+                    var newSize = H5.Int.mul(2, oldSize);
                     if ((newSize >>> 0) > System.Collections.HashHelpers.MaxPrimeArrayLength && System.Collections.HashHelpers.MaxPrimeArrayLength > oldSize) {
                         return System.Collections.HashHelpers.MaxPrimeArrayLength;
                     }

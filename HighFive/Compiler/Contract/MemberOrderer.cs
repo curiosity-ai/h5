@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     /// <summary>
     /// Used to deterministically order members. It is assumed that all members belong to the same type.

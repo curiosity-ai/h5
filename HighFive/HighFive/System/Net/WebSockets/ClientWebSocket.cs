@@ -6,17 +6,17 @@ namespace System.Net.WebSockets
     /// <summary>
     /// Provides a client for connecting to WebSocket services.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
-    public class ClientWebSocket : HighFive.IHighFiveClass, IDisposable
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
+    public class ClientWebSocket : H5.IH5Class, IDisposable
     {
         /// <summary>
         /// Get the WebSocket state of the <see cref="ClientWebSocket"/> instance.
         /// </summary>
         public extern WebSocketState State
         {
-            [HighFive.Template("getState()")]
+            [H5.Template("getState()")]
             get;
         }
 
@@ -25,7 +25,7 @@ namespace System.Net.WebSockets
         /// </summary>
         public extern ClientWebSocketOptions Options
         {
-            [HighFive.Template("getOptions()")]
+            [H5.Template("getOptions()")]
             get;
         }
 
@@ -34,7 +34,7 @@ namespace System.Net.WebSockets
         /// </summary>
         public extern WebSocketCloseStatus? CloseStatus
         {
-            [HighFive.Template("getCloseStatus()")]
+            [H5.Template("getCloseStatus()")]
             get;
         }
 
@@ -44,7 +44,7 @@ namespace System.Net.WebSockets
         /// </summary>
         public extern string CloseStatusDescription
         {
-            [HighFive.Template("getCloseStatusDescription()")]
+            [H5.Template("getCloseStatusDescription()")]
             get;
         }
 
@@ -53,7 +53,7 @@ namespace System.Net.WebSockets
         /// </summary>
         public extern string SubProtocol
         {
-            [HighFive.Template("getSubProtocol()")]
+            [H5.Template("getSubProtocol()")]
             get;
         }
 

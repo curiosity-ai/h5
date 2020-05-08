@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class IndexerAccessor
     {
@@ -202,7 +202,7 @@ namespace HighFive.Translator
                 return null;
             }
 
-            var inlineAttr = emitter.GetAttribute(method.Attributes, Translator.HighFive_ASSEMBLY + ".TemplateAttribute");
+            var inlineAttr = emitter.GetAttribute(method.Attributes, Translator.H5_ASSEMBLY + ".TemplateAttribute");
             var ignoreAccessor = emitter.Validator.IsExternalType(method);
 
             return new IndexerAccessor
@@ -1351,7 +1351,7 @@ namespace HighFive.Translator
 
             var rr = this.Emitter.Resolver.ResolveNode(indexerExpression, this.Emitter) as MemberResolveResult;
 
-            if (indexerExpression.Target is BaseReferenceExpression && rr != null && this.Emitter.Validator.IsExternalType(rr.Member.DeclaringTypeDefinition) && !this.Emitter.Validator.IsHighFiveClass(rr.Member.DeclaringTypeDefinition))
+            if (indexerExpression.Target is BaseReferenceExpression && rr != null && this.Emitter.Validator.IsExternalType(rr.Member.DeclaringTypeDefinition) && !this.Emitter.Validator.IsH5Class(rr.Member.DeclaringTypeDefinition))
             {
                 this.Write("this");
             }

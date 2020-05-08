@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.Dictionary$2.Enumerator", function (TKey, TValue) { return {
+    H5.define("System.Collections.Generic.Dictionary$2.Enumerator", function (TKey, TValue) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(System.Collections.Generic.KeyValuePair$2(TKey,TValue)),System.Collections.IDictionaryEnumerator],
         $kind: "nested struct",
         statics: {
@@ -72,7 +72,7 @@
         },
         alias: [
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", ["System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
+            "Current", ["System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
             "Dispose", "System$IDisposable$Dispose"
         ],
         ctors: {
@@ -121,14 +121,14 @@
                 this.current = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).ctor();
             },
             getHashCode: function () {
-                var h = HighFive.addHash([3788985113, this.dictionary, this.version, this.index, this.current, this.getEnumeratorRetType]);
+                var h = H5.addHash([3788985113, this.dictionary, this.version, this.index, this.current, this.getEnumeratorRetType]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.Dictionary$2.Enumerator(TKey,TValue))) {
+                if (!H5.is(o, System.Collections.Generic.Dictionary$2.Enumerator(TKey,TValue))) {
                     return false;
                 }
-                return HighFive.equals(this.dictionary, o.dictionary) && HighFive.equals(this.version, o.version) && HighFive.equals(this.index, o.index) && HighFive.equals(this.current, o.current) && HighFive.equals(this.getEnumeratorRetType, o.getEnumeratorRetType);
+                return H5.equals(this.dictionary, o.dictionary) && H5.equals(this.version, o.version) && H5.equals(this.index, o.index) && H5.equals(this.current, o.current) && H5.equals(this.getEnumeratorRetType, o.getEnumeratorRetType);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.Generic.Dictionary$2.Enumerator(TKey,TValue))();

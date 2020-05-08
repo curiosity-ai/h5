@@ -4,7 +4,7 @@
 
 namespace System.Diagnostics
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Struct, Inherited = false)]
     internal sealed class StackTraceHiddenAttribute : Attribute
     {

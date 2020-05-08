@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.UTF32Encoding", {
+    H5.define("System.Text.UTF32Encoding", {
         inherits: [System.Text.Encoding],
         fields: {
             bigEndian: false,
@@ -37,7 +37,7 @@
             ToCodePoints: function (str) {
                 var surrogate_1st = 0;
                 var unicode_codes = System.Array.init(0, 0, System.Char);
-                var fallback = HighFive.fn.bind(this, function () {
+                var fallback = H5.fn.bind(this, function () {
                     if (this.throwOnInvalid) {
                         throw new System.Exception("Invalid character in UTF32 text");
                     }
@@ -50,7 +50,7 @@
                     if (surrogate_1st !== 0) {
                         if (utf16_code >= 56320 && utf16_code <= 57343) {
                             var surrogate_2nd = utf16_code;
-                            var unicode_code = (((HighFive.Int.mul((((surrogate_1st - 55296) | 0)), (1024)) + (65536)) | 0) + (((surrogate_2nd - 56320) | 0))) | 0;
+                            var unicode_code = (((H5.Int.mul((((surrogate_1st - 55296) | 0)), (1024)) + (65536)) | 0) + (((surrogate_2nd - 56320) | 0))) | 0;
                             unicode_codes.push(unicode_code);
                         } else {
                             fallback();
@@ -82,14 +82,14 @@
                             throw new System.ArgumentException.$ctor1("bytes");
                         }
 
-                        outputBytes[System.Array.index(HighFive.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
+                        outputBytes[System.Array.index(H5.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
                     } else {
                         outputBytes.push(ch);
                     }
                     recorded = (recorded + 1) | 0;
                 };
 
-                var write32 = HighFive.fn.bind(this, function (a) {
+                var write32 = H5.fn.bind(this, function (a) {
                     var r = System.Array.init(4, 0, System.Byte);
                     r[System.Array.index(0, r)] = (((a & 255) >>> 0));
                     r[System.Array.index(1, r)] = ((((a & 65280) >>> 0)) >>> 8);
@@ -129,7 +129,7 @@
                 var endpoint = (position + count) | 0;
                 this._hasError = false;
 
-                var fallback = HighFive.fn.bind(this, function () {
+                var fallback = H5.fn.bind(this, function () {
                     if (this.throwOnInvalid) {
                         throw new System.Exception("Invalid character in UTF32 text");
                     }
@@ -137,16 +137,16 @@
                     result = (result || "") + ((String.fromCharCode(this.fallbackCharacter)) || "");
                 });
 
-                var read32 = HighFive.fn.bind(this, function () {
+                var read32 = H5.fn.bind(this, function () {
                     if ((((position + 4) | 0)) > endpoint) {
                         position = (position + 4) | 0;
                         return null;
                     }
 
-                    var a = bytes[System.Array.index(HighFive.identity(position, ((position = (position + 1) | 0))), bytes)];
-                    var b = bytes[System.Array.index(HighFive.identity(position, ((position = (position + 1) | 0))), bytes)];
-                    var c = bytes[System.Array.index(HighFive.identity(position, ((position = (position + 1) | 0))), bytes)];
-                    var d = bytes[System.Array.index(HighFive.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var a = bytes[System.Array.index(H5.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var b = bytes[System.Array.index(H5.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var c = bytes[System.Array.index(H5.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var d = bytes[System.Array.index(H5.identity(position, ((position = (position + 1) | 0))), bytes)];
 
                     if (this.bigEndian) {
                         var tmp = b;
@@ -177,8 +177,8 @@
                             result = (result || "") + ((String.fromCharCode(unicode_code)) || "");
                         }
                     } else {
-                        result = (result || "") + ((String.fromCharCode((HighFive.Int.clipu32(System.Nullable.add((HighFive.Int.clipu32(HighFive.Int.div((HighFive.Int.clipu32(System.Nullable.sub(unicode_code, (65536)))), (1024)))), 55296))))) || "");
-                        result = (result || "") + ((String.fromCharCode((HighFive.Int.clipu32(System.Nullable.add((System.Nullable.mod(unicode_code, (1024))), 56320))))) || "");
+                        result = (result || "") + ((String.fromCharCode((H5.Int.clipu32(System.Nullable.add((H5.Int.clipu32(H5.Int.div((H5.Int.clipu32(System.Nullable.sub(unicode_code, (65536)))), (1024)))), 55296))))) || "");
+                        result = (result || "") + ((String.fromCharCode((H5.Int.clipu32(System.Nullable.add((System.Nullable.mod(unicode_code, (1024))), 56320))))) || "");
                     }
                 }
 
@@ -203,7 +203,7 @@
                     throw new System.ArgumentOutOfRangeException.$ctor1("byteCount");
                 }
 
-                var charCount = (((HighFive.Int.div(byteCount, 2)) | 0) + 2) | 0;
+                var charCount = (((H5.Int.div(byteCount, 2)) | 0) + 2) | 0;
 
                 if (charCount > 2147483647) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("byteCount");

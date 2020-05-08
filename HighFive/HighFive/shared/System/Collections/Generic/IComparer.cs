@@ -15,7 +15,7 @@ namespace System.Collections.Generic
         // value less than zero if x is less than y, zero if x is equal to y, or a
         // value greater than zero if x is greater than y.
         //
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         int Compare(T x, T y);
     }
 }

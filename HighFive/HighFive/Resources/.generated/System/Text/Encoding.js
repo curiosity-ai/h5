@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.Encoding", {
+    H5.define("System.Text.Encoding", {
         statics: {
             fields: {
                 _encodings: null

@@ -1,8 +1,8 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using System.Collections.Generic;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class OperatorBlock : TypeScriptBlock
     {
@@ -43,7 +43,7 @@ namespace HighFive.Translator.TypeScript
 
             this.WriteColon();
 
-            var retType = HighFiveTypes.ToTypeScriptName(operatorDeclaration.ReturnType, this.Emitter);
+            var retType = H5Types.ToTypeScriptName(operatorDeclaration.ReturnType, this.Emitter);
             this.Write(retType);
 
             this.WriteSemiColon();
@@ -67,7 +67,7 @@ namespace HighFive.Translator.TypeScript
                 needComma = true;
                 this.Write(name);
                 this.WriteColon();
-                name = HighFiveTypes.ToTypeScriptName(p.Type, this.Emitter);
+                name = H5Types.ToTypeScriptName(p.Type, this.Emitter);
                 this.Write(name);
             }
 

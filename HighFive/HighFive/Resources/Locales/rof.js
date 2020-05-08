@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("rof", true), {
+H5.merge(new System.Globalization.CultureInfo("rof", true), {
     englishName: "Rombo",
     nativeName: "Kihorombo",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("rof", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Ijp","Ijt","Ijn","Ijtn","Alh","Iju","Ijm"],
         abbreviatedMonthGenitiveNames: ["M1","M2","M3","M4","M5","M6","M7","M8","M9","M10","M11","M12",""],
         abbreviatedMonthNames: ["M1","M2","M3","M4","M5","M6","M7","M8","M9","M10","M11","M12",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("rof", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "rof-TZ",
         EBCDICCodePage: 500,

@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.TypeSystem;
 using Object.Net.Utilities;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public enum InitPosition
     {
@@ -134,7 +134,7 @@ namespace HighFive.Contract
 
     public static class NameConvertor
     {
-        private const string ConventionAttrName = "HighFive.ConventionAttribute";
+        private const string ConventionAttrName = "H5.ConventionAttribute";
 
         private static readonly List<NameRule> defaultRules = new List<NameRule>
         {
@@ -247,8 +247,8 @@ namespace HighFive.Contract
             if (rule.Target != ConventionTarget.All)
             {
                 var typeDef = entity as ITypeDefinition;
-                string externalAttr = "HighFive.ExternalAttribute";
-                string virtualAttr = "HighFive.VirtualAttribute";
+                string externalAttr = "H5.ExternalAttribute";
+                string virtualAttr = "H5.VirtualAttribute";
 
                 if (typeDef == null && rule.Target.HasFlag(ConventionTarget.External))
                 {
@@ -421,13 +421,13 @@ namespace HighFive.Contract
                     acceptable = typeDef.Kind == TypeKind.Delegate;
                     break;
                 case ConventionTarget.ObjectLiteral:
-                    acceptable = semantic.IsObjectLiteral || typeDef.GetAttribute(new FullTypeName("HighFive.ObjectLiteralAttribute"), false) != null;
+                    acceptable = semantic.IsObjectLiteral || typeDef.GetAttribute(new FullTypeName("H5.ObjectLiteralAttribute"), false) != null;
                     break;
                 case ConventionTarget.Anonymous:
                     acceptable = typeDef.Kind == TypeKind.Anonymous;
                     break;
                 case ConventionTarget.External:
-                    string externalAttr = "HighFive.ExternalAttribute";
+                    string externalAttr = "H5.ExternalAttribute";
                     var has =
                         typeDef.Attributes.Any(
                             attr =>
@@ -544,7 +544,7 @@ namespace HighFive.Contract
         {
             var rules = new List<NameRule>();
 
-            var nameAttr = Helpers.GetInheritedAttribute(semantic.Entity, "HighFive.NameAttribute");
+            var nameAttr = Helpers.GetInheritedAttribute(semantic.Entity, "H5.NameAttribute");
             if (nameAttr != null)
             {
                 var rule = new NameRule();

@@ -1,9 +1,9 @@
 namespace System
 {
-    [HighFive.External]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Reflectable]
-    public interface IFormatProvider : HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Reflectable]
+    public interface IFormatProvider : H5.IH5Class
     {
         object GetFormat(Type formatType);
     }

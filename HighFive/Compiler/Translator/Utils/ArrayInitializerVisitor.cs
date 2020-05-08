@@ -1,7 +1,7 @@
 using ICSharpCode.NRefactory.CSharp;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ArrayInitializerVisitor : Visitor
     {

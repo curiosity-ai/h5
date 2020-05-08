@@ -1,19 +1,19 @@
 namespace System.Threading
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public struct CancellationTokenRegistration : IEquatable<CancellationTokenRegistration>, IDisposable
     {
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern bool Equals(CancellationTokenRegistration other);
 
         public extern void Dispose();
 
-        [HighFive.Template("HighFive.equals({left}, {right})")]
+        [H5.Template("H5.equals({left}, {right})")]
         public static extern bool operator ==(CancellationTokenRegistration left, CancellationTokenRegistration right);
 
-        [HighFive.Template("!HighFive.equals({left}, {right})")]
+        [H5.Template("!H5.equals({left}, {right})")]
         public static extern bool operator !=(CancellationTokenRegistration left, CancellationTokenRegistration right);
     }
 }

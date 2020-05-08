@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 
 using Mono.Cecil;
 using Object.Net.Utilities;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.NRefactory.CSharp;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class TypeScriptBlock : AbstractEmitterBlock
     {

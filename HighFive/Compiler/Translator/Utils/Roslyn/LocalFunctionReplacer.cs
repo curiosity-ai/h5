@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class LocalFunctionReplacer : ICSharpReplacer
     {

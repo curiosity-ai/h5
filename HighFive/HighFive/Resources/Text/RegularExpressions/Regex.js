@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.Regex", {
+    H5.define("System.Text.RegularExpressions.Regex", {
         statics: {
             _cacheSize: 15,
             _defaultMatchTimeout: System.TimeSpan.fromMilliseconds(-1),
@@ -35,11 +35,11 @@
             isMatch: function (input, pattern, options, matchTimeout) {
                 var scope = System.Text.RegularExpressions;
 
-                if (!HighFive.isDefined(options)) {
+                if (!H5.isDefined(options)) {
                     options = scope.RegexOptions.None;
                 }
 
-                if (!HighFive.isDefined(matchTimeout)) {
+                if (!H5.isDefined(matchTimeout)) {
                     matchTimeout = scope.Regex._defaultMatchTimeout;
                 }
 
@@ -51,11 +51,11 @@
             match: function (input, pattern, options, matchTimeout) {
                 var scope = System.Text.RegularExpressions;
 
-                if (!HighFive.isDefined(options)) {
+                if (!H5.isDefined(options)) {
                     options = scope.RegexOptions.None;
                 }
 
-                if (!HighFive.isDefined(matchTimeout)) {
+                if (!H5.isDefined(matchTimeout)) {
                     matchTimeout = scope.Regex._defaultMatchTimeout;
                 }
 
@@ -67,11 +67,11 @@
             matches: function (input, pattern, options, matchTimeout) {
                 var scope = System.Text.RegularExpressions;
 
-                if (!HighFive.isDefined(options)) {
+                if (!H5.isDefined(options)) {
                     options = scope.RegexOptions.None;
                 }
 
-                if (!HighFive.isDefined(matchTimeout)) {
+                if (!H5.isDefined(matchTimeout)) {
                     matchTimeout = scope.Regex._defaultMatchTimeout;
                 }
 
@@ -83,11 +83,11 @@
             replace: function (input, pattern, replacement, options, matchTimeout) {
                 var scope = System.Text.RegularExpressions;
 
-                if (!HighFive.isDefined(options)) {
+                if (!H5.isDefined(options)) {
                     options = scope.RegexOptions.None;
                 }
 
-                if (!HighFive.isDefined(matchTimeout)) {
+                if (!H5.isDefined(matchTimeout)) {
                     matchTimeout = scope.Regex._defaultMatchTimeout;
                 }
 
@@ -99,11 +99,11 @@
             split: function (input, pattern, options, matchTimeout) {
                 var scope = System.Text.RegularExpressions;
 
-                if (!HighFive.isDefined(options)) {
+                if (!H5.isDefined(options)) {
                     options = scope.RegexOptions.None;
                 }
 
-                if (!HighFive.isDefined(matchTimeout)) {
+                if (!H5.isDefined(matchTimeout)) {
                     matchTimeout = scope.Regex._defaultMatchTimeout;
                 }
 
@@ -130,15 +130,15 @@
         ctor: function (pattern, options, matchTimeout, useCache) {
             this.$initialize();
 
-            if (!HighFive.isDefined(options)) {
+            if (!H5.isDefined(options)) {
                 options = System.Text.RegularExpressions.RegexOptions.None;
             }
 
-            if (!HighFive.isDefined(matchTimeout)) {
+            if (!H5.isDefined(matchTimeout)) {
                 matchTimeout = System.TimeSpan.fromMilliseconds(-1);
             }
 
-            if (!HighFive.isDefined(useCache)) {
+            if (!H5.isDefined(useCache)) {
                 useCache = false;
             }
 
@@ -205,7 +205,7 @@
                 throw new System.ArgumentNullException.$ctor1("input");
             }
 
-            if (!HighFive.isDefined(startat)) {
+            if (!H5.isDefined(startat)) {
                 startat = this.getRightToLeft() ? input.length : 0;
             }
 
@@ -226,7 +226,7 @@
                 beginning = startat;
                 length = arg3;
                 startat = this.getRightToLeft() ? beginning + length : beginning;
-            } else if (!HighFive.isDefined(startat)) {
+            } else if (!H5.isDefined(startat)) {
                 startat = this.getRightToLeft() ? length : 0;
             }
 
@@ -238,7 +238,7 @@
                 throw new System.ArgumentNullException.$ctor1("input");
             }
 
-            if (!HighFive.isDefined(startat)) {
+            if (!H5.isDefined(startat)) {
                 startat = this.getRightToLeft() ? input.length : 0;
             }
 
@@ -362,11 +362,11 @@
                 throw new System.ArgumentNullException.$ctor1("input");
             }
 
-            if (!HighFive.isDefined(count)) {
+            if (!H5.isDefined(count)) {
                 count = -1;
             }
 
-            if (!HighFive.isDefined(startat)) {
+            if (!H5.isDefined(startat)) {
                 startat = this.getRightToLeft() ? input.length : 0;
             }
 
@@ -374,7 +374,7 @@
                 throw new System.ArgumentNullException.$ctor1("evaluator");
             }
 
-            if (HighFive.isFunction(evaluator)) {
+            if (H5.isFunction(evaluator)) {
                 return System.Text.RegularExpressions.RegexReplacement.replace(evaluator, this, input, count, startat);
             }
 
@@ -389,11 +389,11 @@
                 throw new System.ArgumentNullException.$ctor1("input");
             }
 
-            if (!HighFive.isDefined(count)) {
+            if (!H5.isDefined(count)) {
                 count = 0;
             }
 
-            if (!HighFive.isDefined(startat)) {
+            if (!H5.isDefined(startat)) {
                 startat = this.getRightToLeft() ? input.length : 0;
             }
 

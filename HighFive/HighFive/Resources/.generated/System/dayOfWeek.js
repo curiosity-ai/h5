@@ -1,4 +1,4 @@
-    HighFive.define("System.DayOfWeek", {
+    H5.define("System.DayOfWeek", {
         $kind: "enum",
         statics: {
             fields: {

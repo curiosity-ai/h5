@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("yav", true), {
+H5.merge(new System.Globalization.CultureInfo("yav", true), {
     englishName: "Yangben",
     nativeName: "nuasue",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("yav", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sd","md","mw","et","kl","fl","ss"],
         abbreviatedMonthGenitiveNames: ["o.1","o.2","o.3","o.4","o.5","o.6","o.7","o.8","o.9","o.10","o.11","o.12",""],
         abbreviatedMonthNames: ["o.1","o.2","o.3","o.4","o.5","o.6","o.7","o.8","o.9","o.10","o.11","o.12",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("yav", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "yav-CM",
         EBCDICCodePage: 500,

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ewo-CM", true), {
+H5.merge(new System.Globalization.CultureInfo("ewo-CM", true), {
     englishName: "Ewondo (Cameroon)",
     nativeName: "ewondo (Kamərún)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ewo-CM", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sɔ́n","mɔ́n","smb","sml","smn","fúl","sér"],
         abbreviatedMonthGenitiveNames: ["ngo","ngb","ngl","ngn","ngt","ngs","ngz","ngm","nge","nga","ngad","ngab",""],
         abbreviatedMonthNames: ["ngo","ngb","ngl","ngn","ngt","ngs","ngz","ngm","nge","nga","ngad","ngab",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ewo-CM", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ewo-CM",
         EBCDICCodePage: 500,

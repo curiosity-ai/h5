@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mi", true), {
+H5.merge(new System.Globalization.CultureInfo("mi", true), {
     englishName: "Maori",
     nativeName: "Reo Māori",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mi", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Ta","Hi","Tū","Apa","Pa","Me","Ho"],
         abbreviatedMonthGenitiveNames: ["Kohi","Hui","Pou","Pae","Hara","Pipi","Hōngo","Here","Mahu","Nuku","Rangi","Haki",""],
         abbreviatedMonthNames: ["Kohi","Hui","Pou","Pae","Hara","Pipi","Hōngo","Here","Mahu","Nuku","Rangi","Haki",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mi", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mi-NZ",
         EBCDICCodePage: 500,

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("luo", true), {
+H5.merge(new System.Globalization.CultureInfo("luo", true), {
     englishName: "Luo",
     nativeName: "Dholuo",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("luo", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["JMP","WUT","TAR","TAD","TAN","TAB","NGS"],
         abbreviatedMonthGenitiveNames: ["DAC","DAR","DAD","DAN","DAH","DAU","DAO","DAB","DOC","DAP","DGI","DAG",""],
         abbreviatedMonthNames: ["DAC","DAR","DAD","DAN","DAH","DAU","DAO","DAB","DOC","DAP","DGI","DAG",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("luo", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "luo-KE",
         EBCDICCodePage: 500,

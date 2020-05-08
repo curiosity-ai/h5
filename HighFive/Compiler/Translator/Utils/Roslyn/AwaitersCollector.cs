@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public static class AwaitersCollector
     {

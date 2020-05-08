@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using System;
@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using ICSharpCode.NRefactory.TypeSystem;
 using Object.Net.Utilities;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class ConstructorBlock : AbstractMethodBlock, IConstructorBlock
     {
@@ -382,7 +382,7 @@ namespace HighFive.Translator
                     this.Write("var " + JS.Vars.D_THIS + " = ");
 
                     var isBaseObjectLiteral = baseType != null && this.Emitter.Validator.IsObjectLiteral(baseType);
-                    if (isBaseObjectLiteral && baseType != null && (!this.Emitter.Validator.IsExternalType(baseType) || this.Emitter.Validator.IsHighFiveClass(baseType)) ||
+                    if (isBaseObjectLiteral && baseType != null && (!this.Emitter.Validator.IsExternalType(baseType) || this.Emitter.Validator.IsH5Class(baseType)) ||
                     (ctor.Initializer != null && ctor.Initializer.ConstructorInitializerType == ConstructorInitializerType.This))
                     {
                         this.EmitBaseConstructor(ctor, ctorName, true);
@@ -402,7 +402,7 @@ namespace HighFive.Translator
                     string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, false);
                     if (name.IsEmpty())
                     {
-                        name = HighFiveTypes.ToJsName(this.TypeInfo.Type, this.Emitter);
+                        name = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter);
                     }
 
                     this.Write(JS.Vars.D_THIS + "." + JS.Funcs.GET_TYPE + " = function () { return " + name + "; };");
@@ -476,7 +476,7 @@ namespace HighFive.Translator
 
                 if (!isObjectLiteral)
                 {
-                    if (baseType != null && (!this.Emitter.Validator.IsExternalType(baseType) || this.Emitter.Validator.IsHighFiveClass(baseType)) ||
+                    if (baseType != null && (!this.Emitter.Validator.IsExternalType(baseType) || this.Emitter.Validator.IsH5Class(baseType)) ||
                     (ctor.Initializer != null && ctor.Initializer.ConstructorInitializerType == ConstructorInitializerType.This))
                     {
                         if (requireNewLine)
@@ -590,7 +590,7 @@ namespace HighFive.Translator
                         requireNewLine = false;
                     }
 
-                    this.Write(JS.Types.HighFive.APPLY);
+                    this.Write(JS.Types.H5.APPLY);
                     this.WriteOpenParentheses();
 
                     this.Write("this, ");
@@ -604,7 +604,7 @@ namespace HighFive.Translator
                 }
             }
 
-            if (hasInitializer || (baseType.FullName != "System.Object" && baseType.FullName != "System.ValueType" && baseType.FullName != "System.Enum" && !baseType.CustomAttributes.Any(a => a.AttributeType.FullName == "HighFive.NonScriptableAttribute") && !baseType.IsInterface))
+            if (hasInitializer || (baseType.FullName != "System.Object" && baseType.FullName != "System.ValueType" && baseType.FullName != "System.Enum" && !baseType.CustomAttributes.Any(a => a.AttributeType.FullName == "H5.NonScriptableAttribute") && !baseType.IsInterface))
             {
                 if (requireNewLine)
                 {
@@ -616,11 +616,11 @@ namespace HighFive.Translator
                 string name = null;
                 if (this.TypeInfo.GetBaseTypes(this.Emitter).Any())
                 {
-                    name = HighFiveTypes.ToJsName(this.TypeInfo.GetBaseClass(this.Emitter), this.Emitter);
+                    name = H5Types.ToJsName(this.TypeInfo.GetBaseClass(this.Emitter), this.Emitter);
                 }
                 else
                 {
-                    name = HighFiveTypes.ToJsName(baseType, this.Emitter);
+                    name = H5Types.ToJsName(baseType, this.Emitter);
                 }
 
                 this.Write(name);
@@ -666,14 +666,14 @@ namespace HighFive.Translator
 
                 if (!isLast)
                 {
-                    sb.Append(HighFive.Translator.Emitter.NEW_LINE);
+                    sb.Append(H5.Translator.Emitter.NEW_LINE);
                 }
 
                 Indent();
 
                 for (var j = 0; j < this.Emitter.Level; j++)
                 {
-                    sb.Append(HighFive.Translator.Emitter.INDENT);
+                    sb.Append(H5.Translator.Emitter.INDENT);
                 }
 
                 if (isLast)
@@ -691,13 +691,13 @@ namespace HighFive.Translator
 
                 if (newLine)
                 {
-                    sb.Append(HighFive.Translator.Emitter.NEW_LINE);
+                    sb.Append(H5.Translator.Emitter.NEW_LINE);
                     for (var j = 0; j < this.Emitter.Level; j++)
                     {
-                        sb.Append(HighFive.Translator.Emitter.INDENT);
+                        sb.Append(H5.Translator.Emitter.INDENT);
                     }
                 }
-                else if (sb.ToString().Substring(sb.Length - 4) == HighFive.Translator.Emitter.INDENT)
+                else if (sb.ToString().Substring(sb.Length - 4) == H5.Translator.Emitter.INDENT)
                 {
                     sb.Length -= 4;
                 }
@@ -742,16 +742,16 @@ namespace HighFive.Translator
 
                 if (this.TypeInfo.GetBaseTypes(this.Emitter).Any())
                 {
-                    name = HighFiveTypes.ToJsName(this.TypeInfo.GetBaseClass(this.Emitter), this.Emitter);
+                    name = H5Types.ToJsName(this.TypeInfo.GetBaseClass(this.Emitter), this.Emitter);
                 }
                 else
                 {
-                    name = HighFiveTypes.ToJsName(baseType, this.Emitter);
+                    name = H5Types.ToJsName(baseType, this.Emitter);
                 }
 
                 if (!isObjectLiteral && isBaseObjectLiteral)
                 {
-                    this.Write(JS.Types.HighFive.COPY_PROPERTIES);
+                    this.Write(JS.Types.H5.COPY_PROPERTIES);
                     this.WriteOpenParentheses();
 
                     this.Write("this, ");
@@ -761,7 +761,7 @@ namespace HighFive.Translator
 
                 if (baseName == null)
                 {
-                    var baseIType = this.Emitter.HighFiveTypes.Get(baseType).Type;
+                    var baseIType = this.Emitter.H5Types.Get(baseType).Type;
 
                     var baseCtor = baseIType.GetConstructors().SingleOrDefault(c => c.Parameters.Count == 0);
                     if (baseCtor == null)
@@ -795,7 +795,7 @@ namespace HighFive.Translator
             else
             {
                 // this.WriteThis();
-                string name = HighFiveTypes.ToJsName(this.TypeInfo.Type, this.Emitter);
+                string name = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter);
                 this.Write(name);
                 this.WriteDot();
 

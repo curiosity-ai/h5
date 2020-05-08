@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HighFive
+namespace H5
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [External]
-    [Name("HighFive")]
+    [Name("H5")]
     public static class Script
     {
         public static extern object Apply(object obj, object values);
@@ -45,34 +45,34 @@ namespace HighFive
         [Template("delete {0}[{1}]")]
         public static extern bool Delete(object obj, string prop);
 
-        [Template("HighFive.is({0}, {1})")]
+        [Template("H5.is({0}, {1})")]
         public static extern bool Is(object type, string typeName);
 
-        [Template("HighFive.copy({0}, {1}, {2})")]
+        [Template("H5.copy({0}, {1}, {2})")]
         public static extern object Copy(object to, object from, string[] keys);
 
-        [Template("HighFive.copy({0}, {1}, {2})")]
+        [Template("H5.copy({0}, {1}, {2})")]
         public static extern object Copy(object to, object from, string keys);
 
-        [Template("HighFive.copy({0}, {1}, {2}, {3})")]
+        [Template("H5.copy({0}, {1}, {2}, {3})")]
         public static extern object Copy(object to, object from, string[] keys, bool toIf);
 
-        [Template("HighFive.copy({0}, {1}, {2}, {3})")]
+        [Template("H5.copy({0}, {1}, {2}, {3})")]
         public static extern object Copy(object to, object from, string keys, bool toIf);
 
-        [Template("HighFive.ns({0}, {1})")]
+        [Template("H5.ns({0}, {1})")]
         public static extern object NS(string ns, object scope);
 
-        [Template("HighFive.ns({0})")]
+        [Template("H5.ns({0})")]
         public static extern object NS(string ns);
 
-        [Template("HighFive.getHashCode({0})")]
+        [Template("H5.getHashCode({0})")]
         public static extern int GetHashCode(object obj);
 
-        [Template("HighFive.getDefaultValue({0})")]
+        [Template("H5.getDefaultValue({0})")]
         public static extern T GetDefaultValue<T>(Type type);
 
-        [Template("HighFive.getDefaultValue({0})")]
+        [Template("H5.getDefaultValue({0})")]
         public static extern object GetDefaultValue(Type type);
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace HighFive
         /// </summary>
         /// <param name="obj">The object to test if there is a value.</param>
         /// <returns>true if the object has a value; false otherwise.</returns>
-        [Template("HighFive.hasValue({0})")]
+        [Template("H5.hasValue({0})")]
         public static extern bool HasValue(object obj);
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace HighFive
         [Template("this")]
         public static extern T This<T>();
 
-        [Template("(HighFive.caller[0] || this)")]
+        [Template("(H5.caller[0] || this)")]
         public static extern T Caller<T>();
 
         [Template("{scope:raw}[{name}] = {value}")]
@@ -298,7 +298,7 @@ namespace HighFive
         [Template("{name:raw}()")]
         public static extern T Call<T>(string name);
 
-        [GlobalTarget("HighFive.global")]
+        [GlobalTarget("H5.global")]
         public new static extern dynamic ToDynamic();
 
         [Template("({a} === {b})")]
@@ -336,34 +336,34 @@ namespace HighFive
         /// </summary>
         /// <param name="fn">Function to run</param>
         /// <returns>Return either function result or false in case of catch</returns>
-        [Template("HighFive.safe({fn})")]
+        [Template("H5.safe({fn})")]
         public static extern bool SafeFunc(Func<bool> fn);
 
-        [Template("HighFive.isNode")]
+        [Template("H5.isNode")]
         public static readonly bool IsNode;
 
-        [Template("HighFive.Deconstruct({obj}, {t1})")]
+        [Template("H5.Deconstruct({obj}, {t1})")]
         public extern static void Deconstruct<T1>(object obj, out T1 t1);
 
-        [Template("HighFive.Deconstruct({obj}, {t1}, {t2})")]
+        [Template("H5.Deconstruct({obj}, {t1}, {t2})")]
         public extern static void Deconstruct<T1, T2>(object obj, out T1 t1, out T2 t2);
 
-        [Template("HighFive.Deconstruct({obj}, {t1}, {t2}, {t3})")]
+        [Template("H5.Deconstruct({obj}, {t1}, {t2}, {t3})")]
         public extern static void Deconstruct<T1, T2, T3>(object obj, out T1 t1, out T2 t2, out T3 t3);
 
-        [Template("HighFive.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4})")]
+        [Template("H5.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4})")]
         public extern static void Deconstruct<T1, T2, T3, T4>(object obj, out T1 t1, out T2 t2, out T3 t3, out T4 t4);
 
-        [Template("HighFive.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4}, {t5})")]
+        [Template("H5.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4}, {t5})")]
         public extern static void Deconstruct<T1, T2, T3, T4, T5>(object obj, out T1 t1, out T2 t2, out T3 t3, out T4 t4, out T5 t5);
 
-        [Template("HighFive.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4}, {t5}, {t6})")]
+        [Template("H5.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4}, {t5}, {t6})")]
         public extern static void Deconstruct<T1, T2, T3, T4, T5, T6>(object obj, out T1 t1, out T2 t2, out T3 t3, out T4 t4, out T5 t5, out T6 t6);
 
-        [Template("HighFive.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4}, {t5}, {t6}, {t7})")]
+        [Template("H5.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4}, {t5}, {t6}, {t7})")]
         public extern static void Deconstruct<T1, T2, T3, T4, T5, T6, T7>(object obj, out T1 t1, out T2 t2, out T3 t3, out T4 t4, out T5 t5, out T6 t6, out T7 t7);
 
-        [Template("HighFive.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4}, {t5}, {t6}, {t7}, {rest})")]
+        [Template("H5.Deconstruct({obj}, {t1}, {t2}, {t3}, {t4}, {t5}, {t6}, {t7}, {rest})")]
         public extern static void Deconstruct<T1, T2, T3, T4, T5, T6, T7, TRest>(object obj, out T1 t1, out T2 t2, out T3 t3, out T4 t4, out T5 t5, out T6 t6, out T7 t7, out TRest rest);
 
         [Name("_")]

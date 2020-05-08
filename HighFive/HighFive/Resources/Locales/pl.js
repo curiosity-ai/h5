@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("pl", true), {
+H5.merge(new System.Globalization.CultureInfo("pl", true), {
     englishName: "Polish",
     nativeName: "polski",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("pl", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["niedz.","pon.","wt.","śr.","czw.","pt.","sob."],
         abbreviatedMonthGenitiveNames: ["sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru",""],
         abbreviatedMonthNames: ["sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("pl", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1250,
         CultureName: "pl-PL",
         EBCDICCodePage: 20880,

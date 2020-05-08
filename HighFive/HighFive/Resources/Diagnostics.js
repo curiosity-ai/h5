@@ -1,4 +1,4 @@
-    HighFive.define("System.Diagnostics.Stopwatch", {
+    H5.define("System.Diagnostics.Stopwatch", {
         ctor: function () {
             this.$initialize();
             this.reset();
@@ -138,7 +138,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
-            var enumerator = HighFive.getEnumerator(collection);
+            var enumerator = H5.getEnumerator(collection);
 
             try {
                 while (enumerator.moveNext()) {
@@ -174,7 +174,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
-            var enumerator = HighFive.getEnumerator(collection);
+            var enumerator = H5.getEnumerator(collection);
 
             try {
                 while (enumerator.moveNext()) {
@@ -190,7 +190,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         }
     };
 
-    HighFive.define("System.Diagnostics.Contracts.ContractFailureKind", {
+    H5.define("System.Diagnostics.Contracts.ContractFailureKind", {
         $kind: "enum",
         $statics: {
             precondition: 0,
@@ -202,7 +202,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         }
     });
 
-    HighFive.define("System.Diagnostics.Contracts.ContractException", {
+    H5.define("System.Diagnostics.Contracts.ContractException", {
         inherits: [System.Exception],
 
         config: {

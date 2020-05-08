@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mer", true), {
+H5.merge(new System.Globalization.CultureInfo("mer", true), {
     englishName: "Meru",
     nativeName: "Kĩmĩrũ",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mer", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["KIU","MRA","WAI","WET","WEN","WTN","JUM"],
         abbreviatedMonthGenitiveNames: ["JAN","FEB","MAC","ĨPU","MĨĨ","NJU","NJR","AGA","SPT","OKT","NOV","DEC",""],
         abbreviatedMonthNames: ["JAN","FEB","MAC","ĨPU","MĨĨ","NJU","NJR","AGA","SPT","OKT","NOV","DEC",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mer", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mer-KE",
         EBCDICCodePage: 500,

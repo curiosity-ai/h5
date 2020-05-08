@@ -1,5 +1,5 @@
-﻿using HighFive.Contract;
-using HighFive.Contract.Constants;
+﻿using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class GeneratorBlock : AbstractEmitterBlock, IAsyncBlock
     {
@@ -355,11 +355,11 @@ namespace HighFive.Translator
 
                 if (this.ReturnType.IsParameterized)
                 {
-                    this.Write("(HighFive.GeneratorEnumerable$1(" + HighFiveTypes.ToJsName(this.ReturnType.TypeArguments[0], this.Emitter) + "))");
+                    this.Write("(H5.GeneratorEnumerable$1(" + H5Types.ToJsName(this.ReturnType.TypeArguments[0], this.Emitter) + "))");
                 }
                 else
                 {
-                    this.Write("HighFive.GeneratorEnumerable");
+                    this.Write("H5.GeneratorEnumerable");
                 }
 
                 this.WriteOpenParentheses();
@@ -422,11 +422,11 @@ namespace HighFive.Translator
 
             if (this.ReturnType.IsParameterized)
             {
-                this.Write("(" + JS.Types.HighFive.Generator.NAME_GENERIC +"(" + HighFiveTypes.ToJsName(this.ReturnType.TypeArguments[0], this.Emitter) + "))");
+                this.Write("(" + JS.Types.H5.Generator.NAME_GENERIC +"(" + H5Types.ToJsName(this.ReturnType.TypeArguments[0], this.Emitter) + "))");
             }
             else
             {
-                this.Write(JS.Types.HighFive.Generator.NAME);
+                this.Write(JS.Types.H5.Generator.NAME);
             }
 
             this.WriteOpenParentheses();
@@ -577,7 +577,7 @@ namespace HighFive.Translator
                             {
                                 this.WriteIf();
                                 this.WriteOpenParentheses();
-                                this.Write(JS.Types.HighFive.IS + "(" + JS.Vars.ASYNC_E + ", " + exceptionType + ")");
+                                this.Write(JS.Types.H5.IS + "(" + JS.Vars.ASYNC_E + ", " + exceptionType + ")");
                                 this.WriteCloseParentheses();
                                 this.WriteSpace();
                             }

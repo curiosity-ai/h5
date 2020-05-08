@@ -1,6 +1,6 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
-using HighFive.Translator.Utils;
+using H5.Contract;
+using H5.Contract.Constants;
+using H5.Translator.Utils;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -17,7 +17,7 @@ using Mono.Cecil;
 using System.Text;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class PreconverterDetecter : DepthFirstAstVisitor
     {
@@ -425,7 +425,7 @@ namespace HighFive.Translator
 
         protected virtual string GetTempVarName()
         {
-            return "_highfiveTmp_" + ++counter;
+            return "_h5Tmp_" + ++counter;
         }
 
         protected virtual Statement EmitUsing(UsingStatement usingStatement, AstNode expression, IEnumerable<AstNode> inner, VariableDeclarationStatement varStat)

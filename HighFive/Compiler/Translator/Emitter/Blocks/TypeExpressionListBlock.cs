@@ -1,8 +1,8 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using System.Collections.Generic;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class TypeExpressionListBlock : AbstractEmitterBlock
     {
@@ -66,11 +66,11 @@ namespace HighFive.Translator
 
                 if (expr.AstType != null)
                 {
-                    this.Write(HighFiveTypes.ToJsName(expr.AstType, this.Emitter));
+                    this.Write(H5Types.ToJsName(expr.AstType, this.Emitter));
                 }
                 else if (expr.IType != null)
                 {
-                    this.Write(HighFiveTypes.ToJsName(expr.IType, this.Emitter));
+                    this.Write(H5Types.ToJsName(expr.IType, this.Emitter));
                 }
                 else
                 {
@@ -98,7 +98,7 @@ namespace HighFive.Translator
                 }
 
                 needComma = true;
-                this.Write(HighFiveTypes.ToJsName(type, this.Emitter));
+                this.Write(H5Types.ToJsName(type, this.Emitter));
             }
 
             if (needComma)

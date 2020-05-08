@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.SortedList.SortedListDebugView", {
+    H5.define("System.Collections.SortedList.SortedListDebugView", {
         $kind: "nested class",
         fields: {
             sortedList: null

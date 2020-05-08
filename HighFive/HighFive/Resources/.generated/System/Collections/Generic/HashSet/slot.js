@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.HashSet$1.Slot", function (T) { return {
+    H5.define("System.Collections.Generic.HashSet$1.Slot", function (T) { return {
         $kind: "nested struct",
         statics: {
             methods: {
@@ -7,7 +7,7 @@
         },
         fields: {
             hashCode: 0,
-            value: HighFive.getDefaultValue(T),
+            value: H5.getDefaultValue(T),
             next: 0
         },
         ctors: {
@@ -17,14 +17,14 @@
         },
         methods: {
             getHashCode: function () {
-                var h = HighFive.addHash([1953459283, this.hashCode, this.value, this.next]);
+                var h = H5.addHash([1953459283, this.hashCode, this.value, this.next]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.HashSet$1.Slot(T))) {
+                if (!H5.is(o, System.Collections.Generic.HashSet$1.Slot(T))) {
                     return false;
                 }
-                return HighFive.equals(this.hashCode, o.hashCode) && HighFive.equals(this.value, o.value) && HighFive.equals(this.next, o.next);
+                return H5.equals(this.hashCode, o.hashCode) && H5.equals(this.value, o.value) && H5.equals(this.next, o.next);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.Generic.HashSet$1.Slot(T))();

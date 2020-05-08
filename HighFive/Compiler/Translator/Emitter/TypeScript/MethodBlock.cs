@@ -1,11 +1,11 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using System.Collections.Generic;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class MethodBlock : TypeScriptBlock
     {
@@ -105,7 +105,7 @@ namespace HighFive.Translator.TypeScript
 
             this.WriteColon();
 
-            var retType = HighFiveTypes.ToTypeScriptName(methodDeclaration.ReturnType, this.Emitter);
+            var retType = H5Types.ToTypeScriptName(methodDeclaration.ReturnType, this.Emitter);
             this.Write(retType);
 
             var resolveResult = this.Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, this.Emitter);
@@ -141,7 +141,7 @@ namespace HighFive.Translator.TypeScript
                 }
 
                 this.WriteColon();
-                name = HighFiveTypes.ToTypeScriptName(p.Type, this.Emitter);
+                name = H5Types.ToTypeScriptName(p.Type, this.Emitter);
 
                 var resolveResult = this.Emitter.Resolver.ResolveNode(p.Type, this.Emitter);
                 if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))

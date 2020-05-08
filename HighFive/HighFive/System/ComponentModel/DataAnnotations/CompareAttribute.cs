@@ -1,9 +1,9 @@
 namespace System.ComponentModel.DataAnnotations
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    [HighFive.External]
-    [HighFive.NonScriptable]
+    [H5.External]
+    [H5.NonScriptable]
     public class CompareAttribute : ValidationAttribute
     {
         public extern CompareAttribute(string otherProperty);

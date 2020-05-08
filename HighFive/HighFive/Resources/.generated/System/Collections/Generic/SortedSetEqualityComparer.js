@@ -1,12 +1,12 @@
-    HighFive.define("System.Collections.Generic.SortedSetEqualityComparer$1", function (T) { return {
+    H5.define("System.Collections.Generic.SortedSetEqualityComparer$1", function (T) { return {
         inherits: [System.Collections.Generic.IEqualityComparer$1(System.Collections.Generic.SortedSet$1(T))],
         fields: {
             comparer: null,
             e_comparer: null
         },
         alias: [
-            "equals2", ["System$Collections$Generic$IEqualityComparer$1$System$Collections$Generic$SortedSet$1$" + HighFive.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2"],
-            "getHashCode2", ["System$Collections$Generic$IEqualityComparer$1$System$Collections$Generic$SortedSet$1$" + HighFive.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2"]
+            "equals2", ["System$Collections$Generic$IEqualityComparer$1$System$Collections$Generic$SortedSet$1$" + H5.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2"],
+            "getHashCode2", ["System$Collections$Generic$IEqualityComparer$1$System$Collections$Generic$SortedSet$1$" + H5.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2"]
         ],
         ctors: {
             ctor: function () {
@@ -37,24 +37,24 @@
                 return System.Collections.Generic.SortedSet$1(T).SortedSetEquals(x, y, this.comparer);
             },
             equals: function (obj) {
-                var comparer = HighFive.as(obj, System.Collections.Generic.SortedSetEqualityComparer$1(T));
+                var comparer = H5.as(obj, System.Collections.Generic.SortedSetEqualityComparer$1(T));
                 if (comparer == null) {
                     return false;
                 }
-                return (HighFive.referenceEquals(this.comparer, comparer.comparer));
+                return (H5.referenceEquals(this.comparer, comparer.comparer));
             },
             getHashCode2: function (obj) {
                 var $t;
                 var hashCode = 0;
                 if (obj != null) {
-                    $t = HighFive.getEnumerator(obj);
+                    $t = H5.getEnumerator(obj);
                     try {
                         while ($t.moveNext()) {
                             var t = $t.Current;
-                            hashCode = hashCode ^ (this.e_comparer[HighFive.geti(this.e_comparer, "System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2")](t) & 2147483647);
+                            hashCode = hashCode ^ (this.e_comparer[H5.geti(this.e_comparer, "System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2")](t) & 2147483647);
                         }
                     } finally {
-                        if (HighFive.is($t, System.IDisposable)) {
+                        if (H5.is($t, System.IDisposable)) {
                             $t.System$IDisposable$Dispose();
                         }
                     }
@@ -62,7 +62,7 @@
                 return hashCode;
             },
             getHashCode: function () {
-                return HighFive.getHashCode(this.comparer) ^ HighFive.getHashCode(this.e_comparer);
+                return H5.getHashCode(this.comparer) ^ H5.getHashCode(this.e_comparer);
             }
         }
     }; });

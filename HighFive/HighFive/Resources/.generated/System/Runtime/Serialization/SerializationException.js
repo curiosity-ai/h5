@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.SerializationException", {
+    H5.define("System.Runtime.Serialization.SerializationException", {
         inherits: [System.SystemException],
         statics: {
             fields: {

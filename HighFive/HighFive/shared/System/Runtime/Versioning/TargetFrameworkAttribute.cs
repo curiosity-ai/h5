@@ -16,7 +16,7 @@ using System;
 
 namespace System.Runtime.Versioning
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsageAttribute(AttributeTargets.Assembly, AllowMultiple = false, Inherited = false)]
     public sealed class TargetFrameworkAttribute : Attribute
     {

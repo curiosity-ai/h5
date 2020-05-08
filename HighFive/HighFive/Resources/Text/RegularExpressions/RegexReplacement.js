@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.RegexReplacement", {
+    H5.define("System.Text.RegularExpressions.RegexReplacement", {
         statics: {
             replace: function (evaluator, regex, input, count, startat) {
                 if (evaluator == null) {

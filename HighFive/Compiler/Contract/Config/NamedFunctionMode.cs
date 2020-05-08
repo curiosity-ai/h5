@@ -1,4 +1,4 @@
-namespace HighFive.Contract
+namespace H5.Contract
 {
     /// <summary>
     /// Format of function name

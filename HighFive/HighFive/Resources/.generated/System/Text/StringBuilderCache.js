@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.StringBuilderCache", {
+    H5.define("System.Text.StringBuilderCache", {
         statics: {
             fields: {
                 MAX_BUILDER_SIZE: 0,

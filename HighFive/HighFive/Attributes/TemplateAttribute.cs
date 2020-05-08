@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// TemplateAttribute is instruction to replace method calling (in expression) by required code

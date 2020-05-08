@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.RegexOptions", {
+    H5.define("System.Text.RegularExpressions.RegexOptions", {
         statics: {
             None: 0x0000,
             IgnoreCase: 0x0001,

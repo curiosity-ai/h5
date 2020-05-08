@@ -1,8 +1,8 @@
-namespace HighFive
+namespace H5
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [External]
-    [Name("HighFive.Browser")]
+    [Name("H5.Browser")]
     public sealed class Browser
     {
         public static readonly bool IsStrict;

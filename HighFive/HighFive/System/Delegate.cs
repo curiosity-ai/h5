@@ -2,15 +2,15 @@ using System.Reflection;
 
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.IgnoreCast]
-    [HighFive.Name("Function")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.IgnoreCast]
+    [H5.Name("Function")]
     public class Delegate
     {
         public extern int Length
         {
-            [HighFive.Template("{this}.length")]
+            [H5.Template("{this}.length")]
             get;
         }
 
@@ -32,29 +32,29 @@ namespace System
 
         public virtual extern object Call();
 
-        [HighFive.Template("HighFive.fn.combine({0}, {1})")]
+        [H5.Template("H5.fn.combine({0}, {1})")]
         public static extern Delegate Combine(Delegate a, Delegate b);
 
-        [HighFive.Template("HighFive.fn.remove({0}, {1})")]
+        [H5.Template("H5.fn.remove({0}, {1})")]
         public static extern Delegate Remove(Delegate source, Delegate value);
 
-        [HighFive.Template("HighFive.staticEquals({a}, {b})")]
+        [H5.Template("H5.staticEquals({a}, {b})")]
         public static extern bool operator ==(Delegate a, Delegate b);
 
-        [HighFive.Template("!HighFive.staticEquals({a}, {b})")]
+        [H5.Template("!H5.staticEquals({a}, {b})")]
         public static extern bool operator !=(Delegate a, Delegate b);
 
-        [HighFive.Template("HighFive.Reflection.createDelegate({method}, {firstArgument})")]
+        [H5.Template("H5.Reflection.createDelegate({method}, {firstArgument})")]
         public static extern Delegate CreateDelegate(Type type, object firstArgument, MethodInfo method);
 
-        [HighFive.Template("HighFive.fn.getInvocationList({this})")]
+        [H5.Template("H5.fn.getInvocationList({this})")]
         public extern Delegate[] GetInvocationList();
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.IgnoreCast]
-    [HighFive.Name("Function")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.IgnoreCast]
+    [H5.Name("Function")]
     public class MulticastDelegate : Delegate
     {
         protected extern MulticastDelegate();
@@ -63,10 +63,10 @@ namespace System
 
         protected extern MulticastDelegate(Type target, string method);
 
-        [HighFive.Template("HighFive.staticEquals({a}, {b})")]
+        [H5.Template("H5.staticEquals({a}, {b})")]
         public static extern bool operator ==(MulticastDelegate a, MulticastDelegate b);
 
-        [HighFive.Template("!HighFive.staticEquals({a}, {b})")]
+        [H5.Template("!H5.staticEquals({a}, {b})")]
         public static extern bool operator !=(MulticastDelegate a, MulticastDelegate b);
     }
 }

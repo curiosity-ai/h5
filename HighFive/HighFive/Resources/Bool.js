@@ -1,4 +1,4 @@
-    HighFive.define("System.Boolean", {
+    H5.define("System.Boolean", {
         inherits: [System.IComparable],
 
         statics: {
@@ -22,7 +22,7 @@
             },
 
             parse: function (value) {
-                if (!HighFive.hasValue(value)) {
+                if (!H5.hasValue(value)) {
                     throw new System.ArgumentNullException.$ctor1("value");
                 }
 
@@ -40,7 +40,7 @@
             tryParse: function (value, result) {
                 result.v = false;
 
-                if (!HighFive.hasValue(value)) {
+                if (!H5.hasValue(value)) {
                     return false;
                 }
 
@@ -93,4 +93,4 @@
     });
 
     System.Boolean.$kind = "";
-    HighFive.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), System.IEquatable$1(System.Boolean)]);
+    H5.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), System.IEquatable$1(System.Boolean)]);

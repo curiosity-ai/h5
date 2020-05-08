@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30001.183
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HighFive", "HighFive", "{32B4E540-81E6-4E3F-8383-5813786DC899}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "H5", "H5", "{32B4E540-81E6-4E3F-8383-5813786DC899}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compiler", "Compiler", "{47D6D365-36CE-43C2-91D0-5A071928C62A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighFive.Build", "HighFive\Compiler\Build\HighFive.Build.csproj", "{28703D12-116A-4968-BD85-F26D7F7E7DA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Build", "H5\Compiler\Build\H5.Build.csproj", "{28703D12-116A-4968-BD85-F26D7F7E7DA4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{243BB709-3912-4C65-82D4-787A5E2201D7} = {243BB709-3912-4C65-82D4-787A5E2201D7}
 		{DE78B8B7-C0F5-415B-A70B-02194433F450} = {DE78B8B7-C0F5-415B-A70B-02194433F450}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighFive.Builder", "HighFive\Compiler\Builder\HighFive.Builder.csproj", "{243BB709-3912-4C65-82D4-787A5E2201D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Builder", "H5\Compiler\Builder\H5.Builder.csproj", "{243BB709-3912-4C65-82D4-787A5E2201D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighFive", "HighFive\HighFive\HighFive.csproj", "{DE78B8B7-C0F5-415B-A70B-02194433F450}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5", "H5\H5\H5.csproj", "{DE78B8B7-C0F5-415B-A70B-02194433F450}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighFive.Contract", "HighFive\Compiler\Contract\HighFive.Contract.csproj", "{52AE9E3E-6929-4720-AB7A-F9F22B9A8972}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Contract", "H5\Compiler\Contract\H5.Contract.csproj", "{52AE9E3E-6929-4720-AB7A-F9F22B9A8972}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighFive.Translator", "HighFive\Compiler\Translator\HighFive.Translator.csproj", "{44124331-C60A-4071-B387-4B8E71324B10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Translator", "H5\Compiler\Translator\H5.Translator.csproj", "{44124331-C60A-4071-B387-4B8E71324B10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NRefactory", "NRefactory", "{3C35A275-09BC-4C5C-B33C-392FF15F2238}"
 EndProject

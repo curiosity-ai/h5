@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ee-TG", true), {
+H5.merge(new System.Globalization.CultureInfo("ee-TG", true), {
     englishName: "Ewe (Togo)",
     nativeName: "Eʋegbe (Togo nutome)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "mnn",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ee-TG", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["kɔs","dzo","bla","kuɖ","yaw","fiɖ","mem"],
         abbreviatedMonthGenitiveNames: ["dzv","dzd","ted","afɔ","dam","mas","sia","dea","any","kel","ade","dzm",""],
         abbreviatedMonthNames: ["dzv","dzd","ted","afɔ","dam","mas","sia","dea","any","kel","ade","dzm",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ee-TG", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ee-TG",
         EBCDICCodePage: 500,

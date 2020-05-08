@@ -35,7 +35,7 @@
                         d,
                         cfg;
 
-                    if (v != null && HighFive.isPlainObject(v) && (!v.get || !v.set)) {
+                    if (v != null && H5.isPlainObject(v) && (!v.get || !v.set)) {
                         for (var k = 0; k < descriptors.length; k++) {
                             if (descriptors[k].name === name) {
                                 d = descriptors[k];
@@ -51,7 +51,7 @@
                         }
                     }
 
-                    cfg = HighFive.property(statics ? scope : prototype, name, v, statics, cls);
+                    cfg = H5.property(statics ? scope : prototype, name, v, statics, cls);
                     cfg.name = name;
                     cfg.cls = cls;
 
@@ -61,7 +61,7 @@
 
             if (config.events) {
                 for (name in config.events) {
-                    HighFive.event(scope, name, config.events[name], statics);
+                    H5.event(scope, name, config.events[name], statics);
                 }
             }
 
@@ -103,7 +103,7 @@
                                     }
                                 }
 
-                                if (!HighFive.isFunction(m)) {
+                                if (!H5.isFunction(m)) {
                                     descriptor = {
                                         get: function () {
                                             return this[name];
@@ -160,11 +160,11 @@
                 }
 
                 if (obj.fields) {
-                    HighFive.apply(to, obj.fields);
+                    H5.apply(to, obj.fields);
                 }
 
                 if (obj.methods) {
-                    HighFive.apply(to, obj.methods);
+                    H5.apply(to, obj.methods);
                 }
 
                 var config = {},
@@ -195,7 +195,7 @@
                         delete obj.ctors.init;
                     }
 
-                    HighFive.apply(to, obj.ctors);
+                    H5.apply(to, obj.ctors);
                 }
 
                 if (write) {
@@ -227,7 +227,7 @@
                 gscope = { $kind: "interface" };
             }
 
-            var c = HighFive.define(className, gscope, prop);
+            var c = H5.define(className, gscope, prop);
 
             c.$kind = "interface";
             c.$isInterface = true;
@@ -242,22 +242,22 @@
             if (prop === true) {
                 isGenericInstance = true;
                 prop = gscope;
-                gscope = HighFive.global;
+                gscope = H5.global;
             } else if (!prop) {
                 prop = gscope;
-                gscope = HighFive.global;
+                gscope = H5.global;
             }
 
             var fn;
 
-            if (HighFive.isFunction(prop)) {
+            if (H5.isFunction(prop)) {
                 fn = function () {
                     var args,
                         key,
                         obj,
                         c;
 
-                    key = HighFive.Class.getCachedType(fn, arguments);
+                    key = H5.Class.getCachedType(fn, arguments);
 
                     if (key) {
                         return key.type;
@@ -265,22 +265,22 @@
 
                     args = Array.prototype.slice.call(arguments);
                     obj = prop.apply(null, args);
-                    c = HighFive.define(HighFive.Class.genericName(className, args), obj, true, { fn: fn, args: args });
+                    c = H5.define(H5.Class.genericName(className, args), obj, true, { fn: fn, args: args });
 
-                    if (!HighFive.Class.staticInitAllow && !HighFive.Class.queueIsBlocked) {
-                        HighFive.Class.$queue.push(c);
+                    if (!H5.Class.staticInitAllow && !H5.Class.queueIsBlocked) {
+                        H5.Class.$queue.push(c);
                     }
 
-                    return HighFive.get(c);
+                    return H5.get(c);
                 };
 
                 fn.$cache = [];
 
-                return HighFive.Class.generic(className, gscope, fn, prop);
+                return H5.Class.generic(className, gscope, fn, prop);
             }
 
             if (!isGenericInstance) {
-                HighFive.Class.staticInitAllow = false;
+                H5.Class.staticInitAllow = false;
             }
 
             prop = prop || {};
@@ -298,22 +298,22 @@
             }
 
             var rNames = ["fields", "events", "props", "ctors", "methods"],
-                defaultScheme = HighFive.isFunction(prop.main) ? 0 : 1,
+                defaultScheme = H5.isFunction(prop.main) ? 0 : 1,
                 check = function (scope) {
-                    if (scope.config && HighFive.isPlainObject(scope.config) ||
-                        scope.$main && HighFive.isFunction(scope.$main) ||
-                        scope.hasOwnProperty("ctor") && HighFive.isFunction(scope.ctor)) {
+                    if (scope.config && H5.isPlainObject(scope.config) ||
+                        scope.$main && H5.isFunction(scope.$main) ||
+                        scope.hasOwnProperty("ctor") && H5.isFunction(scope.ctor)) {
                         defaultScheme = 1;
 
                         return false;
                     }
 
-                    if (scope.alias && HighFive.isArray(scope.alias) && scope.alias.length > 0 && scope.alias.length % 2 === 0) {
+                    if (scope.alias && H5.isArray(scope.alias) && scope.alias.length > 0 && scope.alias.length % 2 === 0) {
                         return true;
                     }
 
                     for (var j = 0; j < rNames.length; j++) {
-                        if (scope[rNames[j]] && HighFive.isPlainObject(scope[rNames[j]])) {
+                        if (scope[rNames[j]] && H5.isPlainObject(scope[rNames[j]])) {
                             return true;
                         }
                     }
@@ -331,7 +331,7 @@
             }
 
             if (alternateScheme) {
-                prop = HighFive.Class.convertScheme(prop);
+                prop = H5.Class.convertScheme(prop);
             }
 
             var extend = prop.$inherits || prop.inherits,
@@ -339,8 +339,8 @@
                 isEntryPoint = prop.$entryPoint,
                 base,
                 prototype,
-                scope = prop.$scope || gscope || HighFive.global,
-                objectType = HighFive.global.System && HighFive.global.System.Object || Object,
+                scope = prop.$scope || gscope || H5.global,
+                objectType = H5.global.System && H5.global.System.Object || Object,
                 i,
                 v,
                 isCtor,
@@ -367,7 +367,7 @@
                 delete prop.$entryPoint;
             }
 
-            if (HighFive.isFunction(statics)) {
+            if (H5.isFunction(statics)) {
                 statics = null;
             } else if (prop.$statics) {
                 delete prop.$statics;
@@ -397,7 +397,7 @@
 
                             if (Class.$base.ctor) {
                                 Class.$base.ctor.call(this);
-                            } else if (HighFive.isFunction(Class.$base.constructor)) {
+                            } else if (H5.isFunction(Class.$base.constructor)) {
                                 Class.$base.constructor.call(this);
                             }
                         }
@@ -425,7 +425,7 @@
             }
 
             if (!isGenericInstance && registerT) {
-                scope = HighFive.Class.set(scope, className, Class);
+                scope = H5.Class.set(scope, className, Class);
             }
 
             if (gCfg) {
@@ -453,12 +453,12 @@
             if (gCfg && isGenericInstance) {
                 Class.$genericTypeDefinition = gCfg.fn;
                 Class.$typeArguments = gCfg.args;
-                Class.$assembly = gCfg.fn.$assembly || HighFive.$currentAssembly;
+                Class.$assembly = gCfg.fn.$assembly || H5.$currentAssembly;
 
-                var result = HighFive.Reflection.getTypeFullName(gCfg.fn);
+                var result = H5.Reflection.getTypeFullName(gCfg.fn);
 
                 for (i = 0; i < gCfg.args.length; i++) {
-                    result += (i === 0 ? "[" : ",") + "[" + HighFive.Reflection.getTypeQName(gCfg.args[i]) + "]";
+                    result += (i === 0 ? "[" : ",") + "[" + H5.Reflection.getTypeQName(gCfg.args[i]) + "]";
                 }
 
                 result += "]";
@@ -468,11 +468,11 @@
                 Class.$$fullname = Class.$$name;
             }
 
-            if (extend && HighFive.isFunction(extend)) {
+            if (extend && H5.isFunction(extend)) {
                 extend = extend();
             }
 
-            HighFive.Class.createInheritors(Class, extend);
+            H5.Class.createInheritors(Class, extend);
 
             var noBase = extend ? extend[0].$kind === "interface" : true;
 
@@ -488,7 +488,7 @@
                 var $$initCtor = function () { };
                 $$initCtor.prototype = cls.prototype;
                 $$initCtor.prototype.constructor = cls;
-                $$initCtor.prototype.$$fullname = HighFive.Reflection.getTypeFullName(cls);
+                $$initCtor.prototype.$$fullname = H5.Reflection.getTypeFullName(cls);
 
                 prototype = new $$initCtor();
             }
@@ -504,8 +504,8 @@
             if (statics) {
                 var staticsConfig = statics.$config || statics.config;
 
-                if (staticsConfig && !HighFive.isFunction(staticsConfig)) {
-                    HighFive.Class.initConfig(extend, base, staticsConfig, true, Class);
+                if (staticsConfig && !H5.isFunction(staticsConfig)) {
+                    H5.Class.initConfig(extend, base, staticsConfig, true, Class);
 
                     if (statics.$config) {
                         delete statics.$config;
@@ -517,8 +517,8 @@
 
             var instanceConfig = prop.$config || prop.config;
 
-            if (instanceConfig && !HighFive.isFunction(instanceConfig)) {
-                HighFive.Class.initConfig(extend, base, instanceConfig, false, prop, prototype);
+            if (instanceConfig && !H5.isFunction(instanceConfig)) {
+                H5.Class.initConfig(extend, base, instanceConfig, false, prop, prototype);
 
                 if (prop.$config) {
                     delete prop.$config;
@@ -531,7 +531,7 @@
                 };
             }
 
-            prop.$initialize = HighFive.Class._initialize;
+            prop.$initialize = H5.Class._initialize;
 
             var keys = [];
 
@@ -546,7 +546,7 @@
                 isCtor = name === "ctor";
                 ctorName = name;
 
-                if (HighFive.isFunction(v) && (isCtor || name.match("^\\$ctor") !== null)) {
+                if (H5.isFunction(v) && (isCtor || name.match("^\\$ctor") !== null)) {
                     isCtor = true;
                 }
 
@@ -565,7 +565,7 @@
             prototype.$$name = className;
 
             if (!prototype.toJSON) {
-                prototype.toJSON = HighFive.Class.toJSON;
+                prototype.toJSON = H5.Class.toJSON;
             }
 
             if (statics) {
@@ -575,7 +575,7 @@
                     if (name === "ctor") {
                         Class["$ctor"] = member;
                     } else {
-                        if (prop.$kind === "enum" && !HighFive.isFunction(member) && name.charAt(0) !== "$") {
+                        if (prop.$kind === "enum" && !H5.isFunction(member) && name.charAt(0) !== "$") {
                             Class.$names = Class.$names || [];
                             Class.$names.push({name: name, value: member});
                         }
@@ -586,7 +586,7 @@
 
                 if (prop.$kind === "enum" && Class.$names) {
                     Class.$names = Class.$names.sort(function (i1, i2) {
-                        if (HighFive.isFunction(i1.value.eq)) {
+                        if (H5.isFunction(i1.value.eq)) {
                             return i1.value.sub(i2.value).sign();
                         }
 
@@ -601,10 +601,10 @@
                 extend = [objectType].concat(Class.$interfaces);
             }
 
-            HighFive.Class.setInheritors(Class, extend);
+            H5.Class.setInheritors(Class, extend);
 
             fn = function () {
-                if (HighFive.Class.staticInitAllow && !Class.$isGenericTypeDefinition) {
+                if (H5.Class.staticInitAllow && !Class.$isGenericTypeDefinition) {
                     Class.$staticInit = null;
 
                     if (Class.$initMembers) {
@@ -617,7 +617,7 @@
                 }
             };
 
-            if (isEntryPoint || HighFive.isFunction(prototype.$main)) {
+            if (isEntryPoint || H5.isFunction(prototype.$main)) {
                 if (prototype.$main) {
                     var entryName = prototype.$main.name || "Main";
 
@@ -626,17 +626,17 @@
                     }
                 }
 
-                HighFive.Class.$queueEntry.push(Class);
+                H5.Class.$queueEntry.push(Class);
             }
 
             Class.$staticInit = fn;
 
             if (!isGenericInstance && registerT) {
-                HighFive.Class.registerType(className, Class);
+                H5.Class.registerType(className, Class);
             }
 
-            if (HighFive.Reflection) {
-                Class.$getMetadata = HighFive.Reflection.getMetadata;
+            if (H5.Reflection) {
+                Class.$getMetadata = H5.Reflection.getMetadata;
             }
 
             if (Class.$kind === "enum") {
@@ -670,7 +670,7 @@
 
             if (Class.$kind === "interface") {
                 if (Class.prototype.$variance) {
-                    Class.isAssignableFrom = HighFive.Class.varianceAssignable;
+                    Class.isAssignableFrom = H5.Class.varianceAssignable;
                 }
 
                 Class.$isInterface = true;
@@ -680,7 +680,7 @@
         },
 
         toCtorString: function () {
-            return HighFive.Reflection.getTypeName(this);
+            return H5.Reflection.getTypeName(this);
         },
 
         createInheritors: function (cls, extend) {
@@ -731,7 +731,7 @@
 
         toJSON: function () {
             var obj = {},
-                t = HighFive.getType(this),
+                t = H5.getType(this),
                 descriptors = t.$descriptors || [];
 
             for (var key in this) {
@@ -779,11 +779,11 @@
                         var v = target.prototype.$variance[i], t = target.$typeArguments[i], s = type.$typeArguments[i];
 
                         switch (v) {
-                            case 1: if (!HighFive.Reflection.isAssignableFrom(t, s))
+                            case 1: if (!H5.Reflection.isAssignableFrom(t, s))
                                 return false;
 
                                 break;
-                            case 2: if (!HighFive.Reflection.isAssignableFrom(s, t))
+                            case 2: if (!H5.Reflection.isAssignableFrom(s, t))
                                 return false;
 
                                 break;
@@ -802,7 +802,7 @@
                 return true;
             }
 
-            var ifs = HighFive.Reflection.getInterfaces(source);
+            var ifs = H5.Reflection.getInterfaces(source);
 
             for (var i = 0; i < ifs.length; i++) {
                 if (ifs[i] === this || check(this, ifs[i])) {
@@ -814,9 +814,9 @@
         },
 
         registerType: function (className, cls) {
-            if (HighFive.$currentAssembly) {
-                HighFive.$currentAssembly.$types[className] = cls;
-                cls.$assembly = HighFive.$currentAssembly;
+            if (H5.$currentAssembly) {
+                H5.$currentAssembly.$types[className] = cls;
+                cls.$assembly = H5.$currentAssembly;
             }
         },
 
@@ -885,12 +885,12 @@
                         (function (cls, key, o) {
                             Object.defineProperty(cls, key, {
                                 get: function () {
-                                    if (HighFive.Class.staticInitAllow) {
+                                    if (H5.Class.staticInitAllow) {
                                         if (o.$staticInit) {
                                             o.$staticInit();
                                         }
 
-                                        HighFive.Class.defineProperty(cls, key, o);
+                                        H5.Class.defineProperty(cls, key, o);
                                     }
 
                                     return o;
@@ -913,12 +913,12 @@
                 (function (scope, name, cls) {
                     Object.defineProperty(scope, name, {
                         get: function () {
-                            if (HighFive.Class.staticInitAllow) {
+                            if (H5.Class.staticInitAllow) {
                                 if (cls.$staticInit) {
                                     cls.$staticInit();
                                 }
 
-                                HighFive.Class.defineProperty(scope, name, cls);
+                                H5.Class.defineProperty(scope, name, cls);
                             }
 
                             return cls;
@@ -954,7 +954,7 @@
             for (var i = 0; i < typeArguments.length; i++) {
                 var ta = typeArguments[i];
 
-                gName += "$" + (ta.$$name || HighFive.getTypeName(ta));
+                gName += "$" + (ta.$$name || H5.getTypeName(ta));
             }
 
             return gName;
@@ -994,41 +994,41 @@
             fn.$$name = className;
             fn.$kind = "class";
 
-            HighFive.Class.set(scope, className, fn, true);
-            HighFive.Class.registerType(className, fn);
+            H5.Class.set(scope, className, fn, true);
+            H5.Class.registerType(className, fn);
 
             fn.$typeArgumentCount = prop.length;
             fn.$isGenericTypeDefinition = true;
-            fn.$getMetadata = HighFive.Reflection.getMetadata;
+            fn.$getMetadata = H5.Reflection.getMetadata;
 
             fn.$staticInit = function () {
-                fn.$typeArguments = HighFive.Reflection.createTypeParams(prop);
+                fn.$typeArguments = H5.Reflection.createTypeParams(prop);
 
-                var old = HighFive.Class.staticInitAllow,
-                    oldIsBlocked = HighFive.Class.queueIsBlocked;
+                var old = H5.Class.staticInitAllow,
+                    oldIsBlocked = H5.Class.queueIsBlocked;
 
-                HighFive.Class.staticInitAllow = false;
-                HighFive.Class.queueIsBlocked = true;
+                H5.Class.staticInitAllow = false;
+                H5.Class.queueIsBlocked = true;
 
                 var cfg = prop.apply(null, fn.$typeArguments),
                     extend = cfg.$inherits || cfg.inherits;
 
-                HighFive.Class.staticInitAllow = old;
-                HighFive.Class.queueIsBlocked = oldIsBlocked;
+                H5.Class.staticInitAllow = old;
+                H5.Class.queueIsBlocked = oldIsBlocked;
 
-                if (extend && HighFive.isFunction(extend)) {
+                if (extend && H5.isFunction(extend)) {
                     extend = extend();
                 }
 
-                HighFive.Class.createInheritors(fn, extend);
+                H5.Class.createInheritors(fn, extend);
 
-                var objectType = HighFive.global.System && HighFive.global.System.Object || Object;
+                var objectType = H5.global.System && H5.global.System.Object || Object;
 
                 if (!extend) {
                     extend = [objectType].concat(fn.$interfaces);
                 }
 
-                HighFive.Class.setInheritors(fn, extend);
+                H5.Class.setInheritors(fn, extend);
 
                 var prototype = extend ? (extend[0].$$initCtor ? new extend[0].$$initCtor() : new extend[0]()) : new objectType();
 
@@ -1041,43 +1041,43 @@
                 }
             };
 
-            HighFive.Class.$queue.push(fn);
+            H5.Class.$queue.push(fn);
 
             return fn;
         },
 
         init: function (fn) {
-            if (HighFive.Reflection) {
-                var metas = HighFive.Reflection.deferredMeta,
+            if (H5.Reflection) {
+                var metas = H5.Reflection.deferredMeta,
                     len = metas.length;
 
                 if (len > 0) {
-                    HighFive.Reflection.deferredMeta = [];
+                    H5.Reflection.deferredMeta = [];
 
                     for (var i = 0; i < len; i++) {
                         var item = metas[i];
 
-                        HighFive.setMetadata(item.typeName, item.metadata, item.ns);
+                        H5.setMetadata(item.typeName, item.metadata, item.ns);
                     }
                 }
             }
 
             if (fn) {
-                var old = HighFive.Class.staticInitAllow;
+                var old = H5.Class.staticInitAllow;
 
-                HighFive.Class.staticInitAllow = true;
+                H5.Class.staticInitAllow = true;
                 fn();
-                HighFive.Class.staticInitAllow = old;
+                H5.Class.staticInitAllow = old;
 
                 return;
             }
 
-            HighFive.Class.staticInitAllow = true;
+            H5.Class.staticInitAllow = true;
 
-            var queue = HighFive.Class.$queue.concat(HighFive.Class.$queueEntry);
+            var queue = H5.Class.$queue.concat(H5.Class.$queueEntry);
 
-            HighFive.Class.$queue.length = 0;
-            HighFive.Class.$queueEntry.length = 0;
+            H5.Class.$queue.length = 0;
+            H5.Class.$queueEntry.length = 0;
 
             for (var i = 0; i < queue.length; i++) {
                 var t = queue[i];
@@ -1088,7 +1088,7 @@
 
                 if (t.prototype.$main) {
                     (function (cls, name) {
-                        HighFive.ready(function () {
+                        H5.ready(function () {
                             var task = cls[name]();
 
                             if (task && task.continueWith) {
@@ -1107,9 +1107,9 @@
         }
     };
 
-    HighFive.Class = base;
-    HighFive.Class.$queue = [];
-    HighFive.Class.$queueEntry = [];
-    HighFive.define = HighFive.Class.define;
-    HighFive.definei = HighFive.Class.definei;
-    HighFive.init = HighFive.Class.init;
+    H5.Class = base;
+    H5.Class.$queue = [];
+    H5.Class.$queueEntry = [];
+    H5.define = H5.Class.define;
+    H5.definei = H5.Class.definei;
+    H5.init = H5.Class.init;

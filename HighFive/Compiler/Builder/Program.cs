@@ -1,6 +1,6 @@
-using HighFive.Contract;
-using HighFive.Translator;
-using HighFive.Translator.Logging;
+using H5.Contract;
+using H5.Translator;
+using H5.Translator.Logging;
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace HighFive.Builder
+namespace H5.Builder
 {
     public class Program
     {
@@ -18,17 +18,17 @@ namespace HighFive.Builder
 
             var logger = new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter());
 
-            logger.Info("Executing HighFive.Builder.Console...");
+            logger.Info("Executing H5.Builder.Console...");
 
-            var highfiveOptions = GetHighFiveOptionsFromCommandLine(args, logger);
+            var h5Options = GetH5OptionsFromCommandLine(args, logger);
 
-            if (highfiveOptions == null)
+            if (h5Options == null)
             {
                 ShowHelp(logger);
                 return 1;
             }
 
-            if (highfiveOptions.NoCompilation)
+            if (h5Options.NoCompilation)
             {
                 return 0;
             }
@@ -36,7 +36,7 @@ namespace HighFive.Builder
             logger.Trace("Command line arguments:");
             logger.Trace("\t" + (string.Join(" ", args) ?? ""));
 
-            var processor = new TranslatorProcessor(highfiveOptions, logger);
+            var processor = new TranslatorProcessor(h5Options, logger);
 
             try
             {
@@ -48,7 +48,7 @@ namespace HighFive.Builder
             }
             catch (EmitterException ex)
             {
-                logger.Error(string.Format("HighFive.NET Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
+                logger.Error(string.Format("H5.NET Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
                 return 1;
             }
             catch (Exception ex)
@@ -57,11 +57,11 @@ namespace HighFive.Builder
 
                 if (ee != null)
                 {
-                    logger.Error(string.Format("HighFive.NET Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
+                    logger.Error(string.Format("H5.NET Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
                 }
                 else
                 {
-                    logger.Error(string.Format("HighFive.NET Compiler error: {0}", ex.ToString()));
+                    logger.Error(string.Format("H5.NET Compiler error: {0}", ex.ToString()));
                 }
 
                 return 1;
@@ -113,30 +113,30 @@ namespace HighFive.Builder
 #endif
         }
 
-        private static bool BindCmdArgumentToOption(string arg, HighFiveOptions highfiveOptions, ILogger logger)
+        private static bool BindCmdArgumentToOption(string arg, H5Options h5Options, ILogger logger)
         {
-            if (highfiveOptions.ProjectLocation == null && highfiveOptions.Lib == null)
+            if (h5Options.ProjectLocation == null && h5Options.Lib == null)
             {
                 if (arg.ToLower().EndsWith(".csproj"))
                 {
-                    highfiveOptions.ProjectLocation = arg;
+                    h5Options.ProjectLocation = arg;
                     return true;
                 }
                 else if (arg.ToLower().EndsWith(".dll"))
                 {
-                    highfiveOptions.Lib = arg;
+                    h5Options.Lib = arg;
                     return true;
                 }
             }
             return false; // didn't bind anywhere
         }
 
-        public static HighFiveOptions GetHighFiveOptionsFromCommandLine(string[] args, ILogger logger)
+        public static H5Options GetH5OptionsFromCommandLine(string[] args, ILogger logger)
         {
-            var highfiveOptions = new HighFiveOptions();
+            var h5Options = new H5Options();
 
-            highfiveOptions.Name = "";
-            highfiveOptions.ProjectProperties = new ProjectProperties();
+            h5Options.Name = "";
+            h5Options.ProjectProperties = new ProjectProperties();
 
             // options -c, -P and -D have priority over -S
             string configuration = null;
@@ -156,24 +156,24 @@ namespace HighFive.Builder
                     case "-p":
                     case "-project":
                     case "--project":
-                        if (highfiveOptions.Lib != null)
+                        if (h5Options.Lib != null)
                         {
                             logger.Error("Error: Project and assembly file specification is mutually exclusive.");
                             return null;
                         };
-                        highfiveOptions.ProjectLocation = args[++i];
+                        h5Options.ProjectLocation = args[++i];
                         break;
 
                     case "-b":
-                    case "-highfive": // backwards compatibility
-                    case "--highfive":
-                        highfiveOptions.HighFiveLocation = args[++i];
+                    case "-h5": // backwards compatibility
+                    case "--h5":
+                        h5Options.H5Location = args[++i];
                         break;
 
                     case "-o":
                     case "-output": // backwards compatibility
                     case "--output":
-                        highfiveOptions.OutputLocation = args[++i];
+                        h5Options.OutputLocation = args[++i];
                         break;
 
                     case "-c":
@@ -201,23 +201,23 @@ namespace HighFive.Builder
                     case "-rebuild": // backwards compatibility
                     case "--rebuild":
                     case "-r":
-                        highfiveOptions.Rebuild = true;
+                        h5Options.Rebuild = true;
                         break;
 
                     case "-nocore": // backwards compatibility
                     case "--nocore":
-                        highfiveOptions.ExtractCore = false;
+                        h5Options.ExtractCore = false;
                         break;
 
                     case "-s":
                     case "-src": // backwards compatibility
                     case "--source":
-                        highfiveOptions.Sources = args[++i];
+                        h5Options.Sources = args[++i];
                         break;
 
                     case "-S":
                     case "--settings":
-                        var error = ParseProjectProperties(highfiveOptions, args[++i], logger);
+                        var error = ParseProjectProperties(h5Options, args[++i], logger);
 
                         if (error != null)
                         {
@@ -231,33 +231,33 @@ namespace HighFive.Builder
                     case "-f":
                     case "-folder": // backwards compatibility
                     case "--folder":
-                        highfiveOptions.Folder = Path.Combine(Environment.CurrentDirectory, args[++i]);
+                        h5Options.Folder = Path.Combine(Environment.CurrentDirectory, args[++i]);
                         break;
 
                     case "-R":
                     case "-recursive": // backwards compatibility
                     case "--recursive":
-                        highfiveOptions.Recursive = true;
+                        h5Options.Recursive = true;
                         break;
 
                     case "-lib": // backwards compatibility -- now is non-switch argument to builder
-                        if (highfiveOptions.ProjectLocation != null)
+                        if (h5Options.ProjectLocation != null)
                         {
                             logger.Error("Error: Project and assembly file specification is mutually exclusive.");
                             return null;
                         }
-                        highfiveOptions.Lib = args[++i];
+                        h5Options.Lib = args[++i];
                         break;
 
                     case "-h":
                     case "--help":
                         ShowHelp(logger);
-                        highfiveOptions.NoCompilation = true;
-                        return highfiveOptions; // success. Asked for help. Help provided.
+                        h5Options.NoCompilation = true;
+                        return h5Options; // success. Asked for help. Help provided.
 
                     case "-notimestamp":
                     case "--notimestamp":
-                        highfiveOptions.NoTimeStamp = true;
+                        h5Options.NoTimeStamp = true;
                         break;
 
 #if DEBUG
@@ -277,7 +277,7 @@ namespace HighFive.Builder
                         {
                             // don't care about success. If not set already, then try next cmdline argument
                             // as the file parameter and ignore following arguments, if any.
-                            BindCmdArgumentToOption(args[i + 1], highfiveOptions, logger);
+                            BindCmdArgumentToOption(args[i + 1], h5Options, logger);
                         }
                         i = args.Length; // move to the end of arguments list
                         break;
@@ -286,7 +286,7 @@ namespace HighFive.Builder
 
                         // If this argument does not look like a cmdline switch and
                         // neither backwards -project nor -lib were specified
-                        if (!BindCmdArgumentToOption(args[i], highfiveOptions, logger))
+                        if (!BindCmdArgumentToOption(args[i], h5Options, logger))
                         {
                             logger.Error("Invalid argument: " + args[i]);
                             return null;
@@ -299,22 +299,22 @@ namespace HighFive.Builder
 
             if (hasPriorityConfiguration)
             {
-                highfiveOptions.ProjectProperties.Configuration = configuration;
+                h5Options.ProjectProperties.Configuration = configuration;
             }
 
             if (hasPriorityPlatform)
             {
-                highfiveOptions.ProjectProperties.Platform = platform;
+                h5Options.ProjectProperties.Platform = platform;
             }
 
             if (hasPriorityDefineConstants)
             {
-                highfiveOptions.ProjectProperties.DefineConstants = defineConstants;
+                h5Options.ProjectProperties.DefineConstants = defineConstants;
             }
 
-            if (highfiveOptions.ProjectLocation == null && highfiveOptions.Lib == null)
+            if (h5Options.ProjectLocation == null && h5Options.Lib == null)
             {
-                var folder = highfiveOptions.Folder ?? Environment.CurrentDirectory;
+                var folder = h5Options.Folder ?? Environment.CurrentDirectory;
 
                 var csprojs = new string[] { };
 
@@ -342,38 +342,38 @@ namespace HighFive.Builder
                 }
 
                 var csproj = csprojs[0];
-                highfiveOptions.ProjectLocation = csproj;
+                h5Options.ProjectLocation = csproj;
                 logger.Info("Defaulting Project Location to " + csproj);
             }
 
-            if (string.IsNullOrEmpty(highfiveOptions.OutputLocation))
+            if (string.IsNullOrEmpty(h5Options.OutputLocation))
             {
-                highfiveOptions.OutputLocation = !string.IsNullOrWhiteSpace(highfiveOptions.ProjectLocation)
-                    ? Path.GetFileNameWithoutExtension(highfiveOptions.ProjectLocation) : highfiveOptions.Folder;
+                h5Options.OutputLocation = !string.IsNullOrWhiteSpace(h5Options.ProjectLocation)
+                    ? Path.GetFileNameWithoutExtension(h5Options.ProjectLocation) : h5Options.Folder;
             }
 
-            if (highfiveOptions.IsFolderMode)
+            if (h5Options.IsFolderMode)
             {
-                highfiveOptions.DefaultFileName = Path.GetFileNameWithoutExtension(highfiveOptions.Lib);
-                highfiveOptions.ProjectProperties.AssemblyName = highfiveOptions.DefaultFileName;
+                h5Options.DefaultFileName = Path.GetFileNameWithoutExtension(h5Options.Lib);
+                h5Options.ProjectProperties.AssemblyName = h5Options.DefaultFileName;
             }
             else
             {
-                highfiveOptions.DefaultFileName = Path.GetFileName(highfiveOptions.OutputLocation);
+                h5Options.DefaultFileName = Path.GetFileName(h5Options.OutputLocation);
             }
 
-            if (string.IsNullOrWhiteSpace(highfiveOptions.DefaultFileName))
+            if (string.IsNullOrWhiteSpace(h5Options.DefaultFileName))
             {
-                highfiveOptions.DefaultFileName = Path.GetFileName(highfiveOptions.OutputLocation);
+                h5Options.DefaultFileName = Path.GetFileName(h5Options.OutputLocation);
             }
 
-            return highfiveOptions;
+            return h5Options;
         }
 
-        private static string ParseProjectProperties(HighFiveOptions highfiveOptions, string parameters, ILogger logger)
+        private static string ParseProjectProperties(H5Options h5Options, string parameters, ILogger logger)
         {
             var properties = new ProjectProperties();
-            highfiveOptions.ProjectProperties = properties;
+            h5Options.ProjectProperties = properties;
 
             if (string.IsNullOrWhiteSpace(parameters))
             {

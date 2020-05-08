@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("bg-BG", true), {
+H5.merge(new System.Globalization.CultureInfo("bg-BG", true), {
     englishName: "Bulgarian (Bulgaria)",
     nativeName: "български (България)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("bg-BG", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["нед","пон","вт","ср","четв","пет","съб"],
         abbreviatedMonthGenitiveNames: ["яну","фев","мар","апр","май","юни","юли","авг","сеп","окт","ное","дек",""],
         abbreviatedMonthNames: ["яну","фев","мар","апр","май","юни","юли","авг","сеп","окт","ное","дек",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("bg-BG", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "bg-BG",
         EBCDICCodePage: 21025,

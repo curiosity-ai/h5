@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sg-CF", true), {
+H5.merge(new System.Globalization.CultureInfo("sg-CF", true), {
     englishName: "Sango (Central African Republic)",
     nativeName: "Sängö (Ködörösêse tî Bêafrîka)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sg-CF", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Bk1","Bk2","Bk3","Bk4","Bk5","Lâp","Lây"],
         abbreviatedMonthGenitiveNames: ["Nye","Ful","Mbä","Ngu","Bêl","Fön","Len","Kük","Mvu","Ngb","Nab","Kak",""],
         abbreviatedMonthNames: ["Nye","Ful","Mbä","Ngu","Bêl","Fön","Len","Kük","Mvu","Ngb","Nab","Kak",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sg-CF", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "sg-CF",
         EBCDICCodePage: 500,

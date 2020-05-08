@@ -122,7 +122,7 @@ namespace System.Text
                 }
                 else if (ch <= 0x10FFFF)
                 {
-                    ch = HighFive.Script.Write<char>("ch - 0x10000"); //?????
+                    ch = H5.Script.Write<char>("ch - 0x10000"); //?????
 
                     char lowBits = (char)((ch & 0x3FF) | 0xDC00);
                     char highBits = (char)(((ch >> 10) & 0x3FF) | 0xD800);

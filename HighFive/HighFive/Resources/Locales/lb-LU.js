@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("lb-LU", true), {
+H5.merge(new System.Globalization.CultureInfo("lb-LU", true), {
     englishName: "Luxembourgish (Luxembourg)",
     nativeName: "Lëtzebuergesch (Lëtzebuerg)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lb-LU", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Son","Méi","Dën","Mët","Don","Fre","Sam"],
         abbreviatedMonthGenitiveNames: ["Jan","Feb","Mäe","Abr","Mee","Jun","Jul","Aug","Sep","Okt","Nov","Dez",""],
         abbreviatedMonthNames: ["Jan","Feb","Mäe","Abr","Mee","Jun","Jul","Aug","Sep","Okt","Nov","Dez",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lb-LU", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "lb-LU",
         EBCDICCodePage: 20297,

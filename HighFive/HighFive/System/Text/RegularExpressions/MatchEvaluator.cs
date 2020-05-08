@@ -5,6 +5,6 @@
     /// </summary>
     /// <param name="match"></param>
     /// <returns></returns>
-    [HighFive.External]
+    [H5.External]
     public delegate string MatchEvaluator(Match match);
 }

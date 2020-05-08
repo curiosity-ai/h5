@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.ICollectionDebugView$1", function (T) { return {
+    H5.define("System.Collections.Generic.ICollectionDebugView$1", function (T) { return {
         fields: {
             _collection: null
         },
@@ -6,7 +6,7 @@
             Items: {
                 get: function () {
                     var items = System.Array.init(System.Array.getCount(this._collection, T), function (){
-                        return HighFive.getDefaultValue(T);
+                        return H5.getDefaultValue(T);
                     }, T);
                     System.Array.copyTo(this._collection, items, 0, T);
                     return items;

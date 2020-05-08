@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("cy", true), {
+H5.merge(new System.Globalization.CultureInfo("cy", true), {
     englishName: "Welsh",
     nativeName: "Cymraeg",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("cy", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Sul","Llun","Maw","Mer","Iau","Gwen","Sad"],
         abbreviatedMonthGenitiveNames: ["Ion","Chwef","Maw","Ebrill","Mai","Meh","Gorff","Awst","Medi","Hyd","Tach","Rhag",""],
         abbreviatedMonthNames: ["Ion","Chw","Maw","Ebr","Mai","Meh","Gor","Awst","Medi","Hyd","Tach","Rhag",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("cy", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "cy-GB",
         EBCDICCodePage: 20285,

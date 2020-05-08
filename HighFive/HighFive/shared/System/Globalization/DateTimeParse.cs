@@ -4953,7 +4953,7 @@ namespace System {
 //        }
     }
 
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.Enum(H5.Emit.Value)]
     internal enum ParseFailureKind {
         None = 0,
         ArgumentNull = 1,
@@ -4962,7 +4962,7 @@ namespace System {
         FormatBadDateTimeCalendar = 4,  // FormatException when ArgumentOutOfRange is thrown by a Calendar.TryToDateTime().
     };
 
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.Enum(H5.Emit.Value)]
     [Flags]
     internal enum ParseFlags {
         HaveYear        = 0x00000001,
@@ -5071,7 +5071,7 @@ namespace System {
     //
     // The type of token that will be returned by DateTimeFormatInfo.Tokenize().
     //
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.Enum(H5.Emit.Value)]
     internal enum TokenType
     {
         // The valid token should start from 1.

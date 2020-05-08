@@ -9,10 +9,10 @@ namespace System.Collections.Generic
     /// <typeparam name="TValue">
     /// The type of values in the dictionary.
     /// </typeparam>
-    [HighFive.External]
-    [HighFive.Reflectable]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    public interface IDictionary<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Reflectable]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    public interface IDictionary<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, H5.IH5Class
     {
         /// <summary>
         /// Gets or sets the element with the specified key.
@@ -32,7 +32,7 @@ namespace System.Collections.Generic
         /// <exception cref="System.NotSupportedException">
         /// The property is set and the System.Collections.Generic.IDictionary`2 is read-only.
         /// </exception>
-        [HighFive.AccessorsIndexer]
+        [H5.AccessorsIndexer]
         TValue this[TKey key]
         {
             get;

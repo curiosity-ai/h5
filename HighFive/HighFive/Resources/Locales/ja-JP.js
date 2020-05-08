@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ja-JP", true), {
+H5.merge(new System.Globalization.CultureInfo("ja-JP", true), {
     englishName: "Japanese (Japan)",
     nativeName: "日本語 (日本)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ja-JP", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["日","月","火","水","木","金","土"],
         abbreviatedMonthGenitiveNames: ["1","2","3","4","5","6","7","8","9","10","11","12",""],
         abbreviatedMonthNames: ["1","2","3","4","5","6","7","8","9","10","11","12",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ja-JP", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 932,
         CultureName: "ja-JP",
         EBCDICCodePage: 20290,

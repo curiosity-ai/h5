@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.DataMemberAttribute", {
+    H5.define("System.Runtime.Serialization.DataMemberAttribute", {
         inherits: [System.Attribute],
         fields: {
             _name: null,

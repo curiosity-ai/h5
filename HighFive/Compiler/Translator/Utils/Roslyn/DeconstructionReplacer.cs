@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 using System.Collections.Immutable;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class DeconstructionReplacer
     {
@@ -357,7 +357,7 @@ namespace HighFive.Translator
             else
             {
                 arguments.Insert(0, SyntaxFactory.Argument(obj));
-                return SyntaxHelper.GenerateInvocation("Deconstruct", "HighFive.Script", arguments.ToArray()).NormalizeWhitespace();
+                return SyntaxHelper.GenerateInvocation("Deconstruct", "H5.Script", arguments.ToArray()).NormalizeWhitespace();
             }
         }
     }

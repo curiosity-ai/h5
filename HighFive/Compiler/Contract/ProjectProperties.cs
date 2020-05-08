@@ -1,4 +1,4 @@
-namespace HighFive.Contract
+namespace H5.Contract
 {
     using System;
     using System.Collections.Generic;

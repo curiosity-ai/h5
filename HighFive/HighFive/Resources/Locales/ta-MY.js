@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ta-MY", true), {
+H5.merge(new System.Globalization.CultureInfo("ta-MY", true), {
     englishName: "Tamil (Malaysia)",
     nativeName: "தமிழ் (மலேசியா)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ta-MY", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ஞாயி.","திங்.","செவ்.","புத.","வியா.","வெள்.","சனி"],
         abbreviatedMonthGenitiveNames: ["ஜன.","பிப்.","மார்.","ஏப்.","மே","ஜூன்","ஜூலை","ஆக.","செப்.","அக்.","நவ.","டிச.",""],
         abbreviatedMonthNames: ["ஜன.","பிப்.","மார்.","ஏப்.","மே","ஜூன்","ஜூலை","ஆக.","செப்.","அக்.","நவ.","டிச.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ta-MY", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ta-MY",
         EBCDICCodePage: 500,

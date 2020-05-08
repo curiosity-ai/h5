@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.BufferedStream", {
+    H5.define("System.IO.BufferedStream", {
         inherits: [System.IO.Stream],
         statics: {
             fields: {
@@ -197,7 +197,7 @@
 
                     this.FlushRead();
 
-                    if (this._stream.CanWrite || HighFive.is(this._stream, System.IO.BufferedStream)) {
+                    if (this._stream.CanWrite || H5.is(this._stream, System.IO.BufferedStream)) {
                         this._stream.Flush();
                     }
 
@@ -205,7 +205,7 @@
                     return;
                 }
 
-                if (this._stream.CanWrite || HighFive.is(this._stream, System.IO.BufferedStream)) {
+                if (this._stream.CanWrite || H5.is(this._stream, System.IO.BufferedStream)) {
                     this._stream.Flush();
                 }
 
@@ -354,7 +354,7 @@
                     return -1;
                 }
 
-                var b = this._buffer[System.Array.index(HighFive.identity(this._readPos, ((this._readPos = (this._readPos + 1) | 0))), this._buffer)];
+                var b = this._buffer[System.Array.index(H5.identity(this._readPos, ((this._readPos = (this._readPos + 1) | 0))), this._buffer)];
                 return b;
             },
             WriteToBuffer: function (array, offset, count) {
@@ -413,8 +413,8 @@
 
                 var totalUserBytes;
                 var useBuffer;
-                totalUserBytes = HighFive.Int.check(this._writePos + count.v, System.Int32);
-                useBuffer = (HighFive.Int.check(totalUserBytes + count.v, System.Int32) < (HighFive.Int.check(this._bufferSize + this._bufferSize, System.Int32)));
+                totalUserBytes = H5.Int.check(this._writePos + count.v, System.Int32);
+                useBuffer = (H5.Int.check(totalUserBytes + count.v, System.Int32) < (H5.Int.check(this._bufferSize + this._bufferSize, System.Int32)));
 
                 if (useBuffer) {
 
@@ -476,7 +476,7 @@
                     this.FlushWrite();
                 }
 
-                this._buffer[System.Array.index(HighFive.identity(this._writePos, ((this._writePos = (this._writePos + 1) | 0))), this._buffer)] = value;
+                this._buffer[System.Array.index(H5.identity(this._writePos, ((this._writePos = (this._writePos + 1) | 0))), this._buffer)] = value;
 
                 System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._writePos < this._bufferSize; });
             },

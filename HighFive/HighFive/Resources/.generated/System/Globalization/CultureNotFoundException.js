@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.CultureNotFoundException", {
+    H5.define("System.Globalization.CultureNotFoundException", {
         inherits: [System.ArgumentException],
         statics: {
             props: {
@@ -26,12 +26,12 @@
             },
             FormatedInvalidCultureId: {
                 get: function () {
-                    return this.InvalidCultureId != null ? System.String.formatProvider(System.Globalization.CultureInfo.invariantCulture, "{0} (0x{0:x4})", [HighFive.box(System.Nullable.getValue(this.InvalidCultureId), System.Int32)]) : this.InvalidCultureName;
+                    return this.InvalidCultureId != null ? System.String.formatProvider(System.Globalization.CultureInfo.invariantCulture, "{0} (0x{0:x4})", [H5.box(System.Nullable.getValue(this.InvalidCultureId), System.Int32)]) : this.InvalidCultureName;
                 }
             },
             Message: {
                 get: function () {
-                    var s = HighFive.ensureBaseProperty(this, "Message").$System$ArgumentException$Message;
+                    var s = H5.ensureBaseProperty(this, "Message").$System$ArgumentException$Message;
                     if (this._invalidCultureId != null || this._invalidCultureName != null) {
                         var valueMessage = System.SR.Format("{0} is an invalid culture identifier.", this.FormatedInvalidCultureId);
                         if (s == null) {

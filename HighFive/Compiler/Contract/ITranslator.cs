@@ -2,7 +2,7 @@ using ICSharpCode.NRefactory.CSharp;
 using Mono.Cecil;
 using System.Collections.Generic;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface ITranslator
     {
@@ -23,7 +23,7 @@ namespace HighFive.Contract
             get;
         }
 
-        string HighFiveLocation
+        string H5Location
         {
             get;
             set;
@@ -100,7 +100,7 @@ namespace HighFive.Contract
             set;
         }
 
-        HighFiveTypes HighFiveTypes
+        H5Types H5Types
         {
             get;
             set;

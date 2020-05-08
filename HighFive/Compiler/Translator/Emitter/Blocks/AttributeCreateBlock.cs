@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Refactoring;
 using ICSharpCode.NRefactory.CSharp.Resolver;
@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class AttributeCreateBlock : AbstractEmitterBlock
     {
@@ -64,7 +64,7 @@ namespace HighFive.Translator
             {
                 if (hasInitializer)
                 {
-                    this.Write(JS.Types.HighFive.APPLY);
+                    this.Write(JS.Types.H5.APPLY);
                     this.WriteOpenParentheses();
                 }
 
@@ -77,7 +77,7 @@ namespace HighFive.Translator
                     if (String.IsNullOrEmpty(customCtor))
                     {
                         this.WriteNew();
-                        this.Write(HighFiveTypes.ToJsName(attribute.AttributeType, this.Emitter));
+                        this.Write(H5Types.ToJsName(attribute.AttributeType, this.Emitter));
                     }
                     else
                     {
@@ -184,7 +184,7 @@ namespace HighFive.Translator
 
             if (rr is TypeOfResolveResult)
             {
-                block.Write(HighFiveTypes.ToJsName(((TypeOfResolveResult)rr).ReferencedType, block.Emitter));
+                block.Write(H5Types.ToJsName(((TypeOfResolveResult)rr).ReferencedType, block.Emitter));
             }
             else if (rr is ArrayCreateResolveResult)
             {
@@ -216,7 +216,7 @@ namespace HighFive.Translator
                         {
                             string enumStringName = mrr.Member.Name;
                             var attr = Helpers.GetInheritedAttribute(mrr.Member,
-                                Translator.HighFive_ASSEMBLY + ".NameAttribute");
+                                Translator.H5_ASSEMBLY + ".NameAttribute");
 
                             if (attr != null)
                             {
@@ -392,7 +392,7 @@ namespace HighFive.Translator
 
             if (this.Emitter.Validator.IsObjectLiteral(type))
             {
-                var key = HighFiveTypes.GetTypeDefinitionKey(type);
+                var key = H5Types.GetTypeDefinitionKey(type);
                 var tinfo = this.Emitter.Types.FirstOrDefault(t => t.Key == key);
 
                 if (tinfo == null)
@@ -406,7 +406,7 @@ namespace HighFive.Translator
                 {
                     if (itype != null)
                     {
-                        var oattr = this.Emitter.Validator.GetAttribute(itype.Attributes, Translator.HighFive_ASSEMBLY + ".ObjectLiteralAttribute");
+                        var oattr = this.Emitter.Validator.GetAttribute(itype.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
                         if (oattr.PositionalArguments.Count > 0)
                         {
                             var value = oattr.PositionalArguments.First().ConstantValue;

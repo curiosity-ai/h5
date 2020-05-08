@@ -1,4 +1,4 @@
-    HighFive.define("System.Reflection.AmbiguousMatchException", {
+    H5.define("System.Reflection.AmbiguousMatchException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

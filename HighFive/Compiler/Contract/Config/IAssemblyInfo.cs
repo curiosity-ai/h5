@@ -1,9 +1,9 @@
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IAssemblyInfo
     {

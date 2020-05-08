@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("quc-Latn", true), {
+H5.merge(new System.Globalization.CultureInfo("quc-Latn", true), {
     englishName: "K'iche'",
     nativeName: "K'iche'",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NeuN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("quc-Latn", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["juq'","kaq'","oxq'","kajq'","joq'","waqq'","wuqq'"],
         abbreviatedMonthGenitiveNames: ["nab'e","ukab'","urox","ukaj","uro","uwaq","uwuq","uwajxaq","ub'elej","ulaj","ujulaj","ukab'laj",""],
         abbreviatedMonthNames: ["nab'e","ukab'","urox","ukaj","uro","uwaq","uwuq","uwajxaq","ub'elej","ulaj","ujulaj","ukab'laj",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("quc-Latn", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "quc-Latn-GT",
         EBCDICCodePage: 20284,

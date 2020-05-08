@@ -1,4 +1,4 @@
-    HighFive.define("System.Base64FormattingOptions", {
+    H5.define("System.Base64FormattingOptions", {
         $kind: "enum",
         statics: {
             fields: {

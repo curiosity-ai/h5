@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("zu-ZA", true), {
+H5.merge(new System.Globalization.CultureInfo("zu-ZA", true), {
     englishName: "isiZulu (South Africa)",
     nativeName: "isiZulu (i-South Africa)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("zu-ZA", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Son","Mso","Bil","Tha","Sin","Hla","Mgq"],
         abbreviatedMonthGenitiveNames: ["Jan","Feb","Mas","Eph","Mey","Jun","Jul","Aga","Sep","Okt","Nov","Dis",""],
         abbreviatedMonthNames: ["Jan","Feb","Mas","Eph","Mey","Jun","Jul","Aga","Sep","Okt","Nov","Dis",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("zu-ZA", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "zu-ZA",
         EBCDICCodePage: 500,

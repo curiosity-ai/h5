@@ -1,6 +1,6 @@
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IAnonymousTypeConfig
     {

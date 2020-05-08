@@ -1,7 +1,7 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class OperatorBlock : AbstractMethodBlock
     {
@@ -30,7 +30,7 @@ namespace HighFive.Translator
                 foreach (var attr in attrSection.Attributes)
                 {
                     var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
-                    if (rr.Type.FullName == "HighFive.ExternalAttribute")
+                    if (rr.Type.FullName == "H5.ExternalAttribute")
                     {
                         return;
                     }

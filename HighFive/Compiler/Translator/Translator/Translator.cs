@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using Microsoft.Ajax.Utilities;
 using Mono.Cecil;
@@ -13,24 +13,24 @@ using ICSharpCode.NRefactory.Utils;
 using TopologicalSorting;
 using AssemblyDefinition = Mono.Cecil.AssemblyDefinition;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator : ITranslator
     {
-        public const string HighFive_ASSEMBLY = CS.NS.HIGHFIVE;
-        public const string HighFive_ASSEMBLY_DOT = HighFive_ASSEMBLY + ".";
-        public const string HighFiveResourcesPlusSeparatedFormatList = "HighFive.Resources.list";
-        public const string HighFiveResourcesJsonFormatList = "HighFive.Resources.json";
-        public const string HighFiveResourcesCombinedPrefix = "HighFive.Resources.Parts.";
-        public const string LocalesPrefix = "HighFive.Resources.Locales.";
-        public const string DefaultLocalesOutputName = "HighFive.Locales.js";
-        public const string HighFiveConsoleName = "highfive.console.js";
+        public const string H5_ASSEMBLY = CS.NS.HIGHFIVE;
+        public const string H5_ASSEMBLY_DOT = H5_ASSEMBLY + ".";
+        public const string H5ResourcesPlusSeparatedFormatList = "H5.Resources.list";
+        public const string H5ResourcesJsonFormatList = "H5.Resources.json";
+        public const string H5ResourcesCombinedPrefix = "H5.Resources.Parts.";
+        public const string LocalesPrefix = "H5.Resources.Locales.";
+        public const string DefaultLocalesOutputName = "H5.Locales.js";
+        public const string H5ConsoleName = "h5.console.js";
         public const string SupportedProjectType = "Library";
         public const string DefaultRootNamespace = "ClassLibrary";
         public const string SystemAssemblyName = "mscorlib";
 
         public static readonly Encoding OutputEncoding = new UTF8Encoding(false);
-        private static readonly string[] MinifierCodeSettingsInternalFileNames = new string[] { "highfive.js", "highfive.min.js", "highfive.collections.js", "highfive.collections.min.js" };
+        private static readonly string[] MinifierCodeSettingsInternalFileNames = new string[] { "h5.js", "h5.min.js", "h5.collections.js", "h5.collections.min.js" };
 
         private char[] invalidPathChars;
         public char[] InvalidPathChars
@@ -129,7 +129,7 @@ namespace HighFive.Translator
                 Content = new StringBuilder(),
                 OutputKind = TranslatorOutputKind.Report,
                 OutputType = TranslatorOutputType.None,
-                Name = this.AssemblyInfo.Report.FileName ?? "highfive.report.log",
+                Name = this.AssemblyInfo.Report.FileName ?? "h5.report.log",
                 Location = this.AssemblyInfo.Report.Path
             };
 
@@ -138,7 +138,7 @@ namespace HighFive.Translator
 
             this.LogProductInfo();
 
-            this.Plugins = HighFive.Translator.Plugins.GetPlugins(this, config, logger);
+            this.Plugins = H5.Translator.Plugins.GetPlugins(this, config, logger);
 
             logger.Info("Reading plugin configs...");
             this.Plugins.OnConfigRead(config);
@@ -158,7 +158,7 @@ namespace HighFive.Translator
 
                     logger.Error("Exception occurred. Message: " + message);
 
-                    throw new HighFive.Translator.TranslatorException(message);
+                    throw new H5.Translator.TranslatorException(message);
                 }
             }
 
@@ -363,7 +363,7 @@ namespace HighFive.Translator
                 && !output.OutputKind.HasFlag(TranslatorOutputKind.Metadata);
         }
 
-        public bool CheckIfRequiresSourceMap(HighFiveResourceInfoPart resourcePart)
+        public bool CheckIfRequiresSourceMap(H5ResourceInfoPart resourcePart)
         {
             var fileHelper = new FileHelper();
 
@@ -458,7 +458,7 @@ namespace HighFive.Translator
                     var message = "Error: Unable to run afterBuild event command: " + ex.ToString();
 
                     this.Log.Error(message);
-                    throw new HighFive.Translator.TranslatorException(message);
+                    throw new H5.Translator.TranslatorException(message);
                 }
             }
             else
@@ -473,7 +473,7 @@ namespace HighFive.Translator
         {
             this.Log.Info("Creating emitter...");
 
-            var emitter = new Emitter(this.TypeDefinitions, this.HighFiveTypes, this.Types, this.Validator, resolver, this.TypeInfoDefinitions, this.Log);
+            var emitter = new Emitter(this.TypeDefinitions, this.H5Types, this.Types, this.Validator, resolver, this.TypeInfoDefinitions, this.Log);
 
             this.Log.Info("Creating emitter done");
 

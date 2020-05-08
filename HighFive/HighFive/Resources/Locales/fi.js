@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("fi", true), {
+H5.merge(new System.Globalization.CultureInfo("fi", true), {
     englishName: "Finnish",
     nativeName: "suomi",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "epäluku",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("fi", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["su","ma","ti","ke","to","pe","la"],
         abbreviatedMonthGenitiveNames: ["tammik.","helmik.","maalisk.","huhtik.","toukok.","kesäk.","heinäk.","elok.","syysk.","lokak.","marrask.","jouluk.",""],
         abbreviatedMonthNames: ["tammi","helmi","maalis","huhti","touko","kesä","heinä","elo","syys","loka","marras","joulu",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("fi", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "fi-FI",
         EBCDICCodePage: 20278,

@@ -7,309 +7,309 @@ namespace System
     /// The decimal data type.
     /// http://mikemcl.github.io/decimal.js/
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Constructor("System.Decimal")]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Constructor("System.Decimal")]
+    [H5.Reflectable]
     public struct Decimal : IComparable, IComparable<Decimal>, IEquatable<Decimal>, IFormattable
     {
-        [HighFive.Convention]
+        [H5.Convention]
         public const decimal Zero = 0;
 
-        [HighFive.Convention]
+        [H5.Convention]
         public const decimal One = 1;
 
-        [HighFive.Convention]
+        [H5.Convention]
         public const decimal MinusOne = -1;
 
-        [HighFive.Convention]
+        [H5.Convention]
         public const decimal MaxValue = 79228162514264337593543950335m;
 
-        [HighFive.Convention]
+        [H5.Convention]
         public const decimal MinValue = -79228162514264337593543950335m;
 
-        [HighFive.Template("System.Decimal(0)")]
+        [H5.Template("System.Decimal(0)")]
         private extern Decimal(DummyTypeUsedToAddAttributeToDefaultValueTypeConstructor _);
 
-        [HighFive.Template("System.Decimal({d})")]
+        [H5.Template("System.Decimal({d})")]
         public extern Decimal(double d);
 
-        [HighFive.Template("System.Decimal({i})")]
+        [H5.Template("System.Decimal({i})")]
         public extern Decimal(int i);
 
-        [HighFive.Template("System.Decimal({i})")]
+        [H5.Template("System.Decimal({i})")]
         [CLSCompliant(false)]
         public extern Decimal(uint i);
 
-        [HighFive.Template("System.Decimal({f})")]
+        [H5.Template("System.Decimal({f})")]
         public extern Decimal(float f);
 
-        [HighFive.Template("System.Decimal({n})")]
+        [H5.Template("System.Decimal({n})")]
         public extern Decimal(long n);
 
-        [HighFive.Template("System.Decimal({n})")]
+        [H5.Template("System.Decimal({n})")]
         [CLSCompliant(false)]
         public extern Decimal(ulong n);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public extern Decimal(int lo, int mid, int hi, bool isNegative, byte scale);
 
-        [HighFive.Template("HighFive.Int.format({this}, {format})")]
+        [H5.Template("H5.Int.format({this}, {format})")]
         public extern string Format(string format);
 
-        [HighFive.Template("HighFive.Int.format({this}, {format}, {provider})")]
+        [H5.Template("H5.Int.format({this}, {format}, {provider})")]
         public extern string Format(string format, IFormatProvider provider);
 
-        [HighFive.Template("HighFive.Int.format({this}, {format})")]
+        [H5.Template("H5.Int.format({this}, {format})")]
         public extern string ToString(string format);
 
-        [HighFive.Template("HighFive.Int.format({this}, {format}, {provider})")]
+        [H5.Template("H5.Int.format({this}, {format}, {provider})")]
         public extern string ToString(string format, IFormatProvider provider);
 
-        [HighFive.Template("HighFive.Int.format({this}, \"G\", {provider})")]
+        [H5.Template("H5.Int.format({this}, \"G\", {provider})")]
         public extern string ToString(IFormatProvider provider);
 
         public override extern string ToString();
 
         public extern decimal Abs();
 
-        [HighFive.Name("ceil")]
+        [H5.Name("ceil")]
         public extern decimal Ceiling();
 
         public extern int ComparedTo(decimal d);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (byte value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         [CLSCompliant(false)]
         public static extern implicit operator decimal (sbyte value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (short value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         [CLSCompliant(false)]
         public static extern implicit operator decimal (ushort value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (char value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (int value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         [CLSCompliant(false)]
         public static extern implicit operator decimal (uint value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (long value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         [CLSCompliant(false)]
         public static extern implicit operator decimal (ulong value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         public static extern explicit operator decimal (float value);
 
-        //[HighFive.Template("System.Decimal.lift({value})")]
+        //[H5.Template("System.Decimal.lift({value})")]
         public static extern explicit operator decimal (double value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, System.Byte)")]
+        //[H5.Template("System.Decimal.toInt({value}, System.Byte)")]
         public static extern explicit operator byte (decimal value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, System.SByte)")]
+        //[H5.Template("System.Decimal.toInt({value}, System.SByte)")]
         [CLSCompliant(false)]
         public static extern explicit operator sbyte (decimal value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, HighFive.Char)")]
+        //[H5.Template("System.Decimal.toInt({value}, H5.Char)")]
         public static extern explicit operator char (decimal value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, System.Int16)")]
+        //[H5.Template("System.Decimal.toInt({value}, System.Int16)")]
         public static extern explicit operator short (decimal value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, System.UInt16)")]
+        //[H5.Template("System.Decimal.toInt({value}, System.UInt16)")]
         [CLSCompliant(false)]
         public static extern explicit operator ushort (decimal value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, System.Int32)")]
+        //[H5.Template("System.Decimal.toInt({value}, System.Int32)")]
         public static extern explicit operator int (decimal value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, System.UInt32)")]
+        //[H5.Template("System.Decimal.toInt({value}, System.UInt32)")]
         [CLSCompliant(false)]
         public static extern explicit operator uint (decimal value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, System.Int64)")]
+        //[H5.Template("System.Decimal.toInt({value}, System.Int64)")]
         public static extern explicit operator long (decimal value);
 
-        //[HighFive.Template("System.Decimal.toInt({value}, System.UInt64)")]
+        //[H5.Template("System.Decimal.toInt({value}, System.UInt64)")]
         [CLSCompliant(false)]
         public static extern explicit operator ulong (decimal value);
 
-        //[HighFive.Template("System.Decimal.toFloat({value})")]
+        //[H5.Template("System.Decimal.toFloat({value})")]
         public static extern explicit operator float (decimal value);
 
-        //[HighFive.Template("System.Decimal.toFloat({value})")]
+        //[H5.Template("System.Decimal.toFloat({value})")]
         public static extern explicit operator double (decimal value);
 
-        [HighFive.Template("{d}.clone()")]
+        [H5.Template("{d}.clone()")]
         public static extern decimal operator +(decimal d);
 
-        [HighFive.Template("{d}.neg()")]
+        [H5.Template("{d}.neg()")]
         public static extern decimal operator -(decimal d);
 
-        [HighFive.Template("{d1}.add({d2})")]
+        [H5.Template("{d1}.add({d2})")]
         public static extern decimal operator +(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.sub({d2})")]
+        [H5.Template("{d1}.sub({d2})")]
         public static extern decimal operator -(decimal d1, decimal d2);
 
-        [HighFive.Template("{d}.inc()")]
+        [H5.Template("{d}.inc()")]
         public static extern decimal operator ++(decimal d);
 
-        [HighFive.Template("{d}.dec()")]
+        [H5.Template("{d}.dec()")]
         public static extern decimal operator --(decimal d);
 
-        [HighFive.Template("{d1}.mul({d2})")]
+        [H5.Template("{d1}.mul({d2})")]
         public static extern decimal operator *(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.div({d2})")]
+        [H5.Template("{d1}.div({d2})")]
         public static extern decimal operator /(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.mod({d2})")]
+        [H5.Template("{d1}.mod({d2})")]
         public static extern decimal operator %(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.equalsT({d2})")]
+        [H5.Template("{d1}.equalsT({d2})")]
         public static extern bool operator ==(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.ne({d2})")]
+        [H5.Template("{d1}.ne({d2})")]
         public static extern bool operator !=(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.gt({d2})")]
+        [H5.Template("{d1}.gt({d2})")]
         public static extern bool operator >(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.gte({d2})")]
+        [H5.Template("{d1}.gte({d2})")]
         public static extern bool operator >=(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.lt({d2})")]
+        [H5.Template("{d1}.lt({d2})")]
         public static extern bool operator <(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.lte({d2})")]
+        [H5.Template("{d1}.lte({d2})")]
         public static extern bool operator <=(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.add({d2})")]
+        [H5.Template("{d1}.add({d2})")]
         public static extern decimal Add(decimal d1, decimal d2);
 
-        [HighFive.Template("System.Decimal.exp({d})")]
+        [H5.Template("System.Decimal.exp({d})")]
         public static extern decimal Exp(decimal d);
 
-        [HighFive.Template("System.Decimal.ln({d})")]
+        [H5.Template("System.Decimal.ln({d})")]
         public static extern decimal Ln(decimal d);
 
-        [HighFive.Template("System.Decimal.log({d}, {logBase})")]
+        [H5.Template("System.Decimal.log({d}, {logBase})")]
         public static extern decimal Log(decimal d, decimal logBase);
 
-        [HighFive.Template("System.Decimal.pow({d}, {exponent})")]
+        [H5.Template("System.Decimal.pow({d}, {exponent})")]
         public static extern decimal Pow(decimal d, decimal exponent);
 
-        [HighFive.Template("System.Decimal.sqrt({d})")]
+        [H5.Template("System.Decimal.sqrt({d})")]
         public static extern decimal Sqrt(decimal d);
 
-        [HighFive.Template("{d}.ceil()")]
+        [H5.Template("{d}.ceil()")]
         public static extern decimal Ceiling(decimal d);
 
-        [HighFive.Template("{d1}.div({d2})")]
+        [H5.Template("{d1}.div({d2})")]
         public static extern decimal Divide(decimal d1, decimal d2);
 
-        [HighFive.Template("{d}.floor()")]
+        [H5.Template("{d}.floor()")]
         public static extern decimal Floor(decimal d);
 
-        [HighFive.Template("{d1}.mod({d2})")]
+        [H5.Template("{d1}.mod({d2})")]
         public static extern decimal Remainder(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.mul({d2})")]
+        [H5.Template("{d1}.mul({d2})")]
         public static extern decimal Multiply(decimal d1, decimal d2);
 
-        [HighFive.Template("System.Decimal(0).sub({d})")]
+        [H5.Template("System.Decimal(0).sub({d})")]
         public static extern decimal Negate(decimal d);
 
-        [HighFive.Template("System.Decimal({s})")]
+        [H5.Template("System.Decimal({s})")]
         public static extern decimal Parse(string s);
 
-        [HighFive.Template("System.Decimal({s}, {provider})")]
+        [H5.Template("System.Decimal({s}, {provider})")]
         public static extern decimal Parse(string s, IFormatProvider provider);
 
-        [HighFive.Template("System.Decimal.tryParse({s}, null, {result})")]
+        [H5.Template("System.Decimal.tryParse({s}, null, {result})")]
         public static extern bool TryParse(string s, out decimal result);
 
-        [HighFive.Template("System.Decimal.tryParse({s}, {provider}, {result})")]
+        [H5.Template("System.Decimal.tryParse({s}, {provider}, {result})")]
         public static extern bool TryParse(string s, IFormatProvider provider, out decimal result);
 
-        [HighFive.Template("System.Decimal.round({d}, 6)")]
+        [H5.Template("System.Decimal.round({d}, 6)")]
         public static extern decimal Round(decimal d);
 
-        [HighFive.Template("System.Decimal.toDecimalPlaces({d}, {decimals}, 6)")]
+        [H5.Template("System.Decimal.toDecimalPlaces({d}, {decimals}, 6)")]
         public static extern decimal Round(decimal d, int decimals);
 
-        [HighFive.Template("System.Decimal.toDecimalPlaces({d}, {decimals}, {mode})")]
+        [H5.Template("System.Decimal.toDecimalPlaces({d}, {decimals}, {mode})")]
         public static extern decimal Round(decimal d, int decimals, MidpointRounding mode);
 
-        [HighFive.Template("System.Decimal.round({d}, {mode})")]
+        [H5.Template("System.Decimal.round({d}, {mode})")]
         public static extern decimal Round(decimal d, MidpointRounding mode);
 
-        [HighFive.Template("{d}.trunc()")]
+        [H5.Template("{d}.trunc()")]
         public static extern decimal Truncate(decimal d);
 
-        [HighFive.Template("{d1}.sub({d2})")]
+        [H5.Template("{d1}.sub({d2})")]
         public static extern decimal Subtract(decimal d1, decimal d2);
 
-        [HighFive.Template("{this}.compareTo({other})")]
+        [H5.Template("{this}.compareTo({other})")]
         public extern int CompareTo(decimal other);
 
-        [HighFive.Template("{d1}.compareTo({d2})")]
+        [H5.Template("{d1}.compareTo({d2})")]
         public static extern int Compare(decimal d1, decimal d2);
 
-        [HighFive.Template("{d1}.equals({d2})")]
+        [H5.Template("{d1}.equals({d2})")]
         public static extern bool Equals(decimal d1, decimal d2);
 
-        [HighFive.Template("System.Decimal.toInt({value})")]
+        [H5.Template("System.Decimal.toInt({value})")]
         public static extern byte ToByte(decimal value);
 
-        [HighFive.Template("System.Decimal.toInt({value})")]
+        [H5.Template("System.Decimal.toInt({value})")]
         [CLSCompliant(false)]
         public static extern sbyte ToSByte(decimal value);
 
-        [HighFive.Template("System.Decimal.toInt({value})")]
+        [H5.Template("System.Decimal.toInt({value})")]
         public static extern char ToChar(decimal value);
 
-        [HighFive.Template("System.Decimal.toInt({value})")]
+        [H5.Template("System.Decimal.toInt({value})")]
         public static extern short ToInt16(decimal value);
 
-        [HighFive.Template("System.Decimal.toInt({value})")]
+        [H5.Template("System.Decimal.toInt({value})")]
         [CLSCompliant(false)]
         public static extern ushort ToUInt16(decimal value);
 
-        [HighFive.Template("System.Decimal.toInt({value})")]
+        [H5.Template("System.Decimal.toInt({value})")]
         public static extern int ToInt32(decimal value);
 
-        [HighFive.Template("System.Decimal.toInt({value})")]
+        [H5.Template("System.Decimal.toInt({value})")]
         [CLSCompliant(false)]
         public static extern uint ToUInt32(decimal value);
 
-        [HighFive.Template("System.Decimal.toInt({value}, System.Int64)")]
+        [H5.Template("System.Decimal.toInt({value}, System.Int64)")]
         public static extern long ToInt64(decimal value);
 
-        [HighFive.Template("System.Decimal.toInt({value}, System.UInt64)")]
+        [H5.Template("System.Decimal.toInt({value}, System.UInt64)")]
         [CLSCompliant(false)]
         public static extern ulong ToUInt64(decimal value);
 
-        [HighFive.Template("System.Decimal.toFloat({value})")]
+        [H5.Template("System.Decimal.toFloat({value})")]
         public static extern float ToSingle(decimal value);
 
-        [HighFive.Template("System.Decimal.toFloat({value})")]
+        [H5.Template("System.Decimal.toFloat({value})")]
         public static extern double ToDouble(decimal value);
 
-        [HighFive.Template("{this}.compareTo({obj})")]
+        [H5.Template("{this}.compareTo({obj})")]
         public extern int CompareTo(object obj);
 
         public extern int DecimalPlaces();
@@ -379,29 +379,29 @@ namespace System
 
         public extern string ToFormat(int dp, MidpointRounding rm, DecimalFormatConfig config);
 
-        [HighFive.Template("toFormat(null, null,{config})")]
+        [H5.Template("toFormat(null, null,{config})")]
         public extern string ToFormat(DecimalFormatConfig config);
 
 #pragma warning disable 659
         public override extern bool Equals(object o);
 #pragma warning restore 659
 
-        [HighFive.Name("equalsT")]
+        [H5.Name("equalsT")]
         public extern bool Equals(decimal other);
 
         public override extern int GetHashCode();
 
-        [HighFive.Template("{value}.getBytes()")]
+        [H5.Template("{value}.getBytes()")]
         internal static extern byte[] GetBytes(decimal value);
 
-        [HighFive.Template("System.Decimal.fromBytes({bytes})")]
+        [H5.Template("System.Decimal.fromBytes({bytes})")]
         internal static extern decimal FromBytes(byte[] bytes);
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Name("System.Object")]
-    [HighFive.Constructor("{ }")]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Name("System.Object")]
+    [H5.Constructor("{ }")]
+    [H5.External]
     public class DecimalConfig
     {
         /// <summary>
@@ -456,10 +456,10 @@ namespace System
         public DecimalFormatConfig Format;
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Name("System.Object")]
-    [HighFive.Constructor("{ }")]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Name("System.Object")]
+    [H5.Constructor("{ }")]
+    [H5.External]
     public class DecimalFormatConfig
     {
         /// <summary>

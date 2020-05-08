@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("nyn-UG", true), {
+H5.merge(new System.Globalization.CultureInfo("nyn-UG", true), {
     englishName: "Nyankole (Uganda)",
     nativeName: "Runyankore (Uganda)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nyn-UG", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["SAN","ORK","OKB","OKS","OKN","OKT","OMK"],
         abbreviatedMonthGenitiveNames: ["KBZ","KBR","KST","KKN","KTN","KMK","KMS","KMN","KMW","KKM","KNK","KNB",""],
         abbreviatedMonthNames: ["KBZ","KBR","KST","KKN","KTN","KMK","KMS","KMN","KMW","KKM","KNK","KNB",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nyn-UG", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "nyn-UG",
         EBCDICCodePage: 500,

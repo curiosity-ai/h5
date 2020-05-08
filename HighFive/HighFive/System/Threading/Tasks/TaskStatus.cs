@@ -1,7 +1,7 @@
 namespace System.Threading.Tasks
 {
-    [HighFive.External]
-    [HighFive.Enum(HighFive.Emit.Name)]
+    [H5.External]
+    [H5.Enum(H5.Emit.Name)]
     public enum TaskStatus
     {
         /// <summary>

@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.BitHelper", {
+    H5.define("System.Collections.Generic.BitHelper", {
         statics: {
             fields: {
                 MarkedBitFlag: 0,
@@ -12,7 +12,7 @@
             },
             methods: {
                 ToIntArrayLength: function (n) {
-                    return n > 0 ? (((((HighFive.Int.div((((n - 1) | 0)), System.Collections.Generic.BitHelper.IntSize)) | 0) + 1) | 0)) : 0;
+                    return n > 0 ? (((((H5.Int.div((((n - 1) | 0)), System.Collections.Generic.BitHelper.IntSize)) | 0) + 1) | 0)) : 0;
                 }
             }
         },
@@ -29,14 +29,14 @@
         },
         methods: {
             MarkBit: function (bitPosition) {
-                var bitArrayIndex = (HighFive.Int.div(bitPosition, System.Collections.Generic.BitHelper.IntSize)) | 0;
+                var bitArrayIndex = (H5.Int.div(bitPosition, System.Collections.Generic.BitHelper.IntSize)) | 0;
                 if (bitArrayIndex < this._length && bitArrayIndex >= 0) {
                     var flag = (System.Collections.Generic.BitHelper.MarkedBitFlag << (bitPosition % System.Collections.Generic.BitHelper.IntSize));
                     this._array[System.Array.index(bitArrayIndex, this._array)] = this._array[System.Array.index(bitArrayIndex, this._array)] | flag;
                 }
             },
             IsMarked: function (bitPosition) {
-                var bitArrayIndex = (HighFive.Int.div(bitPosition, System.Collections.Generic.BitHelper.IntSize)) | 0;
+                var bitArrayIndex = (H5.Int.div(bitPosition, System.Collections.Generic.BitHelper.IntSize)) | 0;
                 if (bitArrayIndex < this._length && bitArrayIndex >= 0) {
                     var flag = (System.Collections.Generic.BitHelper.MarkedBitFlag << (bitPosition % System.Collections.Generic.BitHelper.IntSize));
                     return ((this._array[System.Array.index(bitArrayIndex, this._array)] & flag) !== 0);

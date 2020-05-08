@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// The output folder path for generated JavaScript. A non-absolute path is concatenated with a project's root.
-    /// Examples: "HighFive/output/", "../HighFive/output/", "c:\\output\\"
+    /// Examples: "H5/output/", "../H5/output/", "c:\\output\\"
     /// </summary>
     [NonScriptable]
     [AttributeUsage(AttributeTargets.Assembly)]

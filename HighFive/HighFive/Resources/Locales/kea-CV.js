@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("kea-CV", true), {
+H5.merge(new System.Globalization.CultureInfo("kea-CV", true), {
     englishName: "Kabuverdianu (Cabo Verde)",
     nativeName: "kabuverdianu (Kabu Verdi)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("kea-CV", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dum","sig","ter","kua","kin","ses","sab"],
         abbreviatedMonthGenitiveNames: ["Jan","Feb","Mar","Abr","Mai","Jun","Jul","Ago","Set","Otu","Nuv","Diz",""],
         abbreviatedMonthNames: ["Jan","Feb","Mar","Abr","Mai","Jun","Jul","Ago","Set","Otu","Nuv","Diz",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("kea-CV", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "kea-CV",
         EBCDICCodePage: 500,

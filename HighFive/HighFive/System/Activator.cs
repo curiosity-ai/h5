@@ -1,23 +1,23 @@
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("System.Object")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("System.Object")]
     public static class Activator
     {
-        [HighFive.Template("HighFive.createInstance({type}, {arguments:array})", "HighFive.Reflection.applyConstructor({type}, {arguments:array})")]
+        [H5.Template("H5.createInstance({type}, {arguments:array})", "H5.Reflection.applyConstructor({type}, {arguments:array})")]
         public static extern object CreateInstance(Type type, params object[] arguments);
 
-        [HighFive.Template("HighFive.createInstance({T}, {arguments:array})", "HighFive.Reflection.applyConstructor({T}, {arguments:array})")]
+        [H5.Template("H5.createInstance({T}, {arguments:array})", "H5.Reflection.applyConstructor({T}, {arguments:array})")]
         public static extern T CreateInstance<T>(params object[] arguments);
 
-        [HighFive.Template("HighFive.createInstance({type})")]
+        [H5.Template("H5.createInstance({type})")]
         public static extern object CreateInstance(Type type);
 
-        [HighFive.Template("HighFive.createInstance({type}, {nonPublic})")]
+        [H5.Template("H5.createInstance({type}, {nonPublic})")]
         public static extern object CreateInstance(Type type, bool nonPublic);
 
-        [HighFive.Template("HighFive.createInstance({T})")]
+        [H5.Template("H5.createInstance({T})")]
         public static extern T CreateInstance<T>();
     }
 }

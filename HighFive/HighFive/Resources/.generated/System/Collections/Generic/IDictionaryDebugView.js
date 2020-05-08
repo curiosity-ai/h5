@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.IDictionaryDebugView$2", function (K, V) { return {
+    H5.define("System.Collections.Generic.IDictionaryDebugView$2", function (K, V) { return {
         fields: {
             _dict: null
         },

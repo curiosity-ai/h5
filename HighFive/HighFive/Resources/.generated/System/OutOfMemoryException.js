@@ -1,4 +1,4 @@
-    HighFive.define("System.OutOfMemoryException", {
+    H5.define("System.OutOfMemoryException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

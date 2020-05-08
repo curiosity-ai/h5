@@ -5,9 +5,9 @@ namespace System.Text.RegularExpressions
     /// <summary>
     /// Represents the set of captures made by a single capturing group.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public class CaptureCollection : ICollection
     {
         internal extern CaptureCollection();
@@ -17,7 +17,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern object SyncRoot
         {
-            [HighFive.Template("getSyncRoot()")]
+            [H5.Template("getSyncRoot()")]
             get;
         }
 
@@ -26,7 +26,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern bool IsSynchronized
         {
-            [HighFive.Template("getIsSynchronized()")]
+            [H5.Template("getIsSynchronized()")]
             get;
         }
 
@@ -35,7 +35,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern bool IsReadOnly
         {
-            [HighFive.Template("getIsReadOnly()")]
+            [H5.Template("getIsReadOnly()")]
             get;
         }
 
@@ -44,7 +44,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern int Count
         {
-            [HighFive.Template("getCount()")]
+            [H5.Template("getCount()")]
             get;
         }
 
@@ -54,7 +54,7 @@ namespace System.Text.RegularExpressions
 
         public extern Capture this[int i]
         {
-            [HighFive.Template("get({0})")]
+            [H5.Template("get({0})")]
             get;
         }
 
@@ -66,7 +66,7 @@ namespace System.Text.RegularExpressions
         /// <summary>
         /// Provides an enumerator that iterates through the collection.
         /// </summary>
-        [HighFive.Convention(HighFive.Notation.None)]
+        [H5.Convention(H5.Notation.None)]
         public extern IEnumerator GetEnumerator();
     }
 }

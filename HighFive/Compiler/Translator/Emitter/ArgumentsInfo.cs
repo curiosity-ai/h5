@@ -1,5 +1,5 @@
 using System;
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -8,7 +8,7 @@ using ICSharpCode.NRefactory.TypeSystem.Implementation;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ArgumentsInfo
     {
@@ -260,7 +260,7 @@ namespace HighFive.Translator
 
                 if (group != null && group.Methods.Count() > 1)
                 {
-                    throw new EmitterException(objectCreateExpression, HighFive.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
+                    throw new EmitterException(objectCreateExpression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
                 }
             }
 
@@ -466,7 +466,7 @@ namespace HighFive.Translator
 
                 if (method == null)
                 {
-                    throw new EmitterException(this.Expression, HighFive.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
+                    throw new EmitterException(this.Expression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
                 }
             }
 
@@ -621,7 +621,7 @@ namespace HighFive.Translator
                                         resolveResult.Member.DeclaringTypeDefinition.Kind == TypeKind.Interface;
                 }
 
-                var expandParams = resolveResult.Member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute");
+                var expandParams = resolveResult.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
 
                 foreach (var arg in arguments)
                 {

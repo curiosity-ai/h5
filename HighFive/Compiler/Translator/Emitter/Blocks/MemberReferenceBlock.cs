@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class MemberReferenceBlock : ConversionBlock
     {
@@ -91,15 +91,15 @@ namespace HighFive.Translator
                 this.MemberReferenceExpression.Target.AcceptVisitor(this.Emitter);
                 return;
             }
-            var target = HighFiveTypes.ToJsName(member.Member.DeclaringType, this.Emitter, ignoreLiteralName: false);
+            var target = H5Types.ToJsName(member.Member.DeclaringType, this.Emitter, ignoreLiteralName: false);
             this.NoTarget = string.IsNullOrWhiteSpace(target);
 
             if (member.Member.IsStatic
                 && target != CS.NS.HIGHFIVE
-                && !target.StartsWith(CS.HighFive.DOTNAME)
+                && !target.StartsWith(CS.H5.DOTNAME)
                 && this.MemberReferenceExpression.Target.ToString().StartsWith(CS.NS.GLOBAL))
             {
-                this.Write(JS.Types.HighFive.Global.DOTNAME);
+                this.Write(JS.Types.H5.Global.DOTNAME);
             }
 
             this.Write(target);
@@ -319,7 +319,7 @@ namespace HighFive.Translator
             var globalTarget = member != null ? this.Emitter.IsGlobalTarget(member.Member) : null;
 
             if (member != null &&
-                member.Member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.NonScriptableAttribute"))
+                member.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.NonScriptableAttribute"))
             {
                 throw new EmitterException(this.MemberReferenceExpression, "Member " + member.ToString() + " is marked as not usable from script");
             }
@@ -633,7 +633,7 @@ namespace HighFive.Translator
                     }
                 }
 
-                this.WriteScript(HighFive.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, this.Emitter));
+                this.WriteScript(H5.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, this.Emitter));
 
                 if (wrap)
                 {
@@ -687,7 +687,7 @@ namespace HighFive.Translator
                 if (resolveResult is TypeResolveResult)
                 {
                     TypeResolveResult typeResolveResult = (TypeResolveResult)resolveResult;
-                    this.Write(HighFiveTypes.ToJsName(typeResolveResult.Type, this.Emitter));
+                    this.Write(H5Types.ToJsName(typeResolveResult.Type, this.Emitter));
                     return;
                 }
                 else
@@ -756,7 +756,7 @@ namespace HighFive.Translator
 
                                 if (isExtensionMethod)
                                 {
-                                    this.Write(HighFiveTypes.ToJsName(resolvedMethod.DeclaringType, this.Emitter));
+                                    this.Write(H5Types.ToJsName(resolvedMethod.DeclaringType, this.Emitter));
                                 }
                                 else
                                 {
@@ -970,7 +970,7 @@ namespace HighFive.Translator
 
                             if (this.MemberReferenceExpression.Target is BaseReferenceExpression && !property.IsIndexer && proto)
                             {
-                                var alias = HighFiveTypes.ToJsName(member.Member.DeclaringType, this.Emitter,
+                                var alias = H5Types.ToJsName(member.Member.DeclaringType, this.Emitter,
                                     isAlias: true);
                                 if (alias.StartsWith("\""))
                                 {
@@ -997,7 +997,7 @@ namespace HighFive.Translator
 
                     if (isConst && this.Emitter.IsInlineConst(member.Member))
                     {
-                        this.WriteScript(HighFive.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, this.Emitter));
+                        this.WriteScript(H5.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, this.Emitter));
                     }
                     else
                     {
@@ -1106,7 +1106,7 @@ namespace HighFive.Translator
             }
             else
             {
-                sb.Append(HighFiveTypes.ToJsName(method.DeclaringType, emitter));
+                sb.Append(H5Types.ToJsName(method.DeclaringType, emitter));
             }
 
             sb.Append(".");
@@ -1133,7 +1133,7 @@ namespace HighFive.Translator
                     }
                     else
                     {
-                        sb.Append(HighFiveTypes.ToJsName(typeArgument, emitter));
+                        sb.Append(H5Types.ToJsName(typeArgument, emitter));
                     }
                 }
             }

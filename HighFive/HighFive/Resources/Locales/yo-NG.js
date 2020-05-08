@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("yo-NG", true), {
+H5.merge(new System.Globalization.CultureInfo("yo-NG", true), {
     englishName: "Yoruba (Nigeria)",
     nativeName: "Èdè Yorùbá (Orílẹ́ède Nàìjíríà)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("yo-NG", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Àìkú","Ajé","Ìsẹ́gun","Ọjọ́rú","Ọjọ́bọ","Ẹtì","Àbámẹ́ta"],
         abbreviatedMonthGenitiveNames: ["Ṣẹ́rẹ́","Èrèlè","Ẹrẹ̀nà","Ìgbé","Ẹ̀bibi","Òkúdu","Agẹmọ","Ògún","Owewe","Ọ̀wàrà","Bélú","Ọ̀pẹ̀",""],
         abbreviatedMonthNames: ["Ṣẹ́rẹ́","Èrèlè","Ẹrẹ̀nà","Ìgbé","Ẹ̀bibi","Òkúdu","Agẹmọ","Ògún","Owewe","Ọ̀wàrà","Bélú","Ọ̀pẹ̀",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("yo-NG", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "yo-NG",
         EBCDICCodePage: 37,

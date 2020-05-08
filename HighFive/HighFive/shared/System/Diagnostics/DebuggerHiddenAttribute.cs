@@ -4,7 +4,7 @@
 
 namespace System.Diagnostics
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Constructor, Inherited = false)]
     public sealed class DebuggerHiddenAttribute : Attribute
     {

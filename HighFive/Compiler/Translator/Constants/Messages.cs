@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HighFive.Translator.Constants
+namespace H5.Translator.Constants
 {
     public class Messages
     {
@@ -13,7 +13,7 @@ namespace HighFive.Translator.Constants
             public const string FIELD_PROPERTY_MARKED_ADVISE = "{0} is marked with [Field] attribute but implements {1}{2}. To fix the problem either remove [Field] or add [External]/[Template] attributes";
 
             public const string OBJECT_LITERAL_NO_VIRTUAL_METHODS = "[ObjectLiteral] does not support virtual methods: {0}";
-            public const string OBJECT_LITERAL_PLAIN_NO_CREATE_MODE_CUSTOM_CONSTRUCTOR = "[ObjectLiteral] class (plain mode) does not support HighFive.ObjectCreateMode parameter in a custom constructor: {0}";
+            public const string OBJECT_LITERAL_PLAIN_NO_CREATE_MODE_CUSTOM_CONSTRUCTOR = "[ObjectLiteral] class (plain mode) does not support H5.ObjectCreateMode parameter in a custom constructor: {0}";
             public const string OBJECT_LITERAL_PLAIN_CUSTOM_CONSTRUCTOR = "[ObjectLiteral] class (plain mode) does not support custom constructors with parameters other than with ObjectLiteralAttribute properties: {0}";
             public const string OBJECT_LITERAL_PLAIN_INHERITANCE = "[ObjectLiteral] with Plain mode cannot be inherited from [ObjectLiteral] with Constructor mode: {0}";
             public const string OBJECT_LITERAL_CONSTRUCTOR_INHERITANCE = "[ObjectLiteral] with Constructor mode should be inherited from a class with the same options: {0}";

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("el", true), {
+H5.merge(new System.Globalization.CultureInfo("el", true), {
     englishName: "Greek",
     nativeName: "Ελληνικά",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("el", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Κυρ","Δευ","Τρι","Τετ","Πεμ","Παρ","Σαβ"],
         abbreviatedMonthGenitiveNames: ["Ιαν","Φεβ","Μαρ","Απρ","Μαϊ","Ιουν","Ιουλ","Αυγ","Σεπ","Οκτ","Νοε","Δεκ",""],
         abbreviatedMonthNames: ["Ιαν","Φεβ","Μαρ","Απρ","Μαϊ","Ιουν","Ιουλ","Αυγ","Σεπ","Οκτ","Νοε","Δεκ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("el", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1253,
         CultureName: "el-GR",
         EBCDICCodePage: 20273,

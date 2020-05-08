@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("rw-RW", true), {
+H5.merge(new System.Globalization.CultureInfo("rw-RW", true), {
     englishName: "Kinyarwanda (Rwanda)",
     nativeName: "Kinyarwanda (Rwanda)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("rw-RW", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["cyu.","mbe.","kab.","gtu.","kan.","gnu.","gnd."],
         abbreviatedMonthGenitiveNames: ["mut.","gas.","wer.","mat.","gic.","kam.","nya.","kan.","nze.","ukw.","ugu.","uku.",""],
         abbreviatedMonthNames: ["mut.","gas.","wer.","mat.","gic.","kam.","nya.","kan.","nze.","ukw.","ugu.","uku.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("rw-RW", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "rw-RW",
         EBCDICCodePage: 37,

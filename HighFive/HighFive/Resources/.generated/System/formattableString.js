@@ -1,4 +1,4 @@
-    HighFive.define("System.FormattableString", {
+    H5.define("System.FormattableString", {
         inherits: [System.IFormattable],
         statics: {
             methods: {

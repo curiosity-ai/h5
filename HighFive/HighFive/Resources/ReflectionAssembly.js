@@ -1,40 +1,40 @@
-    HighFive.assembly = function (assemblyName, res, callback, restore) {
+    H5.assembly = function (assemblyName, res, callback, restore) {
         if (!callback) {
             callback = res;
             res = {};
         }
 
-        assemblyName = assemblyName || "HighFive.$Unknown";
+        assemblyName = assemblyName || "H5.$Unknown";
 
         var asm = System.Reflection.Assembly.assemblies[assemblyName];
 
         if (!asm) {
             asm = new System.Reflection.Assembly(assemblyName, res);
         } else {
-            HighFive.apply(asm.res, res || {});
+            H5.apply(asm.res, res || {});
         }
 
-        var oldAssembly = HighFive.$currentAssembly;
+        var oldAssembly = H5.$currentAssembly;
 
-        HighFive.$currentAssembly = asm;
+        H5.$currentAssembly = asm;
 
         if (callback) {
-            var old = HighFive.Class.staticInitAllow;
-            HighFive.Class.staticInitAllow = false;
+            var old = H5.Class.staticInitAllow;
+            H5.Class.staticInitAllow = false;
 
-            callback.call(HighFive.global, asm, HighFive.global);
+            callback.call(H5.global, asm, H5.global);
 
-            HighFive.Class.staticInitAllow = old;
+            H5.Class.staticInitAllow = old;
         }
 
-        HighFive.init();
+        H5.init();
 
         if (restore) {
-            HighFive.$currentAssembly = oldAssembly;
+            H5.$currentAssembly = oldAssembly;
         }
     };
 
-    HighFive.define("System.Reflection.Assembly", {
+    H5.define("System.Reflection.Assembly", {
         statics: {
             assemblies: {}
         },
@@ -64,7 +64,7 @@
             }
 
             if (type) {
-                name = HighFive.Reflection.getTypeNamespace(type) + "." + name;
+                name = H5.Reflection.getTypeNamespace(type) + "." + name;
             }
 
             return this.res[name] || null;
@@ -77,7 +77,7 @@
             }
 
             if (type) {
-                name = HighFive.Reflection.getTypeNamespace(type) + '.' + name;
+                name = H5.Reflection.getTypeNamespace(type) + '.' + name;
             }
 
             var r = this.res[name];
@@ -86,9 +86,9 @@
         },
 
         getCustomAttributes: function (attributeType) {
-            if (this.attr && attributeType && !HighFive.isBoolean(attributeType)) {
+            if (this.attr && attributeType && !H5.isBoolean(attributeType)) {
                 return this.attr.filter(function (a) {
-                    return HighFive.is(a, attributeType);
+                    return H5.is(a, attributeType);
                 });
             }
 
@@ -96,9 +96,9 @@
         }
     });
 
-    HighFive.$currentAssembly = new System.Reflection.Assembly("mscorlib");
-    HighFive.SystemAssembly = HighFive.$currentAssembly;
-    HighFive.SystemAssembly.$types["System.Reflection.Assembly"] = System.Reflection.Assembly;
-    System.Reflection.Assembly.$assembly = HighFive.SystemAssembly;
+    H5.$currentAssembly = new System.Reflection.Assembly("mscorlib");
+    H5.SystemAssembly = H5.$currentAssembly;
+    H5.SystemAssembly.$types["System.Reflection.Assembly"] = System.Reflection.Assembly;
+    System.Reflection.Assembly.$assembly = H5.SystemAssembly;
 
-    var $asm = HighFive.$currentAssembly;
+    var $asm = H5.$currentAssembly;

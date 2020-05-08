@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// The option to manage JavaScript output folders and files.
@@ -52,7 +52,7 @@ namespace HighFive
 
         /// <summary>
         /// All generated JavaScript for the project is added to one [ProjectName].js file. For example, if the project name is "MyUtilities", the file name will be "MyUtilities.js".
-        /// This can be overridden by setting the fileName option within highfive.json, or by using the [FileName] Attribute on the assembly or class levels.
+        /// This can be overridden by setting the fileName option within h5.json, or by using the [FileName] Attribute on the assembly or class levels.
         /// </summary>
         Project = 6
     }

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sq-MK", true), {
+H5.merge(new System.Globalization.CultureInfo("sq-MK", true), {
     englishName: "Albanian (Macedonia, FYRO)",
     nativeName: "shqip (Republika e Maqedonisë)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sq-MK", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Die","Hën","Mar","Mër","Enj","Pre","Sht"],
         abbreviatedMonthGenitiveNames: ["jan","shk","mar","pri","maj","qer","kor","gsh","sht","tet","nën","dhj",""],
         abbreviatedMonthNames: ["Jan","Shk","Mar","Pri","Maj","Qer","Kor","Gsh","Sht","Tet","Nën","Dhj",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sq-MK", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1250,
         CultureName: "sq-MK",
         EBCDICCodePage: 20880,

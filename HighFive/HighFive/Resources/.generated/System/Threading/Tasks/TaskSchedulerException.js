@@ -1,4 +1,4 @@
-    HighFive.define("System.Threading.Tasks.TaskSchedulerException", {
+    H5.define("System.Threading.Tasks.TaskSchedulerException", {
         inherits: [System.Exception],
         ctors: {
             ctor: function () {

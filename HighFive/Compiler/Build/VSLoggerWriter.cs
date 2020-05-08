@@ -1,8 +1,8 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using Microsoft.Build.Utilities;
 using System;
 
-namespace HighFive.Build
+namespace H5.Build
 {
     public class VSLoggerWriter : ILogger
     {

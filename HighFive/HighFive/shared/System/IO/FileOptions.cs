@@ -10,7 +10,7 @@ namespace System.IO
     // Maps to FILE_FLAG_DELETE_ON_CLOSE and similar values from winbase.h.
     // We didn't expose a number of these values because we didn't believe
     // a number of them made sense in managed code, at least not yet.
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.Enum(H5.Emit.Value)]
     [Flags]
     public enum FileOptions
     {

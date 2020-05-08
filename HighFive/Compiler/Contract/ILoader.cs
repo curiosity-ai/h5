@@ -1,4 +1,4 @@
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public enum ModuleLoaderType
     {

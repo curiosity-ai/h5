@@ -24,7 +24,7 @@ using System.Runtime.Versioning;
 
 namespace System.Resources
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     internal class ResourceFallbackManager : IEnumerable<CultureInfo>
     {
         private CultureInfo m_startingCulture;

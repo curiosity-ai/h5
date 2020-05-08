@@ -1,4 +1,4 @@
-    HighFive.define("System.TokenType", {
+    H5.define("System.TokenType", {
         $kind: "enum",
         statics: {
             fields: {

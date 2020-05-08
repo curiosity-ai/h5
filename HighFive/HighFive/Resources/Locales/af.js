@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("af", true), {
+H5.merge(new System.Globalization.CultureInfo("af", true), {
     englishName: "Afrikaans",
     nativeName: "Afrikaans",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("af", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["So.","Ma.","Di.","Wo.","Do.","Vr.","Sa."],
         abbreviatedMonthGenitiveNames: ["Jan.","Feb.","Mrt.","Apr.","Mei","Jun.","Jul.","Aug.","Sep.","Okt.","Nov.","Des.",""],
         abbreviatedMonthNames: ["Jan.","Feb.","Mrt.","Apr.","Mei","Jun.","Jul.","Aug.","Sep.","Okt.","Nov.","Des.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("af", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "af-ZA",
         EBCDICCodePage: 500,

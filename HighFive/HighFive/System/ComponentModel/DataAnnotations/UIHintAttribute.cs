@@ -5,10 +5,10 @@ namespace System.ComponentModel.DataAnnotations
     /// <summary>
     /// Attribute to provide a hint to the presentation layer about what control it should use
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
-    [HighFive.External]
-    [HighFive.NonScriptable]
+    [H5.External]
+    [H5.NonScriptable]
     public class UIHintAttribute : Attribute
     {
         /// <summary>

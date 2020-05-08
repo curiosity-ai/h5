@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("uz-Latn-UZ", true), {
+H5.merge(new System.Globalization.CultureInfo("uz-Latn-UZ", true), {
     englishName: "Uzbek (Latin, Uzbekistan)",
     nativeName: "o‘zbek (Oʻzbekiston)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "haqiqiy son emas",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("uz-Latn-UZ", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Yak","Dush","Sesh","Chor","Pay","Jum","Shan"],
         abbreviatedMonthGenitiveNames: ["yan","fev","mar","apr","may","iyn","iyl","avg","sen","okt","noy","dek",""],
         abbreviatedMonthNames: ["Yan","Fev","Mar","Apr","May","Iyn","Iyl","Avg","Sen","Okt","Noy","Dek",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("uz-Latn-UZ", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1254,
         CultureName: "uz-Latn-UZ",
         EBCDICCodePage: 500,

@@ -2,7 +2,7 @@ using System;
 using ICSharpCode.NRefactory.TypeSystem;
 using Mono.Cecil;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public static partial class Helpers
     {

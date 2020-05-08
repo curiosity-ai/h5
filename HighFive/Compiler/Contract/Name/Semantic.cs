@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.TypeSystem;
 using Mono.Cecil;
 using Object.Net.Utilities;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class NameSemantic
     {

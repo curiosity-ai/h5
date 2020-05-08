@@ -1,3 +1,3 @@
-    HighFive.define("System.IConvertible", {
+    H5.define("System.IConvertible", {
         $kind: "interface"
     });

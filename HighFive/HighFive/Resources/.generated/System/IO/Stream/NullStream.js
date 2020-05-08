@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.Stream.NullStream", {
+    H5.define("System.IO.Stream.NullStream", {
         inherits: [System.IO.Stream],
         $kind: "nested class",
         props: {

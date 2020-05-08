@@ -1,4 +1,4 @@
-    HighFive.define("System.ParseFailureKind", {
+    H5.define("System.ParseFailureKind", {
         $kind: "enum",
         statics: {
             fields: {

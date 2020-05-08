@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.KeyNotFoundException", {
+    H5.define("System.Collections.Generic.KeyNotFoundException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

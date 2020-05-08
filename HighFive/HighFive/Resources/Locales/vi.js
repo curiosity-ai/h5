@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("vi", true), {
+H5.merge(new System.Globalization.CultureInfo("vi", true), {
     englishName: "Vietnamese",
     nativeName: "Tiếng Việt",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("vi", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["CN","T2","T3","T4","T5","T6","T7"],
         abbreviatedMonthGenitiveNames: ["Thg1","Thg2","Thg3","Thg4","Thg5","Thg6","Thg7","Thg8","Thg9","Thg10","Thg11","Thg12",""],
         abbreviatedMonthNames: ["Thg1","Thg2","Thg3","Thg4","Thg5","Thg6","Thg7","Thg8","Thg9","Thg10","Thg11","Thg12",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("vi", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1258,
         CultureName: "vi-VN",
         EBCDICCodePage: 500,

@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace System.Collections
 {
-    [HighFive.External]
-    [HighFive.Unbox(true)]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Reflectable]
-    public interface IDictionary : ICollection, HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Unbox(true)]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Reflectable]
+    public interface IDictionary : ICollection, H5.IH5Class
     {
-        [HighFive.AccessorsIndexer]
+        [H5.AccessorsIndexer]
         object this[object key]
         {
             get;
@@ -40,7 +40,7 @@ namespace System.Collections
         /// An System.Collections.IDictionaryEnumerator object for the System.Collections.IDictionary
         /// object.
         /// </returns>
-        [HighFive.Convention(HighFive.Notation.None)]
+        [H5.Convention(H5.Notation.None)]
         new IDictionaryEnumerator GetEnumerator();
 
         /// <summary>

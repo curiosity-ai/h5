@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sah-RU", true), {
+H5.merge(new System.Globalization.CultureInfo("sah-RU", true), {
     englishName: "Sakha (Russia)",
     nativeName: "Саха (Россия)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "чыыһыла буотах",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sah-RU", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Өр","Бн","Оп","Ср","Чп","Бт","Сб"],
         abbreviatedMonthGenitiveNames: ["тхс","олн","клн","мсу","ыам","бэс","оты","атр","блҕ","алт","сэт","ахс",""],
         abbreviatedMonthNames: ["Тхс","Олн","Клн","Мсу","Ыам","Бэс","Оты","Атр","Блҕ","Алт","Сэт","Ахс",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sah-RU", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "sah-RU",
         EBCDICCodePage: 20880,

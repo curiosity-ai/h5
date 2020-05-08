@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class InvocationBlock : ConversionBlock
     {
@@ -314,13 +314,13 @@ namespace HighFive.Translator
 
                                     if (isObjectLiteral && !resolvedMethod.IsStatic && resolvedMethod.DeclaringType.Kind == TypeKind.Interface)
                                     {
-                                        this.Write("HighFive.getType(");
+                                        this.Write("H5.getType(");
                                         this.WriteThisExtension(invocationExpression.Target);
                                         this.Write(").");
                                     }
                                     else
                                     {
-                                        string name = HighFiveTypes.ToJsName(resolvedMethod.DeclaringType, this.Emitter, ignoreLiteralName: false) + ".";
+                                        string name = H5Types.ToJsName(resolvedMethod.DeclaringType, this.Emitter, ignoreLiteralName: false) + ".";
                                         this.Write(name);
                                     }
 
@@ -451,11 +451,11 @@ namespace HighFive.Translator
 
                 if (this.Emitter.TypeInfo.GetBaseTypes(this.Emitter).Any())
                 {
-                    name = HighFiveTypes.ToJsName(this.Emitter.TypeInfo.GetBaseClass(this.Emitter), this.Emitter);
+                    name = H5Types.ToJsName(this.Emitter.TypeInfo.GetBaseClass(this.Emitter), this.Emitter);
                 }
                 else
                 {
-                    name = HighFiveTypes.ToJsName(baseType, this.Emitter);
+                    name = H5Types.ToJsName(baseType, this.Emitter);
                 }
 
                 string baseMethod;
@@ -543,7 +543,7 @@ namespace HighFive.Translator
 
                         if (method == null)
                         {
-                            throw new EmitterException(invocationExpression, HighFive.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
+                            throw new EmitterException(invocationExpression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
                         }
                     }
                 }
@@ -677,7 +677,7 @@ namespace HighFive.Translator
                     }
                     else
                     {
-                        if (method != null && method.Attributes.Any(a => a.AttributeType.FullName == "HighFive.WrapRestAttribute"))
+                        if (method != null && method.Attributes.Any(a => a.AttributeType.FullName == "H5.WrapRestAttribute"))
                         {
                             isWrapRest = true;
                         }
@@ -700,7 +700,7 @@ namespace HighFive.Translator
                     if (isWrapRest)
                     {
                         this.EnsureComma(false);
-                        this.Write("HighFive.fn.bind(this, function () ");
+                        this.Write("H5.fn.bind(this, function () ");
                         this.BeginBlock();
                         this.Emitter.WrapRestCounter++;
                         this.Emitter.SkipSemiColon = true;

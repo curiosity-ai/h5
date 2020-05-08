@@ -1,4 +1,4 @@
-    HighFive.define("System.String", {
+    H5.define("System.String", {
         inherits: [System.IComparable, System.ICloneable, System.Collections.IEnumerable, System.Collections.Generic.IEnumerable$1(System.Char)],
 
         statics: {
@@ -61,7 +61,7 @@
                 var result = "";
 
                 startIndex = startIndex || 0;
-                length = HighFive.isNumber(length) ? length : chars.length;
+                length = H5.isNumber(length) ? length : chars.length;
 
                 if ((startIndex + length) > chars.length) {
                     length = chars.length - startIndex;
@@ -200,26 +200,26 @@
                 if (formatStr && value.$boxed && value.type.$kind === "enum") {
                     value = System.Enum.format(value.type, value.v, formatStr);
                 } else if (formatStr && value.$boxed && value.type.format) {
-                    value = value.type.format(HighFive.unbox(value, true), formatStr, provider);
-                } else if (formatStr && HighFive.is(value, System.IFormattable)) {
-                    value = HighFive.format(HighFive.unbox(value, true), formatStr, provider);
-                } if (HighFive.isNumber(value)) {
-                    value = HighFive.Int.format(value, formatStr, provider);
-                } else if (HighFive.isDate(value)) {
+                    value = value.type.format(H5.unbox(value, true), formatStr, provider);
+                } else if (formatStr && H5.is(value, System.IFormattable)) {
+                    value = H5.format(H5.unbox(value, true), formatStr, provider);
+                } if (H5.isNumber(value)) {
+                    value = H5.Int.format(value, formatStr, provider);
+                } else if (H5.isDate(value)) {
                     value = System.DateTime.format(value, formatStr, provider);
                 } else {
-                    value = "" + HighFive.toString(value);
+                    value = "" + H5.toString(value);
                 }
 
                 if (alignment) {
                     alignment = parseInt(alignment, 10);
 
-                    if (!HighFive.isNumber(alignment)) {
+                    if (!H5.isNumber(alignment)) {
                         alignment = null;
                     }
                 }
 
-                return System.String.alignString(HighFive.toString(value), alignment);
+                return System.String.alignString(H5.toString(value), alignment);
             },
 
             decodeBraceSequence: function (braces, remove) {
@@ -235,7 +235,7 @@
                     pad = " ";
                 }
 
-                if (HighFive.isNumber(pad)) {
+                if (H5.isNumber(pad)) {
                     pad = String.fromCharCode(pad);
                 }
 
@@ -422,7 +422,7 @@
                 }
 
                 if (arguments.length >= 3) {
-                    if (!HighFive.isBoolean(arguments[2])) {
+                    if (!H5.isBoolean(arguments[2])) {
                         // StringComparison
                         switch (arguments[2]) {
                             case 1: // CurrentCultureIgnoreCase
@@ -469,11 +469,11 @@
                     throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
                 }
 
-                if (!HighFive.hasValue(startIndex)) {
+                if (!H5.hasValue(startIndex)) {
                     startIndex = 0;
                 }
 
-                if (!HighFive.hasValue(length)) {
+                if (!H5.hasValue(length)) {
                     length = str.length;
                 }
 
@@ -531,7 +531,7 @@
             },
 
             split: function (s, strings, limit, options) {
-                var re = (!HighFive.hasValue(strings) || strings.length === 0) ? new RegExp("\\s", "g") : new RegExp(strings.map(System.String.escape).join("|"), "g"),
+                var re = (!H5.hasValue(strings) || strings.length === 0) ? new RegExp("\\s", "g") : new RegExp(strings.map(System.String.escape).join("|"), "g"),
                     res = [],
                     m,
                     i;
@@ -578,7 +578,7 @@
                     s = "";
 
                 for (var i = 0; i < list.length; i++) {
-                    s += list[i] == null ? "" : HighFive.toString(list[i]);
+                    s += list[i] == null ? "" : H5.toString(list[i]);
                 }
 
                 return s;
@@ -618,4 +618,4 @@
         }
     });
 
-    HighFive.Class.addExtend(System.String, [System.IComparable$1(System.String), System.IEquatable$1(System.String)]);
+    H5.Class.addExtend(System.String, [System.IComparable$1(System.String), System.IEquatable$1(System.String)]);

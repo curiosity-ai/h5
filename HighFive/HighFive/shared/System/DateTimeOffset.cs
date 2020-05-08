@@ -445,7 +445,7 @@ namespace System {
         // is equal to the value of this DateTimeOffset. Returns false
         // otherwise.
         //
-        [HighFive.Convention(Notation = HighFive.Notation.CamelCase)]
+        [H5.Convention(Notation = H5.Notation.CamelCase)]
         public override bool Equals(Object obj) {
             if (obj is DateTimeOffset) {
                 return UtcDateTime.Equals(((DateTimeOffset)obj).UtcDateTime);
@@ -548,7 +548,7 @@ namespace System {
 
         // Returns the hash code for this DateTimeOffset.
         //
-        [HighFive.Convention(Notation = HighFive.Notation.CamelCase)]
+        [H5.Convention(Notation = H5.Notation.CamelCase)]
         public override int GetHashCode() {
             return UtcDateTime.GetHashCode();
         }
@@ -673,7 +673,7 @@ namespace System {
             return new DateTimeOffset(UtcDateTime.ToLocalTime(throwOnOverflow));
         }
 
-        [HighFive.Convention(Notation = HighFive.Notation.CamelCase)]
+        [H5.Convention(Notation = H5.Notation.CamelCase)]
         public override String ToString()
         {
             return DateTime.SpecifyKind(ClockDateTime, DateTimeKind.Local).ToString();

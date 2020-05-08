@@ -1,12 +1,12 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using System;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class UnaryOperatorBlock : ConversionBlock
     {
@@ -52,7 +52,7 @@ namespace HighFive.Translator
                         this.Write(JS.Types.SYSTEM_NULLABLE + "." + JS.Funcs.Math.LIFT + "(");
                     }
 
-                    this.Write(HighFiveTypes.ToJsName(method.DeclaringType, this.Emitter));
+                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
                     this.WriteDot();
 
                     this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
@@ -163,7 +163,7 @@ namespace HighFive.Translator
                 if (prop != null)
                 {
                     var isIgnore = memberArgResolverResult.Member.DeclaringTypeDefinition != null && this.Emitter.Validator.IsExternalType(memberArgResolverResult.Member.DeclaringTypeDefinition);
-                    var inlineAttr = prop.Getter != null ? this.Emitter.GetAttribute(prop.Getter.Attributes, Translator.HighFive_ASSEMBLY + ".TemplateAttribute") : null;
+                    var inlineAttr = prop.Getter != null ? this.Emitter.GetAttribute(prop.Getter.Attributes, Translator.H5_ASSEMBLY + ".TemplateAttribute") : null;
                     var ignoreAccessor = prop.Getter != null && this.Emitter.Validator.IsExternalType(prop.Getter);
                     var isAccessorsIndexer = this.Emitter.Validator.IsAccessorsIndexer(memberArgResolverResult.Member);
 
@@ -415,7 +415,7 @@ namespace HighFive.Translator
             if (memberArgResolverResult != null && memberArgResolverResult.Member is IProperty)
             {
                 var isIgnore = this.Emitter.Validator.IsExternalType(memberArgResolverResult.Member.DeclaringTypeDefinition);
-                var inlineAttr = this.Emitter.GetAttribute(memberArgResolverResult.Member.Attributes, Translator.HighFive_ASSEMBLY + ".TemplateAttribute");
+                var inlineAttr = this.Emitter.GetAttribute(memberArgResolverResult.Member.Attributes, Translator.H5_ASSEMBLY + ".TemplateAttribute");
                 var ignoreAccessor = this.Emitter.Validator.IsExternalType(((IProperty)memberArgResolverResult.Member).Getter);
                 var isAccessorsIndexer = this.Emitter.Validator.IsAccessorsIndexer(memberArgResolverResult.Member);
 
@@ -690,7 +690,7 @@ namespace HighFive.Translator
                 }
                 else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
                 {
-                    this.Write(HighFiveTypes.ToJsName(method.DeclaringType, this.Emitter));
+                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
                     this.WriteDot();
 
                     this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());

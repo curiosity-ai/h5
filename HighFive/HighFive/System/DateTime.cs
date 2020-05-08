@@ -5,47 +5,47 @@ namespace System
     /// <summary>
     /// Represents an instant in time, typically expressed as a date and time of day.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public struct DateTime : IComparable, IComparable<DateTime>, IEquatable<DateTime>, IFormattable
     {
 
-        [HighFive.Template("System.DateTime.TicksPerDay")]
+        [H5.Template("System.DateTime.TicksPerDay")]
         private const long TicksPerDay = 864000000000;
 
-        [HighFive.Template("System.DateTime.DaysTo1970")]
+        [H5.Template("System.DateTime.DaysTo1970")]
         internal const int DaysTo1970 = 719162;
 
-        [HighFive.Template("System.DateTime.getMinTicks()")]
+        [H5.Template("System.DateTime.getMinTicks()")]
         internal const long MinTicks = 0;
 
-        [HighFive.Template("System.DateTime.getMaxTicks()")]
+        [H5.Template("System.DateTime.getMaxTicks()")]
         internal const long MaxTicks = 3652059 * 864000000000 - 1;
 
         /// <summary>
         /// Represents the largest possible value of DateTime. This field is read-only.
         /// </summary>
-        [HighFive.Template("System.DateTime.getMaxValue()")]
+        [H5.Template("System.DateTime.getMaxValue()")]
         public static readonly DateTime MaxValue;
 
         /// <summary>
         /// Represents the smallest possible value of DateTime. This field is read-only.
         /// </summary>
-        [HighFive.Template("System.DateTime.getMinValue()")]
+        [H5.Template("System.DateTime.getMinValue()")]
         public static readonly DateTime MinValue;
 
         /// <summary>
         /// Initializes a new instance of the DateTime structure.
         /// </summary>
-        [HighFive.Template("System.DateTime.getDefaultValue()")]
+        [H5.Template("System.DateTime.getDefaultValue()")]
         private extern DateTime(DummyTypeUsedToAddAttributeToDefaultValueTypeConstructor _);
 
         /// <summary>
         /// Initializes a new instance of the DateTime structure to a specified number of ticks.
         /// </summary>
         /// <param name="ticks">A date and time expressed in the number of 100-nanosecond intervals that have elapsed since January 1, 0001 at 00:00:00.000 in the Gregorian calendar.</param>
-        [HighFive.Template("System.DateTime.create$2({0})")]
+        [H5.Template("System.DateTime.create$2({0})")]
         public extern DateTime(long ticks);
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace System
         /// </summary>
         /// <param name="ticks">A date and time expressed in the number of 100-nanosecond intervals that have elapsed since January 1, 0001 at 00:00:00.000 in the Gregorian calendar.</param>
         /// <param name="kind">One of the enumeration values that indicates whether ticks specifies a local time, Coordinated Universal Time (UTC), or neither.</param>
-        [HighFive.Template("System.DateTime.create$2({0}, {1})")]
+        [H5.Template("System.DateTime.create$2({0}, {1})")]
         public extern DateTime(long ticks, DateTimeKind kind);
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace System
         /// <param name="year">The year (1 through 9999).</param>
         /// <param name="month">The month (1 through 12).</param>
         /// <param name="day">The day (1 through the number of days in month).</param>
-        [HighFive.Template("System.DateTime.create({0}, {1}, {2})")]
+        [H5.Template("System.DateTime.create({0}, {1}, {2})")]
         public extern DateTime(int year, int month, int day);
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace System
         /// <param name="hour">The hours (0 through 23).</param>
         /// <param name="minute">The minutes (0 through 59).</param>
         /// <param name="second">The seconds (0 through 59).</param>
-        [HighFive.Template("System.DateTime.create({0}, {1}, {2}, {3}, {4}, {5})")]
+        [H5.Template("System.DateTime.create({0}, {1}, {2}, {3}, {4}, {5})")]
         public extern DateTime(int year, int month, int day, int hour, int minute, int second);
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace System
         /// <param name="minute">The minutes (0 through 59).</param>
         /// <param name="second">The seconds (0 through 59).</param>
         /// <param name="kind">One of the enumeration values that indicates whether year, month, day, hour, minute, second, and millisecond specify a local time, Coordinated Universal Time (UTC), or neither.</param>
-        [HighFive.Template("System.DateTime.create({0}, {1}, {2}, {3}, {4}, {5}, 0, {6})")]
+        [H5.Template("System.DateTime.create({0}, {1}, {2}, {3}, {4}, {5}, 0, {6})")]
         public extern DateTime(int year, int month, int day, int hour, int minute, int second, DateTimeKind kind);
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace System
         /// <param name="minute">The minutes (0 through 59).</param>
         /// <param name="second">The seconds (0 through 59).</param>
         /// <param name="millisecond">The milliseconds (0 through 999).</param>
-        [HighFive.Template("System.DateTime.create({0}, {1}, {2}, {3}, {4}, {5}, {6})")]
+        [H5.Template("System.DateTime.create({0}, {1}, {2}, {3}, {4}, {5}, {6})")]
         public extern DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond);
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace System
         /// <param name="second">The seconds (0 through 59).</param>
         /// <param name="millisecond">The milliseconds (0 through 999).</param>
         /// <param name="kind">One of the enumeration values that indicates whether year, month, day, hour, minute, second, and millisecond specify a local time, Coordinated Universal Time (UTC), or neither.</param>
-        [HighFive.Template("System.DateTime.create({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})")]
+        [H5.Template("System.DateTime.create({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})")]
         public extern DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, DateTimeKind kind);
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace System
         /// </summary>
         public static extern DateTime Today
         {
-            [HighFive.Template("System.DateTime.getToday()")]
+            [H5.Template("System.DateTime.getToday()")]
             get;
         }
 
@@ -131,7 +131,7 @@ namespace System
         /// </summary>
         public static extern DateTime Now
         {
-            [HighFive.Template("System.DateTime.getNow()")]
+            [H5.Template("System.DateTime.getNow()")]
             get;
         }
 
@@ -140,7 +140,7 @@ namespace System
         /// </summary>
         public static extern DateTime UtcNow
         {
-            [HighFive.Template("System.DateTime.getUtcNow()")]
+            [H5.Template("System.DateTime.getUtcNow()")]
             get;
         }
 
@@ -149,7 +149,7 @@ namespace System
         /// </summary>
         public DateTimeKind Kind
         {
-            [HighFive.Template("System.DateTime.getKind({this})")]
+            [H5.Template("System.DateTime.getKind({this})")]
             get;
         }
 
@@ -159,7 +159,7 @@ namespace System
         /// <param name="value">A date and time.</param>
         /// <param name="kind">One of the enumeration values that indicates whether the new object represents local time, UTC, or neither.</param>
         /// <returns>A new object that has the same number of ticks as the object represented by the value parameter and the DateTimeKind value specified by the kind parameter.</returns>
-        [HighFive.Template("System.DateTime.specifyKind({0}, {1})")]
+        [H5.Template("System.DateTime.specifyKind({0}, {1})")]
         public extern static DateTime SpecifyKind(DateTime value, DateTimeKind kind);
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace System
         /// </summary>
         /// <param name="fileTime">Ticks</param>
         /// <returns>DateTime</returns>
-        [HighFive.Template("System.DateTime.FromFileTime({0})")]
+        [H5.Template("System.DateTime.FromFileTime({0})")]
         public extern static DateTime FromFileTime(long fileTime);
 
         /// <summary>
@@ -175,67 +175,67 @@ namespace System
         /// </summary>
         /// <param name="fileTime">Ticks</param>
         /// <returns>DateTime</returns>
-        [HighFive.Template("System.DateTime.FromFileTimeUtc({0})")]
+        [H5.Template("System.DateTime.FromFileTimeUtc({0})")]
         public extern static DateTime FromFileTimeUtc(long fileTime);
 
-        [HighFive.Template("System.DateTime.ToFileTime({this})")]
+        [H5.Template("System.DateTime.ToFileTime({this})")]
         public extern long ToFileTime();
 
-        [HighFive.Template("System.DateTime.ToFileTimeUtc({this})")]
+        [H5.Template("System.DateTime.ToFileTimeUtc({this})")]
         public extern long ToFileTimeUtc();
 
-        [HighFive.Template(Fn = "System.DateTime.format")]
+        [H5.Template(Fn = "System.DateTime.format")]
         public override extern string ToString();
 
-        [HighFive.Template("System.DateTime.format({this}, {0})")]
+        [H5.Template("System.DateTime.format({this}, {0})")]
         public extern string ToString(string format);
 
-        [HighFive.Template("System.DateTime.format({this}, {0}, {1})")]
+        [H5.Template("System.DateTime.format({this}, {0}, {1})")]
         public extern string ToString(string format, IFormatProvider provider);
 
-        [HighFive.Template("System.DateTime.parse({0})")]
+        [H5.Template("System.DateTime.parse({0})")]
         public static extern DateTime Parse(string s);
 
-        [HighFive.Template("System.DateTime.parse({0}, {1})")]
+        [H5.Template("System.DateTime.parse({0}, {1})")]
         public static extern DateTime Parse(string s, IFormatProvider provider);
 
-        [HighFive.Template("System.DateTime.tryParse({0}, null, {1})")]
+        [H5.Template("System.DateTime.tryParse({0}, null, {1})")]
         public static extern bool TryParse(string s, out DateTime result);
 
-        [HighFive.Template("System.DateTime.parseExact({0}, {1}, {2})")]
+        [H5.Template("System.DateTime.parseExact({0}, {1}, {2})")]
         public static extern DateTime ParseExact(string s, string format, IFormatProvider provider);
 
-        [HighFive.Template("System.DateTime.tryParseExact({0}, {1}, {2}, {3})")]
+        [H5.Template("System.DateTime.tryParseExact({0}, {1}, {2}, {3})")]
         public static extern bool TryParseExact(string s, string format, IFormatProvider provider, out DateTime result);
 
-        [HighFive.Template("System.DateTime.subdt({0}, {1})")]
+        [H5.Template("System.DateTime.subdt({0}, {1})")]
         public static extern DateTime operator -(DateTime d, TimeSpan t);
 
-        [HighFive.Template("System.DateTime.adddt({0}, {1})")]
+        [H5.Template("System.DateTime.adddt({0}, {1})")]
         public static extern DateTime operator +(DateTime d, TimeSpan t);
 
-        [HighFive.Template("System.DateTime.subdd({0}, {1})")]
+        [H5.Template("System.DateTime.subdd({0}, {1})")]
         public static extern TimeSpan operator -(DateTime a, DateTime b);
 
-        [HighFive.Template("System.DateTime.subdd({this}, {0})")]
+        [H5.Template("System.DateTime.subdd({this}, {0})")]
         public extern TimeSpan Subtract(DateTime value);
 
-        [HighFive.Template("HighFive.equals({0}, {1})")]
+        [H5.Template("H5.equals({0}, {1})")]
         public static extern bool operator ==(DateTime a, DateTime b);
 
-        [HighFive.Template("!HighFive.equals({0}, {1})")]
+        [H5.Template("!H5.equals({0}, {1})")]
         public static extern bool operator !=(DateTime a, DateTime b);
 
-        [HighFive.Template("System.DateTime.lt({0}, {1})")]
+        [H5.Template("System.DateTime.lt({0}, {1})")]
         public static extern bool operator <(DateTime a, DateTime b);
 
-        [HighFive.Template("System.DateTime.gt({0}, {1})")]
+        [H5.Template("System.DateTime.gt({0}, {1})")]
         public static extern bool operator >(DateTime a, DateTime b);
 
-        [HighFive.Template("System.DateTime.lte({0}, {1})")]
+        [H5.Template("System.DateTime.lte({0}, {1})")]
         public static extern bool operator <=(DateTime a, DateTime b);
 
-        [HighFive.Template("System.DateTime.gte({0}, {1})")]
+        [H5.Template("System.DateTime.gte({0}, {1})")]
         public static extern bool operator >=(DateTime a, DateTime b);
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace System
         /// </summary>
         public extern DateTime Date
         {
-            [HighFive.Template("System.DateTime.getDate({this})")]
+            [H5.Template("System.DateTime.getDate({this})")]
             get;
         }
 
@@ -252,7 +252,7 @@ namespace System
         /// </summary>
         public extern int DayOfYear
         {
-            [HighFive.Template("System.DateTime.getDayOfYear({this})")]
+            [H5.Template("System.DateTime.getDayOfYear({this})")]
             get;
         }
 
@@ -261,7 +261,7 @@ namespace System
         /// </summary>
         public extern DayOfWeek DayOfWeek
         {
-            [HighFive.Template("System.DateTime.getDayOfWeek({this})")]
+            [H5.Template("System.DateTime.getDayOfWeek({this})")]
             get;
         }
 
@@ -270,7 +270,7 @@ namespace System
         /// </summary>
         public extern int Year
         {
-            [HighFive.Template("System.DateTime.getYear({this})")]
+            [H5.Template("System.DateTime.getYear({this})")]
             get;
         }
 
@@ -279,7 +279,7 @@ namespace System
         /// </summary>
         public extern int Month
         {
-            [HighFive.Template("System.DateTime.getMonth({this})")]
+            [H5.Template("System.DateTime.getMonth({this})")]
             get;
         }
 
@@ -288,7 +288,7 @@ namespace System
         /// </summary>
         public extern int Day
         {
-            [HighFive.Template("System.DateTime.getDay({this})")]
+            [H5.Template("System.DateTime.getDay({this})")]
             get;
         }
 
@@ -297,7 +297,7 @@ namespace System
         /// </summary>
         public extern int Hour
         {
-            [HighFive.Template("System.DateTime.getHour({this})")]
+            [H5.Template("System.DateTime.getHour({this})")]
             get;
         }
 
@@ -306,7 +306,7 @@ namespace System
         /// </summary>
         public extern int Millisecond
         {
-            [HighFive.Template("System.DateTime.getMillisecond({this})")]
+            [H5.Template("System.DateTime.getMillisecond({this})")]
             get;
         }
 
@@ -315,7 +315,7 @@ namespace System
         /// </summary>
         public extern int Minute
         {
-            [HighFive.Template("System.DateTime.getMinute({this})")]
+            [H5.Template("System.DateTime.getMinute({this})")]
             get;
         }
 
@@ -324,7 +324,7 @@ namespace System
         /// </summary>
         public extern int Second
         {
-            [HighFive.Template("System.DateTime.getSecond({this})")]
+            [H5.Template("System.DateTime.getSecond({this})")]
             get;
         }
 
@@ -333,7 +333,7 @@ namespace System
         /// </summary>
         public extern TimeSpan TimeOfDay
         {
-            [HighFive.Template("System.DateTime.getTimeOfDay({this})")]
+            [H5.Template("System.DateTime.getTimeOfDay({this})")]
             get;
         }
 
@@ -342,7 +342,7 @@ namespace System
         /// </summary>
         public extern long Ticks
         {
-            [HighFive.Template("System.DateTime.getTicks({this})")]
+            [H5.Template("System.DateTime.getTicks({this})")]
             get;
         }
 
@@ -351,7 +351,7 @@ namespace System
         /// </summary>
         /// <param name="value">A number of years. The value parameter can be negative or positive.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and the number of years represented by value.</returns>
-        [HighFive.Template("System.DateTime.addYears({this}, {0})")]
+        [H5.Template("System.DateTime.addYears({this}, {0})")]
         public extern DateTime AddYears(int value);
 
         /// <summary>
@@ -359,7 +359,7 @@ namespace System
         /// </summary>
         /// <param name="months">A number of months. The months parameter can be negative or positive.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and months.</returns>
-        [HighFive.Template("System.DateTime.addMonths({this}, {0})")]
+        [H5.Template("System.DateTime.addMonths({this}, {0})")]
         public extern DateTime AddMonths(int months);
 
         /// <summary>
@@ -367,7 +367,7 @@ namespace System
         /// </summary>
         /// <param name="value">A number of whole and fractional days. The value parameter can be negative or positive.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and the number of days represented by value.</returns>
-        [HighFive.Template("System.DateTime.addDays({this}, {0})")]
+        [H5.Template("System.DateTime.addDays({this}, {0})")]
         public extern DateTime AddDays(double value);
 
         /// <summary>
@@ -375,7 +375,7 @@ namespace System
         /// </summary>
         /// <param name="value">A number of whole and fractional hours. The value parameter can be negative or positive.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and the number of hours represented by value.</returns>
-        [HighFive.Template("System.DateTime.addHours({this}, {0})")]
+        [H5.Template("System.DateTime.addHours({this}, {0})")]
         public extern DateTime AddHours(double value);
 
         /// <summary>
@@ -383,7 +383,7 @@ namespace System
         /// </summary>
         /// <param name="value">A number of whole and fractional minutes. The value parameter can be negative or positive.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and the number of minutes represented by value.</returns>
-        [HighFive.Template("System.DateTime.addMinutes({this}, {0})")]
+        [H5.Template("System.DateTime.addMinutes({this}, {0})")]
         public extern DateTime AddMinutes(double value);
 
         /// <summary>
@@ -391,7 +391,7 @@ namespace System
         /// </summary>
         /// <param name="value">A number of whole and fractional seconds. The value parameter can be negative or positive.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and the number of seconds represented by value.</returns>
-        [HighFive.Template("System.DateTime.addSeconds({this}, {0})")]
+        [H5.Template("System.DateTime.addSeconds({this}, {0})")]
         public extern DateTime AddSeconds(double value);
 
         /// <summary>
@@ -399,7 +399,7 @@ namespace System
         /// </summary>
         /// <param name="value">A number of whole and fractional milliseconds. The value parameter can be negative or positive. Note that this value is rounded to the nearest integer.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and the number of milliseconds represented by value.</returns>
-        [HighFive.Template("System.DateTime.addMilliseconds({this}, {0})")]
+        [H5.Template("System.DateTime.addMilliseconds({this}, {0})")]
         public extern DateTime AddMilliseconds(double value);
 
         /// <summary>
@@ -407,7 +407,7 @@ namespace System
         /// </summary>
         /// <param name="value">A number of 100-nanosecond ticks. The value parameter can be positive or negative.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and the time represented by value.</returns>
-        [HighFive.Template("System.DateTime.addTicks({this}, {0})")]
+        [H5.Template("System.DateTime.addTicks({this}, {0})")]
         public extern DateTime AddTicks(long value);
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace System
         /// </summary>
         /// <param name="value">A positive or negative time interval.</param>
         /// <returns>An object whose value is the sum of the date and time represented by this instance and the time interval represented by value.</returns>
-        [HighFive.Template("System.DateTime.add({this}, {0})")]
+        [H5.Template("System.DateTime.add({this}, {0})")]
         public extern DateTime Add(TimeSpan value);
 
         /// <summary>
@@ -423,7 +423,7 @@ namespace System
         /// </summary>
         /// <param name="value">The time interval to subtract.</param>
         /// <returns>An object that is equal to the date and time represented by this instance minus the time interval represented by value.</returns>
-        [HighFive.Template("System.DateTime.subtract({this}, {0})")]
+        [H5.Template("System.DateTime.subtract({this}, {0})")]
         public extern DateTime Subtract(TimeSpan value);
 
         /// <summary>
@@ -432,7 +432,7 @@ namespace System
         /// <param name="year">The year.</param>
         /// <param name="month">The month (a number ranging from 1 to 12).</param>
         /// <returns>The number of days in month for the specified year.</returns>
-        [HighFive.Template("System.DateTime.getDaysInMonth({0}, {1})")]
+        [H5.Template("System.DateTime.getDaysInMonth({0}, {1})")]
         public static extern int DaysInMonth(int year, int month);
 
         /// <summary>
@@ -440,64 +440,64 @@ namespace System
         /// </summary>
         /// <param name="year">A 4-digit year.</param>
         /// <returns>true if year is a leap year; otherwise, false.</returns>
-        [HighFive.Template("System.DateTime.getIsLeapYear({0})")]
+        [H5.Template("System.DateTime.getIsLeapYear({0})")]
         public static extern bool IsLeapYear(int year);
 
-        [HighFive.Template("HighFive.compare({this}, {0})")]
+        [H5.Template("H5.compare({this}, {0})")]
         public extern int CompareTo(DateTime other);
 
-        [HighFive.Template("HighFive.compare({this}, {0})")]
+        [H5.Template("H5.compare({this}, {0})")]
         public extern int CompareTo(object other);
 
-        [HighFive.Template("HighFive.compare({t1}, {t2})")]
+        [H5.Template("H5.compare({t1}, {t2})")]
         public static extern int Compare(DateTime t1, DateTime t2);
 
-        [HighFive.Template("HighFive.equalsT({this}, {0})")]
+        [H5.Template("H5.equalsT({this}, {0})")]
         public extern bool Equals(DateTime other);
 
-        [HighFive.Template("HighFive.equalsT({0}, {1})")]
+        [H5.Template("H5.equalsT({0}, {1})")]
         public static extern bool Equals(DateTime t1, DateTime t2);
 
         /// <summary>
         /// Indicates whether this instance of DateTime is within the daylight saving time range for the current time zone.
         /// </summary>
         /// <returns>true if the value of the Kind property is Local or Unspecified and the value of this instance of DateTime is within the daylight saving time range for the local time zone; false if Kind is Utc.</returns>
-        [HighFive.Template("System.DateTime.isDaylightSavingTime({this})")]
+        [H5.Template("System.DateTime.isDaylightSavingTime({this})")]
         public extern bool IsDaylightSavingTime();
 
         /// <summary>
         /// Converts the value of the current DateTime object to Coordinated Universal Time (UTC).
         /// </summary>
         /// <returns>An object whose Kind property is Utc, and whose value is the UTC equivalent to the value of the current DateTime object, or MaxValue if the converted value is too large to be represented by a DateTime object, or MinValue if the converted value is too small to be represented by a DateTime object.</returns>
-        [HighFive.Template("System.DateTime.toUniversalTime({this})")]
+        [H5.Template("System.DateTime.toUniversalTime({this})")]
         public extern DateTime ToUniversalTime();
 
         /// <summary>
         /// Converts the value of the current DateTime object to local time.
         /// </summary>
         /// <returns>An object whose Kind property is Local, and whose value is the local time equivalent to the value of the current DateTime object, or MaxValue if the converted value is too large to be represented by a DateTime object, or MinValue if the converted value is too small to be represented as a DateTime object.</returns>
-        [HighFive.Template("System.DateTime.toLocalTime({this})")]
+        [H5.Template("System.DateTime.toLocalTime({this})")]
         public extern DateTime ToLocalTime();
 
         /// <summary>
         /// Converts the value of the current DateTime object to local time.
         /// </summary>
         /// <returns>An object whose Kind property is Local, and whose value is the local time equivalent to the value of the current DateTime object, or MaxValue if the converted value is too large to be represented by a DateTime object, or MinValue if the converted value is too small to be represented as a DateTime object.</returns>
-        [HighFive.Template("System.DateTime.toLocalTime({this}, {0})")]
+        [H5.Template("System.DateTime.toLocalTime({this}, {0})")]
         public extern DateTime ToLocalTime(bool throwOnOverflow);
 
         /// <summary>
         /// Converts the value of the current DateTime object to its equivalent short date string representation.
         /// </summary>
         /// <returns>A string that contains the short date string representation of the current DateTime object.</returns>
-        [HighFive.Template("System.DateTime.format({this}, \"d\")")]
+        [H5.Template("System.DateTime.format({this}, \"d\")")]
         public extern string ToShortDateString();
 
         /// <summary>
         /// Converts the value of the current DateTime object to its equivalent short time string representation.
         /// </summary>
         /// <returns>A string that contains the short time string representation of the current DateTime object.</returns>
-        [HighFive.Template("System.DateTime.format({this}, \"t\")")]
+        [H5.Template("System.DateTime.format({this}, \"t\")")]
         public extern string ToShortTimeString();
     }
 }

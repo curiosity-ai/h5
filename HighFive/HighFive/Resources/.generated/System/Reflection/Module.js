@@ -1,4 +1,4 @@
-    HighFive.define("System.Reflection.Module", {
+    H5.define("System.Reflection.Module", {
         inherits: [System.Reflection.ICustomAttributeProvider,System.Runtime.Serialization.ISerializable],
         statics: {
             fields: {
@@ -15,40 +15,40 @@
             },
             methods: {
                 FilterTypeNameImpl: function (cls, filterCriteria) {
-                    if (filterCriteria == null || !(HighFive.is(filterCriteria, System.String))) {
+                    if (filterCriteria == null || !(H5.is(filterCriteria, System.String))) {
                         throw new System.Reflection.InvalidFilterCriteriaException.$ctor1("A String must be provided for the filter criteria.");
                     }
 
-                    var str = HighFive.cast(filterCriteria, System.String);
+                    var str = H5.cast(filterCriteria, System.String);
 
                     if (str.length > 0 && str.charCodeAt(((str.length - 1) | 0)) === 42) {
                         str = str.substr(0, ((str.length - 1) | 0));
-                        return System.String.startsWith(HighFive.Reflection.getTypeName(cls), str, 4);
+                        return System.String.startsWith(H5.Reflection.getTypeName(cls), str, 4);
                     }
 
-                    return System.String.equals(HighFive.Reflection.getTypeName(cls), str);
+                    return System.String.equals(H5.Reflection.getTypeName(cls), str);
                 },
                 FilterTypeNameIgnoreCaseImpl: function (cls, filterCriteria) {
                     var $t;
-                    if (filterCriteria == null || !(HighFive.is(filterCriteria, System.String))) {
+                    if (filterCriteria == null || !(H5.is(filterCriteria, System.String))) {
                         throw new System.Reflection.InvalidFilterCriteriaException.$ctor1("A String must be provided for the filter criteria.");
                     }
 
-                    var str = HighFive.cast(filterCriteria, System.String);
+                    var str = H5.cast(filterCriteria, System.String);
 
                     if (str.length > 0 && str.charCodeAt(((str.length - 1) | 0)) === 42) {
                         str = str.substr(0, ((str.length - 1) | 0));
-                        var name = HighFive.Reflection.getTypeName(cls);
+                        var name = H5.Reflection.getTypeName(cls);
                         if (name.length >= str.length) {
                             return (($t = str.length, System.String.compare(name.substr(0, $t), str.substr(0, $t), 5)) === 0);
                         } else {
                             return false;
                         }
                     }
-                    return (System.String.compare(str, HighFive.Reflection.getTypeName(cls), 5) === 0);
+                    return (System.String.compare(str, H5.Reflection.getTypeName(cls), 5) === 0);
                 },
                 op_Equality: function (left, right) {
-                    if (HighFive.referenceEquals(left, right)) {
+                    if (H5.referenceEquals(left, right)) {
                         return true;
                     }
 
@@ -184,7 +184,7 @@
                 var c = this.GetTypes();
                 var cnt = 0;
                 for (var i = 0; i < c.length; i = (i + 1) | 0) {
-                    if (!HighFive.staticEquals(filter, null) && !filter(c[System.Array.index(i, c)], filterCriteria)) {
+                    if (!H5.staticEquals(filter, null) && !filter(c[System.Array.index(i, c)], filterCriteria)) {
                         c[System.Array.index(i, c)] = null;
                     } else {
                         cnt = (cnt + 1) | 0;
@@ -198,7 +198,7 @@
                 cnt = 0;
                 for (var i1 = 0; i1 < c.length; i1 = (i1 + 1) | 0) {
                     if (c[System.Array.index(i1, c)] != null) {
-                        ret[System.Array.index(HighFive.identity(cnt, ((cnt = (cnt + 1) | 0))), ret)] = c[System.Array.index(i1, c)];
+                        ret[System.Array.index(H5.identity(cnt, ((cnt = (cnt + 1) | 0))), ret)] = c[System.Array.index(i1, c)];
                     }
                 }
                 return ret;
@@ -234,10 +234,10 @@
                 throw System.NotImplemented.ByDesign;
             },
             equals: function (o) {
-                return HighFive.equals(this, o);
+                return H5.equals(this, o);
             },
             getHashCode: function () {
-                return HighFive.getHashCode(this);
+                return H5.getHashCode(this);
             },
             toString: function () {
                 return this.ScopeName;

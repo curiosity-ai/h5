@@ -1,9 +1,9 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class DependencyFinderVisitor : DepthFirstAstVisitor
     {
@@ -101,7 +101,7 @@ namespace HighFive.Translator
 
             if (!rr.IsError)
             {
-                var typeInfo = this.Emitter.HighFiveTypes.Get(rr.Type, true);
+                var typeInfo = this.Emitter.H5Types.Get(rr.Type, true);
 
                 if (typeInfo != null && typeInfo.TypeInfo != null && typeInfo.Type.FullName != this.Type.Type.FullName && this.Dependencies.All(d => d.Type.FullName != typeInfo.TypeInfo.Type.FullName))
                 {

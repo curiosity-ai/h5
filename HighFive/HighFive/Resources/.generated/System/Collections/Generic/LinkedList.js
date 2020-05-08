@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.LinkedList$1", function (T) { return {
+    H5.define("System.Collections.Generic.LinkedList$1", function (T) { return {
         inherits: [System.Collections.Generic.ICollection$1(T),System.Collections.ICollection,System.Collections.Generic.IReadOnlyCollection$1(T)],
         statics: {
             fields: {
@@ -52,16 +52,16 @@
             }
         },
         alias: [
-            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + HighFive.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
+            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + H5.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
             "Count", "System$Collections$ICollection$Count",
-            "Count", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$Count",
-            "System$Collections$Generic$ICollection$1$IsReadOnly", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$IsReadOnly",
-            "System$Collections$Generic$ICollection$1$add", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$add",
-            "clear", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$clear",
-            "contains", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$contains",
-            "copyTo", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$copyTo",
-            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + HighFive.getTypeAlias(T) + "$GetEnumerator",
-            "remove", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$remove"
+            "Count", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$Count",
+            "System$Collections$Generic$ICollection$1$IsReadOnly", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$IsReadOnly",
+            "System$Collections$Generic$ICollection$1$add", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$add",
+            "clear", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$clear",
+            "contains", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$contains",
+            "copyTo", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$copyTo",
+            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + H5.getTypeAlias(T) + "$GetEnumerator",
+            "remove", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$remove"
         ],
         ctors: {
             ctor: function () {
@@ -74,14 +74,14 @@
                     throw new System.ArgumentNullException.$ctor1("collection");
                 }
 
-                $t = HighFive.getEnumerator(collection, T);
+                $t = H5.getEnumerator(collection, T);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
                         this.AddLast(item);
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -107,7 +107,7 @@
                 this.ValidateNode(node);
                 var result = new (System.Collections.Generic.LinkedListNode$1(T)).$ctor1(node.list, value);
                 this.InternalInsertNodeBefore(node, result);
-                if (HighFive.referenceEquals(node, this.head)) {
+                if (H5.referenceEquals(node, this.head)) {
                     this.head = result;
                 }
                 return result;
@@ -117,7 +117,7 @@
                 this.ValidateNewNode(newNode);
                 this.InternalInsertNodeBefore(node, newNode);
                 newNode.list = this;
-                if (HighFive.referenceEquals(node, this.head)) {
+                if (H5.referenceEquals(node, this.head)) {
                     this.head = newNode;
                 }
             },
@@ -192,9 +192,9 @@
                 var node = this.head;
                 if (node != null) {
                     do {
-                        array[System.Array.index(HighFive.identity(index, ((index = (index + 1) | 0))), array)] = node.item;
+                        array[System.Array.index(H5.identity(index, ((index = (index + 1) | 0))), array)] = node.item;
                         node = node.next;
-                    } while (!HighFive.referenceEquals(node, this.head));
+                    } while (!H5.referenceEquals(node, this.head));
                 }
             },
             System$Collections$ICollection$copyTo: function (array, index) {
@@ -218,17 +218,17 @@
                     throw new System.ArgumentException.ctor();
                 }
 
-                var tArray = HighFive.as(array, System.Array.type(T));
+                var tArray = H5.as(array, System.Array.type(T));
                 if (tArray != null) {
                     this.copyTo(tArray, index);
                 } else {
-                    var targetType = (HighFive.getType(array).$elementType || null);
+                    var targetType = (H5.getType(array).$elementType || null);
                     var sourceType = T;
-                    if (!(HighFive.Reflection.isAssignableFrom(targetType, sourceType) || HighFive.Reflection.isAssignableFrom(sourceType, targetType))) {
+                    if (!(H5.Reflection.isAssignableFrom(targetType, sourceType) || H5.Reflection.isAssignableFrom(sourceType, targetType))) {
                         throw new System.ArgumentException.ctor();
                     }
 
-                    var objects = HighFive.as(array, System.Array.type(System.Object));
+                    var objects = H5.as(array, System.Array.type(System.Object));
                     if (objects == null) {
                         throw new System.ArgumentException.ctor();
                     }
@@ -236,13 +236,13 @@
                     try {
                         if (node != null) {
                             do {
-                                objects[System.Array.index(HighFive.identity(index, ((index = (index + 1) | 0))), objects)] = node.item;
+                                objects[System.Array.index(H5.identity(index, ((index = (index + 1) | 0))), objects)] = node.item;
                                 node = node.next;
-                            } while (!HighFive.referenceEquals(node, this.head));
+                            } while (!H5.referenceEquals(node, this.head));
                         }
                     } catch ($e1) {
                         $e1 = System.Exception.create($e1);
-                        if (HighFive.is($e1, System.ArrayTypeMismatchException)) {
+                        if (H5.is($e1, System.ArrayTypeMismatchException)) {
                             throw new System.ArgumentException.ctor();
                         } else {
                             throw $e1;
@@ -260,14 +260,14 @@
                                 return node;
                             }
                             node = node.next;
-                        } while (!HighFive.referenceEquals(node, this.head));
+                        } while (!H5.referenceEquals(node, this.head));
                     } else {
                         do {
                             if (node.item == null) {
                                 return node;
                             }
                             node = node.next;
-                        } while (!HighFive.referenceEquals(node, this.head));
+                        } while (!H5.referenceEquals(node, this.head));
                     }
                 }
                 return null;
@@ -288,14 +288,14 @@
                             }
 
                             node = node.prev;
-                        } while (!HighFive.referenceEquals(node, last));
+                        } while (!H5.referenceEquals(node, last));
                     } else {
                         do {
                             if (node.item == null) {
                                 return node;
                             }
                             node = node.prev;
-                        } while (!HighFive.referenceEquals(node, last));
+                        } while (!H5.referenceEquals(node, last));
                     }
                 }
                 return null;
@@ -350,15 +350,15 @@
                 this.count = (this.count + 1) | 0;
             },
             InternalRemoveNode: function (node) {
-                System.Diagnostics.Debug.Assert$1(HighFive.referenceEquals(node.list, this), "Deleting the node from another list!");
+                System.Diagnostics.Debug.Assert$1(H5.referenceEquals(node.list, this), "Deleting the node from another list!");
                 System.Diagnostics.Debug.Assert$1(this.head != null, "This method shouldn't be called on empty list!");
-                if (HighFive.referenceEquals(node.next, node)) {
-                    System.Diagnostics.Debug.Assert$1(this.count === 1 && HighFive.referenceEquals(this.head, node), "this should only be true for a list with only one node");
+                if (H5.referenceEquals(node.next, node)) {
+                    System.Diagnostics.Debug.Assert$1(this.count === 1 && H5.referenceEquals(this.head, node), "this should only be true for a list with only one node");
                     this.head = null;
                 } else {
                     node.next.prev = node.prev;
                     node.prev.next = node.next;
-                    if (HighFive.referenceEquals(this.head, node)) {
+                    if (H5.referenceEquals(this.head, node)) {
                         this.head = node.next;
                     }
                 }
@@ -380,7 +380,7 @@
                     throw new System.ArgumentNullException.$ctor1("node");
                 }
 
-                if (!HighFive.referenceEquals(node.list, this)) {
+                if (!H5.referenceEquals(node.list, this)) {
                     throw new System.InvalidOperationException.ctor();
                 }
             }

@@ -1,4 +1,4 @@
-    HighFive.define("HighFive.Ref$1", function (T) { return {
+    H5.define("H5.Ref$1", function (T) { return {
         statics: {
             methods: {
                 op_Implicit: function (reference) {
@@ -37,7 +37,7 @@
         },
         methods: {
             toString: function () {
-                return HighFive.toString(this.Value);
+                return H5.toString(this.Value);
             },
             valueOf: function () {
                 return this.Value;

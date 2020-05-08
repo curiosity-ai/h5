@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     [NonScriptable]
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]

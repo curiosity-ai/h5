@@ -1,8 +1,8 @@
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public abstract class Enum : ValueType, IComparable, IFormattable
     {
@@ -14,7 +14,7 @@ namespace System
 
         public static extern Array GetValues(Type enumType);
 
-        [HighFive.Template("HighFive.compare({this}, {target})")]
+        [H5.Template("H5.compare({this}, {target})")]
         public extern int CompareTo(object target);
 
         public static extern string Format(Type enumType, object value, string format);
@@ -23,30 +23,30 @@ namespace System
 
         public static extern string[] GetNames(Type enumType);
 
-        [HighFive.Template("System.Enum.hasFlag({this}, {flag})")]
+        [H5.Template("System.Enum.hasFlag({this}, {flag})")]
         public extern bool HasFlag(Enum flag);
 
         public static extern bool IsDefined(Type enumType, object value);
 
-        [HighFive.Template("System.Enum.tryParse({TEnum}, {value}, {result})")]
+        [H5.Template("System.Enum.tryParse({TEnum}, {value}, {result})")]
         public static extern bool TryParse<TEnum>(string value, out TEnum result) where TEnum : struct;
 
-        [HighFive.Template("System.Enum.tryParse({TEnum}, {value}, {result}, {ignoreCase})")]
+        [H5.Template("System.Enum.tryParse({TEnum}, {value}, {result}, {ignoreCase})")]
         public static extern bool TryParse<TEnum>(string value, bool ignoreCase, out TEnum result) where TEnum : struct;
 
-        [HighFive.Template("System.Enum.toString({this:type}, {this})", Fn = "System.Enum.toStringFn({this:type})")]
+        [H5.Template("System.Enum.toString({this:type}, {this})", Fn = "System.Enum.toStringFn({this:type})")]
         public override extern string ToString();
 
-        [HighFive.Template("System.Enum.format({this:type}, {this}, {format})")]
+        [H5.Template("System.Enum.format({this:type}, {this}, {format})")]
         public extern string ToString(string format);
 
-        [HighFive.Template("System.Enum.equals({this}, {other}, {this:type})")]
+        [H5.Template("System.Enum.equals({this}, {other}, {this:type})")]
         public override extern bool Equals(object other);
 
-        [HighFive.Template("System.Enum.format({this:type}, {this}, {format})")]
+        [H5.Template("System.Enum.format({this:type}, {this}, {format})")]
         public extern string ToString(string format, IFormatProvider formatProvider);
 
-        [HighFive.Template("System.Enum.toObject({enumType}, {value})")]
+        [H5.Template("System.Enum.toObject({enumType}, {value})")]
         public static extern object ToObject(Type enumType, object value);
     }
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()

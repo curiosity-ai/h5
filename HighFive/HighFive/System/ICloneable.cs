@@ -1,11 +1,11 @@
 namespace System
 {
-    [HighFive.External]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Reflectable]
-    public interface ICloneable : HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Reflectable]
+    public interface ICloneable : H5.IH5Class
     {
-        [HighFive.Template("HighFive.clone({this})")]
+        [H5.Template("H5.clone({this})")]
         object Clone();
     }
 }

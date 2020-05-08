@@ -8,7 +8,7 @@
                 var d = Math.min(8, a.length - f), g = parseInt(a.substring(f, f + d), c); 8 > d ? (d = n(w(c, d)), e = e.mul(d).add(n(g))) :
                 (e = e.mul(u), e = e.add(n(g)))
             } e.unsigned = b; return e
-        } function q(a) { return a instanceof d ? a : "number" === typeof a ? n(a) : "string" === typeof a ? y(a) : e(a.low, a.high, a.unsigned) } b.HighFive.$Long = d; d.__isLong__; Object.defineProperty(d.prototype, "__isLong__", { value: !0, enumerable: !1, configurable: !1 }); d.isLong = g; var B = {}, A = {}; d.fromInt = m; d.fromNumber = n; d.fromBits = e; var w = Math.pow; d.fromString = y; d.fromValue = q; var C = 4294967296 * 4294967296, E = C / 2, G = m(16777216), k = m(0); d.ZERO = k; var p = m(0, !0); d.UZERO = p; var r = m(1); d.ONE = r; var H =
+        } function q(a) { return a instanceof d ? a : "number" === typeof a ? n(a) : "string" === typeof a ? y(a) : e(a.low, a.high, a.unsigned) } b.H5.$Long = d; d.__isLong__; Object.defineProperty(d.prototype, "__isLong__", { value: !0, enumerable: !1, configurable: !1 }); d.isLong = g; var B = {}, A = {}; d.fromInt = m; d.fromNumber = n; d.fromBits = e; var w = Math.pow; d.fromString = y; d.fromValue = q; var C = 4294967296 * 4294967296, E = C / 2, G = m(16777216), k = m(0); d.ZERO = k; var p = m(0, !0); d.UZERO = p; var r = m(1); d.ONE = r; var H =
         m(1, !0); d.UONE = H; var z = m(-1); d.NEG_ONE = z; var F = e(-1, 2147483647, !1); d.MAX_VALUE = F; var D = e(-1, -1, !0); d.MAX_UNSIGNED_VALUE = D; var l = e(0, -2147483648, !1); d.MIN_VALUE = l; b = d.prototype; b.toInt = function () { return this.unsigned ? this.low >>> 0 : this.low }; b.toNumber = function () { return this.unsigned ? 4294967296 * (this.high >>> 0) + (this.low >>> 0) : 4294967296 * this.high + (this.low >>> 0) }; b.toString = function (a) {
             a = a || 10; if (2 > a || 36 < a) throw RangeError("radix"); if (this.isZero()) return "0"; if (this.isNegative()) {
                 if (this.eq(l)) {
@@ -42,14 +42,14 @@
             g(a) && (a = a.toInt()); return 0 === (a &= 63) ? this : 32 > a ? e(this.low >>> a | this.high << 32 - a, this.high >>
             a, this.unsigned) : e(this.high >> a - 32, 0 <= this.high ? 0 : -1, this.unsigned)
         }; b.shr = b.shiftRight; b.shiftRightUnsigned = function (a) { g(a) && (a = a.toInt()); a &= 63; if (0 === a) return this; var b = this.high; return 32 > a ? e(this.low >>> a | b << 32 - a, b >>> a, this.unsigned) : 32 === a ? e(b, 0, this.unsigned) : e(b >>> a - 32, 0, this.unsigned) }; b.shru = b.shiftRightUnsigned; b.toSigned = function () { return this.unsigned ? e(this.low, this.high, !1) : this }; b.toUnsigned = function () { return this.unsigned ? this : e(this.low, this.high, !0) }
-    })(HighFive.global);
+    })(H5.global);
 
     System.Int64 = function (l) {
         if (this.constructor !== System.Int64) {
             return new System.Int64(l);
         }
 
-        if (!HighFive.hasValue(l)) {
+        if (!H5.hasValue(l)) {
             l = 0;
         }
 
@@ -70,7 +70,7 @@
     System.Int64.prototype.$kind = "struct";
 
     System.Int64.$$inherits = [];
-    HighFive.Class.addExtend(System.Int64, [System.IComparable, System.IFormattable, System.IComparable$1(System.Int64), System.IEquatable$1(System.Int64)]);
+    H5.Class.addExtend(System.Int64, [System.IComparable, System.IFormattable, System.IComparable$1(System.Int64), System.IEquatable$1(System.Int64)]);
 
     System.Int64.$is = function (instance) {
         return instance instanceof System.Int64;
@@ -89,11 +89,11 @@
     };
 
     System.Int64.getValue = function (l) {
-        if (!HighFive.hasValue(l)) {
+        if (!H5.hasValue(l)) {
             return null;
         }
 
-        if (l instanceof HighFive.$Long) {
+        if (l instanceof H5.$Long) {
             return l;
         }
 
@@ -105,30 +105,30 @@
             return l.value.toSigned();
         }
 
-        if (HighFive.isArray(l)) {
-            return new HighFive.$Long(l[0], l[1]);
+        if (H5.isArray(l)) {
+            return new H5.$Long(l[0], l[1]);
         }
 
-        if (HighFive.isString(l)) {
-            return HighFive.$Long.fromString(l);
+        if (H5.isString(l)) {
+            return H5.$Long.fromString(l);
         }
 
-        if (HighFive.isNumber(l)) {
+        if (H5.isNumber(l)) {
             if (l + 1 >= System.Int64.TWO_PWR_63_DBL) {
                 return (new System.UInt64(l)).value.toSigned();
             }
-            return HighFive.$Long.fromNumber(l);
+            return H5.$Long.fromNumber(l);
         }
 
         if (l instanceof System.Decimal) {
-            return HighFive.$Long.fromString(l.toString());
+            return H5.$Long.fromString(l.toString());
         }
 
-        return HighFive.$Long.fromValue(l);
+        return H5.$Long.fromValue(l);
     };
 
     System.Int64.create = function (l) {
-        if (!HighFive.hasValue(l)) {
+        if (!H5.hasValue(l)) {
             return null;
         }
 
@@ -140,7 +140,7 @@
     };
 
     System.Int64.lift = function (l) {
-        if (!HighFive.hasValue(l)) {
+        if (!H5.hasValue(l)) {
             return null;
         }
         return System.Int64.create(l);
@@ -163,7 +163,7 @@
     };
 
     System.Int64.prototype.toJSON = function () {
-        return this.gt(HighFive.Int.MAX_SAFE_INTEGER) || this.lt(HighFive.Int.MIN_SAFE_INTEGER) ? this.toString() : this.toNumber();
+        return this.gt(H5.Int.MAX_SAFE_INTEGER) || this.lt(H5.Int.MIN_SAFE_INTEGER) ? this.toString() : this.toNumber();
     };
 
     System.Int64.prototype.toString = function (format, provider) {
@@ -171,15 +171,15 @@
             return this.value.toString();
         }
 
-        if (HighFive.isNumber(format) && !provider) {
+        if (H5.isNumber(format) && !provider) {
             return this.value.toString(format);
         }
 
-        return HighFive.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
+        return H5.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
     };
 
     System.Int64.prototype.format = function (format, provider) {
-        return HighFive.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
+        return H5.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
     };
 
     System.Int64.prototype.isNegative = function () {
@@ -257,7 +257,7 @@
                     return r;
                 }
 
-                if (arg.eq(HighFive.$Long.MIN_VALUE) || arg.eq(HighFive.$Long.MAX_VALUE)) {
+                if (arg.eq(H5.$Long.MIN_VALUE) || arg.eq(H5.$Long.MAX_VALUE)) {
                     if (this.neq(1) && this.neq(0)) {
                         throw new System.OverflowException();
                     }
@@ -286,7 +286,7 @@
                     return r;
                 }
 
-                if (arg.eq(HighFive.$Long.MAX_UNSIGNED_VALUE)) {
+                if (arg.eq(H5.$Long.MAX_UNSIGNED_VALUE)) {
                     if (this.neq(1) && this.neq(0)) {
                         throw new System.OverflowException();
                     }
@@ -404,20 +404,20 @@
     System.Int64.tryParse = function (str, v) {
         try {
             if (str == null || !/^[+-]?[0-9]+$/.test(str)) {
-                v.v = System.Int64(HighFive.$Long.ZERO);
+                v.v = System.Int64(H5.$Long.ZERO);
                 return false;
             }
 
             v.v = new System.Int64(str);
 
             if (System.String.trimStartZeros(str) !== v.v.toString()) {
-                v.v = System.Int64(HighFive.$Long.ZERO);
+                v.v = System.Int64(H5.$Long.ZERO);
                 return false;
             }
 
             return true;
         } catch (e) {
-            v.v = System.Int64(HighFive.$Long.ZERO);
+            v.v = System.Int64(H5.$Long.ZERO);
             return false;
         }
     };
@@ -497,7 +497,7 @@
     };
 
     System.Int64.check = function (v, tp) {
-        if (HighFive.Int.isInfinite(v)) {
+        if (H5.Int.isInfinite(v)) {
             if (tp === System.Int64 || tp === System.UInt64) {
                 return tp.MinValue;
             }
@@ -542,52 +542,52 @@
             return r;
         }
 
-        return HighFive.Int.check(v.toNumber(), tp);
+        return H5.Int.check(v.toNumber(), tp);
     };
 
     System.Int64.clip8 = function (x) {
         x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
-        return x ? HighFive.Int.sxb(x.value.low & 0xff) : (HighFive.Int.isInfinite(x) ? System.SByte.min : null);
+        return x ? H5.Int.sxb(x.value.low & 0xff) : (H5.Int.isInfinite(x) ? System.SByte.min : null);
     };
 
     System.Int64.clipu8 = function (x) {
         x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
-        return x ? x.value.low & 0xff : (HighFive.Int.isInfinite(x) ? System.Byte.min : null);
+        return x ? x.value.low & 0xff : (H5.Int.isInfinite(x) ? System.Byte.min : null);
     };
 
     System.Int64.clip16 = function (x) {
         x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
-        return x ? HighFive.Int.sxs(x.value.low & 0xffff) : (HighFive.Int.isInfinite(x) ? System.Int16.min : null);
+        return x ? H5.Int.sxs(x.value.low & 0xffff) : (H5.Int.isInfinite(x) ? System.Int16.min : null);
     };
 
     System.Int64.clipu16 = function (x) {
         x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
-        return x ? x.value.low & 0xffff : (HighFive.Int.isInfinite(x) ? System.UInt16.min : null);
+        return x ? x.value.low & 0xffff : (H5.Int.isInfinite(x) ? System.UInt16.min : null);
     };
 
     System.Int64.clip32 = function (x) {
         x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
-        return x ? x.value.low | 0 : (HighFive.Int.isInfinite(x) ? System.Int32.min : null);
+        return x ? x.value.low | 0 : (H5.Int.isInfinite(x) ? System.Int32.min : null);
     };
 
     System.Int64.clipu32 = function (x) {
         x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
-        return x ? x.value.low >>> 0 : (HighFive.Int.isInfinite(x) ? System.UInt32.min : null);
+        return x ? x.value.low >>> 0 : (H5.Int.isInfinite(x) ? System.UInt32.min : null);
     };
 
     System.Int64.clip64 = function (x) {
         x = (x == null || System.Int64.is64Bit(x)) ? x : new System.UInt64(x);
-        return x ? new System.Int64(x.value.toSigned()) : (HighFive.Int.isInfinite(x) ? System.Int64.MinValue : null);
+        return x ? new System.Int64(x.value.toSigned()) : (H5.Int.isInfinite(x) ? System.Int64.MinValue : null);
     };
 
     System.Int64.clipu64 = function (x) {
         x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
-        return x ? new System.UInt64(x.value.toUnsigned()) : (HighFive.Int.isInfinite(x) ? System.UInt64.MinValue : null);
+        return x ? new System.UInt64(x.value.toUnsigned()) : (H5.Int.isInfinite(x) ? System.UInt64.MinValue : null);
     };
 
-    System.Int64.Zero = System.Int64(HighFive.$Long.ZERO);
-    System.Int64.MinValue = System.Int64(HighFive.$Long.MIN_VALUE);
-    System.Int64.MaxValue = System.Int64(HighFive.$Long.MAX_VALUE);
+    System.Int64.Zero = System.Int64(H5.$Long.ZERO);
+    System.Int64.MinValue = System.Int64(H5.$Long.MIN_VALUE);
+    System.Int64.MaxValue = System.Int64(H5.$Long.MAX_VALUE);
     System.Int64.precision = 19;
 
     /* ULONG */
@@ -597,7 +597,7 @@
             return new System.UInt64(l);
         }
 
-        if (!HighFive.hasValue(l)) {
+        if (!H5.hasValue(l)) {
             l = 0;
         }
 
@@ -612,7 +612,7 @@
     System.UInt64.$kind = "struct";
     System.UInt64.prototype.$kind = "struct";
     System.UInt64.$$inherits = [];
-    HighFive.Class.addExtend(System.UInt64, [System.IComparable, System.IFormattable, System.IComparable$1(System.UInt64), System.IEquatable$1(System.UInt64)]);
+    H5.Class.addExtend(System.UInt64, [System.IComparable, System.IFormattable, System.IComparable$1(System.UInt64), System.IEquatable$1(System.UInt64)]);
 
     System.UInt64.$is = function (instance) {
         return instance instanceof System.UInt64;
@@ -623,11 +623,11 @@
     };
 
     System.UInt64.getValue = function (l) {
-        if (!HighFive.hasValue(l)) {
+        if (!H5.hasValue(l)) {
             return null;
         }
 
-        if (l instanceof HighFive.$Long) {
+        if (l instanceof H5.$Long) {
             return l;
         }
 
@@ -639,31 +639,31 @@
             return l.value.toUnsigned();
         }
 
-        if (HighFive.isArray(l)) {
-            return new HighFive.$Long(l[0], l[1], true);
+        if (H5.isArray(l)) {
+            return new H5.$Long(l[0], l[1], true);
         }
 
-        if (HighFive.isString(l)) {
-            return HighFive.$Long.fromString(l, true);
+        if (H5.isString(l)) {
+            return H5.$Long.fromString(l, true);
         }
 
-        if (HighFive.isNumber(l)) {
+        if (H5.isNumber(l)) {
             if (l < 0) {
                 return (new System.Int64(l)).value.toUnsigned();
             }
 
-            return HighFive.$Long.fromNumber(l, true);
+            return H5.$Long.fromNumber(l, true);
         }
 
         if (l instanceof System.Decimal) {
-            return HighFive.$Long.fromString(l.toString(), true);
+            return H5.$Long.fromString(l.toString(), true);
         }
 
-        return HighFive.$Long.fromValue(l);
+        return H5.$Long.fromValue(l);
     };
 
     System.UInt64.create = function (l) {
-        if (!HighFive.hasValue(l)) {
+        if (!H5.hasValue(l)) {
             return null;
         }
 
@@ -675,7 +675,7 @@
     };
 
     System.UInt64.lift = function (l) {
-        if (!HighFive.hasValue(l)) {
+        if (!H5.hasValue(l)) {
             return null;
         }
         return System.UInt64.create(l);
@@ -735,25 +735,25 @@
     System.UInt64.tryParse = function (str, v) {
         try {
             if (str == null || !/^[+-]?[0-9]+$/.test(str)) {
-                v.v = System.UInt64(HighFive.$Long.UZERO);
+                v.v = System.UInt64(H5.$Long.UZERO);
                 return false;
             }
 
             v.v = new System.UInt64(str);
 
             if (v.v.isNegative()) {
-                v.v = System.UInt64(HighFive.$Long.UZERO);
+                v.v = System.UInt64(H5.$Long.UZERO);
                 return false;
             }
 
             if (System.String.trimStartZeros(str) !== v.v.toString()) {
-                v.v = System.UInt64(HighFive.$Long.UZERO);
+                v.v = System.UInt64(H5.$Long.UZERO);
                 return false;
             }
 
             return true;
         } catch (e) {
-            v.v = System.UInt64(HighFive.$Long.UZERO);
+            v.v = System.UInt64(H5.$Long.UZERO);
             return false;
         }
     };
@@ -805,7 +805,7 @@
     };
 
     System.UInt64.prototype.toJSON = function () {
-        return this.gt(HighFive.Int.MAX_SAFE_INTEGER) ? this.toString() : this.toNumber();
+        return this.gt(H5.Int.MAX_SAFE_INTEGER) ? this.toString() : this.toNumber();
     };
 
     System.UInt64.prototype.and = System.Int64.prototype.and;
@@ -816,7 +816,7 @@
     System.UInt64.prototype.shru = System.Int64.prototype.shru;
     System.UInt64.prototype.xor = System.Int64.prototype.xor;
 
-    System.UInt64.Zero = System.UInt64(HighFive.$Long.UZERO);
+    System.UInt64.Zero = System.UInt64(H5.$Long.UZERO);
     System.UInt64.MinValue = System.UInt64.Zero;
-    System.UInt64.MaxValue = System.UInt64(HighFive.$Long.MAX_UNSIGNED_VALUE);
+    System.UInt64.MaxValue = System.UInt64(H5.$Long.MAX_UNSIGNED_VALUE);
     System.UInt64.precision = 20;

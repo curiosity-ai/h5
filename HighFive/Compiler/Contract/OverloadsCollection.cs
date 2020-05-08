@@ -1,5 +1,5 @@
 using System;
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using ITypeDefinition = ICSharpCode.NRefactory.TypeSystem.ITypeDefinition;
 using Modifiers = ICSharpCode.NRefactory.CSharp.Modifiers;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class OverloadsCollection
     {
@@ -788,7 +788,7 @@ namespace HighFive.Contract
                             return false;
                         }
 
-                        if (p.IsIndexer && canGet && p.Getter.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExternalAttribute"))
+                        if (p.IsIndexer && canGet && p.Getter.Attributes.Any(a => a.AttributeType.FullName == "H5.ExternalAttribute"))
                         {
                             return false;
                         }
@@ -1035,7 +1035,7 @@ namespace HighFive.Contract
         public static string GetInterfaceMemberName(IEmitter emitter, IMember interfaceMember, string name, string prefix, bool withoutTypeParams = false, bool isSetter = false, bool excludeTypeOnly = false)
         {
             var interfaceMemberName = name ?? OverloadsCollection.Create(emitter, interfaceMember, isSetter).GetOverloadName(true, prefix);
-            var interfaceName = HighFiveTypes.ToJsName(interfaceMember.DeclaringType, emitter, false, false, true, withoutTypeParams, excludeTypeOnly: excludeTypeOnly);
+            var interfaceName = H5Types.ToJsName(interfaceMember.DeclaringType, emitter, false, false, true, withoutTypeParams, excludeTypeOnly: excludeTypeOnly);
 
             if (interfaceName.StartsWith("\""))
             {
@@ -1130,7 +1130,7 @@ namespace HighFive.Contract
                 name = JS.Funcs.CONSTRUCTOR;
             }
 
-            var attr = Helpers.GetInheritedAttribute(definition, "HighFive.NameAttribute");
+            var attr = Helpers.GetInheritedAttribute(definition, "H5.NameAttribute");
 
             var iProperty = definition as IProperty;
 
@@ -1140,7 +1140,7 @@ namespace HighFive.Contract
 
                 if (acceessor != null)
                 {
-                    attr = Helpers.GetInheritedAttribute(acceessor, "HighFive.NameAttribute");
+                    attr = Helpers.GetInheritedAttribute(acceessor, "H5.NameAttribute");
 
                     if (attr != null)
                     {

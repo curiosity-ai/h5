@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("se-NO", true), {
+H5.merge(new System.Globalization.CultureInfo("se-NO", true), {
     englishName: "Sami, Northern (Norway)",
     nativeName: "davvisámegiella (Norga)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "¤¤¤",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("se-NO", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sotn","vuos","maŋ","gask","duor","bear","láv"],
         abbreviatedMonthGenitiveNames: ["ođđj","guov","njuk","cuo","mies","geas","suoi","borg","čakč","golg","skáb","juov",""],
         abbreviatedMonthNames: ["ođđj","guov","njuk","cuo","mies","geas","suoi","borg","čakč","golg","skáb","juov",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("se-NO", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "se-NO",
         EBCDICCodePage: 20277,

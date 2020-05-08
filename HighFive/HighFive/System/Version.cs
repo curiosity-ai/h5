@@ -7,7 +7,7 @@ namespace System
     // internally as a -1.  By definition, an unspecified component matches anything
     // (both unspecified and specified), and an unspecified component is "less than" any
     // specified component.
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     public sealed class Version : ICloneable, IComparable<Version>, IEquatable<Version>
     {
         // AssemblyName depends on the order staying the same

@@ -1,1 +1,1 @@
-    HighFive.define("System.Text.RegularExpressions.Regex");
+    H5.define("System.Text.RegularExpressions.Regex");

@@ -1,7 +1,7 @@
-namespace HighFive.Contract
+namespace H5.Contract
 {
     /// <summary>
-    /// highfive.json setting `overflowMode` to control whether an integer arithmetic statement
+    /// h5.json setting `overflowMode` to control whether an integer arithmetic statement
     /// that results in a value that is outside the range of the data type,
     /// and that is not in the scope of a `checked` or `unchecked` keyword, causes a run-time exception.
     /// </summary>

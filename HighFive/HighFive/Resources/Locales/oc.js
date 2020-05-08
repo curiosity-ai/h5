@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("oc", true), {
+H5.merge(new System.Globalization.CultureInfo("oc", true), {
     englishName: "Occitan",
     nativeName: "Occitan",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "Micca numericu",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("oc", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dg.","dl.","dma.","dmc.","dj.","dv.","ds."],
         abbreviatedMonthGenitiveNames: ["gen.","feb.","març","abr.","mai","junh","julh","ag.","set.","oct.","nov.","dec.",""],
         abbreviatedMonthNames: ["gen.","feb.","març","abr.","mai","junh","julh","ag.","set.","oct.","nov.","dec.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("oc", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "oc-FR",
         EBCDICCodePage: 20297,

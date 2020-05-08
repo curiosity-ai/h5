@@ -197,7 +197,7 @@
 
             if (period != -1 && !this.disposed)
             {
-                var p = HighFive.Script.Write<int>("{period}.toNumber();", period);
+                var p = H5.Script.Write<int>("{period}.toNumber();", period);
                 this.id = Global.SetTimeout(this.HandleCallback, p);
                 return true;
             }
@@ -275,9 +275,9 @@
             this.disposed = true;
         }
 
-        [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-        [HighFive.External]
-        [HighFive.Name("HighFive.global")]
+        [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+        [H5.External]
+        [H5.Name("H5.global")]
         internal class Global
         {
             public static extern int SetTimeout(Action handler, int delay);

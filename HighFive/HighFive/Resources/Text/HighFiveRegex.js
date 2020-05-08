@@ -26,5 +26,5 @@
             return s.replace(regex, "\\$&");
         };
 
-        HighFive.regexpEscape = regexpEscape;
+        H5.regexpEscape = regexpEscape;
     })();

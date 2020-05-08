@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.Calendar", {
+    H5.define("System.Globalization.Calendar", {
         inherits: [System.ICloneable],
         statics: {
             fields: {
@@ -48,14 +48,14 @@
                         return (calendar);
                     }
 
-                    var clonedCalendar = HighFive.cast((HighFive.clone(calendar)), System.Globalization.Calendar);
+                    var clonedCalendar = H5.cast((H5.clone(calendar)), System.Globalization.Calendar);
                     clonedCalendar.SetReadOnlyState(true);
 
                     return (clonedCalendar);
                 },
                 CheckAddResult: function (ticks, minValue, maxValue) {
                     if (ticks.lt(System.DateTime.getTicks(minValue)) || ticks.gt(System.DateTime.getTicks(maxValue))) {
-                        throw new System.ArgumentException.$ctor1(System.String.formatProvider(System.Globalization.CultureInfo.invariantCulture, System.SR.Format$1("The result is out of the supported range for this calendar. The result should be between {0} (Gregorian date) and {1} (Gregorian date), inclusive.", HighFive.box(minValue, System.DateTime, System.DateTime.format), HighFive.box(maxValue, System.DateTime, System.DateTime.format)), null));
+                        throw new System.ArgumentException.$ctor1(System.String.formatProvider(System.Globalization.CultureInfo.invariantCulture, System.SR.Format$1("The result is out of the supported range for this calendar. The result should be between {0} (Gregorian date) and {1} (Gregorian date), inclusive.", H5.box(minValue, System.DateTime, System.DateTime.format), H5.box(maxValue, System.DateTime, System.DateTime.format)), null));
                     }
                 },
                 GetSystemTwoDigitYearSetting: function (CalID, defaultYearValue) {
@@ -134,8 +134,8 @@
         },
         methods: {
             clone: function () {
-                var o = HighFive.clone(this);
-                HighFive.cast(o, System.Globalization.Calendar).SetReadOnlyState(false);
+                var o = H5.clone(this);
+                H5.cast(o, System.Globalization.Calendar).SetReadOnlyState(false);
                 return (o);
             },
             VerifyWritable: function () {
@@ -152,7 +152,7 @@
                     throw new System.ArgumentOutOfRangeException.$ctor4("value", "Value to add was out of range.");
                 }
 
-                var millis = HighFive.Int.clip64(tempMillis);
+                var millis = H5.Int.clip64(tempMillis);
                 var ticks = System.DateTime.getTicks(time).add(millis.mul(System.Globalization.Calendar.TicksPerMillisecond));
                 System.Globalization.Calendar.CheckAddResult(ticks, this.MinSupportedDateTime, this.MaxSupportedDateTime);
                 return (System.DateTime.create$2(ticks));
@@ -173,7 +173,7 @@
                 return this.Add(time, seconds, System.Globalization.Calendar.MillisPerSecond);
             },
             AddWeeks: function (time, weeks) {
-                return (this.AddDays(time, HighFive.Int.mul(weeks, 7)));
+                return (this.AddDays(time, H5.Int.mul(weeks, 7)));
             },
             GetDaysInMonth: function (year, month) {
                 return (this.GetDaysInMonth$1(year, month, System.Globalization.Calendar.CurrentEra));
@@ -201,7 +201,7 @@
                 var dayForJan1 = (this.GetDayOfWeek(time) - (dayOfYear % 7)) | 0;
                 var offset = (((((dayForJan1 - firstDayOfWeek) | 0) + 14) | 0)) % 7;
                 System.Diagnostics.Debug.Assert$1(offset >= 0, "Calendar.GetFirstDayWeekOfYear(): offset >= 0");
-                return (((((HighFive.Int.div((((dayOfYear + offset) | 0)), 7)) | 0) + 1) | 0));
+                return (((((H5.Int.div((((dayOfYear + offset) | 0)), 7)) | 0) + 1) | 0));
             },
             GetWeekOfYearFullDays: function (time, firstDayOfWeek, fullDays) {
                 var dayForJan1;
@@ -220,7 +220,7 @@
                 }
                 day = (dayOfYear - offset) | 0;
                 if (day >= 0) {
-                    return (((((HighFive.Int.div(day, 7)) | 0) + 1) | 0));
+                    return (((((H5.Int.div(day, 7)) | 0) + 1) | 0));
                 }
                 if (System.DateTime.lte(time, System.DateTime.addDays(this.MinSupportedDateTime, dayOfYear))) {
                     return this.GetWeekOfYearOfMinSupportedDateTime(firstDayOfWeek, fullDays);
@@ -245,11 +245,11 @@
                     day = (day + 7) | 0;
                 }
 
-                return (((((HighFive.Int.div(day, 7)) | 0) + 1) | 0));
+                return (((((H5.Int.div(day, 7)) | 0) + 1) | 0));
             },
             GetWeekOfYear: function (time, rule, firstDayOfWeek) {
                 if (firstDayOfWeek < 0 || firstDayOfWeek > 6) {
-                    throw new System.ArgumentOutOfRangeException.$ctor4("firstDayOfWeek", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", HighFive.box(System.DayOfWeek.Sunday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek)), HighFive.box(System.DayOfWeek.Saturday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek))));
+                    throw new System.ArgumentOutOfRangeException.$ctor4("firstDayOfWeek", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", H5.box(System.DayOfWeek.Sunday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek)), H5.box(System.DayOfWeek.Saturday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek))));
                 }
                 switch (rule) {
                     case 0: 
@@ -259,7 +259,7 @@
                     case 2: 
                         return (this.GetWeekOfYearFullDays(time, firstDayOfWeek, 4));
                 }
-                throw new System.ArgumentOutOfRangeException.$ctor4("rule", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", HighFive.box(0, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule)), HighFive.box(2, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule))));
+                throw new System.ArgumentOutOfRangeException.$ctor4("rule", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", H5.box(0, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule)), H5.box(2, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule))));
             },
             IsLeapDay: function (year, month, day) {
                 return (this.IsLeapDay$1(year, month, day, System.Globalization.Calendar.CurrentEra));
@@ -297,7 +297,7 @@
                     return true;
                 } catch ($e1) {
                     $e1 = System.Exception.create($e1);
-                    if (HighFive.is($e1, System.ArgumentException)) {
+                    if (H5.is($e1, System.ArgumentException)) {
                         return false;
                     } else {
                         throw $e1;
@@ -318,7 +318,7 @@
                     throw new System.ArgumentOutOfRangeException.$ctor4("year", "Non-negative number required.");
                 }
                 if (year < 100) {
-                    return (((HighFive.Int.mul((((((HighFive.Int.div(this.TwoDigitYearMax, 100)) | 0) - (year > this.TwoDigitYearMax % 100 ? 1 : 0)) | 0)), 100) + year) | 0));
+                    return (((H5.Int.mul((((((H5.Int.div(this.TwoDigitYearMax, 100)) | 0) - (year > this.TwoDigitYearMax % 100 ? 1 : 0)) | 0)), 100) + year) | 0));
                 }
                 return (year);
             }

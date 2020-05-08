@@ -7,8 +7,8 @@ namespace System
     /// <summary>
     /// Specifies the location where an environment variable is stored or retrieved in a set or get operation.
     /// </summary>
-    [HighFive.External]
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.External]
+    [H5.Enum(H5.Emit.Value)]
     public enum EnvironmentVariableTarget
     {
         Process = 0,
@@ -18,7 +18,7 @@ namespace System
 
     /// <summary>
     /// Provides information about, and means to manipulate, the current environment and platform. This class cannot be inherited.
-    /// Some methods have HighFive implementation that differ from .Net.
+    /// Some methods have H5 implementation that differ from .Net.
     /// </summary>
     public static class Environment
     {
@@ -37,7 +37,7 @@ namespace System
         /// <summary>
         /// Specifies enumerated constants used to retrieve directory paths to system special folders.
         /// </summary>
-        [HighFive.NonScriptable]
+        [H5.NonScriptable]
         public enum SpecialFolder
         {
             //
@@ -238,7 +238,7 @@ namespace System
         /// <summary>
         /// Specifies options to use for getting the path to a special folder.
         /// </summary>
-        [HighFive.NonScriptable]
+        [H5.NonScriptable]
         public enum SpecialFolderOption
         {
             None = 0,
@@ -246,7 +246,7 @@ namespace System
             DoNotVerify = Win32Native.CSIDL_FLAG_DONT_VERIFY,
         }
 
-        [HighFive.External]
+        [H5.External]
         private static class Win32Native
         {
             // .NET Framework 4.0 and newer - all versions of windows ||| \public\sdk\inc\shlobj.h
@@ -307,7 +307,7 @@ namespace System
         /// </summary>
         private static dynamic Global
         {
-            [HighFive.Template("HighFive.global")]
+            [H5.Template("H5.global")]
             get;
         }
 
@@ -343,7 +343,7 @@ namespace System
 
         /// <summary>
         /// Gets the command line for this process.
-        /// The HighFive implementation returns location.pathname + " " + location.search
+        /// The H5 implementation returns location.pathname + " " + location.search
         /// </summary>
         public static string CommandLine
         {
@@ -355,7 +355,7 @@ namespace System
 
         /// <summary>
         /// Gets or sets the fully qualified path of the current working directory.
-        /// The HighFive implementation controls window.location.pathname.
+        /// The H5 implementation controls window.location.pathname.
         /// </summary>
         public static string CurrentDirectory
         {
@@ -379,11 +379,11 @@ namespace System
 
         /// <summary>
         /// Gets a unique identifier for the current managed thread.
-        /// The HighFive implementation returns zero.
+        /// The H5 implementation returns zero.
         /// </summary>
         public static extern int CurrentManagedThreadId
         {
-            [HighFive.Template("0")]
+            [H5.Template("0")]
             get;
         }
 
@@ -398,11 +398,11 @@ namespace System
 
         /// <summary>
         /// Gets a value that indicates whether the current application domain is being unloaded or the common language runtime (CLR) is shutting down.
-        /// The HighFive implementation returns false.
+        /// The H5 implementation returns false.
         /// </summary>
         public static bool HasShutdownStarted
         {
-            [HighFive.Template("false")]
+            [H5.Template("false")]
             get;
         }
 
@@ -426,46 +426,46 @@ namespace System
 
         /// <summary>
         /// Determines whether the current process is a 64-bit process.
-        /// The HighFive implementation returns false.
+        /// The H5 implementation returns false.
         /// </summary>
         public static bool Is64BitProcess
         {
-            [HighFive.Template("false")]
+            [H5.Template("false")]
             get;
         }
 
         /// <summary>
         /// Gets the NetBIOS name of this local computer.
-        /// The HighFive implementation returns an empty string.
+        /// The H5 implementation returns an empty string.
         /// </summary>
         public static string MachineName
         {
-            [HighFive.Template("\"\"")]
+            [H5.Template("\"\"")]
             get;
         }
 
         /// <summary>
         /// Gets the newline string defined for this environment.
-        /// The HighFive implementation returns "\n".
+        /// The H5 implementation returns "\n".
         /// </summary>
         public static extern string NewLine
         {
-            [HighFive.Template("\"\\n\"")]
+            [H5.Template("\"\\n\"")]
             get;
         }
 
         /// <summary>
-        /// The HighFive implementation returns null.
+        /// The H5 implementation returns null.
         /// </summary>
         public static object OSVersion
         {
-            [HighFive.Template("null")]
+            [H5.Template("null")]
             get;
         }
 
         /// <summary>
         /// Gets the number of processors on the current machine.
-        /// The HighFive implementation returns navigator.hardwareConcurrency if exists, otherwise 1.
+        /// The H5 implementation returns navigator.hardwareConcurrency if exists, otherwise 1.
         /// </summary>
         public static int ProcessorCount
         {
@@ -489,7 +489,7 @@ namespace System
         {
             get
             {
-                var err = HighFive.Script.Write<dynamic>("new Error()");
+                var err = H5.Script.Write<dynamic>("new Error()");
                 string s = err.stack;
 
                 if (!string.IsNullOrEmpty(s))
@@ -506,74 +506,74 @@ namespace System
 
         /// <summary>
         /// Gets the fully qualified path of the system directory.
-        /// The HighFive implementation returns an empty string;
+        /// The H5 implementation returns an empty string;
         /// </summary>
         public static string SystemDirectory
         {
-            [HighFive.Template("\"\"")]
+            [H5.Template("\"\"")]
             get;
         }
 
 
         /// <summary>
         /// Gets the number of bytes in the operating system's memory page.
-        /// The HighFive implementation returns 1.
+        /// The H5 implementation returns 1.
         /// </summary>
         public static int SystemPageSize
         {
-            [HighFive.Template("1")]
+            [H5.Template("1")]
             get;
         }
 
         /// <summary>
         /// Gets the number of milliseconds elapsed since the system started.
-        /// The HighFive implementation returns the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.
+        /// The H5 implementation returns the number of milliseconds elapsed since 1 January 1970 00:00:00 UTC.
         /// </summary>
         public static int TickCount
         {
-            [HighFive.Template("Date.now()")]
+            [H5.Template("Date.now()")]
             get;
         }
 
         /// <summary>
         /// Gets the network domain name associated with the current user.
-        /// The HighFive implementation returns an empty string;
+        /// The H5 implementation returns an empty string;
         /// </summary>
         public static string UserDomainName
         {
-            [HighFive.Template("\"\"")]
+            [H5.Template("\"\"")]
             get;
         }
 
         /// <summary>
         /// Gets a value indicating whether the current process is running in user interactive mode.
-        /// The HighFive implementation returns true;
+        /// The H5 implementation returns true;
         /// </summary>
         public static bool UserInteractive
         {
-            [HighFive.Template("true")]
+            [H5.Template("true")]
             get;
         }
 
         /// <summary>
         /// Gets the user name of the person who is currently logged on to the Windows operating system.
-        /// The HighFive implementation returns an empty string;
+        /// The H5 implementation returns an empty string;
         /// </summary>
         public static string UserName
         {
-            [HighFive.Template("\"\"")]
+            [H5.Template("\"\"")]
             get;
         }
 
         /// <summary>
         /// Gets a Version object that describes the major, minor, build, and revision numbers of the common language runtime.
-        /// The HighFive implementation returns HighFive Compiler version.
+        /// The H5 implementation returns H5 Compiler version.
         /// </summary>
         public static Version Version
         {
             get
             {
-                var s = HighFive.Utils.SystemAssembly.Assembly.CompilerVersionString;
+                var s = H5.Utils.SystemAssembly.Assembly.CompilerVersionString;
 
                 Version v;
 
@@ -588,17 +588,17 @@ namespace System
 
         /// <summary>
         /// Gets the amount of physical memory mapped to the process context.
-        /// The HighFive implementation returns zero.
+        /// The H5 implementation returns zero.
         /// </summary>
         public static long WorkingSet
         {
-            [HighFive.Template("System.Int64(0)")]
+            [H5.Template("System.Int64(0)")]
             get;
         }
 
         /// <summary>
         /// Terminates this process and returns an exit code to the operating system.
-        /// The HighFive implementation just sets ExitCode.
+        /// The H5 implementation just sets ExitCode.
         /// </summary>
         /// <param name="exitCode">The exit code to return to the operating system. Use 0 (zero) to indicate that the process completed successfully.</param>
         public static void Exit(int exitCode)
@@ -629,7 +629,7 @@ namespace System
 
         /// <summary>
         /// Immediately terminates a process after writing a message to the Windows Application event log, and then includes the message in error reporting to Microsoft.
-        /// The HighFive implementation throws an exception with the message specified. Note it will run finally block if any.
+        /// The H5 implementation throws an exception with the message specified. Note it will run finally block if any.
         /// </summary>
         /// <param name="message">A message that explains why the process was terminated, or null if no explanation is provided.</param>
         public static void FailFast(string message)
@@ -639,7 +639,7 @@ namespace System
 
         /// <summary>
         /// Immediately terminates a process after writing a message to the Windows Application event log, and then includes the message and exception information in error reporting to Microsoft.
-        /// The HighFive implementation throws an exception with the message specified. Note it will run finally block if any.
+        /// The H5 implementation throws an exception with the message specified. Note it will run finally block if any.
         /// </summary>
         /// <param name="message">A message that explains why the process was terminated, or null if no explanation is provided.</param>
         /// <param name="exception">An exception that represents the error that caused the termination. This is typically the exception in a catch block.</param>
@@ -651,7 +651,7 @@ namespace System
         /// <summary>
         /// Returns a string array containing the command-line arguments for the current process.
         /// </summary>
-        /// <returns>The HighFive implementation returns location.pathname and query parameters.</returns>
+        /// <returns>The H5 implementation returns location.pathname and query parameters.</returns>
         public static string[] GetCommandLineArgs()
         {
             var l = Location;
@@ -716,8 +716,8 @@ namespace System
         /// Retrieves the value of an environment variable from the current process or from the Windows operating system registry key for the current user or local machine.
         /// </summary>
         /// <param name="variable">The name of an environment variable.</param>
-        /// <param name="target">Ignored by HighFive. One of the EnvironmentVariableTarget values.</param>
-        /// <returns>The HighFive implementation ignores target. The value of the environment variable specified by variable, or null if the environment variable is not found.</returns>
+        /// <param name="target">Ignored by H5. One of the EnvironmentVariableTarget values.</param>
+        /// <returns>The H5 implementation ignores target. The value of the environment variable specified by variable, or null if the environment variable is not found.</returns>
         public static string GetEnvironmentVariable(string variable, EnvironmentVariableTarget target)
         {
             return GetEnvironmentVariable(variable);
@@ -736,7 +736,7 @@ namespace System
         /// Retrieves all environment variable names and their values from the current process, or from the Windows operating system registry key for the current user or local machine.
         /// </summary>
         /// <param name="target">One of the EnvironmentVariableTarget values.</param>
-        /// <returns>The HighFive implementation ignores target. A dictionary that contains all environment variable names and their values; otherwise, an empty dictionary if no environment variables are found.</returns>
+        /// <returns>The H5 implementation ignores target. A dictionary that contains all environment variable names and their values; otherwise, an empty dictionary if no environment variables are found.</returns>
         public static IDictionary GetEnvironmentVariables(EnvironmentVariableTarget target)
         {
             return GetEnvironmentVariables();
@@ -746,8 +746,8 @@ namespace System
         /// Gets the path to the system special folder that is identified by the specified enumeration.
         /// </summary>
         /// <param name="folder">An enumerated constant that identifies a system special folder.</param>
-        /// <returns>The HighFive implementation returns an empty string.</returns>
-        [HighFive.Template("\"\"")]
+        /// <returns>The H5 implementation returns an empty string.</returns>
+        [H5.Template("\"\"")]
         public static extern string GetFolderPath(Environment.SpecialFolder folder);
 
         /// <summary>
@@ -755,14 +755,14 @@ namespace System
         /// </summary>
         /// <param name="folder">An enumerated constant that identifies a system special folder.</param>
         /// <param name="option">Specifies options to use for accessing a special folder.</param>
-        /// <returns>The HighFive implementation returns an empty string.</returns>
-        [HighFive.Template("\"\"")]
+        /// <returns>The H5 implementation returns an empty string.</returns>
+        [H5.Template("\"\"")]
         public static extern string GetFolderPath(Environment.SpecialFolder folder, Environment.SpecialFolderOption option);
 
         /// <summary>
         /// Returns an array of string containing the names of the logical drives on the current computer.
         /// </summary>
-        /// <returns>The HighFive implementation returns an empty string[].</returns>
+        /// <returns>The H5 implementation returns an empty string[].</returns>
         public static string[] GetLogicalDrives()
         {
             return new string[0];
@@ -808,7 +808,7 @@ namespace System
         /// </summary>
         /// <param name="variable">The name of an environment variable.</param>
         /// <param name="value">A value to assign to variable.</param>
-        /// <param name="target">Ignored by HighFive. One of the enumeration values that specifies the location of the environment variable.</param>
+        /// <param name="target">Ignored by H5. One of the enumeration values that specifies the location of the environment variable.</param>
         public static void SetEnvironmentVariable(string variable, string value, EnvironmentVariableTarget target)
         {
             SetEnvironmentVariable(variable, value);

@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.UTF7Encoding", {
+    H5.define("System.Text.UTF7Encoding", {
         inherits: [System.Text.Encoding],
         statics: {
             methods: {
@@ -73,7 +73,7 @@
                     var b = _base64ToArrayBuffer(s);
                     var r = System.Array.init(0, 0, System.Char);
                     for (var i = 0; i < b.length; ) {
-                        r.push(((b[System.Array.index(HighFive.identity(i, ((i = (i + 1) | 0))), b)] << 8 | b[System.Array.index(HighFive.identity(i, ((i = (i + 1) | 0))), b)]) & 65535));
+                        r.push(((b[System.Array.index(H5.identity(i, ((i = (i + 1) | 0))), b)] << 8 | b[System.Array.index(H5.identity(i, ((i = (i + 1) | 0))), b)]) & 65535));
                     }
                     return System.String.fromCharArray(r);
                 };
@@ -109,16 +109,16 @@
         }
     });
 
-    HighFive.ns("System.Text.UTF7Encoding", $asm.$);
+    H5.ns("System.Text.UTF7Encoding", $asm.$);
 
-    HighFive.apply($asm.$.System.Text.UTF7Encoding, {
+    H5.apply($asm.$.System.Text.UTF7Encoding, {
         f1: function (str) {
-            var b = System.Array.init(HighFive.Int.mul(str.length, 2), 0, System.Byte);
+            var b = System.Array.init(H5.Int.mul(str.length, 2), 0, System.Byte);
             var bi = 0;
             for (var i = 0; i < str.length; i = (i + 1) | 0) {
                 var c = str.charCodeAt(i);
-                b[System.Array.index(HighFive.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c >> 8);
-                b[System.Array.index(HighFive.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c & 255);
+                b[System.Array.index(H5.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c >> 8);
+                b[System.Array.index(H5.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c & 255);
             }
             var base64Str = System.Convert.toBase64String(b, null, null, null);
             return base64Str.replace(/=+$/, "");

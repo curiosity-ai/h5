@@ -5,9 +5,9 @@ namespace System.Collections.Generic
     /// by some comparer. It also supports basic set operations such as Union, Intersection,
     /// Complement and Exclusive Complement.
     /// </summary>
-    [HighFive.External]
-    [HighFive.Reflectable]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     public interface ISet<T> : ICollection<T>
     {
         // Add ITEM to the set, return true if added, false if duplicate

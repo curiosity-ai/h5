@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("fr-MA", true), {
+H5.merge(new System.Globalization.CultureInfo("fr-MA", true), {
     englishName: "French (Morocco)",
     nativeName: "français (Maroc)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("fr-MA", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."],
         abbreviatedMonthGenitiveNames: ["jan.","fév.","mar.","avr.","mai","jui.","juil.","août","sept.","oct.","nov.","déc.",""],
         abbreviatedMonthNames: ["jan.","fév.","mar.","avr.","mai","jui.","juil.","août","sept.","oct.","nov.","déc.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("fr-MA", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "fr-MA",
         EBCDICCodePage: 20297,

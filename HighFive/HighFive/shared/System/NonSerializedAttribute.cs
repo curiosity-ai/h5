@@ -4,7 +4,7 @@
 
 namespace System
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Field, Inherited = false)]
     public sealed class NonSerializedAttribute : Attribute
     {

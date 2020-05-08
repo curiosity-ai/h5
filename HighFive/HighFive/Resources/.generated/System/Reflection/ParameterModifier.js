@@ -1,4 +1,4 @@
-    HighFive.define("System.Reflection.ParameterModifier", {
+    H5.define("System.Reflection.ParameterModifier", {
         $kind: "struct",
         statics: {
             methods: {
@@ -29,14 +29,14 @@
                 this._byRef[System.Array.index(index, this._byRef)] = value;
             },
             getHashCode: function () {
-                var h = HighFive.addHash([6723435274, this._byRef]);
+                var h = H5.addHash([6723435274, this._byRef]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Reflection.ParameterModifier)) {
+                if (!H5.is(o, System.Reflection.ParameterModifier)) {
                     return false;
                 }
-                return HighFive.equals(this._byRef, o._byRef);
+                return H5.equals(this._byRef, o._byRef);
             },
             $clone: function (to) {
                 var s = to || new System.Reflection.ParameterModifier();

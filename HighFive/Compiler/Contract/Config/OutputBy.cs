@@ -1,4 +1,4 @@
-namespace HighFive.Contract
+namespace H5.Contract
 {
     /// <summary>
     /// Format options for the generated JavaScript file name and folder name paths.
@@ -32,7 +32,7 @@ namespace HighFive.Contract
 
         /// <summary>
         /// All generated JavaScript for the project is added to one [ProjectName].js file. For example, if the project name is "MyUtilities", the file name will be "MyUtilities.js".
-        /// This can be overridden by setting the fileName option within highfive.json, or by using the [FileName] Attribute on the assembly or class levels.
+        /// This can be overridden by setting the fileName option within h5.json, or by using the [FileName] Attribute on the assembly or class levels.
         /// </summary>
         Project = 6
     }

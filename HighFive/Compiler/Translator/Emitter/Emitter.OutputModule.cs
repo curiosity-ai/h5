@@ -1,4 +1,4 @@
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using Mono.Cecil;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using HighFive.Contract;
+using H5.Contract;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Emitter
     {
@@ -107,7 +107,7 @@ namespace HighFive.Translator
             }
 
             this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, Emitter.INDENT + "HighFive.init();");
+            this.WriteNewLine(moduleOutput, Emitter.INDENT + "H5.init();");
 
             this.WriteIndent(moduleOutput, this.InitialLevel);
             this.WriteNewLine(moduleOutput, Emitter.INDENT + "return " + module.Name + ";");
@@ -266,7 +266,7 @@ namespace HighFive.Translator
             }
 
             this.WriteIndent(moduleOutput, 2);
-            this.WriteNewLine(moduleOutput, "HighFive.init();");
+            this.WriteNewLine(moduleOutput, "H5.init();");
 
             this.WriteIndent(moduleOutput, 2);
             this.WriteNewLine(moduleOutput, "return " + module.Name + ";");

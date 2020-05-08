@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("iu-Latn", true), {
+H5.merge(new System.Globalization.CultureInfo("iu-Latn", true), {
     englishName: "Inuktitut (Latin)",
     nativeName: "Inuktitut",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("iu-Latn", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Nat","Nag","Aip","Pi","Sit","Tal","Siv"],
         abbreviatedMonthGenitiveNames: ["Jan","Viv","Mas","Ipu","Mai","Jun","Jul","Agi","Sii","Uut","Nuv","Tis",""],
         abbreviatedMonthNames: ["Jan","Viv","Mas","Ipu","Mai","Jun","Jul","Agi","Sii","Uut","Nuv","Tis",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("iu-Latn", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "iu-Latn-CA",
         EBCDICCodePage: 37,

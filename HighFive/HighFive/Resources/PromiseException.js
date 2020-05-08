@@ -1,4 +1,4 @@
-    HighFive.define("HighFive.PromiseException", {
+    H5.define("H5.PromiseException", {
         inherits: [System.Exception],
 
         ctor: function (args, message, innerException) {

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("os", true), {
+H5.merge(new System.Globalization.CultureInfo("os", true), {
     englishName: "Ossetic",
     nativeName: "ирон",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "НН",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("os", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["хцб","крс","дцг","ӕрт","цпр","мрб","сбт"],
         abbreviatedMonthGenitiveNames: ["янв.","фев.","мар.","апр.","майы","июны","июлы","авг.","сен.","окт.","ноя.","дек.",""],
         abbreviatedMonthNames: ["Янв.","Февр.","Март.","Апр.","Май","Июнь","Июль","Авг.","Сент.","Окт.","Нояб.","Дек.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("os", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "os-GE",
         EBCDICCodePage: 500,

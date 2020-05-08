@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.SortedList$2.ValueList", function (TKey, TValue) { return {
+    H5.define("System.Collections.Generic.SortedList$2.ValueList", function (TKey, TValue) { return {
         inherits: [System.Collections.Generic.IList$1(TValue),System.Collections.ICollection],
         $kind: "nested class",
         fields: {
@@ -22,25 +22,25 @@
             },
             System$Collections$ICollection$SyncRoot: {
                 get: function () {
-                    return HighFive.cast(this._dict, System.Collections.ICollection).System$Collections$ICollection$SyncRoot;
+                    return H5.cast(this._dict, System.Collections.ICollection).System$Collections$ICollection$SyncRoot;
                 }
             }
         },
         alias: [
             "Count", "System$Collections$ICollection$Count",
-            "Count", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TValue) + "$Count",
-            "IsReadOnly", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TValue) + "$IsReadOnly",
-            "add", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TValue) + "$add",
-            "clear", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TValue) + "$clear",
-            "contains", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TValue) + "$contains",
-            "copyTo", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TValue) + "$copyTo",
-            "insert", "System$Collections$Generic$IList$1$" + HighFive.getTypeAlias(TValue) + "$insert",
-            "getItem", "System$Collections$Generic$IList$1$" + HighFive.getTypeAlias(TValue) + "$getItem",
-            "setItem", "System$Collections$Generic$IList$1$" + HighFive.getTypeAlias(TValue) + "$setItem",
-            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$" + HighFive.getTypeAlias(TValue) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
-            "indexOf", "System$Collections$Generic$IList$1$" + HighFive.getTypeAlias(TValue) + "$indexOf",
-            "remove", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TValue) + "$remove",
-            "removeAt", "System$Collections$Generic$IList$1$" + HighFive.getTypeAlias(TValue) + "$removeAt"
+            "Count", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TValue) + "$Count",
+            "IsReadOnly", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TValue) + "$IsReadOnly",
+            "add", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TValue) + "$add",
+            "clear", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TValue) + "$clear",
+            "contains", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TValue) + "$contains",
+            "copyTo", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TValue) + "$copyTo",
+            "insert", "System$Collections$Generic$IList$1$" + H5.getTypeAlias(TValue) + "$insert",
+            "getItem", "System$Collections$Generic$IList$1$" + H5.getTypeAlias(TValue) + "$getItem",
+            "setItem", "System$Collections$Generic$IList$1$" + H5.getTypeAlias(TValue) + "$setItem",
+            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$" + H5.getTypeAlias(TValue) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
+            "indexOf", "System$Collections$Generic$IList$1$" + H5.getTypeAlias(TValue) + "$indexOf",
+            "remove", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TValue) + "$remove",
+            "removeAt", "System$Collections$Generic$IList$1$" + H5.getTypeAlias(TValue) + "$removeAt"
         ],
         ctors: {
             ctor: function (dictionary) {
@@ -76,7 +76,7 @@
                     System.Array.copy(this._dict.values, 0, array, arrayIndex, this._dict.Count);
                 } catch ($e1) {
                     $e1 = System.Exception.create($e1);
-                    if (HighFive.is($e1, System.ArrayTypeMismatchException)) {
+                    if (H5.is($e1, System.ArrayTypeMismatchException)) {
                         System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Argument_InvalidArrayType);
                     } else {
                         throw $e1;

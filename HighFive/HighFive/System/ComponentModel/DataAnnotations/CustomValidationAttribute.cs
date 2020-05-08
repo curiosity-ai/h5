@@ -13,12 +13,12 @@ namespace System.ComponentModel.DataAnnotations
     ///     The value can be strongly typed as type conversion will be attempted.
     /// </para>
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [AttributeUsage(
         AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method |
         AttributeTargets.Parameter, AllowMultiple = true)]
-    [HighFive.External]
-    [HighFive.NonScriptable]
+    [H5.External]
+    [H5.NonScriptable]
     public sealed class CustomValidationAttribute : ValidationAttribute
     {
         /// <summary>

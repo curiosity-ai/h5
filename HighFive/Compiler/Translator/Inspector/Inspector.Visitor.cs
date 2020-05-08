@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Inspector : Visitor
     {
@@ -65,7 +65,7 @@ namespace HighFive.Translator
                 if (resolveResult != null && resolveResult.Type != null)
                 {
                     var def = resolveResult.Type.GetDefinition();
-                    external = def != null && def.ParentAssembly.AssemblyAttributes.Any(a => a.AttributeType.FullName == "HighFive.ExternalAttribute");
+                    external = def != null && def.ParentAssembly.AssemblyAttributes.Any(a => a.AttributeType.FullName == "H5.ExternalAttribute");
                 }
             }
 
@@ -213,7 +213,7 @@ namespace HighFive.Translator
             foreach (var item in fieldDeclaration.Variables)
             {
                 var rr = this.Resolver.ResolveNode(item, null) as MemberResolveResult;
-                if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.Attributes.Any(a => a.AttributeType.FullName == HighFive.Translator.Translator.HighFive_ASSEMBLY + ".InlineConstAttribute"))
+                if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.Attributes.Any(a => a.AttributeType.FullName == H5.Translator.Translator.H5_ASSEMBLY + ".InlineConstAttribute"))
                 {
                     continue;
                 }
@@ -548,7 +548,7 @@ namespace HighFive.Translator
         {
 
 
-            var fieldAttributeName = "HighFive.FieldAttribute";
+            var fieldAttributeName = "H5.FieldAttribute";
             var autoPropertyToField = member.Attributes.Any(a => a.AttributeType.FullName == fieldAttributeName);
 
             if (!autoPropertyToField)
@@ -586,7 +586,7 @@ namespace HighFive.Translator
                 if (possiblyWrongGetter || possiblyWrongSetter)
                 {
                     var message = string.Format(
-                            HighFive.Translator.Constants.Messages.Exceptions.FIELD_PROPERTY_MARKED_ADVISE,
+                            H5.Translator.Constants.Messages.Exceptions.FIELD_PROPERTY_MARKED_ADVISE,
                             resolvedProperty.Member.ToString(),
                             possiblyWrongGetter ? "getter" : string.Empty,
                             possiblyWrongSetter ? (possiblyWrongGetter ? " and " : string.Empty) + "setter" : string.Empty
@@ -614,7 +614,7 @@ namespace HighFive.Translator
                 {
                     initializerIsString = true;
                     string enumStringName = member.Member.Name;
-                    var attr = Helpers.GetInheritedAttribute(member.Member, Translator.HighFive_ASSEMBLY + ".NameAttribute");
+                    var attr = Helpers.GetInheritedAttribute(member.Member, Translator.H5_ASSEMBLY + ".NameAttribute");
 
                     if (attr != null)
                     {
@@ -774,7 +774,7 @@ namespace HighFive.Translator
 
         protected virtual bool ReadReflectionInfo(ICSharpCode.NRefactory.CSharp.Attribute attr, string name, ResolveResult resolveResult)
         {
-            if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == Translator.HighFive_ASSEMBLY + ".ReflectableAttribute")
+            if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == Translator.H5_ASSEMBLY + ".ReflectableAttribute")
             {
                 var config = ((AssemblyInfo)this.AssemblyInfo).ReflectionInternal;
 
@@ -814,7 +814,7 @@ namespace HighFive.Translator
                         {
                             IType t = this.GetAttributeArgumentType(attr, resolveResult, 0);
 
-                            if (t.FullName == "HighFive.TypeAccessibility")
+                            if (t.FullName == "H5.TypeAccessibility")
                             {
                                 config.TypeAccessibility = (TypeAccessibility)(int)v;
                             }
@@ -842,8 +842,8 @@ namespace HighFive.Translator
 
         protected virtual bool ReadModuleInfo(ICSharpCode.NRefactory.CSharp.Attribute attr, string name, ResolveResult resolveResult)
         {
-            if ((name == (Translator.HighFive_ASSEMBLY + ".Module")) ||
-                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.HighFive_ASSEMBLY + ".ModuleAttribute")))
+            if ((name == (Translator.H5_ASSEMBLY + ".Module")) ||
+                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.H5_ASSEMBLY + ".ModuleAttribute")))
             {
                 Module module = null;
                 var args = ((InvocationResolveResult) resolveResult).Arguments.Select(a=> a.ConstantValue).ToList();
@@ -940,8 +940,8 @@ namespace HighFive.Translator
 
         protected virtual bool ReadFileNameInfo(ICSharpCode.NRefactory.CSharp.Attribute attr, string name, ResolveResult resolveResult)
         {
-            if ((name == (Translator.HighFive_ASSEMBLY + ".FileName")) ||
-                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.HighFive_ASSEMBLY + ".FileNameAttribute")))
+            if ((name == (Translator.H5_ASSEMBLY + ".FileName")) ||
+                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.H5_ASSEMBLY + ".FileNameAttribute")))
             {
                 if (attr.Arguments.Count > 0)
                 {
@@ -963,8 +963,8 @@ namespace HighFive.Translator
         {
             var configHelper = new ConfigHelper();
 
-            if ((name == (Translator.HighFive_ASSEMBLY + ".Output")) ||
-                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.HighFive_ASSEMBLY + ".OutputPathAttribute")))
+            if ((name == (Translator.H5_ASSEMBLY + ".Output")) ||
+                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.H5_ASSEMBLY + ".OutputPathAttribute")))
             {
                 if (attr.Arguments.Count > 0)
                 {
@@ -984,8 +984,8 @@ namespace HighFive.Translator
 
         protected virtual bool ReadOutputByInfo(ICSharpCode.NRefactory.CSharp.Attribute attr, string name, ResolveResult resolveResult)
         {
-            if ((name == (Translator.HighFive_ASSEMBLY + ".OutputBy")) ||
-                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.HighFive_ASSEMBLY + ".OutputByAttribute")))
+            if ((name == (Translator.H5_ASSEMBLY + ".OutputBy")) ||
+                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.H5_ASSEMBLY + ".OutputByAttribute")))
             {
                 if (attr.Arguments.Count > 0)
                 {
@@ -1015,8 +1015,8 @@ namespace HighFive.Translator
 
         protected virtual bool ReadModuleDependency(ICSharpCode.NRefactory.CSharp.Attribute attr, string name, ResolveResult resolveResult)
         {
-            if ((name == (Translator.HighFive_ASSEMBLY + ".ModuleDependency")) ||
-                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.HighFive_ASSEMBLY + ".ModuleDependencyAttribute")))
+            if ((name == (Translator.H5_ASSEMBLY + ".ModuleDependency")) ||
+                (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (Translator.H5_ASSEMBLY + ".ModuleDependencyAttribute")))
             {
                 if (attr.Arguments.Count > 0)
                 {

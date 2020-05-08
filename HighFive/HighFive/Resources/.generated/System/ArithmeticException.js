@@ -1,4 +1,4 @@
-    HighFive.define("System.ArithmeticException", {
+    H5.define("System.ArithmeticException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

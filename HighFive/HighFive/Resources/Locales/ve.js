@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ve", true), {
+H5.merge(new System.Globalization.CultureInfo("ve", true), {
     englishName: "Venda",
     nativeName: "Tshivenḓa",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ve", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Swo","Mus","Vhi","Rar","Ṋa","Ṱan","Mug"],
         abbreviatedMonthGenitiveNames: ["Pha","Luh","Ṱhf","Lam","Shu","Lwi","Lwa","Ṱha","Khu","Tsh","Ḽar","Nye",""],
         abbreviatedMonthNames: ["Pha","Luh","Ṱhf","Lam","Shu","Lwi","Lwa","Ṱha","Khu","Tsh","Ḽar","Nye",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ve", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ve-ZA",
         EBCDICCodePage: 500,

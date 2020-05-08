@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.MemoryStream", {
+    H5.define("System.IO.MemoryStream", {
         inherits: [System.IO.Stream],
         statics: {
             fields: {
@@ -193,10 +193,10 @@
                     if (newCapacity < 256) {
                         newCapacity = 256;
                     }
-                    if (newCapacity < HighFive.Int.mul(this._capacity, 2)) {
-                        newCapacity = HighFive.Int.mul(this._capacity, 2);
+                    if (newCapacity < H5.Int.mul(this._capacity, 2)) {
+                        newCapacity = H5.Int.mul(this._capacity, 2);
                     }
-                    if ((((HighFive.Int.mul(this._capacity, 2))) >>> 0) > 2147483591) {
+                    if ((((H5.Int.mul(this._capacity, 2))) >>> 0) > 2147483591) {
                         newCapacity = value > 2147483591 ? value : 2147483591;
                     }
 
@@ -214,7 +214,7 @@
             },
             TryGetBuffer: function (buffer) {
                 if (!this._exposable) {
-                    buffer.v = HighFive.getDefaultValue(System.ArraySegment);
+                    buffer.v = H5.getDefaultValue(System.ArraySegment);
                     return false;
                 }
 
@@ -308,7 +308,7 @@
                     return -1;
                 }
 
-                return this._buffer[System.Array.index(HighFive.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)];
+                return this._buffer[System.Array.index(H5.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)];
             },
             Seek: function (offset, loc) {
                 if (!this._isOpen) {
@@ -417,7 +417,7 @@
                     }
                     this._length = i;
                 }
-                if ((count <= 8) && (!HighFive.referenceEquals(buffer, this._buffer))) {
+                if ((count <= 8) && (!H5.referenceEquals(buffer, this._buffer))) {
                     var byteCount = count;
                     while (((byteCount = (byteCount - 1) | 0)) >= 0) {
                         this._buffer[System.Array.index(((this._position + byteCount) | 0), this._buffer)] = buffer[System.Array.index(((offset + byteCount) | 0), buffer)];
@@ -448,7 +448,7 @@
                     }
                     this._length = newLength;
                 }
-                this._buffer[System.Array.index(HighFive.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)] = value;
+                this._buffer[System.Array.index(H5.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)] = value;
 
             },
             WriteTo: function (stream) {

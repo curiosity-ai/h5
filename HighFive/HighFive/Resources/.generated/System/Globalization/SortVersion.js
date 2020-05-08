@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.SortVersion", {
+    H5.define("System.Globalization.SortVersion", {
         inherits: function () { return [System.IEquatable$1(System.Globalization.SortVersion)]; },
         statics: {
             methods: {
@@ -61,7 +61,7 @@
         },
         methods: {
             equals: function (obj) {
-                var n = HighFive.as(obj, System.Globalization.SortVersion);
+                var n = H5.as(obj, System.Globalization.SortVersion);
                 if (System.Globalization.SortVersion.op_Inequality(n, null)) {
                     return this.equalsT(n);
                 }
@@ -76,7 +76,7 @@
                 return this.m_NlsVersion === other.m_NlsVersion && System.Guid.op_Equality(this.m_SortId, other.m_SortId);
             },
             getHashCode: function () {
-                return HighFive.Int.mul(this.m_NlsVersion, 7) | this.m_SortId.getHashCode();
+                return H5.Int.mul(this.m_NlsVersion, 7) | this.m_SortId.getHashCode();
             }
         }
     });

@@ -1,8 +1,8 @@
 using System;
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using Newtonsoft.Json;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     [JsonConverter(typeof(ResourceConfigConverter))]
     public class ResourceConfig

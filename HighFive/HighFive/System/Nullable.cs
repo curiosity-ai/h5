@@ -1,48 +1,48 @@
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public struct Nullable<T> where T : struct
     {
-        [HighFive.Template("{0}")]
+        [H5.Template("{0}")]
         public extern Nullable(T value);
 
         public extern bool HasValue
         {
-            [HighFive.Template("System.Nullable.hasValue({this})")]
+            [H5.Template("System.Nullable.hasValue({this})")]
             get;
         }
 
         public extern T Value
         {
-            [HighFive.Template("System.Nullable.getValue({this})")]
+            [H5.Template("System.Nullable.getValue({this})")]
             get;
         }
 
-        [HighFive.Template("System.Nullable.getValueOrDefault({this}, {T:default})")]
+        [H5.Template("System.Nullable.getValueOrDefault({this}, {T:default})")]
         public extern T GetValueOrDefault();
 
-        [HighFive.Template("System.Nullable.getValueOrDefault({this}, {0})")]
+        [H5.Template("System.Nullable.getValueOrDefault({this}, {0})")]
         public extern T GetValueOrDefault(T defaultValue);
 
         public static extern implicit operator T? (T value);
 
-        [HighFive.Template("System.Nullable.getValue({this})")]
+        [H5.Template("System.Nullable.getValue({this})")]
         public static extern explicit operator T(T? value);
 
-        [HighFive.Template("System.Nullable.equalsT({this}, {other})")]
+        [H5.Template("System.Nullable.equalsT({this}, {other})")]
         public override extern bool Equals(object other);
 
-        [HighFive.Template("System.Nullable.getHashCode({this}, {T:GetHashCode})", Fn = "System.Nullable.getHashCodeFn({T:GetHashCode})")]
+        [H5.Template("System.Nullable.getHashCode({this}, {T:GetHashCode})", Fn = "System.Nullable.getHashCodeFn({T:GetHashCode})")]
         public override extern int GetHashCode();
 
-        [HighFive.Template("System.Nullable.toString({this}, {T:ToString})", Fn = "System.Nullable.toStringFn({T:ToString})")]
+        [H5.Template("System.Nullable.toString({this}, {T:ToString})", Fn = "System.Nullable.toStringFn({T:ToString})")]
         public override extern string ToString();
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
     public static class Nullable
     {
         public static extern int Compare<T>(Nullable<T> n1, Nullable<T> n2) where T : struct;

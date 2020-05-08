@@ -52,27 +52,27 @@ using System.Threading.Tasks;
 
 namespace System.IO
 {
-    [HighFive.External]
-    [HighFive.Namespace(false)]
+    [H5.External]
+    [H5.Namespace(false)]
     internal class FileReader
     {
         public extern FileReader();
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern void ReadAsArrayBuffer(object file);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public readonly string Result;
 
-        [HighFive.Convention(HighFive.Notation.LowerCase)]
+        [H5.Convention(H5.Notation.LowerCase)]
         public Action OnLoad;
 
-        [HighFive.Convention(HighFive.Notation.LowerCase)]
+        [H5.Convention(H5.Notation.LowerCase)]
         public Action<object> OnError;
     }
 
-    [HighFive.Reflectable]
-    [HighFive.Convention]
+    [H5.Reflectable]
+    [H5.Convention]
     public class FileStream : Stream
     {
         private string name;
@@ -232,12 +232,12 @@ namespace System.IO
                 return 0;
             }
 
-            var byteBuffer = HighFive.Script.Write<dynamic>("new Uint8Array(this.GetInternalBuffer())");
+            var byteBuffer = H5.Script.Write<dynamic>("new Uint8Array(this.GetInternalBuffer())");
             if (num > 8)
             {
                 for (var n = 0; n < num; n++)
                 {
-                    buffer[n + offset] = HighFive.Script.Write<dynamic>("byteBuffer[this.Position.add(System.Int64(n))]");
+                    buffer[n + offset] = H5.Script.Write<dynamic>("byteBuffer[this.Position.add(System.Int64(n))]");
                 }
             }
             else
@@ -251,7 +251,7 @@ namespace System.IO
                     {
                         break;
                     }
-                    buffer[offset + num1] = HighFive.Script.Write<dynamic>("byteBuffer[this.Position.add(num1)]");
+                    buffer[offset + num1] = H5.Script.Write<dynamic>("byteBuffer[this.Position.add(num1)]");
                 }
             }
             this.Position += num;
@@ -260,24 +260,24 @@ namespace System.IO
 
         internal static byte[] ReadBytes(string path)
         {
-            if (HighFive.Script.IsNode)
+            if (H5.Script.IsNode)
             {
-                var fs = HighFive.Script.Write<dynamic>(@"require(""fs"")");
-                return HighFive.Script.Write<dynamic>("HighFive.cast(fs.readFileSync(path), ArrayBuffer)");
+                var fs = H5.Script.Write<dynamic>(@"require(""fs"")");
+                return H5.Script.Write<dynamic>("H5.cast(fs.readFileSync(path), ArrayBuffer)");
             }
             else
             {
-                var req = HighFive.Script.Write<dynamic>("new XMLHttpRequest()");
+                var req = H5.Script.Write<dynamic>("new XMLHttpRequest()");
                 req.open("GET", path, false);
                 req.overrideMimeType("text/plain; charset=x-user-defined");
                 req.send(null);
-                if (HighFive.Script.Write<bool>("req.status !== 200"))
+                if (H5.Script.Write<bool>("req.status !== 200"))
                 {
                     throw new IOException("Status of request to " + path + " returned status: " + req.status);
                 }
 
                 string text = req.responseText;
-                var resultArray = HighFive.Script.Write<dynamic>("new Uint8Array(text.length)");
+                var resultArray = H5.Script.Write<dynamic>("new Uint8Array(text.length)");
                 text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
                 return resultArray.buffer;
             }
@@ -287,9 +287,9 @@ namespace System.IO
         {
             var tcs = new TaskCompletionSource<byte[]>();
 
-            if (HighFive.Script.IsNode)
+            if (H5.Script.IsNode)
             {
-                var fs = HighFive.Script.Write<dynamic>(@"require(""fs"")");
+                var fs = H5.Script.Write<dynamic>(@"require(""fs"")");
                 fs.readFile(path, new Action<object, byte[]>((err, data) => {
                     if (err != null)
                     {
@@ -301,7 +301,7 @@ namespace System.IO
             }
             else
             {
-                var req = HighFive.Script.Write<dynamic>("new XMLHttpRequest()");
+                var req = H5.Script.Write<dynamic>("new XMLHttpRequest()");
                 req.open("GET", path, true);
                 req.overrideMimeType("text/plain; charset=binary-data");
                 req.send(null);
@@ -309,18 +309,18 @@ namespace System.IO
                 /*@
                 req.onreadystatechange = function () {
                 */
-                    if (HighFive.Script.Write<bool>("req.readyState !== 4"))
+                    if (H5.Script.Write<bool>("req.readyState !== 4"))
                     {
-                        HighFive.Script.Write("return;");
+                        H5.Script.Write("return;");
                     }
 
-                    if (HighFive.Script.Write<bool>("req.status !== 200"))
+                    if (H5.Script.Write<bool>("req.status !== 200"))
                     {
                         throw new IOException("Status of request to " + path + " returned status: " + req.status);
                     }
 
                     string text = req.responseText;
-                    var resultArray = HighFive.Script.Write<dynamic>("new Uint8Array(text.length)");
+                    var resultArray = H5.Script.Write<dynamic>("new Uint8Array(text.length)");
                     text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
                     tcs.SetResult(resultArray.buffer);
                 /*@

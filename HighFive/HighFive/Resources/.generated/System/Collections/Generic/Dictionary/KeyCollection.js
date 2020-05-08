@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.Dictionary$2.KeyCollection", function (TKey, TValue) { return {
+    H5.define("System.Collections.Generic.Dictionary$2.KeyCollection", function (TKey, TValue) { return {
         inherits: [System.Collections.Generic.ICollection$1(TKey),System.Collections.ICollection,System.Collections.Generic.IReadOnlyCollection$1(TKey)],
         $kind: "nested class",
         fields: {
@@ -22,21 +22,21 @@
             },
             System$Collections$ICollection$SyncRoot: {
                 get: function () {
-                    return HighFive.cast(this.dictionary, System.Collections.ICollection).System$Collections$ICollection$SyncRoot;
+                    return H5.cast(this.dictionary, System.Collections.ICollection).System$Collections$ICollection$SyncRoot;
                 }
             }
         },
         alias: [
-            "copyTo", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TKey) + "$copyTo",
-            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + HighFive.getTypeAlias(TKey) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
+            "copyTo", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TKey) + "$copyTo",
+            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + H5.getTypeAlias(TKey) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
             "Count", "System$Collections$ICollection$Count",
-            "Count", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TKey) + "$Count",
-            "System$Collections$Generic$ICollection$1$IsReadOnly", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TKey) + "$IsReadOnly",
-            "System$Collections$Generic$ICollection$1$add", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TKey) + "$add",
-            "System$Collections$Generic$ICollection$1$clear", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TKey) + "$clear",
-            "System$Collections$Generic$ICollection$1$contains", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TKey) + "$contains",
-            "System$Collections$Generic$ICollection$1$remove", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(TKey) + "$remove",
-            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + HighFive.getTypeAlias(TKey) + "$GetEnumerator"
+            "Count", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TKey) + "$Count",
+            "System$Collections$Generic$ICollection$1$IsReadOnly", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TKey) + "$IsReadOnly",
+            "System$Collections$Generic$ICollection$1$add", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TKey) + "$add",
+            "System$Collections$Generic$ICollection$1$clear", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TKey) + "$clear",
+            "System$Collections$Generic$ICollection$1$contains", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TKey) + "$contains",
+            "System$Collections$Generic$ICollection$1$remove", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(TKey) + "$remove",
+            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + H5.getTypeAlias(TKey) + "$GetEnumerator"
         ],
         ctors: {
             ctor: function (dictionary) {
@@ -74,7 +74,7 @@
                 var entries = this.dictionary.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(HighFive.identity(index, ((index = (index + 1) | 0))), array)] = entries[System.Array.index(i, entries)].key;
+                        array[System.Array.index(H5.identity(index, ((index = (index + 1) | 0))), array)] = entries[System.Array.index(i, entries)].key;
                     }
                 }
             },
@@ -99,11 +99,11 @@
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
 
-                var keys = HighFive.as(array, System.Array.type(TKey));
+                var keys = H5.as(array, System.Array.type(TKey));
                 if (keys != null) {
                     this.copyTo(keys, index);
                 } else {
-                    var objects = HighFive.as(array, System.Array.type(System.Object));
+                    var objects = H5.as(array, System.Array.type(System.Object));
                     if (objects == null) {
                         System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Argument_InvalidArrayType);
                     }
@@ -113,12 +113,12 @@
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
                             if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                                objects[System.Array.index(HighFive.identity(index, ((index = (index + 1) | 0))), objects)] = entries[System.Array.index(i, entries)].key;
+                                objects[System.Array.index(H5.identity(index, ((index = (index + 1) | 0))), objects)] = entries[System.Array.index(i, entries)].key;
                             }
                         }
                     } catch ($e1) {
                         $e1 = System.Exception.create($e1);
-                        if (HighFive.is($e1, System.ArrayTypeMismatchException)) {
+                        if (H5.is($e1, System.ArrayTypeMismatchException)) {
                             System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Argument_InvalidArrayType);
                         } else {
                             throw $e1;

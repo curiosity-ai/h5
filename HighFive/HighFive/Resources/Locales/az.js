@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("az", true), {
+H5.merge(new System.Globalization.CultureInfo("az", true), {
     englishName: "Azerbaijani",
     nativeName: "azərbaycan",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("az", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["B.","B.E.","Ç.A.","Ç.","C.A.","C.","Ş."],
         abbreviatedMonthGenitiveNames: ["yan","fev","mar","apr","may","iyn","iyl","avq","sen","okt","noy","dek",""],
         abbreviatedMonthNames: ["yan","fev","mar","apr","may","iyn","iyl","avq","sen","okt","noy","dek",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("az", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1254,
         CultureName: "az-Latn-AZ",
         EBCDICCodePage: 20905,

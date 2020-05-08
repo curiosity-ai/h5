@@ -1,4 +1,4 @@
-    HighFive.define("System.TypeCodeValues", {
+    H5.define("System.TypeCodeValues", {
         statics: {
             fields: {
                 Empty: null,

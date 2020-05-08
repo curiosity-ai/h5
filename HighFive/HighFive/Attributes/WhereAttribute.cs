@@ -1,25 +1,25 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// Allows to configure flexible constraints for generic type parameters.
     ///
     /// Provided multiple instances of [Where] attribute applied to a single generic type parameter,
-    /// HighFive will not raise a compilation error if at least one [Where] attribute was met by the type argument.
+    /// H5 will not raise a compilation error if at least one [Where] attribute was met by the type argument.
     /// </summary>
     [NonScriptable]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface | AttributeTargets.Delegate | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class WhereAttribute : Attribute
     {
         /// <summary>
-        /// If true, HighFive will consider existing implicit conversion operators
+        /// If true, H5 will consider existing implicit conversion operators
         /// in addition to inheritance chains, when checking whether constraints are met.
         /// </summary>
         public bool EnableImplicitConversion { get; set; }
 
         /// <summary>
-        /// If true, HighFive will consider existing explicit conversion operators
+        /// If true, H5 will consider existing explicit conversion operators
         /// in addition to inheritance chains, when checking whether constraints are met.
         /// </summary>
         public bool EnableExplicitConversion { get; set; }

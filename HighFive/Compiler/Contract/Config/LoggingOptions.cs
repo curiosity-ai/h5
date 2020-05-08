@@ -1,4 +1,4 @@
-namespace HighFive.Contract
+namespace H5.Contract
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;

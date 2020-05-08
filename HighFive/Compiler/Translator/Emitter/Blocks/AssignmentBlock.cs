@@ -1,6 +1,6 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
-using HighFive.Translator.Utils;
+using H5.Contract;
+using H5.Contract.Constants;
+using H5.Translator.Utils;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -8,7 +8,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 using System;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class AssignmentBlock : ConversionBlock
     {
@@ -71,7 +71,7 @@ namespace HighFive.Translator
                         this.Write(JS.Types.SYSTEM_NULLABLE + "." + JS.Funcs.Math.LIFT + ".(");
                     }
 
-                    this.Write(HighFiveTypes.ToJsName(method.DeclaringType, this.Emitter));
+                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
                     this.WriteDot();
 
                     this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
@@ -818,17 +818,17 @@ namespace HighFive.Translator
                 if (proto && prop != null && prop.SetMethod == null)
                 {
                     var name = OverloadsCollection.Create(this.Emitter, mrr.Member).GetOverloadName();
-                    this.Write(JS.Types.HighFive.ENSURE_BASE_PROPERTY + "(this, \"" + name + "\"");
+                    this.Write(JS.Types.H5.ENSURE_BASE_PROPERTY + "(this, \"" + name + "\"");
 
-                    if (this.Emitter.Validator.IsExternalType(property.DeclaringTypeDefinition) && !this.Emitter.Validator.IsHighFiveClass(property.DeclaringTypeDefinition))
+                    if (this.Emitter.Validator.IsExternalType(property.DeclaringTypeDefinition) && !this.Emitter.Validator.IsH5Class(property.DeclaringTypeDefinition))
                     {
-                        this.Write(", \"" + HighFiveTypes.ToJsName(property.DeclaringType, this.Emitter, isAlias: true) + "\"");
+                        this.Write(", \"" + H5Types.ToJsName(property.DeclaringType, this.Emitter, isAlias: true) + "\"");
                     }
 
                     this.Write(")");
 
                     this.WriteDot();
-                    var alias = HighFiveTypes.ToJsName(mrr.Member.DeclaringType, this.Emitter, isAlias: true);
+                    var alias = H5Types.ToJsName(mrr.Member.DeclaringType, this.Emitter, isAlias: true);
                     if (alias.StartsWith("\""))
                     {
                         alias = alias.Insert(1, "$");
@@ -905,7 +905,7 @@ namespace HighFive.Translator
                 }
                 else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
                 {
-                    this.Write(HighFiveTypes.ToJsName(method.DeclaringType, this.Emitter));
+                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
                     this.WriteDot();
 
                     this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());

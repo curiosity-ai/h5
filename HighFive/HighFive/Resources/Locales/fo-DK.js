@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("fo-DK", true), {
+H5.merge(new System.Globalization.CultureInfo("fo-DK", true), {
     englishName: "Faroese (Denmark)",
     nativeName: "føroyskt (Danmark)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("fo-DK", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sun.","mán.","týs.","mik.","hós.","frí.","ley."],
         abbreviatedMonthGenitiveNames: ["jan.","feb.","mar.","apr.","mai","jun.","jul.","aug.","sep.","okt.","nov.","des.",""],
         abbreviatedMonthNames: ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("fo-DK", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "fo-DK",
         EBCDICCodePage: 500,

@@ -1,4 +1,4 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.PatternMatching;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     internal class TempEmitter : IEmitter
     {
@@ -152,7 +152,7 @@ namespace HighFive.Translator
             }
         }
 
-        public HighFiveTypes HighFiveTypes
+        public H5Types H5Types
         {
             get
             {

@@ -1,4 +1,4 @@
-    HighFive.define("System.DivideByZeroException", {
+    H5.define("System.DivideByZeroException", {
         inherits: [System.ArithmeticException],
         ctors: {
             ctor: function () {

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ka-GE", true), {
+H5.merge(new System.Globalization.CultureInfo("ka-GE", true), {
     englishName: "Georgian (Georgia)",
     nativeName: "ქართული (საქართველო)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "არ არის რიცხვი",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ka-GE", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["კვი","ორშ","სამ","ოთხ","ხუთ","პარ","შაბ"],
         abbreviatedMonthGenitiveNames: ["იან","თებ","მარ","აპრ","მაი","ივნ","ივლ","აგვ","სექ","ოქტ","ნოე","დეკ",""],
         abbreviatedMonthNames: ["იან","თებ","მარ","აპრ","მაი","ივნ","ივლ","აგვ","სექ","ოქტ","ნოე","დეკ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ka-GE", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ka-GE",
         EBCDICCodePage: 500,

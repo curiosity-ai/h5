@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ig", true), {
+H5.merge(new System.Globalization.CultureInfo("ig", true), {
     englishName: "Igbo",
     nativeName: "Igbo",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ig", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Ụka","Mọn","Tiu","Wen","Tọọ","Fraị","Sat"],
         abbreviatedMonthGenitiveNames: ["Jen","Feb","Maa","Epr","Mee","Juu","Jul","Ọgọ","Sep","Ọkt","Nov","Dis",""],
         abbreviatedMonthNames: ["Jen","Feb","Maa","Epr","Mee","Juu","Jul","Ọgọ","Sep","Ọkt","Nov","Dis",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ig", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "ig-NG",
         EBCDICCodePage: 37,

@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.Queue$1", function (T) { return {
+    H5.define("System.Collections.Generic.Queue$1", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerable$1(T),System.Collections.ICollection,System.Collections.Generic.IReadOnlyCollection$1(T)],
         statics: {
             fields: {
@@ -44,16 +44,16 @@
             }
         },
         alias: [
-            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + HighFive.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
+            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + H5.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
             "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo",
-            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + HighFive.getTypeAlias(T) + "$GetEnumerator"
+            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + H5.getTypeAlias(T) + "$GetEnumerator"
         ],
         ctors: {
             ctor: function () {
                 this.$initialize();
                 this._array = System.Array.init(0, function (){
-                    return HighFive.getDefaultValue(T);
+                    return H5.getDefaultValue(T);
                 }, T);
             },
             $ctor2: function (capacity) {
@@ -62,7 +62,7 @@
                     throw new System.ArgumentOutOfRangeException.$ctor4("capacity", "Non-negative number required.");
                 }
                 this._array = System.Array.init(capacity, function (){
-                    return HighFive.getDefaultValue(T);
+                    return H5.getDefaultValue(T);
                 }, T);
             },
             $ctor1: function (collection) {
@@ -72,17 +72,17 @@
                 }
 
                 this._array = System.Array.init(System.Collections.Generic.Queue$1(T).DefaultCapacity, function (){
-                    return HighFive.getDefaultValue(T);
+                    return H5.getDefaultValue(T);
                 }, T);
 
-                var en = HighFive.getEnumerator(collection, T);
+                var en = H5.getEnumerator(collection, T);
                 try {
                     while (en.System$Collections$IEnumerator$moveNext()) {
-                        this.Enqueue(en[HighFive.geti(en, "System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
+                        this.Enqueue(en[H5.geti(en, "System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
                     }
                 }
                 finally {
-                    if (HighFive.hasValue(en)) {
+                    if (H5.hasValue(en)) {
                         en.System$IDisposable$Dispose();
                     }
                 }
@@ -149,14 +149,14 @@
             Clear: function () {
                 if (this._head < this._tail) {
                     System.Array.fill(this._array, function () {
-                        return HighFive.getDefaultValue(T);
+                        return H5.getDefaultValue(T);
                     }, this._head, this._size);
                 } else {
                     System.Array.fill(this._array, function () {
-                        return HighFive.getDefaultValue(T);
+                        return H5.getDefaultValue(T);
                     }, this._head, ((this._array.length - this._head) | 0));
                     System.Array.fill(this._array, function () {
-                        return HighFive.getDefaultValue(T);
+                        return H5.getDefaultValue(T);
                     }, 0, this._tail);
                 }
 
@@ -167,7 +167,7 @@
             },
             Enqueue: function (item) {
                 if (this._size === this._array.length) {
-                    var newcapacity = (HighFive.Int.div(HighFive.Int.mul(this._array.length, System.Collections.Generic.Queue$1(T).GrowFactor), 100)) | 0;
+                    var newcapacity = (H5.Int.div(H5.Int.mul(this._array.length, System.Collections.Generic.Queue$1(T).GrowFactor), 100)) | 0;
                     if (newcapacity < ((this._array.length + System.Collections.Generic.Queue$1(T).MinimumGrow) | 0)) {
                         newcapacity = (this._array.length + System.Collections.Generic.Queue$1(T).MinimumGrow) | 0;
                     }
@@ -194,7 +194,7 @@
                 }
 
                 var removed = this._array[System.Array.index(this._head, this._array)];
-                this._array[System.Array.index(this._head, this._array)] = HighFive.getDefaultValue(T);
+                this._array[System.Array.index(this._head, this._array)] = H5.getDefaultValue(T);
                 this._head = this.MoveNext(this._head);
                 this._size = (this._size - 1) | 0;
                 this._version = (this._version + 1) | 0;
@@ -212,7 +212,7 @@
                 var count = this._size;
 
                 var c = System.Collections.Generic.EqualityComparer$1(T).def;
-                while (HighFive.identity(count, ((count = (count - 1) | 0))) > 0) {
+                while (H5.identity(count, ((count = (count - 1) | 0))) > 0) {
                     if (item == null) {
                         if (this._array[System.Array.index(index, this._array)] == null) {
                             return true;
@@ -230,7 +230,7 @@
             },
             ToArray: function () {
                 var arr = System.Array.init(this._size, function (){
-                    return HighFive.getDefaultValue(T);
+                    return H5.getDefaultValue(T);
                 }, T);
                 if (this._size === 0) {
                     return arr;
@@ -247,7 +247,7 @@
             },
             SetCapacity: function (capacity) {
                 var newarray = System.Array.init(capacity, function (){
-                    return HighFive.getDefaultValue(T);
+                    return H5.getDefaultValue(T);
                 }, T);
                 if (this._size > 0) {
                     if (this._head < this._tail) {
@@ -268,7 +268,7 @@
                 return (tmp === this._array.length) ? 0 : tmp;
             },
             TrimExcess: function () {
-                var threshold = HighFive.Int.clip32(this._array.length * 0.9);
+                var threshold = H5.Int.clip32(this._array.length * 0.9);
                 if (this._size < threshold) {
                     this.SetCapacity(this._size);
                 }

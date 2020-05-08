@@ -25,7 +25,7 @@ using System.Diagnostics;
 
 namespace System.Runtime.Versioning
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method | AttributeTargets.Constructor,
                     AllowMultiple = false, Inherited = false)]
     internal sealed class NonVersionableAttribute : Attribute

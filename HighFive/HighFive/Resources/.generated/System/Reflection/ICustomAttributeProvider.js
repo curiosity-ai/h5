@@ -1,3 +1,3 @@
-    HighFive.define("System.Reflection.ICustomAttributeProvider", {
+    H5.define("System.Reflection.ICustomAttributeProvider", {
         $kind: "interface"
     });

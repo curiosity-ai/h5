@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.SortedSet$1.Enumerator", function (T) { return {
+    H5.define("System.Collections.Generic.SortedSet$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
         $kind: "nested struct",
         statics: {
@@ -7,7 +7,7 @@
             },
             ctors: {
                 init: function () {
-                    this.dummyNode = new (System.Collections.Generic.SortedSet$1.Node(T)).ctor(HighFive.getDefaultValue(T));
+                    this.dummyNode = new (System.Collections.Generic.SortedSet$1.Node(T)).ctor(H5.getDefaultValue(T));
                 }
             },
             methods: {
@@ -27,7 +27,7 @@
                     if (this.current != null) {
                         return this.current.Item;
                     }
-                    return HighFive.getDefaultValue(T);
+                    return H5.getDefaultValue(T);
                 }
             },
             System$Collections$IEnumerator$Current: {
@@ -48,7 +48,7 @@
         alias: [
             "moveNext", "System$Collections$IEnumerator$moveNext",
             "Dispose", "System$IDisposable$Dispose",
-            "Current", ["System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             $ctor1: function (set) {
@@ -58,7 +58,7 @@
 
                 this.version = this.tree.version;
 
-                this.stack = new (System.Collections.Generic.Stack$1(System.Collections.Generic.SortedSet$1.Node(T))).$ctor2(HighFive.Int.mul(2, System.Collections.Generic.SortedSet$1(T).log2(((set.Count + 1) | 0))));
+                this.stack = new (System.Collections.Generic.Stack$1(System.Collections.Generic.SortedSet$1.Node(T))).$ctor2(H5.Int.mul(2, System.Collections.Generic.SortedSet$1(T).log2(((set.Count + 1) | 0))));
                 this.current = null;
                 this.reverse = false;
 
@@ -70,7 +70,7 @@
                 this.tree.VersionCheck();
                 this.version = this.tree.version;
 
-                this.stack = new (System.Collections.Generic.Stack$1(System.Collections.Generic.SortedSet$1.Node(T))).$ctor2(HighFive.Int.mul(2, System.Collections.Generic.SortedSet$1(T).log2(((set.Count + 1) | 0))));
+                this.stack = new (System.Collections.Generic.Stack$1(System.Collections.Generic.SortedSet$1.Node(T))).$ctor2(H5.Int.mul(2, System.Collections.Generic.SortedSet$1(T).log2(((set.Count + 1) | 0))));
                 this.current = null;
                 this.reverse = reverse;
 
@@ -143,14 +143,14 @@
                 this.Reset();
             },
             getHashCode: function () {
-                var h = HighFive.addHash([3788985113, this.tree, this.version, this.stack, this.current, this.reverse]);
+                var h = H5.addHash([3788985113, this.tree, this.version, this.stack, this.current, this.reverse]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.SortedSet$1.Enumerator(T))) {
+                if (!H5.is(o, System.Collections.Generic.SortedSet$1.Enumerator(T))) {
                     return false;
                 }
-                return HighFive.equals(this.tree, o.tree) && HighFive.equals(this.version, o.version) && HighFive.equals(this.stack, o.stack) && HighFive.equals(this.current, o.current) && HighFive.equals(this.reverse, o.reverse);
+                return H5.equals(this.tree, o.tree) && H5.equals(this.version, o.version) && H5.equals(this.stack, o.stack) && H5.equals(this.current, o.current) && H5.equals(this.reverse, o.reverse);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.Generic.SortedSet$1.Enumerator(T))();

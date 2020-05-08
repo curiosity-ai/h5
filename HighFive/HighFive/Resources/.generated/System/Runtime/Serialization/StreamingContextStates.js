@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.StreamingContextStates", {
+    H5.define("System.Runtime.Serialization.StreamingContextStates", {
         $kind: "enum",
         statics: {
             fields: {

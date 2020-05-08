@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("guz-KE", true), {
+H5.merge(new System.Globalization.CultureInfo("guz-KE", true), {
     englishName: "Gusii (Kenya)",
     nativeName: "Ekegusii (Kenya)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("guz-KE", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Cpr","Ctt","Cmn","Cmt","Ars","Icm","Est"],
         abbreviatedMonthGenitiveNames: ["Can","Feb","Mac","Apr","Mei","Jun","Cul","Agt","Sep","Okt","Nob","Dis",""],
         abbreviatedMonthNames: ["Can","Feb","Mac","Apr","Mei","Jun","Cul","Agt","Sep","Okt","Nob","Dis",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("guz-KE", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "guz-KE",
         EBCDICCodePage: 500,

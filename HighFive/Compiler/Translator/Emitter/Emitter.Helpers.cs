@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Emitter
     {
@@ -285,7 +285,7 @@ namespace HighFive.Translator
 
             var member = memberResolveResult.Member;
 
-            string attrName = HighFive.Translator.Translator.HighFive_ASSEMBLY + ".InitAttribute";
+            string attrName = H5.Translator.Translator.H5_ASSEMBLY + ".InitAttribute";
 
             if (member != null)
             {
@@ -317,7 +317,7 @@ namespace HighFive.Translator
 
         public virtual IEnumerable<string> GetScript(EntityDeclaration method)
         {
-            var attr = this.GetAttribute(method.Attributes, HighFive.Translator.Translator.HighFive_ASSEMBLY + ".Script");
+            var attr = this.GetAttribute(method.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".Script");
 
             return this.GetScriptArguments(attr);
         }
@@ -343,7 +343,7 @@ namespace HighFive.Translator
                 return null;
             }
 
-            var attr = Helpers.GetInheritedAttribute(member, HighFive.Translator.Translator.HighFive_ASSEMBLY + ".NameAttribute");
+            var attr = Helpers.GetInheritedAttribute(member, H5.Translator.Translator.H5_ASSEMBLY + ".NameAttribute");
             bool isIgnore = member.DeclaringTypeDefinition != null && this.Validator.IsExternalType(member.DeclaringTypeDefinition);
             string name;
 
@@ -425,7 +425,7 @@ namespace HighFive.Translator
 
                     if (iparam != null && iparam.Attributes != null)
                     {
-                        var attr = iparam.Attributes.FirstOrDefault(a => a.AttributeType.FullName == HighFive.Translator.Translator.HighFive_ASSEMBLY + ".NameAttribute");
+                        var attr = iparam.Attributes.FirstOrDefault(a => a.AttributeType.FullName == H5.Translator.Translator.H5_ASSEMBLY + ".NameAttribute");
 
                         if (attr != null)
                         {
@@ -479,7 +479,7 @@ namespace HighFive.Translator
 
         public Tuple<bool, string> IsGlobalTarget(IMember member)
         {
-            var attr = this.GetAttribute(member.Attributes, HighFive.Translator.Translator.HighFive_ASSEMBLY + ".GlobalTargetAttribute");
+            var attr = this.GetAttribute(member.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".GlobalTargetAttribute");
 
             return attr != null ? new Tuple<bool, string>(true, (string)attr.PositionalArguments.First().ConstantValue) : null;
         }
@@ -493,14 +493,14 @@ namespace HighFive.Translator
                 return this.GetInline(mrr.Member);
             }
 
-            var attr = this.GetAttribute(method.Attributes, HighFive.Translator.Translator.HighFive_ASSEMBLY + ".Template");
+            var attr = this.GetAttribute(method.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".Template");
 
             return attr != null && attr.Arguments.Count > 0 ? ((string)((PrimitiveExpression)attr.Arguments.First()).Value) : null;
         }
 
         public virtual string GetInline(IEntity entity)
         {
-            string attrName = HighFive.Translator.Translator.HighFive_ASSEMBLY + ".TemplateAttribute";
+            string attrName = H5.Translator.Translator.H5_ASSEMBLY + ".TemplateAttribute";
             // Moving these two `is` into the end of the methos (where it's actually used) leads
             // to incorrect JavaScript being generated
             bool isProp = entity is IProperty;
@@ -558,7 +558,7 @@ namespace HighFive.Translator
 
         protected virtual bool IsInlineMethod(IEntity entity)
         {
-            string attrName = HighFive.Translator.Translator.HighFive_ASSEMBLY + ".TemplateAttribute";
+            string attrName = H5.Translator.Translator.H5_ASSEMBLY + ".TemplateAttribute";
 
             if (entity != null)
             {
@@ -607,7 +607,7 @@ namespace HighFive.Translator
 
         public virtual bool IsNativeMember(string fullName)
         {
-            return fullName.StartsWith(HighFive.Translator.Translator.HighFive_ASSEMBLY_DOT, StringComparison.Ordinal) || fullName.StartsWith("System.", StringComparison.Ordinal);
+            return fullName.StartsWith(H5.Translator.Translator.H5_ASSEMBLY_DOT, StringComparison.Ordinal) || fullName.StartsWith("System.", StringComparison.Ordinal);
         }
 
         public virtual bool IsMemberConst(IMember member)
@@ -627,7 +627,7 @@ namespace HighFive.Translator
 
             if (isConst)
             {
-                var attr = this.GetAttribute(member.Attributes, HighFive.Translator.Translator.HighFive_ASSEMBLY + ".InlineConstAttribute");
+                var attr = this.GetAttribute(member.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".InlineConstAttribute");
 
                 if (attr != null)
                 {

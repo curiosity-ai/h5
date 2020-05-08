@@ -1,4 +1,4 @@
-    HighFive.define("System.ArgumentOutOfRangeException", {
+    H5.define("System.ArgumentOutOfRangeException", {
         inherits: [System.ArgumentException],
         fields: {
             _actualValue: null
@@ -6,9 +6,9 @@
         props: {
             Message: {
                 get: function () {
-                    var s = HighFive.ensureBaseProperty(this, "Message").$System$ArgumentException$Message;
+                    var s = H5.ensureBaseProperty(this, "Message").$System$ArgumentException$Message;
                     if (this._actualValue != null) {
-                        var valueMessage = System.SR.Format("Actual value was {0}.", HighFive.toString(this._actualValue));
+                        var valueMessage = System.SR.Format("Actual value was {0}.", H5.toString(this._actualValue));
                         if (s == null) {
                             return valueMessage;
                         }

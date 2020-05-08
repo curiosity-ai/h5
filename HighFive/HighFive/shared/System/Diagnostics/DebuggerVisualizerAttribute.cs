@@ -8,7 +8,7 @@ namespace System.Diagnostics
     /// Signifies that the attributed type has a visualizer which is pointed
     /// to by the parameter type name strings.
     /// </summary>
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class | AttributeTargets.Assembly, AllowMultiple = true)]
     public sealed class DebuggerVisualizerAttribute : Attribute
     {

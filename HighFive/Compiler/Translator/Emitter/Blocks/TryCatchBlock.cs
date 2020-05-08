@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using Object.Net.Utilities;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class TryCatchBlock : AbstractEmitterBlock
     {
@@ -73,7 +73,7 @@ namespace HighFive.Translator
                 this.PopLocals();
                 this.WriteNewLine();
 
-                tryInfo.CatchBlocks.Add(new Tuple<string, string, int, int>(varName, clause.Type.IsNull ? JS.Types.System.Exception.NAME : HighFiveTypes.ToJsName(clause.Type, this.Emitter), catchStep.Step, Emitter.AsyncBlock.Steps.Last().Step));
+                tryInfo.CatchBlocks.Add(new Tuple<string, string, int, int>(varName, clause.Type.IsNull ? JS.Types.System.Exception.NAME : H5Types.ToJsName(clause.Type, this.Emitter), catchStep.Step, Emitter.AsyncBlock.Steps.Last().Step));
                 catchSteps.Add(Emitter.AsyncBlock.Steps.Last());
             }
 
@@ -214,7 +214,7 @@ namespace HighFive.Translator
             if (count > 0)
             {
                 var firstClause = this.TryCatchStatement.CatchClauses.Count == 1 ? this.TryCatchStatement.CatchClauses.First() : null;
-                var exceptionType = (firstClause == null || firstClause.Type.IsNull) ? null : HighFiveTypes.ToJsName(firstClause.Type, this.Emitter);
+                var exceptionType = (firstClause == null || firstClause.Type.IsNull) ? null : H5Types.ToJsName(firstClause.Type, this.Emitter);
                 var isBaseException = exceptionType == null || exceptionType == JS.Types.System.Exception.NAME;
 
                 if (count == 1 && isBaseException)
@@ -354,7 +354,7 @@ namespace HighFive.Translator
 
             foreach (var clause in tryCatchStatement.CatchClauses)
             {
-                var exceptionType = clause.Type.IsNull ? null : HighFiveTypes.ToJsName(clause.Type, this.Emitter);
+                var exceptionType = clause.Type.IsNull ? null : H5Types.ToJsName(clause.Type, this.Emitter);
                 var isBaseException = exceptionType == null || exceptionType == JS.Types.System.Exception.NAME;
 
                 if (!firstClause)
@@ -371,7 +371,7 @@ namespace HighFive.Translator
                 {
                     this.WriteIf();
                     this.WriteOpenParentheses();
-                    this.Write(string.Format(JS.Types.HighFive.IS + "({0}, {1})", varName, exceptionType));
+                    this.Write(string.Format(JS.Types.H5.IS + "({0}, {1})", varName, exceptionType));
                     this.WriteCloseParentheses();
                     this.WriteSpace();
                 }

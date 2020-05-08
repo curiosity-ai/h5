@@ -1,4 +1,4 @@
-    HighFive.define("System.Random", {
+    H5.define("System.Random", {
         statics: {
             fields: {
                 MBIG: 0,
@@ -35,7 +35,7 @@
                 this.SeedArray[System.Array.index(55, this.SeedArray)] = mj;
                 mk = 1;
                 for (var i = 1; i < 55; i = (i + 1) | 0) {
-                    ii = (HighFive.Int.mul(21, i)) % 55;
+                    ii = (H5.Int.mul(21, i)) % 55;
                     this.SeedArray[System.Array.index(ii, this.SeedArray)] = mk;
                     mk = (mj - mk) | 0;
                     if (mk < 0) {
@@ -100,16 +100,16 @@
 
                 var range = System.Int64(maxValue).sub(System.Int64(minValue));
                 if (range.lte(System.Int64(2147483647))) {
-                    return (((HighFive.Int.clip32((this.Sample() * System.Int64.toNumber(range))) + minValue) | 0));
+                    return (((H5.Int.clip32((this.Sample() * System.Int64.toNumber(range))) + minValue) | 0));
                 } else {
-                    return System.Int64.clip32(HighFive.Int.clip64((this.GetSampleForLargeRange() * System.Int64.toNumber(range))).add(System.Int64(minValue)));
+                    return System.Int64.clip32(H5.Int.clip64((this.GetSampleForLargeRange() * System.Int64.toNumber(range))).add(System.Int64(minValue)));
                 }
             },
             Next$1: function (maxValue) {
                 if (maxValue < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor4("maxValue", "'maxValue' must be greater than zero.");
                 }
-                return HighFive.Int.clip32(this.Sample() * maxValue);
+                return H5.Int.clip32(this.Sample() * maxValue);
             },
             GetSampleForLargeRange: function () {
 

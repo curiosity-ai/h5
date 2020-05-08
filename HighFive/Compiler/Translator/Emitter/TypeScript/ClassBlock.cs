@@ -1,12 +1,12 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using Mono.Cecil;
 using Object.Net.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class ClassBlock : TypeScriptBlock
     {
@@ -86,11 +86,11 @@ namespace HighFive.Translator.TypeScript
 
             if (name.IsEmpty())
             {
-                name = HighFiveTypes.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
+                name = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
 
                 if (this.IsGeneric)
                 {
-                    this.DefName = HighFiveTypes.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, true, true);
+                    this.DefName = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, true, true);
                 }
             }
             else if (this.IsGeneric)
@@ -126,7 +126,7 @@ namespace HighFive.Translator.TypeScript
 
             foreach (var t in this.TypeInfo.GetBaseTypes(this.Emitter))
             {
-                var name = HighFiveTypes.ToTypeScriptName(t, this.Emitter);
+                var name = H5Types.ToTypeScriptName(t, this.Emitter);
 
                 list.Add(name);
             }
@@ -255,8 +255,8 @@ namespace HighFive.Translator.TypeScript
 
                     if (defName.IsEmpty())
                     {
-                        defName = HighFiveTypes.ToTypeScriptName(nestedType.Type, this.Emitter, true);
-                        this.Write(HighFiveTypes.ToTypeScriptName(nestedType.Type, this.Emitter, true, true));
+                        defName = H5Types.ToTypeScriptName(nestedType.Type, this.Emitter, true);
+                        this.Write(H5Types.ToTypeScriptName(nestedType.Type, this.Emitter, true, true));
                     }
                     else
                     {
@@ -271,7 +271,7 @@ namespace HighFive.Translator.TypeScript
                         {
                             parentName = this.TypeInfo.Type.Name;
                         }
-                        defName = parentName + "." + HighFiveTypes.ToTypeScriptName(nestedType.Type, this.Emitter, false, true);
+                        defName = parentName + "." + H5Types.ToTypeScriptName(nestedType.Type, this.Emitter, false, true);
                     }
 
                     this.WriteColon();
@@ -301,7 +301,7 @@ namespace HighFive.Translator.TypeScript
 
             if (this.TypeInfo.ParentType == null && !isInterface)
             {
-                string name = HighFiveTypes.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, true, true);
+                string name = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, true, true);
                 this.WriteNewLine();
 
                 if (this.Namespace == null)
@@ -334,7 +334,7 @@ namespace HighFive.Translator.TypeScript
                 string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, true);
                 if (name.IsEmpty())
                 {
-                    name = HighFiveTypes.ToJsName(this.TypeInfo.Type, this.Emitter, true, true, nomodule: true);
+                    name = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter, true, true, nomodule: true);
                 }
 
                 this.Write("module ");

@@ -1,9 +1,9 @@
 using System;
-using HighFive.Contract;
+using H5.Contract;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ModuleLoader : IModuleLoader
     {

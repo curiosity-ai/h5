@@ -1,8 +1,8 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class PrimitiveExpressionBlock : ConversionBlock
     {
@@ -40,7 +40,7 @@ namespace HighFive.Translator
             {
                 object value = this.PrimitiveExpression.Value;
 
-                this.WriteScript(HighFive.Translator.Emitter.ConvertConstant(value, this.PrimitiveExpression, this.Emitter));
+                this.WriteScript(H5.Translator.Emitter.ConvertConstant(value, this.PrimitiveExpression, this.Emitter));
             }
         }
     }

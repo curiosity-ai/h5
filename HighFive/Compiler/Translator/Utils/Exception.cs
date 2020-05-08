@@ -1,7 +1,7 @@
-using HighFive.Contract;
+using H5.Contract;
 using System;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class TranslatorException : System.Exception, IVisitorException
     {
@@ -21,12 +21,12 @@ namespace HighFive.Translator
 
         public static IVisitorException Create(string format, params object[] args)
         {
-            return new HighFive.Translator.TranslatorException(String.Format(format, args));
+            return new H5.Translator.TranslatorException(String.Format(format, args));
         }
 
         public static void Throw(string format, params object[] args)
         {
-            throw (TranslatorException)HighFive.Translator.TranslatorException.Create(format, args);
+            throw (TranslatorException)H5.Translator.TranslatorException.Create(format, args);
         }
     }
 }

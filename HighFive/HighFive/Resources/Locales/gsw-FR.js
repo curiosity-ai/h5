@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("gsw-FR", true), {
+H5.merge(new System.Globalization.CultureInfo("gsw-FR", true), {
     englishName: "Alsatian (France)",
     nativeName: "Elsässisch (Frànkrisch)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("gsw-FR", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Su.","Ma.","Zi.","Me.","Du.","Fr.","Sà."],
         abbreviatedMonthGenitiveNames: ["Jän.","Fev.","März","Apr.","Mai","Jüni","Jüli","Aug.","Sept.","Okt.","Now.","Dez.",""],
         abbreviatedMonthNames: ["Jän.","Fev.","März","Apr.","Mai","Jüni","Jüli","Aug.","Sept.","Okt.","Now.","Dez.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("gsw-FR", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "gsw-FR",
         EBCDICCodePage: 20297,

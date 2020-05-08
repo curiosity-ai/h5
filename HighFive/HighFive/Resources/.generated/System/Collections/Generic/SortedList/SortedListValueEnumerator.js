@@ -1,11 +1,11 @@
-    HighFive.define("System.Collections.Generic.SortedList$2.SortedListValueEnumerator", function (TKey, TValue) { return {
+    H5.define("System.Collections.Generic.SortedList$2.SortedListValueEnumerator", function (TKey, TValue) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(TValue),System.Collections.IEnumerator],
         $kind: "nested class",
         fields: {
             _sortedList: null,
             index: 0,
             version: 0,
-            currentValue: HighFive.getDefaultValue(TValue)
+            currentValue: H5.getDefaultValue(TValue)
         },
         props: {
             Current: {
@@ -26,7 +26,7 @@
         alias: [
             "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", ["System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             ctor: function (sortedList) {
@@ -38,7 +38,7 @@
         methods: {
             Dispose: function () {
                 this.index = 0;
-                this.currentValue = HighFive.getDefaultValue(TValue);
+                this.currentValue = H5.getDefaultValue(TValue);
             },
             moveNext: function () {
                 var $t;
@@ -53,7 +53,7 @@
                 }
 
                 this.index = (this._sortedList.Count + 1) | 0;
-                this.currentValue = HighFive.getDefaultValue(TValue);
+                this.currentValue = H5.getDefaultValue(TValue);
                 return false;
             },
             System$Collections$IEnumerator$reset: function () {
@@ -61,7 +61,7 @@
                     System.ThrowHelper.ThrowInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumFailedVersion);
                 }
                 this.index = 0;
-                this.currentValue = HighFive.getDefaultValue(TValue);
+                this.currentValue = H5.getDefaultValue(TValue);
             }
         }
     }; });

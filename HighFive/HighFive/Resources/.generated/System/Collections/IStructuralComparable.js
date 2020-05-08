@@ -1,3 +1,3 @@
-    HighFive.define("System.Collections.IStructuralComparable", {
+    H5.define("System.Collections.IStructuralComparable", {
         $kind: "interface"
     });

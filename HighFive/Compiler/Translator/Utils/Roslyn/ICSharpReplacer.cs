@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public interface ICSharpReplacer
     {

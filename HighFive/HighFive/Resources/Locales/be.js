@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("be", true), {
+H5.merge(new System.Globalization.CultureInfo("be", true), {
     englishName: "Belarusian",
     nativeName: "Беларуская",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("be", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["нд","пн","аўт","ср","чц","пт","сб"],
         abbreviatedMonthGenitiveNames: ["студз","лют","сак","крас","май","чэрв","ліп","жн","вер","кастр","ліст","снеж",""],
         abbreviatedMonthNames: ["студз","лют","сак","крас","май","чэрв","ліп","жн","вер","кастр","ліст","снеж",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("be", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "be-BY",
         EBCDICCodePage: 500,

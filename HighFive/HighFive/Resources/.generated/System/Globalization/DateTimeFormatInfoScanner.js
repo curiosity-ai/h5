@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.DateTimeFormatInfoScanner", {
+    H5.define("System.Globalization.DateTimeFormatInfoScanner", {
         statics: {
             fields: {
                 MonthPostfixChar: 0,
@@ -112,7 +112,7 @@
                     return (calID === 8 ? 10 : 0);
                 },
                 EqualStringArrays: function (array1, array2) {
-                    if (HighFive.referenceEquals(array1, array2)) {
+                    if (H5.referenceEquals(array1, array2)) {
                         return true;
                     }
 
@@ -193,7 +193,7 @@
                         if (this.m_dateWords == null) {
                             this.m_dateWords = new (System.Collections.Generic.List$1(System.String)).ctor();
                         }
-                        if (HighFive.referenceEquals(formatPostfix, "MMMM")) {
+                        if (H5.referenceEquals(formatPostfix, "MMMM")) {
                             var temp = String.fromCharCode(System.Globalization.DateTimeFormatInfoScanner.MonthPostfixChar) + (str || "");
                             if (!this.m_dateWords.contains(temp)) {
                                 this.m_dateWords.add(temp);

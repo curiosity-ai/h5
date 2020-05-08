@@ -45,7 +45,7 @@
         ],
 
         toBoolean: function (value, formatProvider) {
-            value = HighFive.unbox(value, true);
+            value = H5.unbox(value, true);
 
             switch (typeof (value)) {
                 case "boolean":
@@ -91,9 +91,9 @@
 
         toChar: function (value, formatProvider, valueTypeCode) {
             var typeCodes = scope.convert.typeCodes,
-                isChar = HighFive.is(value, System.Char);
+                isChar = H5.is(value, System.Char);
 
-            value = HighFive.unbox(value, true);
+            value = H5.unbox(value, true);
 
             if (value instanceof System.Decimal) {
                 value = value.toFloat();
@@ -145,7 +145,7 @@
                     return 0;
                 }
 
-                if (HighFive.isDate(value)) {
+                if (H5.isDate(value)) {
                     scope.internal.throwInvalidCastEx(typeCodes.DateTime, typeCodes.Char);
                 }
             }
@@ -210,7 +210,7 @@
         toDateTime: function (value, formatProvider) {
             var typeCodes = scope.convert.typeCodes;
 
-            value = HighFive.unbox(value, true);
+            value = H5.unbox(value, true);
 
             switch (typeof (value)) {
                 case "boolean":
@@ -230,7 +230,7 @@
                         return scope.internal.getMinValue(typeCodes.DateTime);
                     }
 
-                    if (HighFive.isDate(value)) {
+                    if (H5.isDate(value)) {
                         return value;
                     }
 
@@ -299,7 +299,7 @@
                         return value.toString();
                     }
 
-                    if (HighFive.isDate(value)) {
+                    if (H5.isDate(value)) {
                         return System.DateTime.format(value, null, formatProvider || null);
                     }
 
@@ -318,7 +318,7 @@
                         return value.format(null, formatProvider || null);
                     }
 
-                    var typeName = HighFive.getTypeName(value);
+                    var typeName = H5.getTypeName(value);
 
                     return typeName;
             }
@@ -426,9 +426,9 @@
                 var isSign = typeCode === typeCodes.Int64;
 
                 if (isSign) {
-                    res = new System.Int64(HighFive.$Long.fromString(str, false, fromBase));
+                    res = new System.Int64(H5.$Long.fromString(str, false, fromBase));
                 } else {
-                    res = new System.UInt64(HighFive.$Long.fromString(str, true, fromBase));
+                    res = new System.UInt64(H5.$Long.fromString(str, true, fromBase));
                 }
 
                 if (res.toString(fromBase) !== System.String.trimStartZeros(str)) {
@@ -480,7 +480,7 @@
         toStringInBase: function (value, toBase, typeCode) {
             var typeCodes = scope.convert.typeCodes;
 
-            value = HighFive.unbox(value, true);
+            value = H5.unbox(value, true);
 
             if (toBase !== 2 && toBase !== 8 && toBase !== 10 && toBase !== 16) {
                 throw new System.ArgumentException.$ctor1("Invalid Base.");
@@ -771,68 +771,68 @@
             }
 
             if (value == null) {
-                if (HighFive.Reflection.isValueType(conversionType)) {
+                if (H5.Reflection.isValueType(conversionType)) {
                     throw new System.InvalidCastException.$ctor1("Null object cannot be converted to a value type.");
                 }
                 return null;
             }
 
-            var fromTypeCode = scope.convert.getTypeCode(HighFive.getType(value)),
-                ic = HighFive.as(value, System.IConvertible);
+            var fromTypeCode = scope.convert.getTypeCode(H5.getType(value)),
+                ic = H5.as(value, System.IConvertible);
 
             if (ic == null && fromTypeCode == System.TypeCode.Object) {
-                if (HighFive.referenceEquals(HighFive.getType(value), conversionType)) {
+                if (H5.referenceEquals(H5.getType(value), conversionType)) {
                     return value;
                 }
                 throw new System.InvalidCastException.$ctor1("Cannot convert to IConvertible");
             }
 
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Boolean, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Boolean, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toBoolean(value, provider) : ic.System$IConvertible$ToBoolean(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Char, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Char, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toChar(value, provider, fromTypeCode) : ic.System$IConvertible$ToChar(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.SByte, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.SByte, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toSByte(value, provider, fromTypeCode) : ic.System$IConvertible$ToSByte(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Byte, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Byte, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toByte(value, provider) : ic.System$IConvertible$ToByte(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int16, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int16, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toInt16(value, provider) : ic.System$IConvertible$ToInt16(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt16, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt16, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toUInt16(value, provider) : ic.System$IConvertible$ToUInt16(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int32, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int32, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toInt32(value, provider) : ic.System$IConvertible$ToInt32(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt32, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt32, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toUInt32(value, provider) : ic.System$IConvertible$ToUInt32(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int64, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int64, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toInt64(value, provider) : ic.System$IConvertible$ToInt64(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt64, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt64, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toUInt64(value, provider) : ic.System$IConvertible$ToUInt64(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Single, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Single, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toSingle(value, provider) : ic.System$IConvertible$ToSingle(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Double, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Double, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toDouble(value, provider) : ic.System$IConvertible$ToDouble(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Decimal, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Decimal, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toDecimal(value, provider) : ic.System$IConvertible$ToDecimal(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.DateTime, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.DateTime, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toDateTime(value, provider) : ic.System$IConvertible$ToDateTime(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.String, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.String, scope.convert.convertTypes)])) {
                 return ic == null ? scope.convert.toString(value, provider, fromTypeCode) : ic.System$IConvertible$ToString(provider);
             }
-            if (HighFive.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Object, scope.convert.convertTypes)])) {
+            if (H5.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Object, scope.convert.convertTypes)])) {
                 return value;
             }
 
@@ -844,7 +844,7 @@
         },
 
         changeType: function (value, typeCode, formatProvider) {
-            if (HighFive.isFunction(typeCode)) {
+            if (H5.isFunction(typeCode)) {
                 return scope.convert.changeConversionType(value, typeCode, formatProvider);
             }
 
@@ -852,8 +852,8 @@
                 return null;
             }
 
-            var fromTypeCode = scope.convert.getTypeCode(HighFive.getType(value)),
-                v = HighFive.as(value, System.IConvertible);
+            var fromTypeCode = scope.convert.getTypeCode(H5.getType(value)),
+                v = H5.as(value, System.IConvertible);
 
             if (v == null && fromTypeCode == System.TypeCode.Object) {
                 throw new System.InvalidCastException.$ctor1("Cannot convert to IConvertible");
@@ -997,7 +997,7 @@
                     return typeCodes.String;
 
                 case "object":
-                    if (HighFive.isDate(value)) {
+                    if (H5.isDate(value)) {
                         return typeCodes.DateTime;
                     }
 
@@ -1092,7 +1092,7 @@
         },
 
         toNumber: function (value, formatProvider, typeCode, valueTypeCode) {
-            value = HighFive.unbox(value, true);
+            value = H5.unbox(value, true);
 
             var typeCodes = scope.convert.typeCodes,
                 type = typeof (value),
@@ -1179,7 +1179,7 @@
                                 throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                             }
 
-                            value = HighFive.Int.parseFloat(value, formatProvider);
+                            value = H5.Int.parseFloat(value, formatProvider);
                         }
                     } else {
                         if (!/^[+-]?[0-9]+$/.test(value)) {
@@ -1218,7 +1218,7 @@
                         return 0;
                     }
 
-                    if (HighFive.isDate(value)) {
+                    if (H5.isDate(value)) {
                         scope.internal.throwInvalidCastEx(scope.convert.typeCodes.DateTime, typeCode);
                     }
 

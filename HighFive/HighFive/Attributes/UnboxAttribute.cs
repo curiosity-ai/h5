@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// For classes marked with [External], controls unboxing for method parameters of type object.
-    /// By default, HighFive applies unboxing. Add this attributes with allow = false to override this behaviour.
+    /// By default, H5 applies unboxing. Add this attributes with allow = false to override this behaviour.
     /// </summary>
     [NonScriptable]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Field)]

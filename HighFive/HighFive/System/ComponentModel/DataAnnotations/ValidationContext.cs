@@ -5,9 +5,9 @@ namespace System.ComponentModel.DataAnnotations
     /// <summary>
     /// Describes the context in which a validation is being performed.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.NonScriptable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.NonScriptable]
     public sealed class ValidationContext: IServiceProvider
     {
         /// <summary>

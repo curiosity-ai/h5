@@ -6,7 +6,7 @@ namespace System
     /// <summary>
     /// The Guid data type which is mapped to the string type in Javascript.
     /// </summary>
-    [HighFive.Immutable]
+    [H5.Immutable]
     public struct Guid : IEquatable<Guid>, IComparable<Guid>, IFormattable
     {
         private const string error1 = "Byte array for GUID must be exactly {0} bytes long";
@@ -460,7 +460,7 @@ namespace System
             var s = ToHex((uint)_a, 8) + ToHex((ushort)_b, 4) + ToHex((ushort)_c, 4);
             s = s + (new[] { _d, _e, _f, _g, _h, _i, _j, _k }).Map(ToHex).Join("");
 
-            var m = HighFive.Script.Write<string[]>("/^(.{8})(.{4})(.{4})(.{4})(.{12})$/.exec(s)");
+            var m = H5.Script.Write<string[]>("/^(.{8})(.{4})(.{4})(.{4})(.{12})$/.exec(s)");
             string[] list = new string[0];
             for (int i = 1; i < m.Length; i++)
             {
@@ -491,7 +491,7 @@ namespace System
 
         private static string ToHex(uint x, int precision)
         {
-            var result = HighFive.Script.Call<string>("x.toString", 16);
+            var result = H5.Script.Call<string>("x.toString", 16);
             precision -= result.Length;
 
             for (var i = 0; i < precision; i++)
@@ -504,7 +504,7 @@ namespace System
 
         private static string ToHex(byte x)
         {
-            var result = HighFive.Script.Call<string>("x.toString", 16);
+            var result = H5.Script.Call<string>("x.toString", 16);
 
             if (result.Length == 1)
             {

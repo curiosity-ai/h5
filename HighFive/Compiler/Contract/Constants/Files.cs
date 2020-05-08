@@ -1,4 +1,4 @@
-﻿namespace HighFive.Contract.Constants
+﻿namespace H5.Contract.Constants
 {
     public class Files
     {

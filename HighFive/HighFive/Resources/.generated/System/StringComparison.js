@@ -1,4 +1,4 @@
-    HighFive.define("System.StringComparison", {
+    H5.define("System.StringComparison", {
         $kind: "enum",
         statics: {
             fields: {

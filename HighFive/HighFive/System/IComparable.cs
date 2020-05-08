@@ -1,20 +1,20 @@
 namespace System
 {
-    [HighFive.External]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Reflectable]
-    public interface IComparable : HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Reflectable]
+    public interface IComparable : H5.IH5Class
     {
-        [HighFive.Template("HighFive.compare({this}, {obj})")]
+        [H5.Template("H5.compare({this}, {obj})")]
         int CompareTo(Object obj);
     }
 
-    [HighFive.External]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Reflectable]
-    public interface IComparable<in T> : HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Reflectable]
+    public interface IComparable<in T> : H5.IH5Class
     {
-        [HighFive.Template("HighFive.compare({this}, {other}, false, {T})")]
+        [H5.Template("H5.compare({this}, {other}, false, {T})")]
         int CompareTo(T other);
     }
 }

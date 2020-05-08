@@ -4,7 +4,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class TypeConfigItem
     {

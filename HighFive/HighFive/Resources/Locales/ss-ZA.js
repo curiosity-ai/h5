@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ss-ZA", true), {
+H5.merge(new System.Globalization.CultureInfo("ss-ZA", true), {
     englishName: "siSwati (South Africa)",
     nativeName: "siSwati (South Africa)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ss-ZA", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Son","Mso","Bil","Tsa","Ne","Hla","Mgc"],
         abbreviatedMonthGenitiveNames: ["Bhi","Van","Vol","Mab","Nkh","Nhl","Kho","Ngc","Nyo","Mph","Lwe","Ngo",""],
         abbreviatedMonthNames: ["Bhi","Van","Vol","Mab","Nkh","Nhl","Kho","Ngc","Nyo","Mph","Lwe","Ngo",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ss-ZA", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ss-ZA",
         EBCDICCodePage: 500,

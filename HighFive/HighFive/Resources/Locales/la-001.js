@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("la-001", true), {
+H5.merge(new System.Globalization.CultureInfo("la-001", true), {
     englishName: "Latin (World)",
     nativeName: "lingua latīna (World)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("la-001", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Sol","Lun","Mar","Mer","Jov","Ven","Sat"],
         abbreviatedMonthGenitiveNames: ["Ian","Feb","Mar","Apr","Mai","Iun","Quint","Sext","Sept","Oct","Nov","Dec",""],
         abbreviatedMonthNames: ["Ian","Feb","Mar","Apr","Mai","Iun","Quint","Sext","Sept","Oct","Nov","Dec",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("la-001", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "la-001",
         EBCDICCodePage: 37,

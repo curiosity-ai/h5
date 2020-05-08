@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sd-Deva-IN", true), {
+H5.merge(new System.Globalization.CultureInfo("sd-Deva-IN", true), {
     englishName: "Sindhi (Devanagari, India)",
     nativeName: "सिन्धी (India)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sd-Deva-IN", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["आचर","सवमर","ङरव","रब","ख़मयस","जम","छनछर"],
         abbreviatedMonthGenitiveNames: ["जनवरय","फ़बरवरय","मारच","परयल","मय","जवन","वलाय","आगसट","सयपटमबर","आटवबर","नववमबर","डसमबर",""],
         abbreviatedMonthNames: ["जनवरय","फ़बरवरय","मारच","परयल","मय","जवन","वलाय","आगसट","सयपटमबर","आटवबर","नववमबर","डसमबर",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sd-Deva-IN", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "sd-Deva-IN",
         EBCDICCodePage: 500,

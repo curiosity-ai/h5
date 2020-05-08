@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ga", true), {
+H5.merge(new System.Globalization.CultureInfo("ga", true), {
     englishName: "Irish",
     nativeName: "Gaeilge",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ga", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Domh","Luan","Máirt","Céad","Déar","Aoine","Sath"],
         abbreviatedMonthGenitiveNames: ["Ean","Feabh","Márta","Aib","Beal","Meith","Iúil","Lún","MFómh","DFómh","Samh","Noll",""],
         abbreviatedMonthNames: ["Ean","Feabh","Márta","Aib","Beal","Meith","Iúil","Lún","MFómh","DFómh","Samh","Noll",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ga", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "ga-IE",
         EBCDICCodePage: 500,

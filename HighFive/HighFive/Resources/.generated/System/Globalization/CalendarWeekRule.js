@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.CalendarWeekRule", {
+    H5.define("System.Globalization.CalendarWeekRule", {
         $kind: "enum",
         statics: {
             fields: {

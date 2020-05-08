@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.SerializationEntry", {
+    H5.define("System.Runtime.Serialization.SerializationEntry", {
         $kind: "struct",
         statics: {
             methods: {
@@ -40,14 +40,14 @@
         },
         methods: {
             getHashCode: function () {
-                var h = HighFive.addHash([7645431029, this._name, this._value, this._type]);
+                var h = H5.addHash([7645431029, this._name, this._value, this._type]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Runtime.Serialization.SerializationEntry)) {
+                if (!H5.is(o, System.Runtime.Serialization.SerializationEntry)) {
                     return false;
                 }
-                return HighFive.equals(this._name, o._name) && HighFive.equals(this._value, o._value) && HighFive.equals(this._type, o._type);
+                return H5.equals(this._name, o._name) && H5.equals(this._value, o._value) && H5.equals(this._type, o._type);
             },
             $clone: function (to) {
                 var s = to || new System.Runtime.Serialization.SerializationEntry();

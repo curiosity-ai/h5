@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ha", true), {
+H5.merge(new System.Globalization.CultureInfo("ha", true), {
     englishName: "Hausa",
     nativeName: "Hausa",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ha", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Lah","Lit","Tal","Lar","Alh","Jum","Asa"],
         abbreviatedMonthGenitiveNames: ["Jan","Fab","Mar","Afi","May","Yun","Yul","Agu","Sat","Okt","Nuw","Dis",""],
         abbreviatedMonthNames: ["Jan","Fab","Mar","Afi","May","Yun","Yul","Agu","Sat","Okt","Nuw","Dis",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ha", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "ha-Latn-NG",
         EBCDICCodePage: 37,

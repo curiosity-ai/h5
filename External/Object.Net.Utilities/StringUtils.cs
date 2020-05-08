@@ -2,7 +2,7 @@
 // Type: Object.Net.Utilities.StringUtils
 // Assembly: Object.Net.Utilities, Version=2.5.0.0, Culture=neutral, PublicKeyToken=null
 // MVID: 0B5927F8-8BAA-4C4A-84B2-E1600C4FD3FC
-// Assembly location: C:\highfive\2020-04-30\highfive\packages\Object.NET.Utilities.2.5.0\lib\Object.Net.Utilities.dll
+// Assembly location: C:\h5\2020-04-30\h5\packages\Object.NET.Utilities.2.5.0\lib\Object.Net.Utilities.dll
 
 using System;
 using System.Collections;

@@ -1,10 +1,10 @@
 using System;
 
-namespace HighFive
+namespace H5
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [External]
-    [Name("HighFive.Validation")]
+    [Name("H5.Validation")]
     public sealed class Validation
     {
         public static extern bool IsNull(object value);

@@ -1,4 +1,4 @@
-    HighFive.define("System.ObjectDisposedException", {
+    H5.define("System.ObjectDisposedException", {
         inherits: [System.InvalidOperationException],
         fields: {
             _objectName: null
@@ -8,11 +8,11 @@
                 get: function () {
                     var name = this.ObjectName;
                     if (name == null || name.length === 0) {
-                        return HighFive.ensureBaseProperty(this, "Message").$System$Exception$Message;
+                        return H5.ensureBaseProperty(this, "Message").$System$Exception$Message;
                     }
 
                     var objectDisposed = System.SR.Format("Object name: '{0}'.", name);
-                    return (HighFive.ensureBaseProperty(this, "Message").$System$Exception$Message || "") + ("\n" || "") + (objectDisposed || "");
+                    return (H5.ensureBaseProperty(this, "Message").$System$Exception$Message || "") + ("\n" || "") + (objectDisposed || "");
                 }
             },
             ObjectName: {

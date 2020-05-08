@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("haw", true), {
+H5.merge(new System.Globalization.CultureInfo("haw", true), {
     englishName: "Hawaiian",
     nativeName: "ʻŌlelo Hawaiʻi",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("haw", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["LP","P1","P2","P3","P4","P5","P6"],
         abbreviatedMonthGenitiveNames: ["Ian.","Pep.","Mal.","ʻAp.","Mei","Iun.","Iul.","ʻAu.","Kep.","ʻOk.","Now.","Kek.",""],
         abbreviatedMonthNames: ["Ian.","Pep.","Mal.","ʻAp.","Mei","Iun.","Iul.","ʻAu.","Kep.","ʻOk.","Now.","Kek.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("haw", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "haw-US",
         EBCDICCodePage: 37,

@@ -1,4 +1,4 @@
-    HighFive.define("System.Void", {
+    H5.define("System.Void", {
         $kind: "struct",
         statics: {
             methods: {

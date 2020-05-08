@@ -1,39 +1,39 @@
 namespace System
 {
-    [HighFive.External]
-    [HighFive.IgnoreCast]
-    [HighFive.Constructor("{ }")]
+    [H5.External]
+    [H5.IgnoreCast]
+    [H5.Constructor("{ }")]
     public class Object
     {
         public virtual extern object this[string name]
         {
-            [HighFive.External]
+            [H5.External]
             get;
-            [HighFive.External]
+            [H5.External]
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
-        [HighFive.Template("HighFive.toString({this})")]
+        [H5.Convention(H5.Notation.CamelCase)]
+        [H5.Template("H5.toString({this})")]
         public virtual extern string ToString();
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public virtual extern string ToLocaleString();
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public virtual extern object ValueOf();
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public virtual extern bool HasOwnProperty(object v);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public virtual extern bool IsPrototypeOf(object v);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public virtual extern bool PropertyIsEnumerable(object v);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
-        [HighFive.Template("<self>{this:type}")]
+        [H5.Convention(H5.Notation.CamelCase)]
+        [H5.Template("<self>{this:type}")]
         public extern Type GetType();
 
         // Returns a new object instance that is a memberwise copy of this
@@ -45,32 +45,32 @@ namespace System
         //[System.Security.SecuritySafeCritical]  // auto-generated
         //[ResourceExposure(ResourceScope.None)]
         //[MethodImplAttribute(MethodImplOptions.InternalCall)]
-        [HighFive.Template("HighFive.clone({this})")]
+        [H5.Template("H5.clone({this})")]
         protected extern Object MemberwiseClone();
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
-        [HighFive.Template("HighFive.referenceEquals({a}, {b})")]
+        [H5.Convention(H5.Notation.CamelCase)]
+        [H5.Template("H5.referenceEquals({a}, {b})")]
         public static extern bool ReferenceEquals(object a, object b);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
-        [HighFive.Template("HighFive.equals({this}, {o})")]
+        [H5.Convention(H5.Notation.CamelCase)]
+        [H5.Template("H5.equals({this}, {o})")]
         public virtual extern bool Equals(object o);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
-        [HighFive.Template("HighFive.equals({a}, {b})")]
+        [H5.Convention(H5.Notation.CamelCase)]
+        [H5.Template("H5.equals({a}, {b})")]
         public static extern bool Equals(object a, object b);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
-        [HighFive.Template("HighFive.getHashCode({this})")]
+        [H5.Convention(H5.Notation.CamelCase)]
+        [H5.Template("H5.getHashCode({this})")]
         public virtual extern int GetHashCode();
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
-        [HighFive.Template("Object.getOwnPropertyNames({obj})")]
-        [HighFive.Unbox(true)]
+        [H5.Convention(H5.Notation.CamelCase)]
+        [H5.Template("Object.getOwnPropertyNames({obj})")]
+        [H5.Unbox(true)]
         public static extern string[] GetOwnPropertyNames(object obj);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
-        [HighFive.Template("{T}.prototype")]
+        [H5.Convention(H5.Notation.CamelCase)]
+        [H5.Template("{T}.prototype")]
         public static extern dynamic GetPrototype<T>();
 
         public readonly Type Constructor;
@@ -79,24 +79,24 @@ namespace System
         private readonly Type ctor;
 #pragma warning restore 169
 
-        [HighFive.Template("{this}")]
+        [H5.Template("{this}")]
         public virtual extern dynamic ToDynamic();
     }
 
-    [HighFive.External]
+    [H5.External]
     public static class ObjectExtensions
     {
-        [HighFive.Template("{0}")]
-        [HighFive.Unbox(true)]
+        [H5.Template("{0}")]
+        [H5.Unbox(true)]
         public static extern T As<T>(this object obj);
 
-        [HighFive.Template("HighFive.cast({obj}, {T})")]
+        [H5.Template("H5.cast({obj}, {T})")]
         public static extern T Cast<T>(this object obj);
 
-        [HighFive.Template("HighFive.as({obj}, {T})")]
+        [H5.Template("H5.as({obj}, {T})")]
         public static extern T TryCast<T>(this object obj) where T : class;
 
-        [HighFive.Template("HighFive.is({obj}, {T})")]
+        [H5.Template("H5.is({obj}, {T})")]
         public static extern bool Is<T>(this object obj);
     }
 }

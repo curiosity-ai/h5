@@ -1,4 +1,4 @@
-    HighFive.define("HighFive.Console", {
+    H5.define("H5.Console", {
         statics: {
             fields: {
                 BODY_WRAPPER_ID: null,
@@ -9,18 +9,18 @@
             props: {
                 instance: {
                     get: function () {
-                        if (HighFive.Console.instance$1 == null) {
-                            HighFive.Console.instance$1 = new HighFive.Console();
+                        if (H5.Console.instance$1 == null) {
+                            H5.Console.instance$1 = new H5.Console();
                         }
 
-                        return HighFive.Console.instance$1;
+                        return H5.Console.instance$1;
                     }
                 }
             },
             ctors: {
                 init: function () {
-                    this.BODY_WRAPPER_ID = "highfive-body-wrapper";
-                    this.CONSOLE_MESSAGES_ID = "highfive-console-messages";
+                    this.BODY_WRAPPER_ID = "h5-body-wrapper";
+                    this.CONSOLE_MESSAGES_ID = "h5-console-messages";
                     this.position = "horizontal";
                 }
             },
@@ -30,33 +30,33 @@
                     var w = System.Console.Write;
                     var clr = System.Console.Clear;
                     var debug = System.Diagnostics.Debug.writeln;
-                    var con = HighFive.global.console;
+                    var con = H5.global.console;
 
                     if (wl) {
                         System.Console.WriteLine = function (value) {
                             wl(value);
-                            HighFive.Console.log(value, true);
+                            H5.Console.log(value, true);
                         }
                     }
 
                     if (w) {
                         System.Console.Write = function (value) {
                             w(value);
-                            HighFive.Console.log(value, false);
+                            H5.Console.log(value, false);
                         }
                     }
 
                     if (clr) {
                         System.Console.Clear = function () {
                             clr();
-                            HighFive.Console.clear();
+                            H5.Console.clear();
                         }
                     }
 
                     if (debug) {
                         System.Diagnostics.Debug.writeln = function (value) {
                             debug(value);
-                            HighFive.Console.debug(value);
+                            H5.Console.debug(value);
                         }
                     }
 
@@ -65,13 +65,13 @@
 
                         con.error = function (msg) {
                             err.apply(con, arguments);
-                            HighFive.Console.error(msg);
+                            H5.Console.error(msg);
                         }
                     }
 
-                    if (HighFive.isDefined(HighFive.global.window)) {
-                        HighFive.global.window.addEventListener("error", function (e) {
-                            HighFive.Console.error(System.Exception.create(e));
+                    if (H5.isDefined(H5.global.window)) {
+                        H5.global.window.addEventListener("error", function (e) {
+                            H5.Console.error(System.Exception.create(e));
                         });
                     }
                 },
@@ -79,7 +79,7 @@
                     var $t;
                     if (newLine === void 0) { newLine = true; }
                     if (messageType === void 0) { messageType = 0; }
-                    var self = HighFive.Console.instance;
+                    var self = H5.Console.instance;
                     var v = "";
 
                     if (value != null) {
@@ -97,31 +97,31 @@
                         return;
                     }
 
-                    HighFive.Console.show();
+                    H5.Console.show();
 
                     if (self.isNewLine || self.currentMessageElement == null) {
                         var m = self.buildConsoleMessage(v, messageType);
                         self.consoleMessages.appendChild(m);
                         self.currentMessageElement = m;
                     } else {
-                        var m1 = HighFive.unbox(self.currentMessageElement);
+                        var m1 = H5.unbox(self.currentMessageElement);
                         ($t = m1.lastChild).innerHTML = ($t.innerHTML || "") + (v || "");
                     }
 
                     self.isNewLine = newLine;
                 },
                 error: function (value) {
-                    HighFive.Console.logBase(value, true, 2);
+                    H5.Console.logBase(value, true, 2);
                 },
                 debug: function (value) {
-                    HighFive.Console.logBase(value, true, 1);
+                    H5.Console.logBase(value, true, 1);
                 },
                 log: function (value, newLine) {
                     if (newLine === void 0) { newLine = true; }
-                    HighFive.Console.logBase(value, newLine);
+                    H5.Console.logBase(value, newLine);
                 },
                 clear: function () {
-                    var self = HighFive.Console.instance$1;
+                    var self = H5.Console.instance$1;
 
                     if (self == null) {
                         return;
@@ -144,11 +144,11 @@
                     self.isNewLine = false;
                 },
                 hide: function () {
-                    if (HighFive.Console.instance$1 == null) {
+                    if (H5.Console.instance$1 == null) {
                         return;
                     }
 
-                    var self = HighFive.Console.instance;
+                    var self = H5.Console.instance;
 
                     if (self.hidden) {
                         return;
@@ -157,7 +157,7 @@
                     self.close();
                 },
                 show: function () {
-                    var self = HighFive.Console.instance;
+                    var self = H5.Console.instance;
 
                     if (!self.hidden) {
                         return;
@@ -166,10 +166,10 @@
                     self.init(true);
                 },
                 toggle: function () {
-                    if (HighFive.Console.instance.hidden) {
-                        HighFive.Console.show();
+                    if (H5.Console.instance.hidden) {
+                        H5.Console.show();
                     } else {
-                        HighFive.Console.hide();
+                        H5.Console.hide();
                     }
                 }
             }
@@ -212,15 +212,15 @@
                 if (reinit === void 0) { reinit = false; }
                 this.hidden = false;
 
-                var consoleWrapStyles = HighFive.fn.bind(this, $asm.$.HighFive.Console.f1)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
+                var consoleWrapStyles = H5.fn.bind(this, $asm.$.H5.Console.f1)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
-                var consoleHeaderStyles = $asm.$.HighFive.Console.f2(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
+                var consoleHeaderStyles = $asm.$.H5.Console.f2(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
-                var consoleBodyStyles = $asm.$.HighFive.Console.f3(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
+                var consoleBodyStyles = $asm.$.H5.Console.f3(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
                 this.highFiveIcon = this.highFiveIcon || document.createElementNS(this.svgNS, "svg");
 
-                var items = HighFive.fn.bind(this, $asm.$.HighFive.Console.f4)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
+                var items = H5.fn.bind(this, $asm.$.H5.Console.f4)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
                 this.setAttributes(this.highFiveIcon, items);
 
@@ -233,37 +233,37 @@
                 this.setAttributes(this.highFiveIconPath, items2);
 
                 this.highFiveConsoleLabel = this.highFiveConsoleLabel || document.createElement("span");
-                this.highFiveConsoleLabel.innerHTML = "HighFive Console";
+                this.highFiveConsoleLabel.innerHTML = "H5 Console";
 
                 this.closeBtn = this.closeBtn || document.createElement("span");
                 this.closeBtn.setAttribute("style", "position: relative;display: inline-block;float: right;cursor: pointer");
 
                 this.closeIcon = this.closeIcon || document.createElementNS(this.svgNS, "svg");
 
-                var items3 = HighFive.fn.bind(this, $asm.$.HighFive.Console.f5)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
+                var items3 = H5.fn.bind(this, $asm.$.H5.Console.f5)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
                 this.setAttributes(this.closeIcon, items3);
 
                 this.closeIconPath = this.closeIconPath || document.createElementNS(this.svgNS, "path");
 
-                var items4 = $asm.$.HighFive.Console.f6(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
+                var items4 = $asm.$.H5.Console.f6(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
                 this.setAttributes(this.closeIconPath, items4);
 
                 this.tooltip = this.tooltip || document.createElement("div");
-                this.tooltip.innerHTML = "Refresh page to open HighFive Console";
+                this.tooltip.innerHTML = "Refresh page to open H5 Console";
 
                 this.tooltip.setAttribute("style", "position: absolute;right: 30px;top: -6px;white-space: nowrap;padding: 7px;border-radius: 3px;background-color: rgba(0, 0, 0, 0.75);color: #eee;text-align: center;visibility: hidden;opacity: 0;-webkit-transition: all 0.25s ease-in-out;transition: all 0.25s ease-in-out;z-index: 1;");
 
-                HighFive.Console.position = "horizontal";
+                H5.Console.position = "horizontal";
 
-                if (HighFive.referenceEquals(HighFive.Console.position, "horizontal")) {
+                if (H5.referenceEquals(H5.Console.position, "horizontal")) {
                     this.wrapBodyContent();
 
                     consoleWrapStyles.setItem("right", "0");
                     consoleHeaderStyles.setItem("border-top", "1px solid #a3a3a3");
                     consoleBodyStyles.setItem("height", this.consoleHeight);
-                } else if (HighFive.referenceEquals(HighFive.Console.position, "vertical")) {
+                } else if (H5.referenceEquals(H5.Console.position, "vertical")) {
                     var consoleWidth = "400px";
                     document.body.style.marginLeft = consoleWidth;
 
@@ -284,7 +284,7 @@
 
                 this.consoleMessages = this.consoleMessages || document.createElement("ul");
                 var cm = this.consoleMessages;
-                cm.id = HighFive.Console.CONSOLE_MESSAGES_ID;
+                cm.id = H5.Console.CONSOLE_MESSAGES_ID;
 
                 cm.setAttribute("style", "margin: 0;padding: 0;list-style: none;");
 
@@ -305,20 +305,20 @@
 
                     document.body.appendChild(this.consoleWrap);
 
-                    this.closeBtn.addEventListener("click", HighFive.fn.cacheBind(this, this.close));
+                    this.closeBtn.addEventListener("click", H5.fn.cacheBind(this, this.close));
 
-                    this.closeBtn.addEventListener("mouseover", HighFive.fn.cacheBind(this, this.showTooltip));
-                    this.closeBtn.addEventListener("mouseout", HighFive.fn.cacheBind(this, this.hideTooltip));
+                    this.closeBtn.addEventListener("mouseover", H5.fn.cacheBind(this, this.showTooltip));
+                    this.closeBtn.addEventListener("mouseout", H5.fn.cacheBind(this, this.hideTooltip));
                 }
             },
             showTooltip: function () {
-                var self = HighFive.Console.instance;
+                var self = H5.Console.instance;
                 self.tooltip.style.right = "20px";
                 self.tooltip.style.visibility = "visible";
                 self.tooltip.style.opacity = "1";
             },
             hideTooltip: function () {
-                var self = HighFive.Console.instance;
+                var self = H5.Console.instance;
                 self.tooltip.style.right = "30px";
                 self.tooltip.style.opacity = "0";
             },
@@ -327,9 +327,9 @@
 
                 this.consoleWrap.style.display = "none";
 
-                if (HighFive.referenceEquals(HighFive.Console.position, "horizontal")) {
+                if (H5.referenceEquals(H5.Console.position, "horizontal")) {
                     this.unwrapBodyContent();
-                } else if (HighFive.referenceEquals(HighFive.Console.position, "vertical")) {
+                } else if (H5.referenceEquals(H5.Console.position, "vertical")) {
                     document.body.removeAttribute("style");
                 }
             },
@@ -351,7 +351,7 @@
                 var bodyMarginLeft = bodyStyle.marginLeft;
 
                 var div = document.createElement("div");
-                div.id = HighFive.Console.BODY_WRAPPER_ID;
+                div.id = H5.Console.BODY_WRAPPER_ID;
                 div.setAttribute("style", "height: calc(100vh - " + (this.consoleHeight || "") + " - " + (this.consoleHeaderHeight || "") + ");" + "margin-top: calc(-1 * " + "(" + (((bodyMarginTop || "") + " + " + (bodyPaddingTop || "")) || "") + "));" + "margin-right: calc(-1 * " + "(" + (((bodyMarginRight || "") + " + " + (bodyPaddingRight || "")) || "") + "));" + "margin-left: calc(-1 * " + "(" + (((bodyMarginLeft || "") + " + " + (bodyPaddingLeft || "")) || "") + "));" + "padding-top: calc(" + (((bodyMarginTop || "") + " + " + (bodyPaddingTop || "")) || "") + ");" + "padding-right: calc(" + (((bodyMarginRight || "") + " + " + (bodyPaddingRight || "")) || "") + ");" + "padding-bottom: calc(" + (((bodyMarginBottom || "") + " + " + (bodyPaddingBottom || "")) || "") + ");" + "padding-left: calc(" + (((bodyMarginLeft || "") + " + " + (bodyPaddingLeft || "")) || "") + ");" + "overflow-x: auto;" + "box-sizing: border-box !important;");
 
                 while (document.body.firstChild != null) {
@@ -361,17 +361,17 @@
                 document.body.appendChild(div);
             },
             unwrapBodyContent: function () {
-                var highfiveBodyWrap = document.getElementById(HighFive.Console.BODY_WRAPPER_ID);
+                var h5BodyWrap = document.getElementById(H5.Console.BODY_WRAPPER_ID);
 
-                if (highfiveBodyWrap == null) {
+                if (h5BodyWrap == null) {
                     return;
                 }
 
-                while (highfiveBodyWrap.firstChild != null) {
-                    document.body.insertBefore(highfiveBodyWrap.firstChild, highfiveBodyWrap);
+                while (h5BodyWrap.firstChild != null) {
+                    document.body.insertBefore(h5BodyWrap.firstChild, h5BodyWrap);
                 }
 
-                document.body.removeChild(highfiveBodyWrap);
+                document.body.removeChild(h5BodyWrap);
             },
             buildConsoleMessage: function (message, messageType) {
                 var messageItem = document.createElement("li");
@@ -379,7 +379,7 @@
 
                 var messageIcon = document.createElementNS(this.svgNS, "svg");
 
-                var items5 = HighFive.fn.bind(this, $asm.$.HighFive.Console.f7)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
+                var items5 = H5.fn.bind(this, $asm.$.H5.Console.f7)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
                 this.setAttributes(messageIcon, items5);
 
@@ -413,14 +413,14 @@
             },
             setAttributes: function (el, attrs) {
                 var $t;
-                $t = HighFive.getEnumerator(attrs);
+                $t = H5.getEnumerator(attrs);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
                         el.setAttribute(item.key, item.value);
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -429,14 +429,14 @@
                 var $t;
                 var str = "";
 
-                $t = HighFive.getEnumerator(obj);
+                $t = H5.getEnumerator(obj);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
                         str = (str || "") + (((item.key.toLowerCase() || "") + ":" + (item.value || "") + ";") || "");
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -446,9 +446,9 @@
         }
     });
 
-    HighFive.ns("HighFive.Console", $asm.$);
+    H5.ns("H5.Console", $asm.$);
 
-    HighFive.apply($asm.$.HighFive.Console, {
+    H5.apply($asm.$.H5.Console, {
         f1: function (_o1) {
             _o1.add("position", "fixed");
             _o1.add("left", "0");
@@ -507,4 +507,4 @@
         }
     });
 
-    HighFive.init(function () { HighFive.Console.initConsoleFunctions(); });
+    H5.init(function () { H5.Console.initConsoleFunctions(); });

@@ -1,4 +1,4 @@
-namespace HighFive.Utils
+namespace H5.Utils
 {
     class SystemAssemblyVersion
     {
@@ -14,7 +14,7 @@ namespace HighFive.Utils
     class SystemAssembly
     {
 #pragma warning disable 649 // CS0649  Field is never assigned to, and will always have its default value null
-        [Template("HighFive.SystemAssembly")]
+        [Template("H5.SystemAssembly")]
         public static SystemAssembly Assembly;
         [Name("version")]
         public string VersionString;

@@ -19,7 +19,7 @@ namespace System.Security.Permissions
     using System.Globalization;
     using System.Diagnostics.Contracts;
 
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [Serializable]
     public enum SecurityAction
     {
@@ -57,7 +57,7 @@ namespace System.Security.Permissions
 
     // Keep this enum in sync with tools\ngen\ngen.cpp and inc\mscoree.idl
 
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [Serializable]
     [Flags]
     [Runtime.InteropServices.ComVisible(true)]
@@ -78,7 +78,7 @@ namespace System.Security.Permissions
         All = 0x1ff,
     }
 
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Assembly | AttributeTargets.Delegate, AllowMultiple = true, Inherited = false)]
     [System.Runtime.InteropServices.ComVisible(true)]
     [Serializable]

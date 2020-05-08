@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("aa-ET", true), {
+H5.merge(new System.Globalization.CultureInfo("aa-ET", true), {
     englishName: "Afar (Ethiopia)",
     nativeName: "Qafar (Otobbia)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("aa-ET", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Aca","Etl","Tal","Arb","Kam","Gum","Sab"],
         abbreviatedMonthGenitiveNames: ["Qun","Nah","Cig","Agd","Cax","Qas","Qad","Leq","Way","Dit","Xim","Kax",""],
         abbreviatedMonthNames: ["Qun","Nah","Cig","Agd","Cax","Qas","Qad","Leq","Way","Dit","Xim","Kax",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("aa-ET", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "aa-ET",
         EBCDICCodePage: 500,

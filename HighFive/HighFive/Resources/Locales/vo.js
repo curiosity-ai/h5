@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("vo", true), {
+H5.merge(new System.Globalization.CultureInfo("vo", true), {
     englishName: "Volapük",
     nativeName: "Volapük",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("vo", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["su.","mu.","tu.","ve.","dö.","fr.","zä."],
         abbreviatedMonthGenitiveNames: ["yan","feb","mäz","prl","may","yun","yul","gst","set","ton","nov","dek",""],
         abbreviatedMonthNames: ["yan","feb","mäz","prl","may","yun","yul","gst","set","tob","nov","dek",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("vo", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "vo-001",
         EBCDICCodePage: 500,

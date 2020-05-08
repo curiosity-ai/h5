@@ -4,7 +4,7 @@
 
 namespace System.Runtime.InteropServices
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Struct | AttributeTargets.Delegate, Inherited = false)]
     public sealed class GuidAttribute : Attribute
     {

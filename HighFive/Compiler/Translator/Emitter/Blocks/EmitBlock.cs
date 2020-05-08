@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using Newtonsoft.Json;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class EmitBlock : AbstractEmitterBlock
     {
@@ -97,7 +97,7 @@ namespace HighFive.Translator
                 fileName = AssemblyInfo.DEFAULT_FILENAME;
             }
 
-            // Apply lowerCamelCase to filename if set up in highfive.json (or left default)
+            // Apply lowerCamelCase to filename if set up in h5.json (or left default)
             if (this.Emitter.AssemblyInfo.FileNameCasing == FileNameCaseConvert.CamelCase)
             {
                 var sepList = new string[] { ".", System.IO.Path.DirectorySeparatorChar.ToString(), "\\", "/" };
@@ -189,7 +189,7 @@ namespace HighFive.Translator
 
             if (module.Name == "")
             {
-                module.Name = HighFive.Translator.AssemblyInfo.DEFAULT_FILENAME;
+                module.Name = H5.Translator.AssemblyInfo.DEFAULT_FILENAME;
             }
 
             if (output.ModuleOutput.ContainsKey(module))
@@ -321,7 +321,7 @@ namespace HighFive.Translator
 
                 this.Emitter.Output = this.GetOutputForType(typeInfo, null);
                 this.Emitter.TypeInfo = type;
-                type.JsName = HighFiveTypes.ToJsName(type.Type, this.Emitter, true, removeScope: false);
+                type.JsName = H5Types.ToJsName(type.Type, this.Emitter, true, removeScope: false);
 
                 if (this.Emitter.Output.Length > 0)
                 {
@@ -337,7 +337,7 @@ namespace HighFive.Translator
                     this.Indent();
                 }
 
-                var name = HighFiveTypes.ToJsName(type.Type, this.Emitter, true, true, true);
+                var name = H5Types.ToJsName(type.Type, this.Emitter, true, true, true);
                 if (type.Type.DeclaringType != null && JS.Reserved.StaticNames.Any(n => String.Equals(name, n, StringComparison.InvariantCulture)))
                 {
                     throw new EmitterException(type.TypeDeclaration, "Nested class cannot have such name: " + name + ". Please rename it.");
@@ -365,12 +365,12 @@ namespace HighFive.Translator
                     bool isGlobal = false;
                     if (typeDef != null)
                     {
-                        isGlobal = typeDef.Attributes.Any(a => a.AttributeType.FullName == "HighFive.GlobalMethodsAttribute" || a.AttributeType.FullName == "HighFive.MixinAttribute");
+                        isGlobal = typeDef.Attributes.Any(a => a.AttributeType.FullName == "H5.GlobalMethodsAttribute" || a.AttributeType.FullName == "H5.MixinAttribute");
                     }
 
                     if (typeDef.FullName != "System.Object")
                     {
-                        var name = HighFiveTypes.ToJsName(typeDef, this.Emitter);
+                        var name = H5Types.ToJsName(typeDef, this.Emitter);
 
                         if (name == "Object")
                         {
@@ -379,7 +379,7 @@ namespace HighFive.Translator
                     }
 
                     var isObjectLiteral = this.Emitter.Validator.IsObjectLiteral(typeDef);
-                    var isPlainMode = isObjectLiteral && this.Emitter.Validator.GetObjectCreateMode(this.Emitter.HighFiveTypes.Get(type.Key).TypeDefinition) == 0;
+                    var isPlainMode = isObjectLiteral && this.Emitter.Validator.GetObjectCreateMode(this.Emitter.H5Types.Get(type.Key).TypeDefinition) == 0;
 
                     if (isPlainMode)
                     {
@@ -425,11 +425,11 @@ namespace HighFive.Translator
                 var typeDef = reflectedType.GetDefinition();
                 JObject meta = null;
 
-                var highfiveType = this.Emitter.HighFiveTypes.Get(reflectedType, true);
+                var h5Type = this.Emitter.H5Types.Get(reflectedType, true);
                 string fileName = defaultFileName;
-                if (highfiveType != null && highfiveType.TypeInfo != null)
+                if (h5Type != null && h5Type.TypeInfo != null)
                 {
-                    this.GetOutputForType(highfiveType.TypeInfo, null);
+                    this.GetOutputForType(h5Type.TypeInfo, null);
                     fileName = this.Emitter.EmitterOutput.FileName;
                 }
 
@@ -544,9 +544,9 @@ namespace HighFive.Translator
                     int pos = 0;
                     if (metaInfo.Value.Count > 0)
                     {
-                        this.Write("var $m = " + JS.Types.HighFive.SET_METADATA + ",");
+                        this.Write("var $m = " + JS.Types.H5.SET_METADATA + ",");
                         this.WriteNewLine();
-                        this.Write(HighFive.Translator.Emitter.INDENT + "$n = ");
+                        this.Write(H5.Translator.Emitter.INDENT + "$n = ");
                         pos = this.Emitter.Output.Length;
                         this.Write(";");
                         this.WriteNewLine();
@@ -618,7 +618,7 @@ namespace HighFive.Translator
 
                 foreach (var boxedFunction in this.Emitter.NamedBoxedFunctions)
                 {
-                    var name = HighFiveTypes.ToJsName(boxedFunction.Key, this.Emitter, true);
+                    var name = H5Types.ToJsName(boxedFunction.Key, this.Emitter, true);
 
                     this.WriteNewLine();
                     this.Write(JS.Funcs.HIGHFIVE_NS);
@@ -629,7 +629,7 @@ namespace HighFive.Translator
 
                     this.WriteNewLine();
                     this.WriteNewLine();
-                    this.Write(JS.Types.HighFive.APPLY + "(" + JS.Vars.DBOX_ + ".");
+                    this.Write(JS.Types.H5.APPLY + "(" + JS.Vars.DBOX_ + ".");
                     this.Write(name);
                     this.Write(", ");
                     this.BeginBlock();
@@ -651,10 +651,10 @@ namespace HighFive.Translator
             }
         }
 
-        private bool SkipFromReflection(ITypeDefinition typeDef, HighFiveType highfiveType)
+        private bool SkipFromReflection(ITypeDefinition typeDef, H5Type h5Type)
         {
             var isObjectLiteral = this.Emitter.Validator.IsObjectLiteral(typeDef);
-            var isPlainMode = isObjectLiteral && this.Emitter.Validator.GetObjectCreateMode(highfiveType.TypeDefinition) == 0;
+            var isPlainMode = isObjectLiteral && this.Emitter.Validator.GetObjectCreateMode(h5Type.TypeDefinition) == 0;
 
             if (isPlainMode)
             {
@@ -662,13 +662,13 @@ namespace HighFive.Translator
             }
 
             var skip = typeDef.Attributes.Any(a =>
-                    a.AttributeType.FullName == "HighFive.GlobalMethodsAttribute" ||
-                    a.AttributeType.FullName == "HighFive.NonScriptableAttribute" ||
-                    a.AttributeType.FullName == "HighFive.MixinAttribute");
+                    a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
+                    a.AttributeType.FullName == "H5.NonScriptableAttribute" ||
+                    a.AttributeType.FullName == "H5.MixinAttribute");
 
             if (!skip && typeDef.FullName != "System.Object")
             {
-                var name = HighFiveTypes.ToJsName(typeDef, this.Emitter);
+                var name = H5Types.ToJsName(typeDef, this.Emitter);
 
                 if (name == "Object" || name == "System.Object" || name == "Function")
                 {
@@ -725,13 +725,13 @@ namespace HighFive.Translator
 
             List<IType> reflectTypes = new List<IType>();
             var thisAssemblyDef = this.Emitter.Translator.AssemblyDefinition;
-            foreach (var highfiveType in this.Emitter.HighFiveTypes)
+            foreach (var h5Type in this.Emitter.H5Types)
             {
                 var result = false;
-                var type = highfiveType.Value.Type;
+                var type = h5Type.Value.Type;
                 var typeDef = type.GetDefinition();
-                //var thisAssembly = highfiveType.Value.TypeInfo != null;
-                var thisAssembly = highfiveType.Value.TypeDefinition?.Module.Assembly.Equals(thisAssemblyDef) ?? false;
+                //var thisAssembly = h5Type.Value.TypeInfo != null;
+                var thisAssembly = h5Type.Value.TypeDefinition?.Module.Assembly.Equals(thisAssemblyDef) ?? false;
                 var external = typeDef != null && this.Emitter.Validator.IsExternalType(typeDef);
 
                 if (enable.HasValue && enable.Value && !hasSettings && thisAssembly)
@@ -741,18 +741,18 @@ namespace HighFive.Translator
 
                 if (typeDef != null)
                 {
-                    var skip = this.SkipFromReflection(typeDef, highfiveType.Value);
+                    var skip = this.SkipFromReflection(typeDef, h5Type.Value);
 
                     if (skip)
                     {
                         continue;
                     }
 
-                    var attr = typeDef.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "HighFive.ReflectableAttribute");
+                    var attr = typeDef.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "H5.ReflectableAttribute");
 
                     if (attr == null)
                     {
-                        attr = Helpers.GetInheritedAttribute(typeDef, "HighFive.ReflectableAttribute");
+                        attr = Helpers.GetInheritedAttribute(typeDef, "H5.ReflectableAttribute");
 
                         if (attr != null)
                         {

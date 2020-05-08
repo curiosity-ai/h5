@@ -4,7 +4,7 @@
 
 namespace System.Diagnostics
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
     public sealed class ConditionalAttribute : Attribute
     {

@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -10,7 +10,7 @@ using System.Text;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using Object.Net.Utilities;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public abstract partial class ConversionBlock : AbstractEmitterBlock
     {
@@ -210,7 +210,7 @@ namespace HighFive.Translator
                 itype = NullableType.GetUnderlyingType(itype);
             }
 
-            return HighFiveTypes.ToJsName(itype, emitter);
+            return H5Types.ToJsName(itype, emitter);
         }
 
         internal static string GetInlineMethod(IEmitter emitter, string name, IType returnType, IType type, Expression expression)
@@ -234,7 +234,7 @@ namespace HighFive.Translator
                         return methodRef == null ? $"System.Nullable.{name.ToLowerCamelCase()}" : string.Format(template, methodRef, name.ToLowerCamelCase());
                     }
 
-                    var attr = methodDef.Attributes.First(a => a.AttributeType.FullName == "HighFive.TemplateAttribute");
+                    var attr = methodDef.Attributes.First(a => a.AttributeType.FullName == "H5.TemplateAttribute");
                     bool delegated = false;
                     if (attr != null && attr.NamedArguments.Count > 0)
                     {
@@ -413,7 +413,7 @@ namespace HighFive.Translator
                         isArgument = (block.Emitter.Validator.IsExternalType(memberDeclaringTypeDefinition) || block.Emitter.Validator.IsExternalType(parent_rr.Member))
                                      && !(memberDeclaringTypeDefinition.Namespace == CS.NS.SYSTEM || memberDeclaringTypeDefinition.Namespace.StartsWith(CS.NS.SYSTEM + "."));
 
-                        var attr = parent_rr.Member.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "HighFive.UnboxAttribute");
+                        var attr = parent_rr.Member.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "H5.UnboxAttribute");
 
                         if (attr != null)
                         {
@@ -421,7 +421,7 @@ namespace HighFive.Translator
                         }
                         else
                         {
-                            attr = memberDeclaringTypeDefinition.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "HighFive.UnboxAttribute");
+                            attr = memberDeclaringTypeDefinition.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "H5.UnboxAttribute");
 
                             if (attr != null)
                             {
@@ -450,7 +450,7 @@ namespace HighFive.Translator
                 {
                     if (!nobox && needBox && !isArgument)
                     {
-                        block.Write(JS.Types.HighFive.BOX);
+                        block.Write(JS.Types.H5.BOX);
                         block.WriteOpenParentheses();
                         block.AfterOutput2 += ", " + ConversionBlock.GetBoxedType(rr.Type, block.Emitter);
 
@@ -495,7 +495,7 @@ namespace HighFive.Translator
                 {
                     if (!nobox && block.Emitter.Rules.Boxing == BoxingRule.Managed)
                     {
-                        block.Write(JS.Types.HighFive.UNBOX);
+                        block.Write(JS.Types.H5.UNBOX);
                         block.WriteOpenParentheses();
                         if (conversion.IsUnboxingConversion)
                         {
@@ -768,7 +768,7 @@ namespace HighFive.Translator
                         return level;
                     }
 
-                    block.Write(HighFiveTypes.ToJsName(method.DeclaringType, block.Emitter));
+                    block.Write(H5Types.ToJsName(method.DeclaringType, block.Emitter));
                     block.WriteDot();
 
                     block.Write(OverloadsCollection.Create(block.Emitter, method).GetOverloadName());

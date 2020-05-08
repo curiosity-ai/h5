@@ -1,24 +1,24 @@
 ﻿namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
     public class RegexMatchTimeoutException : TimeoutException
     {
         public extern string Pattern
         {
-            [HighFive.Template("getPattern()")]
+            [H5.Template("getPattern()")]
             get;
         }
 
         public extern string Input
         {
-            [HighFive.Template("getInput()")]
+            [H5.Template("getInput()")]
             get;
         }
 
         public extern TimeSpan MatchTimeout
         {
-            [HighFive.Template("getMatchTimeout()")]
+            [H5.Template("getMatchTimeout()")]
             get;
         }
 

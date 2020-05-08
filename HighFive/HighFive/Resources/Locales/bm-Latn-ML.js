@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("bm-Latn-ML", true), {
+H5.merge(new System.Globalization.CultureInfo("bm-Latn-ML", true), {
     englishName: "Bamanankan (Latin, Mali)",
     nativeName: "bamanakan (Mali)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("bm-Latn-ML", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["kar","ntɛ","tar","ara","ala","jum","sib"],
         abbreviatedMonthGenitiveNames: ["zan","feb","mar","awi","mɛ","zuw","zul","uti","sɛt","ɔku","now","des",""],
         abbreviatedMonthNames: ["zan","feb","mar","awi","mɛ","zuw","zul","uti","sɛt","ɔku","now","des",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("bm-Latn-ML", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "bm-Latn-ML",
         EBCDICCodePage: 500,

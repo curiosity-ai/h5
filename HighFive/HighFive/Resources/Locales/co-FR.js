@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("co-FR", true), {
+H5.merge(new System.Globalization.CultureInfo("co-FR", true), {
     englishName: "Corsican (France)",
     nativeName: "Corsu (Francia)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "Micca numericu",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("co-FR", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dum.","lun.","mar.","mer.","ghj.","ven.","sab."],
         abbreviatedMonthGenitiveNames: ["ghje","ferr","marz","apri","magh","ghju","lugl","aost","sett","otto","nuve","dice",""],
         abbreviatedMonthNames: ["ghje","ferr","marz","apri","magh","ghju","lugl","aost","sett","otto","nuve","dice",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("co-FR", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "co-FR",
         EBCDICCodePage: 20297,

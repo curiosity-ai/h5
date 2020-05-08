@@ -2,7 +2,7 @@ using System;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IAbstractEmitterBlock
     {
@@ -24,7 +24,7 @@ namespace HighFive.Contract
 
         void EmitBlockOrIndentedLine(ICSharpCode.NRefactory.CSharp.AstNode node);
 
-        HighFive.Contract.IEmitter Emitter
+        H5.Contract.IEmitter Emitter
         {
             get;
             set;

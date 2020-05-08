@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// Attribute modifies the generated .d.ts to include the TypeScript ? optional modifier.

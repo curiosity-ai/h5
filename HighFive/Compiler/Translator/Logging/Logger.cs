@@ -1,9 +1,9 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator.Logging
+namespace H5.Translator.Logging
 {
     public class Logger : ILogger
     {

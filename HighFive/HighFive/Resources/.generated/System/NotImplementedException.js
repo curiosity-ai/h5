@@ -1,4 +1,4 @@
-    HighFive.define("System.NotImplementedException", {
+    H5.define("System.NotImplementedException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

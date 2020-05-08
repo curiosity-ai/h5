@@ -1,12 +1,12 @@
 namespace System
 {
-    [HighFive.External]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Reflectable]
-    public interface IFormattable : HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Reflectable]
+    public interface IFormattable : H5.IH5Class
     {
-        [HighFive.Name("format")]
-        [HighFive.Template("HighFive.format({this}, {format}, {formatProvider})")]
+        [H5.Name("format")]
+        [H5.Template("H5.format({this}, {format}, {formatProvider})")]
         string ToString(string format, IFormatProvider formatProvider);
     }
 }

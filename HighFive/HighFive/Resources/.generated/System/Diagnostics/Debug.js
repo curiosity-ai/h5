@@ -1,4 +1,4 @@
-    HighFive.define("System.Diagnostics.Debug", {
+    H5.define("System.Diagnostics.Debug", {
         statics: {
             fields: {
                 s_lock: null,
@@ -40,7 +40,7 @@
                     this.s_indentSize = 4;
                     this.s_ShowAssertDialog = System.Diagnostics.Debug.ShowAssertDialog;
                     this.s_WriteCore = System.Diagnostics.Debug.WriteCore;
-                    this.s_shouldWriteToStdErr = HighFive.referenceEquals(System.Environment.GetEnvironmentVariable("COMPlus_DebugWriteToStdErr"), "1");
+                    this.s_shouldWriteToStdErr = H5.referenceEquals(System.Environment.GetEnvironmentVariable("COMPlus_DebugWriteToStdErr"), "1");
                 }
             },
             methods: {
@@ -98,10 +98,10 @@
                     System.Diagnostics.Debug.Write$2((message || "") + ("\n" || ""));
                 },
                 WriteLine: function (value) {
-                    System.Diagnostics.Debug.WriteLine$2(value != null ? HighFive.toString(value) : null);
+                    System.Diagnostics.Debug.WriteLine$2(value != null ? H5.toString(value) : null);
                 },
                 WriteLine$1: function (value, category) {
-                    System.Diagnostics.Debug.WriteLine$4(value != null ? HighFive.toString(value) : null, category);
+                    System.Diagnostics.Debug.WriteLine$4(value != null ? H5.toString(value) : null, category);
                 },
                 WriteLine$3: function (format, args) {
                     if (args === void 0) { args = []; }
@@ -132,7 +132,7 @@
                     }
                 },
                 Write: function (value) {
-                    System.Diagnostics.Debug.Write$2(value != null ? HighFive.toString(value) : null);
+                    System.Diagnostics.Debug.Write$2(value != null ? H5.toString(value) : null);
                 },
                 Write$3: function (message, category) {
                     if (category == null) {
@@ -142,7 +142,7 @@
                     }
                 },
                 Write$1: function (value, category) {
-                    System.Diagnostics.Debug.Write$3(value != null ? HighFive.toString(value) : null, category);
+                    System.Diagnostics.Debug.Write$3(value != null ? H5.toString(value) : null, category);
                 },
                 WriteIf$2: function (condition, message) {
                     if (condition) {
@@ -186,7 +186,7 @@
                 },
                 GetIndentString: function () {
                     var $t;
-                    var indentCount = HighFive.Int.mul(System.Diagnostics.Debug.IndentSize, System.Diagnostics.Debug.IndentLevel);
+                    var indentCount = H5.Int.mul(System.Diagnostics.Debug.IndentSize, System.Diagnostics.Debug.IndentLevel);
                     if (System.Nullable.eq((System.Diagnostics.Debug.s_indentString != null ? System.Diagnostics.Debug.s_indentString.length : null), indentCount)) {
                         return System.Diagnostics.Debug.s_indentString;
                     }

@@ -1,12 +1,12 @@
-using HighFive;
+using H5;
 using System.Collections.Generic;
 
 namespace System.Threading.Tasks
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
-    public class Task : IDisposable, HighFive.IHighFiveClass, IAsyncResult
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
+    public class Task : IDisposable, H5.IH5Class, IAsyncResult
     {
         public extern Task(Action action);
 
@@ -20,23 +20,23 @@ namespace System.Threading.Tasks
 
         public extern bool IsCanceled
         {
-            [HighFive.Template("isCanceled()")]
+            [H5.Template("isCanceled()")]
             get;
         }
 
         public extern bool IsCompleted
         {
-            [HighFive.Template("isCompleted()")]
+            [H5.Template("isCompleted()")]
             get;
         }
 
         public extern bool IsFaulted
         {
-            [HighFive.Template("isFaulted()")]
+            [H5.Template("isFaulted()")]
             get;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern TaskStatus Status
         {
             get;
@@ -102,7 +102,7 @@ namespace System.Threading.Tasks
 
         public static extern Task Delay(TimeSpan delay, CancellationToken cancellationToken);
 
-        [HighFive.Template("System.Threading.Tasks.Task.fromResult({result}, {TResult})")]
+        [H5.Template("System.Threading.Tasks.Task.fromResult({result}, {TResult})")]
         public static extern Task<TResult> FromResult<TResult>(TResult result);
 
         public static extern Task Run(Action action);
@@ -142,9 +142,9 @@ namespace System.Threading.Tasks
         public static extern Task<TResult> FromPromise<TResult>(IPromise promise, Delegate resultHandler, Delegate errorHandler, Delegate progressHandler);
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public class Task<TResult> : Task
     {
         public extern Task(Func<TResult> function);
@@ -153,13 +153,13 @@ namespace System.Threading.Tasks
 
         public extern TResult Result
         {
-            [HighFive.Template("getResult()")]
+            [H5.Template("getResult()")]
             get;
         }
 
         public extern Task ContinueWith(Action<Task<TResult>> continuationAction);
 
-        [HighFive.IgnoreGeneric]
+        [H5.IgnoreGeneric]
         public extern Task<TNewResult> ContinueWith<TNewResult>(Func<Task<TResult>, TNewResult> continuationFunction);
 
         public new extern TaskAwaiter<TResult> GetAwaiter();

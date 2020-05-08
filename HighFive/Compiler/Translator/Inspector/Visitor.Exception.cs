@@ -1,8 +1,8 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using System;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public abstract partial class Visitor : IAstVisitor
     {

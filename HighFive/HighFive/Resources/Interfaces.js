@@ -1,49 +1,49 @@
-    HighFive.define("System.IFormattable", {
+    H5.define("System.IFormattable", {
         $kind: "interface",
         statics: {
             $is: function (obj) {
-                if (HighFive.isNumber(obj) || HighFive.isDate(obj)) {
+                if (H5.isNumber(obj) || H5.isDate(obj)) {
                     return true;
                 }
 
-                return HighFive.is(obj, System.IFormattable, true);
+                return H5.is(obj, System.IFormattable, true);
             }
         }
     });
 
-    HighFive.define("System.IComparable", {
+    H5.define("System.IComparable", {
         $kind: "interface",
 
         statics: {
             $is: function (obj) {
-                if (HighFive.isNumber(obj) || HighFive.isDate(obj) || HighFive.isBoolean(obj) || HighFive.isString(obj)) {
+                if (H5.isNumber(obj) || H5.isDate(obj) || H5.isBoolean(obj) || H5.isString(obj)) {
                     return true;
                 }
 
-                return HighFive.is(obj, System.IComparable, true);
+                return H5.is(obj, System.IComparable, true);
             }
         }
     });
 
-    HighFive.define("System.IFormatProvider", {
+    H5.define("System.IFormatProvider", {
         $kind: "interface"
     });
 
-    HighFive.define("System.ICloneable", {
+    H5.define("System.ICloneable", {
         $kind: "interface"
     });
 
-    HighFive.define("System.IComparable$1", function (T) {
+    H5.define("System.IComparable$1", function (T) {
         return {
             $kind: "interface",
 
             statics: {
                 $is: function (obj) {
-                    if (HighFive.isNumber(obj) && T.$number && T.$is(obj) || HighFive.isDate(obj) && (T === Date || T === System.DateTime) || HighFive.isBoolean(obj) && (T === Boolean || T === System.Boolean) || HighFive.isString(obj) && (T === String || T === System.String)) {
+                    if (H5.isNumber(obj) && T.$number && T.$is(obj) || H5.isDate(obj) && (T === Date || T === System.DateTime) || H5.isBoolean(obj) && (T === Boolean || T === System.Boolean) || H5.isString(obj) && (T === String || T === System.String)) {
                         return true;
                     }
 
-                    return HighFive.is(obj, System.IComparable$1(T), true);
+                    return H5.is(obj, System.IComparable$1(T), true);
                 },
 
                 isAssignableFrom: function (type) {
@@ -51,23 +51,23 @@
                         return true;
                     }
 
-                    return HighFive.Reflection.getInterfaces(type).indexOf(System.IComparable$1(T)) >= 0;
+                    return H5.Reflection.getInterfaces(type).indexOf(System.IComparable$1(T)) >= 0;
                 }
             }
         };
     });
 
-    HighFive.define("System.IEquatable$1", function (T) {
+    H5.define("System.IEquatable$1", function (T) {
         return {
             $kind: "interface",
 
             statics: {
                 $is: function (obj) {
-                    if (HighFive.isNumber(obj) && T.$number && T.$is(obj) || HighFive.isDate(obj) && (T === Date || T === System.DateTime) || HighFive.isBoolean(obj) && (T === Boolean || T === System.Boolean) || HighFive.isString(obj) && (T === String || T === System.String)) {
+                    if (H5.isNumber(obj) && T.$number && T.$is(obj) || H5.isDate(obj) && (T === Date || T === System.DateTime) || H5.isBoolean(obj) && (T === Boolean || T === System.Boolean) || H5.isString(obj) && (T === String || T === System.String)) {
                         return true;
                     }
 
-                    return HighFive.is(obj, System.IEquatable$1(T), true);
+                    return H5.is(obj, System.IEquatable$1(T), true);
                 },
 
                 isAssignableFrom: function (type) {
@@ -75,20 +75,20 @@
                         return true;
                     }
 
-                    return HighFive.Reflection.getInterfaces(type).indexOf(System.IEquatable$1(T)) >= 0;
+                    return H5.Reflection.getInterfaces(type).indexOf(System.IEquatable$1(T)) >= 0;
                 }
             }
         };
     });
 
-    HighFive.define("HighFive.IPromise", {
+    H5.define("H5.IPromise", {
         $kind: "interface"
     });
 
-    HighFive.define("System.IDisposable", {
+    H5.define("System.IDisposable", {
         $kind: "interface"
     });
 
-    HighFive.define("System.IAsyncResult", {
+    H5.define("System.IAsyncResult", {
         $kind: "interface"
     });

@@ -1,13 +1,13 @@
-using HighFive;
+using H5;
 using System;
 using System.Collections.Generic;
 
-namespace HighFive.Utils
+namespace H5.Utils
 {
     /// <summary>
     /// Outputs log messages into a formatted div element on the page
     /// </summary>
-    [Namespace("HighFive")]
+    [Namespace("H5")]
     [Convention(Target = ConventionTarget.Member, Notation = Notation.CamelCase)]
     [Reflectable(false)]
     public class Console
@@ -17,8 +17,8 @@ namespace HighFive.Utils
 #pragma warning disable 649 // CS0649  Field is never assigned to, and will always have its default value null
 
         [External]
-        [Name("HighFive")]
-        private static class HighFiveWrap
+        [Name("H5")]
+        private static class H5Wrap
         {
             [External]
             [Name("global")]
@@ -146,8 +146,8 @@ namespace HighFive.Utils
             public const string Error = "#d65050";
         }
 
-        private const string BODY_WRAPPER_ID = "highfive-body-wrapper";
-        private const string CONSOLE_MESSAGES_ID = "highfive-console-messages";
+        private const string BODY_WRAPPER_ID = "h5-body-wrapper";
+        private const string CONSOLE_MESSAGES_ID = "h5-console-messages";
 
         private string svgNS = "http://www.w3.org/2000/svg";
 
@@ -159,9 +159,9 @@ namespace HighFive.Utils
         private Element Tooltip;
         private Element ConsoleWrap;
         private Element ConsoleMessages;
-        private Element HighFiveIcon;
-        private Element HighFiveIconPath;
-        private Element HighFiveConsoleLabel;
+        private Element H5Icon;
+        private Element H5IconPath;
+        private Element H5ConsoleLabel;
         private Element CloseBtn;
         private Element CloseIcon;
         private Element CloseIconPath;
@@ -202,14 +202,14 @@ namespace HighFive.Utils
             var w = Script.ToDynamic().System.Console.Write;
             var clr = Script.ToDynamic().System.Console.Clear;
             var debug = Script.ToDynamic().System.Diagnostics.Debug.writeln;
-            var con = Script.ToDynamic().HighFive.global.console;
+            var con = Script.ToDynamic().H5.global.console;
 
             if (wl)
             {
                 /*@
                     System.Console.WriteLine = function (value) {
                         wl(value);
-                        HighFive.Console.log(value, true);
+                        H5.Console.log(value, true);
                     }
                  */
             }
@@ -219,7 +219,7 @@ namespace HighFive.Utils
                 /*@
                     System.Console.Write = function (value) {
                         w(value);
-                        HighFive.Console.log(value, false);
+                        H5.Console.log(value, false);
                     }
                  */
             }
@@ -229,7 +229,7 @@ namespace HighFive.Utils
                 /*@
                     System.Console.Clear = function () {
                         clr();
-                        HighFive.Console.clear();
+                        H5.Console.clear();
                     }
                  */
             }
@@ -239,7 +239,7 @@ namespace HighFive.Utils
                 /*@
                     System.Diagnostics.Debug.writeln = function (value) {
                         debug(value);
-                        HighFive.Console.debug(value);
+                        H5.Console.debug(value);
                     }
                  */
             }
@@ -251,16 +251,16 @@ namespace HighFive.Utils
 
                     con.error = function (msg) {
                         err.apply(con, arguments);
-                        HighFive.Console.error(msg);
+                        H5.Console.error(msg);
                     }
                  */
             }
 
-            if (Script.IsDefined(HighFiveWrap.Global.Window))
+            if (Script.IsDefined(H5Wrap.Global.Window))
             {
-                HighFiveWrap.Global.Window.addEventListener("error", (e) =>
+                H5Wrap.Global.Window.addEventListener("error", (e) =>
                 {
-                    //@ HighFive.Console.error(System.Exception.create(e));
+                    //@ H5.Console.error(System.Exception.create(e));
                 });
             }
         }
@@ -298,8 +298,8 @@ namespace HighFive.Utils
                 { "font-family" ,"Menlo, Monaco, Consolas, 'Courier New', monospace" }
             };
 
-            // HighFive Icon
-            HighFiveIcon = HighFiveIcon ?? document.createElementNS(svgNS, "svg");
+            // H5 Icon
+            H5Icon = H5Icon ?? document.createElementNS(svgNS, "svg");
 
             var items = new Dictionary<string, string> {
                 { "xmlns", svgNS },
@@ -309,19 +309,19 @@ namespace HighFive.Utils
                 { "style", "margin: 0 3px 3px 0;vertical-align:middle;" },
             };
 
-            SetAttributes(HighFiveIcon, items);
+            SetAttributes(H5Icon, items);
 
-            HighFiveIconPath = HighFiveIconPath ?? document.createElementNS(svgNS, "path");
+            H5IconPath = H5IconPath ?? document.createElementNS(svgNS, "path");
 
             var items2 = new Dictionary<string, string>();
             items2["d"] = "M19 14.4h2.2V9.6L19 7.1v7.3zm4.3-2.5v2.5h2.2l-2.2-2.5zm-8.5 2.5H17V4.8l-2.2-2.5v12.1zM0 14.4h3l7.5-8.5v8.5h2.2V0L0 14.4z";
             items2["fill"] = "#555";
 
-            SetAttributes(HighFiveIconPath, items2);
+            SetAttributes(H5IconPath, items2);
 
-            // HighFive Console Label
-            HighFiveConsoleLabel = HighFiveConsoleLabel ?? document.createElement("span");
-            HighFiveConsoleLabel.innerHTML = "HighFive Console";
+            // H5 Console Label
+            H5ConsoleLabel = H5ConsoleLabel ?? document.createElement("span");
+            H5ConsoleLabel.innerHTML = "H5 Console";
 
             // Close Button
             CloseBtn = CloseBtn ?? document.createElement("span");
@@ -351,7 +351,7 @@ namespace HighFive.Utils
             SetAttributes(CloseIconPath, items4);
 
             Tooltip = Tooltip ?? document.createElement("div");
-            Tooltip.innerHTML = "Refresh page to open HighFive Console";
+            Tooltip.innerHTML = "Refresh page to open H5 Console";
 
             Tooltip.setAttribute("style", "position: absolute;right: 30px;top: -6px;white-space: nowrap;padding: 7px;border-radius: 3px;background-color: rgba(0, 0, 0, 0.75);color: #eee;text-align: center;visibility: hidden;opacity: 0;-webkit-transition: all 0.25s ease-in-out;transition: all 0.25s ease-in-out;z-index: 1;");
 
@@ -399,14 +399,14 @@ namespace HighFive.Utils
 
             if (!reinit)
             {
-                HighFiveIcon.appendChild(HighFiveIconPath);
+                H5Icon.appendChild(H5IconPath);
                 CloseIcon.appendChild(CloseIconPath);
                 CloseBtn.appendChild(CloseIcon);
                 CloseBtn.appendChild(Tooltip);
 
                 // Add child elements into console header
-                ConsoleHeader.appendChild(HighFiveIcon);
-                ConsoleHeader.appendChild(HighFiveConsoleLabel);
+                ConsoleHeader.appendChild(H5Icon);
+                ConsoleHeader.appendChild(H5ConsoleLabel);
                 ConsoleHeader.appendChild(CloseBtn);
 
                 // Add messages to console body
@@ -579,7 +579,7 @@ namespace HighFive.Utils
         }
 
         /// <summary>
-        /// Close HighFive Console
+        /// Close H5 Console
         /// </summary>
         public void Close()
         {
@@ -644,23 +644,23 @@ namespace HighFive.Utils
         }
 
         /// <summary>
-        /// Unwraps content off the highfive body wrapper div back into the body tag as they used to be
+        /// Unwraps content off the h5 body wrapper div back into the body tag as they used to be
         /// </summary>
         private void UnwrapBodyContent()
         {
-            var highfiveBodyWrap = document.getElementById(BODY_WRAPPER_ID);
+            var h5BodyWrap = document.getElementById(BODY_WRAPPER_ID);
 
-            if (highfiveBodyWrap == null)
+            if (h5BodyWrap == null)
             {
                 return;
             }
 
-            while (highfiveBodyWrap.firstChild != null)
+            while (h5BodyWrap.firstChild != null)
             {
-                document.body.insertBefore(highfiveBodyWrap.firstChild, highfiveBodyWrap);
+                document.body.insertBefore(h5BodyWrap.firstChild, h5BodyWrap);
             }
 
-            document.body.removeChild(highfiveBodyWrap);
+            document.body.removeChild(h5BodyWrap);
         }
 
         /// <summary>

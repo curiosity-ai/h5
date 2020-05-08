@@ -1,4 +1,4 @@
-    HighFive.define("System.Reflection.InvalidFilterCriteriaException", {
+    H5.define("System.Reflection.InvalidFilterCriteriaException", {
         inherits: [System.ApplicationException],
         ctors: {
             ctor: function () {

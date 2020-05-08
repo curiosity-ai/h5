@@ -3,9 +3,9 @@
     /// <summary>
     /// Represents the results from a single successful subexpression capture.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public class Capture
     {
         internal extern Capture(string text, int i, int l);
@@ -15,7 +15,7 @@
         /// </summary>
         public extern int Index
         {
-            [HighFive.Template("getIndex()")]
+            [H5.Template("getIndex()")]
             get;
         }
 
@@ -24,7 +24,7 @@
         /// </summary>
         public extern int Length
         {
-            [HighFive.Template("getLength()")]
+            [H5.Template("getLength()")]
             get;
         }
 
@@ -33,7 +33,7 @@
         /// </summary>
         public extern string Value
         {
-            [HighFive.Template("getValue()")]
+            [H5.Template("getValue()")]
             get;
         }
 

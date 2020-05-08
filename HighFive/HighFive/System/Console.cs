@@ -3,15 +3,15 @@ namespace System
     /// <summary>
     /// Represents the standard input, output, and error streams for console applications.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Unbox(false)]
-    [HighFive.Convention(HighFive.Notation.PascalCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Unbox(false)]
+    [H5.Convention(H5.Notation.PascalCase)]
     public sealed partial class Console
     {
         #region Read and ReadLine
 
         /// <returns>result is a string containing the text entered by the user, or the value null.</returns>
-        [HighFive.Template("prompt()")]
+        [H5.Template("prompt()")]
         public static extern string ReadLine();
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace System
         /// </summary>
         /// <param name="text">text is a string of text to display to the user. This parameter is optional and can be omitted if there is nothing to show in the prompt window.</param>
         /// <returns>result is a string containing the text entered by the user, or the value null.</returns>
-        [HighFive.Template("prompt({text})")]
+        [H5.Template("prompt({text})")]
         public static extern string ReadLine(string text);
 
         /// <summary>
@@ -28,14 +28,14 @@ namespace System
         /// <param name="text">text is a string of text to display to the user. This parameter is optional and can be omitted if there is nothing to show in the prompt window.</param>
         /// <param name="value">value is a string containing the default value displayed in the text input field. It is an optional parameter. Note that in Internet Explorer 7 and 8, if you do not provide this parameter, the string "undefined" is the default value.</param>
         /// <returns>result is a string containing the text entered by the user, or the value null.</returns>
-        [HighFive.Template("prompt({text}, {value})")]
+        [H5.Template("prompt({text}, {value})")]
         public static extern string ReadLine(string text, string value);
 
         /// <summary>
         /// Read uses the native JavaScript prompt() to display a dialog with an optional message prompting the user to input some text.
         /// </summary>
         /// <returns>result is a string containing the text entered by the user, or the value null.</returns>
-        [HighFive.Template("prompt()")]
+        [H5.Template("prompt()")]
         public static extern string Read();
 
         #endregion Read and ReadLine
@@ -46,56 +46,56 @@ namespace System
         /// Writes the text representation of the specified Boolean value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.Write(System.Boolean.toString({value}))")]
+        [H5.Template("System.Console.Write(System.Boolean.toString({value}))")]
         public static extern void Write(Boolean value);
 
         /// <summary>
         /// Writes the specified Unicode character value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.Write(String.fromCharCode({value}))")]
+        [H5.Template("System.Console.Write(String.fromCharCode({value}))")]
         public static extern void Write(Char value);
 
         /// <summary>
         /// Writes the text representation of the specified Decimal value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.Write({value}.toString(\"G\"))")]
+        [H5.Template("System.Console.Write({value}.toString(\"G\"))")]
         public static extern void Write(Decimal value);
 
         /// <summary>
         /// Writes the text representation of the specified double-precision floating-point value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.Write(System.Double.format({value}))")]
+        [H5.Template("System.Console.Write(System.Double.format({value}))")]
         public static extern void Write(Double value);
 
         /// <summary>
         /// Writes the text representation of the specified 32-bit signed integer value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("Write")]
+        [H5.Name("Write")]
         public static extern void Write(Int32 value);
 
         /// <summary>
         /// Writes the text representation of the specified 64-bit signed integer value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("Write")]
+        [H5.Name("Write")]
         public static extern void Write(Int64 value);
 
         /// <summary>
         /// Writes the text representation of the specified object to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("Write")]
+        [H5.Name("Write")]
         public static void Write(Object value)
         {
-            var con = HighFive.Script.ToDynamic().HighFive.global.console;
+            var con = H5.Script.ToDynamic().H5.global.console;
 
             if (con && con.log)
             {
-                con.log(!HighFive.Script.IsDefined(value) ? "" : value.As<dynamic>());
+                con.log(!H5.Script.IsDefined(value) ? "" : value.As<dynamic>());
             }
         }
 
@@ -103,14 +103,14 @@ namespace System
         /// Writes the text representation of the specified single-precision floating-point value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("Write")]
+        [H5.Name("Write")]
         public static extern void Write(Single value);
 
         /// <summary>
         /// Writes the specified string value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("Write")]
+        [H5.Name("Write")]
         public static extern void Write(String value);
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace System
         /// </summary>
         /// <param name="format">A composite format string.</param>
         /// <param name="arg0">The first object to write using format.</param>
-        [HighFive.Template("System.Console.Write(System.String.format({format}, {arg0}))")]
+        [H5.Template("System.Console.Write(System.String.format({format}, {arg0}))")]
         public static extern void Write(String format, Object arg0);
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace System
         /// <param name="format">A composite format string.</param>
         /// <param name="arg0">The first object to write using format.</param>
         /// <param name="arg1">The second object to write using format.</param>
-        [HighFive.Template("System.Console.Write(System.String.format({format}, {arg0}, {arg1}))")]
+        [H5.Template("System.Console.Write(System.String.format({format}, {arg0}, {arg1}))")]
         public static extern void Write(String format, Object arg0, Object arg1);
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace System
         /// <param name="arg0">The first object to write using format.</param>
         /// <param name="arg1">The second object to write using format.</param>
         /// <param name="arg2">The third object to write using format.</param>
-        [HighFive.Template("System.Console.Write(System.String.format({format}, {arg0}, {arg1}, {arg2}))")]
+        [H5.Template("System.Console.Write(System.String.format({format}, {arg0}, {arg1}, {arg2}))")]
         public static extern void Write(String format, Object arg0, Object arg1, Object arg2);
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace System
         /// <param name="arg1">The second object to write using format.</param>
         /// <param name="arg2">The third object to write using format.</param>
         /// <param name="arg3">The fourth object to write using format.</param>
-        [HighFive.Template("System.Console.Write(System.String.format({format}, [{arg0}, {arg1}, {arg2}, {arg3}]))")]
+        [H5.Template("System.Console.Write(System.String.format({format}, [{arg0}, {arg1}, {arg2}, {arg3}]))")]
         public static extern void Write(String format, Object arg0, Object arg1, Object arg2, Object arg3);
 
         /// <summary>
@@ -156,14 +156,14 @@ namespace System
         /// </summary>
         /// <param name="format">A composite format string.</param>
         /// <param name="arg">An array of objects to write using format.</param>
-        [HighFive.Template("System.Console.Write(System.String.format({format}, {arg}))")]
+        [H5.Template("System.Console.Write(System.String.format({format}, {arg}))")]
         public static extern void Write(String format, params Object[] arg);
 
         /// <summary>
         /// Writes the text representation of the specified 32-bit unsigned integer value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("Write")]
+        [H5.Name("Write")]
         [CLSCompliant(false)]
         public static extern void Write(UInt32 value);
 
@@ -171,7 +171,7 @@ namespace System
         /// Writes the text representation of the specified 64-bit unsigned integer value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("Write")]
+        [H5.Name("Write")]
         [CLSCompliant(false)]
         public static extern void Write(UInt64 value);
 
@@ -179,7 +179,7 @@ namespace System
         /// Writes the specified array of Unicode characters to the standard output stream.
         /// </summary>
         /// <param name="buffer">An array of Unicode characters.</param>
-        [HighFive.Template("System.Console.Write(System.Console.TransformChars({buffer}, 1))")]
+        [H5.Template("System.Console.Write(System.Console.TransformChars({buffer}, 1))")]
         public static extern void Write(Char[] buffer);
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace System
         /// <param name="buffer">An array of Unicode characters.</param>
         /// <param name="index">The starting position in buffer.</param>
         /// <param name="count">The number of characters to write. </param>
-        [HighFive.Template("System.Console.Write(System.Console.TransformChars({buffer}, 0, {index}, {count}))")]
+        [H5.Template("System.Console.Write(System.Console.TransformChars({buffer}, 0, {index}, {count}))")]
         public static extern void Write(Char[] buffer, Int32 index, Int32 count);
 
         #endregion Write
@@ -198,63 +198,63 @@ namespace System
         /// <summary>
         /// Writes the current line terminator to the standard output stream.
         /// </summary>
-        [HighFive.Name("WriteLine")]
+        [H5.Name("WriteLine")]
         public static extern void WriteLine();
 
         /// <summary>
         /// Writes the text representation of the specified Boolean value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.WriteLine(System.Boolean.toString({value}))")]
+        [H5.Template("System.Console.WriteLine(System.Boolean.toString({value}))")]
         public static extern void WriteLine(Boolean value);
 
         /// <summary>
         /// Writes the specified Unicode character, followed by the current line terminator, value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.WriteLine(String.fromCharCode({value}))")]
+        [H5.Template("System.Console.WriteLine(String.fromCharCode({value}))")]
         public static extern void WriteLine(Char value);
 
         /// <summary>
         /// Writes the text representation of the specified Decimal value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.WriteLine({value}.toString(\"G\"))")]
+        [H5.Template("System.Console.WriteLine({value}.toString(\"G\"))")]
         public static extern void WriteLine(Decimal value);
 
         /// <summary>
         /// Writes the text representation of the specified double-precision floating-point value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.WriteLine(System.Double.format({value}))")]
+        [H5.Template("System.Console.WriteLine(System.Double.format({value}))")]
         public static extern void WriteLine(double value);
 
         /// <summary>
         /// Writes the text representation of the specified 32-bit signed integer value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("WriteLine")]
+        [H5.Name("WriteLine")]
         public static extern void WriteLine(Int32 value);
 
         /// <summary>
         /// Writes the text representation of the specified 64-bit signed integer value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("WriteLine")]
+        [H5.Name("WriteLine")]
         public static extern void WriteLine(Int64 value);
 
         /// <summary>
         /// Writes the text representation of the specified object, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("WriteLine")]
+        [H5.Name("WriteLine")]
         public static void WriteLine(Object value)
         {
-            var con = HighFive.Script.ToDynamic().HighFive.global.console;
+            var con = H5.Script.ToDynamic().H5.global.console;
 
             if (con && con.log)
             {
-                con.log(!HighFive.Script.IsDefined(value) ? "" : value.As<dynamic>());
+                con.log(!H5.Script.IsDefined(value) ? "" : value.As<dynamic>());
             }
         }
 
@@ -262,21 +262,21 @@ namespace System
         /// Writes the text representation of the specified Type, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.WriteLine(HighFive.getTypeName({value}))")]
+        [H5.Template("System.Console.WriteLine(H5.getTypeName({value}))")]
         public static extern void WriteLine(Type value);
 
         /// <summary>
         /// Writes the text representation of the specified single-precision floating-point value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.WriteLine(System.Single.format({value}))")]
+        [H5.Template("System.Console.WriteLine(System.Single.format({value}))")]
         public static extern void WriteLine(Single value);
 
         /// <summary>
         /// Writes the specified string value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("WriteLine")]
+        [H5.Name("WriteLine")]
         public static extern void WriteLine(string value);
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace System
         /// </summary>
         /// <param name="format">A composite format string.</param>
         /// <param name="arg0">The first object to write using format.</param>
-        [HighFive.Template("System.Console.WriteLine(System.String.format({format}, {arg0}))")]
+        [H5.Template("System.Console.WriteLine(System.String.format({format}, {arg0}))")]
         public static extern void WriteLine(String format, object arg0);
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace System
         /// <param name="format">A composite format string.</param>
         /// <param name="arg0">The first object to write using format.</param>
         /// <param name="arg1">The second object to write using format.</param>
-        [HighFive.Template("System.Console.WriteLine(System.String.format({format}, {arg0}, {arg1}))")]
+        [H5.Template("System.Console.WriteLine(System.String.format({format}, {arg0}, {arg1}))")]
         public static extern void WriteLine(String format, Object arg0, Object arg1);
 
         /// <summary>
@@ -303,7 +303,7 @@ namespace System
         /// <param name="arg0">The first object to write using format.</param>
         /// <param name="arg1">The second object to write using format.</param>
         /// <param name="arg2">The third object to write using format.</param>
-        [HighFive.Template("System.Console.WriteLine(System.String.format({format}, {arg0}, {arg1}, {arg2}))")]
+        [H5.Template("System.Console.WriteLine(System.String.format({format}, {arg0}, {arg1}, {arg2}))")]
         public static extern void WriteLine(String format, Object arg0, Object arg1, Object arg2);
 
         /// <summary>
@@ -314,7 +314,7 @@ namespace System
         /// <param name="arg1">The second object to write using format.</param>
         /// <param name="arg2">The third object to write using format.</param>
         /// <param name="arg3">The fourth object to write using format.</param>
-        [HighFive.Template("System.Console.WriteLine(System.String.format({format}, [{arg0}, {arg1}, {arg2}, {arg3}]))")]
+        [H5.Template("System.Console.WriteLine(System.String.format({format}, [{arg0}, {arg1}, {arg2}, {arg3}]))")]
         public static extern void WriteLine(String format, Object arg0, Object arg1, Object arg2, Object arg3);
 
         /// <summary>
@@ -322,14 +322,14 @@ namespace System
         /// </summary>
         /// <param name="format">A composite format string.</param>
         /// <param name="arg">An array of objects to write using format.</param>
-        [HighFive.Template("System.Console.WriteLine(System.String.format({format}, {arg}))")]
+        [H5.Template("System.Console.WriteLine(System.String.format({format}, {arg}))")]
         public static extern void WriteLine(String format, params Object[] arg);
 
         /// <summary>
         /// Writes the text representation of the specified 32-bit unsigned integer value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("WriteLine")]
+        [H5.Name("WriteLine")]
         [CLSCompliant(false)]
         public static extern void WriteLine(UInt32 value);
 
@@ -337,7 +337,7 @@ namespace System
         /// Writes the text representation of the specified 64-bit unsigned integer value, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Name("WriteLine")]
+        [H5.Name("WriteLine")]
         [CLSCompliant(false)]
         public static extern void WriteLine(UInt64 value);
 
@@ -345,7 +345,7 @@ namespace System
         /// Writes the specified array of Unicode characters, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="buffer">An array of Unicode characters.</param>
-        [HighFive.Template("System.Console.WriteLine(System.Console.TransformChars({buffer}, 1))")]
+        [H5.Template("System.Console.WriteLine(System.Console.TransformChars({buffer}, 1))")]
         public static extern void WriteLine(Char[] buffer);
 
         /// <summary>
@@ -354,21 +354,21 @@ namespace System
         /// <param name="buffer">An array of Unicode characters.</param>
         /// <param name="index">The starting position in buffer.</param>
         /// <param name="count">The number of characters to write. </param>
-        [HighFive.Template("System.Console.WriteLine(System.Console.TransformChars({buffer}, 0, {index}, {count}))")]
+        [H5.Template("System.Console.WriteLine(System.Console.TransformChars({buffer}, 0, {index}, {count}))")]
         public static extern void WriteLine(Char[] buffer, Int32 index, Int32 count);
 
         /// <summary>
         /// Writes the text representation of the specified nullable decimal, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
-        [HighFive.Template("System.Console.WriteLine({value} && {value}.toString(\"G\"))")]
+        [H5.Template("System.Console.WriteLine({value} && {value}.toString(\"G\"))")]
         public static extern void WriteLine(decimal? value);
 
         #endregion WriteLine
 
         #region Utils
 
-        [HighFive.Name("TransformChars")]
+        [H5.Name("TransformChars")]
         private static string TransformChars(char[] buffer, int all, int index, int count)
         {
             if (all != 1)
@@ -415,10 +415,10 @@ namespace System
         /// <summary>
         /// Clears the console buffer and corresponding console window of display information.
         /// </summary>
-        [HighFive.Name("Clear")]
+        [H5.Name("Clear")]
         public static void Clear()
         {
-            var con = HighFive.Script.ToDynamic().HighFive.global.console;
+            var con = H5.Script.ToDynamic().H5.global.console;
 
             if (con && con.clear)
             {

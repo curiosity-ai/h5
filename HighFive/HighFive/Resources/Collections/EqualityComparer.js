@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.EqualityComparer$1", function (T) {
+    H5.define("System.Collections.Generic.EqualityComparer$1", function (T) {
         return {
             inherits: [System.Collections.Generic.IEqualityComparer$1(T)],
 
@@ -12,25 +12,25 @@
 
             config: {
                 alias: [
-                    "equals2", ["System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2"],
-                    "getHashCode2", ["System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2"]
+                    "equals2", ["System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2"],
+                    "getHashCode2", ["System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2"]
                 ]
             },
 
             equals2: function (x, y) {
-                if (!HighFive.isDefined(x, true)) {
-                    return !HighFive.isDefined(y, true);
-                } else if (HighFive.isDefined(y, true)) {
-                    var isHighFive = x && x.$$name;
+                if (!H5.isDefined(x, true)) {
+                    return !H5.isDefined(y, true);
+                } else if (H5.isDefined(y, true)) {
+                    var isH5 = x && x.$$name;
 
-                    if (HighFive.isFunction(x) && HighFive.isFunction(y)) {
-                        return HighFive.fn.equals.call(x, y);
-                    } else if (!isHighFive || x && x.$boxed || y && y.$boxed) {
-                        return HighFive.equals(x, y);
-                    } else if (HighFive.isFunction(x.equalsT)) {
-                        return HighFive.equalsT(x, y);
-                    } else if (HighFive.isFunction(x.equals)) {
-                        return HighFive.equals(x, y);
+                    if (H5.isFunction(x) && H5.isFunction(y)) {
+                        return H5.fn.equals.call(x, y);
+                    } else if (!isH5 || x && x.$boxed || y && y.$boxed) {
+                        return H5.equals(x, y);
+                    } else if (H5.isFunction(x.equalsT)) {
+                        return H5.equalsT(x, y);
+                    } else if (H5.isFunction(x.equals)) {
+                        return H5.equals(x, y);
                     }
 
                     return x === y;
@@ -40,7 +40,7 @@
             },
 
             getHashCode2: function (obj) {
-                return HighFive.isDefined(obj, true) ? HighFive.getHashCode(obj) : 0;
+                return H5.isDefined(obj, true) ? H5.getHashCode(obj) : 0;
             }
         };
     });

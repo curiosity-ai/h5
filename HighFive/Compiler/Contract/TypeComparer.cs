@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class TypeComparer
     {

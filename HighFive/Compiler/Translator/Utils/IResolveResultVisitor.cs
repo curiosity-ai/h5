@@ -2,7 +2,7 @@
 using ICSharpCode.NRefactory.Semantics;
 using System.Diagnostics;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public interface IResolveResultVisitor<out TResult, in TData>
     {

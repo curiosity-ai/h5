@@ -1,9 +1,9 @@
-    HighFive.define("System.Collections.Generic.LinkedListNode$1", function (T) { return {
+    H5.define("System.Collections.Generic.LinkedListNode$1", function (T) { return {
         fields: {
             list: null,
             next: null,
             prev: null,
-            item: HighFive.getDefaultValue(T)
+            item: H5.getDefaultValue(T)
         },
         props: {
             List: {
@@ -13,12 +13,12 @@
             },
             Next: {
                 get: function () {
-                    return this.next == null || HighFive.referenceEquals(this.next, this.list.head) ? null : this.next;
+                    return this.next == null || H5.referenceEquals(this.next, this.list.head) ? null : this.next;
                 }
             },
             Previous: {
                 get: function () {
-                    return this.prev == null || HighFive.referenceEquals(this, this.list.head) ? null : this.prev;
+                    return this.prev == null || H5.referenceEquals(this, this.list.head) ? null : this.prev;
                 }
             },
             Value: {

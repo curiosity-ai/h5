@@ -1,15 +1,15 @@
-using HighFive.Contract;
-using HighFive.Translator;
-using HighFive.Translator.Logging;
+using H5.Contract;
+using H5.Translator;
+using H5.Translator.Logging;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using System;
 using System.IO;
 using System.Linq;
 
-namespace HighFive.Build
+namespace H5.Build
 {
-    public class HighFiveCompilerTask : Task
+    public class H5CompilerTask : Task
     {
         [Required]
         public ITaskItem Assembly
@@ -129,11 +129,11 @@ namespace HighFive.Build
 #endif
             var logger = new Translator.Logging.Logger(null, false, LoggerLevel.Info, true, new VSLoggerWriter(this.Log), new FileLoggerWriter());
 
-            logger.Trace("Executing HighFive.Build.Task...");
+            logger.Trace("Executing H5.Build.Task...");
 
-            var highfiveOptions = this.GetHighFiveOptions();
+            var h5Options = this.GetH5Options();
 
-            var processor = new TranslatorProcessor(highfiveOptions, logger);
+            var processor = new TranslatorProcessor(h5Options, logger);
 
             try
             {
@@ -174,14 +174,14 @@ namespace HighFive.Build
             return success;
         }
 
-        private HighFive.Translator.HighFiveOptions GetHighFiveOptions()
+        private H5.Translator.H5Options GetH5Options()
         {
-            var highfiveOptions = new HighFive.Translator.HighFiveOptions()
+            var h5Options = new H5.Translator.H5Options()
             {
                 ProjectLocation = this.ProjectPath,
                 OutputLocation = this.OutputPath,
                 DefaultFileName = Path.GetFileName(this.Assembly.ItemSpec),
-                HighFiveLocation = Path.Combine(this.AssembliesPath, "HighFive.dll"),
+                H5Location = Path.Combine(this.AssembliesPath, "H5.dll"),
                 Rebuild = false,
                 ExtractCore = !NoCore,
                 Folder = null,
@@ -194,7 +194,7 @@ namespace HighFive.Build
                 Sources = GetSources()
             };
 
-            highfiveOptions.ProjectProperties = new ProjectProperties()
+            h5Options.ProjectProperties = new ProjectProperties()
             {
                 AssemblyName = this.AssemblyName,
                 OutputPath = this.OutputPath,
@@ -207,7 +207,7 @@ namespace HighFive.Build
                 OutputType = this.OutputType
             };
 
-            return highfiveOptions;
+            return h5Options;
         }
 
         private string GetSources()

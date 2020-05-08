@@ -5,7 +5,7 @@ namespace System.Diagnostics.Contracts
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     [Conditional("CONTRACTS_FULL")]
-    [HighFive.External]
+    [H5.External]
     public sealed class ContractAbbreviatorAttribute : Attribute
     {
     }

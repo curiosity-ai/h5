@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("dua", true), {
+H5.merge(new System.Globalization.CultureInfo("dua", true), {
     englishName: "Duala",
     nativeName: "duálá",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("dua", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ét","mɔ́s","kwa","muk","ŋgi","ɗón","esa"],
         abbreviatedMonthGenitiveNames: ["di","ŋgɔn","sɔŋ","diɓ","emi","esɔ","mad","diŋ","nyɛt","may","tin","elá",""],
         abbreviatedMonthNames: ["di","ŋgɔn","sɔŋ","diɓ","emi","esɔ","mad","diŋ","nyɛt","may","tin","elá",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("dua", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "dua-CM",
         EBCDICCodePage: 500,

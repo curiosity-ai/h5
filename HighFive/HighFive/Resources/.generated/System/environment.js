@@ -1,4 +1,4 @@
-    HighFive.define("System.Environment", {
+    H5.define("System.Environment", {
         statics: {
             fields: {
                 Variables: null
@@ -6,7 +6,7 @@
             props: {
                 Location: {
                     get: function () {
-                        var g = HighFive.global;
+                        var g = H5.global;
 
                         if (g && g.location) {
                             return g.location;
@@ -37,9 +37,9 @@
                 ExitCode: 0,
                 Is64BitOperatingSystem: {
                     get: function () {
-                        var n = HighFive.global ? HighFive.global.navigator : null;
+                        var n = H5.global ? H5.global.navigator : null;
 
-                        if (n && (!HighFive.referenceEquals(n.userAgent.indexOf("WOW64"), -1) || !HighFive.referenceEquals(n.userAgent.indexOf("Win64"), -1))) {
+                        if (n && (!H5.referenceEquals(n.userAgent.indexOf("WOW64"), -1) || !H5.referenceEquals(n.userAgent.indexOf("Win64"), -1))) {
                             return true;
                         }
 
@@ -48,7 +48,7 @@
                 },
                 ProcessorCount: {
                     get: function () {
-                        var n = HighFive.global ? HighFive.global.navigator : null;
+                        var n = H5.global ? H5.global.navigator : null;
 
                         if (n && n.hardwareConcurrency) {
                             return n.hardwareConcurrency;
@@ -73,7 +73,7 @@
                 },
                 Version: {
                     get: function () {
-                        var s = HighFive.SystemAssembly.compiler;
+                        var s = H5.SystemAssembly.compiler;
 
                         var v = { };
 
@@ -117,14 +117,14 @@
                         throw new System.ArgumentNullException.$ctor1(name);
                     }
 
-                    $t = HighFive.getEnumerator(System.Environment.Variables);
+                    $t = H5.getEnumerator(System.Environment.Variables);
                     try {
                         while ($t.moveNext()) {
                             var pair = $t.Current;
                             name = System.String.replaceAll(name, "%" + (pair.key || "") + "%", pair.value);
                         }
                     } finally {
-                        if (HighFive.is($t, System.IDisposable)) {
+                        if (H5.is($t, System.IDisposable)) {
                             $t.System$IDisposable$Dispose();
                         }
                     }

@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.CompilerServices.FormattableStringFactory", {
+    H5.define("System.Runtime.CompilerServices.FormattableStringFactory", {
         statics: {
             methods: {
                 Create: function (format, $arguments) {

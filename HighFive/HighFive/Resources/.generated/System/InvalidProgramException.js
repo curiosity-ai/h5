@@ -1,4 +1,4 @@
-    HighFive.define("System.InvalidProgramException", {
+    H5.define("System.InvalidProgramException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

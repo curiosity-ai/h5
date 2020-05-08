@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace System.Reflection
 {
     // This Enum matchs the CorTypeAttr defined in CorHdr.h
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.Enum(H5.Emit.Value)]
     [Flags]
     public enum TypeAttributes
     {

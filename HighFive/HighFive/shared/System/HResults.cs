@@ -25,199 +25,199 @@ namespace System
 {
     internal static partial class HResults
     {
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_ABANDONEDMUTEX = unchecked((int)0x8013152D);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_AMBIGUOUSMATCH = unchecked((int)0x8000211D);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_APPDOMAINUNLOADED = unchecked((int)0x80131014);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_APPLICATION = unchecked((int)0x80131600);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_ARGUMENT = unchecked((int)0x80070057);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_ARGUMENTOUTOFRANGE = unchecked((int)0x80131502);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_ARITHMETIC = unchecked((int)0x80070216);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_ARRAYTYPEMISMATCH = unchecked((int)0x80131503);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_BADEXEFORMAT = unchecked((int)0x800700C1);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_BADIMAGEFORMAT = unchecked((int)0x8007000B);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_CANNOTUNLOADAPPDOMAIN = unchecked((int)0x80131015);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_COMEMULATE = unchecked((int)0x80131535);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_CONTEXTMARSHAL = unchecked((int)0x80131504);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_CUSTOMATTRIBUTEFORMAT = unchecked((int)0x80131605);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_DATAMISALIGNED = unchecked((int)0x80131541);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_DIRECTORYNOTFOUND = unchecked((int)0x80070003);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_DIVIDEBYZERO = unchecked((int)0x80020012); // DISP_E_DIVBYZERO
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_DLLNOTFOUND = unchecked((int)0x80131524);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_DUPLICATEWAITOBJECT = unchecked((int)0x80131529);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_ENDOFSTREAM = unchecked((int)0x80070026);  // OS defined
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_ENTRYPOINTNOTFOUND = unchecked((int)0x80131523);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_EXCEPTION = unchecked((int)0x80131500);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_EXECUTIONENGINE = unchecked((int)0x80131506);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_FIELDACCESS = unchecked((int)0x80131507);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_FILELOAD = unchecked((int)0x80131621);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_FILENOTFOUND = unchecked((int)0x80070002);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_FORMAT = unchecked((int)0x80131537);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_HOSTPROTECTION = unchecked((int)0x80131640);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INDEXOUTOFRANGE = unchecked((int)0x80131508);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INSUFFICIENTEXECUTIONSTACK = unchecked((int)0x80131578);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INSUFFICIENTMEMORY = unchecked((int)0x8013153D);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INVALIDCAST = unchecked((int)0x80004002);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INVALIDCOMOBJECT = unchecked((int)0x80131527);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INVALIDFILTERCRITERIA = unchecked((int)0x80131601);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INVALIDOLEVARIANTTYPE = unchecked((int)0x80131531);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INVALIDOPERATION = unchecked((int)0x80131509);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_INVALIDPROGRAM = unchecked((int)0x8013153A);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_IO = unchecked((int)0x80131620);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_KEYNOTFOUND = unchecked((int)0x80131577);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_MARSHALDIRECTIVE = unchecked((int)0x80131535);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_MEMBERACCESS = unchecked((int)0x8013151A);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_METHODACCESS = unchecked((int)0x80131510);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_MISSINGFIELD = unchecked((int)0x80131511);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_MISSINGMANIFESTRESOURCE = unchecked((int)0x80131532);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_MISSINGMEMBER = unchecked((int)0x80131512);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_MISSINGMETHOD = unchecked((int)0x80131513);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_MISSINGSATELLITEASSEMBLY = unchecked((int)0x80131536);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int CvOR_E_MULTICASTNOTSUPPORTED = unchecked((int)0x80131514);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_NOTFINITENUMBER = unchecked((int)0x80131528);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_NOTSUPPORTED = unchecked((int)0x80131515);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_NULLREFERENCE = unchecked((int)0x80004003);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_OBJECTDISPOSED = unchecked((int)0x80131622);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_OPERATIONCANCELED = unchecked((int)0x8013153B);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_OUTOFMEMORY = unchecked((int)0x8007000E);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_OVERFLOW = unchecked((int)0x80131516);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_PATHTOOLONG = unchecked((int)0x800700CE);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_PLATFORMNOTSUPPORTED = unchecked((int)0x80131539);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_RANK = unchecked((int)0x80131517);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_REFLECTIONTYPELOAD = unchecked((int)0x80131602);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_RUNTIMEWRAPPED = unchecked((int)0x8013153E);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_SAFEARRAYRANKMISMATCH = unchecked((int)0x80131538);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_SAFEARRAYTYPEMISMATCH = unchecked((int)0x80131533);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_SAFEHANDLEMISSINGATTRIBUTE = unchecked((int)0x80131623);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_SECURITY = unchecked((int)0x8013150A);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_SEMAPHOREFULL = unchecked((int)0x8013152B);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_SERIALIZATION = unchecked((int)0x8013150C);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_STACKOVERFLOW = unchecked((int)0x800703E9);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_SYNCHRONIZATIONLOCK = unchecked((int)0x80131518);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_SYSTEM = unchecked((int)0x80131501);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_TARGET = unchecked((int)0x80131603);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_TARGETINVOCATION = unchecked((int)0x80131604);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_TARGETPARAMCOUNT = unchecked((int)0x8002000E);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_THREADABORTED = unchecked((int)0x80131530);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_THREADINTERRUPTED = unchecked((int)0x80131519);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_THREADSTART = unchecked((int)0x80131525);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COvR_E_THREADSTATE = unchecked((int)0x80131520);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_THREADSTOP = unchecked((int)0x80131521);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_TIMEOUT = unchecked((int)0x80131505);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_TYPEACCESS = unchecked((int)0x80131543);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_TYPEINITIALIZATION = unchecked((int)0x80131534);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_TYPELOAD = unchecked((int)0x80131522);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_TYPEUNLOADED = unchecked((int)0x80131013);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_UNAUTHORIZEDACCESS = unchecked((int)0x80070005);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_UNSUPPORTEDFORMAT = unchecked((int)0x80131523);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_VERIFICATION = unchecked((int)0x8013150D);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int COR_E_WAITHANDLECANNOTBEOPENED = unchecked((int)0x8013152C);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int DISP_E_OVERFLOW = unchecked((int)0x8002000A);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int E_BOUNDS = unchecked((int)0x8000000B);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int E_CHANGED_STATE = unchecked((int)0x8000000C);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int E_FAIL = unchecked((int)0x80004005);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int E_HANDLE = unchecked((int)0x80070006);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int E_INVALIDARG = unchecked((int)0x80070057);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int E_NOTIMPL = unchecked((int)0x80004001);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int E_POINTER = unchecked((int)0x80004003);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int ERROR_MRM_MAP_NOT_FOUND = unchecked((int)0x80073B1F);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int RO_E_CLOSED = unchecked((int)0x80000013);
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int TYPE_E_TYPEMISMATCH = unchecked((int)0x80028CA0);
     }
 }

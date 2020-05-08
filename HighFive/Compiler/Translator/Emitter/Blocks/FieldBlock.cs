@@ -1,6 +1,6 @@
 using System;
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class FieldBlock : AbstractEmitterBlock
     {

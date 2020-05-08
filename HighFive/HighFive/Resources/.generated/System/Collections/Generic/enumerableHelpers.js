@@ -1,23 +1,23 @@
-    HighFive.define("HighFive.Collections.EnumerableHelpers", {
+    H5.define("H5.Collections.EnumerableHelpers", {
         statics: {
             methods: {
                 ToArray: function (T, source) {
                     var count = { };
-                    var results = { v : HighFive.Collections.EnumerableHelpers.ToArray$1(T, source, count) };
+                    var results = { v : H5.Collections.EnumerableHelpers.ToArray$1(T, source, count) };
                     System.Array.resize(results, count.v, function () {
-                        return HighFive.getDefaultValue(T);
+                        return H5.getDefaultValue(T);
                     }, T);
                     return results.v;
                 },
                 ToArray$1: function (T, source, length) {
-                    var en = HighFive.getEnumerator(source, T);
+                    var en = H5.getEnumerator(source, T);
                     try {
                         if (en.System$Collections$IEnumerator$moveNext()) {
                             var DefaultCapacity = 4;
                             var arr = { v : System.Array.init(DefaultCapacity, function (){
-                                return HighFive.getDefaultValue(T);
+                                return H5.getDefaultValue(T);
                             }, T) };
-                            arr.v[System.Array.index(0, arr.v)] = en[HighFive.geti(en, "System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
+                            arr.v[System.Array.index(0, arr.v)] = en[H5.geti(en, "System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
                             var count = 1;
 
                             while (en.System$Collections$IEnumerator$moveNext()) {
@@ -30,11 +30,11 @@
                                     }
 
                                     System.Array.resize(arr, newLength, function () {
-                                        return HighFive.getDefaultValue(T);
+                                        return H5.getDefaultValue(T);
                                     }, T);
                                 }
 
-                                arr.v[System.Array.index(HighFive.identity(count, ((count = (count + 1) | 0))), arr.v)] = en[HighFive.geti(en, "System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
+                                arr.v[System.Array.index(H5.identity(count, ((count = (count + 1) | 0))), arr.v)] = en[H5.geti(en, "System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
                             }
 
                             length.v = count;
@@ -42,14 +42,14 @@
                         }
                     }
                     finally {
-                        if (HighFive.hasValue(en)) {
+                        if (H5.hasValue(en)) {
                             en.System$IDisposable$Dispose();
                         }
                     }
 
                     length.v = 0;
                     return System.Array.init(0, function (){
-                        return HighFive.getDefaultValue(T);
+                        return H5.getDefaultValue(T);
                     }, T);
                 }
             }

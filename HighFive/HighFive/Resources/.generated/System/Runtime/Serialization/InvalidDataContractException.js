@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.InvalidDataContractException", {
+    H5.define("System.Runtime.Serialization.InvalidDataContractException", {
         inherits: [System.Exception],
         ctors: {
             ctor: function () {

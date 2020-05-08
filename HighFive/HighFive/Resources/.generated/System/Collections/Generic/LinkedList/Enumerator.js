@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.LinkedList$1.Enumerator", function (T) { return {
+    H5.define("System.Collections.Generic.LinkedList$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
         $kind: "nested struct",
         statics: {
@@ -24,7 +24,7 @@
             list: null,
             node: null,
             version: 0,
-            current: HighFive.getDefaultValue(T),
+            current: H5.getDefaultValue(T),
             index: 0
         },
         props: {
@@ -44,7 +44,7 @@
             }
         },
         alias: [
-            "Current", ["System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
             "moveNext", "System$Collections$IEnumerator$moveNext",
             "Dispose", "System$IDisposable$Dispose"
         ],
@@ -54,7 +54,7 @@
                 this.list = list;
                 this.version = list.version;
                 this.node = list.head;
-                this.current = HighFive.getDefaultValue(T);
+                this.current = H5.getDefaultValue(T);
                 this.index = 0;
             },
             ctor: function () {
@@ -75,7 +75,7 @@
                 this.index = (this.index + 1) | 0;
                 this.current = this.node.item;
                 this.node = this.node.next;
-                if (HighFive.referenceEquals(this.node, this.list.head)) {
+                if (H5.referenceEquals(this.node, this.list.head)) {
                     this.node = null;
                 }
                 return true;
@@ -85,20 +85,20 @@
                     throw new System.InvalidOperationException.ctor();
                 }
 
-                this.current = HighFive.getDefaultValue(T);
+                this.current = H5.getDefaultValue(T);
                 this.node = this.list.head;
                 this.index = 0;
             },
             Dispose: function () { },
             getHashCode: function () {
-                var h = HighFive.addHash([3788985113, this.list, this.node, this.version, this.current, this.index]);
+                var h = H5.addHash([3788985113, this.list, this.node, this.version, this.current, this.index]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.LinkedList$1.Enumerator(T))) {
+                if (!H5.is(o, System.Collections.Generic.LinkedList$1.Enumerator(T))) {
                     return false;
                 }
-                return HighFive.equals(this.list, o.list) && HighFive.equals(this.node, o.node) && HighFive.equals(this.version, o.version) && HighFive.equals(this.current, o.current) && HighFive.equals(this.index, o.index);
+                return H5.equals(this.list, o.list) && H5.equals(this.node, o.node) && H5.equals(this.version, o.version) && H5.equals(this.current, o.current) && H5.equals(this.index, o.index);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.Generic.LinkedList$1.Enumerator(T))();

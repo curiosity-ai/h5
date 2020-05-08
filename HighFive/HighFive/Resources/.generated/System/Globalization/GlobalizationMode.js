@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.GlobalizationMode", {
+    H5.define("System.Globalization.GlobalizationMode", {
         statics: {
             props: {
                 Invariant: false

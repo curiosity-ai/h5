@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ff-GN", true), {
+H5.merge(new System.Globalization.CultureInfo("ff-GN", true), {
     englishName: "Fulah (Guinea)",
     nativeName: "Pulaar (Gine)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ff-GN", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dew","aaɓ","maw","nje","naa","mwd","hbi"],
         abbreviatedMonthGenitiveNames: ["sii","col","mbo","see","duu","kor","mor","juk","slt","yar","jol","bow",""],
         abbreviatedMonthNames: ["sii","col","mbo","see","duu","kor","mor","juk","slt","yar","jol","bow",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ff-GN", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "ff-GN",
         EBCDICCodePage: 20297,

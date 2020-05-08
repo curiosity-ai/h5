@@ -1,7 +1,7 @@
 ﻿using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ResolveResultVisitor<TResult, TData> : IResolveResultVisitor<TResult, TData>
     {

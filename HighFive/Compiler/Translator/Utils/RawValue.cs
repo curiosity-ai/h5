@@ -1,4 +1,4 @@
-﻿namespace HighFive.Translator
+﻿namespace H5.Translator
 {
     public class RawValue
     {

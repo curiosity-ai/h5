@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("seh", true), {
+H5.merge(new System.Globalization.CultureInfo("seh", true), {
     englishName: "Sena",
     nativeName: "sena",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("seh", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Dim","Pos","Pir","Tat","Nai","Sha","Sab"],
         abbreviatedMonthGenitiveNames: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Aug","Set","Otu","Nov","Dec",""],
         abbreviatedMonthNames: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Aug","Set","Otu","Nov","Dec",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("seh", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "seh-MZ",
         EBCDICCodePage: 500,

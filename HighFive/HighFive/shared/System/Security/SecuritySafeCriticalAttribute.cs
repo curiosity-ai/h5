@@ -13,7 +13,7 @@ namespace System.Security
     // At type-scope, all rule checks will be suppressed for members within the type and for calls made against the type.
     // At member level (e.g. field and method) the code will be treated as public - i.e. no rule checks for the members.
 
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Class |
                     AttributeTargets.Struct |
                     AttributeTargets.Enum |

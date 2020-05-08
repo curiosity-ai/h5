@@ -13,7 +13,7 @@ namespace System.Diagnostics.Contracts
     /// </remarks>
     [Conditional("CONTRACTS_FULL")]
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Property)]
-    [HighFive.External]
+    [H5.External]
     public sealed class ContractVerificationAttribute : Attribute
     {
         public extern ContractVerificationAttribute(bool value);

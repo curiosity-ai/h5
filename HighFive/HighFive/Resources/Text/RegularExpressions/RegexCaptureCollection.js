@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.CaptureCollection", {
+    H5.define("System.Text.RegularExpressions.CaptureCollection", {
         inherits: function () {
             return [System.Collections.ICollection];
         },
@@ -107,7 +107,7 @@
         }
     });
 
-    HighFive.define("System.Text.RegularExpressions.CaptureEnumerator", {
+    H5.define("System.Text.RegularExpressions.CaptureEnumerator", {
         inherits: function () {
             return [System.Collections.IEnumerator];
         },

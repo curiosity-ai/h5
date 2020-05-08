@@ -3,11 +3,11 @@ namespace System.ComponentModel.DataAnnotations
     /// <summary>
     /// Validation attribute to assert a string property, field or parameter does not exceed a maximum length
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter,
         AllowMultiple = false)]
-    [HighFive.External]
-    [HighFive.NonScriptable]
+    [H5.External]
+    [H5.NonScriptable]
     public class StringLengthAttribute : ValidationAttribute
     {
         /// <summary>

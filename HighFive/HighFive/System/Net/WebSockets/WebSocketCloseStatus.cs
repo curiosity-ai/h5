@@ -3,8 +3,8 @@
     /// <summary>
     /// Represents well known WebSocket close codes as defined in section 11.7 of the WebSocket protocol spec.
     /// </summary>
-    [HighFive.External]
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.External]
+    [H5.Enum(H5.Emit.Value)]
     public enum WebSocketCloseStatus
     {
         NormalClosure = 1000,

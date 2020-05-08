@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.KnownTypeAttribute", {
+    H5.define("System.Runtime.Serialization.KnownTypeAttribute", {
         inherits: [System.Attribute],
         fields: {
             _methodName: null,

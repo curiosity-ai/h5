@@ -1,4 +1,4 @@
-    HighFive.define("System.Threading.Tasks.TaskCanceledException", {
+    H5.define("System.Threading.Tasks.TaskCanceledException", {
         inherits: [System.OperationCanceledException],
         fields: {
             _canceledTask: null

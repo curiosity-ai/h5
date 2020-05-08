@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.SortedList.KeyList", {
+    H5.define("System.Collections.SortedList.KeyList", {
         inherits: [System.Collections.IList],
         $kind: "nested class",
         fields: {

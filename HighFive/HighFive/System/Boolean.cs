@@ -2,42 +2,42 @@
 
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public struct Boolean : IComparable, IComparable<bool>, IEquatable<bool>
     {
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int True = 1;
 
-        [HighFive.InlineConst]
+        [H5.InlineConst]
         internal const int False = 0;
 
-        [HighFive.Template("System.Boolean.trueString")]
+        [H5.Template("System.Boolean.trueString")]
         public static readonly string TrueString = "True";
 
-        [HighFive.Template("System.Boolean.falseString")]
+        [H5.Template("System.Boolean.falseString")]
         public static readonly string FalseString = "False";
 
-        [HighFive.Template("false")]
+        [H5.Template("false")]
         private extern Boolean(DummyTypeUsedToAddAttributeToDefaultValueTypeConstructor _);
 
-        [HighFive.Template("HighFive.compare({this}, {other})")]
+        [H5.Template("H5.compare({this}, {other})")]
         public extern int CompareTo(bool other);
 
-        [HighFive.Template("{this} === {other}")]
+        [H5.Template("{this} === {other}")]
         public extern bool Equals(bool other);
 
-        [HighFive.Template("System.Boolean.parse({value})")]
+        [H5.Template("System.Boolean.parse({value})")]
         public static extern bool Parse(string value);
 
-        [HighFive.Template("System.Boolean.tryParse({value}, {result})")]
+        [H5.Template("System.Boolean.tryParse({value}, {result})")]
         public static extern bool TryParse(string value, out bool result);
 
-        [HighFive.Template("HighFive.compare({this}, {other})")]
+        [H5.Template("H5.compare({this}, {other})")]
         public extern int CompareTo(object obj);
 
-        [HighFive.Template(Fn = "System.Boolean.toString")]
+        [H5.Template(Fn = "System.Boolean.toString")]
         public override extern string ToString();
     }
 }

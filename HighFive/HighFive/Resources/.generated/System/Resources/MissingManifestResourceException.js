@@ -1,4 +1,4 @@
-    HighFive.define("System.Resources.MissingManifestResourceException", {
+    H5.define("System.Resources.MissingManifestResourceException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

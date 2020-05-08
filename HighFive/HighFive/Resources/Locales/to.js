@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("to", true), {
+H5.merge(new System.Globalization.CultureInfo("to", true), {
     englishName: "Tongan",
     nativeName: "lea fakatonga",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "TF",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("to", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Sāp","Mōn","Tūs","Pul","Tuʻa","Fal","Tok"],
         abbreviatedMonthGenitiveNames: ["Sān","Fēp","Maʻa","ʻEpe","Mē","Sun","Siu","ʻAok","Sep","ʻOka","Nōv","Tīs",""],
         abbreviatedMonthNames: ["Sān","Fēp","Maʻa","ʻEpe","Mē","Sun","Siu","ʻAok","Sep","ʻOka","Nōv","Tīs",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("to", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "to-TO",
         EBCDICCodePage: 500,

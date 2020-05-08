@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("eo-001", true), {
+H5.merge(new System.Globalization.CultureInfo("eo-001", true), {
     englishName: "Esperanto (World)",
     nativeName: "esperanto (World)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("eo-001", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["di","lu","ma","me","ĵa","ve","sa"],
         abbreviatedMonthGenitiveNames: ["jan","feb","mar","apr","maj","jun","jul","aŭg","sep","okt","nov","dec",""],
         abbreviatedMonthNames: ["jan","feb","mar","apr","maj","jun","jul","aŭg","sep","okt","nov","dec",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("eo-001", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "eo-001",
         EBCDICCodePage: 500,

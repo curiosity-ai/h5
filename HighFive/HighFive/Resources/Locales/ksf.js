@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ksf", true), {
+H5.merge(new System.Globalization.CultureInfo("ksf", true), {
     englishName: "Bafia",
     nativeName: "rikpa",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ksf", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sɔ́n","lǝn","maa","mɛk","jǝǝ","júm","sam"],
         abbreviatedMonthGenitiveNames: ["ŋ1","ŋ2","ŋ3","ŋ4","ŋ5","ŋ6","ŋ7","ŋ8","ŋ9","ŋ10","ŋ11","ŋ12",""],
         abbreviatedMonthNames: ["ŋ1","ŋ2","ŋ3","ŋ4","ŋ5","ŋ6","ŋ7","ŋ8","ŋ9","ŋ10","ŋ11","ŋ12",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ksf", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ksf-CM",
         EBCDICCodePage: 500,

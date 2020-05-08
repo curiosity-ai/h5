@@ -1,18 +1,18 @@
-    HighFive.define("System.Console", {
+    H5.define("System.Console", {
         statics: {
             methods: {
                 Write: function (value) {
-                    var con = HighFive.global.console;
+                    var con = H5.global.console;
 
                     if (con && con.log) {
-                        con.log(!HighFive.isDefined(HighFive.unbox(value)) ? "" : HighFive.unbox(value));
+                        con.log(!H5.isDefined(H5.unbox(value)) ? "" : H5.unbox(value));
                     }
                 },
                 WriteLine: function (value) {
-                    var con = HighFive.global.console;
+                    var con = H5.global.console;
 
                     if (con && con.log) {
-                        con.log(!HighFive.isDefined(HighFive.unbox(value)) ? "" : HighFive.unbox(value));
+                        con.log(!H5.isDefined(H5.unbox(value)) ? "" : H5.unbox(value));
                     }
                 },
                 TransformChars: function (buffer, all, index, count) {
@@ -49,7 +49,7 @@
                     return s;
                 },
                 Clear: function () {
-                    var con = HighFive.global.console;
+                    var con = H5.global.console;
 
                     if (con && con.clear) {
                         con.clear();

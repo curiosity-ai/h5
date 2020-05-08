@@ -4,7 +4,7 @@
 
 namespace System.Runtime.InteropServices
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     public struct HandleRef
     {
         // ! Do not add or rearrange fields as the EE depends on this layout.

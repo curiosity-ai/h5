@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.Group", {
+    H5.define("System.Text.RegularExpressions.Group", {
         inherits: function () {
             return [System.Text.RegularExpressions.Capture];
         },

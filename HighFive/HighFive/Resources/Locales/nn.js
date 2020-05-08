@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("nn", true), {
+H5.merge(new System.Globalization.CultureInfo("nn", true), {
     englishName: "Norwegian Nynorsk",
     nativeName: "nynorsk",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nn", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sø.","må.","ty.","on.","to.","fr.","la."],
         abbreviatedMonthGenitiveNames: ["jan.","feb.","mars","apr.","mai","juni","juli","aug.","sep.","okt.","nov.","des.",""],
         abbreviatedMonthNames: ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nn", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "nn-NO",
         EBCDICCodePage: 20277,

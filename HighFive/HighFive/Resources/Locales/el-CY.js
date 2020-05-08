@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("el-CY", true), {
+H5.merge(new System.Globalization.CultureInfo("el-CY", true), {
     englishName: "Greek (Cyprus)",
     nativeName: "Ελληνικά (Κύπρος)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("el-CY", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Κυρ","Δευ","Τρί","Τετ","Πέμ","Παρ","Σάβ"],
         abbreviatedMonthGenitiveNames: ["Ιαν","Φεβ","Μαρ","Απρ","Μαΐ","Ιουν","Ιουλ","Αυγ","Σεπ","Οκτ","Νοε","Δεκ",""],
         abbreviatedMonthNames: ["Ιαν","Φεβ","Μάρ","Απρ","Μάι","Ιούν","Ιούλ","Αύγ","Σεπ","Οκτ","Νοέ","Δεκ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("el-CY", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1253,
         CultureName: "el-CY",
         EBCDICCodePage: 20273,

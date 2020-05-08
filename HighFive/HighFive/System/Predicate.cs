@@ -7,8 +7,8 @@ namespace System
     /// true if <paramref name="obj"/> meets the criteria defined within the method represented by this delegate; otherwise, false.
     /// </returns>
     /// <param name="obj">The object to compare against the criteria defined within the method represented by this delegate.</param><typeparam name="T">The type of the object to compare.This type parameter is contravariant. That is, you can use either the type you specified or any type that is less derived. For more information about covariance and contravariance, see Covariance and Contravariance in Generics.</typeparam><filterpriority>2</filterpriority>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.Name("Function")]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.Name("Function")]
+    [H5.External]
     public delegate bool Predicate<in T>(T obj);
 }

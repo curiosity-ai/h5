@@ -29,16 +29,16 @@
     <ProjectReference Include="..\Tesserae\Tesserae.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="highfive.Debug.json">
+    <None Update="h5.Debug.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="highfive.json">
+    <None Update="h5.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="highfive.Release.json">
+    <None Update="h5.Release.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="highfive\**\*.*">
+    <None Include="h5\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

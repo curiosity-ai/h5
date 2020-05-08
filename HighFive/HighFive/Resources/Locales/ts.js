@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ts", true), {
+H5.merge(new System.Globalization.CultureInfo("ts", true), {
     englishName: "Tsonga",
     nativeName: "Xitsonga",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ts", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Son","Mus","Bir","Har","Ne","Tlh","Mug"],
         abbreviatedMonthGenitiveNames: ["Sun","Yan","Kul","Dzi","Mud","Kho","Maw","Mha","Ndz","Nhl","Huk","N’w",""],
         abbreviatedMonthNames: ["Sun","Yan","Kul","Dzi","Mud","Kho","Maw","Mha","Ndz","Nhl","Huk","N’w",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ts", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ts-ZA",
         EBCDICCodePage: 500,

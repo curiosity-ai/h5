@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ff-NG", true), {
+H5.merge(new System.Globalization.CultureInfo("ff-NG", true), {
     englishName: "Fulah (Nigeria)",
     nativeName: "Pulaar (Nigeria)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ff-NG", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["alet","alt.","tal.","alar.","alk.","alj.","aset"],
         abbreviatedMonthGenitiveNames: ["samw","feeb","mar","awr","me","suy","sul","ut","sat","okt","now","dees",""],
         abbreviatedMonthNames: ["samw","feeb","mar","awr","me","suy","sul","ut","sat","okt","now","dees",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ff-NG", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "ff-NG",
         EBCDICCodePage: 20297,

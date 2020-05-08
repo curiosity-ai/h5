@@ -1,11 +1,11 @@
-using HighFive.Contract;
+using H5.Contract;
 
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Linq;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class MemberBlock : TypeScriptBlock
     {
@@ -125,7 +125,7 @@ namespace HighFive.Translator.TypeScript
             if (field.VarInitializer != null)
             {
                 var field_rr = this.Emitter.Resolver.ResolveNode(field.VarInitializer, this.Emitter);
-                if (field_rr is MemberResolveResult mrr && mrr.Member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.OptionalAttribute"))
+                if (field_rr is MemberResolveResult mrr && mrr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.OptionalAttribute"))
                 {
                     this.Write("?");
                 }
@@ -135,7 +135,7 @@ namespace HighFive.Translator.TypeScript
 
             string typeName = this.TypeInfo.IsEnum
                 ? (Helpers.IsStringNameEnum(this.TypeInfo.Type) ? "string" : "number")
-                : HighFiveTypes.ToTypeScriptName(field.Entity.ReturnType, this.Emitter);
+                : H5Types.ToTypeScriptName(field.Entity.ReturnType, this.Emitter);
             this.Write(typeName);
 
             if (!this.TypeInfo.IsEnum)
@@ -158,7 +158,7 @@ namespace HighFive.Translator.TypeScript
             this.WriteOpenParentheses();
             this.Write("value");
             this.WriteColon();
-            string typeName = HighFiveTypes.ToTypeScriptName(ev.Entity.ReturnType, this.Emitter);
+            string typeName = H5Types.ToTypeScriptName(ev.Entity.ReturnType, this.Emitter);
             this.Write(typeName);
 
             var resolveResult = this.Emitter.Resolver.ResolveNode(ev.Entity.ReturnType, this.Emitter);
@@ -181,7 +181,7 @@ namespace HighFive.Translator.TypeScript
             this.Write(name);
             this.WriteColon();
 
-            string typeName = HighFiveTypes.ToTypeScriptName(ev.Entity.ReturnType, this.Emitter);
+            string typeName = H5Types.ToTypeScriptName(ev.Entity.ReturnType, this.Emitter);
             this.Write(typeName);
 
             var resolveResult = this.Emitter.Resolver.ResolveNode(ev.Entity.ReturnType, this.Emitter);

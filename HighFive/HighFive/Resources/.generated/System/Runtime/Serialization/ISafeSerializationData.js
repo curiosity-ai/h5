@@ -1,3 +1,3 @@
-    HighFive.define("System.Runtime.Serialization.ISafeSerializationData", {
+    H5.define("System.Runtime.Serialization.ISafeSerializationData", {
         $kind: "interface"
     });

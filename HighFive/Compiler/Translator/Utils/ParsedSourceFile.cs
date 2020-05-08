@@ -1,7 +1,7 @@
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.TypeSystem;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ParsedSourceFile
     {

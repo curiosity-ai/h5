@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.Stack$1.Enumerator", function (T) { return {
+    H5.define("System.Collections.Generic.Stack$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
         $kind: "nested struct",
         statics: {
@@ -10,7 +10,7 @@
             _stack: null,
             _index: 0,
             _version: 0,
-            _currentElement: HighFive.getDefaultValue(T)
+            _currentElement: H5.getDefaultValue(T)
         },
         props: {
             Current: {
@@ -39,7 +39,7 @@
         alias: [
             "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", ["System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             $ctor1: function (stack) {
@@ -47,7 +47,7 @@
                 this._stack = stack;
                 this._version = this._stack._version;
                 this._index = -2;
-                this._currentElement = HighFive.getDefaultValue(T);
+                this._currentElement = H5.getDefaultValue(T);
             },
             ctor: function () {
                 this.$initialize();
@@ -79,7 +79,7 @@
                 if (retval) {
                     this._currentElement = ($t1 = this._stack._array)[System.Array.index(this._index, $t1)];
                 } else {
-                    this._currentElement = HighFive.getDefaultValue(T);
+                    this._currentElement = H5.getDefaultValue(T);
                 }
                 return retval;
             },
@@ -88,17 +88,17 @@
                     throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
                 this._index = -2;
-                this._currentElement = HighFive.getDefaultValue(T);
+                this._currentElement = H5.getDefaultValue(T);
             },
             getHashCode: function () {
-                var h = HighFive.addHash([3788985113, this._stack, this._index, this._version, this._currentElement]);
+                var h = H5.addHash([3788985113, this._stack, this._index, this._version, this._currentElement]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.Stack$1.Enumerator(T))) {
+                if (!H5.is(o, System.Collections.Generic.Stack$1.Enumerator(T))) {
                     return false;
                 }
-                return HighFive.equals(this._stack, o._stack) && HighFive.equals(this._index, o._index) && HighFive.equals(this._version, o._version) && HighFive.equals(this._currentElement, o._currentElement);
+                return H5.equals(this._stack, o._stack) && H5.equals(this._index, o._index) && H5.equals(this._version, o._version) && H5.equals(this._currentElement, o._currentElement);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.Generic.Stack$1.Enumerator(T))();

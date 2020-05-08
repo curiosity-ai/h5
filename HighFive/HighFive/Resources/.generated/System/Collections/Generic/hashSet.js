@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.HashSet$1", function (T) { return {
+    H5.define("System.Collections.Generic.HashSet$1", function (T) { return {
         inherits: [System.Collections.Generic.ICollection$1(T),System.Collections.Generic.ISet$1(T),System.Collections.Generic.IReadOnlyCollection$1(T)],
         statics: {
             fields: {
@@ -23,7 +23,7 @@
                         if (set1.Count !== set2.Count) {
                             return false;
                         }
-                        $t = HighFive.getEnumerator(set2);
+                        $t = H5.getEnumerator(set2);
                         try {
                             while ($t.moveNext()) {
                                 var item = $t.Current;
@@ -32,28 +32,28 @@
                                 }
                             }
                         } finally {
-                            if (HighFive.is($t, System.IDisposable)) {
+                            if (H5.is($t, System.IDisposable)) {
                                 $t.System$IDisposable$Dispose();
                             }
                         }
                         return true;
                     } else {
-                        $t1 = HighFive.getEnumerator(set2);
+                        $t1 = H5.getEnumerator(set2);
                         try {
                             while ($t1.moveNext()) {
                                 var set2Item = $t1.Current;
                                 var found = false;
-                                $t2 = HighFive.getEnumerator(set1);
+                                $t2 = H5.getEnumerator(set1);
                                 try {
                                     while ($t2.moveNext()) {
                                         var set1Item = $t2.Current;
-                                        if (comparer[HighFive.geti(comparer, "System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](set2Item, set1Item)) {
+                                        if (comparer[H5.geti(comparer, "System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](set2Item, set1Item)) {
                                             found = true;
                                             break;
                                         }
                                     }
                                 } finally {
-                                    if (HighFive.is($t2, System.IDisposable)) {
+                                    if (H5.is($t2, System.IDisposable)) {
                                         $t2.System$IDisposable$Dispose();
                                     }
                                 }
@@ -62,7 +62,7 @@
                                 }
                             }
                         } finally {
-                            if (HighFive.is($t1, System.IDisposable)) {
+                            if (H5.is($t1, System.IDisposable)) {
                                 $t1.System$IDisposable$Dispose();
                             }
                         }
@@ -70,7 +70,7 @@
                     }
                 },
                 AreEqualityComparersEqual: function (set1, set2) {
-                    return HighFive.equals(set1.Comparer, set2.Comparer);
+                    return H5.equals(set1.Comparer, set2.Comparer);
                 }
             }
         },
@@ -101,26 +101,26 @@
             }
         },
         alias: [
-            "System$Collections$Generic$ICollection$1$add", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$add",
-            "clear", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$clear",
-            "contains", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$contains",
-            "copyTo", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$copyTo",
-            "remove", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$remove",
-            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + HighFive.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
-            "Count", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$Count",
-            "IsReadOnly", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$IsReadOnly",
-            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + HighFive.getTypeAlias(T) + "$GetEnumerator",
-            "add", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$add",
-            "unionWith", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$unionWith",
-            "intersectWith", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$intersectWith",
-            "exceptWith", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$exceptWith",
-            "symmetricExceptWith", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$symmetricExceptWith",
-            "isSubsetOf", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$isSubsetOf",
-            "isProperSubsetOf", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$isProperSubsetOf",
-            "isSupersetOf", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$isSupersetOf",
-            "isProperSupersetOf", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$isProperSupersetOf",
-            "overlaps", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$overlaps",
-            "setEquals", "System$Collections$Generic$ISet$1$" + HighFive.getTypeAlias(T) + "$setEquals"
+            "System$Collections$Generic$ICollection$1$add", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$add",
+            "clear", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$clear",
+            "contains", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$contains",
+            "copyTo", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$copyTo",
+            "remove", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$remove",
+            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + H5.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
+            "Count", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$Count",
+            "IsReadOnly", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$IsReadOnly",
+            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + H5.getTypeAlias(T) + "$GetEnumerator",
+            "add", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$add",
+            "unionWith", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$unionWith",
+            "intersectWith", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$intersectWith",
+            "exceptWith", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$exceptWith",
+            "symmetricExceptWith", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$symmetricExceptWith",
+            "isSubsetOf", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$isSubsetOf",
+            "isProperSubsetOf", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$isProperSubsetOf",
+            "isSupersetOf", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$isSupersetOf",
+            "isProperSupersetOf", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$isProperSupersetOf",
+            "overlaps", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$overlaps",
+            "setEquals", "System$Collections$Generic$ISet$1$" + H5.getTypeAlias(T) + "$setEquals"
         ],
         ctors: {
             ctor: function () {
@@ -146,13 +146,13 @@
                     throw new System.ArgumentNullException.$ctor1("collection");
                 }
                 var suggestedCapacity = 0;
-                var coll = HighFive.as(collection, System.Collections.Generic.ICollection$1(T));
+                var coll = H5.as(collection, System.Collections.Generic.ICollection$1(T));
                 if (coll != null) {
                     suggestedCapacity = System.Array.getCount(coll, T);
                 }
                 this.Initialize(suggestedCapacity);
                 this.unionWith(collection);
-                if ((this._count === 0 && this._slots.length > System.Collections.HashHelpers.GetMinPrime()) || (this._count > 0 && ((HighFive.Int.div(this._slots.length, this._count)) | 0) > System.Collections.Generic.HashSet$1(T).ShrinkThreshold)) {
+                if ((this._count === 0 && this._slots.length > System.Collections.HashHelpers.GetMinPrime()) || (this._count > 0 && ((H5.Int.div(this._slots.length, this._count)) | 0) > System.Collections.Generic.HashSet$1(T).ShrinkThreshold)) {
                     this.TrimExcess();
                 }
             }
@@ -185,7 +185,7 @@
                 if (this._buckets != null) {
                     var hashCode = this.InternalGetHashCode(item);
                     for (var i = (this._buckets[System.Array.index(hashCode % this._buckets.length, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
-                        if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[HighFive.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
+                        if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[H5.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
                             return true;
                         }
                     }
@@ -225,14 +225,14 @@
                     var bucket = hashCode % this._buckets.length;
                     var last = -1;
                     for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; last = i, i = this._slots[System.Array.index(i, this._slots)].next) {
-                        if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[HighFive.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
+                        if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[H5.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
                             if (last < 0) {
                                 this._buckets[System.Array.index(bucket, this._buckets)] = (this._slots[System.Array.index(i, this._slots)].next + 1) | 0;
                             } else {
                                 this._slots[System.Array.index(last, this._slots)].next = this._slots[System.Array.index(i, this._slots)].next;
                             }
                             this._slots[System.Array.index(i, this._slots)].hashCode = -1;
-                            this._slots[System.Array.index(i, this._slots)].value = HighFive.getDefaultValue(T);
+                            this._slots[System.Array.index(i, this._slots)].value = H5.getDefaultValue(T);
                             this._slots[System.Array.index(i, this._slots)].next = this._freeList;
                             this._count = (this._count - 1) | 0;
                             this._version = (this._version + 1) | 0;
@@ -262,14 +262,14 @@
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                $t = HighFive.getEnumerator(other, T);
+                $t = H5.getEnumerator(other, T);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
                         this.AddIfNotPresent(item);
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -281,13 +281,13 @@
                 if (this._count === 0) {
                     return;
                 }
-                var otherAsCollection = HighFive.as(other, System.Collections.Generic.ICollection$1(T));
+                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
                 if (otherAsCollection != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         this.clear();
                         return;
                     }
-                    var otherAsSet = HighFive.as(other, System.Collections.Generic.HashSet$1(T));
+                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
                     if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         this.IntersectWithHashSetWithSameEC(otherAsSet);
                         return;
@@ -303,18 +303,18 @@
                 if (this._count === 0) {
                     return;
                 }
-                if (HighFive.referenceEquals(other, this)) {
+                if (H5.referenceEquals(other, this)) {
                     this.clear();
                     return;
                 }
-                $t = HighFive.getEnumerator(other, T);
+                $t = H5.getEnumerator(other, T);
                 try {
                     while ($t.moveNext()) {
                         var element = $t.Current;
                         this.remove(element);
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -327,11 +327,11 @@
                     this.unionWith(other);
                     return;
                 }
-                if (HighFive.referenceEquals(other, this)) {
+                if (H5.referenceEquals(other, this)) {
                     this.clear();
                     return;
                 }
-                var otherAsSet = HighFive.as(other, System.Collections.Generic.HashSet$1(T));
+                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
                 if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     this.SymmetricExceptWithUniqueHashSet(otherAsSet);
                 } else {
@@ -345,7 +345,7 @@
                 if (this._count === 0) {
                     return true;
                 }
-                var otherAsSet = HighFive.as(other, System.Collections.Generic.HashSet$1(T));
+                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
                 if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     if (this._count > otherAsSet.Count) {
                         return false;
@@ -360,12 +360,12 @@
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsCollection = HighFive.as(other, System.Collections.Generic.ICollection$1(T));
+                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
                 if (otherAsCollection != null) {
                     if (this._count === 0) {
                         return System.Array.getCount(otherAsCollection, T) > 0;
                     }
-                    var otherAsSet = HighFive.as(other, System.Collections.Generic.HashSet$1(T));
+                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
                     if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (this._count >= otherAsSet.Count) {
                             return false;
@@ -380,12 +380,12 @@
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsCollection = HighFive.as(other, System.Collections.Generic.ICollection$1(T));
+                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
                 if (otherAsCollection != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         return true;
                     }
-                    var otherAsSet = HighFive.as(other, System.Collections.Generic.HashSet$1(T));
+                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
                     if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (otherAsSet.Count > this._count) {
                             return false;
@@ -401,12 +401,12 @@
                 if (this._count === 0) {
                     return false;
                 }
-                var otherAsCollection = HighFive.as(other, System.Collections.Generic.ICollection$1(T));
+                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
                 if (otherAsCollection != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         return true;
                     }
-                    var otherAsSet = HighFive.as(other, System.Collections.Generic.HashSet$1(T));
+                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
                     if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (otherAsSet.Count >= this._count) {
                             return false;
@@ -425,7 +425,7 @@
                 if (this._count === 0) {
                     return false;
                 }
-                $t = HighFive.getEnumerator(other, T);
+                $t = H5.getEnumerator(other, T);
                 try {
                     while ($t.moveNext()) {
                         var element = $t.Current;
@@ -434,7 +434,7 @@
                         }
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -444,14 +444,14 @@
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsSet = HighFive.as(other, System.Collections.Generic.HashSet$1(T));
+                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
                 if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     if (this._count !== otherAsSet.Count) {
                         return false;
                     }
                     return this.ContainsAllElements(otherAsSet);
                 } else {
-                    var otherAsCollection = HighFive.as(other, System.Collections.Generic.ICollection$1(T));
+                    var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
                     if (otherAsCollection != null) {
                         if (this._count === 0 && System.Array.getCount(otherAsCollection, T) > 0) {
                             return false;
@@ -462,7 +462,7 @@
                 }
             },
             RemoveWhere: function (match) {
-                if (HighFive.staticEquals(match, null)) {
+                if (H5.staticEquals(match, null)) {
                     throw new System.ArgumentNullException.$ctor1("match");
                 }
                 var numRemoved = 0;
@@ -551,7 +551,7 @@
                 var hashCode = this.InternalGetHashCode(value);
                 var bucket = hashCode % this._buckets.length;
                 for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
-                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[HighFive.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, value)) {
+                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[H5.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, value)) {
                         return false;
                     }
                 }
@@ -577,7 +577,7 @@
             },
             ContainsAllElements: function (other) {
                 var $t;
-                $t = HighFive.getEnumerator(other, T);
+                $t = H5.getEnumerator(other, T);
                 try {
                     while ($t.moveNext()) {
                         var element = $t.Current;
@@ -586,7 +586,7 @@
                         }
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -594,7 +594,7 @@
             },
             IsSubsetOfHashSetWithSameEC: function (other) {
                 var $t;
-                $t = HighFive.getEnumerator(this);
+                $t = H5.getEnumerator(this);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
@@ -603,7 +603,7 @@
                         }
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -626,7 +626,7 @@
                 var bitHelper;
                 var bitArray = System.Array.init(intArrayLength, 0, System.Int32);
                 bitHelper = new System.Collections.Generic.BitHelper(bitArray, intArrayLength);
-                $t = HighFive.getEnumerator(other, T);
+                $t = H5.getEnumerator(other, T);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
@@ -636,7 +636,7 @@
                         }
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -649,7 +649,7 @@
             InternalIndexOf: function (item) {
                 var hashCode = this.InternalGetHashCode(item);
                 for (var i = (this._buckets[System.Array.index(hashCode % this._buckets.length, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
-                    if ((this._slots[System.Array.index(i, this._slots)].hashCode) === hashCode && this._comparer[HighFive.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
+                    if ((this._slots[System.Array.index(i, this._slots)].hashCode) === hashCode && this._comparer[H5.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
                         return i;
                     }
                 }
@@ -657,7 +657,7 @@
             },
             SymmetricExceptWithUniqueHashSet: function (other) {
                 var $t;
-                $t = HighFive.getEnumerator(other);
+                $t = H5.getEnumerator(other);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
@@ -666,7 +666,7 @@
                         }
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -681,7 +681,7 @@
                 itemsToRemove = new System.Collections.Generic.BitHelper(itemsToRemoveArray, intArrayLength);
                 var itemsAddedFromOtherArray = System.Array.init(intArrayLength, 0, System.Int32);
                 itemsAddedFromOther = new System.Collections.Generic.BitHelper(itemsAddedFromOtherArray, intArrayLength);
-                $t = HighFive.getEnumerator(other, T);
+                $t = H5.getEnumerator(other, T);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
@@ -696,7 +696,7 @@
                         }
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -710,7 +710,7 @@
                 var hashCode = this.InternalGetHashCode(value);
                 var bucket = hashCode % this._buckets.length;
                 for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
-                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[HighFive.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, value)) {
+                    if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[H5.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, value)) {
                         location.v = i;
                         return false;
                     }
@@ -741,7 +741,7 @@
                 var result = new (System.Collections.Generic.HashSet$1.ElementCount(T))();
                 if (this._count === 0) {
                     var numElementsInOther = 0;
-                    $t = HighFive.getEnumerator(other, T);
+                    $t = H5.getEnumerator(other, T);
                     try {
                         while ($t.moveNext()) {
                             var item = $t.Current;
@@ -749,7 +749,7 @@
                             break;
                         }
                     } finally {
-                        if (HighFive.is($t, System.IDisposable)) {
+                        if (H5.is($t, System.IDisposable)) {
                             $t.System$IDisposable$Dispose();
                         }
                     }
@@ -764,7 +764,7 @@
                 bitHelper = new System.Collections.Generic.BitHelper(bitArray, intArrayLength);
                 var unfoundCount = 0;
                 var uniqueFoundCount = 0;
-                $t1 = HighFive.getEnumerator(other, T);
+                $t1 = H5.getEnumerator(other, T);
                 try {
                     while ($t1.moveNext()) {
                         var item1 = $t1.Current;
@@ -782,7 +782,7 @@
                         }
                     }
                 } finally {
-                    if (HighFive.is($t1, System.IDisposable)) {
+                    if (H5.is($t1, System.IDisposable)) {
                         $t1.System$IDisposable$Dispose();
                     }
                 }
@@ -792,7 +792,7 @@
             },
             ToArray: function () {
                 var newArray = System.Array.init(this.Count, function (){
-                    return HighFive.getDefaultValue(T);
+                    return H5.getDefaultValue(T);
                 }, T);
                 this.CopyTo(newArray);
                 return newArray;
@@ -801,7 +801,7 @@
                 if (item == null) {
                     return 0;
                 }
-                return this._comparer[HighFive.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + HighFive.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2")](item) & System.Collections.Generic.HashSet$1(T).Lower31BitMask;
+                return this._comparer[H5.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + H5.getTypeAlias(T) + "$getHashCode2", "System$Collections$Generic$IEqualityComparer$1$getHashCode2")](item) & System.Collections.Generic.HashSet$1(T).Lower31BitMask;
             }
         }
     }; });

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("bas", true), {
+H5.merge(new System.Globalization.CultureInfo("bas", true), {
     englishName: "Basaa",
     nativeName: "Ɓàsàa",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("bas", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["nɔy","nja","uum","ŋge","mbɔ","kɔɔ","jon"],
         abbreviatedMonthGenitiveNames: ["kɔn","mac","mat","mto","mpu","hil","nje","hik","dip","bio","may","liɓ",""],
         abbreviatedMonthNames: ["kɔn","mac","mat","mto","mpu","hil","nje","hik","dip","bio","may","liɓ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("bas", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "bas-CM",
         EBCDICCodePage: 500,

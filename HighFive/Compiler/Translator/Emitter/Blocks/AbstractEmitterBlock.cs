@@ -1,11 +1,11 @@
 using System.Text;
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public abstract partial class AbstractEmitterBlock : IAbstractEmitterBlock
     {
@@ -264,7 +264,7 @@ namespace HighFive.Translator
             {
                 if (method.IsStatic)
                 {
-                    this.Write(HighFiveTypes.ToJsName(method.DeclaringType, this.Emitter));
+                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
                     this.WriteDot();
                     this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
                     this.WriteOpenParentheses();

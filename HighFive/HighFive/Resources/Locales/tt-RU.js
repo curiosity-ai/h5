@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("tt-RU", true), {
+H5.merge(new System.Globalization.CultureInfo("tt-RU", true), {
     englishName: "Tatar (Russia)",
     nativeName: "Татар (Россия)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tt-RU", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["якш.","дүш.","сиш.","чәрш.","пәнҗ.","җом.","шим."],
         abbreviatedMonthGenitiveNames: ["гыйн.","фев.","мар.","апр.","май","июнь","июль","авг.","сен.","окт.","нояб.","дек.",""],
         abbreviatedMonthNames: ["гыйн.","фев.","мар.","апр.","май","июнь","июль","авг.","сен.","окт.","нояб.","дек.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tt-RU", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "tt-RU",
         EBCDICCodePage: 20880,

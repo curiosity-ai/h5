@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.DateTimeFormatInfo", {
+    H5.define("System.Globalization.DateTimeFormatInfo", {
         inherits: [System.IFormatProvider, System.ICloneable],
 
         config: {
@@ -32,7 +32,7 @@
             },
 
             ctor: function () {
-                this.invariantInfo = HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+                this.invariantInfo = H5.merge(new System.Globalization.DateTimeFormatInfo(), {
                     abbreviatedDayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
                     abbreviatedMonthGenitiveNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""],
                     abbreviatedMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""],
@@ -148,7 +148,7 @@
         },
 
         clone: function () {
-            return HighFive.copy(new System.Globalization.DateTimeFormatInfo(), this, [
+            return H5.copy(new System.Globalization.DateTimeFormatInfo(), this, [
                 "abbreviatedDayNames",
                 "abbreviatedMonthGenitiveNames",
                 "abbreviatedMonthNames",
@@ -176,7 +176,7 @@
         }
     });
 
-    HighFive.define("System.Globalization.NumberFormatInfo", {
+    H5.define("System.Globalization.NumberFormatInfo", {
         inherits: [System.IFormatProvider, System.ICloneable],
 
         config: {
@@ -193,7 +193,7 @@
                 this.percentNegativePatterns = ["-n %", "-n%", "-%n", "%-n", "%n-", "n-%", "n%-", "-% n", "n %-", "% n-", "% -n", "n- %"];
                 this.percentPositivePatterns = ["n %", "n%", "%n", "% n"];
 
-                this.invariantInfo = HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+                this.invariantInfo = H5.merge(new System.Globalization.NumberFormatInfo(), {
                     nanSymbol: "NaN",
                     negativeSign: "-",
                     positiveSign: "+",
@@ -235,7 +235,7 @@
         },
 
         clone: function () {
-            return HighFive.copy(new System.Globalization.NumberFormatInfo(), this, [
+            return H5.copy(new System.Globalization.NumberFormatInfo(), this, [
                 "nanSymbol",
                 "negativeSign",
                 "positiveSign",
@@ -264,7 +264,7 @@
         }
     });
 
-    HighFive.define("System.Globalization.CultureInfo", {
+    H5.define("System.Globalization.CultureInfo", {
         inherits: [System.IFormatProvider, System.ICloneable],
 
         config: {
@@ -279,12 +279,12 @@
             ctor: function () {
                 this.cultures = this.cultures || {};
 
-                this.invariantCulture = HighFive.merge(new System.Globalization.CultureInfo("iv", true), {
+                this.invariantCulture = H5.merge(new System.Globalization.CultureInfo("iv", true), {
                     englishName: "Invariant Language (Invariant Country)",
                     nativeName: "Invariant Language (Invariant Country)",
                     numberFormat: System.Globalization.NumberFormatInfo.invariantInfo,
                     dateTimeFormat: System.Globalization.DateTimeFormatInfo.invariantInfo,
-                    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+                    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
                         ANSICodePage: 1252,
                         CultureName: "",
                         EBCDICCodePage: 37,
@@ -328,7 +328,7 @@
             },
 
             getCultures: function () {
-                var names = HighFive.getPropertyNames(this.cultures),
+                var names = H5.getPropertyNames(this.cultures),
                     result = [],
                     i;
 
@@ -367,7 +367,7 @@
 
                 System.Globalization.CultureInfo.cultures[name] = this;
             } else {
-                HighFive.copy(this, c, [
+                H5.copy(this, c, [
                             "englishName",
                             "nativeName",
                             "numberFormat",

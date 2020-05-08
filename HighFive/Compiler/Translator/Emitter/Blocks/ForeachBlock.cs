@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using EmptyStatement = ICSharpCode.NRefactory.CSharp.EmptyStatement;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ForeachBlock : AbstractEmitterBlock
     {
@@ -114,7 +114,7 @@ namespace HighFive.Translator
                 for_rr.CollectionType.FullName == "System.Collections.Generic.IEnumerable")
                 {
                     this.WriteComma(false);
-                    this.Write(HighFiveTypes.ToJsName(((ParameterizedType)for_rr.CollectionType).TypeArguments[0], this.Emitter));
+                    this.Write(H5Types.ToJsName(((ParameterizedType)for_rr.CollectionType).TypeArguments[0], this.Emitter));
                 }
                 else if (get_rr != null)
                 {
@@ -189,7 +189,7 @@ namespace HighFive.Translator
             }
             else if (this.CastMethod != null)
             {
-                this.Write(HighFiveTypes.ToJsName(this.CastMethod.DeclaringType, this.Emitter));
+                this.Write(H5Types.ToJsName(this.CastMethod.DeclaringType, this.Emitter));
                 this.WriteDot();
                 this.Write(OverloadsCollection.Create(this.Emitter, this.CastMethod).GetOverloadName());
                 this.WriteOpenParentheses();
@@ -216,7 +216,7 @@ namespace HighFive.Translator
 
                 if (needCast)
                 {
-                    this.Write(", ", HighFiveTypes.ToJsName(rr.ElementVariable.Type, this.Emitter), ")");
+                    this.Write(", ", H5Types.ToJsName(rr.ElementVariable.Type, this.Emitter), ")");
                 }
             }
 
@@ -326,7 +326,7 @@ namespace HighFive.Translator
                 if (isGenericEnumerable)
                 {
                     this.WriteComma(false);
-                    this.Write(HighFiveTypes.ToJsName(((ParameterizedType)rr.CollectionType).TypeArguments[0], this.Emitter));
+                    this.Write(H5Types.ToJsName(((ParameterizedType)rr.CollectionType).TypeArguments[0], this.Emitter));
                 }
                 else if (get_rr != null)
                 {
@@ -395,7 +395,7 @@ namespace HighFive.Translator
                 }
                 else if (this.CastMethod != null)
                 {
-                    this.Write(HighFiveTypes.ToJsName(this.CastMethod.DeclaringType, this.Emitter));
+                    this.Write(H5Types.ToJsName(this.CastMethod.DeclaringType, this.Emitter));
                     this.WriteDot();
                     this.Write(OverloadsCollection.Create(this.Emitter, this.CastMethod).GetOverloadName());
                     this.WriteOpenParentheses();
@@ -422,7 +422,7 @@ namespace HighFive.Translator
 
                     if (needCast)
                     {
-                        this.Write(", ", HighFiveTypes.ToJsName(rr.ElementVariable.Type, this.Emitter), ")");
+                        this.Write(", ", H5Types.ToJsName(rr.ElementVariable.Type, this.Emitter), ")");
                     }
                 }
 
@@ -464,7 +464,7 @@ namespace HighFive.Translator
             this.WriteSpace();
             this.WriteFinally();
             this.BeginBlock();
-            this.Write($"if ({JS.Types.HighFive.IS}({iteratorName}, {JS.Types.System.IDisposable.NAME})) ");
+            this.Write($"if ({JS.Types.H5.IS}({iteratorName}, {JS.Types.System.IDisposable.NAME})) ");
             this.BeginBlock();
             this.Write($"{iteratorName}.{JS.Types.System.IDisposable.INTERFACE_DISPOSE}();");
             this.WriteNewLine();

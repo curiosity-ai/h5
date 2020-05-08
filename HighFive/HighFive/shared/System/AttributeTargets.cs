@@ -9,7 +9,7 @@ namespace System
 {
     // Enum used to indicate all the elements of the
     // VOS it is valid to attach this element to.
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [Flags]
     public enum AttributeTargets
     {

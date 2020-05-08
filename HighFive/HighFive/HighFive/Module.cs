@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HighFive
+namespace H5
 {
     [External]
-    [Name("HighFive")]
+    [Name("H5")]
     public static class Module
     {
-        [Template("HighFive.loadModule({type:module})")]
+        [Template("H5.loadModule({type:module})")]
         public static extern Task Load(params Type[] type);
     }
 }

@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.TreeRotation", {
+    H5.define("System.Collections.Generic.TreeRotation", {
         $kind: "enum",
         statics: {
             fields: {

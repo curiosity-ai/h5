@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class ModuleDependency : IPluginDependency
     {
@@ -15,7 +15,7 @@ namespace HighFive.Contract
 
         public string VariableName
         {
-            // The logic here should be compatible with HighFive.Contract.Module.ExportAsNamespace.get() below.
+            // The logic here should be compatible with H5.Contract.Module.ExportAsNamespace.get() below.
             get
             {
                 // Ensure a valid variable name is returned even if not specified.

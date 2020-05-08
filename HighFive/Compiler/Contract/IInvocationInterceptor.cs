@@ -1,7 +1,7 @@
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IInvocationInterceptor
     {

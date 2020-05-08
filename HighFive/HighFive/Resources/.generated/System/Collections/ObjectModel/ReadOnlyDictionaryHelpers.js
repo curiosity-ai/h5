@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.ObjectModel.ReadOnlyDictionaryHelpers", {
+    H5.define("System.Collections.ObjectModel.ReadOnlyDictionaryHelpers", {
         statics: {
             methods: {
                 CopyToNonGenericICollectionHelper: function (T, collection, array, index) {
@@ -23,13 +23,13 @@
                         throw new System.ArgumentException.$ctor1("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
                     }
 
-                    var nonGenericCollection = HighFive.as(collection, System.Collections.ICollection);
+                    var nonGenericCollection = H5.as(collection, System.Collections.ICollection);
                     if (nonGenericCollection != null) {
                         System.Array.copyTo(nonGenericCollection, array, index);
                         return;
                     }
 
-                    var items = HighFive.as(array, System.Array.type(T));
+                    var items = H5.as(array, System.Array.type(T));
                     if (items != null) {
                         System.Array.copyTo(collection, items, index, T);
                     } else {
@@ -49,26 +49,26 @@
                         }
                         */
 
-                        var objects = HighFive.as(array, System.Array.type(System.Object));
+                        var objects = H5.as(array, System.Array.type(System.Object));
                         if (objects == null) {
                             throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                         }
 
                         try {
-                            $t = HighFive.getEnumerator(collection, T);
+                            $t = H5.getEnumerator(collection, T);
                             try {
                                 while ($t.moveNext()) {
                                     var item = $t.Current;
-                                    objects[System.Array.index(HighFive.identity(index, ((index = (index + 1) | 0))), objects)] = item;
+                                    objects[System.Array.index(H5.identity(index, ((index = (index + 1) | 0))), objects)] = item;
                                 }
                             } finally {
-                                if (HighFive.is($t, System.IDisposable)) {
+                                if (H5.is($t, System.IDisposable)) {
                                     $t.System$IDisposable$Dispose();
                                 }
                             }
                         } catch ($e1) {
                             $e1 = System.Exception.create($e1);
-                            if (HighFive.is($e1, System.ArrayTypeMismatchException)) {
+                            if (H5.is($e1, System.ArrayTypeMismatchException)) {
                                 throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                             } else {
                                 throw $e1;

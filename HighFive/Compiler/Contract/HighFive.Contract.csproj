@@ -11,7 +11,7 @@
     <Compile Remove="Refactoring\CodeActions\RemoveFieldRefactoryActionRefactoringAction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\HighFive\Attributes\RulesAttribute.cs" Link="Rule\RulesAttribute.cs" />
+    <Compile Include="..\..\H5\Attributes\RulesAttribute.cs" Link="Rule\RulesAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lokad.ILPack" Version="0.1.4" />

@@ -1,17 +1,17 @@
-using HighFive.Contract;
-using HighFive.Translator.Logging;
-using HighFive.Translator.Utils;
+using H5.Contract;
+using H5.Translator.Logging;
+using H5.Translator.Utils;
 
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class TranslatorProcessor
     {
-        public HighFiveOptions HighFiveOptions { get; private set; }
+        public H5Options H5Options { get; private set; }
 
         public Logger Logger { get; private set; }
 
@@ -19,15 +19,15 @@ namespace HighFive.Translator
 
         public Translator Translator { get; private set; }
 
-        public TranslatorProcessor(HighFiveOptions highfiveOptions, Logger logger)
+        public TranslatorProcessor(H5Options h5Options, Logger logger)
         {
-            this.HighFiveOptions = highfiveOptions;
+            this.H5Options = h5Options;
             this.Logger = logger;
         }
 
         public void PreProcess()
         {
-            this.AdjustHighFiveOptions();
+            this.AdjustH5Options();
 
             this.TranslatorConfiguration = this.ReadConfiguration();
 
@@ -36,21 +36,21 @@ namespace HighFive.Translator
             this.SetLoggerConfigurationParameters();
         }
 
-        private void AdjustHighFiveOptions()
+        private void AdjustH5Options()
         {
             var pathHelper = new ConfigHelper();
-            var highfiveOptions = this.HighFiveOptions;
+            var h5Options = this.H5Options;
 
-            highfiveOptions.HighFiveLocation = pathHelper.ConvertPath(highfiveOptions.HighFiveLocation);
-            highfiveOptions.DefaultFileName = pathHelper.ConvertPath(highfiveOptions.DefaultFileName);
-            highfiveOptions.Folder = pathHelper.ConvertPath(highfiveOptions.Folder);
-            highfiveOptions.Lib = pathHelper.ConvertPath(highfiveOptions.Lib);
-            highfiveOptions.OutputLocation = pathHelper.ConvertPath(highfiveOptions.OutputLocation);
-            highfiveOptions.ProjectLocation = pathHelper.ConvertPath(highfiveOptions.ProjectLocation);
-            highfiveOptions.Sources = pathHelper.ConvertPath(highfiveOptions.Sources);
+            h5Options.H5Location = pathHelper.ConvertPath(h5Options.H5Location);
+            h5Options.DefaultFileName = pathHelper.ConvertPath(h5Options.DefaultFileName);
+            h5Options.Folder = pathHelper.ConvertPath(h5Options.Folder);
+            h5Options.Lib = pathHelper.ConvertPath(h5Options.Lib);
+            h5Options.OutputLocation = pathHelper.ConvertPath(h5Options.OutputLocation);
+            h5Options.ProjectLocation = pathHelper.ConvertPath(h5Options.ProjectLocation);
+            h5Options.Sources = pathHelper.ConvertPath(h5Options.Sources);
 
-            highfiveOptions.ProjectProperties.OutputPath = pathHelper.ConvertPath(highfiveOptions.ProjectProperties.OutputPath);
-            highfiveOptions.ProjectProperties.OutDir = pathHelper.ConvertPath(highfiveOptions.ProjectProperties.OutDir);
+            h5Options.ProjectProperties.OutputPath = pathHelper.ConvertPath(h5Options.ProjectProperties.OutputPath);
+            h5Options.ProjectProperties.OutDir = pathHelper.ConvertPath(h5Options.ProjectProperties.OutDir);
         }
 
         public void Process()
@@ -61,7 +61,7 @@ namespace HighFive.Translator
         public string PostProcess()
         {
             var logger = this.Logger;
-            var highfiveOptions = this.HighFiveOptions;
+            var h5Options = this.H5Options;
             var translator = this.Translator;
 
             logger.Info("Post processing...");
@@ -77,7 +77,7 @@ namespace HighFive.Translator
             var projectPath = Path.GetDirectoryName(translator.Location);
             logger.Info("projectPath is " + projectPath);
 
-            if (highfiveOptions.ExtractCore)
+            if (h5Options.ExtractCore)
             {
                 translator.ExtractCore(outputPath, projectPath);
             }
@@ -86,7 +86,7 @@ namespace HighFive.Translator
                 logger.Info("No extracting core scripts option enabled");
             }
 
-            var fileName = GetDefaultFileName(highfiveOptions);
+            var fileName = GetDefaultFileName(h5Options);
 
             translator.Minify();
             translator.Combine(fileName);
@@ -97,7 +97,7 @@ namespace HighFive.Translator
             translator.RunAfterBuild();
 
             logger.Info("Run plugins AfterOutput...");
-            translator.Plugins.AfterOutput(translator, outputPath, !highfiveOptions.ExtractCore);
+            translator.Plugins.AfterOutput(translator, outputPath, !h5Options.ExtractCore);
             logger.Info("Done plugins AfterOutput");
 
             this.GenerateHtml(outputPath);
@@ -128,13 +128,13 @@ namespace HighFive.Translator
             htmlGenerator.GenerateHtml(outputPath);
         }
 
-        private string GetDefaultFileName(HighFiveOptions highfiveOptions)
+        private string GetDefaultFileName(H5Options h5Options)
         {
             var defaultFileName = this.Translator.AssemblyInfo.FileName;
 
             if (string.IsNullOrEmpty(defaultFileName))
             {
-                defaultFileName = highfiveOptions.DefaultFileName;
+                defaultFileName = h5Options.DefaultFileName;
             }
 
             if (string.IsNullOrEmpty(defaultFileName))
@@ -147,8 +147,8 @@ namespace HighFive.Translator
 
         private string GetOutputFolder(bool basePathOnly = false, bool strict = false)
         {
-            var highfiveOptions = this.HighFiveOptions;
-            string basePath = highfiveOptions.IsFolderMode ? highfiveOptions.Folder : Path.GetDirectoryName(highfiveOptions.ProjectLocation);
+            var h5Options = this.H5Options;
+            string basePath = h5Options.IsFolderMode ? h5Options.Folder : Path.GetDirectoryName(h5Options.ProjectLocation);
 
             if (!basePathOnly)
             {
@@ -172,7 +172,7 @@ namespace HighFive.Translator
                 }
 
                 basePath = string.IsNullOrWhiteSpace(assemblyOutput)
-                    ? Path.Combine(basePath, Path.GetDirectoryName(highfiveOptions.OutputLocation))
+                    ? Path.Combine(basePath, Path.GetDirectoryName(h5Options.OutputLocation))
                     : Path.Combine(basePath, assemblyOutput);
             }
 
@@ -184,31 +184,31 @@ namespace HighFive.Translator
 
         private IAssemblyInfo ReadConfiguration()
         {
-            var highfiveOptions = this.HighFiveOptions;
+            var h5Options = this.H5Options;
 
             var logger = this.Logger;
 
-            var location = highfiveOptions.IsFolderMode ? highfiveOptions.Folder : highfiveOptions.ProjectLocation;
+            var location = h5Options.IsFolderMode ? h5Options.Folder : h5Options.ProjectLocation;
 
             var configReader = new AssemblyConfigHelper(logger);
 
-            return configReader.ReadConfig(highfiveOptions.IsFolderMode, location, highfiveOptions.ProjectProperties.Configuration);
+            return configReader.ReadConfig(h5Options.IsFolderMode, location, h5Options.ProjectProperties.Configuration);
         }
 
         private void SetLoggerConfigurationParameters()
         {
             var logger = this.Logger;
-            var highfiveOptions = this.HighFiveOptions;
+            var h5Options = this.H5Options;
             var assemblyConfig = this.TranslatorConfiguration;
 
-            if (highfiveOptions.NoLoggerSetUp)
+            if (h5Options.NoLoggerSetUp)
             {
                 return;
             }
 
             logger.Trace("Applying logger configuration parameters...");
 
-            logger.Name = highfiveOptions.Name;
+            logger.Name = h5Options.Name;
 
             if (!string.IsNullOrEmpty(logger.Name))
             {
@@ -221,7 +221,7 @@ namespace HighFive.Translator
 
             if (loggerLevel <= LoggerLevel.None)
             {
-                logger.Info("    To enable detailed logging, configure \"logging\" in highfive.json.");
+                logger.Info("    To enable detailed logging, configure \"logging\" in h5.json.");
                 logger.Info("    https://github.com/curiosity-ai/h5/wiki/global-configuration#logging");
             }
 
@@ -231,9 +231,9 @@ namespace HighFive.Translator
 
             logger.BufferedMode = false;
 
-            if (highfiveOptions.NoTimeStamp.HasValue)
+            if (h5Options.NoTimeStamp.HasValue)
             {
-                logger.UseTimeStamp = !highfiveOptions.NoTimeStamp.Value;
+                logger.UseTimeStamp = !h5Options.NoTimeStamp.Value;
             }
             else if (assemblyConfig.Logging.TimeStamps.HasValue)
             {
@@ -277,58 +277,58 @@ namespace HighFive.Translator
         private Translator SetTranslatorProperties()
         {
             var logger = this.Logger;
-            var highfiveOptions = this.HighFiveOptions;
+            var h5Options = this.H5Options;
             var assemblyConfig = this.TranslatorConfiguration;
 
             logger.Trace("Setting translator properties...");
 
-            HighFive.Translator.Translator translator = null;
+            H5.Translator.Translator translator = null;
 
             // FIXME: detect by extension whether first argument is a project or DLL
-            if (!highfiveOptions.IsFolderMode)
+            if (!h5Options.IsFolderMode)
             {
-                translator = new HighFive.Translator.Translator(highfiveOptions.ProjectLocation, highfiveOptions.Sources, highfiveOptions.FromTask);
+                translator = new H5.Translator.Translator(h5Options.ProjectLocation, h5Options.Sources, h5Options.FromTask);
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(highfiveOptions.Lib))
+                if (string.IsNullOrWhiteSpace(h5Options.Lib))
                 {
                     throw new InvalidOperationException("Please define path to assembly using -lib option");
                 }
 
-                highfiveOptions.Lib = Path.Combine(highfiveOptions.Folder, highfiveOptions.Lib);
-                translator = new HighFive.Translator.Translator(highfiveOptions.Folder, highfiveOptions.Sources, highfiveOptions.Recursive, highfiveOptions.Lib);
+                h5Options.Lib = Path.Combine(h5Options.Folder, h5Options.Lib);
+                translator = new H5.Translator.Translator(h5Options.Folder, h5Options.Sources, h5Options.Recursive, h5Options.Lib);
             }
 
-            translator.ProjectProperties = highfiveOptions.ProjectProperties;
+            translator.ProjectProperties = h5Options.ProjectProperties;
 
             translator.AssemblyInfo = assemblyConfig;
 
-            if (this.HighFiveOptions.ReferencesPath != null)
+            if (this.H5Options.ReferencesPath != null)
             {
-                translator.AssemblyInfo.ReferencesPath = this.HighFiveOptions.ReferencesPath;
+                translator.AssemblyInfo.ReferencesPath = this.H5Options.ReferencesPath;
             }
 
-            translator.OverflowMode = highfiveOptions.ProjectProperties.CheckForOverflowUnderflow.HasValue ?
-                (highfiveOptions.ProjectProperties.CheckForOverflowUnderflow.Value ? OverflowMode.Checked : OverflowMode.Unchecked) : (OverflowMode?)null;
+            translator.OverflowMode = h5Options.ProjectProperties.CheckForOverflowUnderflow.HasValue ?
+                (h5Options.ProjectProperties.CheckForOverflowUnderflow.Value ? OverflowMode.Checked : OverflowMode.Unchecked) : (OverflowMode?)null;
 
-            if (string.IsNullOrEmpty(highfiveOptions.HighFiveLocation))
+            if (string.IsNullOrEmpty(h5Options.H5Location))
             {
-                highfiveOptions.HighFiveLocation = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "HighFive.dll");
+                h5Options.H5Location = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "H5.dll");
             }
 
-            translator.HighFiveLocation = highfiveOptions.HighFiveLocation;
-            translator.Rebuild = highfiveOptions.Rebuild;
+            translator.H5Location = h5Options.H5Location;
+            translator.Rebuild = h5Options.Rebuild;
             translator.Log = logger;
 
-            if (highfiveOptions.ProjectProperties.DefineConstants != null)
+            if (h5Options.ProjectProperties.DefineConstants != null)
             {
-                translator.DefineConstants.AddRange(highfiveOptions.ProjectProperties.DefineConstants.Split(';').Select(s => s.Trim()).Where(s => s != ""));
+                translator.DefineConstants.AddRange(h5Options.ProjectProperties.DefineConstants.Split(';').Select(s => s.Trim()).Where(s => s != ""));
                 translator.DefineConstants = translator.DefineConstants.Distinct().ToList();
             }
 
             translator.Log.Trace("Translator properties:");
-            translator.Log.Trace("\tHighFiveLocation:" + translator.HighFiveLocation);
+            translator.Log.Trace("\tH5Location:" + translator.H5Location);
             translator.Log.Trace("\tBuildArguments:" + translator.BuildArguments);
             translator.Log.Trace("\tDefineConstants:" + (translator.DefineConstants != null ? string.Join(" ", translator.DefineConstants) : ""));
             translator.Log.Trace("\tRebuild:" + translator.Rebuild);
@@ -344,7 +344,7 @@ namespace HighFive.Translator
                 }
                 else
                 {
-                    translator.DefaultNamespace = highfiveOptions.DefaultFileName;
+                    translator.DefaultNamespace = h5Options.DefaultFileName;
                 }
             }
             else

@@ -6,7 +6,7 @@ namespace System.Runtime.CompilerServices
 {
     // This Enum matchs the miImpl flags defined in corhdr.h. It is used to specify
     // certain method properties.
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [Flags]
     public enum MethodImplOptions
     {

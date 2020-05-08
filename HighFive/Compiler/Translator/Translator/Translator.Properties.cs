@@ -1,9 +1,9 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using Mono.Cecil;
 using System.Collections.Generic;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator
     {
@@ -31,7 +31,7 @@ namespace HighFive.Translator
             private set;
         }
 
-        public string HighFiveLocation
+        public string H5Location
         {
             get;
             set;
@@ -143,7 +143,7 @@ namespace HighFive.Translator
             set;
         }
 
-        public HighFiveTypes HighFiveTypes
+        public H5Types H5Types
         {
             get;
             set;

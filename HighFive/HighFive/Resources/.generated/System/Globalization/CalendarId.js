@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.CalendarId", {
+    H5.define("System.Globalization.CalendarId", {
         $kind: "enum",
         statics: {
             fields: {

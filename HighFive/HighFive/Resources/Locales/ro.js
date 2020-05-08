@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ro", true), {
+H5.merge(new System.Globalization.CultureInfo("ro", true), {
     englishName: "Romanian",
     nativeName: "română",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ro", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dum.","lun.","mar.","mie.","joi","vin.","sâm."],
         abbreviatedMonthGenitiveNames: ["ian.","feb.","mar.","apr.","mai","iun.","iul.","aug.","sept.","oct.","nov.","dec.",""],
         abbreviatedMonthNames: ["ian.","feb.","mar.","apr.","mai","iun.","iul.","aug.","sept.","oct.","nov.","dec.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ro", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1250,
         CultureName: "ro-RO",
         EBCDICCodePage: 20880,

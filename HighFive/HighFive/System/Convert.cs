@@ -2,8 +2,8 @@
 
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
     public static class Convert
     {
         #region ToBoolean
@@ -12,14 +12,14 @@ namespace System
         /// Converts the value of a specified object to an equivalent Boolean value.
         /// Note: Calling this method for <see cref="char"/> and <see cref="DateTime"/> values always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toBoolean({value})")]
+        [H5.Template("System.Convert.toBoolean({value})")]
         public static extern bool ToBoolean(object value);
 
         /// <summary>
         /// Converts the value of the specified object to an equivalent Boolean value, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="char"/> and <see cref="DateTime"/> values always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toBoolean({value}, {provider})")]
+        [H5.Template("System.Convert.toBoolean({value}, {provider})")]
         public static extern bool ToBoolean(object value, IFormatProvider provider);
 
         #endregion ToBoolean
@@ -30,114 +30,114 @@ namespace System
         /// Converts the value of the specified object to a Unicode character.
         /// Note: Calling this method for <see cref="bool"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/> and <see cref="DateTime"/> values always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Object + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Object + ")")]
         public static extern char ToChar(object value);
 
         /// <summary>
         /// Converts the value of the specified object to its equivalent Unicode character, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="bool"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/> and <see cref="DateTime"/> values always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, {provider}, " + TypeCodeValues.Object + ")")]
+        [H5.Template("System.Convert.toChar({value}, {provider}, " + TypeCodeValues.Object + ")")]
         public static extern char ToChar(object value, IFormatProvider provider);
 
         /// <summary>
         /// Calling this method always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Boolean + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Boolean + ")")]
         public static extern char ToChar(bool value);
 
         /// <summary>
         /// Returns the specified Unicode character value; no actual conversion is performed.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Char + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Char + ")")]
         public static extern char ToChar(char value);
 
         /// <summary>
         /// Converts the value of the specified 8-bit signed integer to its equivalent Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.SByte + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.SByte + ")")]
         [CLSCompliant(false)]
         public static extern char ToChar(sbyte value);
 
         /// <summary>
         /// Converts the value of the specified 8-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Byte + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Byte + ")")]
         public static extern char ToChar(byte value);
 
         /// <summary>
         /// Converts the value of the specified 16-bit signed integer to its equivalent Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Int16 + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Int16 + ")")]
         public static extern char ToChar(short value);
 
         /// <summary>
         /// Converts the value of the specified 16-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt16 + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt16 + ")")]
         [CLSCompliant(false)]
         public static extern char ToChar(ushort value);
 
         /// <summary>
         /// Converts the value of the specified 32-bit signed integer to its equivalent Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Int32 + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Int32 + ")")]
         public static extern char ToChar(int value);
 
         /// <summary>
         /// Converts the value of the specified 32-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt32 + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt32 + ")")]
         [CLSCompliant(false)]
         public static extern char ToChar(uint value);
 
         /// <summary>
         /// Converts the value of the specified 64-bit signed integer to its equivalent Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Int64 + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Int64 + ")")]
         public static extern char ToChar(long value);
 
         /// <summary>
         /// Converts the value of the specified 64-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt64 + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt64 + ")")]
         [CLSCompliant(false)]
         public static extern char ToChar(ulong value);
 
         /// <summary>
         /// Converts the value of the specified object to a Unicode character.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.String + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.String + ")")]
         public static extern char ToChar(string value);
 
         /// <summary>
         /// Converts the value of the specified object to its equivalent Unicode character, using the specified culture-specific formatting information.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, {provider}, " + TypeCodeValues.String + ")")]
+        [H5.Template("System.Convert.toChar({value}, {provider}, " + TypeCodeValues.String + ")")]
         public static extern char ToChar(string value, IFormatProvider provider);
 
         /// <summary>
         /// Calling this method always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Single + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Single + ")")]
         public static extern char ToChar(float value);
 
         /// <summary>
         /// Calling this method always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Double + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Double + ")")]
         public static extern char ToChar(double value);
 
         /// <summary>
         /// Calling this method always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Decimal + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.Decimal + ")")]
         public static extern char ToChar(decimal value);
 
         /// <summary>
         /// Calling this method always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.DateTime + ")")]
+        [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.DateTime + ")")]
         public static extern char ToChar(DateTime value);
 
         #endregion ToChar
@@ -148,7 +148,7 @@ namespace System
         /// Converts the value of the specified object to an 8-bit signed integer.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toSByte({value})")]
+        [H5.Template("System.Convert.toSByte({value})")]
         [CLSCompliant(false)]
         public static extern sbyte ToSByte(object value);
 
@@ -156,21 +156,21 @@ namespace System
         /// Converts the value of the specified object to an 8-bit signed integer, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toSByte({value}, {provider})")]
+        [H5.Template("System.Convert.toSByte({value}, {provider})")]
         [CLSCompliant(false)]
         public static extern sbyte ToSByte(object value, IFormatProvider provider);
 
         /// <summary>
         /// Converts the value of the specified object to an 8-bit signed integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toSByte({value}, null, " + TypeCodeValues.String + ")")]
+        [H5.Template("System.Convert.toSByte({value}, null, " + TypeCodeValues.String + ")")]
         [CLSCompliant(false)]
         public static extern sbyte ToSByte(string value);
 
         /// <summary>
         /// Converts the value of the specified object to an 8-bit signed integer, using the specified culture-specific formatting information.
         /// </summary>
-        [HighFive.Template("System.Convert.toSByte({value}, {provider}, " + TypeCodeValues.String + ")")]
+        [H5.Template("System.Convert.toSByte({value}, {provider}, " + TypeCodeValues.String + ")")]
         [CLSCompliant(false)]
         public static extern sbyte ToSByte(string value, IFormatProvider provider);
 
@@ -182,14 +182,14 @@ namespace System
         /// Converts the value of the specified object to an 8-bit unsigned integer.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toByte({value})")]
+        [H5.Template("System.Convert.toByte({value})")]
         public static extern byte ToByte(object value);
 
         /// <summary>
         /// Converts the value of the specified object to an 8-bit unsigned integer, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toByte({value}, {provider})")]
+        [H5.Template("System.Convert.toByte({value}, {provider})")]
         public static extern byte ToByte(object value, IFormatProvider provider);
 
         #endregion ToByte
@@ -200,14 +200,14 @@ namespace System
         /// Converts the value of the specified object to a 16-bit signed integer.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toInt16({value})")]
+        [H5.Template("System.Convert.toInt16({value})")]
         public static extern short ToInt16(object value);
 
         /// <summary>
         /// Converts the value of the specified object to a 16-bit signed integer, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toInt16({value}, {provider})")]
+        [H5.Template("System.Convert.toInt16({value}, {provider})")]
         public static extern short ToInt16(object value, IFormatProvider provider);
 
         #endregion ToInt16
@@ -218,7 +218,7 @@ namespace System
         /// Converts the value of the specified object to a 16-bit unsigned integer.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toUInt16({value})")]
+        [H5.Template("System.Convert.toUInt16({value})")]
         [CLSCompliant(false)]
         public static extern ushort ToUInt16(object value);
 
@@ -226,7 +226,7 @@ namespace System
         /// Converts the value of the specified object to a 16-bit unsigned integer, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toUInt16({value}, {provider})")]
+        [H5.Template("System.Convert.toUInt16({value}, {provider})")]
         [CLSCompliant(false)]
         public static extern ushort ToUInt16(object value, IFormatProvider provider);
 
@@ -238,14 +238,14 @@ namespace System
         /// Converts the value of the specified object to a 32-bit signed integer.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toInt32({value})")]
+        [H5.Template("System.Convert.toInt32({value})")]
         public static extern int ToInt32(object value);
 
         /// <summary>
         /// Converts the value of the specified object to a 32-bit signed integer, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toInt32({value}, {provider})")]
+        [H5.Template("System.Convert.toInt32({value}, {provider})")]
         public static extern int ToInt32(object value, IFormatProvider provider);
 
         #endregion ToInt32
@@ -256,7 +256,7 @@ namespace System
         /// Converts the value of the specified object to a 32-bit unsigned integer.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toUInt32({value})")]
+        [H5.Template("System.Convert.toUInt32({value})")]
         [CLSCompliant(false)]
         public static extern uint ToUInt32(object value);
 
@@ -264,7 +264,7 @@ namespace System
         /// Converts the value of the specified object to a 32-bit unsigned integer, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toUInt32({value}, {provider})")]
+        [H5.Template("System.Convert.toUInt32({value}, {provider})")]
         [CLSCompliant(false)]
         public static extern uint ToUInt32(object value, IFormatProvider provider);
 
@@ -276,14 +276,14 @@ namespace System
         /// Converts the value of the specified object to a 64-bit signed integer.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toInt64({value})")]
+        [H5.Template("System.Convert.toInt64({value})")]
         public static extern long ToInt64(object value);
 
         /// <summary>
         /// Converts the value of the specified object to a 64-bit signed integer, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toInt64({value}, {provider})")]
+        [H5.Template("System.Convert.toInt64({value}, {provider})")]
         public static extern long ToInt64(object value, IFormatProvider provider);
 
         #endregion ToInt64
@@ -294,7 +294,7 @@ namespace System
         /// Converts the value of the specified object to a 64-bit unsigned integer.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toUInt64({value})")]
+        [H5.Template("System.Convert.toUInt64({value})")]
         [CLSCompliant(false)]
         public static extern ulong ToUInt64(object value);
 
@@ -302,7 +302,7 @@ namespace System
         /// Converts the value of the specified object to a 64-bit unsigned integer, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toUInt64({value}, {provider})")]
+        [H5.Template("System.Convert.toUInt64({value}, {provider})")]
         [CLSCompliant(false)]
         public static extern ulong ToUInt64(object value, IFormatProvider provider);
 
@@ -314,14 +314,14 @@ namespace System
         /// Converts the value of the specified object to a single-precision floating-point number.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toSingle({value})")]
+        [H5.Template("System.Convert.toSingle({value})")]
         public static extern float ToSingle(object value);
 
         /// <summary>
         /// Converts the value of the specified object to an single-precision floating-point number, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toSingle({value}, {provider})")]
+        [H5.Template("System.Convert.toSingle({value}, {provider})")]
         public static extern float ToSingle(object value, IFormatProvider provider);
 
         #endregion ToSingle
@@ -332,14 +332,14 @@ namespace System
         /// Converts the value of the specified object to a double-precision floating-point number.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toDouble({value})")]
+        [H5.Template("System.Convert.toDouble({value})")]
         public static extern double ToDouble(object value);
 
         /// <summary>
         /// Converts the value of the specified object to an double-precision floating-point number, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toDouble({value}, {provider})")]
+        [H5.Template("System.Convert.toDouble({value}, {provider})")]
         public static extern double ToDouble(object value, IFormatProvider provider);
 
         #endregion ToDouble
@@ -350,14 +350,14 @@ namespace System
         /// Converts the value of the specified object to an equivalent decimal number.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toDecimal({value})")]
+        [H5.Template("System.Convert.toDecimal({value})")]
         public static extern decimal ToDecimal(object value);
 
         /// <summary>
         /// Converts the value of the specified object to an equivalent decimal number, using the specified culture-specific formatting information.
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toDecimal({value}, {provider})")]
+        [H5.Template("System.Convert.toDecimal({value}, {provider})")]
         public static extern decimal ToDecimal(object value, IFormatProvider provider);
 
         #endregion ToDecimal
@@ -368,14 +368,14 @@ namespace System
         /// Converts the value of the specified object to a <see cref="T:System.DateTime"/> object.
         /// Note: Calling this method for built-in types (except <see cref="DateTime"/>, <see cref="string"/>) always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toDateTime({value})")]
+        [H5.Template("System.Convert.toDateTime({value})")]
         public static extern DateTime ToDateTime(object value);
 
         /// <summary>
         /// Converts the value of the specified object to a <see cref="T:System.DateTime"/> object, using the specified culture-specific formatting information.
         /// Note: Calling this method for built-in types (except <see cref="DateTime"/>, <see cref="string"/>) always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
-        [HighFive.Template("System.Convert.toDateTime({value}, {provider})")]
+        [H5.Template("System.Convert.toDateTime({value}, {provider})")]
         public static extern DateTime ToDateTime(object value, IFormatProvider provider);
 
         #endregion ToDateTime
@@ -385,25 +385,25 @@ namespace System
         /// <summary>
         /// Converts the value of the specified object to its equivalent string representation.
         /// </summary>
-        [HighFive.Template("System.Convert.toString({value})")]
+        [H5.Template("System.Convert.toString({value})")]
         public static extern string ToString(object value);
 
         /// <summary>
         /// Converts the value of the specified object to its equivalent string representation using the specified culture-specific formatting information.
         /// </summary>
-        [HighFive.Template("System.Convert.toString({value}, {provider})")]
+        [H5.Template("System.Convert.toString({value}, {provider})")]
         public static extern string ToString(object value, IFormatProvider provider);
 
         /// <summary>
         /// Converts the value of the specified object to its equivalent string representation.
         /// </summary>
-        [HighFive.Template("System.Convert.toString({value}, null, " + TypeCodeValues.Char + ")")]
+        [H5.Template("System.Convert.toString({value}, null, " + TypeCodeValues.Char + ")")]
         public static extern string ToString(char value);
 
         /// <summary>
         /// Converts the value of the specified object to its equivalent string representation using the specified culture-specific formatting information.
         /// </summary>
-        [HighFive.Template("System.Convert.toString({value}, {provider}, " + TypeCodeValues.Char + ")")]
+        [H5.Template("System.Convert.toString({value}, {provider}, " + TypeCodeValues.Char + ")")]
         public static extern string ToString(char value, IFormatProvider provider);
 
         #endregion ToString
@@ -413,52 +413,52 @@ namespace System
         /// <summary>
         /// Converts the string representation of a number in a specified base to an equivalent 8-bit unsigned integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.Byte + ")")]
+        [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.Byte + ")")]
         public static extern byte ToByte(string value, int fromBase);
 
         /// <summary>
         /// Converts the string representation of a number in a specified base to an equivalent 8-bit signed integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.SByte + ")")]
+        [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.SByte + ")")]
         [CLSCompliant(false)]
         public static extern sbyte ToSByte(string value, int fromBase);
 
         /// <summary>
         /// Converts the string representation of a number in a specified base to an equivalent 16-bit signed integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.Int16 + ")")]
+        [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.Int16 + ")")]
         public static extern short ToInt16(string value, int fromBase);
 
         /// <summary>
         /// Converts the string representation of a number in a specified base to an equivalent 16-bit unsigned integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt16 + ")")]
+        [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt16 + ")")]
         [CLSCompliant(false)]
         public static extern ushort ToUInt16(string value, int fromBase);
 
         /// <summary>
         /// Converts the string representation of a number in a specified base to an equivalent 32-bit signed integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.Int32 + ")")]
+        [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.Int32 + ")")]
         public static extern int ToInt32(string value, int fromBase);
 
         /// <summary>
         /// Converts the string representation of a number in a specified base to an equivalent 32-bit unsigned integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt32 + ")")]
+        [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt32 + ")")]
         [CLSCompliant(false)]
         public static extern uint ToUInt32(string value, int fromBase);
 
         /// <summary>
         /// Converts the string representation of a number in a specified base to an equivalent 64-bit signed integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.Int64 + ")")]
+        [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.Int64 + ")")]
         public static extern long ToInt64(string value, int fromBase);
 
         /// <summary>
         /// Converts the string representation of a number in a specified base to an equivalent 64-bit unsigned integer.
         /// </summary>
-        [HighFive.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt64 + ")")]
+        [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt64 + ")")]
         [CLSCompliant(false)]
         public static extern ulong ToUInt64(string value, int fromBase);
 
@@ -469,25 +469,25 @@ namespace System
         /// <summary>
         /// Converts the value of an 8-bit unsigned integer to its equivalent string representation in a specified base.
         /// </summary>
-        [HighFive.Template("System.Convert.toStringInBase({value}, {toBase}, " + TypeCodeValues.Byte + ")")]
+        [H5.Template("System.Convert.toStringInBase({value}, {toBase}, " + TypeCodeValues.Byte + ")")]
         public static extern string ToString(byte value, int toBase);
 
         /// <summary>
         /// Converts the value of a 16-bit signed integer to its equivalent string representation in a specified base.
         /// </summary>
-        [HighFive.Template("System.Convert.toStringInBase({value}, {toBase}, " + TypeCodeValues.Int16 + ")")]
+        [H5.Template("System.Convert.toStringInBase({value}, {toBase}, " + TypeCodeValues.Int16 + ")")]
         public static extern string ToString(short value, int toBase);
 
         /// <summary>
         /// Converts the value of a 32-bit signed integer to its equivalent string representation in a specified base.
         /// </summary>
-        [HighFive.Template("System.Convert.toStringInBase({value}, {toBase}, " + TypeCodeValues.Int32 + ")")]
+        [H5.Template("System.Convert.toStringInBase({value}, {toBase}, " + TypeCodeValues.Int32 + ")")]
         public static extern string ToString(int value, int toBase);
 
         /// <summary>
         /// Converts the value of a 64-bit signed integer to its equivalent string representation in a specified base.
         /// </summary>
-        [HighFive.Template("System.Convert.toStringInBase({value}, {toBase}, " + TypeCodeValues.Int64 + ")")]
+        [H5.Template("System.Convert.toStringInBase({value}, {toBase}, " + TypeCodeValues.Int64 + ")")]
         public static extern string ToString(long value, int toBase);
 
         #endregion ToStringInBase
@@ -497,26 +497,26 @@ namespace System
         /// <summary>
         /// Converts an array of 8-bit unsigned integers to its equivalent string representation that is encoded with base-64 digits.
         /// </summary>
-        [HighFive.Template("System.Convert.toBase64String({inArray}, null, null, null)")]
+        [H5.Template("System.Convert.toBase64String({inArray}, null, null, null)")]
         public static extern string ToBase64String(byte[] inArray);
 
         /// <summary>
         /// Converts an array of 8-bit unsigned integers to its equivalent string representation that is encoded with base-64 digits. A parameter specifies whether to insert line breaks in the return value.
         /// </summary>
         /// <param name="inArray">An array of 8-bit unsigned integers. </param><param name="options"><see cref="F:System.Base64FormattingOptions.InsertLineBreaks"/> to insert a line break every 76 characters, or <see cref="F:System.Base64FormattingOptions.None"/> to not insert line breaks.</param><exception cref="T:System.ArgumentNullException"><paramref name="inArray"/> is null. </exception><exception cref="T:System.ArgumentException"><paramref name="options"/> is not a valid <see cref="T:System.Base64FormattingOptions"/> value. </exception><filterpriority>1</filterpriority>
-        [HighFive.Template("System.Convert.toBase64String({inArray}, null, null, {options})")]
+        [H5.Template("System.Convert.toBase64String({inArray}, null, null, {options})")]
         public static extern string ToBase64String(byte[] inArray, Base64FormattingOptions options);
 
         /// <summary>
         /// Converts a subset of an array of 8-bit unsigned integers to its equivalent string representation that is encoded with base-64 digits. Parameters specify the subset as an offset in the input array, and the number of elements in the array to convert.
         /// </summary>
-        [HighFive.Template("System.Convert.toBase64String({inArray}, {offset}, {length}, null)")]
+        [H5.Template("System.Convert.toBase64String({inArray}, {offset}, {length}, null)")]
         public static extern string ToBase64String(byte[] inArray, int offset, int length);
 
         /// <summary>
         /// Converts a subset of an array of 8-bit unsigned integers to its equivalent string representation that is encoded with base-64 digits. Parameters specify the subset as an offset in the input array, the number of elements in the array to convert, and whether to insert line breaks in the return value.
         /// </summary>
-        [HighFive.Template("System.Convert.toBase64String({inArray}, {offset}, {length}, {options})")]
+        [H5.Template("System.Convert.toBase64String({inArray}, {offset}, {length}, {options})")]
         public static extern string ToBase64String(byte[] inArray, int offset, int length, Base64FormattingOptions options);
 
         #endregion ToBase64String
@@ -530,7 +530,7 @@ namespace System
         /// <returns>
         /// A 32-bit signed integer containing the number of bytes in <paramref name="outArray"/>.
         /// </returns>
-        [HighFive.Template("System.Convert.toBase64CharArray({inArray}, {offsetIn}, {length}, {outArray}, {offsetOut}, null)")]
+        [H5.Template("System.Convert.toBase64CharArray({inArray}, {offsetIn}, {length}, {outArray}, {offsetOut}, null)")]
         public static extern int ToBase64CharArray(byte[] inArray, int offsetIn, int length, char[] outArray, int offsetOut);
 
         /// <summary>
@@ -540,7 +540,7 @@ namespace System
         /// <returns>
         /// A 32-bit signed integer containing the number of bytes in <paramref name="outArray"/>.
         /// </returns>
-        [HighFive.Template("System.Convert.toBase64CharArray({inArray}, {offsetIn}, {length}, {outArray}, {offsetOut}, {options})")]
+        [H5.Template("System.Convert.toBase64CharArray({inArray}, {offsetIn}, {length}, {outArray}, {offsetOut}, {options})")]
         public static extern int ToBase64CharArray(byte[] inArray, int offsetIn, int length, char[] outArray, int offsetOut, Base64FormattingOptions options);
 
         #endregion ToBase64CharArray
@@ -550,7 +550,7 @@ namespace System
         /// <summary>
         /// Converts the specified string, which encodes binary data as base-64 digits, to an equivalent 8-bit unsigned integer array.
         /// </summary>
-        [HighFive.Template("System.Convert.fromBase64String({s})")]
+        [H5.Template("System.Convert.fromBase64String({s})")]
         public static extern byte[] FromBase64String(string s);
 
         #endregion FromBase64String
@@ -560,7 +560,7 @@ namespace System
         /// <summary>
         /// Converts a subset of a Unicode character array, which encodes binary data as base-64 digits, to an equivalent 8-bit unsigned integer array. Parameters specify the subset in the input array and the number of elements to convert.
         /// </summary>
-        [HighFive.Template("System.Convert.fromBase64CharArray({inArray}, {offset}, {length})")]
+        [H5.Template("System.Convert.fromBase64CharArray({inArray}, {offset}, {length})")]
         public static extern byte[] FromBase64CharArray(char[] inArray, int offset, int length);
 
         #endregion FromBase64CharArray

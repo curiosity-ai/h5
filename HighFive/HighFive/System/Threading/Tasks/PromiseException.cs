@@ -3,9 +3,9 @@ namespace System.Threading.Tasks
     /// <summary>
     /// This exception is used as the exception for a task created from a promise when the underlying promise fails.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Namespace("HighFive")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Namespace("H5")]
     public class PromiseException : Exception
     {
         public extern PromiseException(object[] arguments);
@@ -17,7 +17,7 @@ namespace System.Threading.Tasks
         /// <summary>
         /// Arguments supplied to the promise onError() callback.
         /// </summary>
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern object[] Arguments
         {
             get;

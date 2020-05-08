@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.CSharp;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class AbstractEmitterBlock
     {
@@ -92,7 +92,7 @@ namespace HighFive.Translator
 
             for (var i = 0; i < this.Level; i++)
             {
-                this.Emitter.Output.Append(HighFive.Translator.Emitter.INDENT);
+                this.Emitter.Output.Append(H5.Translator.Emitter.INDENT);
             }
 
             this.Emitter.IsNewLine = false;
@@ -100,7 +100,7 @@ namespace HighFive.Translator
 
         public virtual void WriteNewLine()
         {
-            this.Emitter.Output.Append(HighFive.Translator.Emitter.NEW_LINE);
+            this.Emitter.Output.Append(H5.Translator.Emitter.NEW_LINE);
             this.Emitter.IsNewLine = true;
         }
 
@@ -237,7 +237,7 @@ namespace HighFive.Translator
         {
             foreach (var line in lines)
             {
-                this.Write(line.Replace(HighFive.Translator.Emitter.CRLF, HighFive.Translator.Emitter.NEW_LINE));
+                this.Write(line.Replace(H5.Translator.Emitter.CRLF, H5.Translator.Emitter.NEW_LINE));
                 this.WriteNewLine();
             }
         }
@@ -349,7 +349,7 @@ namespace HighFive.Translator
             {
                 int indentIndex = firstWhitespaceCount - trimIndex;
 
-                var indentLength = HighFive.Translator.Emitter.INDENT.Length;
+                var indentLength = H5.Translator.Emitter.INDENT.Length;
 
                 if (indentIndex % indentLength > 0)
                 {
@@ -705,7 +705,7 @@ namespace HighFive.Translator
 
             for (var i = 0; i < level; i++)
             {
-                output.Append(HighFive.Translator.Emitter.INDENT);
+                output.Append(H5.Translator.Emitter.INDENT);
             }
 
             string indent = output.ToString();
@@ -722,14 +722,14 @@ namespace HighFive.Translator
 
             for (var i = 0; i < level; i++)
             {
-                output.Append(HighFive.Translator.Emitter.INDENT);
+                output.Append(H5.Translator.Emitter.INDENT);
             }
 
             string indent = output.ToString();
 
-            return Regex.Replace(value, HighFive.Translator.Emitter.NEW_LINE + "(?!\\s*$)(.+)", (m) =>
+            return Regex.Replace(value, H5.Translator.Emitter.NEW_LINE + "(?!\\s*$)(.+)", (m) =>
             {
-                return HighFive.Translator.Emitter.NEW_LINE + indent + m.Groups[1].Value;
+                return H5.Translator.Emitter.NEW_LINE + indent + m.Groups[1].Value;
             }, RegexOptions.Multiline);
         }
 
@@ -811,7 +811,7 @@ namespace HighFive.Translator
                     return count;
                 }
 
-                if (c == HighFive.Translator.Emitter.NEW_LINE_CHAR)
+                if (c == H5.Translator.Emitter.NEW_LINE_CHAR)
                 {
                     if (!lastNewLineFound)
                     {
@@ -848,7 +848,7 @@ namespace HighFive.Translator
                     return false;
                 }
 
-                if (c == HighFive.Translator.Emitter.NEW_LINE_CHAR)
+                if (c == H5.Translator.Emitter.NEW_LINE_CHAR)
                 {
                     if (lastTwoLines)
                     {
@@ -891,7 +891,7 @@ namespace HighFive.Translator
                 return new[] { s };
             }
 
-            var lines = s.Split(new string[] { HighFive.Translator.Emitter.CRLF, HighFive.Translator.Emitter.NEW_LINE }, StringSplitOptions.None);
+            var lines = s.Split(new string[] { H5.Translator.Emitter.CRLF, H5.Translator.Emitter.NEW_LINE }, StringSplitOptions.None);
 
             lines = lines.Select(
                 x =>
@@ -945,7 +945,7 @@ namespace HighFive.Translator
 
                 while (Char.IsWhiteSpace(charArray[i]) && (i > -1))
                 {
-                    if (charArray[i] == HighFive.Translator.Emitter.NEW_LINE_CHAR)
+                    if (charArray[i] == H5.Translator.Emitter.NEW_LINE_CHAR)
                     {
                         if (firstCR)
                         {

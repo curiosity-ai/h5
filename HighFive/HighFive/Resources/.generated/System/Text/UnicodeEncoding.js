@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.UnicodeEncoding", {
+    H5.define("System.Text.UnicodeEncoding", {
         inherits: [System.Text.Encoding],
         fields: {
             bigEndian: false,
@@ -46,7 +46,7 @@
                             throw new System.ArgumentException.$ctor1("bytes");
                         }
 
-                        outputBytes[System.Array.index(HighFive.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
+                        outputBytes[System.Array.index(H5.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
                     } else {
                         outputBytes.push(ch);
                     }
@@ -60,7 +60,7 @@
 
                 var swap = $asm.$.System.Text.UnicodeEncoding.f1;
 
-                var fallback = HighFive.fn.bind(this, function () {
+                var fallback = H5.fn.bind(this, function () {
                     if (this.throwOnInvalid) {
                         throw new System.Exception("Invalid character in UTF16 text");
                     }
@@ -143,7 +143,7 @@
                 var endpoint = (position + count) | 0;
                 this._hasError = false;
 
-                var fallback = HighFive.fn.bind(this, function () {
+                var fallback = H5.fn.bind(this, function () {
                     if (this.throwOnInvalid) {
                         throw new System.Exception("Invalid character in UTF16 text");
                     }
@@ -153,14 +153,14 @@
 
                 var swap = $asm.$.System.Text.UnicodeEncoding.f2;
 
-                var readPair = HighFive.fn.bind(this, function () {
+                var readPair = H5.fn.bind(this, function () {
                     if ((((position + 2) | 0)) > endpoint) {
                         position = (position + 2) | 0;
                         return null;
                     }
 
-                    var a = bytes[System.Array.index(HighFive.identity(position, ((position = (position + 1) | 0))), bytes)];
-                    var b = bytes[System.Array.index(HighFive.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var a = bytes[System.Array.index(H5.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var b = bytes[System.Array.index(H5.identity(position, ((position = (position + 1) | 0))), bytes)];
 
                     var point = ((a << 8) | b) & 65535;
                     if (!this.bigEndian) {
@@ -191,7 +191,7 @@
                             var highBits = System.Nullable.band(firstWord, 1023);
                             var lowBits = System.Nullable.band(secondWord, 1023);
 
-                            var charCode = HighFive.Int.clip32(System.Nullable.add((System.Nullable.bor((System.Nullable.sl(highBits, 10)), lowBits)), 65536));
+                            var charCode = H5.Int.clip32(System.Nullable.add((System.Nullable.bor((System.Nullable.sl(highBits, 10)), lowBits)), 65536));
 
                             result = (result || "") + ((System.String.fromCharCode(System.Nullable.getValue(charCode))) || "");
                         } else {
@@ -235,9 +235,9 @@
         }
     });
 
-    HighFive.ns("System.Text.UnicodeEncoding", $asm.$);
+    H5.ns("System.Text.UnicodeEncoding", $asm.$);
 
-    HighFive.apply($asm.$.System.Text.UnicodeEncoding, {
+    H5.apply($asm.$.System.Text.UnicodeEncoding, {
         f1: function (ch) {
             return ((((ch & 255) << 8) | ((ch >> 8) & 255)) & 65535);
         },

@@ -1,9 +1,9 @@
-using HighFive.Contract;
+using H5.Contract;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class EmitterOutput : IEmitterOutput
     {

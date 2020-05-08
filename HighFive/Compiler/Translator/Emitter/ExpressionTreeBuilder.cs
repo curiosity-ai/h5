@@ -1,4 +1,4 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Text;
 using Expression = System.Linq.Expressions.Expression;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ExpressionTreeBuilder : ResolveResultVisitor<string, object>
     {
@@ -520,7 +520,7 @@ namespace HighFive.Translator
                 return "Object";
             }*/
 
-            return HighFiveTypes.ToJsName(type, emitter);
+            return H5Types.ToJsName(type, emitter);
         }
 
         private int FindIndexInReflectableMembers(IMember member)
@@ -561,7 +561,7 @@ namespace HighFive.Translator
             int index = FindIndexInReflectableMembers(owner ?? member);
             if (index >= 0)
             {
-                string result = string.Format("HighFive.getMetadata({0}).m[{1}]", ExpressionTreeBuilder.GetTypeName(member.DeclaringType, this._emitter), index);
+                string result = string.Format("H5.getMetadata({0}).m[{1}]", ExpressionTreeBuilder.GetTypeName(member.DeclaringType, this._emitter), index);
                 if (owner != null)
                 {
                     if (owner is IProperty)

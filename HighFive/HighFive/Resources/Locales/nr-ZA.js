@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("nr-ZA", true), {
+H5.merge(new System.Globalization.CultureInfo("nr-ZA", true), {
     englishName: "South Ndebele (South Africa)",
     nativeName: "isiNdebele (South Africa)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nr-ZA", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Son","Mvu","Bil","Tha","Ne","Hla","Gqi"],
         abbreviatedMonthGenitiveNames: ["Jan","Feb","Mat","Apr","Mey","Jun","Jul","Arh","Sep","Okt","Usi","Dis",""],
         abbreviatedMonthNames: ["Jan","Feb","Mat","Apr","Mey","Jun","Jul","Arh","Sep","Okt","Usi","Dis",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nr-ZA", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "nr-ZA",
         EBCDICCodePage: 500,

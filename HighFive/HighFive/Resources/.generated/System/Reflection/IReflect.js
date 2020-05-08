@@ -1,3 +1,3 @@
-    HighFive.define("System.Reflection.IReflect", {
+    H5.define("System.Reflection.IReflect", {
         $kind: "interface"
     });

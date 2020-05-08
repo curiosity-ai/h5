@@ -1,11 +1,11 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using System.Linq;
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ArrayInitializerBlock : AbstractEmitterBlock
     {
@@ -76,7 +76,7 @@ namespace HighFive.Translator
                 if (at != null)
                 {
                     this.Write(", ");
-                    this.Write(HighFiveTypes.ToJsName(at.ElementType, this.Emitter));
+                    this.Write(H5Types.ToJsName(at.ElementType, this.Emitter));
 
                     if (create)
                     {

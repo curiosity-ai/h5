@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mk", true), {
+H5.merge(new System.Globalization.CultureInfo("mk", true), {
     englishName: "Macedonian",
     nativeName: "македонски",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mk", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["нед.","пон.","вт.","сре.","чет.","пет.","саб."],
         abbreviatedMonthGenitiveNames: ["јан.","фев.","мар.","апр.","мај","јун.","јул.","авг.","септ.","окт.","ноем.","дек.",""],
         abbreviatedMonthNames: ["јан.","фев.","мар.","апр.","мај","јун.","јул.","авг.","септ.","окт.","ноем.","дек.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mk", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "mk-MK",
         EBCDICCodePage: 500,

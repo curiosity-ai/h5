@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.CompilerServices.FormattableStringFactory.ConcreteFormattableString", {
+    H5.define("System.Runtime.CompilerServices.FormattableStringFactory.ConcreteFormattableString", {
         inherits: [System.FormattableString],
         $kind: "nested class",
         fields: {

@@ -1,4 +1,4 @@
-    HighFive.define("System.Empty", {
+    H5.define("System.Empty", {
         statics: {
             fields: {
                 Value: null

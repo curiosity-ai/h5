@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("uk-UA", true), {
+H5.merge(new System.Globalization.CultureInfo("uk-UA", true), {
     englishName: "Ukrainian (Ukraine)",
     nativeName: "українська (Україна)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("uk-UA", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Нд","Пн","Вт","Ср","Чт","Пт","Сб"],
         abbreviatedMonthGenitiveNames: ["січ","лют","бер","кві","тра","чер","лип","сер","вер","жов","лис","гру",""],
         abbreviatedMonthNames: ["Січ","Лют","Бер","Кві","Тра","Чер","Лип","Сер","Вер","Жов","Лис","Гру",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("uk-UA", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "uk-UA",
         EBCDICCodePage: 500,

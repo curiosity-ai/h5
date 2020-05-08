@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("gn-PY", true), {
+H5.merge(new System.Globalization.CultureInfo("gn-PY", true), {
     englishName: "Guarani (Paraguay)",
     nativeName: "Avañe’ẽ (Paraguái)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "ndaha’éi papaha",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("gn-PY", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["teĩ","kõi","apy","ndy","po","oteĩ","okõi"],
         abbreviatedMonthGenitiveNames: ["jteĩ","jkõi","japy","jrun","jpo","jpot","jpok","jpoa","jpor","jpa","jpat","jpak",""],
         abbreviatedMonthNames: ["jteĩ","jkõi","japy","jrun","jpo","jpot","jpok","jpoa","jpor","jpa","jpat","jpak",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("gn-PY", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "gn-PY",
         EBCDICCodePage: 20284,

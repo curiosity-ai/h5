@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sr-Cyrl", true), {
+H5.merge(new System.Globalization.CultureInfo("sr-Cyrl", true), {
     englishName: "Serbian (Cyrillic)",
     nativeName: "српски",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sr-Cyrl", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["нед.","пон.","ут.","ср.","чет.","пет.","суб."],
         abbreviatedMonthGenitiveNames: ["јан.","феб.","март","апр.","мај","јун","јул","авг.","септ.","окт.","нов.","дец.",""],
         abbreviatedMonthNames: ["јан.","феб.","март","апр.","мај","јун","јул","авг.","септ.","окт.","нов.","дец.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sr-Cyrl", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "sr-Cyrl-RS",
         EBCDICCodePage: 21025,

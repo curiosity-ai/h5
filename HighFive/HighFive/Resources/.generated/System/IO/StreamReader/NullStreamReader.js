@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.StreamReader.NullStreamReader", {
+    H5.define("System.IO.StreamReader.NullStreamReader", {
         inherits: [System.IO.StreamReader],
         $kind: "nested class",
         props: {

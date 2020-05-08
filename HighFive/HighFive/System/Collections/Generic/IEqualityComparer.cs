@@ -1,24 +1,24 @@
 namespace System.Collections.Generic
 {
-    [HighFive.External]
-    [HighFive.Reflectable]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    public interface IEqualityComparer<in T> : HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Reflectable]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    public interface IEqualityComparer<in T> : H5.IH5Class
     {
-        [HighFive.Name("equals2")]
+        [H5.Name("equals2")]
         bool Equals(T x, T y);
 
-        [HighFive.Name("getHashCode2")]
+        [H5.Name("getHashCode2")]
         int GetHashCode(T obj);
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
-    public abstract class EqualityComparer<T> : IEqualityComparer<T>, HighFive.IHighFiveClass
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
+    public abstract class EqualityComparer<T> : IEqualityComparer<T>, H5.IH5Class
     {
         public static extern EqualityComparer<T> Default { 
-            [HighFive.Template("System.Collections.Generic.EqualityComparer$1({T}).def")]
+            [H5.Template("System.Collections.Generic.EqualityComparer$1({T}).def")]
             get; 
         }
 

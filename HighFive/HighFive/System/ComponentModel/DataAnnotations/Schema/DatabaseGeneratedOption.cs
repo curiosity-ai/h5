@@ -3,7 +3,7 @@ namespace System.ComponentModel.DataAnnotations.Schema
     /// <summary>
     /// The pattern used to generate values for a property in the database.
     /// </summary>
-    [HighFive.External]
+    [H5.External]
     public enum DatabaseGeneratedOption
     {
         /// <summary>

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using HighFive.Contract;
+using H5.Contract;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class SourceMapGenerator : ISourceMapRecorder
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class ConfigHelper
     {
@@ -182,7 +182,7 @@ namespace HighFive.Contract
 
             if (configPath == null)
             {
-                Logger.Info("HighFive config file is not found. Returning default config");
+                Logger.Info("H5 config file is not found. Returning default config");
                 return default(T);
             }
 
@@ -226,7 +226,7 @@ namespace HighFive.Contract
             this.Logger.Trace("Getting configuration by file path " + (configFileName ?? "") + " at " + (location ?? "") + " ...");
 
             var folder = folderMode ? location : Path.GetDirectoryName(location);
-            var path = folder + Path.DirectorySeparatorChar + "HighFive" + Path.DirectorySeparatorChar + configFileName;
+            var path = folder + Path.DirectorySeparatorChar + "H5" + Path.DirectorySeparatorChar + configFileName;
 
             if (!File.Exists(path))
             {

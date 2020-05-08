@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.BinaryWriter", {
+    H5.define("System.IO.BinaryWriter", {
         inherits: [System.IDisposable],
         statics: {
             fields: {

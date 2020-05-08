@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.EnumMemberAttribute", {
+    H5.define("System.Runtime.Serialization.EnumMemberAttribute", {
         inherits: [System.Attribute],
         fields: {
             _value: null,

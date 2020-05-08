@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("zh", true), {
+H5.merge(new System.Globalization.CultureInfo("zh", true), {
     englishName: "Chinese",
     nativeName: "中文",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("zh", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["周日","周一","周二","周三","周四","周五","周六"],
         abbreviatedMonthGenitiveNames: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月",""],
         abbreviatedMonthNames: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("zh", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 936,
         CultureName: "zh-CN",
         EBCDICCodePage: 500,

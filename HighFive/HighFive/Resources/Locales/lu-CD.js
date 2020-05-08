@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("lu-CD", true), {
+H5.merge(new System.Globalization.CultureInfo("lu-CD", true), {
     englishName: "Luba-Katanga (Congo DRC)",
     nativeName: "Tshiluba (Ditunga wa Kongu)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lu-CD", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Lum","Nko","Ndy","Ndg","Njw","Ngv","Lub"],
         abbreviatedMonthGenitiveNames: ["Cio","Lui","Lus","Muu","Lum","Luf","Kab","Lush","Lut","Lun","Kas","Cis",""],
         abbreviatedMonthNames: ["Cio","Lui","Lus","Muu","Lum","Luf","Kab","Lush","Lut","Lun","Kas","Cis",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lu-CD", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "lu-CD",
         EBCDICCodePage: 500,

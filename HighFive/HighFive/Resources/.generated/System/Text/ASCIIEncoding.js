@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.ASCIIEncoding", {
+    H5.define("System.Text.ASCIIEncoding", {
         inherits: [System.Text.Encoding],
         props: {
             CodePage: {

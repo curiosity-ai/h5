@@ -1,8 +1,8 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class VisitorCustomEventBlock : AbstractMethodBlock
     {

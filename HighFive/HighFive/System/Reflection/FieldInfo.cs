@@ -2,45 +2,45 @@ using System.ComponentModel;
 
 namespace System.Reflection
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Unbox(true)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Unbox(true)]
     public abstract partial class FieldInfo : MemberInfo
     {
-        [HighFive.Name("rt")]
+        [H5.Name("rt")]
         public extern Type FieldType
         {
             get;
             private set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern bool IsInitOnly
         {
-            [HighFive.Template("({this}.ro || false)")]
+            [H5.Template("({this}.ro || false)")]
             get;
         }
 
-        [HighFive.Template("HighFive.Reflection.fieldAccess({this}, {obj})")]
+        [H5.Template("H5.Reflection.fieldAccess({this}, {obj})")]
         public extern object GetValue(object obj);
 
-        [HighFive.Template("HighFive.Reflection.fieldAccess({this}, {obj}, {value})")]
+        [H5.Template("H5.Reflection.fieldAccess({this}, {obj}, {value})")]
         public extern void SetValue(object obj, object value);
 
         /// <summary>
         /// Script name of the field
         /// </summary>
-        [HighFive.Name("sn")]
+        [H5.Name("sn")]
         public extern string ScriptName
         {
             get;
             private set;
         }
 
-        [HighFive.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
+        [H5.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
         public static extern FieldInfo GetFieldFromHandle(RuntimeFieldHandle h);
 
-        [HighFive.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
+        [H5.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
         public static extern FieldInfo GetFieldFromHandle(RuntimeFieldHandle h, RuntimeTypeHandle x);
 
         internal extern FieldInfo();

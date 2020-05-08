@@ -1,4 +1,4 @@
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using ArrayType = ICSharpCode.NRefactory.TypeSystem.ArrayType;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public static class AttributeHelper
     {

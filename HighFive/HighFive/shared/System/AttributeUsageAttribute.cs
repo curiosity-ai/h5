@@ -16,7 +16,7 @@ using System.Reflection;
 namespace System
 {
     /* By default, attributes are inherited and multiple attributes are not allowed */
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Class, Inherited = true)]
     public sealed class AttributeUsageAttribute : Attribute
     {

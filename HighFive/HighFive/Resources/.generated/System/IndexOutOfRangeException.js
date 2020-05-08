@@ -1,4 +1,4 @@
-    HighFive.define("System.IndexOutOfRangeException", {
+    H5.define("System.IndexOutOfRangeException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

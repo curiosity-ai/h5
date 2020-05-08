@@ -1,4 +1,4 @@
-    HighFive.define("System.DateTimeKind", {
+    H5.define("System.DateTimeKind", {
         $kind: "enum",
         statics: {
             fields: {

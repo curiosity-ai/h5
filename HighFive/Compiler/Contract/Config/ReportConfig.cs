@@ -1,10 +1,10 @@
 using System;
 using System.IO;
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class ReportConfig
     {

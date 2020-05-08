@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("tig-ER", true), {
+H5.merge(new System.Globalization.CultureInfo("tig-ER", true), {
     englishName: "Tigre (Eritrea)",
     nativeName: "ትግረ (ኤርትራ)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tig-ER", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ሰ/ዓ","ሰኖ","ታላሸ","ኣረር","ከሚሽ","ጅምዓ","ሰ/ን"],
         abbreviatedMonthGenitiveNames: ["ጃንዩ","ፌብሩ","ማርች","ኤፕረ","ሜይ","ጁን","ጁላይ","ኦገስ","ሴፕቴ","ኦክተ","ኖቬም","ዲሴም",""],
         abbreviatedMonthNames: ["ጃንዩ","ፌብሩ","ማርች","ኤፕረ","ሜይ","ጁን","ጁላይ","ኦገስ","ሴፕቴ","ኦክተ","ኖቬም","ዲሴም",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tig-ER", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "tig-ER",
         EBCDICCodePage: 500,

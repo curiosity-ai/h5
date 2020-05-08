@@ -1,4 +1,4 @@
-    HighFive.define("System.OverflowException", {
+    H5.define("System.OverflowException", {
         inherits: [System.ArithmeticException],
         ctors: {
             ctor: function () {

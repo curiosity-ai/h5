@@ -1,12 +1,12 @@
 namespace System.Linq.Expressions
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("System.Object")]
-    [HighFive.Cast("{this}.btype === 0")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("System.Object")]
+    [H5.Cast("{this}.btype === 0")]
     public sealed class MemberAssignment : MemberBinding
     {
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern Expression Expression { get; private set; }
 
         internal extern MemberAssignment();

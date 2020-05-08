@@ -1,12 +1,12 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using Newtonsoft.Json;
 using Object.Net.Utilities;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class AnonymousTypeCreateBlock : AbstractObjectCreateBlock
     {
@@ -119,7 +119,7 @@ namespace HighFive.Translator
             var oldWriter = this.SaveWriter();
             this.NewWriter();
 
-            this.Write(JS.Types.HighFive.DEFINE);
+            this.Write(JS.Types.H5.DEFINE);
             this.WriteOpenParentheses();
             this.WriteScript(config.Name);
             config.Name = JS.Vars.ASM + "." + config.Name;
@@ -217,7 +217,7 @@ namespace HighFive.Translator
             this.Write(JS.Funcs.EQUALS + ": function (o) ");
             this.BeginBlock();
 
-            this.Write("if (!" + JS.Types.HighFive.IS + "(o, ");
+            this.Write("if (!" + JS.Types.H5.IS + "(o, ");
             this.Write(config.Name);
             this.Write(")) ");
             this.BeginBlock();

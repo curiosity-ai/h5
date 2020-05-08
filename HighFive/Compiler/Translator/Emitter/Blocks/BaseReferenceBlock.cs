@@ -1,11 +1,11 @@
 using System.Linq;
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class BaseReferenceBlock : ConversionBlock
     {
@@ -76,11 +76,11 @@ namespace HighFive.Translator
                     if (this.Emitter.GetInline(member) == null)
                     {
                         var name = OverloadsCollection.Create(this.Emitter, member).GetOverloadName(true);
-                        this.Write(JS.Types.HighFive.ENSURE_BASE_PROPERTY + "(this, " + this.Emitter.ToJavaScript(name));
+                        this.Write(JS.Types.H5.ENSURE_BASE_PROPERTY + "(this, " + this.Emitter.ToJavaScript(name));
 
-                        if (this.Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition) && !this.Emitter.Validator.IsHighFiveClass(member.DeclaringTypeDefinition))
+                        if (this.Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition) && !this.Emitter.Validator.IsH5Class(member.DeclaringTypeDefinition))
                         {
-                            this.Write(", \"" + HighFiveTypes.ToJsName(member.DeclaringType, this.Emitter, isAlias: true) + "\"");
+                            this.Write(", \"" + H5Types.ToJsName(member.DeclaringType, this.Emitter, isAlias: true) + "\"");
                         }
 
                         this.Write(")");
@@ -96,11 +96,11 @@ namespace HighFive.Translator
 
                     if (this.Emitter.TypeInfo.GetBaseTypes(this.Emitter).Any())
                     {
-                        this.Write(HighFiveTypes.ToJsName(this.Emitter.TypeInfo.GetBaseClass(this.Emitter), this.Emitter), "." + JS.Fields.PROTOTYPE);
+                        this.Write(H5Types.ToJsName(this.Emitter.TypeInfo.GetBaseClass(this.Emitter), this.Emitter), "." + JS.Fields.PROTOTYPE);
                     }
                     else
                     {
-                        this.Write(HighFiveTypes.ToJsName(baseType, this.Emitter), "." + JS.Fields.PROTOTYPE);
+                        this.Write(H5Types.ToJsName(baseType, this.Emitter), "." + JS.Fields.PROTOTYPE);
                     }
                 }
             }

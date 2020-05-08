@@ -1,7 +1,7 @@
 using ICSharpCode.NRefactory.CSharp;
 using System.Text;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IAsyncStep
     {

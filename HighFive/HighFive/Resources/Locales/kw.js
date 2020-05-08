@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("kw", true), {
+H5.merge(new System.Globalization.CultureInfo("kw", true), {
     englishName: "Cornish",
     nativeName: "kernewek",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("kw", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Sul","Lun","Mth","Mhr","Yow","Gwe","Sad"],
         abbreviatedMonthGenitiveNames: ["Gen","Hwe","Meu","Ebr","Me","Met","Gor","Est","Gwn","Hed","Du","Kev",""],
         abbreviatedMonthNames: ["Gen","Hwe","Meu","Ebr","Me","Met","Gor","Est","Gwn","Hed","Du","Kev",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("kw", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "kw-GB",
         EBCDICCodePage: 500,

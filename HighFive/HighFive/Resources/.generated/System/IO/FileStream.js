@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.FileStream", {
+    H5.define("System.IO.FileStream", {
         inherits: [System.IO.Stream],
         statics: {
             methods: {
@@ -9,16 +9,16 @@
                         completer.setResult(new System.IO.FileStream.ctor(fileReader.result, file.name));
                     };
                     fileReader.onerror = function (e) {
-                        completer.setException(new System.SystemException.$ctor1(HighFive.unbox(e).target.error.As()));
+                        completer.setException(new System.SystemException.$ctor1(H5.unbox(e).target.error.As()));
                     };
                     fileReader.readAsArrayBuffer(file);
 
                     return completer.task;
                 },
                 ReadBytes: function (path) {
-                    if (HighFive.isNode) {
+                    if (H5.isNode) {
                         var fs = require("fs");
-                        return HighFive.cast(fs.readFileSync(path), ArrayBuffer);
+                        return H5.cast(fs.readFileSync(path), ArrayBuffer);
                     } else {
                         var req = new XMLHttpRequest();
                         req.open("GET", path, false);
@@ -40,9 +40,9 @@
                 ReadBytesAsync: function (path) {
                     var tcs = new System.Threading.Tasks.TaskCompletionSource();
 
-                    if (HighFive.isNode) {
+                    if (H5.isNode) {
                         var fs = require("fs");
-                        fs.readFile(path, HighFive.fn.$build([function (err, data) {
+                        fs.readFile(path, H5.fn.$build([function (err, data) {
                             if (err != null) {
                                 throw new System.IO.IOException.ctor();
                             }
@@ -155,7 +155,7 @@
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
                     $returnValue, 
                     $async_e, 
-                    $asyncBody = HighFive.fn.bind(this, function () {
+                    $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
                                 $step = System.Array.min([0,1,2,3], $step);

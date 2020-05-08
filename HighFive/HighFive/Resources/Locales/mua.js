@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mua", true), {
+H5.merge(new System.Globalization.CultureInfo("mua", true), {
     englishName: "Mundang",
     nativeName: "MUNDAŊ",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mua", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Cya","Cla","Czi","Cko","Cka","Cga","Cze"],
         abbreviatedMonthGenitiveNames: ["FLO","CLA","CKI","FMF","MAD","MBI","MLI","MAM","FDE","FMU","FGW","FYU",""],
         abbreviatedMonthNames: ["FLO","CLA","CKI","FMF","MAD","MBI","MLI","MAM","FDE","FMU","FGW","FYU",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mua", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mua-CM",
         EBCDICCodePage: 500,

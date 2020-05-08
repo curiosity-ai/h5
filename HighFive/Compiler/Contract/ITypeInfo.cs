@@ -2,7 +2,7 @@ using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface ITypeInfo
     {

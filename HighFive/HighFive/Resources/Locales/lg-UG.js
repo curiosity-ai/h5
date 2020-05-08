@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("lg-UG", true), {
+H5.merge(new System.Globalization.CultureInfo("lg-UG", true), {
     englishName: "Ganda (Uganda)",
     nativeName: "Luganda (Yuganda)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lg-UG", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Sab","Bal","Lw2","Lw3","Lw4","Lw5","Lw6"],
         abbreviatedMonthGenitiveNames: ["Jan","Feb","Mar","Apu","Maa","Juu","Jul","Agu","Seb","Oki","Nov","Des",""],
         abbreviatedMonthNames: ["Jan","Feb","Mar","Apu","Maa","Juu","Jul","Agu","Seb","Oki","Nov","Des",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lg-UG", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "lg-UG",
         EBCDICCodePage: 500,

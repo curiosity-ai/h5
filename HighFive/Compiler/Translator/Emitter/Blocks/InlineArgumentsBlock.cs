@@ -1,6 +1,6 @@
 using System;
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class InlineArgumentsBlock : AbstractEmitterBlock
     {
@@ -32,12 +32,12 @@ namespace HighFive.Translator
 
                 if (rr != null)
                 {
-                    HighFiveType highfiveType = emitter.HighFiveTypes.Get(rr.Member.DeclaringType, true);
+                    H5Type h5Type = emitter.H5Types.Get(rr.Member.DeclaringType, true);
 
-                    if (highfiveType != null)
+                    if (h5Type != null)
                     {
                         bool isCustomName;
-                        HighFiveTypes.AddModule(null, highfiveType, false, false, out isCustomName);
+                        H5Types.AddModule(null, h5Type, false, false, out isCustomName);
                     }
                 }
             }
@@ -225,7 +225,7 @@ namespace HighFive.Translator
                 var tp = this.Method.TypeParameters.FirstOrDefault(p => p.Name == name);
                 if (tp != null)
                 {
-                    name = HighFiveTypes.ToJsName(this.Method.TypeArguments[tp.Index], this.Emitter);
+                    name = H5Types.ToJsName(this.Method.TypeArguments[tp.Index], this.Emitter);
                 }
             }
 
@@ -303,7 +303,7 @@ namespace HighFive.Translator
                     paramsName = paramsParam.Name;
                     paramsType = paramsParam.Type;
                 }
-                expandParams = argsInfo.ResolveResult.Member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute");
+                expandParams = argsInfo.ResolveResult.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
             }
             else if (argsInfo.Method != null)
             {
@@ -314,7 +314,7 @@ namespace HighFive.Translator
                     paramsName = paramsParam.Name;
                     paramsType = paramsParam.Type;
                 }
-                expandParams = argsInfo.Method.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute");
+                expandParams = argsInfo.Method.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
             }
 
             if (paramsName != null)
@@ -464,17 +464,17 @@ namespace HighFive.Translator
                                 throw new EmitterException(expr, "Module.Load supports typeof expression only");
                             }
 
-                            var highfiveType = this.Emitter.HighFiveTypes.Get(rr.ReferencedType, true);
+                            var h5Type = this.Emitter.H5Types.Get(rr.ReferencedType, true);
                             Module module = null;
 
-                            if (highfiveType.TypeInfo == null)
+                            if (h5Type.TypeInfo == null)
                             {
-                                HighFiveTypes.EnsureModule(highfiveType);
-                                module = highfiveType.Module;
+                                H5Types.EnsureModule(h5Type);
+                                module = h5Type.Module;
                             }
                             else
                             {
-                                module = highfiveType.TypeInfo.Module;
+                                module = h5Type.TypeInfo.Module;
                             }
 
                             AddModuleByType(amd, cjs, module);
@@ -684,7 +684,7 @@ namespace HighFive.Translator
                             string thisValue = argsInfo.GetThisValue();
                             bool skipType = false;
 
-                            var typeDef = this.Emitter.HighFiveTypes.Get(type, true)?.TypeDefinition;
+                            var typeDef = this.Emitter.H5Types.Get(type, true)?.TypeDefinition;
                             if (typeDef == null || !typeDef.IsValueType || NullableType.IsNullable(type) && NullableType.GetUnderlyingType(type).Kind == TypeKind.Struct)
                             {
                                 if (argExpr != null)
@@ -1225,7 +1225,7 @@ namespace HighFive.Translator
                 }
             }
 
-            return HighFiveTypes.ToJsName(enumType, this.Emitter);
+            return H5Types.ToJsName(enumType, this.Emitter);
         }
 
         public void AddModuleByType(List<string> amd, List<string> cjs, Module module)
@@ -1251,7 +1251,7 @@ namespace HighFive.Translator
         private void WriteGetType(bool needName, IType type, AstNode node, string modifier)
         {
             string s;
-            var typeDef = this.Emitter.HighFiveTypes.Get(type, true)?.TypeDefinition;
+            var typeDef = this.Emitter.H5Types.Get(type, true)?.TypeDefinition;
             if (node != null && (typeDef == null || !typeDef.IsValueType || NullableType.IsNullable(type) && NullableType.GetUnderlyingType(type).Kind == TypeKind.Struct))
             {
                 var writer = this.SaveWriter();
@@ -1318,7 +1318,7 @@ namespace HighFive.Translator
                     this.WriteReturn(true);
 
                     this.Write(JS.Funcs.HIGHFIVE_GETDEFAULTVALUE + "(");
-                    this.Write(HighFiveTypes.ToJsName((AstType)def, this.Emitter));
+                    this.Write(H5Types.ToJsName((AstType)def, this.Emitter));
                     this.Write(")");
 
                     this.WriteSemiColon();
@@ -1341,7 +1341,7 @@ namespace HighFive.Translator
 
                     this.Write(JS.Funcs.HIGHFIVE_GETDEFAULTVALUE + "(");
 
-                    this.Write(HighFiveTypes.ToJsName((IType)def, this.Emitter));
+                    this.Write(H5Types.ToJsName((IType)def, this.Emitter));
 
                     this.Write(")");
 

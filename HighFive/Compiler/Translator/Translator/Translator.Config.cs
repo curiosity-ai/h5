@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.IO;
 
-using HighFive.Translator.Utils;
+using H5.Translator.Utils;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator
     {
@@ -18,7 +18,7 @@ namespace HighFive.Translator
             if (!File.Exists(e))
             {
                 throw new TranslatorException("The specified file '" + e + "' couldn't be found." +
-                    "\nWarning: HighFive.NET translator working directory: " + Directory.GetCurrentDirectory());
+                    "\nWarning: H5.NET translator working directory: " + Directory.GetCurrentDirectory());
             }
 
             using (var p = Process.Start(info))

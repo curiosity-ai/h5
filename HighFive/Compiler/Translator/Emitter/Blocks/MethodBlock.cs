@@ -1,5 +1,5 @@
-﻿using HighFive.Contract;
-using HighFive.Contract.Constants;
+﻿using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using ICSharpCode.NRefactory.Semantics;
 using Newtonsoft.Json;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class MethodBlock : AbstractEmitterBlock
     {
@@ -49,7 +49,7 @@ namespace HighFive.Translator
             int pos = this.Emitter.Output.Length;
             var writerInfo = this.SaveWriter();
 
-            string globalTarget = HighFiveTypes.GetGlobalTarget(this.TypeInfo.Type.GetDefinition(), this.TypeInfo.TypeDeclaration);
+            string globalTarget = H5Types.GetGlobalTarget(this.TypeInfo.Type.GetDefinition(), this.TypeInfo.TypeDeclaration);
 
             if (globalTarget == null)
             {
@@ -109,7 +109,7 @@ namespace HighFive.Translator
                 }
                 else
                 {
-                    string structName = HighFiveTypes.ToJsName(this.TypeInfo.Type, this.Emitter);
+                    string structName = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter);
                     if (this.TypeInfo.Type.TypeArguments.Count > 0 &&
                         !Helpers.IsIgnoreGeneric(this.TypeInfo.Type, this.Emitter))
                     {
@@ -161,7 +161,7 @@ namespace HighFive.Translator
         protected virtual void EmitStructMethods()
         {
             var typeDef = this.Emitter.GetTypeDefinition();
-            string structName = HighFiveTypes.ToJsName(this.TypeInfo.Type, this.Emitter);
+            string structName = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter);
 
             bool immutable = this.Emitter.Validator.IsImmutableType(typeDef);
 
@@ -222,7 +222,7 @@ namespace HighFive.Translator
                 this.EnsureComma();
                 this.Write(JS.Funcs.EQUALS + ": function (o) ");
                 this.BeginBlock();
-                this.Write("if (!" + JS.Types.HighFive.IS + "(o, ");
+                this.Write("if (!" + JS.Types.H5.IS + "(o, ");
                 this.Write(structName);
                 this.Write(")) ");
                 this.BeginBlock();

@@ -1,4 +1,4 @@
-    HighFive.define("System.Security.SecurityException", {
+    H5.define("System.Security.SecurityException", {
         inherits: [System.SystemException],
         statics: {
             fields: {
@@ -63,7 +63,7 @@
         },
         methods: {
             toString: function () {
-                return HighFive.toString(this);
+                return H5.toString(this);
             }
         }
     });

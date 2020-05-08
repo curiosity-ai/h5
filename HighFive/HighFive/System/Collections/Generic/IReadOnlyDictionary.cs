@@ -1,14 +1,14 @@
 namespace System.Collections.Generic
 {
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.External]
+    [H5.Reflectable]
     public interface IReadOnlyDictionary<TKey, TValue> : IReadOnlyCollection<KeyValuePair<TKey, TValue>>,
         IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable
     {
-        [HighFive.AccessorsIndexer]
+        [H5.AccessorsIndexer]
         TValue this[TKey key]
         {
-            [HighFive.Name("getItem")]
+            [H5.Name("getItem")]
             get;
         }
 

@@ -3,7 +3,7 @@
     /// <summary>
     /// Converts base data types to an array of bytes, and an array of bytes to base data types.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     public static class BitConverter
     {
         /// <summary>
@@ -403,7 +403,7 @@
             var view = View(8).ToDynamic();
             view.setFloat64(0, value);
 
-            return HighFive.Script.Write<dynamic>("[view.getInt32(4), view.getInt32(0)]");
+            return H5.Script.Write<dynamic>("[view.getInt32(4), view.getInt32(0)]");
         }
 
         /// <summary>
@@ -441,14 +441,14 @@
             {
                 for (int i = count - 1; i >= 0; i--)
                 {
-                    HighFive.Script.Write("r[System.Array.index(i, r)] = view.getUint8(HighFive.identity(startIndex, (startIndex = (startIndex + 1) | 0)));");
+                    H5.Script.Write("r[System.Array.index(i, r)] = view.getUint8(H5.identity(startIndex, (startIndex = (startIndex + 1) | 0)));");
                 }
             }
             else
             {
                 for (int i = 0; i < count; i++)
                 {
-                    HighFive.Script.Write("r[System.Array.index(i1, r)] = view.getUint8(HighFive.identity(startIndex, (startIndex = (startIndex + 1) | 0)));");
+                    H5.Script.Write("r[System.Array.index(i1, r)] = view.getUint8(H5.identity(startIndex, (startIndex = (startIndex + 1) | 0)));");
                 }
             }
 
@@ -466,22 +466,22 @@
             {
                 for (int i = count - 1; i >= 0; i--)
                 {
-                    HighFive.Script.Write("view.setUint8(i, value[System.Array.index(HighFive.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);");
+                    H5.Script.Write("view.setUint8(i, value[System.Array.index(H5.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);");
                 }
             }
             else
             {
                 for (int i = 0; i < count; i++)
                 {
-                    HighFive.Script.Write("view.setUint8(i1, value[System.Array.index(HighFive.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);");
+                    H5.Script.Write("view.setUint8(i1, value[System.Array.index(H5.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);");
                 }
             }
         }
 
         private static object View(int length)
         {
-            var buffer = HighFive.Script.Write<dynamic>("new ArrayBuffer(length)");
-            var view = HighFive.Script.Write<dynamic>("new DataView(buffer)");
+            var buffer = H5.Script.Write<dynamic>("new ArrayBuffer(length)");
+            var view = H5.Script.Write<dynamic>("new DataView(buffer)");
 
             return view;
         }
@@ -490,8 +490,8 @@
         {
             var view = View(8);
 
-            HighFive.Script.Write("view.setInt32(4, value.value.low);");
-            HighFive.Script.Write("view.setInt32(0, value.value.high);");
+            H5.Script.Write("view.setInt32(4, value.value.low);");
+            H5.Script.Write("view.setInt32(0, value.value.high);");
 
             return view;
         }
@@ -530,16 +530,16 @@
             }
         }
 
-        [HighFive.Template("{0}.value.high")]
+        [H5.Template("{0}.value.high")]
         private static extern int GetLongHigh(long value);
 
-        [HighFive.Template("{0}.value.low")]
+        [H5.Template("{0}.value.low")]
         private static extern int GetLongLow(long value);
 
-        [HighFive.Template("System.Int64([{0}, {1}])")]
+        [H5.Template("System.Int64([{0}, {1}])")]
         private static extern long CreateLong(int low, int high);
 
-        [HighFive.Template("System.UInt64([{0}, {1}])")]
+        [H5.Template("System.UInt64([{0}, {1}])")]
         private static extern ulong CreateULong(int low, int high);
     }
 }

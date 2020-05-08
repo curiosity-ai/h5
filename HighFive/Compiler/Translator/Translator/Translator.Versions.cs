@@ -1,11 +1,11 @@
-using HighFive.Contract;
+using H5.Contract;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator
     {
@@ -59,15 +59,15 @@ namespace HighFive.Translator
             return assemblyVersionInfo;
         }
 
-        System.Diagnostics.FileVersionInfo highfiveVersionInfo;
-        private System.Diagnostics.FileVersionInfo GetHighFiveAssemblyVersion()
+        System.Diagnostics.FileVersionInfo h5VersionInfo;
+        private System.Diagnostics.FileVersionInfo GetH5AssemblyVersion()
         {
-            if (highfiveVersionInfo == null)
+            if (h5VersionInfo == null)
             {
-                highfiveVersionInfo = GetAssemblyVersionByPath(this.HighFiveLocation);
+                h5VersionInfo = GetAssemblyVersionByPath(this.H5Location);
             }
 
-            return highfiveVersionInfo;
+            return h5VersionInfo;
         }
 
         private System.Diagnostics.FileVersionInfo GetAssemblyVersionByPath(string path)
@@ -97,7 +97,7 @@ namespace HighFive.Translator
                 versionContext.Assembly = GetVersionFromFileVersionInfo(GetAssemblyVersion());
                 versionContext.Assembly.Description = GetAssemblyDescription();
 
-                versionContext.HighFive = GetVersionFromFileVersionInfo(GetHighFiveAssemblyVersion());
+                versionContext.H5 = GetVersionFromFileVersionInfo(GetH5AssemblyVersion());
 
                 versionContext.Compiler = GetVersionFromFileVersionInfo(GetCompilerVersion());
             }
@@ -162,7 +162,7 @@ namespace HighFive.Translator
         {
             var compilerInfo = this.GetCompilerVersion();
 
-            var highfiveInfo = this.GetHighFiveAssemblyVersion();
+            var h5Info = this.GetH5AssemblyVersion();
 
             this.Log.Info("Product info:");
             if (compilerInfo != null)
@@ -174,9 +174,9 @@ namespace HighFive.Translator
                 this.Log.Info("Not found");
             }
 
-            if (highfiveInfo != null)
+            if (h5Info != null)
             {
-                this.Log.Info(string.Format("\t[{0} Framework, version {1}]", highfiveInfo.ProductName, highfiveInfo.ProductVersion));
+                this.Log.Info(string.Format("\t[{0} Framework, version {1}]", h5Info.ProductName, h5Info.ProductVersion));
             }
 
             if (compilerInfo != null)

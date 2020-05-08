@@ -1,4 +1,4 @@
-    HighFive.define("System.Version", {
+    H5.define("System.Version", {
         inherits: function () { return [System.ICloneable,System.IComparable$1(System.Version),System.IEquatable$1(System.Version)]; },
         statics: {
             fields: {
@@ -18,7 +18,7 @@
 
                     do {
                         reminder = num % 10;
-                        num = (HighFive.Int.div(num, 10)) | 0;
+                        num = (H5.Int.div(num, 10)) | 0;
                         sb.insert(index, String.fromCharCode(((((System.Version.ZERO_CHAR_VALUE + reminder) | 0)) & 65535)));
                     } while (num > 0);
                 },
@@ -104,8 +104,8 @@
                     return true;
                 },
                 op_Equality: function (v1, v2) {
-                    if (HighFive.referenceEquals(v1, null)) {
-                        return HighFive.referenceEquals(v2, null);
+                    if (H5.referenceEquals(v1, null)) {
+                        return H5.referenceEquals(v2, null);
                     }
 
                     return v1.equalsT(v2);
@@ -164,12 +164,12 @@
             },
             MajorRevision: {
                 get: function () {
-                    return HighFive.Int.sxs((this._Revision >> 16) & 65535);
+                    return H5.Int.sxs((this._Revision >> 16) & 65535);
                 }
             },
             MinorRevision: {
                 get: function () {
-                    return HighFive.Int.sxs((this._Revision & 65535) & 65535);
+                    return H5.Int.sxs((this._Revision & 65535) & 65535);
                 }
             }
         },
@@ -265,7 +265,7 @@
                     return 1;
                 }
 
-                var v = HighFive.as(version, System.Version);
+                var v = H5.as(version, System.Version);
                 if (System.Version.op_Equality(v, null)) {
                     throw new System.ArgumentException.$ctor1("version should be of System.Version type");
                 }
@@ -344,7 +344,7 @@
                 return 0;
             },
             equals: function (obj) {
-                return this.equalsT(HighFive.as(obj, System.Version));
+                return this.equalsT(H5.as(obj, System.Version));
             },
             equalsT: function (obj) {
                 if (System.Version.op_Equality(obj, null)) {
@@ -383,7 +383,7 @@
                     case 0: 
                         return ("");
                     case 1: 
-                        return (HighFive.toString(this._Major));
+                        return (H5.toString(this._Major));
                     case 2: 
                         sb = new System.Text.StringBuilder();
                         System.Version.appendPositiveNumber(this._Major, sb);

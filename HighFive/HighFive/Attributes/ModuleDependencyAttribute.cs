@@ -1,6 +1,6 @@
 using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     ///

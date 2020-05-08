@@ -1,11 +1,11 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class DefaultValueBlock : AbstractEmitterBlock
     {
@@ -43,7 +43,7 @@ namespace HighFive.Translator
                 return isString ? "null" : "0";
             }
 
-            return JS.Funcs.HIGHFIVE_GETDEFAULTVALUE + "(" + (astType != null ? HighFiveTypes.ToJsName(astType, emitter) : HighFiveTypes.ToJsName(resolveResult.Type, emitter)) + ")";
+            return JS.Funcs.HIGHFIVE_GETDEFAULTVALUE + "(" + (astType != null ? H5Types.ToJsName(astType, emitter) : H5Types.ToJsName(resolveResult.Type, emitter)) + ")";
         }
     }
 }

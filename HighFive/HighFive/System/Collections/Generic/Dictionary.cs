@@ -1,6 +1,6 @@
 namespace System.Collections.Generic
 {
-    using HighFive;
+    using H5;
     using System;
     using System.Collections;
     //using System.Diagnostics.Contracts;
@@ -147,12 +147,12 @@ namespace System.Collections.Generic
             }
         }
 
-        [HighFive.Template("{obj}[{key}]")]
-        [HighFive.External]
+        [H5.Template("{obj}[{key}]")]
+        [H5.External]
         public static extern int GetBucket(object obj, TKey key);
 
-        [HighFive.Template("{obj}[{key}] = {value}")]
-        [HighFive.External]
+        [H5.Template("{obj}[{key}] = {value}")]
+        [H5.External]
         public static extern void SetBucket(object obj, TKey key, int value);
 
         public void Add(TKey key, TValue value)

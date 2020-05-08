@@ -18,7 +18,7 @@ using System.Collections;
 
 namespace System.Resources
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     public interface IResourceReader : IEnumerable, IDisposable
     {
         // Interface does not need to be marked with the serializable attribute

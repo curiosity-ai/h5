@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IReflectionConfig
     {

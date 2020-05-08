@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sk-SK", true), {
+H5.merge(new System.Globalization.CultureInfo("sk-SK", true), {
     englishName: "Slovak (Slovakia)",
     nativeName: "slovenčina (Slovensko)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sk-SK", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ne","po","ut","st","št","pi","so"],
         abbreviatedMonthGenitiveNames: ["jan","feb","mar","apr","máj","jún","júl","aug","sep","okt","nov","dec",""],
         abbreviatedMonthNames: ["jan","feb","mar","apr","máj","jún","júl","aug","sep","okt","nov","dec",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sk-SK", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1250,
         CultureName: "sk-SK",
         EBCDICCodePage: 20880,

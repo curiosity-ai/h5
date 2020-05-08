@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ba-RU", true), {
+H5.merge(new System.Globalization.CultureInfo("ba-RU", true), {
     englishName: "Bashkir (Russia)",
     nativeName: "Башҡорт (Рәсәй)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ba-RU", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Йш","Дш","Шш","Шр","Кс","Йм","Шб"],
         abbreviatedMonthGenitiveNames: ["ғин","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек",""],
         abbreviatedMonthNames: ["ғин","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ba-RU", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "ba-RU",
         EBCDICCodePage: 20880,

@@ -1,4 +1,4 @@
-    HighFive.define("System.ApplicationException", {
+    H5.define("System.ApplicationException", {
         inherits: [System.Exception],
         ctors: {
             ctor: function () {

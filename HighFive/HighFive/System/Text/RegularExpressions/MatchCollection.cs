@@ -5,9 +5,9 @@ namespace System.Text.RegularExpressions
     /// <summary>
     /// Represents the set of successful matches found by iteratively applying a regular expression pattern to the input string.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public class MatchCollection : ICollection
     {
         internal extern MatchCollection(Regex regex, string input, int beginning, int length, int startat);
@@ -17,7 +17,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern int Count
         {
-            [HighFive.Template("getCount()")]
+            [H5.Template("getCount()")]
             get;
         }
 
@@ -26,7 +26,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern object SyncRoot
         {
-            [HighFive.Template("getSyncRoot()")]
+            [H5.Template("getSyncRoot()")]
             get;
         }
 
@@ -35,7 +35,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern bool IsSynchronized
         {
-            [HighFive.Template("getIsSynchronized()")]
+            [H5.Template("getIsSynchronized()")]
             get;
         }
 
@@ -44,7 +44,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern bool IsReadOnly
         {
-            [HighFive.Template("getIsReadOnly()")]
+            [H5.Template("getIsReadOnly()")]
             get;
         }
 
@@ -53,7 +53,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern virtual Match this[int i]
         {
-            [HighFive.Template("get({0})")]
+            [H5.Template("get({0})")]
             get;
         }
 
@@ -65,7 +65,7 @@ namespace System.Text.RegularExpressions
         /// <summary>
         /// Provides an enumerator that iterates through the collection.
         /// </summary>
-        [HighFive.Convention(HighFive.Notation.None)]
+        [H5.Convention(H5.Notation.None)]
         public extern IEnumerator GetEnumerator();
     }
 }

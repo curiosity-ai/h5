@@ -1,4 +1,4 @@
-    HighFive.define("System.ArgumentException", {
+    H5.define("System.ArgumentException", {
         inherits: [System.SystemException],
         fields: {
             _paramName: null
@@ -6,7 +6,7 @@
         props: {
             Message: {
                 get: function () {
-                    var s = HighFive.ensureBaseProperty(this, "Message").$System$Exception$Message;
+                    var s = H5.ensureBaseProperty(this, "Message").$System$Exception$Message;
                     if (!System.String.isNullOrEmpty(this._paramName)) {
                         var resourceString = System.SR.Format("Parameter name: {0}", this._paramName);
                         return (s || "") + ("\n" || "") + (resourceString || "");

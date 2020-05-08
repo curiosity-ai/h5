@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("km-KH", true), {
+H5.merge(new System.Globalization.CultureInfo("km-KH", true), {
     englishName: "Khmer (Cambodia)",
     nativeName: "ភាសាខ្មែរ (កម្ពុជា)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("km-KH", true), {
         numberNegativePattern: 2
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["អាទិ.","ច.","អ.","ពុ","ព្រហ.","សុ.","ស."],
         abbreviatedMonthGenitiveNames: ["១","២","៣","៤","៥","៦","៧","៨","៩","១០","១១","១២",""],
         abbreviatedMonthNames: ["១","២","៣","៤","៥","៦","៧","៨","៩","១០","១១","១២",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("km-KH", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "km-KH",
         EBCDICCodePage: 500,

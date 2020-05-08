@@ -1,4 +1,4 @@
-    HighFive.define("System.UnitySerializationHolder", {
+    H5.define("System.UnitySerializationHolder", {
         inherits: [System.Runtime.Serialization.ISerializable,System.Runtime.Serialization.IObjectReference],
         statics: {
             fields: {

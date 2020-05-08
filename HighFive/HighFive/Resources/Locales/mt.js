@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mt", true), {
+H5.merge(new System.Globalization.CultureInfo("mt", true), {
     englishName: "Maltese",
     nativeName: "Malti",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mt", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Ħad","Tne","Tli","Erb","Ħam","Ġim","Sib"],
         abbreviatedMonthGenitiveNames: ["Jan","Fra","Mar","Apr","Mej","Ġun","Lul","Aww","Set","Ott","Nov","Diċ",""],
         abbreviatedMonthNames: ["Jan","Fra","Mar","Apr","Mej","Ġun","Lul","Aww","Set","Ott","Nov","Diċ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mt", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mt-MT",
         EBCDICCodePage: 500,

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ko-KP", true), {
+H5.merge(new System.Globalization.CultureInfo("ko-KP", true), {
     englishName: "Korean (North Korea)",
     nativeName: "한국어 (조선민주주의인민공화국)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ko-KP", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["일","월","화","수","목","금","토"],
         abbreviatedMonthGenitiveNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월",""],
         abbreviatedMonthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ko-KP", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ko-KP",
         EBCDICCodePage: 500,

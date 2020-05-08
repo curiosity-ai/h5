@@ -3,7 +3,7 @@ using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IMemberResolver
     {

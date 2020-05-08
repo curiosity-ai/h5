@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ne-NP", true), {
+H5.merge(new System.Globalization.CultureInfo("ne-NP", true), {
     englishName: "Nepali (Nepal)",
     nativeName: "नेपाली (नेपाल)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ne-NP", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["आइत","सोम","मङ्गल","बुध","बिही","शुक्र","शनि"],
         abbreviatedMonthGenitiveNames: ["जन","फेब","मार्च","अप्रिल","मे","जून","जुलाई","अग","सेप्ट","अक्ट","नोभ","डिस",""],
         abbreviatedMonthNames: ["जन","फेब","मार्च","अप्रिल","मे","जून","जुलाई","अग","सेप्ट","अक्ट","नोभ","डिस",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ne-NP", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ne-NP",
         EBCDICCodePage: 500,

@@ -1,5 +1,5 @@
-﻿using HighFive.Contract;
-using HighFive.Contract.Constants;
+﻿using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -7,7 +7,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ExpressionListBlock : AbstractEmitterBlock
     {
@@ -82,7 +82,7 @@ namespace HighFive.Translator
                 var rr = this.Emitter.Resolver.ResolveNode(this.InvocationExpression, this.Emitter) as CSharpInvocationResolveResult;
                 if (rr != null)
                 {
-                    expandParams = rr.Member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute");
+                    expandParams = rr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                     wrapByBrackets = rr.IsExpandedForm && !expandParams;
                 }
             }
@@ -182,7 +182,7 @@ namespace HighFive.Translator
 
                     if (byReferenceResolveResult != null && !(byReferenceResolveResult.ElementResult is LocalResolveResult))
                     {
-                        if (byReferenceResolveResult.ElementResult is MemberResolveResult mr && mr.Member.FullName == "HighFive.Ref.Value" && directExpr.Expression is MemberReferenceExpression mre)
+                        if (byReferenceResolveResult.ElementResult is MemberResolveResult mr && mr.Member.FullName == "H5.Ref.Value" && directExpr.Expression is MemberReferenceExpression mre)
                         {
                             mre.Target.AcceptVisitor(this.Emitter);
                         }

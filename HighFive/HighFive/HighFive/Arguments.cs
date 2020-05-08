@@ -1,4 +1,4 @@
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// Provides access to the arguments of the current function.

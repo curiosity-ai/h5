@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.SortedList.SortedListEnumerator", {
+    H5.define("System.Collections.SortedList.SortedListEnumerator", {
         inherits: [System.Collections.IDictionaryEnumerator,System.ICloneable],
         $kind: "nested class",
         statics: {
@@ -101,7 +101,7 @@
         },
         methods: {
             clone: function () {
-                return HighFive.clone(this);
+                return H5.clone(this);
             },
             moveNext: function () {
                 var $t, $t1;

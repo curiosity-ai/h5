@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class Rules
     {
-        private static string attributeName = "HighFive.RulesAttribute";
+        private static string attributeName = "H5.RulesAttribute";
 
         public static CompilerRule Default = new CompilerRule
         {

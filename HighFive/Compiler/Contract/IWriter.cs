@@ -1,6 +1,6 @@
 using System;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IWriter
     {

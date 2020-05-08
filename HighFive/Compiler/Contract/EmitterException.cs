@@ -1,7 +1,7 @@
 using ICSharpCode.NRefactory.CSharp;
 using System;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class EmitterException : Exception, IVisitorException
     {

@@ -2,17 +2,17 @@ using System.Collections.Generic;
 
 namespace System.Threading.Tasks
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.IgnoreGeneric]
-    [HighFive.Name("System.Threading.Tasks.TaskCompletionSource")]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.IgnoreGeneric]
+    [H5.Name("System.Threading.Tasks.TaskCompletionSource")]
+    [H5.Reflectable]
     public class TaskCompletionSource<TResult>
     {
         public extern TaskCompletionSource();
         public extern TaskCompletionSource(object state);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern Task<TResult> Task
         {
             get;

@@ -1,4 +1,4 @@
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class VersionContext
     {
@@ -35,7 +35,7 @@ namespace HighFive.Contract
             get; set;
         }
 
-        public AssemblyVersion HighFive
+        public AssemblyVersion H5
         {
             get; set;
         }

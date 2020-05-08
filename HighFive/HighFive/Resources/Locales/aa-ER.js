@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("aa-ER", true), {
+H5.merge(new System.Globalization.CultureInfo("aa-ER", true), {
     englishName: "Afar (Eritrea)",
     nativeName: "Qafar (Eretria)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("aa-ER", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Aca","Etl","Tal","Arb","Kam","Gum","Sab"],
         abbreviatedMonthGenitiveNames: ["Qun","Nah","Cig","Agd","Cax","Qas","Qad","Leq","Way","Dit","Xim","Kax",""],
         abbreviatedMonthNames: ["Qun","Nah","Cig","Agd","Cax","Qas","Qad","Leq","Way","Dit","Xim","Kax",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("aa-ER", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "aa-ER",
         EBCDICCodePage: 500,

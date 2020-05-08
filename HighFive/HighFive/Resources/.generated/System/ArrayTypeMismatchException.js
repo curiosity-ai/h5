@@ -1,4 +1,4 @@
-    HighFive.define("System.ArrayTypeMismatchException", {
+    H5.define("System.ArrayTypeMismatchException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

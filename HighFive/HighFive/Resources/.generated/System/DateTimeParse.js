@@ -1,4 +1,4 @@
-    HighFive.define("System.DateTimeParse", {
+    H5.define("System.DateTimeParse", {
         statics: {
             methods: {
                 TryParseExact: function (s, format, dtfi, style, result) {

@@ -2,28 +2,28 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.IgnoreGeneric]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.IgnoreGeneric]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     public interface IOrderedEnumerable<TSource> : IEnumerable<TSource>
     {
-        [HighFive.Template("thenBy({keySelector})")]
+        [H5.Template("thenBy({keySelector})")]
         IOrderedEnumerable<TSource> ThenBy<TKey>(Func<TSource, TKey> keySelector);
 
-        [HighFive.Template("thenBy({keySelector}, {comparer})")]
+        [H5.Template("thenBy({keySelector}, {comparer})")]
         IOrderedEnumerable<TSource> ThenBy<TKey>(Func<TSource, TKey> keySelector, IComparer<TKey> comparer);
 
-        [HighFive.Template("thenByDescending({keySelector})")]
+        [H5.Template("thenByDescending({keySelector})")]
         IOrderedEnumerable<TSource> ThenByDescending<TKey>(Func<TSource, TKey> keySelector);
 
-        [HighFive.Template("thenByDescending({keySelector}, {comparer})")]
+        [H5.Template("thenByDescending({keySelector}, {comparer})")]
         IOrderedEnumerable<TSource> ThenByDescending<TKey>(Func<TSource, TKey> keySelector, IComparer<TKey> comparer);
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.IgnoreGeneric]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.IgnoreGeneric]
     public class OrderedEnumerable<TElement> : EnumerableInstance<TElement>, IOrderedEnumerable<TElement>
     {
         internal extern OrderedEnumerable();

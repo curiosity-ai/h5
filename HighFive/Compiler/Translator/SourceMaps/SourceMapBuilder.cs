@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class SourceMapBuilder
     {
@@ -82,7 +82,7 @@ namespace HighFive.Translator
             _entries.Add(new SourceMapEntry(sourceLocation, scriptLine, scriptColumn));
         }
 
-        public string Build(string[] sourcesContent, HighFive.Contract.UnicodeNewline? forceEol = null)
+        public string Build(string[] sourcesContent, H5.Contract.UnicodeNewline? forceEol = null)
         {
             ResetPreviousSourceLocation();
 
@@ -225,7 +225,7 @@ namespace HighFive.Translator
             Uri folderUri = new Uri(folder);
 
             var path = folderUri.MakeRelativeUri(pathUri).ToString();
-            path = new HighFive.Contract.ConfigHelper().ConvertPath(path, '/');
+            path = new H5.Contract.ConfigHelper().ConvertPath(path, '/');
 
             return Uri.UnescapeDataString(path);
         }

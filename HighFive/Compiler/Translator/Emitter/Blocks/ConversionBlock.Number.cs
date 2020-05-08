@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
@@ -7,7 +7,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 
 using System;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public abstract partial class ConversionBlock
     {
@@ -93,7 +93,7 @@ namespace HighFive.Translator
                 else if (Helpers.IsDecimalType(toType, block.Emitter.Resolver) && !Helpers.IsDecimalType(fromType, block.Emitter.Resolver))
                 {
                     block.Write(JS.Types.SYSTEM_DECIMAL + "(");
-                    block.AfterOutput += ", null, " + HighFiveTypes.ToJsName(fromType, block.Emitter) + ")";
+                    block.AfterOutput += ", null, " + H5Types.ToJsName(fromType, block.Emitter) + ")";
                 }
                 else if (Helpers.IsDecimalType(fromType, block.Emitter.Resolver))
                 {
@@ -302,7 +302,7 @@ namespace HighFive.Translator
             else
             {
                 block.Write(JS.Types.SYSTEM_DECIMAL + ".toInt(");
-                block.AfterOutput = ", " + HighFiveTypes.ToJsName(expectedType, block.Emitter) + ")";
+                block.AfterOutput = ", " + H5Types.ToJsName(expectedType, block.Emitter) + ")";
             }
         }
 
@@ -320,7 +320,7 @@ namespace HighFive.Translator
                 block.WriteOpenParentheses();
 
                 block.AfterOutput += ", ";
-                block.AfterOutput += HighFiveTypes.ToJsName(expectedType, block.Emitter);
+                block.AfterOutput += H5Types.ToJsName(expectedType, block.Emitter);
                 block.AfterOutput += ")";
             }
             else
@@ -471,7 +471,7 @@ namespace HighFive.Translator
                 }
 
                 block.AfterOutput += ", ";
-                block.AfterOutput += HighFiveTypes.ToJsName(targetType, block.Emitter);
+                block.AfterOutput += H5Types.ToJsName(targetType, block.Emitter);
                 block.AfterOutput += ")";
             }
             else

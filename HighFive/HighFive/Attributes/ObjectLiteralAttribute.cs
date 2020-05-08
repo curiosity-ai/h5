@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     [NonScriptable]
     [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface)]
@@ -24,7 +24,7 @@ namespace HighFive
     }
 
     [NonScriptable]
-    [Enum(HighFive.Emit.Value)]
+    [Enum(H5.Emit.Value)]
     public enum ObjectInitializationMode
     {
         /// <summary>
@@ -44,7 +44,7 @@ namespace HighFive
     }
 
     [NonScriptable]
-    [Enum(HighFive.Emit.Value)]
+    [Enum(H5.Emit.Value)]
     public enum ObjectCreateMode
     {
         /// <summary>

@@ -7,11 +7,11 @@
   <PropertyGroup>
     <DefineConstants>HIGHFIVE_COMPILER</DefineConstants>
     <OutputType>Exe</OutputType>
-    <StartupObject>HighFive.Builder.Program</StartupObject>
+    <StartupObject>H5.Builder.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>highfive</AssemblyName>
+    <AssemblyName>h5</AssemblyName>
   </PropertyGroup>
 
 
@@ -51,7 +51,7 @@
     <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />
     <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" />
     <ProjectReference Include="..\..\..\External\Object.Net.Utilities\Object.Net.Utilities.csproj" />
-    <ProjectReference Include="..\Contract\HighFive.Contract.csproj" />
-    <ProjectReference Include="..\Translator\HighFive.Translator.csproj" />
+    <ProjectReference Include="..\Contract\H5.Contract.csproj" />
+    <ProjectReference Include="..\Translator\H5.Translator.csproj" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("bez", true), {
+H5.merge(new System.Globalization.CultureInfo("bez", true), {
     englishName: "Bena",
     nativeName: "Hibena",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("bez", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Mul","Vil","Hiv","Hid","Hit","Hih","Lem"],
         abbreviatedMonthGenitiveNames: ["Hut","Vil","Dat","Tai","Han","Sit","Sab","Nan","Tis","Kum","Kmj","Kmb",""],
         abbreviatedMonthNames: ["Hut","Vil","Dat","Tai","Han","Sit","Sab","Nan","Tis","Kum","Kmj","Kmb",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("bez", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "bez-TZ",
         EBCDICCodePage: 500,

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ru", true), {
+H5.merge(new System.Globalization.CultureInfo("ru", true), {
     englishName: "Russian",
     nativeName: "русский",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "не число",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ru", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"],
         abbreviatedMonthGenitiveNames: ["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек",""],
         abbreviatedMonthNames: ["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ru", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "ru-RU",
         EBCDICCodePage: 20880,

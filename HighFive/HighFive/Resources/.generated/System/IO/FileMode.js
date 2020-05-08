@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.FileMode", {
+    H5.define("System.IO.FileMode", {
         $kind: "enum",
         statics: {
             fields: {

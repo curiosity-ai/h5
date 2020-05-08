@@ -1,19 +1,19 @@
-    HighFive.Reflection = {
+    H5.Reflection = {
         deferredMeta: [],
 
         setMetadata: function (type, metadata, ns) {
-            if (HighFive.isString(type)) {
+            if (H5.isString(type)) {
                 var typeName = type;
-                type = HighFive.unroll(typeName);
+                type = H5.unroll(typeName);
 
                 if (type == null) {
-                    HighFive.Reflection.deferredMeta.push({ typeName: typeName, metadata: metadata, ns: ns });
+                    H5.Reflection.deferredMeta.push({ typeName: typeName, metadata: metadata, ns: ns });
                     return;
                 }
             }
 
-            ns = HighFive.unroll(ns);
-            type.$getMetadata = HighFive.Reflection.getMetadata;
+            ns = H5.unroll(ns);
+            type.$getMetadata = H5.Reflection.getMetadata;
             type.$metadata = metadata;
         },
 
@@ -40,9 +40,9 @@
                         m.s.td = type;
                     }
 
-                    if (m.tprm && HighFive.isArray(m.tprm)) {
+                    if (m.tprm && H5.isArray(m.tprm)) {
                         for (var j = 0; j < m.tprm.length; j++) {
-                            m.tprm[j] = HighFive.Reflection.createTypeParam(m.tprm[j], type, m, j);
+                            m.tprm[j] = H5.Reflection.createTypeParam(m.tprm[j], type, m, j);
                         }
                     }
                 }
@@ -67,7 +67,7 @@
                 if (this.$typeArguments) {
                     metadata = this.$metadata.apply(null, this.$typeArguments);
                 } else if (this.$isGenericTypeDefinition) {
-                    var arr = HighFive.Reflection.createTypeParams(this.$metadata);
+                    var arr = H5.Reflection.createTypeParams(this.$metadata);
                     this.$typeArguments = arr;
                     metadata = this.$metadata.apply(null, arr);
                 } else {
@@ -76,7 +76,7 @@
             }
 
             if (!this.$initMetaData && metadata) {
-                HighFive.Reflection.initMetaData(this, metadata);
+                H5.Reflection.initMetaData(this, metadata);
             }
 
             return metadata;
@@ -90,7 +90,7 @@
             args = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(/([^\s,]+)/g) || [];
 
             for (var i = 0; i < args.length; i++) {
-                names.push(HighFive.Reflection.createTypeParam(args[i], t, null, i));
+                names.push(H5.Reflection.createTypeParam(args[i], t, null, i));
             }
 
             return names;
@@ -150,7 +150,7 @@
         },
 
         isGenericType: function (type) {
-            return type.$genericTypeDefinition != null || HighFive.Reflection.isGenericTypeDefinition(type);
+            return type.$genericTypeDefinition != null || H5.Reflection.isGenericTypeDefinition(type);
         },
 
         convertType: function (type) {
@@ -174,10 +174,10 @@
         },
 
         getBaseType: function (type) {
-            if (HighFive.isObject(type) || HighFive.Reflection.isInterface(type) || type.prototype == null) {
+            if (H5.isObject(type) || H5.Reflection.isInterface(type) || type.prototype == null) {
                 return null;
             } else if (Object.getPrototypeOf) {
-                return HighFive.Reflection.convertType(Object.getPrototypeOf(type.prototype).constructor);
+                return H5.Reflection.convertType(Object.getPrototypeOf(type.prototype).constructor);
             } else {
                 var p = type.prototype;
 
@@ -187,13 +187,13 @@
                     try {
                         ownValue = p.constructor;
                         delete p.constructor;
-                        return HighFive.Reflection.convertType(p.constructor);
+                        return H5.Reflection.convertType(p.constructor);
                     } finally {
                         p.constructor = ownValue;
                     }
                 }
 
-                return HighFive.Reflection.convertType(p.constructor);
+                return H5.Reflection.convertType(p.constructor);
             }
         },
 
@@ -207,7 +207,7 @@
             }
 
             if (str) {
-                var ns = HighFive.Reflection.getTypeNamespace(obj, str);
+                var ns = H5.Reflection.getTypeNamespace(obj, str);
 
                 if (ns) {
                     var idx = str.indexOf("[");
@@ -248,11 +248,11 @@
         },
 
         getTypeQName: function (type) {
-            return HighFive.Reflection._makeQName(HighFive.Reflection.getTypeFullName(type), type.$assembly);
+            return H5.Reflection._makeQName(H5.Reflection.getTypeFullName(type), type.$assembly);
         },
 
         getTypeName: function (type) {
-            var fullName = HighFive.Reflection.getTypeFullName(type),
+            var fullName = H5.Reflection.getTypeFullName(type),
                 bIndex = fullName.indexOf("["),
                 pIndex = fullName.lastIndexOf("+", bIndex >= 0 ? bIndex : fullName.length),
                 nsIndex = pIndex > -1 ? pIndex : fullName.lastIndexOf(".", bIndex >= 0 ? bIndex : fullName.length);
@@ -263,16 +263,16 @@
         },
 
         getTypeNamespace: function (type, name) {
-            var fullName = name || HighFive.Reflection.getTypeFullName(type),
+            var fullName = name || H5.Reflection.getTypeFullName(type),
                 bIndex = fullName.indexOf("["),
                 nsIndex = fullName.lastIndexOf(".", bIndex >= 0 ? bIndex : fullName.length),
                 ns = nsIndex > 0 ? fullName.substr(0, nsIndex) : "";
 
             if (type.$assembly) {
-                var parentType = HighFive.Reflection._getAssemblyType(type.$assembly, ns);
+                var parentType = H5.Reflection._getAssemblyType(type.$assembly, ns);
 
                 if (parentType) {
-                    ns = HighFive.Reflection.getTypeNamespace(parentType);
+                    ns = H5.Reflection.getTypeNamespace(parentType);
                 }
             }
 
@@ -281,14 +281,14 @@
 
         getTypeAssembly: function (type) {
             if (type.$isArray) {
-                return HighFive.Reflection.getTypeAssembly(type.$elementType);
+                return H5.Reflection.getTypeAssembly(type.$elementType);
             }
 
             if (System.Array.contains([Date, Number, Boolean, String, Function, Array], type)) {
-                return HighFive.SystemAssembly;
+                return H5.SystemAssembly;
             }
 
-            return type.$assembly || HighFive.SystemAssembly;
+            return type.$assembly || H5.SystemAssembly;
         },
 
         _extractArrayRank: function (name) {
@@ -322,11 +322,11 @@
             }
 
             if (!asm) {
-                asm = HighFive.SystemAssembly;
+                asm = H5.SystemAssembly;
                 noAsm = true;
             }
 
-            var rankInfo = HighFive.Reflection._extractArrayRank(name);
+            var rankInfo = H5.Reflection._extractArrayRank(name);
             rank = rankInfo.rank;
             name = rankInfo.name;
 
@@ -338,7 +338,7 @@
                 }
 
                 if (asm.name === "mscorlib") {
-                    asm = HighFive.global;
+                    asm = H5.global;
                 } else {
                     return null;
                 }
@@ -379,7 +379,7 @@
                         }
                     }
 
-                    if (typeof (s) === "function" && HighFive.isUpper(n.charCodeAt(0))) {
+                    if (typeof (s) === "function" && H5.isUpper(n.charCodeAt(0))) {
                         result.push(s);
                     }
                 };
@@ -391,9 +391,9 @@
         },
 
         createAssemblyInstance: function (asm, typeName) {
-            var t = HighFive.Reflection.getType(typeName, asm);
+            var t = H5.Reflection.getType(typeName, asm);
 
-            return t ? HighFive.createInstance(t) : null;
+            return t ? H5.createInstance(t) : null;
         },
 
         getInterfaces: function (type) {
@@ -404,12 +404,12 @@
             } else if (type === Date) {
                 return [System.IComparable$1(Date), System.IEquatable$1(Date), System.IComparable, System.IFormattable];
             } else if (type === Number) {
-                return [System.IComparable$1(HighFive.Int), System.IEquatable$1(HighFive.Int), System.IComparable, System.IFormattable];
+                return [System.IComparable$1(H5.Int), System.IEquatable$1(H5.Int), System.IComparable, System.IFormattable];
             } else if (type === Boolean) {
                 return [System.IComparable$1(Boolean), System.IEquatable$1(Boolean), System.IComparable];
             } else if (type === String) {
                 return [System.IComparable$1(String), System.IEquatable$1(String), System.IComparable, System.ICloneable, System.Collections.IEnumerable, System.Collections.Generic.IEnumerable$1(System.Char)];
-            } else if (type === Array || type.$isArray || (t = System.Array._typedArrays[HighFive.getTypeName(type)])) {
+            } else if (type === Array || type.$isArray || (t = System.Array._typedArrays[H5.getTypeName(type)])) {
                 t = t || type.$elementType || System.Object;
                 return [System.Collections.IEnumerable, System.Collections.ICollection, System.ICloneable, System.Collections.IList, System.Collections.Generic.IEnumerable$1(t), System.Collections.Generic.ICollection$1(t), System.Collections.Generic.IList$1(t)];
             } else {
@@ -418,7 +418,7 @@
         },
 
         isInstanceOfType: function (instance, type) {
-            return HighFive.is(instance, type);
+            return H5.is(instance, type);
         },
 
         isAssignableFrom: function (baseType, type) {
@@ -430,11 +430,11 @@
                 return false;
             }
 
-            if (baseType === type || HighFive.isObject(baseType)) {
+            if (baseType === type || H5.isObject(baseType)) {
                 return true;
             }
 
-            if (HighFive.isFunction(baseType.isAssignableFrom)) {
+            if (H5.isFunction(baseType.isAssignableFrom)) {
                 return baseType.isAssignableFrom(type);
             }
 
@@ -442,16 +442,16 @@
                 return System.Array.is([], baseType);
             }
 
-            if (HighFive.Reflection.isInterface(baseType) && System.Array.contains(HighFive.Reflection.getInterfaces(type), baseType)) {
+            if (H5.Reflection.isInterface(baseType) && System.Array.contains(H5.Reflection.getInterfaces(type), baseType)) {
                 return true;
             }
 
             if (baseType.$elementType && baseType.$isArray && type.$elementType && type.$isArray) {
-                if (HighFive.Reflection.isValueType(baseType.$elementType) !== HighFive.Reflection.isValueType(type.$elementType)) {
+                if (H5.Reflection.isValueType(baseType.$elementType) !== H5.Reflection.isValueType(type.$elementType)) {
                     return false;
                 }
 
-                return baseType.$rank === type.$rank && HighFive.Reflection.isAssignableFrom(baseType.$elementType, type.$elementType);
+                return baseType.$rank === type.$rank && H5.Reflection.isAssignableFrom(baseType.$elementType, type.$elementType);
             }
 
             var inheritors = type.$$inherits,
@@ -460,7 +460,7 @@
 
             if (inheritors) {
                 for (i = 0; i < inheritors.length; i++) {
-                    r = HighFive.Reflection.isAssignableFrom(baseType, inheritors[i]);
+                    r = H5.Reflection.isAssignableFrom(baseType, inheritors[i]);
 
                     if (r) {
                         return true;
@@ -493,7 +493,7 @@
             if (type === Function || type === System.Type) {
                 return true;
             }
-            return ((HighFive.Reflection.getMetaValue(type, "att", 0) & 128) != 0);
+            return ((H5.Reflection.getMetaValue(type, "att", 0) & 128) != 0);
         },
 
         _getType: function (typeName, asm, re, noinit) {
@@ -534,7 +534,7 @@
                 t,
                 noasm = !asm;
 
-            //asm = asm || HighFive.$currentAssembly;
+            //asm = asm || H5.$currentAssembly;
 
             if (m) {
                 tname = typeName.substring(last, m.index);
@@ -547,7 +547,7 @@
 
                         for (; ;) {
                             next();
-                            t = HighFive.Reflection._getType(typeName, null, re);
+                            t = H5.Reflection._getType(typeName, null, re);
 
                             if (!t) {
                                 return null;
@@ -602,12 +602,12 @@
 
             tname = tname.trim();
 
-            var rankInfo = HighFive.Reflection._extractArrayRank(tname);
+            var rankInfo = H5.Reflection._extractArrayRank(tname);
             var rank = rankInfo.rank;
 
             tname = rankInfo.name;
 
-            t = HighFive.Reflection._getAssemblyType(asm, tname);
+            t = H5.Reflection._getAssemblyType(asm, tname);
 
             if (noinit) {
                 return t;
@@ -616,7 +616,7 @@
             if (!t && noasm) {
                 for (var asmName in System.Reflection.Assembly.assemblies) {
                     if (System.Reflection.Assembly.assemblies.hasOwnProperty(asmName) && System.Reflection.Assembly.assemblies[asmName] !== asm) {
-                        t = HighFive.Reflection._getType(typeName, System.Reflection.Assembly.assemblies[asmName], null,true);
+                        t = H5.Reflection._getType(typeName, System.Reflection.Assembly.assemblies[asmName], null,true);
 
                         if (t) {
                             break;
@@ -643,7 +643,7 @@
                 throw new System.ArgumentNullException.$ctor1("typeName");
             }
 
-            return typeName ? HighFive.Reflection._getType(typeName, asm) : null;
+            return typeName ? H5.Reflection._getType(typeName, asm) : null;
         },
 
         isPrimitive: function (type) {
@@ -681,7 +681,7 @@
                 type === System.UInt16 ||
                 type === System.Int32 ||
                 type === System.UInt32 ||
-                type === HighFive.Int ||
+                type === H5.Int ||
                 type === System.Boolean ||
                 type === System.DateTime ||
                 type === Boolean ||
@@ -699,11 +699,11 @@
             }
 
             if (constructor.$$initCtor && constructor.$kind !== "anonymous") {
-                var md = HighFive.getMetadata(constructor),
+                var md = H5.getMetadata(constructor),
                     count = 0;
 
                 if (md) {
-                    var ctors = HighFive.Reflection.getMembers(constructor, 1, 28),
+                    var ctors = H5.Reflection.getMembers(constructor, 1, 28),
                         found;
 
                     for (var j = 0; j < ctors.length; j++) {
@@ -715,7 +715,7 @@
                             for (var k = 0; k < ctor.p.length; k++) {
                                 var p = ctor.p[k];
 
-                                if (!HighFive.is(args[k], p) || args[k] == null && !HighFive.Reflection.canAcceptNull(p)) {
+                                if (!H5.is(args[k], p) || args[k] == null && !H5.Reflection.canAcceptNull(p)) {
                                     found = false;
 
                                     break;
@@ -729,13 +729,13 @@
                         }
                     }
                 } else {
-                    if (HighFive.isFunction(constructor.ctor) && constructor.ctor.length === args.length) {
+                    if (H5.isFunction(constructor.ctor) && constructor.ctor.length === args.length) {
                         constructor = constructor.ctor;
                     } else {
                         var name = "$ctor",
                             i = 1;
 
-                        while (HighFive.isFunction(constructor[name + i])) {
+                        while (H5.isFunction(constructor[name + i])) {
                             if (constructor[name + i].length === args.length) {
                                 constructor = constructor[name + i];
                                 count++;
@@ -769,14 +769,14 @@
                 type_md;
 
             if (inherit) {
-                var b = HighFive.Reflection.getBaseType(type);
+                var b = H5.Reflection.getBaseType(type);
 
                 if (b) {
-                    a = HighFive.Reflection.getAttributes(b, attrType, true);
+                    a = H5.Reflection.getAttributes(b, attrType, true);
 
                     for (i = 0; i < a.length; i++) {
-                        t = HighFive.getType(a[i]);
-                        md = HighFive.getMetadata(t);
+                        t = H5.getType(a[i]);
+                        md = H5.getMetadata(t);
 
                         if (!md || !md.ni) {
                             result.push(a[i]);
@@ -785,19 +785,19 @@
                 }
             }
 
-            type_md = HighFive.getMetadata(type);
+            type_md = H5.getMetadata(type);
 
             if (type_md && type_md.at) {
                 for (i = 0; i < type_md.at.length; i++) {
                     a = type_md.at[i];
 
-                    if (attrType == null || HighFive.Reflection.isInstanceOfType(a, attrType)) {
-                        t = HighFive.getType(a);
-                        md = HighFive.getMetadata(t);
+                    if (attrType == null || H5.Reflection.isInstanceOfType(a, attrType)) {
+                        t = H5.getType(a);
+                        md = H5.getMetadata(t);
 
                         if (!md || !md.am) {
                             for (var j = result.length - 1; j >= 0; j--) {
-                                if (HighFive.Reflection.isInstanceOfType(result[j], t)) {
+                                if (H5.Reflection.isInstanceOfType(result[j], t)) {
                                     result.splice(j, 1);
                                 }
                             }
@@ -815,10 +815,10 @@
             var result = [];
 
             if ((bindingAttr & 72) === 72 || (bindingAttr & 6) === 4) {
-                var b = HighFive.Reflection.getBaseType(type);
+                var b = H5.Reflection.getBaseType(type);
 
                 if (b) {
-                    result = HighFive.Reflection.getMembers(b, memberTypes & ~1, bindingAttr & (bindingAttr & 64 ? 255 : 247) & (bindingAttr & 2 ? 251 : 255), name, params);
+                    result = H5.Reflection.getMembers(b, memberTypes & ~1, bindingAttr & (bindingAttr & 64 ? 255 : 247) & (bindingAttr & 2 ? 251 : 255), name, params);
                 }
             }
 
@@ -850,7 +850,7 @@
                 }
             };
 
-            var type_md = HighFive.getMetadata(type);
+            var type_md = H5.getMetadata(type);
 
             if (type_md && type_md.m) {
                 var mNames = ["g", "s", "ad", "r"];
@@ -886,7 +886,7 @@
                         return r[0];
                     }
 
-                    type = HighFive.Reflection.getBaseType(type);
+                    type = H5.Reflection.getBaseType(type);
                 }
 
                 return null;
@@ -898,7 +898,7 @@
         createDelegate: function (mi, firstArgument) {
             var isStatic = mi.is || mi.sm,
                 bind = firstArgument != null && !isStatic,
-                method = HighFive.Reflection.midel(mi, firstArgument, null, bind);
+                method = H5.Reflection.midel(mi, firstArgument, null, bind);
 
             if (!bind) {
                 if (isStatic) {
@@ -986,10 +986,10 @@
                     p = params[i] || params[params.length - 1];
                     v = arguments[i];
 
-                    args[i] = p && p.pt === System.Object ? v : HighFive.unbox(arguments[i]);
+                    args[i] = p && p.pt === System.Object ? v : H5.unbox(arguments[i]);
 
-                    if (v == null && p && HighFive.Reflection.isValueType(p.pt)) {
-                        args[i] = HighFive.getDefaultValue(p.pt);
+                    if (v == null && p && H5.Reflection.isValueType(p.pt)) {
+                        args[i] = H5.getDefaultValue(p.pt);
                     }
                 }
 
@@ -998,7 +998,7 @@
                 return v != null && mi.box ? mi.box(v) : v;
             };
 
-            return bind !== false ? HighFive.fn.bind(target, method) : method;
+            return bind !== false ? H5.fn.bind(target, method) : method;
         },
 
         invokeCI: function (ci, args) {
@@ -1015,7 +1015,7 @@
                     return (ci.sn ? ci.td[ci.sn] : ci.td).apply(ci.td, args);
                 }
 
-                return HighFive.Reflection.applyConstructor(ci.sn ? ci.td[ci.sn] : ci.td, args);
+                return H5.Reflection.applyConstructor(ci.sn ? ci.td[ci.sn] : ci.td, args);
             }
         },
 
@@ -1031,8 +1031,8 @@
             if (arguments.length === 3) {
                 var v = arguments[2];
 
-                if (v == null && HighFive.Reflection.isValueType(fi.rt)) {
-                    v = HighFive.getDefaultValue(fi.rt);
+                if (v == null && H5.Reflection.isValueType(fi.rt)) {
+                    v = H5.getDefaultValue(fi.rt);
                 }
 
                 obj[fi.sn] = v;
@@ -1042,27 +1042,27 @@
         },
 
         getMetaValue: function (type, name, dv) {
-            var md = type.$isTypeParameter ? type : HighFive.getMetadata(type);
+            var md = type.$isTypeParameter ? type : H5.getMetadata(type);
 
             return md ? (md[name] || dv) : dv;
         },
 
         isArray: function (type) {
-            return HighFive.arrayTypes.indexOf(type) >= 0;
+            return H5.arrayTypes.indexOf(type) >= 0;
         },
 
         isValueType: function (type) {
-            return !HighFive.Reflection.canAcceptNull(type);
+            return !H5.Reflection.canAcceptNull(type);
         },
 
         getNestedTypes: function (type, flags) {
-            var types = HighFive.Reflection.getMetaValue(type, "nested", []);
+            var types = H5.Reflection.getMetaValue(type, "nested", []);
 
             if (flags) {
                 var tmp = [];
                 for (var i = 0; i < types.length; i++) {
                     var nestedType = types[i],
-                        attrs = HighFive.Reflection.getMetaValue(nestedType, "att", 0),
+                        attrs = H5.Reflection.getMetaValue(nestedType, "att", 0),
                         access = attrs & 7,
                         isPublic = access === 1 || access === 2;
 
@@ -1079,10 +1079,10 @@
         },
 
         getNestedType: function (type, name, flags) {
-            var types = HighFive.Reflection.getNestedTypes(type, flags);
+            var types = H5.Reflection.getNestedTypes(type, flags);
 
             for (var i = 0; i < types.length; i++) {
-                if (HighFive.Reflection.getTypeName(types[i]) === name) {
+                if (H5.Reflection.getTypeName(types[i]) === name) {
                     return types[i];
                 }
             }
@@ -1091,7 +1091,7 @@
         },
 
         isGenericMethodDefinition: function (mi) {
-            return HighFive.Reflection.isGenericMethod(mi) && !mi.constructed;
+            return H5.Reflection.isGenericMethod(mi) && !mi.constructed;
         },
 
         isGenericMethod: function (mi) {
@@ -1126,7 +1126,7 @@
         },
 
         makeGenericMethod: function (mi, args) {
-            var cmi = HighFive.apply({}, mi);
+            var cmi = H5.apply({}, mi);
             cmi.tprm = args;
             cmi.p = args;
             cmi.gd = mi;
@@ -1144,7 +1144,7 @@
         }
     };
 
-    HighFive.setMetadata = HighFive.Reflection.setMetadata;
+    H5.setMetadata = H5.Reflection.setMetadata;
 
     System.Reflection.ConstructorInfo = {
         $is: function (obj) {

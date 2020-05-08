@@ -3,19 +3,19 @@ using System.Reflection;
 
 namespace System.Linq.Expressions
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("System.Object")]
-    [HighFive.Cast("{this}.ntype === 6")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("System.Object")]
+    [H5.Cast("{this}.ntype === 6")]
     public sealed class MethodCallExpression : Expression
     {
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern MethodInfo Method { get; private set; }
 
-        [HighFive.Name("obj")]
+        [H5.Name("obj")]
         public extern Expression Object { get; private set; }
 
-        [HighFive.Name("args")]
+        [H5.Name("args")]
         public extern ReadOnlyCollection<Expression> Arguments { get; private set; }
 
         internal extern MethodCallExpression();

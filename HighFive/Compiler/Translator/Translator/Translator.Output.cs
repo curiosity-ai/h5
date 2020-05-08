@@ -1,6 +1,6 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
-using HighFive.Translator.Logging;
+using H5.Contract;
+using H5.Contract.Constants;
+using H5.Translator.Logging;
 using Microsoft.Ajax.Utilities;
 using Mono.Cecil;
 using System;
@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator
     {
@@ -141,9 +141,9 @@ namespace HighFive.Translator
             var fileName = item.Name;
             var logger = this.Log;
 
-            if (fileName.Contains(HighFive.Translator.AssemblyInfo.DEFAULT_FILENAME))
+            if (fileName.Contains(H5.Translator.AssemblyInfo.DEFAULT_FILENAME))
             {
-                fileName = fileName.Replace(HighFive.Translator.AssemblyInfo.DEFAULT_FILENAME, defaultFileName);
+                fileName = fileName.Replace(H5.Translator.AssemblyInfo.DEFAULT_FILENAME, defaultFileName);
             }
 
             // Ensure filename contains no ":". It could be used like "c:/absolute/path"
@@ -272,7 +272,7 @@ namespace HighFive.Translator
             }
         }
 
-        protected virtual void AddReferencedOutput(string outputPath, AssemblyDefinition assembly, HighFiveResourceInfo resource, string fileName, Func<string, string> preHandler = null)
+        protected virtual void AddReferencedOutput(string outputPath, AssemblyDefinition assembly, H5ResourceInfo resource, string fileName, Func<string, string> preHandler = null)
         {
             this.Log.Trace("Adding referenced output " + resource.Name);
 
@@ -304,15 +304,15 @@ namespace HighFive.Translator
                         partAssemblyName = GetAssemblyNameFromResource(part.Assembly);
 
                         if (noConsole
-                            && partAssemblyName.Name == Translator.HighFive_ASSEMBLY
-                            && (string.Compare(part.Name, HighFiveConsoleName, true) == 0
-                                || string.Compare(part.Name, fileHelper.GetMinifiedJSFileName(HighFiveConsoleName), true) == 0)
+                            && partAssemblyName.Name == Translator.H5_ASSEMBLY
+                            && (string.Compare(part.Name, H5ConsoleName, true) == 0
+                                || string.Compare(part.Name, fileHelper.GetMinifiedJSFileName(H5ConsoleName), true) == 0)
                             )
                         {
-                            // Skip HighFive console resource
+                            // Skip H5 console resource
                             needPart = false;
 
-                            this.Log.Trace("Skipping this part as it is HighFive Console and the Console option disabled");
+                            this.Log.Trace("Skipping this part as it is H5 Console and the Console option disabled");
                         }
                         else
                         {
@@ -644,8 +644,8 @@ namespace HighFive.Translator
 
             this.Log.Info("Extracting Locales...");
 
-            var highfiveAssembly = this.References.FirstOrDefault(r => r.Name.Name == CS.NS.HIGHFIVE);
-            var localesResources = highfiveAssembly.MainModule.Resources.Where(r => r.Name.StartsWith(Translator.LocalesPrefix)).Cast<EmbeddedResource>();
+            var h5Assembly = this.References.FirstOrDefault(r => r.Name.Name == CS.NS.HIGHFIVE);
+            var localesResources = h5Assembly.MainModule.Resources.Where(r => r.Name.StartsWith(Translator.LocalesPrefix)).Cast<EmbeddedResource>();
             var locales = this.AssemblyInfo.Locales.Split(';');
 
             if (locales.Any(x => x == "all"))
@@ -680,7 +680,7 @@ namespace HighFive.Translator
             //        outputPath = Path.Combine(outputPath, this.AssemblyInfo.LocalesOutput);
             //    }
 
-            //    var defaultFileName = this.AssemblyInfo.LocalesFileName ?? "HighFive.Locales.js";
+            //    var defaultFileName = this.AssemblyInfo.LocalesFileName ?? "H5.Locales.js";
             //    var fileName = defaultFileName.Replace(":", "_");
             //    var oldFNlen = fileName.Length;
             //    while (Path.IsPathRooted(fileName))
@@ -758,8 +758,8 @@ namespace HighFive.Translator
             StringBuilder buffer = null;
             int bufferLength = 0;
 
-            var combinedResourcePartsMinified = new Dictionary<HighFiveResourceInfoPart, string>();
-            var combinedResourcePartsNonMinified = new Dictionary<HighFiveResourceInfoPart, string>();
+            var combinedResourcePartsMinified = new Dictionary<H5ResourceInfoPart, string>();
+            var combinedResourcePartsNonMinified = new Dictionary<H5ResourceInfoPart, string>();
 
             foreach (var referenceOutput in this.Outputs.References)
             {
@@ -856,7 +856,7 @@ namespace HighFive.Translator
             this.Log.Trace("Combining project outputs done");
         }
 
-        private void ConvertOutputItemIntoResourceInfoPart(Dictionary<HighFiveResourceInfoPart, string> resourcePartsNonMinified, Dictionary<HighFiveResourceInfoPart, string> resourcePartsMinified, TranslatorOutputItem outputItem)
+        private void ConvertOutputItemIntoResourceInfoPart(Dictionary<H5ResourceInfoPart, string> resourcePartsNonMinified, Dictionary<H5ResourceInfoPart, string> resourcePartsMinified, TranslatorOutputItem outputItem)
         {
             if (outputItem == null || outputItem.OutputType != TranslatorOutputType.JavaScript)
             {
@@ -865,11 +865,11 @@ namespace HighFive.Translator
 
             if (!outputItem.IsEmpty)
             {
-                var part = new HighFiveResourceInfoPart()
+                var part = new H5ResourceInfoPart()
                 {
                     Assembly = outputItem.Assembly,
                     Name = outputItem.Name,
-                    ResourceName = HighFiveResourcesCombinedPrefix + outputItem.Name
+                    ResourceName = H5ResourcesCombinedPrefix + outputItem.Name
                 };
 
                 resourcePartsNonMinified[part] = outputItem.Content.GetContentAsString();
@@ -877,11 +877,11 @@ namespace HighFive.Translator
 
             if (outputItem.MinifiedVersion != null && !outputItem.MinifiedVersion.IsEmpty)
             {
-                var part = new HighFiveResourceInfoPart()
+                var part = new H5ResourceInfoPart()
                 {
                     Assembly = outputItem.MinifiedVersion.Assembly,
                     Name = outputItem.MinifiedVersion.Name,
-                    ResourceName = HighFiveResourcesCombinedPrefix + outputItem.MinifiedVersion.Name
+                    ResourceName = H5ResourcesCombinedPrefix + outputItem.MinifiedVersion.Name
                 };
 
                 resourcePartsMinified[part] = outputItem.MinifiedVersion.Content.GetContentAsString();
@@ -1167,7 +1167,7 @@ namespace HighFive.Translator
 
         private CodeSettings GetMinifierSettings(string fileName)
         {
-            //Different settings depending on whether a file is an internal HighFive (like highfive.js) or user project's file
+            //Different settings depending on whether a file is an internal H5 (like h5.js) or user project's file
             if (MinifierCodeSettingsInternalFileNames.Contains(fileName.ToLower()))
             {
                 this.Log.Trace("Will use MinifierCodeSettingsInternal for " + fileName);

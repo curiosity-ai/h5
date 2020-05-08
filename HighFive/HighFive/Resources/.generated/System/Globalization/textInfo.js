@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.TextInfo", {
+    H5.define("System.Globalization.TextInfo", {
         inherits: [System.ICloneable],
         fields: {
             listSeparator: null
@@ -26,7 +26,7 @@
         alias: ["clone", "System$ICloneable$clone"],
         methods: {
             clone: function () {
-                return HighFive.copy(new System.Globalization.TextInfo(), this, System.Array.init(["ANSICodePage", "CultureName", "EBCDICCodePage", "IsRightToLeft", "LCID", "listSeparator", "MacCodePage", "OEMCodePage", "IsReadOnly"], System.String));
+                return H5.copy(new System.Globalization.TextInfo(), this, System.Array.init(["ANSICodePage", "CultureName", "EBCDICCodePage", "IsRightToLeft", "LCID", "listSeparator", "MacCodePage", "OEMCodePage", "IsReadOnly"], System.String));
             },
             VerifyWritable: function () {
                 if (this.IsReadOnly) {

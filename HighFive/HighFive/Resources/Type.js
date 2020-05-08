@@ -1,4 +1,4 @@
-﻿HighFive.define("System.Type", {
+﻿H5.define("System.Type", {
 
     statics: {
         $is: function (instance) {

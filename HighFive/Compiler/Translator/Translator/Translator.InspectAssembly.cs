@@ -1,5 +1,5 @@
 #undef PARALLEL
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.TypeSystem;
 using Mono.Cecil;
@@ -9,7 +9,7 @@ using System.Linq;
 using System;
 using System.Threading.Tasks;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator
     {
@@ -159,11 +159,11 @@ namespace HighFive.Translator
 
                     var path = Path.Combine(Path.GetDirectoryName(location), name) + ".dll";
 
-                    var updateHighFiveLocation = name.ToLowerInvariant() == "highfive" && (string.IsNullOrWhiteSpace(this.HighFiveLocation) || !File.Exists(this.HighFiveLocation));
+                    var updateH5Location = name.ToLowerInvariant() == "h5" && (string.IsNullOrWhiteSpace(this.H5Location) || !File.Exists(this.H5Location));
 
-                    if (updateHighFiveLocation)
+                    if (updateH5Location)
                     {
-                        this.HighFiveLocation = path;
+                        this.H5Location = path;
                     }
 
                     var reference = this.LoadAssembly(path, references);
@@ -225,14 +225,14 @@ namespace HighFive.Translator
 
                 this.Validator.CheckType(type, this);
 
-                string key = HighFiveTypes.GetTypeDefinitionKey(type);
+                string key = H5Types.GetTypeDefinitionKey(type);
 
-                HighFiveType duplicateHighFiveType = null;
+                H5Type duplicateH5Type = null;
 
                 skip_key = false;
-                if (this.HighFiveTypes.TryGetValue(key, out duplicateHighFiveType))
+                if (this.H5Types.TryGetValue(key, out duplicateH5Type))
                 {
-                    var duplicate = duplicateHighFiveType.TypeDefinition;
+                    var duplicate = duplicateH5Type.TypeDefinition;
 
                     var message = string.Format(
                         Constants.Messages.Exceptions.DUPLICATE_HIGHFIVE_TYPE,
@@ -256,7 +256,7 @@ namespace HighFive.Translator
                 {
                     this.TypeDefinitions.Add(key, type);
 
-                    this.HighFiveTypes.Add(key, new HighFiveType(key)
+                    this.H5Types.Add(key, new H5Type(key)
                     {
                         TypeDefinition = type
                     });
@@ -312,10 +312,10 @@ namespace HighFive.Translator
             var assembly = this.LoadAssembly(this.AssemblyLocation, references);
             this.LoadReferenceAssemblies(references);
             this.TypeDefinitions = new Dictionary<string, TypeDefinition>();
-            this.HighFiveTypes = new HighFiveTypes();
+            this.H5Types = new H5Types();
             this.AssemblyDefinition = assembly;
 
-            if (assembly.Name.Name != Translator.HighFive_ASSEMBLY || this.AssemblyInfo.Assembly != null && this.AssemblyInfo.Assembly.EnableReservedNamespaces)
+            if (assembly.Name.Name != Translator.H5_ASSEMBLY || this.AssemblyInfo.Assembly != null && this.AssemblyInfo.Assembly.EnableReservedNamespaces)
             {
                 this.ReadTypes(assembly);
             }

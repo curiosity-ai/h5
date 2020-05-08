@@ -1,24 +1,24 @@
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("Math")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("Math")]
     public static class Math
     {
-        [HighFive.Convention]
+        [H5.Convention]
         public const double E = 2.7182818284590452354;
 
-        [HighFive.Convention]
+        [H5.Convention]
         public const double PI = 3.14159265358979323846;
 
         public static extern int Abs(int x);
 
         public static extern double Abs(double x);
 
-        [HighFive.Template("{l}.abs()")]
+        [H5.Template("{l}.abs()")]
         public static extern long Abs(long l);
 
-        [HighFive.Template("{l}.abs()")]
+        [H5.Template("{l}.abs()")]
         public static extern decimal Abs(decimal l);
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace System
         /// <param name="val1">The first of two 64-bit signed integers to compare.</param>
         /// <param name="val2">The second of two 64-bit signed integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is larger.</returns>
-        [HighFive.Template("System.Int64.max({val1}, {val2})")]
+        [H5.Template("System.Int64.max({val1}, {val2})")]
         public static extern long Max(long val1, long val2);
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace System
         /// <param name="val1">The first of two 64-bit unsigned integers to compare.</param>
         /// <param name="val2">The second of two 64-bit unsigned integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is larger.</returns>
-        [HighFive.Template("System.UInt64.max({val1}, {val2})")]
+        [H5.Template("System.UInt64.max({val1}, {val2})")]
         [CLSCompliant(false)]
         public static extern ulong Max(ulong val1, ulong val2);
 
@@ -113,7 +113,7 @@ namespace System
         /// <param name="val1">The first of two decimal numbers to compare.</param>
         /// <param name="val2">The second of two decimal numbers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is larger.</returns>
-        [HighFive.Template("System.Decimal.max({val1}, {val2})")]
+        [H5.Template("System.Decimal.max({val1}, {val2})")]
         public static extern decimal Max(decimal val1, decimal val2);
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace System
         /// <param name="val1">The first of two 64-bit signed integers to compare.</param>
         /// <param name="val2">The second of two 64-bit signed integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is smaller.</returns>
-        [HighFive.Template("System.Int64.min({val1}, {val2})")]
+        [H5.Template("System.Int64.min({val1}, {val2})")]
         public static extern long Min(long val1, long val2);
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace System
         /// <param name="val1">The first of two 64-bit unsigned integers to compare.</param>
         /// <param name="val2">The second of two 64-bit unsigned integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is smaller.</returns>
-        [HighFive.Template("System.UInt64.min({val1}, {val2})")]
+        [H5.Template("System.UInt64.min({val1}, {val2})")]
         [CLSCompliant(false)]
         public static extern ulong Min(ulong val1, ulong val2);
 
@@ -208,69 +208,69 @@ namespace System
         /// <param name="val1">The first of two decimal numbers to compare.</param>
         /// <param name="val2">The second of two decimal numbers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is smaller.</returns>
-        [HighFive.Template("System.Decimal.min({val1}, {val2})")]
+        [H5.Template("System.Decimal.min({val1}, {val2})")]
         public static extern decimal Min(decimal val1, decimal val2);
 
         public static extern double Random();
 
         public static extern double Sqrt(double x);
 
-        [HighFive.Template("{d}.ceil()")]
+        [H5.Template("{d}.ceil()")]
         public static extern decimal Ceiling(decimal d);
 
-        [HighFive.Name("ceil")]
+        [H5.Name("ceil")]
         public static extern double Ceiling(double d);
 
         public static extern double Floor(double x);
 
-        [HighFive.Template("{d}.floor()")]
+        [H5.Template("{d}.floor()")]
         public static extern decimal Floor(decimal d);
 
-        [HighFive.Template("System.Decimal.round({x}, 6)")]
+        [H5.Template("System.Decimal.round({x}, 6)")]
         public static extern decimal Round(decimal x);
 
-        [HighFive.Template("HighFive.Math.round({d}, 0, 6)")]
+        [H5.Template("H5.Math.round({d}, 0, 6)")]
         public static extern double Round(double d);
 
-        [HighFive.Template("Math.round({d})")]
+        [H5.Template("Math.round({d})")]
         public static extern double JsRound(double d);
 
-        [HighFive.Template("System.Decimal.toDecimalPlaces({d}, {digits}, 6)")]
+        [H5.Template("System.Decimal.toDecimalPlaces({d}, {digits}, 6)")]
         public static extern decimal Round(decimal d, int digits);
 
-        [HighFive.Template("HighFive.Math.round({d}, {digits}, 6)")]
+        [H5.Template("H5.Math.round({d}, {digits}, 6)")]
         public static extern double Round(double d, int digits);
 
-        [HighFive.Template("System.Decimal.round({d}, {method})")]
+        [H5.Template("System.Decimal.round({d}, {method})")]
         public static extern decimal Round(decimal d, MidpointRounding method);
 
-        [HighFive.Template("HighFive.Math.round({d}, 0, {method})")]
+        [H5.Template("H5.Math.round({d}, 0, {method})")]
         public static extern double Round(double d, MidpointRounding method);
 
-        [HighFive.Template("System.Decimal.toDecimalPlaces({d}, {digits}, {method})")]
+        [H5.Template("System.Decimal.toDecimalPlaces({d}, {digits}, {method})")]
         public static extern decimal Round(decimal d, int digits, MidpointRounding method);
 
-        [HighFive.Template("HighFive.Math.round({d}, {digits}, {method})")]
+        [H5.Template("H5.Math.round({d}, {digits}, {method})")]
         public static extern double Round(double d, int digits, MidpointRounding method);
 
-        [HighFive.Template("HighFive.Math.IEEERemainder({x}, {y})")]
+        [H5.Template("H5.Math.IEEERemainder({x}, {y})")]
         public static extern double IEEERemainder(double x, double y);
 
         public static extern double Exp(double x);
 
-        [HighFive.Template("{x}.exponential()")]
+        [H5.Template("{x}.exponential()")]
         public static extern decimal Exp(decimal x);
 
-        [HighFive.Template("HighFive.Math.log({x})")]
+        [H5.Template("H5.Math.log({x})")]
         public static extern double Log(double x);
 
-        [HighFive.Template("HighFive.Math.logWithBase({x}, {logBase})")]
+        [H5.Template("H5.Math.logWithBase({x}, {logBase})")]
         public static extern double Log(double x, double logBase);
 
-        [HighFive.Template("HighFive.Math.logWithBase({x}, 10.0)")]
+        [H5.Template("H5.Math.logWithBase({x}, 10.0)")]
         public static extern double Log10(double x);
 
-        [HighFive.Template("{x}.pow({y})")]
+        [H5.Template("{x}.pow({y})")]
         public static extern decimal Pow(decimal x, decimal y);
 
         public static extern double Pow(double x, double y);
@@ -291,31 +291,31 @@ namespace System
 
         public static extern double Tan(double x);
 
-        [HighFive.Template("HighFive.Int.trunc({d})")]
+        [H5.Template("H5.Int.trunc({d})")]
         public static extern double Truncate(double d);
 
-        [HighFive.Template("{d}.trunc()")]
+        [H5.Template("{d}.trunc()")]
         public static extern decimal Truncate(decimal d);
 
-        [HighFive.Template("HighFive.Int.sign({value})")]
+        [H5.Template("H5.Int.sign({value})")]
         public static extern int Sign(double value);
 
-        [HighFive.Template("{value}.sign()")]
+        [H5.Template("{value}.sign()")]
         public static extern int Sign(decimal value);
 
-        [HighFive.Template("HighFive.Math.divRem({a}, {b}, {result})")]
+        [H5.Template("H5.Math.divRem({a}, {b}, {result})")]
         public static extern int DivRem(int a, int b, out int result);
 
-        [HighFive.Template("System.Int64.divRem({a}, {b}, {result})")]
+        [H5.Template("System.Int64.divRem({a}, {b}, {result})")]
         public static extern long DivRem(long a, long b, out long result);
 
-        [HighFive.Template("HighFive.Math.sinh({value})")]
+        [H5.Template("H5.Math.sinh({value})")]
         public static extern double Sinh(double value);
 
-        [HighFive.Template("HighFive.Math.cosh({value})")]
+        [H5.Template("H5.Math.cosh({value})")]
         public static extern double Cosh(double value);
 
-        [HighFive.Template("HighFive.Math.tanh({value})")]
+        [H5.Template("H5.Math.tanh({value})")]
         public static extern double Tanh(double value);
     }
 }

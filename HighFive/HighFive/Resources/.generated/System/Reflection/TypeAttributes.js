@@ -1,4 +1,4 @@
-    HighFive.define("System.Reflection.TypeAttributes", {
+    H5.define("System.Reflection.TypeAttributes", {
         $kind: "enum",
         statics: {
             fields: {

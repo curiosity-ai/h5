@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -7,7 +7,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class IdentifierBlock : ConversionBlock
     {
@@ -74,14 +74,14 @@ namespace HighFive.Translator
 
             if (resolveResult is TypeResolveResult)
             {
-                this.Write(HighFiveTypes.ToJsName(resolveResult.Type, this.Emitter));
+                this.Write(H5Types.ToJsName(resolveResult.Type, this.Emitter));
                 /*if (this.Emitter.Validator.IsExternalType(resolveResult.Type.GetDefinition()) || resolveResult.Type.Kind == TypeKind.Enum)
                 {
-                    this.Write(HighFiveTypes.ToJsName(resolveResult.Type, this.Emitter));
+                    this.Write(H5Types.ToJsName(resolveResult.Type, this.Emitter));
                 }
                 else
                 {
-                    this.Write("HighFive.get(" + HighFiveTypes.ToJsName(resolveResult.Type, this.Emitter) + ")");
+                    this.Write("H5.get(" + H5Types.ToJsName(resolveResult.Type, this.Emitter) + ")");
                 }*/
 
                 return;
@@ -146,14 +146,14 @@ namespace HighFive.Translator
 
                 if (memberResult.Member.IsStatic)
                 {
-                    this.Write(HighFiveTypes.ToJsName(memberResult.Member.DeclaringType, this.Emitter, ignoreLiteralName: false));
+                    this.Write(H5Types.ToJsName(memberResult.Member.DeclaringType, this.Emitter, ignoreLiteralName: false));
                     /*if (!this.Emitter.Validator.IsExternalType(memberResult.Member.DeclaringTypeDefinition) && memberResult.Member.DeclaringTypeDefinition.Kind != TypeKind.Enum)
                     {
-                        this.Write("(HighFive.get(" + HighFiveTypes.ToJsName(memberResult.Member.DeclaringType, this.Emitter) + "))");
+                        this.Write("(H5.get(" + H5Types.ToJsName(memberResult.Member.DeclaringType, this.Emitter) + "))");
                     }
                     else
                     {
-                        this.Write(HighFiveTypes.ToJsName(memberResult.Member.DeclaringType, this.Emitter));
+                        this.Write(H5Types.ToJsName(memberResult.Member.DeclaringType, this.Emitter));
                     }*/
                 }
                 else
@@ -524,7 +524,7 @@ namespace HighFive.Translator
 
                     if (memberResult.Member.IsStatic)
                     {
-                        trg = HighFiveTypes.ToJsName(memberResult.Member.DeclaringType, this.Emitter, ignoreLiteralName: false);
+                        trg = H5Types.ToJsName(memberResult.Member.DeclaringType, this.Emitter, ignoreLiteralName: false);
                     }
                     else
                     {
@@ -645,7 +645,7 @@ namespace HighFive.Translator
             bool noTarget = false;
             if (memberResult.Member.IsStatic)
             {
-                var target = HighFiveTypes.ToJsName(memberResult.Member.DeclaringType, this.Emitter, ignoreLiteralName: false);
+                var target = H5Types.ToJsName(memberResult.Member.DeclaringType, this.Emitter, ignoreLiteralName: false);
                 noTarget = string.IsNullOrWhiteSpace(target);
                 this.Write(target);
             }

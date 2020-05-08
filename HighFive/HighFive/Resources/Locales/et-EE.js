@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("et-EE", true), {
+H5.merge(new System.Globalization.CultureInfo("et-EE", true), {
     englishName: "Estonian (Estonia)",
     nativeName: "eesti (Eesti)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("et-EE", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["P","E","T","K","N","R","L"],
         abbreviatedMonthGenitiveNames: ["jaan","veebr","märts","apr","mai","juuni","juuli","aug","sept","okt","nov","dets",""],
         abbreviatedMonthNames: ["jaan","veebr","märts","apr","mai","juuni","juuli","aug","sept","okt","nov","dets",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("et-EE", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1257,
         CultureName: "et-EE",
         EBCDICCodePage: 500,

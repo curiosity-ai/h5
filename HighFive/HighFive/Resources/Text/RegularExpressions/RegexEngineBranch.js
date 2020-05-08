@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.RegexEngineBranch", {
+    H5.define("System.Text.RegularExpressions.RegexEngineBranch", {
         type: 0,
         value: 0,
         min: 0,

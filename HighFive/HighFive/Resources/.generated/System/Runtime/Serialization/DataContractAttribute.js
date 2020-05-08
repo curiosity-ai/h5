@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.DataContractAttribute", {
+    H5.define("System.Runtime.Serialization.DataContractAttribute", {
         inherits: [System.Attribute],
         fields: {
             _name: null,

@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.Dictionary$2.ValueCollection.Enumerator", function (TKey, TValue) { return {
+    H5.define("System.Collections.Generic.Dictionary$2.ValueCollection.Enumerator", function (TKey, TValue) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(TValue),System.Collections.IEnumerator],
         $kind: "nested struct",
         statics: {
@@ -10,7 +10,7 @@
             dictionary: null,
             index: 0,
             version: 0,
-            currentValue: HighFive.getDefaultValue(TValue)
+            currentValue: H5.getDefaultValue(TValue)
         },
         props: {
             Current: {
@@ -31,7 +31,7 @@
         alias: [
             "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", ["System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(TValue) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             $ctor1: function (dictionary) {
@@ -39,7 +39,7 @@
                 this.dictionary = dictionary;
                 this.version = dictionary.version;
                 this.index = 0;
-                this.currentValue = HighFive.getDefaultValue(TValue);
+                this.currentValue = H5.getDefaultValue(TValue);
             },
             ctor: function () {
                 this.$initialize();
@@ -62,7 +62,7 @@
                     this.index = (this.index + 1) | 0;
                 }
                 this.index = (this.dictionary.count + 1) | 0;
-                this.currentValue = HighFive.getDefaultValue(TValue);
+                this.currentValue = H5.getDefaultValue(TValue);
                 return false;
             },
             System$Collections$IEnumerator$reset: function () {
@@ -70,17 +70,17 @@
                     System.ThrowHelper.ThrowInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumFailedVersion);
                 }
                 this.index = 0;
-                this.currentValue = HighFive.getDefaultValue(TValue);
+                this.currentValue = H5.getDefaultValue(TValue);
             },
             getHashCode: function () {
-                var h = HighFive.addHash([3788985113, this.dictionary, this.index, this.version, this.currentValue]);
+                var h = H5.addHash([3788985113, this.dictionary, this.index, this.version, this.currentValue]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.Dictionary$2.ValueCollection.Enumerator(TKey,TValue))) {
+                if (!H5.is(o, System.Collections.Generic.Dictionary$2.ValueCollection.Enumerator(TKey,TValue))) {
                     return false;
                 }
-                return HighFive.equals(this.dictionary, o.dictionary) && HighFive.equals(this.index, o.index) && HighFive.equals(this.version, o.version) && HighFive.equals(this.currentValue, o.currentValue);
+                return H5.equals(this.dictionary, o.dictionary) && H5.equals(this.index, o.index) && H5.equals(this.version, o.version) && H5.equals(this.currentValue, o.currentValue);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.Generic.Dictionary$2.ValueCollection.Enumerator(TKey,TValue))();

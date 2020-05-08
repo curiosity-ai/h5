@@ -1,4 +1,4 @@
-    HighFive.define("System.Reflection.CallingConventions", {
+    H5.define("System.Reflection.CallingConventions", {
         $kind: "enum",
         statics: {
             fields: {

@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 using System.Threading;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class DiscardReplacer
     {
@@ -286,7 +286,7 @@ namespace HighFive.Translator
             foreach (var annotation in annotatedAssigments)
             {
                 var annotatedNode = root.GetAnnotatedNodes(annotation).First();
-                root = root.ReplaceNode(annotatedNode, ((AssignmentExpressionSyntax)annotatedNode).WithLeft(SyntaxFactory.IdentifierName("HighFive.Script.Discard")));
+                root = root.ReplaceNode(annotatedNode, ((AssignmentExpressionSyntax)annotatedNode).WithLeft(SyntaxFactory.IdentifierName("H5.Script.Discard")));
             }
 
             outVars = root

@@ -1,16 +1,16 @@
-    HighFive.define("System.Collections.Generic.SortedSet$1.TreeSubSet", function (T) { return {
+    H5.define("System.Collections.Generic.SortedSet$1.TreeSubSet", function (T) { return {
         inherits: [System.Collections.Generic.SortedSet$1(T)],
         $kind: "nested class",
         fields: {
             underlying: null,
-            min: HighFive.getDefaultValue(T),
-            max: HighFive.getDefaultValue(T),
+            min: H5.getDefaultValue(T),
+            max: H5.getDefaultValue(T),
             lBoundActive: false,
             uBoundActive: false
         },
         alias: [
-            "contains", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$contains",
-            "clear", "System$Collections$Generic$ICollection$1$" + HighFive.getTypeAlias(T) + "$clear"
+            "contains", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$contains",
+            "clear", "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$clear"
         ],
         ctors: {
             $ctor1: function (Underlying, Min, Max, lowerBoundActive, upperBoundActive) {
@@ -81,11 +81,11 @@
             IsWithinRange: function (item) {
                 var $t, $t1;
 
-                var comp = (this.lBoundActive ? ($t = this.Comparer)[HighFive.geti($t, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, item) : -1);
+                var comp = (this.lBoundActive ? ($t = this.Comparer)[H5.geti($t, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, item) : -1);
                 if (comp > 0) {
                     return false;
                 }
-                comp = (this.uBoundActive ? ($t1 = this.Comparer)[HighFive.geti($t1, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, item) : 1);
+                comp = (this.uBoundActive ? ($t1 = this.Comparer)[H5.geti($t1, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, item) : 1);
                 if (comp < 0) {
                     return false;
                 }
@@ -99,13 +99,13 @@
                     return true;
                 }
 
-                var stack = new (System.Collections.Generic.Stack$1(System.Collections.Generic.SortedSet$1.Node(T))).$ctor2(HighFive.Int.mul(2, System.Collections.Generic.SortedSet$1(T).log2(((this.count + 1) | 0))));
+                var stack = new (System.Collections.Generic.Stack$1(System.Collections.Generic.SortedSet$1.Node(T))).$ctor2(H5.Int.mul(2, System.Collections.Generic.SortedSet$1(T).log2(((this.count + 1) | 0))));
                 var current = this.root;
                 while (current != null) {
                     if (this.IsWithinRange(current.Item)) {
                         stack.Push(current);
                         current = (reverse ? current.Right : current.Left);
-                    } else if (this.lBoundActive && ($t = this.Comparer)[HighFive.geti($t, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, current.Item) > 0) {
+                    } else if (this.lBoundActive && ($t = this.Comparer)[H5.geti($t, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, current.Item) > 0) {
                         current = current.Right;
                     } else {
                         current = current.Left;
@@ -123,7 +123,7 @@
                         if (this.IsWithinRange(node.Item)) {
                             stack.Push(node);
                             node = (reverse ? node.Right : node.Left);
-                        } else if (this.lBoundActive && ($t1 = this.Comparer)[HighFive.geti($t1, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, node.Item) > 0) {
+                        } else if (this.lBoundActive && ($t1 = this.Comparer)[H5.geti($t1, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, node.Item) > 0) {
                             node = node.Right;
                         } else {
                             node = node.Left;
@@ -150,10 +150,10 @@
                     if (this.IsWithinRange(current.Item) && !action(current)) {
                         return false;
                     }
-                    if (current.Left != null && (!this.lBoundActive || ($t = this.Comparer)[HighFive.geti($t, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, current.Item) < 0)) {
+                    if (current.Left != null && (!this.lBoundActive || ($t = this.Comparer)[H5.geti($t, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, current.Item) < 0)) {
                         processQueue.add(current.Left);
                     }
-                    if (current.Right != null && (!this.uBoundActive || ($t1 = this.Comparer)[HighFive.geti($t1, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, current.Item) > 0)) {
+                    if (current.Right != null && (!this.uBoundActive || ($t1 = this.Comparer)[H5.geti($t1, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, current.Item) > 0)) {
                         processQueue.add(current.Right);
                     }
 
@@ -171,17 +171,17 @@
             InternalIndexOf: function (item) {
                 var $t, $t1;
                 var count = -1;
-                $t = HighFive.getEnumerator(this);
+                $t = H5.getEnumerator(this);
                 try {
                     while ($t.moveNext()) {
                         var i = $t.Current;
                         count = (count + 1) | 0;
-                        if (($t1 = this.Comparer)[HighFive.geti($t1, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](item, i) === 0) {
+                        if (($t1 = this.Comparer)[H5.geti($t1, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](item, i) === 0) {
                             return count;
                         }
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -196,26 +196,26 @@
                     this.root = this.underlying.FindRange$1(this.min, this.max, this.lBoundActive, this.uBoundActive);
                     this.version = this.underlying.version;
                     this.count = 0;
-                    this.InOrderTreeWalk(HighFive.fn.bind(this, $asm.$.System.Collections.Generic.SortedSet$1.TreeSubSet.f1));
+                    this.InOrderTreeWalk(H5.fn.bind(this, $asm.$.System.Collections.Generic.SortedSet$1.TreeSubSet.f1));
                 }
             },
             GetViewBetween: function (lowerValue, upperValue) {
                 var $t, $t1;
 
-                if (this.lBoundActive && ($t = this.Comparer)[HighFive.geti($t, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, lowerValue) > 0) {
+                if (this.lBoundActive && ($t = this.Comparer)[H5.geti($t, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, lowerValue) > 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("lowerValue");
                 }
-                if (this.uBoundActive && ($t1 = this.Comparer)[HighFive.geti($t1, "System$Collections$Generic$IComparer$1$" + HighFive.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, upperValue) < 0) {
+                if (this.uBoundActive && ($t1 = this.Comparer)[H5.geti($t1, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, upperValue) < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("upperValue");
                 }
-                var ret = HighFive.cast(this.underlying.GetViewBetween(lowerValue, upperValue), System.Collections.Generic.SortedSet$1.TreeSubSet(T));
+                var ret = H5.cast(this.underlying.GetViewBetween(lowerValue, upperValue), System.Collections.Generic.SortedSet$1.TreeSubSet(T));
                 return ret;
             },
             IntersectWithEnumerable: function (other) {
                 var $t;
 
                 var toSave = new (System.Collections.Generic.List$1(T)).$ctor2(this.Count);
-                $t = HighFive.getEnumerator(other, T);
+                $t = H5.getEnumerator(other, T);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
@@ -225,7 +225,7 @@
                         }
                     }
                 } finally {
-                    if (HighFive.is($t, System.IDisposable)) {
+                    if (H5.is($t, System.IDisposable)) {
                         $t.System$IDisposable$Dispose();
                     }
                 }
@@ -235,9 +235,9 @@
         }
     }; });
 
-    HighFive.ns("System.Collections.Generic.SortedSet$1.TreeSubSet", $asm.$);
+    H5.ns("System.Collections.Generic.SortedSet$1.TreeSubSet", $asm.$);
 
-    HighFive.apply($asm.$.System.Collections.Generic.SortedSet$1.TreeSubSet, {
+    H5.apply($asm.$.System.Collections.Generic.SortedSet$1.TreeSubSet, {
         f1: function (n) {
             this.count = (this.count + 1) | 0;
             return true;

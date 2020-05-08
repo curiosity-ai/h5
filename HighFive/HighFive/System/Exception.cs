@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
-    public class Exception : HighFive.IHighFiveClass
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
+    public class Exception : H5.IH5Class
     {
         /// <summary>
         /// Gets a collection of key/value pairs that provide additional user-defined information about the exception.

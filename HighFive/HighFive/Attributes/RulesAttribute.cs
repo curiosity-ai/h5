@@ -1,9 +1,9 @@
 ﻿using System;
 
 #if HIGHFIVE_COMPILER
-namespace HighFive.Contract
+namespace H5.Contract
 #else
-namespace HighFive
+namespace H5
 #endif
 {
     /// <summary>

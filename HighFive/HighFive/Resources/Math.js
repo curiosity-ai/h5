@@ -1,4 +1,4 @@
-    HighFive.Math = {
+    H5.Math = {
         divRem: function (a, b, result) {
             var remainder = a % b;
 
@@ -44,7 +44,7 @@
                 return NaN;
             }
 
-            return HighFive.Math.log10(x) / HighFive.Math.log10(newBase);
+            return H5.Math.log10(x) / H5.Math.log10(newBase);
         },
 
         log: function (x) {
@@ -98,10 +98,10 @@
                 }
             }
             var alternativeResult;
-            alternativeResult = regularMod - (Math.abs(y) * HighFive.Int.sign(x));
+            alternativeResult = regularMod - (Math.abs(y) * H5.Int.sign(x));
             if (Math.abs(alternativeResult) === Math.abs(regularMod)) {
                 var divisionResult = x / y;
-                var roundedResult = HighFive.Math.round(divisionResult, 0, 6);
+                var roundedResult = H5.Math.round(divisionResult, 0, 6);
                 if (Math.abs(roundedResult) > Math.abs(divisionResult)) {
                     return alternativeResult;
                 } else {

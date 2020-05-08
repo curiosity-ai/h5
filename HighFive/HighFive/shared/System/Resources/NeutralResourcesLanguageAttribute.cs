@@ -4,7 +4,7 @@
 
 namespace System.Resources
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false)]
     public sealed class NeutralResourcesLanguageAttribute : Attribute
     {

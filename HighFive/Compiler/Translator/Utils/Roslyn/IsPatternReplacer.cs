@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class IsPatternReplacer : ICSharpReplacer
     {
@@ -183,7 +183,7 @@ namespace HighFive.Translator
                                             SyntaxFactory.InvocationExpression(
                                                 SyntaxFactory.MemberAccessExpression(
                                                     SyntaxKind.SimpleMemberAccessExpression,
-                                                    SyntaxFactory.IdentifierName("HighFive.Script"),
+                                                    SyntaxFactory.IdentifierName("H5.Script"),
                                                     SyntaxFactory.GenericName(
                                                         SyntaxFactory.Identifier("Write"))
                                                     .WithTypeArgumentList(

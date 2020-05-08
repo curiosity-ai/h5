@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.EncodingInfo", {
+    H5.define("System.Text.EncodingInfo", {
         props: {
             CodePage: 0,
             Name: null,
@@ -21,7 +21,7 @@
                 return this.CodePage;
             },
             equals: function (o) {
-                var that = HighFive.as(o, System.Text.EncodingInfo);
+                var that = H5.as(o, System.Text.EncodingInfo);
                 return System.Nullable.eq(this.CodePage, (that != null ? that.CodePage : null));
             }
         }

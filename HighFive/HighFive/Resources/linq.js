@@ -187,7 +187,7 @@
     };
 
     IEnumerator.$$inherits = [];
-    HighFive.Class.addExtend(IEnumerator, [System.IDisposable, System.Collections.IEnumerator]);
+    H5.Class.addExtend(IEnumerator, [System.IDisposable, System.Collections.IEnumerator]);
 
     // for tryGetNext
     var Yielder = function () {
@@ -208,7 +208,7 @@
     };
 
     Enumerable.$$inherits = [];
-    HighFive.Class.addExtend(Enumerable, [System.Collections.IEnumerable]);
+    H5.Class.addExtend(Enumerable, [System.Collections.IEnumerable]);
 
     // Utility
 
@@ -333,18 +333,18 @@
                     Functions.Blank);
             });
         }
-        var ienum = HighFive.as(obj, System.Collections.IEnumerable);
+        var ienum = H5.as(obj, System.Collections.IEnumerable);
         if (ienum) {
             return new Enumerable(function () {
                 var enumerator;
                 return new IEnumerator(
-                    function () { enumerator = HighFive.getEnumerator(ienum, T); },
+                    function () { enumerator = H5.getEnumerator(ienum, T); },
                     function () {
                         var ok = enumerator.moveNext();
                         return ok ? this.yieldReturn(enumerator.Current) : false;
                     },
                     function () {
-                        var disposable = HighFive.as(enumerator, System.IDisposable);
+                        var disposable = H5.as(enumerator, System.IDisposable);
                         if (disposable) {
                             disposable.Dispose();
                         }
@@ -962,12 +962,12 @@
 
             return new IEnumerator(
                 function () {
-                    enumerator = HighFive.getEnumerator(source);
+                    enumerator = H5.getEnumerator(source);
                 },
                 function () {
                     while (enumerator.moveNext()) {
-                        var v = HighFive.as(enumerator.Current, type);
-                        if (HighFive.hasValue(v)) {
+                        var v = H5.as(enumerator.Current, type);
+                        if (H5.hasValue(v)) {
                             return this.yieldReturn(v);
                         }
                     }
@@ -1870,7 +1870,7 @@
     // Overload:function ()
     // Overload:function (selector)
     Enumerable.prototype.average = function (selector, def) {
-        if (selector && !def && !HighFive.isFunction(selector)) {
+        if (selector && !def && !H5.isFunction(selector)) {
             def = selector;
             selector = null;
         }
@@ -1902,7 +1902,7 @@
     };
 
     Enumerable.prototype.nullableAverage = function (selector, def) {
-        if (this.any(HighFive.isNull)) {
+        if (this.any(H5.isNull)) {
             return null;
         }
 
@@ -1926,12 +1926,12 @@
     Enumerable.prototype.max = function (selector) {
         if (selector == null) selector = Functions.Identity;
         return this.select(selector).aggregate(function (a, b) {
-            return (HighFive.compare(a, b, true) === 1) ? a : b;
+            return (H5.compare(a, b, true) === 1) ? a : b;
         });
     };
 
     Enumerable.prototype.nullableMax = function (selector) {
-        if (this.any(HighFive.isNull)) {
+        if (this.any(H5.isNull)) {
             return null;
         }
 
@@ -1943,12 +1943,12 @@
     Enumerable.prototype.min = function (selector) {
         if (selector == null) selector = Functions.Identity;
         return this.select(selector).aggregate(function (a, b) {
-            return (HighFive.compare(a, b, true) === -1) ? a : b;
+            return (H5.compare(a, b, true) === -1) ? a : b;
         });
     };
 
     Enumerable.prototype.nullableMin = function (selector) {
-        if (this.any(HighFive.isNull)) {
+        if (this.any(H5.isNull)) {
             return null;
         }
 
@@ -1958,21 +1958,21 @@
     Enumerable.prototype.maxBy = function (keySelector) {
         keySelector = Utils.createLambda(keySelector);
         return this.aggregate(function (a, b) {
-            return (HighFive.compare(keySelector(a), keySelector(b), true) === 1) ? a : b;
+            return (H5.compare(keySelector(a), keySelector(b), true) === 1) ? a : b;
         });
     };
 
     Enumerable.prototype.minBy = function (keySelector) {
         keySelector = Utils.createLambda(keySelector);
         return this.aggregate(function (a, b) {
-            return (HighFive.compare(keySelector(a), keySelector(b), true) === -1) ? a : b;
+            return (H5.compare(keySelector(a), keySelector(b), true) === -1) ? a : b;
         });
     };
 
     // Overload:function ()
     // Overload:function (selector)
     Enumerable.prototype.sum = function (selector, def) {
-        if (selector && !def && !HighFive.isFunction(selector)) {
+        if (selector && !def && !H5.isFunction(selector)) {
             def = selector;
             selector = null;
         }
@@ -1996,7 +1996,7 @@
     };
 
     Enumerable.prototype.nullableSum = function (selector, def) {
-        if (this.any(HighFive.isNull)) {
+        if (this.any(H5.isNull)) {
             return null;
         }
 
@@ -2673,9 +2673,9 @@
     // private
     var defaultComparer = {
         compare: function (x, y) {
-            if (!HighFive.hasValue(x)) {
-                return !HighFive.hasValue(y) ? 0 : -1;
-            } else if (!HighFive.hasValue(y)) {
+            if (!H5.hasValue(x)) {
+                return !H5.hasValue(y) ? 0 : -1;
+            } else if (!H5.hasValue(y)) {
                 return 1;
             }
 
@@ -2687,7 +2687,7 @@
                 }
             }
 
-            return HighFive.compare(x, y);
+            return H5.compare(x, y);
         }
     };
     var OrderedEnumerable = function (source, keySelector, comparer, descending, parent) {
@@ -2699,9 +2699,9 @@
     };
     OrderedEnumerable.prototype = new Enumerable();
     OrderedEnumerable.prototype.constructor = OrderedEnumerable;
-    HighFive.definei("System.Linq.IOrderedEnumerable$1");
+    H5.definei("System.Linq.IOrderedEnumerable$1");
     OrderedEnumerable.$$inherits = [];
-    HighFive.Class.addExtend(OrderedEnumerable, [System.Collections.IEnumerable, System.Linq.IOrderedEnumerable$1]);
+    H5.Class.addExtend(OrderedEnumerable, [System.Collections.IEnumerable, System.Linq.IOrderedEnumerable$1]);
 
     OrderedEnumerable.prototype.createOrderedEnumerable = function (keySelector, comparer, descending) {
         return new OrderedEnumerable(this.source, keySelector, comparer, descending, this);
@@ -2918,7 +2918,7 @@
     };
 
     ArrayEnumerable.prototype.GetEnumerator = function () {
-        return new HighFive.ArrayEnumerator(this.getSource());
+        return new H5.ArrayEnumerator(this.getSource());
     };
 
     // optimization for multiple where and multiple select and whereselect
@@ -3052,9 +3052,9 @@
         };
     };
 
-    HighFive.definei("System.Linq.ILookup$2");
+    H5.definei("System.Linq.ILookup$2");
     Lookup.$$inherits = [];
-    HighFive.Class.addExtend(Lookup, [System.Collections.IEnumerable, System.Linq.ILookup$2]);
+    H5.Class.addExtend(Lookup, [System.Collections.IEnumerable, System.Linq.ILookup$2]);
 
     var Grouping = function (groupKey, elements) {
         this.key = function () {
@@ -3063,11 +3063,11 @@
         ArrayEnumerable.call(this, elements);
     };
     Grouping.prototype = new ArrayEnumerable();
-    HighFive.definei("System.Linq.IGrouping$2");
+    H5.definei("System.Linq.IGrouping$2");
     Grouping.prototype.constructor = Grouping;
 
     Grouping.$$inherits = [];
-    HighFive.Class.addExtend(Grouping, [System.Collections.IEnumerable, System.Linq.IGrouping$2]);
+    H5.Class.addExtend(Grouping, [System.Collections.IEnumerable, System.Linq.IGrouping$2]);
 
     // module export
     /*if (typeof define === Types.Function && define.amd) { // AMD
@@ -3078,12 +3078,12 @@
         root.Enumerable = Enumerable;
     }*/
 
-    HighFive.Linq = {};
-    HighFive.Linq.Enumerable = Enumerable;
+    H5.Linq = {};
+    H5.Linq.Enumerable = Enumerable;
 
     System.Linq = System.Linq || {};
     System.Linq.Enumerable = Enumerable;
     System.Linq.Grouping$2 = Grouping;
     System.Linq.Lookup$2 = Lookup;
     System.Linq.OrderedEnumerable$1 = OrderedEnumerable;
-})(HighFive.global);
+})(H5.global);

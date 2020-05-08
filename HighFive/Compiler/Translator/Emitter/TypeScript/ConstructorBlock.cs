@@ -1,12 +1,12 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using Object.Net.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public partial class ConstructorBlock : TypeScriptBlock
     {
@@ -35,7 +35,7 @@ namespace HighFive.Translator.TypeScript
 
             if (name.IsEmpty())
             {
-                name = HighFiveTypes.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
+                name = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
             }
 
             if (this.TypeInfo.Ctors.Count == 0)
@@ -127,7 +127,7 @@ namespace HighFive.Translator.TypeScript
                 needComma = true;
                 this.Write(name);
                 this.WriteColon();
-                name = HighFiveTypes.ToTypeScriptName(p.Type, this.Emitter);
+                name = H5Types.ToTypeScriptName(p.Type, this.Emitter);
                 this.Write(name);
 
                 var resolveResult = this.Emitter.Resolver.ResolveNode(p.Type, this.Emitter);

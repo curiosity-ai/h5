@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ClassBlock : AbstractEmitterBlock
     {
@@ -47,7 +47,7 @@ namespace HighFive.Translator
         protected override void DoEmit()
         {
             XmlToJsDoc.EmitComment(this, this.Emitter.Translator.EmitNode);
-            string globalTarget = HighFiveTypes.GetGlobalTarget(this.TypeInfo.Type.GetDefinition(), this.TypeInfo.TypeDeclaration);
+            string globalTarget = H5Types.GetGlobalTarget(this.TypeInfo.Type.GetDefinition(), this.TypeInfo.TypeDeclaration);
 
             if (globalTarget != null)
             {
@@ -55,7 +55,7 @@ namespace HighFive.Translator
                 this.Emitter.NamedFunctions = new Dictionary<string, string>();
                 this.WriteTopInitMethods();
 
-                this.Write(JS.Types.HighFive.APPLY);
+                this.Write(JS.Types.H5.APPLY);
                 this.WriteOpenParentheses();
                 this.Write(globalTarget);
                 this.Write(", ");
@@ -141,16 +141,16 @@ namespace HighFive.Translator
 
             if (name.IsEmpty())
             {
-                name = HighFiveTypes.ToJsName(this.TypeInfo.Type, this.Emitter, asDefinition: true, nomodule: true, ignoreLiteralName: false);
+                name = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter, asDefinition: true, nomodule: true, ignoreLiteralName: false);
             }
 
             if (typeDef.IsInterface && typeDef.HasGenericParameters)
             {
-                this.Write(JS.Types.HighFive.DEFINE_I);
+                this.Write(JS.Types.H5.DEFINE_I);
             }
             else
             {
-                this.Write(JS.Types.HighFive.DEFINE);
+                this.Write(JS.Types.H5.DEFINE);
             }
 
             this.WriteOpenParentheses();
@@ -192,7 +192,7 @@ namespace HighFive.Translator
 
             if (extend.IsNotEmpty() && !this.TypeInfo.IsEnum)
             {
-                var highfiveType = this.Emitter.HighFiveTypes.Get(this.Emitter.TypeInfo);
+                var h5Type = this.Emitter.H5Types.Get(this.Emitter.TypeInfo);
 
                 if (this.TypeInfo.InstanceMethods.Any(m => m.Value.Any(subm => this.Emitter.GetEntityName(subm) == JS.Fields.INHERITS)) ||
                     this.TypeInfo.InstanceConfig.Fields.Any(m => m.GetName(this.Emitter) == JS.Fields.INHERITS))
@@ -202,7 +202,7 @@ namespace HighFive.Translator
 
                 this.Write(JS.Fields.INHERITS);
                 this.WriteColon();
-                if (Helpers.IsTypeArgInSubclass(highfiveType.TypeDefinition, highfiveType.TypeDefinition, this.Emitter, false))
+                if (Helpers.IsTypeArgInSubclass(h5Type.TypeDefinition, h5Type.TypeDefinition, this.Emitter, false))
                 {
                     this.WriteFunction();
                     this.WriteOpenCloseParentheses(true);
@@ -424,7 +424,7 @@ namespace HighFive.Translator
                 {
                     this.EnsureComma();
                     this.Write(JS.Fields.UNDERLYINGTYPE + ": ");
-                    this.Write(HighFiveTypes.ToJsName(etype, this.Emitter));
+                    this.Write(H5Types.ToJsName(etype, this.Emitter));
 
                     this.Emitter.Comma = true;
                 }
@@ -523,7 +523,7 @@ namespace HighFive.Translator
             {
                 this.Emitter.Comma = false;
 
-                var name = HighFiveTypes.ToJsName(this.Emitter.TypeInfo.Type, this.Emitter, true);
+                var name = H5Types.ToJsName(this.Emitter.TypeInfo.Type, this.Emitter, true);
 
                 this.WriteNewLine();
                 this.WriteNewLine();
@@ -535,7 +535,7 @@ namespace HighFive.Translator
 
                 this.WriteNewLine();
                 this.WriteNewLine();
-                this.Write(JS.Types.HighFive.APPLY + "(" + JS.Vars.D_ + ".");
+                this.Write(JS.Types.H5.APPLY + "(" + JS.Vars.D_ + ".");
                 this.Write(name);
                 this.Write(", ");
                 this.BeginBlock();
@@ -557,7 +557,7 @@ namespace HighFive.Translator
         protected virtual IEnumerable<string> GetDefineMethods(InitPosition value, Func<MethodDeclaration, IMethod, string> fn)
         {
             var methods = this.TypeInfo.InstanceMethods;
-            var attrName = "HighFive.InitAttribute";
+            var attrName = "H5.InitAttribute";
 
             foreach (var methodGroup in methods)
             {
@@ -660,7 +660,7 @@ namespace HighFive.Translator
                 {
                     var level = this.Emitter.Level;
 
-                    this.PushWriter(JS.Types.HighFive.INIT + "(function () {0});");
+                    this.PushWriter(JS.Types.H5.INIT + "(function () {0});");
                     this.ResetLocals();
                     var prevMap = this.BuildLocalsMap();
                     var prevNamesMap = this.BuildLocalsNamesMap();
@@ -749,7 +749,7 @@ namespace HighFive.Translator
                 {
                     this.Emitter.InitPosition = InitPosition.After;
 
-                    var callback = JS.Types.HighFive.INIT + "(function () { " + HighFiveTypes.ToJsName(rrMethod.DeclaringTypeDefinition, this.Emitter) + "." +
+                    var callback = JS.Types.H5.INIT + "(function () { " + H5Types.ToJsName(rrMethod.DeclaringTypeDefinition, this.Emitter) + "." +
                            this.Emitter.GetEntityName(method) + "(); });";
 
                     this.Emitter.InitPosition = null;

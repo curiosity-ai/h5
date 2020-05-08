@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.DateTimeStyles", {
+    H5.define("System.Globalization.DateTimeStyles", {
         $kind: "enum",
         statics: {
             fields: {

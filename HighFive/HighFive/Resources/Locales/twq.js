@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("twq", true), {
+H5.merge(new System.Globalization.CultureInfo("twq", true), {
     englishName: "Tasawaq",
     nativeName: "Tasawaq senni",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("twq", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Alh","Ati","Ata","Ala","Alm","Alz","Asi"],
         abbreviatedMonthGenitiveNames: ["Žan","Fee","Mar","Awi","Me","Žuw","Žuy","Ut","Sek","Okt","Noo","Dee",""],
         abbreviatedMonthNames: ["Žan","Fee","Mar","Awi","Me","Žuw","Žuy","Ut","Sek","Okt","Noo","Dee",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("twq", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "twq-NE",
         EBCDICCodePage: 500,

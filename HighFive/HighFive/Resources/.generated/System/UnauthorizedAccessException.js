@@ -1,4 +1,4 @@
-    HighFive.define("System.UnauthorizedAccessException", {
+    H5.define("System.UnauthorizedAccessException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

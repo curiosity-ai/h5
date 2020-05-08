@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public abstract class AbstractPlugin : IPlugin
     {

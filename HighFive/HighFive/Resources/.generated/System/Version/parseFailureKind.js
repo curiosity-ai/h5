@@ -1,4 +1,4 @@
-    HighFive.define("System.Version.ParseFailureKind", {
+    H5.define("System.Version.ParseFailureKind", {
         $kind: "nested enum",
         statics: {
             fields: {

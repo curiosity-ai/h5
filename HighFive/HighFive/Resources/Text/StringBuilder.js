@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.StringBuilder", {
+    H5.define("System.Text.StringBuilder", {
         ctor: function () {
             this.$initialize();
             this.buffer = [],

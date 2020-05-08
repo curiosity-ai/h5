@@ -1,3 +1,3 @@
-    HighFive.define("System.Collections.IEnumerator", {
+    H5.define("System.Collections.IEnumerator", {
         $kind: "interface"
     });

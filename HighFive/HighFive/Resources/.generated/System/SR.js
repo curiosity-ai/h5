@@ -1,4 +1,4 @@
-    HighFive.define("System.SR", {
+    H5.define("System.SR", {
         statics: {
             fields: {
                 ArgumentException_ValueTupleIncorrectType: null,
@@ -28,7 +28,7 @@
                         resourceString = System.SR.InternalGetResourceString(resourceKey);
                     } catch ($e1) {
                         $e1 = System.Exception.create($e1);
-                        if (HighFive.is($e1, System.Resources.MissingManifestResourceException)) {
+                        if (H5.is($e1, System.Resources.MissingManifestResourceException)) {
                         } else {
                             throw $e1;
                         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class EmitterCache
     {

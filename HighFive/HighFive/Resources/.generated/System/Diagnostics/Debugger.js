@@ -1,4 +1,4 @@
-    HighFive.define("System.Diagnostics.Debugger", {
+    H5.define("System.Diagnostics.Debugger", {
         statics: {
             fields: {
                 DefaultCategory: null

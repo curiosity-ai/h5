@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.RegexNode", {
+    H5.define("System.Text.RegularExpressions.RegexNode", {
         statics: {
             One: 9, // char     a
             Multi: 12, // string   abcdef

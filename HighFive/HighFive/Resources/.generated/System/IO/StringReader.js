@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.StringReader", {
+    H5.define("System.IO.StringReader", {
         inherits: [System.IO.TextReader],
         fields: {
             _s: null,
@@ -42,7 +42,7 @@
                 if (this._pos === this._length) {
                     return -1;
                 }
-                return this._s.charCodeAt(HighFive.identity(this._pos, ((this._pos = (this._pos + 1) | 0))));
+                return this._s.charCodeAt(H5.identity(this._pos, ((this._pos = (this._pos + 1) | 0))));
             },
             Read$1: function (buffer, index, count) {
                 if (buffer == null) {

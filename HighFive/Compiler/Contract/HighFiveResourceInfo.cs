@@ -1,6 +1,6 @@
-namespace HighFive.Contract
+namespace H5.Contract
 {
-    public class HighFiveResourceInfoPart
+    public class H5ResourceInfoPart
     {
         /// <summary>
         /// Part name
@@ -28,7 +28,7 @@ namespace HighFive.Contract
 
     }
 
-    public class HighFiveResourceInfo
+    public class H5ResourceInfo
     {
         public string FileName
         {
@@ -45,7 +45,7 @@ namespace HighFive.Contract
             get; set;
         }
 
-        public HighFiveResourceInfoPart[] Parts
+        public H5ResourceInfoPart[] Parts
         {
             get; set;
         }

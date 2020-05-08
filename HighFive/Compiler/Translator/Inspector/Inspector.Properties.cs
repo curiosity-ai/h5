@@ -1,9 +1,9 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using System;
 using System.Collections.Generic;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Inspector : Visitor
     {

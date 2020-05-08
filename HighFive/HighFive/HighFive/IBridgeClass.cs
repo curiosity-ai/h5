@@ -1,8 +1,8 @@
-namespace HighFive
+namespace H5
 {
     [Name("System.Object")]
     [External]
-    public interface IHighFiveClass
+    public interface IH5Class
     {
     }
 }

@@ -1,4 +1,4 @@
-    HighFive.define("System.OrdinalComparer", {
+    H5.define("System.OrdinalComparer", {
         inherits: [System.StringComparer],
         fields: {
             _ignoreCase: false
@@ -17,7 +17,7 @@
         },
         methods: {
             compare: function (x, y) {
-                if (HighFive.referenceEquals(x, y)) {
+                if (H5.referenceEquals(x, y)) {
                     return 0;
                 }
                 if (x == null) {
@@ -34,7 +34,7 @@
                 return System.String.compare(x, y, false);
             },
             equals2: function (x, y) {
-                if (HighFive.referenceEquals(x, y)) {
+                if (H5.referenceEquals(x, y)) {
                     return true;
                 }
                 if (x == null || y == null) {
@@ -50,7 +50,7 @@
                 return System.String.equals(x, y);
             },
             equals: function (obj) {
-                var comparer = HighFive.as(obj, System.OrdinalComparer);
+                var comparer = H5.as(obj, System.OrdinalComparer);
                 if (comparer == null) {
                     return false;
                 }
@@ -62,14 +62,14 @@
                 }
 
                 if (this._ignoreCase && obj != null) {
-                    return HighFive.getHashCode(obj.toLowerCase());
+                    return H5.getHashCode(obj.toLowerCase());
                 }
 
-                return HighFive.getHashCode(obj);
+                return H5.getHashCode(obj);
             },
             getHashCode: function () {
                 var name = "OrdinalComparer";
-                var hashCode = HighFive.getHashCode(name);
+                var hashCode = H5.getHashCode(name);
                 return this._ignoreCase ? (~hashCode) : hashCode;
             }
         }

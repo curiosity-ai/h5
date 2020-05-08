@@ -1,4 +1,4 @@
-    HighFive.define("System.NullReferenceException", {
+    H5.define("System.NullReferenceException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

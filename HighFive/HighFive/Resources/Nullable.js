@@ -1,10 +1,10 @@
     var nullable = {
-        hasValue: HighFive.hasValue,
+        hasValue: H5.hasValue,
 
         getValue: function (obj) {
-            obj = HighFive.unbox(obj, true);
+            obj = H5.unbox(obj, true);
 
-            if (!HighFive.hasValue(obj)) {
+            if (!H5.hasValue(obj)) {
                 throw new System.InvalidOperationException.$ctor1("Nullable instance doesn't have a value.");
             }
 
@@ -12,19 +12,19 @@
         },
 
         getValueOrDefault: function (obj, defValue) {
-            return HighFive.hasValue(obj) ? obj : defValue;
+            return H5.hasValue(obj) ? obj : defValue;
         },
 
         add: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a + b : null;
+            return H5.hasValue$1(a, b) ? a + b : null;
         },
 
         band: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a & b : null;
+            return H5.hasValue$1(a, b) ? a & b : null;
         },
 
         bor: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a | b : null;
+            return H5.hasValue$1(a, b) ? a | b : null;
         },
 
         and: function (a, b) {
@@ -48,19 +48,19 @@
         },
 
         div: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a / b : null;
+            return H5.hasValue$1(a, b) ? a / b : null;
         },
 
         eq: function (a, b) {
-            return !HighFive.hasValue(a) ? !HighFive.hasValue(b) : (a === b);
+            return !H5.hasValue(a) ? !H5.hasValue(b) : (a === b);
         },
 
         equals: function (a, b, fn) {
-            return !HighFive.hasValue(a) ? !HighFive.hasValue(b) : (fn ? fn(a, b) : HighFive.equals(a, b));
+            return !H5.hasValue(a) ? !H5.hasValue(b) : (fn ? fn(a, b) : H5.equals(a, b));
         },
 
         toString: function (a, fn) {
-            return !HighFive.hasValue(a) ? "" : (fn ? fn(a) : a.toString());
+            return !H5.hasValue(a) ? "" : (fn ? fn(a) : a.toString());
         },
 
         toStringFn: function (fn) {
@@ -70,7 +70,7 @@
         },
 
         getHashCode: function (a, fn) {
-            return !HighFive.hasValue(a) ? 0 : (fn ? fn(a) : HighFive.getHashCode(a));
+            return !H5.hasValue(a) ? 0 : (fn ? fn(a) : H5.getHashCode(a));
         },
 
         getHashCodeFn: function (fn) {
@@ -80,8 +80,8 @@
         },
 
         xor: function (a, b) {
-            if (HighFive.hasValue$1(a, b)) {
-                if (HighFive.isBoolean(a) && HighFive.isBoolean(b)) {
+            if (H5.hasValue$1(a, b)) {
+                if (H5.isBoolean(a) && H5.isBoolean(b)) {
                     return a != b;
                 }
 
@@ -92,72 +92,72 @@
         },
 
         gt: function (a, b) {
-            return HighFive.hasValue$1(a, b) && a > b;
+            return H5.hasValue$1(a, b) && a > b;
         },
 
         gte: function (a, b) {
-            return HighFive.hasValue$1(a, b) && a >= b;
+            return H5.hasValue$1(a, b) && a >= b;
         },
 
         neq: function (a, b) {
-            return !HighFive.hasValue(a) ? HighFive.hasValue(b) : (a !== b);
+            return !H5.hasValue(a) ? H5.hasValue(b) : (a !== b);
         },
 
         lt: function (a, b) {
-            return HighFive.hasValue$1(a, b) && a < b;
+            return H5.hasValue$1(a, b) && a < b;
         },
 
         lte: function (a, b) {
-            return HighFive.hasValue$1(a, b) && a <= b;
+            return H5.hasValue$1(a, b) && a <= b;
         },
 
         mod: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a % b : null;
+            return H5.hasValue$1(a, b) ? a % b : null;
         },
 
         mul: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a * b : null;
+            return H5.hasValue$1(a, b) ? a * b : null;
         },
 
         imul: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? HighFive.Int.mul(a, b) : null;
+            return H5.hasValue$1(a, b) ? H5.Int.mul(a, b) : null;
         },
 
         sl: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a << b : null;
+            return H5.hasValue$1(a, b) ? a << b : null;
         },
 
         sr: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a >> b : null;
+            return H5.hasValue$1(a, b) ? a >> b : null;
         },
 
         srr: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a >>> b : null;
+            return H5.hasValue$1(a, b) ? a >>> b : null;
         },
 
         sub: function (a, b) {
-            return HighFive.hasValue$1(a, b) ? a - b : null;
+            return H5.hasValue$1(a, b) ? a - b : null;
         },
 
         bnot: function (a) {
-            return HighFive.hasValue(a) ? ~a : null;
+            return H5.hasValue(a) ? ~a : null;
         },
 
         neg: function (a) {
-            return HighFive.hasValue(a) ? -a : null;
+            return H5.hasValue(a) ? -a : null;
         },
 
         not: function (a) {
-            return HighFive.hasValue(a) ? !a : null;
+            return H5.hasValue(a) ? !a : null;
         },
 
         pos: function (a) {
-            return HighFive.hasValue(a) ? +a : null;
+            return H5.hasValue(a) ? +a : null;
         },
 
         lift: function () {
             for (var i = 1; i < arguments.length; i++) {
-                if (!HighFive.hasValue(arguments[i])) {
+                if (!H5.hasValue(arguments[i])) {
                     return null;
                 }
             }
@@ -174,27 +174,27 @@
         },
 
         lift1: function (f, o) {
-            return HighFive.hasValue(o) ? (typeof f === "function" ? f.apply(null, Array.prototype.slice.call(arguments, 1)) : o[f].apply(o, Array.prototype.slice.call(arguments, 2))) : null;
+            return H5.hasValue(o) ? (typeof f === "function" ? f.apply(null, Array.prototype.slice.call(arguments, 1)) : o[f].apply(o, Array.prototype.slice.call(arguments, 2))) : null;
         },
 
         lift2: function (f, a, b) {
-            return HighFive.hasValue$1(a, b) ? (typeof f === "function" ? f.apply(null, Array.prototype.slice.call(arguments, 1)) : a[f].apply(a, Array.prototype.slice.call(arguments, 2))) : null;
+            return H5.hasValue$1(a, b) ? (typeof f === "function" ? f.apply(null, Array.prototype.slice.call(arguments, 1)) : a[f].apply(a, Array.prototype.slice.call(arguments, 2))) : null;
         },
 
         liftcmp: function (f, a, b) {
-            return HighFive.hasValue$1(a, b) ? (typeof f === "function" ? f.apply(null, Array.prototype.slice.call(arguments, 1)) : a[f].apply(a, Array.prototype.slice.call(arguments, 2))) : false;
+            return H5.hasValue$1(a, b) ? (typeof f === "function" ? f.apply(null, Array.prototype.slice.call(arguments, 1)) : a[f].apply(a, Array.prototype.slice.call(arguments, 2))) : false;
         },
 
         lifteq: function (f, a, b) {
-            var va = HighFive.hasValue(a),
-                vb = HighFive.hasValue(b);
+            var va = H5.hasValue(a),
+                vb = H5.hasValue(b);
 
             return (!va && !vb) || (va && vb && (typeof f === "function" ? f.apply(null, Array.prototype.slice.call(arguments, 1)) : a[f].apply(a, Array.prototype.slice.call(arguments, 2))));
         },
 
         liftne: function (f, a, b) {
-            var va = HighFive.hasValue(a),
-                vb = HighFive.hasValue(b);
+            var va = H5.hasValue(a),
+                vb = H5.hasValue(b);
 
             return (va !== vb) || (va && (typeof f === "function" ? f.apply(null, Array.prototype.slice.call(arguments, 1)) : a[f].apply(a, Array.prototype.slice.call(arguments, 2))));
         },
@@ -204,12 +204,12 @@
                 throw new System.ArgumentNullException.$ctor1("nullableType");
             }
 
-            if (HighFive.Reflection.isGenericType(nullableType) &&
-                !HighFive.Reflection.isGenericTypeDefinition(nullableType)) {
-                var genericType = HighFive.Reflection.getGenericTypeDefinition(nullableType);
+            if (H5.Reflection.isGenericType(nullableType) &&
+                !H5.Reflection.isGenericTypeDefinition(nullableType)) {
+                var genericType = H5.Reflection.getGenericTypeDefinition(nullableType);
 
                 if (genericType === System.Nullable$1) {
-                    return HighFive.Reflection.getGenericArguments(nullableType)[0];
+                    return H5.Reflection.getGenericArguments(nullableType)[0];
                 }
             }
 
@@ -223,7 +223,7 @@
 
     System.Nullable = nullable;
 
-    HighFive.define("System.Nullable$1", function (T) {
+    H5.define("System.Nullable$1", function (T) {
         return {
             $kind: "struct",
 
@@ -235,7 +235,7 @@
                 },
 
                 $is: function (obj) {
-                    return HighFive.is(obj, T);
+                    return H5.is(obj, T);
                 }
             }
         };

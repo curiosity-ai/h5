@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.FileShare", {
+    H5.define("System.IO.FileShare", {
         $kind: "enum",
         statics: {
             fields: {

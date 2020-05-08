@@ -1,4 +1,4 @@
-    HighFive.define("System.OperationCanceledException", {
+    H5.define("System.OperationCanceledException", {
         inherits: [System.SystemException],
         fields: {
             _cancellationToken: null

@@ -2,7 +2,7 @@ using ICSharpCode.NRefactory.CSharp;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class EmptyLambdaDetecter : DepthFirstAstVisitor
     {

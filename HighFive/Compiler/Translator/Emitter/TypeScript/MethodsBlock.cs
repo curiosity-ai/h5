@@ -1,11 +1,11 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using Object.Net.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class MethodsBlock : TypeScriptBlock
     {
@@ -124,7 +124,7 @@ namespace HighFive.Translator.TypeScript
         protected virtual void EmitStructMethods()
         {
             var typeDef = this.Emitter.GetTypeDefinition();
-            string structName = HighFiveTypes.ToTypeScriptName(this.TypeInfo.Type, this.Emitter);
+            string structName = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter);
 
             if (this.TypeInfo.InstanceConfig.Fields.Count == 0)
             {

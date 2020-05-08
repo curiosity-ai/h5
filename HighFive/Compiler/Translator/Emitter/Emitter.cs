@@ -1,15 +1,15 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.TypeSystem;
 using Mono.Cecil;
 using System.Collections.Generic;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Emitter : Visitor, IEmitter
     {
         public Emitter(IDictionary<string,
             TypeDefinition> typeDefinitions,
-            HighFiveTypes highfiveTypes,
+            H5Types h5Types,
             List<ITypeInfo> types,
             IValidator validator,
             IMemberResolver resolver,
@@ -22,9 +22,9 @@ namespace HighFive.Translator
             this.TypeDefinitions = typeDefinitions;
             this.TypeInfoDefinitions = typeInfoDefinitions;
             this.Types = types;
-            this.HighFiveTypes = highfiveTypes;
+            this.H5Types = h5Types;
 
-            this.HighFiveTypes.InitItems(this);
+            this.H5Types.InitItems(this);
 
             logger.Trace("Sorting types infos by name...");
             this.Types.Sort(this.CompareTypeInfosByName);
@@ -63,7 +63,7 @@ namespace HighFive.Translator
             {
                 var autoMethods = string.Join(", ", this.AutoStartupMethods);
 
-                throw (TranslatorException)HighFive.Translator.TranslatorException.Create("Program has more than one entry point defined - {0}", autoMethods);
+                throw (TranslatorException)H5.Translator.TranslatorException.Create("Program has more than one entry point defined - {0}", autoMethods);
             }
 
             var output = this.TransformOutputs();
@@ -75,11 +75,11 @@ namespace HighFive.Translator
 
         private IEnumerable<IAbstractEmitterBlock> GetBlocks()
         {
-            yield return new HighFive.Translator.EmitBlock(this);
+            yield return new H5.Translator.EmitBlock(this);
 
             if (this.AssemblyInfo.GenerateTypeScript)
             {
-                yield return new HighFive.Translator.TypeScript.EmitBlock(this);
+                yield return new H5.Translator.TypeScript.EmitBlock(this);
             }
         }
     }

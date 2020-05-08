@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("lt", true), {
+H5.merge(new System.Globalization.CultureInfo("lt", true), {
     englishName: "Lithuanian",
     nativeName: "lietuvių",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lt", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sk","pr","an","tr","kt","pn","št"],
         abbreviatedMonthGenitiveNames: ["saus.","vas.","kov.","bal.","geg.","birž.","liep.","rugp.","rugs.","spal.","lapkr.","gruod.",""],
         abbreviatedMonthNames: ["saus.","vas.","kov.","bal.","geg.","birž.","liep.","rugp.","rugs.","spal.","lapkr.","gruod.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lt", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1257,
         CultureName: "lt-LT",
         EBCDICCodePage: 500,

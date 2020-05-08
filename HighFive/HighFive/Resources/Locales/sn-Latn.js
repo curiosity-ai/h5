@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sn-Latn", true), {
+H5.merge(new System.Globalization.CultureInfo("sn-Latn", true), {
     englishName: "Shona (Latin)",
     nativeName: "chiShona (Latin)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sn-Latn", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Svo","Muv","Chp","Cht","Chn","Chs","Mug"],
         abbreviatedMonthGenitiveNames: ["Ndi","Kuk","Kur","Kub","Chv","Chk","Chg","Nya","Gun","Gum","Mbu","Zvi",""],
         abbreviatedMonthNames: ["Ndi","Kuk","Kur","Kub","Chv","Chk","Chg","Nya","Gun","Gum","Mbu","Zvi",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sn-Latn", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "sn-Latn-ZW",
         EBCDICCodePage: 500,

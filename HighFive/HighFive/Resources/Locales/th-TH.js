@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("th-TH", true), {
+H5.merge(new System.Globalization.CultureInfo("th-TH", true), {
     englishName: "Thai (Thailand)",
     nativeName: "ไทย (ไทย)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("th-TH", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."],
         abbreviatedMonthGenitiveNames: ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.",""],
         abbreviatedMonthNames: ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("th-TH", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 874,
         CultureName: "th-TH",
         EBCDICCodePage: 20838,

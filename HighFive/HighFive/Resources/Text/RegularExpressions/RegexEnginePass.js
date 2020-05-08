@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.RegexEnginePass", {
+    H5.define("System.Text.RegularExpressions.RegexEnginePass", {
         index: 0,
         tokens: null,
         probe: null,

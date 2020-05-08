@@ -3,9 +3,9 @@ namespace System.Text.RegularExpressions
     /// <summary>
     /// Represents the results from a single capturing group.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public class Group : Capture
     {
         internal extern Group(string text, int[] caps, int capcount);
@@ -15,7 +15,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern bool Success
         {
-            [HighFive.Template("getSuccess()")]
+            [H5.Template("getSuccess()")]
             get;
         }
 
@@ -26,7 +26,7 @@ namespace System.Text.RegularExpressions
         /// </summary>
         public extern CaptureCollection Captures
         {
-            [HighFive.Template("getCaptures()")]
+            [H5.Template("getCaptures()")]
             get;
         }
 

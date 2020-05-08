@@ -1,3 +1,3 @@
-    HighFive.define("System.Runtime.Serialization.IObjectReference", {
+    H5.define("System.Runtime.Serialization.IObjectReference", {
         $kind: "interface"
     });

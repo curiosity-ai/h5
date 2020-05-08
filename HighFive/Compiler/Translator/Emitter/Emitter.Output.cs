@@ -1,4 +1,4 @@
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using Mono.Cecil;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using HighFive.Contract;
+using H5.Contract;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Emitter
     {
@@ -127,7 +127,7 @@ namespace HighFive.Translator
             //  * @version 1.2.3.4
             //  * @author [AssemblyCompany]
             //  * @copyright [AssemblyCopyright]
-            //  * @compiler HighFive.NET 0.0.0
+            //  * @compiler H5.NET 0.0.0
             //  */
 
             if (this.AssemblyJsDocWritten)
@@ -143,7 +143,7 @@ namespace HighFive.Translator
                                 : null;
             string author = versionContext.Assembly.CompanyName;
             string copyright = versionContext.Assembly.Copyright;
-            string compiler = "HighFive.NET " + versionContext.Compiler.Version;
+            string compiler = "H5.NET " + versionContext.Compiler.Version;
 
             WriteNewLine(tmp, "/**");
 
@@ -201,7 +201,7 @@ namespace HighFive.Translator
 
                         OutputAssemblyComment(tmp);
 
-                        tmp.Append(JS.Types.HighFive.ASSEMBLY + "(");
+                        tmp.Append(JS.Types.H5.ASSEMBLY + "(");
 
                         tmp.AppendFormat("\"{0}\"", asmName);
 
@@ -326,7 +326,7 @@ namespace HighFive.Translator
                     this.WriteNewLine(tmp, ") {");
 
                     this.WriteIndent(endOutput, level);
-                    this.WriteNewLine(endOutput, JS.Types.HighFive.INIT + "();");
+                    this.WriteNewLine(endOutput, JS.Types.H5.INIT + "();");
                     this.WriteIndent(endOutput, level);
                     this.WriteNewLine(endOutput, "});");
                     level++;

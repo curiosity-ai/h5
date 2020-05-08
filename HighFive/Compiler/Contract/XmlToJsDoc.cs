@@ -1,4 +1,4 @@
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class XmlToJSConstants
     {
@@ -23,11 +23,11 @@ namespace HighFive.Contract
 
     public class XmlToJsDoc
     {
-        private const char newLine = HighFive.Contract.XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
+        private const char newLine = H5.Contract.XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
 
         public static void EmitComment(IAbstractEmitterBlock block, AstNode node, bool? getter = null, VariableInitializer varInitializer = null)
         {
-            if (block.Emitter.AssemblyInfo.GenerateDocumentation == HighFive.Contract.DocumentationMode.None || node.Parent == null)
+            if (block.Emitter.AssemblyInfo.GenerateDocumentation == H5.Contract.DocumentationMode.None || node.Parent == null)
             {
                 return;
             }
@@ -35,7 +35,7 @@ namespace HighFive.Contract
             var visitor = new DocumentationCommentVisitor();
             node.AcceptChildren(visitor);
 
-            if (block.Emitter.AssemblyInfo.GenerateDocumentation == HighFive.Contract.DocumentationMode.Basic && visitor.Comments.Count == 0)
+            if (block.Emitter.AssemblyInfo.GenerateDocumentation == H5.Contract.DocumentationMode.Basic && visitor.Comments.Count == 0)
             {
                 return;
             }
@@ -320,7 +320,7 @@ namespace HighFive.Contract
                     {
                         try
                         {
-                            exceptionType = XmlToJsDoc.ToJavascriptName(emitter.HighFiveTypes.Get(attr.InnerText).Type, emitter);
+                            exceptionType = XmlToJsDoc.ToJavascriptName(emitter.H5Types.Get(attr.InnerText).Type, emitter);
                         }
                         catch
                         {
@@ -557,7 +557,7 @@ namespace HighFive.Contract
         {
             var list = new List<string>();
 
-            foreach (var t in emitter.HighFiveTypes.Get(type).TypeInfo.GetBaseTypes(emitter))
+            foreach (var t in emitter.H5Types.Get(type).TypeInfo.GetBaseTypes(emitter))
             {
                 var name = XmlToJsDoc.ToJavascriptName(t, emitter);
 
@@ -656,7 +656,7 @@ namespace HighFive.Contract
             var composedType = astType as ComposedType;
             if (composedType != null && composedType.ArraySpecifiers != null && composedType.ArraySpecifiers.Count > 0)
             {
-                return JS.Types.ARRAY + ".<" + HighFiveTypes.ToTypeScriptName(composedType.BaseType, emitter) + ">";
+                return JS.Types.ARRAY + ".<" + H5Types.ToTypeScriptName(composedType.BaseType, emitter) + ">";
             }
 
             var simpleType = astType as SimpleType;
@@ -673,7 +673,7 @@ namespace HighFive.Contract
         {
             if (type.Kind == TypeKind.Delegate)
             {
-                var delegateName = HighFiveTypes.ConvertName(type.FullName);
+                var delegateName = H5Types.ConvertName(type.FullName);
 
                 if (!emitter.JsDoc.Callbacks.Contains(delegateName))
                 {
@@ -765,29 +765,29 @@ namespace HighFive.Contract
                 return "?" + XmlToJsDoc.ToJavascriptName(NullableType.GetUnderlyingType(type), emitter);
             }
 
-            HighFiveType highfiveType = emitter.HighFiveTypes.Get(type, true);
-            //string name = HighFiveTypes.ConvertName(type.FullName);
+            H5Type h5Type = emitter.H5Types.Get(type, true);
+            //string name = H5Types.ConvertName(type.FullName);
 
             var name = type.Namespace;
 
-            var hasTypeDef = highfiveType != null && highfiveType.TypeDefinition != null;
+            var hasTypeDef = h5Type != null && h5Type.TypeDefinition != null;
             bool isNested = false;
             if (hasTypeDef)
             {
-                var typeDef = highfiveType.TypeDefinition;
+                var typeDef = h5Type.TypeDefinition;
                 if (typeDef.IsNested)
                 {
-                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + HighFiveTypes.GetParentNames(emitter, typeDef);
+                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.GetParentNames(emitter, typeDef);
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + HighFiveTypes.ConvertName(typeDef.Name);
+                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(typeDef.Name);
             }
             else
             {
                 if (type.DeclaringType != null)
                 {
-                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + HighFiveTypes.GetParentNames(emitter, type);
+                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.GetParentNames(emitter, type);
 
                     if (type.DeclaringType.TypeArguments.Count > 0)
                     {
@@ -796,13 +796,13 @@ namespace HighFive.Contract
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + HighFiveTypes.ConvertName(type.Name);
+                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(type.Name);
             }
 
             bool isCustomName = false;
-            if (highfiveType != null)
+            if (h5Type != null)
             {
-                name = HighFiveTypes.AddModule(name, highfiveType, false, isNested, out isCustomName);
+                name = H5Types.AddModule(name, h5Type, false, isNested, out isCustomName);
             }
 
             if (!hasTypeDef && !isCustomName && type.TypeArguments.Count > 0)
@@ -842,7 +842,7 @@ namespace HighFive.Contract
 
     public class JsDocComment
     {
-        private const char newLine = HighFive.Contract.XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
+        private const char newLine = H5.Contract.XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
 
         public JsDocComment()
         {

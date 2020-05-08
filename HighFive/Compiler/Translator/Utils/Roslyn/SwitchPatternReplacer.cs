@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class SwitchPatternReplacer : ICSharpReplacer
     {
@@ -35,14 +35,14 @@ namespace HighFive.Translator
                     {
                         var key = tempKey++;
                         var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal("case_pattern" + key));
-                        var methodIdentifier = SyntaxFactory.IdentifierName("global::HighFive.Script.ToTemp");
+                        var methodIdentifier = SyntaxFactory.IdentifierName("global::H5.Script.ToTemp");
 
                         var toTemp = SyntaxFactory.InvocationExpression(methodIdentifier,
                             SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Argument(keyArg), SyntaxFactory.Argument(switchExpression) })));
 
                         switchConditionVariable = SyntaxFactory.ExpressionStatement(toTemp).NormalizeWhitespace();
 
-                        var parentMethodIdentifier = SyntaxFactory.GenericName(SyntaxFactory.Identifier("global::HighFive.Script.FromTemp"),
+                        var parentMethodIdentifier = SyntaxFactory.GenericName(SyntaxFactory.Identifier("global::H5.Script.FromTemp"),
                                                                      SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(new[] { expressionType })));
                         switchExpression = SyntaxFactory.InvocationExpression(parentMethodIdentifier,
                             SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Argument(keyArg) })));

@@ -22,17 +22,17 @@
                 throw new System.ArgumentNullException();
             }
 
-            var guardItem = HighFive.$toStringGuard[HighFive.$toStringGuard.length - 1];
+            var guardItem = H5.$toStringGuard[H5.$toStringGuard.length - 1];
 
             if (instance.toString === Object.prototype.toString || guardItem && guardItem === instance) {
-                return HighFive.Reflection.getTypeFullName(instance);
+                return H5.Reflection.getTypeFullName(instance);
             }
 
-            HighFive.$toStringGuard.push(instance);
+            H5.$toStringGuard.push(instance);
 
             var result = instance.toString();
 
-            HighFive.$toStringGuard.pop();
+            H5.$toStringGuard.pop();
 
             return result;
         },
@@ -79,7 +79,7 @@
                 type: T,
                 constructor: T,
                 getHashCode: function () {
-                    return this.fn.getHashCode ? this.fn.getHashCode(this.v) : HighFive.getHashCode(this.v);
+                    return this.fn.getHashCode ? this.fn.getHashCode(this.v) : H5.getHashCode(this.v);
                 },
                 equals: function (o) {
                     if (this === o) {
@@ -88,7 +88,7 @@
 
                     var eq = this.equals;
                     this.equals = null;
-                    var r = HighFive.equals(this.v, o);
+                    var r = H5.equals(this.v, o);
                     this.equals = eq;
 
                     return r;
@@ -105,7 +105,7 @@
         unbox: function (o, noclone) {
             var T;
 
-            if (noclone && HighFive.isFunction(noclone)) {
+            if (noclone && H5.isFunction(noclone)) {
                 T = noclone;
                 noclone = false;
             }
@@ -130,7 +130,7 @@
                     t = System.Enum.getUnderlyingType(t);
                 }
 
-                if (T && T !== t && !HighFive.isObject(T)) {
+                if (T && T !== t && !H5.isObject(T)) {
                     throw new System.InvalidCastException.$ctor1("Specified cast is not valid.");
                 }
 
@@ -141,7 +141,7 @@
                 return v;
             }
 
-            if (HighFive.isArray(o)) {
+            if (H5.isArray(o)) {
                 for (var i = 0; i < o.length; i++) {
                     var item = o[i];
 
@@ -167,22 +167,22 @@
         },
 
         virtualc: function (name) {
-            return HighFive.virtual(name, true);
+            return H5.virtual(name, true);
         },
 
         virtual: function (name, isClass) {
-            var type = HighFive.unroll(name);
+            var type = H5.unroll(name);
 
-            if (!type || !HighFive.isFunction(type)) {
-                var old = HighFive.Class.staticInitAllow;
-                type = isClass ? HighFive.define(name) : HighFive.definei(name);
-                HighFive.Class.staticInitAllow = true;
+            if (!type || !H5.isFunction(type)) {
+                var old = H5.Class.staticInitAllow;
+                type = isClass ? H5.define(name) : H5.definei(name);
+                H5.Class.staticInitAllow = true;
 
                 if (type.$staticInit) {
                     type.$staticInit();
                 }
 
-                HighFive.Class.staticInitAllow = old;
+                H5.Class.staticInitAllow = old;
             }
 
             return type;
@@ -222,7 +222,7 @@
         },
 
         toPlain: function (o) {
-            if (!o || HighFive.isPlainObject(o) || typeof o != "object") {
+            if (!o || H5.isPlainObject(o) || typeof o != "object") {
                 return o;
             }
 
@@ -230,11 +230,11 @@
                 return o.toJSON();
             }
 
-            if (HighFive.isArray(o)) {
+            if (H5.isArray(o)) {
                 var arr = [];
 
                 for (var i = 0; i < o.length; i++) {
-                    arr.push(HighFive.toPlain(o[i]));
+                    arr.push(H5.toPlain(o[i]));
                 }
 
                 return arr;
@@ -246,7 +246,7 @@
             for (var key in o) {
                 m = o[key];
 
-                if (!HighFive.isFunction(m)) {
+                if (!H5.isFunction(m)) {
                     newo[key] = m;
                 }
             }
@@ -255,7 +255,7 @@
         },
 
         ref: function (o, n) {
-            if (HighFive.isArray(n)) {
+            if (H5.isArray(n)) {
                 n = System.Array.toIndex(o, n);
             }
 
@@ -287,7 +287,7 @@
         },
 
         ensureBaseProperty: function (scope, name, alias) {
-            var scopeType = HighFive.getType(scope),
+            var scopeType = H5.getType(scope),
                 descriptors = scopeType.$descriptors || [];
 
             scope.$propMap = scope.$propMap || {};
@@ -308,7 +308,7 @@
                     scope[name] = value;
                 };
 
-                HighFive.property(scope, aliasName, aliasCfg, false, scopeType, true);
+                H5.property(scope, aliasName, aliasCfg, false, scopeType, true);
             }
             else {
                 for (var j = 0; j < descriptors.length; j++) {
@@ -316,7 +316,7 @@
 
                     if (d.name === name) {
                         var aliasCfg = {},
-                            aliasName = "$" + HighFive.getTypeAlias(d.cls) + "$" + name;
+                            aliasName = "$" + H5.getTypeAlias(d.cls) + "$" + name;
 
                         if (d.get) {
                             aliasCfg.get = d.get;
@@ -326,7 +326,7 @@
                             aliasCfg.set = d.set;
                         }
 
-                        HighFive.property(scope, aliasName, aliasCfg, false, scopeType, true);
+                        H5.property(scope, aliasName, aliasCfg, false, scopeType, true);
                     }
                 }
             }
@@ -351,7 +351,7 @@
             }
 
             if (!v || !(v.get || v.set)) {
-                var backingField = HighFive.getTypeAlias(cls) + "$" + name;
+                var backingField = H5.getTypeAlias(cls) + "$" + name;
 
                 cls.$init = cls.$init || {};
 
@@ -398,23 +398,23 @@
 
             scope[addName] = (function (name, scope, statics) {
                 return statics ? function (value) {
-                    scope[name] = HighFive.fn.combine(scope[name], value);
+                    scope[name] = H5.fn.combine(scope[name], value);
                 } : function (value) {
-                    this[name] = HighFive.fn.combine(this[name], value);
+                    this[name] = H5.fn.combine(this[name], value);
                 };
             })(name, scope, statics);
 
             scope[removeName] = (function (name, scope, statics) {
                 return statics ? function (value) {
-                    scope[name] = HighFive.fn.remove(scope[name], value);
+                    scope[name] = H5.fn.remove(scope[name], value);
                 } : function (value) {
-                    this[name] = HighFive.fn.remove(this[name], value);
+                    this[name] = H5.fn.remove(this[name], value);
                 };
             })(name, scope, statics);
         },
 
         createInstance: function (type, nonPublic, args) {
-            if (HighFive.isArray(nonPublic)) {
+            if (H5.isArray(nonPublic)) {
                 args = nonPublic;
                 nonPublic = false;
             }
@@ -439,7 +439,7 @@
                 type === System.UInt16 ||
                 type === System.Int32 ||
                 type === System.UInt32 ||
-                type === HighFive.Int) {
+                type === H5.Int) {
                 return 0;
             }
 
@@ -460,14 +460,14 @@
             } else if (type && type.$literal) {
                 return type.ctor();
             } else if (args && args.length > 0) {
-                return HighFive.Reflection.applyConstructor(type, args);
+                return H5.Reflection.applyConstructor(type, args);
             }
 
             if (type.$kind === 'interface') {
-                throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + HighFive.getTypeName(type));
+                throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + H5.getTypeName(type));
             }
 
-            var ctors = HighFive.Reflection.getMembers(type, 1, 54);
+            var ctors = H5.Reflection.getMembers(type, 1, 54);
 
             if (ctors.length > 0) {
                 var pctors = ctors.filter(function (c) { return !c.isSynthetic && !c.sm; });
@@ -478,14 +478,14 @@
 
                     if (isDefault) {
                         if (nonPublic || c.a === 2) {
-                            return HighFive.Reflection.invokeCI(c, []);
+                            return H5.Reflection.invokeCI(c, []);
                         }
-                        throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + HighFive.getTypeName(type));
+                        throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + H5.getTypeName(type));
                     }
                 }
 
                 if (type.$$name && !(ctors.length == 1 && ctors[0].isSynthetic)) {
-                    throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + HighFive.getTypeName(type));
+                    throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + H5.getTypeName(type));
                 }
             }
 
@@ -497,25 +497,25 @@
                 return obj;
             }
 
-            if (HighFive.isArray(obj)) {
+            if (H5.isArray(obj)) {
                 return System.Array.clone(obj);
             }
 
-            if (HighFive.isString(obj)) {
+            if (H5.isString(obj)) {
                 return obj;
             }
 
             var name;
 
-            if (HighFive.isFunction(HighFive.getProperty(obj, name = "System$ICloneable$clone"))) {
+            if (H5.isFunction(H5.getProperty(obj, name = "System$ICloneable$clone"))) {
                 return obj[name]();
             }
 
-            if (HighFive.is(obj, System.ICloneable)) {
+            if (H5.is(obj, System.ICloneable)) {
                 return obj.clone();
             }
 
-            if (HighFive.isFunction(obj.$clone)) {
+            if (H5.isFunction(obj.$clone)) {
                 return obj.$clone();
             }
 
@@ -531,8 +531,8 @@
                 name = keys[i];
 
                 if (toIf !== true || to[name] == undefined) {
-                    if (HighFive.is(from[name], System.ICloneable)) {
-                        to[name] = HighFive.clone(from[name]);
+                    if (H5.is(from[name], System.ICloneable)) {
+                        to[name] = H5.clone(from[name]);
                     } else {
                         to[name] = from[name];
                     }
@@ -555,7 +555,7 @@
                 i = 0;
 
             if (!scope) {
-                scope = HighFive.global;
+                scope = H5.global;
             }
 
             for (i = 0; i < nsParts.length; i++) {
@@ -578,16 +578,16 @@
                 }
             };
 
-            if (typeof HighFive.global.jQuery !== "undefined") {
-                HighFive.global.jQuery(delayfn);
+            if (typeof H5.global.jQuery !== "undefined") {
+                H5.global.jQuery(delayfn);
             } else {
-                if (typeof HighFive.global.document === "undefined" ||
-                    HighFive.global.document.readyState === "complete" ||
-                    HighFive.global.document.readyState === "loaded" ||
-                    HighFive.global.document.readyState === "interactive") {
+                if (typeof H5.global.document === "undefined" ||
+                    H5.global.document.readyState === "complete" ||
+                    H5.global.document.readyState === "loaded" ||
+                    H5.global.document.readyState === "interactive") {
                     delayfn();
                 } else {
-                    HighFive.on("DOMContentLoaded", HighFive.global.document, delayfn);
+                    H5.on("DOMContentLoaded", H5.global.document, delayfn);
                 }
             }
         },
@@ -605,11 +605,11 @@
             };
 
             var attachHandler = function () {
-                var ret = fn.call(scope || elem, HighFive.global.event);
+                var ret = fn.call(scope || elem, H5.global.event);
 
                 if (ret === false) {
-                    HighFive.global.event.returnValue = false;
-                    HighFive.global.event.cancelBubble = true;
+                    H5.global.event.returnValue = false;
+                    H5.global.event.cancelBubble = true;
                 }
 
                 return (ret);
@@ -631,30 +631,30 @@
                 m = 23;
             }
 
-            if (HighFive.isArray(v)) {
+            if (H5.isArray(v)) {
                 for (var i = 0; i < v.length; i++) {
-                    r = r + ((r * m | 0) + (v[i] == null ? 0 : HighFive.getHashCode(v[i]))) | 0;
+                    r = r + ((r * m | 0) + (v[i] == null ? 0 : H5.getHashCode(v[i]))) | 0;
                 }
 
                 return r;
             }
 
-            return r = r + ((r * m | 0) + (v == null ? 0 : HighFive.getHashCode(v))) | 0;
+            return r = r + ((r * m | 0) + (v == null ? 0 : H5.getHashCode(v))) | 0;
         },
 
         getHashCode: function (value, safe, deep) {
             // In CLR: mutable object should keep on returning same value
-            // HighFive.NET goals: make it deterministic (to make testing easier) without breaking CLR contracts
+            // H5.NET goals: make it deterministic (to make testing easier) without breaking CLR contracts
             //     for value types it returns deterministic values (f.e. for int 3 it returns 3)
             //     for reference types it returns random value
 
             if (value && value.$boxed && value.type.getHashCode) {
-                return value.type.getHashCode(HighFive.unbox(value, true));
+                return value.type.getHashCode(H5.unbox(value, true));
             }
 
-            value = HighFive.unbox(value, true);
+            value = H5.unbox(value, true);
 
-            if (HighFive.isEmpty(value, true)) {
+            if (H5.isEmpty(value, true)) {
                 if (safe) {
                     return 0;
                 }
@@ -662,7 +662,7 @@
                 throw new System.InvalidOperationException.$ctor1("HashCode cannot be calculated for empty value");
             }
 
-            if (value.getHashCode && HighFive.isFunction(value.getHashCode) && !value.__insideHashCode && value.getHashCode.length === 0) {
+            if (value.getHashCode && H5.isFunction(value.getHashCode) && !value.__insideHashCode && value.getHashCode.length === 0) {
                 value.__insideHashCode = true;
                 var r = value.getHashCode();
 
@@ -671,11 +671,11 @@
                 return r;
             }
 
-            if (HighFive.isBoolean(value)) {
+            if (H5.isBoolean(value)) {
                 return value ? 1 : 0;
             }
 
-            if (HighFive.isDate(value)) {
+            if (H5.isDate(value)) {
                 var val = value.ticks !== undefined ? value.ticks : System.DateTime.getTicks(value);
 
                 return val.toNumber() & 0xFFFFFFFF;
@@ -689,7 +689,7 @@
                 return 0xFFF00000;
             }
 
-            if (HighFive.isNumber(value)) {
+            if (H5.isNumber(value)) {
                 if (Math.floor(value) === value) {
                     return value;
                 }
@@ -697,7 +697,7 @@
                 value = value.toExponential();
             }
 
-            if (HighFive.isString(value)) {
+            if (H5.isString(value)) {
                 if (Math.imul) {
                     for (var i = 0, h = 0; i < value.length; i++)
                         h = Math.imul(31, h) + value.charCodeAt(i) | 0;
@@ -715,7 +715,7 @@
                 return value.$$hashCode;
             }
 
-            if (deep !== false && value.hasOwnProperty("Item1") && HighFive.isPlainObject(value)) {
+            if (deep !== false && value.hasOwnProperty("Item1") && H5.isPlainObject(value)) {
                 deep = true;
             }
 
@@ -725,7 +725,7 @@
 
                 for (var property in value) {
                     if (value.hasOwnProperty(property)) {
-                        temp = HighFive.isEmpty(value[property], true) ? 0 : HighFive.getHashCode(value[property]);
+                        temp = H5.isEmpty(value[property], true) ? 0 : H5.getHashCode(value[property]);
                         result = 29 * result + temp;
                     }
                 }
@@ -747,7 +747,7 @@
                 throw new System.ArgumentNullException.$ctor1("type");
             } else if ((type.getDefaultValue) && type.getDefaultValue.length === 0) {
                 return type.getDefaultValue();
-            } else if (HighFive.Reflection.isEnum(type)) {
+            } else if (H5.Reflection.isEnum(type)) {
                 return System.Enum.parse(type, 0);
             } else if (type === Boolean || type === System.Boolean) {
                 return false;
@@ -769,39 +769,39 @@
                 return obj.$$alias;
             }
 
-            var type = (obj.$$name || typeof obj === "function") ? obj : HighFive.getType(obj),
+            var type = (obj.$$name || typeof obj === "function") ? obj : H5.getType(obj),
                 alias;
 
             if (type.$$alias) {
                 return type.$$alias;
             }
 
-            alias = HighFive.$$aliasCache[type];
+            alias = H5.$$aliasCache[type];
             if (alias) {
                 return alias;
             }
 
             if (type.$isArray) {
-                var elementName = HighFive.getTypeAlias(type.$elementType);
+                var elementName = H5.getTypeAlias(type.$elementType);
                 alias = elementName + "$Array" + (type.$rank > 1 ? ("$" + type.$rank) : "");
 
                 if (type.$$name) {
                     type.$$alias = alias;
                 } else {
-                    HighFive.$$aliasCache[type] = alias;
+                    H5.$$aliasCache[type] = alias;
                 }
 
                 return alias;
             }
 
-            var name = obj.$$name || HighFive.getTypeName(obj);
+            var name = obj.$$name || H5.getTypeName(obj);
 
             if (type.$typeArguments && !type.$isGenericTypeDefinition) {
                 name = type.$genericTypeDefinition.$$name;
 
                 for (var i = 0; i < type.$typeArguments.length; i++) {
                     var ta = type.$typeArguments[i];
-                    name += "$" + HighFive.getTypeAlias(ta);
+                    name += "$" + H5.getTypeAlias(ta);
                 }
             }
 
@@ -814,18 +814,18 @@
             if (type.$$name) {
                 type.$$alias = alias;
             } else {
-                HighFive.$$aliasCache[type] = alias;
+                H5.$$aliasCache[type] = alias;
             }
 
             return alias;
         },
 
         getTypeName: function (obj) {
-            return HighFive.Reflection.getTypeFullName(obj);
+            return H5.Reflection.getTypeFullName(obj);
         },
 
         hasValue: function (obj) {
-            return HighFive.unbox(obj, true) != null;
+            return H5.unbox(obj, true) != null;
         },
 
         hasValue$1: function () {
@@ -836,7 +836,7 @@
             var i = 0;
 
             for (i; i < arguments.length; i++) {
-                if (HighFive.unbox(arguments[i], true) == null) {
+                if (H5.unbox(arguments[i], true) == null) {
                     return false;
                 }
             }
@@ -866,24 +866,24 @@
             if (obj.$boxed) {
                 if (obj.type.$kind === "enum" && (obj.type.prototype.$utype === type || type === System.Enum || type === System.IFormattable || type === System.IComparable)) {
                     return true;
-                } else if (!HighFive.Reflection.isInterface(type) && !type.$nullable) {
-                    return obj.type === type || HighFive.isObject(type) || type === System.ValueType && HighFive.Reflection.isValueType(obj.type);
+                } else if (!H5.Reflection.isInterface(type) && !type.$nullable) {
+                    return obj.type === type || H5.isObject(type) || type === System.ValueType && H5.Reflection.isValueType(obj.type);
                 }
 
                 if (ignoreFn !== true && type.$is) {
-                    return type.$is(HighFive.unbox(obj, true));
+                    return type.$is(H5.unbox(obj, true));
                 }
 
-                if (HighFive.Reflection.isAssignableFrom(type, obj.type)) {
+                if (H5.Reflection.isAssignableFrom(type, obj.type)) {
                     return true;
                 }
 
-                obj = HighFive.unbox(obj, true);
+                obj = H5.unbox(obj, true);
             }
 
-            var ctor = obj.constructor === Object && obj.$getType ? obj.$getType() : HighFive.Reflection.convertType(obj.constructor);
+            var ctor = obj.constructor === Object && obj.$getType ? obj.$getType() : H5.Reflection.convertType(obj.constructor);
 
-            if (type.constructor === Function && obj instanceof type || ctor === type || HighFive.isObject(type)) {
+            if (type.constructor === Function && obj instanceof type || ctor === type || H5.isObject(type)) {
                 return true;
             }
 
@@ -899,10 +899,10 @@
                             return System.Array.is(obj, type);
                         }
 
-                        return type.isAssignableFrom ? type.isAssignableFrom(ctor) : HighFive.Reflection.getInterfaces(ctor).indexOf(type) >= 0;
+                        return type.isAssignableFrom ? type.isAssignableFrom(ctor) : H5.Reflection.getInterfaces(ctor).indexOf(type) >= 0;
                     }
 
-                    if (HighFive.isArray(obj, ctor)) {
+                    if (H5.isArray(obj, ctor)) {
                         return System.Array.is(obj, type);
                     }
                 }
@@ -912,9 +912,9 @@
                 }
 
                 if (type.$literal) {
-                    if (HighFive.isPlainObject(obj)) {
+                    if (H5.isPlainObject(obj)) {
                         if (obj.$getType) {
-                            return HighFive.Reflection.isAssignableFrom(type, obj.$getType());
+                            return H5.Reflection.isAssignableFrom(type, obj.$getType());
                         }
 
                         return true;
@@ -925,10 +925,10 @@
             }
 
             if (tt === "string") {
-                type = HighFive.unroll(type);
+                type = H5.unroll(type);
             }
 
-            if (tt === "function" && (HighFive.getType(obj).prototype instanceof type)) {
+            if (tt === "function" && (H5.getType(obj).prototype instanceof type)) {
                 return true;
             }
 
@@ -938,11 +938,11 @@
                 }
 
                 if (typeof (type.isAssignableFrom) === "function") {
-                    return type.isAssignableFrom(HighFive.getType(obj));
+                    return type.isAssignableFrom(H5.getType(obj));
                 }
             }
 
-            if (HighFive.isArray(obj)) {
+            if (H5.isArray(obj)) {
                 return System.Array.is(obj, type);
             }
 
@@ -950,7 +950,7 @@
         },
 
         as: function (obj, type, allowNull) {
-            if (HighFive.is(obj, type, false, allowNull)) {
+            if (H5.is(obj, type, false, allowNull)) {
                 return obj != null && obj.$boxed && type !== Object && type !== System.Object ? obj.v : obj;
             }
             return null;
@@ -961,10 +961,10 @@
                 return obj;
             }
 
-            var result = HighFive.is(obj, type, false, allowNull) ? obj : null;
+            var result = H5.is(obj, type, false, allowNull) ? obj : null;
 
             if (result === null) {
-                throw new System.InvalidCastException.$ctor1("Unable to cast type " + (obj ? HighFive.getTypeName(obj) : "'null'") + " to type " + HighFive.getTypeName(type));
+                throw new System.InvalidCastException.$ctor1("Unable to cast type " + (obj ? H5.getTypeName(obj) : "'null'") + " to type " + H5.getTypeName(type));
             }
 
             if (obj.$boxed && type !== Object && type !== System.Object) {
@@ -975,7 +975,7 @@
         },
 
         apply: function (obj, values, callback) {
-            var names = HighFive.getPropertyNames(values, true),
+            var names = H5.getPropertyNames(values, true),
                 i;
 
             for (i = 0; i < names.length; i++) {
@@ -996,7 +996,7 @@
         },
 
         copyProperties: function (to, from) {
-            var names = HighFive.getPropertyNames(from, false),
+            var names = H5.getPropertyNames(from, false),
                 i;
 
             for (i = 0; i < names.length; i++) {
@@ -1018,8 +1018,8 @@
                 return from;
             }
 
-            // Maps instance of plain JS value or Object into HighFive object.
-            // Used for deserialization. Proper deserialization requires reflection that is currently not supported in HighFive.
+            // Maps instance of plain JS value or Object into H5 object.
+            // Used for deserialization. Proper deserialization requires reflection that is currently not supported in H5.
             // It currently is only capable to deserialize:
             // -instance of single class or primitive
             // -array of primitives
@@ -1028,20 +1028,20 @@
                 return new System.Decimal(from);
             }
 
-            if (to instanceof System.Int64 && HighFive.isNumber(from)) {
+            if (to instanceof System.Int64 && H5.isNumber(from)) {
                 return new System.Int64(from);
             }
 
-            if (to instanceof System.UInt64 && HighFive.isNumber(from)) {
+            if (to instanceof System.UInt64 && H5.isNumber(from)) {
                 return new System.UInt64(from);
             }
 
-            if (to instanceof Boolean || HighFive.isBoolean(to) ||
+            if (to instanceof Boolean || H5.isBoolean(to) ||
                 typeof to === "number" ||
-                to instanceof String || HighFive.isString(to) ||
-                to instanceof Function || HighFive.isFunction(to) ||
-                to instanceof Date || HighFive.isDate(to) ||
-                HighFive.getType(to).$number) {
+                to instanceof String || H5.isString(to) ||
+                to instanceof Function || H5.isFunction(to) ||
+                to instanceof Date || H5.isDate(to) ||
+                H5.getType(to).$number) {
                 return from;
             }
 
@@ -1051,20 +1051,20 @@
                 toValue,
                 fn;
 
-            if (HighFive.isArray(from) && HighFive.isFunction(to.add || to.push)) {
-                fn = HighFive.isArray(to) ? to.push : to.add;
+            if (H5.isArray(from) && H5.isFunction(to.add || to.push)) {
+                fn = H5.isArray(to) ? to.push : to.add;
 
                 for (i = 0; i < from.length; i++) {
                     var item = from[i];
 
-                    if (!HighFive.isArray(item)) {
-                        item = [typeof elemFactory === "undefined" ? item : HighFive.merge(elemFactory(), item)];
+                    if (!H5.isArray(item)) {
+                        item = [typeof elemFactory === "undefined" ? item : H5.merge(elemFactory(), item)];
                     }
 
                     fn.apply(to, item);
                 }
             } else {
-                var t = HighFive.getType(to),
+                var t = H5.getType(to),
                     descriptors = t && t.$descriptors;
 
                 if (from) {
@@ -1085,13 +1085,13 @@
 
                         if (descriptor != null) {
                             if (descriptor.set) {
-                                to[key] = HighFive.merge(to[key], value);
+                                to[key] = H5.merge(to[key], value);
                             } else {
-                                HighFive.merge(to[key], value);
+                                H5.merge(to[key], value);
                             }
                         } else if (typeof to[key] === "function") {
                             if (key.match(/^\s*get[A-Z]/)) {
-                                HighFive.merge(to[key](), value);
+                                H5.merge(to[key](), value);
                             } else {
                                 to[key](value);
                             }
@@ -1104,7 +1104,7 @@
                                 getter = "g" + setter1.slice(1);
 
                                 if (typeof to[getter] === "function") {
-                                    to[setter1](HighFive.merge(to[getter](), value));
+                                    to[setter1](H5.merge(to[getter](), value));
                                 } else {
                                     to[setter1](value);
                                 }
@@ -1112,15 +1112,15 @@
                                 getter = "g" + setter2.slice(1);
 
                                 if (typeof to[getter] === "function") {
-                                    to[setter2](HighFive.merge(to[getter](), value));
+                                    to[setter2](H5.merge(to[getter](), value));
                                 } else {
                                     to[setter2](value);
                                 }
                             } else if (value && value.constructor === Object && to[key]) {
                                 toValue = to[key];
-                                HighFive.merge(toValue, value);
+                                H5.merge(toValue, value);
                             } else {
-                                var isNumber = HighFive.isNumber(from);
+                                var isNumber = H5.isNumber(from);
 
                                 if (to[key] instanceof System.Decimal && isNumber) {
                                     return new System.Decimal(from);
@@ -1159,7 +1159,7 @@
                 obj = System.String.toCharArray(obj);
             }
 
-            if (arguments.length === 2 && HighFive.isFunction(fnName)) {
+            if (arguments.length === 2 && H5.isFunction(fnName)) {
                 T = fnName;
                 fnName = null;
             }
@@ -1174,15 +1174,15 @@
 
             var name;
 
-            if (T && HighFive.isFunction(HighFive.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$" + HighFive.getTypeAlias(T) + "$GetEnumerator"))) {
+            if (T && H5.isFunction(H5.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$" + H5.getTypeAlias(T) + "$GetEnumerator"))) {
                 return obj[name]();
             }
 
-            if (T && HighFive.isFunction(HighFive.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$GetEnumerator"))) {
+            if (T && H5.isFunction(H5.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$GetEnumerator"))) {
                 return obj[name]();
             }
 
-            if (HighFive.isFunction(HighFive.getProperty(obj, name = "System$Collections$IEnumerable$GetEnumerator"))) {
+            if (H5.isFunction(H5.getProperty(obj, name = "System$Collections$IEnumerable$GetEnumerator"))) {
                 return obj[name]();
             }
 
@@ -1191,8 +1191,8 @@
             }
 
             if ((Object.prototype.toString.call(obj) === "[object Array]") ||
-                (obj && HighFive.isDefined(obj.length))) {
-                return new HighFive.ArrayEnumerator(obj, T);
+                (obj && H5.isDefined(obj.length))) {
+                return new H5.ArrayEnumerator(obj, T);
             }
 
             throw new System.InvalidOperationException.$ctor1("Cannot create Enumerator.");
@@ -1212,7 +1212,7 @@
         },
 
         getProperty: function (obj, propertyName) {
-            if (HighFive.isHtmlAttributeCollection(obj) && !this.isValidHtmlAttributeName(propertyName)) {
+            if (H5.isHtmlAttributeCollection(obj) && !this.isValidHtmlAttributeName(propertyName)) {
                 return undefined;
             }
 
@@ -1240,7 +1240,7 @@
         },
 
         isEmpty: function (value, allowEmpty) {
-            return (typeof value === "undefined" || value === null) || (!allowEmpty ? value === "" : false) || ((!allowEmpty && HighFive.isArray(value)) ? value.length === 0 : false);
+            return (typeof value === "undefined" || value === null) || (!allowEmpty ? value === "" : false) || ((!allowEmpty && H5.isArray(value)) ? value.length === 0 : false);
         },
 
         toArray: function (ienumerable) {
@@ -1249,12 +1249,12 @@
                 len,
                 result = [];
 
-            if (HighFive.isArray(ienumerable)) {
+            if (H5.isArray(ienumerable)) {
                 for (i = 0, len = ienumerable.length; i < len; ++i) {
                     result.push(ienumerable[i]);
                 }
             } else {
-                i = HighFive.getEnumerator(ienumerable);
+                i = H5.getEnumerator(ienumerable);
 
                 while (i.moveNext()) {
                     item = i.Current;
@@ -1278,7 +1278,7 @@
                 return false;
             }
 
-            return HighFive.arrayTypes.indexOf(c) >= 0 || c.$isArray || Array.isArray(obj);
+            return H5.arrayTypes.indexOf(c) >= 0 || c.$isArray || Array.isArray(obj);
         },
 
         isFunction: function (obj) {
@@ -1306,12 +1306,12 @@
         },
 
         unroll: function (value, scope) {
-            if (HighFive.isArray(value)) {
+            if (H5.isArray(value)) {
                 for (var i = 0; i < value.length; i++) {
                     var v = value[i];
 
-                    if (HighFive.isString(v)) {
-                        value[i] = HighFive.unroll(v, scope);
+                    if (H5.isString(v)) {
+                        value[i] = H5.unroll(v, scope);
                     }
                 }
 
@@ -1319,7 +1319,7 @@
             }
 
             var d = value.split("."),
-                o = (scope || HighFive.global)[d[0]],
+                o = (scope || H5.global)[d[0]],
                 i = 1;
 
             for (i; i < d.length; i++) {
@@ -1334,15 +1334,15 @@
         },
 
         referenceEquals: function (a, b) {
-            return HighFive.hasValue(a) ? a === b : !HighFive.hasValue(b);
+            return H5.hasValue(a) ? a === b : !H5.hasValue(b);
         },
 
         staticEquals: function (a, b) {
-            if (!HighFive.hasValue(a)) {
-                return !HighFive.hasValue(b);
+            if (!H5.hasValue(a)) {
+                return !H5.hasValue(b);
             }
 
-            return HighFive.hasValue(b) ? HighFive.equals(a, b) : false;
+            return H5.hasValue(b) ? H5.equals(a, b) : false;
         },
 
         equals: function (a, b) {
@@ -1350,13 +1350,13 @@
                 return true;
             }
 
-            var guardItem = HighFive.$equalsGuard[HighFive.$equalsGuard.length - 1];
+            var guardItem = H5.$equalsGuard[H5.$equalsGuard.length - 1];
 
             if (guardItem && guardItem.a === a && guardItem.b === b) {
                 return a === b;
             }
 
-            HighFive.$equalsGuard.push({a: a, b: b});
+            H5.$equalsGuard.push({a: a, b: b});
 
             var fn = function (a, b) {
                 if (a && a.$boxed && a.type.equals && a.type.equals.length === 2) {
@@ -1367,53 +1367,53 @@
                     return b.type.equals(b, a);
                 }
 
-                if (a && HighFive.isFunction(a.equals) && a.equals.length === 1) {
+                if (a && H5.isFunction(a.equals) && a.equals.length === 1) {
                     return a.equals(b);
                 }
 
-                if (b && HighFive.isFunction(b.equals) && b.equals.length === 1) {
+                if (b && H5.isFunction(b.equals) && b.equals.length === 1) {
                     return b.equals(a);
-                } if (HighFive.isFunction(a) && HighFive.isFunction(b)) {
-                    return HighFive.fn.equals.call(a, b);
-                } else if (HighFive.isDate(a) && HighFive.isDate(b)) {
+                } if (H5.isFunction(a) && H5.isFunction(b)) {
+                    return H5.fn.equals.call(a, b);
+                } else if (H5.isDate(a) && H5.isDate(b)) {
                     if (a.kind !== undefined && a.ticks !== undefined && b.kind !== undefined && b.ticks !== undefined) {
                         return a.ticks.equals(b.ticks);
                     }
 
                     return a.valueOf() === b.valueOf();
-                } else if (HighFive.isNull(a) && HighFive.isNull(b)) {
+                } else if (H5.isNull(a) && H5.isNull(b)) {
                     return true;
-                } else if (HighFive.isNull(a) !== HighFive.isNull(b)) {
+                } else if (H5.isNull(a) !== H5.isNull(b)) {
                     return false;
                 }
 
                 var eq = a === b;
 
                 if (!eq && typeof a === "object" && typeof b === "object" && a !== null && b !== null && a.$kind === "struct" && b.$kind === "struct" && a.$$name === b.$$name) {
-                    return HighFive.getHashCode(a) === HighFive.getHashCode(b) && HighFive.objectEquals(a, b);
+                    return H5.getHashCode(a) === H5.getHashCode(b) && H5.objectEquals(a, b);
                 }
 
-                if (!eq && a && b && a.hasOwnProperty("Item1") && HighFive.isPlainObject(a) && b.hasOwnProperty("Item1") && HighFive.isPlainObject(b)) {
-                    return HighFive.objectEquals(a, b, true);
+                if (!eq && a && b && a.hasOwnProperty("Item1") && H5.isPlainObject(a) && b.hasOwnProperty("Item1") && H5.isPlainObject(b)) {
+                    return H5.objectEquals(a, b, true);
                 }
 
                 return eq;
             };
 
             var result = fn(a, b);
-            HighFive.$equalsGuard.pop();
+            H5.$equalsGuard.pop();
 
             return result;
         },
 
         objectEquals: function (a, b, oneLevel) {
-            HighFive.$$leftChain = [];
-            HighFive.$$rightChain = [];
+            H5.$$leftChain = [];
+            H5.$$rightChain = [];
 
-            var result = HighFive.deepEquals(a, b, oneLevel);
+            var result = H5.deepEquals(a, b, oneLevel);
 
-            delete HighFive.$$leftChain;
-            delete HighFive.$$rightChain;
+            delete H5.$$leftChain;
+            delete H5.$$rightChain;
 
             return result;
         },
@@ -1424,7 +1424,7 @@
                     return true;
                 }
 
-                if (HighFive.$$leftChain.indexOf(a) > -1 || HighFive.$$rightChain.indexOf(b) > -1) {
+                if (H5.$$leftChain.indexOf(a) > -1 || H5.$$rightChain.indexOf(b) > -1) {
                     return false;
                 }
 
@@ -1448,17 +1448,17 @@
                     if (a[p] === b[p]) {
                         continue;
                     } else if (typeof (a[p]) === "object" && !oneLevel) {
-                        HighFive.$$leftChain.push(a);
-                        HighFive.$$rightChain.push(b);
+                        H5.$$leftChain.push(a);
+                        H5.$$rightChain.push(b);
 
-                        if (!HighFive.deepEquals(a[p], b[p])) {
+                        if (!H5.deepEquals(a[p], b[p])) {
                             return false;
                         }
 
-                        HighFive.$$leftChain.pop();
-                        HighFive.$$rightChain.pop();
+                        H5.$$leftChain.pop();
+                        H5.$$rightChain.pop();
                     } else {
-                        if (!HighFive.equals(a[p], b[p])) {
+                        if (!H5.equals(a[p], b[p])) {
                             return false;
                         }
                     }
@@ -1466,7 +1466,7 @@
 
                 return true;
             } else {
-                return HighFive.equals(a, b);
+                return H5.equals(a, b);
             }
         },
 
@@ -1496,66 +1496,66 @@
 
         compare: function (a, b, safe, T) {
             if (a && a.$boxed) {
-                a = HighFive.unbox(a, true);
+                a = H5.unbox(a, true);
             }
 
             if (b && b.$boxed) {
-                b = HighFive.unbox(b, true);
+                b = H5.unbox(b, true);
             }
 
             if (typeof a === "number" && typeof b === "number") {
-                return HighFive.numberCompare(a, b);
+                return H5.numberCompare(a, b);
             }
 
-            if (!HighFive.isDefined(a, true)) {
+            if (!H5.isDefined(a, true)) {
                 if (safe) {
                     return 0;
                 }
 
                 throw new System.NullReferenceException();
-            } else if (HighFive.isString(a)) {
+            } else if (H5.isString(a)) {
                 return System.String.compare(a, b);
-            } else if (HighFive.isNumber(a) || HighFive.isBoolean(a)) {
+            } else if (H5.isNumber(a) || H5.isBoolean(a)) {
                 return a < b ? -1 : (a > b ? 1 : 0);
-            } else if (HighFive.isDate(a)) {
+            } else if (H5.isDate(a)) {
                 if (a.kind !== undefined && a.ticks !== undefined) {
-                    return HighFive.compare(System.DateTime.getTicks(a), System.DateTime.getTicks(b));
+                    return H5.compare(System.DateTime.getTicks(a), System.DateTime.getTicks(b));
                 }
 
-                return HighFive.compare(a.valueOf(), b.valueOf());
+                return H5.compare(a.valueOf(), b.valueOf());
             }
 
             var name;
 
-            if (T && HighFive.isFunction(HighFive.getProperty(a, name = "System$IComparable$1$" + HighFive.getTypeAlias(T) + "$compareTo"))) {
+            if (T && H5.isFunction(H5.getProperty(a, name = "System$IComparable$1$" + H5.getTypeAlias(T) + "$compareTo"))) {
                 return a[name](b);
             }
 
-            if (T && HighFive.isFunction(HighFive.getProperty(a, name = "System$IComparable$1$compareTo"))) {
+            if (T && H5.isFunction(H5.getProperty(a, name = "System$IComparable$1$compareTo"))) {
                 return a[name](b);
             }
 
-            if (HighFive.isFunction(HighFive.getProperty(a, name = "System$IComparable$compareTo"))) {
+            if (H5.isFunction(H5.getProperty(a, name = "System$IComparable$compareTo"))) {
                 return a[name](b);
             }
 
-            if (HighFive.isFunction(a.compareTo)) {
+            if (H5.isFunction(a.compareTo)) {
                 return a.compareTo(b);
             }
 
-            if (T && HighFive.isFunction(HighFive.getProperty(b, name = "System$IComparable$1$" + HighFive.getTypeAlias(T) + "$compareTo"))) {
+            if (T && H5.isFunction(H5.getProperty(b, name = "System$IComparable$1$" + H5.getTypeAlias(T) + "$compareTo"))) {
                 return -b[name](a);
             }
 
-            if (T && HighFive.isFunction(HighFive.getProperty(b, name = "System$IComparable$1$compareTo"))) {
+            if (T && H5.isFunction(H5.getProperty(b, name = "System$IComparable$1$compareTo"))) {
                 return -b[name](a);
             }
 
-            if (HighFive.isFunction(HighFive.getProperty(b, name = "System$IComparable$compareTo"))) {
+            if (H5.isFunction(H5.getProperty(b, name = "System$IComparable$compareTo"))) {
                 return -b[name](a);
             }
 
-            if (HighFive.isFunction(b.compareTo)) {
+            if (H5.isFunction(b.compareTo)) {
                 return -b.compareTo(a);
             }
 
@@ -1575,11 +1575,11 @@
                 return b.type.equalsT(b, a);
             }
 
-            if (!HighFive.isDefined(a, true)) {
+            if (!H5.isDefined(a, true)) {
                 throw new System.NullReferenceException();
-            } else if (HighFive.isNumber(a) || HighFive.isString(a) || HighFive.isBoolean(a)) {
+            } else if (H5.isNumber(a) || H5.isString(a) || H5.isBoolean(a)) {
                 return a === b;
-            } else if (HighFive.isDate(a)) {
+            } else if (H5.isDate(a)) {
                 if (a.kind !== undefined && a.ticks !== undefined) {
                     return System.DateTime.getTicks(a).equals(System.DateTime.getTicks(b));
                 }
@@ -1589,16 +1589,16 @@
 
             var name;
 
-            if (T && a != null && HighFive.isFunction(HighFive.getProperty(a, name = "System$IEquatable$1$" + HighFive.getTypeAlias(T) + "$equalsT"))) {
+            if (T && a != null && H5.isFunction(H5.getProperty(a, name = "System$IEquatable$1$" + H5.getTypeAlias(T) + "$equalsT"))) {
                 return a[name](b);
             }
 
-            if (T && b != null && HighFive.isFunction(HighFive.getProperty(b, name = "System$IEquatable$1$" + HighFive.getTypeAlias(T) + "$equalsT"))) {
+            if (T && b != null && H5.isFunction(H5.getProperty(b, name = "System$IEquatable$1$" + H5.getTypeAlias(T) + "$equalsT"))) {
                 return b[name](a);
             }
 
-            if (HighFive.isFunction(a) && HighFive.isFunction(b)) {
-                return HighFive.fn.equals.call(a, b);
+            if (H5.isFunction(a) && H5.isFunction(b)) {
+                return H5.fn.equals.call(a, b);
             }
 
             return a.equalsT ? a.equalsT(b) : b.equalsT(a);
@@ -1609,21 +1609,21 @@
                 if (obj.type.$kind === "enum") {
                     return System.Enum.format(obj.type, obj.v, formatString);
                 } else if (obj.type === System.Char) {
-                    return System.Char.format(HighFive.unbox(obj, true), formatString, provider);
+                    return System.Char.format(H5.unbox(obj, true), formatString, provider);
                 } else if (obj.type.format) {
-                    return obj.type.format(HighFive.unbox(obj, true), formatString, provider);
+                    return obj.type.format(H5.unbox(obj, true), formatString, provider);
                 }
             }
 
-            if (HighFive.isNumber(obj)) {
-                return HighFive.Int.format(obj, formatString, provider);
-            } else if (HighFive.isDate(obj)) {
+            if (H5.isNumber(obj)) {
+                return H5.Int.format(obj, formatString, provider);
+            } else if (H5.isDate(obj)) {
                 return System.DateTime.format(obj, formatString, provider);
             }
 
             var name;
 
-            if (HighFive.isFunction(HighFive.getProperty(obj, name = "System$IFormattable$format"))) {
+            if (H5.isFunction(H5.getProperty(obj, name = "System$IFormattable$format"))) {
                 return obj[name](formatString, provider);
             }
 
@@ -1640,8 +1640,8 @@
             }
 
             if (T) {
-                var type = HighFive.getType(instance);
-                return HighFive.Reflection.isAssignableFrom(T, type) ? type : T;
+                var type = H5.getType(instance);
+                return H5.Reflection.isAssignableFrom(T, type) ? type : T;
             }
 
             if (typeof (instance) === "number") {
@@ -1678,7 +1678,7 @@
                 }
             }
 
-            return HighFive.Reflection.convertType(result);
+            return H5.Reflection.convertType(result);
         },
 
         isLower: function (c) {
@@ -1694,7 +1694,7 @@
         },
 
         coalesce: function (a, b) {
-            return HighFive.hasValue(a) ? a : b;
+            return H5.hasValue(a) ? a : b;
         },
 
         fn: {
@@ -1727,7 +1727,7 @@
             call: function (obj, fnName) {
                 var args = Array.prototype.slice.call(arguments, 2);
 
-                obj = obj || HighFive.global;
+                obj = obj || H5.global;
 
                 return obj[fnName].apply(obj, args);
             },
@@ -1822,7 +1822,7 @@
             },
 
             cacheBind: function (obj, method, args, appendArgs) {
-                return HighFive.fn.bind(obj, method, args, appendArgs, true);
+                return H5.fn.bind(obj, method, args, appendArgs, true);
             },
 
             bind: function (obj, method, args, appendArgs, cache) {
@@ -1841,21 +1841,21 @@
                 var fn;
 
                 if (arguments.length === 2) {
-                    fn = HighFive.fn.makeFn(function () {
-                        HighFive.caller.unshift(this);
+                    fn = H5.fn.makeFn(function () {
+                        H5.caller.unshift(this);
 
                         var result = null;
 
                         try {
                             result = method.apply(obj, arguments);
                         } finally {
-                            HighFive.caller.shift(this);
+                            H5.caller.shift(this);
                         }
 
                         return result;
                     }, method.length);
                 } else {
-                    fn = HighFive.fn.makeFn(function () {
+                    fn = H5.fn.makeFn(function () {
                         var callArgs = args || arguments;
 
                         if (appendArgs === true) {
@@ -1873,14 +1873,14 @@
                             }
                         }
 
-                        HighFive.caller.unshift(this);
+                        H5.caller.unshift(this);
 
                         var result = null;
 
                         try {
                             result = method.apply(obj, callArgs);
                         } finally {
-                            HighFive.caller.shift(this);
+                            H5.caller.shift(this);
                         }
 
                         return result;
@@ -1894,25 +1894,25 @@
 
                 fn.$method = method;
                 fn.$scope = obj;
-                fn.equals = HighFive.fn.equals;
+                fn.equals = H5.fn.equals;
 
                 return fn;
             },
 
             bindScope: function (obj, method) {
-                var fn = HighFive.fn.makeFn(function () {
+                var fn = H5.fn.makeFn(function () {
                     var callArgs = Array.prototype.slice.call(arguments, 0);
 
                     callArgs.unshift.apply(callArgs, [obj]);
 
-                    HighFive.caller.unshift(this);
+                    H5.caller.unshift(this);
 
                     var result = null;
 
                     try {
                         result = method.apply(obj, callArgs);
                     } finally {
-                        HighFive.caller.shift(this);
+                        H5.caller.shift(this);
                     }
 
                     return result;
@@ -1920,7 +1920,7 @@
 
                 fn.$method = method;
                 fn.$scope = obj;
-                fn.equals = HighFive.fn.equals;
+                fn.equals = H5.fn.equals;
 
                 return fn;
             },
@@ -1953,13 +1953,13 @@
                 if (!fn1 || !fn2) {
                     var fn = fn1 || fn2;
 
-                    return fn ? HighFive.fn.$build([fn]) : fn;
+                    return fn ? H5.fn.$build([fn]) : fn;
                 }
 
                 var list1 = fn1.$invocationList ? fn1.$invocationList : [fn1],
                     list2 = fn2.$invocationList ? fn2.$invocationList : [fn2];
 
-                return HighFive.fn.$build(list1.concat(list2));
+                return H5.fn.$build(list1.concat(list2));
             },
 
             getInvocationList: function (fn) {
@@ -1989,7 +1989,7 @@
                 exclude = -1;
 
                 for (i = list1.length - list2.length; i >= 0; i--) {
-                    if (HighFive.fn.equalInvocationLists(list1, list2, i, list2.length)) {
+                    if (H5.fn.equalInvocationLists(list1, list2, i, list2.length)) {
                         if (list1.length - list2.length == 0) {
                             return null;
                         } else if (list1.length - list2.length == 1) {
@@ -1997,7 +1997,7 @@
                         } else {
                             list1.splice(i, list2.length);
 
-                            return HighFive.fn.$build(list1);
+                            return H5.fn.$build(list1);
                         }
                     }
                 }
@@ -2007,7 +2007,7 @@
 
             equalInvocationLists: function (a, b, start, count) {
                 for (var i = 0; i < count; i = (i + 1) | 0) {
-                    if (!(HighFive.equals(a[System.Array.index(((start + i) | 0), a)], b[System.Array.index(i, b)]))) {
+                    if (!(H5.equals(a[System.Array.index(((start + i) | 0), a)], b[System.Array.index(i, b)]))) {
                         return false;
                     }
                 }
@@ -2017,7 +2017,7 @@
         },
 
         sleep: function (ms, timeout) {
-            if (HighFive.hasValue(timeout)) {
+            if (H5.hasValue(timeout)) {
                 ms = timeout.getTotalMilliseconds();
             }
 
@@ -2050,7 +2050,7 @@
                 fnName = config.fn;
 
             var tcs = new System.Threading.Tasks.TaskCompletionSource(),
-                fn = HighFive.global[fnName || "require"];
+                fn = H5.global[fnName || "require"];
 
             if (amd && amd.length > 0) {
                 fn(amd, function () {
@@ -2062,7 +2062,7 @@
                         }
                     }
 
-                    callback.apply(HighFive.global, loads);
+                    callback.apply(H5.global, loads);
                     tcs.setResult();
                 });
             } else if (cjs && cjs.length > 0) {
@@ -2075,7 +2075,7 @@
                     loads.push(fn(cjs[j]));
                 }
 
-                callback.apply(HighFive.global, loads);
+                callback.apply(H5.global, loads);
 
                 return t;
             } else {
@@ -2127,13 +2127,13 @@
         core.setImmediate = globals.setImmediate.bind(globals);
     }
 
-    globals.HighFive = core;
-    globals.HighFive.caller = [];
-    globals.HighFive.$equalsGuard = [];
-    globals.HighFive.$toStringGuard = [];
+    globals.H5 = core;
+    globals.H5.caller = [];
+    globals.H5.$equalsGuard = [];
+    globals.H5.$toStringGuard = [];
 
     if (globals.console) {
-        globals.HighFive.Console = globals.console;
+        globals.H5.Console = globals.console;
     }
 
     globals.System = {};

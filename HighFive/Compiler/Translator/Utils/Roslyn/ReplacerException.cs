@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     /// <summary>
     /// This exception should be used in replacers to inform the user when

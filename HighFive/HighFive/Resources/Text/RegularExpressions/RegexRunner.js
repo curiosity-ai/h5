@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.RegexRunner", {
+    H5.define("System.Text.RegularExpressions.RegexRunner", {
         statics: {},
 
         _runregex: null,

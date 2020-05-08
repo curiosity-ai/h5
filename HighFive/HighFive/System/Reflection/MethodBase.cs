@@ -2,30 +2,30 @@ using System.ComponentModel;
 
 namespace System.Reflection
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("System.Object")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("System.Object")]
     public class MethodBase : MemberInfo
     {
         public extern Type[] ParameterTypes
         {
-            [HighFive.Template("({this}.p || [])")]
+            [H5.Template("({this}.p || [])")]
             get;
         }
 
         public extern bool IsConstructor
         {
-            [HighFive.Template("({this}.t === 1)")]
+            [H5.Template("({this}.t === 1)")]
             get;
         }
 
-        [HighFive.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
+        [H5.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
         public static extern MethodBase GetMethodFromHandle(RuntimeMethodHandle h);
 
-        [HighFive.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
+        [H5.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
         public static extern MethodBase GetMethodFromHandle(RuntimeMethodHandle h, RuntimeTypeHandle x);
 
-        [HighFive.Template("({this}.pi || [])")]
+        [H5.Template("({this}.pi || [])")]
         public extern ParameterInfo[] GetParameters();
 
         internal extern MethodBase();

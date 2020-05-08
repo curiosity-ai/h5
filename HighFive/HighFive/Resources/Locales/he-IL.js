@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("he-IL", true), {
+H5.merge(new System.Globalization.CultureInfo("he-IL", true), {
     englishName: "Hebrew (Israel)",
     nativeName: "עברית (ישראל)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("he-IL", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["יום א","יום ב","יום ג","יום ד","יום ה","יום ו","שבת"],
         abbreviatedMonthGenitiveNames: ["ינו","פבר","מרץ","אפר","מאי","יונ","יול","אוג","ספט","אוק","נוב","דצמ",""],
         abbreviatedMonthNames: ["ינו","פבר","מרץ","אפר","מאי","יונ","יול","אוג","ספט","אוק","נוב","דצמ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("he-IL", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1255,
         CultureName: "he-IL",
         EBCDICCodePage: 500,

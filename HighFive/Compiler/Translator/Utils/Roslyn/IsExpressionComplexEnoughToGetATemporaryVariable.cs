@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public static class IsExpressionComplexEnoughToGetATemporaryVariable
     {

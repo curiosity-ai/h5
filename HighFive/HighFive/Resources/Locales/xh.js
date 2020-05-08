@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("xh", true), {
+H5.merge(new System.Globalization.CultureInfo("xh", true), {
     englishName: "isiXhosa",
     nativeName: "isiXhosa",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("xh", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Caw","Mvu","Bin","Tha","Sin","Hla","Mgq"],
         abbreviatedMonthGenitiveNames: ["Jan","Feb","Mat","Epr","Mey","Jun","Jul","Aga","Sep","Okt","Nov","Dis",""],
         abbreviatedMonthNames: ["Jan","Feb","Mat","Epr","Mey","Jun","Jul","Aga","Sep","Okt","Nov","Dis",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("xh", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "xh-ZA",
         EBCDICCodePage: 500,

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("wae-CH", true), {
+H5.merge(new System.Globalization.CultureInfo("wae-CH", true), {
     englishName: "Walser (Switzerland)",
     nativeName: "Walser (Schwiz)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("wae-CH", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Sun","Män","Ziš","Mit","Fró","Fri","Sam"],
         abbreviatedMonthGenitiveNames: ["Jen","Hor","Mär","Abr","Mei","Brá","Hei","Öig","Her","Wím","Win","Chr",""],
         abbreviatedMonthNames: ["Jen","Hor","Mär","Abr","Mei","Brá","Hei","Öig","Her","Wím","Win","Chr",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("wae-CH", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "wae-CH",
         EBCDICCodePage: 500,

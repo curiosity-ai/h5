@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace System.Linq.Expressions
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("System.Object")]
-    [HighFive.Cast("{this}.ntype === 18")]
-    [HighFive.IgnoreGeneric]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("System.Object")]
+    [H5.Cast("{this}.ntype === 18")]
+    [H5.IgnoreGeneric]
     public sealed class Expression<TDelegate> : LambdaExpression
     {
         public extern Expression<TDelegate> Update(Expression body, IEnumerable<ParameterExpression> parameters);

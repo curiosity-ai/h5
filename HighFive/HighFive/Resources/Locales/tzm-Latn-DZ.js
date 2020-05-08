@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("tzm-Latn-DZ", true), {
+H5.merge(new System.Globalization.CultureInfo("tzm-Latn-DZ", true), {
     englishName: "Central Atlas Tamazight (Latin, Algeria)",
     nativeName: "Tamaziɣt n laṭlaṣ (Djazaïr)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "war amdhan",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tzm-Latn-DZ", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["lh'd","let","ttl","lar","lex","ldj","sse"],
         abbreviatedMonthGenitiveNames: ["Yen","Fur","Megh","Yeb","May","Yun","Yul","Ghu","Cut","Tub","Nun","Duj",""],
         abbreviatedMonthNames: ["Yen","Fur","Megh","Yeb","May","Yun","Yul","Ghu","Cut","Tub","Nun","Duj",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tzm-Latn-DZ", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "tzm-Latn-DZ",
         EBCDICCodePage: 20297,

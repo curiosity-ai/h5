@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("hr", true), {
+H5.merge(new System.Globalization.CultureInfo("hr", true), {
     englishName: "Croatian",
     nativeName: "hrvatski",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hr", true), {
         numberNegativePattern: 2
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ned","pon","uto","sri","čet","pet","sub"],
         abbreviatedMonthGenitiveNames: ["sij","vlj","ožu","tra","svi","lip","srp","kol","ruj","lis","stu","pro",""],
         abbreviatedMonthNames: ["sij","vlj","ožu","tra","svi","lip","srp","kol","ruj","lis","stu","pro",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hr", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1250,
         CultureName: "hr-HR",
         EBCDICCodePage: 500,

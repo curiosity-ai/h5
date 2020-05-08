@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ca-IT", true), {
+H5.merge(new System.Globalization.CultureInfo("ca-IT", true), {
     englishName: "Catalan (Italy)",
     nativeName: "català (Itàlia)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ca-IT", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dg.","dl.","dt.","dc.","dj.","dv.","ds."],
         abbreviatedMonthGenitiveNames: ["de gen.","de febr.","de març","d’abr.","de maig","de juny","de jul.","d’ag.","de set.","d’oct.","de nov.","de des.",""],
         abbreviatedMonthNames: ["gen.","febr.","març","abr.","maig","juny","jul.","ag.","set.","oct.","nov.","des.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ca-IT", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "ca-IT",
         EBCDICCodePage: 500,

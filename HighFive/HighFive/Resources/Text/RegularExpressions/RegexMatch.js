@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.Match", {
+    H5.define("System.Text.RegularExpressions.Match", {
         inherits: function () {
             return [System.Text.RegularExpressions.Group];
         },
@@ -156,7 +156,7 @@
         }
     });
 
-    HighFive.define("System.Text.RegularExpressions.MatchSparse", {
+    H5.define("System.Text.RegularExpressions.MatchSparse", {
         inherits: function () {
             return [System.Text.RegularExpressions.Match];
         },

@@ -1,10 +1,10 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class TypeInfo : ITypeInfo
     {
@@ -176,7 +176,7 @@ namespace HighFive.Translator
                         foreach (var attr in attrSection.Attributes)
                         {
                             var rr = emitter.Resolver.ResolveNode(attr.Type, emitter);
-                            if (rr.Type.FullName == "HighFive.InitAttribute")
+                            if (rr.Type.FullName == "H5.InitAttribute")
                             {
                                 if (!attr.HasArgumentList)
                                 {
@@ -367,8 +367,8 @@ namespace HighFive.Translator
 
             var name = this.Namespace;
 
-            var highfiveType = emitter.HighFiveTypes.Get(this.Key);
-            var cas = highfiveType.TypeDefinition.CustomAttributes;
+            var h5Type = emitter.H5Types.Get(this.Key);
+            var cas = h5Type.TypeDefinition.CustomAttributes;
 
             // Search for an 'NamespaceAttribute' entry
             foreach (var ca in cas)

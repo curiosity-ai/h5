@@ -1,10 +1,10 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using Object.Net.Utilities;
 using System.Linq;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class EnumBlock : TypeScriptBlock
     {
@@ -34,7 +34,7 @@ namespace HighFive.Translator.TypeScript
 
             if (name.IsEmpty())
             {
-                name = HighFiveTypes.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
+                name = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
             }
 
             this.Write("enum ");

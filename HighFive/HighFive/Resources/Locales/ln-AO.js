@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ln-AO", true), {
+H5.merge(new System.Globalization.CultureInfo("ln-AO", true), {
     englishName: "Lingala (Angola)",
     nativeName: "lingála (Angóla)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ln-AO", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["eye","ybo","mbl","mst","min","mtn","mps"],
         abbreviatedMonthGenitiveNames: ["yan","fbl","msi","apl","mai","yun","yul","agt","stb","ɔtb","nvb","dsb",""],
         abbreviatedMonthNames: ["yan","fbl","msi","apl","mai","yun","yul","agt","stb","ɔtb","nvb","dsb",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ln-AO", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ln-AO",
         EBCDICCodePage: 500,

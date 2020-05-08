@@ -1,15 +1,15 @@
-using HighFive;
+using H5;
 
 namespace System.Collections.Generic
 {
-    [HighFive.External]
-    [HighFive.Reflectable]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     public interface IReadOnlyCollection<out T> : IEnumerable<T>
     {
         int Count
         {
-            [HighFive.Template("System.Array.getCount({this}, {T})")]
+            [H5.Template("System.Array.getCount({this}, {T})")]
             get;
         }
     }

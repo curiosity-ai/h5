@@ -1,4 +1,4 @@
-    HighFive.define("System.Guid", {
+    H5.define("System.Guid", {
         inherits: function () { return [System.IEquatable$1(System.Guid),System.IComparable$1(System.Guid),System.IFormattable]; },
         $kind: "struct",
         statics: {
@@ -68,8 +68,8 @@
                     return result;
                 },
                 op_Equality: function (a, b) {
-                    if (HighFive.referenceEquals(a, null)) {
-                        return HighFive.referenceEquals(b, null);
+                    if (H5.referenceEquals(a, null)) {
+                        return H5.referenceEquals(b, null);
                     }
 
                     return a.equalsT(b);
@@ -112,12 +112,12 @@
                 }
 
                 if (b.length !== 16) {
-                    throw new System.ArgumentException.$ctor1(System.String.format(System.Guid.error1, [HighFive.box(16, System.Int32)]));
+                    throw new System.ArgumentException.$ctor1(System.String.format(System.Guid.error1, [H5.box(16, System.Int32)]));
                 }
 
                 this._a = (b[System.Array.index(3, b)] << 24) | (b[System.Array.index(2, b)] << 16) | (b[System.Array.index(1, b)] << 8) | b[System.Array.index(0, b)];
-                this._b = HighFive.Int.sxs(((b[System.Array.index(5, b)] << 8) | b[System.Array.index(4, b)]) & 65535);
-                this._c = HighFive.Int.sxs(((b[System.Array.index(7, b)] << 8) | b[System.Array.index(6, b)]) & 65535);
+                this._b = H5.Int.sxs(((b[System.Array.index(5, b)] << 8) | b[System.Array.index(4, b)]) & 65535);
+                this._c = H5.Int.sxs(((b[System.Array.index(7, b)] << 8) | b[System.Array.index(6, b)]) & 65535);
                 this._d = b[System.Array.index(8, b)];
                 this._e = b[System.Array.index(9, b)];
                 this._f = b[System.Array.index(10, b)];
@@ -130,8 +130,8 @@
             $ctor5: function (a, b, c, d, e, f, g, h, i, j, k) {
                 this.$initialize();
                 this._a = a | 0;
-                this._b = HighFive.Int.sxs(b & 65535);
-                this._c = HighFive.Int.sxs(c & 65535);
+                this._b = H5.Int.sxs(b & 65535);
+                this._c = H5.Int.sxs(c & 65535);
                 this._d = d;
                 this._e = e;
                 this._f = f;
@@ -148,7 +148,7 @@
                 }
 
                 if (d.length !== 8) {
-                    throw new System.ArgumentException.$ctor1(System.String.format(System.Guid.error1, [HighFive.box(8, System.Int32)]));
+                    throw new System.ArgumentException.$ctor1(System.String.format(System.Guid.error1, [H5.box(8, System.Int32)]));
                 }
 
                 this._a = a;
@@ -186,11 +186,11 @@
                 return this._a ^ ((this._b << 16) | (this._c & 65535)) ^ ((this._f << 24) | this._k);
             },
             equals: function (o) {
-                if (!(HighFive.is(o, System.Guid))) {
+                if (!(H5.is(o, System.Guid))) {
                     return false;
                 }
 
-                return this.equalsT(System.Nullable.getValue(HighFive.cast(HighFive.unbox(o, System.Guid), System.Guid)));
+                return this.equalsT(System.Nullable.getValue(H5.cast(H5.unbox(o, System.Guid), System.Guid)));
             },
             equalsT: function (o) {
                 if ((this._a !== o._a) || (this._b !== o._b) || (this._c !== o._c) || (this._d !== o._d) || (this._e !== o._e) || (this._f !== o._f) || (this._g !== o._g) || (this._h !== o._h) || (this._i !== o._i) || (this._j !== o._j) || (this._k !== o._k)) {
@@ -261,7 +261,7 @@
 
                     var p = false;
 
-                    if (HighFive.referenceEquals(format, "N")) {
+                    if (H5.referenceEquals(format, "N")) {
                         var m1 = System.Guid.Split.exec(input);
 
                         if (m1 != null) {
@@ -275,8 +275,8 @@
                             p = true;
                             input = list1.ToArray().join("-");
                         }
-                    } else if (HighFive.referenceEquals(format, "B") || HighFive.referenceEquals(format, "P")) {
-                        var b = HighFive.referenceEquals(format, "B") ? System.Array.init([123, 125], System.Char) : System.Array.init([40, 41], System.Char);
+                    } else if (H5.referenceEquals(format, "B") || H5.referenceEquals(format, "P")) {
+                        var b = H5.referenceEquals(format, "B") ? System.Array.init([123, 125], System.Char) : System.Array.init([40, 41], System.Char);
 
                         if ((input.charCodeAt(0) === b[System.Array.index(0, b)]) && (input.charCodeAt(((input.length - 1) | 0)) === b[System.Array.index(1, b)])) {
                             p = true;
@@ -339,10 +339,10 @@
                 var r = System.Array.init(8, 0, System.Byte);
 
                 this._a = (System.UInt32.parse(s.substr(0, 8), 16)) | 0;
-                this._b = HighFive.Int.sxs((System.UInt16.parse(s.substr(8, 4), 16)) & 65535);
-                this._c = HighFive.Int.sxs((System.UInt16.parse(s.substr(12, 4), 16)) & 65535);
+                this._b = H5.Int.sxs((System.UInt16.parse(s.substr(8, 4), 16)) & 65535);
+                this._c = H5.Int.sxs((System.UInt16.parse(s.substr(12, 4), 16)) & 65535);
                 for (var i = 8; i < 16; i = (i + 1) | 0) {
-                    r[System.Array.index(((i - 8) | 0), r)] = System.Byte.parse(s.substr(HighFive.Int.mul(i, 2), 2), 16);
+                    r[System.Array.index(((i - 8) | 0), r)] = System.Byte.parse(s.substr(H5.Int.mul(i, 2), 2), 16);
                 }
 
                 this._d = r[System.Array.index(0, r)];

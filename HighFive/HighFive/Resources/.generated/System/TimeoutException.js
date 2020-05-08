@@ -1,4 +1,4 @@
-    HighFive.define("System.TimeoutException", {
+    H5.define("System.TimeoutException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

@@ -1,3 +1,3 @@
-    HighFive.define("System.Collections.IEqualityComparer", {
+    H5.define("System.Collections.IEqualityComparer", {
         $kind: "interface"
     });

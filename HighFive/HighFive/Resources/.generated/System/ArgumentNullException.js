@@ -1,4 +1,4 @@
-    HighFive.define("System.ArgumentNullException", {
+    H5.define("System.ArgumentNullException", {
         inherits: [System.ArgumentException],
         ctors: {
             ctor: function () {

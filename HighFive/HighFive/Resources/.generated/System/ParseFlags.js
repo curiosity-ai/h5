@@ -1,4 +1,4 @@
-    HighFive.define("System.ParseFlags", {
+    H5.define("System.ParseFlags", {
         $kind: "enum",
         statics: {
             fields: {

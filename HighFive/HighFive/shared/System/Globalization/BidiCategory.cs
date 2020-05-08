@@ -4,7 +4,7 @@
 
 namespace System.Globalization
 {
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.Enum(H5.Emit.Value)]
     internal enum BidiCategory
     {
         LeftToRight = 0,

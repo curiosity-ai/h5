@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mfe", true), {
+H5.merge(new System.Globalization.CultureInfo("mfe", true), {
     englishName: "Morisyen",
     nativeName: "kreol morisien",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mfe", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dim","lin","mar","mer","ze","van","sam"],
         abbreviatedMonthGenitiveNames: ["zan","fev","mar","avr","me","zin","zil","out","sep","okt","nov","des",""],
         abbreviatedMonthNames: ["zan","fev","mar","avr","me","zin","zil","out","sep","okt","nov","des",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mfe", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mfe-MU",
         EBCDICCodePage: 500,

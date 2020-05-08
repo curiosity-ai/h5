@@ -1,10 +1,10 @@
 namespace System.Collections.Generic
 {
-    [HighFive.External]
-    [HighFive.Reflectable]
-    public interface IEnumerable<out T> : IEnumerable, HighFive.IHighFiveClass
+    [H5.External]
+    [H5.Reflectable]
+    public interface IEnumerable<out T> : IEnumerable, H5.IH5Class
     {
-        [HighFive.Template("HighFive.getEnumerator({this}, {T})")]
+        [H5.Template("H5.getEnumerator({this}, {T})")]
         new IEnumerator<T> GetEnumerator();
     }
 }

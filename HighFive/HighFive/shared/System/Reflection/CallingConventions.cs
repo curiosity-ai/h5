@@ -6,7 +6,7 @@
 
 namespace System.Reflection
 {
-    [HighFive.Enum(HighFive.Emit.Value)]
+    [H5.Enum(H5.Emit.Value)]
     [Flags]
     public enum CallingConventions
     {

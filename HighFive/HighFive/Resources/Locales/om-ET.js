@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("om-ET", true), {
+H5.merge(new System.Globalization.CultureInfo("om-ET", true), {
     englishName: "Oromo (Ethiopia)",
     nativeName: "Oromoo (Itoophiyaa)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("om-ET", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Dil","Wix","Qib","Rob","Kam","Jim","San"],
         abbreviatedMonthGenitiveNames: ["Ama","Gur","Bit","Elb","Cam","Wax","Ado","Hag","Ful","Onk","Sad","Mud",""],
         abbreviatedMonthNames: ["Ama","Gur","Bit","Elb","Cam","Wax","Ado","Hag","Ful","Onk","Sad","Mud",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("om-ET", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "om-ET",
         EBCDICCodePage: 500,

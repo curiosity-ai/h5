@@ -1,7 +1,7 @@
 namespace System.Diagnostics.Contracts
 {
-    [HighFive.Enum(HighFive.Emit.Name)]
-    [HighFive.External]
+    [H5.Enum(H5.Emit.Name)]
+    [H5.External]
     public enum ContractFailureKind
     {
         Precondition,

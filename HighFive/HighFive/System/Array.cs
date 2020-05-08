@@ -4,20 +4,20 @@ using System.Collections.ObjectModel;
 
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("Array")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("Array")]
     public sealed class Array : IEnumerable, ICloneable, IList
     {
         public extern int Length
         {
-            [HighFive.Template("{this}.length")]
+            [H5.Template("{this}.length")]
             get;
         }
 
         public long LongLength
         {
-            [HighFive.Template("System.Array.getLongLength({this})")]
+            [H5.Template("System.Array.getLongLength({this})")]
             get;
         }
 
@@ -29,100 +29,100 @@ namespace System
         /// </returns>
         public bool IsFixedSize
         {
-            [HighFive.Template("System.Array.isFixedSize({this})")]
+            [H5.Template("System.Array.isFixedSize({this})")]
             get { return true; }
         }
 
         private extern Array();
 
-        [HighFive.Unbox(false)]
+        [H5.Unbox(false)]
         public extern object this[int index]
         {
-            [HighFive.External]
+            [H5.External]
             get;
-            [HighFive.External]
+            [H5.External]
             set;
         }
 
-        [HighFive.Template("new (System.Collections.ObjectModel.ReadOnlyCollection$1({T}))({array})")]
+        [H5.Template("new (System.Collections.ObjectModel.ReadOnlyCollection$1({T}))({array})")]
         public static extern ReadOnlyCollection<T> AsReadOnly<T>(T[] array);
 
-        [HighFive.Template("System.Array.convertAll({array}, {converter})")]
+        [H5.Template("System.Array.convertAll({array}, {converter})")]
         public static extern TOutput[] ConvertAll<TInput, TOutput>(TInput[] array, Converter<TInput, TOutput> converter);
 
-        [HighFive.Template("(System.Array.findIndex({array}, {match}) !== -1)")]
+        [H5.Template("(System.Array.findIndex({array}, {match}) !== -1)")]
         public static extern bool Exists<T>(T[] array, Predicate<T> match);
 
-        [HighFive.Template("System.Array.find({T}, {array}, {match})")]
+        [H5.Template("System.Array.find({T}, {array}, {match})")]
         public static extern T Find<T>(T[] array, Predicate<T> match);
 
-        [HighFive.Template("System.Array.findAll({array}, {match})")]
+        [H5.Template("System.Array.findAll({array}, {match})")]
         public static extern T[] FindAll<T>(T[] array, Predicate<T> match);
 
-        [HighFive.Template("System.Array.findIndex({array}, {match})")]
+        [H5.Template("System.Array.findIndex({array}, {match})")]
         public static extern int FindIndex<T>(T[] array, Predicate<T> match);
 
-        [HighFive.Template("System.Array.findIndex({array}, {startIndex}, {match})")]
+        [H5.Template("System.Array.findIndex({array}, {startIndex}, {match})")]
         public static extern int FindIndex<T>(T[] array, int startIndex, Predicate<T> match);
 
-        [HighFive.Template("System.Array.findIndex({array}, {startIndex}, {count}, {match})")]
+        [H5.Template("System.Array.findIndex({array}, {startIndex}, {count}, {match})")]
         public static extern int FindIndex<T>(T[] array, int startIndex, int count, Predicate<T> match);
 
-        [HighFive.Template("System.Array.findLast({T}, {array}, {match})")]
+        [H5.Template("System.Array.findLast({T}, {array}, {match})")]
         public static extern T FindLast<T>(T[] array, Predicate<T> match);
 
-        [HighFive.Template("System.Array.findLastIndex({array}, {match})")]
+        [H5.Template("System.Array.findLastIndex({array}, {match})")]
         public static extern int FindLastIndex<T>(T[] array, Predicate<T> match);
 
-        [HighFive.Template("System.Array.findLastIndex({array}, {startIndex}, {match})")]
+        [H5.Template("System.Array.findLastIndex({array}, {startIndex}, {match})")]
         public static extern int FindLastIndex<T>(T[] array, int startIndex, Predicate<T> match);
 
-        [HighFive.Template("System.Array.findLastIndex({array}, {startIndex}, {count}, {match})")]
+        [H5.Template("System.Array.findLastIndex({array}, {startIndex}, {count}, {match})")]
         public static extern int FindLastIndex<T>(T[] array, int startIndex, int count, Predicate<T> match);
 
-        [HighFive.Template("System.Array.forEach({array}, {action})")]
+        [H5.Template("System.Array.forEach({array}, {action})")]
         public static extern void ForEach<T>(T[] array, Action<T> action);
 
-        [HighFive.Template("System.Array.forEach({array}, {action})")]
+        [H5.Template("System.Array.forEach({array}, {action})")]
         public static extern void ForEach<T>(T[] array, Action<T, int, T[]> action);
 
-        [HighFive.Template("System.Array.indexOfT({array}, {value})")]
+        [H5.Template("System.Array.indexOfT({array}, {value})")]
         public static extern int IndexOf(Array array, Object value);
 
-        [HighFive.Template("System.Array.indexOfT({array}, {value}, {startIndex})")]
+        [H5.Template("System.Array.indexOfT({array}, {value}, {startIndex})")]
         public static extern int IndexOf(Array array, Object value, int startIndex);
 
-        [HighFive.Template("System.Array.indexOfT({array}, {value}, {startIndex}, {count})")]
+        [H5.Template("System.Array.indexOfT({array}, {value}, {startIndex}, {count})")]
         public static extern int IndexOf(Array array, Object value, int startIndex, int count);
 
-        [HighFive.Template("System.Array.indexOfT({array}, {value})")]
+        [H5.Template("System.Array.indexOfT({array}, {value})")]
         public static extern int IndexOf<T>(T[] array, T value);
 
-        [HighFive.Template("System.Array.indexOfT({array}, {value}, {startIndex})")]
+        [H5.Template("System.Array.indexOfT({array}, {value}, {startIndex})")]
         public static extern int IndexOf<T>(T[] array, T value, int startIndex);
 
-        [HighFive.Template("System.Array.indexOfT({array}, {value}, {startIndex}, {count})")]
+        [H5.Template("System.Array.indexOfT({array}, {value}, {startIndex}, {count})")]
         public static extern int IndexOf<T>(T[] array, T value, int startIndex, int count);
 
-        [HighFive.Template("System.Array.lastIndexOfT({array}, {value})")]
+        [H5.Template("System.Array.lastIndexOfT({array}, {value})")]
         public static extern int LastIndexOf(Array array, Object value);
 
-        [HighFive.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex})")]
+        [H5.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex})")]
         public static extern int LastIndexOf(Array array, Object value, int startIndex);
 
-        [HighFive.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex}, {count})")]
+        [H5.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex}, {count})")]
         public static extern int LastIndexOf(Array array, Object value, int startIndex, int count);
 
-        [HighFive.Template("System.Array.lastIndexOfT({array}, {value})")]
+        [H5.Template("System.Array.lastIndexOfT({array}, {value})")]
         public static extern int LastIndexOf<T>(T[] array, T value);
 
-        [HighFive.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex})")]
+        [H5.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex})")]
         public static extern int LastIndexOf<T>(T[] array, T value, int startIndex);
 
-        [HighFive.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex}, {count})")]
+        [H5.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex}, {count})")]
         public static extern int LastIndexOf<T>(T[] array, T value, int startIndex, int count);
 
-        [HighFive.Template("System.Array.trueForAll({array}, {match})")]
+        [H5.Template("System.Array.trueForAll({array}, {match})")]
         public static extern bool TrueForAll<T>(T[] array, Predicate<T> match);
 
         /// <summary>
@@ -147,119 +147,119 @@ namespace System
 
         public extern Array Slice(int start, int end);
 
-        [HighFive.Name("sort")]
+        [H5.Name("sort")]
         public extern void JsSort();
 
-        [HighFive.Name("sort")]
+        [H5.Name("sort")]
         public extern void JsSort(Func<object, object, int> compareFunction);
 
         public extern Array Splice(int start, int deleteCount, params object[] newItems);
 
         public extern void Unshift(params object[] items);
 
-        [HighFive.Template("HighFive.getEnumerator({this})")]
+        [H5.Template("H5.getEnumerator({this})")]
         public extern IEnumerator GetEnumerator();
 
-        [HighFive.Template("System.Array.get({this}, {indices})")]
+        [H5.Template("System.Array.get({this}, {indices})")]
         public extern object GetValue(params int[] indices);
 
-        [HighFive.Template("System.Array.set({this}, {value}, {indices})")]
+        [H5.Template("System.Array.set({this}, {value}, {indices})")]
         public extern void SetValue(object value, params int[] indices);
 
-        [HighFive.Template("System.Array.getLength({this}, {dimension})")]
+        [H5.Template("System.Array.getLength({this}, {dimension})")]
         public extern int GetLength(int dimension);
 
         public extern int Rank
         {
-            [HighFive.Template("System.Array.getRank({this})")]
+            [H5.Template("System.Array.getRank({this})")]
             get;
         }
 
-        [HighFive.Template("System.Array.getLower({this}, {dimension})")]
+        [H5.Template("System.Array.getLower({this}, {dimension})")]
         public extern int GetLowerBound(int dimension);
 
-        [HighFive.Template("(System.Array.getLength({this}, {dimension}) - 1)")]
+        [H5.Template("(System.Array.getLength({this}, {dimension}) - 1)")]
         public extern int GetUpperBound(int dimension);
 
-        [HighFive.Template("System.Array.toEnumerable({this})")]
+        [H5.Template("System.Array.toEnumerable({this})")]
         public extern IEnumerable ToEnumerable();
 
-        [HighFive.Template("System.Array.toEnumerable({this})")]
+        [H5.Template("System.Array.toEnumerable({this})")]
         public extern IEnumerable<T> ToEnumerable<T>();
 
-        [HighFive.Template("System.Array.toEnumerator({this})")]
+        [H5.Template("System.Array.toEnumerator({this})")]
         public extern IEnumerator ToEnumerator();
 
-        [HighFive.Template("System.Array.toEnumerator({this}, {T})")]
+        [H5.Template("System.Array.toEnumerator({this}, {T})")]
         public extern IEnumerator<T> ToEnumerator<T>();
 
-        [HighFive.Template("System.Array.clone({this})")]
+        [H5.Template("System.Array.clone({this})")]
         public extern object Clone();
 
-        [HighFive.Template("System.Array.init({count}, {value}, {T})")]
+        [H5.Template("System.Array.init({count}, {value}, {T})")]
         public static extern T[] Repeat<T>(T value, int count);
 
-        [HighFive.Template("System.Array.fill({dst}, {T:defaultFn}, {index}, {count})")]
+        [H5.Template("System.Array.fill({dst}, {T:defaultFn}, {index}, {count})")]
         public static extern void Clear<T>(T[] dst, int index, int count);
 
-        [HighFive.Template("System.Array.copy({src}, {spos}, {dst}, {dpos}, {len})")]
+        [H5.Template("System.Array.copy({src}, {spos}, {dst}, {dpos}, {len})")]
         public static extern void Copy(Array src, int spos, Array dst, int dpos, int len);
 
-        [HighFive.Template("System.Array.copy({src}, 0, {dst}, 0, {len})")]
+        [H5.Template("System.Array.copy({src}, 0, {dst}, 0, {len})")]
         public static extern void Copy(Array src, Array dst, int len);
 
-        [HighFive.Template("System.Array.copy({src}, {spos}.toNumber(), {dst}, {dpos}.toNumber(), {len}.toNumber())")]
+        [H5.Template("System.Array.copy({src}, {spos}.toNumber(), {dst}, {dpos}.toNumber(), {len}.toNumber())")]
         public static extern void Copy(Array src, long spos, Array dst, long dpos, long len);
 
-        [HighFive.Template("System.Array.copy({src}, 0, {dst}, 0, {len}.toNumber())")]
+        [H5.Template("System.Array.copy({src}, 0, {dst}, 0, {len}.toNumber())")]
         public static extern void Copy(Array src, Array dst, long len);
 
-        [HighFive.Template("System.Array.copy({this}, 0, {array}, {index}, {this}.length)")]
+        [H5.Template("System.Array.copy({this}, 0, {array}, {index}, {this}.length)")]
         public extern void CopyTo(Array array, int index);
 
-        [HighFive.Template("System.Array.copy({this}, 0, {array}, {index}.toNumber(), {this}.length)")]
+        [H5.Template("System.Array.copy({this}, 0, {array}, {index}.toNumber(), {this}.length)")]
         public extern void CopyTo(Array array, long index);
 
-        [HighFive.Template("System.Array.resize({array}, {newSize}, {T:defaultFn}, {T})")]
+        [H5.Template("System.Array.resize({array}, {newSize}, {T:defaultFn}, {T})")]
         public static extern void Resize<T>(ref T[] array, int newSize);
 
-        [HighFive.Template("System.Array.reverse({array})")]
+        [H5.Template("System.Array.reverse({array})")]
         public static extern void Reverse(Array array);
 
-        [HighFive.Template("System.Array.reverse({array}, {index}, {length})")]
+        [H5.Template("System.Array.reverse({array}, {index}, {length})")]
         public static extern void Reverse(Array array, int index, int length);
 
-        [HighFive.Template("System.Array.binarySearch({array}, 0, {array}.length, {value})")]
+        [H5.Template("System.Array.binarySearch({array}, 0, {array}.length, {value})")]
         public static extern int BinarySearch<T>(T[] array, T value);
 
-        [HighFive.Template("System.Array.binarySearch({array}, {index}, {length}, {value})")]
+        [H5.Template("System.Array.binarySearch({array}, {index}, {length}, {value})")]
         public static extern int BinarySearch<T>(T[] array, int index, int length, T value);
 
-        [HighFive.Template("System.Array.binarySearch({array}, 0, {array}.length, {value}, {comparer})")]
+        [H5.Template("System.Array.binarySearch({array}, 0, {array}.length, {value}, {comparer})")]
         public static extern int BinarySearch<T>(T[] array, T value, IComparer<T> comparer);
 
-        [HighFive.Template("System.Array.binarySearch({array}, {index}, {length}, {value}, {comparer})")]
+        [H5.Template("System.Array.binarySearch({array}, {index}, {length}, {value}, {comparer})")]
         public static extern int BinarySearch<T>(T[] array, int index, int length, T value, IComparer<T> comparer);
 
-        [HighFive.Template("System.Array.sort({array}, {index}, {length}, {comparer})")]
+        [H5.Template("System.Array.sort({array}, {index}, {length}, {comparer})")]
         public static extern void Sort<T>(T[] array, int index, int length, IComparer<T> comparer);
 
-        [HighFive.Template("System.Array.sortDict({keys}, {values}, {index}, {length}, {comparer})")]
+        [H5.Template("System.Array.sortDict({keys}, {values}, {index}, {length}, {comparer})")]
         public static extern void Sort<T,V>(T[] keys, V[] values, int index, int length, IComparer<T> comparer);
 
-        [HighFive.Template("System.Array.sortDict({keys}, {values}, 0, null, {comparer})")]
+        [H5.Template("System.Array.sortDict({keys}, {values}, 0, null, {comparer})")]
         public static extern void Sort<T, V>(T[] keys, V[] values, IComparer<T> comparer);
 
-        [HighFive.Template("System.Array.sort({array}, {index}, {length})")]
+        [H5.Template("System.Array.sort({array}, {index}, {length})")]
         public static extern void Sort<T>(T[] array, int index, int length);
 
-        [HighFive.Template("System.Array.sort({array})")]
+        [H5.Template("System.Array.sort({array})")]
         public static extern void Sort<T>(T[] array);
 
-        [HighFive.Template("System.Array.sort({array}, {comparer})")]
+        [H5.Template("System.Array.sort({array}, {comparer})")]
         public static extern void Sort<T>(T[] array, IComparer<T> comparer);
 
-        [HighFive.Template("System.Array.sort({array}, {comparison})")]
+        [H5.Template("System.Array.sort({array}, {comparison})")]
         public static extern void Sort<T>(T[] array, Comparison<T> comparison);
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace System
         /// <param name="elementType">The Type of the Array to create.</param>
         /// <param name="length">The size of the Array to create.</param>
         /// <returns>A new one-dimensional Array of the specified Type with the specified length, using zero-based indexing.</returns>
-        [HighFive.Template("System.Array.init({length}, HighFive.getDefaultValue({elementType}), {elementType})")]
+        [H5.Template("System.Array.init({length}, H5.getDefaultValue({elementType}), {elementType})")]
         public static extern Array CreateInstance(Type elementType, int length);
 
         /// <summary>
@@ -278,7 +278,7 @@ namespace System
         /// <param name="length1">The size of the first dimension of the Array to create.</param>
         /// <param name="length2">The size of the second dimension of the Array to create.</param>
         /// <returns>A new two-dimensional Array of the specified Type with the specified length for each dimension, using zero-based indexing.</returns>
-        [HighFive.Template("System.Array.create(HighFive.getDefaultValue({elementType}), null, {elementType}, {length1}, {length2})")]
+        [H5.Template("System.Array.create(H5.getDefaultValue({elementType}), null, {elementType}, {length1}, {length2})")]
         public static extern Array CreateInstance(Type elementType, int length1, int length2);
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace System
         /// <param name="length2">The size of the second dimension of the Array to create.</param>
         /// <param name="length3">The size of the third dimension of the Array to create.</param>
         /// <returns>A new three-dimensional Array of the specified Type with the specified length for each dimension, using zero-based indexing.</returns>
-        [HighFive.Template("System.Array.create(HighFive.getDefaultValue({elementType}), null, {elementType}, {length1}, {length2}, {length3})")]
+        [H5.Template("System.Array.create(H5.getDefaultValue({elementType}), null, {elementType}, {length1}, {length2}, {length3})")]
         public static extern Array CreateInstance(Type elementType, int length1, int length2, int length3);
 
         /// <summary>
@@ -298,7 +298,7 @@ namespace System
         /// <param name="elementType">The Type of the Array to create.</param>
         /// <param name="lengths">An array of 32-bit integers that represent the size of each dimension of the Array to create.</param>
         /// <returns>A new multidimensional Array of the specified Type with the specified length for each dimension, using zero-based indexing.</returns>
-        [HighFive.Template("System.Array.create(HighFive.getDefaultValue({elementType}), null, {elementType}, {lengths:array})")]
+        [H5.Template("System.Array.create(H5.getDefaultValue({elementType}), null, {elementType}, {lengths:array})")]
         public static extern Array CreateInstance(Type elementType, params int[] lengths);
 
         extern int ICollection.Count
@@ -315,7 +315,7 @@ namespace System
 
         public extern Object SyncRoot
         {
-            [HighFive.Template("System.Array.syncRoot({this})")]
+            [H5.Template("System.Array.syncRoot({this})")]
             get;
         }
 
@@ -328,7 +328,7 @@ namespace System
         /// </returns>
         public extern bool IsSynchronized
         {
-            [HighFive.Template("System.Array.isSynchronized({this})")]
+            [H5.Template("System.Array.isSynchronized({this})")]
             get;
         }
 
@@ -352,50 +352,50 @@ namespace System
         }
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
     public static class ArrayExtensions
     {
-        [HighFive.Template("System.Array.contains({array}, {item}, {T})")]
+        [H5.Template("System.Array.contains({array}, {item}, {T})")]
         public static extern bool Contains<T>(this T[] array, T item);
 
-        [HighFive.Template("{array}.every({callback})")]
+        [H5.Template("{array}.every({callback})")]
         public static extern bool Every<T>(this T[] array, Func<T, int, T[], bool> callback);
 
-        [HighFive.Template("{array}.every({callback})")]
+        [H5.Template("{array}.every({callback})")]
         public static extern bool Every<T>(this T[] array, Func<T, bool> callback);
 
-        [HighFive.Template("{array}.filter({callback})")]
+        [H5.Template("{array}.filter({callback})")]
         public static extern T[] Filter<T>(this T[] array, Func<T, int, T[], bool> callback);
 
-        [HighFive.Template("{array}.filter({callback})")]
+        [H5.Template("{array}.filter({callback})")]
         public static extern T[] Filter<T>(this T[] array, Func<T, bool> callback);
 
-        [HighFive.Template("{array}.map({callback})")]
+        [H5.Template("{array}.map({callback})")]
         public static extern TResult[] Map<TSource, TResult>(this TSource[] array, Func<TSource, int, TSource[], TResult> callback);
 
-        [HighFive.Template("{array}.map({callback})")]
+        [H5.Template("{array}.map({callback})")]
         public static extern TResult[] Map<TSource, TResult>(this TSource[] array, Func<TSource, TResult> callback);
 
-        [HighFive.Template("{array}.some({callback})")]
+        [H5.Template("{array}.some({callback})")]
         public static extern bool Some<T>(this T[] array, Func<T, int, T[], bool> callback);
 
-        [HighFive.Template("{array}.some({callback})")]
+        [H5.Template("{array}.some({callback})")]
         public static extern bool Some<T>(this T[] array, Func<T, bool> callback);
 
-        [HighFive.Template("{source}.push({*values})")]
+        [H5.Template("{source}.push({*values})")]
         public static extern void Push<T>(this T[] source, params T[] values);
 
-        [HighFive.Template("{array}.sort()")]
+        [H5.Template("{array}.sort()")]
         public static extern void Sort<T>(this T[] array);
 
-        [HighFive.Template("{array}.sort({compareCallback})")]
+        [H5.Template("{array}.sort({compareCallback})")]
         public static extern void Sort<T>(this T[] array, Func<T, T, int> compareCallback);
 
-        [HighFive.Template("{array}.forEach({callback})")]
+        [H5.Template("{array}.forEach({callback})")]
         public static extern void ForEach<T>(this T[] array, Action<T, int, T[]> callback);
 
-        [HighFive.Template("{array}.forEach({callback})")]
+        [H5.Template("{array}.forEach({callback})")]
         public static extern void ForEach<T>(this T[] array, Action<T> callback);
     }
 }

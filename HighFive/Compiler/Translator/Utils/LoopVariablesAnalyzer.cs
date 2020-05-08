@@ -5,9 +5,9 @@ using ICSharpCode.NRefactory.TypeSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HighFive.Contract;
+using H5.Contract;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class LoopVariablesAnalyzer : DepthFirstAstVisitor
     {

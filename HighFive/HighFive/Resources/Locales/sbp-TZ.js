@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sbp-TZ", true), {
+H5.merge(new System.Globalization.CultureInfo("sbp-TZ", true), {
     englishName: "Sangu (Tanzania)",
     nativeName: "Ishisangu (Tansaniya)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sbp-TZ", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Mul","Jtt","Jnn","Jtn","Alh","Iju","Jmo"],
         abbreviatedMonthGenitiveNames: ["Mup","Mwi","Msh","Mun","Mag","Muj","Msp","Mpg","Mye","Mok","Mus","Muh",""],
         abbreviatedMonthNames: ["Mup","Mwi","Msh","Mun","Mag","Muj","Msp","Mpg","Mye","Mok","Mus","Muh",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sbp-TZ", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "sbp-TZ",
         EBCDICCodePage: 500,

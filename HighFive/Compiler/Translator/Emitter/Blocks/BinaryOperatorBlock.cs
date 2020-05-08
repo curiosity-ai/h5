@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Expression = ICSharpCode.NRefactory.CSharp.Expression;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class BinaryOperatorBlock : ConversionBlock
     {
@@ -196,7 +196,7 @@ namespace HighFive.Translator
 
                         var m = FindOperatorTrueOrFalse(left.Type, orElse);
 
-                        this.Write(HighFiveTypes.ToJsName(m.DeclaringType, this.Emitter));
+                        this.Write(H5Types.ToJsName(m.DeclaringType, this.Emitter));
                         this.WriteDot();
                         this.Write(OverloadsCollection.Create(this.Emitter, m).GetOverloadName());
 
@@ -263,7 +263,7 @@ namespace HighFive.Translator
                         this.Write(action + "(");
                     }
 
-                    this.Write(HighFiveTypes.ToJsName(method.DeclaringType, this.Emitter));
+                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
                     this.WriteDot();
 
                     this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
@@ -835,7 +835,7 @@ namespace HighFive.Translator
                 }
                 else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
                 {
-                    this.Write(HighFiveTypes.ToJsName(method.DeclaringType, this.Emitter));
+                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
                     this.WriteDot();
 
                     this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());

@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.FORMATFLAGS", {
+    H5.define("System.Globalization.FORMATFLAGS", {
         $kind: "enum",
         statics: {
             fields: {

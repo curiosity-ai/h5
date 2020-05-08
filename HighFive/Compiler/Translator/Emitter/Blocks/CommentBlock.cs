@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 
 using ICSharpCode.NRefactory.CSharp;
 
@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class CommentBlock : AbstractEmitterBlock
     {

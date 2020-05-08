@@ -1,12 +1,12 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 
 using ICSharpCode.NRefactory.CSharp;
 
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class DoWhileBlock : AbstractEmitterBlock
     {

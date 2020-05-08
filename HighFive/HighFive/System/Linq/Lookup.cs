@@ -3,55 +3,55 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.IgnoreGeneric]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.IgnoreGeneric]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     public interface ILookup<TKey, TElement> : IEnumerable<Grouping<TKey, TElement>>
     {
         int Count
         {
-            [HighFive.Template("count()")]
+            [H5.Template("count()")]
             get;
         }
 
-        [HighFive.AccessorsIndexer]
+        [H5.AccessorsIndexer]
         EnumerableInstance<TElement> this[TKey key]
         {
-            [HighFive.Template("get({0})")]
+            [H5.Template("get({0})")]
             get;
         }
 
-        [HighFive.Template("contains({key})")]
+        [H5.Template("contains({key})")]
         bool Contains(TKey key);
     }
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.IgnoreGeneric]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.IgnoreGeneric]
     public class Lookup<TKey, TElement> : ILookup<TKey, TElement>
     {
         internal extern Lookup();
 
         public extern int Count
         {
-            [HighFive.Template("count()")]
+            [H5.Template("count()")]
             get;
         }
 
-        [HighFive.AccessorsIndexer]
+        [H5.AccessorsIndexer]
         public extern EnumerableInstance<TElement> this[TKey key]
         {
-            [HighFive.Template("get({0})")]
+            [H5.Template("get({0})")]
             get;
         }
 
         public extern bool Contains(TKey key);
 
-        [HighFive.Convention(HighFive.Notation.None)]
+        [H5.Convention(H5.Notation.None)]
         public extern IEnumerator<Grouping<TKey, TElement>> GetEnumerator();
 
-        [HighFive.Convention(HighFive.Notation.None)]
+        [H5.Convention(H5.Notation.None)]
         extern IEnumerator IEnumerable.GetEnumerator();
     }
 }

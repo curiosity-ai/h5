@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("nso", true), {
+H5.merge(new System.Globalization.CultureInfo("nso", true), {
     englishName: "Sesotho sa Leboa",
     nativeName: "Sesotho sa Leboa",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nso", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Lam","Mos","Bed","Rar","Ne","Hla","Mok"],
         abbreviatedMonthGenitiveNames: ["Phere","Dibo","Hlak","Mora","Mopi","Phupu","Mose","Phato","Lewe","Dipha","Diba","Manth",""],
         abbreviatedMonthNames: ["Phere","Dibo","Hlak","Mora","Mopi","Phupu","Mose","Phato","Lewe","Dipha","Diba","Manth",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nso", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "nso-ZA",
         EBCDICCodePage: 500,

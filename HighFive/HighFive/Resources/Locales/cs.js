@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("cs", true), {
+H5.merge(new System.Globalization.CultureInfo("cs", true), {
     englishName: "Czech",
     nativeName: "čeština",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("cs", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ne","po","út","st","čt","pá","so"],
         abbreviatedMonthGenitiveNames: ["led","úno","bře","dub","kvě","čvn","čvc","srp","zář","říj","lis","pro",""],
         abbreviatedMonthNames: ["led","úno","bře","dub","kvě","čvn","čvc","srp","zář","říj","lis","pro",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("cs", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1250,
         CultureName: "cs-CZ",
         EBCDICCodePage: 500,

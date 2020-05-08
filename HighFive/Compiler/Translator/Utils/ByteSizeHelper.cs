@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HighFive.Translator.Utils
+namespace H5.Translator.Utils
 {
     public class ByteSizeHelper
     {

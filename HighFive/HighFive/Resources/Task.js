@@ -1,4 +1,4 @@
-    HighFive.define("System.Threading.Tasks.Task", {
+    H5.define("System.Threading.Tasks.Task", {
         inherits: [System.IDisposable, System.IAsyncResult],
 
         config: {
@@ -44,7 +44,7 @@
 
             schedule: function (fn) {
                 System.Threading.Tasks.Task.queue.push(fn);
-                HighFive.setImmediate(System.Threading.Tasks.Task.runQueue);
+                H5.setImmediate(System.Threading.Tasks.Task.runQueue);
             },
 
             delay: function (delay, state) {
@@ -52,7 +52,7 @@
                     token,
                     cancelCallback = false;
 
-                if (HighFive.is(state, System.Threading.CancellationToken)) {
+                if (H5.is(state, System.Threading.CancellationToken)) {
                     token = state;
                     state = undefined;
                 }
@@ -69,7 +69,7 @@
                 }
 
                 var ms = delay;
-                if (HighFive.is(delay, System.TimeSpan)) {
+                if (H5.is(delay, System.TimeSpan)) {
                     ms = delay.getTotalMilliseconds();
                 }
 
@@ -81,7 +81,7 @@
                 }, ms);
 
                 if (token && token.getIsCancellationRequested()) {
-                    HighFive.setImmediate(token.cancelWasRequested);
+                    H5.setImmediate(token.cancelWasRequested);
                 }
 
                 return tcs.task;
@@ -103,7 +103,7 @@
                     try {
                         var result = fn();
 
-                        if (HighFive.is(result, System.Threading.Tasks.Task)) {
+                        if (H5.is(result, System.Threading.Tasks.Task)) {
                             result.continueWith(function () {
                                 if (result.isFaulted() || result.isCanceled()) {
                                     tcs.setException(result.exception.innerExceptions.Count > 0 ? result.exception.innerExceptions.getItem(0) : result.exception);
@@ -130,9 +130,9 @@
                     exceptions = [],
                     i;
 
-                if (HighFive.is(tasks, System.Collections.IEnumerable)) {
-                    tasks = HighFive.toArray(tasks);
-                } else if (!HighFive.isArray(tasks)) {
+                if (H5.is(tasks, System.Collections.IEnumerable)) {
+                    tasks = H5.toArray(tasks);
+                } else if (!H5.isArray(tasks)) {
                     tasks = Array.prototype.slice.call(arguments, 0);
                 }
 
@@ -179,9 +179,9 @@
             },
 
             whenAny: function (tasks) {
-                if (HighFive.is(tasks, System.Collections.IEnumerable)) {
-                    tasks = HighFive.toArray(tasks);
-                } else if (!HighFive.isArray(tasks)) {
+                if (H5.is(tasks, System.Collections.IEnumerable)) {
+                    tasks = H5.toArray(tasks);
+                } else if (!H5.isArray(tasks)) {
                     tasks = Array.prototype.slice.call(arguments, 0);
                 }
 
@@ -282,7 +282,7 @@
                 promise.then(function () {
                     tcs.setResult(handler ? handler.apply(null, arguments) : Array.prototype.slice.call(arguments, 0));
                 }, function () {
-                    tcs.setException(errorHandler ? errorHandler.apply(null, arguments) : new HighFive.PromiseException(Array.prototype.slice.call(arguments, 0)));
+                    tcs.setException(errorHandler ? errorHandler.apply(null, arguments) : new H5.PromiseException(Array.prototype.slice.call(arguments, 0)));
                 }, progressHandler);
 
                 return tcs.task;
@@ -308,7 +308,7 @@
                 };
             }
 
-            if (HighFive.is(timeout, System.TimeSpan)) {
+            if (H5.is(timeout, System.TimeSpan)) {
                 ms = timeout.getTotalMilliseconds();
             }
 
@@ -503,7 +503,7 @@
         }
     });
 
-    HighFive.define("System.Threading.Tasks.Task$1", function (T) {
+    H5.define("System.Threading.Tasks.Task$1", function (T) {
         return {
             inherits: [System.Threading.Tasks.Task],
             ctor: function (action, state) {
@@ -513,7 +513,7 @@
         };
     });
 
-    HighFive.define("System.Threading.Tasks.TaskStatus", {
+    H5.define("System.Threading.Tasks.TaskStatus", {
         $kind: "enum",
         $statics: {
             created: 0,
@@ -527,7 +527,7 @@
         }
     });
 
-    HighFive.define("System.Threading.Tasks.TaskCompletionSource", {
+    H5.define("System.Threading.Tasks.TaskCompletionSource", {
         ctor: function (state) {
             this.$initialize();
             this.task = new System.Threading.Tasks.Task(null, state);
@@ -561,7 +561,7 @@
         },
 
         trySetException: function (exception) {
-            if (HighFive.is(exception, System.Exception)) {
+            if (H5.is(exception, System.Exception)) {
                 exception = [exception];
             }
 
@@ -575,7 +575,7 @@
         }
     });
 
-    HighFive.define("System.Threading.CancellationTokenSource", {
+    H5.define("System.Threading.CancellationTokenSource", {
         inherits: [System.IDisposable],
 
         config: {
@@ -586,7 +586,7 @@
 
         ctor: function (delay) {
             this.$initialize();
-            this.timeout = typeof delay === "number" && delay >= 0 ? setTimeout(HighFive.fn.bind(this, this.cancel), delay, -1) : null;
+            this.timeout = typeof delay === "number" && delay >= 0 ? setTimeout(H5.fn.bind(this, this.cancel), delay, -1) : null;
             this.isCancellationRequested = false;
             this.token = new System.Threading.CancellationToken(this);
             this.handlers = [];
@@ -631,7 +631,7 @@
                 clearTimeout(this.timeout);
             }
 
-            this.timeout = setTimeout(HighFive.fn.bind(this, this.cancel), delay, -1);
+            this.timeout = setTimeout(H5.fn.bind(this, this.cancel), delay, -1);
         },
 
         register: function (f, s) {
@@ -686,7 +686,7 @@
 
                 cts.links = [];
 
-                var d = HighFive.fn.bind(cts, cts.cancel);
+                var d = H5.fn.bind(cts, cts.cancel);
 
                 for (var i = 0; i < arguments.length; i++) {
                     cts.links.push(arguments[i].register(d));
@@ -697,13 +697,13 @@
         }
     });
 
-    HighFive.define("System.Threading.CancellationToken", {
+    H5.define("System.Threading.CancellationToken", {
          $kind: "struct",
 
         ctor: function (source) {
             this.$initialize();
 
-            if (!HighFive.is(source, System.Threading.CancellationTokenSource)) {
+            if (!H5.is(source, System.Threading.CancellationTokenSource)) {
                 source = source ? System.Threading.CancellationToken.sourceTrue : System.Threading.CancellationToken.sourceFalse;
             }
 
@@ -733,7 +733,7 @@
         },
 
         getHashCode: function () {
-            return HighFive.getHashCode(this.source);
+            return H5.getHashCode(this.source);
         },
 
         equals: function (other) {
@@ -768,7 +768,7 @@
 
     System.Threading.CancellationToken.none = new System.Threading.CancellationToken();
 
-    HighFive.define("System.Threading.CancellationTokenRegistration", {
+    H5.define("System.Threading.CancellationTokenRegistration", {
         inherits: function () {
             return [System.IDisposable, System.IEquatable$1(System.Threading.CancellationTokenRegistration)];
         },

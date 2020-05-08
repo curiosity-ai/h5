@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("hsb-DE", true), {
+H5.merge(new System.Globalization.CultureInfo("hsb-DE", true), {
     englishName: "Upper Sorbian (Germany)",
     nativeName: "hornjoserbšćina (Němska)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hsb-DE", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["nje","pón","wut","srj","štw","pja","sob"],
         abbreviatedMonthGenitiveNames: ["jan.","feb.","měr.","apr.","mej.","jun.","jul.","awg.","sep.","okt.","now.","dec.",""],
         abbreviatedMonthNames: ["jan","feb","měr","apr","mej","jun","jul","awg","sep","okt","now","dec",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hsb-DE", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "hsb-DE",
         EBCDICCodePage: 870,

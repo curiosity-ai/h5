@@ -17,7 +17,7 @@ using System;
 
 namespace System
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Field, Inherited = false)]
     public class ThreadStaticAttribute : Attribute
     {

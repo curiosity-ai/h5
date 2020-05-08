@@ -1,11 +1,11 @@
-using HighFive.Contract;
+using H5.Contract;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator.Logging
+namespace H5.Translator.Logging
 {
     public class FileLoggerWriter : ILogger, IDisposable
     {
@@ -16,7 +16,7 @@ namespace HighFive.Translator.Logging
             public bool UseWriteLine;
         }
 
-        private const string LoggerFileName = "highfive.log";
+        private const string LoggerFileName = "h5.log";
         private const int LoggerFileMaxLength = 16 * 1024 * 1024;
         private const int MaxInitializationCount = 5;
 

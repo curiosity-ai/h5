@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.StreamWriter", {
+    H5.define("System.IO.StreamWriter", {
         inherits: [System.IO.TextWriter],
         statics: {
             fields: {

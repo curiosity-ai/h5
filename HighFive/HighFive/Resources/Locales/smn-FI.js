@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("smn-FI", true), {
+H5.merge(new System.Globalization.CultureInfo("smn-FI", true), {
     englishName: "Sami, Inari (Finland)",
     nativeName: "anarâškielâ (Suomâ)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "epiloho",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("smn-FI", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["pas","vuo","maj","kos","tuo","vás","láv"],
         abbreviatedMonthGenitiveNames: ["uđiv","kuov","njuh","cuáŋ","vyes","kesi","syei","porg","čohč","roov","skam","juov",""],
         abbreviatedMonthNames: ["uđiv","kuov","njuh","cuáŋ","vyes","kesi","syei","porg","čohč","roov","skam","juov",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("smn-FI", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "smn-FI",
         EBCDICCodePage: 20278,

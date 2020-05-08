@@ -1,173 +1,173 @@
 namespace System.Globalization
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
-    public sealed class NumberFormatInfo : IFormatProvider, ICloneable, HighFive.IHighFiveClass
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
+    public sealed class NumberFormatInfo : IFormatProvider, ICloneable, H5.IH5Class
     {
         public extern NumberFormatInfo();
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public static extern NumberFormatInfo InvariantInfo
         {
             get;
         }
 
-        [HighFive.Name("nanSymbol")]
+        [H5.Name("nanSymbol")]
         public extern string NaNSymbol
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string NegativeSign
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string PositiveSign
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string NegativeInfinitySymbol
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string PositiveInfinitySymbol
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string PercentSymbol
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int[] PercentGroupSizes
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int PercentDecimalDigits
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string PercentDecimalSeparator
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string PercentGroupSeparator
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int PercentPositivePattern
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int PercentNegativePattern
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string CurrencySymbol
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int[] CurrencyGroupSizes
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int CurrencyDecimalDigits
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string CurrencyDecimalSeparator
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string CurrencyGroupSeparator
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int CurrencyPositivePattern
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int CurrencyNegativePattern
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int[] NumberGroupSizes
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern int NumberDecimalDigits
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string NumberDecimalSeparator
         {
             get;
             set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern string NumberGroupSeparator
         {
             get;
@@ -178,7 +178,7 @@ namespace System.Globalization
 
         public extern object Clone();
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public static extern NumberFormatInfo CurrentInfo
         {
             get;

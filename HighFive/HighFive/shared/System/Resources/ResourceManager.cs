@@ -19,7 +19,7 @@ namespace System.Resources
     using System;
 
     // TODO: Revised [Just a stub for now]
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     public class ResourceManager
     {
     }

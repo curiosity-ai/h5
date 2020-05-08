@@ -1,4 +1,4 @@
-    HighFive.define("System.Exception", {
+    H5.define("System.Exception", {
         config: {
             properties: {
                 Message: {
@@ -38,7 +38,7 @@
 
         ctor: function (message, innerException) {
             this.$initialize();
-            this.message = message ? message : ("Exception of type '" + HighFive.getTypeName(this) + "' was thrown.");
+            this.message = message ? message : ("Exception of type '" + H5.getTypeName(this) + "' was thrown.");
             this.innerException = innerException ? innerException : null;
             this.errorStack = new Error(this.message);
             this.data = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object))();
@@ -57,7 +57,7 @@
         },
 
         toString: function () {
-            var builder = HighFive.getTypeName(this);
+            var builder = H5.getTypeName(this);
 
             if (this.Message != null) {
                 builder += ": " + this.Message + "\n";
@@ -74,7 +74,7 @@
 
         statics: {
             create: function (error) {
-                if (HighFive.is(error, System.Exception)) {
+                if (H5.is(error, System.Exception)) {
                     return error;
                 }
 

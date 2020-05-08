@@ -2,8 +2,8 @@ using System.ComponentModel;
 
 namespace System.Runtime.CompilerServices
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
     public static class RuntimeHelpers
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -15,10 +15,10 @@ namespace System.Runtime.CompilerServices
             get;
         }
 
-        [HighFive.Template("HighFive.getHashCode({obj})")]
+        [H5.Template("H5.getHashCode({obj})")]
         public static extern int GetHashCode(object obj);
 
-        [HighFive.Template("{type}.$staticInit && {type}.$staticInit()")]
+        [H5.Template("{type}.$staticInit && {type}.$staticInit()")]
         public static extern void RunClassConstructor(Type type);
     }
 }

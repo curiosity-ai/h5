@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern", {
+    H5.define("System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern", {
         $kind: "nested enum",
         statics: {
             fields: {

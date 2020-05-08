@@ -5,7 +5,7 @@
 namespace System.Runtime.InteropServices
 {
     // Used in the StructLayoutAttribute class
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     public enum LayoutKind
     {
         Sequential = 0,

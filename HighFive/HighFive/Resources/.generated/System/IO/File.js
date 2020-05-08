@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.File", {
+    H5.define("System.IO.File", {
         statics: {
             methods: {
                 OpenText: function (path) {
@@ -40,7 +40,7 @@
                         return sr.ReadToEnd();
                     }
                     finally {
-                        if (HighFive.hasValue(sr)) {
+                        if (H5.hasValue(sr)) {
                             sr.System$IDisposable$Dispose();
                         }
                     }
@@ -69,7 +69,7 @@
                         }
                     }
                     finally {
-                        if (HighFive.hasValue(fs)) {
+                        if (H5.hasValue(fs)) {
                             fs.System$IDisposable$Dispose();
                         }
                     }
@@ -110,7 +110,7 @@
                         }
                     }
                     finally {
-                        if (HighFive.hasValue(sr)) {
+                        if (H5.hasValue(sr)) {
                             sr.System$IDisposable$Dispose();
                         }
                     }

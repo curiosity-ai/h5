@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("gl", true), {
+H5.merge(new System.Globalization.CultureInfo("gl", true), {
     englishName: "Galician",
     nativeName: "galego",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("gl", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dom.","luns","mar.","mér.","xov.","ven.","sáb."],
         abbreviatedMonthGenitiveNames: ["xan.","feb.","mar.","abr.","maio","xuño","xul.","ago.","set.","out.","nov.","dec.",""],
         abbreviatedMonthNames: ["Xan.","Feb.","Mar.","Abr.","Maio","Xuño","Xul.","Ago.","Set.","Out.","Nov.","Dec.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("gl", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "gl-ES",
         EBCDICCodePage: 500,

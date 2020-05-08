@@ -1,5 +1,5 @@
-﻿using HighFive.Contract;
-using HighFive.Contract.Constants;
+﻿using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -16,7 +16,7 @@ using Mono.Cecil.Rocks;
 using ICustomAttributeProvider = Mono.Cecil.ICustomAttributeProvider;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class Validator : IValidator
     {
@@ -71,12 +71,12 @@ namespace HighFive.Translator
                 {
                     foreach (var parameter in ctor.Parameters)
                     {
-                        if (parameter.ParameterType.FullName == "HighFive.ObjectCreateMode")
+                        if (parameter.ParameterType.FullName == "H5.ObjectCreateMode")
                         {
                             TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_PLAIN_NO_CREATE_MODE_CUSTOM_CONSTRUCTOR, type);
                         }
 
-                        if (parameter.ParameterType.FullName == "HighFive.ObjectInitializationMode")
+                        if (parameter.ParameterType.FullName == "H5.ObjectInitializationMode")
                         {
                             continue;
                         }
@@ -171,15 +171,15 @@ namespace HighFive.Translator
 
                 if (hasVirtualMethods)
                 {
-                    HighFive.Translator.TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_NO_VIRTUAL_METHODS, type);
+                    H5.Translator.TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_NO_VIRTUAL_METHODS, type);
                 }
             }
         }
 
         public virtual bool IsExternalType(TypeDefinition type, bool ignoreLiteral = false)
         {
-            string externalAttr = Translator.HighFive_ASSEMBLY + ".ExternalAttribute";
-            string nonScriptableAttr = Translator.HighFive_ASSEMBLY + ".NonScriptableAttribute";
+            string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
+            string nonScriptableAttr = Translator.H5_ASSEMBLY + ".NonScriptableAttribute";
 
             var has = this.HasAttribute(type.CustomAttributes, externalAttr)
                       || this.HasAttribute(type.CustomAttributes, nonScriptableAttr);
@@ -204,19 +204,19 @@ namespace HighFive.Translator
 
         public virtual bool IsExternalType(IEntity entity, bool ignoreLiteral = false)
         {
-            string externalAttr = Translator.HighFive_ASSEMBLY + ".ExternalAttribute";
-            string nonScriptableAttr = Translator.HighFive_ASSEMBLY + ".NonScriptableAttribute";
+            string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
+            string nonScriptableAttr = Translator.H5_ASSEMBLY + ".NonScriptableAttribute";
 
             return
                 this.HasAttribute(entity.Attributes, externalAttr)
                 || this.HasAttribute(entity.Attributes, nonScriptableAttr);
         }
 
-        public virtual bool IsHighFiveClass(IType type)
+        public virtual bool IsH5Class(IType type)
         {
             foreach (var i in type.GetAllBaseTypes().Where(t => t.Kind == TypeKind.Interface))
             {
-                if (i.FullName == JS.Types.HIGHFIVE_IHighFiveClass)
+                if (i.FullName == JS.Types.HIGHFIVE_IH5Class)
                 {
                     return true;
                 }
@@ -225,11 +225,11 @@ namespace HighFive.Translator
             return false;
         }
 
-        public virtual bool IsHighFiveClass(TypeDefinition type)
+        public virtual bool IsH5Class(TypeDefinition type)
         {
             foreach (var i in type.Interfaces)
             {
-                if (i.InterfaceType.FullName == JS.Types.HIGHFIVE_IHighFiveClass)
+                if (i.InterfaceType.FullName == JS.Types.HIGHFIVE_IH5Class)
                 {
                     return true;
                 }
@@ -240,7 +240,7 @@ namespace HighFive.Translator
 
         public virtual bool IsExternalType(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, bool ignoreLiteral = false)
         {
-            string externalAttr = Translator.HighFive_ASSEMBLY + ".ExternalAttribute";
+            string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
 
             var has = typeDefinition.Attributes.Any(attr => attr.Constructor != null && attr.Constructor.DeclaringType.FullName == externalAttr);
 
@@ -269,7 +269,7 @@ namespace HighFive.Translator
 
         public static bool IsVirtualTypeStatic(TypeDefinition typeDefinition)
         {
-            string virtualAttr = Translator.HighFive_ASSEMBLY + ".VirtualAttribute";
+            string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             CustomAttribute attr = attr =
                     typeDefinition.CustomAttributes.FirstOrDefault(
                         a => a.AttributeType.FullName == virtualAttr);
@@ -316,7 +316,7 @@ namespace HighFive.Translator
 
         public static bool IsVirtualTypeStatic(ITypeDefinition typeDefinition)
         {
-            string virtualAttr = Translator.HighFive_ASSEMBLY + ".VirtualAttribute";
+            string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             IAttribute attr = null;
             if (typeDefinition.GetDefinition() != null)
             {
@@ -367,7 +367,7 @@ namespace HighFive.Translator
 
         public virtual bool IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, out bool isNative)
         {
-            string externalAttr = Translator.HighFive_ASSEMBLY + ".ExternalInterfaceAttribute";
+            string externalAttr = Translator.H5_ASSEMBLY + ".ExternalInterfaceAttribute";
             var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
 
             if (attr == null)
@@ -387,7 +387,7 @@ namespace HighFive.Translator
 
         public virtual IExternalInterface IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition)
         {
-            string externalAttr = Translator.HighFive_ASSEMBLY + ".ExternalInterfaceAttribute";
+            string externalAttr = Translator.H5_ASSEMBLY + ".ExternalInterfaceAttribute";
             var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
 
             if (attr == null)
@@ -428,7 +428,7 @@ namespace HighFive.Translator
 
         public virtual bool IsImmutableType(ICustomAttributeProvider type)
         {
-            string attrName = Translator.HighFive_ASSEMBLY + ".ImmutableAttribute";
+            string attrName = Translator.H5_ASSEMBLY + ".ImmutableAttribute";
 
             return this.HasAttribute(type.CustomAttributes, attrName);
         }
@@ -471,12 +471,12 @@ namespace HighFive.Translator
 
         public virtual bool IsObjectLiteral(TypeDefinition type)
         {
-            return this.HasAttribute(type.CustomAttributes, Translator.HighFive_ASSEMBLY + ".ObjectLiteralAttribute");
+            return this.HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
         }
 
         public int GetObjectInitializationMode(TypeDefinition type)
         {
-            var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == Translator.HighFive_ASSEMBLY + ".ObjectLiteralAttribute");
+            var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
 
             if (attr != null)
             {
@@ -484,7 +484,7 @@ namespace HighFive.Translator
 
                 if (args.Count > 0)
                 {
-                    if (args[0].Type.FullName == Translator.HighFive_ASSEMBLY + ".ObjectInitializationMode")
+                    if (args[0].Type.FullName == Translator.H5_ASSEMBLY + ".ObjectInitializationMode")
                     {
                         return (int)args[0].Value;
                     }
@@ -496,7 +496,7 @@ namespace HighFive.Translator
 
         public int GetObjectCreateMode(TypeDefinition type)
         {
-            var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == Translator.HighFive_ASSEMBLY + ".ObjectLiteralAttribute");
+            var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
 
             if (attr != null)
             {
@@ -506,7 +506,7 @@ namespace HighFive.Translator
                 {
                     for (int i = 0; i < args.Count; i++)
                     {
-                        if (args[i].Type.FullName == Translator.HighFive_ASSEMBLY + ".ObjectCreateMode")
+                        if (args[i].Type.FullName == Translator.H5_ASSEMBLY + ".ObjectCreateMode")
                         {
                             return (int)args[i].Value;
                         }
@@ -519,7 +519,7 @@ namespace HighFive.Translator
 
         public virtual bool IsObjectLiteral(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type)
         {
-            return this.HasAttribute(type.Attributes, Translator.HighFive_ASSEMBLY + ".ObjectLiteralAttribute");
+            return this.HasAttribute(type.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
         }
 
         private Stack<TypeDefinition> _stack = new Stack<TypeDefinition>();
@@ -531,9 +531,9 @@ namespace HighFive.Translator
                 return null;
             }
 
-            var nsAtrr = excludeNs ? null : this.GetAttribute(type.CustomAttributes, Translator.HighFive_ASSEMBLY + ".NamespaceAttribute");
+            var nsAtrr = excludeNs ? null : this.GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".NamespaceAttribute");
             bool hasNs = nsAtrr != null && nsAtrr.ConstructorArguments.Count > 0;
-            var nameAttr = this.GetAttribute(type.CustomAttributes, Translator.HighFive_ASSEMBLY + ".NameAttribute");
+            var nameAttr = this.GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".NameAttribute");
 
             string name = null;
             bool changeCase = false;
@@ -556,7 +556,7 @@ namespace HighFive.Translator
                         else
                         {
                             this._stack.Push(type);
-                            name = HighFiveTypes.ToJsName(type, emitter);
+                            name = H5Types.ToJsName(type, emitter);
                             var i = name.LastIndexOf(".");
 
                             if (i > -1)
@@ -589,7 +589,7 @@ namespace HighFive.Translator
                     }
                 }
 
-                var typeDef = emitter.HighFiveTypes.Get(type).Type;
+                var typeDef = emitter.H5Types.Get(type).Type;
 
                 if (typeDef != null && !asDefinition && typeDef.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typeDef, emitter, true))
                 {
@@ -604,7 +604,7 @@ namespace HighFive.Translator
                         }
 
                         needComma = true;
-                        sb.Append(HighFiveTypes.ToTypeScriptName(typeArg, emitter));
+                        sb.Append(H5Types.ToTypeScriptName(typeArg, emitter));
                     }
                     sb.Append(">");
                     name = sb.ToString();
@@ -629,17 +629,17 @@ namespace HighFive.Translator
 
                 if (type.IsNested)
                 {
-                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + HighFiveTypes.GetParentNames(emitter, type);
+                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.GetParentNames(emitter, type);
                 }
 
 
-                var typeName = emitter.GetTypeName(emitter.HighFiveTypes.Get(type).Type.GetDefinition(), type);
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + HighFiveTypes.ConvertName(changeCase ? typeName.ToLowerCamelCase() : typeName);
+                var typeName = emitter.GetTypeName(emitter.H5Types.Get(type).Type.GetDefinition(), type);
+                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(changeCase ? typeName.ToLowerCamelCase() : typeName);
 
                 return name;
             }
 
-            if (this.HasAttribute(type.CustomAttributes, Translator.HighFive_ASSEMBLY + ".ObjectLiteralAttribute"))
+            if (this.HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute"))
             {
                 var mode = this.GetObjectCreateMode(type);
                 if (emitter.Validator.IsExternalType(type) && mode == 0)
@@ -653,14 +653,14 @@ namespace HighFive.Translator
 
         public virtual string GetCustomConstructor(TypeDefinition type)
         {
-            string ctor = this.GetAttributeValue(type.CustomAttributes, Translator.HighFive_ASSEMBLY + ".ConstructorAttribute");
+            string ctor = this.GetAttributeValue(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ConstructorAttribute");
 
             if (!string.IsNullOrEmpty(ctor))
             {
                 return ctor;
             }
 
-            if (this.HasAttribute(type.CustomAttributes, Translator.HighFive_ASSEMBLY + ".ObjectLiteralAttribute") && this.GetObjectCreateMode(type) == 0)
+            if (this.HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute") && this.GetObjectCreateMode(type) == 0)
             {
                 return "{ }";
             }
@@ -737,7 +737,7 @@ namespace HighFive.Translator
 
                     if (!allTypes.ContainsKey(parentName))
                     {
-                        HighFive.Translator.TranslatorException.Throw("Unknown type {0}", parentName);
+                        H5.Translator.TranslatorException.Throw("Unknown type {0}", parentName);
                     }
 
                     if (!result.Contains(parentName))
@@ -753,7 +753,7 @@ namespace HighFive.Translator
         {
             if (type.HasCustomAttributes)
             {
-                var attr = this.GetAttribute(type.CustomAttributes, Translator.HighFive_ASSEMBLY + ".FileNameAttribute");
+                var attr = this.GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".FileNameAttribute");
 
                 if (attr != null)
                 {
@@ -773,7 +773,7 @@ namespace HighFive.Translator
         {
             if (type.HasCustomAttributes)
             {
-                var attr = this.GetAttribute(type.CustomAttributes, Translator.HighFive_ASSEMBLY + ".ModuleAttribute");
+                var attr = this.GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ModuleAttribute");
 
                 if (attr != null)
                 {
@@ -783,7 +783,7 @@ namespace HighFive.Translator
 
             if (type.Module.Assembly.HasCustomAttributes)
             {
-                var attr = this.GetAttribute(type.Module.Assembly.CustomAttributes, Translator.HighFive_ASSEMBLY + ".ModuleAttribute");
+                var attr = this.GetAttribute(type.Module.Assembly.CustomAttributes, Translator.H5_ASSEMBLY + ".ModuleAttribute");
 
                 if (attr != null)
                 {
@@ -886,7 +886,7 @@ namespace HighFive.Translator
         {
             if (type.HasCustomAttributes)
             {
-                var attrName = Translator.HighFive_ASSEMBLY + ".ModuleDependencyAttribute";
+                var attrName = Translator.H5_ASSEMBLY + ".ModuleDependencyAttribute";
                 var attrs = type.CustomAttributes.Where(attr => attr.AttributeType.FullName == attrName).ToList();
 
                 if (attrs.Count > 0)
@@ -925,7 +925,7 @@ namespace HighFive.Translator
 
         protected virtual ITypeInfo EnsureTypeInfo(TypeDefinition type, ITranslator translator)
         {
-            string key = HighFiveTypes.GetTypeDefinitionKey(type);
+            string key = H5Types.GetTypeDefinitionKey(type);
             ITypeInfo typeInfo = null;
 
             if (translator.TypeInfoDefinitions.ContainsKey(key))

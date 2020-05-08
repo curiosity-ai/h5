@@ -1,7 +1,7 @@
 ﻿namespace System.Net.WebSockets
 {
-    [HighFive.External]
-    [HighFive.Enum(HighFive.Emit.StringNameLowerCase)]
+    [H5.External]
+    [H5.Enum(H5.Emit.StringNameLowerCase)]
     public enum WebSocketState
     {
         None = 0,

@@ -21,7 +21,7 @@ namespace System
     //   error. (this would be used if the actual implementation of the obsolete
     //   method's implementation had changed).
     //
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum |
         AttributeTargets.Interface | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Event | AttributeTargets.Delegate
         , Inherited = false)]

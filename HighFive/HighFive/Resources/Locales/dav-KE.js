@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("dav-KE", true), {
+H5.merge(new System.Globalization.CultureInfo("dav-KE", true), {
     englishName: "Taita (Kenya)",
     nativeName: "Kitaita (Kenya)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("dav-KE", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Jum","Jim","Kaw","Kad","Kan","Kas","Ngu"],
         abbreviatedMonthGenitiveNames: ["Imb","Kaw","Kad","Kan","Kas","Kar","Mfu","Wun","Ike","Iku","Imw","Iwi",""],
         abbreviatedMonthNames: ["Imb","Kaw","Kad","Kan","Kas","Kar","Mfu","Wun","Ike","Iku","Imw","Iwi",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("dav-KE", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "dav-KE",
         EBCDICCodePage: 500,

@@ -1,4 +1,4 @@
-    HighFive.define("System.NotSupportedException", {
+    H5.define("System.NotSupportedException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

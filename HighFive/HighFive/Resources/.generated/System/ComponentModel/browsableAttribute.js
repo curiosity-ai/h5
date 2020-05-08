@@ -1,4 +1,4 @@
-    HighFive.define("System.ComponentModel.BrowsableAttribute", {
+    H5.define("System.ComponentModel.BrowsableAttribute", {
         inherits: [System.Attribute],
         statics: {
             fields: {
@@ -36,16 +36,16 @@
         },
         methods: {
             equals: function (obj) {
-                if (HighFive.referenceEquals(obj, this)) {
+                if (H5.referenceEquals(obj, this)) {
                     return true;
                 }
 
-                var other = HighFive.as(obj, System.ComponentModel.BrowsableAttribute);
+                var other = H5.as(obj, System.ComponentModel.BrowsableAttribute);
 
                 return (other != null) && other.Browsable === this.browsable;
             },
             getHashCode: function () {
-                return HighFive.getHashCode(this.browsable);
+                return H5.getHashCode(this.browsable);
             }
         }
     });

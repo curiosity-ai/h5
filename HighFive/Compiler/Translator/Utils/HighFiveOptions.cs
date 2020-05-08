@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HighFive.Contract;
+using H5.Contract;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
-    public class HighFiveOptions
+    public class H5Options
     {
         public string Name { get; set; }
 
@@ -14,7 +14,7 @@ namespace HighFive.Translator
         public string ProjectLocation { get; set; }
         public string OutputLocation { get; set; }
         public string DefaultFileName { get; set; }
-        public string HighFiveLocation { get; set; }
+        public string H5Location { get; set; }
         public bool Rebuild { get; set; }
         public bool ExtractCore { get; set; }
         public string Folder { get; set; }
@@ -30,7 +30,7 @@ namespace HighFive.Translator
 
         public bool IsFolderMode { get { return string.IsNullOrWhiteSpace(this.ProjectLocation); } }
 
-        public HighFiveOptions()
+        public H5Options()
         {
             ExtractCore = true;
             Folder = Environment.CurrentDirectory;
@@ -50,7 +50,7 @@ namespace HighFive.Translator
                 { WrapProperty("ProjectLocation"), GetString(this.ProjectLocation) },
                 { WrapProperty("OutputLocation"), GetString(this.OutputLocation) },
                 { WrapProperty("DefaultFileName"), GetString(this.DefaultFileName) },
-                { WrapProperty("HighFiveLocation"), GetString(this.HighFiveLocation) },
+                { WrapProperty("H5Location"), GetString(this.H5Location) },
                 { WrapProperty("Rebuild"), GetString(this.Rebuild) },
                 { WrapProperty("ExtractCore"), GetString(this.ExtractCore) },
                 { WrapProperty("Folder"), GetString(this.Folder) },

@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.Generic.Queue$1.Enumerator", function (T) { return {
+    H5.define("System.Collections.Generic.Queue$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
         $kind: "nested struct",
         statics: {
@@ -10,7 +10,7 @@
             _q: null,
             _index: 0,
             _version: 0,
-            _currentElement: HighFive.getDefaultValue(T)
+            _currentElement: H5.getDefaultValue(T)
         },
         props: {
             Current: {
@@ -34,7 +34,7 @@
         alias: [
             "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
-            "Current", ["System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
+            "Current", ["System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
         ctors: {
             $ctor1: function (q) {
@@ -42,7 +42,7 @@
                 this._q = q;
                 this._version = this._q._version;
                 this._index = -1;
-                this._currentElement = HighFive.getDefaultValue(T);
+                this._currentElement = H5.getDefaultValue(T);
             },
             ctor: function () {
                 this.$initialize();
@@ -51,7 +51,7 @@
         methods: {
             Dispose: function () {
                 this._index = -2;
-                this._currentElement = HighFive.getDefaultValue(T);
+                this._currentElement = H5.getDefaultValue(T);
             },
             moveNext: function () {
                 if (this._version !== this._q._version) {
@@ -66,7 +66,7 @@
 
                 if (this._index === this._q._size) {
                     this._index = -2;
-                    this._currentElement = HighFive.getDefaultValue(T);
+                    this._currentElement = H5.getDefaultValue(T);
                     return false;
                 }
 
@@ -78,17 +78,17 @@
                     throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
                 this._index = -1;
-                this._currentElement = HighFive.getDefaultValue(T);
+                this._currentElement = H5.getDefaultValue(T);
             },
             getHashCode: function () {
-                var h = HighFive.addHash([3788985113, this._q, this._index, this._version, this._currentElement]);
+                var h = H5.addHash([3788985113, this._q, this._index, this._version, this._currentElement]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.Generic.Queue$1.Enumerator(T))) {
+                if (!H5.is(o, System.Collections.Generic.Queue$1.Enumerator(T))) {
                     return false;
                 }
-                return HighFive.equals(this._q, o._q) && HighFive.equals(this._index, o._index) && HighFive.equals(this._version, o._version) && HighFive.equals(this._currentElement, o._currentElement);
+                return H5.equals(this._q, o._q) && H5.equals(this._index, o._index) && H5.equals(this._version, o._version) && H5.equals(this._currentElement, o._currentElement);
             },
             $clone: function (to) {
                 var s = to || new (System.Collections.Generic.Queue$1.Enumerator(T))();

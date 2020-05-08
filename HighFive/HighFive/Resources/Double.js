@@ -1,4 +1,4 @@
-    HighFive.define("System.Double", {
+    H5.define("System.Double", {
         inherits: [System.IComparable, System.IFormattable],
         statics: {
             min: -Number.MAX_VALUE,
@@ -18,21 +18,21 @@
             },
 
             parse: function (s, provider) {
-                return HighFive.Int.parseFloat(s, provider);
+                return H5.Int.parseFloat(s, provider);
             },
 
             tryParse: function (s, provider, result) {
-                return HighFive.Int.tryParseFloat(s, provider, result);
+                return H5.Int.tryParseFloat(s, provider, result);
             },
 
             format: function (number, format, provider) {
-                return HighFive.Int.format(number, format || 'G', provider, System.Double);
+                return H5.Int.format(number, format || 'G', provider, System.Double);
             },
 
             equals: function (v1, v2) {
-                if (HighFive.is(v1, System.Double) && HighFive.is(v2, System.Double)) {
-                    v1 = HighFive.unbox(v1, true);
-                    v2 = HighFive.unbox(v2, true);
+                if (H5.is(v1, System.Double) && H5.is(v2, System.Double)) {
+                    v1 = H5.unbox(v1, true);
+                    v2 = H5.unbox(v2, true);
 
                     if (isNaN(v1) && isNaN(v2)) {
                         return true;
@@ -45,11 +45,11 @@
             },
 
             equalsT: function (v1, v2) {
-                return HighFive.unbox(v1, true) === HighFive.unbox(v2, true);
+                return H5.unbox(v1, true) === H5.unbox(v2, true);
             },
 
             getHashCode: function (v) {
-                var value = HighFive.unbox(v, true);
+                var value = H5.unbox(v, true);
 
                 if (value === 0) {
                     return 0;
@@ -63,15 +63,15 @@
                     return 0xFFF00000;
                 }
 
-                return HighFive.getHashCode(value.toExponential());
+                return H5.getHashCode(value.toExponential());
             }
         }
     });
 
     System.Double.$kind = "";
-    HighFive.Class.addExtend(System.Double, [System.IComparable$1(System.Double), System.IEquatable$1(System.Double)]);
+    H5.Class.addExtend(System.Double, [System.IComparable$1(System.Double), System.IEquatable$1(System.Double)]);
 
-    HighFive.define("System.Single", {
+    H5.define("System.Single", {
         inherits: [System.IComparable, System.IFormattable],
         statics: {
             min: -3.40282346638528859e+38,
@@ -91,13 +91,13 @@
             tryParse: System.Double.tryParse,
 
             format: function (number, format, provider) {
-                return HighFive.Int.format(number, format || 'G', provider, System.Single);
+                return H5.Int.format(number, format || 'G', provider, System.Single);
             },
 
             equals: function (v1, v2) {
-                if (HighFive.is(v1, System.Single) && HighFive.is(v2, System.Single)) {
-                    v1 = HighFive.unbox(v1, true);
-                    v2 = HighFive.unbox(v2, true);
+                if (H5.is(v1, System.Single) && H5.is(v2, System.Single)) {
+                    v1 = H5.unbox(v1, true);
+                    v2 = H5.unbox(v2, true);
 
                     if (isNaN(v1) && isNaN(v2)) {
                         return true;
@@ -110,7 +110,7 @@
             },
 
             equalsT: function (v1, v2) {
-                return HighFive.unbox(v1, true) === HighFive.unbox(v2, true);
+                return H5.unbox(v1, true) === H5.unbox(v2, true);
             },
 
             getHashCode: System.Double.getHashCode
@@ -118,4 +118,4 @@
     });
 
     System.Single.$kind = "";
-    HighFive.Class.addExtend(System.Single, [System.IComparable$1(System.Single), System.IEquatable$1(System.Single)]);
+    H5.Class.addExtend(System.Single, [System.IComparable$1(System.Single), System.IEquatable$1(System.Single)]);

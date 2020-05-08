@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.UTF8Encoding", {
+    H5.define("System.Text.UTF8Encoding", {
         inherits: [System.Text.Encoding],
         fields: {
             encoderShouldEmitUTF8Identifier: false,
@@ -45,7 +45,7 @@
                                 throw new System.ArgumentException.$ctor1("bytes");
                             }
 
-                            outputBytes[System.Array.index(HighFive.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = code;
+                            outputBytes[System.Array.index(H5.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = code;
                         } else {
                             outputBytes.push(code);
                         }
@@ -53,7 +53,7 @@
                     }
                 };
 
-                var fallback = HighFive.fn.bind(this, $asm.$.System.Text.UTF8Encoding.f1);
+                var fallback = H5.fn.bind(this, $asm.$.System.Text.UTF8Encoding.f1);
 
                 if (!hasBuffer) {
                     outputBytes = System.Array.init(0, 0, System.Byte);
@@ -233,9 +233,9 @@
         }
     });
 
-    HighFive.ns("System.Text.UTF8Encoding", $asm.$);
+    H5.ns("System.Text.UTF8Encoding", $asm.$);
 
-    HighFive.apply($asm.$.System.Text.UTF8Encoding, {
+    H5.apply($asm.$.System.Text.UTF8Encoding, {
         f1: function () {
             if (this.throwOnInvalid) {
                 throw new System.Exception("Invalid character in UTF8 text");

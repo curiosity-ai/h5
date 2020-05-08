@@ -24,7 +24,7 @@
   "resources": [
     {
       // File paths relative to project root
-      "name": "highfive.js",
+      "name": "h5.js",
       "header": "Resources/.auxiliary/Header.js",
       "remark": "\n    // @source {name}\n",
       "files": [
@@ -35,7 +35,7 @@
         "Resources/ReflectionAssembly.js",
         "Resources/Object.js",
         "Resources/.generated/System/Void.js",
-        "Resources/.generated/HighFive/Utils/SystemAssemblyVersion.js",
+        "Resources/.generated/H5/Utils/SystemAssemblyVersion.js",
         "Resources/Reflection.js",
         "Resources/Interfaces.js",
         "Resources/ValueType.js",
@@ -43,7 +43,7 @@
         "Resources/Nullable.js",
         "Resources/Char.js",
 
-        "Resources/.generated/HighFive/Ref.js",
+        "Resources/.generated/H5/Ref.js",
         "Resources/.generated/System/IConvertible.js",
         "Resources/.generated/System/HResults.js",
         "Resources/Exception.js",
@@ -77,7 +77,7 @@
         "Resources/Date.js",
         "Resources/TimeSpan.js",
         "Resources/Text/StringBuilder.js",
-        "Resources/Text/HighFiveRegex.js",
+        "Resources/Text/H5Regex.js",
         "Resources/.generated/System/Diagnostics/Debug/DebugAssertException.js",
         "Resources/.generated/System/Diagnostics/Debug.js",
         "Resources/.generated/System/Diagnostics/Debugger.js",
@@ -376,21 +376,21 @@
       ]
     },
     {
-      "name": "highfive.console.js",
+      "name": "h5.console.js",
       "extract": false,
       "header": "Resources/.auxiliary/Header.js",
       "files": [
         "Resources/.auxiliary/AssemblyBegin.js",
-        "Resources/.generated/HighFive/Utils/Console.js",
+        "Resources/.generated/H5/Utils/Console.js",
         "Resources/.auxiliary/AssemblyEnd.js"
       ]
     },
     {
-      "name": "highfive.meta.js",
+      "name": "h5.meta.js",
       "header": "Resources/.auxiliary/header.js",
       "extract": false,
       "files": [
-        "Resources/.generated/highfive.meta.js"
+        "Resources/.generated/h5.meta.js"
       ]
     }
   ]

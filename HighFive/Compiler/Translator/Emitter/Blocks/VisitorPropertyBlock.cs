@@ -1,11 +1,11 @@
-﻿using HighFive.Contract;
-using HighFive.Contract.Constants;
+﻿using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using System.Linq;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class VisitorPropertyBlock : AbstractMethodBlock
     {
@@ -47,7 +47,7 @@ namespace HighFive.Translator
             var memberResult = this.Emitter.Resolver.ResolveNode(this.PropertyDeclaration, this.Emitter) as MemberResolveResult;
 
             if (memberResult != null &&
-                memberResult.Member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExternalAttribute")
+                memberResult.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExternalAttribute")
                 )
             {
                 return;

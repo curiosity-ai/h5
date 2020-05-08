@@ -1,5 +1,5 @@
-﻿using HighFive.Contract;
-using HighFive.Contract.Constants;
+﻿using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using Newtonsoft.Json.Linq;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class MetadataUtils
     {
@@ -151,7 +151,7 @@ namespace HighFive.Translator
                     var array = new JArray();
                     foreach (var nestedType in nestedTypes)
                     {
-                        if (!emitter.Validator.IsExternalType(nestedType.GetDefinition()) && emitter.HighFiveTypes.Get(nestedType, true) != null)
+                        if (!emitter.Validator.IsExternalType(nestedType.GetDefinition()) && emitter.H5Types.Get(nestedType, true) != null)
                         {
                             array.Add(new JRaw(MetadataUtils.GetTypeName(nestedType, emitter, false, true)));
                         }
@@ -170,7 +170,7 @@ namespace HighFive.Translator
 
                 if (typedef.Accessibility != Accessibility.None)
                 {
-                    if (typedef.Attributes.Any(a => a.AttributeType.FullName == "HighFive.PrivateProtectedAttribute"))
+                    if (typedef.Attributes.Any(a => a.AttributeType.FullName == "H5.PrivateProtectedAttribute"))
                     {
                         result.Add("a", (int)Accessibility.ProtectedAndInternal);
                     }
@@ -273,7 +273,7 @@ namespace HighFive.Translator
                 return false;
             }
 
-            if (member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.NonScriptableAttribute"))
+            if (member.Attributes.Any(a => a.AttributeType.FullName == "H5.NonScriptableAttribute"))
             {
                 return false;
             }
@@ -317,11 +317,11 @@ namespace HighFive.Translator
 
         private static bool? ReflectableValue(IList<IAttribute> attributes, IMember member, IEmitter emitter)
         {
-            var attr = attributes.FirstOrDefault(a => a.AttributeType.FullName == "HighFive.ReflectableAttribute");
+            var attr = attributes.FirstOrDefault(a => a.AttributeType.FullName == "H5.ReflectableAttribute");
 
             if (attr == null)
             {
-                attr = Helpers.GetInheritedAttribute(member, "HighFive.ReflectableAttribute");
+                attr = Helpers.GetInheritedAttribute(member, "H5.ReflectableAttribute");
 
                 if (attr != null)
                 {
@@ -547,7 +547,7 @@ namespace HighFive.Translator
             result.Add("pt", new JRaw(MetadataUtils.GetTypeName(p.Type, emitter, isGenericSpecialization)));
             result.Add("ps", p.Owner.Parameters.IndexOf(p));
 
-            var nameAttr = p.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "HighFive.NameAttribute");
+            var nameAttr = p.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "H5.NameAttribute");
             if (nameAttr != null)
             {
                 var value = nameAttr.PositionalArguments.First().ConstantValue;
@@ -584,7 +584,7 @@ namespace HighFive.Translator
                 var method = (IMethod)m;
                 var inline = emitter.GetInline(method);
 
-                if (string.IsNullOrEmpty(inline) && method.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute"))
+                if (string.IsNullOrEmpty(inline) && method.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute"))
                 {
                     properties.Add("exp", true);
                 }
@@ -696,7 +696,7 @@ namespace HighFive.Translator
             else if (m is IProperty)
             {
                 var typeDef = m.DeclaringTypeDefinition;
-                var monoProp = typeDef != null ? emitter.HighFiveTypes.Get(typeDef).TypeDefinition.Properties.FirstOrDefault(p => p.Name == m.Name) : null;
+                var monoProp = typeDef != null ? emitter.H5Types.Get(typeDef).TypeDefinition.Properties.FirstOrDefault(p => p.Name == m.Name) : null;
 
                 var prop = (IProperty)m;
                 var canGet = prop.CanGet && prop.Getter != null;
@@ -803,7 +803,7 @@ namespace HighFive.Translator
             {
                 StringBuilder sb = new StringBuilder("function (" + JS.Vars.V + ") { return ");
 
-                sb.Append(JS.Types.HighFive.BOX);
+                sb.Append(JS.Types.H5.BOX);
                 sb.Append("(" + JS.Vars.V + ", ");
                 sb.Append(ConversionBlock.GetBoxedType(m.ReturnType, emitter));
 
@@ -877,7 +877,7 @@ namespace HighFive.Translator
             IAttribute customCtor = null;
             if (typeDef != null)
             {
-                customCtor = emitter.Validator.GetAttribute(typeDef.Attributes, Translator.HighFive_ASSEMBLY + ".ConstructorAttribute");
+                customCtor = emitter.Validator.GetAttribute(typeDef.Attributes, Translator.H5_ASSEMBLY + ".ConstructorAttribute");
             }
 
             if (string.IsNullOrEmpty(inline) && customCtor == null)
@@ -900,7 +900,7 @@ namespace HighFive.Translator
                 properties.Add("sm", true);
             }
 
-            if (string.IsNullOrEmpty(inline) && constructor.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute"))
+            if (string.IsNullOrEmpty(inline) && constructor.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute"))
             {
                 properties.Add("exp", true);
             }
@@ -993,7 +993,7 @@ namespace HighFive.Translator
 
             if (m.Accessibility != Accessibility.None)
             {
-                if (m.Attributes.Any(a => a.AttributeType.FullName == "HighFive.PrivateProtectedAttribute"))
+                if (m.Attributes.Any(a => a.AttributeType.FullName == "H5.PrivateProtectedAttribute"))
                 {
                     result.Add("a", (int)Accessibility.ProtectedAndInternal);
                 }
@@ -1027,18 +1027,18 @@ namespace HighFive.Translator
             }
 
             var itypeDef = type.GetDefinition();
-            if (itypeDef != null && itypeDef.Attributes.Any(a => a.AttributeType.FullName == "HighFive.NonScriptableAttribute"))
+            if (itypeDef != null && itypeDef.Attributes.Any(a => a.AttributeType.FullName == "H5.NonScriptableAttribute"))
             {
                 return JS.Types.System.Object.NAME;
             }
 
-            var isGlobal = itypeDef != null && itypeDef.Attributes.Any(a => a.AttributeType.FullName == "HighFive.GlobalMethodsAttribute" || a.AttributeType.FullName == "HighFive.MixinAttribute");
+            var isGlobal = itypeDef != null && itypeDef.Attributes.Any(a => a.AttributeType.FullName == "H5.GlobalMethodsAttribute" || a.AttributeType.FullName == "H5.MixinAttribute");
             if (isGlobal)
             {
-                return JS.Types.HighFive.Global.NAME;
+                return JS.Types.H5.Global.NAME;
             }
 
-            var name = HighFiveTypes.ToJsName(type, emitter, asDefinition, excludeTypeOnly: true);
+            var name = H5Types.ToJsName(type, emitter, asDefinition, excludeTypeOnly: true);
 
             if (cache && emitter.NamespacesCache != null && name.StartsWith(type.Namespace + "."))
             {

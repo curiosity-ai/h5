@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.TextReader.NullTextReader", {
+    H5.define("System.IO.TextReader.NullTextReader", {
         inherits: [System.IO.TextReader],
         $kind: "nested class",
         ctors: {

@@ -4,7 +4,7 @@ using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public interface IEmitter : ILog, IAstVisitor
     {
@@ -407,7 +407,7 @@ namespace HighFive.Contract
 
         Tuple<bool, string> IsGlobalTarget(IMember member);
 
-        HighFiveTypes HighFiveTypes
+        H5Types H5Types
         {
             get;
             set;

@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.TextWriter.NullTextWriter", {
+    H5.define("System.IO.TextWriter.NullTextWriter", {
         inherits: [System.IO.TextWriter],
         $kind: "nested class",
         props: {

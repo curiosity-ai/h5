@@ -1,10 +1,10 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class IndexerBlock : TypeScriptBlock
     {
@@ -57,7 +57,7 @@ namespace HighFive.Translator.TypeScript
             {
                 this.Write(", value");
                 this.WriteColon();
-                name = HighFiveTypes.ToTypeScriptName(indexerDeclaration.ReturnType, this.Emitter);
+                name = H5Types.ToTypeScriptName(indexerDeclaration.ReturnType, this.Emitter);
                 this.Write(name);
                 this.WriteCloseParentheses();
                 this.WriteColon();
@@ -66,7 +66,7 @@ namespace HighFive.Translator.TypeScript
             else
             {
                 this.WriteColon();
-                name = HighFiveTypes.ToTypeScriptName(indexerDeclaration.ReturnType, this.Emitter);
+                name = H5Types.ToTypeScriptName(indexerDeclaration.ReturnType, this.Emitter);
                 this.Write(name);
             }
 
@@ -91,7 +91,7 @@ namespace HighFive.Translator.TypeScript
                 needComma = true;
                 this.Write(name);
                 this.WriteColon();
-                name = HighFiveTypes.ToTypeScriptName(p.Type, this.Emitter);
+                name = H5Types.ToTypeScriptName(p.Type, this.Emitter);
                 this.Write(name);
             }
 

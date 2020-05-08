@@ -1,4 +1,4 @@
-namespace HighFive
+namespace H5
 {
     [External]
     [IgnoreCast]

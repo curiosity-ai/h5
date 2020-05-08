@@ -1,4 +1,4 @@
-using HighFive.Contract;
+using H5.Contract;
 using Mono.Cecil;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator
     {
@@ -65,7 +65,7 @@ namespace HighFive.Translator
             this.Log.Info("Done injecting resources");
         }
 
-        private IEnumerable<Tuple<HighFiveResourceInfo, byte[]>> PrepareAndExtractResources(string outputPath, string projectPath)
+        private IEnumerable<Tuple<H5ResourceInfo, byte[]>> PrepareAndExtractResources(string outputPath, string projectPath)
         {
             if (this.AssemblyInfo.Resources.HasEmbedResources())
             {
@@ -110,7 +110,7 @@ namespace HighFive.Translator
 
                             this.ExtractResource(resourcePath.Item1, resourcePath.Item2, resource, code);
 
-                            var info = new HighFiveResourceInfo
+                            var info = new H5ResourceInfo
                             {
                                 Name = resource.Name,
                                 FileName = resource.Name,
@@ -140,7 +140,7 @@ namespace HighFive.Translator
 
                 foreach (var outputItem in this.Outputs.GetOutputs(true))
                 {
-                    HighFiveResourceInfoPart[] parts = null;
+                    H5ResourceInfoPart[] parts = null;
 
                     this.Log.Trace("Getting output " + outputItem.FullPath.LocalPath);
 
@@ -164,7 +164,7 @@ namespace HighFive.Translator
                         }
                     }
 
-                    var info = new HighFiveResourceInfo
+                    var info = new H5ResourceInfo
                     {
                         Name = outputItem.Name,
                         FileName = outputItem.Name,
@@ -191,7 +191,7 @@ namespace HighFive.Translator
 
                     if (isCombined)
                     {
-                        Dictionary<HighFiveResourceInfoPart, string> partSource = null;
+                        Dictionary<H5ResourceInfoPart, string> partSource = null;
 
                         if (!isMinified && !nonMinifiedCombinedPartsDone)
                         {
@@ -223,7 +223,7 @@ namespace HighFive.Translator
                                     continue;
                                 }
 
-                                var partResource = new HighFiveResourceInfo
+                                var partResource = new H5ResourceInfo
                                 {
                                     Name = null,
                                     FileName = part.Key.ResourceName,
@@ -268,13 +268,13 @@ namespace HighFive.Translator
 
         private string ReadEmbeddedResourceList(AssemblyDefinition assemblyDefinition, string listName)
         {
-            this.Log.Trace("Checking if reference " + assemblyDefinition.FullName + " contains HighFive Resources List " + listName);
+            this.Log.Trace("Checking if reference " + assemblyDefinition.FullName + " contains H5 Resources List " + listName);
 
             var listRes = assemblyDefinition.MainModule.Resources.FirstOrDefault(x => x.Name == listName);
 
             if (listRes == null)
             {
-                this.Log.Trace("Reference " + assemblyDefinition.FullName + " does not contain HighFive Resources List");
+                this.Log.Trace("Reference " + assemblyDefinition.FullName + " does not contain H5 Resources List");
 
                 return null;
             }
@@ -284,46 +284,46 @@ namespace HighFive.Translator
             {
                 using (StreamReader reader = new StreamReader(resourcesStream))
                 {
-                    this.Log.Trace("Reading HighFive Resources List");
+                    this.Log.Trace("Reading H5 Resources List");
                     resourcesStr = reader.ReadToEnd();
-                    this.Log.Trace("Read HighFive Resources List: " + resourcesStr);
+                    this.Log.Trace("Read H5 Resources List: " + resourcesStr);
                 }
             }
 
             return resourcesStr;
         }
 
-        private HighFiveResourceInfo[] GetEmbeddedResourceList(AssemblyDefinition assemblyDefinition)
+        private H5ResourceInfo[] GetEmbeddedResourceList(AssemblyDefinition assemblyDefinition)
         {
             // First read Json format list
-            var resourcesStr = ReadEmbeddedResourceList(assemblyDefinition, Translator.HighFiveResourcesJsonFormatList);
+            var resourcesStr = ReadEmbeddedResourceList(assemblyDefinition, Translator.H5ResourcesJsonFormatList);
 
             if (resourcesStr != null)
             {
-                return ParseHighFiveResourceListInJsonFormat(resourcesStr);
+                return ParseH5ResourceListInJsonFormat(resourcesStr);
             }
 
             // Then read old plus separated format list (by another file name)
-            resourcesStr = ReadEmbeddedResourceList(assemblyDefinition, Translator.HighFiveResourcesPlusSeparatedFormatList);
+            resourcesStr = ReadEmbeddedResourceList(assemblyDefinition, Translator.H5ResourcesPlusSeparatedFormatList);
 
             if (resourcesStr != null)
             {
-                return ParseHighFiveResourceListInPlusSeparatedFormat(resourcesStr);
+                return ParseH5ResourceListInPlusSeparatedFormat(resourcesStr);
             }
 
-            return new HighFiveResourceInfo[0];
+            return new H5ResourceInfo[0];
         }
 
-        private static HighFiveResourceInfo[] ParseHighFiveResourceListInJsonFormat(string json)
+        private static H5ResourceInfo[] ParseH5ResourceListInJsonFormat(string json)
         {
-            var r = Newtonsoft.Json.JsonConvert.DeserializeObject<HighFiveResourceInfo[]>(json);
+            var r = Newtonsoft.Json.JsonConvert.DeserializeObject<H5ResourceInfo[]>(json);
 
             return r;
         }
 
-        private static HighFiveResourceInfo[] ParseHighFiveResourceListInPlusSeparatedFormat(string resourcesStr)
+        private static H5ResourceInfo[] ParseH5ResourceListInPlusSeparatedFormat(string resourcesStr)
         {
-            var r = new List<HighFiveResourceInfo>();
+            var r = new List<H5ResourceInfo>();
 
             var resources = resourcesStr.Split('+');
 
@@ -333,7 +333,7 @@ namespace HighFive.Translator
                 var fileName = parts[0].Trim();
                 var resName = parts[1].Trim();
 
-                r.Add(new HighFiveResourceInfo
+                r.Add(new H5ResourceInfo
                 {
                     Name = resName,
                     FileName = fileName,
@@ -344,13 +344,13 @@ namespace HighFive.Translator
             return r.ToArray();
         }
 
-        private List<HighFiveResourceInfo> PrepareResourcesForEmbedding(IEnumerable<Tuple<HighFiveResourceInfo, byte[]>> resourcesToEmbed)
+        private List<H5ResourceInfo> PrepareResourcesForEmbedding(IEnumerable<Tuple<H5ResourceInfo, byte[]>> resourcesToEmbed)
         {
             this.Log.Trace("PrepareResourcesForEmbedding...");
 
             var assemblyDef = this.AssemblyDefinition;
             var resources = assemblyDef.MainModule.Resources;
-            var resourceList = new List<HighFiveResourceInfo>();
+            var resourceList = new List<H5ResourceInfo>();
 
             var configHelper = new ConfigHelper();
 
@@ -442,7 +442,7 @@ namespace HighFive.Translator
             }
         }
 
-        private void EmbedResources(List<HighFiveResourceInfo> resourcesToEmbed)
+        private void EmbedResources(List<H5ResourceInfo> resourcesToEmbed)
         {
             this.Log.Trace("Embedding resources...");
 
@@ -450,9 +450,9 @@ namespace HighFive.Translator
             var resources = assemblyDef.MainModule.Resources;
             var configHelper = new ConfigHelper();
 
-            CheckIfResourceExistsAndRemove(resources, Translator.HighFiveResourcesPlusSeparatedFormatList);
+            CheckIfResourceExistsAndRemove(resources, Translator.H5ResourcesPlusSeparatedFormatList);
 
-            var resourceListName = Translator.HighFiveResourcesJsonFormatList;
+            var resourceListName = Translator.H5ResourcesJsonFormatList;
             CheckIfResourceExistsAndRemove(resources, resourceListName);
 
             var listArray = resourcesToEmbed.ToArray();
@@ -1154,15 +1154,15 @@ namespace HighFive.Translator
         {
             this.Log.Trace("CheckConsoleConfigSetting...");
 
-            var consoleResourceName = HighFiveConsoleName;
+            var consoleResourceName = H5ConsoleName;
             var consoleResourceMinifiedName = FileHelper.GetMinifiedJSFileName(consoleResourceName);
 
-            var consoleFormatted = resources.Where(x => x.Name == consoleResourceName && (x.Assembly == null || x.Assembly == Translator.HighFive_ASSEMBLY)).FirstOrDefault();
-            var consoleMinified = resources.Where(x => x.Name == consoleResourceMinifiedName && (x.Assembly == null || x.Assembly == Translator.HighFive_ASSEMBLY)).FirstOrDefault();
+            var consoleFormatted = resources.Where(x => x.Name == consoleResourceName && (x.Assembly == null || x.Assembly == Translator.H5_ASSEMBLY)).FirstOrDefault();
+            var consoleMinified = resources.Where(x => x.Name == consoleResourceMinifiedName && (x.Assembly == null || x.Assembly == Translator.H5_ASSEMBLY)).FirstOrDefault();
 
             if (this.AssemblyInfo.Console.Enabled != true)
             {
-                this.Log.Trace("Switching off HighFive Console...");
+                this.Log.Trace("Switching off H5 Console...");
 
                 if (consoleFormatted == null)
                 {
@@ -1178,11 +1178,11 @@ namespace HighFive.Translator
                 {
                     if (this.AssemblyInfo.Console.Enabled.HasValue)
                     {
-                        this.Log.Trace("Overriding resource setting for " + consoleResourceName + " as highfive.json has console option explicitly");
+                        this.Log.Trace("Overriding resource setting for " + consoleResourceName + " as h5.json has console option explicitly");
                     }
                     else
                     {
-                        this.Log.Trace("Not overriding resource setting for " + consoleResourceName + " as highfive.json does NOT have console option explicitly");
+                        this.Log.Trace("Not overriding resource setting for " + consoleResourceName + " as h5.json does NOT have console option explicitly");
                         consoleFormatted = null;
                     }
                 }
@@ -1209,11 +1209,11 @@ namespace HighFive.Translator
                 {
                     if (this.AssemblyInfo.Console.Enabled.HasValue)
                     {
-                        this.Log.Trace("Overriding resource setting for " + consoleResourceMinifiedName + " as highfive.json has console option explicitly");
+                        this.Log.Trace("Overriding resource setting for " + consoleResourceMinifiedName + " as h5.json has console option explicitly");
                     }
                     else
                     {
-                        this.Log.Trace("Not overriding resource setting for " + consoleResourceMinifiedName + " as highfive.json does NOT have console option explicitly");
+                        this.Log.Trace("Not overriding resource setting for " + consoleResourceMinifiedName + " as h5.json does NOT have console option explicitly");
                         consoleMinified = null;
                     }
                 }
@@ -1226,7 +1226,7 @@ namespace HighFive.Translator
                     consoleMinified.Files = new string[0];
                 }
 
-                this.Log.Trace("Switching off HighFive Console done");
+                this.Log.Trace("Switching off H5 Console done");
             }
             else
             {
@@ -1235,7 +1235,7 @@ namespace HighFive.Translator
                     if (consoleFormatted.Extract != true)
                     {
                         consoleFormatted.Extract = true;
-                        this.Log.Trace("Setting resources.extract = true for " + consoleResourceName + " as highfive.json has console option has true explicitly");
+                        this.Log.Trace("Setting resources.extract = true for " + consoleResourceName + " as h5.json has console option has true explicitly");
                     }
                 }
                 else
@@ -1259,7 +1259,7 @@ namespace HighFive.Translator
                     if (consoleMinified.Extract != true)
                     {
                         consoleMinified.Extract = true;
-                        this.Log.Trace("Setting resources.extract = true for " + consoleResourceMinifiedName + " as highfive.json has console option has true explicitly");
+                        this.Log.Trace("Setting resources.extract = true for " + consoleResourceMinifiedName + " as h5.json has console option has true explicitly");
                     }
                 }
                 else

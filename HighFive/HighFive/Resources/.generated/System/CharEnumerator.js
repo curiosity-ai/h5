@@ -1,4 +1,4 @@
-    HighFive.define("System.CharEnumerator", {
+    H5.define("System.CharEnumerator", {
         inherits: [System.Collections.IEnumerator,System.Collections.Generic.IEnumerator$1(System.Char),System.IDisposable,System.ICloneable],
         fields: {
             _str: null,
@@ -8,7 +8,7 @@
         props: {
             System$Collections$IEnumerator$Current: {
                 get: function () {
-                    return HighFive.box(this.Current, System.Char, String.fromCharCode, System.Char.getHashCode);
+                    return H5.box(this.Current, System.Char, String.fromCharCode, System.Char.getHashCode);
                 }
             },
             Current: {
@@ -39,7 +39,7 @@
         },
         methods: {
             clone: function () {
-                return HighFive.clone(this);
+                return H5.clone(this);
             },
             moveNext: function () {
                 if (this._index < (((this._str.length - 1) | 0))) {

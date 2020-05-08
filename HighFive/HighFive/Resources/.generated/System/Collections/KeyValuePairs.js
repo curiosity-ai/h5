@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.KeyValuePairs", {
+    H5.define("System.Collections.KeyValuePairs", {
         fields: {
             key: null,
             value: null

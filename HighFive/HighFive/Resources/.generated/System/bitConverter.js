@@ -1,4 +1,4 @@
-    HighFive.define("System.BitConverter", {
+    H5.define("System.BitConverter", {
         statics: {
             fields: {
                 isLittleEndian: false,
@@ -15,7 +15,7 @@
                     return value ? System.Array.init([1], System.Byte) : System.Array.init([0], System.Byte);
                 },
                 getBytes$1: function (value) {
-                    return System.BitConverter.getBytes$3(HighFive.Int.sxs(value & 65535));
+                    return System.BitConverter.getBytes$3(H5.Int.sxs(value & 65535));
                 },
                 getBytes$3: function (value) {
                     var view = System.BitConverter.view(2);
@@ -155,18 +155,18 @@
                     }
 
                     if (length > (715827882)) {
-                        throw new System.ArgumentOutOfRangeException.$ctor4("length", HighFive.toString((715827882)));
+                        throw new System.ArgumentOutOfRangeException.$ctor4("length", H5.toString((715827882)));
                     }
 
-                    var chArrayLength = HighFive.Int.mul(length, 3);
+                    var chArrayLength = H5.Int.mul(length, 3);
 
                     var chArray = System.Array.init(chArrayLength, 0, System.Char);
                     var i = 0;
                     var index = startIndex;
 
                     for (i = 0; i < chArrayLength; i = (i + 3) | 0) {
-                        var b = value[System.Array.index(HighFive.identity(index, ((index = (index + 1) | 0))), value)];
-                        chArray[System.Array.index(i, chArray)] = System.BitConverter.getHexValue(((HighFive.Int.div(b, 16)) | 0));
+                        var b = value[System.Array.index(H5.identity(index, ((index = (index + 1) | 0))), value)];
+                        chArray[System.Array.index(i, chArray)] = System.BitConverter.getHexValue(((H5.Int.div(b, 16)) | 0));
                         chArray[System.Array.index(((i + 1) | 0), chArray)] = System.BitConverter.getHexValue(b % 16);
                         chArray[System.Array.index(((i + 2) | 0), chArray)] = 45;
                     }
@@ -221,11 +221,11 @@
 
                     if (System.BitConverter.isLittleEndian) {
                         for (var i = (count - 1) | 0; i >= 0; i = (i - 1) | 0) {
-                            r[System.Array.index(i, r)] = view.getUint8(HighFive.identity(startIndex, (startIndex = (startIndex + 1) | 0)));
+                            r[System.Array.index(i, r)] = view.getUint8(H5.identity(startIndex, (startIndex = (startIndex + 1) | 0)));
                         }
                     } else {
                         for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
-                            r[System.Array.index(i1, r)] = view.getUint8(HighFive.identity(startIndex, (startIndex = (startIndex + 1) | 0)));
+                            r[System.Array.index(i1, r)] = view.getUint8(H5.identity(startIndex, (startIndex = (startIndex + 1) | 0)));
                         }
                     }
 
@@ -240,11 +240,11 @@
 
                     if (System.BitConverter.isLittleEndian) {
                         for (var i = (count - 1) | 0; i >= 0; i = (i - 1) | 0) {
-                            view.setUint8(i, value[System.Array.index(HighFive.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);
+                            view.setUint8(i, value[System.Array.index(H5.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);
                         }
                     } else {
                         for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
-                            view.setUint8(i1, value[System.Array.index(HighFive.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);
+                            view.setUint8(i1, value[System.Array.index(H5.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);
                         }
                     }
                 },

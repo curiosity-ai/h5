@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("gv-IM", true), {
+H5.merge(new System.Globalization.CultureInfo("gv-IM", true), {
     englishName: "Manx (Isle of Man)",
     nativeName: "Gaelg (Ellan Vannin)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("gv-IM", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Jed","Jel","Jem","Jerc","Jerd","Jeh","Jes"],
         abbreviatedMonthGenitiveNames: ["J-guer","T-arree","Mayrnt","Avrril","Boaldyn","M-souree","J-souree","Luanistyn","M-fouyir","J-fouyir","M-Houney","M-Nollick",""],
         abbreviatedMonthNames: ["J-guer","T-arree","Mayrnt","Avrril","Boaldyn","M-souree","J-souree","Luanistyn","M-fouyir","J-fouyir","M-Houney","M-Nollick",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("gv-IM", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "gv-IM",
         EBCDICCodePage: 500,

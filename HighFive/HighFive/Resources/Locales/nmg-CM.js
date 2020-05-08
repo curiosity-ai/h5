@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("nmg-CM", true), {
+H5.merge(new System.Globalization.CultureInfo("nmg-CM", true), {
     englishName: "Kwasio (Cameroon)",
     nativeName: "Kwasio (Kamerun)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nmg-CM", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sɔ́n","mɔ́n","smb","sml","smn","mbs","sas"],
         abbreviatedMonthGenitiveNames: ["ng1","ng2","ng3","ng4","ng5","ng6","ng7","ng8","ng9","ng10","ng11","kris",""],
         abbreviatedMonthNames: ["ng1","ng2","ng3","ng4","ng5","ng6","ng7","ng8","ng9","ng10","ng11","kris",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("nmg-CM", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "nmg-CM",
         EBCDICCodePage: 500,

@@ -1,12 +1,12 @@
-using HighFive.Contract;
+using H5.Contract;
 using System.Collections.Generic;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class AssemblyInfo : IAssemblyInfo
     {
         public const string DEFAULT_FILENAME = "---";
-        public const string DEFAULT_OUTPUT = "$(OutDir)/highfive/";
+        public const string DEFAULT_OUTPUT = "$(OutDir)/h5/";
 
         public AssemblyInfo()
         {
@@ -29,8 +29,8 @@ namespace HighFive.Translator
 
         /// <summary>
         /// A file name where JavaScript is generated to. If omitted, it is [Namespace_Name].js by default.
-        /// Example: "MyHighFiveNetLibrary.js"
-        /// Tip. You can decorate a class with a [FileName('MyClass.js')] attribute. A class script will be generated to the defined file. It supersedes a global highfive.json fileName.
+        /// Example: "MyH5NetLibrary.js"
+        /// Tip. You can decorate a class with a [FileName('MyClass.js')] attribute. A class script will be generated to the defined file. It supersedes a global h5.json fileName.
         /// </summary>
         public string FileName
         {
@@ -39,7 +39,7 @@ namespace HighFive.Translator
 
         /// <summary>
         /// The output folder path for generated JavaScript. A non-absolute path is concatenated with a project's root.
-        /// Examples: "HighFive\\output\\", "..\\HighFive\\output\\", "c:\\HighFive\\output\\"
+        /// Examples: "H5\\output\\", "..\\H5\\output\\", "c:\\H5\\output\\"
         /// </summary>
         public string Output
         {
@@ -133,7 +133,7 @@ namespace HighFive.Translator
 
         /// <summary>
         /// The executable file to be launched before building. The path will be concatenated with the project's root.
-        /// For example, it might be used for cleaning up the output directory - "HighFive\\builder\\clean.bat".
+        /// For example, it might be used for cleaning up the output directory - "H5\\builder\\clean.bat".
         /// </summary>
         public string BeforeBuild
         {
@@ -142,7 +142,7 @@ namespace HighFive.Translator
 
         /// <summary>
         /// The executable file to be launched after building. The path will be concatenated with the project's root.
-        /// For example, it might be used for copying the generated JavaScript files to a Web application - "HighFive\\builder\\copy.bat"
+        /// For example, it might be used for copying the generated JavaScript files to a Web application - "H5\\builder\\copy.bat"
         /// </summary>
         public string AfterBuild
         {
@@ -164,9 +164,9 @@ namespace HighFive.Translator
             get; set;
         }
 
-        private HighFive.Contract.DocumentationMode generateDocumentation = HighFive.Contract.DocumentationMode.Basic;
+        private H5.Contract.DocumentationMode generateDocumentation = H5.Contract.DocumentationMode.Basic;
 
-        public HighFive.Contract.DocumentationMode GenerateDocumentation
+        public H5.Contract.DocumentationMode GenerateDocumentation
         {
             get
             {

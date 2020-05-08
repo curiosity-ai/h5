@@ -1,3 +1,3 @@
-    HighFive.define("System.ITupleInternal", {
+    H5.define("System.ITupleInternal", {
         $kind: "interface"
     });

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("is", true), {
+H5.merge(new System.Globalization.CultureInfo("is", true), {
     englishName: "Icelandic",
     nativeName: "íslenska",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("is", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["sun.","mán.","þri.","mið.","fim.","fös.","lau."],
         abbreviatedMonthGenitiveNames: ["jan.","feb.","mar.","apr.","maí","jún.","júl.","ágú.","sep.","okt.","nóv.","des.",""],
         abbreviatedMonthNames: ["jan.","feb.","mar.","apr.","maí","jún.","júl.","ágú.","sep.","okt.","nóv.","des.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("is", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "is-IS",
         EBCDICCodePage: 20871,

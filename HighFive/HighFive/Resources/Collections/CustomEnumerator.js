@@ -1,4 +1,4 @@
-    HighFive.define("HighFive.CustomEnumerator", {
+    H5.define("H5.CustomEnumerator", {
         inherits: [System.Collections.IEnumerator, System.IDisposable],
 
         config: {
@@ -34,10 +34,10 @@
             this.scope = scope;
 
             if (T) {
-                this["System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$getCurrent$1"] = this.getCurrent;
+                this["System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$getCurrent$1"] = this.getCurrent;
                 this["System$Collections$Generic$IEnumerator$1$getCurrent$1"] = this.getCurrent;
 
-                Object.defineProperty(this, "System$Collections$Generic$IEnumerator$1$" + HighFive.getTypeAlias(T) + "$Current$1", {
+                Object.defineProperty(this, "System$Collections$Generic$IEnumerator$1$" + H5.getTypeAlias(T) + "$Current$1", {
                     get: this.getCurrent,
                     enumerable: true
                 });

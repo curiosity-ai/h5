@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.ContractNamespaceAttribute", {
+    H5.define("System.Runtime.Serialization.ContractNamespaceAttribute", {
         inherits: [System.Attribute],
         fields: {
             _clrNamespace: null,

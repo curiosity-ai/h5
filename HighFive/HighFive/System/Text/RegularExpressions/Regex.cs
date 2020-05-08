@@ -1,6 +1,6 @@
 ﻿namespace System.Text.RegularExpressions
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     public sealed class Regex
     {
         public extern Regex(string pattern);
@@ -16,7 +16,7 @@
         /// </summary>
         public extern TimeSpan MatchTimeout
         {
-            [HighFive.Template("getMatchTimeout()")]
+            [H5.Template("getMatchTimeout()")]
             get;
         }
 
@@ -25,7 +25,7 @@
         /// </summary>
         public extern RegexOptions Options
         {
-            [HighFive.Template("getOptions()")]
+            [H5.Template("getOptions()")]
             get;
         }
 
@@ -34,7 +34,7 @@
         /// </summary>
         public extern bool RightToLeft
         {
-            [HighFive.Template("getRightToLeft()")]
+            [H5.Template("getRightToLeft()")]
             get;
         }
 
@@ -268,9 +268,9 @@
         #endregion Static members
     }
 
-    [HighFive.External]
-    [HighFive.Name("RegExp")]
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method | HighFive.ConventionMember.Property, Notation = HighFive.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("RegExp")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method | H5.ConventionMember.Property, Notation = H5.Notation.CamelCase)]
     internal class RegExp
     {
         public extern RegExp(string pattern);
@@ -309,9 +309,9 @@
         public extern bool Test(string s);
     }
 
-    [HighFive.External]
-    [HighFive.Name("RegexMatch")]
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method | HighFive.ConventionMember.Property, Notation = HighFive.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("RegexMatch")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method | H5.ConventionMember.Property, Notation = H5.Notation.CamelCase)]
     internal class RegexMatch
     {
         public int Index { get; set; }

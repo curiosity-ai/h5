@@ -1,5 +1,5 @@
 using System.Collections.Concurrent;
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.CSharp.TypeSystem;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Mono.Cecil;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class MemberResolver : IMemberResolver
     {

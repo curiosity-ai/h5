@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("tn-BW", true), {
+H5.merge(new System.Globalization.CultureInfo("tn-BW", true), {
     englishName: "Setswana (Botswana)",
     nativeName: "Setswana (Botswana)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tn-BW", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Tsh","Mos","Labb","Labr","Labn","Labt","Mat"],
         abbreviatedMonthGenitiveNames: ["Fer","Tlh","Mop","Mor","Mot","See","Phu","Pha","Lwe","Dip","Ngw","Sed",""],
         abbreviatedMonthNames: ["Fer","Tlh","Mop","Mor","Mot","See","Phu","Pha","Lwe","Dip","Ngw","Sed",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("tn-BW", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "tn-BW",
         EBCDICCodePage: 500,

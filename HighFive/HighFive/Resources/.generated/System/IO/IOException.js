@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.IOException", {
+    H5.define("System.IO.IOException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

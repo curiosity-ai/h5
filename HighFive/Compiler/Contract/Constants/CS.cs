@@ -1,15 +1,15 @@
-﻿namespace HighFive.Contract.Constants
+﻿namespace H5.Contract.Constants
 {
     public class CS
     {
         public class NS
         {
             public const string GLOBAL = "global::";
-            public const string HIGHFIVE = "HighFive";
+            public const string HIGHFIVE = "H5";
             public const string SYSTEM = "System";
         }
 
-        public class HighFive
+        public class H5
         {
             public const string DOTNAME = NS.HIGHFIVE + ".";
         }
@@ -21,9 +21,9 @@
 
         public class Attributes
         {
-            public const string ACCESSORSINDEXER_ATTRIBUTE_NAME = "HighFive.AccessorsIndexerAttribute";
-            public const string READY_ATTRIBUTE_NAME = "HighFive.ReadyAttribute";
-            public const string SERIALIZABLE_NAME = "HighFive.SerializableAttribute";
+            public const string ACCESSORSINDEXER_ATTRIBUTE_NAME = "H5.AccessorsIndexerAttribute";
+            public const string READY_ATTRIBUTE_NAME = "H5.ReadyAttribute";
+            public const string SERIALIZABLE_NAME = "H5.SerializableAttribute";
             public const string COMPILER_GENERATED_NAME = "System.Runtime.CompilerServices.CompilerGeneratedAttribute";
 
             public class Template

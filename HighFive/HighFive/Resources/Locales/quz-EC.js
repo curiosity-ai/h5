@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("quz-EC", true), {
+H5.merge(new System.Globalization.CultureInfo("quz-EC", true), {
     englishName: "Quichua (Ecuador)",
     nativeName: "Runasimi (Ecuador)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("quz-EC", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["int","awk","wan","chy","kuk","cha","wak"],
         abbreviatedMonthGenitiveNames: ["kull","pan","paw","ayr","aym","ray","sit","kar","kus","way","sas","kap",""],
         abbreviatedMonthNames: ["kull","pan","paw","ayr","aym","ray","sit","kar","kus","way","sas","kap",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("quz-EC", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "quz-EC",
         EBCDICCodePage: 20284,

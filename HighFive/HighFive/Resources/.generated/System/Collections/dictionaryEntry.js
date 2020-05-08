@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.DictionaryEntry", {
+    H5.define("System.Collections.DictionaryEntry", {
         $kind: "struct",
         statics: {
             methods: {
@@ -39,14 +39,14 @@
         },
         methods: {
             getHashCode: function () {
-                var h = HighFive.addHash([5445305491, this._key, this._value]);
+                var h = H5.addHash([5445305491, this._key, this._value]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Collections.DictionaryEntry)) {
+                if (!H5.is(o, System.Collections.DictionaryEntry)) {
                     return false;
                 }
-                return HighFive.equals(this._key, o._key) && HighFive.equals(this._value, o._value);
+                return H5.equals(this._key, o._key) && H5.equals(this._value, o._value);
             },
             $clone: function (to) {
                 var s = to || new System.Collections.DictionaryEntry();

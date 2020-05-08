@@ -1,4 +1,4 @@
-    HighFive.define("System.ThrowHelper", {
+    H5.define("System.ThrowHelper", {
         statics: {
             methods: {
                 ThrowArrayTypeMismatchException: function () {
@@ -172,34 +172,34 @@
                     return new System.ArgumentException.$ctor3(System.SR.Format$1("The value \"{0}\" is not of type \"{1}\" and cannot be used in this generic collection.", value, targetType), "value");
                 },
                 GetKeyNotFoundException: function (key) {
-                    return new System.Collections.Generic.KeyNotFoundException.$ctor1(System.SR.Format("The given key '{0}' was not present in the dictionary.", HighFive.toString(key)));
+                    return new System.Collections.Generic.KeyNotFoundException.$ctor1(System.SR.Format("The given key '{0}' was not present in the dictionary.", H5.toString(key)));
                 },
                 GetArgumentOutOfRangeException: function (argument, resource) {
                     return new System.ArgumentOutOfRangeException.$ctor4(System.ThrowHelper.GetArgumentName(argument), System.ThrowHelper.GetResourceString(resource));
                 },
                 GetArgumentOutOfRangeException$1: function (argument, paramNumber, resource) {
-                    return new System.ArgumentOutOfRangeException.$ctor4((System.ThrowHelper.GetArgumentName(argument) || "") + "[" + (HighFive.toString(paramNumber) || "") + "]", System.ThrowHelper.GetResourceString(resource));
+                    return new System.ArgumentOutOfRangeException.$ctor4((System.ThrowHelper.GetArgumentName(argument) || "") + "[" + (H5.toString(paramNumber) || "") + "]", System.ThrowHelper.GetResourceString(resource));
                 },
                 GetInvalidOperationException_EnumCurrent: function (index) {
                     return System.ThrowHelper.GetInvalidOperationException(index < 0 ? System.ExceptionResource.InvalidOperation_EnumNotStarted : System.ExceptionResource.InvalidOperation_EnumEnded);
                 },
                 IfNullAndNullsAreIllegalThenThrow: function (T, value, argName) {
-                    if (!(HighFive.getDefaultValue(T) == null) && value == null) {
+                    if (!(H5.getDefaultValue(T) == null) && value == null) {
                         System.ThrowHelper.ThrowArgumentNullException(argName);
                     }
                 },
                 GetArgumentName: function (argument) {
-                    System.Diagnostics.Debug.Assert$1(System.Enum.isDefined(System.ExceptionArgument, HighFive.box(argument, System.ExceptionArgument, System.Enum.toStringFn(System.ExceptionArgument))), "The enum value is not defined, please check the ExceptionArgument Enum.");
+                    System.Diagnostics.Debug.Assert$1(System.Enum.isDefined(System.ExceptionArgument, H5.box(argument, System.ExceptionArgument, System.Enum.toStringFn(System.ExceptionArgument))), "The enum value is not defined, please check the ExceptionArgument Enum.");
 
                     return System.Enum.toString(System.ExceptionArgument, argument);
                 },
                 GetResourceString: function (resource) {
-                    System.Diagnostics.Debug.Assert$1(System.Enum.isDefined(System.ExceptionResource, HighFive.box(resource, System.ExceptionResource, System.Enum.toStringFn(System.ExceptionResource))), "The enum value is not defined, please check the ExceptionResource Enum.");
+                    System.Diagnostics.Debug.Assert$1(System.Enum.isDefined(System.ExceptionResource, H5.box(resource, System.ExceptionResource, System.Enum.toStringFn(System.ExceptionResource))), "The enum value is not defined, please check the ExceptionResource Enum.");
 
                     return System.SR.GetResourceString(System.Enum.toString(System.ExceptionResource, resource));
                 },
                 ThrowNotSupportedExceptionIfNonNumericType: function (T) {
-                    if (!HighFive.referenceEquals(T, System.Byte) && !HighFive.referenceEquals(T, System.SByte) && !HighFive.referenceEquals(T, System.Int16) && !HighFive.referenceEquals(T, System.UInt16) && !HighFive.referenceEquals(T, System.Int32) && !HighFive.referenceEquals(T, System.UInt32) && !HighFive.referenceEquals(T, System.Int64) && !HighFive.referenceEquals(T, System.UInt64) && !HighFive.referenceEquals(T, System.Single) && !HighFive.referenceEquals(T, System.Double)) {
+                    if (!H5.referenceEquals(T, System.Byte) && !H5.referenceEquals(T, System.SByte) && !H5.referenceEquals(T, System.Int16) && !H5.referenceEquals(T, System.UInt16) && !H5.referenceEquals(T, System.Int32) && !H5.referenceEquals(T, System.UInt32) && !H5.referenceEquals(T, System.Int64) && !H5.referenceEquals(T, System.UInt64) && !H5.referenceEquals(T, System.Single) && !H5.referenceEquals(T, System.Double)) {
                         throw new System.NotSupportedException.$ctor1("Specified type is not supported");
                     }
                 }

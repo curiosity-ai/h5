@@ -1,6 +1,6 @@
 using System;
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -8,7 +8,7 @@ using ICSharpCode.NRefactory.TypeSystem.Implementation;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class AbstractEmitterBlock
     {
@@ -251,7 +251,7 @@ namespace HighFive.Translator
 
                         if (method != null)
                         {
-                            var expandParams = method.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute");
+                            var expandParams = method.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                             foreach (var prm in method.Parameters)
                             {
                                 if (prm.IsOptional)
@@ -269,7 +269,7 @@ namespace HighFive.Translator
                                     }
                                     else if (prm.ConstantValue == null && prm.Type.Kind == TypeKind.TypeParameter)
                                     {
-                                        this.Write(JS.Funcs.HIGHFIVE_GETDEFAULTVALUE + "(" + HighFiveTypes.ToJsName(prm.Type, this.Emitter) + ")");
+                                        this.Write(JS.Funcs.HIGHFIVE_GETDEFAULTVALUE + "(" + H5Types.ToJsName(prm.Type, this.Emitter) + ")");
                                     }
                                     else if (prm.Type.Kind == TypeKind.Enum)
                                     {

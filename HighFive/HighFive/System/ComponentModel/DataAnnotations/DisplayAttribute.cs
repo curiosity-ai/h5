@@ -5,12 +5,12 @@ namespace System.ComponentModel.DataAnnotations
     /// The string properties of this class can be used either as literals or as resource identifiers into a specified
     /// <see cref="ResourceType" />
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [AttributeUsage(
         AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Method,
         AllowMultiple = false)]
-    [HighFive.External]
-    [HighFive.NonScriptable]
+    [H5.External]
+    [H5.NonScriptable]
     public sealed class DisplayAttribute : Attribute
     {
         /// <summary>

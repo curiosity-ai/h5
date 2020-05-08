@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.ReadLinesIterator", {
+    H5.define("System.IO.ReadLinesIterator", {
         inherits: [System.IO.Iterator$1(System.String)],
         statics: {
             methods: {

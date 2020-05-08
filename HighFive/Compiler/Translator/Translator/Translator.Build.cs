@@ -5,8 +5,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using System.Xml.Linq;
 using System.Linq;
 using System.IO;
-using HighFive.Translator.Logging;
-using HighFive.Contract;
+using H5.Translator.Logging;
+using H5.Contract;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using ICSharpCode.NRefactory.Documentation;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Globalization;
 using Mono.Cecil;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator
     {
@@ -63,11 +63,11 @@ namespace HighFive.Translator
                             this.ProjectProperties.BuildProjects.Add(projectRef);
                         }
 
-                        var processor = new TranslatorProcessor(new HighFiveOptions
+                        var processor = new TranslatorProcessor(new H5Options
                         {
                             Rebuild = this.Rebuild,
                             ProjectLocation = projectRef,
-                            HighFiveLocation = this.HighFiveLocation,
+                            H5Location = this.H5Location,
                             ProjectProperties = new Contract.ProjectProperties
                             {
                                 BuildProjects = this.ProjectProperties.BuildProjects,
@@ -147,11 +147,11 @@ namespace HighFive.Translator
                             this.ProjectProperties.BuildProjects.Add(projectRef);
                         }
 
-                        var processor = new TranslatorProcessor(new HighFiveOptions
+                        var processor = new TranslatorProcessor(new H5Options
                         {
                             Rebuild = this.Rebuild,
                             ProjectLocation = projectRef,
-                            HighFiveLocation = this.HighFiveLocation,
+                            H5Location = this.H5Location,
                             ProjectProperties = new Contract.ProjectProperties
                             {
                                 BuildProjects = this.ProjectProperties.BuildProjects,
@@ -185,7 +185,7 @@ namespace HighFive.Translator
 
                     if (!Directory.Exists(path))
                     {
-                        throw (TranslatorException)HighFive.Translator.TranslatorException.Create("ReferencesPath doesn't exist - {0}", path);
+                        throw (TranslatorException)H5.Translator.TranslatorException.Create("ReferencesPath doesn't exist - {0}", path);
                     }
 
                     string[] allfiles = System.IO.Directory.GetFiles(path, "*.dll", SearchOption.TopDirectoryOnly);
@@ -261,7 +261,7 @@ namespace HighFive.Translator
                 di.Create();
             }
 
-            var updateHighFiveLocation = string.IsNullOrWhiteSpace(this.HighFiveLocation) || !File.Exists(this.HighFiveLocation);
+            var updateH5Location = string.IsNullOrWhiteSpace(this.H5Location) || !File.Exists(this.H5Location);
 
             foreach (var path in referencesPathes)
             {
@@ -271,9 +271,9 @@ namespace HighFive.Translator
                     File.Copy(path, newPath, true);
                 }
 
-                if (updateHighFiveLocation && string.Compare(Path.GetFileName(path), "highfive.dll", true) == 0)
+                if (updateH5Location && string.Compare(Path.GetFileName(path), "h5.dll", true) == 0)
                 {
-                    this.HighFiveLocation = path;
+                    this.H5Location = path;
                 }
 
                 references.Add(MetadataReference.CreateFromFile(path, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
@@ -321,7 +321,7 @@ namespace HighFive.Translator
                     }
                 }
 
-                throw new HighFive.Translator.TranslatorException(sb.ToString());
+                throw new H5.Translator.TranslatorException(sb.ToString());
             }
 
             this.Log.Info("Building assembly done");

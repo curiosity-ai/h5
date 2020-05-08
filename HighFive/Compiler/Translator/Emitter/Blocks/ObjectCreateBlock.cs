@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ObjectCreateBlock : ConversionBlock
     {
@@ -79,7 +79,7 @@ namespace HighFive.Translator
                     this.WriteOpenParentheses();
                 }
 
-                this.Write("HighFive.fn.$build([");
+                this.Write("H5.fn.$build([");
                 objectCreateExpression.Arguments.First().AcceptVisitor(this.Emitter);
                 this.Write("])");
 
@@ -160,7 +160,7 @@ namespace HighFive.Translator
                 else
                 {
                     var ctorMember = ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member;
-                    var expandParams = ctorMember.Attributes.Any(a => a.AttributeType.FullName == "HighFive.ExpandParamsAttribute");
+                    var expandParams = ctorMember.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                     bool applyCtor = false;
 
                     if (expandParams)
@@ -169,7 +169,7 @@ namespace HighFive.Translator
 
                         if (ctor_rr.Type.Kind == TypeKind.Array && !(paramsArg is ArrayCreateExpression) && objectCreateExpression.Arguments.Last() == paramsArg)
                         {
-                            this.Write(JS.Types.HighFive.Reflection.APPLYCONSTRUCTOR + "(");
+                            this.Write(JS.Types.H5.Reflection.APPLYCONSTRUCTOR + "(");
                             applyCtor = true;
                         }
                     }
@@ -205,7 +205,7 @@ namespace HighFive.Translator
                     if (!isTypeParam && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType || isObjectLiteral ? 0 : 1))
                     {
                         var member = ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member;
-                        if (!this.Emitter.Validator.IsExternalType(type) || member.Attributes.Any(a => a.AttributeType.FullName == "HighFive.NameAttribute"))
+                        if (!this.Emitter.Validator.IsExternalType(type) || member.Attributes.Any(a => a.AttributeType.FullName == "H5.NameAttribute"))
                         {
                             this.WriteDot();
                             var name = OverloadsCollection.Create(this.Emitter, member).GetOverloadName();
@@ -431,8 +431,8 @@ namespace HighFive.Translator
                     var p = rr.Member.Parameters[i < rr.Member.Parameters.Count ? i : (rr.Member.Parameters.Count - 1)];
                     var name = p.Name;
 
-                    if (p.Type.FullName == "HighFive.ObjectInitializationMode" ||
-                        p.Type.FullName == "HighFive.ObjectCreateMode")
+                    if (p.Type.FullName == "H5.ObjectInitializationMode" ||
+                        p.Type.FullName == "H5.ObjectCreateMode")
                     {
                         continue;
                     }
@@ -474,7 +474,7 @@ namespace HighFive.Translator
                     if (itemrr != null)
                     {
                         var oc = OverloadsCollection.Create(this.Emitter, itemrr.Member);
-                        bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.Attributes.Any(attr => attr.AttributeType.FullName == "HighFive.NameAttribute") && !this.Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
+                        bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.Attributes.Any(attr => attr.AttributeType.FullName == "H5.NameAttribute") && !this.Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
 
                         name = oc.GetOverloadName(isObjectLiteral: forceObjectLiteral);
                     }
@@ -498,7 +498,7 @@ namespace HighFive.Translator
 
             if (isObjectLiteral)
             {
-                var key = HighFiveTypes.GetTypeDefinitionKey(type);
+                var key = H5Types.GetTypeDefinitionKey(type);
                 var tinfo = this.Emitter.Types.FirstOrDefault(t => t.Key == key);
 
                 var mode = 0;
@@ -506,7 +506,7 @@ namespace HighFive.Translator
                 {
                     if (rr.Member.Parameters.Count > 0)
                     {
-                        var prm = rr.Member.Parameters.FirstOrDefault(p => p.Type.FullName == "HighFive.ObjectInitializationMode");
+                        var prm = rr.Member.Parameters.FirstOrDefault(p => p.Type.FullName == "H5.ObjectInitializationMode");
 
                         if (prm != null)
                         {

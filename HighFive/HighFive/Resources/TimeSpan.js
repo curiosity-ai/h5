@@ -1,4 +1,4 @@
-    HighFive.define("System.TimeSpan", {
+    H5.define("System.TimeSpan", {
         inherits: [System.IComparable],
 
         config: {
@@ -44,11 +44,11 @@
             },
 
             neg: function (t) {
-                return HighFive.hasValue(t) ? (new System.TimeSpan(t.ticks.neg())) : null;
+                return H5.hasValue(t) ? (new System.TimeSpan(t.ticks.neg())) : null;
             },
 
             sub: function (t1, t2) {
-                return HighFive.hasValue$1(t1, t2) ? (new System.TimeSpan(t1.ticks.sub(t2.ticks))) : null;
+                return H5.hasValue$1(t1, t2) ? (new System.TimeSpan(t1.ticks.sub(t2.ticks))) : null;
             },
 
             eq: function (t1, t2) {
@@ -56,7 +56,7 @@
                     return true;
                 }
 
-                return HighFive.hasValue$1(t1, t2) ? (t1.ticks.eq(t2.ticks)) : false;
+                return H5.hasValue$1(t1, t2) ? (t1.ticks.eq(t2.ticks)) : false;
             },
 
             neq: function (t1, t2) {
@@ -64,31 +64,31 @@
                     return false;
                 }
 
-                return HighFive.hasValue$1(t1, t2) ? (t1.ticks.ne(t2.ticks)) : true;
+                return H5.hasValue$1(t1, t2) ? (t1.ticks.ne(t2.ticks)) : true;
             },
 
             plus: function (t) {
-                return HighFive.hasValue(t) ? (new System.TimeSpan(t.ticks)) : null;
+                return H5.hasValue(t) ? (new System.TimeSpan(t.ticks)) : null;
             },
 
             add: function (t1, t2) {
-                return HighFive.hasValue$1(t1, t2) ? (new System.TimeSpan(t1.ticks.add(t2.ticks))) : null;
+                return H5.hasValue$1(t1, t2) ? (new System.TimeSpan(t1.ticks.add(t2.ticks))) : null;
             },
 
             gt: function (a, b) {
-                return HighFive.hasValue$1(a, b) ? (a.ticks.gt(b.ticks)) : false;
+                return H5.hasValue$1(a, b) ? (a.ticks.gt(b.ticks)) : false;
             },
 
             gte: function (a, b) {
-                return HighFive.hasValue$1(a, b) ? (a.ticks.gte(b.ticks)) : false;
+                return H5.hasValue$1(a, b) ? (a.ticks.gte(b.ticks)) : false;
             },
 
             lt: function (a, b) {
-                return HighFive.hasValue$1(a, b) ? (a.ticks.lt(b.ticks)) : false;
+                return H5.hasValue$1(a, b) ? (a.ticks.lt(b.ticks)) : false;
             },
 
             lte: function (a, b) {
-                return HighFive.hasValue$1(a, b) ? (a.ticks.lte(b.ticks)) : false;
+                return H5.hasValue$1(a, b) ? (a.ticks.lte(b.ticks)) : false;
             },
 
             timeSpanWithDays: /^(\-)?(\d+)[\.|:](\d+):(\d+):(\d+)(\.\d+)?/,
@@ -219,7 +219,7 @@
         },
 
         equals: function (other) {
-            return HighFive.is(other, System.TimeSpan) ? other.ticks.eq(this.ticks) : false;
+            return H5.is(other, System.TimeSpan) ? other.ticks.eq(this.ticks) : false;
         },
 
         equalsT: function (other) {
@@ -309,4 +309,4 @@
         }
     });
 
-    HighFive.Class.addExtend(System.TimeSpan, [System.IComparable$1(System.TimeSpan), System.IEquatable$1(System.TimeSpan)]);
+    H5.Class.addExtend(System.TimeSpan, [System.IComparable$1(System.TimeSpan), System.IEquatable$1(System.TimeSpan)]);

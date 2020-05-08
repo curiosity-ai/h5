@@ -1,4 +1,4 @@
-    HighFive.define("System.DateTimeOffset", {
+    H5.define("System.DateTimeOffset", {
         inherits: function () { return [System.IComparable,System.IFormattable,System.Runtime.Serialization.ISerializable,System.Runtime.Serialization.IDeserializationCallback,System.IComparable$1(System.DateTimeOffset),System.IEquatable$1(System.DateTimeOffset)]; },
         $kind: "struct",
         statics: {
@@ -38,10 +38,10 @@
             },
             methods: {
                 Compare: function (first, second) {
-                    return HighFive.compare(first.UtcDateTime, second.UtcDateTime);
+                    return H5.compare(first.UtcDateTime, second.UtcDateTime);
                 },
                 Equals: function (first, second) {
-                    return HighFive.equalsT(first.UtcDateTime, second.UtcDateTime);
+                    return H5.equalsT(first.UtcDateTime, second.UtcDateTime);
                 },
                 FromFileTime: function (fileTime) {
                     return new System.DateTimeOffset.$ctor1(System.DateTime.FromFileTime(fileTime));
@@ -123,10 +123,10 @@
                     return System.DateTime.subdd(left.UtcDateTime, right.UtcDateTime);
                 },
                 op_Equality: function (left, right) {
-                    return HighFive.equals(left.UtcDateTime, right.UtcDateTime);
+                    return H5.equals(left.UtcDateTime, right.UtcDateTime);
                 },
                 op_Inequality: function (left, right) {
-                    return !HighFive.equals(left.UtcDateTime, right.UtcDateTime);
+                    return !H5.equals(left.UtcDateTime, right.UtcDateTime);
                 },
                 op_LessThan: function (left, right) {
                     return System.DateTime.lt(left.UtcDateTime, right.UtcDateTime);
@@ -316,11 +316,11 @@
                 if (obj == null) {
                     return 1;
                 }
-                if (!(HighFive.is(obj, System.DateTimeOffset))) {
+                if (!(H5.is(obj, System.DateTimeOffset))) {
                     throw new System.ArgumentException.$ctor1(System.Environment.GetResourceString("Arg_MustBeDateTimeOffset"));
                 }
 
-                var objUtc = System.Nullable.getValue(HighFive.cast(HighFive.unbox(obj, System.DateTimeOffset), System.DateTimeOffset)).UtcDateTime;
+                var objUtc = System.Nullable.getValue(H5.cast(H5.unbox(obj, System.DateTimeOffset), System.DateTimeOffset)).UtcDateTime;
                 var utc = this.UtcDateTime;
                 if (System.DateTime.gt(utc, objUtc)) {
                     return 1;
@@ -342,16 +342,16 @@
                 return 0;
             },
             equals: function (obj) {
-                if (HighFive.is(obj, System.DateTimeOffset)) {
-                    return HighFive.equalsT(this.UtcDateTime, System.Nullable.getValue(HighFive.cast(HighFive.unbox(obj, System.DateTimeOffset), System.DateTimeOffset)).UtcDateTime);
+                if (H5.is(obj, System.DateTimeOffset)) {
+                    return H5.equalsT(this.UtcDateTime, System.Nullable.getValue(H5.cast(H5.unbox(obj, System.DateTimeOffset), System.DateTimeOffset)).UtcDateTime);
                 }
                 return false;
             },
             equalsT: function (other) {
-                return HighFive.equalsT(this.UtcDateTime, other.UtcDateTime);
+                return H5.equalsT(this.UtcDateTime, other.UtcDateTime);
             },
             EqualsExact: function (other) {
-                return (HighFive.equals(this.ClockDateTime, other.ClockDateTime) && System.TimeSpan.eq(this.Offset, other.Offset) && System.DateTime.getKind(this.ClockDateTime) === System.DateTime.getKind(other.ClockDateTime));
+                return (H5.equals(this.ClockDateTime, other.ClockDateTime) && System.TimeSpan.eq(this.Offset, other.Offset) && System.DateTime.getKind(this.ClockDateTime) === System.DateTime.getKind(other.ClockDateTime));
             },
             System$Runtime$Serialization$IDeserializationCallback$OnDeserialization: function (sender) {
                 try {
@@ -360,7 +360,7 @@
                 } catch ($e1) {
                     $e1 = System.Exception.create($e1);
                     var e;
-                    if (HighFive.is($e1, System.ArgumentException)) {
+                    if (H5.is($e1, System.ArgumentException)) {
                         e = $e1;
                         throw new System.Runtime.Serialization.SerializationException.$ctor2(System.Environment.GetResourceString("Serialization_InvalidData"), e);
                     } else {
@@ -369,7 +369,7 @@
                 }
             },
             getHashCode: function () {
-                return HighFive.getHashCode(this.UtcDateTime);
+                return H5.getHashCode(this.UtcDateTime);
             },
             Subtract$1: function (value) {
                 return System.DateTime.subdd(this.UtcDateTime, value.UtcDateTime);

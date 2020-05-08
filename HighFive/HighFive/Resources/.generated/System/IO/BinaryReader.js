@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.BinaryReader", {
+    H5.define("System.IO.BinaryReader", {
         inherits: [System.IDisposable],
         statics: {
             fields: {
@@ -61,8 +61,8 @@
                 }
                 this.m_buffer = System.Array.init(minBufferSize, 0, System.Byte);
 
-                this.m_2BytesPerChar = HighFive.is(encoding, System.Text.UnicodeEncoding);
-                this.m_isMemoryStream = (HighFive.referenceEquals(HighFive.getType(this.m_stream), System.IO.MemoryStream));
+                this.m_2BytesPerChar = H5.is(encoding, System.Text.UnicodeEncoding);
+                this.m_isMemoryStream = (H5.referenceEquals(H5.getType(this.m_stream), System.IO.MemoryStream));
                 this.m_leaveOpen = leaveOpen;
 
                 System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this.m_encoding != null; }, "[BinaryReader.ctor]m_encoding!=null");
@@ -167,7 +167,7 @@
             },
             ReadSByte: function () {
                 this.FillBuffer(1);
-                return HighFive.Int.sxb((this.m_buffer[System.Array.index(0, this.m_buffer)]) & 255);
+                return H5.Int.sxb((this.m_buffer[System.Array.index(0, this.m_buffer)]) & 255);
             },
             ReadChar: function () {
                 var value = this.Read();
@@ -178,7 +178,7 @@
             },
             ReadInt16: function () {
                 this.FillBuffer(2);
-                return HighFive.Int.sxs((this.m_buffer[System.Array.index(0, this.m_buffer)] | this.m_buffer[System.Array.index(1, this.m_buffer)] << 8) & 65535);
+                return H5.Int.sxs((this.m_buffer[System.Array.index(0, this.m_buffer)] | this.m_buffer[System.Array.index(1, this.m_buffer)] << 8) & 65535);
             },
             ReadUInt16: function () {
                 this.FillBuffer(2);
@@ -189,7 +189,7 @@
                     if (this.m_stream == null) {
                         System.IO.__Error.FileNotOpen();
                     }
-                    var mStream = HighFive.as(this.m_stream, System.IO.MemoryStream);
+                    var mStream = H5.as(this.m_stream, System.IO.MemoryStream);
                     System.Diagnostics.Contracts.Contract.assert(4, this, function () { return mStream != null; }, "m_stream as MemoryStream != null");
 
                     return mStream.InternalReadInt32();
@@ -234,7 +234,7 @@
                 } catch ($e1) {
                     $e1 = System.Exception.create($e1);
                     var e;
-                    if (HighFive.is($e1, System.ArgumentException)) {
+                    if (H5.is($e1, System.ArgumentException)) {
                         e = $e1;
                         throw new System.IO.IOException.$ctor2("Arg_DecBitCtor", e);
                     } else {
@@ -358,7 +358,7 @@
                 while (charsRead === 0) {
                     numBytes = this.m_2BytesPerChar ? 2 : 1;
 
-                    if (HighFive.is(this.m_encoding, System.Text.UTF32Encoding)) {
+                    if (H5.is(this.m_encoding, System.Text.UTF32Encoding)) {
                         numBytes = 4;
                     }
 
@@ -470,7 +470,7 @@
                 var n = this.InternalReadChars(chars, 0, count);
                 if (n !== count) {
                     var copy = System.Array.init(n, 0, System.Char);
-                    System.Array.copy(chars, 0, copy, 0, HighFive.Int.mul(2, n));
+                    System.Array.copy(chars, 0, copy, 0, H5.Int.mul(2, n));
                     chars = copy;
                 }
 

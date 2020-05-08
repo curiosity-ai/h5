@@ -1,9 +1,9 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class CustomEventBlock : TypeScriptBlock
     {
@@ -38,7 +38,7 @@ namespace HighFive.Translator.TypeScript
                 this.WriteOpenParentheses();
                 this.Write("value");
                 this.WriteColon();
-                var retType = HighFiveTypes.ToTypeScriptName(customEventDeclaration.ReturnType, this.Emitter);
+                var retType = H5Types.ToTypeScriptName(customEventDeclaration.ReturnType, this.Emitter);
                 this.Write(retType);
                 this.WriteCloseParentheses();
                 this.WriteColon();

@@ -1,4 +1,4 @@
-    HighFive.define("System.UnhandledExceptionEventArgs", {
+    H5.define("System.UnhandledExceptionEventArgs", {
         fields: {
             _exception: null,
             _isTerminating: false

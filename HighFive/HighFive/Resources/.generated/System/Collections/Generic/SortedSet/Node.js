@@ -1,8 +1,8 @@
-    HighFive.define("System.Collections.Generic.SortedSet$1.Node", function (T) { return {
+    H5.define("System.Collections.Generic.SortedSet$1.Node", function (T) { return {
         $kind: "nested class",
         fields: {
             IsRed: false,
-            Item: HighFive.getDefaultValue(T),
+            Item: H5.getDefaultValue(T),
             Left: null,
             Right: null
         },

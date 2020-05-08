@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ebu", true), {
+H5.merge(new System.Globalization.CultureInfo("ebu", true), {
     englishName: "Embu",
     nativeName: "Kĩembu",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ebu", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Kma","Tat","Ine","Tan","Arm","Maa","NMM"],
         abbreviatedMonthGenitiveNames: ["Mbe","Kai","Kat","Kan","Gat","Gan","Mug","Knn","Ken","Iku","Imw","Igi",""],
         abbreviatedMonthNames: ["Mbe","Kai","Kat","Kan","Gat","Gan","Mug","Knn","Ken","Iku","Imw","Igi",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ebu", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ebu-KE",
         EBCDICCodePage: 500,

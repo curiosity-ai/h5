@@ -1,3 +1,3 @@
-    HighFive.define("System.Collections.IComparer", {
+    H5.define("System.Collections.IComparer", {
         $kind: "interface"
     });

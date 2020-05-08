@@ -1,4 +1,4 @@
-    HighFive.define("System.InvalidCastException", {
+    H5.define("System.InvalidCastException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

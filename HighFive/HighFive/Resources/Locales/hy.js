@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("hy", true), {
+H5.merge(new System.Globalization.CultureInfo("hy", true), {
     englishName: "Armenian",
     nativeName: "Հայերեն",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "ՈչԹ",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hy", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Կիր","Երկ","Երք","Չրք","Հնգ","Ուր","Շբթ"],
         abbreviatedMonthGenitiveNames: ["Հնվ","Փտվ","Մրտ","Ապր","Մյս","Հնս","Հլս","Օգս","Սպտ","Հկտ","Նյմ","Դկտ",""],
         abbreviatedMonthNames: ["Հնվ","Փտվ","Մրտ","Ապր","Մյս","Հնս","Հլս","Օգս","Սպտ","Հկտ","Նյմ","Դկտ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("hy", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "hy-AM",
         EBCDICCodePage: 500,

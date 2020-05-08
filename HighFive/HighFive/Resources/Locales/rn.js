@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("rn", true), {
+H5.merge(new System.Globalization.CultureInfo("rn", true), {
     englishName: "Rundi",
     nativeName: "Ikirundi",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("rn", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["cu.","mbe.","kab.","gtu.","kan.","gnu.","gnd."],
         abbreviatedMonthGenitiveNames: ["Mut.","Gas.","Wer.","Mat.","Gic.","Kam.","Nya.","Kan.","Nze.","Ukw.","Ugu.","Uku.",""],
         abbreviatedMonthNames: ["Mut.","Gas.","Wer.","Mat.","Gic.","Kam.","Nya.","Kan.","Nze.","Ukw.","Ugu.","Uku.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("rn", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "rn-BI",
         EBCDICCodePage: 500,

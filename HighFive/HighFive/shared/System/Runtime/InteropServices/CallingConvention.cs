@@ -5,7 +5,7 @@
 namespace System.Runtime.InteropServices
 {
     // Used for the CallingConvention named argument to the DllImport and NativeCallable attribute
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     public enum CallingConvention
     {
         Winapi = 1,

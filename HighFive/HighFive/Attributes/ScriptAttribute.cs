@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HighFive
+namespace H5
 {
     /// <summary>
     /// ScriptAttribute specifies the method implementation that will be output to javascript

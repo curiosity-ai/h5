@@ -4,9 +4,9 @@ namespace System.ComponentModel.DataAnnotations
     /// Base class for all validation attributes.
     /// <para>Override <see cref="IsValid(object, ValidationContext)" /> to implement validation logic.</para>
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.NonScriptable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.NonScriptable]
     public abstract class ValidationAttribute : Attribute
     {
         /// <summary>

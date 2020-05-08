@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("sg", true), {
+H5.merge(new System.Globalization.CultureInfo("sg", true), {
     englishName: "Sango",
     nativeName: "Sängö",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sg", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Bk1","Bk2","Bk3","Bk4","Bk5","Lâp","Lây"],
         abbreviatedMonthGenitiveNames: ["Nye","Ful","Mbä","Ngu","Bêl","Fön","Len","Kük","Mvu","Ngb","Nab","Kak",""],
         abbreviatedMonthNames: ["Nye","Ful","Mbä","Ngu","Bêl","Fön","Len","Kük","Mvu","Ngb","Nab","Kak",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("sg", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "sg-CF",
         EBCDICCodePage: 500,

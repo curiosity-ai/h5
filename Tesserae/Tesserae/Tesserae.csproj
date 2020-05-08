@@ -9,7 +9,7 @@
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HighFive\HighFive\HighFive.csproj" />
+    <ProjectReference Include="..\..\H5\H5\H5.csproj" />
     <ProjectReference Include="..\..\H5\H5.Core\H5.Core.csproj" />
   </ItemGroup>
 </Project>

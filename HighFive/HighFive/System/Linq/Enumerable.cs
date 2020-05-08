@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("System.Linq.Enumerable")]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("System.Linq.Enumerable")]
     public static class Enumerable
     {
         /// <summary>
@@ -29,7 +29,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).aggregate({func})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).aggregate({func})")]
         public static extern TSource Aggregate<TSource>(this IEnumerable<TSource> source, Func<TSource, TSource, TSource> func);
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or func is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).aggregate({seed}, {func})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).aggregate({seed}, {func})")]
         public static extern TAccumulate Aggregate<TSource, TAccumulate>(this IEnumerable<TSource> source, TAccumulate seed,
             Func<TAccumulate, TSource, TAccumulate> func);
 
@@ -93,7 +93,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or func or resultSelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).aggregate({seed}, {func}, {resultSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).aggregate({seed}, {func}, {resultSelector})")]
         public static extern TResult Aggregate<TSource, TAccumulate, TResult>(this IEnumerable<TSource> source, TAccumulate seed,
             Func<TAccumulate, TSource, TAccumulate> func, Func<TAccumulate, TResult> resultSelector);
 
@@ -117,7 +117,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).all({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).all({predicate})")]
         public static extern bool All<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).any()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).any()")]
         public static extern bool Any<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).any({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).any({predicate})")]
         public static extern bool Any<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -173,8 +173,8 @@ namespace System.Linq
         /// <returns>
         /// The input sequence typed as System.Collections.Generic.IEnumerable&lt;T&gt;.
         /// </returns>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}")]
         public static extern EnumerableInstance<TSource> AsEnumerable<TSource>(this EnumerableInstance<TSource> source);
 
         /// <summary>
@@ -189,8 +189,8 @@ namespace System.Linq
         /// <returns>
         /// The input sequence typed as System.Collections.Generic.IEnumerable&lt;T&gt;.
         /// </returns>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}")]
         public static extern IEnumerable<TSource> AsEnumerable<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -209,8 +209,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableAverage(System.Decimal.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableAverage(System.Decimal.Zero)")]
         public static extern decimal? Average(this EnumerableInstance<decimal?> source);
 
         /// <summary>
@@ -229,8 +229,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableAverage(System.Decimal.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableAverage(System.Decimal.Zero)")]
         public static extern decimal? Average(this IEnumerable<decimal?> source);
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.average(System.Decimal.Zero)")]
+        [H5.Template("{source}.average(System.Decimal.Zero)")]
         public static extern decimal Average(this EnumerableInstance<decimal> source);
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Decimal).average(System.Decimal.Zero)")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).average(System.Decimal.Zero)")]
         public static extern decimal Average(this IEnumerable<decimal> source);
 
         /// <summary>
@@ -282,8 +282,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableAverage()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableAverage()")]
         public static extern double? Average(this EnumerableInstance<double?> source);
 
         /// <summary>
@@ -299,8 +299,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Double).nullableAverage()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Double).nullableAverage()")]
         public static extern double? Average(this IEnumerable<double?> source);
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.average()")]
+        [H5.Template("{source}.average()")]
         public static extern double Average(this EnumerableInstance<double> source);
 
         /// <summary>
@@ -336,7 +336,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Double).average()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Double).average()")]
         public static extern double Average(this IEnumerable<double> source);
 
         /// <summary>
@@ -352,8 +352,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableAverage()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableAverage()")]
         public static extern float? Average(this EnumerableInstance<float?> source);
 
         /// <summary>
@@ -369,8 +369,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Float).nullableAverage()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Float).nullableAverage()")]
         public static extern float? Average(this IEnumerable<float?> source);
 
         /// <summary>
@@ -388,7 +388,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.average()")]
+        [H5.Template("{source}.average()")]
         public static extern float Average(this EnumerableInstance<float> source);
 
         /// <summary>
@@ -406,7 +406,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Float).average()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Float).average()")]
         public static extern float Average(this IEnumerable<float> source);
 
         /// <summary>
@@ -425,8 +425,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableAverage()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableAverage()")]
         public static extern double? Average(this EnumerableInstance<int?> source);
 
         /// <summary>
@@ -445,8 +445,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableAverage()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableAverage()")]
         public static extern double? Average(this IEnumerable<int?> source);
 
         /// <summary>
@@ -464,7 +464,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.average()")]
+        [H5.Template("{source}.average()")]
         public static extern double Average(this EnumerableInstance<int> source);
 
         /// <summary>
@@ -482,7 +482,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int32).average()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).average()")]
         public static extern double Average(this IEnumerable<int> source);
 
         /// <summary>
@@ -501,8 +501,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableAverage()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableAverage()")]
         public static extern double? Average(this EnumerableInstance<long?> source);
 
         /// <summary>
@@ -521,8 +521,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableAverage()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableAverage()")]
         public static extern double? Average(this IEnumerable<long?> source);
 
         /// <summary>
@@ -540,7 +540,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.average()")]
+        [H5.Template("{source}.average()")]
         public static extern double Average(this EnumerableInstance<long> source);
 
         /// <summary>
@@ -558,7 +558,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int64).average()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).average()")]
         public static extern double Average(this IEnumerable<long> source);
 
         /// <summary>
@@ -585,8 +585,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector}, System.Decimal.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector}, System.Decimal.Zero)")]
         public static extern decimal? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector);
 
         /// <summary>
@@ -614,7 +614,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Decimal.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector}, System.Decimal.Zero)")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector}, System.Decimal.Zero)")]
         public static extern decimal Average<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector);
 
         /// <summary>
@@ -638,8 +638,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
         public static extern double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector);
 
         /// <summary>
@@ -664,7 +664,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector})")]
         public static extern double Average<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector);
 
         /// <summary>
@@ -688,8 +688,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
         public static extern float? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector);
 
         /// <summary>
@@ -714,7 +714,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector})")]
         public static extern float Average<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector);
 
         /// <summary>
@@ -740,8 +740,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
         public static extern double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector);
 
         /// <summary>
@@ -769,7 +769,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector})")]
         public static extern double Average<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector);
 
         /// <summary>
@@ -789,8 +789,8 @@ namespace System.Linq
         /// The average of the sequence of values, or null if the source sequence is
         /// empty or contains only values that are null.
         /// </returns>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
         public static extern double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector);
 
         /// <summary>
@@ -818,7 +818,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).average({selector})")]
         public static extern double Average<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector);
 
         /// <summary>
@@ -842,7 +842,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidCastException">
         /// An element in the sequence cannot be cast to type TResult.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}).select(function (x) { return HighFive.cast(x, {TResult}); })")]
+        [H5.Template("System.Linq.Enumerable.from({source}).select(function (x) { return H5.cast(x, {TResult}); })")]
         public static extern EnumerableInstance<TResult> Cast<TResult>(this IEnumerable source);
 
         /// <summary>
@@ -864,8 +864,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).concat({second})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).concat({second})")]
         public static extern EnumerableInstance<TSource> Concat<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second);
 
         /// <summary>
@@ -888,7 +888,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).contains({value})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).contains({value})")]
         public static extern bool Contains<TSource>(this IEnumerable<TSource> source, TSource value);
 
         /// <summary>
@@ -914,7 +914,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).contains({value}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).contains({value}, {comparer})")]
         public static extern bool Contains<TSource>(this IEnumerable<TSource> source, TSource value,
             IEqualityComparer<TSource> comparer);
 
@@ -936,7 +936,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The number of elements in source is larger than System.Int32.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).count()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).count()")]
         public static extern int Count<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -962,7 +962,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The number of elements in source is larger than System.Int32.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).count({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).count({predicate})")]
         public static extern int Count<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -982,7 +982,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).defaultIfEmpty({TSource:default})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).defaultIfEmpty({TSource:default})")]
         public static extern EnumerableInstance<TSource> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -1002,7 +1002,7 @@ namespace System.Linq
         /// An System.Collections.Generic.IEnumerable&lt;T&gt; that contains defaultValue if
         /// source is empty; otherwise, source.
         /// </returns>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).defaultIfEmpty({defaultValue})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).defaultIfEmpty({defaultValue})")]
         public static extern EnumerableInstance<TSource> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source,
             TSource defaultValue);
 
@@ -1023,7 +1023,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).distinct()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).distinct()")]
         public static extern EnumerableInstance<TSource> Distinct<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -1046,7 +1046,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).distinct({comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).distinct({comparer})")]
         public static extern EnumerableInstance<TSource> Distinct<TSource>(this IEnumerable<TSource> source,
             IEqualityComparer<TSource> comparer);
 
@@ -1072,7 +1072,7 @@ namespace System.Linq
         /// index is less than 0 or greater than or equal to the number of elements in
         /// source.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).elementAt({index})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).elementAt({index})")]
         public static extern TSource ElementAt<TSource>(this IEnumerable<TSource> source, int index);
 
         /// <summary>
@@ -1095,7 +1095,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).elementAtOrDefault({index}, {TSource:default})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).elementAtOrDefault({index}, {TSource:default})")]
         public static extern TSource ElementAtOrDefault<TSource>(this IEnumerable<TSource> source, int index);
 
         /// <summary>
@@ -1133,8 +1133,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).except({second})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).except({second})")]
         public static extern EnumerableInstance<TSource> Except<TSource>(this IEnumerable<TSource> first,
             IEnumerable<TSource> second);
 
@@ -1163,8 +1163,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).except({second}, {comparer})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).except({second}, {comparer})")]
         public static extern EnumerableInstance<TSource> Except<TSource>(this IEnumerable<TSource> first,
             IEnumerable<TSource> second, IEqualityComparer<TSource> comparer);
 
@@ -1187,7 +1187,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// The source sequence is empty.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).first()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).first()")]
         public static extern TSource First<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -1213,7 +1213,7 @@ namespace System.Linq
         /// No element satisfies the condition in predicate.-or-The source sequence is
         /// empty.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).first({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).first({predicate})")]
         public static extern TSource First<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -1233,7 +1233,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).firstOrDefault(null, {TSource:default})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).firstOrDefault(null, {TSource:default})")]
         public static extern TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -1257,7 +1257,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).firstOrDefault({predicate}, {TSource:default})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).firstOrDefault({predicate}, {TSource:default})")]
         public static extern TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -1283,7 +1283,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector})")]
         public static extern EnumerableInstance<Grouping<TKey, TSource>> GroupBy<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector);
 
@@ -1313,7 +1313,7 @@ namespace System.Linq
         /// A collection of elements of type TResult where each element represents a
         /// projection over a group and its key.
         /// </returns>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, null, {resultSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, null, {resultSelector})")]
         public static extern EnumerableInstance<TResult> GroupBy<TSource, TKey, TResult>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector);
 
@@ -1347,7 +1347,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector or elementSelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, {elementSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, {elementSelector})")]
         public static extern EnumerableInstance<Grouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(
             this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector);
 
@@ -1378,7 +1378,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, null, null, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, null, null, {comparer})")]
         public static extern EnumerableInstance<Grouping<TKey, TSource>> GroupBy<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer);
 
@@ -1412,7 +1412,7 @@ namespace System.Linq
         /// A collection of elements of type TResult where each element represents a
         /// projection over a group and its key.
         /// </returns>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, null, {resultSelector}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, null, {resultSelector}, {comparer})")]
         public static extern EnumerableInstance<TResult> GroupBy<TSource, TKey, TResult>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector,
             IEqualityComparer<TKey> comparer);
@@ -1450,7 +1450,7 @@ namespace System.Linq
         /// A collection of elements of type TResult where each element represents a
         /// projection over a group and its key.
         /// </returns>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, {elementSelector}, {resultSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, {elementSelector}, {resultSelector})")]
         public static extern EnumerableInstance<TResult> GroupBy<TSource, TKey, TElement, TResult>(
             this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector,
             Func<TKey, IEnumerable<TElement>, TResult> resultSelector);
@@ -1489,7 +1489,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector or elementSelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, {elementSelector}, null, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, {elementSelector}, null, {comparer})")]
         public static extern EnumerableInstance<Grouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(
             this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector,
             IEqualityComparer<TKey> comparer);
@@ -1531,7 +1531,7 @@ namespace System.Linq
         /// A collection of elements of type TResult where each element represents a
         /// projection over a group and its key.
         /// </returns>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, {elementSelector}, {resultSelector}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).groupBy({keySelector}, {elementSelector}, {resultSelector}, {comparer})")]
         public static extern EnumerableInstance<TResult> GroupBy<TSource, TKey, TElement, TResult>(
             this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector,
             Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comparer);
@@ -1576,7 +1576,7 @@ namespace System.Linq
         /// outer or inner or outerKeySelector or innerKeySelector or resultSelector
         /// is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({outer}, {TOuter}).groupJoin({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({outer}, {TOuter}).groupJoin({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector})")]
         public static extern EnumerableInstance<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer,
             IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
             Func<TOuter, IEnumerable<TInner>, TResult> resultSelector);
@@ -1625,7 +1625,7 @@ namespace System.Linq
         /// outer or inner or outerKeySelector or innerKeySelector or resultSelector
         /// is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({outer}, {TOuter}).groupJoin({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({outer}, {TOuter}).groupJoin({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector}, {comparer})")]
         public static extern EnumerableInstance<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer,
             IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
             Func<TOuter, IEnumerable<TInner>, TResult> resultSelector, IEqualityComparer<TKey> comparer);
@@ -1652,7 +1652,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).intersect({second})")]
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).intersect({second})")]
         public static extern EnumerableInstance<TSource> Intersect<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second);
 
         /// <summary>
@@ -1680,7 +1680,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).intersect({second}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).intersect({second}, {comparer})")]
         public static extern EnumerableInstance<TSource> Intersect<TSource>(this IEnumerable<TSource> first,
             IEnumerable<TSource> second, IEqualityComparer<TSource> comparer);
 
@@ -1723,7 +1723,7 @@ namespace System.Linq
         /// outer or inner or outerKeySelector or innerKeySelector or resultSelector
         /// is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({outer}, {TOuter}).join({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({outer}, {TOuter}).join({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector})")]
         public static extern EnumerableInstance<TResult> Join<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer,
             IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
             Func<TOuter, TInner, TResult> resultSelector);
@@ -1770,7 +1770,7 @@ namespace System.Linq
         /// outer or inner or outerKeySelector or innerKeySelector or resultSelector
         /// is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({outer}, {TOuter}).join({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({outer}, {TOuter}).join({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector}, {comparer})")]
         public static extern EnumerableInstance<TResult> Join<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer,
             IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector,
             Func<TOuter, TInner, TResult> resultSelector, IEqualityComparer<TKey> comparer);
@@ -1795,8 +1795,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The number of elements exceeds System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).count()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).count()")]
         public static extern long LongCount<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -1823,8 +1823,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The number of matching elements exceeds System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).count({predicate})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).count({predicate})")]
         public static extern long LongCount<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -1845,7 +1845,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// The source sequence is empty.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).last()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).last()")]
         public static extern TSource Last<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -1871,7 +1871,7 @@ namespace System.Linq
         /// No element satisfies the condition in predicate.-or-The source sequence is
         /// empty.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).last({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).last({predicate})")]
         public static extern TSource Last<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -1891,7 +1891,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).lastOrDefault(null, {TSource:default})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).lastOrDefault(null, {TSource:default})")]
         public static extern TSource LastOrDefault<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -1915,7 +1915,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).lastOrDefault({predicate}, {TSource:default})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).lastOrDefault({predicate}, {TSource:default})")]
         public static extern TSource LastOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -1932,8 +1932,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMax()")]
         public static extern decimal? Max(this EnumerableInstance<decimal?> source);
 
         /// <summary>
@@ -1950,8 +1950,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableMax()")]
         public static extern decimal? Max(this IEnumerable<decimal?> source);
 
         /// <summary>
@@ -1969,7 +1969,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.max()")]
+        [H5.Template("{source}.max()")]
         public static extern decimal Max(this EnumerableInstance<decimal> source);
 
         /// <summary>
@@ -1987,7 +1987,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Decimal).max()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).max()")]
         public static extern decimal Max(this IEnumerable<decimal> source);
 
         /// <summary>
@@ -2004,8 +2004,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMax()")]
         public static extern double? Max(this EnumerableInstance<double?> source);
 
         /// <summary>
@@ -2022,8 +2022,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Double).nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Double).nullableMax()")]
         public static extern double? Max(this IEnumerable<double?> source);
 
         /// <summary>
@@ -2041,7 +2041,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.max()")]
+        [H5.Template("{source}.max()")]
         public static extern double Max(this EnumerableInstance<double> source);
 
         /// <summary>
@@ -2059,7 +2059,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Double).max()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Double).max()")]
         public static extern double Max(this IEnumerable<double> source);
 
         /// <summary>
@@ -2076,8 +2076,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMax()")]
         public static extern float? Max(this EnumerableInstance<float?> source);
 
         /// <summary>
@@ -2094,8 +2094,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Float).nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Float).nullableMax()")]
         public static extern float? Max(this IEnumerable<float?> source);
 
         /// <summary>
@@ -2113,7 +2113,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.max()")]
+        [H5.Template("{source}.max()")]
         public static extern float Max(this EnumerableInstance<float> source);
 
         /// <summary>
@@ -2131,7 +2131,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Float).max()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Float).max()")]
         public static extern float Max(this IEnumerable<float> source);
 
         /// <summary>
@@ -2148,8 +2148,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMax()")]
         public static extern int? Max(this EnumerableInstance<int?> source);
 
         /// <summary>
@@ -2166,8 +2166,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableMax()")]
         public static extern int? Max(this IEnumerable<int?> source);
 
         /// <summary>
@@ -2185,7 +2185,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.max()")]
+        [H5.Template("{source}.max()")]
         public static extern int Max(this EnumerableInstance<int> source);
 
         /// <summary>
@@ -2203,7 +2203,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int32).max()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).max()")]
         public static extern int Max(this IEnumerable<int> source);
 
         /// <summary>
@@ -2220,8 +2220,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMax()")]
         public static extern long? Max(this EnumerableInstance<long?> source);
 
         /// <summary>
@@ -2238,8 +2238,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableMax()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableMax()")]
         public static extern long? Max(this IEnumerable<long?> source);
 
         /// <summary>
@@ -2257,7 +2257,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.max()")]
+        [H5.Template("{source}.max()")]
         public static extern long Max(this EnumerableInstance<long> source);
 
         /// <summary>
@@ -2275,7 +2275,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int64).max()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).max()")]
         public static extern long Max(this IEnumerable<long> source);
 
         /// <summary>
@@ -2298,8 +2298,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern decimal? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector);
 
         /// <summary>
@@ -2324,7 +2324,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
         public static extern decimal Max<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector);
 
         /// <summary>
@@ -2347,8 +2347,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern double? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector);
 
         /// <summary>
@@ -2373,7 +2373,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
         public static extern double Max<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector);
 
         /// <summary>
@@ -2396,8 +2396,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern float? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector);
 
         /// <summary>
@@ -2422,7 +2422,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
         public static extern float Max<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector);
 
         /// <summary>
@@ -2445,8 +2445,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern int? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector);
 
         /// <summary>
@@ -2471,7 +2471,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
         public static extern int Max<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector);
 
         /// <summary>
@@ -2494,8 +2494,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern long? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector);
 
         /// <summary>
@@ -2520,7 +2520,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
         public static extern long Max<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector);
 
         /// <summary>
@@ -2537,8 +2537,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMin()")]
         public static extern decimal? Min(this EnumerableInstance<decimal?> source);
 
         /// <summary>
@@ -2555,8 +2555,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableMin()")]
         public static extern decimal? Min(this IEnumerable<decimal?> source);
 
         /// <summary>
@@ -2578,7 +2578,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).max()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).max()")]
         public static extern TSource Max<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -2606,7 +2606,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).max({selector})")]
         public static extern TResult Max<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector);
 
         /// <summary>
@@ -2627,7 +2627,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).min()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).min()")]
         public static extern TSource Min<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -2655,7 +2655,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
         public static extern TResult Min<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector);
 
         /// <summary>
@@ -2673,7 +2673,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.min()")]
+        [H5.Template("{source}.min()")]
         public static extern decimal Min(this EnumerableInstance<decimal> source);
 
         /// <summary>
@@ -2691,7 +2691,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Decimal).min()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).min()")]
         public static extern decimal Min(this IEnumerable<decimal> source);
 
         /// <summary>
@@ -2708,8 +2708,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMin()")]
         public static extern double? Min(this EnumerableInstance<double?> source);
 
         /// <summary>
@@ -2726,8 +2726,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Double).nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Double).nullableMin()")]
         public static extern double? Min(this IEnumerable<double?> source);
 
         /// <summary>
@@ -2745,7 +2745,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.min()")]
+        [H5.Template("{source}.min()")]
         public static extern double Min(this EnumerableInstance<double> source);
 
         /// <summary>
@@ -2763,7 +2763,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Double).min()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Double).min()")]
         public static extern double Min(this IEnumerable<double> source);
 
         /// <summary>
@@ -2780,8 +2780,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMin()")]
         public static extern float? Min(this EnumerableInstance<float?> source);
 
         /// <summary>
@@ -2798,8 +2798,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Float).nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Float).nullableMin()")]
         public static extern float? Min(this IEnumerable<float?> source);
 
         /// <summary>
@@ -2817,7 +2817,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.min()")]
+        [H5.Template("{source}.min()")]
         public static extern float Min(this EnumerableInstance<float> source);
 
         /// <summary>
@@ -2835,7 +2835,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Float).min()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Float).min()")]
         public static extern float Min(this IEnumerable<float> source);
 
         /// <summary>
@@ -2852,8 +2852,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMin()")]
         public static extern int? Min(this EnumerableInstance<int?> source);
 
         /// <summary>
@@ -2870,8 +2870,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableMin()")]
         public static extern int? Min(this IEnumerable<int?> source);
 
         /// <summary>
@@ -2889,7 +2889,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.min()")]
+        [H5.Template("{source}.min()")]
         public static extern int Min(this EnumerableInstance<int> source);
 
         /// <summary>
@@ -2907,7 +2907,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int32).min()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).min()")]
         public static extern int Min(this IEnumerable<int> source);
 
         /// <summary>
@@ -2924,8 +2924,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableMin()")]
         public static extern long? Min(this EnumerableInstance<long?> source);
 
         /// <summary>
@@ -2942,8 +2942,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableMin()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableMin()")]
         public static extern long? Min(this IEnumerable<long?> source);
 
         /// <summary>
@@ -2961,7 +2961,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("{source}.min()")]
+        [H5.Template("{source}.min()")]
         public static extern long Min(this EnumerableInstance<long> source);
 
         /// <summary>
@@ -2979,7 +2979,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int64).min()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).min()")]
         public static extern long Min(this IEnumerable<long> source);
 
         /// <summary>
@@ -3002,8 +3002,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern decimal? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector);
 
         /// <summary>
@@ -3028,7 +3028,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
         public static extern decimal Min<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector);
 
         /// <summary>
@@ -3051,8 +3051,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern double? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector);
 
         /// <summary>
@@ -3077,7 +3077,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
         public static extern double Min<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector);
 
         /// <summary>
@@ -3100,8 +3100,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern float? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector);
 
         /// <summary>
@@ -3126,7 +3126,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
         public static extern float Min<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector);
 
         /// <summary>
@@ -3149,8 +3149,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern int? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector);
 
         /// <summary>
@@ -3175,7 +3175,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
         public static extern int Min<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector);
 
         /// <summary>
@@ -3198,8 +3198,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern long? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector);
 
         /// <summary>
@@ -3224,7 +3224,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// source contains no elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).min({selector})")]
         public static extern long Min<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector);
 
         /// <summary>
@@ -3244,7 +3244,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}).ofType({TResult})")]
+        [H5.Template("System.Linq.Enumerable.from({source}).ofType({TResult})")]
         public static extern EnumerableInstance<TResult> OfType<TResult>(this IEnumerable source);
 
         /// <summary>
@@ -3269,7 +3269,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).orderBy({keySelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).orderBy({keySelector})")]
         public static extern OrderedEnumerable<TSource> OrderBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector);
 
         /// <summary>
@@ -3298,7 +3298,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).orderBy({keySelector}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).orderBy({keySelector}, {comparer})")]
         public static extern OrderedEnumerable<TSource> OrderBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector,
             IComparer<TKey> comparer);
 
@@ -3324,7 +3324,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).orderByDescending({keySelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).orderByDescending({keySelector})")]
         public static extern OrderedEnumerable<TSource> OrderByDescending<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector);
 
@@ -3354,7 +3354,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).orderByDescending({keySelector}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).orderByDescending({keySelector}, {comparer})")]
         public static extern OrderedEnumerable<TSource> OrderByDescending<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, IComparer<TKey> comparer);
 
@@ -3412,7 +3412,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).reverse()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).reverse()")]
         public static extern EnumerableInstance<TSource> Reverse<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -3439,7 +3439,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).select({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).select({selector})")]
         public static extern EnumerableInstance<TResult> Select<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, int, TResult> selector);
 
@@ -3465,7 +3465,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).select({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).select({selector})")]
         public static extern EnumerableInstance<TResult> Select<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, TResult> selector);
 
@@ -3493,7 +3493,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).selectMany({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).selectMany({selector})")]
         public static extern EnumerableInstance<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TResult>> selector);
 
@@ -3523,7 +3523,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).selectMany({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).selectMany({selector})")]
         public static extern EnumerableInstance<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source,
             Func<TSource, int, IEnumerable<TResult>> selector);
 
@@ -3559,7 +3559,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or collectionSelector or resultSelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).selectMany({collectionSelector}, {resultSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).selectMany({collectionSelector}, {resultSelector})")]
         public static extern EnumerableInstance<TResult> SelectMany<TSource, TCollection, TResult>(this IEnumerable<TSource> source,
             Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector);
 
@@ -3597,7 +3597,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or collectionSelector or resultSelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).selectMany({collectionSelector}, {resultSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).selectMany({collectionSelector}, {resultSelector})")]
         public static extern EnumerableInstance<TResult> SelectMany<TSource, TCollection, TResult>(this IEnumerable<TSource> source,
             Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector);
 
@@ -3622,7 +3622,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).sequenceEqual({second})")]
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).sequenceEqual({second})")]
         public static extern bool SequenceEqual<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second);
 
         /// <summary>
@@ -3648,7 +3648,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).sequenceEqual({second}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).sequenceEqual({second}, {comparer})")]
         public static extern bool SequenceEqual<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer);
 
@@ -3673,7 +3673,7 @@ namespace System.Linq
         /// The input sequence contains more than one element.-or-The input sequence
         /// is empty.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).single()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).single()")]
         public static extern TSource Single<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -3699,7 +3699,7 @@ namespace System.Linq
         /// No element satisfies the condition in predicate.-or-More than one element
         /// satisfies the condition in predicate.-or-The source sequence is empty.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).single({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).single({predicate})")]
         public static extern TSource Single<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -3724,7 +3724,7 @@ namespace System.Linq
         /// <exception cref="System.InvalidOperationException">
         /// The input sequence contains more than one element.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).singleOrDefault(null, {TSource:default})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).singleOrDefault(null, {TSource:default})")]
         public static extern TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -3748,7 +3748,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).singleOrDefault({predicate}, {TSource:default})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).singleOrDefault({predicate}, {TSource:default})")]
         public static extern TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -3771,7 +3771,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).skip({count})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).skip({count})")]
         public static extern EnumerableInstance<TSource> Skip<TSource>(this IEnumerable<TSource> source, int count);
 
         /// <summary>
@@ -3795,7 +3795,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).skipWhile({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).skipWhile({predicate})")]
         public static extern EnumerableInstance<TSource> SkipWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -3821,7 +3821,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).skipWhile({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).skipWhile({predicate})")]
         public static extern EnumerableInstance<TSource> SkipWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate);
 
         /// <summary>
@@ -3839,8 +3839,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableSum(System.Decimal.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableSum(System.Decimal.Zero)")]
         public static extern decimal? Sum(this EnumerableInstance<decimal?> source);
 
         /// <summary>
@@ -3858,8 +3858,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableSum(System.Decimal.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableSum(System.Decimal.Zero)")]
         public static extern decimal? Sum(this IEnumerable<decimal?> source);
 
         /// <summary>
@@ -3877,7 +3877,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        [HighFive.Template("{source}.sum(System.Decimal.Zero)")]
+        [H5.Template("{source}.sum(System.Decimal.Zero)")]
         public static extern decimal Sum(this EnumerableInstance<decimal> source);
 
         /// <summary>
@@ -3895,7 +3895,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Decimal).sum(System.Decimal.Zero)")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).sum(System.Decimal.Zero)")]
         public static extern decimal Sum(this IEnumerable<decimal> source);
 
         /// <summary>
@@ -3910,8 +3910,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableSum()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableSum()")]
         public static extern double? Sum(this EnumerableInstance<double?> source);
 
         /// <summary>
@@ -3926,8 +3926,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Double).nullableSum()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Double).nullableSum()")]
         public static extern double? Sum(this IEnumerable<double?> source);
 
         /// <summary>
@@ -3942,7 +3942,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("{source}.sum()")]
+        [H5.Template("{source}.sum()")]
         public static extern double Sum(this EnumerableInstance<double> source);
 
         /// <summary>
@@ -3957,7 +3957,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Double).sum()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Double).sum()")]
         public static extern double Sum(this IEnumerable<double> source);
 
         /// <summary>
@@ -3972,8 +3972,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableSum()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableSum()")]
         public static extern float? Sum(this EnumerableInstance<float?> source);
 
         /// <summary>
@@ -3988,8 +3988,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Float).nullableSum()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Float).nullableSum()")]
         public static extern float? Sum(this IEnumerable<float?> source);
 
         /// <summary>
@@ -4004,7 +4004,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("{source}.sum()")]
+        [H5.Template("{source}.sum()")]
         public static extern float Sum(this EnumerableInstance<float> source);
 
         /// <summary>
@@ -4019,7 +4019,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Float).sum()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Float).sum()")]
         public static extern float Sum(this IEnumerable<float> source);
 
         /// <summary>
@@ -4037,8 +4037,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableSum()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableSum()")]
         public static extern int? Sum(this EnumerableInstance<int?> source);
 
         /// <summary>
@@ -4056,8 +4056,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableSum()")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableSum()")]
         public static extern int? Sum(this IEnumerable<int?> source);
 
         /// <summary>
@@ -4075,7 +4075,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        [HighFive.Template("{source}.sum()")]
+        [H5.Template("{source}.sum()")]
         public static extern int Sum(this EnumerableInstance<int> source);
 
         /// <summary>
@@ -4093,7 +4093,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int32).sum()")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).sum()")]
         public static extern int Sum(this IEnumerable<int> source);
 
         /// <summary>
@@ -4111,8 +4111,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("{source}.nullableSum(System.Int64.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("{source}.nullableSum(System.Int64.Zero)")]
         public static extern long? Sum(this EnumerableInstance<long?> source);
 
         /// <summary>
@@ -4130,8 +4130,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableSum(System.Int64.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableSum(System.Int64.Zero)")]
         public static extern long? Sum(this IEnumerable<long?> source);
 
         /// <summary>
@@ -4149,7 +4149,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        [HighFive.Template("{source}.sum(System.Int64.Zero)")]
+        [H5.Template("{source}.sum(System.Int64.Zero)")]
         public static extern long Sum(this EnumerableInstance<long> source);
 
         /// <summary>
@@ -4167,7 +4167,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, System.Int64).sum(System.Int64.Zero)")]
+        [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).sum(System.Int64.Zero)")]
         public static extern long Sum(this IEnumerable<long> source);
 
         /// <summary>
@@ -4192,8 +4192,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector}, System.Decimal.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector}, System.Decimal.Zero)")]
         public static extern decimal? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector);
 
         /// <summary>
@@ -4218,7 +4218,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector}, System.Decimal.Zero)")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector}, System.Decimal.Zero)")]
         public static extern decimal Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal> selector);
 
         /// <summary>
@@ -4240,8 +4240,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
         public static extern double? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector);
 
         /// <summary>
@@ -4263,7 +4263,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector})")]
         public static extern double Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, double> selector);
 
         /// <summary>
@@ -4285,8 +4285,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
         public static extern float? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector);
 
         /// <summary>
@@ -4308,7 +4308,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector})")]
         public static extern float Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, float> selector);
 
         /// <summary>
@@ -4333,8 +4333,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
         public static extern int? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector);
 
         /// <summary>
@@ -4359,7 +4359,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector})")]
         public static extern int Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, int> selector);
 
         /// <summary>
@@ -4384,8 +4384,8 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector}, System.Int64.Zero)")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector}, System.Int64.Zero)")]
         public static extern long? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector);
 
         /// <summary>
@@ -4410,7 +4410,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector}, System.Int64.Zero)")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).sum({selector}, System.Int64.Zero)")]
         public static extern long Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, long> selector);
 
         /// <summary>
@@ -4432,7 +4432,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).take({count})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).take({count})")]
         public static extern EnumerableInstance<TSource> Take<TSource>(this IEnumerable<TSource> source, int count);
 
         /// <summary>
@@ -4455,7 +4455,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).takeWhile({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).takeWhile({predicate})")]
         public static extern EnumerableInstance<TSource> TakeWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -4480,7 +4480,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).takeWhile({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).takeWhile({predicate})")]
         public static extern EnumerableInstance<TSource> TakeWhile<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate);
 
         /// <summary>
@@ -4506,8 +4506,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).thenBy({keySelector})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).thenBy({keySelector})")]
         public static extern IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector);
 
         /// <summary>
@@ -4536,8 +4536,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).thenBy({keySelector}, {comparer})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).thenBy({keySelector}, {comparer})")]
         public static extern IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer);
 
         /// <summary>
@@ -4563,8 +4563,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).thenByDescending({keySelector}, {comparer})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).thenByDescending({keySelector}, {comparer})")]
         public static extern IOrderedEnumerable<TSource> ThenByDescending<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector);
 
         /// <summary>
@@ -4593,8 +4593,8 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        /// <remarks>HighFive.NET has no mapping for this in JavaScript.</remarks>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).thenByDescending({keySelector}, {comparer})")]
+        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).thenByDescending({keySelector}, {comparer})")]
         public static extern IOrderedEnumerable<TSource> ThenByDescending<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer);
 
         /// <summary>
@@ -4612,7 +4612,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).ToArray({TSource})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).ToArray({TSource})")]
         public static extern TSource[] ToArray<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -4642,7 +4642,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentException">
         /// keySelector produces duplicate keys for two elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toDictionary({keySelector}, null, {TKey}, {TSource})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toDictionary({keySelector}, null, {TKey}, {TSource})")]
         public static extern Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector);
 
@@ -4680,7 +4680,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentException">
         /// keySelector produces duplicate keys for two elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toDictionary({keySelector}, {elementSelector}, {TKey}, {TElement})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toDictionary({keySelector}, {elementSelector}, {TKey}, {TElement})")]
         public static extern Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector);
 
@@ -4714,7 +4714,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentException">
         /// keySelector produces duplicate keys for two elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toDictionary({keySelector}, null, {TKey}, {TSource}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toDictionary({keySelector}, null, {TKey}, {TSource}, {comparer})")]
         public static extern Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer);
 
@@ -4756,7 +4756,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentException">
         /// keySelector produces duplicate keys for two elements.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toDictionary({keySelector}, {elementSelector}, {TKey}, {TElement}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toDictionary({keySelector}, {elementSelector}, {TKey}, {TElement}, {comparer})")]
         public static extern Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer);
 
@@ -4777,7 +4777,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toList({TSource})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toList({TSource})")]
         public static extern List<TSource> ToList<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
@@ -4803,7 +4803,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toLookup({keySelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toLookup({keySelector})")]
         public static extern Lookup<TKey, TSource> ToLookup<TSource, TKey>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector);
 
@@ -4837,7 +4837,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector or elementSelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toLookup({keySelector}, {elementSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toLookup({keySelector}, {elementSelector})")]
         public static extern Lookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector);
 
@@ -4867,7 +4867,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toLookup({keySelector}, null, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toLookup({keySelector}, null, {comparer})")]
         public static extern Lookup<TKey, TSource> ToLookup<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector,
             IEqualityComparer<TKey> comparer);
 
@@ -4905,7 +4905,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector or elementSelector is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).toLookup({keySelector}, {elementSelector}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).toLookup({keySelector}, {elementSelector}, {comparer})")]
         public static extern Lookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(this IEnumerable<TSource> source,
             Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer);
 
@@ -4930,7 +4930,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).union({second})")]
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).union({second})")]
         public static extern EnumerableInstance<TSource> Union<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second);
 
         /// <summary>
@@ -4957,7 +4957,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TSource}).union({second}, {comparer})")]
+        [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).union({second}, {comparer})")]
         public static extern EnumerableInstance<TSource> Union<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second,
             IEqualityComparer<TSource> comparer);
 
@@ -4980,7 +4980,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).where({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).where({predicate})")]
         public static extern EnumerableInstance<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
         /// <summary>
@@ -5004,7 +5004,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or predicate is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({source}, {TSource}).where({predicate})")]
+        [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).where({predicate})")]
         public static extern EnumerableInstance<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, int, bool> predicate);
 
         /// <summary>
@@ -5035,7 +5035,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        [HighFive.Template("System.Linq.Enumerable.from({first}, {TFirst}).zip({second}, {resultSelector})")]
+        [H5.Template("System.Linq.Enumerable.from({first}, {TFirst}).zip({second}, {resultSelector})")]
         public static extern EnumerableInstance<TResult> Zip<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second,
             Func<TFirst, TSecond, TResult> resultSelector);
     }

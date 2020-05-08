@@ -1,4 +1,4 @@
-    HighFive.define("System.Reflection.BindingFlags", {
+    H5.define("System.Reflection.BindingFlags", {
         $kind: "enum",
         statics: {
             fields: {

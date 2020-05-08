@@ -1,16 +1,16 @@
     var check = function (regex) {
-        return HighFive.global.navigator && regex.test(HighFive.global.navigator.userAgent.toLowerCase());
+        return H5.global.navigator && regex.test(H5.global.navigator.userAgent.toLowerCase());
     },
 
-    isStrict = HighFive.global.document && HighFive.global.document.compatMode === "CSS1Compat",
+    isStrict = H5.global.document && H5.global.document.compatMode === "CSS1Compat",
 
     version = function (is, regex) {
         var m;
 
-        return HighFive.global.navigator && (is && (m = regex.exec(navigator.userAgent.toLowerCase()))) ? parseFloat(m[1]) : 0;
+        return H5.global.navigator && (is && (m = regex.exec(navigator.userAgent.toLowerCase()))) ? parseFloat(m[1]) : 0;
     },
 
-    docMode = HighFive.global.document ? HighFive.global.document.documentMode : null,
+    docMode = H5.global.document ? H5.global.document.documentMode : null,
     isOpera = check(/opera/),
     isOpera10_5 = isOpera && check(/version\/10\.5/),
     isChrome = check(/\bchrome\b/),
@@ -46,12 +46,12 @@
     operaVersion = version(isOpera, /version\/(\d+\.\d+)/),
     safariVersion = version(isSafari, /version\/(\d+\.\d+)/),
     webKitVersion = version(isWebKit, /webkit\/(\d+\.\d+)/),
-    isSecure = HighFive.global.location ? /^https/i.test(HighFive.global.location.protocol) : false,
-    isiPhone = HighFive.global.navigator && /iPhone/i.test(HighFive.global.navigator.platform),
-    isiPod = HighFive.global.navigator && /iPod/i.test(HighFive.global.navigator.platform),
-    isiPad = HighFive.global.navigator && /iPad/i.test(HighFive.global.navigator.userAgent),
-    isBlackberry = HighFive.global.navigator && /Blackberry/i.test(HighFive.global.navigator.userAgent),
-    isAndroid = HighFive.global.navigator && /Android/i.test(HighFive.global.navigator.userAgent),
+    isSecure = H5.global.location ? /^https/i.test(H5.global.location.protocol) : false,
+    isiPhone = H5.global.navigator && /iPhone/i.test(H5.global.navigator.platform),
+    isiPod = H5.global.navigator && /iPod/i.test(H5.global.navigator.platform),
+    isiPad = H5.global.navigator && /iPad/i.test(H5.global.navigator.userAgent),
+    isBlackberry = H5.global.navigator && /Blackberry/i.test(H5.global.navigator.userAgent),
+    isAndroid = H5.global.navigator && /Android/i.test(H5.global.navigator.userAgent),
     isDesktop = isMac || isWindows || (isLinux && !isAndroid),
     isTablet = isiPad,
     isPhone = !isDesktop && !isTablet;
@@ -116,7 +116,7 @@
         isTablet: isTablet,
         isPhone: isPhone,
         iOS: isiPhone || isiPad || isiPod,
-        standalone: HighFive.global.navigator ? !!HighFive.global.navigator.standalone : false
+        standalone: H5.global.navigator ? !!H5.global.navigator.standalone : false
     };
 
-    HighFive.Browser = browser;
+    H5.Browser = browser;

@@ -1,4 +1,4 @@
-    HighFive.define("System.Version.VersionResult", {
+    H5.define("System.Version.VersionResult", {
         $kind: "nested struct",
         statics: {
             methods: {
@@ -46,10 +46,10 @@
                         } catch ($e1) {
                             $e1 = System.Exception.create($e1);
                             var e;
-                            if (HighFive.is($e1, System.FormatException)) {
+                            if (H5.is($e1, System.FormatException)) {
                                 e = $e1;
                                 return e;
-                            } else if (HighFive.is($e1, System.OverflowException)) {
+                            } else if (H5.is($e1, System.OverflowException)) {
                                 e = $e1;
                                 return e;
                             } else {
@@ -62,14 +62,14 @@
                 }
             },
             getHashCode: function () {
-                var h = HighFive.addHash([5139482776, this.m_parsedVersion, this.m_failure, this.m_exceptionArgument, this.m_argumentName, this.m_canThrow]);
+                var h = H5.addHash([5139482776, this.m_parsedVersion, this.m_failure, this.m_exceptionArgument, this.m_argumentName, this.m_canThrow]);
                 return h;
             },
             equals: function (o) {
-                if (!HighFive.is(o, System.Version.VersionResult)) {
+                if (!H5.is(o, System.Version.VersionResult)) {
                     return false;
                 }
-                return HighFive.equals(this.m_parsedVersion, o.m_parsedVersion) && HighFive.equals(this.m_failure, o.m_failure) && HighFive.equals(this.m_exceptionArgument, o.m_exceptionArgument) && HighFive.equals(this.m_argumentName, o.m_argumentName) && HighFive.equals(this.m_canThrow, o.m_canThrow);
+                return H5.equals(this.m_parsedVersion, o.m_parsedVersion) && H5.equals(this.m_failure, o.m_failure) && H5.equals(this.m_exceptionArgument, o.m_exceptionArgument) && H5.equals(this.m_argumentName, o.m_argumentName) && H5.equals(this.m_canThrow, o.m_canThrow);
             },
             $clone: function (to) {
                 var s = to || new System.Version.VersionResult();

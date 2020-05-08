@@ -1,4 +1,4 @@
-    HighFive.define("System.Text.RegularExpressions.RegexEngine", {
+    H5.define("System.Text.RegularExpressions.RegexEngine", {
         _pattern: "",
         _patternInfo: null,
 

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mas-TZ", true), {
+H5.merge(new System.Globalization.CultureInfo("mas-TZ", true), {
     englishName: "Masai (Tanzania)",
     nativeName: "Maa (Tansania)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mas-TZ", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Jpi","Jtt","Jnn","Jtn","Alh","Iju","Jmo"],
         abbreviatedMonthGenitiveNames: ["Dal","Ará","Ɔɛn","Doy","Lép","Rok","Sás","Bɔ́r","Kús","Gís","Shʉ́","Ntʉ́",""],
         abbreviatedMonthNames: ["Dal","Ará","Ɔɛn","Doy","Lép","Rok","Sás","Bɔ́r","Kús","Gís","Shʉ́","Ntʉ́",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mas-TZ", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mas-TZ",
         EBCDICCodePage: 500,

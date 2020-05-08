@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.SortedList", {
+    H5.define("System.Collections.SortedList", {
         inherits: [System.Collections.IDictionary,System.ICloneable],
         statics: {
             fields: {
@@ -238,7 +238,7 @@
                 return array;
             },
             EnsureCapacity: function (min) {
-                var newCapacity = this.keys.length === 0 ? 16 : HighFive.Int.mul(this.keys.length, 2);
+                var newCapacity = this.keys.length === 0 ? 16 : H5.Int.mul(this.keys.length, 2);
 
                 if ((newCapacity >>> 0) > 2146435071) {
                     newCapacity = 2146435071;

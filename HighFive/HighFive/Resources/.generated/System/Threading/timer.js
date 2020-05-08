@@ -1,4 +1,4 @@
-    HighFive.define("System.Threading.Timer", {
+    H5.define("System.Threading.Timer", {
         inherits: [System.IDisposable],
         statics: {
             fields: {
@@ -32,8 +32,8 @@
             },
             $ctor3: function (callback, state, dueTime, period) {
                 this.$initialize();
-                var dueTm = HighFive.Int.clip64(dueTime.getTotalMilliseconds());
-                var periodTm = HighFive.Int.clip64(period.getTotalMilliseconds());
+                var dueTm = H5.Int.clip64(dueTime.getTotalMilliseconds());
+                var periodTm = H5.Int.clip64(period.getTotalMilliseconds());
 
                 this.TimerSetup(callback, state, dueTm, periodTm);
             },
@@ -59,7 +59,7 @@
                     throw new System.InvalidOperationException.$ctor1(System.Threading.Timer.EXC_DISPOSED);
                 }
 
-                if (HighFive.staticEquals(callback, null)) {
+                if (H5.staticEquals(callback, null)) {
                     throw new System.ArgumentNullException.$ctor1("TimerCallback");
                 }
 
@@ -89,7 +89,7 @@
                     return;
                 }
 
-                if (!HighFive.staticEquals(this.timerCallback, null)) {
+                if (!H5.staticEquals(this.timerCallback, null)) {
                     var myId = this.id;
                     this.timerCallback(this.state);
 
@@ -106,7 +106,7 @@
 
                 if (period.ne(System.Int64(-1)) && !this.disposed) {
                     var p = period.toNumber();
-                    this.id = HighFive.global.setTimeout(HighFive.fn.cacheBind(this, this.HandleCallback), p);
+                    this.id = H5.global.setTimeout(H5.fn.cacheBind(this, this.HandleCallback), p);
                     return true;
                 }
 
@@ -116,7 +116,7 @@
                 return this.ChangeTimer(System.Int64(dueTime), System.Int64(period));
             },
             Change$2: function (dueTime, period) {
-                return this.ChangeTimer(HighFive.Int.clip64(dueTime.getTotalMilliseconds()), HighFive.Int.clip64(period.getTotalMilliseconds()));
+                return this.ChangeTimer(H5.Int.clip64(dueTime.getTotalMilliseconds()), H5.Int.clip64(period.getTotalMilliseconds()));
             },
             Change$3: function (dueTime, period) {
                 return this.ChangeTimer(System.Int64(dueTime), System.Int64(period));
@@ -130,7 +130,7 @@
             },
             ClearTimeout: function () {
                 if (System.Nullable.hasValue(this.id)) {
-                    HighFive.global.clearTimeout(System.Nullable.getValue(this.id));
+                    H5.global.clearTimeout(System.Nullable.getValue(this.id));
                     this.id = null;
                 }
             },

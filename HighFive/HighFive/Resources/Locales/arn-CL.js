@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("arn-CL", true), {
+H5.merge(new System.Globalization.CultureInfo("arn-CL", true), {
     englishName: "Mapudungun (Chile)",
     nativeName: "Mapudungun (Chile)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NeuN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("arn-CL", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Kiñe","Epu","Kila","Meli","Kechu","Cayu","Regle"],
         abbreviatedMonthGenitiveNames: ["Kiñe Tripantu","Epu","Kila","Meli","Kechu","Cayu","Regle","Purha","Aiya","Marhi","Marhi Kiñe","Marhi Epu",""],
         abbreviatedMonthNames: ["Kiñe Tripantu","Epu","Kila","Meli","Kechu","Cayu","Regle","Purha","Aiya","Marhi","Marhi Kiñe","Marhi Epu",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("arn-CL", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "arn-CL",
         EBCDICCodePage: 20284,

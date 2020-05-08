@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class AsyncBlock : AbstractEmitterBlock, IAsyncBlock
     {
@@ -530,7 +530,7 @@ namespace HighFive.Translator
                             {
                                 this.WriteIf();
                                 this.WriteOpenParentheses();
-                                this.Write(JS.Types.HighFive.IS + "(" + JS.Vars.ASYNC_E + ", " + exceptionType + ")");
+                                this.Write(JS.Types.H5.IS + "(" + JS.Vars.ASYNC_E + ", " + exceptionType + ")");
                                 this.WriteCloseParentheses();
                                 this.WriteSpace();
                             }

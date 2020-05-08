@@ -5,7 +5,7 @@ namespace System.ComponentModel
     /// <summary>
     /// Specifies whether a property or event should be displayed in a Properties window.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.All)]
     public sealed class BrowsableAttribute : Attribute
     {

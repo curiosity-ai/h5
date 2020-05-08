@@ -1,4 +1,4 @@
-    HighFive.define("System.RankException", {
+    H5.define("System.RankException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

@@ -1,9 +1,9 @@
 namespace System.Diagnostics
 {
-    [HighFive.Reflectable(false)]
+    [H5.Reflectable(false)]
     public static class Debugger
     {
-        [HighFive.Template("debugger")]
+        [H5.Template("debugger")]
         public static extern void Break();
 
         public static readonly string DefaultCategory;

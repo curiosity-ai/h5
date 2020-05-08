@@ -5,9 +5,9 @@ using ICSharpCode.NRefactory.TypeSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HighFive.Contract;
+using H5.Contract;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class TypeVariable : IVariable, IEquatable<TypeVariable>, IEquatable<IVariable>
     {
@@ -119,7 +119,7 @@ namespace HighFive.Translator
                     foreach (var attr in attrSection.Attributes)
                     {
                         var rr = this.emitter.Resolver.ResolveNode(attr.Type, this.emitter);
-                        if (rr.Type.FullName == "HighFive.InitAttribute")
+                        if (rr.Type.FullName == "H5.InitAttribute")
                         {
                             this._usedVariables.Add(null);
                             return;

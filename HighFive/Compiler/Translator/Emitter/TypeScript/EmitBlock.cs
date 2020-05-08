@@ -1,12 +1,12 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator.TypeScript
+namespace H5.Translator.TypeScript
 {
     public class EmitBlock : TypeScriptBlock
     {
@@ -54,7 +54,7 @@ namespace HighFive.Translator.TypeScript
         }
 
         // This ensures a constant line separator throughout the application
-        private const char newLine = HighFive.Contract.XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
+        private const char newLine = H5.Contract.XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
 
         private Dictionary<OutputKey, StringBuilder> Outputs
         {
@@ -73,7 +73,7 @@ namespace HighFive.Translator.TypeScript
 
         protected virtual StringBuilder GetOutputForType(ITypeInfo typeInfo)
         {
-            var info = HighFiveTypes.GetNamespaceFilename(typeInfo, this.Emitter);
+            var info = H5Types.GetNamespaceFilename(typeInfo, this.Emitter);
             var ns = info.Item1;
             var fileName = info.Item2;
             var module = info.Item3;
@@ -195,19 +195,19 @@ namespace HighFive.Translator.TypeScript
             if (item.Key.Type == ModuleType.AMD || item.Key.Type == ModuleType.CommonJS)
             {
                 sb.Append("declare module \"" + item.Key.ExportAsNamespace + "\" {");
-                sb.Append(HighFive.Translator.Emitter.NEW_LINE);
+                sb.Append(H5.Translator.Emitter.NEW_LINE);
                 sb.Append("    " + AbstractEmitterBlock.WriteIndentToString(item.Value, 1));
-                sb.Append(HighFive.Translator.Emitter.NEW_LINE);
+                sb.Append(H5.Translator.Emitter.NEW_LINE);
                 sb.Append("}");
             }
             else if (item.Key.Type == ModuleType.UMD)
             {
                 sb.Append(item.Value);
-                sb.Append(HighFive.Translator.Emitter.NEW_LINE);
+                sb.Append(H5.Translator.Emitter.NEW_LINE);
                 sb.Append("declare module \"" + item.Key.ExportAsNamespace + "\" {");
-                sb.Append(HighFive.Translator.Emitter.NEW_LINE);
+                sb.Append(H5.Translator.Emitter.NEW_LINE);
                 sb.Append("    export = " + item.Key.ExportAsNamespace + ";");
-                sb.Append(HighFive.Translator.Emitter.NEW_LINE);
+                sb.Append(H5.Translator.Emitter.NEW_LINE);
                 sb.Append("}");
             }
             else
@@ -215,7 +215,7 @@ namespace HighFive.Translator.TypeScript
                 sb.Append(item.Value);
             }
 
-            sb.Append(HighFive.Translator.Emitter.NEW_LINE);
+            sb.Append(H5.Translator.Emitter.NEW_LINE);
 
             return sb.ToString();
         }
@@ -229,8 +229,8 @@ namespace HighFive.Translator.TypeScript
             var types = this.Emitter.Types.ToArray();
             Array.Sort(types, (t1, t2) =>
             {
-                var t1ns = HighFiveTypes.GetNamespaceFilename(t1, this.Emitter);
-                var t2ns = HighFiveTypes.GetNamespaceFilename(t2, this.Emitter);
+                var t1ns = H5Types.GetNamespaceFilename(t1, this.Emitter);
+                var t2ns = H5Types.GetNamespaceFilename(t2, this.Emitter);
 
                 if (t1ns.Item1 == null && t2ns.Item1 == null)
                 {
@@ -260,7 +260,7 @@ namespace HighFive.Translator.TypeScript
             {
                 if (!nsExists)
                 {
-                    var tns = HighFiveTypes.GetNamespaceFilename(type, this.Emitter);
+                    var tns = H5Types.GetNamespaceFilename(type, this.Emitter);
 
                     if (tns.Item1 != null)
                     {
@@ -297,7 +297,7 @@ namespace HighFive.Translator.TypeScript
                 }
 
                 this.Emitter.TypeInfo = type;
-                type.JsName = HighFiveTypes.ToJsName(type.Type, this.Emitter, true);
+                type.JsName = H5Types.ToJsName(type.Type, this.Emitter, true);
 
                 this.Emitter.Output = this.GetOutputForType(typeInfo);
                 var nestedTypes = types.Where(t => t.ParentType == type);

@@ -1,4 +1,4 @@
-    HighFive.define("System.DBNull", {
+    H5.define("System.DBNull", {
         inherits: [System.Runtime.Serialization.ISerializable,System.IConvertible],
         statics: {
             fields: {
@@ -72,7 +72,7 @@
                 throw new System.InvalidCastException.$ctor1("Object cannot be cast from DBNull to other types.");
             },
             System$IConvertible$ToType: function (type, provider) {
-                return System.Convert.defaultToType(HighFive.cast(this, System.IConvertible), type, provider);
+                return System.Convert.defaultToType(H5.cast(this, System.IConvertible), type, provider);
             }
         }
     });

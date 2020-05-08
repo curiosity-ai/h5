@@ -1,17 +1,17 @@
 namespace System.ComponentModel
 {
-    [HighFive.External]
-    public interface INotifyPropertyChanged : HighFive.IHighFiveClass
+    [H5.External]
+    public interface INotifyPropertyChanged : H5.IH5Class
     {
         event PropertyChangedEventHandler PropertyChanged;
     }
 
-    [HighFive.Name("Function")]
+    [H5.Name("Function")]
     public delegate void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e);
 
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    public class PropertyChangedEventArgs : HighFive.IHighFiveClass
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    public class PropertyChangedEventArgs : H5.IH5Class
     {
         public PropertyChangedEventArgs(string propertyName)
         {

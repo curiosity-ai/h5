@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class CastBlock : ConversionBlock
     {
@@ -120,7 +120,7 @@ namespace HighFive.Translator
 
         protected virtual void EmitCastExpression(Expression expression, AstType type, string method)
         {
-            var itype = this.Emitter.HighFiveTypes.ToType(type);
+            var itype = this.Emitter.H5Types.ToType(type);
             bool isCastAttr;
             string castCode = this.GetCastCode(expression, type, method, out isCastAttr);
 
@@ -192,11 +192,11 @@ namespace HighFive.Translator
 
             if (method == CS.Ops.IS && castToEnum)
             {
-                this.Write(JS.Types.HighFive.IS);
+                this.Write(JS.Types.H5.IS);
                 this.WriteOpenParentheses();
                 expression.AcceptVisitor(this.Emitter);
                 this.Write(", ");
-                this.Write(HighFiveTypes.ToJsName(itype, this.Emitter));
+                this.Write(H5Types.ToJsName(itype, this.Emitter));
                 this.Write(")");
                 return;
             }
@@ -312,7 +312,7 @@ namespace HighFive.Translator
 
                 var fullName = type.FullName;
 
-                if (fullName.StartsWith("HighFive.") || fullName.StartsWith("System."))
+                if (fullName.StartsWith("H5.") || fullName.StartsWith("System."))
                 {
                     return false;
                 }
@@ -366,7 +366,7 @@ namespace HighFive.Translator
 
             if (NullableType.IsNullable(resolveResult.Type))
             {
-                this.Write(HighFiveTypes.ToJsName(NullableType.GetUnderlyingType(resolveResult.Type), this.Emitter));
+                this.Write(H5Types.ToJsName(NullableType.GetUnderlyingType(resolveResult.Type), this.Emitter));
             }
             else if (resolveResult.Type.Kind == TypeKind.Delegate)
             {
@@ -386,7 +386,7 @@ namespace HighFive.Translator
         {
             if (NullableType.IsNullable(iType))
             {
-                this.Write(HighFiveTypes.ToJsName(NullableType.GetUnderlyingType(iType), this.Emitter));
+                this.Write(H5Types.ToJsName(NullableType.GetUnderlyingType(iType), this.Emitter));
             }
             else if (iType.Kind == TypeKind.Delegate)
             {
@@ -402,7 +402,7 @@ namespace HighFive.Translator
             }
             else
             {
-                this.Write(HighFiveTypes.ToJsName(iType, this.Emitter));
+                this.Write(H5Types.ToJsName(iType, this.Emitter));
             }
         }
 
@@ -453,7 +453,7 @@ namespace HighFive.Translator
 
             if (attributes != null)
             {
-                var attribute = this.Emitter.GetAttribute(attributes, Translator.HighFive_ASSEMBLY + ".CastAttribute");
+                var attribute = this.Emitter.GetAttribute(attributes, Translator.H5_ASSEMBLY + ".CastAttribute");
 
                 if (attribute != null)
                 {
@@ -535,12 +535,12 @@ namespace HighFive.Translator
             {
                 if (tempVar != null)
                 {
-                    castCode = string.Format("({0} = {1}, HighFive.{2}({0}, {4}({0}) && ({3})))", tempVar, expressionStr, method, castCode, JS.Funcs.HIGHFIVE_HASVALUE);
+                    castCode = string.Format("({0} = {1}, H5.{2}({0}, {4}({0}) && ({3})))", tempVar, expressionStr, method, castCode, JS.Funcs.HIGHFIVE_HASVALUE);
                     this.RemoveTempVar(tempVar);
                 }
                 else
                 {
-                    castCode = string.Format("HighFive.{1}({0}, {3}({0}) && ({2}))", expressionStr, method, castCode, JS.Funcs.HIGHFIVE_HASVALUE);
+                    castCode = string.Format("H5.{1}({0}, {3}({0}) && ({2}))", expressionStr, method, castCode, JS.Funcs.HIGHFIVE_HASVALUE);
                 }
             }
 

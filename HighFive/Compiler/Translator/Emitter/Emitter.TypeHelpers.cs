@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using TopologicalSorting;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Emitter
     {
@@ -179,7 +179,7 @@ namespace HighFive.Translator
             var thisTypelist = new List<ITypeInfo>();
             foreach (var t in types)
             {
-                var bType = HighFiveTypes.Get(t, true);
+                var bType = H5Types.Get(t, true);
 
                 if (bType?.TypeInfo != null && !bType.Type.Equals(typeDef))
                 {
@@ -190,7 +190,7 @@ namespace HighFive.Translator
                 {
                     foreach (var typeArgument in t.TypeArguments)
                     {
-                        bType = HighFiveTypes.Get(typeArgument, true);
+                        bType = H5Types.Get(typeArgument, true);
                         if (bType?.TypeInfo != null && !bType.Type.Equals(typeDef))
                         {
                             thisTypelist.Add(bType.TypeInfo);
@@ -356,13 +356,13 @@ namespace HighFive.Translator
 
         public virtual TypeDefinition GetTypeDefinition(IType type)
         {
-            return this.HighFiveTypes.Get(type).TypeDefinition;
+            return this.H5Types.Get(type).TypeDefinition;
         }
 
         public virtual TypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
         {
             var resolveResult = this.Resolver.ResolveNode(reference, this) as TypeResolveResult;
-            var type = this.HighFiveTypes.Get(resolveResult.Type, safe);
+            var type = this.H5Types.Get(resolveResult.Type, safe);
             return type?.TypeDefinition;
         }
 
@@ -380,7 +380,7 @@ namespace HighFive.Translator
                 return null;
             }
 
-            return this.HighFiveTypes.Get(reference).TypeDefinition;
+            return this.H5Types.Get(reference).TypeDefinition;
         }
 
         public virtual TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount)
@@ -412,7 +412,7 @@ namespace HighFive.Translator
 
             foreach (var t in this.TypeInfo.GetBaseTypes(this))
             {
-                var name = HighFiveTypes.ToJsName(t, this);
+                var name = H5Types.ToJsName(t, this);
 
                 list.Add(name);
             }
@@ -455,7 +455,7 @@ namespace HighFive.Translator
 
             var attr = type.CustomAttributes.FirstOrDefault(a =>
             {
-                return a.AttributeType.FullName == "HighFive.PriorityAttribute";
+                return a.AttributeType.FullName == "H5.PriorityAttribute";
             });
 
             if (attr != null)

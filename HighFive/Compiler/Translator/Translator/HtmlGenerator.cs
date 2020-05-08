@@ -1,5 +1,5 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using Microsoft.Ajax.Utilities;
 using Mono.Cecil;
 using System;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     class HtmlGenerator
     {
@@ -74,7 +74,7 @@ namespace HighFive.Translator
                 
                 
                 
-                //ReadEmbeddedResource("HighFive.Translator.Resources.HtmlTemplate.html");
+                //ReadEmbeddedResource("H5.Translator.Resources.HtmlTemplate.html");
             this.Log.Trace("Applying default html template");
 
             var tokenTitle = "{title}";

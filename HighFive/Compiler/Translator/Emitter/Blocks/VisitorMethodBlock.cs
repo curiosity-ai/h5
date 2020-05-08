@@ -1,13 +1,13 @@
 using System;
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using System.Linq;
 using System.Xml.Schema;
-using HighFive.Contract.Constants;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class VisitorMethodBlock : AbstractMethodBlock
     {
@@ -56,11 +56,11 @@ namespace HighFive.Translator
                 foreach (var attr in attrSection.Attributes)
                 {
                     var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
-                    if (rr.Type.FullName == "HighFive.ExternalAttribute")
+                    if (rr.Type.FullName == "H5.ExternalAttribute")
                     {
                         return;
                     }
-                    else if (rr.Type.FullName == "HighFive.InitAttribute")
+                    else if (rr.Type.FullName == "H5.InitAttribute")
                     {
                         InitPosition initPosition = InitPosition.After;
 

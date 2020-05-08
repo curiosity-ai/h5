@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("st-LS", true), {
+H5.merge(new System.Globalization.CultureInfo("st-LS", true), {
     englishName: "Sesotho (Lesotho)",
     nativeName: "Sesotho (Lesotho)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("st-LS", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Son","Mma","Bed","Rar","Ne","Hla","Moq"],
         abbreviatedMonthGenitiveNames: ["Phe","Kol","Ube","Mme","Mot","Jan","Upu","Pha","Leo","Mph","Pun","Tsh",""],
         abbreviatedMonthNames: ["Phe","Kol","Ube","Mme","Mot","Jan","Upu","Pha","Leo","Mph","Pun","Tsh",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("st-LS", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "st-LS",
         EBCDICCodePage: 500,

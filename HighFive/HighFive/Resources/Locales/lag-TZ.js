@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("lag-TZ", true), {
+H5.merge(new System.Globalization.CultureInfo("lag-TZ", true), {
     englishName: "Langi (Tanzania)",
     nativeName: "Kɨlaangi (Taansanía)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lag-TZ", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Píili","Táatu","Íne","Táano","Alh","Ijm","Móosi"],
         abbreviatedMonthGenitiveNames: ["Fúngatɨ","Naanɨ","Keenda","Ikúmi","Inyambala","Idwaata","Mʉʉnchɨ","Vɨɨrɨ","Saatʉ","Inyi","Saano","Sasatʉ",""],
         abbreviatedMonthNames: ["Fúngatɨ","Naanɨ","Keenda","Ikúmi","Inyambala","Idwaata","Mʉʉnchɨ","Vɨɨrɨ","Saatʉ","Inyi","Saano","Sasatʉ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("lag-TZ", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "lag-TZ",
         EBCDICCodePage: 500,

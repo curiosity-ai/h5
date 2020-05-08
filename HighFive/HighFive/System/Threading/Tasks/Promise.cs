@@ -4,10 +4,10 @@ namespace System.Threading.Tasks
     /// CommonJS Promise/A interface
     /// http://wiki.commonjs.org/wiki/Promises/A
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Name("HighFive.IPromise")]
-    [HighFive.Convention(Target = HighFive.ConventionTarget.Member, Member = HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Name("H5.IPromise")]
+    [H5.Convention(Target = H5.ConventionTarget.Member, Member = H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     public interface IPromise
     {
         /// <summary>
@@ -22,8 +22,8 @@ namespace System.Threading.Tasks
     /// <summary>
     ///
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
     public static class PromiseExtensions
     {
         /// <summary>
@@ -31,7 +31,7 @@ namespace System.Threading.Tasks
         /// </summary>
         /// <param name="promise"></param>
         /// <returns></returns>
-        [HighFive.Template("System.Threading.Tasks.Task.fromPromise({promise})")]
+        [H5.Template("System.Threading.Tasks.Task.fromPromise({promise})")]
         public static extern TaskAwaiter<object[]> GetAwaiter(this IPromise promise);
     }
 }

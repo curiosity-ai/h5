@@ -2,8 +2,8 @@ using System.Reflection;
 
 namespace System
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
     public sealed class AppDomain
     {
         private extern AppDomain();
@@ -12,7 +12,7 @@ namespace System
 
         public static extern AppDomain CurrentDomain
         {
-            [HighFive.Template("System.AppDomain")]
+            [H5.Template("System.AppDomain")]
             get;
         }
     }

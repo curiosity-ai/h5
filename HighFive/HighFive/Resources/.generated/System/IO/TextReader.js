@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.TextReader", {
+    H5.define("System.IO.TextReader", {
         inherits: [System.IDisposable],
         statics: {
             fields: {
@@ -60,7 +60,7 @@
                     if (ch === -1) {
                         break;
                     }
-                    buffer[System.Array.index(((index + HighFive.identity(n, ((n = (n + 1) | 0)))) | 0), buffer)] = ch & 65535;
+                    buffer[System.Array.index(((index + H5.identity(n, ((n = (n + 1) | 0)))) | 0), buffer)] = ch & 65535;
                 } while (n < count);
                 return n;
             },

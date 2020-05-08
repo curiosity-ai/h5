@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.__Error", {
+    H5.define("System.IO.__Error", {
         statics: {
             methods: {
                 EndOfFile: function () {

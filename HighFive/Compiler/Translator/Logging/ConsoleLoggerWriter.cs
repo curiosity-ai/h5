@@ -1,7 +1,7 @@
-﻿using HighFive.Contract;
+﻿using H5.Contract;
 using System;
 
-namespace HighFive.Translator.Logging
+namespace H5.Translator.Logging
 {
     public class ConsoleLoggerWriter : ILogger
     {

@@ -1,4 +1,4 @@
-    HighFive.define("System.Runtime.Serialization.SerializationInfoEnumerator", {
+    H5.define("System.Runtime.Serialization.SerializationInfoEnumerator", {
         inherits: [System.Collections.IEnumerator],
         fields: {
             _members: null,

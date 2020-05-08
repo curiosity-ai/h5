@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.EndOfStreamException", {
+    H5.define("System.IO.EndOfStreamException", {
         inherits: [System.IO.IOException],
         ctors: {
             ctor: function () {

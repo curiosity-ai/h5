@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ki", true), {
+H5.merge(new System.Globalization.CultureInfo("ki", true), {
     englishName: "Kikuyu",
     nativeName: "Gikuyu",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ki", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["KMA","NTT","NMN","NMT","ART","NMA","NMM"],
         abbreviatedMonthGenitiveNames: ["JEN","WKR","WGT","WKN","WTN","WTD","WMJ","WNN","WKD","WIK","WMW","DIT",""],
         abbreviatedMonthNames: ["JEN","WKR","WGT","WKN","WTN","WTD","WMJ","WNN","WKD","WIK","WMW","DIT",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ki", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ki-KE",
         EBCDICCodePage: 500,

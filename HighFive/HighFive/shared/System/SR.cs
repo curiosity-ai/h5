@@ -51,7 +51,7 @@ namespace System
         }
 
         private static object _lock = new object();
-        // TODO: Revised HighFive [not required until InternalGetResourceString supported fully]
+        // TODO: Revised H5 [not required until InternalGetResourceString supported fully]
         //private static List<string> _currentlyLoading;
         //private static int _infinitelyRecursingCount;
         //private static bool _resourceManagerInited = false;

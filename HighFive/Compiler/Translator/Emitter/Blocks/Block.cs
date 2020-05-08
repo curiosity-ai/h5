@@ -1,10 +1,10 @@
-using HighFive.Contract;
+using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Linq;
 using ICSharpCode.NRefactory.CSharp.Analysis;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class Block : AbstractEmitterBlock
     {

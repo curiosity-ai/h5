@@ -1,4 +1,4 @@
-    HighFive.define("System.IO.TextWriter", {
+    H5.define("System.IO.TextWriter", {
         inherits: [System.IDisposable],
         statics: {
             fields: {
@@ -116,7 +116,7 @@
                 this.Write$10(System.Double.format(value, "G", this.FormatProvider));
             },
             Write$4: function (value) {
-                this.Write$10(HighFive.Int.format(value, "G", this.FormatProvider));
+                this.Write$10(H5.Int.format(value, "G", this.FormatProvider));
             },
             Write$10: function (value) {
                 if (value != null) {
@@ -125,11 +125,11 @@
             },
             Write$8: function (value) {
                 if (value != null) {
-                    var f = HighFive.as(value, System.IFormattable);
+                    var f = H5.as(value, System.IFormattable);
                     if (f != null) {
-                        this.Write$10(HighFive.format(f, null, this.FormatProvider));
+                        this.Write$10(H5.format(f, null, this.FormatProvider));
                     } else {
-                        this.Write$10(HighFive.toString(value));
+                        this.Write$10(H5.toString(value));
                     }
                 }
             },
@@ -208,7 +208,7 @@
                     } else if (nlLen === 1) {
                         chars[System.Array.index(vLen, chars)] = this.CoreNewLine[System.Array.index(0, this.CoreNewLine)];
                     } else {
-                        System.Array.copy(this.CoreNewLine, 0, chars, HighFive.Int.mul(vLen, 2), HighFive.Int.mul(nlLen, 2));
+                        System.Array.copy(this.CoreNewLine, 0, chars, H5.Int.mul(vLen, 2), H5.Int.mul(nlLen, 2));
                     }
                     this.Write$3(chars, 0, ((vLen + nlLen) | 0));
                 }
@@ -221,11 +221,11 @@
                 if (value == null) {
                     this.WriteLine();
                 } else {
-                    var f = HighFive.as(value, System.IFormattable);
+                    var f = H5.as(value, System.IFormattable);
                     if (f != null) {
-                        this.WriteLine$11(HighFive.format(f, null, this.FormatProvider));
+                        this.WriteLine$11(H5.format(f, null, this.FormatProvider));
                     } else {
-                        this.WriteLine$11(HighFive.toString(value));
+                        this.WriteLine$11(H5.toString(value));
                     }
                 }
             },

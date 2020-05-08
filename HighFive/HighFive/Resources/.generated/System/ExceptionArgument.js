@@ -1,4 +1,4 @@
-    HighFive.define("System.ExceptionArgument", {
+    H5.define("System.ExceptionArgument", {
         $kind: "enum",
         statics: {
             fields: {

@@ -1,14 +1,14 @@
-using HighFive.Contract;
+using H5.Contract;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace HighFive.Translator.Utils
+namespace H5.Translator.Utils
 {
     public class AssemblyConfigHelper
     {
-        private const string CONFIG_FILE_NAME = "highfive.json";
+        private const string CONFIG_FILE_NAME = "h5.json";
 
         private ILogger Logger { get; set; }
         private ConfigHelper<AssemblyInfo> helper { get; set; }
@@ -39,7 +39,7 @@ namespace HighFive.Translator.Utils
             return ReadConfig(CONFIG_FILE_NAME, folderMode, location, configuration);
         }
 
-        public string CreateConfig(IAssemblyInfo highfiveConfig, string folder)
+        public string CreateConfig(IAssemblyInfo h5Config, string folder)
         {
             var path = Path.Combine(folder, CONFIG_FILE_NAME);
 
@@ -51,7 +51,7 @@ namespace HighFive.Translator.Utils
                     ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
                 };
 
-                var config = JsonConvert.SerializeObject(highfiveConfig, jss);
+                var config = JsonConvert.SerializeObject(h5Config, jss);
 
                 textFile.Write(config);
             }

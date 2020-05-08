@@ -5,7 +5,7 @@
 namespace System.Runtime.CompilerServices
 {
     // Custom attribute to specify additional method properties.
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor, Inherited = false)]
     sealed public class MethodImplAttribute : Attribute
     {

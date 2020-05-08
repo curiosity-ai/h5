@@ -1,11 +1,11 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class ArrayCreateBlock : ConversionBlock
     {
@@ -72,7 +72,7 @@ namespace HighFive.Translator
                     }
                     this.Write(")");
                     this.Write(", ");
-                    this.Write(HighFiveTypes.ToJsName(at.ElementType, this.Emitter));
+                    this.Write(H5Types.ToJsName(at.ElementType, this.Emitter));
                     this.Write(")");
                 }
                 else
@@ -116,7 +116,7 @@ namespace HighFive.Translator
                     }
 
                     this.Write(", ");
-                    this.Write(HighFiveTypes.ToJsName(at.ElementType, this.Emitter));
+                    this.Write(H5Types.ToJsName(at.ElementType, this.Emitter));
 
                     this.Write(")");
                 }
@@ -220,7 +220,7 @@ namespace HighFive.Translator
             }
 
             this.Write(", ");
-            this.Write(HighFiveTypes.ToJsName(at.ElementType, this.Emitter));
+            this.Write(H5Types.ToJsName(at.ElementType, this.Emitter));
 
             if (at.Dimensions > 1)
             {

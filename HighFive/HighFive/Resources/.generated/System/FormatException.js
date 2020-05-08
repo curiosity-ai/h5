@@ -1,4 +1,4 @@
-    HighFive.define("System.FormatException", {
+    H5.define("System.FormatException", {
         inherits: [System.SystemException],
         ctors: {
             ctor: function () {

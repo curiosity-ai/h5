@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("agq-CM", true), {
+H5.merge(new System.Globalization.CultureInfo("agq-CM", true), {
     englishName: "Aghem (Cameroon)",
     nativeName: "Aghem (Kàmàlûŋ)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("agq-CM", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["nts","kpa","ghɔ","tɔm","ume","ghɨ","dzk"],
         abbreviatedMonthGenitiveNames: ["nùm","kɨz","tɨd","taa","see","nzu","dum","fɔe","dzu","lɔm","kaa","fwo",""],
         abbreviatedMonthNames: ["nùm","kɨz","tɨd","taa","see","nzu","dum","fɔe","dzu","lɔm","kaa","fwo",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("agq-CM", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "agq-CM",
         EBCDICCodePage: 500,

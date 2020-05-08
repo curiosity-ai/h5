@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("wo-SN", true), {
+H5.merge(new System.Globalization.CultureInfo("wo-SN", true), {
     englishName: "Wolof (Senegal)",
     nativeName: "Wolof (Senegaal)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "Non Numérique",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("wo-SN", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Dib.","Alt.","Tal.","Àll.","Alx.","Àjj.","Gaa."],
         abbreviatedMonthGenitiveNames: ["Sam.","Few.","Maa","Awr.","Me","Suwe","Sul.","Ut","Sept.","Okt.","Noow.","Des.",""],
         abbreviatedMonthNames: ["Sam.","Few.","Maa","Awr.","Me","Suw","Sul.","Ut","Sept.","Okt.","Now.","Des.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("wo-SN", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "wo-SN",
         EBCDICCodePage: 20297,

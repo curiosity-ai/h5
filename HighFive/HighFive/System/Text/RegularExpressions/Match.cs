@@ -3,9 +3,9 @@
     /// <summary>
     /// Represents the results from a single regular expression match.
     /// </summary>
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public class Match : Group
     {
         internal extern Match(Regex regex, int capcount, String text, int begpos, int len, int startpos);
@@ -15,7 +15,7 @@
         /// </summary>
         public extern static Match Empty
         {
-            [HighFive.Template("{this}.getEmpty()")]
+            [H5.Template("{this}.getEmpty()")]
             get;
         }
 
@@ -24,7 +24,7 @@
         /// </summary>
         public extern virtual GroupCollection Groups
         {
-            [HighFive.Template("getGroups()")]
+            [H5.Template("getGroups()")]
             get;
         }
 

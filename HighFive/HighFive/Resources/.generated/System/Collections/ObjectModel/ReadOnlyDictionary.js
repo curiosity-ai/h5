@@ -1,4 +1,4 @@
-    HighFive.define("System.Collections.ObjectModel.ReadOnlyDictionary$2", function (TKey, TValue) { return {
+    H5.define("System.Collections.ObjectModel.ReadOnlyDictionary$2", function (TKey, TValue) { return {
         inherits: [System.Collections.Generic.IDictionary$2(TKey,TValue),System.Collections.IDictionary,System.Collections.Generic.IReadOnlyDictionary$2(TKey,TValue)],
         statics: {
             fields: {
@@ -14,7 +14,7 @@
                     if (key == null) {
                         throw new System.ArgumentNullException.$ctor1("key");
                     }
-                    return HighFive.is(key, TKey);
+                    return H5.is(key, TKey);
                 }
             }
         },
@@ -32,7 +32,7 @@
             Keys: {
                 get: function () {
                     if (this._keys == null) {
-                        this._keys = new (System.Collections.ObjectModel.ReadOnlyDictionary$2.KeyCollection(TKey,TValue))(this.m_dictionary["System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Keys"]);
+                        this._keys = new (System.Collections.ObjectModel.ReadOnlyDictionary$2.KeyCollection(TKey,TValue))(this.m_dictionary["System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Keys"]);
                     }
                     return this._keys;
                 }
@@ -40,7 +40,7 @@
             Values: {
                 get: function () {
                     if (this._values == null) {
-                        this._values = new (System.Collections.ObjectModel.ReadOnlyDictionary$2.ValueCollection(TKey,TValue))(this.m_dictionary["System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Values"]);
+                        this._values = new (System.Collections.ObjectModel.ReadOnlyDictionary$2.ValueCollection(TKey,TValue))(this.m_dictionary["System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Values"]);
                     }
                     return this._values;
                 }
@@ -107,29 +107,29 @@
             }
         },
         alias: [
-            "containsKey", "System$Collections$Generic$IReadOnlyDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$containsKey",
-            "containsKey", "System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$containsKey",
-            "System$Collections$Generic$IDictionary$2$Keys", "System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Keys",
-            "tryGetValue", "System$Collections$Generic$IReadOnlyDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$tryGetValue",
-            "tryGetValue", "System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$tryGetValue",
-            "System$Collections$Generic$IDictionary$2$Values", "System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Values",
-            "getItem", "System$Collections$Generic$IReadOnlyDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$getItem",
-            "System$Collections$Generic$IDictionary$2$add", "System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$add",
-            "System$Collections$Generic$IDictionary$2$remove", "System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$remove",
-            "System$Collections$Generic$IDictionary$2$getItem", "System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$getItem",
-            "System$Collections$Generic$IDictionary$2$setItem", "System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$setItem",
-            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
+            "containsKey", "System$Collections$Generic$IReadOnlyDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$containsKey",
+            "containsKey", "System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$containsKey",
+            "System$Collections$Generic$IDictionary$2$Keys", "System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Keys",
+            "tryGetValue", "System$Collections$Generic$IReadOnlyDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$tryGetValue",
+            "tryGetValue", "System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$tryGetValue",
+            "System$Collections$Generic$IDictionary$2$Values", "System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Values",
+            "getItem", "System$Collections$Generic$IReadOnlyDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$getItem",
+            "System$Collections$Generic$IDictionary$2$add", "System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$add",
+            "System$Collections$Generic$IDictionary$2$remove", "System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$remove",
+            "System$Collections$Generic$IDictionary$2$getItem", "System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$getItem",
+            "System$Collections$Generic$IDictionary$2$setItem", "System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$setItem",
+            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
             "Count", "System$Collections$ICollection$Count",
-            "Count", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Count",
-            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$contains", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$contains",
-            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$copyTo", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$copyTo",
-            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$IsReadOnly", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$IsReadOnly",
-            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$add", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$add",
-            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$clear", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$clear",
-            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$remove", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$remove",
-            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$System$Collections$Generic$KeyValuePair$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
-            "System$Collections$Generic$IReadOnlyDictionary$2$Keys", "System$Collections$Generic$IReadOnlyDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Keys",
-            "System$Collections$Generic$IReadOnlyDictionary$2$Values", "System$Collections$Generic$IReadOnlyDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$Values"
+            "Count", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Count",
+            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$contains", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$contains",
+            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$copyTo", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$copyTo",
+            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$IsReadOnly", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$IsReadOnly",
+            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$add", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$add",
+            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$clear", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$clear",
+            "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$remove", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$remove",
+            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$System$Collections$Generic$KeyValuePair$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
+            "System$Collections$Generic$IReadOnlyDictionary$2$Keys", "System$Collections$Generic$IReadOnlyDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Keys",
+            "System$Collections$Generic$IReadOnlyDictionary$2$Values", "System$Collections$Generic$IReadOnlyDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$Values"
         ],
         ctors: {
             ctor: function (dictionary) {
@@ -142,17 +142,17 @@
         },
         methods: {
             getItem: function (key) {
-                return this.m_dictionary["System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$getItem"](key);
+                return this.m_dictionary["System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$getItem"](key);
             },
             System$Collections$Generic$IDictionary$2$getItem: function (key) {
-                return this.m_dictionary["System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$getItem"](key);
+                return this.m_dictionary["System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$getItem"](key);
             },
             System$Collections$Generic$IDictionary$2$setItem: function (key, value) {
                 throw new System.NotSupportedException.$ctor1(System.Collections.ObjectModel.ReadOnlyDictionary$2(TKey,TValue).NotSupported_ReadOnlyCollection);
             },
             System$Collections$IDictionary$getItem: function (key) {
                 if (System.Collections.ObjectModel.ReadOnlyDictionary$2(TKey,TValue).IsCompatibleKey(key)) {
-                    return this.getItem(HighFive.cast(HighFive.unbox(key, TKey), TKey));
+                    return this.getItem(H5.cast(H5.unbox(key, TKey), TKey));
                 }
                 return null;
             },
@@ -160,10 +160,10 @@
                 throw new System.NotSupportedException.$ctor1(System.Collections.ObjectModel.ReadOnlyDictionary$2(TKey,TValue).NotSupported_ReadOnlyCollection);
             },
             containsKey: function (key) {
-                return this.m_dictionary["System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$containsKey"](key);
+                return this.m_dictionary["System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$containsKey"](key);
             },
             tryGetValue: function (key, value) {
-                return this.m_dictionary["System$Collections$Generic$IDictionary$2$" + HighFive.getTypeAlias(TKey) + "$" + HighFive.getTypeAlias(TValue) + "$tryGetValue"](key, value);
+                return this.m_dictionary["System$Collections$Generic$IDictionary$2$" + H5.getTypeAlias(TKey) + "$" + H5.getTypeAlias(TValue) + "$tryGetValue"](key, value);
             },
             System$Collections$Generic$IDictionary$2$add: function (key, value) {
                 throw new System.NotSupportedException.$ctor1(System.Collections.ObjectModel.ReadOnlyDictionary$2(TKey,TValue).NotSupported_ReadOnlyCollection);
@@ -187,7 +187,7 @@
                 return System.Array.contains(this.m_dictionary, item, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
             },
             System$Collections$IDictionary$contains: function (key) {
-                return System.Collections.ObjectModel.ReadOnlyDictionary$2(TKey,TValue).IsCompatibleKey(key) && this.containsKey(HighFive.cast(HighFive.unbox(key, TKey), TKey));
+                return System.Collections.ObjectModel.ReadOnlyDictionary$2(TKey,TValue).IsCompatibleKey(key) && this.containsKey(H5.cast(H5.unbox(key, TKey), TKey));
             },
             System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$copyTo: function (array, arrayIndex) {
                 System.Array.copyTo(this.m_dictionary, array, arrayIndex, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
@@ -214,44 +214,44 @@
                     throw new System.ArgumentException.$ctor1("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
                 }
 
-                var pairs = HighFive.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue)));
+                var pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue)));
                 if (pairs != null) {
                     System.Array.copyTo(this.m_dictionary, pairs, index, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
                 } else {
-                    var dictEntryArray = HighFive.as(array, System.Array.type(System.Collections.DictionaryEntry));
+                    var dictEntryArray = H5.as(array, System.Array.type(System.Collections.DictionaryEntry));
                     if (dictEntryArray != null) {
-                        $t = HighFive.getEnumerator(this.m_dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
+                        $t = H5.getEnumerator(this.m_dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
                         try {
                             while ($t.moveNext()) {
                                 var item = $t.Current;
-                                dictEntryArray[System.Array.index(HighFive.identity(index, ((index = (index + 1) | 0))), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(item.key, item.value);
+                                dictEntryArray[System.Array.index(H5.identity(index, ((index = (index + 1) | 0))), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(item.key, item.value);
                             }
                         } finally {
-                            if (HighFive.is($t, System.IDisposable)) {
+                            if (H5.is($t, System.IDisposable)) {
                                 $t.System$IDisposable$Dispose();
                             }
                         }
                     } else {
-                        var objects = HighFive.as(array, System.Array.type(System.Object));
+                        var objects = H5.as(array, System.Array.type(System.Object));
                         if (objects == null) {
                             throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                         }
 
                         try {
-                            $t1 = HighFive.getEnumerator(this.m_dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
+                            $t1 = H5.getEnumerator(this.m_dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
                             try {
                                 while ($t1.moveNext()) {
                                     var item1 = $t1.Current;
-                                    objects[System.Array.index(HighFive.identity(index, ((index = (index + 1) | 0))), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(item1.key, item1.value);
+                                    objects[System.Array.index(H5.identity(index, ((index = (index + 1) | 0))), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(item1.key, item1.value);
                                 }
                             } finally {
-                                if (HighFive.is($t1, System.IDisposable)) {
+                                if (H5.is($t1, System.IDisposable)) {
                                     $t1.System$IDisposable$Dispose();
                                 }
                             }
                         } catch ($e1) {
                             $e1 = System.Exception.create($e1);
-                            if (HighFive.is($e1, System.ArrayTypeMismatchException)) {
+                            if (H5.is($e1, System.ArrayTypeMismatchException)) {
                                 throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                             } else {
                                 throw $e1;
@@ -267,13 +267,13 @@
                 throw new System.NotSupportedException.$ctor1(System.Collections.ObjectModel.ReadOnlyDictionary$2(TKey,TValue).NotSupported_ReadOnlyCollection);
             },
             GetEnumerator: function () {
-                return HighFive.getEnumerator(this.m_dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
+                return H5.getEnumerator(this.m_dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
             },
             System$Collections$IEnumerable$GetEnumerator: function () {
-                return HighFive.getEnumerator(HighFive.cast(this.m_dictionary, System.Collections.IEnumerable));
+                return H5.getEnumerator(H5.cast(this.m_dictionary, System.Collections.IEnumerable));
             },
             System$Collections$IDictionary$GetEnumerator: function () {
-                var d = HighFive.as(this.m_dictionary, System.Collections.IDictionary);
+                var d = H5.as(this.m_dictionary, System.Collections.IDictionary);
                 if (d != null) {
                     return d.System$Collections$IDictionary$GetEnumerator();
                 }

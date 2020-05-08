@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ast", true), {
+H5.merge(new System.Globalization.CultureInfo("ast", true), {
     englishName: "Asturian",
     nativeName: "asturianu",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "ND",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ast", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["dom","llu","mar","mié","xue","vie","sáb"],
         abbreviatedMonthGenitiveNames: ["xin","feb","mar","abr","may","xun","xnt","ago","set","och","pay","avi",""],
         abbreviatedMonthNames: ["Xin","Feb","Mar","Abr","May","Xun","Xnt","Ago","Set","Och","Pay","Avi",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ast", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ast-ES",
         EBCDICCodePage: 500,

@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("prg", true), {
+H5.merge(new System.Globalization.CultureInfo("prg", true), {
     englishName: "Prussian",
     nativeName: "prūsiskan",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("prg", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["nad","pan","wis","pus","ket","pēn","sab"],
         abbreviatedMonthGenitiveNames: ["rag","was","pūl","sak","zal","sīm","līp","dag","sil","spa","lap","sal",""],
         abbreviatedMonthNames: ["rag","was","pūl","sak","zal","sīm","līp","dag","sil","spa","lap","sal",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("prg", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "prg-001",
         EBCDICCodePage: 500,

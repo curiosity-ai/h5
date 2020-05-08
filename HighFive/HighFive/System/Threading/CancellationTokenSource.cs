@@ -1,25 +1,25 @@
 namespace System.Threading
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
-    [HighFive.Reflectable]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
+    [H5.Reflectable]
     public class CancellationTokenSource : IDisposable
     {
         public extern CancellationTokenSource();
 
         public extern CancellationTokenSource(int millisecondsDelay);
 
-        [HighFive.Template("new System.Threading.CancellationTokenSource({delay}.ticks / 10000)")]
+        [H5.Template("new System.Threading.CancellationTokenSource({delay}.ticks / 10000)")]
         public extern CancellationTokenSource(TimeSpan delay);
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern bool IsCancellationRequested
         {
             get;
             private set;
         }
 
-        [HighFive.Convention(HighFive.Notation.CamelCase)]
+        [H5.Convention(H5.Notation.CamelCase)]
         public extern CancellationToken Token
         {
             get;
@@ -32,15 +32,15 @@ namespace System.Threading
 
         public extern void CancelAfter(int millisecondsDelay);
 
-        [HighFive.Template("{this}.cancelAfter({delay}.ticks / 10000)")]
+        [H5.Template("{this}.cancelAfter({delay}.ticks / 10000)")]
         public extern void CancelAfter(TimeSpan delay);
 
         public extern void Dispose();
 
-        [HighFive.Name("createLinked")]
+        [H5.Name("createLinked")]
         public static extern CancellationTokenSource CreateLinkedTokenSource(CancellationToken token1, CancellationToken token2);
 
-        [HighFive.Template("System.Threading.CancellationTokenSource.createLinked({*tokens})")]
+        [H5.Template("System.Threading.CancellationTokenSource.createLinked({*tokens})")]
         public static extern CancellationTokenSource CreateLinkedTokenSource(params CancellationToken[] tokens);
     }
 }

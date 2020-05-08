@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("dz", true), {
+H5.merge(new System.Globalization.CultureInfo("dz", true), {
     englishName: "Dzongkha",
     nativeName: "རྫོང་ཁ",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("dz", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["ཟླ་","མིར་","ལྷག་","ཕུར་","སངས་","སྤེན་","ཉི་"],
         abbreviatedMonthGenitiveNames: ["༡","༢","༣","༤","༥","༦","༧","༨","༩","༡༠","༡༡","12",""],
         abbreviatedMonthNames: ["ཟླ་༡","ཟླ་༢","ཟླ་༣","ཟླ་༤","ཟླ་༥","ཟླ་༦","ཟླ་༧","ཟླ་༨","ཟླ་༩","ཟླ་༡༠","ཟླ་༡༡","ཟླ་༡༢",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("dz", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "dz-BT",
         EBCDICCodePage: 500,

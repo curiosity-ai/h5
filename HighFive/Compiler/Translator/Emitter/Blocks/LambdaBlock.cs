@@ -1,12 +1,12 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class LambdaBlock : AbstractMethodBlock
     {
@@ -375,7 +375,7 @@ namespace HighFive.Translator
                     }
 
                     this.Emitter.Output.Remove(savedPos, this.Emitter.Output.Length - savedPos);
-                    this.Emitter.Output.Insert(savedPos, JS.Vars.D_ + "." + HighFiveTypes.ToJsName(this.Emitter.TypeInfo.Type, this.Emitter, true) + "." + name);
+                    this.Emitter.Output.Insert(savedPos, JS.Vars.D_ + "." + H5Types.ToJsName(this.Emitter.TypeInfo.Type, this.Emitter, true) + "." + name);
                 }
 
                 this.Emitter.ResetLevel(oldLevel);

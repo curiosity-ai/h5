@@ -5,10 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using HighFive.Contract.Constants;
-using HighFive.Translator.Utils;
+using H5.Contract.Constants;
+using H5.Translator.Utils;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public partial class Translator
     {
@@ -81,7 +81,7 @@ namespace HighFive.Translator
         }
 
         /// <summary>
-        /// Validates project and namespace names against conflicts with HighFive.NET namespaces.
+        /// Validates project and namespace names against conflicts with H5.NET namespaces.
         /// </summary>
         /// <param name="project">XDocument reference of the .csproj file.</param>
         private void ValidateProject(Project project)
@@ -118,7 +118,7 @@ namespace HighFive.Translator
                                          tag.UnevaluatedValue + "</" + tag.Xml.Name + ">\n";
                 }
 
-                throw new HighFive.Translator.TranslatorException("'HighFive' name is reserved and may not " +
+                throw new H5.Translator.TranslatorException("'H5' name is reserved and may not " +
                     "be used as project names or root namespaces.\n" +
                     "Please verify your project settings and rename where it applies.\n" +
                     "Project file: " + this.Location + "\n" +
@@ -142,7 +142,7 @@ namespace HighFive.Translator
 
             if (outputType != null && string.Compare(outputType, Translator.SupportedProjectType, true) != 0)
             {
-                HighFive.Translator.TranslatorException.Throw("Project type ({0}) is not supported, please use Library instead of {0}", outputType);
+                H5.Translator.TranslatorException.Throw("Project type ({0}) is not supported, please use Library instead of {0}", outputType);
             }
         }
 
@@ -168,7 +168,7 @@ namespace HighFive.Translator
                 bool boolValue;
                 if (bool.TryParse(value, out boolValue))
                 {
-                    this.OverflowMode = boolValue ? HighFive.Contract.OverflowMode.Checked : HighFive.Contract.OverflowMode.Unchecked;
+                    this.OverflowMode = boolValue ? H5.Contract.OverflowMode.Checked : H5.Contract.OverflowMode.Unchecked;
                 }
             }
         }
@@ -195,7 +195,7 @@ namespace HighFive.Translator
 
         protected virtual string GetOutputPaths(Project project)
         {
-            var configHelper = new HighFive.Contract.ConfigHelper();
+            var configHelper = new H5.Contract.ConfigHelper();
 
             var outputPath = this.ProjectProperties.OutputPath;
 
@@ -249,7 +249,7 @@ namespace HighFive.Translator
                     return null;
                 }
 
-                HighFive.Translator.TranslatorException.Throw(
+                H5.Translator.TranslatorException.Throw(
                     "Unable to determine "
                     + name
                     + " in the project file with conditions " + EvaluationConditionsAsString());
@@ -306,8 +306,8 @@ namespace HighFive.Translator
 
                 if (!sourceFiles.Any())
                 {
-                    throw new HighFive.Translator.TranslatorException("Unable to get source file list from project file '" +
-                        this.Location + "'. In order to use highfive, you have to have at least one source code file " +
+                    throw new H5.Translator.TranslatorException("Unable to get source file list from project file '" +
+                        this.Location + "'. In order to use h5, you have to have at least one source code file " +
                         "with the 'compile' property set (usually .cs files have it by default in C# projects).");
                 };
             }
@@ -375,7 +375,7 @@ namespace HighFive.Translator
 
             if (string.IsNullOrWhiteSpace(this.ProjectProperties.AssemblyName))
             {
-                HighFive.Translator.TranslatorException.Throw("Unable to determine assembly name");
+                H5.Translator.TranslatorException.Throw("Unable to determine assembly name");
             }
         }
 

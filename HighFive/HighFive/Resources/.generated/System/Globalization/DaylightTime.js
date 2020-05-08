@@ -1,4 +1,4 @@
-    HighFive.define("System.Globalization.DaylightTime", {
+    H5.define("System.Globalization.DaylightTime", {
         fields: {
             _start: null,
             _end: null,

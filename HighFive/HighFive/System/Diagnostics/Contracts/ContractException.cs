@@ -1,7 +1,7 @@
 namespace System.Diagnostics.Contracts
 {
-    [HighFive.Convention(Member = HighFive.ConventionMember.Field | HighFive.ConventionMember.Method, Notation = HighFive.Notation.CamelCase)]
-    [HighFive.External]
+    [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
+    [H5.External]
     public sealed class ContractException : Exception
     {
         public extern ContractFailureKind Kind

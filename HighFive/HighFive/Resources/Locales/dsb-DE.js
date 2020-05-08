@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("dsb-DE", true), {
+H5.merge(new System.Globalization.CultureInfo("dsb-DE", true), {
     englishName: "Lower Sorbian (Germany)",
     nativeName: "dolnoserbšćina (Nimska)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("dsb-DE", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["nje","pon","wał","srj","stw","pět","sob"],
         abbreviatedMonthGenitiveNames: ["jan","feb","měr","apr","maj","jun","jul","awg","sep","okt","now","dec",""],
         abbreviatedMonthNames: ["jan","feb","měr","apr","maj","jun","jul","awg","sep","okt","now","dec",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("dsb-DE", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1252,
         CultureName: "dsb-DE",
         EBCDICCodePage: 870,

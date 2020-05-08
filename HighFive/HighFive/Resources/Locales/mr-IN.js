@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mr-IN", true), {
+H5.merge(new System.Globalization.CultureInfo("mr-IN", true), {
     englishName: "Marathi (India)",
     nativeName: "मराठी (भारत)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mr-IN", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["रवि.","सोम.","मंगळ.","बुध.","गुरु.","शुक्र.","शनि."],
         abbreviatedMonthGenitiveNames: ["जाने.","फेब्रु.","मार्च","एप्रि","मे","जून","जुलै","ऑग.","सप्टें.","ऑक्टो.","नोव्हें.","डिसें.",""],
         abbreviatedMonthNames: ["जाने.","फेब्रु.","मार्च","एप्रि","मे","जून","जुलै","ऑग.","सप्टें.","ऑक्टो.","नोव्हें.","डिसें.",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mr-IN", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "mr-IN",
         EBCDICCodePage: 500,

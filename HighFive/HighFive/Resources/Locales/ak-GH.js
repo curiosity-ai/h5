@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("ak-GH", true), {
+H5.merge(new System.Globalization.CultureInfo("ak-GH", true), {
     englishName: "Akan (Ghana)",
     nativeName: "Akan (Gaana)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ak-GH", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Kwe","Dwo","Ben","Wuk","Yaw","Fia","Mem"],
         abbreviatedMonthGenitiveNames: ["S-Ɔ","K-Ɔ","E-Ɔ","E-O","E-K","O-A","A-K","D-Ɔ","F-Ɛ","Ɔ-A","Ɔ-O","M-Ɔ",""],
         abbreviatedMonthNames: ["S-Ɔ","K-Ɔ","E-Ɔ","E-O","E-K","O-A","A-K","D-Ɔ","F-Ɛ","Ɔ-A","Ɔ-O","M-Ɔ",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("ak-GH", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "ak-GH",
         EBCDICCodePage: 500,

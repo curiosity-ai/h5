@@ -1,4 +1,4 @@
-﻿namespace HighFive.Contract.Constants
+﻿namespace H5.Contract.Constants
 {
     using System.Collections.Generic;
 
@@ -6,7 +6,7 @@
     {
         public class NS
         {
-            public const string HIGHFIVE = "HighFive";
+            public const string HIGHFIVE = "H5";
         }
 
         public class Fields
@@ -38,31 +38,31 @@
 
         public class Funcs
         {
-            public const string HIGHFIVE_AUTO_STARTUP_METHOD_TEMPLATE = "HighFive.ready(this.{0});";
-            public const string HIGHFIVE_BIND = "HighFive.fn.bind";
-            public const string HIGHFIVE_CACHE_BIND = "HighFive.fn.cacheBind";
-            public const string HIGHFIVE_BIND_SCOPE = "HighFive.fn.bindScope";
-            public const string HIGHFIVE_CAST = "HighFive.cast";
-            public const string HIGHFIVE_CREATEINSTANCE = "HighFive.createInstance";
-            public const string HIGHFIVE_COMBINE = "HighFive.fn.combine";
-            public const string HIGHFIVE_REMOVE = "HighFive.fn.remove";
-            public const string HIGHFIVE_MERGE = "HighFive.merge";
-            public const string HIGHFIVE_IS_DEFINED = "HighFive.isDefined";
-            public const string HIGHFIVE_GET_ENUMERATOR = "HighFive.getEnumerator";
-            public const string HIGHFIVE_GET_TYPE = "HighFive.getType";
-            public const string HIGHFIVE_GET_I = "HighFive.geti";
-            public const string HIGHFIVE_NS = "HighFive.ns";
-            public const string HIGHFIVE_EQUALS = "HighFive.equals";
-            public const string HIGHFIVE_GETHASHCODE = "HighFive.getHashCode";
-            public const string HIGHFIVE_ADDHASH = "HighFive.addHash";
-            public const string HIGHFIVE_REFERENCEEQUALS = "HighFive.referenceEquals";
-            public const string HIGHFIVE_REF = "HighFive.ref";
-            public const string HIGHFIVE_GETDEFAULTVALUE = "HighFive." + GETDEFAULTVALUE;
-            public const string HIGHFIVE_EVENT = "HighFive.event";
-            public const string HIGHFIVE_PROPERTY = "HighFive.property";
-            public const string HIGHFIVE_TOPLAIN = "HighFive.toPlain";
-            public const string HIGHFIVE_HASVALUE = "HighFive.hasValue";
-            public const string HIGHFIVE_LITERAL = "HighFive.literal";
+            public const string HIGHFIVE_AUTO_STARTUP_METHOD_TEMPLATE = "H5.ready(this.{0});";
+            public const string HIGHFIVE_BIND = "H5.fn.bind";
+            public const string HIGHFIVE_CACHE_BIND = "H5.fn.cacheBind";
+            public const string HIGHFIVE_BIND_SCOPE = "H5.fn.bindScope";
+            public const string HIGHFIVE_CAST = "H5.cast";
+            public const string HIGHFIVE_CREATEINSTANCE = "H5.createInstance";
+            public const string HIGHFIVE_COMBINE = "H5.fn.combine";
+            public const string HIGHFIVE_REMOVE = "H5.fn.remove";
+            public const string HIGHFIVE_MERGE = "H5.merge";
+            public const string HIGHFIVE_IS_DEFINED = "H5.isDefined";
+            public const string HIGHFIVE_GET_ENUMERATOR = "H5.getEnumerator";
+            public const string HIGHFIVE_GET_TYPE = "H5.getType";
+            public const string HIGHFIVE_GET_I = "H5.geti";
+            public const string HIGHFIVE_NS = "H5.ns";
+            public const string HIGHFIVE_EQUALS = "H5.equals";
+            public const string HIGHFIVE_GETHASHCODE = "H5.getHashCode";
+            public const string HIGHFIVE_ADDHASH = "H5.addHash";
+            public const string HIGHFIVE_REFERENCEEQUALS = "H5.referenceEquals";
+            public const string HIGHFIVE_REF = "H5.ref";
+            public const string HIGHFIVE_GETDEFAULTVALUE = "H5." + GETDEFAULTVALUE;
+            public const string HIGHFIVE_EVENT = "H5.event";
+            public const string HIGHFIVE_PROPERTY = "H5.property";
+            public const string HIGHFIVE_TOPLAIN = "H5.toPlain";
+            public const string HIGHFIVE_HASVALUE = "H5.hasValue";
+            public const string HIGHFIVE_LITERAL = "H5.literal";
 
             public const string INITIALIZE = "$initialize";
             public const string INIT = "init";
@@ -151,8 +151,8 @@
             public const string SYSTEM_DECIMAL = "System.Decimal";
             public const string SYSTEM_NULLABLE = "System.Nullable";
             public const string TASK_COMPLETION_SOURCE = "System.Threading.Tasks.TaskCompletionSource";
-            public const string HIGHFIVE_IHighFiveClass = "HighFive.IHighFiveClass";
-            public const string HIGHFIVE_INT = "HighFive.Int";
+            public const string HIGHFIVE_IH5Class = "H5.IH5Class";
+            public const string HIGHFIVE_INT = "H5.Int";
             public const string HIGHFIVE_ANONYMOUS = "$AnonymousType$";
 
             public const string BOOLEAN = "Boolean";
@@ -166,7 +166,7 @@
             public const string Uint32Array = "Uint32Array";
             public const string Float32Array = "Float32Array";
             public const string Float64Array = "Float64Array";
-            public const string TypeRef = "HighFive.TypeRef";
+            public const string TypeRef = "H5.TypeRef";
 
             public class Number
             {
@@ -269,7 +269,7 @@
                 }
             }
 
-            public class HighFive
+            public class H5
             {
                 private const string DOTNAME = NS.HIGHFIVE + ".";
 
@@ -291,7 +291,7 @@
 
                 public class Generator
                 {
-                    public const string NAME = HighFive.DOTNAME + "GeneratorEnumerator";
+                    public const string NAME = H5.DOTNAME + "GeneratorEnumerator";
                     public const string NAME_GENERIC = NAME + "$1";
                     private const string DOTNAME = NAME + ".";
                     private const string DOTNAME_GENERIC = NAME_GENERIC + ".";
@@ -299,13 +299,13 @@
 
                 public class Global
                 {
-                    public const string NAME = HighFive.DOTNAME + "global";
+                    public const string NAME = H5.DOTNAME + "global";
                     public const string DOTNAME = NAME + ".";
                 }
 
                 public class Reflection
                 {
-                    public const string NAME = HighFive.DOTNAME + "Reflection";
+                    public const string NAME = H5.DOTNAME + "Reflection";
                     private const string DOTNAME = NAME + ".";
 
                     public const string APPLYCONSTRUCTOR = DOTNAME + "applyConstructor";
@@ -350,7 +350,7 @@
             public static readonly List<string> StaticNames = new List<string> { "name", "arguments", "caller", "length", "prototype", "ctor" };
             public static readonly string[] Words = new string[]
             {
-                "HighFive", "__proto__", "abstract", "arguments", "as", "boolean", "break", "byte", "case", "catch", "char",
+                "H5", "__proto__", "abstract", "arguments", "as", "boolean", "break", "byte", "case", "catch", "char",
                 "class", "continue", "const", "constructor", "ctor", "debugger", "default", "delete", "do", "double",
                 "else", "enum", "eval", "export", "extends", "false", "final", "finally", "float", "for", "function",
                 "goto", "if", "implements", "import", "in", "instanceof", "int", "interface", "let", "long", "namespace",

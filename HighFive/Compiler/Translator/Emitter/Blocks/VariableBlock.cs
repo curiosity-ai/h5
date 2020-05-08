@@ -1,9 +1,9 @@
-using HighFive.Contract;
-using HighFive.Contract.Constants;
+using H5.Contract;
+using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 
-namespace HighFive.Translator
+namespace H5.Translator
 {
     public class VariableBlock : AbstractEmitterBlock
     {
@@ -118,7 +118,7 @@ namespace HighFive.Translator
                     {
                         var typerr = this.Emitter.Resolver.ResolveNode(this.VariableDeclarationStatement.Type, this.Emitter).Type;
                         var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, this.Emitter);
-                        this.Write(string.Concat("new ", isGeneric ? "(" : "", HighFiveTypes.ToJsName(this.VariableDeclarationStatement.Type, this.Emitter), isGeneric ? ")" : "", "()"));
+                        this.Write(string.Concat("new ", isGeneric ? "(" : "", H5Types.ToJsName(this.VariableDeclarationStatement.Type, this.Emitter), isGeneric ? ")" : "", "()"));
                     }
                     this.Emitter.ReplaceAwaiterByVar = oldValue;
 

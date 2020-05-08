@@ -4,7 +4,7 @@
 
 namespace System.Security
 {
-    [HighFive.NonScriptable]
+    [H5.NonScriptable]
     [Obsolete("SecurityCriticalScope is only used for .NET 2.0 transparency compatibility.")]
     public enum SecurityCriticalScope
     {

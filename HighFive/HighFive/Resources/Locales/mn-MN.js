@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("mn-MN", true), {
+H5.merge(new System.Globalization.CultureInfo("mn-MN", true), {
     englishName: "Mongolian (Mongolia)",
     nativeName: "монгол (Монгол)",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mn-MN", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Ня","Да","Мя","Лх","Пү","Ба","Бя"],
         abbreviatedMonthGenitiveNames: ["1-р сар","2-р сар","3-р сар","4-р сар","5-р сар","6-р сар","7-р сар","8-р сар","9-р сар","10-р сар","11-р сар","12-р сар",""],
         abbreviatedMonthNames: ["1-р сар","2-р сар","3-р сар","4-р сар","5-р сар","6-р сар","7-р сар","8-р сар","9-р сар","10-р сар","11-р сар","12-р сар",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("mn-MN", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 1251,
         CultureName: "mn-MN",
         EBCDICCodePage: 20880,

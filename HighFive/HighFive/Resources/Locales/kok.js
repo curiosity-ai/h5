@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("kok", true), {
+H5.merge(new System.Globalization.CultureInfo("kok", true), {
     englishName: "Konkani",
     nativeName: "कोंकणी",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("kok", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["आय.","सोम.","मंगळ.","बुध.","बिरे.","सुक्र.","शेन."],
         abbreviatedMonthGenitiveNames: ["जाने","फेब्रु","मार्च","एप्रिल","मे","जून","जुलै","ऑग.","सप्टें.","ऑक्टो.","नोवे.","डिसें",""],
         abbreviatedMonthNames: ["जाने","फेब्रु","मार्च","एप्रिल","मे","जून","जुलै","ऑग.","सप्टें.","ऑक्टो.","नोवे.","डिसें",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("kok", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "kok-IN",
         EBCDICCodePage: 500,

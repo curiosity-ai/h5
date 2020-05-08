@@ -1,8 +1,8 @@
-HighFive.merge(new System.Globalization.CultureInfo("so", true), {
+H5.merge(new System.Globalization.CultureInfo("so", true), {
     englishName: "Somali",
     nativeName: "Soomaali",
 
-    numberFormat: HighFive.merge(new System.Globalization.NumberFormatInfo(), {
+    numberFormat: H5.merge(new System.Globalization.NumberFormatInfo(), {
         nanSymbol: "NaN",
         negativeSign: "-",
         positiveSign: "+",
@@ -29,7 +29,7 @@ HighFive.merge(new System.Globalization.CultureInfo("so", true), {
         numberNegativePattern: 1
     }),
 
-    dateTimeFormat: HighFive.merge(new System.Globalization.DateTimeFormatInfo(), {
+    dateTimeFormat: H5.merge(new System.Globalization.DateTimeFormatInfo(), {
         abbreviatedDayNames: ["Axd","Isn","Tal","Arb","Kha","Jim","Sab"],
         abbreviatedMonthGenitiveNames: ["Kob","Lab","Sad","Afr","Sha","Lix","Tod","Sid","Sag","Tob","KIT","LIT",""],
         abbreviatedMonthNames: ["Kob","Lab","Sad","Afr","Sha","Lix","Tod","Sid","Sag","Tob","KIT","LIT",""],
@@ -56,7 +56,7 @@ HighFive.merge(new System.Globalization.CultureInfo("so", true), {
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
     }),
 
-    TextInfo: HighFive.merge(new System.Globalization.TextInfo(), {
+    TextInfo: H5.merge(new System.Globalization.TextInfo(), {
         ANSICodePage: 0,
         CultureName: "so-SO",
         EBCDICCodePage: 500,

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HighFive.Contract
+namespace H5.Contract
 {
     public class TranslatorOutput
     {
@@ -28,12 +28,12 @@ namespace HighFive.Contract
             get; set;
         }
 
-        public Dictionary<HighFiveResourceInfoPart, string> CombinedResourcePartsNonMinified
+        public Dictionary<H5ResourceInfoPart, string> CombinedResourcePartsNonMinified
         {
             get; set;
         }
 
-        public Dictionary<HighFiveResourceInfoPart, string> CombinedResourcePartsMinified
+        public Dictionary<H5ResourceInfoPart, string> CombinedResourcePartsMinified
         {
             get; set;
         }

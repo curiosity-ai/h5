@@ -7,7 +7,7 @@
 using HighFive;
 using System;
 
-namespace H5
+namespace H5.Core
 {
     [AttributeUsage(AttributeTargets.Interface)]
     [Virtual]

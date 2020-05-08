@@ -6,7 +6,7 @@
 
 using HighFive;
 
-namespace H5
+namespace H5.Core
 {
     [IgnoreGeneric(AllowInTypeScript = true)]
     [IgnoreCast]

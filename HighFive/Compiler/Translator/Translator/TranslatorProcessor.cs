@@ -222,7 +222,7 @@ namespace HighFive.Translator
             if (loggerLevel <= LoggerLevel.None)
             {
                 logger.Info("    To enable detailed logging, configure \"logging\" in highfive.json.");
-                logger.Info("    https://github.com/highfivedotnet/HighFive/wiki/global-configuration#logging");
+                logger.Info("    https://github.com/curiosity-ai/h5/wiki/global-configuration#logging");
             }
 
             logger.LoggerLevel = loggerLevel;

@@ -2,7 +2,7 @@
  * @version   :  - HighFive.NET
  * @author    : Object.NET, Inc. http://highfive.net/
  * @copyright : Copyright 2008-2020 Object.NET, Inc. http://object.net/
- * @license   : See license.txt and https://github.com/highfivedotnet/HighFive/blob/master/LICENSE.md
+ * @license   : See license.txt and https://github.com/curiosity-ai/h5/blob/master/LICENSE.md
  */
 
     // @source Init.js

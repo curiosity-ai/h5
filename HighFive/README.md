@@ -46,23 +46,23 @@ Run the sample above at [Deck.NET](https://deck.net/helloworld).
 
 ## TL;DR
 
-* Read the [Getting Started](https://github.com/highfivedotnet/HighFive/wiki) Knowledge Base article
+* Read the [Getting Started](https://github.com/curiosity-ai/h5/wiki) Knowledge Base article
 * Try [Deck](https://deck.net/) if you want to play
 * Installation:
   * Add **HighFive.NET** Visual Studio extension, or 
   * Use [NuGet](https://www.nuget.org/packages/highfive) to install into a C# Class Library project (`Install-Package HighFive`), or
   * [Download](http://highfive.net/download/) the Visual Studio Code starter project
-* The [Attribute Reference](https://github.com/highfivedotnet/HighFive/wiki/attribute-reference) documentation is important
-* The [Global Configuration](https://github.com/highfivedotnet/HighFive/wiki/global-configuration) documentation is important
+* The [Attribute Reference](https://github.com/curiosity-ai/h5/wiki/attribute-reference) documentation is important
+* The [Global Configuration](https://github.com/curiosity-ai/h5/wiki/global-configuration) documentation is important
 * Check out [H5](https://retyped.com/) for 2400+ supported libraries ([demos](https://demos.retyped.com))
-* Licensed under [Apache License, Version 2.0](https://github.com/highfivedotnet/HighFive/blob/master/LICENSE.md)
-* Need Help? HighFive.NET [Forums](http://forums.highfive.net/) or GitHub [Issues](https://github.com/highfivedotnet/HighFive/issues)
+* Licensed under [Apache License, Version 2.0](https://github.com/curiosity-ai/h5/blob/master/LICENSE.md)
+* Need Help? HighFive.NET [Forums](http://forums.highfive.net/) or GitHub [Issues](https://github.com/curiosity-ai/h5/issues)
 * [@highfivedotnet](https://twitter.com/highfivedotnet) on Twitter
 * [Gitter](https://gitter.im/highfivedotnet/HighFive) for messaging
 
 ## Getting Started
 
-A great place to start if you're new to HighFive is reviewing the [Getting Started](https://github.com/highfivedotnet/HighFive/wiki) wiki.
+A great place to start if you're new to HighFive is reviewing the [Getting Started](https://github.com/curiosity-ai/h5/wiki) wiki.
 
 The easiest place to see HighFive in action is [Deck.NET](https://deck.net/). 
 
@@ -84,7 +84,7 @@ public class Program
 }
 ```
 
-The C# class above will be compiled into JavaScript and added to **/HighFive/ouput/demo.js** within your project. By default, HighFive will use the Namespace name as the file name. In this case: **demo.js**. There are many options to control the output of your JavaScript files, and the [Attribute Reference](https://github.com/highfivedotnet/HighFive/wiki/attribute-reference) is important [documentation](https://github.com/highfivedotnet/HighFive/wiki) to review.
+The C# class above will be compiled into JavaScript and added to **/HighFive/ouput/demo.js** within your project. By default, HighFive will use the Namespace name as the file name. In this case: **demo.js**. There are many options to control the output of your JavaScript files, and the [Attribute Reference](https://github.com/curiosity-ai/h5/wiki/attribute-reference) is important [documentation](https://github.com/curiosity-ai/h5/wiki) to review.
 
 ```javascript
 HighFive.define("Demo.Program", {
@@ -121,13 +121,13 @@ HighFive can also be installed using the NuGet Command Line tool by running the 
 Install-Package HighFive
 ```
 
-More information regarding Nuget package installation for HighFive is available in the [Documentation](https://github.com/highfivedotnet/HighFive/wiki/nuget-installation).
+More information regarding Nuget package installation for HighFive is available in the [Documentation](https://github.com/curiosity-ai/h5/wiki/nuget-installation).
 
 ## Contributing
 
-Interested in contributing to HighFive? Please see [CONTRIBUTING.md](https://github.com/highfivedotnet/HighFive/blob/master/.github/CONTRIBUTING.md).
+Interested in contributing to HighFive? Please see [CONTRIBUTING.md](https://github.com/curiosity-ai/h5/blob/master/.github/CONTRIBUTING.md).
 
-We also flag some Issues as [up-for-grabs](https://github.com/highfivedotnet/HighFive/issues?q=is%3Aopen+is%3Aissue+label%3Aup-for-grabs). These are generally easy introductions to the inner workings of HighFive, and are items we just haven't had time to implement. Your help is always appreciated.
+We also flag some Issues as [up-for-grabs](https://github.com/curiosity-ai/h5/issues?q=is%3Aopen+is%3Aissue+label%3Aup-for-grabs). These are generally easy introductions to the inner workings of HighFive, and are items we just haven't had time to implement. Your help is always appreciated.
 
 ## Badges
 
@@ -153,7 +153,7 @@ Show your support by adding a **built with HighFive.NET** badge to your projects
 
 We need your help spreading the word about HighFive. Any of the following items will help:
 
-1. Star the [HighFive](https://github.com/highfivedotnet/HighFive/) project on GitHub
+1. Star the [HighFive](https://github.com/curiosity-ai/h5/) project on GitHub
 1. Add a [Badge](#badges)
 1. Leave a review at [Visual Studio Gallery](https://marketplace.visualstudio.com/items?itemName=HighFiveNET.HighFiveNET)
 1. Blog about HighFive.NET
@@ -162,7 +162,7 @@ We need your help spreading the word about HighFive. Any of the following items 
 1. Answer HighFive related questions on [StackOverflow](http://stackoverflow.com/questions/tagged/highfive.net)
 1. Give a local usergroup presentation on HighFive
 1. Give a conference talk on HighFive
-1. Provide feedback ([forums](http://forums.highfive.net), [GitHub](https://github.com/highfivedotnet/HighFive/issues) or [email](mailto:hello@highfive.net))
+1. Provide feedback ([forums](http://forums.highfive.net), [GitHub](https://github.com/curiosity-ai/h5/issues) or [email](mailto:hello@highfive.net))
 
 ## Testing
 
@@ -176,4 +176,4 @@ HighFive is developed by the team at [Object.NET](http://object.net/). Framework
 
 **Apache License, Version 2.0**
 
-Please see [LICENSE](https://github.com/highfivedotnet/HighFive/blob/master/LICENSE.md) for details.
+Please see [LICENSE](https://github.com/curiosity-ai/h5/blob/master/LICENSE.md) for details.

@@ -301,7 +301,7 @@ namespace HighFive.Translator
 
                 foreach (var d in emitResult.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error))
                 {
-                    var filePath = d.Location?.SourceTree.FilePath ?? "";
+                    var filePath = d.Location?.SourceTree?.FilePath ?? "";
                     if (filePath.StartsWith(baseDir))
                     {
                         filePath = filePath.Substring(baseDir.Length + 1);

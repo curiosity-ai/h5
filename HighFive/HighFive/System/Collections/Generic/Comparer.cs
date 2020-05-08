@@ -4,8 +4,11 @@ namespace System.Collections.Generic
     [HighFive.External]
     public abstract class Comparer<T> : IComparer<T>
     {
-        [HighFive.Template("new (System.Collections.Generic.Comparer$1({T}))(System.Collections.Generic.Comparer$1.$default.fn)")]
-        public static extern Comparer<T> Default();
+        public static extern Comparer<T> Default
+        {
+            [HighFive.Template("new (System.Collections.Generic.Comparer$1({T}))(System.Collections.Generic.Comparer$1.$default.fn)")]
+            get;
+        }
 
         public abstract int Compare(T x, T y);
 

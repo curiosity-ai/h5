@@ -2,7 +2,7 @@
   "profiles": {
     "HighFive.Builder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"$(SolutionDir)HighFive\\HighFive\\HighFive.csproj\" -b \"$(SolutionDir)HighFive\\HighFive\\bin\\$(Configuration)\\netstandard2.0\\HighFive.dll\" -cfg \"$(Configuration)\" --platform \"$(Platform)\""
+      "commandLineArgs": "--rebuild -p \"$(SolutionDir)Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -b \"$(SolutionDir)bin\\HighFive.dll\" -cfg \"$(Configuration)\" --platform \"$(Platform)\""
     }
   }
 }

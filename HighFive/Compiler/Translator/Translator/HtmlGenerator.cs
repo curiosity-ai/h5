@@ -41,7 +41,7 @@ namespace HighFive.Translator
         }
 
         public void GenerateHtml(string outputPath)
-        {
+        {    
             this.Log.Trace("GenerateHtml...");
 
             if (this.Config.Html.Disabled)
@@ -50,7 +50,31 @@ namespace HighFive.Translator
                 return;
             }
 
-            var htmlTemplate = ReadEmbeddedResource("HighFive.Translator.Resources.HtmlTemplate.html");
+            var htmlTemplate = 
+@"
+
+<!DOCTYPE html>
+
+<html lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+    <meta charset='utf-8' />
+    <title>{title}</title>
+    {css}
+    {script}
+</head>
+<body>
+</body>
+</html>
+
+";
+                
+                
+                
+                
+                
+                
+                
+                //ReadEmbeddedResource("HighFive.Translator.Resources.HtmlTemplate.html");
             this.Log.Trace("Applying default html template");
 
             var tokenTitle = "{title}";

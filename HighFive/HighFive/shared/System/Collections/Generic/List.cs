@@ -383,7 +383,7 @@ namespace System.Collections.Generic
             }
             else
             {
-                EqualityComparer<T> c = EqualityComparer<T>.Default();
+                EqualityComparer<T> c = EqualityComparer<T>.Default;
                 for (int i = 0; i < _size; i++)
                 {
                     if (c.Equals(_items[i], item)) return true;

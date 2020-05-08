@@ -155,7 +155,7 @@ namespace HighFive.Translator
                 assemblyTitle = assemblyTitle.Trim();
             }
 
-            return assemblyTitle;
+            return assemblyTitle ?? this.AssemblyDefinition.Name.Name;
         }
 
         private void LogProductInfo()

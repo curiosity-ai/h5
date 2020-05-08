@@ -13,19 +13,13 @@ namespace H5.Primitive
   [Namespace(false)]
   public class String : Object, String.Interface, IObject
   {
-    private static readonly String _prototype_BackingField;
-    private readonly double _length_BackingField;
-
     public extern String();
 
     public extern String(object value);
 
     public static String prototype
     {
-      get
-      {
-        return String._prototype_BackingField;
-      }
+      get;
     }
 
     public static extern string Self();
@@ -114,10 +108,7 @@ namespace H5.Primitive
 
     public virtual double length
     {
-      get
-      {
-        return this._length_BackingField;
-      }
+      get;
     }
 
     public virtual extern string substr(double from);

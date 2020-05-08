@@ -14,19 +14,13 @@ namespace H5.Primitive
   [Namespace(false)]
   public class Object : Object.Interface, IObject
   {
-    private static readonly Object _prototype_BackingField;
-    private es5.Function _constructor_BackingField;
-
     public extern Object();
 
     public extern Object(object value);
 
     public static Object prototype
     {
-      get
-      {
-        return Object._prototype_BackingField;
-      }
+      get;
     }
 
     public static extern object Self();
@@ -78,14 +72,7 @@ namespace H5.Primitive
 
     public virtual es5.Function constructor
     {
-      get
-      {
-        return this._constructor_BackingField;
-      }
-      set
-      {
-        this._constructor_BackingField = value;
-      }
+      get; set;
     }
 
     public virtual extern string toString();

@@ -208,7 +208,7 @@ namespace System.Collections.Generic
         public LinkedListNode<T> Find(T value)
         {
             LinkedListNode<T> node = head;
-            EqualityComparer<T> c = EqualityComparer<T>.Default();
+            EqualityComparer<T> c = EqualityComparer<T>.Default;
             if (node != null)
             {
                 if (value != null)
@@ -243,7 +243,7 @@ namespace System.Collections.Generic
 
             LinkedListNode<T> last = head.prev;
             LinkedListNode<T> node = last;
-            EqualityComparer<T> c = EqualityComparer<T>.Default();
+            EqualityComparer<T> c = EqualityComparer<T>.Default;
             if (node != null)
             {
                 if (value != null)

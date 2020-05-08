@@ -91,19 +91,24 @@ namespace HighFive.Translator
 
             foreach (var path in locations)
             {
-                var ms = LoadAssemblyInMemoryStream(path);
-                var reference = AssemblyDefinition.ReadAssembly(
-                    ms,
-                    new ReaderParameters()
-                    {
-                        ReadingMode = ReadingMode.Deferred,
-                        AssemblyResolver = new CecilAssemblyResolver(this.Log, this.AssemblyLocation)
-                    }
-                );
-
-                if (reference != null && !references.Any(a => a.Name.Name == reference.Name.Name))
+                //using (
+                var ms = LoadAssemblyInTempStream(path);
+                    //)
                 {
-                    references.Add(reference);
+
+                    var reference = AssemblyDefinition.ReadAssembly(
+                        ms,
+                        new ReaderParameters()
+                        {
+                            ReadingMode = ReadingMode.Deferred,
+                            AssemblyResolver = new CecilAssemblyResolver(this.Log, this.AssemblyLocation)
+                        }
+                    );
+
+                    if (reference != null && !references.Any(a => a.Name.Name == reference.Name.Name))
+                    {
+                        references.Add(reference);
+                    }
                 }
             }
         }
@@ -122,74 +127,80 @@ namespace HighFive.Translator
 
             CurrentAssemblyLocationInspected.Push(location);
 
-            var ms = LoadAssemblyInMemoryStream(location);
+            //using (
+            var ms = LoadAssemblyInTempStream(location);
+                //)
+            {
+                var assemblyDefinition = AssemblyDefinition.ReadAssembly(
+                        ms,
+                        new ReaderParameters()
+                        {
+                            ReadingMode = ReadingMode.Deferred,
+                            AssemblyResolver = new CecilAssemblyResolver(this.Log, this.AssemblyLocation)
+                        }
+                    );
 
-            var assemblyDefinition = AssemblyDefinition.ReadAssembly(
-                    ms,
-                    new ReaderParameters()
+
+                foreach (AssemblyNameReference r in assemblyDefinition.MainModule.AssemblyReferences)
+                {
+                    var name = r.Name;
+
+                    if (name == SystemAssemblyName || name == "System.Core")
                     {
-                        ReadingMode = ReadingMode.Deferred,
-                        AssemblyResolver = new CecilAssemblyResolver(this.Log, this.AssemblyLocation)
+                        continue;
                     }
-                );
 
+                    var fullName = r.FullName;
 
-            foreach (AssemblyNameReference r in assemblyDefinition.MainModule.AssemblyReferences)
-            {
-                var name = r.Name;
+                    if (references.Any(a => a.Name.FullName == fullName))
+                    {
+                        continue;
+                    }
 
-                if (name == SystemAssemblyName || name == "System.Core")
-                {
-                    continue;
+                    var path = Path.Combine(Path.GetDirectoryName(location), name) + ".dll";
+
+                    var updateHighFiveLocation = name.ToLowerInvariant() == "highfive" && (string.IsNullOrWhiteSpace(this.HighFiveLocation) || !File.Exists(this.HighFiveLocation));
+
+                    if (updateHighFiveLocation)
+                    {
+                        this.HighFiveLocation = path;
+                    }
+
+                    var reference = this.LoadAssembly(path, references);
+
+                    if (reference != null && !references.Any(a => a.Name.FullName == reference.Name.FullName))
+                    {
+                        references.Add(reference);
+                    }
                 }
 
-                var fullName = r.FullName;
+                this.Log.Trace("Assembly definition loading " + (location ?? "") + " done");
 
-                if (references.Any(a => a.Name.FullName == fullName))
+                var cl = CurrentAssemblyLocationInspected.Pop();
+
+                if (cl != location)
                 {
-                    continue;
+                    throw new System.InvalidOperationException(string.Format("Current location {0} is not the current location in stack {1}", location, cl));
                 }
 
-                var path = Path.Combine(Path.GetDirectoryName(location), name) + ".dll";
-
-                var updateHighFiveLocation = name.ToLowerInvariant() == "highfive" && (string.IsNullOrWhiteSpace(this.HighFiveLocation) || !File.Exists(this.HighFiveLocation));
-
-                if (updateHighFiveLocation)
-                {
-                    this.HighFiveLocation = path;
-                }
-
-                var reference = this.LoadAssembly(path, references);
-
-                if (reference != null && !references.Any(a => a.Name.FullName == reference.Name.FullName))
-                {
-                    references.Add(reference);
-                }
+                return assemblyDefinition;
             }
-
-            this.Log.Trace("Assembly definition loading " + (location ?? "") + " done");
-
-            var cl = CurrentAssemblyLocationInspected.Pop();
-
-            if (cl != location)
-            {
-                throw new System.InvalidOperationException(string.Format("Current location {0} is not the current location in stack {1}", location, cl));
-            }
-
-            return assemblyDefinition;
         }
 
-        private static MemoryStream LoadAssemblyInMemoryStream(string location)
+        private static Stream LoadAssemblyInTempStream(string location)
         {
-            var ms = new MemoryStream();
-            using (var file = File.OpenRead(location))
-            {
-                file.CopyTo(ms);
-                file.Close();
-                ms.Seek(0, SeekOrigin.Begin);
-            }
+            return File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
-            return ms;
+            //return File.OpenRead(location);
+            //var ms = new MemoryStream();
+            //using (var file = File.OpenRead(location))
+            //{
+            //    file.CopyTo(ms);
+            //    file.Close();
+            //    ms.Seek(0, SeekOrigin.Begin);
+            //}
+
+            //return ms;
         }
 
         protected virtual void ReadTypes(AssemblyDefinition assembly)

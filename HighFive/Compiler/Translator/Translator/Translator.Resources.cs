@@ -475,11 +475,17 @@ namespace HighFive.Translator
             var assemblyLocation = this.AssemblyLocation;
 
             this.Log.Trace("Writing resources into " + assemblyLocation);
-            assemblyDef.Write(assemblyLocation);
+            Console.WriteLine("Writing resources into " + assemblyLocation);
+            using (var s = File.Open(assemblyLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+            {
+                assemblyDef.Write(s);
+                s.Flush();
+                s.Close();
+            }
             this.Log.Trace("Wrote resources into " + assemblyLocation);
 
             this.Log.Trace("Done embedding resources");
-        }
+        } 
 
         private void CheckIfResourceExistsAndRemove(Mono.Collections.Generic.Collection<Resource> resources, string resourceName)
         {

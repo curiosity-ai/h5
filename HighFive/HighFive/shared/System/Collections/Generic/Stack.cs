@@ -75,7 +75,7 @@ namespace System.Collections.Generic
         {
             int count = _size;
 
-            EqualityComparer<T> c = EqualityComparer<T>.Default();
+            EqualityComparer<T> c = EqualityComparer<T>.Default;
             while (count-- > 0)
             {
                 if (item == null)

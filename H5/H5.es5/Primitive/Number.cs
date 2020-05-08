@@ -13,63 +13,38 @@ namespace H5.Primitive
   [Namespace(false)]
   public class Number : Object, Number.Interface, IObject
   {
-    private static readonly Number _prototype_BackingField;
-    private static readonly double _MAX_VALUE_BackingField;
-    private static readonly double _MIN_VALUE_BackingField;
-    private static readonly double _NaN_BackingField;
-    private static readonly double _NEGATIVE_INFINITY_BackingField;
-    private static readonly double _POSITIVE_INFINITY_BackingField;
-
     public extern Number();
 
     public extern Number(object value);
 
     public static Number prototype
     {
-      get
-      {
-        return Number._prototype_BackingField;
-      }
+      get;
     }
 
     public static double MAX_VALUE
     {
-      get
-      {
-        return Number._MAX_VALUE_BackingField;
-      }
+      get;
     }
 
     public static double MIN_VALUE
     {
-      get
-      {
-        return Number._MIN_VALUE_BackingField;
-      }
+      get;
     }
 
     public static double NaN
     {
-      get
-      {
-        return Number._NaN_BackingField;
-      }
+      get;
     }
 
     public static double NEGATIVE_INFINITY
     {
-      get
-      {
-        return Number._NEGATIVE_INFINITY_BackingField;
-      }
+      get;
     }
 
     public static double POSITIVE_INFINITY
     {
-      get
-      {
-        return Number._POSITIVE_INFINITY_BackingField;
-      }
+      get;
     }
 
     public static extern double Self();

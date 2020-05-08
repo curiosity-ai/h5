@@ -13,18 +13,13 @@ namespace H5.Primitive
   [Namespace(false)]
   public class Boolean : Object, Boolean.Interface, IObject
   {
-    private static readonly Boolean _prototype_BackingField;
-
     public extern Boolean();
 
     public extern Boolean(object value);
 
     public static Boolean prototype
     {
-      get
-      {
-        return Boolean._prototype_BackingField;
-      }
+      get;
     }
 
     public static extern bool Self();

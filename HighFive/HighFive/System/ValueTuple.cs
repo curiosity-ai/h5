@@ -21,7 +21,7 @@ namespace System
     public struct ValueTuple<T1>
         : IEquatable<ValueTuple<T1>>, IStructuralEquatable, IStructuralComparable, IComparable, IComparable<ValueTuple<T1>>, ITupleInternal
     {
-        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default();
+        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default;
 
         /// <summary>
         /// The current <see cref="ValueTuple{T1}"/> instance's first component.
@@ -90,7 +90,7 @@ namespace System
 
             var objTuple = (ValueTuple<T1>)other;
 
-            return Comparer<T1>.Default().Compare(Item1, objTuple.Item1);
+            return Comparer<T1>.Default.Compare(Item1, objTuple.Item1);
         }
 
         /// <summary>Compares this instance to a specified instance and returns an indication of their relative values.</summary>
@@ -103,7 +103,7 @@ namespace System
         /// </returns>
         public int CompareTo(ValueTuple<T1> other)
         {
-            return Comparer<T1>.Default().Compare(Item1, other.Item1);
+            return Comparer<T1>.Default.Compare(Item1, other.Item1);
         }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)
@@ -169,8 +169,8 @@ namespace System
     public struct ValueTuple<T1, T2>
         : IEquatable<ValueTuple<T1, T2>>, IStructuralEquatable, IStructuralComparable, IComparable, IComparable<ValueTuple<T1, T2>>, ITupleInternal
     {
-        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default();
-        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default();
+        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default;
+        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default;
 
         /// <summary>
         /// The current <see cref="ValueTuple{T1, T2}"/> instance's first component.
@@ -277,10 +277,10 @@ namespace System
         /// </returns>
         public int CompareTo(ValueTuple<T1, T2> other)
         {
-            int c = Comparer<T1>.Default().Compare(Item1, other.Item1);
+            int c = Comparer<T1>.Default.Compare(Item1, other.Item1);
             if (c != 0) return c;
 
-            return Comparer<T2>.Default().Compare(Item2, other.Item2);
+            return Comparer<T2>.Default.Compare(Item2, other.Item2);
         }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)
@@ -358,9 +358,9 @@ namespace System
     public struct ValueTuple<T1, T2, T3>
         : IEquatable<ValueTuple<T1, T2, T3>>, IStructuralEquatable, IStructuralComparable, IComparable, IComparable<ValueTuple<T1, T2, T3>>, ITupleInternal
     {
-        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default();
-        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default();
-        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default();
+        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default;
+        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default;
+        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default;
 
         /// <summary>
         /// The current <see cref="ValueTuple{T1, T2, T3}"/> instance's first component.
@@ -456,13 +456,13 @@ namespace System
         /// </returns>
         public int CompareTo(ValueTuple<T1, T2, T3> other)
         {
-            int c = Comparer<T1>.Default().Compare(Item1, other.Item1);
+            int c = Comparer<T1>.Default.Compare(Item1, other.Item1);
             if (c != 0) return c;
 
-            c = Comparer<T2>.Default().Compare(Item2, other.Item2);
+            c = Comparer<T2>.Default.Compare(Item2, other.Item2);
             if (c != 0) return c;
 
-            return Comparer<T3>.Default().Compare(Item3, other.Item3);
+            return Comparer<T3>.Default.Compare(Item3, other.Item3);
         }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)
@@ -544,10 +544,10 @@ namespace System
     public struct ValueTuple<T1, T2, T3, T4>
         : IEquatable<ValueTuple<T1, T2, T3, T4>>, IStructuralEquatable, IStructuralComparable, IComparable, IComparable<ValueTuple<T1, T2, T3, T4>>, ITupleInternal
     {
-        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default();
-        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default();
-        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default();
-        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default();
+        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default;
+        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default;
+        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default;
+        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default;
 
         /// <summary>
         /// The current <see cref="ValueTuple{T1, T2, T3, T4}"/> instance's first component.
@@ -651,16 +651,16 @@ namespace System
         /// </returns>
         public int CompareTo(ValueTuple<T1, T2, T3, T4> other)
         {
-            int c = Comparer<T1>.Default().Compare(Item1, other.Item1);
+            int c = Comparer<T1>.Default.Compare(Item1, other.Item1);
             if (c != 0) return c;
 
-            c = Comparer<T2>.Default().Compare(Item2, other.Item2);
+            c = Comparer<T2>.Default.Compare(Item2, other.Item2);
             if (c != 0) return c;
 
-            c = Comparer<T3>.Default().Compare(Item3, other.Item3);
+            c = Comparer<T3>.Default.Compare(Item3, other.Item3);
             if (c != 0) return c;
 
-            return Comparer<T4>.Default().Compare(Item4, other.Item4);
+            return Comparer<T4>.Default.Compare(Item4, other.Item4);
         }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)
@@ -748,11 +748,11 @@ namespace System
     public struct ValueTuple<T1, T2, T3, T4, T5>
         : IEquatable<ValueTuple<T1, T2, T3, T4, T5>>, IStructuralEquatable, IStructuralComparable, IComparable, IComparable<ValueTuple<T1, T2, T3, T4, T5>>, ITupleInternal
     {
-        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default();
-        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default();
-        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default();
-        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default();
-        private static EqualityComparer<T5> s_t5Comparer => EqualityComparer<T5>.Default();
+        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default;
+        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default;
+        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default;
+        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default;
+        private static EqualityComparer<T5> s_t5Comparer => EqualityComparer<T5>.Default;
 
         /// <summary>
         /// The current <see cref="ValueTuple{T1, T2, T3, T4, T5}"/> instance's first component.
@@ -864,19 +864,19 @@ namespace System
         /// </returns>
         public int CompareTo(ValueTuple<T1, T2, T3, T4, T5> other)
         {
-            int c = Comparer<T1>.Default().Compare(Item1, other.Item1);
+            int c = Comparer<T1>.Default.Compare(Item1, other.Item1);
             if (c != 0) return c;
 
-            c = Comparer<T2>.Default().Compare(Item2, other.Item2);
+            c = Comparer<T2>.Default.Compare(Item2, other.Item2);
             if (c != 0) return c;
 
-            c = Comparer<T3>.Default().Compare(Item3, other.Item3);
+            c = Comparer<T3>.Default.Compare(Item3, other.Item3);
             if (c != 0) return c;
 
-            c = Comparer<T4>.Default().Compare(Item4, other.Item4);
+            c = Comparer<T4>.Default.Compare(Item4, other.Item4);
             if (c != 0) return c;
 
-            return Comparer<T5>.Default().Compare(Item5, other.Item5);
+            return Comparer<T5>.Default.Compare(Item5, other.Item5);
         }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)
@@ -970,12 +970,12 @@ namespace System
     public struct ValueTuple<T1, T2, T3, T4, T5, T6>
         : IEquatable<ValueTuple<T1, T2, T3, T4, T5, T6>>, IStructuralEquatable, IStructuralComparable, IComparable, IComparable<ValueTuple<T1, T2, T3, T4, T5, T6>>, ITupleInternal
     {
-        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default();
-        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default();
-        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default();
-        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default();
-        private static EqualityComparer<T5> s_t5Comparer => EqualityComparer<T5>.Default();
-        private static EqualityComparer<T6> s_t6Comparer => EqualityComparer<T6>.Default();
+        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default;
+        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default;
+        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default;
+        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default;
+        private static EqualityComparer<T5> s_t5Comparer => EqualityComparer<T5>.Default;
+        private static EqualityComparer<T6> s_t6Comparer => EqualityComparer<T6>.Default;
 
         /// <summary>
         /// The current <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/> instance's first component.
@@ -1095,22 +1095,22 @@ namespace System
         /// </returns>
         public int CompareTo(ValueTuple<T1, T2, T3, T4, T5, T6> other)
         {
-            int c = Comparer<T1>.Default().Compare(Item1, other.Item1);
+            int c = Comparer<T1>.Default.Compare(Item1, other.Item1);
             if (c != 0) return c;
 
-            c = Comparer<T2>.Default().Compare(Item2, other.Item2);
+            c = Comparer<T2>.Default.Compare(Item2, other.Item2);
             if (c != 0) return c;
 
-            c = Comparer<T3>.Default().Compare(Item3, other.Item3);
+            c = Comparer<T3>.Default.Compare(Item3, other.Item3);
             if (c != 0) return c;
 
-            c = Comparer<T4>.Default().Compare(Item4, other.Item4);
+            c = Comparer<T4>.Default.Compare(Item4, other.Item4);
             if (c != 0) return c;
 
-            c = Comparer<T5>.Default().Compare(Item5, other.Item5);
+            c = Comparer<T5>.Default.Compare(Item5, other.Item5);
             if (c != 0) return c;
 
-            return Comparer<T6>.Default().Compare(Item6, other.Item6);
+            return Comparer<T6>.Default.Compare(Item6, other.Item6);
         }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)
@@ -1210,13 +1210,13 @@ namespace System
     public struct ValueTuple<T1, T2, T3, T4, T5, T6, T7>
         : IEquatable<ValueTuple<T1, T2, T3, T4, T5, T6, T7>>, IStructuralEquatable, IStructuralComparable, IComparable, IComparable<ValueTuple<T1, T2, T3, T4, T5, T6, T7>>, ITupleInternal
     {
-        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default();
-        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default();
-        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default();
-        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default();
-        private static EqualityComparer<T5> s_t5Comparer => EqualityComparer<T5>.Default();
-        private static EqualityComparer<T6> s_t6Comparer => EqualityComparer<T6>.Default();
-        private static EqualityComparer<T7> s_t7Comparer => EqualityComparer<T7>.Default();
+        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default;
+        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default;
+        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default;
+        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default;
+        private static EqualityComparer<T5> s_t5Comparer => EqualityComparer<T5>.Default;
+        private static EqualityComparer<T6> s_t6Comparer => EqualityComparer<T6>.Default;
+        private static EqualityComparer<T7> s_t7Comparer => EqualityComparer<T7>.Default;
 
         /// <summary>
         /// The current <see cref="ValueTuple{T1, T2, T3, T4, T5, T6, T7}"/> instance's first component.
@@ -1344,25 +1344,25 @@ namespace System
         /// </returns>
         public int CompareTo(ValueTuple<T1, T2, T3, T4, T5, T6, T7> other)
         {
-            int c = Comparer<T1>.Default().Compare(Item1, other.Item1);
+            int c = Comparer<T1>.Default.Compare(Item1, other.Item1);
             if (c != 0) return c;
 
-            c = Comparer<T2>.Default().Compare(Item2, other.Item2);
+            c = Comparer<T2>.Default.Compare(Item2, other.Item2);
             if (c != 0) return c;
 
-            c = Comparer<T3>.Default().Compare(Item3, other.Item3);
+            c = Comparer<T3>.Default.Compare(Item3, other.Item3);
             if (c != 0) return c;
 
-            c = Comparer<T4>.Default().Compare(Item4, other.Item4);
+            c = Comparer<T4>.Default.Compare(Item4, other.Item4);
             if (c != 0) return c;
 
-            c = Comparer<T5>.Default().Compare(Item5, other.Item5);
+            c = Comparer<T5>.Default.Compare(Item5, other.Item5);
             if (c != 0) return c;
 
-            c = Comparer<T6>.Default().Compare(Item6, other.Item6);
+            c = Comparer<T6>.Default.Compare(Item6, other.Item6);
             if (c != 0) return c;
 
-            return Comparer<T7>.Default().Compare(Item7, other.Item7);
+            return Comparer<T7>.Default.Compare(Item7, other.Item7);
         }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)
@@ -1469,14 +1469,14 @@ namespace System
         : IEquatable<ValueTuple<T1, T2, T3, T4, T5, T6, T7, TRest>>, IStructuralEquatable, IStructuralComparable, IComparable, IComparable<ValueTuple<T1, T2, T3, T4, T5, T6, T7, TRest>>, ITupleInternal
         where TRest : struct
     {
-        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default();
-        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default();
-        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default();
-        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default();
-        private static EqualityComparer<T5> s_t5Comparer => EqualityComparer<T5>.Default();
-        private static EqualityComparer<T6> s_t6Comparer => EqualityComparer<T6>.Default();
-        private static EqualityComparer<T7> s_t7Comparer => EqualityComparer<T7>.Default();
-        private static EqualityComparer<TRest> s_tRestComparer => EqualityComparer<TRest>.Default();
+        private static EqualityComparer<T1> s_t1Comparer => EqualityComparer<T1>.Default;
+        private static EqualityComparer<T2> s_t2Comparer => EqualityComparer<T2>.Default;
+        private static EqualityComparer<T3> s_t3Comparer => EqualityComparer<T3>.Default;
+        private static EqualityComparer<T4> s_t4Comparer => EqualityComparer<T4>.Default;
+        private static EqualityComparer<T5> s_t5Comparer => EqualityComparer<T5>.Default;
+        private static EqualityComparer<T6> s_t6Comparer => EqualityComparer<T6>.Default;
+        private static EqualityComparer<T7> s_t7Comparer => EqualityComparer<T7>.Default;
+        private static EqualityComparer<TRest> s_tRestComparer => EqualityComparer<TRest>.Default;
 
         /// <summary>
         /// The current <see cref="ValueTuple{T1, T2, T3, T4, T5, T6, T7, TRest}"/> instance's first component.
@@ -1617,28 +1617,28 @@ namespace System
         /// </returns>
         public int CompareTo(ValueTuple<T1, T2, T3, T4, T5, T6, T7, TRest> other)
         {
-            int c = Comparer<T1>.Default().Compare(Item1, other.Item1);
+            int c = Comparer<T1>.Default.Compare(Item1, other.Item1);
             if (c != 0) return c;
 
-            c = Comparer<T2>.Default().Compare(Item2, other.Item2);
+            c = Comparer<T2>.Default.Compare(Item2, other.Item2);
             if (c != 0) return c;
 
-            c = Comparer<T3>.Default().Compare(Item3, other.Item3);
+            c = Comparer<T3>.Default.Compare(Item3, other.Item3);
             if (c != 0) return c;
 
-            c = Comparer<T4>.Default().Compare(Item4, other.Item4);
+            c = Comparer<T4>.Default.Compare(Item4, other.Item4);
             if (c != 0) return c;
 
-            c = Comparer<T5>.Default().Compare(Item5, other.Item5);
+            c = Comparer<T5>.Default.Compare(Item5, other.Item5);
             if (c != 0) return c;
 
-            c = Comparer<T6>.Default().Compare(Item6, other.Item6);
+            c = Comparer<T6>.Default.Compare(Item6, other.Item6);
             if (c != 0) return c;
 
-            c = Comparer<T7>.Default().Compare(Item7, other.Item7);
+            c = Comparer<T7>.Default.Compare(Item7, other.Item7);
             if (c != 0) return c;
 
-            return Comparer<TRest>.Default().Compare(Rest, other.Rest);
+            return Comparer<TRest>.Default.Compare(Rest, other.Rest);
         }
 
         int IStructuralComparable.CompareTo(object other, IComparer comparer)

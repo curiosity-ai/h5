@@ -13,7 +13,7 @@ namespace H5.Primitive
   [Virtual]
   public abstract class This<T>
   {
-    private readonly T \u003CValue\u003Ek__BackingField;
+    private readonly T _Value_BackingField;
 
     private extern This();
 
@@ -21,7 +21,7 @@ namespace H5.Primitive
     {
       [Template("{this}")] get
       {
-        return this.\u003CValue\u003Ek__BackingField;
+        return this._Value_BackingField;
       }
     }
 

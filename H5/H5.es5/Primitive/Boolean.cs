@@ -13,7 +13,7 @@ namespace H5.Primitive
   [Namespace(false)]
   public class Boolean : Object, Boolean.Interface, IObject
   {
-    private static readonly Boolean \u003Cprototype\u003Ek__BackingField;
+    private static readonly Boolean _prototype_BackingField;
 
     public extern Boolean();
 
@@ -23,7 +23,7 @@ namespace H5.Primitive
     {
       get
       {
-        return Boolean.\u003Cprototype\u003Ek__BackingField;
+        return Boolean._prototype_BackingField;
       }
     }
 

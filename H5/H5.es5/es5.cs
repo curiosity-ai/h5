@@ -50,22 +50,22 @@ namespace H5
     [FormerInterface]
     public class PropertyDescriptor : IObject
     {
-      private bool? \u003Cconfigurable\u003Ek__BackingField;
-      private bool? \u003Cenumerable\u003Ek__BackingField;
-      private object \u003Cvalue\u003Ek__BackingField;
-      private bool? \u003Cwritable\u003Ek__BackingField;
-      private Func<object> \u003Cget\u003Ek__BackingField;
-      private es5.PropertyDescriptor.setFn \u003Cset\u003Ek__BackingField;
+      private bool? _configurable_BackingField;
+      private bool? _enumerable_BackingField;
+      private object _value_BackingField;
+      private bool? _writable_BackingField;
+      private Func<object> _get_BackingField;
+      private es5.PropertyDescriptor.setFn _set_BackingField;
 
       public bool? configurable
       {
         get
         {
-          return this.\u003Cconfigurable\u003Ek__BackingField;
+          return this._configurable_BackingField;
         }
         set
         {
-          this.\u003Cconfigurable\u003Ek__BackingField = value;
+          this._configurable_BackingField = value;
         }
       }
 
@@ -73,11 +73,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cenumerable\u003Ek__BackingField;
+          return this._enumerable_BackingField;
         }
         set
         {
-          this.\u003Cenumerable\u003Ek__BackingField = value;
+          this._enumerable_BackingField = value;
         }
       }
 
@@ -85,11 +85,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cvalue\u003Ek__BackingField;
+          return this._value_BackingField;
         }
         set
         {
-          this.\u003Cvalue\u003Ek__BackingField = value;
+          this._value_BackingField = value;
         }
       }
 
@@ -97,11 +97,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cwritable\u003Ek__BackingField;
+          return this._writable_BackingField;
         }
         set
         {
-          this.\u003Cwritable\u003Ek__BackingField = value;
+          this._writable_BackingField = value;
         }
       }
 
@@ -109,11 +109,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cget\u003Ek__BackingField;
+          return this._get_BackingField;
         }
         set
         {
-          this.\u003Cget\u003Ek__BackingField = value;
+          this._get_BackingField = value;
         }
       }
 
@@ -121,11 +121,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cset\u003Ek__BackingField;
+          return this._set_BackingField;
         }
         set
         {
-          this.\u003Cset\u003Ek__BackingField = value;
+          this._set_BackingField = value;
         }
       }
 
@@ -146,11 +146,11 @@ namespace H5
     [FormerInterface]
     public class Function : IObject
     {
-      private static readonly es5.Function \u003Cprototype_Static\u003Ek__BackingField;
-      private object \u003Cprototype\u003Ek__BackingField;
-      private readonly double \u003Clength\u003Ek__BackingField;
-      private object \u003Carguments\u003Ek__BackingField;
-      private es5.Function \u003Ccaller\u003Ek__BackingField;
+      private static readonly es5.Function _prototype_Static_BackingField;
+      private object _prototype_BackingField;
+      private readonly double _length_BackingField;
+      private object _arguments_BackingField;
+      private es5.Function _caller_BackingField;
 
       [ExpandParams]
       public extern Function(params string[] args);
@@ -160,7 +160,7 @@ namespace H5
       {
         get
         {
-          return es5.Function.\u003Cprototype_Static\u003Ek__BackingField;
+          return es5.Function._prototype_Static_BackingField;
         }
       }
 
@@ -187,11 +187,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cprototype\u003Ek__BackingField;
+          return this._prototype_BackingField;
         }
         set
         {
-          this.\u003Cprototype\u003Ek__BackingField = value;
+          this._prototype_BackingField = value;
         }
       }
 
@@ -199,7 +199,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -207,11 +207,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Carguments\u003Ek__BackingField;
+          return this._arguments_BackingField;
         }
         set
         {
-          this.\u003Carguments\u003Ek__BackingField = value;
+          this._arguments_BackingField = value;
         }
       }
 
@@ -219,11 +219,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Ccaller\u003Ek__BackingField;
+          return this._caller_BackingField;
         }
         set
         {
-          this.\u003Ccaller\u003Ek__BackingField = value;
+          this._caller_BackingField = value;
         }
       }
 
@@ -249,8 +249,8 @@ namespace H5
     [FormerInterface]
     public class IArguments : IObject
     {
-      private double \u003Clength\u003Ek__BackingField;
-      private es5.Function \u003Ccallee\u003Ek__BackingField;
+      private double _length_BackingField;
+      private es5.Function _callee_BackingField;
 
       public virtual extern object this[double index] { get; set; }
 
@@ -258,11 +258,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
         set
         {
-          this.\u003Clength\u003Ek__BackingField = value;
+          this._length_BackingField = value;
         }
       }
 
@@ -270,11 +270,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Ccallee\u003Ek__BackingField;
+          return this._callee_BackingField;
         }
         set
         {
-          this.\u003Ccallee\u003Ek__BackingField = value;
+          this._callee_BackingField = value;
         }
       }
     }
@@ -291,20 +291,20 @@ namespace H5
     [StaticInterface("Math.Interface")]
     public static class Math
     {
-      private static readonly double \u003CE\u003Ek__BackingField;
-      private static readonly double \u003CLN10\u003Ek__BackingField;
-      private static readonly double \u003CLN2\u003Ek__BackingField;
-      private static readonly double \u003CLOG2E\u003Ek__BackingField;
-      private static readonly double \u003CLOG10E\u003Ek__BackingField;
-      private static readonly double \u003CPI\u003Ek__BackingField;
-      private static readonly double \u003CSQRT1_2\u003Ek__BackingField;
-      private static readonly double \u003CSQRT2\u003Ek__BackingField;
+      private static readonly double _E_BackingField;
+      private static readonly double _LN10_BackingField;
+      private static readonly double _LN2_BackingField;
+      private static readonly double _LOG2E_BackingField;
+      private static readonly double _LOG10E_BackingField;
+      private static readonly double _PI_BackingField;
+      private static readonly double _SQRT1_2_BackingField;
+      private static readonly double _SQRT2_BackingField;
 
       public static double E
       {
         get
         {
-          return es5.Math.\u003CE\u003Ek__BackingField;
+          return es5.Math._E_BackingField;
         }
       }
 
@@ -312,7 +312,7 @@ namespace H5
       {
         get
         {
-          return es5.Math.\u003CLN10\u003Ek__BackingField;
+          return es5.Math._LN10_BackingField;
         }
       }
 
@@ -320,7 +320,7 @@ namespace H5
       {
         get
         {
-          return es5.Math.\u003CLN2\u003Ek__BackingField;
+          return es5.Math._LN2_BackingField;
         }
       }
 
@@ -328,7 +328,7 @@ namespace H5
       {
         get
         {
-          return es5.Math.\u003CLOG2E\u003Ek__BackingField;
+          return es5.Math._LOG2E_BackingField;
         }
       }
 
@@ -336,7 +336,7 @@ namespace H5
       {
         get
         {
-          return es5.Math.\u003CLOG10E\u003Ek__BackingField;
+          return es5.Math._LOG10E_BackingField;
         }
       }
 
@@ -344,7 +344,7 @@ namespace H5
       {
         get
         {
-          return es5.Math.\u003CPI\u003Ek__BackingField;
+          return es5.Math._PI_BackingField;
         }
       }
 
@@ -352,7 +352,7 @@ namespace H5
       {
         get
         {
-          return es5.Math.\u003CSQRT1_2\u003Ek__BackingField;
+          return es5.Math._SQRT1_2_BackingField;
         }
       }
 
@@ -360,7 +360,7 @@ namespace H5
       {
         get
         {
-          return es5.Math.\u003CSQRT2\u003Ek__BackingField;
+          return es5.Math._SQRT2_BackingField;
         }
       }
 
@@ -469,7 +469,7 @@ namespace H5
     [FormerInterface]
     public class Date : IObject
     {
-      private static readonly es5.Date \u003Cprototype\u003Ek__BackingField;
+      private static readonly es5.Date _prototype_BackingField;
 
       public extern Date();
 
@@ -506,7 +506,7 @@ namespace H5
       {
         get
         {
-          return es5.Date.\u003Cprototype\u003Ek__BackingField;
+          return es5.Date._prototype_BackingField;
         }
       }
 
@@ -808,18 +808,18 @@ namespace H5
     [FormerInterface]
     public class RegExpMatchArray : es5.Array<string>
     {
-      private double? \u003Cindex\u003Ek__BackingField;
-      private string \u003Cinput\u003Ek__BackingField;
+      private double? _index_BackingField;
+      private string _input_BackingField;
 
       public virtual double? index
       {
         get
         {
-          return this.\u003Cindex\u003Ek__BackingField;
+          return this._index_BackingField;
         }
         set
         {
-          this.\u003Cindex\u003Ek__BackingField = value;
+          this._index_BackingField = value;
         }
       }
 
@@ -827,11 +827,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cinput\u003Ek__BackingField;
+          return this._input_BackingField;
         }
         set
         {
-          this.\u003Cinput\u003Ek__BackingField = value;
+          this._input_BackingField = value;
         }
       }
     }
@@ -841,18 +841,18 @@ namespace H5
     [FormerInterface]
     public class RegExpExecArray : es5.Array<string>
     {
-      private double \u003Cindex\u003Ek__BackingField;
-      private string \u003Cinput\u003Ek__BackingField;
+      private double _index_BackingField;
+      private string _input_BackingField;
 
       public virtual double index
       {
         get
         {
-          return this.\u003Cindex\u003Ek__BackingField;
+          return this._index_BackingField;
         }
         set
         {
-          this.\u003Cindex\u003Ek__BackingField = value;
+          this._index_BackingField = value;
         }
       }
 
@@ -860,11 +860,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cinput\u003Ek__BackingField;
+          return this._input_BackingField;
         }
         set
         {
-          this.\u003Cinput\u003Ek__BackingField = value;
+          this._input_BackingField = value;
         }
       }
     }
@@ -874,22 +874,22 @@ namespace H5
     [FormerInterface]
     public class RegExp : IObject
     {
-      private static readonly es5.RegExp \u003Cprototype\u003Ek__BackingField;
-      private static string \u003CDollar1\u003Ek__BackingField;
-      private static string \u003CDollar2\u003Ek__BackingField;
-      private static string \u003CDollar3\u003Ek__BackingField;
-      private static string \u003CDollar4\u003Ek__BackingField;
-      private static string \u003CDollar5\u003Ek__BackingField;
-      private static string \u003CDollar6\u003Ek__BackingField;
-      private static string \u003CDollar7\u003Ek__BackingField;
-      private static string \u003CDollar8\u003Ek__BackingField;
-      private static string \u003CDollar9\u003Ek__BackingField;
-      private static string \u003ClastMatch\u003Ek__BackingField;
-      private readonly string \u003Csource\u003Ek__BackingField;
-      private readonly bool \u003Cglobal\u003Ek__BackingField;
-      private readonly bool \u003CignoreCase\u003Ek__BackingField;
-      private readonly bool \u003Cmultiline\u003Ek__BackingField;
-      private double \u003ClastIndex\u003Ek__BackingField;
+      private static readonly es5.RegExp _prototype_BackingField;
+      private static string _Dollar1_BackingField;
+      private static string _Dollar2_BackingField;
+      private static string _Dollar3_BackingField;
+      private static string _Dollar4_BackingField;
+      private static string _Dollar5_BackingField;
+      private static string _Dollar6_BackingField;
+      private static string _Dollar7_BackingField;
+      private static string _Dollar8_BackingField;
+      private static string _Dollar9_BackingField;
+      private static string _lastMatch_BackingField;
+      private readonly string _source_BackingField;
+      private readonly bool _global_BackingField;
+      private readonly bool _ignoreCase_BackingField;
+      private readonly bool _multiline_BackingField;
+      private double _lastIndex_BackingField;
 
       public extern RegExp(Union<es5.RegExp, string> pattern);
 
@@ -903,7 +903,7 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003Cprototype\u003Ek__BackingField;
+          return es5.RegExp._prototype_BackingField;
         }
       }
 
@@ -912,11 +912,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar1\u003Ek__BackingField;
+          return es5.RegExp._Dollar1_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar1\u003Ek__BackingField = value;
+          es5.RegExp._Dollar1_BackingField = value;
         }
       }
 
@@ -925,11 +925,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar2\u003Ek__BackingField;
+          return es5.RegExp._Dollar2_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar2\u003Ek__BackingField = value;
+          es5.RegExp._Dollar2_BackingField = value;
         }
       }
 
@@ -938,11 +938,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar3\u003Ek__BackingField;
+          return es5.RegExp._Dollar3_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar3\u003Ek__BackingField = value;
+          es5.RegExp._Dollar3_BackingField = value;
         }
       }
 
@@ -951,11 +951,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar4\u003Ek__BackingField;
+          return es5.RegExp._Dollar4_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar4\u003Ek__BackingField = value;
+          es5.RegExp._Dollar4_BackingField = value;
         }
       }
 
@@ -964,11 +964,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar5\u003Ek__BackingField;
+          return es5.RegExp._Dollar5_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar5\u003Ek__BackingField = value;
+          es5.RegExp._Dollar5_BackingField = value;
         }
       }
 
@@ -977,11 +977,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar6\u003Ek__BackingField;
+          return es5.RegExp._Dollar6_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar6\u003Ek__BackingField = value;
+          es5.RegExp._Dollar6_BackingField = value;
         }
       }
 
@@ -990,11 +990,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar7\u003Ek__BackingField;
+          return es5.RegExp._Dollar7_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar7\u003Ek__BackingField = value;
+          es5.RegExp._Dollar7_BackingField = value;
         }
       }
 
@@ -1003,11 +1003,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar8\u003Ek__BackingField;
+          return es5.RegExp._Dollar8_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar8\u003Ek__BackingField = value;
+          es5.RegExp._Dollar8_BackingField = value;
         }
       }
 
@@ -1016,11 +1016,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003CDollar9\u003Ek__BackingField;
+          return es5.RegExp._Dollar9_BackingField;
         }
         set
         {
-          es5.RegExp.\u003CDollar9\u003Ek__BackingField = value;
+          es5.RegExp._Dollar9_BackingField = value;
         }
       }
 
@@ -1028,11 +1028,11 @@ namespace H5
       {
         get
         {
-          return es5.RegExp.\u003ClastMatch\u003Ek__BackingField;
+          return es5.RegExp._lastMatch_BackingField;
         }
         set
         {
-          es5.RegExp.\u003ClastMatch\u003Ek__BackingField = value;
+          es5.RegExp._lastMatch_BackingField = value;
         }
       }
 
@@ -1052,7 +1052,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Csource\u003Ek__BackingField;
+          return this._source_BackingField;
         }
       }
 
@@ -1060,7 +1060,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cglobal\u003Ek__BackingField;
+          return this._global_BackingField;
         }
       }
 
@@ -1068,7 +1068,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CignoreCase\u003Ek__BackingField;
+          return this._ignoreCase_BackingField;
         }
       }
 
@@ -1076,7 +1076,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cmultiline\u003Ek__BackingField;
+          return this._multiline_BackingField;
         }
       }
 
@@ -1084,11 +1084,11 @@ namespace H5
       {
         get
         {
-          return this.\u003ClastIndex\u003Ek__BackingField;
+          return this._lastIndex_BackingField;
         }
         set
         {
-          this.\u003ClastIndex\u003Ek__BackingField = value;
+          this._lastIndex_BackingField = value;
         }
       }
 
@@ -1159,10 +1159,10 @@ namespace H5
     [FormerInterface]
     public class Error : IObject
     {
-      private static readonly es5.Error \u003Cprototype\u003Ek__BackingField;
-      private string \u003Cname\u003Ek__BackingField;
-      private string \u003Cmessage\u003Ek__BackingField;
-      private string \u003Cstack\u003Ek__BackingField;
+      private static readonly es5.Error _prototype_BackingField;
+      private string _name_BackingField;
+      private string _message_BackingField;
+      private string _stack_BackingField;
 
       public extern Error();
 
@@ -1172,7 +1172,7 @@ namespace H5
       {
         get
         {
-          return es5.Error.\u003Cprototype\u003Ek__BackingField;
+          return es5.Error._prototype_BackingField;
         }
       }
 
@@ -1184,11 +1184,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cname\u003Ek__BackingField;
+          return this._name_BackingField;
         }
         set
         {
-          this.\u003Cname\u003Ek__BackingField = value;
+          this._name_BackingField = value;
         }
       }
 
@@ -1196,11 +1196,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cmessage\u003Ek__BackingField;
+          return this._message_BackingField;
         }
         set
         {
-          this.\u003Cmessage\u003Ek__BackingField = value;
+          this._message_BackingField = value;
         }
       }
 
@@ -1208,11 +1208,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cstack\u003Ek__BackingField;
+          return this._stack_BackingField;
         }
         set
         {
-          this.\u003Cstack\u003Ek__BackingField = value;
+          this._stack_BackingField = value;
         }
       }
     }
@@ -1240,7 +1240,7 @@ namespace H5
     [FormerInterface]
     public class EvalError : es5.Error
     {
-      private static readonly es5.EvalError \u003Cprototype\u003Ek__BackingField;
+      private static readonly es5.EvalError _prototype_BackingField;
 
       public extern EvalError();
 
@@ -1250,7 +1250,7 @@ namespace H5
       {
         get
         {
-          return es5.EvalError.\u003Cprototype\u003Ek__BackingField;
+          return es5.EvalError._prototype_BackingField;
         }
       }
 
@@ -1282,7 +1282,7 @@ namespace H5
     [FormerInterface]
     public class RangeError : es5.Error
     {
-      private static readonly es5.RangeError \u003Cprototype\u003Ek__BackingField;
+      private static readonly es5.RangeError _prototype_BackingField;
 
       public extern RangeError();
 
@@ -1292,7 +1292,7 @@ namespace H5
       {
         get
         {
-          return es5.RangeError.\u003Cprototype\u003Ek__BackingField;
+          return es5.RangeError._prototype_BackingField;
         }
       }
 
@@ -1324,7 +1324,7 @@ namespace H5
     [FormerInterface]
     public class ReferenceError : es5.Error
     {
-      private static readonly es5.ReferenceError \u003Cprototype\u003Ek__BackingField;
+      private static readonly es5.ReferenceError _prototype_BackingField;
 
       public extern ReferenceError();
 
@@ -1334,7 +1334,7 @@ namespace H5
       {
         get
         {
-          return es5.ReferenceError.\u003Cprototype\u003Ek__BackingField;
+          return es5.ReferenceError._prototype_BackingField;
         }
       }
 
@@ -1366,7 +1366,7 @@ namespace H5
     [FormerInterface]
     public class SyntaxError : es5.Error
     {
-      private static readonly es5.SyntaxError \u003Cprototype\u003Ek__BackingField;
+      private static readonly es5.SyntaxError _prototype_BackingField;
 
       public extern SyntaxError();
 
@@ -1376,7 +1376,7 @@ namespace H5
       {
         get
         {
-          return es5.SyntaxError.\u003Cprototype\u003Ek__BackingField;
+          return es5.SyntaxError._prototype_BackingField;
         }
       }
 
@@ -1408,7 +1408,7 @@ namespace H5
     [FormerInterface]
     public class TypeError : es5.Error
     {
-      private static readonly es5.TypeError \u003Cprototype\u003Ek__BackingField;
+      private static readonly es5.TypeError _prototype_BackingField;
 
       public extern TypeError();
 
@@ -1418,7 +1418,7 @@ namespace H5
       {
         get
         {
-          return es5.TypeError.\u003Cprototype\u003Ek__BackingField;
+          return es5.TypeError._prototype_BackingField;
         }
       }
 
@@ -1450,7 +1450,7 @@ namespace H5
     [FormerInterface]
     public class URIError : es5.Error
     {
-      private static readonly es5.URIError \u003Cprototype\u003Ek__BackingField;
+      private static readonly es5.URIError _prototype_BackingField;
 
       public extern URIError();
 
@@ -1460,7 +1460,7 @@ namespace H5
       {
         get
         {
-          return es5.URIError.\u003Cprototype\u003Ek__BackingField;
+          return es5.URIError._prototype_BackingField;
         }
       }
 
@@ -1736,14 +1736,14 @@ namespace H5
     [FormerInterface]
     public class Array<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IBridgeClass, IReadOnlyList<T>, IReadOnlyCollection<T>, ICollection, IObject
     {
-      private static readonly es5.Array<object> \u003Cprototype\u003Ek__BackingField;
-      private double \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CT\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CT\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CT\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Array<object> _prototype_BackingField;
+      private double _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_T\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_T\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_T\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Array();
 
@@ -1756,7 +1756,7 @@ namespace H5
       {
         get
         {
-          return es5.Array<T>.\u003Cprototype\u003Ek__BackingField;
+          return es5.Array<T>._prototype_BackingField;
         }
       }
 
@@ -1775,11 +1775,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
         set
         {
-          this.\u003Clength\u003Ek__BackingField = value;
+          this._length_BackingField = value;
         }
       }
 
@@ -1909,7 +1909,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CT\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_T\u003E\u002ECount_BackingField;
         }
       }
 
@@ -1917,7 +1917,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CT\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_T\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -1933,7 +1933,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CT\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_T\u003E\u002ECount_BackingField;
         }
       }
 
@@ -1944,7 +1944,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -1952,7 +1952,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -1960,7 +1960,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -2049,22 +2049,22 @@ namespace H5
     [FormerInterface]
     public class TypedPropertyDescriptor<T> : IObject
     {
-      private bool? \u003Cenumerable\u003Ek__BackingField;
-      private bool? \u003Cconfigurable\u003Ek__BackingField;
-      private bool? \u003Cwritable\u003Ek__BackingField;
-      private T \u003Cvalue\u003Ek__BackingField;
-      private Func<T> \u003Cget\u003Ek__BackingField;
-      private es5.TypedPropertyDescriptor<T>.setFn \u003Cset\u003Ek__BackingField;
+      private bool? _enumerable_BackingField;
+      private bool? _configurable_BackingField;
+      private bool? _writable_BackingField;
+      private T _value_BackingField;
+      private Func<T> _get_BackingField;
+      private es5.TypedPropertyDescriptor<T>.setFn _set_BackingField;
 
       public bool? enumerable
       {
         get
         {
-          return this.\u003Cenumerable\u003Ek__BackingField;
+          return this._enumerable_BackingField;
         }
         set
         {
-          this.\u003Cenumerable\u003Ek__BackingField = value;
+          this._enumerable_BackingField = value;
         }
       }
 
@@ -2072,11 +2072,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cconfigurable\u003Ek__BackingField;
+          return this._configurable_BackingField;
         }
         set
         {
-          this.\u003Cconfigurable\u003Ek__BackingField = value;
+          this._configurable_BackingField = value;
         }
       }
 
@@ -2084,11 +2084,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cwritable\u003Ek__BackingField;
+          return this._writable_BackingField;
         }
         set
         {
-          this.\u003Cwritable\u003Ek__BackingField = value;
+          this._writable_BackingField = value;
         }
       }
 
@@ -2096,11 +2096,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cvalue\u003Ek__BackingField;
+          return this._value_BackingField;
         }
         set
         {
-          this.\u003Cvalue\u003Ek__BackingField = value;
+          this._value_BackingField = value;
         }
       }
 
@@ -2108,11 +2108,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cget\u003Ek__BackingField;
+          return this._get_BackingField;
         }
         set
         {
-          this.\u003Cget\u003Ek__BackingField = value;
+          this._get_BackingField = value;
         }
       }
 
@@ -2120,11 +2120,11 @@ namespace H5
       {
         get
         {
-          return this.\u003Cset\u003Ek__BackingField;
+          return this._set_BackingField;
         }
         set
         {
-          this.\u003Cset\u003Ek__BackingField = value;
+          this._set_BackingField = value;
         }
       }
 
@@ -2263,8 +2263,8 @@ namespace H5
     [FormerInterface]
     public class ArrayBuffer : IObject
     {
-      private static readonly es5.ArrayBuffer \u003Cprototype\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
+      private static readonly es5.ArrayBuffer _prototype_BackingField;
+      private readonly uint _byteLength_BackingField;
 
       public extern ArrayBuffer(double byteLength);
 
@@ -2272,7 +2272,7 @@ namespace H5
       {
         get
         {
-          return es5.ArrayBuffer.\u003Cprototype\u003Ek__BackingField;
+          return es5.ArrayBuffer._prototype_BackingField;
         }
       }
 
@@ -2282,7 +2282,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -2296,17 +2296,17 @@ namespace H5
     [FormerInterface]
     public class ArrayBufferTypes : IObject
     {
-      private es5.ArrayBuffer \u003CArrayBuffer\u003Ek__BackingField;
+      private es5.ArrayBuffer _ArrayBuffer_BackingField;
 
       public es5.ArrayBuffer ArrayBuffer
       {
         get
         {
-          return this.\u003CArrayBuffer\u003Ek__BackingField;
+          return this._ArrayBuffer_BackingField;
         }
         set
         {
-          this.\u003CArrayBuffer\u003Ek__BackingField = value;
+          this._ArrayBuffer_BackingField = value;
         }
       }
     }
@@ -2327,19 +2327,19 @@ namespace H5
     [FormerInterface]
     public class ArrayBufferView : IObject
     {
-      private es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private uint \u003CbyteLength\u003Ek__BackingField;
-      private uint \u003CbyteOffset\u003Ek__BackingField;
+      private es5.ArrayBufferLike _buffer_BackingField;
+      private uint _byteLength_BackingField;
+      private uint _byteOffset_BackingField;
 
       public es5.ArrayBufferLike buffer
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
         set
         {
-          this.\u003Cbuffer\u003Ek__BackingField = value;
+          this._buffer_BackingField = value;
         }
       }
 
@@ -2347,11 +2347,11 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
         set
         {
-          this.\u003CbyteLength\u003Ek__BackingField = value;
+          this._byteLength_BackingField = value;
         }
       }
 
@@ -2359,11 +2359,11 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
         set
         {
-          this.\u003CbyteOffset\u003Ek__BackingField = value;
+          this._byteOffset_BackingField = value;
         }
       }
     }
@@ -2373,9 +2373,9 @@ namespace H5
     [FormerInterface]
     public class DataView : IObject
     {
-      private readonly es5.ArrayBuffer \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
+      private readonly es5.ArrayBuffer _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
 
       public extern DataView(es5.ArrayBufferLike buffer);
 
@@ -2393,7 +2393,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -2401,7 +2401,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -2409,7 +2409,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -2497,19 +2497,19 @@ namespace H5
     [FormerInterface]
     public class Int8Array : IList<sbyte>, ICollection<sbyte>, IEnumerable<sbyte>, IEnumerable, IBridgeClass, IReadOnlyList<sbyte>, IReadOnlyCollection<sbyte>, ICollection, IObject
     {
-      private static readonly es5.Int8Array \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002ESByte\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002ESByte\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002ESByte\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Int8Array _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESByte\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESByte\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002ESByte\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Int8Array(uint length);
 
@@ -2534,7 +2534,7 @@ namespace H5
       {
         get
         {
-          return es5.Int8Array.\u003Cprototype\u003Ek__BackingField;
+          return es5.Int8Array._prototype_BackingField;
         }
       }
 
@@ -2543,7 +2543,7 @@ namespace H5
       {
         get
         {
-          return es5.Int8Array.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Int8Array._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -2565,7 +2565,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -2573,7 +2573,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -2581,7 +2581,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -2589,7 +2589,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -2644,7 +2644,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -2728,7 +2728,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002ESByte\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESByte\u003E\u002ECount_BackingField;
         }
       }
 
@@ -2736,7 +2736,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002ESByte\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESByte\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -2752,7 +2752,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002ESByte\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002ESByte\u003E\u002ECount_BackingField;
         }
       }
 
@@ -2763,7 +2763,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -2771,7 +2771,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -2779,7 +2779,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -2902,19 +2902,19 @@ namespace H5
     [FormerInterface]
     public class Uint8Array : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IBridgeClass, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
     {
-      private static readonly es5.Uint8Array \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EByte\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EByte\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EByte\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Uint8Array _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EByte\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Uint8Array(uint length);
 
@@ -2939,7 +2939,7 @@ namespace H5
       {
         get
         {
-          return es5.Uint8Array.\u003Cprototype\u003Ek__BackingField;
+          return es5.Uint8Array._prototype_BackingField;
         }
       }
 
@@ -2948,7 +2948,7 @@ namespace H5
       {
         get
         {
-          return es5.Uint8Array.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Uint8Array._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -2970,7 +2970,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -2978,7 +2978,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -2986,7 +2986,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -2994,7 +2994,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -3049,7 +3049,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -3133,7 +3133,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EByte\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002ECount_BackingField;
         }
       }
 
@@ -3141,7 +3141,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EByte\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -3157,7 +3157,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EByte\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EByte\u003E\u002ECount_BackingField;
         }
       }
 
@@ -3168,7 +3168,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -3176,7 +3176,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -3184,7 +3184,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -3307,19 +3307,19 @@ namespace H5
     [FormerInterface]
     public class Uint8ClampedArray : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IBridgeClass, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
     {
-      private static readonly es5.Uint8ClampedArray \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EByte\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EByte\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EByte\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Uint8ClampedArray _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EByte\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Uint8ClampedArray(uint length);
 
@@ -3344,7 +3344,7 @@ namespace H5
       {
         get
         {
-          return es5.Uint8ClampedArray.\u003Cprototype\u003Ek__BackingField;
+          return es5.Uint8ClampedArray._prototype_BackingField;
         }
       }
 
@@ -3353,7 +3353,7 @@ namespace H5
       {
         get
         {
-          return es5.Uint8ClampedArray.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Uint8ClampedArray._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -3375,7 +3375,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -3383,7 +3383,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -3391,7 +3391,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -3399,7 +3399,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -3457,7 +3457,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -3547,7 +3547,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EByte\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002ECount_BackingField;
         }
       }
 
@@ -3555,7 +3555,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EByte\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -3571,7 +3571,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EByte\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EByte\u003E\u002ECount_BackingField;
         }
       }
 
@@ -3582,7 +3582,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -3590,7 +3590,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -3598,7 +3598,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -3724,19 +3724,19 @@ namespace H5
     [FormerInterface]
     public class Int16Array : IList<short>, ICollection<short>, IEnumerable<short>, IEnumerable, IBridgeClass, IReadOnlyList<short>, IReadOnlyCollection<short>, ICollection, IObject
     {
-      private static readonly es5.Int16Array \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EInt16\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EInt16\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EInt16\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Int16Array _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt16\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt16\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EInt16\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Int16Array(uint length);
 
@@ -3761,7 +3761,7 @@ namespace H5
       {
         get
         {
-          return es5.Int16Array.\u003Cprototype\u003Ek__BackingField;
+          return es5.Int16Array._prototype_BackingField;
         }
       }
 
@@ -3770,7 +3770,7 @@ namespace H5
       {
         get
         {
-          return es5.Int16Array.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Int16Array._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -3792,7 +3792,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -3800,7 +3800,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -3808,7 +3808,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -3816,7 +3816,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -3871,7 +3871,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -3955,7 +3955,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EInt16\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt16\u003E\u002ECount_BackingField;
         }
       }
 
@@ -3963,7 +3963,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EInt16\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt16\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -3979,7 +3979,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EInt16\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EInt16\u003E\u002ECount_BackingField;
         }
       }
 
@@ -3990,7 +3990,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -3998,7 +3998,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -4006,7 +4006,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -4129,19 +4129,19 @@ namespace H5
     [FormerInterface]
     public class Uint16Array : IList<ushort>, ICollection<ushort>, IEnumerable<ushort>, IEnumerable, IBridgeClass, IReadOnlyList<ushort>, IReadOnlyCollection<ushort>, ICollection, IObject
     {
-      private static readonly es5.Uint16Array \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EUInt16\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EUInt16\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EUInt16\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Uint16Array _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt16\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt16\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EUInt16\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Uint16Array(uint length);
 
@@ -4166,7 +4166,7 @@ namespace H5
       {
         get
         {
-          return es5.Uint16Array.\u003Cprototype\u003Ek__BackingField;
+          return es5.Uint16Array._prototype_BackingField;
         }
       }
 
@@ -4175,7 +4175,7 @@ namespace H5
       {
         get
         {
-          return es5.Uint16Array.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Uint16Array._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -4197,7 +4197,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -4205,7 +4205,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -4213,7 +4213,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -4221,7 +4221,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -4276,7 +4276,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -4360,7 +4360,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EUInt16\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt16\u003E\u002ECount_BackingField;
         }
       }
 
@@ -4368,7 +4368,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EUInt16\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt16\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -4384,7 +4384,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EUInt16\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EUInt16\u003E\u002ECount_BackingField;
         }
       }
 
@@ -4395,7 +4395,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -4403,7 +4403,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -4411,7 +4411,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -4534,19 +4534,19 @@ namespace H5
     [FormerInterface]
     public class Int32Array : IList<int>, ICollection<int>, IEnumerable<int>, IEnumerable, IBridgeClass, IReadOnlyList<int>, IReadOnlyCollection<int>, ICollection, IObject
     {
-      private static readonly es5.Int32Array \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EInt32\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EInt32\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EInt32\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Int32Array _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt32\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt32\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EInt32\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Int32Array(uint length);
 
@@ -4571,7 +4571,7 @@ namespace H5
       {
         get
         {
-          return es5.Int32Array.\u003Cprototype\u003Ek__BackingField;
+          return es5.Int32Array._prototype_BackingField;
         }
       }
 
@@ -4580,7 +4580,7 @@ namespace H5
       {
         get
         {
-          return es5.Int32Array.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Int32Array._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -4602,7 +4602,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -4610,7 +4610,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -4618,7 +4618,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -4626,7 +4626,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -4680,7 +4680,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -4764,7 +4764,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EInt32\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt32\u003E\u002ECount_BackingField;
         }
       }
 
@@ -4772,7 +4772,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EInt32\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt32\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -4788,7 +4788,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EInt32\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EInt32\u003E\u002ECount_BackingField;
         }
       }
 
@@ -4799,7 +4799,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -4807,7 +4807,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -4815,7 +4815,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -4938,19 +4938,19 @@ namespace H5
     [FormerInterface]
     public class Uint32Array : IList<uint>, ICollection<uint>, IEnumerable<uint>, IEnumerable, IBridgeClass, IReadOnlyList<uint>, IReadOnlyCollection<uint>, ICollection, IObject
     {
-      private static readonly es5.Uint32Array \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EUInt32\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EUInt32\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EUInt32\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Uint32Array _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt32\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt32\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EUInt32\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Uint32Array(uint length);
 
@@ -4975,7 +4975,7 @@ namespace H5
       {
         get
         {
-          return es5.Uint32Array.\u003Cprototype\u003Ek__BackingField;
+          return es5.Uint32Array._prototype_BackingField;
         }
       }
 
@@ -4984,7 +4984,7 @@ namespace H5
       {
         get
         {
-          return es5.Uint32Array.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Uint32Array._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -5006,7 +5006,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -5014,7 +5014,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -5022,7 +5022,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -5030,7 +5030,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -5085,7 +5085,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -5169,7 +5169,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EUInt32\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt32\u003E\u002ECount_BackingField;
         }
       }
 
@@ -5177,7 +5177,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EUInt32\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt32\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -5193,7 +5193,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EUInt32\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EUInt32\u003E\u002ECount_BackingField;
         }
       }
 
@@ -5204,7 +5204,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -5212,7 +5212,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -5220,7 +5220,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -5343,19 +5343,19 @@ namespace H5
     [FormerInterface]
     public class Float32Array : IList<float>, ICollection<float>, IEnumerable<float>, IEnumerable, IBridgeClass, IReadOnlyList<float>, IReadOnlyCollection<float>, ICollection, IObject
     {
-      private static readonly es5.Float32Array \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002ESingle\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002ESingle\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002ESingle\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Float32Array _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESingle\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESingle\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002ESingle\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Float32Array(uint length);
 
@@ -5380,7 +5380,7 @@ namespace H5
       {
         get
         {
-          return es5.Float32Array.\u003Cprototype\u003Ek__BackingField;
+          return es5.Float32Array._prototype_BackingField;
         }
       }
 
@@ -5389,7 +5389,7 @@ namespace H5
       {
         get
         {
-          return es5.Float32Array.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Float32Array._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -5411,7 +5411,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -5419,7 +5419,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -5427,7 +5427,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -5435,7 +5435,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -5490,7 +5490,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -5576,7 +5576,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002ESingle\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESingle\u003E\u002ECount_BackingField;
         }
       }
 
@@ -5584,7 +5584,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002ESingle\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESingle\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -5600,7 +5600,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002ESingle\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002ESingle\u003E\u002ECount_BackingField;
         }
       }
 
@@ -5611,7 +5611,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -5619,7 +5619,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -5627,7 +5627,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -5750,19 +5750,19 @@ namespace H5
     [FormerInterface]
     public class Float64Array : IList<double>, ICollection<double>, IEnumerable<double>, IEnumerable, IBridgeClass, IReadOnlyList<double>, IReadOnlyCollection<double>, ICollection, IObject
     {
-      private static readonly es5.Float64Array \u003Cprototype\u003Ek__BackingField;
-      private static readonly double \u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
-      private readonly int \u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
-      private readonly es5.ArrayBufferLike \u003Cbuffer\u003Ek__BackingField;
-      private readonly uint \u003CbyteLength\u003Ek__BackingField;
-      private readonly uint \u003CbyteOffset\u003Ek__BackingField;
-      private readonly uint \u003Clength\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EDouble\u003E\u002ECount\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EDouble\u003E\u002EIsReadOnly\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EDouble\u003E\u002ECount\u003Ek__BackingField;
-      private readonly int \u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
-      private readonly object \u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
-      private readonly bool \u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+      private static readonly es5.Float64Array _prototype_BackingField;
+      private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
+      private readonly int _BYTES_PER_ELEMENT_BackingField;
+      private readonly es5.ArrayBufferLike _buffer_BackingField;
+      private readonly uint _byteLength_BackingField;
+      private readonly uint _byteOffset_BackingField;
+      private readonly uint _length_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EDouble\u003E\u002ECount_BackingField;
+      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EDouble\u003E\u002EIsReadOnly_BackingField;
+      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EDouble\u003E\u002ECount_BackingField;
+      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
+      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
 
       public extern Float64Array(uint length);
 
@@ -5787,7 +5787,7 @@ namespace H5
       {
         get
         {
-          return es5.Float64Array.\u003Cprototype\u003Ek__BackingField;
+          return es5.Float64Array._prototype_BackingField;
         }
       }
 
@@ -5796,7 +5796,7 @@ namespace H5
       {
         get
         {
-          return es5.Float64Array.\u003CBYTES_PER_ELEMENT_Static\u003Ek__BackingField;
+          return es5.Float64Array._BYTES_PER_ELEMENT_Static_BackingField;
         }
       }
 
@@ -5818,7 +5818,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CBYTES_PER_ELEMENT\u003Ek__BackingField;
+          return this._BYTES_PER_ELEMENT_BackingField;
         }
       }
 
@@ -5826,7 +5826,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Cbuffer\u003Ek__BackingField;
+          return this._buffer_BackingField;
         }
       }
 
@@ -5834,7 +5834,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteLength\u003Ek__BackingField;
+          return this._byteLength_BackingField;
         }
       }
 
@@ -5842,7 +5842,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CbyteOffset\u003Ek__BackingField;
+          return this._byteOffset_BackingField;
         }
       }
 
@@ -5897,7 +5897,7 @@ namespace H5
       {
         get
         {
-          return this.\u003Clength\u003Ek__BackingField;
+          return this._length_BackingField;
         }
       }
 
@@ -5983,7 +5983,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EDouble\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EDouble\u003E\u002ECount_BackingField;
         }
       }
 
@@ -5991,7 +5991,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EICollection\u003CSystem\u002EDouble\u003E\u002EIsReadOnly\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EDouble\u003E\u002EIsReadOnly_BackingField;
         }
       }
 
@@ -6007,7 +6007,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EGeneric\u002EIReadOnlyCollection\u003CSystem\u002EDouble\u003E\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EDouble\u003E\u002ECount_BackingField;
         }
       }
 
@@ -6018,7 +6018,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ECount\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
         }
       }
 
@@ -6026,7 +6026,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002ESyncRoot\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
         }
       }
 
@@ -6034,7 +6034,7 @@ namespace H5
       {
         get
         {
-          return this.\u003CSystem\u002ECollections\u002EICollection\u002EIsSynchronized\u003Ek__BackingField;
+          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
         }
       }
 
@@ -6155,20 +6155,20 @@ namespace H5
     [Scope]
     public static class Intl
     {
-      private static es5.Intl.CollatorTypeConfig \u003CCollatorType\u003Ek__BackingField;
-      private static es5.Intl.NumberFormatTypeConfig \u003CNumberFormatType\u003Ek__BackingField;
-      private static es5.Intl.DateTimeFormatTypeConfig \u003CDateTimeFormatType\u003Ek__BackingField;
+      private static es5.Intl.CollatorTypeConfig _CollatorType_BackingField;
+      private static es5.Intl.NumberFormatTypeConfig _NumberFormatType_BackingField;
+      private static es5.Intl.DateTimeFormatTypeConfig _DateTimeFormatType_BackingField;
 
       [Name("Collator")]
       public static es5.Intl.CollatorTypeConfig CollatorType
       {
         get
         {
-          return es5.Intl.\u003CCollatorType\u003Ek__BackingField;
+          return es5.Intl._CollatorType_BackingField;
         }
         set
         {
-          es5.Intl.\u003CCollatorType\u003Ek__BackingField = value;
+          es5.Intl._CollatorType_BackingField = value;
         }
       }
 
@@ -6177,11 +6177,11 @@ namespace H5
       {
         get
         {
-          return es5.Intl.\u003CNumberFormatType\u003Ek__BackingField;
+          return es5.Intl._NumberFormatType_BackingField;
         }
         set
         {
-          es5.Intl.\u003CNumberFormatType\u003Ek__BackingField = value;
+          es5.Intl._NumberFormatType_BackingField = value;
         }
       }
 
@@ -6190,11 +6190,11 @@ namespace H5
       {
         get
         {
-          return es5.Intl.\u003CDateTimeFormatType\u003Ek__BackingField;
+          return es5.Intl._DateTimeFormatType_BackingField;
         }
         set
         {
-          es5.Intl.\u003CDateTimeFormatType\u003Ek__BackingField = value;
+          es5.Intl._DateTimeFormatType_BackingField = value;
         }
       }
 
@@ -6203,22 +6203,22 @@ namespace H5
       [FormerInterface]
       public class CollatorOptions : IObject
       {
-        private string \u003Cusage\u003Ek__BackingField;
-        private string \u003ClocaleMatcher\u003Ek__BackingField;
-        private bool? \u003Cnumeric\u003Ek__BackingField;
-        private string \u003CcaseFirst\u003Ek__BackingField;
-        private string \u003Csensitivity\u003Ek__BackingField;
-        private bool? \u003CignorePunctuation\u003Ek__BackingField;
+        private string _usage_BackingField;
+        private string _localeMatcher_BackingField;
+        private bool? _numeric_BackingField;
+        private string _caseFirst_BackingField;
+        private string _sensitivity_BackingField;
+        private bool? _ignorePunctuation_BackingField;
 
         public string usage
         {
           get
           {
-            return this.\u003Cusage\u003Ek__BackingField;
+            return this._usage_BackingField;
           }
           set
           {
-            this.\u003Cusage\u003Ek__BackingField = value;
+            this._usage_BackingField = value;
           }
         }
 
@@ -6226,11 +6226,11 @@ namespace H5
         {
           get
           {
-            return this.\u003ClocaleMatcher\u003Ek__BackingField;
+            return this._localeMatcher_BackingField;
           }
           set
           {
-            this.\u003ClocaleMatcher\u003Ek__BackingField = value;
+            this._localeMatcher_BackingField = value;
           }
         }
 
@@ -6238,11 +6238,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cnumeric\u003Ek__BackingField;
+            return this._numeric_BackingField;
           }
           set
           {
-            this.\u003Cnumeric\u003Ek__BackingField = value;
+            this._numeric_BackingField = value;
           }
         }
 
@@ -6250,11 +6250,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CcaseFirst\u003Ek__BackingField;
+            return this._caseFirst_BackingField;
           }
           set
           {
-            this.\u003CcaseFirst\u003Ek__BackingField = value;
+            this._caseFirst_BackingField = value;
           }
         }
 
@@ -6262,11 +6262,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Csensitivity\u003Ek__BackingField;
+            return this._sensitivity_BackingField;
           }
           set
           {
-            this.\u003Csensitivity\u003Ek__BackingField = value;
+            this._sensitivity_BackingField = value;
           }
         }
 
@@ -6274,11 +6274,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CignorePunctuation\u003Ek__BackingField;
+            return this._ignorePunctuation_BackingField;
           }
           set
           {
-            this.\u003CignorePunctuation\u003Ek__BackingField = value;
+            this._ignorePunctuation_BackingField = value;
           }
         }
       }
@@ -6288,23 +6288,23 @@ namespace H5
       [FormerInterface]
       public class ResolvedCollatorOptions : IObject
       {
-        private string \u003Clocale\u003Ek__BackingField;
-        private string \u003Cusage\u003Ek__BackingField;
-        private string \u003Csensitivity\u003Ek__BackingField;
-        private bool \u003CignorePunctuation\u003Ek__BackingField;
-        private string \u003Ccollation\u003Ek__BackingField;
-        private string \u003CcaseFirst\u003Ek__BackingField;
-        private bool \u003Cnumeric\u003Ek__BackingField;
+        private string _locale_BackingField;
+        private string _usage_BackingField;
+        private string _sensitivity_BackingField;
+        private bool _ignorePunctuation_BackingField;
+        private string _collation_BackingField;
+        private string _caseFirst_BackingField;
+        private bool _numeric_BackingField;
 
         public string locale
         {
           get
           {
-            return this.\u003Clocale\u003Ek__BackingField;
+            return this._locale_BackingField;
           }
           set
           {
-            this.\u003Clocale\u003Ek__BackingField = value;
+            this._locale_BackingField = value;
           }
         }
 
@@ -6312,11 +6312,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cusage\u003Ek__BackingField;
+            return this._usage_BackingField;
           }
           set
           {
-            this.\u003Cusage\u003Ek__BackingField = value;
+            this._usage_BackingField = value;
           }
         }
 
@@ -6324,11 +6324,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Csensitivity\u003Ek__BackingField;
+            return this._sensitivity_BackingField;
           }
           set
           {
-            this.\u003Csensitivity\u003Ek__BackingField = value;
+            this._sensitivity_BackingField = value;
           }
         }
 
@@ -6336,11 +6336,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CignorePunctuation\u003Ek__BackingField;
+            return this._ignorePunctuation_BackingField;
           }
           set
           {
-            this.\u003CignorePunctuation\u003Ek__BackingField = value;
+            this._ignorePunctuation_BackingField = value;
           }
         }
 
@@ -6348,11 +6348,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Ccollation\u003Ek__BackingField;
+            return this._collation_BackingField;
           }
           set
           {
-            this.\u003Ccollation\u003Ek__BackingField = value;
+            this._collation_BackingField = value;
           }
         }
 
@@ -6360,11 +6360,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CcaseFirst\u003Ek__BackingField;
+            return this._caseFirst_BackingField;
           }
           set
           {
-            this.\u003CcaseFirst\u003Ek__BackingField = value;
+            this._caseFirst_BackingField = value;
           }
         }
 
@@ -6372,11 +6372,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cnumeric\u003Ek__BackingField;
+            return this._numeric_BackingField;
           }
           set
           {
-            this.\u003Cnumeric\u003Ek__BackingField = value;
+            this._numeric_BackingField = value;
           }
         }
       }
@@ -6447,26 +6447,26 @@ namespace H5
       [FormerInterface]
       public class NumberFormatOptions : IObject
       {
-        private string \u003ClocaleMatcher\u003Ek__BackingField;
-        private string \u003Cstyle\u003Ek__BackingField;
-        private string \u003Ccurrency\u003Ek__BackingField;
-        private string \u003CcurrencyDisplay\u003Ek__BackingField;
-        private bool? \u003CuseGrouping\u003Ek__BackingField;
-        private double? \u003CminimumIntegerDigits\u003Ek__BackingField;
-        private double? \u003CminimumFractionDigits\u003Ek__BackingField;
-        private double? \u003CmaximumFractionDigits\u003Ek__BackingField;
-        private double? \u003CminimumSignificantDigits\u003Ek__BackingField;
-        private double? \u003CmaximumSignificantDigits\u003Ek__BackingField;
+        private string _localeMatcher_BackingField;
+        private string _style_BackingField;
+        private string _currency_BackingField;
+        private string _currencyDisplay_BackingField;
+        private bool? _useGrouping_BackingField;
+        private double? _minimumIntegerDigits_BackingField;
+        private double? _minimumFractionDigits_BackingField;
+        private double? _maximumFractionDigits_BackingField;
+        private double? _minimumSignificantDigits_BackingField;
+        private double? _maximumSignificantDigits_BackingField;
 
         public string localeMatcher
         {
           get
           {
-            return this.\u003ClocaleMatcher\u003Ek__BackingField;
+            return this._localeMatcher_BackingField;
           }
           set
           {
-            this.\u003ClocaleMatcher\u003Ek__BackingField = value;
+            this._localeMatcher_BackingField = value;
           }
         }
 
@@ -6474,11 +6474,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cstyle\u003Ek__BackingField;
+            return this._style_BackingField;
           }
           set
           {
-            this.\u003Cstyle\u003Ek__BackingField = value;
+            this._style_BackingField = value;
           }
         }
 
@@ -6486,11 +6486,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Ccurrency\u003Ek__BackingField;
+            return this._currency_BackingField;
           }
           set
           {
-            this.\u003Ccurrency\u003Ek__BackingField = value;
+            this._currency_BackingField = value;
           }
         }
 
@@ -6498,11 +6498,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CcurrencyDisplay\u003Ek__BackingField;
+            return this._currencyDisplay_BackingField;
           }
           set
           {
-            this.\u003CcurrencyDisplay\u003Ek__BackingField = value;
+            this._currencyDisplay_BackingField = value;
           }
         }
 
@@ -6510,11 +6510,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CuseGrouping\u003Ek__BackingField;
+            return this._useGrouping_BackingField;
           }
           set
           {
-            this.\u003CuseGrouping\u003Ek__BackingField = value;
+            this._useGrouping_BackingField = value;
           }
         }
 
@@ -6522,11 +6522,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CminimumIntegerDigits\u003Ek__BackingField;
+            return this._minimumIntegerDigits_BackingField;
           }
           set
           {
-            this.\u003CminimumIntegerDigits\u003Ek__BackingField = value;
+            this._minimumIntegerDigits_BackingField = value;
           }
         }
 
@@ -6534,11 +6534,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CminimumFractionDigits\u003Ek__BackingField;
+            return this._minimumFractionDigits_BackingField;
           }
           set
           {
-            this.\u003CminimumFractionDigits\u003Ek__BackingField = value;
+            this._minimumFractionDigits_BackingField = value;
           }
         }
 
@@ -6546,11 +6546,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CmaximumFractionDigits\u003Ek__BackingField;
+            return this._maximumFractionDigits_BackingField;
           }
           set
           {
-            this.\u003CmaximumFractionDigits\u003Ek__BackingField = value;
+            this._maximumFractionDigits_BackingField = value;
           }
         }
 
@@ -6558,11 +6558,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CminimumSignificantDigits\u003Ek__BackingField;
+            return this._minimumSignificantDigits_BackingField;
           }
           set
           {
-            this.\u003CminimumSignificantDigits\u003Ek__BackingField = value;
+            this._minimumSignificantDigits_BackingField = value;
           }
         }
 
@@ -6570,11 +6570,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CmaximumSignificantDigits\u003Ek__BackingField;
+            return this._maximumSignificantDigits_BackingField;
           }
           set
           {
-            this.\u003CmaximumSignificantDigits\u003Ek__BackingField = value;
+            this._maximumSignificantDigits_BackingField = value;
           }
         }
       }
@@ -6584,27 +6584,27 @@ namespace H5
       [FormerInterface]
       public class ResolvedNumberFormatOptions : IObject
       {
-        private string \u003Clocale\u003Ek__BackingField;
-        private string \u003CnumberingSystem\u003Ek__BackingField;
-        private string \u003Cstyle\u003Ek__BackingField;
-        private string \u003Ccurrency\u003Ek__BackingField;
-        private string \u003CcurrencyDisplay\u003Ek__BackingField;
-        private double \u003CminimumIntegerDigits\u003Ek__BackingField;
-        private double \u003CminimumFractionDigits\u003Ek__BackingField;
-        private double \u003CmaximumFractionDigits\u003Ek__BackingField;
-        private double? \u003CminimumSignificantDigits\u003Ek__BackingField;
-        private double? \u003CmaximumSignificantDigits\u003Ek__BackingField;
-        private bool \u003CuseGrouping\u003Ek__BackingField;
+        private string _locale_BackingField;
+        private string _numberingSystem_BackingField;
+        private string _style_BackingField;
+        private string _currency_BackingField;
+        private string _currencyDisplay_BackingField;
+        private double _minimumIntegerDigits_BackingField;
+        private double _minimumFractionDigits_BackingField;
+        private double _maximumFractionDigits_BackingField;
+        private double? _minimumSignificantDigits_BackingField;
+        private double? _maximumSignificantDigits_BackingField;
+        private bool _useGrouping_BackingField;
 
         public string locale
         {
           get
           {
-            return this.\u003Clocale\u003Ek__BackingField;
+            return this._locale_BackingField;
           }
           set
           {
-            this.\u003Clocale\u003Ek__BackingField = value;
+            this._locale_BackingField = value;
           }
         }
 
@@ -6612,11 +6612,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CnumberingSystem\u003Ek__BackingField;
+            return this._numberingSystem_BackingField;
           }
           set
           {
-            this.\u003CnumberingSystem\u003Ek__BackingField = value;
+            this._numberingSystem_BackingField = value;
           }
         }
 
@@ -6624,11 +6624,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cstyle\u003Ek__BackingField;
+            return this._style_BackingField;
           }
           set
           {
-            this.\u003Cstyle\u003Ek__BackingField = value;
+            this._style_BackingField = value;
           }
         }
 
@@ -6636,11 +6636,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Ccurrency\u003Ek__BackingField;
+            return this._currency_BackingField;
           }
           set
           {
-            this.\u003Ccurrency\u003Ek__BackingField = value;
+            this._currency_BackingField = value;
           }
         }
 
@@ -6648,11 +6648,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CcurrencyDisplay\u003Ek__BackingField;
+            return this._currencyDisplay_BackingField;
           }
           set
           {
-            this.\u003CcurrencyDisplay\u003Ek__BackingField = value;
+            this._currencyDisplay_BackingField = value;
           }
         }
 
@@ -6660,11 +6660,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CminimumIntegerDigits\u003Ek__BackingField;
+            return this._minimumIntegerDigits_BackingField;
           }
           set
           {
-            this.\u003CminimumIntegerDigits\u003Ek__BackingField = value;
+            this._minimumIntegerDigits_BackingField = value;
           }
         }
 
@@ -6672,11 +6672,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CminimumFractionDigits\u003Ek__BackingField;
+            return this._minimumFractionDigits_BackingField;
           }
           set
           {
-            this.\u003CminimumFractionDigits\u003Ek__BackingField = value;
+            this._minimumFractionDigits_BackingField = value;
           }
         }
 
@@ -6684,11 +6684,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CmaximumFractionDigits\u003Ek__BackingField;
+            return this._maximumFractionDigits_BackingField;
           }
           set
           {
-            this.\u003CmaximumFractionDigits\u003Ek__BackingField = value;
+            this._maximumFractionDigits_BackingField = value;
           }
         }
 
@@ -6696,11 +6696,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CminimumSignificantDigits\u003Ek__BackingField;
+            return this._minimumSignificantDigits_BackingField;
           }
           set
           {
-            this.\u003CminimumSignificantDigits\u003Ek__BackingField = value;
+            this._minimumSignificantDigits_BackingField = value;
           }
         }
 
@@ -6708,11 +6708,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CmaximumSignificantDigits\u003Ek__BackingField;
+            return this._maximumSignificantDigits_BackingField;
           }
           set
           {
-            this.\u003CmaximumSignificantDigits\u003Ek__BackingField = value;
+            this._maximumSignificantDigits_BackingField = value;
           }
         }
 
@@ -6720,11 +6720,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CuseGrouping\u003Ek__BackingField;
+            return this._useGrouping_BackingField;
           }
           set
           {
-            this.\u003CuseGrouping\u003Ek__BackingField = value;
+            this._useGrouping_BackingField = value;
           }
         }
       }
@@ -6797,29 +6797,29 @@ namespace H5
       [FormerInterface]
       public class DateTimeFormatOptions : IObject
       {
-        private string \u003ClocaleMatcher\u003Ek__BackingField;
-        private string \u003Cweekday\u003Ek__BackingField;
-        private string \u003Cera\u003Ek__BackingField;
-        private string \u003Cyear\u003Ek__BackingField;
-        private string \u003Cmonth\u003Ek__BackingField;
-        private string \u003Cday\u003Ek__BackingField;
-        private string \u003Chour\u003Ek__BackingField;
-        private string \u003Cminute\u003Ek__BackingField;
-        private string \u003Csecond\u003Ek__BackingField;
-        private string \u003CtimeZoneName\u003Ek__BackingField;
-        private string \u003CformatMatcher\u003Ek__BackingField;
-        private bool? \u003Chour12\u003Ek__BackingField;
-        private string \u003CtimeZone\u003Ek__BackingField;
+        private string _localeMatcher_BackingField;
+        private string _weekday_BackingField;
+        private string _era_BackingField;
+        private string _year_BackingField;
+        private string _month_BackingField;
+        private string _day_BackingField;
+        private string _hour_BackingField;
+        private string _minute_BackingField;
+        private string _second_BackingField;
+        private string _timeZoneName_BackingField;
+        private string _formatMatcher_BackingField;
+        private bool? _hour12_BackingField;
+        private string _timeZone_BackingField;
 
         public string localeMatcher
         {
           get
           {
-            return this.\u003ClocaleMatcher\u003Ek__BackingField;
+            return this._localeMatcher_BackingField;
           }
           set
           {
-            this.\u003ClocaleMatcher\u003Ek__BackingField = value;
+            this._localeMatcher_BackingField = value;
           }
         }
 
@@ -6827,11 +6827,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cweekday\u003Ek__BackingField;
+            return this._weekday_BackingField;
           }
           set
           {
-            this.\u003Cweekday\u003Ek__BackingField = value;
+            this._weekday_BackingField = value;
           }
         }
 
@@ -6839,11 +6839,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cera\u003Ek__BackingField;
+            return this._era_BackingField;
           }
           set
           {
-            this.\u003Cera\u003Ek__BackingField = value;
+            this._era_BackingField = value;
           }
         }
 
@@ -6851,11 +6851,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cyear\u003Ek__BackingField;
+            return this._year_BackingField;
           }
           set
           {
-            this.\u003Cyear\u003Ek__BackingField = value;
+            this._year_BackingField = value;
           }
         }
 
@@ -6863,11 +6863,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cmonth\u003Ek__BackingField;
+            return this._month_BackingField;
           }
           set
           {
-            this.\u003Cmonth\u003Ek__BackingField = value;
+            this._month_BackingField = value;
           }
         }
 
@@ -6875,11 +6875,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cday\u003Ek__BackingField;
+            return this._day_BackingField;
           }
           set
           {
-            this.\u003Cday\u003Ek__BackingField = value;
+            this._day_BackingField = value;
           }
         }
 
@@ -6887,11 +6887,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Chour\u003Ek__BackingField;
+            return this._hour_BackingField;
           }
           set
           {
-            this.\u003Chour\u003Ek__BackingField = value;
+            this._hour_BackingField = value;
           }
         }
 
@@ -6899,11 +6899,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cminute\u003Ek__BackingField;
+            return this._minute_BackingField;
           }
           set
           {
-            this.\u003Cminute\u003Ek__BackingField = value;
+            this._minute_BackingField = value;
           }
         }
 
@@ -6911,11 +6911,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Csecond\u003Ek__BackingField;
+            return this._second_BackingField;
           }
           set
           {
-            this.\u003Csecond\u003Ek__BackingField = value;
+            this._second_BackingField = value;
           }
         }
 
@@ -6923,11 +6923,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CtimeZoneName\u003Ek__BackingField;
+            return this._timeZoneName_BackingField;
           }
           set
           {
-            this.\u003CtimeZoneName\u003Ek__BackingField = value;
+            this._timeZoneName_BackingField = value;
           }
         }
 
@@ -6935,11 +6935,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CformatMatcher\u003Ek__BackingField;
+            return this._formatMatcher_BackingField;
           }
           set
           {
-            this.\u003CformatMatcher\u003Ek__BackingField = value;
+            this._formatMatcher_BackingField = value;
           }
         }
 
@@ -6947,11 +6947,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Chour12\u003Ek__BackingField;
+            return this._hour12_BackingField;
           }
           set
           {
-            this.\u003Chour12\u003Ek__BackingField = value;
+            this._hour12_BackingField = value;
           }
         }
 
@@ -6959,11 +6959,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CtimeZone\u003Ek__BackingField;
+            return this._timeZone_BackingField;
           }
           set
           {
-            this.\u003CtimeZone\u003Ek__BackingField = value;
+            this._timeZone_BackingField = value;
           }
         }
       }
@@ -6973,30 +6973,30 @@ namespace H5
       [FormerInterface]
       public class ResolvedDateTimeFormatOptions : IObject
       {
-        private string \u003Clocale\u003Ek__BackingField;
-        private string \u003Ccalendar\u003Ek__BackingField;
-        private string \u003CnumberingSystem\u003Ek__BackingField;
-        private string \u003CtimeZone\u003Ek__BackingField;
-        private bool? \u003Chour12\u003Ek__BackingField;
-        private string \u003Cweekday\u003Ek__BackingField;
-        private string \u003Cera\u003Ek__BackingField;
-        private string \u003Cyear\u003Ek__BackingField;
-        private string \u003Cmonth\u003Ek__BackingField;
-        private string \u003Cday\u003Ek__BackingField;
-        private string \u003Chour\u003Ek__BackingField;
-        private string \u003Cminute\u003Ek__BackingField;
-        private string \u003Csecond\u003Ek__BackingField;
-        private string \u003CtimeZoneName\u003Ek__BackingField;
+        private string _locale_BackingField;
+        private string _calendar_BackingField;
+        private string _numberingSystem_BackingField;
+        private string _timeZone_BackingField;
+        private bool? _hour12_BackingField;
+        private string _weekday_BackingField;
+        private string _era_BackingField;
+        private string _year_BackingField;
+        private string _month_BackingField;
+        private string _day_BackingField;
+        private string _hour_BackingField;
+        private string _minute_BackingField;
+        private string _second_BackingField;
+        private string _timeZoneName_BackingField;
 
         public string locale
         {
           get
           {
-            return this.\u003Clocale\u003Ek__BackingField;
+            return this._locale_BackingField;
           }
           set
           {
-            this.\u003Clocale\u003Ek__BackingField = value;
+            this._locale_BackingField = value;
           }
         }
 
@@ -7004,11 +7004,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Ccalendar\u003Ek__BackingField;
+            return this._calendar_BackingField;
           }
           set
           {
-            this.\u003Ccalendar\u003Ek__BackingField = value;
+            this._calendar_BackingField = value;
           }
         }
 
@@ -7016,11 +7016,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CnumberingSystem\u003Ek__BackingField;
+            return this._numberingSystem_BackingField;
           }
           set
           {
-            this.\u003CnumberingSystem\u003Ek__BackingField = value;
+            this._numberingSystem_BackingField = value;
           }
         }
 
@@ -7028,11 +7028,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CtimeZone\u003Ek__BackingField;
+            return this._timeZone_BackingField;
           }
           set
           {
-            this.\u003CtimeZone\u003Ek__BackingField = value;
+            this._timeZone_BackingField = value;
           }
         }
 
@@ -7040,11 +7040,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Chour12\u003Ek__BackingField;
+            return this._hour12_BackingField;
           }
           set
           {
-            this.\u003Chour12\u003Ek__BackingField = value;
+            this._hour12_BackingField = value;
           }
         }
 
@@ -7052,11 +7052,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cweekday\u003Ek__BackingField;
+            return this._weekday_BackingField;
           }
           set
           {
-            this.\u003Cweekday\u003Ek__BackingField = value;
+            this._weekday_BackingField = value;
           }
         }
 
@@ -7064,11 +7064,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cera\u003Ek__BackingField;
+            return this._era_BackingField;
           }
           set
           {
-            this.\u003Cera\u003Ek__BackingField = value;
+            this._era_BackingField = value;
           }
         }
 
@@ -7076,11 +7076,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cyear\u003Ek__BackingField;
+            return this._year_BackingField;
           }
           set
           {
-            this.\u003Cyear\u003Ek__BackingField = value;
+            this._year_BackingField = value;
           }
         }
 
@@ -7088,11 +7088,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cmonth\u003Ek__BackingField;
+            return this._month_BackingField;
           }
           set
           {
-            this.\u003Cmonth\u003Ek__BackingField = value;
+            this._month_BackingField = value;
           }
         }
 
@@ -7100,11 +7100,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cday\u003Ek__BackingField;
+            return this._day_BackingField;
           }
           set
           {
-            this.\u003Cday\u003Ek__BackingField = value;
+            this._day_BackingField = value;
           }
         }
 
@@ -7112,11 +7112,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Chour\u003Ek__BackingField;
+            return this._hour_BackingField;
           }
           set
           {
-            this.\u003Chour\u003Ek__BackingField = value;
+            this._hour_BackingField = value;
           }
         }
 
@@ -7124,11 +7124,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Cminute\u003Ek__BackingField;
+            return this._minute_BackingField;
           }
           set
           {
-            this.\u003Cminute\u003Ek__BackingField = value;
+            this._minute_BackingField = value;
           }
         }
 
@@ -7136,11 +7136,11 @@ namespace H5
         {
           get
           {
-            return this.\u003Csecond\u003Ek__BackingField;
+            return this._second_BackingField;
           }
           set
           {
-            this.\u003Csecond\u003Ek__BackingField = value;
+            this._second_BackingField = value;
           }
         }
 
@@ -7148,11 +7148,11 @@ namespace H5
         {
           get
           {
-            return this.\u003CtimeZoneName\u003Ek__BackingField;
+            return this._timeZoneName_BackingField;
           }
           set
           {
-            this.\u003CtimeZoneName\u003Ek__BackingField = value;
+            this._timeZoneName_BackingField = value;
           }
         }
       }
@@ -7499,7 +7499,7 @@ namespace H5
     [ObjectLiteral]
     public class Required<T> : IObject
     {
-      private object \u003CMinus\u003Ek__BackingField;
+      private object _Minus_BackingField;
 
       public extern object this[KeyOf<T> P] { get; set; }
 
@@ -7508,11 +7508,11 @@ namespace H5
       {
         get
         {
-          return this.\u003CMinus\u003Ek__BackingField;
+          return this._Minus_BackingField;
         }
         set
         {
-          this.\u003CMinus\u003Ek__BackingField = value;
+          this._Minus_BackingField = value;
         }
       }
     }

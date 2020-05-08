@@ -11,20 +11,20 @@ namespace H5
   [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
   public sealed class ExportedAsAttribute : Attribute
   {
-    private bool \u003CIsExportAssign\u003Ek__BackingField;
-    private bool \u003CIsExportDefault\u003Ek__BackingField;
-    private bool \u003CIsStandalone\u003Ek__BackingField;
-    private bool \u003CAsNamespace\u003Ek__BackingField;
+    private bool _IsExportAssign_BackingField;
+    private bool _IsExportDefault_BackingField;
+    private bool _IsStandalone_BackingField;
+    private bool _AsNamespace_BackingField;
 
     public bool IsExportAssign
     {
       get
       {
-        return this.\u003CIsExportAssign\u003Ek__BackingField;
+        return this._IsExportAssign_BackingField;
       }
       set
       {
-        this.\u003CIsExportAssign\u003Ek__BackingField = value;
+        this._IsExportAssign_BackingField = value;
       }
     }
 
@@ -32,11 +32,11 @@ namespace H5
     {
       get
       {
-        return this.\u003CIsExportDefault\u003Ek__BackingField;
+        return this._IsExportDefault_BackingField;
       }
       set
       {
-        this.\u003CIsExportDefault\u003Ek__BackingField = value;
+        this._IsExportDefault_BackingField = value;
       }
     }
 
@@ -44,11 +44,11 @@ namespace H5
     {
       get
       {
-        return this.\u003CIsStandalone\u003Ek__BackingField;
+        return this._IsStandalone_BackingField;
       }
       set
       {
-        this.\u003CIsStandalone\u003Ek__BackingField = value;
+        this._IsStandalone_BackingField = value;
       }
     }
 
@@ -56,11 +56,11 @@ namespace H5
     {
       get
       {
-        return this.\u003CAsNamespace\u003Ek__BackingField;
+        return this._AsNamespace_BackingField;
       }
       set
       {
-        this.\u003CAsNamespace\u003Ek__BackingField = value;
+        this._AsNamespace_BackingField = value;
       }
     }
 

@@ -13,8 +13,8 @@ namespace H5.Primitive
   [Namespace(false)]
   public class String : Object, String.Interface, IObject
   {
-    private static readonly String \u003Cprototype\u003Ek__BackingField;
-    private readonly double \u003Clength\u003Ek__BackingField;
+    private static readonly String _prototype_BackingField;
+    private readonly double _length_BackingField;
 
     public extern String();
 
@@ -24,7 +24,7 @@ namespace H5.Primitive
     {
       get
       {
-        return String.\u003Cprototype\u003Ek__BackingField;
+        return String._prototype_BackingField;
       }
     }
 
@@ -116,7 +116,7 @@ namespace H5.Primitive
     {
       get
       {
-        return this.\u003Clength\u003Ek__BackingField;
+        return this._length_BackingField;
       }
     }
 

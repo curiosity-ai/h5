@@ -14,8 +14,8 @@ namespace H5.Primitive
   [Namespace(false)]
   public class Object : Object.Interface, IObject
   {
-    private static readonly Object \u003Cprototype\u003Ek__BackingField;
-    private es5.Function \u003Cconstructor\u003Ek__BackingField;
+    private static readonly Object _prototype_BackingField;
+    private es5.Function _constructor_BackingField;
 
     public extern Object();
 
@@ -25,7 +25,7 @@ namespace H5.Primitive
     {
       get
       {
-        return Object.\u003Cprototype\u003Ek__BackingField;
+        return Object._prototype_BackingField;
       }
     }
 
@@ -80,11 +80,11 @@ namespace H5.Primitive
     {
       get
       {
-        return this.\u003Cconstructor\u003Ek__BackingField;
+        return this._constructor_BackingField;
       }
       set
       {
-        this.\u003Cconstructor\u003Ek__BackingField = value;
+        this._constructor_BackingField = value;
       }
     }
 

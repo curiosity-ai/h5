@@ -13,12 +13,12 @@ namespace H5.Primitive
   [Namespace(false)]
   public class Number : Object, Number.Interface, IObject
   {
-    private static readonly Number \u003Cprototype\u003Ek__BackingField;
-    private static readonly double \u003CMAX_VALUE\u003Ek__BackingField;
-    private static readonly double \u003CMIN_VALUE\u003Ek__BackingField;
-    private static readonly double \u003CNaN\u003Ek__BackingField;
-    private static readonly double \u003CNEGATIVE_INFINITY\u003Ek__BackingField;
-    private static readonly double \u003CPOSITIVE_INFINITY\u003Ek__BackingField;
+    private static readonly Number _prototype_BackingField;
+    private static readonly double _MAX_VALUE_BackingField;
+    private static readonly double _MIN_VALUE_BackingField;
+    private static readonly double _NaN_BackingField;
+    private static readonly double _NEGATIVE_INFINITY_BackingField;
+    private static readonly double _POSITIVE_INFINITY_BackingField;
 
     public extern Number();
 
@@ -28,7 +28,7 @@ namespace H5.Primitive
     {
       get
       {
-        return Number.\u003Cprototype\u003Ek__BackingField;
+        return Number._prototype_BackingField;
       }
     }
 
@@ -36,7 +36,7 @@ namespace H5.Primitive
     {
       get
       {
-        return Number.\u003CMAX_VALUE\u003Ek__BackingField;
+        return Number._MAX_VALUE_BackingField;
       }
     }
 
@@ -44,7 +44,7 @@ namespace H5.Primitive
     {
       get
       {
-        return Number.\u003CMIN_VALUE\u003Ek__BackingField;
+        return Number._MIN_VALUE_BackingField;
       }
     }
 
@@ -52,7 +52,7 @@ namespace H5.Primitive
     {
       get
       {
-        return Number.\u003CNaN\u003Ek__BackingField;
+        return Number._NaN_BackingField;
       }
     }
 
@@ -60,7 +60,7 @@ namespace H5.Primitive
     {
       get
       {
-        return Number.\u003CNEGATIVE_INFINITY\u003Ek__BackingField;
+        return Number._NEGATIVE_INFINITY_BackingField;
       }
     }
 
@@ -68,7 +68,7 @@ namespace H5.Primitive
     {
       get
       {
-        return Number.\u003CPOSITIVE_INFINITY\u003Ek__BackingField;
+        return Number._POSITIVE_INFINITY_BackingField;
       }
     }
 

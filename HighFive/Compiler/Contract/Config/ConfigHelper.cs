@@ -235,11 +235,6 @@ namespace HighFive.Contract
 
             if (!File.Exists(path))
             {
-                path = folder + Path.DirectorySeparatorChar + "HighFive.NET" + Path.DirectorySeparatorChar + configFileName;
-            }
-
-            if (!File.Exists(path))
-            {
                 this.Logger.Trace("Skipping " + configFileName + " (not found)");
                 return null;
             }

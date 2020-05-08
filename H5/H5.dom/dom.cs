@@ -27971,7 +27971,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class CSSRuleList : IEnumerable<dom.CSSRule>, IEnumerable, IBridgeClass, IObject
+    public class CSSRuleList : IEnumerable<dom.CSSRule>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.CSSRuleList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -28000,10 +28000,10 @@ namespace H5
 
       public virtual extern dom.CSSRule this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.CSSRule> IEnumerable<dom.CSSRule>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -36020,7 +36020,7 @@ namespace H5
     [IgnoreCast]
     [Virtual]
     [FormerInterface]
-    public abstract class DOMRectList : IEnumerable<dom.DOMRect>, IEnumerable, IBridgeClass, IObject
+    public abstract class DOMRectList : IEnumerable<dom.DOMRect>, IEnumerable, IHighFiveClass, IObject
     {
       public abstract uint length { get; }
 
@@ -36028,10 +36028,10 @@ namespace H5
 
       public virtual extern dom.DOMRect this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.DOMRect> IEnumerable<dom.DOMRect>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -36174,7 +36174,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class DOMStringList : IEnumerable<string>, IEnumerable, IBridgeClass, IObject
+    public class DOMStringList : IEnumerable<string>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.DOMStringList _prototype_BackingField;
       private readonly double _length_BackingField;
@@ -36205,10 +36205,10 @@ namespace H5
 
       public virtual extern string this[double index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<string> IEnumerable<string>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -36235,7 +36235,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class DOMTokenList : IEnumerable<string>, IEnumerable, IBridgeClass, IObject
+    public class DOMTokenList : IEnumerable<string>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.DOMTokenList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -36280,10 +36280,10 @@ namespace H5
 
       public virtual extern string this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<string> IEnumerable<string>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -36500,7 +36500,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class DataTransferItemList : IEnumerable<dom.DataTransferItem>, IEnumerable, IBridgeClass, IObject
+    public class DataTransferItemList : IEnumerable<dom.DataTransferItem>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.DataTransferItemList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -36537,10 +36537,10 @@ namespace H5
 
       public virtual extern dom.DataTransferItem this[double name] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.DataTransferItem> IEnumerable<dom.DataTransferItem>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -43796,6 +43796,8 @@ namespace H5
       private readonly ushort _CAPTURING_PHASE_BackingField;
       private readonly ushort _NONE_BackingField;
 
+      public extern Event();
+
       public extern Event(string typeArg);
 
       public extern Event(string typeArg, dom.EventInit eventInitDict);
@@ -44531,7 +44533,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class FileList : IEnumerable<dom.File>, IEnumerable, IBridgeClass, IObject
+    public class FileList : IEnumerable<dom.File>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.FileList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -44560,10 +44562,10 @@ namespace H5
 
       public virtual extern dom.File this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.File> IEnumerable<dom.File>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -48619,7 +48621,7 @@ namespace H5
     [IgnoreCast]
     [Virtual]
     [FormerInterface]
-    public abstract class HTMLCollectionBase : IEnumerable<dom.Element>, IEnumerable, IBridgeClass, IObject
+    public abstract class HTMLCollectionBase : IEnumerable<dom.Element>, IEnumerable, IHighFiveClass, IObject
     {
       public abstract uint length { get; }
 
@@ -48627,10 +48629,10 @@ namespace H5
 
       public virtual extern dom.Element this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.Element> IEnumerable<dom.Element>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -48664,7 +48666,7 @@ namespace H5
     [Virtual]
     [FormerInterface]
     [Where("T", typeof (dom.Element), EnableImplicitConversion = true)]
-    public abstract class HTMLCollectionOf<T> : dom.HTMLCollectionBase, IEnumerable<T>, IEnumerable, IBridgeClass
+    public abstract class HTMLCollectionOf<T> : dom.HTMLCollectionBase, IEnumerable<T>, IEnumerable, IHighFiveClass
     {
       public abstract T item(double index);
 
@@ -48672,7 +48674,7 @@ namespace H5
 
       public virtual extern T this[double index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<T> IEnumerable<T>.GetEnumerator();
     }
 
@@ -68140,7 +68142,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class MediaList : IEnumerable<string>, IEnumerable, IBridgeClass, IObject
+    public class MediaList : IEnumerable<string>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.MediaList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -68188,10 +68190,10 @@ namespace H5
 
       public virtual extern string this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<string> IEnumerable<string>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -69409,7 +69411,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class MimeTypeArray : IEnumerable<dom.MimeType>, IEnumerable, IBridgeClass, IObject
+    public class MimeTypeArray : IEnumerable<dom.MimeType>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.MimeTypeArray _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -69440,10 +69442,10 @@ namespace H5
 
       public virtual extern dom.Plugin this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.MimeType> IEnumerable<dom.MimeType>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -71337,7 +71339,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class NodeList : IEnumerable<dom.Node>, IEnumerable, IBridgeClass, IObject
+    public class NodeList : IEnumerable<dom.Node>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.NodeList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -71366,10 +71368,10 @@ namespace H5
 
       public virtual extern dom.Node this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.Node> IEnumerable<dom.Node>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -71378,7 +71380,7 @@ namespace H5
     [Virtual]
     [FormerInterface]
     [Where("TNode", typeof (dom.Node.Interface), EnableImplicitConversion = true)]
-    public abstract class NodeListOf<TNode> : dom.NodeList, IEnumerable<TNode>, IEnumerable, IBridgeClass
+    public abstract class NodeListOf<TNode> : dom.NodeList, IEnumerable<TNode>, IEnumerable, IHighFiveClass
     {
       private double _length_BackingField;
 
@@ -71398,10 +71400,10 @@ namespace H5
 
       public virtual extern TNode this[double index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<TNode> IEnumerable<TNode>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -74605,7 +74607,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class PluginArray : IEnumerable<dom.Plugin>, IEnumerable, IBridgeClass, IObject
+    public class PluginArray : IEnumerable<dom.Plugin>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.PluginArray _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -74640,10 +74642,10 @@ namespace H5
 
       public virtual extern dom.Plugin this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.Plugin> IEnumerable<dom.Plugin>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -86099,7 +86101,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class SVGLengthList : IEnumerable<dom.SVGLength>, IEnumerable, IBridgeClass, IObject
+    public class SVGLengthList : IEnumerable<dom.SVGLength>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.SVGLengthList _prototype_BackingField;
       private readonly uint _numberOfItems_BackingField;
@@ -86138,10 +86140,10 @@ namespace H5
 
       public virtual extern dom.SVGLength replaceItem(dom.SVGLength newItem, uint index);
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.SVGLength> IEnumerable<dom.SVGLength>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -87061,7 +87063,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class SVGNumberList : IEnumerable<dom.SVGNumber>, IEnumerable, IBridgeClass, IObject
+    public class SVGNumberList : IEnumerable<dom.SVGNumber>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.SVGNumberList _prototype_BackingField;
       private readonly uint _numberOfItems_BackingField;
@@ -87100,10 +87102,10 @@ namespace H5
 
       public virtual extern dom.SVGNumber replaceItem(dom.SVGNumber newItem, uint index);
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.SVGNumber> IEnumerable<dom.SVGNumber>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -88730,7 +88732,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class SVGPathSegList : IEnumerable<dom.SVGPathSeg>, IEnumerable, IBridgeClass, IObject
+    public class SVGPathSegList : IEnumerable<dom.SVGPathSeg>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.SVGPathSegList _prototype_BackingField;
       private readonly double _numberOfItems_BackingField;
@@ -88769,10 +88771,10 @@ namespace H5
 
       public virtual extern dom.SVGPathSeg replaceItem(dom.SVGPathSeg newItem, double index);
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.SVGPathSeg> IEnumerable<dom.SVGPathSeg>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -89137,7 +89139,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class SVGPointList : IEnumerable<dom.SVGPoint>, IEnumerable, IBridgeClass, IObject
+    public class SVGPointList : IEnumerable<dom.SVGPoint>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.SVGPointList _prototype_BackingField;
       private readonly uint _numberOfItems_BackingField;
@@ -89176,10 +89178,10 @@ namespace H5
 
       public virtual extern dom.SVGPoint replaceItem(dom.SVGPoint newItem, uint index);
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.SVGPoint> IEnumerable<dom.SVGPoint>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -90864,7 +90866,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class SVGStringList : IEnumerable<string>, IEnumerable, IBridgeClass, IObject
+    public class SVGStringList : IEnumerable<string>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.SVGStringList _prototype_BackingField;
       private readonly uint _numberOfItems_BackingField;
@@ -90903,10 +90905,10 @@ namespace H5
 
       public virtual extern string replaceItem(string newItem, uint index);
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<string> IEnumerable<string>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -92204,7 +92206,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class SVGTransformList : IEnumerable<dom.SVGTransform>, IEnumerable, IBridgeClass, IObject
+    public class SVGTransformList : IEnumerable<dom.SVGTransform>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.SVGTransformList _prototype_BackingField;
       private readonly uint _numberOfItems_BackingField;
@@ -92249,10 +92251,10 @@ namespace H5
 
       public virtual extern dom.SVGTransform replaceItem(dom.SVGTransform newItem, uint index);
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.SVGTransform> IEnumerable<dom.SVGTransform>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -95976,7 +95978,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class StyleSheetList : IEnumerable<dom.StyleSheet>, IEnumerable, IBridgeClass, IObject
+    public class StyleSheetList : IEnumerable<dom.StyleSheet>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.StyleSheetList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -96005,10 +96007,10 @@ namespace H5
 
       public virtual extern dom.StyleSheet this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.StyleSheet> IEnumerable<dom.StyleSheet>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -98138,6 +98140,7 @@ namespace H5
       private string _text_BackingField;
       private readonly dom.TextTrack _track_BackingField;
 
+      public extern TextTrackCue();
       public extern TextTrackCue(double startTime, double endTime, string text);
 
       public static dom.TextTrackCue prototype
@@ -98345,7 +98348,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class TextTrackCueList : IEnumerable<dom.TextTrackCue>, IEnumerable, IBridgeClass, IObject
+    public class TextTrackCueList : IEnumerable<dom.TextTrackCue>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.TextTrackCueList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -98376,10 +98379,10 @@ namespace H5
 
       public virtual extern dom.TextTrackCue this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.TextTrackCue> IEnumerable<dom.TextTrackCue>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -98412,7 +98415,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class TextTrackList : dom.EventTarget, IEnumerable<dom.TextTrack>, IEnumerable, IBridgeClass
+    public class TextTrackList : dom.EventTarget, IEnumerable<dom.TextTrack>, IEnumerable, IHighFiveClass
     {
       private static dom.TextTrackList _prototype_BackingField;
       private readonly uint _length_BackingField;
@@ -98539,10 +98542,10 @@ namespace H5
 
       public virtual extern dom.TextTrack this[uint index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.TextTrack> IEnumerable<dom.TextTrack>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       [Generated]
@@ -98841,7 +98844,7 @@ namespace H5
 
     [CombinedClass]
     [FormerInterface]
-    public class TouchList : IEnumerable<dom.Touch>, IEnumerable, IBridgeClass, IObject
+    public class TouchList : IEnumerable<dom.Touch>, IEnumerable, IHighFiveClass, IObject
     {
       private static dom.TouchList _prototype_BackingField;
       private readonly double _length_BackingField;
@@ -98870,10 +98873,10 @@ namespace H5
 
       public virtual extern dom.Touch this[double index] { get; set; }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<dom.Touch> IEnumerable<dom.Touch>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
     }
 
@@ -99046,6 +99049,8 @@ namespace H5
       private static dom.UIEvent _prototype_BackingField;
       private readonly int _detail_BackingField;
       private readonly dom.Window _view_BackingField;
+
+      public extern UIEvent();
 
       public extern UIEvent(string typeArg);
 

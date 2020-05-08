@@ -10,7 +10,7 @@ namespace H5
 {
   [IgnoreGeneric(AllowInTypeScript = true)]
   [IgnoreCast]
-  [Bridge.Name("String")]
+  [HighFive.Name("String")]
   [ExportedAs("KeyOf")]
   public class KeyOf<T>
   {

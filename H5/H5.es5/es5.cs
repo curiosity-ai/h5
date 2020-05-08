@@ -1734,7 +1734,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("ArrayConstructor")]
     [FormerInterface]
-    public class Array<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IBridgeClass, IReadOnlyList<T>, IReadOnlyCollection<T>, ICollection, IObject
+    public class Array<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IHighFiveClass, IReadOnlyList<T>, IReadOnlyCollection<T>, ICollection, IObject
     {
       private static readonly es5.Array<object> _prototype_BackingField;
       private double _length_BackingField;
@@ -1921,10 +1921,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<T> IEnumerable<T>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern T IReadOnlyList<T>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -2495,7 +2495,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Int8ArrayConstructor")]
     [FormerInterface]
-    public class Int8Array : IList<sbyte>, ICollection<sbyte>, IEnumerable<sbyte>, IEnumerable, IBridgeClass, IReadOnlyList<sbyte>, IReadOnlyCollection<sbyte>, ICollection, IObject
+    public class Int8Array : IList<sbyte>, ICollection<sbyte>, IEnumerable<sbyte>, IEnumerable, IHighFiveClass, IReadOnlyList<sbyte>, IReadOnlyCollection<sbyte>, ICollection, IObject
     {
       private static readonly es5.Int8Array _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -2740,10 +2740,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<sbyte> IEnumerable<sbyte>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern sbyte IReadOnlyList<sbyte>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -2900,7 +2900,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Uint8ArrayConstructor")]
     [FormerInterface]
-    public class Uint8Array : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IBridgeClass, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
+    public class Uint8Array : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IHighFiveClass, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
     {
       private static readonly es5.Uint8Array _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -3145,10 +3145,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<byte> IEnumerable<byte>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern byte IReadOnlyList<byte>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -3305,7 +3305,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Uint8ClampedArrayConstructor")]
     [FormerInterface]
-    public class Uint8ClampedArray : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IBridgeClass, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
+    public class Uint8ClampedArray : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IHighFiveClass, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
     {
       private static readonly es5.Uint8ClampedArray _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -3559,10 +3559,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<byte> IEnumerable<byte>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern byte IReadOnlyList<byte>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -3722,7 +3722,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Int16ArrayConstructor")]
     [FormerInterface]
-    public class Int16Array : IList<short>, ICollection<short>, IEnumerable<short>, IEnumerable, IBridgeClass, IReadOnlyList<short>, IReadOnlyCollection<short>, ICollection, IObject
+    public class Int16Array : IList<short>, ICollection<short>, IEnumerable<short>, IEnumerable, IHighFiveClass, IReadOnlyList<short>, IReadOnlyCollection<short>, ICollection, IObject
     {
       private static readonly es5.Int16Array _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -3967,10 +3967,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<short> IEnumerable<short>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern short IReadOnlyList<short>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -4127,7 +4127,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Uint16ArrayConstructor")]
     [FormerInterface]
-    public class Uint16Array : IList<ushort>, ICollection<ushort>, IEnumerable<ushort>, IEnumerable, IBridgeClass, IReadOnlyList<ushort>, IReadOnlyCollection<ushort>, ICollection, IObject
+    public class Uint16Array : IList<ushort>, ICollection<ushort>, IEnumerable<ushort>, IEnumerable, IHighFiveClass, IReadOnlyList<ushort>, IReadOnlyCollection<ushort>, ICollection, IObject
     {
       private static readonly es5.Uint16Array _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -4372,10 +4372,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<ushort> IEnumerable<ushort>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern ushort IReadOnlyList<ushort>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -4532,7 +4532,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Int32ArrayConstructor")]
     [FormerInterface]
-    public class Int32Array : IList<int>, ICollection<int>, IEnumerable<int>, IEnumerable, IBridgeClass, IReadOnlyList<int>, IReadOnlyCollection<int>, ICollection, IObject
+    public class Int32Array : IList<int>, ICollection<int>, IEnumerable<int>, IEnumerable, IHighFiveClass, IReadOnlyList<int>, IReadOnlyCollection<int>, ICollection, IObject
     {
       private static readonly es5.Int32Array _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -4776,10 +4776,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<int> IEnumerable<int>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern int IReadOnlyList<int>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -4936,7 +4936,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Uint32ArrayConstructor")]
     [FormerInterface]
-    public class Uint32Array : IList<uint>, ICollection<uint>, IEnumerable<uint>, IEnumerable, IBridgeClass, IReadOnlyList<uint>, IReadOnlyCollection<uint>, ICollection, IObject
+    public class Uint32Array : IList<uint>, ICollection<uint>, IEnumerable<uint>, IEnumerable, IHighFiveClass, IReadOnlyList<uint>, IReadOnlyCollection<uint>, ICollection, IObject
     {
       private static readonly es5.Uint32Array _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -5181,10 +5181,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<uint> IEnumerable<uint>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern uint IReadOnlyList<uint>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -5341,7 +5341,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Float32ArrayConstructor")]
     [FormerInterface]
-    public class Float32Array : IList<float>, ICollection<float>, IEnumerable<float>, IEnumerable, IBridgeClass, IReadOnlyList<float>, IReadOnlyCollection<float>, ICollection, IObject
+    public class Float32Array : IList<float>, ICollection<float>, IEnumerable<float>, IEnumerable, IHighFiveClass, IReadOnlyList<float>, IReadOnlyCollection<float>, ICollection, IObject
     {
       private static readonly es5.Float32Array _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -5588,10 +5588,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<float> IEnumerable<float>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern float IReadOnlyList<float>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -5748,7 +5748,7 @@ namespace H5
     [CombinedClass]
     [StaticInterface("Float64ArrayConstructor")]
     [FormerInterface]
-    public class Float64Array : IList<double>, ICollection<double>, IEnumerable<double>, IEnumerable, IBridgeClass, IReadOnlyList<double>, IReadOnlyCollection<double>, ICollection, IObject
+    public class Float64Array : IList<double>, ICollection<double>, IEnumerable<double>, IEnumerable, IHighFiveClass, IReadOnlyList<double>, IReadOnlyCollection<double>, ICollection, IObject
     {
       private static readonly es5.Float64Array _prototype_BackingField;
       private static readonly double _BYTES_PER_ELEMENT_Static_BackingField;
@@ -5995,10 +5995,10 @@ namespace H5
         }
       }
 
-      [Template("Bridge.getEnumerator({this}, {T})")]
+      [Template("HighFive.getEnumerator({this}, {T})")]
       extern IEnumerator<double> IEnumerable<double>.GetEnumerator();
 
-      [Template("Bridge.getEnumerator({this})")]
+      [Template("HighFive.getEnumerator({this})")]
       extern IEnumerator IEnumerable.GetEnumerator();
 
       extern double IReadOnlyList<double>.this[int index] { [Template("System.Array.getItem({this}, {0}, {T})")] get; }
@@ -7620,14 +7620,17 @@ namespace H5
       [Generated]
       public delegate object ReturnTypeFn<T>(params object[] args);
 
-      [IgnoreGeneric(AllowInTypeScript = true)]
-      [IgnoreCast]
-      [Virtual]
-      public abstract class ReturnTypeFnAlias<T> : TypeAlias<es5.ReturnType<T>.ReturnTypeFn<T>>
-      {
-        public static extern implicit operator es5.ReturnType<T>.ReturnTypeFnAlias<T>(
-          es5.ReturnType<T>.ReturnTypeFn<T> value);
-      }
+
+//RFO: Removed as VS was complaining with error CS0556
+
+      //[IgnoreGeneric(AllowInTypeScript = true)]
+      //[IgnoreCast]
+      //[Virtual]
+      //public abstract class ReturnTypeFnAlias<T> : TypeAlias<es5.ReturnType<T>.ReturnTypeFn<T>>
+      //{
+      //  public static extern implicit operator es5.ReturnType<T>.ReturnTypeFnAlias<T>(
+      //    es5.ReturnType<T>.ReturnTypeFn<T> value);
+      //}
     }
 
     [IgnoreGeneric(AllowInTypeScript = true)]
@@ -7656,14 +7659,16 @@ namespace H5
         public delegate object InstanceTypeCtorFnDelegate(params object[] args);
       }
 
-      [IgnoreGeneric(AllowInTypeScript = true)]
-      [IgnoreCast]
-      [Virtual]
-      public abstract class InstanceTypeCtorFnAlias<T> : TypeAlias<es5.InstanceType<T>.InstanceTypeCtorFn<T>>
-      {
-        public static extern implicit operator es5.InstanceType<T>.InstanceTypeCtorFnAlias<T>(
-          es5.InstanceType<T>.InstanceTypeCtorFn<T> value);
-      }
+
+//RFO: Removed as VS was complaining with error CS0556
+      //[IgnoreGeneric(AllowInTypeScript = true)]
+      //[IgnoreCast]
+      //[Virtual]
+      //public abstract class InstanceTypeCtorFnAlias<T> : TypeAlias<es5.InstanceType<T>.InstanceTypeCtorFn<T>>
+      //{
+      //  public static extern implicit operator es5.InstanceType<T>.InstanceTypeCtorFnAlias<T>(
+      //    es5.InstanceType<T>.InstanceTypeCtorFn<T> value);
+      //}
     }
 
     [IgnoreCast]

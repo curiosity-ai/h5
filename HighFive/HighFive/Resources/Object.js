@@ -1,0 +1,1 @@
+    HighFive.define("System.Object", { });

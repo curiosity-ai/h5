@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HighFive.NRefactory</id>
+    <version>0.0.0</version>
+    <title>NRefactory</title>
+    <authors>Object.NET,Inc.</authors>
+    <owners>Object.NET,Inc.</owners>
+    <licenseUrl>https://github.com/icsharpcode/NRefactory</licenseUrl>
+    <projectUrl>https://github.com/icsharpcode/NRefactory</projectUrl>
+    <iconUrl>http://speed.highfive.net/identity/highfivedotnet-100x100.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HighFive.NET fork of NRefactory project</description>
+    <summary>HighFive.NET fork of NRefactory project</summary>
+    <copyright />
+    <dependencies>
+      <dependency id="Mono.Cecil" version="0.11.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="../../ICSharpCode.NRefactory/bin/Release/ICSharpCode.NRefactory.dll" target="lib/net40/ICSharpCode.NRefactory.dll" />
+    <file src="../../ICSharpCode.NRefactory/bin/Release/ICSharpCode.NRefactory.xml" target="lib/net40/ICSharpCode.NRefactory.xml" />
+    <file src="../../ICSharpCode.NRefactory/bin/Release/ICSharpCode.NRefactory.pdb" target="lib/net40/pdb/ICSharpCode.NRefactory.pdb" />
+
+    <file src="../../ICSharpCode.NRefactory.Cecil/bin/Release/ICSharpCode.NRefactory.Cecil.dll" target="lib/net40/ICSharpCode.NRefactory.Cecil.dll" />
+    <file src="../../ICSharpCode.NRefactory.Cecil/bin/Release/ICSharpCode.NRefactory.Cecil.xml" target="lib/net40/ICSharpCode.NRefactory.Cecil.xml" />
+    <file src="../../ICSharpCode.NRefactory.Cecil/bin/Release/ICSharpCode.NRefactory.Cecil.pdb" target="lib/net40/pdb/ICSharpCode.NRefactory.Cecil.pdb" />
+
+    <file src="../../ICSharpCode.NRefactory.CSharp/bin/Release/ICSharpCode.NRefactory.CSharp.dll" target="lib/net40/ICSharpCode.NRefactory.CSharp.dll" />
+    <file src="../../ICSharpCode.NRefactory.CSharp/bin/Release/ICSharpCode.NRefactory.CSharp.xml" target="lib/net40/ICSharpCode.NRefactory.CSharp.xml" />
+    <file src="../../ICSharpCode.NRefactory.CSharp/bin/Release/ICSharpCode.NRefactory.CSharp.pdb" target="lib/net40/pdb/ICSharpCode.NRefactory.CSharp.pdb" />
+  </files>
+</package>

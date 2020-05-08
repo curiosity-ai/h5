@@ -7,6 +7,7 @@ using HighFive;
 using H5;
 using Tesserae.Components;
 using static H5.Core.dom;
+using H5.Core;
 
 namespace Tesserae
 {

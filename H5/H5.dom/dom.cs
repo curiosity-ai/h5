@@ -14,7 +14,8 @@ namespace H5
 {
   [Scope]
   [GlobalMethods]
-  public static class dom
+    [Virtual]
+    public static class dom
   {
     public static readonly Never name;
 
@@ -5133,79 +5134,79 @@ namespace H5
 
     public static dom.Storage sessionStorage
     {
-  set;
+  get;
   set;
     }
 
     public static dom.Storage localStorage
     {
-  set;
+  get;
   set;
     }
 
     public static dom.Console console
     {
-  set;
+  get;
   set;
     }
 
     public static dom.oncontextmenuFn onpointercancel
     {
-  set;
+  get;
   set;
     }
 
     public static dom.oncontextmenuFn onpointerdown
     {
-  set;
+  get;
   set;
     }
 
     public static dom.oncontextmenuFn onpointerenter
     {
-  set;
+  get;
   set;
     }
 
     public static dom.oncontextmenuFn onpointerleave
     {
-  set;
+  get;
   set;
     }
 
     public static dom.oncontextmenuFn onpointermove
     {
-  set;
+  get;
   set;
     }
 
     public static dom.oncontextmenuFn onpointerout
     {
-  set;
+  get;
   set;
     }
 
     public static dom.oncontextmenuFn onpointerover
     {
-  set;
+  get;
   set;
     }
 
     public static dom.oncontextmenuFn onpointerup
     {
-  set;
+  get;
   set;
     }
 
     public static dom.onmousewheelFn onwheel
     {
-  set;
+  get;
   set;
     }
 
     public static dom.IDBFactory indexedDB
     {
-  set;
+  get;
   set;
     }
 
@@ -5414,31 +5415,31 @@ namespace H5
 
       public string displayName
       {
-    set;
+    get;
     set;
       }
 
       public string id
       {
-    set;
+    get;
     set;
       }
 
       public string imageURL
       {
-    set;
+    get;
     set;
       }
 
       public string name
       {
-    set;
+    get;
     set;
       }
 
       public string rpDisplayName
       {
-    set;
+    get;
     set;
       }
     }
@@ -5453,13 +5454,13 @@ namespace H5
 
       public bool? once
       {
-    set;
+    get;
     set;
       }
 
       public bool? passive
       {
-    set;
+    get;
     set;
       }
     }
@@ -5473,7 +5474,7 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> iv
       {
-    set;
+    get;
     set;
       }
     }
@@ -5488,13 +5489,13 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> counter
       {
-    set;
+    get;
     set;
       }
 
       public double length
       {
-    set;
+    get;
     set;
       }
     }
@@ -5508,7 +5509,7 @@ namespace H5
 
       public double length
       {
-    set;
+    get;
     set;
       }
     }
@@ -5524,19 +5525,19 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> additionalData
       {
-    set;
+    get;
     set;
       }
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> iv
       {
-    set;
+    get;
     set;
       }
 
       public double? tagLength
       {
-    set;
+    get;
     set;
       }
     }
@@ -5550,7 +5551,7 @@ namespace H5
 
       public double length
       {
-    set;
+    get;
     set;
       }
     }
@@ -5564,7 +5565,7 @@ namespace H5
 
       public double length
       {
-    set;
+    get;
     set;
       }
     }
@@ -5578,7 +5579,7 @@ namespace H5
 
       public string name
       {
-    set;
+    get;
     set;
       }
     }
@@ -5595,25 +5596,25 @@ namespace H5
 
       public double? fftSize
       {
-    set;
+    get;
     set;
       }
 
       public double? maxDecibels
       {
-    set;
+    get;
     set;
       }
 
       public double? minDecibels
       {
-    set;
+    get;
     set;
       }
 
       public double? smoothingTimeConstant
       {
-    set;
+    get;
     set;
       }
     }
@@ -5628,13 +5629,13 @@ namespace H5
 
       public string animationName
       {
-    set;
+    get;
     set;
       }
 
       public double? elapsedTime
       {
-    set;
+    get;
     set;
       }
     }
@@ -5651,25 +5652,25 @@ namespace H5
 
       public dom.ScopedCredentialDescriptor[] allowList
       {
-    set;
+    get;
     set;
       }
 
       public dom.WebAuthnExtensions extensions
       {
-    set;
+    get;
     set;
       }
 
       public string rpId
       {
-    set;
+    get;
     set;
       }
 
       public double? timeoutSeconds
       {
-    set;
+    get;
     set;
       }
     }
@@ -5685,19 +5686,19 @@ namespace H5
 
       public double length
       {
-    set;
+    get;
     set;
       }
 
       public double? numberOfChannels
       {
-    set;
+    get;
     set;
       }
 
       public double sampleRate
       {
-    set;
+    get;
     set;
       }
     }
@@ -5716,37 +5717,37 @@ namespace H5
 
       public dom.AudioBuffer buffer
       {
-    set;
+    get;
     set;
       }
 
       public double? detune
       {
-    set;
+    get;
     set;
       }
 
       public bool? loop
       {
-    set;
+    get;
     set;
       }
 
       public double? loopEnd
       {
-    set;
+    get;
     set;
       }
 
       public double? loopStart
       {
-    set;
+    get;
     set;
       }
 
       public double? playbackRate
       {
-    set;
+    get;
     set;
       }
     }
@@ -5761,13 +5762,13 @@ namespace H5
 
       public double? currentTime
       {
-    set;
+    get;
     set;
       }
 
       public double? sampleRate
       {
-    set;
+    get;
     set;
       }
     }
@@ -5782,13 +5783,13 @@ namespace H5
 
       public Union<dom.AudioContextLatencyCategory, double> latencyHint
       {
-    set;
+    get;
     set;
       }
 
       public double? sampleRate
       {
-    set;
+    get;
     set;
       }
     }
@@ -5804,19 +5805,19 @@ namespace H5
 
       public double? channelCount
       {
-    set;
+    get;
     set;
       }
 
       public dom.ChannelCountMode channelCountMode
       {
-    set;
+    get;
     set;
       }
 
       public dom.ChannelInterpretation channelInterpretation
       {
-    set;
+    get;
     set;
       }
     }
@@ -5833,25 +5834,25 @@ namespace H5
 
       public double? defaultValue
       {
-    set;
+    get;
     set;
       }
 
       public double? maxValue
       {
-    set;
+    get;
     set;
       }
 
       public double? minValue
       {
-    set;
+    get;
     set;
       }
 
       public string name
       {
-    set;
+    get;
     set;
       }
     }
@@ -5867,19 +5868,19 @@ namespace H5
 
       public dom.AudioBuffer inputBuffer
       {
-    set;
+    get;
     set;
       }
 
       public dom.AudioBuffer outputBuffer
       {
-    set;
+    get;
     set;
       }
 
       public double playbackTime
       {
-    set;
+    get;
     set;
       }
     }
@@ -5894,13 +5895,13 @@ namespace H5
 
       public double? contextTime
       {
-    set;
+    get;
     set;
       }
 
       public double? performanceTime
       {
-    set;
+    get;
     set;
       }
     }
@@ -5918,31 +5919,31 @@ namespace H5
 
       public double? Q
       {
-    set;
+    get;
     set;
       }
 
       public double? detune
       {
-    set;
+    get;
     set;
       }
 
       public double? frequency
       {
-    set;
+    get;
     set;
       }
 
       public double? gain
       {
-    set;
+    get;
     set;
       }
 
       public dom.BiquadFilterType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -5956,7 +5957,7 @@ namespace H5
 
       public double? byteLength
       {
-    set;
+    get;
     set;
       }
     }
@@ -5973,25 +5974,25 @@ namespace H5
 
       public string cacheName
       {
-    set;
+    get;
     set;
       }
 
       public bool? ignoreMethod
       {
-    set;
+    get;
     set;
       }
 
       public bool? ignoreSearch
       {
-    set;
+    get;
     set;
       }
 
       public bool? ignoreVary
       {
-    set;
+    get;
     set;
       }
     }
@@ -6005,7 +6006,7 @@ namespace H5
 
       public double? numberOfInputs
       {
-    set;
+    get;
     set;
       }
     }
@@ -6019,7 +6020,7 @@ namespace H5
 
       public double? numberOfOutputs
       {
-    set;
+    get;
     set;
       }
     }
@@ -6038,37 +6039,37 @@ namespace H5
 
       public string challenge
       {
-    set;
+    get;
     set;
       }
 
       public dom.WebAuthnExtensions extensions
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, dom.Algorithm> hashAlg
       {
-    set;
+    get;
     set;
       }
 
       public string origin
       {
-    set;
+    get;
     set;
       }
 
       public string rpId
       {
-    set;
+    get;
     set;
       }
 
       public string tokenBinding
       {
-    set;
+    get;
     set;
       }
     }
@@ -6084,19 +6085,19 @@ namespace H5
 
       public bool? includeReserved
       {
-    set;
+    get;
     set;
       }
 
       public bool? includeUncontrolled
       {
-    set;
+    get;
     set;
       }
 
       public dom.ClientTypes type
       {
-    set;
+    get;
     set;
       }
     }
@@ -6112,19 +6113,19 @@ namespace H5
 
       public ushort? code
       {
-    set;
+    get;
     set;
       }
 
       public string reason
       {
-    set;
+    get;
     set;
       }
 
       public bool? wasClean
       {
-    set;
+    get;
     set;
       }
     }
@@ -6138,7 +6139,7 @@ namespace H5
 
       public string data
       {
-    set;
+    get;
     set;
       }
     }
@@ -6152,7 +6153,7 @@ namespace H5
 
       public string[] arrayOfDomainStrings
       {
-    set;
+    get;
     set;
       }
     }
@@ -6166,7 +6167,7 @@ namespace H5
 
       public double? offset
       {
-    set;
+    get;
     set;
       }
     }
@@ -6181,13 +6182,13 @@ namespace H5
 
       public bool? exact
       {
-    set;
+    get;
     set;
       }
 
       public bool? ideal
       {
-    set;
+    get;
     set;
       }
     }
@@ -6202,13 +6203,13 @@ namespace H5
 
       public Union<string, string[]> exact
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, string[]> ideal
       {
-    set;
+    get;
     set;
       }
     }
@@ -6223,13 +6224,13 @@ namespace H5
 
       public double? exact
       {
-    set;
+    get;
     set;
       }
 
       public double? ideal
       {
-    set;
+    get;
     set;
       }
     }
@@ -6244,13 +6245,13 @@ namespace H5
 
       public double? exact
       {
-    set;
+    get;
     set;
       }
 
       public double? ideal
       {
-    set;
+    get;
     set;
       }
     }
@@ -6265,13 +6266,13 @@ namespace H5
 
       public Union<dom.VideoFacingModeEnum, dom.VideoFacingModeEnum[]> exact
       {
-    set;
+    get;
     set;
       }
 
       public Union<dom.VideoFacingModeEnum, dom.VideoFacingModeEnum[]> ideal
       {
-    set;
+    get;
     set;
       }
     }
@@ -6286,13 +6287,13 @@ namespace H5
 
       public dom.AudioBuffer buffer
       {
-    set;
+    get;
     set;
       }
 
       public bool? disableNormalization
       {
-    set;
+    get;
     set;
       }
     }
@@ -6308,7 +6309,7 @@ namespace H5
 
       public T detail
       {
-    set;
+    get;
     set;
       }
     }
@@ -6325,25 +6326,25 @@ namespace H5
 
       public double? height
       {
-    set;
+    get;
     set;
       }
 
       public double? width
       {
-    set;
+    get;
     set;
       }
 
       public double? x
       {
-    set;
+    get;
     set;
       }
 
       public double? y
       {
-    set;
+    get;
     set;
       }
     }
@@ -6358,13 +6359,13 @@ namespace H5
 
       public double? delayTime
       {
-    set;
+    get;
     set;
       }
 
       public double? maxDelayTime
       {
-    set;
+    get;
     set;
       }
     }
@@ -6380,19 +6381,19 @@ namespace H5
 
       public double? x
       {
-    set;
+    get;
     set;
       }
 
       public double? y
       {
-    set;
+    get;
     set;
       }
 
       public double? z
       {
-    set;
+    get;
     set;
       }
     }
@@ -6406,7 +6407,7 @@ namespace H5
 
       public double? value
       {
-    set;
+    get;
     set;
       }
     }
@@ -6423,25 +6424,25 @@ namespace H5
 
       public dom.DeviceAccelerationDict acceleration
       {
-    set;
+    get;
     set;
       }
 
       public dom.DeviceAccelerationDict accelerationIncludingGravity
       {
-    set;
+    get;
     set;
       }
 
       public double? interval
       {
-    set;
+    get;
     set;
       }
 
       public dom.DeviceRotationRateDict rotationRate
       {
-    set;
+    get;
     set;
       }
     }
@@ -6458,25 +6459,25 @@ namespace H5
 
       public bool? absolute
       {
-    set;
+    get;
     set;
       }
 
       public double? alpha
       {
-    set;
+    get;
     set;
       }
 
       public double? beta
       {
-    set;
+    get;
     set;
       }
 
       public double? gamma
       {
-    set;
+    get;
     set;
       }
     }
@@ -6492,19 +6493,19 @@ namespace H5
 
       public double? alpha
       {
-    set;
+    get;
     set;
       }
 
       public double? beta
       {
-    set;
+    get;
     set;
       }
 
       public double? gamma
       {
-    set;
+    get;
     set;
       }
     }
@@ -6519,13 +6520,13 @@ namespace H5
 
       public double? max
       {
-    set;
+    get;
     set;
       }
 
       public double? min
       {
-    set;
+    get;
     set;
       }
     }
@@ -6543,31 +6544,31 @@ namespace H5
 
       public double? attack
       {
-    set;
+    get;
     set;
       }
 
       public double? knee
       {
-    set;
+    get;
     set;
       }
 
       public double? ratio
       {
-    set;
+    get;
     set;
       }
 
       public double? release
       {
-    set;
+    get;
     set;
       }
 
       public double? threshold
       {
-    set;
+    get;
     set;
       }
     }
@@ -6581,7 +6582,7 @@ namespace H5
 
       public string namedCurve
       {
-    set;
+    get;
     set;
       }
     }
@@ -6595,7 +6596,7 @@ namespace H5
 
       public string namedCurve
       {
-    set;
+    get;
     set;
       }
     }
@@ -6609,7 +6610,7 @@ namespace H5
 
       public string namedCurve
       {
-    set;
+    get;
     set;
       }
     }
@@ -6624,7 +6625,7 @@ namespace H5
       [Name("public")]
       public dom.CryptoKey @public
       {
-    set;
+    get;
     set;
       }
     }
@@ -6638,7 +6639,7 @@ namespace H5
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
     }
@@ -6656,31 +6657,31 @@ namespace H5
 
       public uint? colno
       {
-    set;
+    get;
     set;
       }
 
       public object error
       {
-    set;
+    get;
     set;
       }
 
       public string filename
       {
-    set;
+    get;
     set;
       }
 
       public uint? lineno
       {
-    set;
+    get;
     set;
       }
 
       public string message
       {
-    set;
+    get;
     set;
       }
     }
@@ -6696,19 +6697,19 @@ namespace H5
 
       public bool? bubbles
       {
-    set;
+    get;
     set;
       }
 
       public bool? cancelable
       {
-    set;
+    get;
     set;
       }
 
       public bool? scoped
       {
-    set;
+    get;
     set;
       }
     }
@@ -6722,7 +6723,7 @@ namespace H5
 
       public bool? capture
       {
-    set;
+    get;
     set;
       }
     }
@@ -6750,91 +6751,91 @@ namespace H5
 
       public bool? altKey
       {
-    set;
+    get;
     set;
       }
 
       public bool? ctrlKey
       {
-    set;
+    get;
     set;
       }
 
       public bool? metaKey
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierAltGraph
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierCapsLock
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierFn
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierFnLock
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierHyper
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierNumLock
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierOS
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierScrollLock
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierSuper
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierSymbol
       {
-    set;
+    get;
     set;
       }
 
       public bool? modifierSymbolLock
       {
-    set;
+    get;
     set;
       }
 
       public bool? shiftKey
       {
-    set;
+    get;
     set;
       }
     }
@@ -6848,7 +6849,7 @@ namespace H5
 
       public string domain
       {
-    set;
+    get;
     set;
       }
     }
@@ -6873,31 +6874,31 @@ namespace H5
 
       public object data
       {
-    set;
+    get;
     set;
       }
 
       public string lastEventId
       {
-    set;
+    get;
     set;
       }
 
       public string origin
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessagePort[] ports
       {
-    set;
+    get;
     set;
       }
 
       public Union<IObject, dom.ServiceWorker, dom.MessagePort, Null> source
       {
-    set;
+    get;
     set;
       }
     }
@@ -6914,25 +6915,25 @@ namespace H5
 
       public string clientId
       {
-    set;
+    get;
     set;
       }
 
       public dom.Request request
       {
-    set;
+    get;
     set;
       }
 
       public string reservedClientId
       {
-    set;
+    get;
     set;
       }
 
       public string targetClientId
       {
-    set;
+    get;
     set;
       }
     }
@@ -6946,7 +6947,7 @@ namespace H5
 
       public dom.EventTarget relatedTarget
       {
-    set;
+    get;
     set;
       }
     }
@@ -6964,31 +6965,31 @@ namespace H5
 
       public string navigationReason
       {
-    set;
+    get;
     set;
       }
 
       public double? originHeight
       {
-    set;
+    get;
     set;
       }
 
       public double? originLeft
       {
-    set;
+    get;
     set;
       }
 
       public double? originTop
       {
-    set;
+    get;
     set;
       }
 
       public double? originWidth
       {
-    set;
+    get;
     set;
       }
     }
@@ -7005,25 +7006,25 @@ namespace H5
 
       public double? originHeight
       {
-    set;
+    get;
     set;
       }
 
       public double? originLeft
       {
-    set;
+    get;
     set;
       }
 
       public double? originTop
       {
-    set;
+    get;
     set;
       }
 
       public double? originWidth
       {
-    set;
+    get;
     set;
       }
     }
@@ -7037,7 +7038,7 @@ namespace H5
 
       public double? gain
       {
-    set;
+    get;
     set;
       }
     }
@@ -7051,7 +7052,7 @@ namespace H5
 
       public dom.Gamepad gamepad
       {
-    set;
+    get;
     set;
       }
     }
@@ -7065,7 +7066,7 @@ namespace H5
 
       public string tag
       {
-    set;
+    get;
     set;
       }
     }
@@ -7080,13 +7081,13 @@ namespace H5
 
       public string newURL
       {
-    set;
+    get;
     set;
       }
 
       public string oldURL
       {
-    set;
+    get;
     set;
       }
     }
@@ -7102,19 +7103,19 @@ namespace H5
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> info
       {
-    set;
+    get;
     set;
       }
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> salt
       {
-    set;
+    get;
     set;
       }
     }
@@ -7129,13 +7130,13 @@ namespace H5
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
 
       public double? length
       {
-    set;
+    get;
     set;
       }
     }
@@ -7150,13 +7151,13 @@ namespace H5
 
       public dom.KeyAlgorithm hash
       {
-    set;
+    get;
     set;
       }
 
       public double length
       {
-    set;
+    get;
     set;
       }
     }
@@ -7171,13 +7172,13 @@ namespace H5
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
 
       public double? length
       {
-    set;
+    get;
     set;
       }
     }
@@ -7192,13 +7193,13 @@ namespace H5
 
       public bool? multiEntry
       {
-    set;
+    get;
     set;
       }
 
       public bool? unique
       {
-    set;
+    get;
     set;
       }
     }
@@ -7213,13 +7214,13 @@ namespace H5
 
       public bool? autoIncrement
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, string[]> keyPath
       {
-    set;
+    get;
     set;
       }
     }
@@ -7234,13 +7235,13 @@ namespace H5
 
       public double[] feedback
       {
-    set;
+    get;
     set;
       }
 
       public double[] feedforward
       {
-    set;
+    get;
     set;
       }
     }
@@ -7259,37 +7260,37 @@ namespace H5
 
       public dom.DOMRectInit boundingClientRect
       {
-    set;
+    get;
     set;
       }
 
       public dom.DOMRectInit intersectionRect
       {
-    set;
+    get;
     set;
       }
 
       public bool isIntersecting
       {
-    set;
+    get;
     set;
       }
 
       public dom.DOMRectInit rootBounds
       {
-    set;
+    get;
     set;
       }
 
       public dom.Element target
       {
-    set;
+    get;
     set;
       }
 
       public double time
       {
-    set;
+    get;
     set;
       }
     }
@@ -7305,19 +7306,19 @@ namespace H5
 
       public dom.Element root
       {
-    set;
+    get;
     set;
       }
 
       public string rootMargin
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, double[]> threshold
       {
-    set;
+    get;
     set;
       }
     }
@@ -7348,109 +7349,109 @@ namespace H5
 
       public string alg
       {
-    set;
+    get;
     set;
       }
 
       public string crv
       {
-    set;
+    get;
     set;
       }
 
       public string d
       {
-    set;
+    get;
     set;
       }
 
       public string dp
       {
-    set;
+    get;
     set;
       }
 
       public string dq
       {
-    set;
+    get;
     set;
       }
 
       public string e
       {
-    set;
+    get;
     set;
       }
 
       public bool? ext
       {
-    set;
+    get;
     set;
       }
 
       public string k
       {
-    set;
+    get;
     set;
       }
 
       public string[] key_ops
       {
-    set;
+    get;
     set;
       }
 
       public string kty
       {
-    set;
+    get;
     set;
       }
 
       public string n
       {
-    set;
+    get;
     set;
       }
 
       public dom.RsaOtherPrimesInfo[] oth
       {
-    set;
+    get;
     set;
       }
 
       public string p
       {
-    set;
+    get;
     set;
       }
 
       public string q
       {
-    set;
+    get;
     set;
       }
 
       public string qi
       {
-    set;
+    get;
     set;
       }
 
       public string use
       {
-    set;
+    get;
     set;
       }
 
       public string x
       {
-    set;
+    get;
     set;
       }
 
       public string y
       {
-    set;
+    get;
     set;
       }
     }
@@ -7464,7 +7465,7 @@ namespace H5
 
       public string name
       {
-    set;
+    get;
     set;
       }
     }
@@ -7481,25 +7482,25 @@ namespace H5
 
       public string code
       {
-    set;
+    get;
     set;
       }
 
       public string key
       {
-    set;
+    get;
     set;
       }
 
       public uint? location
       {
-    set;
+    get;
     set;
       }
 
       public bool? repeat
       {
-    set;
+    get;
     set;
       }
     }
@@ -7514,13 +7515,13 @@ namespace H5
 
       public double? max
       {
-    set;
+    get;
     set;
       }
 
       public double? min
       {
-    set;
+    get;
     set;
       }
     }
@@ -7538,31 +7539,31 @@ namespace H5
 
       public string accountImageUri
       {
-    set;
+    get;
     set;
       }
 
       public string accountName
       {
-    set;
+    get;
     set;
       }
 
       public string rpDisplayName
       {
-    set;
+    get;
     set;
       }
 
       public string userDisplayName
       {
-    set;
+    get;
     set;
       }
 
       public string userId
       {
-    set;
+    get;
     set;
       }
     }
@@ -7591,97 +7592,97 @@ namespace H5
 
       public double? cpuInsufficientEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceCaptureNotFunctioningEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceClippingEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceEchoEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceGlitchesEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceHalfDuplexAECEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceHowlingEventCount
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceLowSNREventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceLowSpeechLevelEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceMultipleEndpointsEventCount
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceNearEndToEchoRatioEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceRenderMuteEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceRenderNotFunctioningEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? deviceRenderZeroVolumeEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? networkDelayEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? networkSendQualityEventRatio
       {
-    set;
+    get;
     set;
       }
     }
@@ -7713,115 +7714,115 @@ namespace H5
 
       public double? burstLossLength1
       {
-    set;
+    get;
     set;
       }
 
       public double? burstLossLength2
       {
-    set;
+    get;
     set;
       }
 
       public double? burstLossLength3
       {
-    set;
+    get;
     set;
       }
 
       public double? burstLossLength4
       {
-    set;
+    get;
     set;
       }
 
       public double? burstLossLength5
       {
-    set;
+    get;
     set;
       }
 
       public double? burstLossLength6
       {
-    set;
+    get;
     set;
       }
 
       public double? burstLossLength7
       {
-    set;
+    get;
     set;
       }
 
       public double? burstLossLength8OrHigher
       {
-    set;
+    get;
     set;
       }
 
       public double? fecRecvDistance1
       {
-    set;
+    get;
     set;
       }
 
       public double? fecRecvDistance2
       {
-    set;
+    get;
     set;
       }
 
       public double? fecRecvDistance3
       {
-    set;
+    get;
     set;
       }
 
       public double? packetReorderDepthAvg
       {
-    set;
+    get;
     set;
       }
 
       public double? packetReorderDepthMax
       {
-    set;
+    get;
     set;
       }
 
       public double? packetReorderRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? ratioCompressedSamplesAvg
       {
-    set;
+    get;
     set;
       }
 
       public double? ratioConcealedSamplesAvg
       {
-    set;
+    get;
     set;
       }
 
       public double? ratioStretchedSamplesAvg
       {
-    set;
+    get;
     set;
       }
 
       public double? samplingRate
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSAudioRecvSignal signal
       {
-    set;
+    get;
     set;
       }
     }
@@ -7840,37 +7841,37 @@ namespace H5
 
       public double? initialSignalLevelRMS
       {
-    set;
+    get;
     set;
       }
 
       public double? recvNoiseLevelCh1
       {
-    set;
+    get;
     set;
       }
 
       public double? recvSignalLevelCh1
       {
-    set;
+    get;
     set;
       }
 
       public double? renderLoopbackSignalLevel
       {
-    set;
+    get;
     set;
       }
 
       public double? renderNoiseLevel
       {
-    set;
+    get;
     set;
       }
 
       public double? renderSignalLevel
       {
-    set;
+    get;
     set;
       }
     }
@@ -7887,25 +7888,25 @@ namespace H5
 
       public bool? audioFECUsed
       {
-    set;
+    get;
     set;
       }
 
       public double? samplingRate
       {
-    set;
+    get;
     set;
       }
 
       public double? sendMutePercent
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSAudioSendSignal signal
       {
-    set;
+    get;
     set;
       }
     }
@@ -7921,19 +7922,19 @@ namespace H5
 
       public double? noiseLevel
       {
-    set;
+    get;
     set;
       }
 
       public double? sendNoiseLevelCh1
       {
-    set;
+    get;
     set;
       }
 
       public double? sendSignalLevelCh1
       {
-    set;
+    get;
     set;
       }
     }
@@ -7949,19 +7950,19 @@ namespace H5
 
       public dom.MSIceType iceType
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSIceWarningFlags iceWarningFlags
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSRelayAddress relayAddress
       {
-    set;
+    get;
     set;
       }
     }
@@ -7975,7 +7976,7 @@ namespace H5
 
       public dom.MSCredentialSpec[] accept
       {
-    set;
+    get;
     set;
       }
     }
@@ -7989,7 +7990,7 @@ namespace H5
 
       public dom.MSCredentialType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -8004,13 +8005,13 @@ namespace H5
 
       public string id
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSCredentialType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -8025,13 +8026,13 @@ namespace H5
 
       public double? maxFr
       {
-    set;
+    get;
     set;
       }
 
       public double? maxFs
       {
-    set;
+    get;
     set;
       }
     }
@@ -8046,13 +8047,13 @@ namespace H5
 
       public double[] sources
       {
-    set;
+    get;
     set;
       }
 
       public double? timestamp
       {
-    set;
+    get;
     set;
       }
     }
@@ -8067,13 +8068,13 @@ namespace H5
 
       public double? roundTrip
       {
-    set;
+    get;
     set;
       }
 
       public double? roundTripMax
       {
-    set;
+    get;
     set;
       }
     }
@@ -8093,43 +8094,43 @@ namespace H5
 
       public dom.MSConnectivity connectivity
       {
-    set;
+    get;
     set;
       }
 
       public string deviceDevName
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSIPAddressInfo localAddr
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSNetworkConnectivityInfo networkconnectivity
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSIPAddressInfo reflexiveLocalIPAddr
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSIPAddressInfo remoteAddr
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceProtocol transport
       {
-    set;
+    get;
     set;
       }
     }
@@ -8144,13 +8145,13 @@ namespace H5
 
       public Union<string, dom.Algorithm> algorithm
       {
-    set;
+    get;
     set;
       }
 
       public string[] authenticators
       {
-    set;
+    get;
     set;
       }
     }
@@ -8166,19 +8167,19 @@ namespace H5
 
       public string ipAddr
       {
-    set;
+    get;
     set;
       }
 
       public string manufacturerMacAddrMask
       {
-    set;
+    get;
     set;
       }
 
       public double? port
       {
-    set;
+    get;
     set;
       }
     }
@@ -8213,133 +8214,133 @@ namespace H5
 
       public bool? allocationMessageIntegrityFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? alternateServerReceived
       {
-    set;
+    get;
     set;
       }
 
       public bool? connCheckMessageIntegrityFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? connCheckOtherError
       {
-    set;
+    get;
     set;
       }
 
       public bool? fipsAllocationFailure
       {
-    set;
+    get;
     set;
       }
 
       public bool? multipleRelayServersAttempted
       {
-    set;
+    get;
     set;
       }
 
       public bool? noRelayServersConfigured
       {
-    set;
+    get;
     set;
       }
 
       public bool? portRangeExhausted
       {
-    set;
+    get;
     set;
       }
 
       public bool? pseudoTLSFailure
       {
-    set;
+    get;
     set;
       }
 
       public bool? tcpNatConnectivityFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? tcpRelayConnectivityFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? turnAuthUnknownUsernameError
       {
-    set;
+    get;
     set;
       }
 
       public bool? turnTcpAllocateFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? turnTcpSendFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? turnTcpTimedOut
       {
-    set;
+    get;
     set;
       }
 
       public bool? turnTurnTcpConnectivityFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? turnUdpAllocateFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? turnUdpSendFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? udpLocalConnectivityFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? udpNatConnectivityFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? udpRelayConnectivityFailed
       {
-    set;
+    get;
     set;
       }
 
       public bool? useCandidateChecksFailed
       {
-    set;
+    get;
     set;
       }
     }
@@ -8355,19 +8356,19 @@ namespace H5
 
       public double? interArrival
       {
-    set;
+    get;
     set;
       }
 
       public double? interArrivalMax
       {
-    set;
+    get;
     set;
       }
 
       public double? interArrivalSD
       {
-    set;
+    get;
     set;
       }
     }
@@ -8382,13 +8383,13 @@ namespace H5
 
       public double? networkBandwidthLowEventRatio
       {
-    set;
+    get;
     set;
       }
 
       public double? networkReceiveQualityEventRatio
       {
-    set;
+    get;
     set;
       }
     }
@@ -8405,25 +8406,25 @@ namespace H5
 
       public dom.MSDelay delay
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSJitter jitter
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSPacketLoss packetLoss
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSUtilization utilization
       {
-    set;
+    get;
     set;
       }
     }
@@ -8439,19 +8440,19 @@ namespace H5
 
       public double? linkspeed
       {
-    set;
+    get;
     set;
       }
 
       public string networkConnectionDetails
       {
-    set;
+    get;
     set;
       }
 
       public bool? vpn
       {
-    set;
+    get;
     set;
       }
     }
@@ -8469,31 +8470,31 @@ namespace H5
 
       public bool? interfaceTypeEthernet
       {
-    set;
+    get;
     set;
       }
 
       public bool? interfaceTypePPP
       {
-    set;
+    get;
     set;
       }
 
       public bool? interfaceTypeTunnel
       {
-    set;
+    get;
     set;
       }
 
       public bool? interfaceTypeWWAN
       {
-    set;
+    get;
     set;
       }
 
       public bool? interfaceTypeWireless
       {
-    set;
+    get;
     set;
       }
     }
@@ -8507,7 +8508,7 @@ namespace H5
 
       public double? appliedBandwidthLimit
       {
-    set;
+    get;
     set;
       }
     }
@@ -8522,13 +8523,13 @@ namespace H5
 
       public double? lossRate
       {
-    set;
+    get;
     set;
       }
 
       public double? lossRateMax
       {
-    set;
+    get;
     set;
       }
     }
@@ -8542,7 +8543,7 @@ namespace H5
 
       public string payloadDescription
       {
-    set;
+    get;
     set;
       }
     }
@@ -8557,13 +8558,13 @@ namespace H5
 
       public double? max
       {
-    set;
+    get;
     set;
       }
 
       public double? min
       {
-    set;
+    get;
     set;
       }
     }
@@ -8578,13 +8579,13 @@ namespace H5
 
       public double? port
       {
-    set;
+    get;
     set;
       }
 
       public string relayAddress
       {
-    set;
+    get;
     set;
       }
     }
@@ -8598,7 +8599,7 @@ namespace H5
 
       public string userPrompt
       {
-    set;
+    get;
     set;
       }
     }
@@ -8639,169 +8640,169 @@ namespace H5
 
       public double? allocationTimeInMs
       {
-    set;
+    get;
     set;
       }
 
       public string baseAddress
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSNetworkInterfaceType baseInterface
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceRole iceRole
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSIceWarningFlags iceWarningFlags
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSNetworkInterfaceType interfaces
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSIceAddrType localAddrType
       {
-    set;
+    get;
     set;
       }
 
       public string localAddress
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSNetworkInterfaceType localInterface
       {
-    set;
+    get;
     set;
       }
 
       public string localMR
       {
-    set;
+    get;
     set;
       }
 
       public double? localMRTCPPort
       {
-    set;
+    get;
     set;
       }
 
       public string localSite
       {
-    set;
+    get;
     set;
       }
 
       public string msRtcEngineVersion
       {
-    set;
+    get;
     set;
       }
 
       public string networkName
       {
-    set;
+    get;
     set;
       }
 
       public double? numConsentReqReceived
       {
-    set;
+    get;
     set;
       }
 
       public double? numConsentReqSent
       {
-    set;
+    get;
     set;
       }
 
       public double? numConsentRespReceived
       {
-    set;
+    get;
     set;
       }
 
       public double? numConsentRespSent
       {
-    set;
+    get;
     set;
       }
 
       public double? portRangeMax
       {
-    set;
+    get;
     set;
       }
 
       public double? portRangeMin
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceProtocol protocol
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSIceAddrType remoteAddrType
       {
-    set;
+    get;
     set;
       }
 
       public string remoteAddress
       {
-    set;
+    get;
     set;
       }
 
       public string remoteMR
       {
-    set;
+    get;
     set;
       }
 
       public double? remoteMRTCPPort
       {
-    set;
+    get;
     set;
       }
 
       public string remoteSite
       {
-    set;
+    get;
     set;
       }
 
       public bool? rtpRtcpMux
       {
-    set;
+    get;
     set;
       }
 
       public double? stunVer
       {
-    set;
+    get;
     set;
       }
     }
@@ -8820,37 +8821,37 @@ namespace H5
 
       public double? bandwidthEstimation
       {
-    set;
+    get;
     set;
       }
 
       public double? bandwidthEstimationAvg
       {
-    set;
+    get;
     set;
       }
 
       public double? bandwidthEstimationMax
       {
-    set;
+    get;
     set;
       }
 
       public double? bandwidthEstimationMin
       {
-    set;
+    get;
     set;
       }
 
       public double? bandwidthEstimationStdDev
       {
-    set;
+    get;
     set;
       }
 
       public double? packets
       {
-    set;
+    get;
     set;
       }
     }
@@ -8869,37 +8870,37 @@ namespace H5
 
       public double? durationSeconds
       {
-    set;
+    get;
     set;
       }
 
       public string resolution
       {
-    set;
+    get;
     set;
       }
 
       public double? videoBitRateAvg
       {
-    set;
+    get;
     set;
       }
 
       public double? videoBitRateMax
       {
-    set;
+    get;
     set;
       }
 
       public double? videoFrameRateAvg
       {
-    set;
+    get;
     set;
       }
 
       public double? videoPacketLossRate
       {
-    set;
+    get;
     set;
       }
     }
@@ -8934,133 +8935,133 @@ namespace H5
 
       public double? lowBitRateCallPercent
       {
-    set;
+    get;
     set;
       }
 
       public double? lowFrameRateCallPercent
       {
-    set;
+    get;
     set;
       }
 
       public double? recvBitRateAverage
       {
-    set;
+    get;
     set;
       }
 
       public double? recvBitRateMaximum
       {
-    set;
+    get;
     set;
       }
 
       public string recvCodecType
       {
-    set;
+    get;
     set;
       }
 
       public double? recvFpsHarmonicAverage
       {
-    set;
+    get;
     set;
       }
 
       public double? recvFrameRateAverage
       {
-    set;
+    get;
     set;
       }
 
       public double? recvNumResSwitches
       {
-    set;
+    get;
     set;
       }
 
       public double? recvReorderBufferMaxSuccessfullyOrderedExtent
       {
-    set;
+    get;
     set;
       }
 
       public double? recvReorderBufferMaxSuccessfullyOrderedLateTime
       {
-    set;
+    get;
     set;
       }
 
       public double? recvReorderBufferPacketsDroppedDueToBufferExhaustion
       {
-    set;
+    get;
     set;
       }
 
       public double? recvReorderBufferPacketsDroppedDueToTimeout
       {
-    set;
+    get;
     set;
       }
 
       public double? recvReorderBufferReorderedPackets
       {
-    set;
+    get;
     set;
       }
 
       public double? recvResolutionHeight
       {
-    set;
+    get;
     set;
       }
 
       public double? recvResolutionWidth
       {
-    set;
+    get;
     set;
       }
 
       public double? recvVideoStreamsMax
       {
-    set;
+    get;
     set;
       }
 
       public double? recvVideoStreamsMin
       {
-    set;
+    get;
     set;
       }
 
       public double? recvVideoStreamsMode
       {
-    set;
+    get;
     set;
       }
 
       public double? reorderBufferTotalPackets
       {
-    set;
+    get;
     set;
       }
 
       public double? videoFrameLossRate
       {
-    set;
+    get;
     set;
       }
 
       public double? videoPostFECPLR
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSVideoResolutionDistribution videoResolutions
       {
-    set;
+    get;
     set;
       }
     }
@@ -9079,37 +9080,37 @@ namespace H5
 
       public double? cifQuality
       {
-    set;
+    get;
     set;
       }
 
       public double? h1080Quality
       {
-    set;
+    get;
     set;
       }
 
       public double? h1440Quality
       {
-    set;
+    get;
     set;
       }
 
       public double? h2160Quality
       {
-    set;
+    get;
     set;
       }
 
       public double? h720Quality
       {
-    set;
+    get;
     set;
       }
 
       public double? vgaQuality
       {
-    set;
+    get;
     set;
       }
     }
@@ -9128,37 +9129,37 @@ namespace H5
 
       public double? sendBitRateAverage
       {
-    set;
+    get;
     set;
       }
 
       public double? sendBitRateMaximum
       {
-    set;
+    get;
     set;
       }
 
       public double? sendFrameRateAverage
       {
-    set;
+    get;
     set;
       }
 
       public double? sendResolutionHeight
       {
-    set;
+    get;
     set;
       }
 
       public double? sendResolutionWidth
       {
-    set;
+    get;
     set;
       }
 
       public double? sendVideoStreamsMax
       {
-    set;
+    get;
     set;
       }
     }
@@ -9172,7 +9173,7 @@ namespace H5
 
       public dom.HTMLMediaElement mediaElement
       {
-    set;
+    get;
     set;
       }
     }
@@ -9187,13 +9188,13 @@ namespace H5
 
       public es5.ArrayBuffer initData
       {
-    set;
+    get;
     set;
       }
 
       public string initDataType
       {
-    set;
+    get;
     set;
       }
     }
@@ -9208,13 +9209,13 @@ namespace H5
 
       public es5.ArrayBuffer message
       {
-    set;
+    get;
     set;
       }
 
       public dom.MediaKeyMessageType messageType
       {
-    set;
+    get;
     set;
       }
     }
@@ -9232,31 +9233,31 @@ namespace H5
 
       public dom.MediaKeySystemMediaCapability[] audioCapabilities
       {
-    set;
+    get;
     set;
       }
 
       public dom.MediaKeysRequirement distinctiveIdentifier
       {
-    set;
+    get;
     set;
       }
 
       public string[] initDataTypes
       {
-    set;
+    get;
     set;
       }
 
       public dom.MediaKeysRequirement persistentState
       {
-    set;
+    get;
     set;
       }
 
       public dom.MediaKeySystemMediaCapability[] videoCapabilities
       {
-    set;
+    get;
     set;
       }
     }
@@ -9271,13 +9272,13 @@ namespace H5
 
       public string contentType
       {
-    set;
+    get;
     set;
       }
 
       public string robustness
       {
-    set;
+    get;
     set;
       }
     }
@@ -9292,13 +9293,13 @@ namespace H5
 
       public Union<bool, dom.MediaTrackConstraints> audio
       {
-    set;
+    get;
     set;
       }
 
       public Union<bool, dom.MediaTrackConstraints> video
       {
-    set;
+    get;
     set;
       }
     }
@@ -9312,7 +9313,7 @@ namespace H5
 
       public dom.MediaStreamError error
       {
-    set;
+    get;
     set;
       }
     }
@@ -9326,7 +9327,7 @@ namespace H5
 
       public dom.MediaStream stream
       {
-    set;
+    get;
     set;
       }
     }
@@ -9340,7 +9341,7 @@ namespace H5
 
       public dom.MediaStreamTrack track
       {
-    set;
+    get;
     set;
       }
     }
@@ -9364,67 +9365,67 @@ namespace H5
 
       public Union<double, dom.DoubleRange> aspectRatio
       {
-    set;
+    get;
     set;
       }
 
       public string deviceId
       {
-    set;
+    get;
     set;
       }
 
       public bool[] echoCancellation
       {
-    set;
+    get;
     set;
       }
 
       public string facingMode
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.DoubleRange> frameRate
       {
-    set;
+    get;
     set;
       }
 
       public string groupId
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.LongRange> height
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.LongRange> sampleRate
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.LongRange> sampleSize
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.DoubleRange> volume
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.LongRange> width
       {
-    set;
+    get;
     set;
       }
     }
@@ -9452,91 +9453,91 @@ namespace H5
 
       public Union<double, dom.ConstrainDoubleRange> aspectRatio
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.ConstrainLongRange> channelCount
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, string[], dom.ConstrainDOMStringParameters> deviceId
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, string[], dom.ConstrainDOMStringParameters> displaySurface
       {
-    set;
+    get;
     set;
       }
 
       public Union<bool, dom.ConstrainBooleanParameters> echoCancellation
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, string[], dom.ConstrainDOMStringParameters> facingMode
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.ConstrainDoubleRange> frameRate
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, string[], dom.ConstrainDOMStringParameters> groupId
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.ConstrainLongRange> height
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.ConstrainDoubleRange> latency
       {
-    set;
+    get;
     set;
       }
 
       public Union<bool, dom.ConstrainBooleanParameters> logicalSurface
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.ConstrainLongRange> sampleRate
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.ConstrainLongRange> sampleSize
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.ConstrainDoubleRange> volume
       {
-    set;
+    get;
     set;
       }
 
       public Union<double, dom.ConstrainLongRange> width
       {
-    set;
+    get;
     set;
       }
     }
@@ -9550,7 +9551,7 @@ namespace H5
 
       public dom.MediaTrackConstraintSet[] advanced
       {
-    set;
+    get;
     set;
       }
     }
@@ -9574,67 +9575,67 @@ namespace H5
 
       public double? aspectRatio
       {
-    set;
+    get;
     set;
       }
 
       public string deviceId
       {
-    set;
+    get;
     set;
       }
 
       public bool? echoCancellation
       {
-    set;
+    get;
     set;
       }
 
       public string facingMode
       {
-    set;
+    get;
     set;
       }
 
       public double? frameRate
       {
-    set;
+    get;
     set;
       }
 
       public string groupId
       {
-    set;
+    get;
     set;
       }
 
       public double? height
       {
-    set;
+    get;
     set;
       }
 
       public double? sampleRate
       {
-    set;
+    get;
     set;
       }
 
       public double? sampleSize
       {
-    set;
+    get;
     set;
       }
 
       public double? volume
       {
-    set;
+    get;
     set;
       }
 
       public double? width
       {
-    set;
+    get;
     set;
       }
     }
@@ -9658,67 +9659,67 @@ namespace H5
 
       public bool? aspectRatio
       {
-    set;
+    get;
     set;
       }
 
       public bool? deviceId
       {
-    set;
+    get;
     set;
       }
 
       public bool? echoCancellation
       {
-    set;
+    get;
     set;
       }
 
       public bool? facingMode
       {
-    set;
+    get;
     set;
       }
 
       public bool? frameRate
       {
-    set;
+    get;
     set;
       }
 
       public bool? groupId
       {
-    set;
+    get;
     set;
       }
 
       public bool? height
       {
-    set;
+    get;
     set;
       }
 
       public bool? sampleRate
       {
-    set;
+    get;
     set;
       }
 
       public bool? sampleSize
       {
-    set;
+    get;
     set;
       }
 
       public bool? volume
       {
-    set;
+    get;
     set;
       }
 
       public bool? width
       {
-    set;
+    get;
     set;
       }
     }
@@ -9737,37 +9738,37 @@ namespace H5
 
       public string channel
       {
-    set;
+    get;
     set;
       }
 
       public object data
       {
-    set;
+    get;
     set;
       }
 
       public string lastEventId
       {
-    set;
+    get;
     set;
       }
 
       public string origin
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessagePort[] ports
       {
-    set;
+    get;
     set;
       }
 
       public dom.Window source
       {
-    set;
+    get;
     set;
       }
     }
@@ -9787,43 +9788,43 @@ namespace H5
 
       public short? button
       {
-    set;
+    get;
     set;
       }
 
       public ushort? buttons
       {
-    set;
+    get;
     set;
       }
 
       public int? clientX
       {
-    set;
+    get;
     set;
       }
 
       public int? clientY
       {
-    set;
+    get;
     set;
       }
 
       public dom.EventTarget relatedTarget
       {
-    set;
+    get;
     set;
       }
 
       public int? screenX
       {
-    set;
+    get;
     set;
       }
 
       public int? screenY
       {
-    set;
+    get;
     set;
       }
     }
@@ -9842,37 +9843,37 @@ namespace H5
 
       public string animate
       {
-    set;
+    get;
     set;
       }
 
       public double? contentX
       {
-    set;
+    get;
     set;
       }
 
       public double? contentY
       {
-    set;
+    get;
     set;
       }
 
       public double? scaleFactor
       {
-    set;
+    get;
     set;
       }
 
       public string viewportX
       {
-    set;
+    get;
     set;
       }
 
       public string viewportY
       {
-    set;
+    get;
     set;
       }
     }
@@ -9892,43 +9893,43 @@ namespace H5
 
       public string[] attributeFilter
       {
-    set;
+    get;
     set;
       }
 
       public bool? attributeOldValue
       {
-    set;
+    get;
     set;
       }
 
       public bool? attributes
       {
-    set;
+    get;
     set;
       }
 
       public bool? characterData
       {
-    set;
+    get;
     set;
       }
 
       public bool? characterDataOldValue
       {
-    set;
+    get;
     set;
       }
 
       public bool? childList
       {
-    set;
+    get;
     set;
       }
 
       public bool? subtree
       {
-    set;
+    get;
     set;
       }
     }
@@ -9943,13 +9944,13 @@ namespace H5
 
       public string action
       {
-    set;
+    get;
     set;
       }
 
       public dom.Notification notification
       {
-    set;
+    get;
     set;
       }
     }
@@ -9968,37 +9969,37 @@ namespace H5
 
       public string body
       {
-    set;
+    get;
     set;
       }
 
       public object data
       {
-    set;
+    get;
     set;
       }
 
       public dom.NotificationDirection dir
       {
-    set;
+    get;
     set;
       }
 
       public string icon
       {
-    set;
+    get;
     set;
       }
 
       public string lang
       {
-    set;
+    get;
     set;
       }
 
       public string tag
       {
-    set;
+    get;
     set;
       }
     }
@@ -10012,7 +10013,7 @@ namespace H5
 
       public bool? oneTimeOnly
       {
-    set;
+    get;
     set;
       }
     }
@@ -10026,7 +10027,7 @@ namespace H5
 
       public dom.AudioBuffer renderedBuffer
       {
-    set;
+    get;
     set;
       }
     }
@@ -10043,25 +10044,25 @@ namespace H5
 
       public double? detune
       {
-    set;
+    get;
     set;
       }
 
       public double? frequency
       {
-    set;
+    get;
     set;
       }
 
       public dom.PeriodicWave periodicWave
       {
-    set;
+    get;
     set;
       }
 
       public dom.OscillatorType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -10088,85 +10089,85 @@ namespace H5
 
       public double? coneInnerAngle
       {
-    set;
+    get;
     set;
       }
 
       public double? coneOuterAngle
       {
-    set;
+    get;
     set;
       }
 
       public double? coneOuterGain
       {
-    set;
+    get;
     set;
       }
 
       public dom.DistanceModelType distanceModel
       {
-    set;
+    get;
     set;
       }
 
       public double? maxDistance
       {
-    set;
+    get;
     set;
       }
 
       public double? orientationX
       {
-    set;
+    get;
     set;
       }
 
       public double? orientationY
       {
-    set;
+    get;
     set;
       }
 
       public double? orientationZ
       {
-    set;
+    get;
     set;
       }
 
       public dom.PanningModelType panningModel
       {
-    set;
+    get;
     set;
       }
 
       public double? positionX
       {
-    set;
+    get;
     set;
       }
 
       public double? positionY
       {
-    set;
+    get;
     set;
       }
 
       public double? positionZ
       {
-    set;
+    get;
     set;
       }
 
       public double? refDistance
       {
-    set;
+    get;
     set;
       }
 
       public double? rolloffFactor
       {
-    set;
+    get;
     set;
       }
     }
@@ -10182,19 +10183,19 @@ namespace H5
 
       public string currency
       {
-    set;
+    get;
     set;
       }
 
       public string currencySystem
       {
-    set;
+    get;
     set;
       }
 
       public string value
       {
-    set;
+    get;
     set;
       }
     }
@@ -10210,19 +10211,19 @@ namespace H5
 
       public dom.PaymentItem[] displayItems
       {
-    set;
+    get;
     set;
       }
 
       public dom.PaymentDetailsModifier[] modifiers
       {
-    set;
+    get;
     set;
       }
 
       public dom.PaymentShippingOption[] shippingOptions
       {
-    set;
+    get;
     set;
       }
     }
@@ -10237,13 +10238,13 @@ namespace H5
 
       public string id
       {
-    set;
+    get;
     set;
       }
 
       public dom.PaymentItem total
       {
-    set;
+    get;
     set;
       }
     }
@@ -10260,25 +10261,25 @@ namespace H5
 
       public dom.PaymentItem[] additionalDisplayItems
       {
-    set;
+    get;
     set;
       }
 
       public object data
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, string[]> supportedMethods
       {
-    set;
+    get;
     set;
       }
 
       public dom.PaymentItem total
       {
-    set;
+    get;
     set;
       }
     }
@@ -10293,13 +10294,13 @@ namespace H5
 
       public string error
       {
-    set;
+    get;
     set;
       }
 
       public dom.PaymentItem total
       {
-    set;
+    get;
     set;
       }
     }
@@ -10315,19 +10316,19 @@ namespace H5
 
       public dom.PaymentCurrencyAmount amount
       {
-    set;
+    get;
     set;
       }
 
       public string label
       {
-    set;
+    get;
     set;
       }
 
       public bool? pending
       {
-    set;
+    get;
     set;
       }
     }
@@ -10342,13 +10343,13 @@ namespace H5
 
       public object data
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, string[]> supportedMethods
       {
-    set;
+    get;
     set;
       }
     }
@@ -10366,31 +10367,31 @@ namespace H5
 
       public bool? requestPayerEmail
       {
-    set;
+    get;
     set;
       }
 
       public bool? requestPayerName
       {
-    set;
+    get;
     set;
       }
 
       public bool? requestPayerPhone
       {
-    set;
+    get;
     set;
       }
 
       public bool? requestShipping
       {
-    set;
+    get;
     set;
       }
 
       public string shippingType
       {
-    set;
+    get;
     set;
       }
     }
@@ -10414,25 +10415,25 @@ namespace H5
 
       public dom.PaymentCurrencyAmount amount
       {
-    set;
+    get;
     set;
       }
 
       public string id
       {
-    set;
+    get;
     set;
       }
 
       public string label
       {
-    set;
+    get;
     set;
       }
 
       public bool? selected
       {
-    set;
+    get;
     set;
       }
     }
@@ -10448,19 +10449,19 @@ namespace H5
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
 
       public double iterations
       {
-    set;
+    get;
     set;
       }
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> salt
       {
-    set;
+    get;
     set;
       }
     }
@@ -10474,7 +10475,7 @@ namespace H5
 
       public bool? disableNormalization
       {
-    set;
+    get;
     set;
       }
     }
@@ -10489,13 +10490,13 @@ namespace H5
 
       public double[] imag
       {
-    set;
+    get;
     set;
       }
 
       public double[] real
       {
-    set;
+    get;
     set;
       }
     }
@@ -10516,49 +10517,49 @@ namespace H5
 
       public double? height
       {
-    set;
+    get;
     set;
       }
 
       public bool? isPrimary
       {
-    set;
+    get;
     set;
       }
 
       public double? pointerId
       {
-    set;
+    get;
     set;
       }
 
       public string pointerType
       {
-    set;
+    get;
     set;
       }
 
       public double? pressure
       {
-    set;
+    get;
     set;
       }
 
       public double? tiltX
       {
-    set;
+    get;
     set;
       }
 
       public double? tiltY
       {
-    set;
+    get;
     set;
       }
 
       public double? width
       {
-    set;
+    get;
     set;
       }
     }
@@ -10572,7 +10573,7 @@ namespace H5
 
       public object state
       {
-    set;
+    get;
     set;
       }
     }
@@ -10588,19 +10589,19 @@ namespace H5
 
       public bool? enableHighAccuracy
       {
-    set;
+    get;
     set;
       }
 
       public double? maximumAge
       {
-    set;
+    get;
     set;
       }
 
       public double? timeout
       {
-    set;
+    get;
     set;
       }
     }
@@ -10616,19 +10617,19 @@ namespace H5
 
       public bool? lengthComputable
       {
-    set;
+    get;
     set;
       }
 
       public ulong? loaded
       {
-    set;
+    get;
     set;
       }
 
       public ulong? total
       {
-    set;
+    get;
     set;
       }
     }
@@ -10642,7 +10643,7 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, string, Null> data
       {
-    set;
+    get;
     set;
       }
     }
@@ -10657,13 +10658,13 @@ namespace H5
 
       public dom.PushSubscription newSubscription
       {
-    set;
+    get;
     set;
       }
 
       public dom.PushSubscription oldSubscription
       {
-    set;
+    get;
     set;
       }
     }
@@ -10678,13 +10679,13 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, string, Null> applicationServerKey
       {
-    set;
+    get;
     set;
       }
 
       public bool? userVisibleOnly
       {
-    set;
+    get;
     set;
       }
     }
@@ -10699,13 +10700,13 @@ namespace H5
 
       public double? highWaterMark
       {
-    set;
+    get;
     set;
       }
 
       public dom.WritableStreamChunkCallback size
       {
-    set;
+    get;
     set;
       }
     }
@@ -10722,25 +10723,25 @@ namespace H5
 
       public dom.RTCBundlePolicy bundlePolicy
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceServer[] iceServers
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceTransportPolicy iceTransportPolicy
       {
-    set;
+    get;
     set;
       }
 
       public string peerIdentity
       {
-    set;
+    get;
     set;
       }
     }
@@ -10754,7 +10755,7 @@ namespace H5
 
       public string tone
       {
-    set;
+    get;
     set;
       }
     }
@@ -10769,13 +10770,13 @@ namespace H5
 
       public string algorithm
       {
-    set;
+    get;
     set;
       }
 
       public string value
       {
-    set;
+    get;
     set;
       }
     }
@@ -10790,13 +10791,13 @@ namespace H5
 
       public dom.RTCDtlsFingerprint[] fingerprints
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCDtlsRole role
       {
-    set;
+    get;
     set;
       }
     }
@@ -10815,37 +10816,37 @@ namespace H5
 
       public string addressSourceUrl
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCStatsIceCandidateType candidateType
       {
-    set;
+    get;
     set;
       }
 
       public string ipAddress
       {
-    set;
+    get;
     set;
       }
 
       public double? portNumber
       {
-    set;
+    get;
     set;
       }
 
       public double? priority
       {
-    set;
+    get;
     set;
       }
 
       public string transport
       {
-    set;
+    get;
     set;
       }
     }
@@ -10875,61 +10876,61 @@ namespace H5
 
       public string foundation
       {
-    set;
+    get;
     set;
       }
 
       public string ip
       {
-    set;
+    get;
     set;
       }
 
       public string msMTurnSessionId
       {
-    set;
+    get;
     set;
       }
 
       public double? port
       {
-    set;
+    get;
     set;
       }
 
       public double? priority
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceProtocol protocol
       {
-    set;
+    get;
     set;
       }
 
       public string relatedAddress
       {
-    set;
+    get;
     set;
       }
 
       public double? relatedPort
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceTcpCandidateType tcpType
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceCandidateType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -10945,19 +10946,19 @@ namespace H5
 
       public string candidate
       {
-    set;
+    get;
     set;
       }
 
       public double? sdpMLineIndex
       {
-    set;
+    get;
     set;
       }
 
       public string sdpMid
       {
-    set;
+    get;
     set;
       }
     }
@@ -10972,13 +10973,13 @@ namespace H5
 
       public dom.RTCIceCandidateDictionary local
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceCandidateDictionary remote
       {
-    set;
+    get;
     set;
       }
     }
@@ -11004,79 +11005,79 @@ namespace H5
 
       public double? availableIncomingBitrate
       {
-    set;
+    get;
     set;
       }
 
       public double? availableOutgoingBitrate
       {
-    set;
+    get;
     set;
       }
 
       public double? bytesReceived
       {
-    set;
+    get;
     set;
       }
 
       public double? bytesSent
       {
-    set;
+    get;
     set;
       }
 
       public string localCandidateId
       {
-    set;
+    get;
     set;
       }
 
       public bool? nominated
       {
-    set;
+    get;
     set;
       }
 
       public double? priority
       {
-    set;
+    get;
     set;
       }
 
       public bool? readable
       {
-    set;
+    get;
     set;
       }
 
       public string remoteCandidateId
       {
-    set;
+    get;
     set;
       }
 
       public double? roundTripTime
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCStatsIceCandidatePairState state
       {
-    set;
+    get;
     set;
       }
 
       public string transportId
       {
-    set;
+    get;
     set;
       }
 
       public bool? writable
       {
-    set;
+    get;
     set;
       }
     }
@@ -11092,19 +11093,19 @@ namespace H5
 
       public dom.RTCIceGatherPolicy gatherPolicy
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceServer[] iceservers
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSPortRange portRange
       {
-    set;
+    get;
     set;
       }
     }
@@ -11120,19 +11121,19 @@ namespace H5
 
       public bool? iceLite
       {
-    set;
+    get;
     set;
       }
 
       public string password
       {
-    set;
+    get;
     set;
       }
 
       public string usernameFragment
       {
-    set;
+    get;
     set;
       }
     }
@@ -11148,19 +11149,19 @@ namespace H5
 
       public string credential
       {
-    set;
+    get;
     set;
       }
 
       public object urls
       {
-    set;
+    get;
     set;
       }
 
       public string username
       {
-    set;
+    get;
     set;
       }
     }
@@ -11178,31 +11179,31 @@ namespace H5
 
       public double? bytesReceived
       {
-    set;
+    get;
     set;
       }
 
       public double? fractionLost
       {
-    set;
+    get;
     set;
       }
 
       public double? jitter
       {
-    set;
+    get;
     set;
       }
 
       public double? packetsLost
       {
-    set;
+    get;
     set;
       }
 
       public double? packetsReceived
       {
-    set;
+    get;
     set;
       }
     }
@@ -11229,85 +11230,85 @@ namespace H5
 
       public double? audioLevel
       {
-    set;
+    get;
     set;
       }
 
       public double? echoReturnLoss
       {
-    set;
+    get;
     set;
       }
 
       public double? echoReturnLossEnhancement
       {
-    set;
+    get;
     set;
       }
 
       public double? frameHeight
       {
-    set;
+    get;
     set;
       }
 
       public double? frameWidth
       {
-    set;
+    get;
     set;
       }
 
       public double? framesCorrupted
       {
-    set;
+    get;
     set;
       }
 
       public double? framesDecoded
       {
-    set;
+    get;
     set;
       }
 
       public double? framesDropped
       {
-    set;
+    get;
     set;
       }
 
       public double? framesPerSecond
       {
-    set;
+    get;
     set;
       }
 
       public double? framesReceived
       {
-    set;
+    get;
     set;
       }
 
       public double? framesSent
       {
-    set;
+    get;
     set;
       }
 
       public bool? remoteSource
       {
-    set;
+    get;
     set;
       }
 
       public string[] ssrcIds
       {
-    set;
+    get;
     set;
       }
 
       public string trackIdentifier
       {
-    set;
+    get;
     set;
       }
     }
@@ -11324,25 +11325,25 @@ namespace H5
 
       public bool? iceRestart
       {
-    set;
+    get;
     set;
       }
 
       public double? offerToReceiveAudio
       {
-    set;
+    get;
     set;
       }
 
       public double? offerToReceiveVideo
       {
-    set;
+    get;
     set;
       }
 
       public bool? voiceActivityDetection
       {
-    set;
+    get;
     set;
       }
     }
@@ -11359,25 +11360,25 @@ namespace H5
 
       public double? bytesSent
       {
-    set;
+    get;
     set;
       }
 
       public double? packetsSent
       {
-    set;
+    get;
     set;
       }
 
       public double? roundTripTime
       {
-    set;
+    get;
     set;
       }
 
       public double? targetBitrate
       {
-    set;
+    get;
     set;
       }
     }
@@ -11391,7 +11392,7 @@ namespace H5
 
       public dom.RTCIceCandidate candidate
       {
-    set;
+    get;
     set;
       }
     }
@@ -11415,67 +11416,67 @@ namespace H5
 
       public string associateStatsId
       {
-    set;
+    get;
     set;
       }
 
       public string codecId
       {
-    set;
+    get;
     set;
       }
 
       public double? firCount
       {
-    set;
+    get;
     set;
       }
 
       public bool? isRemote
       {
-    set;
+    get;
     set;
       }
 
       public string mediaTrackId
       {
-    set;
+    get;
     set;
       }
 
       public string mediaType
       {
-    set;
+    get;
     set;
       }
 
       public double? nackCount
       {
-    set;
+    get;
     set;
       }
 
       public double? pliCount
       {
-    set;
+    get;
     set;
       }
 
       public double? sliCount
       {
-    set;
+    get;
     set;
       }
 
       public string ssrc
       {
-    set;
+    get;
     set;
       }
 
       public string transportId
       {
-    set;
+    get;
     set;
       }
     }
@@ -11490,13 +11491,13 @@ namespace H5
 
       public string parameter
       {
-    set;
+    get;
     set;
       }
 
       public string type
       {
-    set;
+    get;
     set;
       }
     }
@@ -11513,25 +11514,25 @@ namespace H5
 
       public string cname
       {
-    set;
+    get;
     set;
       }
 
       public bool? mux
       {
-    set;
+    get;
     set;
       }
 
       public bool? reducedSize
       {
-    set;
+    get;
     set;
       }
 
       public double? ssrc
       {
-    set;
+    get;
     set;
       }
     }
@@ -11547,19 +11548,19 @@ namespace H5
 
       public dom.RTCRtpCodecCapability[] codecs
       {
-    set;
+    get;
     set;
       }
 
       public string[] fecMechanisms
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCRtpHeaderExtension[] headerExtensions
       {
-    set;
+    get;
     set;
       }
     }
@@ -11585,79 +11586,79 @@ namespace H5
 
       public double? clockRate
       {
-    set;
+    get;
     set;
       }
 
       public string kind
       {
-    set;
+    get;
     set;
       }
 
       public double? maxSpatialLayers
       {
-    set;
+    get;
     set;
       }
 
       public double? maxTemporalLayers
       {
-    set;
+    get;
     set;
       }
 
       public double? maxptime
       {
-    set;
+    get;
     set;
       }
 
       public string name
       {
-    set;
+    get;
     set;
       }
 
       public double? numChannels
       {
-    set;
+    get;
     set;
       }
 
       public object options
       {
-    set;
+    get;
     set;
       }
 
       public object parameters
       {
-    set;
+    get;
     set;
       }
 
       public double? preferredPayloadType
       {
-    set;
+    get;
     set;
       }
 
       public double? ptime
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCRtcpFeedback[] rtcpFeedback
       {
-    set;
+    get;
     set;
       }
 
       public bool? svcMultiStreamSupport
       {
-    set;
+    get;
     set;
       }
     }
@@ -11678,49 +11679,49 @@ namespace H5
 
       public double? clockRate
       {
-    set;
+    get;
     set;
       }
 
       public double? maxptime
       {
-    set;
+    get;
     set;
       }
 
       public string name
       {
-    set;
+    get;
     set;
       }
 
       public double? numChannels
       {
-    set;
+    get;
     set;
       }
 
       public object parameters
       {
-    set;
+    get;
     set;
       }
 
       public double? payloadType
       {
-    set;
+    get;
     set;
       }
 
       public double? ptime
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCRtcpFeedback[] rtcpFeedback
       {
-    set;
+    get;
     set;
       }
     }
@@ -11736,19 +11737,19 @@ namespace H5
 
       public double? audioLevel
       {
-    set;
+    get;
     set;
       }
 
       public double? csrc
       {
-    set;
+    get;
     set;
       }
 
       public double? timestamp
       {
-    set;
+    get;
     set;
       }
     }
@@ -11775,85 +11776,85 @@ namespace H5
 
       public bool? active
       {
-    set;
+    get;
     set;
       }
 
       public double? codecPayloadType
       {
-    set;
+    get;
     set;
       }
 
       public string[] dependencyEncodingIds
       {
-    set;
+    get;
     set;
       }
 
       public string encodingId
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCRtpFecParameters fec
       {
-    set;
+    get;
     set;
       }
 
       public double? framerateScale
       {
-    set;
+    get;
     set;
       }
 
       public double? maxBitrate
       {
-    set;
+    get;
     set;
       }
 
       public double? maxFramerate
       {
-    set;
+    get;
     set;
       }
 
       public double? minQuality
       {
-    set;
+    get;
     set;
       }
 
       public double? priority
       {
-    set;
+    get;
     set;
       }
 
       public double? resolutionScale
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCRtpRtxParameters rtx
       {
-    set;
+    get;
     set;
       }
 
       public double? ssrc
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCSsrcRange ssrcRange
       {
-    set;
+    get;
     set;
       }
     }
@@ -11868,13 +11869,13 @@ namespace H5
 
       public string mechanism
       {
-    set;
+    get;
     set;
       }
 
       public double? ssrc
       {
-    set;
+    get;
     set;
       }
     }
@@ -11891,25 +11892,25 @@ namespace H5
 
       public string kind
       {
-    set;
+    get;
     set;
       }
 
       public bool? preferredEncrypt
       {
-    set;
+    get;
     set;
       }
 
       public double? preferredId
       {
-    set;
+    get;
     set;
       }
 
       public string uri
       {
-    set;
+    get;
     set;
       }
     }
@@ -11925,19 +11926,19 @@ namespace H5
 
       public bool? encrypt
       {
-    set;
+    get;
     set;
       }
 
       public double? id
       {
-    set;
+    get;
     set;
       }
 
       public string uri
       {
-    set;
+    get;
     set;
       }
     }
@@ -11956,37 +11957,37 @@ namespace H5
 
       public dom.RTCRtpCodecParameters[] codecs
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCDegradationPreference degradationPreference
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCRtpEncodingParameters[] encodings
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCRtpHeaderExtensionParameters[] headerExtensions
       {
-    set;
+    get;
     set;
       }
 
       public string muxId
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCRtcpParameters rtcp
       {
-    set;
+    get;
     set;
       }
     }
@@ -12000,7 +12001,7 @@ namespace H5
 
       public double? ssrc
       {
-    set;
+    get;
     set;
       }
     }
@@ -12016,19 +12017,19 @@ namespace H5
 
       public string muxId
       {
-    set;
+    get;
     set;
       }
 
       public double? payloadType
       {
-    set;
+    get;
     set;
       }
 
       public double? ssrc
       {
-    set;
+    get;
     set;
       }
     }
@@ -12043,13 +12044,13 @@ namespace H5
 
       public string sdp
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCSdpType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -12067,31 +12068,31 @@ namespace H5
 
       public string keyMethod
       {
-    set;
+    get;
     set;
       }
 
       public string keySalt
       {
-    set;
+    get;
     set;
       }
 
       public string lifetime
       {
-    set;
+    get;
     set;
       }
 
       public double? mkiLength
       {
-    set;
+    get;
     set;
       }
 
       public double? mkiValue
       {
-    set;
+    get;
     set;
       }
     }
@@ -12108,25 +12109,25 @@ namespace H5
 
       public string cryptoSuite
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCSrtpKeyParam[] keyParams
       {
-    set;
+    get;
     set;
       }
 
       public string[] sessionParams
       {
-    set;
+    get;
     set;
       }
 
       public double? tag
       {
-    set;
+    get;
     set;
       }
     }
@@ -12141,13 +12142,13 @@ namespace H5
 
       public double? max
       {
-    set;
+    get;
     set;
       }
 
       public double? min
       {
-    set;
+    get;
     set;
       }
     }
@@ -12164,25 +12165,25 @@ namespace H5
 
       public string id
       {
-    set;
+    get;
     set;
       }
 
       public dom.MSStatsType msType
       {
-    set;
+    get;
     set;
       }
 
       public double? timestamp
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCStatsType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -12209,43 +12210,43 @@ namespace H5
 
       public bool? activeConnection
       {
-    set;
+    get;
     set;
       }
 
       public double? bytesReceived
       {
-    set;
+    get;
     set;
       }
 
       public double? bytesSent
       {
-    set;
+    get;
     set;
       }
 
       public string localCertificateId
       {
-    set;
+    get;
     set;
       }
 
       public string remoteCertificateId
       {
-    set;
+    get;
     set;
       }
 
       public string rtcpTransportStatsId
       {
-    set;
+    get;
     set;
       }
 
       public string selectedCandidatePairId
       {
-    set;
+    get;
     set;
       }
     }
@@ -12259,7 +12260,7 @@ namespace H5
 
       public string scope
       {
-    set;
+    get;
     set;
       }
     }
@@ -12285,79 +12286,79 @@ namespace H5
 
       public Union<dom.Blob, es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, dom.FormData, string, Null> body
       {
-    set;
+    get;
     set;
       }
 
       public dom.RequestCache cache
       {
-    set;
+    get;
     set;
       }
 
       public dom.RequestCredentials credentials
       {
-    set;
+    get;
     set;
       }
 
       public dom.HeadersInit headers
       {
-    set;
+    get;
     set;
       }
 
       public string integrity
       {
-    set;
+    get;
     set;
       }
 
       public bool? keepalive
       {
-    set;
+    get;
     set;
       }
 
       public string method
       {
-    set;
+    get;
     set;
       }
 
       public dom.RequestMode mode
       {
-    set;
+    get;
     set;
       }
 
       public dom.RequestRedirect redirect
       {
-    set;
+    get;
     set;
       }
 
       public string referrer
       {
-    set;
+    get;
     set;
       }
 
       public dom.ReferrerPolicy referrerPolicy
       {
-    set;
+    get;
     set;
       }
 
       public dom.AbortSignal signal
       {
-    set;
+    get;
     set;
       }
 
       public object window
       {
-    set;
+    get;
     set;
       }
     }
@@ -12373,19 +12374,19 @@ namespace H5
 
       public dom.HeadersInit headers
       {
-    set;
+    get;
     set;
       }
 
       public ushort? status
       {
-    set;
+    get;
     set;
       }
 
       public string statusText
       {
-    set;
+    get;
     set;
       }
     }
@@ -12399,7 +12400,7 @@ namespace H5
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
     }
@@ -12413,7 +12414,7 @@ namespace H5
 
       public dom.KeyAlgorithm hash
       {
-    set;
+    get;
     set;
       }
     }
@@ -12427,7 +12428,7 @@ namespace H5
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
     }
@@ -12442,13 +12443,13 @@ namespace H5
 
       public double modulusLength
       {
-    set;
+    get;
     set;
       }
 
       public es5.Uint8Array publicExponent
       {
-    set;
+    get;
     set;
       }
     }
@@ -12463,13 +12464,13 @@ namespace H5
 
       public double modulusLength
       {
-    set;
+    get;
     set;
       }
 
       public es5.Uint8Array publicExponent
       {
-    set;
+    get;
     set;
       }
     }
@@ -12483,7 +12484,7 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> label
       {
-    set;
+    get;
     set;
       }
     }
@@ -12499,19 +12500,19 @@ namespace H5
 
       public string d
       {
-    set;
+    get;
     set;
       }
 
       public string r
       {
-    set;
+    get;
     set;
       }
 
       public string t
       {
-    set;
+    get;
     set;
       }
     }
@@ -12525,7 +12526,7 @@ namespace H5
 
       public double saltLength
       {
-    set;
+    get;
     set;
       }
     }
@@ -12541,19 +12542,19 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> id
       {
-    set;
+    get;
     set;
       }
 
       public dom.Transport[] transports
       {
-    set;
+    get;
     set;
       }
 
       public dom.ScopedCredentialType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -12570,25 +12571,25 @@ namespace H5
 
       public dom.ScopedCredentialDescriptor[] excludeList
       {
-    set;
+    get;
     set;
       }
 
       public dom.WebAuthnExtensions extensions
       {
-    set;
+    get;
     set;
       }
 
       public string rpId
       {
-    set;
+    get;
     set;
       }
 
       public double? timeoutSeconds
       {
-    set;
+    get;
     set;
       }
     }
@@ -12603,13 +12604,13 @@ namespace H5
 
       public Union<string, dom.Algorithm> algorithm
       {
-    set;
+    get;
     set;
       }
 
       public dom.ScopedCredentialType type
       {
-    set;
+    get;
     set;
       }
     }
@@ -12632,61 +12633,61 @@ namespace H5
 
       public string blockedURI
       {
-    set;
+    get;
     set;
       }
 
       public double? columnNumber
       {
-    set;
+    get;
     set;
       }
 
       public string documentURI
       {
-    set;
+    get;
     set;
       }
 
       public string effectiveDirective
       {
-    set;
+    get;
     set;
       }
 
       public double? lineNumber
       {
-    set;
+    get;
     set;
       }
 
       public string originalPolicy
       {
-    set;
+    get;
     set;
       }
 
       public string referrer
       {
-    set;
+    get;
     set;
       }
 
       public string sourceFile
       {
-    set;
+    get;
     set;
       }
 
       public double? statusCode
       {
-    set;
+    get;
     set;
       }
 
       public string violatedDirective
       {
-    set;
+    get;
     set;
       }
     }
@@ -12704,31 +12705,31 @@ namespace H5
 
       public object data
       {
-    set;
+    get;
     set;
       }
 
       public string lastEventId
       {
-    set;
+    get;
     set;
       }
 
       public string origin
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessagePort[] ports
       {
-    set;
+    get;
     set;
       }
 
       public Union<dom.ServiceWorker, dom.MessagePort, Null> source
       {
-    set;
+    get;
     set;
       }
     }
@@ -12746,31 +12747,31 @@ namespace H5
 
       public double? charIndex
       {
-    set;
+    get;
     set;
       }
 
       public double? charLength
       {
-    set;
+    get;
     set;
       }
 
       public double? elapsedTime
       {
-    set;
+    get;
     set;
       }
 
       public string name
       {
-    set;
+    get;
     set;
       }
 
       public dom.SpeechSynthesisUtterance utterance
       {
-    set;
+    get;
     set;
       }
     }
@@ -12784,7 +12785,7 @@ namespace H5
 
       public double? pan
       {
-    set;
+    get;
     set;
       }
     }
@@ -12800,19 +12801,19 @@ namespace H5
 
       public string detailURI
       {
-    set;
+    get;
     set;
       }
 
       public string explanationString
       {
-    set;
+    get;
     set;
       }
 
       public string siteName
       {
-    set;
+    get;
     set;
       }
     }
@@ -12826,7 +12827,7 @@ namespace H5
 
       public string[] arrayOfDomainStrings
       {
-    set;
+    get;
     set;
       }
     }
@@ -12841,13 +12842,13 @@ namespace H5
 
       public bool? lastChance
       {
-    set;
+    get;
     set;
       }
 
       public string tag
       {
-    set;
+    get;
     set;
       }
     }
@@ -12861,7 +12862,7 @@ namespace H5
 
       public bool? stream
       {
-    set;
+    get;
     set;
       }
     }
@@ -12876,13 +12877,13 @@ namespace H5
 
       public bool? fatal
       {
-    set;
+    get;
     set;
       }
 
       public bool? ignoreBOM
       {
-    set;
+    get;
     set;
       }
     }
@@ -12896,7 +12897,7 @@ namespace H5
 
       public Union<dom.VideoTrack, dom.AudioTrack, dom.TextTrack, Null> track
       {
-    set;
+    get;
     set;
       }
     }
@@ -12911,13 +12912,13 @@ namespace H5
 
       public double? elapsedTime
       {
-    set;
+    get;
     set;
       }
 
       public string propertyName
       {
-    set;
+    get;
     set;
       }
     }
@@ -12932,13 +12933,13 @@ namespace H5
 
       public int? detail
       {
-    set;
+    get;
     set;
       }
 
       public dom.Window view
       {
-    set;
+    get;
     set;
       }
     }
@@ -12955,25 +12956,25 @@ namespace H5
 
       public dom.WritableStreamErrorCallback abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.WritableStreamDefaultControllerCallback close
       {
-    set;
+    get;
     set;
       }
 
       public dom.WritableStreamDefaultControllerCallback start
       {
-    set;
+    get;
     set;
       }
 
       public dom.WritableStreamChunkCallback write
       {
-    set;
+    get;
     set;
       }
     }
@@ -12988,13 +12989,13 @@ namespace H5
 
       public dom.VRDisplay display
       {
-    set;
+    get;
     set;
       }
 
       public dom.VRDisplayEventReason reason
       {
-    set;
+    get;
     set;
       }
     }
@@ -13010,19 +13011,19 @@ namespace H5
 
       public double[] leftBounds
       {
-    set;
+    get;
     set;
       }
 
       public double[] rightBounds
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLCanvasElement source
       {
-    set;
+    get;
     set;
       }
     }
@@ -13038,19 +13039,19 @@ namespace H5
 
       public es5.Float32Array sittingToStandingTransform
       {
-    set;
+    get;
     set;
       }
 
       public double? sizeX
       {
-    set;
+    get;
     set;
       }
 
       public double? sizeY
       {
-    set;
+    get;
     set;
       }
     }
@@ -13065,13 +13066,13 @@ namespace H5
 
       public double[] curve
       {
-    set;
+    get;
     set;
       }
 
       public dom.OverSampleType oversample
       {
-    set;
+    get;
     set;
       }
     }
@@ -13098,43 +13099,43 @@ namespace H5
 
       public bool? alpha
       {
-    set;
+    get;
     set;
       }
 
       public bool? antialias
       {
-    set;
+    get;
     set;
       }
 
       public bool? depth
       {
-    set;
+    get;
     set;
       }
 
       public bool? failIfMajorPerformanceCaveat
       {
-    set;
+    get;
     set;
       }
 
       public bool? premultipliedAlpha
       {
-    set;
+    get;
     set;
       }
 
       public bool? preserveDrawingBuffer
       {
-    set;
+    get;
     set;
       }
 
       public bool? stencil
       {
-    set;
+    get;
     set;
       }
     }
@@ -13148,7 +13149,7 @@ namespace H5
 
       public string statusMessage
       {
-    set;
+    get;
     set;
       }
     }
@@ -13165,25 +13166,25 @@ namespace H5
 
       public uint? deltaMode
       {
-    set;
+    get;
     set;
       }
 
       public double? deltaX
       {
-    set;
+    get;
     set;
       }
 
       public double? deltaY
       {
-    set;
+    get;
     set;
       }
 
       public double? deltaZ
       {
-    set;
+    get;
     set;
       }
     }
@@ -13200,14 +13201,14 @@ namespace H5
 
       public static dom.ANGLE_instanced_arrays prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE")]
       public static double VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE_Static
       {
-    set;
+    get;
       }
 
       public virtual extern void drawArraysInstancedANGLE(
@@ -13227,7 +13228,7 @@ namespace H5
 
       public virtual double VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE
       {
-    set;
+    get;
       }
     }
 
@@ -13240,13 +13241,13 @@ namespace H5
 
       public static dom.AbortController prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AbortSignal signal
       {
-    set;
+    get;
       }
 
       public virtual extern void abort();
@@ -13261,7 +13262,7 @@ namespace H5
 
       public dom.ProgressEvent abort
       {
-    set;
+    get;
     set;
       }
 
@@ -13283,18 +13284,18 @@ namespace H5
 
       public static dom.AbortSignal prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool aborted
       {
-    set;
+    get;
       }
 
       public virtual dom.AbortSignal.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
@@ -13404,7 +13405,7 @@ namespace H5
 
       public dom.ErrorEvent error
       {
-    set;
+    get;
     set;
       }
 
@@ -13425,7 +13426,7 @@ namespace H5
 
       public virtual dom.AbstractWorker.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
@@ -13776,7 +13777,7 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> iv
       {
-    set;
+    get;
     set;
       }
     }
@@ -13790,7 +13791,7 @@ namespace H5
 
       public double length
       {
-    set;
+    get;
     set;
       }
     }
@@ -13808,36 +13809,36 @@ namespace H5
 
       public static dom.AnalyserNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double fftSize
       {
-    set;
+    get;
     set;
       }
 
       public virtual double frequencyBinCount
       {
-    set;
+    get;
       }
 
       public virtual double maxDecibels
       {
-    set;
+    get;
     set;
       }
 
       public virtual double minDecibels
       {
-    set;
+    get;
     set;
       }
 
       public virtual double smoothingTimeConstant
       {
-    set;
+    get;
     set;
       }
 
@@ -13876,63 +13877,63 @@ namespace H5
 
       public static dom.Animation prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double? currentTime
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AnimationEffectReadOnly effect
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Promise<dom.Animation> finished
       {
-    set;
+    get;
       }
 
       public virtual string id
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool pending
       {
-    set;
+    get;
       }
 
       public virtual dom.Literals.Options.playState playState
       {
-    set;
+    get;
       }
 
       public virtual double playbackRate
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Promise<dom.Animation> ready
       {
-    set;
+    get;
       }
 
       public virtual double startTime
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AnimationTimeline timeline
       {
-    set;
+    get;
     set;
       }
 
@@ -13942,13 +13943,13 @@ namespace H5
 
       public virtual dom.Animation.oncancelFn oncancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Animation.onfinishFn onfinish
       {
-    set;
+    get;
     set;
       }
 
@@ -13989,18 +13990,18 @@ namespace H5
 
       public static dom.AnimationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationName
       {
-    set;
+    get;
       }
 
       public virtual double elapsedTime
       {
-    set;
+    get;
       }
     }
 
@@ -14014,13 +14015,13 @@ namespace H5
 
       public virtual Union<string, string[]> easing
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<double, Null, double?[]> offset
       {
-    set;
+    get;
     set;
       }
 
@@ -14045,55 +14046,55 @@ namespace H5
 
       public double? delay
       {
-    set;
+    get;
     set;
       }
 
       public dom.Literals.Options.direction direction
       {
-    set;
+    get;
     set;
       }
 
       public double? duration
       {
-    set;
+    get;
     set;
       }
 
       public string easing
       {
-    set;
+    get;
     set;
       }
 
       public double? endDelay
       {
-    set;
+    get;
     set;
       }
 
       public dom.Literals.Options.fill fill
       {
-    set;
+    get;
     set;
       }
 
       public string id
       {
-    set;
+    get;
     set;
       }
 
       public double? iterationStart
       {
-    set;
+    get;
     set;
       }
 
       public double? iterations
       {
-    set;
+    get;
     set;
       }
     }
@@ -14114,18 +14115,18 @@ namespace H5
 
       public static dom.AnimationPlaybackEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double? currentTime
       {
-    set;
+    get;
       }
 
       public virtual double? timelineTime
       {
-    set;
+    get;
       }
     }
 
@@ -14139,13 +14140,13 @@ namespace H5
 
       public double? currentTime
       {
-    set;
+    get;
     set;
       }
 
       public double? timelineTime
       {
-    set;
+    get;
     set;
       }
     }
@@ -14159,7 +14160,7 @@ namespace H5
 
       public double? currentTime
       {
-    set;
+    get;
       }
     }
 
@@ -14179,49 +14180,49 @@ namespace H5
 
       public dom.Event cached
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event checking
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event downloading
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event noupdate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event obsolete
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent progress
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event updateready
       {
-    set;
+    get;
     set;
       }
 
@@ -14276,97 +14277,97 @@ namespace H5
 
       public static dom.ApplicationCache prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("CHECKING")]
       public static ushort CHECKING_Static
       {
-    set;
+    get;
       }
 
       [Name("DOWNLOADING")]
       public static ushort DOWNLOADING_Static
       {
-    set;
+    get;
       }
 
       [Name("IDLE")]
       public static ushort IDLE_Static
       {
-    set;
+    get;
       }
 
       [Name("OBSOLETE")]
       public static ushort OBSOLETE_Static
       {
-    set;
+    get;
       }
 
       [Name("UNCACHED")]
       public static ushort UNCACHED_Static
       {
-    set;
+    get;
       }
 
       [Name("UPDATEREADY")]
       public static ushort UPDATEREADY_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.ApplicationCache.oncachedFn oncached
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ApplicationCache.oncachedFn onchecking
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ApplicationCache.oncachedFn ondownloading
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ApplicationCache.oncachedFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ApplicationCache.oncachedFn onnoupdate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ApplicationCache.oncachedFn onobsolete
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ApplicationCache.onprogressFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ApplicationCache.oncachedFn onupdateready
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort status
       {
-    set;
+    get;
       }
 
       public virtual extern void abort();
@@ -14377,32 +14378,32 @@ namespace H5
 
       public virtual ushort CHECKING
       {
-    set;
+    get;
       }
 
       public virtual ushort DOWNLOADING
       {
-    set;
+    get;
       }
 
       public virtual ushort IDLE
       {
-    set;
+    get;
       }
 
       public virtual ushort OBSOLETE
       {
-    set;
+    get;
       }
 
       public virtual ushort UNCACHED
       {
-    set;
+    get;
       }
 
       public virtual ushort UPDATEREADY
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.ApplicationCacheEventMap>), EnableImplicitConversion = true)]
@@ -14514,7 +14515,7 @@ namespace H5
 
       public bool? flatten
       {
-    set;
+    get;
     set;
       }
     }
@@ -14532,33 +14533,33 @@ namespace H5
 
       public static dom.Attr prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual dom.Element ownerElement
       {
-    set;
+    get;
       }
 
       public virtual string prefix
       {
-    set;
+    get;
       }
 
       public virtual bool specified
       {
-    set;
+    get;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
     }
@@ -14575,28 +14576,28 @@ namespace H5
 
       public static dom.AudioBuffer prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double duration
       {
-    set;
+    get;
       }
 
       public virtual double length
       {
-    set;
+    get;
       }
 
       public virtual double numberOfChannels
       {
-    set;
+    get;
       }
 
       public virtual double sampleRate
       {
-    set;
+    get;
       }
 
       public virtual extern void copyFromChannel(es5.Float32Array destination, double channelNumber);
@@ -14625,7 +14626,7 @@ namespace H5
 
       public dom.Event ended
       {
-    set;
+    get;
     set;
       }
 
@@ -14652,48 +14653,48 @@ namespace H5
 
       public static dom.AudioBufferSourceNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioBuffer buffer
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioParam detune
       {
-    set;
+    get;
       }
 
       public virtual bool loop
       {
-    set;
+    get;
     set;
       }
 
       public virtual double loopEnd
       {
-    set;
+    get;
     set;
       }
 
       public virtual double loopStart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioBufferSourceNode.onendedFn onended
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioParam playbackRate
       {
-    set;
+    get;
       }
 
       public virtual extern void start();
@@ -14903,7 +14904,7 @@ namespace H5
 
       public dom.Event statechange
       {
-    set;
+    get;
     set;
       }
 
@@ -14930,7 +14931,7 @@ namespace H5
 
       public virtual dom.AudioContextBase.onstatechangeFn onstatechange
       {
-    set;
+    get;
     set;
       }
 
@@ -15122,7 +15123,7 @@ namespace H5
 
       public static dom.AudioContext prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -15310,13 +15311,13 @@ namespace H5
 
       public static dom.AudioDestinationNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double maxChannelCount
       {
-    set;
+    get;
       }
     }
 
@@ -15330,19 +15331,19 @@ namespace H5
 
       public static dom.AudioListener prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double dopplerFactor
       {
-    set;
+    get;
     set;
       }
 
       public virtual double speedOfSound
       {
-    set;
+    get;
     set;
       }
 
@@ -15373,41 +15374,41 @@ namespace H5
 
       public static dom.AudioNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double channelCount
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ChannelCountMode channelCountMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ChannelInterpretation channelInterpretation
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioContext context
       {
-    set;
+    get;
       }
 
       public virtual double numberOfInputs
       {
-    set;
+    get;
       }
 
       public virtual double numberOfOutputs
       {
-    set;
+    get;
       }
 
       public virtual extern dom.AudioNode connect(dom.AudioNode destination);
@@ -15448,18 +15449,18 @@ namespace H5
 
       public static dom.AudioParam prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double defaultValue
       {
-    set;
+    get;
       }
 
       public virtual double value
       {
-    set;
+    get;
     set;
       }
 
@@ -15495,23 +15496,23 @@ namespace H5
 
       public static dom.AudioProcessingEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioBuffer inputBuffer
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioBuffer outputBuffer
       {
-    set;
+    get;
       }
 
       public virtual double playbackTime
       {
-    set;
+    get;
       }
     }
 
@@ -15529,41 +15530,41 @@ namespace H5
 
       public static dom.AudioTrack prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool enabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string id
       {
-    set;
+    get;
       }
 
       public virtual string kind
       {
-    set;
+    get;
     set;
       }
 
       public virtual string label
       {
-    set;
+    get;
       }
 
       public virtual string language
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SourceBuffer sourceBuffer
       {
-    set;
+    get;
       }
     }
 
@@ -15578,19 +15579,19 @@ namespace H5
 
       public dom.TrackEvent addtrack
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event change
       {
-    set;
+    get;
     set;
       }
 
       public dom.TrackEvent removetrack
       {
-    set;
+    get;
     set;
       }
 
@@ -15618,30 +15619,30 @@ namespace H5
 
       public static dom.AudioTrackList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioTrackList.onaddtrackFn onaddtrack
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioTrackList.onchangeFn onchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioTrackList.onaddtrackFn onremovetrack
       {
-    set;
+    get;
     set;
       }
 
@@ -15760,13 +15761,13 @@ namespace H5
 
       public static dom.BarProp prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool visible
       {
-    set;
+    get;
       }
     }
 
@@ -15779,13 +15780,13 @@ namespace H5
 
       public static dom.BeforeUnloadEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object returnValue
       {
-    set;
+    get;
     set;
       }
     }
@@ -15799,13 +15800,13 @@ namespace H5
 
       public static dom.BhxBrowser prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DOMException lastError
       {
-    set;
+    get;
       }
 
       public virtual extern bool checkMatchesGlobExpression(string pattern, string value);
@@ -15880,33 +15881,33 @@ namespace H5
 
       public static dom.BiquadFilterNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioParam Q
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioParam detune
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioParam frequency
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioParam gain
       {
-    set;
+    get;
       }
 
       public virtual dom.BiquadFilterType type
       {
-    set;
+    get;
     set;
       }
 
@@ -15932,18 +15933,18 @@ namespace H5
 
       public static dom.Blob prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual ulong size
       {
-    set;
+    get;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual extern void msClose();
@@ -15969,13 +15970,13 @@ namespace H5
 
       public string endings
       {
-    set;
+    get;
     set;
       }
 
       public string type
       {
-    set;
+    get;
     set;
       }
     }
@@ -16011,24 +16012,24 @@ namespace H5
 
       public static dom.BroadcastChannel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual dom.BroadcastChannel.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.BroadcastChannel.onmessageerrorFn onmessageerror
       {
-    set;
+    get;
     set;
       }
 
@@ -16146,13 +16147,13 @@ namespace H5
 
       public dom.MessageEvent message
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessageEvent messageerror
       {
-    set;
+    get;
     set;
       }
 
@@ -16177,13 +16178,13 @@ namespace H5
 
       public static dom.ByteLengthQueuingStrategy prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double highWaterMark
       {
-    set;
+    get;
     set;
       }
 
@@ -16200,7 +16201,7 @@ namespace H5
 
       public static dom.CDATASection prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -16226,13 +16227,13 @@ namespace H5
 
       public static dom.CSSConditionRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string conditionText
       {
-    set;
+    get;
     set;
       }
     }
@@ -16246,13 +16247,13 @@ namespace H5
 
       public static dom.CSSFontFaceRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSStyleDeclaration style
       {
-    set;
+    get;
       }
     }
 
@@ -16265,13 +16266,13 @@ namespace H5
 
       public static dom.CSSGroupingRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSRuleList cssRules
       {
-    set;
+    get;
       }
 
       public virtual extern void deleteRule(uint index);
@@ -16290,23 +16291,23 @@ namespace H5
 
       public static dom.CSSImportRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaList media
       {
-    set;
+    get;
       }
 
       public virtual dom.CSSStyleSheet styleSheet
       {
-    set;
+    get;
       }
     }
 
@@ -16320,19 +16321,19 @@ namespace H5
 
       public static dom.CSSKeyframeRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string keyText
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSStyleDeclaration style
       {
-    set;
+    get;
       }
     }
 
@@ -16346,18 +16347,18 @@ namespace H5
 
       public static dom.CSSKeyframesRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSRuleList cssRules
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
@@ -16377,13 +16378,13 @@ namespace H5
 
       public static dom.CSSMediaRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaList media
       {
-    set;
+    get;
       }
     }
 
@@ -16397,18 +16398,18 @@ namespace H5
 
       public static dom.CSSNamespaceRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string namespaceURI
       {
-    set;
+    get;
       }
 
       public virtual string prefix
       {
-    set;
+    get;
       }
     }
 
@@ -16424,29 +16425,29 @@ namespace H5
 
       public static dom.CSSPageRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pseudoClass
       {
-    set;
+    get;
       }
 
       public virtual string selector
       {
-    set;
+    get;
       }
 
       public virtual string selectorText
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSStyleDeclaration style
       {
-    set;
+    get;
       }
     }
 
@@ -16486,161 +16487,161 @@ namespace H5
 
       public static dom.CSSRule prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("CHARSET_RULE")]
       public static ushort CHARSET_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("FONT_FACE_RULE")]
       public static ushort FONT_FACE_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("IMPORT_RULE")]
       public static ushort IMPORT_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("KEYFRAMES_RULE")]
       public static double KEYFRAMES_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("KEYFRAME_RULE")]
       public static double KEYFRAME_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("MEDIA_RULE")]
       public static ushort MEDIA_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("NAMESPACE_RULE")]
       public static ushort NAMESPACE_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("PAGE_RULE")]
       public static ushort PAGE_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("STYLE_RULE")]
       public static ushort STYLE_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("SUPPORTS_RULE")]
       public static double SUPPORTS_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("UNKNOWN_RULE")]
       public static double UNKNOWN_RULE_Static
       {
-    set;
+    get;
       }
 
       [Name("VIEWPORT_RULE")]
       public static double VIEWPORT_RULE_Static
       {
-    set;
+    get;
       }
 
       public virtual string cssText
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSRule parentRule
       {
-    set;
+    get;
       }
 
       public virtual dom.CSSStyleSheet parentStyleSheet
       {
-    set;
+    get;
       }
 
       public virtual ushort type
       {
-    set;
+    get;
       }
 
       public virtual ushort CHARSET_RULE
       {
-    set;
+    get;
       }
 
       public virtual ushort FONT_FACE_RULE
       {
-    set;
+    get;
       }
 
       public virtual ushort IMPORT_RULE
       {
-    set;
+    get;
       }
 
       public virtual double KEYFRAMES_RULE
       {
-    set;
+    get;
       }
 
       public virtual double KEYFRAME_RULE
       {
-    set;
+    get;
       }
 
       public virtual ushort MEDIA_RULE
       {
-    set;
+    get;
       }
 
       public virtual ushort NAMESPACE_RULE
       {
-    set;
+    get;
       }
 
       public virtual ushort PAGE_RULE
       {
-    set;
+    get;
       }
 
       public virtual ushort STYLE_RULE
       {
-    set;
+    get;
       }
 
       public virtual double SUPPORTS_RULE
       {
-    set;
+    get;
       }
 
       public virtual double UNKNOWN_RULE
       {
-    set;
+    get;
       }
 
       public virtual double VIEWPORT_RULE
       {
-    set;
+    get;
       }
     }
 
@@ -16653,13 +16654,13 @@ namespace H5
 
       public static dom.CSSRuleList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.CSSRule item(uint index);
@@ -17055,2249 +17056,2249 @@ namespace H5
 
       public static dom.CSSStyleDeclaration prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string alignContent
       {
-    set;
+    get;
     set;
       }
 
       public virtual string alignItems
       {
-    set;
+    get;
     set;
       }
 
       public virtual string alignSelf
       {
-    set;
+    get;
     set;
       }
 
       public virtual string alignmentBaseline
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animation
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationDelay
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationDirection
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationDuration
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationFillMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationIterationCount
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationName
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationPlayState
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animationTimingFunction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backfaceVisibility
       {
-    set;
+    get;
     set;
       }
 
       public virtual string background
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundAttachment
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundClip
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundImage
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundPosition
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundPositionX
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundPositionY
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundRepeat
       {
-    set;
+    get;
     set;
       }
 
       public virtual string backgroundSize
       {
-    set;
+    get;
     set;
       }
 
       public virtual string baselineShift
       {
-    set;
+    get;
     set;
       }
 
       public virtual string border
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderBottom
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderBottomColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderBottomLeftRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderBottomRightRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderBottomStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderBottomWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderCollapse
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderImage
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderImageOutset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderImageRepeat
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderImageSlice
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderImageSource
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderImageWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderLeft
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderLeftColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderLeftStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderLeftWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderRight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderRightColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderRightStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderRightWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderSpacing
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderTop
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderTopColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderTopLeftRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderTopRightRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderTopStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderTopWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string borderWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string bottom
       {
-    set;
+    get;
     set;
       }
 
       public virtual string boxShadow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string boxSizing
       {
-    set;
+    get;
     set;
       }
 
       public virtual string breakAfter
       {
-    set;
+    get;
     set;
       }
 
       public virtual string breakBefore
       {
-    set;
+    get;
     set;
       }
 
       public virtual string breakInside
       {
-    set;
+    get;
     set;
       }
 
       public virtual string captionSide
       {
-    set;
+    get;
     set;
       }
 
       public virtual string clear
       {
-    set;
+    get;
     set;
       }
 
       public virtual string clip
       {
-    set;
+    get;
     set;
       }
 
       public virtual string clipPath
       {
-    set;
+    get;
     set;
       }
 
       public virtual string clipRule
       {
-    set;
+    get;
     set;
       }
 
       public virtual string color
       {
-    set;
+    get;
     set;
       }
 
       public virtual string colorInterpolationFilters
       {
-    set;
+    get;
     set;
       }
 
       public virtual object columnCount
       {
-    set;
+    get;
     set;
       }
 
       public virtual string columnFill
       {
-    set;
+    get;
     set;
       }
 
       public virtual object columnGap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string columnRule
       {
-    set;
+    get;
     set;
       }
 
       public virtual object columnRuleColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string columnRuleStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual object columnRuleWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string columnSpan
       {
-    set;
+    get;
     set;
       }
 
       public virtual object columnWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string columns
       {
-    set;
+    get;
     set;
       }
 
       public virtual string content
       {
-    set;
+    get;
     set;
       }
 
       public virtual string counterIncrement
       {
-    set;
+    get;
     set;
       }
 
       public virtual string counterReset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string cssFloat
       {
-    set;
+    get;
     set;
       }
 
       public virtual string cssText
       {
-    set;
+    get;
     set;
       }
 
       public virtual string cursor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string direction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string display
       {
-    set;
+    get;
     set;
       }
 
       public virtual string dominantBaseline
       {
-    set;
+    get;
     set;
       }
 
       public virtual string emptyCells
       {
-    set;
+    get;
     set;
       }
 
       public virtual string enableBackground
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fill
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fillOpacity
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fillRule
       {
-    set;
+    get;
     set;
       }
 
       public virtual string filter
       {
-    set;
+    get;
     set;
       }
 
       public virtual string flex
       {
-    set;
+    get;
     set;
       }
 
       public virtual string flexBasis
       {
-    set;
+    get;
     set;
       }
 
       public virtual string flexDirection
       {
-    set;
+    get;
     set;
       }
 
       public virtual string flexFlow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string flexGrow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string flexShrink
       {
-    set;
+    get;
     set;
       }
 
       public virtual string flexWrap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string floodColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string floodOpacity
       {
-    set;
+    get;
     set;
       }
 
       public virtual string font
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fontFamily
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fontFeatureSettings
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fontSize
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fontSizeAdjust
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fontStretch
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fontStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fontVariant
       {
-    set;
+    get;
     set;
       }
 
       public virtual string fontWeight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string glyphOrientationHorizontal
       {
-    set;
+    get;
     set;
       }
 
       public virtual string glyphOrientationVertical
       {
-    set;
+    get;
     set;
       }
 
       public virtual string grid
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridArea
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridAutoColumns
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridAutoFlow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridAutoRows
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridColumn
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridColumnEnd
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridColumnGap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridColumnStart
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridGap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridRow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridRowEnd
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridRowGap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridRowStart
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridTemplate
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridTemplateAreas
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridTemplateColumns
       {
-    set;
+    get;
     set;
       }
 
       public virtual string gridTemplateRows
       {
-    set;
+    get;
     set;
       }
 
       public virtual string height
       {
-    set;
+    get;
     set;
       }
 
       public virtual string imeMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual string justifyContent
       {
-    set;
+    get;
     set;
       }
 
       public virtual string justifyItems
       {
-    set;
+    get;
     set;
       }
 
       public virtual string justifySelf
       {
-    set;
+    get;
     set;
       }
 
       public virtual string kerning
       {
-    set;
+    get;
     set;
       }
 
       public virtual string layoutGrid
       {
-    set;
+    get;
     set;
       }
 
       public virtual string layoutGridChar
       {
-    set;
+    get;
     set;
       }
 
       public virtual string layoutGridLine
       {
-    set;
+    get;
     set;
       }
 
       public virtual string layoutGridMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual string layoutGridType
       {
-    set;
+    get;
     set;
       }
 
       public virtual string left
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual string letterSpacing
       {
-    set;
+    get;
     set;
       }
 
       public virtual string lightingColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string lineBreak
       {
-    set;
+    get;
     set;
       }
 
       public virtual string lineHeight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string listStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string listStyleImage
       {
-    set;
+    get;
     set;
       }
 
       public virtual string listStylePosition
       {
-    set;
+    get;
     set;
       }
 
       public virtual string listStyleType
       {
-    set;
+    get;
     set;
       }
 
       public virtual string margin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marginBottom
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marginLeft
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marginRight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marginTop
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marker
       {
-    set;
+    get;
     set;
       }
 
       public virtual string markerEnd
       {
-    set;
+    get;
     set;
       }
 
       public virtual string markerMid
       {
-    set;
+    get;
     set;
       }
 
       public virtual string markerStart
       {
-    set;
+    get;
     set;
       }
 
       public virtual string mask
       {
-    set;
+    get;
     set;
       }
 
       public virtual string maskImage
       {
-    set;
+    get;
     set;
       }
 
       public virtual string maxHeight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string maxWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string minHeight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string minWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msContentZoomChaining
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msContentZoomLimit
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msContentZoomLimitMax
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msContentZoomLimitMin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msContentZoomSnap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msContentZoomSnapPoints
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msContentZoomSnapType
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msContentZooming
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msFlowFrom
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msFlowInto
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msFontFeatureSettings
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msGridColumn
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msGridColumnAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msGridColumnSpan
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msGridColumns
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msGridRow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msGridRowAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msGridRowSpan
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msGridRows
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msHighContrastAdjust
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msHyphenateLimitChars
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msHyphenateLimitLines
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msHyphenateLimitZone
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msHyphens
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msImeAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msOverflowStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollChaining
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollLimit
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msScrollLimitXMax
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msScrollLimitXMin
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msScrollLimitYMax
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msScrollLimitYMin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollRails
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollSnapPointsX
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollSnapPointsY
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollSnapType
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollSnapX
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollSnapY
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msScrollTranslation
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msTextCombineHorizontal
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msTextSizeAdjust
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msTouchAction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msTouchSelect
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msUserSelect
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msWrapFlow
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msWrapMargin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msWrapThrough
       {
-    set;
+    get;
     set;
       }
 
       public virtual string objectFit
       {
-    set;
+    get;
     set;
       }
 
       public virtual string objectPosition
       {
-    set;
+    get;
     set;
       }
 
       public virtual string opacity
       {
-    set;
+    get;
     set;
       }
 
       public virtual string order
       {
-    set;
+    get;
     set;
       }
 
       public virtual string orphans
       {
-    set;
+    get;
     set;
       }
 
       public virtual string outline
       {
-    set;
+    get;
     set;
       }
 
       public virtual string outlineColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string outlineOffset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string outlineStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string outlineWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string overflow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string overflowX
       {
-    set;
+    get;
     set;
       }
 
       public virtual string overflowY
       {
-    set;
+    get;
     set;
       }
 
       public virtual string padding
       {
-    set;
+    get;
     set;
       }
 
       public virtual string paddingBottom
       {
-    set;
+    get;
     set;
       }
 
       public virtual string paddingLeft
       {
-    set;
+    get;
     set;
       }
 
       public virtual string paddingRight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string paddingTop
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pageBreakAfter
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pageBreakBefore
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pageBreakInside
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSRule parentRule
       {
-    set;
+    get;
       }
 
       public virtual string penAction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string perspective
       {
-    set;
+    get;
     set;
       }
 
       public virtual string perspectiveOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pointerEvents
       {
-    set;
+    get;
     set;
       }
 
       public virtual string position
       {
-    set;
+    get;
     set;
       }
 
       public virtual string quotes
       {
-    set;
+    get;
     set;
       }
 
       public virtual string resize
       {
-    set;
+    get;
     set;
       }
 
       public virtual string right
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rotate
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rowGap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rubyAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rubyOverhang
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rubyPosition
       {
-    set;
+    get;
     set;
       }
 
       public virtual string scale
       {
-    set;
+    get;
     set;
       }
 
       public virtual string stopColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string stopOpacity
       {
-    set;
+    get;
     set;
       }
 
       public virtual string stroke
       {
-    set;
+    get;
     set;
       }
 
       public virtual string strokeDasharray
       {
-    set;
+    get;
     set;
       }
 
       public virtual string strokeDashoffset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string strokeLinecap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string strokeLinejoin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string strokeMiterlimit
       {
-    set;
+    get;
     set;
       }
 
       public virtual string strokeOpacity
       {
-    set;
+    get;
     set;
       }
 
       public virtual string strokeWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string tableLayout
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textAlignLast
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textAnchor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textCombineUpright
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textDecoration
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textIndent
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textJustify
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textKashida
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textKashidaSpace
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textOverflow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textShadow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textTransform
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textUnderlinePosition
       {
-    set;
+    get;
     set;
       }
 
       public virtual string top
       {
-    set;
+    get;
     set;
       }
 
       public virtual string touchAction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string transform
       {
-    set;
+    get;
     set;
       }
 
       public virtual string transformOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string transformStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string transition
       {
-    set;
+    get;
     set;
       }
 
       public virtual string transitionDelay
       {
-    set;
+    get;
     set;
       }
 
       public virtual string transitionDuration
       {
-    set;
+    get;
     set;
       }
 
       public virtual string transitionProperty
       {
-    set;
+    get;
     set;
       }
 
       public virtual string transitionTimingFunction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string translate
       {
-    set;
+    get;
     set;
       }
 
       public virtual string unicodeBidi
       {
-    set;
+    get;
     set;
       }
 
       public virtual string userSelect
       {
-    set;
+    get;
     set;
       }
 
       public virtual string verticalAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual string visibility
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAlignContent
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAlignItems
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAlignSelf
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimation
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimationDelay
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimationDirection
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimationDuration
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimationFillMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimationIterationCount
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimationName
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimationPlayState
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAnimationTimingFunction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitAppearance
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBackfaceVisibility
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBackgroundClip
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBackgroundOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBackgroundSize
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBorderBottomLeftRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBorderBottomRightRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBorderImage
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBorderRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBorderTopLeftRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBorderTopRightRadius
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBoxAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBoxDirection
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBoxFlex
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBoxOrdinalGroup
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBoxOrient
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBoxPack
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitBoxSizing
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitColumnBreakAfter
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitColumnBreakBefore
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitColumnBreakInside
       {
-    set;
+    get;
     set;
       }
 
       public virtual object webkitColumnCount
       {
-    set;
+    get;
     set;
       }
 
       public virtual object webkitColumnGap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitColumnRule
       {
-    set;
+    get;
     set;
       }
 
       public virtual object webkitColumnRuleColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitColumnRuleStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual object webkitColumnRuleWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitColumnSpan
       {
-    set;
+    get;
     set;
       }
 
       public virtual object webkitColumnWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitColumns
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitFilter
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitFlex
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitFlexBasis
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitFlexDirection
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitFlexFlow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitFlexGrow
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitFlexShrink
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitFlexWrap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitJustifyContent
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitOrder
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitPerspective
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitPerspectiveOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTapHighlightColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTextFillColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual object webkitTextSizeAdjust
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTextStroke
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTextStrokeColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTextStrokeWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTransform
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTransformOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTransformStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTransition
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTransitionDelay
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTransitionDuration
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTransitionProperty
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitTransitionTimingFunction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitUserModify
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitUserSelect
       {
-    set;
+    get;
     set;
       }
 
       public virtual string webkitWritingMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual string whiteSpace
       {
-    set;
+    get;
     set;
       }
 
       public virtual string widows
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
       public virtual string wordBreak
       {
-    set;
+    get;
     set;
       }
 
       public virtual string wordSpacing
       {
-    set;
+    get;
     set;
       }
 
       public virtual string wordWrap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string writingMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual string zIndex
       {
-    set;
+    get;
     set;
       }
 
       public virtual string zoom
       {
-    set;
+    get;
     set;
       }
 
@@ -19326,19 +19327,19 @@ namespace H5
 
       public static dom.CSSStyleRule prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string selectorText
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSStyleDeclaration style
       {
-    set;
+    get;
       }
     }
 
@@ -19361,64 +19362,64 @@ namespace H5
 
       public static dom.CSSStyleSheet prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CSSRuleList cssRules
       {
-    set;
+    get;
       }
 
       public virtual string cssText
       {
-    set;
+    get;
     set;
       }
 
       public virtual string id
       {
-    set;
+    get;
       }
 
       public virtual dom.StyleSheetList imports
       {
-    set;
+    get;
       }
 
       public virtual bool isAlternate
       {
-    set;
+    get;
       }
 
       public virtual bool isPrefAlternate
       {
-    set;
+    get;
       }
 
       public virtual dom.CSSRule ownerRule
       {
-    set;
+    get;
       }
 
       public virtual dom.Element owningElement
       {
-    set;
+    get;
       }
 
       public virtual object pages
       {
-    set;
+    get;
       }
 
       public virtual bool readOnly
       {
-    set;
+    get;
       }
 
       public virtual dom.CSSRuleList rules
       {
-    set;
+    get;
       }
 
       public virtual extern double addImport(string bstrURL);
@@ -19459,7 +19460,7 @@ namespace H5
 
       public static dom.CSSSupportsRule prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -19472,7 +19473,7 @@ namespace H5
 
       public static dom.Cache prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -19588,7 +19589,7 @@ namespace H5
 
       public static dom.CacheStorage prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -19630,19 +19631,19 @@ namespace H5
 
       public virtual bool? alpha
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool? storage
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool? willReadFrequently
       {
-    set;
+    get;
     set;
       }
 
@@ -19657,7 +19658,7 @@ namespace H5
 
       public static dom.CanvasGradient prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -19741,7 +19742,7 @@ namespace H5
 
       public static dom.CanvasPattern prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -19778,138 +19779,138 @@ namespace H5
 
       public static dom.CanvasRenderingContext2D prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCanvasElement canvas
       {
-    set;
+    get;
       }
 
       public virtual Union<string, dom.CanvasGradient, dom.CanvasPattern> fillStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string font
       {
-    set;
+    get;
     set;
       }
 
       public virtual double globalAlpha
       {
-    set;
+    get;
     set;
       }
 
       public virtual string globalCompositeOperation
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool imageSmoothingEnabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string lineCap
       {
-    set;
+    get;
     set;
       }
 
       public virtual double lineDashOffset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string lineJoin
       {
-    set;
+    get;
     set;
       }
 
       public virtual double lineWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual double miterLimit
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool mozImageSmoothingEnabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CanvasFillRule msFillRule
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool oImageSmoothingEnabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual double shadowBlur
       {
-    set;
+    get;
     set;
       }
 
       public virtual string shadowColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual double shadowOffsetX
       {
-    set;
+    get;
     set;
       }
 
       public virtual double shadowOffsetY
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<string, dom.CanvasGradient, dom.CanvasPattern> strokeStyle
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual string textBaseline
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool webkitImageSmoothingEnabled
       {
-    set;
+    get;
     set;
       }
 
@@ -20272,7 +20273,7 @@ namespace H5
 
       public static dom.ChannelMergerNode prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -20285,7 +20286,7 @@ namespace H5
 
       public static dom.ChannelSplitterNode prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -20300,19 +20301,19 @@ namespace H5
 
       public static dom.CharacterData prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string data
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern void appendData(string arg);
@@ -20357,42 +20358,42 @@ namespace H5
 
       public static dom.ClientRect prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double bottom
       {
-    set;
+    get;
     set;
       }
 
       public virtual double height
       {
-    set;
+    get;
       }
 
       public virtual double left
       {
-    set;
+    get;
     set;
       }
 
       public virtual double right
       {
-    set;
+    get;
     set;
       }
 
       public virtual double top
       {
-    set;
+    get;
     set;
       }
 
       public virtual double width
       {
-    set;
+    get;
       }
     }
 
@@ -20405,13 +20406,13 @@ namespace H5
 
       public static dom.ClientRectList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.ClientRect item(double index);
@@ -20432,13 +20433,13 @@ namespace H5
 
       public static dom.ClipboardEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DataTransfer clipboardData
       {
-    set;
+    get;
       }
     }
 
@@ -20452,13 +20453,13 @@ namespace H5
 
       public string data
       {
-    set;
+    get;
     set;
       }
 
       public string dataType
       {
-    set;
+    get;
     set;
       }
     }
@@ -20478,23 +20479,23 @@ namespace H5
 
       public static dom.CloseEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort code
       {
-    set;
+    get;
       }
 
       public virtual string reason
       {
-    set;
+    get;
       }
 
       public virtual bool wasClean
       {
-    set;
+    get;
       }
 
       public virtual extern void initCloseEvent(
@@ -20519,13 +20520,13 @@ namespace H5
 
       public static dom.Comment prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string text
       {
-    set;
+    get;
     set;
       }
     }
@@ -20544,18 +20545,18 @@ namespace H5
 
       public static dom.CompositionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string data
       {
-    set;
+    get;
       }
 
       public virtual string locale
       {
-    set;
+    get;
       }
 
       public virtual extern void initCompositionEvent(
@@ -20580,31 +20581,31 @@ namespace H5
 
       public double activeDuration
       {
-    set;
+    get;
     set;
       }
 
       public double? currentIteration
       {
-    set;
+    get;
     set;
       }
 
       public double endTime
       {
-    set;
+    get;
     set;
       }
 
       public double? localTime
       {
-    set;
+    get;
     set;
       }
 
       public double? progress
       {
-    set;
+    get;
     set;
       }
     }
@@ -20623,40 +20624,37 @@ namespace H5
 
       public es5.Uint8Array algorithmId
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
 
       public es5.Uint8Array partyUInfo
       {
-    set;
+    get;
     set;
       }
 
       public es5.Uint8Array partyVInfo
       {
-    set;
+    get;
     set;
       }
 
       public es5.Uint8Array privateInfo
       {
-        get
-        {
-          return this._
-        }
+                get;
     set;
       }
 
       public es5.Uint8Array publicInfo
       {
-    set;
+    get;
     set;
       }
     }
@@ -20670,13 +20668,13 @@ namespace H5
 
       public static dom.Console prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object memory
       {
-    set;
+    get;
     set;
       }
 
@@ -20795,18 +20793,18 @@ namespace H5
 
       public static dom.ContentScriptGlobalScope prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ExtensionScriptApis msContentScript
       {
-    set;
+    get;
       }
 
       public virtual dom.Window window
       {
-    set;
+    get;
       }
     }
 
@@ -20820,19 +20818,19 @@ namespace H5
 
       public static dom.ConvolverNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioBuffer buffer
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool normalize
       {
-    set;
+    get;
     set;
       }
     }
@@ -20852,43 +20850,43 @@ namespace H5
 
       public static dom.Coordinates prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double accuracy
       {
-    set;
+    get;
       }
 
       public virtual double? altitude
       {
-    set;
+    get;
       }
 
       public virtual double? altitudeAccuracy
       {
-    set;
+    get;
       }
 
       public virtual double? heading
       {
-    set;
+    get;
       }
 
       public virtual double latitude
       {
-    set;
+    get;
       }
 
       public virtual double longitude
       {
-    set;
+    get;
       }
 
       public virtual double? speed
       {
-    set;
+    get;
       }
     }
 
@@ -20903,13 +20901,13 @@ namespace H5
 
       public static dom.CountQueuingStrategy prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double highWaterMark
       {
-    set;
+    get;
     set;
       }
 
@@ -20925,13 +20923,13 @@ namespace H5
 
       public static dom.Crypto prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SubtleCrypto subtle
       {
-    set;
+    get;
       }
 
       public virtual extern Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, Null> getRandomValues(
@@ -20983,28 +20981,28 @@ namespace H5
 
       public static dom.CryptoKey prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.KeyAlgorithm algorithm
       {
-    set;
+    get;
       }
 
       public virtual bool extractable
       {
-    set;
+    get;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual string[] usages
       {
-    set;
+    get;
       }
     }
 
@@ -21018,22 +21016,19 @@ namespace H5
 
       public static dom.CryptoKeyPair prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.CryptoKey privateKey
       {
-        get
-        {
-          return this._
-        }
+                get;
     set;
       }
 
       public virtual dom.CryptoKey publicKey
       {
-    set;
+    get;
     set;
       }
     }
@@ -21096,13 +21091,13 @@ namespace H5
 
       public static dom.DOMError prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual extern string toString();
@@ -21179,322 +21174,322 @@ namespace H5
 
       public static dom.DOMException prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("ABORT_ERR")]
       public static double ABORT_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("DATA_CLONE_ERR")]
       public static double DATA_CLONE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("DOMSTRING_SIZE_ERR")]
       public static double DOMSTRING_SIZE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("HIERARCHY_REQUEST_ERR")]
       public static double HIERARCHY_REQUEST_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("INDEX_SIZE_ERR")]
       public static double INDEX_SIZE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("INUSE_ATTRIBUTE_ERR")]
       public static double INUSE_ATTRIBUTE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_ACCESS_ERR")]
       public static double INVALID_ACCESS_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_CHARACTER_ERR")]
       public static double INVALID_CHARACTER_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_MODIFICATION_ERR")]
       public static double INVALID_MODIFICATION_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_NODE_TYPE_ERR")]
       public static double INVALID_NODE_TYPE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_STATE_ERR")]
       public static double INVALID_STATE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("NAMESPACE_ERR")]
       public static double NAMESPACE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("NETWORK_ERR")]
       public static double NETWORK_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("NOT_FOUND_ERR")]
       public static double NOT_FOUND_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("NOT_SUPPORTED_ERR")]
       public static double NOT_SUPPORTED_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("NO_DATA_ALLOWED_ERR")]
       public static double NO_DATA_ALLOWED_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("NO_MODIFICATION_ALLOWED_ERR")]
       public static double NO_MODIFICATION_ALLOWED_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("PARSE_ERR")]
       public static double PARSE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("QUOTA_EXCEEDED_ERR")]
       public static double QUOTA_EXCEEDED_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("SECURITY_ERR")]
       public static double SECURITY_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("SERIALIZE_ERR")]
       public static double SERIALIZE_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("SYNTAX_ERR")]
       public static double SYNTAX_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("TIMEOUT_ERR")]
       public static double TIMEOUT_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("TYPE_MISMATCH_ERR")]
       public static double TYPE_MISMATCH_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("URL_MISMATCH_ERR")]
       public static double URL_MISMATCH_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("VALIDATION_ERR")]
       public static double VALIDATION_ERR_Static
       {
-    set;
+    get;
       }
 
       [Name("WRONG_DOCUMENT_ERR")]
       public static double WRONG_DOCUMENT_ERR_Static
       {
-    set;
+    get;
       }
 
       public virtual double code
       {
-    set;
+    get;
       }
 
       public virtual string message
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual extern string toString();
 
       public virtual double ABORT_ERR
       {
-    set;
+    get;
       }
 
       public virtual double DATA_CLONE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double DOMSTRING_SIZE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double HIERARCHY_REQUEST_ERR
       {
-    set;
+    get;
       }
 
       public virtual double INDEX_SIZE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double INUSE_ATTRIBUTE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double INVALID_ACCESS_ERR
       {
-    set;
+    get;
       }
 
       public virtual double INVALID_CHARACTER_ERR
       {
-    set;
+    get;
       }
 
       public virtual double INVALID_MODIFICATION_ERR
       {
-    set;
+    get;
       }
 
       public virtual double INVALID_NODE_TYPE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double INVALID_STATE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double NAMESPACE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double NETWORK_ERR
       {
-    set;
+    get;
       }
 
       public virtual double NOT_FOUND_ERR
       {
-    set;
+    get;
       }
 
       public virtual double NOT_SUPPORTED_ERR
       {
-    set;
+    get;
       }
 
       public virtual double NO_DATA_ALLOWED_ERR
       {
-    set;
+    get;
       }
 
       public virtual double NO_MODIFICATION_ALLOWED_ERR
       {
-    set;
+    get;
       }
 
       public virtual double PARSE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double QUOTA_EXCEEDED_ERR
       {
-    set;
+    get;
       }
 
       public virtual double SECURITY_ERR
       {
-    set;
+    get;
       }
 
       public virtual double SERIALIZE_ERR
       {
-    set;
+    get;
       }
 
       public virtual double SYNTAX_ERR
       {
-    set;
+    get;
       }
 
       public virtual double TIMEOUT_ERR
       {
-    set;
+    get;
       }
 
       public virtual double TYPE_MISMATCH_ERR
       {
-    set;
+    get;
       }
 
       public virtual double URL_MISMATCH_ERR
       {
-    set;
+    get;
       }
 
       public virtual double VALIDATION_ERR
       {
-    set;
+    get;
       }
 
       public virtual double WRONG_DOCUMENT_ERR
       {
-    set;
+    get;
       }
     }
 
@@ -21506,7 +21501,7 @@ namespace H5
 
       public static dom.DOMImplementation prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -21536,7 +21531,7 @@ namespace H5
 
       public string color
       {
-    set;
+    get;
     set;
       }
 
@@ -21558,7 +21553,7 @@ namespace H5
 
       public double size
       {
-    set;
+    get;
     set;
       }
 
@@ -21579,7 +21574,7 @@ namespace H5
 
       public static dom.DOMParser prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -21608,7 +21603,7 @@ namespace H5
 
       public static dom.DOMRect prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -21618,25 +21613,25 @@ namespace H5
 
       public new virtual double height
       {
-    set;
+    get;
     set;
       }
 
       public new virtual double width
       {
-    set;
+    get;
     set;
       }
 
       public new virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public new virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -21685,7 +21680,7 @@ namespace H5
 
       public static dom.DOMRectReadOnly prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -21695,42 +21690,42 @@ namespace H5
 
       public virtual double bottom
       {
-    set;
+    get;
       }
 
       public virtual double height
       {
-    set;
+    get;
       }
 
       public virtual double left
       {
-    set;
+    get;
       }
 
       public virtual double right
       {
-    set;
+    get;
       }
 
       public virtual double top
       {
-    set;
+    get;
       }
 
       public virtual double width
       {
-    set;
+    get;
       }
 
       public virtual double x
       {
-    set;
+    get;
       }
 
       public virtual double y
       {
-    set;
+    get;
       }
     }
 
@@ -21743,13 +21738,13 @@ namespace H5
 
       public static dom.DOMSettableTokenList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
     }
@@ -21763,13 +21758,13 @@ namespace H5
 
       public static dom.DOMStringList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double length
       {
-    set;
+    get;
       }
 
       public virtual extern bool contains(string str);
@@ -21793,7 +21788,7 @@ namespace H5
 
       public static dom.DOMStringMap prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -21809,13 +21804,13 @@ namespace H5
 
       public static dom.DOMTokenList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       [ExpandParams]
@@ -21854,13 +21849,13 @@ namespace H5
 
       public static dom.DataCue prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.ArrayBuffer data
       {
-    set;
+    get;
     set;
       }
 
@@ -21932,35 +21927,35 @@ namespace H5
 
       public static dom.DataTransfer prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string dropEffect
       {
-    set;
+    get;
     set;
       }
 
       public virtual string effectAllowed
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.FileList files
       {
-    set;
+    get;
       }
 
       public virtual dom.DataTransferItemList items
       {
-    set;
+    get;
       }
 
       public virtual string[] types
       {
-    set;
+    get;
       }
 
       public virtual extern bool clearData();
@@ -21984,18 +21979,18 @@ namespace H5
 
       public static dom.DataTransferItem prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string kind
       {
-    set;
+    get;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual extern dom.File getAsFile();
@@ -22014,13 +22009,13 @@ namespace H5
 
       public static dom.DataTransferItemList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.DataTransferItem add(dom.File data);
@@ -22053,23 +22048,23 @@ namespace H5
 
       public static dom.DeferredPermissionRequest prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double id
       {
-    set;
+    get;
       }
 
       public virtual dom.MSWebViewPermissionType type
       {
-    set;
+    get;
       }
 
       public virtual string uri
       {
-    set;
+    get;
       }
 
       public virtual extern void allow();
@@ -22086,13 +22081,13 @@ namespace H5
 
       public static dom.DelayNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioParam delayTime
       {
-    set;
+    get;
       }
     }
 
@@ -22107,23 +22102,23 @@ namespace H5
 
       public static dom.DeviceAcceleration prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double? x
       {
-    set;
+    get;
       }
 
       public virtual double? y
       {
-    set;
+    get;
       }
 
       public virtual double? z
       {
-    set;
+    get;
       }
     }
 
@@ -22140,13 +22135,13 @@ namespace H5
 
       public static dom.DeviceLightEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double value
       {
-    set;
+    get;
       }
     }
 
@@ -22166,28 +22161,28 @@ namespace H5
 
       public static dom.DeviceMotionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DeviceAcceleration acceleration
       {
-    set;
+    get;
       }
 
       public virtual dom.DeviceAcceleration accelerationIncludingGravity
       {
-    set;
+    get;
       }
 
       public virtual double? interval
       {
-    set;
+    get;
       }
 
       public virtual dom.DeviceRotationRate rotationRate
       {
-    set;
+    get;
       }
 
       public virtual extern void initDeviceMotionEvent(
@@ -22218,28 +22213,28 @@ namespace H5
 
       public static dom.DeviceOrientationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool absolute
       {
-    set;
+    get;
       }
 
       public virtual double? alpha
       {
-    set;
+    get;
       }
 
       public virtual double? beta
       {
-    set;
+    get;
       }
 
       public virtual double? gamma
       {
-    set;
+    get;
       }
 
       public virtual extern void initDeviceOrientationEvent(
@@ -22263,23 +22258,23 @@ namespace H5
 
       public static dom.DeviceRotationRate prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double? alpha
       {
-    set;
+    get;
       }
 
       public virtual double? beta
       {
-    set;
+    get;
       }
 
       public virtual double? gamma
       {
-    set;
+    get;
       }
     }
 
@@ -22293,13 +22288,13 @@ namespace H5
 
       public es5.Uint8Array generator
       {
-    set;
+    get;
     set;
       }
 
       public es5.Uint8Array prime
       {
-    set;
+    get;
     set;
       }
     }
@@ -22314,13 +22309,13 @@ namespace H5
 
       public es5.Uint8Array generator
       {
-    set;
+    get;
     set;
       }
 
       public es5.Uint8Array prime
       {
-    set;
+    get;
     set;
       }
     }
@@ -22335,7 +22330,7 @@ namespace H5
       [Name("public")]
       public dom.CryptoKey @public
       {
-    set;
+    get;
     set;
       }
     }
@@ -22350,13 +22345,13 @@ namespace H5
 
       public es5.Uint8Array generator
       {
-    set;
+    get;
     set;
       }
 
       public es5.Uint8Array prime
       {
-    set;
+    get;
     set;
       }
     }
@@ -22457,529 +22452,529 @@ namespace H5
 
       public dom.UIEvent abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event activate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforeactivate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforedeactivate
       {
-    set;
+    get;
     set;
       }
 
       public dom.FocusEvent blur
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event canplay
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event canplaythrough
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event change
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent click
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent contextmenu
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent dblclick
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event deactivate
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent drag
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragend
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragenter
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragleave
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragover
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent drop
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event durationchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event emptied
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event ended
       {
-    set;
+    get;
     set;
       }
 
       public dom.ErrorEvent error
       {
-    set;
+    get;
     set;
       }
 
       public dom.FocusEvent focus
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event fullscreenchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event fullscreenerror
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event input
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event invalid
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keydown
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keypress
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keyup
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event load
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadeddata
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadedmetadata
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mousedown
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mousemove
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseout
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseover
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseup
       {
-    set;
+    get;
     set;
       }
 
       public dom.WheelEvent mousewheel
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSContentZoom
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureChange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureDoubleTap
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureEnd
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureHold
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureStart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureTap
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSInertiaStart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSManipulationStateChanged
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerCancel
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerDown
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerEnter
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerLeave
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerMove
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerOut
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerOver
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerUp
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event mssitemodejumplistitemremoved
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event msthumbnailclick
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event pause
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event play
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event playing
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event pointerlockchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event pointerlockerror
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent progress
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event ratechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event readystatechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event reset
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent scroll
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event seeked
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event seeking
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent select
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event selectionchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event selectstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event stalled
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event stop
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event submit
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event suspend
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event timeupdate
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchcancel
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchend
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchmove
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event volumechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event waiting
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event webkitfullscreenchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event webkitfullscreenerror
       {
-    set;
+    get;
     set;
       }
 
@@ -23329,828 +23324,828 @@ namespace H5
 
       public static dom.Document prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string URL
       {
-    set;
+    get;
       }
 
       public virtual string URLUnencoded
       {
-    set;
+    get;
       }
 
       public virtual dom.Element activeElement
       {
-    set;
+    get;
       }
 
       public virtual string alinkColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLAllCollection all
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLAnchorElement> anchors
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLAppletElement> applets
       {
-    set;
+    get;
       }
 
       public virtual string bgColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement body
       {
-    set;
+    get;
     set;
       }
 
       public virtual string characterSet
       {
-    set;
+    get;
       }
 
       public virtual string charset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string compatMode
       {
-    set;
+    get;
       }
 
       public virtual string cookie
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<dom.HTMLScriptElement, dom.SVGScriptElement, Null> currentScript
       {
-    set;
+    get;
       }
 
       public virtual dom.Window defaultView
       {
-    set;
+    get;
       }
 
       public virtual string designMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual string dir
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DocumentType doctype
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLElement documentElement
       {
-    set;
+    get;
       }
 
       public virtual string domain
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLEmbedElement> embeds
       {
-    set;
+    get;
       }
 
       public virtual string fgColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLFormElement> forms
       {
-    set;
+    get;
       }
 
       public virtual dom.Element fullscreenElement
       {
-    set;
+    get;
       }
 
       public virtual bool fullscreenEnabled
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLHeadElement head
       {
-    set;
+    get;
       }
 
       public virtual bool hidden
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLImageElement> images
       {
-    set;
+    get;
       }
 
       public virtual dom.DOMImplementation implementation
       {
-    set;
+    get;
       }
 
       public virtual string inputEncoding
       {
-    set;
+    get;
       }
 
       public virtual string lastModified
       {
-    set;
+    get;
       }
 
       public virtual string linkColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLElement> links
       {
-    set;
+    get;
       }
 
       public virtual dom.Location location
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msCSSOMElementFloatMetrics
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msCapsLockWarningOff
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onbeforeactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onbeforedeactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onblurFn onblur
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn oncanplay
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn oncanplaythrough
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onclickFn onclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.oncontextmenuFn oncontextmenu
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onclickFn ondblclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn ondeactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ondragFn ondrag
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ondragFn ondragend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ondragFn ondragenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ondragFn ondragleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ondragFn ondragover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ondragFn ondragstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ondragFn ondrop
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn ondurationchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onemptied
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onended
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onblurFn onfocus
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onfullscreenchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onfullscreenerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn oninput
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn oninvalid
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onkeydownFn onkeydown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onkeydownFn onkeypress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onkeydownFn onkeyup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onloadeddata
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onloadedmetadata
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onloadstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onclickFn onmousedown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onclickFn onmousemove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onclickFn onmouseout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onclickFn onmouseover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onclickFn onmouseup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onmousewheelFn onmousewheel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmscontentzoom
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsgesturechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsgesturedoubletap
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsgestureend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsgesturehold
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsgesturestart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsgesturetap
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsinertiastart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsmanipulationstatechanged
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmspointercancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmspointerdown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmspointerenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmspointerleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmspointermove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmspointerout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmspointerover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmspointerup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmssitemodejumplistitemremoved
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onmsthumbnailclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onpause
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onplay
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onplaying
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onpointerlockchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onpointerlockerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onprogressFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onratechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onreadystatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onreset
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onabortFn onscroll
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onseeked
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onseeking
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onabortFn onselect
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onselectionchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onselectstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onstalled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onstop
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onsubmit
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onsuspend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn ontimeupdate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ontouchcancelFn ontouchcancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ontouchcancelFn ontouchend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ontouchcancelFn ontouchmove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.ontouchcancelFn ontouchstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onvisibilitychangeFn onvisibilitychange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onvolumechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onwaiting
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onwebkitfullscreenchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document.onactivateFn onwebkitfullscreenerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLEmbedElement> plugins
       {
-    set;
+    get;
       }
 
       public virtual dom.Element pointerLockElement
       {
-    set;
+    get;
       }
 
       public virtual string readyState
       {
-    set;
+    get;
       }
 
       public virtual string referrer
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGSVGElement rootElement
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLScriptElement> scripts
       {
-    set;
+    get;
       }
 
       public virtual dom.Element scrollingElement
       {
-    set;
+    get;
       }
 
       public virtual dom.StyleSheetList styleSheets
       {
-    set;
+    get;
       }
 
       public virtual string title
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.VisibilityState visibilityState
       {
-    set;
+    get;
       }
 
       public virtual string vlinkColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element webkitCurrentFullScreenElement
       {
-    set;
+    get;
       }
 
       public virtual dom.Element webkitFullscreenElement
       {
-    set;
+    get;
       }
 
       public virtual bool webkitFullscreenEnabled
       {
-    set;
+    get;
       }
 
       public virtual bool webkitIsFullScreen
       {
-    set;
+    get;
       }
 
       public virtual string xmlEncoding
       {
-    set;
+    get;
       }
 
       public virtual bool xmlStandalone
       {
-    set;
+    get;
     set;
       }
 
       public virtual string xmlVersion
       {
-    set;
+    get;
     set;
       }
 
@@ -24784,55 +24779,55 @@ namespace H5
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointercancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerdown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointermove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onwheelFn onwheel
       {
-    set;
+    get;
     set;
       }
 
@@ -24884,22 +24879,22 @@ namespace H5
 
       public virtual uint childElementCount
       {
-    set;
+    get;
       }
 
       public virtual dom.Element firstElementChild
       {
-    set;
+    get;
       }
 
       public virtual dom.Element lastElementChild
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLCollection children
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.HTMLElementTagNameMap>), EnableImplicitConversion = true)]
@@ -25542,7 +25537,7 @@ namespace H5
 
       public static dom.DocumentFragment prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -25550,22 +25545,22 @@ namespace H5
 
       public virtual uint childElementCount
       {
-    set;
+    get;
       }
 
       public virtual dom.Element firstElementChild
       {
-    set;
+    get;
       }
 
       public virtual dom.Element lastElementChild
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLCollection children
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.HTMLElementTagNameMap>), EnableImplicitConversion = true)]
@@ -25628,38 +25623,38 @@ namespace H5
 
       public static dom.DocumentType prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.NamedNodeMap entities
       {
-    set;
+    get;
       }
 
       public virtual string internalSubset
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual dom.NamedNodeMap notations
       {
-    set;
+    get;
       }
 
       public virtual string publicId
       {
-    set;
+    get;
       }
 
       public virtual string systemId
       {
-    set;
+    get;
       }
 
       public virtual extern void remove();
@@ -25678,13 +25673,13 @@ namespace H5
 
       public static dom.DragEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DataTransfer dataTransfer
       {
-    set;
+    get;
       }
 
       public virtual extern void initDragEvent(
@@ -25716,7 +25711,7 @@ namespace H5
 
         public dom.DataTransfer dataTransfer
         {
-      set;
+      get;
       set;
         }
       }
@@ -25736,38 +25731,38 @@ namespace H5
 
       public static dom.DynamicsCompressorNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioParam attack
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioParam knee
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioParam ratio
       {
-    set;
+    get;
       }
 
       public virtual double reduction
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioParam release
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioParam threshold
       {
-    set;
+    get;
       }
     }
 
@@ -25781,12 +25776,12 @@ namespace H5
 
       public double MAX_EXT
       {
-    set;
+    get;
       }
 
       public double MIN_EXT
       {
-    set;
+    get;
       }
     }
 
@@ -25809,22 +25804,22 @@ namespace H5
 
       public double FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT
       {
-    set;
+    get;
       }
 
       public double SRGB8_ALPHA8_EXT
       {
-    set;
+    get;
       }
 
       public double SRGB_ALPHA_EXT
       {
-    set;
+    get;
       }
 
       public double SRGB_EXT
       {
-    set;
+    get;
       }
     }
 
@@ -25847,30 +25842,30 @@ namespace H5
 
       public static dom.EXT_texture_filter_anisotropic prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("MAX_TEXTURE_MAX_ANISOTROPY_EXT")]
       public static double MAX_TEXTURE_MAX_ANISOTROPY_EXT_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_MAX_ANISOTROPY_EXT")]
       public static double TEXTURE_MAX_ANISOTROPY_EXT_Static
       {
-    set;
+    get;
       }
 
       public virtual double MAX_TEXTURE_MAX_ANISOTROPY_EXT
       {
-    set;
+    get;
       }
 
       public virtual double TEXTURE_MAX_ANISOTROPY_EXT
       {
-    set;
+    get;
       }
     }
 
@@ -25909,163 +25904,163 @@ namespace H5
 
       public dom.Event ariarequest
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event command
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent gotpointercapture
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent lostpointercapture
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureChange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureDoubleTap
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureEnd
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureHold
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureStart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureTap
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGotPointerCapture
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSInertiaStart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSLostPointerCapture
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerCancel
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerDown
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerEnter
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerLeave
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerMove
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerOut
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerOver
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerUp
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchcancel
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchend
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchmove
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event webkitfullscreenchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event webkitfullscreenerror
       {
-    set;
+    get;
     set;
       }
 
@@ -26201,283 +26196,283 @@ namespace H5
 
       public static dom.Element prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLSlotElement assignedSlot
       {
-    set;
+    get;
       }
 
       public virtual dom.NamedNodeMap attributes
       {
-    set;
+    get;
       }
 
       public virtual dom.DOMTokenList classList
       {
-    set;
+    get;
       }
 
       public virtual string className
       {
-    set;
+    get;
     set;
       }
 
       public virtual int clientHeight
       {
-    set;
+    get;
       }
 
       public virtual int clientLeft
       {
-    set;
+    get;
       }
 
       public virtual int clientTop
       {
-    set;
+    get;
       }
 
       public virtual int clientWidth
       {
-    set;
+    get;
       }
 
       public virtual string id
       {
-    set;
+    get;
     set;
       }
 
       public virtual string innerHTML
       {
-    set;
+    get;
     set;
       }
 
       public virtual double msContentZoomFactor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msRegionOverflow
       {
-    set;
+    get;
       }
 
       public virtual dom.Element.onariarequestFn onariarequest
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn oncommand
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.ongotpointercaptureFn ongotpointercapture
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.ongotpointercaptureFn onlostpointercapture
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmsgesturechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmsgesturedoubletap
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmsgestureend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmsgesturehold
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmsgesturestart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmsgesturetap
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmsgotpointercapture
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmsinertiastart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmslostpointercapture
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmspointercancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmspointerdown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmspointerenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmspointerleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmspointermove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmspointerout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmspointerover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onmspointerup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.ontouchcancelFn ontouchcancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.ontouchcancelFn ontouchend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.ontouchcancelFn ontouchmove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.ontouchcancelFn ontouchstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onwebkitfullscreenchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element.onariarequestFn onwebkitfullscreenerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual string outerHTML
       {
-    set;
+    get;
     set;
       }
 
       public virtual string prefix
       {
-    set;
+    get;
       }
 
       public virtual int scrollHeight
       {
-    set;
+    get;
       }
 
       public virtual double scrollLeft
       {
-    set;
+    get;
     set;
       }
 
       public virtual double scrollTop
       {
-    set;
+    get;
     set;
       }
 
       public virtual int scrollWidth
       {
-    set;
+    get;
       }
 
       public virtual dom.ShadowRoot shadowRoot
       {
-    set;
+    get;
       }
 
       public virtual string slot
       {
-    set;
+    get;
     set;
       }
 
       public virtual string tagName
       {
-    set;
+    get;
       }
 
       public virtual extern dom.ShadowRoot attachShadow(dom.ShadowRootInit shadowRootInitDict);
@@ -26788,55 +26783,55 @@ namespace H5
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointercancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerdown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointermove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onwheelFn onwheel
       {
-    set;
+    get;
     set;
       }
 
@@ -26888,32 +26883,32 @@ namespace H5
 
       public virtual double childElementCount
       {
-    set;
+    get;
       }
 
       public virtual dom.Element firstElementChild
       {
-    set;
+    get;
       }
 
       public virtual dom.Element lastElementChild
       {
-    set;
+    get;
       }
 
       public virtual dom.Element nextElementSibling
       {
-    set;
+    get;
       }
 
       public virtual dom.Element previousElementSibling
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLCollection children
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.HTMLElementTagNameMap>), EnableImplicitConversion = true)]
@@ -26940,7 +26935,7 @@ namespace H5
 
       uint dom.ParentNode.Interface.childElementCount
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -26970,7 +26965,7 @@ namespace H5
 
       public dom.CSSStyleDeclaration style
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -26992,7 +26987,7 @@ namespace H5
       [Name("is")]
       public string @is
       {
-    set;
+    get;
     set;
       }
     }
@@ -27006,7 +27001,7 @@ namespace H5
 
       public string extends
       {
-    set;
+    get;
     set;
       }
     }
@@ -27024,27 +27019,27 @@ namespace H5
 
       public double childElementCount
       {
-    set;
+    get;
       }
 
       public dom.Element firstElementChild
       {
-    set;
+    get;
       }
 
       public dom.Element lastElementChild
       {
-    set;
+    get;
       }
 
       public dom.Element nextElementSibling
       {
-    set;
+    get;
       }
 
       public dom.Element previousElementSibling
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -27081,33 +27076,33 @@ namespace H5
 
       public static dom.ErrorEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint colno
       {
-    set;
+    get;
       }
 
       public virtual object error
       {
-    set;
+    get;
       }
 
       public virtual string filename
       {
-    set;
+    get;
       }
 
       public virtual uint lineno
       {
-    set;
+    get;
       }
 
       public virtual string message
       {
-    set;
+    get;
       }
 
       public virtual extern void initErrorEvent(
@@ -27154,99 +27149,99 @@ namespace H5
 
       public static dom.Event prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("AT_TARGET")]
       public static ushort AT_TARGET_Static
       {
-    set;
+    get;
       }
 
       [Name("BUBBLING_PHASE")]
       public static ushort BUBBLING_PHASE_Static
       {
-    set;
+    get;
       }
 
       [Name("CAPTURING_PHASE")]
       public static ushort CAPTURING_PHASE_Static
       {
-    set;
+    get;
       }
 
       [Name("NONE")]
       public static ushort NONE_Static
       {
-    set;
+    get;
       }
 
       public virtual bool bubbles
       {
-    set;
+    get;
       }
 
       public virtual bool cancelBubble
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool cancelable
       {
-    set;
+    get;
       }
 
       public virtual dom.EventTarget currentTarget
       {
-    set;
+    get;
       }
 
       public virtual bool defaultPrevented
       {
-    set;
+    get;
       }
 
       public virtual ushort eventPhase
       {
-    set;
+    get;
       }
 
       public virtual bool isTrusted
       {
-    set;
+    get;
       }
 
       public virtual bool returnValue
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool scoped
       {
-    set;
+    get;
       }
 
       public virtual dom.Element srcElement
       {
-    set;
+    get;
       }
 
       public virtual dom.EventTarget target
       {
-    set;
+    get;
       }
 
       public virtual double timeStamp
       {
-    set;
+    get;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual extern dom.EventTarget[] deepPath();
@@ -27265,22 +27260,22 @@ namespace H5
 
       public virtual ushort AT_TARGET
       {
-    set;
+    get;
       }
 
       public virtual ushort BUBBLING_PHASE
       {
-    set;
+    get;
       }
 
       public virtual ushort CAPTURING_PHASE
       {
-    set;
+    get;
       }
 
       public virtual ushort NONE
       {
-    set;
+    get;
       }
     }
 
@@ -27313,56 +27308,56 @@ namespace H5
 
       public static dom.EventSource prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort CLOSED
       {
-    set;
+    get;
       }
 
       public virtual ushort CONNECTING
       {
-    set;
+    get;
       }
 
       public virtual ushort OPEN
       {
-    set;
+    get;
       }
 
       public virtual dom.EventSource.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.EventSource.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.EventSource.onopenFn onopen
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort readyState
       {
-    set;
+    get;
       }
 
       public virtual string url
       {
-    set;
+    get;
       }
 
       public virtual bool withCredentials
       {
-    set;
+    get;
       }
 
       public virtual extern void close();
@@ -27386,7 +27381,7 @@ namespace H5
 
       public bool withCredentials
       {
-    set;
+    get;
       }
     }
 
@@ -27397,7 +27392,7 @@ namespace H5
 
       public static dom.EventTarget prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -27597,7 +27592,7 @@ namespace H5
 
       public static dom.ExtensionScriptApis prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -27655,7 +27650,7 @@ namespace H5
 
       public static dom.External prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -27700,28 +27695,28 @@ namespace H5
 
       public static dom.File prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual long lastModified
       {
-    set;
+    get;
       }
 
       public virtual es5.Date lastModifiedDate
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual string webkitRelativePath
       {
-    set;
+    get;
       }
     }
 
@@ -27734,13 +27729,13 @@ namespace H5
 
       public static dom.FileList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.File item(uint index);
@@ -27763,7 +27758,7 @@ namespace H5
 
       public long? lastModified
       {
-    set;
+    get;
     set;
       }
     }
@@ -27782,37 +27777,37 @@ namespace H5
 
       public dom.ProgressEvent abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent error
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent load
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent loadend
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent loadstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent progress
       {
-    set;
+    get;
     set;
       }
 
@@ -27857,77 +27852,77 @@ namespace H5
 
       public static dom.FileReader prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("DONE")]
       public static ushort DONE_Static
       {
-    set;
+    get;
       }
 
       [Name("EMPTY")]
       public static ushort EMPTY_Static
       {
-    set;
+    get;
       }
 
       [Name("LOADING")]
       public static ushort LOADING_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.DOMException error
       {
-    set;
+    get;
       }
 
       public virtual dom.FileReader.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.FileReader.onabortFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.FileReader.onabortFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.FileReader.onabortFn onloadend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.FileReader.onabortFn onloadstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.FileReader.onabortFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort readyState
       {
-    set;
+    get;
       }
 
       public virtual object result
       {
-    set;
+    get;
       }
 
       public virtual extern void abort();
@@ -27944,17 +27939,17 @@ namespace H5
 
       public virtual ushort DONE
       {
-    set;
+    get;
       }
 
       public virtual ushort EMPTY
       {
-    set;
+    get;
       }
 
       public virtual ushort LOADING
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.FileReaderEventMap>), EnableImplicitConversion = true)]
@@ -28077,13 +28072,13 @@ namespace H5
 
       public static dom.FocusEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.EventTarget relatedTarget
       {
-    set;
+    get;
       }
 
       public virtual extern void initFocusEvent(
@@ -28112,33 +28107,33 @@ namespace H5
 
       public static dom.FocusNavigationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.NavigationReason navigationReason
       {
-    set;
+    get;
       }
 
       public virtual double originHeight
       {
-    set;
+    get;
       }
 
       public virtual double originLeft
       {
-    set;
+    get;
       }
 
       public virtual double originTop
       {
-    set;
+    get;
       }
 
       public virtual double originWidth
       {
-    set;
+    get;
       }
 
       public virtual extern void requestFocus();
@@ -28156,7 +28151,7 @@ namespace H5
 
       public static dom.FormData prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -28205,13 +28200,13 @@ namespace H5
 
       public static dom.GainNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioParam gain
       {
-    set;
+    get;
       }
     }
 
@@ -28234,63 +28229,63 @@ namespace H5
 
       public static dom.Gamepad prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double[] axes
       {
-    set;
+    get;
       }
 
       public virtual dom.GamepadButton[] buttons
       {
-    set;
+    get;
       }
 
       public virtual bool connected
       {
-    set;
+    get;
       }
 
       public virtual double displayId
       {
-    set;
+    get;
       }
 
       public virtual dom.GamepadHand hand
       {
-    set;
+    get;
       }
 
       public virtual dom.GamepadHapticActuator[] hapticActuators
       {
-    set;
+    get;
       }
 
       public virtual string id
       {
-    set;
+    get;
       }
 
       public virtual double index
       {
-    set;
+    get;
       }
 
       public virtual dom.GamepadMappingType mapping
       {
-    set;
+    get;
       }
 
       public virtual dom.GamepadPose pose
       {
-    set;
+    get;
       }
 
       public virtual double timestamp
       {
-    set;
+    get;
       }
     }
 
@@ -28305,23 +28300,23 @@ namespace H5
 
       public static dom.GamepadButton prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool pressed
       {
-    set;
+    get;
       }
 
       public virtual bool touched
       {
-    set;
+    get;
       }
 
       public virtual double value
       {
-    set;
+    get;
       }
     }
 
@@ -28338,13 +28333,13 @@ namespace H5
 
       public static dom.GamepadEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Gamepad gamepad
       {
-    set;
+    get;
       }
     }
 
@@ -28357,13 +28352,13 @@ namespace H5
 
       public static dom.GamepadHapticActuator prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GamepadHapticActuatorType type
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<bool> pulse(double value, double duration);
@@ -28385,48 +28380,48 @@ namespace H5
 
       public static dom.GamepadPose prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Float32Array angularAcceleration
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array angularVelocity
       {
-    set;
+    get;
       }
 
       public virtual bool hasOrientation
       {
-    set;
+    get;
       }
 
       public virtual bool hasPosition
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array linearAcceleration
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array linearVelocity
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array orientation
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array position
       {
-    set;
+    get;
       }
     }
 
@@ -28438,7 +28433,7 @@ namespace H5
 
       public static dom.Geolocation prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -28499,55 +28494,55 @@ namespace H5
 
       public dom.PointerEvent pointercancel
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent pointerdown
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent pointerenter
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent pointerleave
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent pointermove
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent pointerout
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent pointerover
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent pointerup
       {
-    set;
+    get;
     set;
       }
 
       public dom.WheelEvent wheel
       {
-    set;
+    get;
     set;
       }
 
@@ -28592,55 +28587,55 @@ namespace H5
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointercancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerdown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointermove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onwheelFn onwheel
       {
-    set;
+    get;
     set;
       }
 
@@ -29055,13 +29050,13 @@ namespace H5
 
       public static dom.HTMLAllCollection prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern Union<dom.HTMLCollection, dom.Element, Null> item();
@@ -29111,100 +29106,100 @@ namespace H5
 
       public static dom.HTMLAnchorElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string Methods
       {
-    set;
+    get;
     set;
       }
 
       public virtual string charset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string coords
       {
-    set;
+    get;
     set;
       }
 
       public virtual string download
       {
-    set;
+    get;
     set;
       }
 
       public virtual string hreflang
       {
-    set;
+    get;
     set;
       }
 
       public virtual string mimeType
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual string nameProp
       {
-    set;
+    get;
       }
 
       public virtual string protocolLong
       {
-    set;
+    get;
       }
 
       public virtual string rel
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rev
       {
-    set;
+    get;
     set;
       }
 
       public virtual string shape
       {
-    set;
+    get;
     set;
       }
 
       public virtual string target
       {
-    set;
+    get;
     set;
       }
 
       public virtual string text
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
       public virtual string urn
       {
-    set;
+    get;
     set;
       }
 
@@ -29256,55 +29251,55 @@ namespace H5
 
       public virtual string hash
       {
-    set;
+    get;
     set;
       }
 
       public virtual string host
       {
-    set;
+    get;
     set;
       }
 
       public virtual string hostname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
     set;
       }
 
       public virtual string origin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pathname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string port
       {
-    set;
+    get;
     set;
       }
 
       public virtual string protocol
       {
-    set;
+    get;
     set;
       }
 
       public virtual string search
       {
-    set;
+    get;
     set;
       }
 
@@ -29342,79 +29337,79 @@ namespace H5
 
       public static dom.HTMLAppletElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string alt
       {
-    set;
+    get;
     set;
       }
 
       public virtual string archive
       {
-    set;
+    get;
     set;
       }
 
       public virtual string code
       {
-    set;
+    get;
     set;
       }
 
       public virtual string codeBase
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual string height
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint hspace
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       [Name("object")]
       public virtual string @object
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint vspace
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
@@ -29500,49 +29495,49 @@ namespace H5
 
       public static dom.HTMLAreaElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string alt
       {
-    set;
+    get;
     set;
       }
 
       public virtual string coords
       {
-    set;
+    get;
     set;
       }
 
       public virtual string download
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool noHref
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rel
       {
-    set;
+    get;
     set;
       }
 
       public virtual string shape
       {
-    set;
+    get;
     set;
       }
 
       public virtual string target
       {
-    set;
+    get;
     set;
       }
 
@@ -29594,55 +29589,55 @@ namespace H5
 
       public virtual string hash
       {
-    set;
+    get;
     set;
       }
 
       public virtual string host
       {
-    set;
+    get;
     set;
       }
 
       public virtual string hostname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
     set;
       }
 
       public virtual string origin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pathname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string port
       {
-    set;
+    get;
     set;
       }
 
       public virtual string protocol
       {
-    set;
+    get;
     set;
       }
 
       public virtual string search
       {
-    set;
+    get;
     set;
       }
 
@@ -29665,7 +29660,7 @@ namespace H5
 
       public static dom.HTMLAreasCollection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -29685,7 +29680,7 @@ namespace H5
 
       public static dom.HTMLAudioElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -29756,13 +29751,13 @@ namespace H5
 
       public static dom.HTMLBRElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string clear
       {
-    set;
+    get;
     set;
       }
 
@@ -29834,19 +29829,19 @@ namespace H5
 
       public static dom.HTMLBaseElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
     set;
       }
 
       public virtual string target
       {
-    set;
+    get;
     set;
       }
 
@@ -29919,19 +29914,19 @@ namespace H5
 
       public static dom.HTMLBaseFontElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string face
       {
-    set;
+    get;
     set;
       }
 
       public virtual double size
       {
-    set;
+    get;
     set;
       }
 
@@ -29983,7 +29978,7 @@ namespace H5
 
       public virtual string color
       {
-    set;
+    get;
     set;
       }
 
@@ -30018,85 +30013,85 @@ namespace H5
 
       public dom.Event orientationchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent resize
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event afterprint
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforeprint
       {
-    set;
+    get;
     set;
       }
 
       public dom.BeforeUnloadEvent beforeunload
       {
-    set;
+    get;
     set;
       }
 
       public dom.HashChangeEvent hashchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessageEvent message
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event offline
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event online
       {
-    set;
+    get;
     set;
       }
 
       public dom.PageTransitionEvent pagehide
       {
-    set;
+    get;
     set;
       }
 
       public dom.PageTransitionEvent pageshow
       {
-    set;
+    get;
     set;
       }
 
       public dom.PopStateEvent popstate
       {
-    set;
+    get;
     set;
       }
 
       public dom.StorageEvent storage
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event unload
       {
-    set;
+    get;
     set;
       }
 
@@ -30167,67 +30162,67 @@ namespace H5
 
       public static dom.HTMLBodyElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string aLink
       {
-    set;
+    get;
     set;
       }
 
       public virtual string background
       {
-    set;
+    get;
     set;
       }
 
       public virtual string bgColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string bgProperties
       {
-    set;
+    get;
     set;
       }
 
       public virtual string link
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool noWrap
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLBodyElement.onorientationchangeFn onorientationchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLBodyElement.onresizeFn onresize
       {
-    set;
+    get;
     set;
       }
 
       public virtual string text
       {
-    set;
+    get;
     set;
       }
 
       public virtual string vLink
       {
-    set;
+    get;
     set;
       }
 
@@ -30279,73 +30274,73 @@ namespace H5
 
       public virtual dom.WindowEventHandlers.onafterprintFn onafterprint
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onbeforeprint
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onbeforeunloadFn onbeforeunload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onhashchangeFn onhashchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onoffline
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn ononline
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpagehideFn onpagehide
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpagehideFn onpageshow
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpopstateFn onpopstate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onstorageFn onstorage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onunload
       {
-    set;
+    get;
     set;
       }
 
@@ -30436,94 +30431,94 @@ namespace H5
 
       public static dom.HTMLButtonElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool autofocus
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual string formAction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string formEnctype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string formMethod
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool formNoValidate
       {
-    set;
+    get;
     set;
       }
 
       public virtual string formTarget
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual object status
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
       public virtual string validationMessage
       {
-    set;
+    get;
       }
 
       public virtual dom.ValidityState validity
       {
-    set;
+    get;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool willValidate
       {
-    set;
+    get;
       }
 
       public virtual extern bool checkValidity();
@@ -30598,19 +30593,19 @@ namespace H5
 
       public static dom.HTMLCanvasElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint height
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint width
       {
-    set;
+    get;
     set;
       }
 
@@ -30734,7 +30729,7 @@ namespace H5
 
       public static dom.HTMLCollection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -30774,13 +30769,13 @@ namespace H5
 
       public static dom.HTMLDListElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool compact
       {
-    set;
+    get;
     set;
       }
 
@@ -30851,13 +30846,13 @@ namespace H5
 
       public static dom.HTMLDataElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
 
@@ -30928,13 +30923,13 @@ namespace H5
 
       public static dom.HTMLDataListElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLOptionElement> options
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.HTMLElementEventMap>), EnableImplicitConversion = true)]
@@ -31001,13 +30996,13 @@ namespace H5
 
       public static dom.HTMLDetailsElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool open
       {
-    set;
+    get;
     set;
       }
 
@@ -31076,19 +31071,19 @@ namespace H5
 
       public static dom.HTMLDialogElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool open
       {
-    set;
+    get;
     set;
       }
 
       public virtual string returnValue
       {
-    set;
+    get;
     set;
       }
 
@@ -31167,13 +31162,13 @@ namespace H5
 
       public static dom.HTMLDirectoryElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool compact
       {
-    set;
+    get;
     set;
       }
 
@@ -31245,19 +31240,19 @@ namespace H5
 
       public static dom.HTMLDivElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool noWrap
       {
-    set;
+    get;
     set;
       }
 
@@ -31324,7 +31319,7 @@ namespace H5
 
       public static dom.HTMLDocument prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -31458,403 +31453,403 @@ namespace H5
 
       public dom.UIEvent abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event activate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforeactivate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforecopy
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforecut
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforedeactivate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforepaste
       {
-    set;
+    get;
     set;
       }
 
       public dom.FocusEvent blur
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event canplay
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event canplaythrough
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event change
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent click
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent contextmenu
       {
-    set;
+    get;
     set;
       }
 
       public dom.ClipboardEvent copy
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event cuechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.ClipboardEvent cut
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent dblclick
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event deactivate
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent drag
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragend
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragenter
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragleave
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragover
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent drop
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event durationchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event emptied
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event ended
       {
-    set;
+    get;
     set;
       }
 
       public dom.ErrorEvent error
       {
-    set;
+    get;
     set;
       }
 
       public dom.FocusEvent focus
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event input
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event invalid
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keydown
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keypress
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keyup
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event load
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadeddata
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadedmetadata
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mousedown
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseenter
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseleave
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mousemove
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseout
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseover
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseup
       {
-    set;
+    get;
     set;
       }
 
       public dom.WheelEvent mousewheel
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSContentZoom
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSManipulationStateChanged
       {
-    set;
+    get;
     set;
       }
 
       public dom.ClipboardEvent paste
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event pause
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event play
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event playing
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent progress
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event ratechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event reset
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent scroll
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event seeked
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event seeking
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent select
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event selectstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event stalled
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event submit
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event suspend
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event timeupdate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event volumechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event waiting
       {
-    set;
+    get;
     set;
       }
 
@@ -32093,516 +32088,516 @@ namespace H5
 
       public static dom.HTMLElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string accessKey
       {
-    set;
+    get;
     set;
       }
 
       public virtual string contentEditable
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DOMStringMap dataset
       {
-    set;
+    get;
       }
 
       public virtual string dir
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool draggable
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool hidden
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool hideFocus
       {
-    set;
+    get;
     set;
       }
 
       public virtual string innerText
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool isContentEditable
       {
-    set;
+    get;
       }
 
       public virtual string lang
       {
-    set;
+    get;
     set;
       }
 
       public virtual int offsetHeight
       {
-    set;
+    get;
       }
 
       public virtual int offsetLeft
       {
-    set;
+    get;
       }
 
       public virtual dom.Element offsetParent
       {
-    set;
+    get;
       }
 
       public virtual int offsetTop
       {
-    set;
+    get;
       }
 
       public virtual int offsetWidth
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLElement.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onbeforeactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onbeforecopy
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onbeforecut
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onbeforedeactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onbeforepaste
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onblurFn onblur
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn oncanplay
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn oncanplaythrough
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn onclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.oncontextmenuFn oncontextmenu
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.oncopyFn oncopy
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn oncuechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.oncopyFn oncut
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn ondblclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn ondeactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.ondragFn ondrag
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.ondragFn ondragend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.ondragFn ondragenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.ondragFn ondragleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.ondragFn ondragover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.ondragFn ondragstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.ondragFn ondrop
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn ondurationchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onemptied
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onended
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onblurFn onfocus
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn oninput
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn oninvalid
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onkeydownFn onkeydown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onkeydownFn onkeypress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onkeydownFn onkeyup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onloadeddata
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onloadedmetadata
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onloadstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn onmousedown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn onmouseenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn onmouseleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn onmousemove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn onmouseout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn onmouseover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onclickFn onmouseup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onmousewheelFn onmousewheel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onmscontentzoom
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onmsmanipulationstatechanged
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.oncopyFn onpaste
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onpause
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onplay
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onplaying
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onprogressFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onratechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onreset
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onabortFn onscroll
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onseeked
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onseeking
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onabortFn onselect
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onselectstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onstalled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onsubmit
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onsuspend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn ontimeupdate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onvolumechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement.onactivateFn onwaiting
       {
-    set;
+    get;
     set;
       }
 
       public virtual string outerText
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool spellcheck
       {
-    set;
+    get;
     set;
       }
 
       public virtual int tabIndex
       {
-    set;
+    get;
     set;
       }
 
       public virtual string title
       {
-    set;
+    get;
     set;
       }
 
@@ -32689,7 +32684,7 @@ namespace H5
 
       public virtual dom.CSSStyleDeclaration style
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -32758,81 +32753,81 @@ namespace H5
 
       public static dom.HTMLEmbedElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string height
       {
-    set;
+    get;
     set;
       }
 
       public virtual object hidden
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msPlayToDisabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msPlayToPreferredSourceUri
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msPlayToPrimary
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msPlayToSource
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual string palette
       {
-    set;
+    get;
       }
 
       public virtual string pluginspage
       {
-    set;
+    get;
       }
 
       public virtual string readyState
       {
-    set;
+    get;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual string units
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
@@ -32911,46 +32906,46 @@ namespace H5
 
       public static dom.HTMLFieldSetElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual string validationMessage
       {
-    set;
+    get;
       }
 
       public virtual dom.ValidityState validity
       {
-    set;
+    get;
       }
 
       public virtual bool willValidate
       {
-    set;
+    get;
       }
 
       public virtual extern bool checkValidity();
@@ -33026,13 +33021,13 @@ namespace H5
 
       public static dom.HTMLFontElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string face
       {
-    set;
+    get;
     set;
       }
 
@@ -33084,13 +33079,13 @@ namespace H5
 
       public virtual string color
       {
-    set;
+    get;
     set;
       }
 
       public virtual double size
       {
-    set;
+    get;
     set;
       }
 
@@ -33111,7 +33106,7 @@ namespace H5
 
       public static dom.HTMLFormControlsCollection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -33145,71 +33140,71 @@ namespace H5
 
       public static dom.HTMLFormElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string acceptCharset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string action
       {
-    set;
+    get;
     set;
       }
 
       public virtual string autocomplete
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormControlsCollection elements
       {
-    set;
+    get;
       }
 
       public virtual string encoding
       {
-    set;
+    get;
     set;
       }
 
       public virtual string enctype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual string method
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool noValidate
       {
-    set;
+    get;
     set;
       }
 
       public virtual string target
       {
-    set;
+    get;
     set;
       }
 
@@ -33317,95 +33312,95 @@ namespace H5
 
       public static dom.HTMLFrameElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string border
       {
-    set;
+    get;
     set;
       }
 
       public virtual object borderColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document contentDocument
       {
-    set;
+    get;
       }
 
       public virtual dom.Window contentWindow
       {
-    set;
+    get;
       }
 
       public virtual string frameBorder
       {
-    set;
+    get;
     set;
       }
 
       public virtual object frameSpacing
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<string, double> height
       {
-    set;
+    get;
     set;
       }
 
       public virtual string longDesc
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marginHeight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marginWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool noResize
       {
-    set;
+    get;
     set;
       }
 
       public virtual string scrolling
       {
-    set;
+    get;
     set;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<string, double> width
       {
-    set;
+    get;
     set;
       }
 
@@ -33488,85 +33483,85 @@ namespace H5
 
       public dom.Event orientationchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent resize
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event afterprint
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforeprint
       {
-    set;
+    get;
     set;
       }
 
       public dom.BeforeUnloadEvent beforeunload
       {
-    set;
+    get;
     set;
       }
 
       public dom.HashChangeEvent hashchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessageEvent message
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event offline
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event online
       {
-    set;
+    get;
     set;
       }
 
       public dom.PageTransitionEvent pagehide
       {
-    set;
+    get;
     set;
       }
 
       public dom.PageTransitionEvent pageshow
       {
-    set;
+    get;
     set;
       }
 
       public dom.PopStateEvent popstate
       {
-    set;
+    get;
     set;
       }
 
       public dom.StorageEvent storage
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event unload
       {
-    set;
+    get;
     set;
       }
 
@@ -33632,37 +33627,37 @@ namespace H5
 
       public static dom.HTMLFrameSetElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string cols
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFrameSetElement.onorientationchangeFn onorientationchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFrameSetElement.onresizeFn onresize
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rows
       {
-    set;
+    get;
     set;
       }
 
@@ -33714,73 +33709,73 @@ namespace H5
 
       public virtual dom.WindowEventHandlers.onafterprintFn onafterprint
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onbeforeprint
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onbeforeunloadFn onbeforeunload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onhashchangeFn onhashchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onoffline
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn ononline
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpagehideFn onpagehide
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpagehideFn onpageshow
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpopstateFn onpopstate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onstorageFn onstorage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onunload
       {
-    set;
+    get;
     set;
       }
 
@@ -33861,25 +33856,25 @@ namespace H5
 
       public static dom.HTMLHRElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool noShade
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
@@ -33931,13 +33926,13 @@ namespace H5
 
       public virtual string color
       {
-    set;
+    get;
     set;
       }
 
       public virtual double size
       {
-    set;
+    get;
     set;
       }
 
@@ -33962,13 +33957,13 @@ namespace H5
 
       public static dom.HTMLHeadElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string profile
       {
-    set;
+    get;
     set;
       }
 
@@ -34039,13 +34034,13 @@ namespace H5
 
       public static dom.HTMLHeadingElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
@@ -34116,13 +34111,13 @@ namespace H5
 
       public static dom.HTMLHtmlElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string version
       {
-    set;
+    get;
     set;
       }
 
@@ -34198,55 +34193,55 @@ namespace H5
 
       public virtual string hash
       {
-    set;
+    get;
     set;
       }
 
       public virtual string host
       {
-    set;
+    get;
     set;
       }
 
       public virtual string hostname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
     set;
       }
 
       public virtual string origin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pathname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string port
       {
-    set;
+    get;
     set;
       }
 
       public virtual string protocol
       {
-    set;
+    get;
     set;
       }
 
       public virtual string search
       {
-    set;
+    get;
     set;
       }
 
@@ -34312,100 +34307,100 @@ namespace H5
 
       public static dom.HTMLIFrameElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool allowFullscreen
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool allowPaymentRequest
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document contentDocument
       {
-    set;
+    get;
       }
 
       public virtual dom.Window contentWindow
       {
-    set;
+    get;
       }
 
       public virtual string frameBorder
       {
-    set;
+    get;
     set;
       }
 
       public virtual string height
       {
-    set;
+    get;
     set;
       }
 
       public virtual string longDesc
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marginHeight
       {
-    set;
+    get;
     set;
       }
 
       public virtual string marginWidth
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DOMTokenList sandbox
       {
-    set;
+    get;
       }
 
       public virtual string scrolling
       {
-    set;
+    get;
     set;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual string srcdoc
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
@@ -34504,163 +34499,163 @@ namespace H5
 
       public static dom.HTMLImageElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string alt
       {
-    set;
+    get;
     set;
       }
 
       public virtual string border
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool complete
       {
-    set;
+    get;
       }
 
       public virtual string crossOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string currentSrc
       {
-    set;
+    get;
       }
 
       public virtual dom.Literals.Options.decoding decoding
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint height
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint hspace
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool isMap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string longDesc
       {
-    set;
+    get;
     set;
       }
 
       public virtual string lowsrc
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msPlayToDisabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msPlayToPreferredSourceUri
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msPlayToPrimary
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msPlayToSource
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint naturalHeight
       {
-    set;
+    get;
       }
 
       public virtual uint naturalWidth
       {
-    set;
+    get;
       }
 
       public virtual string sizes
       {
-    set;
+    get;
     set;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual string srcset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string useMap
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint vspace
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint width
       {
-    set;
+    get;
     set;
       }
 
       public virtual int x
       {
-    set;
+    get;
       }
 
       public virtual int y
       {
-    set;
+    get;
       }
 
       public virtual extern object msGetAsCastingSource();
@@ -34776,273 +34771,273 @@ namespace H5
 
       public static dom.HTMLInputElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string accept
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string alt
       {
-    set;
+    get;
     set;
       }
 
       public virtual string autocomplete
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool autofocus
       {
-    set;
+    get;
     set;
       }
 
       [Name("checked")]
       public virtual bool @checked
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool defaultChecked
       {
-    set;
+    get;
     set;
       }
 
       public virtual string defaultValue
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.FileList files
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual string formAction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string formEnctype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string formMethod
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool formNoValidate
       {
-    set;
+    get;
     set;
       }
 
       public virtual string formTarget
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint height
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool indeterminate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement list
       {
-    set;
+    get;
       }
 
       public virtual string max
       {
-    set;
+    get;
     set;
       }
 
       public virtual int maxLength
       {
-    set;
+    get;
     set;
       }
 
       public virtual string min
       {
-    set;
+    get;
     set;
       }
 
       public virtual int minLength
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool multiple
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pattern
       {
-    set;
+    get;
     set;
       }
 
       public virtual string placeholder
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool readOnly
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool required
       {
-    set;
+    get;
     set;
       }
 
       public virtual string selectionDirection
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint? selectionEnd
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint? selectionStart
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint size
       {
-    set;
+    get;
     set;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual string step
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
       public virtual string useMap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string validationMessage
       {
-    set;
+    get;
       }
 
       public virtual dom.ValidityState validity
       {
-    set;
+    get;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
 
       public virtual object valueAsDate
       {
-    set;
+    get;
     set;
       }
 
       public virtual double valueAsNumber
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool webkitdirectory
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint width
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool willValidate
       {
-    set;
+    get;
       }
 
       public virtual extern bool checkValidity();
@@ -35134,19 +35129,19 @@ namespace H5
 
       public static dom.HTMLLIElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
       public virtual int value
       {
-    set;
+    get;
     set;
       }
 
@@ -35219,23 +35214,23 @@ namespace H5
 
       public static dom.HTMLLabelElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLInputElement control
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual string htmlFor
       {
-    set;
+    get;
     set;
       }
 
@@ -35307,19 +35302,19 @@ namespace H5
 
       public static dom.HTMLLegendElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.HTMLElementEventMap>), EnableImplicitConversion = true)]
@@ -35401,79 +35396,79 @@ namespace H5
 
       public static dom.HTMLLinkElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string charset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string crossOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
     set;
       }
 
       public virtual string hreflang
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document import
       {
-    set;
+    get;
     set;
       }
 
       public virtual string integrity
       {
-    set;
+    get;
     set;
       }
 
       public virtual string media
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rel
       {
-    set;
+    get;
     set;
       }
 
       public virtual string rev
       {
-    set;
+    get;
     set;
       }
 
       public virtual string target
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -35525,7 +35520,7 @@ namespace H5
 
       public virtual dom.StyleSheet sheet
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -35545,7 +35540,7 @@ namespace H5
 
       public static dom.HTMLMainElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -35617,18 +35612,18 @@ namespace H5
 
       public static dom.HTMLMapElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLAreasCollection areas
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
@@ -35698,19 +35693,19 @@ namespace H5
 
       public dom.Event bounce
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event finish
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event start
       {
-    set;
+    get;
     set;
       }
 
@@ -35751,91 +35746,91 @@ namespace H5
 
       public static dom.HTMLMarqueeElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string behavior
       {
-    set;
+    get;
     set;
       }
 
       public virtual string bgColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string direction
       {
-    set;
+    get;
     set;
       }
 
       public virtual string height
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint hspace
       {
-    set;
+    get;
     set;
       }
 
       public virtual int loop
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLMarqueeElement.onbounceFn onbounce
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLMarqueeElement.onbounceFn onfinish
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLMarqueeElement.onbounceFn onstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint scrollAmount
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint scrollDelay
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool trueSpeed
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint vspace
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
@@ -35911,13 +35906,13 @@ namespace H5
 
       public dom.MediaEncryptedEvent encrypted
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event msneedkey
       {
-    set;
+    get;
     set;
       }
 
@@ -35996,277 +35991,277 @@ namespace H5
 
       public static dom.HTMLMediaElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("HAVE_CURRENT_DATA")]
       public static ushort HAVE_CURRENT_DATA_Static
       {
-    set;
+    get;
       }
 
       [Name("HAVE_ENOUGH_DATA")]
       public static ushort HAVE_ENOUGH_DATA_Static
       {
-    set;
+    get;
       }
 
       [Name("HAVE_FUTURE_DATA")]
       public static ushort HAVE_FUTURE_DATA_Static
       {
-    set;
+    get;
       }
 
       [Name("HAVE_METADATA")]
       public static ushort HAVE_METADATA_Static
       {
-    set;
+    get;
       }
 
       [Name("HAVE_NOTHING")]
       public static ushort HAVE_NOTHING_Static
       {
-    set;
+    get;
       }
 
       [Name("NETWORK_EMPTY")]
       public static ushort NETWORK_EMPTY_Static
       {
-    set;
+    get;
       }
 
       [Name("NETWORK_IDLE")]
       public static ushort NETWORK_IDLE_Static
       {
-    set;
+    get;
       }
 
       [Name("NETWORK_LOADING")]
       public static ushort NETWORK_LOADING_Static
       {
-    set;
+    get;
       }
 
       [Name("NETWORK_NO_SOURCE")]
       public static ushort NETWORK_NO_SOURCE_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioTrackList audioTracks
       {
-    set;
+    get;
       }
 
       public virtual bool autoplay
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TimeRanges buffered
       {
-    set;
+    get;
       }
 
       public virtual bool controls
       {
-    set;
+    get;
     set;
       }
 
       public virtual string crossOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual string currentSrc
       {
-    set;
+    get;
       }
 
       public virtual double currentTime
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool defaultMuted
       {
-    set;
+    get;
     set;
       }
 
       public virtual double defaultPlaybackRate
       {
-    set;
+    get;
     set;
       }
 
       public virtual double duration
       {
-    set;
+    get;
       }
 
       public virtual bool ended
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaError error
       {
-    set;
+    get;
       }
 
       public virtual bool loop
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaKeys mediaKeys
       {
-    set;
+    get;
       }
 
       public virtual string msAudioCategory
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msAudioDeviceType
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSGraphicsTrust msGraphicsTrustStatus
       {
-    set;
+    get;
       }
 
       public virtual dom.MSMediaKeys msKeys
       {
-    set;
+    get;
       }
 
       public virtual bool msPlayToDisabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msPlayToPreferredSourceUri
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msPlayToPrimary
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msPlayToSource
       {
-    set;
+    get;
       }
 
       public virtual bool msRealTime
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool muted
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort networkState
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLMediaElement.onencryptedFn onencrypted
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLMediaElement.onmsneedkeyFn onmsneedkey
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool paused
       {
-    set;
+    get;
       }
 
       public virtual double playbackRate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TimeRanges played
       {
-    set;
+    get;
       }
 
       public virtual string preload
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort readyState
       {
-    set;
+    get;
       }
 
       public virtual dom.TimeRanges seekable
       {
-    set;
+    get;
       }
 
       public virtual bool seeking
       {
-    set;
+    get;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<dom.MediaStream, dom.MediaSource, dom.Blob, Null> srcObject
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TextTrackList textTracks
       {
-    set;
+    get;
       }
 
       public virtual dom.VideoTrackList videoTracks
       {
-    set;
+    get;
       }
 
       public virtual double volume
       {
-    set;
+    get;
     set;
       }
 
@@ -36309,47 +36304,47 @@ namespace H5
 
       public virtual ushort HAVE_CURRENT_DATA
       {
-    set;
+    get;
       }
 
       public virtual ushort HAVE_ENOUGH_DATA
       {
-    set;
+    get;
       }
 
       public virtual ushort HAVE_FUTURE_DATA
       {
-    set;
+    get;
       }
 
       public virtual ushort HAVE_METADATA
       {
-    set;
+    get;
       }
 
       public virtual ushort HAVE_NOTHING
       {
-    set;
+    get;
       }
 
       public virtual ushort NETWORK_EMPTY
       {
-    set;
+    get;
       }
 
       public virtual ushort NETWORK_IDLE
       {
-    set;
+    get;
       }
 
       public virtual ushort NETWORK_LOADING
       {
-    set;
+    get;
       }
 
       public virtual ushort NETWORK_NO_SOURCE
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.HTMLMediaElementEventMap>), EnableImplicitConversion = true)]
@@ -36426,19 +36421,19 @@ namespace H5
 
       public static dom.HTMLMenuElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool compact
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -36514,43 +36509,43 @@ namespace H5
 
       public static dom.HTMLMetaElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string charset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string content
       {
-    set;
+    get;
     set;
       }
 
       public virtual string httpEquiv
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual string scheme
       {
-    set;
+    get;
     set;
       }
 
       public virtual string url
       {
-    set;
+    get;
     set;
       }
 
@@ -36626,43 +36621,43 @@ namespace H5
 
       public static dom.HTMLMeterElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double high
       {
-    set;
+    get;
     set;
       }
 
       public virtual double low
       {
-    set;
+    get;
     set;
       }
 
       public virtual double max
       {
-    set;
+    get;
     set;
       }
 
       public virtual double min
       {
-    set;
+    get;
     set;
       }
 
       public virtual double optimum
       {
-    set;
+    get;
     set;
       }
 
       public virtual double value
       {
-    set;
+    get;
     set;
       }
 
@@ -36734,19 +36729,19 @@ namespace H5
 
       public static dom.HTMLModElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string cite
       {
-    set;
+    get;
     set;
       }
 
       public virtual string dateTime
       {
-    set;
+    get;
     set;
       }
 
@@ -36819,25 +36814,25 @@ namespace H5
 
       public static dom.HTMLOListElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool compact
       {
-    set;
+    get;
     set;
       }
 
       public virtual int start
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -36935,168 +36930,168 @@ namespace H5
 
       public static dom.HTMLObjectElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string BaseHref
       {
-    set;
+    get;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string archive
       {
-    set;
+    get;
     set;
       }
 
       public virtual string border
       {
-    set;
+    get;
     set;
       }
 
       public virtual string code
       {
-    set;
+    get;
     set;
       }
 
       public virtual string codeBase
       {
-    set;
+    get;
     set;
       }
 
       public virtual string codeType
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document contentDocument
       {
-    set;
+    get;
       }
 
       public virtual string data
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool declare
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual string height
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint hspace
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msPlayToDisabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msPlayToPreferredSourceUri
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msPlayToPrimary
       {
-    set;
+    get;
     set;
       }
 
       public virtual object msPlayToSource
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual double readyState
       {
-    set;
+    get;
       }
 
       public virtual string standby
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool typemustmatch
       {
-    set;
+    get;
     set;
       }
 
       public virtual string useMap
       {
-    set;
+    get;
     set;
       }
 
       public virtual string validationMessage
       {
-    set;
+    get;
       }
 
       public virtual dom.ValidityState validity
       {
-    set;
+    get;
       }
 
       public virtual uint vspace
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool willValidate
       {
-    set;
+    get;
       }
 
       public virtual extern bool checkValidity();
@@ -37174,24 +37169,24 @@ namespace H5
 
       public static dom.HTMLOptGroupElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual string label
       {
-    set;
+    get;
     set;
       }
 
@@ -37269,53 +37264,53 @@ namespace H5
 
       public static dom.HTMLOptionElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool defaultSelected
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual int index
       {
-    set;
+    get;
       }
 
       public virtual string label
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool selected
       {
-    set;
+    get;
     set;
       }
 
       public virtual string text
       {
-    set;
+    get;
     set;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
 
@@ -37383,13 +37378,13 @@ namespace H5
 
       public static dom.HTMLOptionsCollection prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual int selectedIndex
       {
-    set;
+    get;
     set;
       }
 
@@ -37447,56 +37442,56 @@ namespace H5
 
       public static dom.HTMLOutputElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string defaultValue
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual dom.DOMTokenList htmlFor
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual string validationMessage
       {
-    set;
+    get;
       }
 
       public virtual dom.ValidityState validity
       {
-    set;
+    get;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool willValidate
       {
-    set;
+    get;
       }
 
       public virtual extern bool checkValidity();
@@ -37573,19 +37568,19 @@ namespace H5
 
       public static dom.HTMLParagraphElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string clear
       {
-    set;
+    get;
     set;
       }
 
@@ -37659,31 +37654,31 @@ namespace H5
 
       public static dom.HTMLParamElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
 
       public virtual string valueType
       {
-    set;
+    get;
     set;
       }
 
@@ -37753,7 +37748,7 @@ namespace H5
 
       public static dom.HTMLPictureElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -37824,13 +37819,13 @@ namespace H5
 
       public static dom.HTMLPreElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual int width
       {
-    set;
+    get;
     set;
       }
 
@@ -37904,29 +37899,29 @@ namespace H5
 
       public static dom.HTMLProgressElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual double max
       {
-    set;
+    get;
     set;
       }
 
       public virtual double position
       {
-    set;
+    get;
       }
 
       public virtual double value
       {
-    set;
+    get;
     set;
       }
 
@@ -37997,13 +37992,13 @@ namespace H5
 
       public static dom.HTMLQuoteElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string cite
       {
-    set;
+    get;
     set;
       }
 
@@ -38084,74 +38079,74 @@ namespace H5
 
       public static dom.HTMLScriptElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool async
       {
-    set;
+    get;
     set;
       }
 
       public virtual string charset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string crossOrigin
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool defer
       {
-    set;
+    get;
     set;
       }
 
       [Name("event")]
       public virtual string @event
       {
-    set;
+    get;
     set;
       }
 
       public virtual string htmlFor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string integrity
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool noModule
       {
-    set;
+    get;
     set;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual string text
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -38237,97 +38232,97 @@ namespace H5
 
       public static dom.HTMLSelectElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool autofocus
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual uint length
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool multiple
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLOptionsCollection options
       {
-    set;
+    get;
       }
 
       public virtual bool required
       {
-    set;
+    get;
     set;
       }
 
       public virtual int selectedIndex
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLOptionElement> selectedOptions
       {
-    set;
+    get;
       }
 
       public virtual uint size
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual string validationMessage
       {
-    set;
+    get;
       }
 
       public virtual dom.ValidityState validity
       {
-    set;
+    get;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool willValidate
       {
-    set;
+    get;
       }
 
       public virtual extern void add(
@@ -38433,7 +38428,7 @@ namespace H5
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
@@ -38513,43 +38508,43 @@ namespace H5
 
       public static dom.HTMLSourceElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string media
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msKeySystem
       {
-    set;
+    get;
     set;
       }
 
       public virtual string sizes
       {
-    set;
+    get;
     set;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual string srcset
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -38619,7 +38614,7 @@ namespace H5
 
       public static dom.HTMLSpanElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -38693,25 +38688,25 @@ namespace H5
 
       public static dom.HTMLStyleElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string media
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -38763,7 +38758,7 @@ namespace H5
 
       public virtual dom.StyleSheet sheet
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -38783,7 +38778,7 @@ namespace H5
 
       public static dom.HTMLSummaryElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -38854,13 +38849,13 @@ namespace H5
 
       public static dom.HTMLTableCaptionElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
@@ -38942,96 +38937,96 @@ namespace H5
 
       public static dom.HTMLTableCellElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string abbr
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string axis
       {
-    set;
+    get;
     set;
       }
 
       public virtual string bgColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual int cellIndex
       {
-    set;
+    get;
       }
 
       public virtual string ch
       {
-    set;
+    get;
     set;
       }
 
       public virtual string chOff
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint colSpan
       {
-    set;
+    get;
     set;
       }
 
       public virtual string headers
       {
-    set;
+    get;
     set;
       }
 
       public virtual string height
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool noWrap
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint rowSpan
       {
-    set;
+    get;
     set;
       }
 
       public virtual string scope
       {
-    set;
+    get;
     set;
       }
 
       public virtual string vAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
@@ -39107,43 +39102,43 @@ namespace H5
 
       public static dom.HTMLTableColElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string ch
       {
-    set;
+    get;
     set;
       }
 
       public virtual string chOff
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint span
       {
-    set;
+    get;
     set;
       }
 
       public virtual string vAlign
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
@@ -39213,7 +39208,7 @@ namespace H5
 
       public static dom.HTMLTableDataCellElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -39297,89 +39292,89 @@ namespace H5
 
       public static dom.HTMLTableElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string bgColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual string border
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLTableCaptionElement caption
       {
-    set;
+    get;
     set;
       }
 
       public virtual string cellPadding
       {
-    set;
+    get;
     set;
       }
 
       public virtual string cellSpacing
       {
-    set;
+    get;
     set;
       }
 
       public virtual string frame
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLTableRowElement> rows
       {
-    set;
+    get;
       }
 
       public virtual string rules
       {
-    set;
+    get;
     set;
       }
 
       public virtual string summary
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLTableSectionElement> tBodies
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLTableSectionElement tFoot
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLTableSectionElement tHead
       {
-    set;
+    get;
     set;
       }
 
       public virtual string width
       {
-    set;
+    get;
     set;
       }
 
@@ -39471,7 +39466,7 @@ namespace H5
 
       public static dom.HTMLTableHeaderCellElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -39549,52 +39544,52 @@ namespace H5
 
       public static dom.HTMLTableRowElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string bgColor
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLTableCellElement> cells
       {
-    set;
+    get;
       }
 
       public virtual string ch
       {
-    set;
+    get;
     set;
       }
 
       public virtual string chOff
       {
-    set;
+    get;
     set;
       }
 
       public virtual int rowIndex
       {
-    set;
+    get;
       }
 
       public virtual int sectionRowIndex
       {
-    set;
+    get;
       }
 
       public virtual string vAlign
       {
-    set;
+    get;
     set;
       }
 
@@ -39677,36 +39672,36 @@ namespace H5
 
       public static dom.HTMLTableSectionElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string align
       {
-    set;
+    get;
     set;
       }
 
       public virtual string ch
       {
-    set;
+    get;
     set;
       }
 
       public virtual string chOff
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLCollectionOf<dom.HTMLTableRowElement> rows
       {
-    set;
+    get;
       }
 
       public virtual string vAlign
       {
-    set;
+    get;
     set;
       }
 
@@ -39785,13 +39780,13 @@ namespace H5
 
       public static dom.HTMLTemplateElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DocumentFragment content
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.HTMLElementEventMap>), EnableImplicitConversion = true)]
@@ -39880,122 +39875,122 @@ namespace H5
 
       public static dom.HTMLTextAreaElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool autofocus
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint cols
       {
-    set;
+    get;
     set;
       }
 
       public virtual string defaultValue
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
 
       public virtual int maxLength
       {
-    set;
+    get;
     set;
       }
 
       public virtual int minLength
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual string placeholder
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool readOnly
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool required
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint rows
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint selectionEnd
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint selectionStart
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual string validationMessage
       {
-    set;
+    get;
       }
 
       public virtual dom.ValidityState validity
       {
-    set;
+    get;
       }
 
       public virtual string value
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool willValidate
       {
-    set;
+    get;
       }
 
       public virtual string wrap
       {
-    set;
+    get;
     set;
       }
 
@@ -40079,13 +40074,13 @@ namespace H5
 
       public static dom.HTMLTimeElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string dateTime
       {
-    set;
+    get;
     set;
       }
 
@@ -40156,13 +40151,13 @@ namespace H5
 
       public static dom.HTMLTitleElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string text
       {
-    set;
+    get;
     set;
       }
 
@@ -40247,93 +40242,93 @@ namespace H5
 
       public static dom.HTMLTrackElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("ERROR")]
       public static ushort ERROR_Static
       {
-    set;
+    get;
       }
 
       [Name("LOADED")]
       public static ushort LOADED_Static
       {
-    set;
+    get;
       }
 
       [Name("LOADING")]
       public static ushort LOADING_Static
       {
-    set;
+    get;
       }
 
       [Name("NONE")]
       public static ushort NONE_Static
       {
-    set;
+    get;
       }
 
       [Name("default")]
       public virtual bool @default
       {
-    set;
+    get;
     set;
       }
 
       public virtual string kind
       {
-    set;
+    get;
     set;
       }
 
       public virtual string label
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort readyState
       {
-    set;
+    get;
       }
 
       public virtual string src
       {
-    set;
+    get;
     set;
       }
 
       public virtual string srclang
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TextTrack track
       {
-    set;
+    get;
       }
 
       public virtual ushort ERROR
       {
-    set;
+    get;
       }
 
       public virtual ushort LOADED
       {
-    set;
+    get;
       }
 
       public virtual ushort LOADING
       {
-    set;
+    get;
       }
 
       public virtual ushort NONE
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.HTMLElementEventMap>), EnableImplicitConversion = true)]
@@ -40404,19 +40399,19 @@ namespace H5
 
       public static dom.HTMLUListElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool compact
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -40486,7 +40481,7 @@ namespace H5
 
       public static dom.HTMLUnknownElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -40556,19 +40551,19 @@ namespace H5
 
       public dom.Event MSVideoFormatChanged
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSVideoFrameStepCompleted
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSVideoOptimalLayoutChanged
       {
-    set;
+    get;
     set;
       }
 
@@ -40611,97 +40606,97 @@ namespace H5
 
       public static dom.HTMLVideoElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint height
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msHorizontalMirror
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msIsLayoutOptimalForPlayback
       {
-    set;
+    get;
       }
 
       public virtual bool msIsStereo3D
       {
-    set;
+    get;
       }
 
       public virtual string msStereo3DPackingMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual string msStereo3DRenderMode
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool msZoom
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLVideoElement.onMSVideoFormatChangedFn onMSVideoFormatChanged
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLVideoElement.onMSVideoFormatChangedFn onMSVideoFrameStepCompleted
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLVideoElement.onMSVideoFormatChangedFn onMSVideoOptimalLayoutChanged
       {
-    set;
+    get;
     set;
       }
 
       public virtual string poster
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint videoHeight
       {
-    set;
+    get;
       }
 
       public virtual uint videoWidth
       {
-    set;
+    get;
       }
 
       public virtual bool webkitDisplayingFullscreen
       {
-    set;
+    get;
       }
 
       public virtual bool webkitSupportsFullscreen
       {
-    set;
+    get;
       }
 
       public virtual uint width
       {
-    set;
+    get;
     set;
       }
 
@@ -40797,13 +40792,13 @@ namespace H5
 
       public static dom.HTMLegendElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLFormElement form
       {
-    set;
+    get;
       }
     }
 
@@ -40821,18 +40816,18 @@ namespace H5
 
       public static dom.HashChangeEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string newURL
       {
-    set;
+    get;
       }
 
       public virtual string oldURL
       {
-    set;
+    get;
       }
     }
 
@@ -40857,7 +40852,7 @@ namespace H5
 
       public static dom.Headers prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -40895,24 +40890,24 @@ namespace H5
 
       public static dom.History prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual dom.ScrollRestoration scrollRestoration
       {
-    set;
+    get;
     set;
       }
 
       public virtual object state
       {
-    set;
+    get;
       }
 
       public virtual extern void back();
@@ -40951,19 +40946,19 @@ namespace H5
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> context
       {
-    set;
+    get;
     set;
       }
 
       public Union<string, dom.Algorithm> hash
       {
-    set;
+    get;
     set;
       }
 
       public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> label
       {
-    set;
+    get;
     set;
       }
     }
@@ -40995,52 +40990,52 @@ namespace H5
 
       public static dom.IDBCursor prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("NEXT")]
       public static string NEXT_Static
       {
-    set;
+    get;
       }
 
       [Name("NEXT_NO_DUPLICATE")]
       public static string NEXT_NO_DUPLICATE_Static
       {
-    set;
+    get;
       }
 
       [Name("PREV")]
       public static string PREV_Static
       {
-    set;
+    get;
       }
 
       [Name("PREV_NO_DUPLICATE")]
       public static string PREV_NO_DUPLICATE_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBCursorDirection direction
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.IDBKeyRange, double, string, es5.Date, dom.IDBArrayKey> key
       {
-    set;
+    get;
       }
 
       public virtual object primaryKey
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.IDBObjectStore, dom.IDBIndex> source
       {
-    set;
+    get;
       }
 
       public virtual extern void advance(double count);
@@ -41073,22 +41068,22 @@ namespace H5
 
       public virtual string NEXT
       {
-    set;
+    get;
       }
 
       public virtual string NEXT_NO_DUPLICATE
       {
-    set;
+    get;
       }
 
       public virtual string PREV
       {
-    set;
+    get;
       }
 
       public virtual string PREV_NO_DUPLICATE
       {
-    set;
+    get;
       }
     }
 
@@ -41101,13 +41096,13 @@ namespace H5
 
       public static dom.IDBCursorWithValue prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object value
       {
-    set;
+    get;
       }
     }
 
@@ -41121,13 +41116,13 @@ namespace H5
 
       public dom.Event abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
@@ -41155,41 +41150,41 @@ namespace H5
 
       public static dom.IDBDatabase prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual dom.DOMStringList objectStoreNames
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBDatabase.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.IDBDatabase.onabortFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.IDBDatabase.onabortFn onversionchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual double version
       {
-    set;
+    get;
       }
 
       public virtual extern void close();
@@ -41326,7 +41321,7 @@ namespace H5
 
       public dom.IDBFactory indexedDB
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -41346,7 +41341,7 @@ namespace H5
 
       public static dom.IDBFactory prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -41372,34 +41367,34 @@ namespace H5
 
       public static dom.IDBIndex prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<string, string[]> keyPath
       {
-    set;
+    get;
       }
 
       public virtual bool multiEntry
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBObjectStore objectStore
       {
-    set;
+    get;
       }
 
       public virtual bool unique
       {
-    set;
+    get;
       }
 
       public virtual extern dom.IDBRequest count();
@@ -41534,7 +41529,7 @@ namespace H5
 
       public static dom.IDBKeyRange prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -41560,22 +41555,22 @@ namespace H5
 
       public virtual object lower
       {
-    set;
+    get;
       }
 
       public virtual bool lowerOpen
       {
-    set;
+    get;
       }
 
       public virtual object upper
       {
-    set;
+    get;
       }
 
       public virtual bool upperOpen
       {
-    set;
+    get;
       }
     }
 
@@ -41592,34 +41587,34 @@ namespace H5
 
       public static dom.IDBObjectStore prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool autoIncrement
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DOMStringList indexNames
       {
-    set;
+    get;
       }
 
       public virtual Union<string, string[], Null> keyPath
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBTransaction transaction
       {
-    set;
+    get;
       }
 
       public virtual extern dom.IDBRequest add(object value);
@@ -41763,13 +41758,13 @@ namespace H5
 
       public dom.Event blocked
       {
-    set;
+    get;
     set;
       }
 
       public dom.IDBVersionChangeEvent upgradeneeded
       {
-    set;
+    get;
     set;
       }
 
@@ -41793,19 +41788,19 @@ namespace H5
 
       public static dom.IDBOpenDBRequest prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.IDBOpenDBRequest.onblockedFn onblocked
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.IDBOpenDBRequest.onupgradeneededFn onupgradeneeded
       {
-    set;
+    get;
     set;
       }
 
@@ -41880,13 +41875,13 @@ namespace H5
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event success
       {
-    set;
+    get;
     set;
       }
 
@@ -41915,45 +41910,45 @@ namespace H5
 
       public static dom.IDBRequest prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DOMException error
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBRequest.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.IDBRequest.onerrorFn onsuccess
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.IDBRequestReadyState readyState
       {
-    set;
+    get;
       }
 
       public virtual object result
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.IDBObjectStore, dom.IDBIndex, dom.IDBCursor> source
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBTransaction transaction
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.IDBRequestEventMap>), EnableImplicitConversion = true)]
@@ -42064,19 +42059,19 @@ namespace H5
 
       public dom.Event abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event complete
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
@@ -42112,58 +42107,58 @@ namespace H5
 
       public static dom.IDBTransaction prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("READ_ONLY")]
       public static string READ_ONLY_Static
       {
-    set;
+    get;
       }
 
       [Name("READ_WRITE")]
       public static string READ_WRITE_Static
       {
-    set;
+    get;
       }
 
       [Name("VERSION_CHANGE")]
       public static string VERSION_CHANGE_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBDatabase db
       {
-    set;
+    get;
       }
 
       public virtual dom.DOMException error
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBTransactionMode mode
       {
-    set;
+    get;
       }
 
       public virtual dom.IDBTransaction.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.IDBTransaction.onabortFn oncomplete
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.IDBTransaction.onabortFn onerror
       {
-    set;
+    get;
     set;
       }
 
@@ -42173,17 +42168,17 @@ namespace H5
 
       public virtual string READ_ONLY
       {
-    set;
+    get;
       }
 
       public virtual string READ_WRITE
       {
-    set;
+    get;
       }
 
       public virtual string VERSION_CHANGE
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.IDBTransactionEventMap>), EnableImplicitConversion = true)]
@@ -42293,18 +42288,18 @@ namespace H5
 
       public static dom.IDBVersionChangeEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double? newVersion
       {
-    set;
+    get;
       }
 
       public virtual double oldVersion
       {
-    set;
+    get;
       }
     }
 
@@ -42316,7 +42311,7 @@ namespace H5
 
       public static dom.IIRFilterNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -42352,37 +42347,37 @@ namespace H5
 
       public dom.Literals.Options.colorSpaceConversion colorSpaceConversion
       {
-    set;
+    get;
     set;
       }
 
       public dom.Literals.Options.imageOrientation imageOrientation
       {
-    set;
+    get;
     set;
       }
 
       public dom.Literals.Options.premultiplyAlpha premultiplyAlpha
       {
-    set;
+    get;
     set;
       }
 
       public uint? resizeHeight
       {
-    set;
+    get;
     set;
       }
 
       public dom.Literals.Options.resizeQuality resizeQuality
       {
-    set;
+    get;
     set;
       }
 
       public uint? resizeWidth
       {
-    set;
+    get;
     set;
       }
     }
@@ -42402,23 +42397,23 @@ namespace H5
 
       public static dom.ImageData prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Uint8ClampedArray data
       {
-    set;
+    get;
       }
 
       public virtual uint height
       {
-    set;
+    get;
       }
 
       public virtual uint width
       {
-    set;
+    get;
       }
     }
 
@@ -42439,23 +42434,23 @@ namespace H5
 
       public static dom.IntersectionObserver prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element root
       {
-    set;
+    get;
       }
 
       public virtual string rootMargin
       {
-    set;
+    get;
       }
 
       public virtual double[] thresholds
       {
-    set;
+    get;
       }
 
       public virtual extern void disconnect();
@@ -42485,43 +42480,43 @@ namespace H5
 
       public static dom.IntersectionObserverEntry prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<dom.ClientRect, dom.DOMRect> boundingClientRect
       {
-    set;
+    get;
       }
 
       public virtual double intersectionRatio
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.ClientRect, dom.DOMRect> intersectionRect
       {
-    set;
+    get;
       }
 
       public virtual bool isIntersecting
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.ClientRect, dom.DOMRect> rootBounds
       {
-    set;
+    get;
       }
 
       public virtual dom.Element target
       {
-    set;
+    get;
       }
 
       public virtual double time
       {
-    set;
+    get;
       }
     }
 
@@ -42561,106 +42556,106 @@ namespace H5
 
       public static dom.KeyboardEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("DOM_KEY_LOCATION_JOYSTICK")]
       public static double DOM_KEY_LOCATION_JOYSTICK_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_KEY_LOCATION_LEFT")]
       public static uint DOM_KEY_LOCATION_LEFT_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_KEY_LOCATION_MOBILE")]
       public static double DOM_KEY_LOCATION_MOBILE_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_KEY_LOCATION_NUMPAD")]
       public static uint DOM_KEY_LOCATION_NUMPAD_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_KEY_LOCATION_RIGHT")]
       public static uint DOM_KEY_LOCATION_RIGHT_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_KEY_LOCATION_STANDARD")]
       public static uint DOM_KEY_LOCATION_STANDARD_Static
       {
-    set;
+    get;
       }
 
       public virtual bool altKey
       {
-    set;
+    get;
       }
 
       [Name("char")]
       public virtual string @char
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint charCode
       {
-    set;
+    get;
       }
 
       public virtual string code
       {
-    set;
+    get;
       }
 
       public virtual bool ctrlKey
       {
-    set;
+    get;
       }
 
       public virtual string key
       {
-    set;
+    get;
       }
 
       public virtual uint keyCode
       {
-    set;
+    get;
       }
 
       public virtual uint location
       {
-    set;
+    get;
       }
 
       public virtual bool metaKey
       {
-    set;
+    get;
       }
 
       public virtual bool repeat
       {
-    set;
+    get;
       }
 
       public virtual bool shiftKey
       {
-    set;
+    get;
       }
 
       public virtual uint which
       {
-    set;
+    get;
       }
 
       public virtual extern bool getModifierState(string keyArg);
@@ -42678,32 +42673,32 @@ namespace H5
 
       public virtual double DOM_KEY_LOCATION_JOYSTICK
       {
-    set;
+    get;
       }
 
       public virtual uint DOM_KEY_LOCATION_LEFT
       {
-    set;
+    get;
       }
 
       public virtual double DOM_KEY_LOCATION_MOBILE
       {
-    set;
+    get;
       }
 
       public virtual uint DOM_KEY_LOCATION_NUMPAD
       {
-    set;
+    get;
       }
 
       public virtual uint DOM_KEY_LOCATION_RIGHT
       {
-    set;
+    get;
       }
 
       public virtual uint DOM_KEY_LOCATION_STANDARD
       {
-    set;
+    get;
       }
     }
 
@@ -42716,7 +42711,7 @@ namespace H5
 
       public dom.StyleSheet sheet
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -42738,18 +42733,18 @@ namespace H5
 
       public static dom.ListeningStateChangedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string label
       {
-    set;
+    get;
       }
 
       public virtual dom.ListeningState state
       {
-    set;
+    get;
       }
     }
 
@@ -42770,60 +42765,60 @@ namespace H5
 
       public static dom.Location prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string hash
       {
-    set;
+    get;
     set;
       }
 
       public virtual string host
       {
-    set;
+    get;
     set;
       }
 
       public virtual string hostname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
     set;
       }
 
       public virtual string origin
       {
-    set;
+    get;
       }
 
       public virtual string pathname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string port
       {
-    set;
+    get;
     set;
       }
 
       public virtual string protocol
       {
-    set;
+    get;
     set;
       }
 
       public virtual string search
       {
-    set;
+    get;
     set;
       }
 
@@ -42848,18 +42843,18 @@ namespace H5
 
       public static dom.MSAssertion prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string id
       {
-    set;
+    get;
       }
 
       public virtual dom.MSCredentialType type
       {
-    set;
+    get;
       }
     }
 
@@ -42871,7 +42866,7 @@ namespace H5
 
       public static dom.MSBlobBuilder prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -42892,7 +42887,7 @@ namespace H5
 
       public static dom.MSCredentials prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -42929,18 +42924,18 @@ namespace H5
 
       public static dom.MSDCCEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double maxFr
       {
-    set;
+    get;
       }
 
       public virtual double maxFs
       {
-    set;
+    get;
       }
     }
 
@@ -42956,18 +42951,18 @@ namespace H5
 
       public static dom.MSDSHEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double[] sources
       {
-    set;
+    get;
       }
 
       public virtual double timestamp
       {
-    set;
+    get;
       }
     }
 
@@ -42983,28 +42978,28 @@ namespace H5
 
       public static dom.MSFIDOCredentialAssertion prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<string, dom.Algorithm> algorithm
       {
-    set;
+    get;
       }
 
       public virtual object attestation
       {
-    set;
+    get;
       }
 
       public virtual string publicKey
       {
-    set;
+    get;
       }
 
       public virtual dom.MSTransportType[] transportHints
       {
-    set;
+    get;
       }
     }
 
@@ -43019,23 +43014,23 @@ namespace H5
 
       public static dom.MSFIDOSignature prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string authnrData
       {
-    set;
+    get;
       }
 
       public virtual string clientData
       {
-    set;
+    get;
       }
 
       public virtual string signature
       {
-    set;
+    get;
       }
     }
 
@@ -43048,13 +43043,13 @@ namespace H5
 
       public static dom.MSFIDOSignatureAssertion prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSFIDOSignature signature
       {
-    set;
+    get;
       }
     }
 
@@ -43094,13 +43089,13 @@ namespace H5
 
       public static dom.MSGesture prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Element target
       {
-    set;
+    get;
     set;
       }
 
@@ -43144,123 +43139,123 @@ namespace H5
 
       public static dom.MSGestureEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("MSGESTURE_FLAG_BEGIN")]
       public static double MSGESTURE_FLAG_BEGIN_Static
       {
-    set;
+    get;
       }
 
       [Name("MSGESTURE_FLAG_CANCEL")]
       public static double MSGESTURE_FLAG_CANCEL_Static
       {
-    set;
+    get;
       }
 
       [Name("MSGESTURE_FLAG_END")]
       public static double MSGESTURE_FLAG_END_Static
       {
-    set;
+    get;
       }
 
       [Name("MSGESTURE_FLAG_INERTIA")]
       public static double MSGESTURE_FLAG_INERTIA_Static
       {
-    set;
+    get;
       }
 
       [Name("MSGESTURE_FLAG_NONE")]
       public static double MSGESTURE_FLAG_NONE_Static
       {
-    set;
+    get;
       }
 
       public virtual double clientX
       {
-    set;
+    get;
       }
 
       public virtual double clientY
       {
-    set;
+    get;
       }
 
       public virtual double expansion
       {
-    set;
+    get;
       }
 
       public virtual object gestureObject
       {
-    set;
+    get;
       }
 
       public virtual double hwTimestamp
       {
-    set;
+    get;
       }
 
       public virtual double offsetX
       {
-    set;
+    get;
       }
 
       public virtual double offsetY
       {
-    set;
+    get;
       }
 
       public virtual double rotation
       {
-    set;
+    get;
       }
 
       public virtual double scale
       {
-    set;
+    get;
       }
 
       public virtual double screenX
       {
-    set;
+    get;
       }
 
       public virtual double screenY
       {
-    set;
+    get;
       }
 
       public virtual double translationX
       {
-    set;
+    get;
       }
 
       public virtual double translationY
       {
-    set;
+    get;
       }
 
       public virtual double velocityAngular
       {
-    set;
+    get;
       }
 
       public virtual double velocityExpansion
       {
-    set;
+    get;
       }
 
       public virtual double velocityX
       {
-    set;
+    get;
       }
 
       public virtual double velocityY
       {
-    set;
+    get;
       }
 
       public virtual extern void initGestureEvent(
@@ -43288,27 +43283,27 @@ namespace H5
 
       public virtual double MSGESTURE_FLAG_BEGIN
       {
-    set;
+    get;
       }
 
       public virtual double MSGESTURE_FLAG_CANCEL
       {
-    set;
+    get;
       }
 
       public virtual double MSGESTURE_FLAG_END
       {
-    set;
+    get;
       }
 
       public virtual double MSGESTURE_FLAG_INERTIA
       {
-    set;
+    get;
       }
 
       public virtual double MSGESTURE_FLAG_NONE
       {
-    set;
+    get;
       }
     }
 
@@ -43322,18 +43317,18 @@ namespace H5
 
       public static dom.MSGraphicsTrust prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool constrictionActive
       {
-    set;
+    get;
       }
 
       public virtual string status
       {
-    set;
+    get;
       }
     }
 
@@ -43348,19 +43343,19 @@ namespace H5
 
       public dom.Event MSCandidateWindowHide
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSCandidateWindowShow
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSCandidateWindowUpdate
       {
-    set;
+    get;
     set;
       }
 
@@ -43390,41 +43385,41 @@ namespace H5
 
       public static dom.MSInputMethodContext prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double compositionEndOffset
       {
-    set;
+    get;
       }
 
       public virtual double compositionStartOffset
       {
-    set;
+    get;
       }
 
       public virtual dom.MSInputMethodContext.oncandidatewindowhideFn oncandidatewindowhide
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSInputMethodContext.oncandidatewindowhideFn oncandidatewindowshow
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSInputMethodContext.oncandidatewindowhideFn oncandidatewindowupdate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLElement target
       {
-    set;
+    get;
       }
 
       public virtual extern dom.ClientRect getCandidateWindowClientRect();
@@ -43554,84 +43549,84 @@ namespace H5
 
       public static dom.MSMediaKeyError prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("MS_MEDIA_KEYERR_CLIENT")]
       public static double MS_MEDIA_KEYERR_CLIENT_Static
       {
-    set;
+    get;
       }
 
       [Name("MS_MEDIA_KEYERR_DOMAIN")]
       public static double MS_MEDIA_KEYERR_DOMAIN_Static
       {
-    set;
+    get;
       }
 
       [Name("MS_MEDIA_KEYERR_HARDWARECHANGE")]
       public static double MS_MEDIA_KEYERR_HARDWARECHANGE_Static
       {
-    set;
+    get;
       }
 
       [Name("MS_MEDIA_KEYERR_OUTPUT")]
       public static double MS_MEDIA_KEYERR_OUTPUT_Static
       {
-    set;
+    get;
       }
 
       [Name("MS_MEDIA_KEYERR_SERVICE")]
       public static double MS_MEDIA_KEYERR_SERVICE_Static
       {
-    set;
+    get;
       }
 
       [Name("MS_MEDIA_KEYERR_UNKNOWN")]
       public static double MS_MEDIA_KEYERR_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual double code
       {
-    set;
+    get;
       }
 
       public virtual double systemCode
       {
-    set;
+    get;
       }
 
       public virtual double MS_MEDIA_KEYERR_CLIENT
       {
-    set;
+    get;
       }
 
       public virtual double MS_MEDIA_KEYERR_DOMAIN
       {
-    set;
+    get;
       }
 
       public virtual double MS_MEDIA_KEYERR_HARDWARECHANGE
       {
-    set;
+    get;
       }
 
       public virtual double MS_MEDIA_KEYERR_OUTPUT
       {
-    set;
+    get;
       }
 
       public virtual double MS_MEDIA_KEYERR_SERVICE
       {
-    set;
+    get;
       }
 
       public virtual double MS_MEDIA_KEYERR_UNKNOWN
       {
-    set;
+    get;
       }
     }
 
@@ -43645,18 +43640,18 @@ namespace H5
 
       public static dom.MSMediaKeyMessageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string destinationURL
       {
-    set;
+    get;
       }
 
       public virtual es5.Uint8Array message
       {
-    set;
+    get;
       }
     }
 
@@ -43669,13 +43664,13 @@ namespace H5
 
       public static dom.MSMediaKeyNeededEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Uint8Array initData
       {
-    set;
+    get;
       }
     }
 
@@ -43690,23 +43685,23 @@ namespace H5
 
       public static dom.MSMediaKeySession prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSMediaKeyError error
       {
-    set;
+    get;
       }
 
       public virtual string keySystem
       {
-    set;
+    get;
       }
 
       public virtual string sessionId
       {
-    set;
+    get;
       }
 
       public virtual extern void close();
@@ -43725,7 +43720,7 @@ namespace H5
 
       public static dom.MSMediaKeys prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -43739,7 +43734,7 @@ namespace H5
 
       public virtual string keySystem
       {
-    set;
+    get;
       }
 
       public virtual extern dom.MSMediaKeySession createSession(
@@ -43813,68 +43808,68 @@ namespace H5
 
       public static dom.MSPointerEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object currentPoint
       {
-    set;
+    get;
       }
 
       public virtual double height
       {
-    set;
+    get;
       }
 
       public virtual double hwTimestamp
       {
-    set;
+    get;
       }
 
       public virtual object intermediatePoints
       {
-    set;
+    get;
       }
 
       public virtual bool isPrimary
       {
-    set;
+    get;
       }
 
       public virtual double pointerId
       {
-    set;
+    get;
       }
 
       public virtual object pointerType
       {
-    set;
+    get;
       }
 
       public virtual double pressure
       {
-    set;
+    get;
       }
 
       public virtual double rotation
       {
-    set;
+    get;
       }
 
       public virtual double tiltX
       {
-    set;
+    get;
       }
 
       public virtual double tiltY
       {
-    set;
+    get;
       }
 
       public virtual double width
       {
-    set;
+    get;
       }
 
       public virtual extern void getCurrentPoint(dom.Element element);
@@ -43920,13 +43915,13 @@ namespace H5
 
       public static dom.MSStream prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual extern void msClose();
@@ -43948,37 +43943,37 @@ namespace H5
 
       public dom.UIEvent abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.ErrorEvent error
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event load
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent loadend
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent progress
       {
-    set;
+    get;
     set;
       }
 
@@ -44023,77 +44018,77 @@ namespace H5
 
       public static dom.MSStreamReader prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("DONE")]
       public static double DONE_Static
       {
-    set;
+    get;
       }
 
       [Name("EMPTY")]
       public static double EMPTY_Static
       {
-    set;
+    get;
       }
 
       [Name("LOADING")]
       public static double LOADING_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.DOMError error
       {
-    set;
+    get;
       }
 
       public virtual dom.MSStreamReader.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSStreamReader.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSStreamReader.onloadFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSStreamReader.onloadendFn onloadend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSStreamReader.onloadFn onloadstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSStreamReader.onloadendFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual double readyState
       {
-    set;
+    get;
       }
 
       public virtual object result
       {
-    set;
+    get;
       }
 
       public virtual extern void abort();
@@ -44122,17 +44117,17 @@ namespace H5
 
       public virtual double DONE
       {
-    set;
+    get;
       }
 
       public virtual double EMPTY
       {
-    set;
+    get;
       }
 
       public virtual double LOADING
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.MSStreamReaderEventMap>), EnableImplicitConversion = true)]
@@ -44253,28 +44248,28 @@ namespace H5
 
       public static dom.MediaDeviceInfo prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string deviceId
       {
-    set;
+    get;
       }
 
       public virtual string groupId
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaDeviceKind kind
       {
-    set;
+    get;
       }
 
       public virtual string label
       {
-    set;
+    get;
       }
     }
 
@@ -44287,7 +44282,7 @@ namespace H5
 
       public dom.Event devicechange
       {
-    set;
+    get;
     set;
       }
 
@@ -44308,13 +44303,13 @@ namespace H5
 
       public static dom.MediaDevices prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaDevices.ondevicechangeFn ondevicechange
       {
-    set;
+    get;
     set;
       }
 
@@ -44430,7 +44425,7 @@ namespace H5
 
       public static dom.MediaElementAudioSourceNode prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -44449,18 +44444,18 @@ namespace H5
 
       public static dom.MediaEncryptedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.ArrayBuffer initData
       {
-    set;
+    get;
       }
 
       public virtual string initDataType
       {
-    set;
+    get;
       }
     }
 
@@ -44485,78 +44480,78 @@ namespace H5
 
       public static dom.MediaError prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("MEDIA_ERR_ABORTED")]
       public static ushort MEDIA_ERR_ABORTED_Static
       {
-    set;
+    get;
       }
 
       [Name("MEDIA_ERR_DECODE")]
       public static ushort MEDIA_ERR_DECODE_Static
       {
-    set;
+    get;
       }
 
       [Name("MEDIA_ERR_NETWORK")]
       public static ushort MEDIA_ERR_NETWORK_Static
       {
-    set;
+    get;
       }
 
       [Name("MEDIA_ERR_SRC_NOT_SUPPORTED")]
       public static ushort MEDIA_ERR_SRC_NOT_SUPPORTED_Static
       {
-    set;
+    get;
       }
 
       [Name("MS_MEDIA_ERR_ENCRYPTED")]
       public static double MS_MEDIA_ERR_ENCRYPTED_Static
       {
-    set;
+    get;
       }
 
       public virtual ushort code
       {
-    set;
+    get;
       }
 
       public virtual string message
       {
-    set;
+    get;
       }
 
       public virtual double msExtendedCode
       {
-    set;
+    get;
       }
 
       public virtual ushort MEDIA_ERR_ABORTED
       {
-    set;
+    get;
       }
 
       public virtual ushort MEDIA_ERR_DECODE
       {
-    set;
+    get;
       }
 
       public virtual ushort MEDIA_ERR_NETWORK
       {
-    set;
+    get;
       }
 
       public virtual ushort MEDIA_ERR_SRC_NOT_SUPPORTED
       {
-    set;
+    get;
       }
 
       public virtual double MS_MEDIA_ERR_ENCRYPTED
       {
-    set;
+    get;
       }
     }
 
@@ -44574,18 +44569,18 @@ namespace H5
 
       public static dom.MediaKeyMessageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.ArrayBuffer message
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaKeyMessageType messageType
       {
-    set;
+    get;
       }
     }
 
@@ -44601,28 +44596,28 @@ namespace H5
 
       public static dom.MediaKeySession prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Promise<H5.Primitive.Void> closed
       {
-    set;
+    get;
       }
 
       public virtual double expiration
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaKeyStatusMap keyStatuses
       {
-    set;
+    get;
       }
 
       public virtual string sessionId
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<H5.Primitive.Void> close();
@@ -44729,13 +44724,13 @@ namespace H5
 
       public static dom.MediaKeyStatusMap prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double size
       {
-    set;
+    get;
       }
 
       public virtual extern void forEach(es5.Function callback);
@@ -44814,13 +44809,13 @@ namespace H5
 
       public static dom.MediaKeySystemAccess prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string keySystem
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<dom.MediaKeys> createMediaKeys();
@@ -44836,7 +44831,7 @@ namespace H5
 
       public static dom.MediaKeys prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -44894,18 +44889,18 @@ namespace H5
 
       public static dom.MediaList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual string mediaText
       {
-    set;
+    get;
     set;
       }
 
@@ -44936,18 +44931,18 @@ namespace H5
 
       public static dom.MediaQueryList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool matches
       {
-    set;
+    get;
       }
 
       public virtual string media
       {
-    set;
+    get;
       }
 
       public virtual extern void addListener(dom.MediaQueryListListener listener);
@@ -44967,7 +44962,7 @@ namespace H5
 
       public static dom.MediaSource prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -44975,23 +44970,23 @@ namespace H5
 
       public virtual dom.SourceBufferList activeSourceBuffers
       {
-    set;
+    get;
       }
 
       public virtual double duration
       {
-    set;
+    get;
     set;
       }
 
       public virtual string readyState
       {
-    set;
+    get;
       }
 
       public virtual dom.SourceBufferList sourceBuffers
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SourceBuffer addSourceBuffer(string type);
@@ -45015,25 +45010,25 @@ namespace H5
 
       public dom.Event active
       {
-    set;
+    get;
     set;
       }
 
       public dom.MediaStreamTrackEvent addtrack
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event inactive
       {
-    set;
+    get;
     set;
       }
 
       public dom.MediaStreamTrackEvent removetrack
       {
-    set;
+    get;
     set;
       }
 
@@ -45071,41 +45066,41 @@ namespace H5
 
       public static dom.MediaStream prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool active
       {
-    set;
+    get;
       }
 
       public virtual string id
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaStream.onactiveFn onactive
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStream.onaddtrackFn onaddtrack
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStream.onactiveFn oninactive
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStream.onaddtrackFn onremovetrack
       {
-    set;
+    get;
     set;
       }
 
@@ -45233,7 +45228,7 @@ namespace H5
 
       public static dom.MediaStreamAudioSourceNode prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -45249,23 +45244,23 @@ namespace H5
 
       public static dom.MediaStreamError prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string constraintName
       {
-    set;
+    get;
       }
 
       public virtual string message
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
     }
 
@@ -45284,13 +45279,13 @@ namespace H5
 
       public static dom.MediaStreamErrorEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStreamError error
       {
-    set;
+    get;
       }
     }
 
@@ -45305,13 +45300,13 @@ namespace H5
 
       public static dom.MediaStreamEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStream stream
       {
-    set;
+    get;
       }
     }
 
@@ -45327,25 +45322,25 @@ namespace H5
 
       public dom.MediaStreamErrorEvent ended
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event mute
       {
-    set;
+    get;
     set;
       }
 
       public dom.MediaStreamErrorEvent overconstrained
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event unmute
       {
-    set;
+    get;
     set;
       }
 
@@ -45383,74 +45378,74 @@ namespace H5
 
       public static dom.MediaStreamTrack prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool enabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string id
       {
-    set;
+    get;
       }
 
       public virtual string kind
       {
-    set;
+    get;
       }
 
       public virtual string label
       {
-    set;
+    get;
       }
 
       public virtual bool muted
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaStreamTrack.onendedFn onended
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStreamTrack.onmuteFn onmute
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStreamTrack.onendedFn onoverconstrained
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStreamTrack.onmuteFn onunmute
       {
-    set;
+    get;
     set;
       }
 
       [Name("readonly")]
       public virtual bool @readonly
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaStreamTrackState readyState
       {
-    set;
+    get;
       }
 
       public virtual bool remote
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<H5.Primitive.Void> applyConstraints(
@@ -45581,13 +45576,13 @@ namespace H5
 
       public static dom.MediaStreamTrackEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MediaStreamTrack track
       {
-    set;
+    get;
       }
     }
 
@@ -45601,18 +45596,18 @@ namespace H5
 
       public static dom.MessageChannel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MessagePort port1
       {
-    set;
+    get;
       }
 
       public virtual dom.MessagePort port2
       {
-    set;
+    get;
       }
     }
 
@@ -45632,28 +45627,28 @@ namespace H5
 
       public static dom.MessageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object data
       {
-    set;
+    get;
       }
 
       public virtual string origin
       {
-    set;
+    get;
       }
 
       public virtual es5.ReadonlyArray<dom.MessagePort> ports
       {
-    set;
+    get;
       }
 
       public virtual dom.Window source
       {
-    set;
+    get;
       }
 
       public virtual extern void initMessageEvent(
@@ -45675,7 +45670,7 @@ namespace H5
 
       public dom.MessageEvent message
       {
-    set;
+    get;
     set;
       }
 
@@ -45696,13 +45691,13 @@ namespace H5
 
       public static dom.MessagePort prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MessagePort.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
@@ -45825,28 +45820,28 @@ namespace H5
 
       public static dom.MimeType prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string description
       {
-    set;
+    get;
       }
 
       public virtual dom.Plugin enabledPlugin
       {
-    set;
+    get;
       }
 
       public virtual string suffixes
       {
-    set;
+    get;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
     }
 
@@ -45859,13 +45854,13 @@ namespace H5
 
       public static dom.MimeTypeArray prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Plugin item(uint index);
@@ -45917,128 +45912,128 @@ namespace H5
 
       public static dom.MouseEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool altKey
       {
-    set;
+    get;
       }
 
       public virtual short button
       {
-    set;
+    get;
       }
 
       public virtual ushort buttons
       {
-    set;
+    get;
       }
 
       public virtual double clientX
       {
-    set;
+    get;
       }
 
       public virtual double clientY
       {
-    set;
+    get;
       }
 
       public virtual bool ctrlKey
       {
-    set;
+    get;
       }
 
       public virtual dom.Element fromElement
       {
-    set;
+    get;
       }
 
       public virtual double layerX
       {
-    set;
+    get;
       }
 
       public virtual double layerY
       {
-    set;
+    get;
       }
 
       public virtual bool metaKey
       {
-    set;
+    get;
       }
 
       public virtual double movementX
       {
-    set;
+    get;
       }
 
       public virtual double movementY
       {
-    set;
+    get;
       }
 
       public virtual double offsetX
       {
-    set;
+    get;
       }
 
       public virtual double offsetY
       {
-    set;
+    get;
       }
 
       public virtual double pageX
       {
-    set;
+    get;
       }
 
       public virtual double pageY
       {
-    set;
+    get;
       }
 
       public virtual dom.EventTarget relatedTarget
       {
-    set;
+    get;
       }
 
       public virtual double screenX
       {
-    set;
+    get;
       }
 
       public virtual double screenY
       {
-    set;
+    get;
       }
 
       public virtual bool shiftKey
       {
-    set;
+    get;
       }
 
       public virtual dom.Element toElement
       {
-    set;
+    get;
       }
 
       public virtual double which
       {
-    set;
+    get;
       }
 
       public virtual double x
       {
-    set;
+    get;
       }
 
       public virtual double y
       {
-    set;
+    get;
       }
 
       public virtual extern bool getModifierState(string keyArg);
@@ -46080,51 +46075,51 @@ namespace H5
 
       public static dom.MutationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("ADDITION")]
       public static double ADDITION_Static
       {
-    set;
+    get;
       }
 
       [Name("MODIFICATION")]
       public static double MODIFICATION_Static
       {
-    set;
+    get;
       }
 
       [Name("REMOVAL")]
       public static double REMOVAL_Static
       {
-    set;
+    get;
       }
 
       public virtual double attrChange
       {
-    set;
+    get;
       }
 
       public virtual string attrName
       {
-    set;
+    get;
       }
 
       public virtual string newValue
       {
-    set;
+    get;
       }
 
       public virtual string prevValue
       {
-    set;
+    get;
       }
 
       public virtual dom.Node relatedNode
       {
-    set;
+    get;
       }
 
       public virtual extern void initMutationEvent(
@@ -46139,17 +46134,17 @@ namespace H5
 
       public virtual double ADDITION
       {
-    set;
+    get;
       }
 
       public virtual double MODIFICATION
       {
-    set;
+    get;
       }
 
       public virtual double REMOVAL
       {
-    set;
+    get;
       }
     }
 
@@ -46163,7 +46158,7 @@ namespace H5
 
       public static dom.MutationObserver prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -46191,53 +46186,53 @@ namespace H5
 
       public static dom.MutationRecord prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.NodeList addedNodes
       {
-    set;
+    get;
       }
 
       public virtual string attributeName
       {
-    set;
+    get;
       }
 
       public virtual string attributeNamespace
       {
-    set;
+    get;
       }
 
       public virtual dom.Node nextSibling
       {
-    set;
+    get;
       }
 
       public virtual string oldValue
       {
-    set;
+    get;
       }
 
       public virtual dom.Node previousSibling
       {
-    set;
+    get;
       }
 
       public virtual dom.NodeList removedNodes
       {
-    set;
+    get;
       }
 
       public virtual dom.Node target
       {
-    set;
+    get;
       }
 
       public virtual dom.MutationRecordType type
       {
-    set;
+    get;
       }
     }
 
@@ -46250,13 +46245,13 @@ namespace H5
 
       public static dom.NamedNodeMap prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Attr getNamedItem(string qualifiedName);
@@ -46304,84 +46299,84 @@ namespace H5
 
       public static dom.Navigator prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.ReadonlyArray<dom.VRDisplay> activeVRDisplays
       {
-    set;
+    get;
       }
 
       public virtual dom.WebAuthentication authentication
       {
-    set;
+    get;
       }
 
       public virtual bool cookieEnabled
       {
-    set;
+    get;
       }
 
       public virtual string doNotTrack
       {
-    set;
+    get;
       }
 
       public virtual dom.GamepadInputEmulationType gamepadInputEmulation
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Geolocation geolocation
       {
-    set;
+    get;
       }
 
       public virtual double maxTouchPoints
       {
-    set;
+    get;
       }
 
       public virtual dom.MimeTypeArray mimeTypes
       {
-    set;
+    get;
       }
 
       public virtual bool msManipulationViewsEnabled
       {
-    set;
+    get;
       }
 
       public virtual double msMaxTouchPoints
       {
-    set;
+    get;
       }
 
       public virtual bool msPointerEnabled
       {
-    set;
+    get;
       }
 
       public virtual dom.PluginArray plugins
       {
-    set;
+    get;
       }
 
       public virtual bool pointerEnabled
       {
-    set;
+    get;
       }
 
       public virtual dom.ServiceWorkerContainer serviceWorker
       {
-    set;
+    get;
       }
 
       public virtual bool webdriver
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Gamepad[] getGamepads();
@@ -46411,7 +46406,7 @@ namespace H5
 
       public virtual bool onLine
       {
-    set;
+    get;
       }
 
       public virtual extern bool confirmSiteSpecificTrackingException(
@@ -46474,12 +46469,12 @@ namespace H5
 
       public virtual ulong hardwareConcurrency
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaDevices mediaDevices
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<dom.MediaStream> getDisplayMedia(
@@ -46492,12 +46487,12 @@ namespace H5
 
       public virtual string language
       {
-    set;
+    get;
       }
 
       public virtual es5.ReadonlyArray<string> languages
       {
-    set;
+    get;
       }
     }
 
@@ -46593,7 +46588,7 @@ namespace H5
 
       public ulong hardwareConcurrency
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -46635,47 +46630,47 @@ namespace H5
 
       public string appCodeName
       {
-    set;
+    get;
       }
 
       public string appName
       {
-    set;
+    get;
       }
 
       public string appVersion
       {
-    set;
+    get;
       }
 
       public string platform
       {
-    set;
+    get;
       }
 
       public string product
       {
-    set;
+    get;
       }
 
       public string productSub
       {
-    set;
+    get;
       }
 
       public string userAgent
       {
-    set;
+    get;
       }
 
       public string vendor
       {
-    set;
+    get;
       }
 
       public string vendorSub
       {
-    set;
+    get;
       }
     }
 
@@ -46689,12 +46684,12 @@ namespace H5
 
       public string language
       {
-    set;
+    get;
       }
 
       public es5.ReadonlyArray<string> languages
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -46717,7 +46712,7 @@ namespace H5
 
       public bool onLine
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -46831,197 +46826,197 @@ namespace H5
 
       public static dom.Node prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("ATTRIBUTE_NODE")]
       public static ushort ATTRIBUTE_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("CDATA_SECTION_NODE")]
       public static ushort CDATA_SECTION_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("COMMENT_NODE")]
       public static ushort COMMENT_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_FRAGMENT_NODE")]
       public static ushort DOCUMENT_FRAGMENT_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_NODE")]
       public static ushort DOCUMENT_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_POSITION_CONTAINED_BY")]
       public static ushort DOCUMENT_POSITION_CONTAINED_BY_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_POSITION_CONTAINS")]
       public static ushort DOCUMENT_POSITION_CONTAINS_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_POSITION_DISCONNECTED")]
       public static ushort DOCUMENT_POSITION_DISCONNECTED_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_POSITION_FOLLOWING")]
       public static ushort DOCUMENT_POSITION_FOLLOWING_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC")]
       public static ushort DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_POSITION_PRECEDING")]
       public static ushort DOCUMENT_POSITION_PRECEDING_Static
       {
-    set;
+    get;
       }
 
       [Name("DOCUMENT_TYPE_NODE")]
       public static ushort DOCUMENT_TYPE_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("ELEMENT_NODE")]
       public static ushort ELEMENT_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("ENTITY_NODE")]
       public static ushort ENTITY_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("ENTITY_REFERENCE_NODE")]
       public static ushort ENTITY_REFERENCE_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("NOTATION_NODE")]
       public static ushort NOTATION_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("PROCESSING_INSTRUCTION_NODE")]
       public static ushort PROCESSING_INSTRUCTION_NODE_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXT_NODE")]
       public static ushort TEXT_NODE_Static
       {
-    set;
+    get;
       }
 
       public virtual string baseURI
       {
-    set;
+    get;
       }
 
       public virtual dom.NodeListOf<Intersection<dom.Node, dom.ChildNode>> childNodes
       {
-    set;
+    get;
       }
 
       public virtual dom.Node firstChild
       {
-    set;
+    get;
       }
 
       public virtual bool isConnected
       {
-    set;
+    get;
       }
 
       public virtual dom.Node lastChild
       {
-    set;
+    get;
       }
 
       public virtual string localName
       {
-    set;
+    get;
       }
 
       public virtual string namespaceURI
       {
-    set;
+    get;
       }
 
       public virtual dom.Node nextSibling
       {
-    set;
+    get;
       }
 
       public virtual string nodeName
       {
-    set;
+    get;
       }
 
       public virtual ushort nodeType
       {
-    set;
+    get;
       }
 
       public virtual string nodeValue
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Document ownerDocument
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLElement parentElement
       {
-    set;
+    get;
       }
 
       public virtual dom.Node parentNode
       {
-    set;
+    get;
       }
 
       public virtual dom.Node previousSibling
       {
-    set;
+    get;
       }
 
       public virtual string textContent
       {
-    set;
+    get;
     set;
       }
 
@@ -47061,92 +47056,92 @@ namespace H5
 
       public virtual ushort ATTRIBUTE_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort CDATA_SECTION_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort COMMENT_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_FRAGMENT_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_POSITION_CONTAINED_BY
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_POSITION_CONTAINS
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_POSITION_DISCONNECTED
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_POSITION_FOLLOWING
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_POSITION_PRECEDING
       {
-    set;
+    get;
       }
 
       public virtual ushort DOCUMENT_TYPE_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort ELEMENT_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort ENTITY_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort ENTITY_REFERENCE_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort NOTATION_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort PROCESSING_INSTRUCTION_NODE
       {
-    set;
+    get;
       }
 
       public virtual ushort TEXT_NODE
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -47279,28 +47274,28 @@ namespace H5
 
       public static dom.NodeIterator prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool expandEntityReferences
       {
-    set;
+    get;
       }
 
       public virtual dom.NodeFilter filter
       {
-    set;
+    get;
       }
 
       public virtual dom.Node root
       {
-    set;
+    get;
       }
 
       public virtual uint whatToShow
       {
-    set;
+    get;
       }
 
       public virtual extern void detach();
@@ -47319,13 +47314,13 @@ namespace H5
 
       public static dom.NodeList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Node item(uint index);
@@ -47350,7 +47345,7 @@ namespace H5
 
       public virtual double length
       {
-    set;
+    get;
     set;
       }
 
@@ -47403,25 +47398,25 @@ namespace H5
 
       public dom.Event click
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event close
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event show
       {
-    set;
+    get;
     set;
       }
 
@@ -47463,7 +47458,7 @@ namespace H5
 
       public static dom.Notification prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -47474,66 +47469,66 @@ namespace H5
 
       public virtual string body
       {
-    set;
+    get;
       }
 
       public virtual object data
       {
-    set;
+    get;
       }
 
       public virtual dom.NotificationDirection dir
       {
-    set;
+    get;
       }
 
       public virtual string icon
       {
-    set;
+    get;
       }
 
       public virtual string lang
       {
-    set;
+    get;
       }
 
       public virtual dom.Notification.onclickFn onclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Notification.onclickFn onclose
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Notification.onclickFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Notification.onclickFn onshow
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.NotificationPermission permission
       {
-    set;
+    get;
       }
 
       public virtual string tag
       {
-    set;
+    get;
       }
 
       public virtual string title
       {
-    set;
+    get;
       }
 
       public virtual extern void close();
@@ -47643,7 +47638,7 @@ namespace H5
 
       public static dom.OES_element_index_uint prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -47658,19 +47653,19 @@ namespace H5
 
       public static dom.OES_standard_derivatives prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("FRAGMENT_SHADER_DERIVATIVE_HINT_OES")]
       public static double FRAGMENT_SHADER_DERIVATIVE_HINT_OES_Static
       {
-    set;
+    get;
       }
 
       public virtual double FRAGMENT_SHADER_DERIVATIVE_HINT_OES
       {
-    set;
+    get;
       }
     }
 
@@ -47682,7 +47677,7 @@ namespace H5
 
       public static dom.OES_texture_float prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -47695,7 +47690,7 @@ namespace H5
 
       public static dom.OES_texture_float_linear prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -47710,19 +47705,19 @@ namespace H5
 
       public static dom.OES_texture_half_float prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("HALF_FLOAT_OES")]
       public static double HALF_FLOAT_OES_Static
       {
-    set;
+    get;
       }
 
       public virtual double HALF_FLOAT_OES
       {
-    set;
+    get;
       }
     }
 
@@ -47734,7 +47729,7 @@ namespace H5
 
       public static dom.OES_texture_half_float_linear prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -47764,13 +47759,13 @@ namespace H5
 
       public static dom.OfflineAudioCompletionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioBuffer renderedBuffer
       {
-    set;
+    get;
       }
     }
 
@@ -47783,7 +47778,7 @@ namespace H5
 
       public dom.OfflineAudioCompletionEvent complete
       {
-    set;
+    get;
     set;
       }
 
@@ -47807,18 +47802,18 @@ namespace H5
 
       public static dom.OfflineAudioContext prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double length
       {
-    set;
+    get;
       }
 
       public virtual dom.OfflineAudioContext.oncompleteFn oncomplete
       {
-    set;
+    get;
     set;
       }
 
@@ -48065,7 +48060,7 @@ namespace H5
 
       public dom.Event ended
       {
-    set;
+    get;
     set;
       }
 
@@ -48089,29 +48084,29 @@ namespace H5
 
       public static dom.OscillatorNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioParam detune
       {
-    set;
+    get;
       }
 
       public virtual dom.AudioParam frequency
       {
-    set;
+    get;
       }
 
       public virtual dom.OscillatorNode.onendedFn onended
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.OscillatorType type
       {
-    set;
+    get;
     set;
       }
 
@@ -48328,56 +48323,56 @@ namespace H5
 
       public static dom.OverflowEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("BOTH")]
       public static double BOTH_Static
       {
-    set;
+    get;
       }
 
       [Name("HORIZONTAL")]
       public static double HORIZONTAL_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTICAL")]
       public static double VERTICAL_Static
       {
-    set;
+    get;
       }
 
       public virtual bool horizontalOverflow
       {
-    set;
+    get;
       }
 
       public virtual double orient
       {
-    set;
+    get;
       }
 
       public virtual bool verticalOverflow
       {
-    set;
+    get;
       }
 
       public virtual double BOTH
       {
-    set;
+    get;
       }
 
       public virtual double HORIZONTAL
       {
-    set;
+    get;
       }
 
       public virtual double VERTICAL
       {
-    set;
+    get;
       }
     }
 
@@ -48390,13 +48385,13 @@ namespace H5
 
       public static dom.PageTransitionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool persisted
       {
-    set;
+    get;
       }
     }
 
@@ -48416,55 +48411,55 @@ namespace H5
 
       public static dom.PannerNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double coneInnerAngle
       {
-    set;
+    get;
     set;
       }
 
       public virtual double coneOuterAngle
       {
-    set;
+    get;
     set;
       }
 
       public virtual double coneOuterGain
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.DistanceModelType distanceModel
       {
-    set;
+    get;
     set;
       }
 
       public virtual double maxDistance
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.PanningModelType panningModel
       {
-    set;
+    get;
     set;
       }
 
       public virtual double refDistance
       {
-    set;
+    get;
     set;
       }
 
       public virtual double rolloffFactor
       {
-    set;
+    get;
     set;
       }
 
@@ -48558,7 +48553,7 @@ namespace H5
 
       public static dom.Path2D prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -48650,63 +48645,63 @@ namespace H5
 
       public static dom.PaymentAddress prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string[] addressLine
       {
-    set;
+    get;
       }
 
       public virtual string city
       {
-    set;
+    get;
       }
 
       public virtual string country
       {
-    set;
+    get;
       }
 
       public virtual string dependentLocality
       {
-    set;
+    get;
       }
 
       public virtual string languageCode
       {
-    set;
+    get;
       }
 
       public virtual string organization
       {
-    set;
+    get;
       }
 
       public virtual string phone
       {
-    set;
+    get;
       }
 
       public virtual string postalCode
       {
-    set;
+    get;
       }
 
       public virtual string recipient
       {
-    set;
+    get;
       }
 
       public virtual string region
       {
-    set;
+    get;
       }
 
       public virtual string sortingCode
       {
-    set;
+    get;
       }
 
       public virtual extern object toJSON();
@@ -48722,13 +48717,13 @@ namespace H5
 
       public dom.Event shippingaddresschange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event shippingoptionchange
       {
-    set;
+    get;
     set;
       }
 
@@ -48765,40 +48760,40 @@ namespace H5
 
       public static dom.PaymentRequest prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string id
       {
-    set;
+    get;
       }
 
       public virtual dom.PaymentRequest.onshippingaddresschangeFn onshippingaddresschange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.PaymentRequest.onshippingaddresschangeFn onshippingoptionchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.PaymentAddress shippingAddress
       {
-    set;
+    get;
       }
 
       public virtual string shippingOption
       {
-    set;
+    get;
       }
 
       public virtual dom.PaymentShippingType shippingType
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<H5.Primitive.Void> abort();
@@ -48918,7 +48913,7 @@ namespace H5
 
       public static dom.PaymentRequestUpdateEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -48942,48 +48937,48 @@ namespace H5
 
       public static dom.PaymentResponse prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object details
       {
-    set;
+    get;
       }
 
       public virtual string methodName
       {
-    set;
+    get;
       }
 
       public virtual string payerEmail
       {
-    set;
+    get;
       }
 
       public virtual string payerName
       {
-    set;
+    get;
       }
 
       public virtual string payerPhone
       {
-    set;
+    get;
       }
 
       public virtual string requestId
       {
-    set;
+    get;
       }
 
       public virtual dom.PaymentAddress shippingAddress
       {
-    set;
+    get;
       }
 
       public virtual string shippingOption
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<H5.Primitive.Void> complete();
@@ -49013,63 +49008,63 @@ namespace H5
 
       public static dom.PerfWidgetExternal prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double activeNetworkRequestCount
       {
-    set;
+    get;
       }
 
       public virtual double averageFrameTime
       {
-    set;
+    get;
       }
 
       public virtual double averagePaintTime
       {
-    set;
+    get;
       }
 
       public virtual bool extraInformationEnabled
       {
-    set;
+    get;
       }
 
       public virtual bool independentRenderingEnabled
       {
-    set;
+    get;
       }
 
       public virtual string irDisablingContentString
       {
-    set;
+    get;
       }
 
       public virtual bool irStatusAvailable
       {
-    set;
+    get;
       }
 
       public virtual double maxCpuSpeed
       {
-    set;
+    get;
       }
 
       public virtual double paintRequestsPerSecond
       {
-    set;
+    get;
       }
 
       public virtual double performanceCounter
       {
-    set;
+    get;
       }
 
       public virtual double performanceCounterFrequency
       {
-    set;
+    get;
       }
 
       public virtual extern void addEventListener(string eventType, es5.Function callback);
@@ -49112,23 +49107,23 @@ namespace H5
 
       public static dom.Performance prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.PerformanceNavigation navigation
       {
-    set;
+    get;
       }
 
       public virtual double timeOrigin
       {
-    set;
+    get;
       }
 
       public virtual dom.PerformanceTiming timing
       {
-    set;
+    get;
       }
 
       public virtual extern void clearMarks();
@@ -49187,28 +49182,28 @@ namespace H5
 
       public static dom.PerformanceEntry prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double duration
       {
-    set;
+    get;
       }
 
       public virtual string entryType
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual double startTime
       {
-    set;
+    get;
       }
 
       public virtual extern object toJSON();
@@ -49222,7 +49217,7 @@ namespace H5
 
       public static dom.PerformanceMark prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -49235,7 +49230,7 @@ namespace H5
 
       public static dom.PerformanceMeasure prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -49258,64 +49253,64 @@ namespace H5
 
       public static dom.PerformanceNavigation prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("TYPE_BACK_FORWARD")]
       public static ushort TYPE_BACK_FORWARD_Static
       {
-    set;
+    get;
       }
 
       [Name("TYPE_NAVIGATE")]
       public static ushort TYPE_NAVIGATE_Static
       {
-    set;
+    get;
       }
 
       [Name("TYPE_RELOAD")]
       public static ushort TYPE_RELOAD_Static
       {
-    set;
+    get;
       }
 
       [Name("TYPE_RESERVED")]
       public static ushort TYPE_RESERVED_Static
       {
-    set;
+    get;
       }
 
       public virtual ushort redirectCount
       {
-    set;
+    get;
       }
 
       public virtual ushort type
       {
-    set;
+    get;
       }
 
       public virtual extern object toJSON();
 
       public virtual ushort TYPE_BACK_FORWARD
       {
-    set;
+    get;
       }
 
       public virtual ushort TYPE_NAVIGATE
       {
-    set;
+    get;
       }
 
       public virtual ushort TYPE_RELOAD
       {
-    set;
+    get;
       }
 
       public virtual ushort TYPE_RESERVED
       {
-    set;
+    get;
       }
     }
 
@@ -49350,123 +49345,123 @@ namespace H5
 
       public static dom.PerformanceNavigationTiming prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double connectEnd
       {
-    set;
+    get;
       }
 
       public virtual double connectStart
       {
-    set;
+    get;
       }
 
       public virtual double domComplete
       {
-    set;
+    get;
       }
 
       public virtual double domContentLoadedEventEnd
       {
-    set;
+    get;
       }
 
       public virtual double domContentLoadedEventStart
       {
-    set;
+    get;
       }
 
       public virtual double domInteractive
       {
-    set;
+    get;
       }
 
       public virtual double domLoading
       {
-    set;
+    get;
       }
 
       public virtual double domainLookupEnd
       {
-    set;
+    get;
       }
 
       public virtual double domainLookupStart
       {
-    set;
+    get;
       }
 
       public virtual double fetchStart
       {
-    set;
+    get;
       }
 
       public virtual double loadEventEnd
       {
-    set;
+    get;
       }
 
       public virtual double loadEventStart
       {
-    set;
+    get;
       }
 
       public virtual double navigationStart
       {
-    set;
+    get;
       }
 
       public virtual double redirectCount
       {
-    set;
+    get;
       }
 
       public virtual double redirectEnd
       {
-    set;
+    get;
       }
 
       public virtual double redirectStart
       {
-    set;
+    get;
       }
 
       public virtual double requestStart
       {
-    set;
+    get;
       }
 
       public virtual double responseEnd
       {
-    set;
+    get;
       }
 
       public virtual double responseStart
       {
-    set;
+    get;
       }
 
       public virtual dom.NavigationType type
       {
-    set;
+    get;
       }
 
       public virtual double unloadEventEnd
       {
-    set;
+    get;
       }
 
       public virtual double unloadEventStart
       {
-    set;
+    get;
       }
 
       public virtual double workerStart
       {
-    set;
+    get;
       }
     }
 
@@ -49490,68 +49485,68 @@ namespace H5
 
       public static dom.PerformanceResourceTiming prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double connectEnd
       {
-    set;
+    get;
       }
 
       public virtual double connectStart
       {
-    set;
+    get;
       }
 
       public virtual double domainLookupEnd
       {
-    set;
+    get;
       }
 
       public virtual double domainLookupStart
       {
-    set;
+    get;
       }
 
       public virtual double fetchStart
       {
-    set;
+    get;
       }
 
       public virtual string initiatorType
       {
-    set;
+    get;
       }
 
       public virtual double redirectEnd
       {
-    set;
+    get;
       }
 
       public virtual double redirectStart
       {
-    set;
+    get;
       }
 
       public virtual double requestStart
       {
-    set;
+    get;
       }
 
       public virtual double responseEnd
       {
-    set;
+    get;
       }
 
       public virtual double responseStart
       {
-    set;
+    get;
       }
 
       public virtual double workerStart
       {
-    set;
+    get;
       }
     }
 
@@ -49585,118 +49580,118 @@ namespace H5
 
       public static dom.PerformanceTiming prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual ulong connectEnd
       {
-    set;
+    get;
       }
 
       public virtual ulong connectStart
       {
-    set;
+    get;
       }
 
       public virtual ulong domComplete
       {
-    set;
+    get;
       }
 
       public virtual ulong domContentLoadedEventEnd
       {
-    set;
+    get;
       }
 
       public virtual ulong domContentLoadedEventStart
       {
-    set;
+    get;
       }
 
       public virtual ulong domInteractive
       {
-    set;
+    get;
       }
 
       public virtual ulong domLoading
       {
-    set;
+    get;
       }
 
       public virtual ulong domainLookupEnd
       {
-    set;
+    get;
       }
 
       public virtual ulong domainLookupStart
       {
-    set;
+    get;
       }
 
       public virtual ulong fetchStart
       {
-    set;
+    get;
       }
 
       public virtual ulong loadEventEnd
       {
-    set;
+    get;
       }
 
       public virtual ulong loadEventStart
       {
-    set;
+    get;
       }
 
       public virtual double msFirstPaint
       {
-    set;
+    get;
       }
 
       public virtual ulong navigationStart
       {
-    set;
+    get;
       }
 
       public virtual ulong redirectEnd
       {
-    set;
+    get;
       }
 
       public virtual ulong redirectStart
       {
-    set;
+    get;
       }
 
       public virtual ulong requestStart
       {
-    set;
+    get;
       }
 
       public virtual ulong responseEnd
       {
-    set;
+    get;
       }
 
       public virtual ulong responseStart
       {
-    set;
+    get;
       }
 
       public virtual ulong secureConnectionStart
       {
-    set;
+    get;
       }
 
       public virtual ulong unloadEventEnd
       {
-    set;
+    get;
       }
 
       public virtual ulong unloadEventStart
       {
-    set;
+    get;
       }
 
       public virtual extern object toJSON();
@@ -49710,7 +49705,7 @@ namespace H5
 
       public static dom.PeriodicWave prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -49724,13 +49719,13 @@ namespace H5
 
       public static dom.PermissionRequest prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.MSWebViewPermissionState state
       {
-    set;
+    get;
       }
 
       public virtual extern void defer();
@@ -49745,13 +49740,13 @@ namespace H5
 
       public static dom.PermissionRequestedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.PermissionRequest permissionRequest
       {
-    set;
+    get;
       }
     }
 
@@ -49768,33 +49763,33 @@ namespace H5
 
       public static dom.Plugin prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string description
       {
-    set;
+    get;
       }
 
       public virtual string filename
       {
-    set;
+    get;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual string version
       {
-    set;
+    get;
       }
 
       public virtual extern dom.MimeType item(uint index);
@@ -49813,13 +49808,13 @@ namespace H5
 
       public static dom.PluginArray prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Plugin item(uint index);
@@ -49863,68 +49858,68 @@ namespace H5
 
       public static dom.PointerEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object currentPoint
       {
-    set;
+    get;
       }
 
       public virtual double height
       {
-    set;
+    get;
       }
 
       public virtual double hwTimestamp
       {
-    set;
+    get;
       }
 
       public virtual object intermediatePoints
       {
-    set;
+    get;
       }
 
       public virtual bool isPrimary
       {
-    set;
+    get;
       }
 
       public virtual double pointerId
       {
-    set;
+    get;
       }
 
       public virtual object pointerType
       {
-    set;
+    get;
       }
 
       public virtual double pressure
       {
-    set;
+    get;
       }
 
       public virtual double rotation
       {
-    set;
+    get;
       }
 
       public virtual double tiltX
       {
-    set;
+    get;
       }
 
       public virtual double tiltY
       {
-    set;
+    get;
       }
 
       public virtual double width
       {
-    set;
+    get;
       }
 
       public virtual extern void getCurrentPoint(dom.Element element);
@@ -49974,13 +49969,13 @@ namespace H5
 
       public static dom.PopStateEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object state
       {
-    set;
+    get;
       }
     }
 
@@ -49994,18 +49989,18 @@ namespace H5
 
       public static dom.Position prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Coordinates coords
       {
-    set;
+    get;
       }
 
       public virtual double timestamp
       {
-    set;
+    get;
       }
     }
 
@@ -50025,53 +50020,53 @@ namespace H5
 
       public static dom.PositionError prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("PERMISSION_DENIED")]
       public static double PERMISSION_DENIED_Static
       {
-    set;
+    get;
       }
 
       [Name("POSITION_UNAVAILABLE")]
       public static double POSITION_UNAVAILABLE_Static
       {
-    set;
+    get;
       }
 
       [Name("TIMEOUT")]
       public static double TIMEOUT_Static
       {
-    set;
+    get;
       }
 
       public virtual double code
       {
-    set;
+    get;
       }
 
       public virtual string message
       {
-    set;
+    get;
       }
 
       public virtual extern string toString();
 
       public virtual double PERMISSION_DENIED
       {
-    set;
+    get;
       }
 
       public virtual double POSITION_UNAVAILABLE
       {
-    set;
+    get;
       }
 
       public virtual double TIMEOUT
       {
-    set;
+    get;
       }
     }
 
@@ -50084,13 +50079,13 @@ namespace H5
 
       public static dom.ProcessingInstruction prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string target
       {
-    set;
+    get;
       }
     }
 
@@ -50109,23 +50104,23 @@ namespace H5
 
       public static dom.ProgressEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool lengthComputable
       {
-    set;
+    get;
       }
 
       public virtual ulong loaded
       {
-    set;
+    get;
       }
 
       public virtual ulong total
       {
-    set;
+    get;
       }
 
       public virtual extern void initProgressEvent(
@@ -50159,13 +50154,13 @@ namespace H5
 
       public es5.PromiseLike<object> promise
       {
-    set;
+    get;
     set;
       }
 
       public object reason
       {
-    set;
+    get;
     set;
       }
     }
@@ -50179,13 +50174,13 @@ namespace H5
 
       public static dom.PushManager prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.ReadonlyArray<string> supportedContentEncodings
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<dom.PushSubscription> getSubscription();
@@ -50212,23 +50207,23 @@ namespace H5
 
       public static dom.PushSubscription prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string endpoint
       {
-    set;
+    get;
       }
 
       public virtual double? expirationTime
       {
-    set;
+    get;
       }
 
       public virtual dom.PushSubscriptionOptions options
       {
-    set;
+    get;
       }
 
       public virtual extern es5.ArrayBuffer getKey(dom.PushEncryptionKeyName name);
@@ -50248,18 +50243,18 @@ namespace H5
 
       public static dom.PushSubscriptionOptions prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.ArrayBuffer applicationServerKey
       {
-    set;
+    get;
       }
 
       public virtual bool userVisibleOnly
       {
-    set;
+    get;
       }
     }
 
@@ -50276,13 +50271,13 @@ namespace H5
 
       public static dom.RTCDTMFToneChangeEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string tone
       {
-    set;
+    get;
       }
     }
 
@@ -50296,13 +50291,13 @@ namespace H5
 
       public dom.RTCDtlsTransportStateChangedEvent dtlsstatechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
@@ -50330,30 +50325,30 @@ namespace H5
 
       public static dom.RTCDtlsTransport prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCDtlsTransport.ondtlsstatechangeFn ondtlsstatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCDtlsTransport.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCDtlsTransportState state
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCIceTransport transport
       {
-    set;
+    get;
       }
 
       public virtual extern dom.RTCDtlsParameters getLocalParameters();
@@ -50564,13 +50559,13 @@ namespace H5
 
       public static dom.RTCDtlsTransportStateChangedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCDtlsTransportState state
       {
-    set;
+    get;
       }
     }
 
@@ -50583,7 +50578,7 @@ namespace H5
 
       public dom.RTCDTMFToneChangeEvent tonechange
       {
-    set;
+    get;
     set;
       }
 
@@ -50611,39 +50606,39 @@ namespace H5
 
       public static dom.RTCDtmfSender prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool canInsertDTMF
       {
-    set;
+    get;
       }
 
       public virtual double duration
       {
-    set;
+    get;
       }
 
       public virtual double interToneGap
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCDtmfSender.ontonechangeFn ontonechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCRtpSender sender
       {
-    set;
+    get;
       }
 
       public virtual string toneBuffer
       {
-    set;
+    get;
       }
 
       public virtual extern void insertDTMF(string tones);
@@ -50764,25 +50759,25 @@ namespace H5
 
       public static dom.RTCIceCandidate prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string candidate
       {
-    set;
+    get;
     set;
       }
 
       public virtual double? sdpMLineIndex
       {
-    set;
+    get;
     set;
       }
 
       public virtual string sdpMid
       {
-    set;
+    get;
     set;
       }
 
@@ -50798,13 +50793,13 @@ namespace H5
 
       public static dom.RTCIceCandidatePairChangedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceCandidatePair pair
       {
-    set;
+    get;
       }
     }
 
@@ -50818,13 +50813,13 @@ namespace H5
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceGathererEvent localcandidate
       {
-    set;
+    get;
     set;
       }
 
@@ -50851,24 +50846,24 @@ namespace H5
 
       public static dom.RTCIceGatherer prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceComponent component
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCIceGatherer.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceGatherer.onlocalcandidateFn onlocalcandidate
       {
-    set;
+    get;
     set;
       }
 
@@ -51076,13 +51071,13 @@ namespace H5
 
       public static dom.RTCIceGathererEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<dom.RTCIceCandidateDictionary, dom.RTCIceCandidateComplete> candidate
       {
-    set;
+    get;
       }
     }
 
@@ -51096,13 +51091,13 @@ namespace H5
 
       public dom.RTCIceCandidatePairChangedEvent candidatepairchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCIceTransportStateChangedEvent icestatechange
       {
-    set;
+    get;
     set;
       }
 
@@ -51130,40 +51125,40 @@ namespace H5
 
       public static dom.RTCIceTransport prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceComponent component
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCIceGatherer iceGatherer
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCIceTransport.oncandidatepairchangeFn oncandidatepairchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceTransport.onicestatechangeFn onicestatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceRole role
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCIceTransportState state
       {
-    set;
+    get;
       }
 
       public virtual extern void addRemoteCandidate(
@@ -51393,13 +51388,13 @@ namespace H5
 
       public static dom.RTCIceTransportStateChangedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceTransportState state
       {
-    set;
+    get;
       }
     }
 
@@ -51418,43 +51413,43 @@ namespace H5
 
       public dom.MediaStreamEvent addstream
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCPeerConnectionIceEvent icecandidate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event iceconnectionstatechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event icegatheringstatechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event negotiationneeded
       {
-    set;
+    get;
     set;
       }
 
       public dom.MediaStreamEvent removestream
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event signalingstatechange
       {
-    set;
+    get;
     set;
       }
 
@@ -51501,80 +51496,80 @@ namespace H5
 
       public static dom.RTCPeerConnection prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool? canTrickleIceCandidates
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCIceConnectionState iceConnectionState
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCIceGatheringState iceGatheringState
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCSessionDescription localDescription
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCPeerConnection.onaddstreamFn onaddstream
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCPeerConnection.onicecandidateFn onicecandidate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCPeerConnection.oniceconnectionstatechangeFn oniceconnectionstatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCPeerConnection.oniceconnectionstatechangeFn onicegatheringstatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCPeerConnection.oniceconnectionstatechangeFn onnegotiationneeded
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCPeerConnection.onaddstreamFn onremovestream
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCPeerConnection.oniceconnectionstatechangeFn onsignalingstatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCSessionDescription remoteDescription
       {
-    set;
+    get;
       }
 
       public virtual dom.RTCSignalingState signalingState
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<H5.Primitive.Void> addIceCandidate(
@@ -51744,13 +51739,13 @@ namespace H5
 
       public static dom.RTCPeerConnectionIceEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceCandidate candidate
       {
-    set;
+    get;
       }
     }
 
@@ -51765,19 +51760,19 @@ namespace H5
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event msdecodercapacitychange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event msdsh
       {
-    set;
+    get;
     set;
       }
 
@@ -51830,7 +51825,7 @@ namespace H5
 
       public static dom.RTCRtpReceiver prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -51840,35 +51835,35 @@ namespace H5
 
       public virtual dom.RTCRtpReceiver.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCRtpReceiver.onerrorFn onmsdecodercapacitychange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCRtpReceiver.onerrorFn onmsdsh
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCDtlsTransport rtcpTransport
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaStreamTrack track
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.RTCDtlsTransport, dom.RTCSrtpSdesTransport> transport
       {
-    set;
+    get;
       }
 
       public virtual extern dom.RTCRtpContributingSource[] getContributingSources();
@@ -52094,13 +52089,13 @@ namespace H5
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.RTCSsrcConflictEvent ssrcconflict
       {
-    set;
+    get;
     set;
       }
 
@@ -52150,7 +52145,7 @@ namespace H5
 
       public static dom.RTCRtpSender prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -52160,29 +52155,29 @@ namespace H5
 
       public virtual dom.RTCRtpSender.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCRtpSender.onssrcconflictFn onssrcconflict
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCDtlsTransport rtcpTransport
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaStreamTrack track
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.RTCDtlsTransport, dom.RTCSrtpSdesTransport> transport
       {
-    set;
+    get;
       }
 
       public virtual extern void send(dom.RTCRtpParameters parameters);
@@ -52413,19 +52408,19 @@ namespace H5
 
       public static dom.RTCSessionDescription prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string sdp
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCSdpType type
       {
-    set;
+    get;
     set;
       }
 
@@ -52441,7 +52436,7 @@ namespace H5
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
@@ -52468,7 +52463,7 @@ namespace H5
 
       public static dom.RTCSrtpSdesTransport prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -52476,13 +52471,13 @@ namespace H5
 
       public virtual dom.RTCSrtpSdesTransport.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RTCIceTransport transport
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.RTCSrtpSdesTransportEventMap>), EnableImplicitConversion = true)]
@@ -52591,13 +52586,13 @@ namespace H5
 
       public static dom.RTCSsrcConflictEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double ssrc
       {
-    set;
+    get;
       }
     }
 
@@ -52609,7 +52604,7 @@ namespace H5
 
       public static dom.RTCStatsProvider prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -52626,7 +52621,7 @@ namespace H5
 
       public static dom.RandomSource prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -52662,62 +52657,62 @@ namespace H5
 
       public static dom.Range prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("END_TO_END")]
       public static ushort END_TO_END_Static
       {
-    set;
+    get;
       }
 
       [Name("END_TO_START")]
       public static ushort END_TO_START_Static
       {
-    set;
+    get;
       }
 
       [Name("START_TO_END")]
       public static ushort START_TO_END_Static
       {
-    set;
+    get;
       }
 
       [Name("START_TO_START")]
       public static ushort START_TO_START_Static
       {
-    set;
+    get;
       }
 
       public virtual bool collapsed
       {
-    set;
+    get;
       }
 
       public virtual dom.Node commonAncestorContainer
       {
-    set;
+    get;
       }
 
       public virtual dom.Node endContainer
       {
-    set;
+    get;
       }
 
       public virtual uint endOffset
       {
-    set;
+    get;
       }
 
       public virtual dom.Node startContainer
       {
-    set;
+    get;
       }
 
       public virtual uint startOffset
       {
-    set;
+    get;
       }
 
       public virtual extern dom.DocumentFragment cloneContents();
@@ -52770,22 +52765,22 @@ namespace H5
 
       public virtual ushort END_TO_END
       {
-    set;
+    get;
       }
 
       public virtual ushort END_TO_START
       {
-    set;
+    get;
       }
 
       public virtual ushort START_TO_END
       {
-    set;
+    get;
       }
 
       public virtual ushort START_TO_START
       {
-    set;
+    get;
       }
     }
 
@@ -52798,13 +52793,13 @@ namespace H5
 
       public static dom.ReadableStream prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool locked
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<H5.Primitive.Void> cancel();
@@ -52820,7 +52815,7 @@ namespace H5
 
       public static dom.ReadableStreamReader prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -52865,78 +52860,78 @@ namespace H5
 
       public static dom.Request prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.RequestCache cache
       {
-    set;
+    get;
       }
 
       public virtual dom.RequestCredentials credentials
       {
-    set;
+    get;
       }
 
       public virtual dom.RequestDestination destination
       {
-    set;
+    get;
       }
 
       public virtual dom.Headers headers
       {
-    set;
+    get;
       }
 
       public virtual string integrity
       {
-    set;
+    get;
       }
 
       public virtual bool keepalive
       {
-    set;
+    get;
       }
 
       public virtual string method
       {
-    set;
+    get;
       }
 
       public virtual dom.RequestMode mode
       {
-    set;
+    get;
       }
 
       public virtual dom.RequestRedirect redirect
       {
-    set;
+    get;
       }
 
       public virtual string referrer
       {
-    set;
+    get;
       }
 
       public virtual dom.ReferrerPolicy referrerPolicy
       {
-    set;
+    get;
       }
 
       public virtual dom.AbortSignal signal
       {
-    set;
+    get;
       }
 
       public virtual dom.RequestType type
       {
-    set;
+    get;
       }
 
       public virtual string url
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Request clone();
@@ -53039,7 +53034,7 @@ namespace H5
 
       public static dom.Response prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -53051,42 +53046,42 @@ namespace H5
 
       public virtual dom.ReadableStream body
       {
-    set;
+    get;
       }
 
       public virtual dom.Headers headers
       {
-    set;
+    get;
       }
 
       public virtual bool ok
       {
-    set;
+    get;
       }
 
       public virtual bool redirected
       {
-    set;
+    get;
       }
 
       public virtual ushort status
       {
-    set;
+    get;
       }
 
       public virtual string statusText
       {
-    set;
+    get;
       }
 
       public virtual dom.ResponseType type
       {
-    set;
+    get;
       }
 
       public virtual string url
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Response clone();
@@ -53117,13 +53112,13 @@ namespace H5
 
       public static dom.SVGAElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedString target
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -53174,7 +53169,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -53208,60 +53203,60 @@ namespace H5
 
       public static dom.SVGAngle prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_ANGLETYPE_DEG")]
       public static ushort SVG_ANGLETYPE_DEG_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_ANGLETYPE_GRAD")]
       public static ushort SVG_ANGLETYPE_GRAD_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_ANGLETYPE_RAD")]
       public static ushort SVG_ANGLETYPE_RAD_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_ANGLETYPE_UNKNOWN")]
       public static ushort SVG_ANGLETYPE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_ANGLETYPE_UNSPECIFIED")]
       public static ushort SVG_ANGLETYPE_UNSPECIFIED_Static
       {
-    set;
+    get;
       }
 
       public virtual ushort unitType
       {
-    set;
+    get;
       }
 
       public virtual float value
       {
-    set;
+    get;
     set;
       }
 
       public virtual string valueAsString
       {
-    set;
+    get;
     set;
       }
 
       public virtual float valueInSpecifiedUnits
       {
-    set;
+    get;
     set;
       }
 
@@ -53273,27 +53268,27 @@ namespace H5
 
       public virtual ushort SVG_ANGLETYPE_DEG
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_ANGLETYPE_GRAD
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_ANGLETYPE_RAD
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_ANGLETYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_ANGLETYPE_UNSPECIFIED
       {
-    set;
+    get;
       }
     }
 
@@ -53307,18 +53302,18 @@ namespace H5
 
       public static dom.SVGAnimatedAngle prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAngle animVal
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAngle baseVal
       {
-    set;
+    get;
       }
     }
 
@@ -53332,18 +53327,18 @@ namespace H5
 
       public static dom.SVGAnimatedBoolean prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool animVal
       {
-    set;
+    get;
       }
 
       public virtual bool baseVal
       {
-    set;
+    get;
     set;
       }
     }
@@ -53358,18 +53353,18 @@ namespace H5
 
       public static dom.SVGAnimatedEnumeration prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort animVal
       {
-    set;
+    get;
       }
 
       public virtual ushort baseVal
       {
-    set;
+    get;
     set;
       }
     }
@@ -53384,18 +53379,18 @@ namespace H5
 
       public static dom.SVGAnimatedInteger prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual int animVal
       {
-    set;
+    get;
       }
 
       public virtual int baseVal
       {
-    set;
+    get;
     set;
       }
     }
@@ -53410,18 +53405,18 @@ namespace H5
 
       public static dom.SVGAnimatedLength prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGLength animVal
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGLength baseVal
       {
-    set;
+    get;
       }
     }
 
@@ -53435,18 +53430,18 @@ namespace H5
 
       public static dom.SVGAnimatedLengthList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGLengthList animVal
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGLengthList baseVal
       {
-    set;
+    get;
       }
     }
 
@@ -53460,18 +53455,18 @@ namespace H5
 
       public static dom.SVGAnimatedNumber prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual float animVal
       {
-    set;
+    get;
       }
 
       public virtual float baseVal
       {
-    set;
+    get;
     set;
       }
     }
@@ -53486,18 +53481,18 @@ namespace H5
 
       public static dom.SVGAnimatedNumberList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGNumberList animVal
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGNumberList baseVal
       {
-    set;
+    get;
       }
     }
 
@@ -53511,12 +53506,12 @@ namespace H5
 
       public dom.SVGPointList animatedPoints
       {
-    set;
+    get;
       }
 
       public dom.SVGPointList points
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -53540,18 +53535,18 @@ namespace H5
 
       public static dom.SVGAnimatedPreserveAspectRatio prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGPreserveAspectRatio animVal
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGPreserveAspectRatio baseVal
       {
-    set;
+    get;
       }
     }
 
@@ -53565,18 +53560,18 @@ namespace H5
 
       public static dom.SVGAnimatedRect prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGRect animVal
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGRect baseVal
       {
-    set;
+    get;
       }
     }
 
@@ -53590,18 +53585,18 @@ namespace H5
 
       public static dom.SVGAnimatedString prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string animVal
       {
-    set;
+    get;
       }
 
       public virtual string baseVal
       {
-    set;
+    get;
     set;
       }
     }
@@ -53616,18 +53611,18 @@ namespace H5
 
       public static dom.SVGAnimatedTransformList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGTransformList animVal
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGTransformList baseVal
       {
-    set;
+    get;
       }
     }
 
@@ -53645,23 +53640,23 @@ namespace H5
 
       public static dom.SVGCircleElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength cx
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength cy
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength r
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -53734,13 +53729,13 @@ namespace H5
 
       public static dom.SVGClipPathElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedEnumeration clipPathUnits
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -53791,17 +53786,17 @@ namespace H5
 
       public virtual ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_USERSPACEONUSE
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -53843,109 +53838,109 @@ namespace H5
 
       public static dom.SVGComponentTransferFunctionElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE")]
       public static double SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPONENTTRANSFER_TYPE_GAMMA")]
       public static double SVG_FECOMPONENTTRANSFER_TYPE_GAMMA_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY")]
       public static double SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPONENTTRANSFER_TYPE_LINEAR")]
       public static double SVG_FECOMPONENTTRANSFER_TYPE_LINEAR_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPONENTTRANSFER_TYPE_TABLE")]
       public static double SVG_FECOMPONENTTRANSFER_TYPE_TABLE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN")]
       public static double SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber amplitude
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber exponent
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber intercept
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber offset
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber slope
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumberList tableValues
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration type
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPONENTTRANSFER_TYPE_GAMMA
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPONENTTRANSFER_TYPE_LINEAR
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPONENTTRANSFER_TYPE_TABLE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -54014,7 +54009,7 @@ namespace H5
 
       public static dom.SVGDefsElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -54084,7 +54079,7 @@ namespace H5
 
       public static dom.SVGDescElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -54161,61 +54156,61 @@ namespace H5
 
       public dom.MouseEvent click
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent dblclick
       {
-    set;
+    get;
     set;
       }
 
       public dom.FocusEvent focusin
       {
-    set;
+    get;
     set;
       }
 
       public dom.FocusEvent focusout
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event load
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mousedown
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mousemove
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseout
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseover
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseup
       {
-    set;
+    get;
     set;
       }
 
@@ -54270,7 +54265,7 @@ namespace H5
 
       public static dom.SVGElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -54279,82 +54274,82 @@ namespace H5
 
       public virtual object className
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElement.onclickFn onclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onclickFn ondblclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onfocusinFn onfocusin
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onfocusinFn onfocusout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onloadFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onclickFn onmousedown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onclickFn onmousemove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onclickFn onmouseout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onclickFn onmouseover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement.onclickFn onmouseup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGSVGElement ownerSVGElement
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElement viewportElement
       {
-    set;
+    get;
       }
 
       public virtual string xmlbase
       {
-    set;
+    get;
     set;
       }
 
@@ -54406,7 +54401,7 @@ namespace H5
 
       public virtual dom.CSSStyleDeclaration style
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -54443,48 +54438,48 @@ namespace H5
 
       public static dom.SVGElementInstance prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElementInstanceList childNodes
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElement correspondingElement
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGUseElement correspondingUseElement
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElementInstance firstChild
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElementInstance lastChild
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElementInstance nextSibling
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElementInstance parentNode
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElementInstance previousSibling
       {
-    set;
+    get;
       }
     }
 
@@ -54497,13 +54492,13 @@ namespace H5
 
       public static dom.SVGElementInstanceList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SVGElementInstance item(double index);
@@ -54524,28 +54519,28 @@ namespace H5
 
       public static dom.SVGEllipseElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength cx
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength cy
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength rx
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength ry
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -54656,210 +54651,210 @@ namespace H5
 
       public static dom.SVGFEBlendElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_FEBLEND_MODE_COLOR")]
       public static double SVG_FEBLEND_MODE_COLOR_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_COLOR_BURN")]
       public static double SVG_FEBLEND_MODE_COLOR_BURN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_COLOR_DODGE")]
       public static double SVG_FEBLEND_MODE_COLOR_DODGE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_DARKEN")]
       public static double SVG_FEBLEND_MODE_DARKEN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_DIFFERENCE")]
       public static double SVG_FEBLEND_MODE_DIFFERENCE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_EXCLUSION")]
       public static double SVG_FEBLEND_MODE_EXCLUSION_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_HARD_LIGHT")]
       public static double SVG_FEBLEND_MODE_HARD_LIGHT_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_HUE")]
       public static double SVG_FEBLEND_MODE_HUE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_LIGHTEN")]
       public static double SVG_FEBLEND_MODE_LIGHTEN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_LUMINOSITY")]
       public static double SVG_FEBLEND_MODE_LUMINOSITY_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_MULTIPLY")]
       public static double SVG_FEBLEND_MODE_MULTIPLY_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_NORMAL")]
       public static double SVG_FEBLEND_MODE_NORMAL_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_OVERLAY")]
       public static double SVG_FEBLEND_MODE_OVERLAY_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_SATURATION")]
       public static double SVG_FEBLEND_MODE_SATURATION_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_SCREEN")]
       public static double SVG_FEBLEND_MODE_SCREEN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_SOFT_LIGHT")]
       public static double SVG_FEBLEND_MODE_SOFT_LIGHT_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FEBLEND_MODE_UNKNOWN")]
       public static double SVG_FEBLEND_MODE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in2
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration mode
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_COLOR
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_COLOR_BURN
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_COLOR_DODGE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_DARKEN
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_DIFFERENCE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_EXCLUSION
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_HARD_LIGHT
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_HUE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_LIGHTEN
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_LUMINOSITY
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_MULTIPLY
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_NORMAL
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_OVERLAY
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_SATURATION
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_SCREEN
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_SOFT_LIGHT
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FEBLEND_MODE_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -54910,27 +54905,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -54971,78 +54966,78 @@ namespace H5
 
       public static dom.SVGFEColorMatrixElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_FECOLORMATRIX_TYPE_HUEROTATE")]
       public static double SVG_FECOLORMATRIX_TYPE_HUEROTATE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA")]
       public static double SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOLORMATRIX_TYPE_MATRIX")]
       public static double SVG_FECOLORMATRIX_TYPE_MATRIX_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOLORMATRIX_TYPE_SATURATE")]
       public static double SVG_FECOLORMATRIX_TYPE_SATURATE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOLORMATRIX_TYPE_UNKNOWN")]
       public static double SVG_FECOLORMATRIX_TYPE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration type
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumberList values
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOLORMATRIX_TYPE_HUEROTATE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOLORMATRIX_TYPE_MATRIX
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOLORMATRIX_TYPE_SATURATE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOLORMATRIX_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -55093,27 +55088,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -55142,13 +55137,13 @@ namespace H5
 
       public static dom.SVGFEComponentTransferElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -55199,27 +55194,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -55268,121 +55263,121 @@ namespace H5
 
       public static dom.SVGFECompositeElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_FECOMPOSITE_OPERATOR_ARITHMETIC")]
       public static double SVG_FECOMPOSITE_OPERATOR_ARITHMETIC_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPOSITE_OPERATOR_ATOP")]
       public static double SVG_FECOMPOSITE_OPERATOR_ATOP_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPOSITE_OPERATOR_IN")]
       public static double SVG_FECOMPOSITE_OPERATOR_IN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPOSITE_OPERATOR_OUT")]
       public static double SVG_FECOMPOSITE_OPERATOR_OUT_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPOSITE_OPERATOR_OVER")]
       public static double SVG_FECOMPOSITE_OPERATOR_OVER_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPOSITE_OPERATOR_UNKNOWN")]
       public static double SVG_FECOMPOSITE_OPERATOR_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_FECOMPOSITE_OPERATOR_XOR")]
       public static double SVG_FECOMPOSITE_OPERATOR_XOR_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in2
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber k1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber k2
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber k3
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber k4
       {
-    set;
+    get;
       }
 
       [Name("operator")]
       public virtual dom.SVGAnimatedEnumeration @operator
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPOSITE_OPERATOR_ARITHMETIC
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPOSITE_OPERATOR_ATOP
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPOSITE_OPERATOR_IN
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPOSITE_OPERATOR_OUT
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPOSITE_OPERATOR_OVER
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPOSITE_OPERATOR_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual double SVG_FECOMPOSITE_OPERATOR_XOR
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -55433,27 +55428,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -55501,112 +55496,112 @@ namespace H5
 
       public static dom.SVGFEConvolveMatrixElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_EDGEMODE_DUPLICATE")]
       public static double SVG_EDGEMODE_DUPLICATE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_EDGEMODE_NONE")]
       public static double SVG_EDGEMODE_NONE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_EDGEMODE_UNKNOWN")]
       public static double SVG_EDGEMODE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_EDGEMODE_WRAP")]
       public static double SVG_EDGEMODE_WRAP_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber bias
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber divisor
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration edgeMode
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumberList kernelMatrix
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber kernelUnitLengthX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber kernelUnitLengthY
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedInteger orderX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedInteger orderY
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedBoolean preserveAlpha
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedInteger targetX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedInteger targetY
       {
-    set;
+    get;
       }
 
       public virtual double SVG_EDGEMODE_DUPLICATE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_EDGEMODE_NONE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_EDGEMODE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual double SVG_EDGEMODE_WRAP
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -55657,27 +55652,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -55710,33 +55705,33 @@ namespace H5
 
       public static dom.SVGFEDiffuseLightingElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedNumber diffuseConstant
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber kernelUnitLengthX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber kernelUnitLengthY
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber surfaceScale
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -55787,27 +55782,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -55850,88 +55845,88 @@ namespace H5
 
       public static dom.SVGFEDisplacementMapElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_CHANNEL_A")]
       public static double SVG_CHANNEL_A_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_CHANNEL_B")]
       public static double SVG_CHANNEL_B_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_CHANNEL_G")]
       public static double SVG_CHANNEL_G_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_CHANNEL_R")]
       public static double SVG_CHANNEL_R_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_CHANNEL_UNKNOWN")]
       public static double SVG_CHANNEL_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in2
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber scale
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration xChannelSelector
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration yChannelSelector
       {
-    set;
+    get;
       }
 
       public virtual double SVG_CHANNEL_A
       {
-    set;
+    get;
       }
 
       public virtual double SVG_CHANNEL_B
       {
-    set;
+    get;
       }
 
       public virtual double SVG_CHANNEL_G
       {
-    set;
+    get;
       }
 
       public virtual double SVG_CHANNEL_R
       {
-    set;
+    get;
       }
 
       public virtual double SVG_CHANNEL_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -55982,27 +55977,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -56027,18 +56022,18 @@ namespace H5
 
       public static dom.SVGFEDistantLightElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedNumber azimuth
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber elevation
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -56112,7 +56107,7 @@ namespace H5
 
       public static dom.SVGFEFloodElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -56164,27 +56159,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -56207,7 +56202,7 @@ namespace H5
 
       public static dom.SVGFEFuncAElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -56277,7 +56272,7 @@ namespace H5
 
       public static dom.SVGFEFuncBElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -56347,7 +56342,7 @@ namespace H5
 
       public static dom.SVGFEFuncGElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -56417,7 +56412,7 @@ namespace H5
 
       public static dom.SVGFEFuncRElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -56495,23 +56490,23 @@ namespace H5
 
       public static dom.SVGFEGaussianBlurElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber stdDeviationX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber stdDeviationY
       {
-    set;
+    get;
       }
 
       public virtual extern void setStdDeviation(double stdDeviationX, double stdDeviationY);
@@ -56564,27 +56559,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -56614,13 +56609,13 @@ namespace H5
 
       public static dom.SVGFEImageElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -56671,32 +56666,32 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -56724,7 +56719,7 @@ namespace H5
 
       public static dom.SVGFEMergeElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -56776,27 +56771,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -56820,13 +56815,13 @@ namespace H5
 
       public static dom.SVGFEMergeNodeElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -56910,62 +56905,62 @@ namespace H5
 
       public static dom.SVGFEMorphologyElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_MORPHOLOGY_OPERATOR_DILATE")]
       public static double SVG_MORPHOLOGY_OPERATOR_DILATE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MORPHOLOGY_OPERATOR_ERODE")]
       public static double SVG_MORPHOLOGY_OPERATOR_ERODE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MORPHOLOGY_OPERATOR_UNKNOWN")]
       public static double SVG_MORPHOLOGY_OPERATOR_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       [Name("operator")]
       public virtual dom.SVGAnimatedEnumeration @operator
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber radiusX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber radiusY
       {
-    set;
+    get;
       }
 
       public virtual double SVG_MORPHOLOGY_OPERATOR_DILATE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_MORPHOLOGY_OPERATOR_ERODE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_MORPHOLOGY_OPERATOR_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -57016,27 +57011,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -57067,23 +57062,23 @@ namespace H5
 
       public static dom.SVGFEOffsetElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedNumber dx
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber dy
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -57134,27 +57129,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -57180,23 +57175,23 @@ namespace H5
 
       public static dom.SVGFEPointLightElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedNumber x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber y
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber z
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -57276,38 +57271,38 @@ namespace H5
 
       public static dom.SVGFESpecularLightingElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber kernelUnitLengthX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber kernelUnitLengthY
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber specularConstant
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber specularExponent
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber surfaceScale
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -57358,27 +57353,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -57409,48 +57404,48 @@ namespace H5
 
       public static dom.SVGFESpotLightElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedNumber limitingConeAngle
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber pointsAtX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber pointsAtY
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber pointsAtZ
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber specularExponent
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber y
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber z
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -57525,13 +57520,13 @@ namespace H5
 
       public static dom.SVGFETileElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedString in1
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -57582,27 +57577,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -57648,104 +57643,104 @@ namespace H5
 
       public static dom.SVGFETurbulenceElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_STITCHTYPE_NOSTITCH")]
       public static double SVG_STITCHTYPE_NOSTITCH_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_STITCHTYPE_STITCH")]
       public static double SVG_STITCHTYPE_STITCH_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_STITCHTYPE_UNKNOWN")]
       public static double SVG_STITCHTYPE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TURBULENCE_TYPE_FRACTALNOISE")]
       public static double SVG_TURBULENCE_TYPE_FRACTALNOISE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TURBULENCE_TYPE_TURBULENCE")]
       public static double SVG_TURBULENCE_TYPE_TURBULENCE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TURBULENCE_TYPE_UNKNOWN")]
       public static double SVG_TURBULENCE_TYPE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber baseFrequencyX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber baseFrequencyY
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedInteger numOctaves
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumber seed
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration stitchTiles
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration type
       {
-    set;
+    get;
       }
 
       public virtual double SVG_STITCHTYPE_NOSTITCH
       {
-    set;
+    get;
       }
 
       public virtual double SVG_STITCHTYPE_STITCH
       {
-    set;
+    get;
       }
 
       public virtual double SVG_STITCHTYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual double SVG_TURBULENCE_TYPE_FRACTALNOISE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_TURBULENCE_TYPE_TURBULENCE
       {
-    set;
+    get;
       }
 
       public virtual double SVG_TURBULENCE_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -57796,27 +57791,27 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -57851,48 +57846,48 @@ namespace H5
 
       public static dom.SVGFilterElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedInteger filterResX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedInteger filterResY
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration filterUnits
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration primitiveUnits
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       public virtual extern void setFilterRes(double filterResX, double filterResY);
@@ -57945,22 +57940,22 @@ namespace H5
 
       public virtual ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_USERSPACEONUSE
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -57985,27 +57980,27 @@ namespace H5
 
       public dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public dom.SVGAnimatedString result
       {
-    set;
+    get;
       }
 
       public dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -58035,12 +58030,12 @@ namespace H5
 
       public dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
       {
-    set;
+    get;
       }
 
       public dom.SVGAnimatedRect viewBox
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -58069,28 +58064,28 @@ namespace H5
 
       public static dom.SVGForeignObjectElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -58159,7 +58154,7 @@ namespace H5
 
       public static dom.SVGGElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -58244,67 +58239,67 @@ namespace H5
 
       public static dom.SVGGradientElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_SPREADMETHOD_PAD")]
       public static ushort SVG_SPREADMETHOD_PAD_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_SPREADMETHOD_REFLECT")]
       public static ushort SVG_SPREADMETHOD_REFLECT_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_SPREADMETHOD_REPEAT")]
       public static ushort SVG_SPREADMETHOD_REPEAT_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_SPREADMETHOD_UNKNOWN")]
       public static ushort SVG_SPREADMETHOD_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedTransformList gradientTransform
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration gradientUnits
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration spreadMethod
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_SPREADMETHOD_PAD
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_SPREADMETHOD_REFLECT
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_SPREADMETHOD_REPEAT
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_SPREADMETHOD_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -58355,22 +58350,22 @@ namespace H5
 
       public virtual ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_USERSPACEONUSE
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -58396,23 +58391,23 @@ namespace H5
 
       public static dom.SVGGraphicsElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElement farthestViewportElement
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElement nearestViewportElement
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedTransformList transform
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SVGRect getBBox();
@@ -58471,17 +58466,17 @@ namespace H5
 
       public virtual dom.SVGStringList requiredExtensions
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGStringList requiredFeatures
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGStringList systemLanguage
       {
-    set;
+    get;
       }
 
       public virtual extern bool hasExtension(string extension);
@@ -58512,33 +58507,33 @@ namespace H5
 
       public static dom.SVGImageElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -58589,7 +58584,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -58635,96 +58630,96 @@ namespace H5
 
       public static dom.SVGLength prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_LENGTHTYPE_CM")]
       public static ushort SVG_LENGTHTYPE_CM_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_EMS")]
       public static ushort SVG_LENGTHTYPE_EMS_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_EXS")]
       public static ushort SVG_LENGTHTYPE_EXS_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_IN")]
       public static ushort SVG_LENGTHTYPE_IN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_MM")]
       public static ushort SVG_LENGTHTYPE_MM_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_NUMBER")]
       public static ushort SVG_LENGTHTYPE_NUMBER_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_PC")]
       public static ushort SVG_LENGTHTYPE_PC_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_PERCENTAGE")]
       public static ushort SVG_LENGTHTYPE_PERCENTAGE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_PT")]
       public static ushort SVG_LENGTHTYPE_PT_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_PX")]
       public static ushort SVG_LENGTHTYPE_PX_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_LENGTHTYPE_UNKNOWN")]
       public static ushort SVG_LENGTHTYPE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual ushort unitType
       {
-    set;
+    get;
       }
 
       public virtual float value
       {
-    set;
+    get;
     set;
       }
 
       public virtual string valueAsString
       {
-    set;
+    get;
     set;
       }
 
       public virtual float valueInSpecifiedUnits
       {
-    set;
+    get;
     set;
       }
 
@@ -58736,57 +58731,57 @@ namespace H5
 
       public virtual ushort SVG_LENGTHTYPE_CM
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_EMS
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_EXS
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_IN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_MM
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_NUMBER
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_PC
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_PERCENTAGE
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_PT
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_PX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_LENGTHTYPE_UNKNOWN
       {
-    set;
+    get;
       }
     }
 
@@ -58799,13 +58794,13 @@ namespace H5
 
       public static dom.SVGLengthList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint numberOfItems
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SVGLength appendItem(dom.SVGLength newItem);
@@ -58844,28 +58839,28 @@ namespace H5
 
       public static dom.SVGLineElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength x1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x2
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y2
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -58938,28 +58933,28 @@ namespace H5
 
       public static dom.SVGLinearGradientElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength x1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x2
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y1
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y2
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -59049,79 +59044,79 @@ namespace H5
 
       public static dom.SVGMarkerElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_MARKERUNITS_STROKEWIDTH")]
       public static ushort SVG_MARKERUNITS_STROKEWIDTH_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MARKERUNITS_UNKNOWN")]
       public static ushort SVG_MARKERUNITS_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MARKERUNITS_USERSPACEONUSE")]
       public static ushort SVG_MARKERUNITS_USERSPACEONUSE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MARKER_ORIENT_ANGLE")]
       public static ushort SVG_MARKER_ORIENT_ANGLE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MARKER_ORIENT_AUTO")]
       public static ushort SVG_MARKER_ORIENT_AUTO_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MARKER_ORIENT_UNKNOWN")]
       public static ushort SVG_MARKER_ORIENT_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength markerHeight
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration markerUnits
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength markerWidth
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedAngle orientAngle
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration orientType
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength refX
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength refY
       {
-    set;
+    get;
       }
 
       public virtual extern void setOrientToAngle(dom.SVGAngle angle);
@@ -59130,32 +59125,32 @@ namespace H5
 
       public virtual ushort SVG_MARKERUNITS_STROKEWIDTH
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_MARKERUNITS_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_MARKERUNITS_USERSPACEONUSE
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_MARKER_ORIENT_ANGLE
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_MARKER_ORIENT_AUTO
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_MARKER_ORIENT_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -59206,12 +59201,12 @@ namespace H5
 
       public virtual dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedRect viewBox
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -59246,38 +59241,38 @@ namespace H5
 
       public static dom.SVGMaskElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration maskContentUnits
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration maskUnits
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -59328,34 +59323,34 @@ namespace H5
 
       public virtual dom.SVGStringList requiredExtensions
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGStringList requiredFeatures
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGStringList systemLanguage
       {
-    set;
+    get;
       }
 
       public virtual extern bool hasExtension(string extension);
 
       public virtual ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_USERSPACEONUSE
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -59381,43 +59376,43 @@ namespace H5
 
       public static dom.SVGMatrix prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double a
       {
-    set;
+    get;
     set;
       }
 
       public virtual double b
       {
-    set;
+    get;
     set;
       }
 
       public virtual double c
       {
-    set;
+    get;
     set;
       }
 
       public virtual double d
       {
-    set;
+    get;
     set;
       }
 
       public virtual double e
       {
-    set;
+    get;
     set;
       }
 
       public virtual double f
       {
-    set;
+    get;
     set;
       }
 
@@ -59457,7 +59452,7 @@ namespace H5
 
       public static dom.SVGMetadataElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -59525,13 +59520,13 @@ namespace H5
 
       public static dom.SVGNumber prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual float value
       {
-    set;
+    get;
     set;
       }
     }
@@ -59545,13 +59540,13 @@ namespace H5
 
       public static dom.SVGNumberList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint numberOfItems
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SVGNumber appendItem(dom.SVGNumber newItem);
@@ -59587,13 +59582,13 @@ namespace H5
 
       public static dom.SVGPathElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGPathSegList pathSegList
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SVGPathSegArcAbs createSVGPathSegArcAbs(
@@ -59795,238 +59790,238 @@ namespace H5
 
       public static dom.SVGPathSeg prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("PATHSEG_ARC_ABS")]
       public static double PATHSEG_ARC_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_ARC_REL")]
       public static double PATHSEG_ARC_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CLOSEPATH")]
       public static double PATHSEG_CLOSEPATH_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CURVETO_CUBIC_ABS")]
       public static double PATHSEG_CURVETO_CUBIC_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CURVETO_CUBIC_REL")]
       public static double PATHSEG_CURVETO_CUBIC_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CURVETO_CUBIC_SMOOTH_ABS")]
       public static double PATHSEG_CURVETO_CUBIC_SMOOTH_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CURVETO_CUBIC_SMOOTH_REL")]
       public static double PATHSEG_CURVETO_CUBIC_SMOOTH_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CURVETO_QUADRATIC_ABS")]
       public static double PATHSEG_CURVETO_QUADRATIC_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CURVETO_QUADRATIC_REL")]
       public static double PATHSEG_CURVETO_QUADRATIC_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS")]
       public static double PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL")]
       public static double PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_LINETO_ABS")]
       public static double PATHSEG_LINETO_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_LINETO_HORIZONTAL_ABS")]
       public static double PATHSEG_LINETO_HORIZONTAL_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_LINETO_HORIZONTAL_REL")]
       public static double PATHSEG_LINETO_HORIZONTAL_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_LINETO_REL")]
       public static double PATHSEG_LINETO_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_LINETO_VERTICAL_ABS")]
       public static double PATHSEG_LINETO_VERTICAL_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_LINETO_VERTICAL_REL")]
       public static double PATHSEG_LINETO_VERTICAL_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_MOVETO_ABS")]
       public static double PATHSEG_MOVETO_ABS_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_MOVETO_REL")]
       public static double PATHSEG_MOVETO_REL_Static
       {
-    set;
+    get;
       }
 
       [Name("PATHSEG_UNKNOWN")]
       public static double PATHSEG_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual double pathSegType
       {
-    set;
+    get;
       }
 
       public virtual string pathSegTypeAsLetter
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_ARC_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_ARC_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CLOSEPATH
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CURVETO_CUBIC_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CURVETO_CUBIC_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CURVETO_CUBIC_SMOOTH_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CURVETO_CUBIC_SMOOTH_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CURVETO_QUADRATIC_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CURVETO_QUADRATIC_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_LINETO_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_LINETO_HORIZONTAL_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_LINETO_HORIZONTAL_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_LINETO_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_LINETO_VERTICAL_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_LINETO_VERTICAL_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_MOVETO_ABS
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_MOVETO_REL
       {
-    set;
+    get;
       }
 
       public virtual double PATHSEG_UNKNOWN
       {
-    set;
+    get;
       }
     }
 
@@ -60045,49 +60040,49 @@ namespace H5
 
       public static dom.SVGPathSegArcAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double angle
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool largeArcFlag
       {
-    set;
+    get;
     set;
       }
 
       public virtual double r1
       {
-    set;
+    get;
     set;
       }
 
       public virtual double r2
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool sweepFlag
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60107,49 +60102,49 @@ namespace H5
 
       public static dom.SVGPathSegArcRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double angle
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool largeArcFlag
       {
-    set;
+    get;
     set;
       }
 
       public virtual double r1
       {
-    set;
+    get;
     set;
       }
 
       public virtual double r2
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool sweepFlag
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60162,7 +60157,7 @@ namespace H5
 
       public static dom.SVGPathSegClosePath prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -60181,43 +60176,43 @@ namespace H5
 
       public static dom.SVGPathSegCurvetoCubicAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x1
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x2
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y1
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y2
       {
-    set;
+    get;
     set;
       }
     }
@@ -60236,43 +60231,43 @@ namespace H5
 
       public static dom.SVGPathSegCurvetoCubicRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x1
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x2
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y1
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y2
       {
-    set;
+    get;
     set;
       }
     }
@@ -60289,31 +60284,31 @@ namespace H5
 
       public static dom.SVGPathSegCurvetoCubicSmoothAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x2
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y2
       {
-    set;
+    get;
     set;
       }
     }
@@ -60330,31 +60325,31 @@ namespace H5
 
       public static dom.SVGPathSegCurvetoCubicSmoothRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x2
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y2
       {
-    set;
+    get;
     set;
       }
     }
@@ -60371,31 +60366,31 @@ namespace H5
 
       public static dom.SVGPathSegCurvetoQuadraticAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x1
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y1
       {
-    set;
+    get;
     set;
       }
     }
@@ -60412,31 +60407,31 @@ namespace H5
 
       public static dom.SVGPathSegCurvetoQuadraticRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x1
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y1
       {
-    set;
+    get;
     set;
       }
     }
@@ -60451,19 +60446,19 @@ namespace H5
 
       public static dom.SVGPathSegCurvetoQuadraticSmoothAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60478,19 +60473,19 @@ namespace H5
 
       public static dom.SVGPathSegCurvetoQuadraticSmoothRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60505,19 +60500,19 @@ namespace H5
 
       public static dom.SVGPathSegLinetoAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60531,13 +60526,13 @@ namespace H5
 
       public static dom.SVGPathSegLinetoHorizontalAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
     }
@@ -60551,13 +60546,13 @@ namespace H5
 
       public static dom.SVGPathSegLinetoHorizontalRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
     }
@@ -60572,19 +60567,19 @@ namespace H5
 
       public static dom.SVGPathSegLinetoRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60598,13 +60593,13 @@ namespace H5
 
       public static dom.SVGPathSegLinetoVerticalAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60618,13 +60613,13 @@ namespace H5
 
       public static dom.SVGPathSegLinetoVerticalRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60638,13 +60633,13 @@ namespace H5
 
       public static dom.SVGPathSegList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double numberOfItems
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SVGPathSeg appendItem(dom.SVGPathSeg newItem);
@@ -60678,19 +60673,19 @@ namespace H5
 
       public static dom.SVGPathSegMovetoAbs prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60705,19 +60700,19 @@ namespace H5
 
       public static dom.SVGPathSegMovetoRel prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -60749,43 +60744,43 @@ namespace H5
 
       public static dom.SVGPatternElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration patternContentUnits
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedTransformList patternTransform
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration patternUnits
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -60836,49 +60831,49 @@ namespace H5
 
       public virtual dom.SVGStringList requiredExtensions
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGStringList requiredFeatures
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGStringList systemLanguage
       {
-    set;
+    get;
       }
 
       public virtual extern bool hasExtension(string extension);
 
       public virtual ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_UNIT_TYPE_USERSPACEONUSE
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedRect viewBox
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -60900,19 +60895,19 @@ namespace H5
 
       public static dom.SVGPoint prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
 
@@ -60928,13 +60923,13 @@ namespace H5
 
       public static dom.SVGPointList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint numberOfItems
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SVGPoint appendItem(dom.SVGPoint newItem);
@@ -60971,7 +60966,7 @@ namespace H5
 
       public static dom.SVGPolygonElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -61023,12 +61018,12 @@ namespace H5
 
       public virtual dom.SVGPointList animatedPoints
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGPointList points
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -61053,7 +61048,7 @@ namespace H5
 
       public static dom.SVGPolylineElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -61105,12 +61100,12 @@ namespace H5
 
       public virtual dom.SVGPointList animatedPoints
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGPointList points
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -61160,174 +61155,174 @@ namespace H5
 
       public static dom.SVGPreserveAspectRatio prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_MEETORSLICE_MEET")]
       public static ushort SVG_MEETORSLICE_MEET_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MEETORSLICE_SLICE")]
       public static ushort SVG_MEETORSLICE_SLICE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_MEETORSLICE_UNKNOWN")]
       public static ushort SVG_MEETORSLICE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_NONE")]
       public static ushort SVG_PRESERVEASPECTRATIO_NONE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_UNKNOWN")]
       public static ushort SVG_PRESERVEASPECTRATIO_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMAXYMAX")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMAXYMAX_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMAXYMID")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMAXYMID_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMAXYMIN")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMAXYMIN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMIDYMAX")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMIDYMAX_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMIDYMID")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMIDYMID_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMIDYMIN")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMIDYMIN_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMINYMAX")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMINYMAX_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMINYMID")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMINYMID_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_PRESERVEASPECTRATIO_XMINYMIN")]
       public static ushort SVG_PRESERVEASPECTRATIO_XMINYMIN_Static
       {
-    set;
+    get;
       }
 
       public virtual ushort align
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort meetOrSlice
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort SVG_MEETORSLICE_MEET
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_MEETORSLICE_SLICE
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_MEETORSLICE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_NONE
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMAXYMAX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMAXYMID
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMAXYMIN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMIDYMAX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMIDYMID
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMIDYMIN
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMINYMAX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMINYMID
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_PRESERVEASPECTRATIO_XMINYMIN
       {
-    set;
+    get;
       }
     }
 
@@ -61347,33 +61342,33 @@ namespace H5
 
       public static dom.SVGRadialGradientElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength cx
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength cy
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength fx
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength fy
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength r
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -61443,31 +61438,31 @@ namespace H5
 
       public static dom.SVGRect prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double height
       {
-    set;
+    get;
     set;
       }
 
       public virtual double width
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -61489,38 +61484,38 @@ namespace H5
 
       public static dom.SVGRectElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength rx
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength ry
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -61592,37 +61587,37 @@ namespace H5
 
       public dom.Event SVGAbort
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event SVGError
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent resize
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent scroll
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event SVGUnload
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGZoomEvent SVGZoom
       {
-    set;
+    get;
     set;
       }
 
@@ -61677,112 +61672,112 @@ namespace H5
 
       public static dom.SVGSVGElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string contentScriptType
       {
-    set;
+    get;
     set;
       }
 
       public virtual string contentStyleType
       {
-    set;
+    get;
     set;
       }
 
       public virtual float currentScale
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGPoint currentTranslate
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGSVGElement.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGSVGElement.onabortFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGSVGElement.onresizeFn onresize
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGSVGElement.onresizeFn onscroll
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGSVGElement.onabortFn onunload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGSVGElement.onzoomFn onzoom
       {
-    set;
+    get;
     set;
       }
 
       public virtual double pixelUnitToMillimeterX
       {
-    set;
+    get;
       }
 
       public virtual double pixelUnitToMillimeterY
       {
-    set;
+    get;
       }
 
       public virtual double screenPixelToMillimeterX
       {
-    set;
+    get;
       }
 
       public virtual double screenPixelToMillimeterY
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGRect viewport
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       public virtual extern bool checkEnclosure(dom.SVGElement element, dom.SVGRect rect);
@@ -62087,17 +62082,17 @@ namespace H5
 
       public virtual dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedRect viewBox
       {
-    set;
+    get;
       }
 
       public virtual ushort zoomAndPan
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -62131,13 +62126,13 @@ namespace H5
 
       public static dom.SVGScriptElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -62189,7 +62184,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -62213,13 +62208,13 @@ namespace H5
 
       public static dom.SVGStopElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedNumber offset
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -62286,13 +62281,13 @@ namespace H5
 
       public static dom.SVGStringList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint numberOfItems
       {
-    set;
+    get;
       }
 
       public virtual extern string appendItem(string newItem);
@@ -62325,13 +62320,13 @@ namespace H5
 
       public static dom.SVGStylable prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object className
       {
-    set;
+    get;
     set;
       }
     }
@@ -62351,31 +62346,31 @@ namespace H5
 
       public static dom.SVGStyleElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string media
       {
-    set;
+    get;
     set;
       }
 
       public virtual string title
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
     set;
       }
 
@@ -62445,7 +62440,7 @@ namespace H5
 
       public static dom.SVGSwitchElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -62517,7 +62512,7 @@ namespace H5
 
       public static dom.SVGSymbolElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -62569,12 +62564,12 @@ namespace H5
 
       public virtual dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedRect viewBox
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -62597,7 +62592,7 @@ namespace H5
 
       public static dom.SVGTSpanElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -62702,36 +62697,36 @@ namespace H5
 
       public static dom.SVGTextContentElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("LENGTHADJUST_SPACING")]
       public static ushort LENGTHADJUST_SPACING_Static
       {
-    set;
+    get;
       }
 
       [Name("LENGTHADJUST_SPACINGANDGLYPHS")]
       public static ushort LENGTHADJUST_SPACINGANDGLYPHS_Static
       {
-    set;
+    get;
       }
 
       [Name("LENGTHADJUST_UNKNOWN")]
       public static ushort LENGTHADJUST_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration lengthAdjust
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength textLength
       {
-    set;
+    get;
       }
 
       public virtual extern int getCharNumAtPosition(dom.SVGPoint point);
@@ -62754,17 +62749,17 @@ namespace H5
 
       public virtual ushort LENGTHADJUST_SPACING
       {
-    set;
+    get;
       }
 
       public virtual ushort LENGTHADJUST_SPACINGANDGLYPHS
       {
-    set;
+    get;
       }
 
       public virtual ushort LENGTHADJUST_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -62833,7 +62828,7 @@ namespace H5
 
       public static dom.SVGTextElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -62919,89 +62914,89 @@ namespace H5
 
       public static dom.SVGTextPathElement prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("TEXTPATH_METHODTYPE_ALIGN")]
       public static ushort TEXTPATH_METHODTYPE_ALIGN_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTPATH_METHODTYPE_STRETCH")]
       public static ushort TEXTPATH_METHODTYPE_STRETCH_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTPATH_METHODTYPE_UNKNOWN")]
       public static ushort TEXTPATH_METHODTYPE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTPATH_SPACINGTYPE_AUTO")]
       public static ushort TEXTPATH_SPACINGTYPE_AUTO_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTPATH_SPACINGTYPE_EXACT")]
       public static ushort TEXTPATH_SPACINGTYPE_EXACT_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTPATH_SPACINGTYPE_UNKNOWN")]
       public static ushort TEXTPATH_SPACINGTYPE_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration method
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedEnumeration spacing
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength startOffset
       {
-    set;
+    get;
       }
 
       public virtual ushort TEXTPATH_METHODTYPE_ALIGN
       {
-    set;
+    get;
       }
 
       public virtual ushort TEXTPATH_METHODTYPE_STRETCH
       {
-    set;
+    get;
       }
 
       public virtual ushort TEXTPATH_METHODTYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual ushort TEXTPATH_SPACINGTYPE_AUTO
       {
-    set;
+    get;
       }
 
       public virtual ushort TEXTPATH_SPACINGTYPE_EXACT
       {
-    set;
+    get;
       }
 
       public virtual ushort TEXTPATH_SPACINGTYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -63052,7 +63047,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -63080,33 +63075,33 @@ namespace H5
 
       public static dom.SVGTextPositioningElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGAnimatedLengthList dx
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLengthList dy
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedNumberList rotate
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLengthList x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLengthList y
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -63175,7 +63170,7 @@ namespace H5
 
       public static dom.SVGTitleElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -63259,65 +63254,65 @@ namespace H5
 
       public static dom.SVGTransform prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("SVG_TRANSFORM_MATRIX")]
       public static ushort SVG_TRANSFORM_MATRIX_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TRANSFORM_ROTATE")]
       public static ushort SVG_TRANSFORM_ROTATE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TRANSFORM_SCALE")]
       public static ushort SVG_TRANSFORM_SCALE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TRANSFORM_SKEWX")]
       public static ushort SVG_TRANSFORM_SKEWX_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TRANSFORM_SKEWY")]
       public static ushort SVG_TRANSFORM_SKEWY_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TRANSFORM_TRANSLATE")]
       public static ushort SVG_TRANSFORM_TRANSLATE_Static
       {
-    set;
+    get;
       }
 
       [Name("SVG_TRANSFORM_UNKNOWN")]
       public static ushort SVG_TRANSFORM_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       public virtual float angle
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGMatrix matrix
       {
-    set;
+    get;
       }
 
       public virtual ushort type
       {
-    set;
+    get;
       }
 
       public virtual extern void setMatrix(dom.SVGMatrix matrix);
@@ -63334,37 +63329,37 @@ namespace H5
 
       public virtual ushort SVG_TRANSFORM_MATRIX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_TRANSFORM_ROTATE
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_TRANSFORM_SCALE
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_TRANSFORM_SKEWX
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_TRANSFORM_SKEWY
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_TRANSFORM_TRANSLATE
       {
-    set;
+    get;
       }
 
       public virtual ushort SVG_TRANSFORM_UNKNOWN
       {
-    set;
+    get;
       }
     }
 
@@ -63377,13 +63372,13 @@ namespace H5
 
       public static dom.SVGTransformList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint numberOfItems
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SVGTransform appendItem(dom.SVGTransform newItem);
@@ -63422,7 +63417,7 @@ namespace H5
 
       public dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -63445,17 +63440,17 @@ namespace H5
 
       public ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX
       {
-    set;
+    get;
       }
 
       public ushort SVG_UNIT_TYPE_UNKNOWN
       {
-    set;
+    get;
       }
 
       public ushort SVG_UNIT_TYPE_USERSPACEONUSE
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -63489,38 +63484,38 @@ namespace H5
 
       public static dom.SVGUseElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGElementInstance animatedInstanceRoot
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength height
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGElementInstance instanceRoot
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength width
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength x
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedLength y
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -63571,7 +63566,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedString href
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -63595,13 +63590,13 @@ namespace H5
 
       public static dom.SVGViewElement prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SVGStringList viewTarget
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.SVGElementEventMap>), EnableImplicitConversion = true)]
@@ -63652,17 +63647,17 @@ namespace H5
 
       public virtual dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGAnimatedRect viewBox
       {
-    set;
+    get;
       }
 
       public virtual ushort zoomAndPan
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -63683,7 +63678,7 @@ namespace H5
 
       public ushort zoomAndPan
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -63708,33 +63703,33 @@ namespace H5
 
       public static dom.SVGZoomEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double newScale
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGPoint newTranslate
       {
-    set;
+    get;
       }
 
       public virtual double previousScale
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGPoint previousTranslate
       {
-    set;
+    get;
       }
 
       public virtual dom.SVGRect zoomRectScreen
       {
-    set;
+    get;
       }
     }
 
@@ -63748,18 +63743,18 @@ namespace H5
 
       public static dom.ScopedCredential prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.ArrayBuffer id
       {
-    set;
+    get;
       }
 
       public virtual dom.ScopedCredentialType type
       {
-    set;
+    get;
       }
     }
 
@@ -63773,18 +63768,18 @@ namespace H5
 
       public static dom.ScopedCredentialInfo prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ScopedCredential credential
       {
-    set;
+    get;
       }
 
       public virtual dom.CryptoKey publicKey
       {
-    set;
+    get;
       }
     }
 
@@ -63797,7 +63792,7 @@ namespace H5
 
       public dom.Event MSOrientationChange
       {
-    set;
+    get;
     set;
       }
 
@@ -63833,90 +63828,90 @@ namespace H5
 
       public static dom.Screen prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual int availHeight
       {
-    set;
+    get;
       }
 
       public virtual int availWidth
       {
-    set;
+    get;
       }
 
       public virtual double bufferDepth
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint colorDepth
       {
-    set;
+    get;
       }
 
       public virtual double deviceXDPI
       {
-    set;
+    get;
       }
 
       public virtual double deviceYDPI
       {
-    set;
+    get;
       }
 
       public virtual bool fontSmoothingEnabled
       {
-    set;
+    get;
       }
 
       public virtual int height
       {
-    set;
+    get;
       }
 
       public virtual double logicalXDPI
       {
-    set;
+    get;
       }
 
       public virtual double logicalYDPI
       {
-    set;
+    get;
       }
 
       public virtual string msOrientation
       {
-    set;
+    get;
       }
 
       public virtual dom.Screen.onmsorientationchangeFn onmsorientationchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint pixelDepth
       {
-    set;
+    get;
       }
 
       public virtual double systemXDPI
       {
-    set;
+    get;
       }
 
       public virtual double systemYDPI
       {
-    set;
+    get;
       }
 
       public virtual int width
       {
-    set;
+    get;
       }
 
       public virtual extern bool lockOrientation(
@@ -64042,7 +64037,7 @@ namespace H5
 
       public dom.AudioProcessingEvent audioprocess
       {
-    set;
+    get;
     set;
       }
 
@@ -64064,18 +64059,18 @@ namespace H5
 
       public static dom.ScriptProcessorNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double bufferSize
       {
-    set;
+    get;
       }
 
       public virtual dom.ScriptProcessorNode.onaudioprocessFn onaudioprocess
       {
-    set;
+    get;
     set;
       }
 
@@ -64275,13 +64270,13 @@ namespace H5
 
       public dom.ScrollLogicalPosition block
       {
-    set;
+    get;
     set;
       }
 
       public dom.ScrollLogicalPosition inline
       {
-    set;
+    get;
     set;
       }
     }
@@ -64295,7 +64290,7 @@ namespace H5
 
       public dom.ScrollBehavior behavior
       {
-    set;
+    get;
     set;
       }
     }
@@ -64310,13 +64305,13 @@ namespace H5
 
       public double? left
       {
-    set;
+    get;
     set;
       }
 
       public double? top
       {
-    set;
+    get;
     set;
       }
     }
@@ -64345,58 +64340,58 @@ namespace H5
 
       public static dom.SecurityPolicyViolationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string blockedURI
       {
-    set;
+    get;
       }
 
       public virtual double columnNumber
       {
-    set;
+    get;
       }
 
       public virtual string documentURI
       {
-    set;
+    get;
       }
 
       public virtual string effectiveDirective
       {
-    set;
+    get;
       }
 
       public virtual double lineNumber
       {
-    set;
+    get;
       }
 
       public virtual string originalPolicy
       {
-    set;
+    get;
       }
 
       public virtual string referrer
       {
-    set;
+    get;
       }
 
       public virtual string sourceFile
       {
-    set;
+    get;
       }
 
       public virtual double statusCode
       {
-    set;
+    get;
       }
 
       public virtual string violatedDirective
       {
-    set;
+    get;
       }
     }
 
@@ -64419,63 +64414,63 @@ namespace H5
 
       public static dom.Selection prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Node anchorNode
       {
-    set;
+    get;
       }
 
       public virtual double anchorOffset
       {
-    set;
+    get;
       }
 
       public virtual dom.Node baseNode
       {
-    set;
+    get;
       }
 
       public virtual double baseOffset
       {
-    set;
+    get;
       }
 
       public virtual dom.Node extentNode
       {
-    set;
+    get;
       }
 
       public virtual double extentOffset
       {
-    set;
+    get;
       }
 
       public virtual dom.Node focusNode
       {
-    set;
+    get;
       }
 
       public virtual double focusOffset
       {
-    set;
+    get;
       }
 
       public virtual bool isCollapsed
       {
-    set;
+    get;
       }
 
       public virtual double rangeCount
       {
-    set;
+    get;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual extern void addRange(dom.Range range);
@@ -64532,7 +64527,7 @@ namespace H5
 
       public dom.Event statechange
       {
-    set;
+    get;
     set;
       }
 
@@ -64556,24 +64551,24 @@ namespace H5
 
       public static dom.ServiceWorker prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ServiceWorker.onstatechangeFn onstatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual string scriptURL
       {
-    set;
+    get;
       }
 
       public virtual dom.ServiceWorkerState state
       {
-    set;
+    get;
       }
 
       public virtual extern void postMessage(object message);
@@ -64667,7 +64662,7 @@ namespace H5
 
       public virtual dom.AbstractWorker.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
@@ -64740,19 +64735,19 @@ namespace H5
 
       public dom.Event controllerchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.ServiceWorkerMessageEvent message
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessageEvent messageerror
       {
-    set;
+    get;
     set;
       }
 
@@ -64781,36 +64776,36 @@ namespace H5
 
       public static dom.ServiceWorkerContainer prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ServiceWorker controller
       {
-    set;
+    get;
       }
 
       public virtual dom.ServiceWorkerContainer.oncontrollerchangeFn oncontrollerchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ServiceWorkerContainer.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ServiceWorkerContainer.onmessageerrorFn onmessageerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Promise<dom.ServiceWorkerRegistration> ready
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<Union<dom.ServiceWorkerRegistration, Undefined>> getRegistration();
@@ -64951,33 +64946,33 @@ namespace H5
 
       public static dom.ServiceWorkerMessageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual object data
       {
-    set;
+    get;
       }
 
       public virtual string lastEventId
       {
-    set;
+    get;
       }
 
       public virtual string origin
       {
-    set;
+    get;
       }
 
       public virtual es5.ReadonlyArray<dom.MessagePort> ports
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.ServiceWorker, dom.MessagePort, Null> source
       {
-    set;
+    get;
       }
     }
 
@@ -64990,7 +64985,7 @@ namespace H5
 
       public dom.Event updatefound
       {
-    set;
+    get;
     set;
       }
 
@@ -65017,44 +65012,44 @@ namespace H5
 
       public static dom.ServiceWorkerRegistration prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ServiceWorker active
       {
-    set;
+    get;
       }
 
       public virtual dom.ServiceWorker installing
       {
-    set;
+    get;
       }
 
       public virtual dom.ServiceWorkerRegistration.onupdatefoundFn onupdatefound
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.PushManager pushManager
       {
-    set;
+    get;
       }
 
       public virtual string scope
       {
-    set;
+    get;
       }
 
       public virtual dom.SyncManager sync
       {
-    set;
+    get;
       }
 
       public virtual dom.ServiceWorker waiting
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<dom.Notification[]> getNotifications();
@@ -65182,7 +65177,7 @@ namespace H5
 
       public virtual string innerHTML
       {
-    set;
+    get;
     set;
       }
 
@@ -65210,7 +65205,7 @@ namespace H5
 
       public virtual string nodeValue
       {
-    set;
+    get;
     set;
       }
 
@@ -65224,7 +65219,7 @@ namespace H5
 
       public virtual string textContent
       {
-    set;
+    get;
     set;
       }
 
@@ -65432,13 +65427,13 @@ namespace H5
 
       public bool? delegatesFocus
       {
-    set;
+    get;
     set;
       }
 
       public dom.Literals.Options.mode mode
       {
-    set;
+    get;
     set;
       }
     }
@@ -65459,52 +65454,52 @@ namespace H5
 
       public static dom.SourceBuffer prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double appendWindowEnd
       {
-    set;
+    get;
     set;
       }
 
       public virtual double appendWindowStart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioTrackList audioTracks
       {
-    set;
+    get;
       }
 
       public virtual dom.TimeRanges buffered
       {
-    set;
+    get;
       }
 
       public virtual dom.AppendMode mode
       {
-    set;
+    get;
     set;
       }
 
       public virtual double timestampOffset
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool updating
       {
-    set;
+    get;
       }
 
       public virtual dom.VideoTrackList videoTracks
       {
-    set;
+    get;
       }
 
       public virtual extern void abort();
@@ -65552,13 +65547,13 @@ namespace H5
 
       public static dom.SourceBufferList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.SourceBuffer item(double index);
@@ -65575,7 +65570,7 @@ namespace H5
 
       public dom.Event voiceschanged
       {
-    set;
+    get;
     set;
       }
 
@@ -65599,29 +65594,29 @@ namespace H5
 
       public static dom.SpeechSynthesis prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesis.onvoiceschangedFn onvoiceschanged
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool paused
       {
-    set;
+    get;
       }
 
       public virtual bool pending
       {
-    set;
+    get;
       }
 
       public virtual bool speaking
       {
-    set;
+    get;
       }
 
       public virtual extern void cancel();
@@ -65748,33 +65743,33 @@ namespace H5
 
       public static dom.SpeechSynthesisEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double charIndex
       {
-    set;
+    get;
       }
 
       public virtual double charLength
       {
-    set;
+    get;
       }
 
       public virtual double elapsedTime
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual dom.SpeechSynthesisUtterance utterance
       {
-    set;
+    get;
       }
     }
 
@@ -65793,43 +65788,43 @@ namespace H5
 
       public dom.Event boundary
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event end
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event mark
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event pause
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event resume
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event start
       {
-    set;
+    get;
     set;
       }
 
@@ -65878,85 +65873,85 @@ namespace H5
 
       public static dom.SpeechSynthesisUtterance prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string lang
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesisUtterance.onboundaryFn onboundary
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesisUtterance.onboundaryFn onend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesisUtterance.onboundaryFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesisUtterance.onboundaryFn onmark
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesisUtterance.onboundaryFn onpause
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesisUtterance.onboundaryFn onresume
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesisUtterance.onboundaryFn onstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual double pitch
       {
-    set;
+    get;
     set;
       }
 
       public virtual double rate
       {
-    set;
+    get;
     set;
       }
 
       public virtual string text
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SpeechSynthesisVoice voice
       {
-    set;
+    get;
     set;
       }
 
       public virtual double volume
       {
-    set;
+    get;
     set;
       }
 
@@ -66070,34 +66065,34 @@ namespace H5
 
       public static dom.SpeechSynthesisVoice prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("default")]
       public virtual bool @default
       {
-    set;
+    get;
       }
 
       public virtual string lang
       {
-    set;
+    get;
       }
 
       public virtual bool localService
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual string voiceURI
       {
-    set;
+    get;
       }
     }
 
@@ -66110,13 +66105,13 @@ namespace H5
 
       public static dom.StereoPannerNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.AudioParam pan
       {
-    set;
+    get;
       }
     }
 
@@ -66129,13 +66124,13 @@ namespace H5
 
       public static dom.Storage prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern void clear();
@@ -66166,33 +66161,33 @@ namespace H5
 
       public static dom.StorageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string key
       {
-    set;
+    get;
       }
 
       public virtual string newValue
       {
-    set;
+    get;
       }
 
       public virtual string oldValue
       {
-    set;
+    get;
       }
 
       public virtual dom.Storage storageArea
       {
-    set;
+    get;
       }
 
       public virtual string url
       {
-    set;
+    get;
       }
     }
 
@@ -66209,31 +66204,31 @@ namespace H5
 
       public string key
       {
-    set;
+    get;
     set;
       }
 
       public string newValue
       {
-    set;
+    get;
     set;
       }
 
       public string oldValue
       {
-    set;
+    get;
     set;
       }
 
       public dom.Storage storageArea
       {
-    set;
+    get;
     set;
       }
 
       public string url
       {
-    set;
+    get;
     set;
       }
     }
@@ -66247,13 +66242,13 @@ namespace H5
 
       public static dom.StyleMedia prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
 
       public virtual extern bool matchMedium(string mediaquery);
@@ -66274,44 +66269,44 @@ namespace H5
 
       public static dom.StyleSheet prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool disabled
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
       }
 
       public virtual dom.MediaList media
       {
-    set;
+    get;
       }
 
       public virtual dom.Node ownerNode
       {
-    set;
+    get;
       }
 
       public virtual dom.StyleSheet parentStyleSheet
       {
-    set;
+    get;
       }
 
       public virtual string title
       {
-    set;
+    get;
       }
 
       public virtual string type
       {
-    set;
+    get;
       }
     }
 
@@ -66324,13 +66319,13 @@ namespace H5
 
       public static dom.StyleSheetList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.StyleSheet item(uint index);
@@ -66352,7 +66347,7 @@ namespace H5
 
       public static dom.SubtleCrypto prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -67528,7 +67523,7 @@ namespace H5
 
       public static dom.SyncManager prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -67551,18 +67546,18 @@ namespace H5
 
       public static dom.Text prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.HTMLSlotElement assignedSlot
       {
-    set;
+    get;
       }
 
       public virtual string wholeText
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Text splitText(uint offset);
@@ -67585,23 +67580,23 @@ namespace H5
 
       public static dom.TextDecoder prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string encoding
       {
-    set;
+    get;
       }
 
       public virtual bool fatal
       {
-    set;
+    get;
       }
 
       public virtual bool ignoreBOM
       {
-    set;
+    get;
       }
 
       public virtual extern string decode();
@@ -67673,13 +67668,13 @@ namespace H5
 
       public static dom.TextEncoder prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string encoding
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Uint8Array encode();
@@ -67716,73 +67711,73 @@ namespace H5
 
       public static dom.TextEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("DOM_INPUT_METHOD_DROP")]
       public static double DOM_INPUT_METHOD_DROP_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_HANDWRITING")]
       public static double DOM_INPUT_METHOD_HANDWRITING_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_IME")]
       public static double DOM_INPUT_METHOD_IME_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_KEYBOARD")]
       public static double DOM_INPUT_METHOD_KEYBOARD_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_MULTIMODAL")]
       public static double DOM_INPUT_METHOD_MULTIMODAL_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_OPTION")]
       public static double DOM_INPUT_METHOD_OPTION_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_PASTE")]
       public static double DOM_INPUT_METHOD_PASTE_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_SCRIPT")]
       public static double DOM_INPUT_METHOD_SCRIPT_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_UNKNOWN")]
       public static double DOM_INPUT_METHOD_UNKNOWN_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_INPUT_METHOD_VOICE")]
       public static double DOM_INPUT_METHOD_VOICE_Static
       {
-    set;
+    get;
       }
 
       public virtual string data
       {
-    set;
+    get;
       }
 
       public virtual extern void initTextEvent(
@@ -67796,52 +67791,52 @@ namespace H5
 
       public virtual double DOM_INPUT_METHOD_DROP
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_HANDWRITING
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_IME
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_KEYBOARD
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_MULTIMODAL
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_OPTION
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_PASTE
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_SCRIPT
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_UNKNOWN
       {
-    set;
+    get;
       }
 
       public virtual double DOM_INPUT_METHOD_VOICE
       {
-    set;
+    get;
       }
     }
 
@@ -67854,13 +67849,13 @@ namespace H5
 
       public static dom.TextMetrics prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double width
       {
-    set;
+    get;
       }
     }
 
@@ -67875,19 +67870,19 @@ namespace H5
 
       public dom.Event cuechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event load
       {
-    set;
+    get;
     set;
       }
 
@@ -67936,109 +67931,109 @@ namespace H5
 
       public static dom.TextTrack prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("DISABLED")]
       public static double DISABLED_Static
       {
-    set;
+    get;
       }
 
       [Name("ERROR")]
       public static double ERROR_Static
       {
-    set;
+    get;
       }
 
       [Name("HIDDEN")]
       public static double HIDDEN_Static
       {
-    set;
+    get;
       }
 
       [Name("LOADED")]
       public static double LOADED_Static
       {
-    set;
+    get;
       }
 
       [Name("LOADING")]
       public static double LOADING_Static
       {
-    set;
+    get;
       }
 
       [Name("NONE")]
       public static double NONE_Static
       {
-    set;
+    get;
       }
 
       [Name("SHOWING")]
       public static double SHOWING_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.TextTrackCueList activeCues
       {
-    set;
+    get;
       }
 
       public virtual dom.TextTrackCueList cues
       {
-    set;
+    get;
       }
 
       public virtual string inBandMetadataTrackDispatchType
       {
-    set;
+    get;
       }
 
       public virtual string kind
       {
-    set;
+    get;
       }
 
       public virtual string label
       {
-    set;
+    get;
       }
 
       public virtual string language
       {
-    set;
+    get;
       }
 
       public virtual Union<dom.TextTrackMode, double> mode
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TextTrack.oncuechangeFn oncuechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TextTrack.oncuechangeFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TextTrack.oncuechangeFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual double readyState
       {
-    set;
+    get;
       }
 
       public virtual extern void addCue(dom.TextTrackCue cue);
@@ -68047,37 +68042,37 @@ namespace H5
 
       public virtual double DISABLED
       {
-    set;
+    get;
       }
 
       public virtual double ERROR
       {
-    set;
+    get;
       }
 
       public virtual double HIDDEN
       {
-    set;
+    get;
       }
 
       public virtual double LOADED
       {
-    set;
+    get;
       }
 
       public virtual double LOADING
       {
-    set;
+    get;
       }
 
       public virtual double NONE
       {
-    set;
+    get;
       }
 
       public virtual double SHOWING
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.TextTrackEventMap>), EnableImplicitConversion = true)]
@@ -68187,13 +68182,13 @@ namespace H5
 
       public dom.Event enter
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event exit
       {
-    set;
+    get;
     set;
       }
 
@@ -68226,55 +68221,55 @@ namespace H5
 
       public static dom.TextTrackCue prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double endTime
       {
-    set;
+    get;
     set;
       }
 
       public virtual string id
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TextTrackCue.onenterFn onenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TextTrackCue.onenterFn onexit
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool pauseOnExit
       {
-    set;
+    get;
     set;
       }
 
       public virtual double startTime
       {
-    set;
+    get;
     set;
       }
 
       public virtual string text
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.TextTrack track
       {
-    set;
+    get;
       }
 
       public virtual extern dom.DocumentFragment getCueAsHTML();
@@ -68385,13 +68380,13 @@ namespace H5
 
       public static dom.TextTrackCueList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.TextTrackCue getCueById(string id);
@@ -68416,7 +68411,7 @@ namespace H5
 
       public dom.TrackEvent addtrack
       {
-    set;
+    get;
     set;
       }
 
@@ -68438,18 +68433,18 @@ namespace H5
 
       public static dom.TextTrackList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual dom.TextTrackList.onaddtrackFn onaddtrack
       {
-    set;
+    get;
     set;
       }
 
@@ -68569,13 +68564,13 @@ namespace H5
 
       public static dom.TimeRanges prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual extern double end(uint index);
@@ -68599,48 +68594,48 @@ namespace H5
 
       public static dom.Touch prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double clientX
       {
-    set;
+    get;
       }
 
       public virtual double clientY
       {
-    set;
+    get;
       }
 
       public virtual double identifier
       {
-    set;
+    get;
       }
 
       public virtual double pageX
       {
-    set;
+    get;
       }
 
       public virtual double pageY
       {
-    set;
+    get;
       }
 
       public virtual double screenX
       {
-    set;
+    get;
       }
 
       public virtual double screenY
       {
-    set;
+    get;
       }
 
       public virtual dom.EventTarget target
       {
-    set;
+    get;
       }
     }
 
@@ -68666,58 +68661,58 @@ namespace H5
 
       public static dom.TouchEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool altKey
       {
-    set;
+    get;
       }
 
       public virtual dom.TouchList changedTouches
       {
-    set;
+    get;
       }
 
       public virtual double charCode
       {
-    set;
+    get;
       }
 
       public virtual bool ctrlKey
       {
-    set;
+    get;
       }
 
       public virtual double keyCode
       {
-    set;
+    get;
       }
 
       public virtual bool metaKey
       {
-    set;
+    get;
       }
 
       public virtual bool shiftKey
       {
-    set;
+    get;
       }
 
       public virtual dom.TouchList targetTouches
       {
-    set;
+    get;
       }
 
       public virtual dom.TouchList touches
       {
-    set;
+    get;
       }
 
       public virtual double which
       {
-    set;
+    get;
       }
     }
 
@@ -68732,19 +68727,19 @@ namespace H5
 
       public dom.Touch[] changedTouches
       {
-    set;
+    get;
     set;
       }
 
       public dom.Touch[] targetTouches
       {
-    set;
+    get;
     set;
       }
 
       public dom.Touch[] touches
       {
-    set;
+    get;
     set;
       }
     }
@@ -68758,13 +68753,13 @@ namespace H5
 
       public static dom.TouchList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double length
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Touch item(double index);
@@ -68791,13 +68786,13 @@ namespace H5
 
       public static dom.TrackEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<dom.VideoTrack, dom.AudioTrack, dom.TextTrack, Null> track
       {
-    set;
+    get;
       }
     }
 
@@ -68815,18 +68810,18 @@ namespace H5
 
       public static dom.TransitionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double elapsedTime
       {
-    set;
+    get;
       }
 
       public virtual string propertyName
       {
-    set;
+    get;
       }
 
       public virtual extern void initTransitionEvent(
@@ -68850,34 +68845,34 @@ namespace H5
 
       public static dom.TreeWalker prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Node currentNode
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool expandEntityReferences
       {
-    set;
+    get;
       }
 
       public virtual dom.NodeFilter filter
       {
-    set;
+    get;
       }
 
       public virtual dom.Node root
       {
-    set;
+    get;
       }
 
       public virtual uint whatToShow
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Node firstChild();
@@ -68911,18 +68906,18 @@ namespace H5
 
       public static dom.UIEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual int detail
       {
-    set;
+    get;
       }
 
       public virtual dom.Window view
       {
-    set;
+    get;
       }
 
       public virtual extern void initUIEvent(
@@ -68961,7 +68956,7 @@ namespace H5
 
       public static dom.URL prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -68973,71 +68968,71 @@ namespace H5
 
       public virtual string hash
       {
-    set;
+    get;
     set;
       }
 
       public virtual string host
       {
-    set;
+    get;
     set;
       }
 
       public virtual string hostname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string href
       {
-    set;
+    get;
     set;
       }
 
       public virtual string origin
       {
-    set;
+    get;
       }
 
       public virtual string password
       {
-    set;
+    get;
     set;
       }
 
       public virtual string pathname
       {
-    set;
+    get;
     set;
       }
 
       public virtual string port
       {
-    set;
+    get;
     set;
       }
 
       public virtual string protocol
       {
-    set;
+    get;
     set;
       }
 
       public virtual string search
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.URLSearchParams searchParams
       {
-    set;
+    get;
       }
 
       public virtual string username
       {
-    set;
+    get;
     set;
       }
 
@@ -69060,7 +69055,7 @@ namespace H5
 
       public static dom.URLSearchParams prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -69093,50 +69088,50 @@ namespace H5
 
       public static dom.VRDisplay prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.VRDisplayCapabilities capabilities
       {
-    set;
+    get;
       }
 
       public virtual double depthFar
       {
-    set;
+    get;
     set;
       }
 
       public virtual double depthNear
       {
-    set;
+    get;
     set;
       }
 
       public virtual double displayId
       {
-    set;
+    get;
       }
 
       public virtual string displayName
       {
-    set;
+    get;
       }
 
       public virtual bool isConnected
       {
-    set;
+    get;
       }
 
       public virtual bool isPresenting
       {
-    set;
+    get;
       }
 
       public virtual dom.VRStageParameters stageParameters
       {
-    set;
+    get;
       }
 
       public virtual extern void cancelAnimationFrame(double handle);
@@ -69176,33 +69171,33 @@ namespace H5
 
       public static dom.VRDisplayCapabilities prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool canPresent
       {
-    set;
+    get;
       }
 
       public virtual bool hasExternalDisplay
       {
-    set;
+    get;
       }
 
       public virtual bool hasOrientation
       {
-    set;
+    get;
       }
 
       public virtual bool hasPosition
       {
-    set;
+    get;
       }
 
       public virtual double maxLayers
       {
-    set;
+    get;
       }
     }
 
@@ -69218,18 +69213,18 @@ namespace H5
 
       public static dom.VRDisplayEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.VRDisplay display
       {
-    set;
+    get;
       }
 
       public virtual dom.VRDisplayEventReason reason
       {
-    set;
+    get;
       }
     }
 
@@ -69245,28 +69240,28 @@ namespace H5
 
       public static dom.VREyeParameters prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.VRFieldOfView fieldOfView
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array offset
       {
-    set;
+    get;
       }
 
       public virtual double renderHeight
       {
-    set;
+    get;
       }
 
       public virtual double renderWidth
       {
-    set;
+    get;
       }
     }
 
@@ -69282,28 +69277,28 @@ namespace H5
 
       public static dom.VRFieldOfView prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double downDegrees
       {
-    set;
+    get;
       }
 
       public virtual double leftDegrees
       {
-    set;
+    get;
       }
 
       public virtual double rightDegrees
       {
-    set;
+    get;
       }
 
       public virtual double upDegrees
       {
-    set;
+    get;
       }
     }
 
@@ -69321,38 +69316,38 @@ namespace H5
 
       public static dom.VRFrameData prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Float32Array leftProjectionMatrix
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array leftViewMatrix
       {
-    set;
+    get;
       }
 
       public virtual dom.VRPose pose
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array rightProjectionMatrix
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array rightViewMatrix
       {
-    set;
+    get;
       }
 
       public virtual double timestamp
       {
-    set;
+    get;
       }
     }
 
@@ -69371,43 +69366,43 @@ namespace H5
 
       public static dom.VRPose prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Float32Array angularAcceleration
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array angularVelocity
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array linearAcceleration
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array linearVelocity
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array orientation
       {
-    set;
+    get;
       }
 
       public virtual es5.Float32Array position
       {
-    set;
+    get;
       }
 
       public virtual double timestamp
       {
-    set;
+    get;
       }
     }
 
@@ -69430,63 +69425,63 @@ namespace H5
 
       public static dom.ValidityState prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool badInput
       {
-    set;
+    get;
       }
 
       public virtual bool customError
       {
-    set;
+    get;
       }
 
       public virtual bool patternMismatch
       {
-    set;
+    get;
       }
 
       public virtual bool rangeOverflow
       {
-    set;
+    get;
       }
 
       public virtual bool rangeUnderflow
       {
-    set;
+    get;
       }
 
       public virtual bool stepMismatch
       {
-    set;
+    get;
       }
 
       public virtual bool tooLong
       {
-    set;
+    get;
       }
 
       public virtual bool tooShort
       {
-    set;
+    get;
       }
 
       public virtual bool typeMismatch
       {
-    set;
+    get;
       }
 
       public virtual bool valid
       {
-    set;
+    get;
       }
 
       public virtual bool valueMissing
       {
-    set;
+    get;
       }
     }
 
@@ -69503,33 +69498,33 @@ namespace H5
 
       public static dom.VideoPlaybackQuality prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double corruptedVideoFrames
       {
-    set;
+    get;
       }
 
       public virtual double creationTime
       {
-    set;
+    get;
       }
 
       public virtual double droppedVideoFrames
       {
-    set;
+    get;
       }
 
       public virtual double totalFrameDelay
       {
-    set;
+    get;
       }
 
       public virtual double totalVideoFrames
       {
-    set;
+    get;
       }
     }
 
@@ -69547,41 +69542,41 @@ namespace H5
 
       public static dom.VideoTrack prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string id
       {
-    set;
+    get;
       }
 
       public virtual string kind
       {
-    set;
+    get;
     set;
       }
 
       public virtual string label
       {
-    set;
+    get;
       }
 
       public virtual string language
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool selected
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.SourceBuffer sourceBuffer
       {
-    set;
+    get;
       }
     }
 
@@ -69596,19 +69591,19 @@ namespace H5
 
       public dom.TrackEvent addtrack
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event change
       {
-    set;
+    get;
     set;
       }
 
       public dom.TrackEvent removetrack
       {
-    set;
+    get;
     set;
       }
 
@@ -69637,36 +69632,36 @@ namespace H5
 
       public static dom.VideoTrackList prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual dom.VideoTrackList.onaddtrackFn onaddtrack
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.VideoTrackList.onchangeFn onchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.VideoTrackList.onaddtrackFn onremovetrack
       {
-    set;
+    get;
     set;
       }
 
       public virtual int selectedIndex
       {
-    set;
+    get;
       }
 
       public virtual extern dom.VideoTrack getTrackById(string id);
@@ -69787,22 +69782,22 @@ namespace H5
 
       public double FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT
       {
-    set;
+    get;
       }
 
       public double RGB32F_EXT
       {
-    set;
+    get;
       }
 
       public double RGBA32F_EXT
       {
-    set;
+    get;
       }
 
       public double UNSIGNED_NORMALIZED_EXT
       {
-    set;
+    get;
       }
     }
 
@@ -69886,52 +69881,52 @@ namespace H5
 
       public static dom.WEBGL_compressed_texture_s3tc prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("COMPRESSED_RGBA_S3TC_DXT1_EXT")]
       public static double COMPRESSED_RGBA_S3TC_DXT1_EXT_Static
       {
-    set;
+    get;
       }
 
       [Name("COMPRESSED_RGBA_S3TC_DXT3_EXT")]
       public static double COMPRESSED_RGBA_S3TC_DXT3_EXT_Static
       {
-    set;
+    get;
       }
 
       [Name("COMPRESSED_RGBA_S3TC_DXT5_EXT")]
       public static double COMPRESSED_RGBA_S3TC_DXT5_EXT_Static
       {
-    set;
+    get;
       }
 
       [Name("COMPRESSED_RGB_S3TC_DXT1_EXT")]
       public static double COMPRESSED_RGB_S3TC_DXT1_EXT_Static
       {
-    set;
+    get;
       }
 
       public virtual double COMPRESSED_RGBA_S3TC_DXT1_EXT
       {
-    set;
+    get;
       }
 
       public virtual double COMPRESSED_RGBA_S3TC_DXT3_EXT
       {
-    set;
+    get;
       }
 
       public virtual double COMPRESSED_RGBA_S3TC_DXT5_EXT
       {
-    set;
+    get;
       }
 
       public virtual double COMPRESSED_RGB_S3TC_DXT1_EXT
       {
-    set;
+    get;
       }
     }
 
@@ -69947,22 +69942,22 @@ namespace H5
 
       public double COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT
       {
-    set;
+    get;
       }
 
       public double COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT
       {
-    set;
+    get;
       }
 
       public double COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT
       {
-    set;
+    get;
       }
 
       public double COMPRESSED_SRGB_S3TC_DXT1_EXT
       {
-    set;
+    get;
       }
     }
 
@@ -69978,30 +69973,30 @@ namespace H5
 
       public static dom.WEBGL_debug_renderer_info prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("UNMASKED_RENDERER_WEBGL")]
       public static double UNMASKED_RENDERER_WEBGL_Static
       {
-    set;
+    get;
       }
 
       [Name("UNMASKED_VENDOR_WEBGL")]
       public static double UNMASKED_VENDOR_WEBGL_Static
       {
-    set;
+    get;
       }
 
       public virtual double UNMASKED_RENDERER_WEBGL
       {
-    set;
+    get;
       }
 
       public virtual double UNMASKED_VENDOR_WEBGL
       {
-    set;
+    get;
       }
     }
 
@@ -70023,19 +70018,19 @@ namespace H5
 
       public static dom.WEBGL_depth_texture prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("UNSIGNED_INT_24_8_WEBGL")]
       public static double UNSIGNED_INT_24_8_WEBGL_Static
       {
-    set;
+    get;
       }
 
       public virtual double UNSIGNED_INT_24_8_WEBGL
       {
-    set;
+    get;
       }
     }
 
@@ -70135,19 +70130,19 @@ namespace H5
 
       public static dom.WaveShaperNode prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Float32Array curve
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.OverSampleType oversample
       {
-    set;
+    get;
     set;
       }
     }
@@ -70160,7 +70155,7 @@ namespace H5
 
       public static dom.WebAuthentication prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -70411,28 +70406,28 @@ namespace H5
 
       public static dom.WebAuthnAssertion prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.ArrayBuffer authenticatorData
       {
-    set;
+    get;
       }
 
       public virtual es5.ArrayBuffer clientData
       {
-    set;
+    get;
       }
 
       public virtual dom.ScopedCredential credential
       {
-    set;
+    get;
       }
 
       public virtual es5.ArrayBuffer signature
       {
-    set;
+    get;
       }
     }
 
@@ -70447,23 +70442,23 @@ namespace H5
 
       public static dom.WebGLActiveInfo prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual int size
       {
-    set;
+    get;
       }
 
       public virtual uint type
       {
-    set;
+    get;
       }
     }
 
@@ -70475,7 +70470,7 @@ namespace H5
 
       public static dom.WebGLBuffer prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -70493,13 +70488,13 @@ namespace H5
 
       public static dom.WebGLContextEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string statusMessage
       {
-    set;
+    get;
       }
     }
 
@@ -70511,7 +70506,7 @@ namespace H5
 
       public static dom.WebGLFramebuffer prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -70524,7 +70519,7 @@ namespace H5
 
       public static dom.WebGLObject prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -70537,7 +70532,7 @@ namespace H5
 
       public static dom.WebGLProgram prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -70550,7 +70545,7 @@ namespace H5
 
       public static dom.WebGLRenderbuffer prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -71160,1805 +71155,1805 @@ namespace H5
 
       public static dom.WebGLRenderingContext prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("ACTIVE_ATTRIBUTES")]
       public static uint ACTIVE_ATTRIBUTES_Static
       {
-    set;
+    get;
       }
 
       [Name("ACTIVE_TEXTURE")]
       public static uint ACTIVE_TEXTURE_Static
       {
-    set;
+    get;
       }
 
       [Name("ACTIVE_UNIFORMS")]
       public static uint ACTIVE_UNIFORMS_Static
       {
-    set;
+    get;
       }
 
       [Name("ALIASED_LINE_WIDTH_RANGE")]
       public static uint ALIASED_LINE_WIDTH_RANGE_Static
       {
-    set;
+    get;
       }
 
       [Name("ALIASED_POINT_SIZE_RANGE")]
       public static uint ALIASED_POINT_SIZE_RANGE_Static
       {
-    set;
+    get;
       }
 
       [Name("ALPHA")]
       public static uint ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("ALPHA_BITS")]
       public static uint ALPHA_BITS_Static
       {
-    set;
+    get;
       }
 
       [Name("ALWAYS")]
       public static uint ALWAYS_Static
       {
-    set;
+    get;
       }
 
       [Name("ARRAY_BUFFER")]
       public static uint ARRAY_BUFFER_Static
       {
-    set;
+    get;
       }
 
       [Name("ARRAY_BUFFER_BINDING")]
       public static uint ARRAY_BUFFER_BINDING_Static
       {
-    set;
+    get;
       }
 
       [Name("ATTACHED_SHADERS")]
       public static uint ATTACHED_SHADERS_Static
       {
-    set;
+    get;
       }
 
       [Name("BACK")]
       public static uint BACK_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND")]
       public static uint BLEND_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND_COLOR")]
       public static uint BLEND_COLOR_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND_DST_ALPHA")]
       public static uint BLEND_DST_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND_DST_RGB")]
       public static uint BLEND_DST_RGB_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND_EQUATION")]
       public static uint BLEND_EQUATION_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND_EQUATION_ALPHA")]
       public static uint BLEND_EQUATION_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND_EQUATION_RGB")]
       public static uint BLEND_EQUATION_RGB_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND_SRC_ALPHA")]
       public static uint BLEND_SRC_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("BLEND_SRC_RGB")]
       public static uint BLEND_SRC_RGB_Static
       {
-    set;
+    get;
       }
 
       [Name("BLUE_BITS")]
       public static uint BLUE_BITS_Static
       {
-    set;
+    get;
       }
 
       [Name("BOOL")]
       public static uint BOOL_Static
       {
-    set;
+    get;
       }
 
       [Name("BOOL_VEC2")]
       public static uint BOOL_VEC2_Static
       {
-    set;
+    get;
       }
 
       [Name("BOOL_VEC3")]
       public static uint BOOL_VEC3_Static
       {
-    set;
+    get;
       }
 
       [Name("BOOL_VEC4")]
       public static uint BOOL_VEC4_Static
       {
-    set;
+    get;
       }
 
       [Name("BROWSER_DEFAULT_WEBGL")]
       public static uint BROWSER_DEFAULT_WEBGL_Static
       {
-    set;
+    get;
       }
 
       [Name("BUFFER_SIZE")]
       public static uint BUFFER_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("BUFFER_USAGE")]
       public static uint BUFFER_USAGE_Static
       {
-    set;
+    get;
       }
 
       [Name("BYTE")]
       public static uint BYTE_Static
       {
-    set;
+    get;
       }
 
       [Name("CCW")]
       public static uint CCW_Static
       {
-    set;
+    get;
       }
 
       [Name("CLAMP_TO_EDGE")]
       public static uint CLAMP_TO_EDGE_Static
       {
-    set;
+    get;
       }
 
       [Name("COLOR_ATTACHMENT0")]
       public static uint COLOR_ATTACHMENT0_Static
       {
-    set;
+    get;
       }
 
       [Name("COLOR_BUFFER_BIT")]
       public static uint COLOR_BUFFER_BIT_Static
       {
-    set;
+    get;
       }
 
       [Name("COLOR_CLEAR_VALUE")]
       public static uint COLOR_CLEAR_VALUE_Static
       {
-    set;
+    get;
       }
 
       [Name("COLOR_WRITEMASK")]
       public static uint COLOR_WRITEMASK_Static
       {
-    set;
+    get;
       }
 
       [Name("COMPILE_STATUS")]
       public static uint COMPILE_STATUS_Static
       {
-    set;
+    get;
       }
 
       [Name("COMPRESSED_TEXTURE_FORMATS")]
       public static uint COMPRESSED_TEXTURE_FORMATS_Static
       {
-    set;
+    get;
       }
 
       [Name("CONSTANT_ALPHA")]
       public static uint CONSTANT_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("CONSTANT_COLOR")]
       public static uint CONSTANT_COLOR_Static
       {
-    set;
+    get;
       }
 
       [Name("CONTEXT_LOST_WEBGL")]
       public static uint CONTEXT_LOST_WEBGL_Static
       {
-    set;
+    get;
       }
 
       [Name("CULL_FACE")]
       public static uint CULL_FACE_Static
       {
-    set;
+    get;
       }
 
       [Name("CULL_FACE_MODE")]
       public static uint CULL_FACE_MODE_Static
       {
-    set;
+    get;
       }
 
       [Name("CURRENT_PROGRAM")]
       public static uint CURRENT_PROGRAM_Static
       {
-    set;
+    get;
       }
 
       [Name("CURRENT_VERTEX_ATTRIB")]
       public static uint CURRENT_VERTEX_ATTRIB_Static
       {
-    set;
+    get;
       }
 
       [Name("CW")]
       public static uint CW_Static
       {
-    set;
+    get;
       }
 
       [Name("DECR")]
       public static uint DECR_Static
       {
-    set;
+    get;
       }
 
       [Name("DECR_WRAP")]
       public static uint DECR_WRAP_Static
       {
-    set;
+    get;
       }
 
       [Name("DELETE_STATUS")]
       public static uint DELETE_STATUS_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_ATTACHMENT")]
       public static uint DEPTH_ATTACHMENT_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_BITS")]
       public static uint DEPTH_BITS_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_BUFFER_BIT")]
       public static uint DEPTH_BUFFER_BIT_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_CLEAR_VALUE")]
       public static uint DEPTH_CLEAR_VALUE_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_COMPONENT")]
       public static uint DEPTH_COMPONENT_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_COMPONENT16")]
       public static uint DEPTH_COMPONENT16_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_FUNC")]
       public static uint DEPTH_FUNC_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_RANGE")]
       public static uint DEPTH_RANGE_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_STENCIL")]
       public static uint DEPTH_STENCIL_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_STENCIL_ATTACHMENT")]
       public static uint DEPTH_STENCIL_ATTACHMENT_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_TEST")]
       public static uint DEPTH_TEST_Static
       {
-    set;
+    get;
       }
 
       [Name("DEPTH_WRITEMASK")]
       public static uint DEPTH_WRITEMASK_Static
       {
-    set;
+    get;
       }
 
       [Name("DITHER")]
       public static uint DITHER_Static
       {
-    set;
+    get;
       }
 
       [Name("DONT_CARE")]
       public static uint DONT_CARE_Static
       {
-    set;
+    get;
       }
 
       [Name("DST_ALPHA")]
       public static uint DST_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("DST_COLOR")]
       public static uint DST_COLOR_Static
       {
-    set;
+    get;
       }
 
       [Name("DYNAMIC_DRAW")]
       public static uint DYNAMIC_DRAW_Static
       {
-    set;
+    get;
       }
 
       [Name("ELEMENT_ARRAY_BUFFER")]
       public static uint ELEMENT_ARRAY_BUFFER_Static
       {
-    set;
+    get;
       }
 
       [Name("ELEMENT_ARRAY_BUFFER_BINDING")]
       public static uint ELEMENT_ARRAY_BUFFER_BINDING_Static
       {
-    set;
+    get;
       }
 
       [Name("EQUAL")]
       public static uint EQUAL_Static
       {
-    set;
+    get;
       }
 
       [Name("FASTEST")]
       public static uint FASTEST_Static
       {
-    set;
+    get;
       }
 
       [Name("FLOAT")]
       public static uint FLOAT_Static
       {
-    set;
+    get;
       }
 
       [Name("FLOAT_MAT2")]
       public static uint FLOAT_MAT2_Static
       {
-    set;
+    get;
       }
 
       [Name("FLOAT_MAT3")]
       public static uint FLOAT_MAT3_Static
       {
-    set;
+    get;
       }
 
       [Name("FLOAT_MAT4")]
       public static uint FLOAT_MAT4_Static
       {
-    set;
+    get;
       }
 
       [Name("FLOAT_VEC2")]
       public static uint FLOAT_VEC2_Static
       {
-    set;
+    get;
       }
 
       [Name("FLOAT_VEC3")]
       public static uint FLOAT_VEC3_Static
       {
-    set;
+    get;
       }
 
       [Name("FLOAT_VEC4")]
       public static uint FLOAT_VEC4_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAGMENT_SHADER")]
       public static uint FRAGMENT_SHADER_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER")]
       public static uint FRAMEBUFFER_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_ATTACHMENT_OBJECT_NAME")]
       public static uint FRAMEBUFFER_ATTACHMENT_OBJECT_NAME_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE")]
       public static uint FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE")]
       public static uint FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL")]
       public static uint FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_BINDING")]
       public static uint FRAMEBUFFER_BINDING_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_COMPLETE")]
       public static uint FRAMEBUFFER_COMPLETE_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_INCOMPLETE_ATTACHMENT")]
       public static uint FRAMEBUFFER_INCOMPLETE_ATTACHMENT_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_INCOMPLETE_DIMENSIONS")]
       public static uint FRAMEBUFFER_INCOMPLETE_DIMENSIONS_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT")]
       public static uint FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_Static
       {
-    set;
+    get;
       }
 
       [Name("FRAMEBUFFER_UNSUPPORTED")]
       public static uint FRAMEBUFFER_UNSUPPORTED_Static
       {
-    set;
+    get;
       }
 
       [Name("FRONT")]
       public static uint FRONT_Static
       {
-    set;
+    get;
       }
 
       [Name("FRONT_AND_BACK")]
       public static uint FRONT_AND_BACK_Static
       {
-    set;
+    get;
       }
 
       [Name("FRONT_FACE")]
       public static uint FRONT_FACE_Static
       {
-    set;
+    get;
       }
 
       [Name("FUNC_ADD")]
       public static uint FUNC_ADD_Static
       {
-    set;
+    get;
       }
 
       [Name("FUNC_REVERSE_SUBTRACT")]
       public static uint FUNC_REVERSE_SUBTRACT_Static
       {
-    set;
+    get;
       }
 
       [Name("FUNC_SUBTRACT")]
       public static uint FUNC_SUBTRACT_Static
       {
-    set;
+    get;
       }
 
       [Name("GENERATE_MIPMAP_HINT")]
       public static uint GENERATE_MIPMAP_HINT_Static
       {
-    set;
+    get;
       }
 
       [Name("GEQUAL")]
       public static uint GEQUAL_Static
       {
-    set;
+    get;
       }
 
       [Name("GREATER")]
       public static uint GREATER_Static
       {
-    set;
+    get;
       }
 
       [Name("GREEN_BITS")]
       public static uint GREEN_BITS_Static
       {
-    set;
+    get;
       }
 
       [Name("HIGH_FLOAT")]
       public static uint HIGH_FLOAT_Static
       {
-    set;
+    get;
       }
 
       [Name("HIGH_INT")]
       public static uint HIGH_INT_Static
       {
-    set;
+    get;
       }
 
       [Name("IMPLEMENTATION_COLOR_READ_FORMAT")]
       public static uint IMPLEMENTATION_COLOR_READ_FORMAT_Static
       {
-    set;
+    get;
       }
 
       [Name("IMPLEMENTATION_COLOR_READ_TYPE")]
       public static uint IMPLEMENTATION_COLOR_READ_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("INCR")]
       public static uint INCR_Static
       {
-    set;
+    get;
       }
 
       [Name("INCR_WRAP")]
       public static uint INCR_WRAP_Static
       {
-    set;
+    get;
       }
 
       [Name("INT")]
       public static uint INT_Static
       {
-    set;
+    get;
       }
 
       [Name("INT_VEC2")]
       public static uint INT_VEC2_Static
       {
-    set;
+    get;
       }
 
       [Name("INT_VEC3")]
       public static uint INT_VEC3_Static
       {
-    set;
+    get;
       }
 
       [Name("INT_VEC4")]
       public static uint INT_VEC4_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_ENUM")]
       public static uint INVALID_ENUM_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_FRAMEBUFFER_OPERATION")]
       public static uint INVALID_FRAMEBUFFER_OPERATION_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_OPERATION")]
       public static uint INVALID_OPERATION_Static
       {
-    set;
+    get;
       }
 
       [Name("INVALID_VALUE")]
       public static uint INVALID_VALUE_Static
       {
-    set;
+    get;
       }
 
       [Name("INVERT")]
       public static uint INVERT_Static
       {
-    set;
+    get;
       }
 
       [Name("KEEP")]
       public static uint KEEP_Static
       {
-    set;
+    get;
       }
 
       [Name("LEQUAL")]
       public static uint LEQUAL_Static
       {
-    set;
+    get;
       }
 
       [Name("LESS")]
       public static uint LESS_Static
       {
-    set;
+    get;
       }
 
       [Name("LINEAR")]
       public static uint LINEAR_Static
       {
-    set;
+    get;
       }
 
       [Name("LINEAR_MIPMAP_LINEAR")]
       public static uint LINEAR_MIPMAP_LINEAR_Static
       {
-    set;
+    get;
       }
 
       [Name("LINEAR_MIPMAP_NEAREST")]
       public static uint LINEAR_MIPMAP_NEAREST_Static
       {
-    set;
+    get;
       }
 
       [Name("LINES")]
       public static uint LINES_Static
       {
-    set;
+    get;
       }
 
       [Name("LINE_LOOP")]
       public static uint LINE_LOOP_Static
       {
-    set;
+    get;
       }
 
       [Name("LINE_STRIP")]
       public static uint LINE_STRIP_Static
       {
-    set;
+    get;
       }
 
       [Name("LINE_WIDTH")]
       public static uint LINE_WIDTH_Static
       {
-    set;
+    get;
       }
 
       [Name("LINK_STATUS")]
       public static uint LINK_STATUS_Static
       {
-    set;
+    get;
       }
 
       [Name("LOW_FLOAT")]
       public static uint LOW_FLOAT_Static
       {
-    set;
+    get;
       }
 
       [Name("LOW_INT")]
       public static uint LOW_INT_Static
       {
-    set;
+    get;
       }
 
       [Name("LUMINANCE")]
       public static uint LUMINANCE_Static
       {
-    set;
+    get;
       }
 
       [Name("LUMINANCE_ALPHA")]
       public static uint LUMINANCE_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_COMBINED_TEXTURE_IMAGE_UNITS")]
       public static uint MAX_COMBINED_TEXTURE_IMAGE_UNITS_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_CUBE_MAP_TEXTURE_SIZE")]
       public static uint MAX_CUBE_MAP_TEXTURE_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_FRAGMENT_UNIFORM_VECTORS")]
       public static uint MAX_FRAGMENT_UNIFORM_VECTORS_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_RENDERBUFFER_SIZE")]
       public static uint MAX_RENDERBUFFER_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_TEXTURE_IMAGE_UNITS")]
       public static uint MAX_TEXTURE_IMAGE_UNITS_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_TEXTURE_SIZE")]
       public static uint MAX_TEXTURE_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_VARYING_VECTORS")]
       public static uint MAX_VARYING_VECTORS_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_VERTEX_ATTRIBS")]
       public static uint MAX_VERTEX_ATTRIBS_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_VERTEX_TEXTURE_IMAGE_UNITS")]
       public static uint MAX_VERTEX_TEXTURE_IMAGE_UNITS_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_VERTEX_UNIFORM_VECTORS")]
       public static uint MAX_VERTEX_UNIFORM_VECTORS_Static
       {
-    set;
+    get;
       }
 
       [Name("MAX_VIEWPORT_DIMS")]
       public static uint MAX_VIEWPORT_DIMS_Static
       {
-    set;
+    get;
       }
 
       [Name("MEDIUM_FLOAT")]
       public static uint MEDIUM_FLOAT_Static
       {
-    set;
+    get;
       }
 
       [Name("MEDIUM_INT")]
       public static uint MEDIUM_INT_Static
       {
-    set;
+    get;
       }
 
       [Name("MIRRORED_REPEAT")]
       public static uint MIRRORED_REPEAT_Static
       {
-    set;
+    get;
       }
 
       [Name("NEAREST")]
       public static uint NEAREST_Static
       {
-    set;
+    get;
       }
 
       [Name("NEAREST_MIPMAP_LINEAR")]
       public static uint NEAREST_MIPMAP_LINEAR_Static
       {
-    set;
+    get;
       }
 
       [Name("NEAREST_MIPMAP_NEAREST")]
       public static uint NEAREST_MIPMAP_NEAREST_Static
       {
-    set;
+    get;
       }
 
       [Name("NEVER")]
       public static uint NEVER_Static
       {
-    set;
+    get;
       }
 
       [Name("NICEST")]
       public static uint NICEST_Static
       {
-    set;
+    get;
       }
 
       [Name("NONE")]
       public static uint NONE_Static
       {
-    set;
+    get;
       }
 
       [Name("NOTEQUAL")]
       public static uint NOTEQUAL_Static
       {
-    set;
+    get;
       }
 
       [Name("NO_ERROR")]
       public static uint NO_ERROR_Static
       {
-    set;
+    get;
       }
 
       [Name("ONE")]
       public static uint ONE_Static
       {
-    set;
+    get;
       }
 
       [Name("ONE_MINUS_CONSTANT_ALPHA")]
       public static uint ONE_MINUS_CONSTANT_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("ONE_MINUS_CONSTANT_COLOR")]
       public static uint ONE_MINUS_CONSTANT_COLOR_Static
       {
-    set;
+    get;
       }
 
       [Name("ONE_MINUS_DST_ALPHA")]
       public static uint ONE_MINUS_DST_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("ONE_MINUS_DST_COLOR")]
       public static uint ONE_MINUS_DST_COLOR_Static
       {
-    set;
+    get;
       }
 
       [Name("ONE_MINUS_SRC_ALPHA")]
       public static uint ONE_MINUS_SRC_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("ONE_MINUS_SRC_COLOR")]
       public static uint ONE_MINUS_SRC_COLOR_Static
       {
-    set;
+    get;
       }
 
       [Name("OUT_OF_MEMORY")]
       public static uint OUT_OF_MEMORY_Static
       {
-    set;
+    get;
       }
 
       [Name("PACK_ALIGNMENT")]
       public static uint PACK_ALIGNMENT_Static
       {
-    set;
+    get;
       }
 
       [Name("POINTS")]
       public static uint POINTS_Static
       {
-    set;
+    get;
       }
 
       [Name("POLYGON_OFFSET_FACTOR")]
       public static uint POLYGON_OFFSET_FACTOR_Static
       {
-    set;
+    get;
       }
 
       [Name("POLYGON_OFFSET_FILL")]
       public static uint POLYGON_OFFSET_FILL_Static
       {
-    set;
+    get;
       }
 
       [Name("POLYGON_OFFSET_UNITS")]
       public static uint POLYGON_OFFSET_UNITS_Static
       {
-    set;
+    get;
       }
 
       [Name("RED_BITS")]
       public static uint RED_BITS_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER")]
       public static uint RENDERBUFFER_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_ALPHA_SIZE")]
       public static uint RENDERBUFFER_ALPHA_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_BINDING")]
       public static uint RENDERBUFFER_BINDING_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_BLUE_SIZE")]
       public static uint RENDERBUFFER_BLUE_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_DEPTH_SIZE")]
       public static uint RENDERBUFFER_DEPTH_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_GREEN_SIZE")]
       public static uint RENDERBUFFER_GREEN_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_HEIGHT")]
       public static uint RENDERBUFFER_HEIGHT_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_INTERNAL_FORMAT")]
       public static uint RENDERBUFFER_INTERNAL_FORMAT_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_RED_SIZE")]
       public static uint RENDERBUFFER_RED_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_STENCIL_SIZE")]
       public static uint RENDERBUFFER_STENCIL_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERBUFFER_WIDTH")]
       public static uint RENDERBUFFER_WIDTH_Static
       {
-    set;
+    get;
       }
 
       [Name("RENDERER")]
       public static uint RENDERER_Static
       {
-    set;
+    get;
       }
 
       [Name("REPEAT")]
       public static uint REPEAT_Static
       {
-    set;
+    get;
       }
 
       [Name("REPLACE")]
       public static uint REPLACE_Static
       {
-    set;
+    get;
       }
 
       [Name("RGB")]
       public static uint RGB_Static
       {
-    set;
+    get;
       }
 
       [Name("RGB565")]
       public static uint RGB565_Static
       {
-    set;
+    get;
       }
 
       [Name("RGB5_A1")]
       public static uint RGB5_A1_Static
       {
-    set;
+    get;
       }
 
       [Name("RGBA")]
       public static uint RGBA_Static
       {
-    set;
+    get;
       }
 
       [Name("RGBA4")]
       public static uint RGBA4_Static
       {
-    set;
+    get;
       }
 
       [Name("SAMPLER_2D")]
       public static uint SAMPLER_2D_Static
       {
-    set;
+    get;
       }
 
       [Name("SAMPLER_CUBE")]
       public static uint SAMPLER_CUBE_Static
       {
-    set;
+    get;
       }
 
       [Name("SAMPLES")]
       public static uint SAMPLES_Static
       {
-    set;
+    get;
       }
 
       [Name("SAMPLE_ALPHA_TO_COVERAGE")]
       public static uint SAMPLE_ALPHA_TO_COVERAGE_Static
       {
-    set;
+    get;
       }
 
       [Name("SAMPLE_BUFFERS")]
       public static uint SAMPLE_BUFFERS_Static
       {
-    set;
+    get;
       }
 
       [Name("SAMPLE_COVERAGE")]
       public static uint SAMPLE_COVERAGE_Static
       {
-    set;
+    get;
       }
 
       [Name("SAMPLE_COVERAGE_INVERT")]
       public static uint SAMPLE_COVERAGE_INVERT_Static
       {
-    set;
+    get;
       }
 
       [Name("SAMPLE_COVERAGE_VALUE")]
       public static uint SAMPLE_COVERAGE_VALUE_Static
       {
-    set;
+    get;
       }
 
       [Name("SCISSOR_BOX")]
       public static uint SCISSOR_BOX_Static
       {
-    set;
+    get;
       }
 
       [Name("SCISSOR_TEST")]
       public static uint SCISSOR_TEST_Static
       {
-    set;
+    get;
       }
 
       [Name("SHADER_TYPE")]
       public static uint SHADER_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("SHADING_LANGUAGE_VERSION")]
       public static uint SHADING_LANGUAGE_VERSION_Static
       {
-    set;
+    get;
       }
 
       [Name("SHORT")]
       public static uint SHORT_Static
       {
-    set;
+    get;
       }
 
       [Name("SRC_ALPHA")]
       public static uint SRC_ALPHA_Static
       {
-    set;
+    get;
       }
 
       [Name("SRC_ALPHA_SATURATE")]
       public static uint SRC_ALPHA_SATURATE_Static
       {
-    set;
+    get;
       }
 
       [Name("SRC_COLOR")]
       public static uint SRC_COLOR_Static
       {
-    set;
+    get;
       }
 
       [Name("STATIC_DRAW")]
       public static uint STATIC_DRAW_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_ATTACHMENT")]
       public static uint STENCIL_ATTACHMENT_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BACK_FAIL")]
       public static uint STENCIL_BACK_FAIL_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BACK_FUNC")]
       public static uint STENCIL_BACK_FUNC_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BACK_PASS_DEPTH_FAIL")]
       public static uint STENCIL_BACK_PASS_DEPTH_FAIL_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BACK_PASS_DEPTH_PASS")]
       public static uint STENCIL_BACK_PASS_DEPTH_PASS_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BACK_REF")]
       public static uint STENCIL_BACK_REF_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BACK_VALUE_MASK")]
       public static uint STENCIL_BACK_VALUE_MASK_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BACK_WRITEMASK")]
       public static uint STENCIL_BACK_WRITEMASK_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BITS")]
       public static uint STENCIL_BITS_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_BUFFER_BIT")]
       public static uint STENCIL_BUFFER_BIT_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_CLEAR_VALUE")]
       public static uint STENCIL_CLEAR_VALUE_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_FAIL")]
       public static uint STENCIL_FAIL_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_FUNC")]
       public static uint STENCIL_FUNC_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_INDEX")]
       public static uint STENCIL_INDEX_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_INDEX8")]
       public static uint STENCIL_INDEX8_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_PASS_DEPTH_FAIL")]
       public static uint STENCIL_PASS_DEPTH_FAIL_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_PASS_DEPTH_PASS")]
       public static uint STENCIL_PASS_DEPTH_PASS_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_REF")]
       public static uint STENCIL_REF_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_TEST")]
       public static uint STENCIL_TEST_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_VALUE_MASK")]
       public static uint STENCIL_VALUE_MASK_Static
       {
-    set;
+    get;
       }
 
       [Name("STENCIL_WRITEMASK")]
       public static uint STENCIL_WRITEMASK_Static
       {
-    set;
+    get;
       }
 
       [Name("STREAM_DRAW")]
       public static uint STREAM_DRAW_Static
       {
-    set;
+    get;
       }
 
       [Name("SUBPIXEL_BITS")]
       public static uint SUBPIXEL_BITS_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE")]
       public static uint TEXTURE_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE0")]
       public static uint TEXTURE0_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE1")]
       public static uint TEXTURE1_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE10")]
       public static uint TEXTURE10_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE11")]
       public static uint TEXTURE11_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE12")]
       public static uint TEXTURE12_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE13")]
       public static uint TEXTURE13_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE14")]
       public static uint TEXTURE14_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE15")]
       public static uint TEXTURE15_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE16")]
       public static uint TEXTURE16_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE17")]
       public static uint TEXTURE17_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE18")]
       public static uint TEXTURE18_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE19")]
       public static uint TEXTURE19_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE2")]
       public static uint TEXTURE2_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE20")]
       public static uint TEXTURE20_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE21")]
       public static uint TEXTURE21_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE22")]
       public static uint TEXTURE22_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE23")]
       public static uint TEXTURE23_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE24")]
       public static uint TEXTURE24_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE25")]
       public static uint TEXTURE25_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE26")]
       public static uint TEXTURE26_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE27")]
       public static uint TEXTURE27_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE28")]
       public static uint TEXTURE28_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE29")]
       public static uint TEXTURE29_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE3")]
       public static uint TEXTURE3_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE30")]
       public static uint TEXTURE30_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE31")]
       public static uint TEXTURE31_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE4")]
       public static uint TEXTURE4_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE5")]
       public static uint TEXTURE5_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE6")]
       public static uint TEXTURE6_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE7")]
       public static uint TEXTURE7_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE8")]
       public static uint TEXTURE8_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE9")]
       public static uint TEXTURE9_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_2D")]
       public static uint TEXTURE_2D_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_BINDING_2D")]
       public static uint TEXTURE_BINDING_2D_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_BINDING_CUBE_MAP")]
       public static uint TEXTURE_BINDING_CUBE_MAP_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_CUBE_MAP")]
       public static uint TEXTURE_CUBE_MAP_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_CUBE_MAP_NEGATIVE_X")]
       public static uint TEXTURE_CUBE_MAP_NEGATIVE_X_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_CUBE_MAP_NEGATIVE_Y")]
       public static uint TEXTURE_CUBE_MAP_NEGATIVE_Y_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_CUBE_MAP_NEGATIVE_Z")]
       public static uint TEXTURE_CUBE_MAP_NEGATIVE_Z_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_CUBE_MAP_POSITIVE_X")]
       public static uint TEXTURE_CUBE_MAP_POSITIVE_X_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_CUBE_MAP_POSITIVE_Y")]
       public static uint TEXTURE_CUBE_MAP_POSITIVE_Y_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_CUBE_MAP_POSITIVE_Z")]
       public static uint TEXTURE_CUBE_MAP_POSITIVE_Z_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_MAG_FILTER")]
       public static uint TEXTURE_MAG_FILTER_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_MIN_FILTER")]
       public static uint TEXTURE_MIN_FILTER_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_WRAP_S")]
       public static uint TEXTURE_WRAP_S_Static
       {
-    set;
+    get;
       }
 
       [Name("TEXTURE_WRAP_T")]
       public static uint TEXTURE_WRAP_T_Static
       {
-    set;
+    get;
       }
 
       [Name("TRIANGLES")]
       public static uint TRIANGLES_Static
       {
-    set;
+    get;
       }
 
       [Name("TRIANGLE_FAN")]
       public static uint TRIANGLE_FAN_Static
       {
-    set;
+    get;
       }
 
       [Name("TRIANGLE_STRIP")]
       public static uint TRIANGLE_STRIP_Static
       {
-    set;
+    get;
       }
 
       [Name("UNPACK_ALIGNMENT")]
       public static uint UNPACK_ALIGNMENT_Static
       {
-    set;
+    get;
       }
 
       [Name("UNPACK_COLORSPACE_CONVERSION_WEBGL")]
       public static uint UNPACK_COLORSPACE_CONVERSION_WEBGL_Static
       {
-    set;
+    get;
       }
 
       [Name("UNPACK_FLIP_Y_WEBGL")]
       public static uint UNPACK_FLIP_Y_WEBGL_Static
       {
-    set;
+    get;
       }
 
       [Name("UNPACK_PREMULTIPLY_ALPHA_WEBGL")]
       public static uint UNPACK_PREMULTIPLY_ALPHA_WEBGL_Static
       {
-    set;
+    get;
       }
 
       [Name("UNSIGNED_BYTE")]
       public static uint UNSIGNED_BYTE_Static
       {
-    set;
+    get;
       }
 
       [Name("UNSIGNED_INT")]
       public static uint UNSIGNED_INT_Static
       {
-    set;
+    get;
       }
 
       [Name("UNSIGNED_SHORT")]
       public static uint UNSIGNED_SHORT_Static
       {
-    set;
+    get;
       }
 
       [Name("UNSIGNED_SHORT_4_4_4_4")]
       public static uint UNSIGNED_SHORT_4_4_4_4_Static
       {
-    set;
+    get;
       }
 
       [Name("UNSIGNED_SHORT_5_5_5_1")]
       public static uint UNSIGNED_SHORT_5_5_5_1_Static
       {
-    set;
+    get;
       }
 
       [Name("UNSIGNED_SHORT_5_6_5")]
       public static uint UNSIGNED_SHORT_5_6_5_Static
       {
-    set;
+    get;
       }
 
       [Name("VALIDATE_STATUS")]
       public static uint VALIDATE_STATUS_Static
       {
-    set;
+    get;
       }
 
       [Name("VENDOR")]
       public static uint VENDOR_Static
       {
-    set;
+    get;
       }
 
       [Name("VERSION")]
       public static uint VERSION_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTEX_ATTRIB_ARRAY_BUFFER_BINDING")]
       public static uint VERTEX_ATTRIB_ARRAY_BUFFER_BINDING_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTEX_ATTRIB_ARRAY_ENABLED")]
       public static uint VERTEX_ATTRIB_ARRAY_ENABLED_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTEX_ATTRIB_ARRAY_NORMALIZED")]
       public static uint VERTEX_ATTRIB_ARRAY_NORMALIZED_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTEX_ATTRIB_ARRAY_POINTER")]
       public static uint VERTEX_ATTRIB_ARRAY_POINTER_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTEX_ATTRIB_ARRAY_SIZE")]
       public static uint VERTEX_ATTRIB_ARRAY_SIZE_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTEX_ATTRIB_ARRAY_STRIDE")]
       public static uint VERTEX_ATTRIB_ARRAY_STRIDE_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTEX_ATTRIB_ARRAY_TYPE")]
       public static uint VERTEX_ATTRIB_ARRAY_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("VERTEX_SHADER")]
       public static uint VERTEX_SHADER_Static
       {
-    set;
+    get;
       }
 
       [Name("VIEWPORT")]
       public static uint VIEWPORT_Static
       {
-    set;
+    get;
       }
 
       [Name("ZERO")]
       public static uint ZERO_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.HTMLCanvasElement canvas
       {
-    set;
+    get;
       }
 
       public virtual double drawingBufferHeight
       {
-    set;
+    get;
       }
 
       public virtual double drawingBufferWidth
       {
-    set;
+    get;
       }
 
       public virtual extern void activeTexture(double texture);
@@ -74033,1487 +74028,1487 @@ namespace H5
 
       public virtual uint ACTIVE_ATTRIBUTES
       {
-    set;
+    get;
       }
 
       public virtual uint ACTIVE_TEXTURE
       {
-    set;
+    get;
       }
 
       public virtual uint ACTIVE_UNIFORMS
       {
-    set;
+    get;
       }
 
       public virtual uint ALIASED_LINE_WIDTH_RANGE
       {
-    set;
+    get;
       }
 
       public virtual uint ALIASED_POINT_SIZE_RANGE
       {
-    set;
+    get;
       }
 
       public virtual uint ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint ALPHA_BITS
       {
-    set;
+    get;
       }
 
       public virtual uint ALWAYS
       {
-    set;
+    get;
       }
 
       public virtual uint ARRAY_BUFFER
       {
-    set;
+    get;
       }
 
       public virtual uint ARRAY_BUFFER_BINDING
       {
-    set;
+    get;
       }
 
       public virtual uint ATTACHED_SHADERS
       {
-    set;
+    get;
       }
 
       public virtual uint BACK
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND_COLOR
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND_DST_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND_DST_RGB
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND_EQUATION
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND_EQUATION_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND_EQUATION_RGB
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND_SRC_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint BLEND_SRC_RGB
       {
-    set;
+    get;
       }
 
       public virtual uint BLUE_BITS
       {
-    set;
+    get;
       }
 
       public virtual uint BOOL
       {
-    set;
+    get;
       }
 
       public virtual uint BOOL_VEC2
       {
-    set;
+    get;
       }
 
       public virtual uint BOOL_VEC3
       {
-    set;
+    get;
       }
 
       public virtual uint BOOL_VEC4
       {
-    set;
+    get;
       }
 
       public virtual uint BROWSER_DEFAULT_WEBGL
       {
-    set;
+    get;
       }
 
       public virtual uint BUFFER_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint BUFFER_USAGE
       {
-    set;
+    get;
       }
 
       public virtual uint BYTE
       {
-    set;
+    get;
       }
 
       public virtual uint CCW
       {
-    set;
+    get;
       }
 
       public virtual uint CLAMP_TO_EDGE
       {
-    set;
+    get;
       }
 
       public virtual uint COLOR_ATTACHMENT0
       {
-    set;
+    get;
       }
 
       public virtual uint COLOR_BUFFER_BIT
       {
-    set;
+    get;
       }
 
       public virtual uint COLOR_CLEAR_VALUE
       {
-    set;
+    get;
       }
 
       public virtual uint COLOR_WRITEMASK
       {
-    set;
+    get;
       }
 
       public virtual uint COMPILE_STATUS
       {
-    set;
+    get;
       }
 
       public virtual uint COMPRESSED_TEXTURE_FORMATS
       {
-    set;
+    get;
       }
 
       public virtual uint CONSTANT_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint CONSTANT_COLOR
       {
-    set;
+    get;
       }
 
       public virtual uint CONTEXT_LOST_WEBGL
       {
-    set;
+    get;
       }
 
       public virtual uint CULL_FACE
       {
-    set;
+    get;
       }
 
       public virtual uint CULL_FACE_MODE
       {
-    set;
+    get;
       }
 
       public virtual uint CURRENT_PROGRAM
       {
-    set;
+    get;
       }
 
       public virtual uint CURRENT_VERTEX_ATTRIB
       {
-    set;
+    get;
       }
 
       public virtual uint CW
       {
-    set;
+    get;
       }
 
       public virtual uint DECR
       {
-    set;
+    get;
       }
 
       public virtual uint DECR_WRAP
       {
-    set;
+    get;
       }
 
       public virtual uint DELETE_STATUS
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_ATTACHMENT
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_BITS
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_BUFFER_BIT
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_CLEAR_VALUE
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_COMPONENT
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_COMPONENT16
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_FUNC
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_RANGE
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_STENCIL
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_STENCIL_ATTACHMENT
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_TEST
       {
-    set;
+    get;
       }
 
       public virtual uint DEPTH_WRITEMASK
       {
-    set;
+    get;
       }
 
       public virtual uint DITHER
       {
-    set;
+    get;
       }
 
       public virtual uint DONT_CARE
       {
-    set;
+    get;
       }
 
       public virtual uint DST_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint DST_COLOR
       {
-    set;
+    get;
       }
 
       public virtual uint DYNAMIC_DRAW
       {
-    set;
+    get;
       }
 
       public virtual uint ELEMENT_ARRAY_BUFFER
       {
-    set;
+    get;
       }
 
       public virtual uint ELEMENT_ARRAY_BUFFER_BINDING
       {
-    set;
+    get;
       }
 
       public virtual uint EQUAL
       {
-    set;
+    get;
       }
 
       public virtual uint FASTEST
       {
-    set;
+    get;
       }
 
       public virtual uint FLOAT
       {
-    set;
+    get;
       }
 
       public virtual uint FLOAT_MAT2
       {
-    set;
+    get;
       }
 
       public virtual uint FLOAT_MAT3
       {
-    set;
+    get;
       }
 
       public virtual uint FLOAT_MAT4
       {
-    set;
+    get;
       }
 
       public virtual uint FLOAT_VEC2
       {
-    set;
+    get;
       }
 
       public virtual uint FLOAT_VEC3
       {
-    set;
+    get;
       }
 
       public virtual uint FLOAT_VEC4
       {
-    set;
+    get;
       }
 
       public virtual uint FRAGMENT_SHADER
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_ATTACHMENT_OBJECT_NAME
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_BINDING
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_COMPLETE
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_INCOMPLETE_ATTACHMENT
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_INCOMPLETE_DIMENSIONS
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
       {
-    set;
+    get;
       }
 
       public virtual uint FRAMEBUFFER_UNSUPPORTED
       {
-    set;
+    get;
       }
 
       public virtual uint FRONT
       {
-    set;
+    get;
       }
 
       public virtual uint FRONT_AND_BACK
       {
-    set;
+    get;
       }
 
       public virtual uint FRONT_FACE
       {
-    set;
+    get;
       }
 
       public virtual uint FUNC_ADD
       {
-    set;
+    get;
       }
 
       public virtual uint FUNC_REVERSE_SUBTRACT
       {
-    set;
+    get;
       }
 
       public virtual uint FUNC_SUBTRACT
       {
-    set;
+    get;
       }
 
       public virtual uint GENERATE_MIPMAP_HINT
       {
-    set;
+    get;
       }
 
       public virtual uint GEQUAL
       {
-    set;
+    get;
       }
 
       public virtual uint GREATER
       {
-    set;
+    get;
       }
 
       public virtual uint GREEN_BITS
       {
-    set;
+    get;
       }
 
       public virtual uint HIGH_FLOAT
       {
-    set;
+    get;
       }
 
       public virtual uint HIGH_INT
       {
-    set;
+    get;
       }
 
       public virtual uint IMPLEMENTATION_COLOR_READ_FORMAT
       {
-    set;
+    get;
       }
 
       public virtual uint IMPLEMENTATION_COLOR_READ_TYPE
       {
-    set;
+    get;
       }
 
       public virtual uint INCR
       {
-    set;
+    get;
       }
 
       public virtual uint INCR_WRAP
       {
-    set;
+    get;
       }
 
       public virtual uint INT
       {
-    set;
+    get;
       }
 
       public virtual uint INT_VEC2
       {
-    set;
+    get;
       }
 
       public virtual uint INT_VEC3
       {
-    set;
+    get;
       }
 
       public virtual uint INT_VEC4
       {
-    set;
+    get;
       }
 
       public virtual uint INVALID_ENUM
       {
-    set;
+    get;
       }
 
       public virtual uint INVALID_FRAMEBUFFER_OPERATION
       {
-    set;
+    get;
       }
 
       public virtual uint INVALID_OPERATION
       {
-    set;
+    get;
       }
 
       public virtual uint INVALID_VALUE
       {
-    set;
+    get;
       }
 
       public virtual uint INVERT
       {
-    set;
+    get;
       }
 
       public virtual uint KEEP
       {
-    set;
+    get;
       }
 
       public virtual uint LEQUAL
       {
-    set;
+    get;
       }
 
       public virtual uint LESS
       {
-    set;
+    get;
       }
 
       public virtual uint LINEAR
       {
-    set;
+    get;
       }
 
       public virtual uint LINEAR_MIPMAP_LINEAR
       {
-    set;
+    get;
       }
 
       public virtual uint LINEAR_MIPMAP_NEAREST
       {
-    set;
+    get;
       }
 
       public virtual uint LINES
       {
-    set;
+    get;
       }
 
       public virtual uint LINE_LOOP
       {
-    set;
+    get;
       }
 
       public virtual uint LINE_STRIP
       {
-    set;
+    get;
       }
 
       public virtual uint LINE_WIDTH
       {
-    set;
+    get;
       }
 
       public virtual uint LINK_STATUS
       {
-    set;
+    get;
       }
 
       public virtual uint LOW_FLOAT
       {
-    set;
+    get;
       }
 
       public virtual uint LOW_INT
       {
-    set;
+    get;
       }
 
       public virtual uint LUMINANCE
       {
-    set;
+    get;
       }
 
       public virtual uint LUMINANCE_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_COMBINED_TEXTURE_IMAGE_UNITS
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_CUBE_MAP_TEXTURE_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_FRAGMENT_UNIFORM_VECTORS
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_RENDERBUFFER_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_TEXTURE_IMAGE_UNITS
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_TEXTURE_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_VARYING_VECTORS
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_VERTEX_ATTRIBS
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_VERTEX_TEXTURE_IMAGE_UNITS
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_VERTEX_UNIFORM_VECTORS
       {
-    set;
+    get;
       }
 
       public virtual uint MAX_VIEWPORT_DIMS
       {
-    set;
+    get;
       }
 
       public virtual uint MEDIUM_FLOAT
       {
-    set;
+    get;
       }
 
       public virtual uint MEDIUM_INT
       {
-    set;
+    get;
       }
 
       public virtual uint MIRRORED_REPEAT
       {
-    set;
+    get;
       }
 
       public virtual uint NEAREST
       {
-    set;
+    get;
       }
 
       public virtual uint NEAREST_MIPMAP_LINEAR
       {
-    set;
+    get;
       }
 
       public virtual uint NEAREST_MIPMAP_NEAREST
       {
-    set;
+    get;
       }
 
       public virtual uint NEVER
       {
-    set;
+    get;
       }
 
       public virtual uint NICEST
       {
-    set;
+    get;
       }
 
       public virtual uint NONE
       {
-    set;
+    get;
       }
 
       public virtual uint NOTEQUAL
       {
-    set;
+    get;
       }
 
       public virtual uint NO_ERROR
       {
-    set;
+    get;
       }
 
       public virtual uint ONE
       {
-    set;
+    get;
       }
 
       public virtual uint ONE_MINUS_CONSTANT_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint ONE_MINUS_CONSTANT_COLOR
       {
-    set;
+    get;
       }
 
       public virtual uint ONE_MINUS_DST_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint ONE_MINUS_DST_COLOR
       {
-    set;
+    get;
       }
 
       public virtual uint ONE_MINUS_SRC_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint ONE_MINUS_SRC_COLOR
       {
-    set;
+    get;
       }
 
       public virtual uint OUT_OF_MEMORY
       {
-    set;
+    get;
       }
 
       public virtual uint PACK_ALIGNMENT
       {
-    set;
+    get;
       }
 
       public virtual uint POINTS
       {
-    set;
+    get;
       }
 
       public virtual uint POLYGON_OFFSET_FACTOR
       {
-    set;
+    get;
       }
 
       public virtual uint POLYGON_OFFSET_FILL
       {
-    set;
+    get;
       }
 
       public virtual uint POLYGON_OFFSET_UNITS
       {
-    set;
+    get;
       }
 
       public virtual uint RED_BITS
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_ALPHA_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_BINDING
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_BLUE_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_DEPTH_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_GREEN_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_HEIGHT
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_INTERNAL_FORMAT
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_RED_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_STENCIL_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERBUFFER_WIDTH
       {
-    set;
+    get;
       }
 
       public virtual uint RENDERER
       {
-    set;
+    get;
       }
 
       public virtual uint REPEAT
       {
-    set;
+    get;
       }
 
       public virtual uint REPLACE
       {
-    set;
+    get;
       }
 
       public virtual uint RGB
       {
-    set;
+    get;
       }
 
       public virtual uint RGB565
       {
-    set;
+    get;
       }
 
       public virtual uint RGB5_A1
       {
-    set;
+    get;
       }
 
       public virtual uint RGBA
       {
-    set;
+    get;
       }
 
       public virtual uint RGBA4
       {
-    set;
+    get;
       }
 
       public virtual uint SAMPLER_2D
       {
-    set;
+    get;
       }
 
       public virtual uint SAMPLER_CUBE
       {
-    set;
+    get;
       }
 
       public virtual uint SAMPLES
       {
-    set;
+    get;
       }
 
       public virtual uint SAMPLE_ALPHA_TO_COVERAGE
       {
-    set;
+    get;
       }
 
       public virtual uint SAMPLE_BUFFERS
       {
-    set;
+    get;
       }
 
       public virtual uint SAMPLE_COVERAGE
       {
-    set;
+    get;
       }
 
       public virtual uint SAMPLE_COVERAGE_INVERT
       {
-    set;
+    get;
       }
 
       public virtual uint SAMPLE_COVERAGE_VALUE
       {
-    set;
+    get;
       }
 
       public virtual uint SCISSOR_BOX
       {
-    set;
+    get;
       }
 
       public virtual uint SCISSOR_TEST
       {
-    set;
+    get;
       }
 
       public virtual uint SHADER_TYPE
       {
-    set;
+    get;
       }
 
       public virtual uint SHADING_LANGUAGE_VERSION
       {
-    set;
+    get;
       }
 
       public virtual uint SHORT
       {
-    set;
+    get;
       }
 
       public virtual uint SRC_ALPHA
       {
-    set;
+    get;
       }
 
       public virtual uint SRC_ALPHA_SATURATE
       {
-    set;
+    get;
       }
 
       public virtual uint SRC_COLOR
       {
-    set;
+    get;
       }
 
       public virtual uint STATIC_DRAW
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_ATTACHMENT
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BACK_FAIL
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BACK_FUNC
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BACK_PASS_DEPTH_FAIL
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BACK_PASS_DEPTH_PASS
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BACK_REF
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BACK_VALUE_MASK
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BACK_WRITEMASK
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BITS
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_BUFFER_BIT
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_CLEAR_VALUE
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_FAIL
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_FUNC
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_INDEX
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_INDEX8
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_PASS_DEPTH_FAIL
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_PASS_DEPTH_PASS
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_REF
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_TEST
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_VALUE_MASK
       {
-    set;
+    get;
       }
 
       public virtual uint STENCIL_WRITEMASK
       {
-    set;
+    get;
       }
 
       public virtual uint STREAM_DRAW
       {
-    set;
+    get;
       }
 
       public virtual uint SUBPIXEL_BITS
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE0
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE1
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE10
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE11
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE12
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE13
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE14
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE15
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE16
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE17
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE18
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE19
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE2
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE20
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE21
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE22
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE23
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE24
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE25
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE26
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE27
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE28
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE29
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE3
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE30
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE31
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE4
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE5
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE6
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE7
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE8
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE9
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_2D
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_BINDING_2D
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_BINDING_CUBE_MAP
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_CUBE_MAP
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_CUBE_MAP_NEGATIVE_X
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_CUBE_MAP_NEGATIVE_Y
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_CUBE_MAP_NEGATIVE_Z
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_CUBE_MAP_POSITIVE_X
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_CUBE_MAP_POSITIVE_Y
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_CUBE_MAP_POSITIVE_Z
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_MAG_FILTER
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_MIN_FILTER
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_WRAP_S
       {
-    set;
+    get;
       }
 
       public virtual uint TEXTURE_WRAP_T
       {
-    set;
+    get;
       }
 
       public virtual uint TRIANGLES
       {
-    set;
+    get;
       }
 
       public virtual uint TRIANGLE_FAN
       {
-    set;
+    get;
       }
 
       public virtual uint TRIANGLE_STRIP
       {
-    set;
+    get;
       }
 
       public virtual uint UNPACK_ALIGNMENT
       {
-    set;
+    get;
       }
 
       public virtual uint UNPACK_COLORSPACE_CONVERSION_WEBGL
       {
-    set;
+    get;
       }
 
       public virtual uint UNPACK_FLIP_Y_WEBGL
       {
-    set;
+    get;
       }
 
       public virtual uint UNPACK_PREMULTIPLY_ALPHA_WEBGL
       {
-    set;
+    get;
       }
 
       public virtual uint UNSIGNED_BYTE
       {
-    set;
+    get;
       }
 
       public virtual uint UNSIGNED_INT
       {
-    set;
+    get;
       }
 
       public virtual uint UNSIGNED_SHORT
       {
-    set;
+    get;
       }
 
       public virtual uint UNSIGNED_SHORT_4_4_4_4
       {
-    set;
+    get;
       }
 
       public virtual uint UNSIGNED_SHORT_5_5_5_1
       {
-    set;
+    get;
       }
 
       public virtual uint UNSIGNED_SHORT_5_6_5
       {
-    set;
+    get;
       }
 
       public virtual uint VALIDATE_STATUS
       {
-    set;
+    get;
       }
 
       public virtual uint VENDOR
       {
-    set;
+    get;
       }
 
       public virtual uint VERSION
       {
-    set;
+    get;
       }
 
       public virtual uint VERTEX_ATTRIB_ARRAY_BUFFER_BINDING
       {
-    set;
+    get;
       }
 
       public virtual uint VERTEX_ATTRIB_ARRAY_ENABLED
       {
-    set;
+    get;
       }
 
       public virtual uint VERTEX_ATTRIB_ARRAY_NORMALIZED
       {
-    set;
+    get;
       }
 
       public virtual uint VERTEX_ATTRIB_ARRAY_POINTER
       {
-    set;
+    get;
       }
 
       public virtual uint VERTEX_ATTRIB_ARRAY_SIZE
       {
-    set;
+    get;
       }
 
       public virtual uint VERTEX_ATTRIB_ARRAY_STRIDE
       {
-    set;
+    get;
       }
 
       public virtual uint VERTEX_ATTRIB_ARRAY_TYPE
       {
-    set;
+    get;
       }
 
       public virtual uint VERTEX_SHADER
       {
-    set;
+    get;
       }
 
       public virtual uint VIEWPORT
       {
-    set;
+    get;
       }
 
       public virtual uint ZERO
       {
-    set;
+    get;
       }
     }
 
@@ -75525,7 +75520,7 @@ namespace H5
 
       public static dom.WebGLShader prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -75541,23 +75536,23 @@ namespace H5
 
       public static dom.WebGLShaderPrecisionFormat prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual int precision
       {
-    set;
+    get;
       }
 
       public virtual int rangeMax
       {
-    set;
+    get;
       }
 
       public virtual int rangeMin
       {
-    set;
+    get;
       }
     }
 
@@ -75569,7 +75564,7 @@ namespace H5
 
       public static dom.WebGLTexture prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -75582,7 +75577,7 @@ namespace H5
 
       public static dom.WebGLUniformLocation prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -75628,139 +75623,139 @@ namespace H5
 
       public static dom.WebKitCSSMatrix prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double a
       {
-    set;
+    get;
     set;
       }
 
       public virtual double b
       {
-    set;
+    get;
     set;
       }
 
       public virtual double c
       {
-    set;
+    get;
     set;
       }
 
       public virtual double d
       {
-    set;
+    get;
     set;
       }
 
       public virtual double e
       {
-    set;
+    get;
     set;
       }
 
       public virtual double f
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m11
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m12
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m13
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m14
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m21
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m22
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m23
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m24
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m31
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m32
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m33
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m34
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m41
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m42
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m43
       {
-    set;
+    get;
     set;
       }
 
       public virtual double m44
       {
-    set;
+    get;
     set;
       }
 
@@ -75813,7 +75808,7 @@ namespace H5
 
       public static dom.WebKitDirectoryEntry prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -75828,7 +75823,7 @@ namespace H5
 
       public static dom.WebKitDirectoryReader prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -75897,33 +75892,33 @@ namespace H5
 
       public static dom.WebKitEntry prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WebKitFileSystem filesystem
       {
-    set;
+    get;
       }
 
       public virtual string fullPath
       {
-    set;
+    get;
       }
 
       public virtual bool isDirectory
       {
-    set;
+    get;
       }
 
       public virtual bool isFile
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
     }
 
@@ -75935,7 +75930,7 @@ namespace H5
 
       public static dom.WebKitFileEntry prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -76001,18 +75996,18 @@ namespace H5
 
       public static dom.WebKitFileSystem prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual string name
       {
-    set;
+    get;
       }
 
       public virtual dom.WebKitDirectoryEntry root
       {
-    set;
+    get;
       }
     }
 
@@ -76032,19 +76027,19 @@ namespace H5
 
       public static dom.WebKitPoint prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual double x
       {
-    set;
+    get;
     set;
       }
 
       public virtual double y
       {
-    set;
+    get;
     set;
       }
     }
@@ -76061,25 +76056,25 @@ namespace H5
 
       public dom.CloseEvent close
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event error
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessageEvent message
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event open
       {
-    set;
+    get;
     set;
       }
 
@@ -76131,87 +76126,87 @@ namespace H5
 
       public static dom.WebSocket prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("CLOSED")]
       public static ushort CLOSED_Static
       {
-    set;
+    get;
       }
 
       [Name("CLOSING")]
       public static ushort CLOSING_Static
       {
-    set;
+    get;
       }
 
       [Name("CONNECTING")]
       public static ushort CONNECTING_Static
       {
-    set;
+    get;
       }
 
       [Name("OPEN")]
       public static ushort OPEN_Static
       {
-    set;
+    get;
       }
 
       public virtual dom.BinaryType binaryType
       {
-    set;
+    get;
     set;
       }
 
       public virtual ulong bufferedAmount
       {
-    set;
+    get;
       }
 
       public virtual string extensions
       {
-    set;
+    get;
       }
 
       public virtual dom.WebSocket.oncloseFn onclose
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WebSocket.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WebSocket.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WebSocket.onerrorFn onopen
       {
-    set;
+    get;
     set;
       }
 
       public virtual string protocol
       {
-    set;
+    get;
       }
 
       public virtual ushort readyState
       {
-    set;
+    get;
       }
 
       public virtual string url
       {
-    set;
+    get;
       }
 
       public virtual extern void close();
@@ -76235,22 +76230,22 @@ namespace H5
 
       public virtual ushort CLOSED
       {
-    set;
+    get;
       }
 
       public virtual ushort CLOSING
       {
-    set;
+    get;
       }
 
       public virtual ushort CONNECTING
       {
-    set;
+    get;
       }
 
       public virtual ushort OPEN
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.WebSocketEventMap>), EnableImplicitConversion = true)]
@@ -76381,61 +76376,61 @@ namespace H5
 
       public static dom.WheelEvent prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("DOM_DELTA_LINE")]
       public static uint DOM_DELTA_LINE_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_DELTA_PAGE")]
       public static uint DOM_DELTA_PAGE_Static
       {
-    set;
+    get;
       }
 
       [Name("DOM_DELTA_PIXEL")]
       public static uint DOM_DELTA_PIXEL_Static
       {
-    set;
+    get;
       }
 
       public virtual uint deltaMode
       {
-    set;
+    get;
       }
 
       public virtual double deltaX
       {
-    set;
+    get;
       }
 
       public virtual double deltaY
       {
-    set;
+    get;
       }
 
       public virtual double deltaZ
       {
-    set;
+    get;
       }
 
       public virtual double wheelDelta
       {
-    set;
+    get;
       }
 
       public virtual double wheelDeltaX
       {
-    set;
+    get;
       }
 
       public virtual double wheelDeltaY
       {
-    set;
+    get;
       }
 
       public virtual extern void getCurrentPoint(dom.Element element);
@@ -76460,17 +76455,17 @@ namespace H5
 
       public virtual uint DOM_DELTA_LINE
       {
-    set;
+    get;
       }
 
       public virtual uint DOM_DELTA_PAGE
       {
-    set;
+    get;
       }
 
       public virtual uint DOM_DELTA_PIXEL
       {
-    set;
+    get;
       }
     }
 
@@ -76580,589 +76575,589 @@ namespace H5
 
       public dom.UIEvent abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.BeforeUnloadEvent beforeunload
       {
-    set;
+    get;
     set;
       }
 
       public dom.FocusEvent blur
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event canplay
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event canplaythrough
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event change
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent click
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event compassneedscalibration
       {
-    set;
+    get;
     set;
       }
 
       public dom.PointerEvent contextmenu
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent dblclick
       {
-    set;
+    get;
     set;
       }
 
       public dom.DeviceLightEvent devicelight
       {
-    set;
+    get;
     set;
       }
 
       public dom.DeviceMotionEvent devicemotion
       {
-    set;
+    get;
     set;
       }
 
       public dom.DeviceOrientationEvent deviceorientation
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent drag
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragend
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragenter
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragleave
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragover
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent dragstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.DragEvent drop
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event durationchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event emptied
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event ended
       {
-    set;
+    get;
     set;
       }
 
       public dom.ErrorEvent error
       {
-    set;
+    get;
     set;
       }
 
       public dom.FocusEvent focus
       {
-    set;
+    get;
     set;
       }
 
       public dom.HashChangeEvent hashchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event input
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event invalid
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keydown
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keypress
       {
-    set;
+    get;
     set;
       }
 
       public dom.KeyboardEvent keyup
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event load
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadeddata
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadedmetadata
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessageEvent message
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mousedown
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseenter
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseleave
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mousemove
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseout
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseover
       {
-    set;
+    get;
     set;
       }
 
       public dom.MouseEvent mouseup
       {
-    set;
+    get;
     set;
       }
 
       public dom.WheelEvent mousewheel
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureChange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureDoubleTap
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureEnd
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureHold
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureStart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSGestureTap
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSInertiaStart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerCancel
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerDown
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerEnter
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerLeave
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerMove
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerOut
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerOver
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event MSPointerUp
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event offline
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event online
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event orientationchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.PageTransitionEvent pagehide
       {
-    set;
+    get;
     set;
       }
 
       public dom.PageTransitionEvent pageshow
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event pause
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event play
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event playing
       {
-    set;
+    get;
     set;
       }
 
       public dom.PopStateEvent popstate
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent progress
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event ratechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent readystatechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event reset
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent resize
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent scroll
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event seeked
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event seeking
       {
-    set;
+    get;
     set;
       }
 
       public dom.UIEvent select
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event stalled
       {
-    set;
+    get;
     set;
       }
 
       public dom.StorageEvent storage
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event submit
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event suspend
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event timeupdate
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchcancel
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchend
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchmove
       {
-    set;
+    get;
     set;
       }
 
       public dom.TouchEvent touchstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event unload
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event volumechange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplayactivate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplayblur
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplayconnect
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplaydeactivate
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplaydisconnect
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplayfocus
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplaypointerrestricted
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplaypointerunrestricted
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event vrdisplaypresentchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event waiting
       {
-    set;
+    get;
     set;
       }
 
@@ -77542,883 +77537,883 @@ namespace H5
 
       public static dom.Window prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.BlobStatics Blob
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.URLStatics URL
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.URLSearchParamsStatics URLSearchParams
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ApplicationCache applicationCache
       {
-    set;
+    get;
       }
 
       public virtual dom.CacheStorage caches
       {
-    set;
+    get;
       }
 
       public virtual dom.Navigator clientInformation
       {
-    set;
+    get;
       }
 
       public virtual bool closed
       {
-    set;
+    get;
       }
 
       public virtual dom.Crypto crypto
       {
-    set;
+    get;
       }
 
       public virtual dom.CustomElementRegistry customElements
       {
-    set;
+    get;
     set;
       }
 
       public virtual string defaultStatus
       {
-    set;
+    get;
     set;
       }
 
       public virtual double devicePixelRatio
       {
-    set;
+    get;
       }
 
       public virtual string doNotTrack
       {
-    set;
+    get;
       }
 
       public virtual dom.Document document
       {
-    set;
+    get;
       }
 
       [Name("event")]
       public virtual Union<dom.Event, Undefined> @event
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.External external
       {
-    set;
+    get;
       }
 
       public virtual dom.Element frameElement
       {
-    set;
+    get;
       }
 
       public virtual dom.Window frames
       {
-    set;
+    get;
       }
 
       public virtual dom.History history
       {
-    set;
+    get;
       }
 
       public virtual int innerHeight
       {
-    set;
+    get;
       }
 
       public virtual int innerWidth
       {
-    set;
+    get;
       }
 
       public virtual bool isSecureContext
       {
-    set;
+    get;
       }
 
       public virtual uint length
       {
-    set;
+    get;
       }
 
       public virtual dom.Location location
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.BarProp locationbar
       {
-    set;
+    get;
       }
 
       public virtual dom.BarProp menubar
       {
-    set;
+    get;
       }
 
       public virtual dom.ExtensionScriptApis msContentScript
       {
-    set;
+    get;
       }
 
       public virtual dom.MSCredentials msCredentials
       {
-    set;
+    get;
       }
 
       public virtual string name
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Navigator navigator
       {
-    set;
+    get;
       }
 
       public virtual Union<string, bool> offscreenBuffering
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onbeforeunloadFn onbeforeunload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onblurFn onblur
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn oncanplay
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn oncanplaythrough
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn onclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn oncompassneedscalibration
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncontextmenuFn oncontextmenu
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn ondblclick
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondevicelightFn ondevicelight
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondevicemotionFn ondevicemotion
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondeviceorientationFn ondeviceorientation
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondragFn ondrag
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondragFn ondragend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondragFn ondragenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondragFn ondragleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondragFn ondragover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondragFn ondragstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ondragFn ondrop
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn ondurationchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onemptied
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onended
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.ErrorEventHandler onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onblurFn onfocus
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onhashchangeFn onhashchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn oninput
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn oninvalid
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onkeydownFn onkeydown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onkeydownFn onkeypress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onkeydownFn onkeyup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onloadeddata
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onloadedmetadata
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onloadstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn onmousedown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn onmouseenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn onmouseleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn onmousemove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn onmouseout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn onmouseover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onclickFn onmouseup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onmousewheelFn onmousewheel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmsgesturechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmsgesturedoubletap
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmsgestureend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmsgesturehold
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmsgesturestart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmsgesturetap
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmsinertiastart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmspointercancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmspointerdown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmspointerenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmspointerleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmspointermove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmspointerout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmspointerover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onmspointerup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onoffline
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn ononline
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onorientationchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onpagehideFn onpagehide
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onpagehideFn onpageshow
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onpause
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onplay
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onplaying
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onpopstateFn onpopstate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onprogressFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onratechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onprogressFn onreadystatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onreset
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onabortFn onresize
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onabortFn onscroll
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onseeked
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onseeking
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onabortFn onselect
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onstalled
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.onstorageFn onstorage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onsubmit
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onsuspend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn ontimeupdate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ontouchcancelFn ontouchcancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ontouchendFn ontouchend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ontouchmoveFn ontouchmove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.ontouchstartFn ontouchstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onunload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvolumechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplayactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplayblur
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplayconnect
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplaydeactivate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplaydisconnect
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplayfocus
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplaypointerrestricted
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplaypointerunrestricted
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onvrdisplaypresentchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Window.oncanplayFn onwaiting
       {
-    set;
+    get;
     set;
       }
 
       public virtual object opener
       {
-    set;
+    get;
     set;
       }
 
       public virtual Union<string, double> orientation
       {
-    set;
+    get;
       }
 
       public virtual int outerHeight
       {
-    set;
+    get;
       }
 
       public virtual int outerWidth
       {
-    set;
+    get;
       }
 
       public virtual double pageXOffset
       {
-    set;
+    get;
       }
 
       public virtual double pageYOffset
       {
-    set;
+    get;
       }
 
       public virtual dom.Window parent
       {
-    set;
+    get;
       }
 
       public virtual dom.Performance performance
       {
-    set;
+    get;
       }
 
       public virtual dom.BarProp personalbar
       {
-    set;
+    get;
       }
 
       public virtual dom.Screen screen
       {
-    set;
+    get;
       }
 
       public virtual double screenLeft
       {
-    set;
+    get;
       }
 
       public virtual double screenTop
       {
-    set;
+    get;
       }
 
       public virtual int screenX
       {
-    set;
+    get;
       }
 
       public virtual int screenY
       {
-    set;
+    get;
       }
 
       public virtual double scrollX
       {
-    set;
+    get;
       }
 
       public virtual double scrollY
       {
-    set;
+    get;
       }
 
       public virtual dom.BarProp scrollbars
       {
-    set;
+    get;
       }
 
       public virtual dom.Window self
       {
-    set;
+    get;
       }
 
       public virtual dom.SpeechSynthesis speechSynthesis
       {
-    set;
+    get;
       }
 
       public virtual string status
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.BarProp statusbar
       {
-    set;
+    get;
       }
 
       public virtual dom.StyleMedia styleMedia
       {
-    set;
+    get;
       }
 
       public virtual dom.BarProp toolbar
       {
-    set;
+    get;
       }
 
       public virtual dom.Window top
       {
-    set;
+    get;
       }
 
       public virtual dom.Window window
       {
-    set;
+    get;
       }
 
       public virtual extern void alert();
@@ -78849,70 +78844,70 @@ namespace H5
 
       public virtual dom.Storage sessionStorage
       {
-    set;
+    get;
       }
 
       public virtual dom.Storage localStorage
       {
-    set;
+    get;
       }
 
       public virtual dom.Console console
       {
-    set;
+    get;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointercancel
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerdown
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerenter
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerleave
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointermove
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerover
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onpointercancelFn onpointerup
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.GlobalEventHandlers.onwheelFn onwheel
       {
-    set;
+    get;
     set;
       }
 
@@ -78964,7 +78959,7 @@ namespace H5
 
       public virtual dom.IDBFactory indexedDB
       {
-    set;
+    get;
       }
 
       public virtual extern string atob(string encodedString);
@@ -79082,7 +79077,7 @@ namespace H5
 
         public dom.Blob prototype
         {
-      set;
+      get;
       set;
         }
       }
@@ -79107,7 +79102,7 @@ namespace H5
 
         public dom.URL prototype
         {
-      set;
+      get;
       set;
         }
 
@@ -79138,7 +79133,7 @@ namespace H5
 
         public dom.URLSearchParams prototype
         {
-      set;
+      get;
       set;
         }
       }
@@ -79172,7 +79167,7 @@ namespace H5
 
       public dom.Console console
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -79204,73 +79199,73 @@ namespace H5
 
       public dom.Event afterprint
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event beforeprint
       {
-    set;
+    get;
     set;
       }
 
       public dom.BeforeUnloadEvent beforeunload
       {
-    set;
+    get;
     set;
       }
 
       public dom.HashChangeEvent hashchange
       {
-    set;
+    get;
     set;
       }
 
       public dom.MessageEvent message
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event offline
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event online
       {
-    set;
+    get;
     set;
       }
 
       public dom.PageTransitionEvent pagehide
       {
-    set;
+    get;
     set;
       }
 
       public dom.PageTransitionEvent pageshow
       {
-    set;
+    get;
     set;
       }
 
       public dom.PopStateEvent popstate
       {
-    set;
+    get;
     set;
       }
 
       public dom.StorageEvent storage
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event unload
       {
-    set;
+    get;
     set;
       }
 
@@ -79354,73 +79349,73 @@ namespace H5
 
       public virtual dom.WindowEventHandlers.onafterprintFn onafterprint
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onbeforeprint
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onbeforeunloadFn onbeforeunload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onhashchangeFn onhashchange
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onoffline
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn ononline
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpagehideFn onpagehide
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpagehideFn onpageshow
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onpopstateFn onpopstate
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onstorageFn onstorage
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.WindowEventHandlers.onafterprintFn onunload
       {
-    set;
+    get;
     set;
       }
 
@@ -79813,7 +79808,7 @@ namespace H5
 
       public dom.Storage localStorage
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -79834,7 +79829,7 @@ namespace H5
 
       public dom.Storage sessionStorage
       {
-    set;
+    get;
       }
 
       [Generated]
@@ -79946,7 +79941,7 @@ namespace H5
 
       public dom.MessageEvent message
       {
-    set;
+    get;
     set;
       }
 
@@ -79970,13 +79965,13 @@ namespace H5
 
       public static dom.Worker prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.Worker.onmessageFn onmessage
       {
-    set;
+    get;
     set;
       }
 
@@ -80073,7 +80068,7 @@ namespace H5
 
       public virtual dom.AbstractWorker.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
@@ -80150,13 +80145,13 @@ namespace H5
 
       public static dom.WritableStream prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual bool locked
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<H5.Primitive.Void> abort();
@@ -80174,7 +80169,7 @@ namespace H5
 
       public static dom.WritableStreamDefaultController prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -80194,23 +80189,23 @@ namespace H5
 
       public static dom.WritableStreamDefaultWriter prototype
       {
-    set;
+    get;
     set;
       }
 
       public virtual es5.Promise<H5.Primitive.Void> closed
       {
-    set;
+    get;
       }
 
       public virtual double desiredSize
       {
-    set;
+    get;
       }
 
       public virtual es5.Promise<H5.Primitive.Void> ready
       {
-    set;
+    get;
       }
 
       public virtual extern es5.Promise<H5.Primitive.Void> abort();
@@ -80234,7 +80229,7 @@ namespace H5
 
       public static dom.XMLDocument prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -80302,7 +80297,7 @@ namespace H5
 
       public dom.Event readystatechange
       {
-    set;
+    get;
     set;
       }
 
@@ -80352,107 +80347,107 @@ namespace H5
 
       public static dom.XMLHttpRequest prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("DONE")]
       public static ushort DONE_Static
       {
-    set;
+    get;
       }
 
       [Name("HEADERS_RECEIVED")]
       public static ushort HEADERS_RECEIVED_Static
       {
-    set;
+    get;
       }
 
       [Name("LOADING")]
       public static ushort LOADING_Static
       {
-    set;
+    get;
       }
 
       [Name("OPENED")]
       public static ushort OPENED_Static
       {
-    set;
+    get;
       }
 
       [Name("UNSENT")]
       public static ushort UNSENT_Static
       {
-    set;
+    get;
       }
 
       public virtual string msCaching
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequest.onreadystatechangeFn onreadystatechange
       {
-    set;
+    get;
     set;
       }
 
       public virtual ushort readyState
       {
-    set;
+    get;
       }
 
       public virtual object response
       {
-    set;
+    get;
       }
 
       public virtual string responseText
       {
-    set;
+    get;
       }
 
       public virtual dom.XMLHttpRequestResponseType responseType
       {
-    set;
+    get;
     set;
       }
 
       public virtual string responseURL
       {
-    set;
+    get;
       }
 
       public virtual dom.Document responseXML
       {
-    set;
+    get;
       }
 
       public virtual ushort status
       {
-    set;
+    get;
       }
 
       public virtual string statusText
       {
-    set;
+    get;
       }
 
       public virtual uint timeout
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestUpload upload
       {
-    set;
+    get;
       }
 
       public virtual bool withCredentials
       {
-    set;
+    get;
     set;
       }
 
@@ -80487,27 +80482,27 @@ namespace H5
 
       public virtual ushort DONE
       {
-    set;
+    get;
       }
 
       public virtual ushort HEADERS_RECEIVED
       {
-    set;
+    get;
       }
 
       public virtual ushort LOADING
       {
-    set;
+    get;
       }
 
       public virtual ushort OPENED
       {
-    set;
+    get;
       }
 
       public virtual ushort UNSENT
       {
-    set;
+    get;
       }
 
       [Where("K", typeof (KeyOf<dom.XMLHttpRequestEventMap>), EnableImplicitConversion = true)]
@@ -80597,43 +80592,43 @@ namespace H5
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn onloadend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onloadstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn ontimeout
       {
-    set;
+    get;
     set;
       }
 
@@ -80710,43 +80705,43 @@ namespace H5
 
       public dom.Event abort
       {
-    set;
+    get;
     set;
       }
 
       public dom.ErrorEvent error
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event load
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent loadend
       {
-    set;
+    get;
     set;
       }
 
       public dom.Event loadstart
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent progress
       {
-    set;
+    get;
     set;
       }
 
       public dom.ProgressEvent timeout
       {
-    set;
+    get;
     set;
       }
 
@@ -80785,43 +80780,43 @@ namespace H5
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn onloadend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onloadstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn ontimeout
       {
-    set;
+    get;
     set;
       }
 
@@ -81198,7 +81193,7 @@ namespace H5
 
       public static dom.XMLHttpRequestUpload prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -81289,43 +81284,43 @@ namespace H5
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onabort
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onerrorFn onerror
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onload
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn onloadend
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onabortFn onloadstart
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn onprogress
       {
-    set;
+    get;
     set;
       }
 
       public virtual dom.XMLHttpRequestEventTarget.onloadendFn ontimeout
       {
-    set;
+    get;
     set;
       }
 
@@ -81392,7 +81387,7 @@ namespace H5
 
       public static dom.XMLSerializer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -81407,7 +81402,7 @@ namespace H5
 
       public static dom.XPathEvaluator prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -81435,7 +81430,7 @@ namespace H5
 
       public static dom.XPathExpression prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -81453,7 +81448,7 @@ namespace H5
 
       public static dom.XPathNSResolver prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -81495,103 +81490,103 @@ namespace H5
 
       public static dom.XPathResult prototype
       {
-    set;
+    get;
     set;
       }
 
       [Name("ANY_TYPE")]
       public static double ANY_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("ANY_UNORDERED_NODE_TYPE")]
       public static double ANY_UNORDERED_NODE_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("BOOLEAN_TYPE")]
       public static double BOOLEAN_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("FIRST_ORDERED_NODE_TYPE")]
       public static double FIRST_ORDERED_NODE_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("NUMBER_TYPE")]
       public static double NUMBER_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("ORDERED_NODE_ITERATOR_TYPE")]
       public static double ORDERED_NODE_ITERATOR_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("ORDERED_NODE_SNAPSHOT_TYPE")]
       public static double ORDERED_NODE_SNAPSHOT_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("STRING_TYPE")]
       public static double STRING_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("UNORDERED_NODE_ITERATOR_TYPE")]
       public static double UNORDERED_NODE_ITERATOR_TYPE_Static
       {
-    set;
+    get;
       }
 
       [Name("UNORDERED_NODE_SNAPSHOT_TYPE")]
       public static double UNORDERED_NODE_SNAPSHOT_TYPE_Static
       {
-    set;
+    get;
       }
 
       public virtual bool booleanValue
       {
-    set;
+    get;
       }
 
       public virtual bool invalidIteratorState
       {
-    set;
+    get;
       }
 
       public virtual double numberValue
       {
-    set;
+    get;
       }
 
       public virtual double resultType
       {
-    set;
+    get;
       }
 
       public virtual dom.Node singleNodeValue
       {
-    set;
+    get;
       }
 
       public virtual double snapshotLength
       {
-    set;
+    get;
       }
 
       public virtual string stringValue
       {
-    set;
+    get;
       }
 
       public virtual extern dom.Node iterateNext();
@@ -81600,52 +81595,52 @@ namespace H5
 
       public virtual double ANY_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double ANY_UNORDERED_NODE_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double BOOLEAN_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double FIRST_ORDERED_NODE_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double NUMBER_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double ORDERED_NODE_ITERATOR_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double ORDERED_NODE_SNAPSHOT_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double STRING_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double UNORDERED_NODE_ITERATOR_TYPE
       {
-    set;
+    get;
       }
 
       public virtual double UNORDERED_NODE_SNAPSHOT_TYPE
       {
-    set;
+    get;
       }
     }
 
@@ -81657,7 +81652,7 @@ namespace H5
 
       public static dom.XSLTProcessor prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -81690,7 +81685,7 @@ namespace H5
 
       public static dom.webkitRTCPeerConnection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -82235,757 +82230,757 @@ namespace H5
 
       public dom.HTMLAnchorElement a
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement abbr
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement acronym
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement address
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLAppletElement applet
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLAreaElement area
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement article
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement aside
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLAudioElement audio
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement b
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLBaseElement @base
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLBaseFontElement basefont
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement bdo
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement big
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLQuoteElement blockquote
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLBodyElement body
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLBRElement br
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLButtonElement button
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLCanvasElement canvas
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableCaptionElement caption
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement center
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement cite
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement code
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableColElement col
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableColElement colgroup
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLDataElement data
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLDataListElement datalist
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement dd
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLModElement del
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement dfn
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLDirectoryElement dir
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLDivElement div
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLDListElement dl
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement dt
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement em
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLEmbedElement embed
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLFieldSetElement fieldset
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement figcaption
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement figure
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLFontElement font
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement footer
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLFormElement form
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLFrameElement frame
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLFrameSetElement frameset
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHeadingElement h1
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHeadingElement h2
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHeadingElement h3
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHeadingElement h4
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHeadingElement h5
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHeadingElement h6
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHeadElement head
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement header
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement hgroup
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHRElement hr
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLHtmlElement html
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement i
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLIFrameElement iframe
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLImageElement img
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLInputElement input
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLModElement ins
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLUnknownElement isindex
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement kbd
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement keygen
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLLabelElement label
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLLegendElement legend
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLLIElement li
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLLinkElement link
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLPreElement listing
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLMapElement map
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement mark
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLMarqueeElement marquee
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLMenuElement menu
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLMetaElement meta
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLMeterElement meter
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement nav
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLUnknownElement nextid
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement nobr
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement noframes
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement noscript
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLObjectElement @object
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLOListElement ol
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLOptGroupElement optgroup
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLOptionElement option
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLOutputElement output
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLParagraphElement p
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLParamElement param
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLPictureElement picture
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement plaintext
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLPreElement pre
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLProgressElement progress
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLQuoteElement q
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement rt
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement ruby
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement s
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement samp
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLScriptElement script
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement section
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLSelectElement select
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLSlotElement slot
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement small
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLSourceElement source
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLSpanElement span
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement strike
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement strong
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLStyleElement style
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement sub
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement sup
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableElement table
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableSectionElement tbody
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableDataCellElement td
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTemplateElement template
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTextAreaElement textarea
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableSectionElement tfoot
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableHeaderCellElement th
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableSectionElement thead
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTimeElement time
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTitleElement title
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTableRowElement tr
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLTrackElement track
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement tt
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement u
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLUListElement ul
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement var
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLVideoElement video
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLElement wbr
       {
-    set;
+    get;
     set;
       }
 
       public dom.HTMLPreElement xmp
       {
-    set;
+    get;
     set;
       }
 
@@ -83308,319 +83303,319 @@ namespace H5
 
       public dom.SVGCircleElement circle
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGClipPathElement clippath
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGDefsElement defs
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGDescElement desc
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGEllipseElement ellipse
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEBlendElement feblend
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEColorMatrixElement fecolormatrix
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEComponentTransferElement fecomponenttransfer
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFECompositeElement fecomposite
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEConvolveMatrixElement feconvolvematrix
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEDiffuseLightingElement fediffuselighting
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEDisplacementMapElement fedisplacementmap
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEDistantLightElement fedistantlight
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFloodElement feflood
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFuncAElement fefunca
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFuncBElement fefuncb
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFuncGElement fefuncg
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFuncRElement fefuncr
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEGaussianBlurElement fegaussianblur
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEImageElement feimage
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEMergeElement femerge
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEMergeNodeElement femergenode
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEMorphologyElement femorphology
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEOffsetElement feoffset
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEPointLightElement fepointlight
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFESpecularLightingElement fespecularlighting
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFESpotLightElement fespotlight
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFETileElement fetile
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFETurbulenceElement feturbulence
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFilterElement filter
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGForeignObjectElement foreignobject
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGGElement g
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGImageElement image
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGLineElement line
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGLinearGradientElement lineargradient
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGMarkerElement marker
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGMaskElement mask
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGMetadataElement metadata
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGPathElement path
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGPatternElement pattern
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGPolygonElement polygon
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGPolylineElement polyline
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGRadialGradientElement radialgradient
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGRectElement rect
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGStopElement stop
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGSVGElement svg
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGSwitchElement @switch
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGSymbolElement symbol
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGTextElement text
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGTextPathElement textpath
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGTSpanElement tspan
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGUseElement use
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGViewElement view
       {
-    set;
+    get;
     set;
       }
 
@@ -83909,319 +83904,319 @@ namespace H5
 
       public dom.SVGCircleElement circle
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGClipPathElement clippath
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGDefsElement defs
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGDescElement desc
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGEllipseElement ellipse
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEBlendElement feblend
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEColorMatrixElement fecolormatrix
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEComponentTransferElement fecomponenttransfer
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFECompositeElement fecomposite
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEConvolveMatrixElement feconvolvematrix
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEDiffuseLightingElement fediffuselighting
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEDisplacementMapElement fedisplacementmap
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEDistantLightElement fedistantlight
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFloodElement feflood
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFuncAElement fefunca
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFuncBElement fefuncb
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFuncGElement fefuncg
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEFuncRElement fefuncr
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEGaussianBlurElement fegaussianblur
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEImageElement feimage
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEMergeElement femerge
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEMergeNodeElement femergenode
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEMorphologyElement femorphology
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEOffsetElement feoffset
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFEPointLightElement fepointlight
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFESpecularLightingElement fespecularlighting
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFESpotLightElement fespotlight
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFETileElement fetile
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFETurbulenceElement feturbulence
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGFilterElement filter
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGForeignObjectElement foreignobject
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGGElement g
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGImageElement image
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGLineElement line
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGLinearGradientElement lineargradient
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGMarkerElement marker
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGMaskElement mask
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGMetadataElement metadata
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGPathElement path
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGPatternElement pattern
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGPolygonElement polygon
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGPolylineElement polyline
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGRadialGradientElement radialgradient
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGRectElement rect
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGStopElement stop
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGSVGElement svg
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGSwitchElement @switch
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGSymbolElement symbol
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGTextElement text
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGTextPathElement textpath
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGTSpanElement tspan
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGUseElement use
       {
-    set;
+    get;
     set;
       }
 
       public dom.SVGViewElement view
       {
-    set;
+    get;
     set;
       }
     }
@@ -87339,7 +87334,7 @@ namespace H5
 
       public virtual dom.ANGLE_instanced_arrays prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87356,7 +87351,7 @@ namespace H5
 
       public virtual dom.AbortController prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87371,7 +87366,7 @@ namespace H5
 
       public virtual dom.AbortSignal prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87386,7 +87381,7 @@ namespace H5
 
       public virtual dom.AnalyserNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87401,7 +87396,7 @@ namespace H5
 
       public virtual dom.Animation prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87424,7 +87419,7 @@ namespace H5
 
       public virtual dom.AnimationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87444,7 +87439,7 @@ namespace H5
 
       public virtual dom.AnimationPlaybackEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87464,7 +87459,7 @@ namespace H5
 
       public virtual dom.ApplicationCache prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87491,7 +87486,7 @@ namespace H5
 
       public virtual dom.Attr prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87506,7 +87501,7 @@ namespace H5
 
       public virtual dom.AudioBuffer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87521,7 +87516,7 @@ namespace H5
 
       public virtual dom.AudioBufferSourceNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87536,7 +87531,7 @@ namespace H5
 
       public virtual dom.AudioContext prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87551,7 +87546,7 @@ namespace H5
 
       public virtual dom.AudioDestinationNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87566,7 +87561,7 @@ namespace H5
 
       public virtual dom.AudioListener prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87581,7 +87576,7 @@ namespace H5
 
       public virtual dom.AudioNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87596,7 +87591,7 @@ namespace H5
 
       public virtual dom.AudioParam prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87611,7 +87606,7 @@ namespace H5
 
       public virtual dom.AudioProcessingEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87626,7 +87621,7 @@ namespace H5
 
       public virtual dom.AudioTrack prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87641,7 +87636,7 @@ namespace H5
 
       public virtual dom.AudioTrackList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87656,7 +87651,7 @@ namespace H5
 
       public virtual dom.BarProp prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87671,7 +87666,7 @@ namespace H5
 
       public virtual dom.BeforeUnloadEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87686,7 +87681,7 @@ namespace H5
 
       public virtual dom.BhxBrowser prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87701,7 +87696,7 @@ namespace H5
 
       public virtual dom.BiquadFilterNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87716,7 +87711,7 @@ namespace H5
 
       public virtual dom.Blob prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87737,7 +87732,7 @@ namespace H5
 
       public virtual dom.BroadcastChannel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87752,7 +87747,7 @@ namespace H5
 
       public virtual dom.ByteLengthQueuingStrategy prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87767,7 +87762,7 @@ namespace H5
 
       public virtual dom.CDATASection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87782,7 +87777,7 @@ namespace H5
 
       public virtual dom.CSSConditionRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87797,7 +87792,7 @@ namespace H5
 
       public virtual dom.CSSFontFaceRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87812,7 +87807,7 @@ namespace H5
 
       public virtual dom.CSSGroupingRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87827,7 +87822,7 @@ namespace H5
 
       public virtual dom.CSSImportRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87842,7 +87837,7 @@ namespace H5
 
       public virtual dom.CSSKeyframeRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87857,7 +87852,7 @@ namespace H5
 
       public virtual dom.CSSKeyframesRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87872,7 +87867,7 @@ namespace H5
 
       public virtual dom.CSSMediaRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87887,7 +87882,7 @@ namespace H5
 
       public virtual dom.CSSNamespaceRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87902,7 +87897,7 @@ namespace H5
 
       public virtual dom.CSSPageRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87917,7 +87912,7 @@ namespace H5
 
       public virtual dom.CSSRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87956,7 +87951,7 @@ namespace H5
 
       public virtual dom.CSSRuleList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87971,7 +87966,7 @@ namespace H5
 
       public virtual dom.CSSStyleDeclaration prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -87986,7 +87981,7 @@ namespace H5
 
       public virtual dom.CSSStyleRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88001,7 +87996,7 @@ namespace H5
 
       public virtual dom.CSSStyleSheet prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88016,7 +88011,7 @@ namespace H5
 
       public virtual dom.CSSSupportsRule prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88031,7 +88026,7 @@ namespace H5
 
       public virtual dom.Cache prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88046,7 +88041,7 @@ namespace H5
 
       public virtual dom.CacheStorage prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88061,7 +88056,7 @@ namespace H5
 
       public virtual dom.CanvasGradient prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88076,7 +88071,7 @@ namespace H5
 
       public virtual dom.CanvasPattern prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88091,7 +88086,7 @@ namespace H5
 
       public virtual dom.CanvasRenderingContext2D prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88106,7 +88101,7 @@ namespace H5
 
       public virtual dom.ChannelMergerNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88121,7 +88116,7 @@ namespace H5
 
       public virtual dom.ChannelSplitterNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88136,7 +88131,7 @@ namespace H5
 
       public virtual dom.CharacterData prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88151,7 +88146,7 @@ namespace H5
 
       public virtual dom.ClientRect prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88166,7 +88161,7 @@ namespace H5
 
       public virtual dom.ClientRectList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88181,7 +88176,7 @@ namespace H5
 
       public virtual dom.ClipboardEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88199,7 +88194,7 @@ namespace H5
 
       public virtual dom.CloseEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88217,7 +88212,7 @@ namespace H5
 
       public virtual dom.Comment prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88235,7 +88230,7 @@ namespace H5
 
       public virtual dom.CompositionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88255,7 +88250,7 @@ namespace H5
 
       public virtual dom.Console prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88270,7 +88265,7 @@ namespace H5
 
       public virtual dom.ContentScriptGlobalScope prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88285,7 +88280,7 @@ namespace H5
 
       public virtual dom.ConvolverNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88300,7 +88295,7 @@ namespace H5
 
       public virtual dom.Coordinates prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88315,7 +88310,7 @@ namespace H5
 
       public virtual dom.CountQueuingStrategy prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88330,7 +88325,7 @@ namespace H5
 
       public virtual dom.Crypto prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88345,7 +88340,7 @@ namespace H5
 
       public virtual dom.CryptoKey prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88360,7 +88355,7 @@ namespace H5
 
       public virtual dom.CryptoKeyPair prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88375,7 +88370,7 @@ namespace H5
 
       public virtual dom.CustomEvent<object> prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88395,7 +88390,7 @@ namespace H5
 
       public virtual dom.DOMError prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88410,7 +88405,7 @@ namespace H5
 
       public virtual dom.DOMException prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88485,7 +88480,7 @@ namespace H5
 
       public virtual dom.DOMImplementation prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88500,7 +88495,7 @@ namespace H5
 
       public virtual dom.DOMParser prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88515,7 +88510,7 @@ namespace H5
 
       public virtual dom.DOMRect prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88546,7 +88541,7 @@ namespace H5
 
       public virtual dom.DOMRectReadOnly prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88577,7 +88572,7 @@ namespace H5
 
       public virtual dom.DOMSettableTokenList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88592,7 +88587,7 @@ namespace H5
 
       public virtual dom.DOMStringList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88607,7 +88602,7 @@ namespace H5
 
       public virtual dom.DOMStringMap prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88622,7 +88617,7 @@ namespace H5
 
       public virtual dom.DOMTokenList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88637,7 +88632,7 @@ namespace H5
 
       public virtual dom.DataCue prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88652,7 +88647,7 @@ namespace H5
 
       public virtual dom.DataTransfer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88667,7 +88662,7 @@ namespace H5
 
       public virtual dom.DataTransferItem prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88682,7 +88677,7 @@ namespace H5
 
       public virtual dom.DataTransferItemList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88697,7 +88692,7 @@ namespace H5
 
       public virtual dom.DeferredPermissionRequest prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88712,7 +88707,7 @@ namespace H5
 
       public virtual dom.DelayNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88727,7 +88722,7 @@ namespace H5
 
       public virtual dom.DeviceAcceleration prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88742,7 +88737,7 @@ namespace H5
 
       public virtual dom.DeviceLightEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88762,7 +88757,7 @@ namespace H5
 
       public virtual dom.DeviceMotionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88782,7 +88777,7 @@ namespace H5
 
       public virtual dom.DeviceOrientationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88802,7 +88797,7 @@ namespace H5
 
       public virtual dom.DeviceRotationRate prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88817,7 +88812,7 @@ namespace H5
 
       public virtual dom.Document prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88832,7 +88827,7 @@ namespace H5
 
       public virtual dom.DocumentFragment prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88847,7 +88842,7 @@ namespace H5
 
       public virtual dom.DocumentType prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88862,7 +88857,7 @@ namespace H5
 
       public virtual dom.DragEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88881,7 +88876,7 @@ namespace H5
 
         public dom.DataTransfer dataTransfer
         {
-      set;
+      get;
       set;
         }
       }
@@ -88894,7 +88889,7 @@ namespace H5
 
       public virtual dom.DynamicsCompressorNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88909,7 +88904,7 @@ namespace H5
 
       public virtual dom.EXT_texture_filter_anisotropic prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88928,7 +88923,7 @@ namespace H5
 
       public virtual dom.Element prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88943,7 +88938,7 @@ namespace H5
 
       public virtual dom.ErrorEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88961,7 +88956,7 @@ namespace H5
 
       public virtual dom.Event prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -88987,7 +88982,7 @@ namespace H5
 
       public virtual dom.EventSource prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89005,7 +89000,7 @@ namespace H5
 
       public virtual dom.EventTarget prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89020,7 +89015,7 @@ namespace H5
 
       public virtual dom.ExtensionScriptApis prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89035,7 +89030,7 @@ namespace H5
 
       public virtual dom.External prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89050,7 +89045,7 @@ namespace H5
 
       public virtual dom.File prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89109,7 +89104,7 @@ namespace H5
 
       public virtual dom.FileList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89124,7 +89119,7 @@ namespace H5
 
       public virtual dom.FileReader prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89145,7 +89140,7 @@ namespace H5
 
       public virtual dom.FocusEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89163,7 +89158,7 @@ namespace H5
 
       public virtual dom.FocusNavigationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89183,7 +89178,7 @@ namespace H5
 
       public virtual dom.FormData prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89201,7 +89196,7 @@ namespace H5
 
       public virtual dom.GainNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89216,7 +89211,7 @@ namespace H5
 
       public virtual dom.Gamepad prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89231,7 +89226,7 @@ namespace H5
 
       public virtual dom.GamepadButton prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89246,7 +89241,7 @@ namespace H5
 
       public virtual dom.GamepadEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89264,7 +89259,7 @@ namespace H5
 
       public virtual dom.GamepadHapticActuator prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89279,7 +89274,7 @@ namespace H5
 
       public virtual dom.GamepadPose prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89294,7 +89289,7 @@ namespace H5
 
       public virtual dom.Geolocation prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89309,7 +89304,7 @@ namespace H5
 
       public virtual dom.HTMLAllCollection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89324,7 +89319,7 @@ namespace H5
 
       public virtual dom.HTMLAnchorElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89339,7 +89334,7 @@ namespace H5
 
       public virtual dom.HTMLAppletElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89354,7 +89349,7 @@ namespace H5
 
       public virtual dom.HTMLAreaElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89369,7 +89364,7 @@ namespace H5
 
       public virtual dom.HTMLAreasCollection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89384,7 +89379,7 @@ namespace H5
 
       public virtual dom.HTMLAudioElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89399,7 +89394,7 @@ namespace H5
 
       public virtual dom.HTMLBRElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89414,7 +89409,7 @@ namespace H5
 
       public virtual dom.HTMLBaseElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89429,7 +89424,7 @@ namespace H5
 
       public virtual dom.HTMLBaseFontElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89444,7 +89439,7 @@ namespace H5
 
       public virtual dom.HTMLBodyElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89459,7 +89454,7 @@ namespace H5
 
       public virtual dom.HTMLButtonElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89474,7 +89469,7 @@ namespace H5
 
       public virtual dom.HTMLCanvasElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89489,7 +89484,7 @@ namespace H5
 
       public virtual dom.HTMLCollection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89504,7 +89499,7 @@ namespace H5
 
       public virtual dom.HTMLDListElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89519,7 +89514,7 @@ namespace H5
 
       public virtual dom.HTMLDataElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89534,7 +89529,7 @@ namespace H5
 
       public virtual dom.HTMLDataListElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89549,7 +89544,7 @@ namespace H5
 
       public virtual dom.HTMLDetailsElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89564,7 +89559,7 @@ namespace H5
 
       public virtual dom.HTMLDialogElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89579,7 +89574,7 @@ namespace H5
 
       public virtual dom.HTMLDirectoryElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89594,7 +89589,7 @@ namespace H5
 
       public virtual dom.HTMLDivElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89609,7 +89604,7 @@ namespace H5
 
       public virtual dom.HTMLDocument prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89624,7 +89619,7 @@ namespace H5
 
       public virtual dom.HTMLElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89639,7 +89634,7 @@ namespace H5
 
       public virtual dom.HTMLEmbedElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89654,7 +89649,7 @@ namespace H5
 
       public virtual dom.HTMLFieldSetElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89669,7 +89664,7 @@ namespace H5
 
       public virtual dom.HTMLFontElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89684,7 +89679,7 @@ namespace H5
 
       public virtual dom.HTMLFormControlsCollection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89699,7 +89694,7 @@ namespace H5
 
       public virtual dom.HTMLFormElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89714,7 +89709,7 @@ namespace H5
 
       public virtual dom.HTMLFrameElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89729,7 +89724,7 @@ namespace H5
 
       public virtual dom.HTMLFrameSetElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89744,7 +89739,7 @@ namespace H5
 
       public virtual dom.HTMLHRElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89759,7 +89754,7 @@ namespace H5
 
       public virtual dom.HTMLHeadElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89774,7 +89769,7 @@ namespace H5
 
       public virtual dom.HTMLHeadingElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89789,7 +89784,7 @@ namespace H5
 
       public virtual dom.HTMLHtmlElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89804,7 +89799,7 @@ namespace H5
 
       public virtual dom.HTMLIFrameElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89819,7 +89814,7 @@ namespace H5
 
       public virtual dom.HTMLImageElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89834,7 +89829,7 @@ namespace H5
 
       public virtual dom.HTMLInputElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89849,7 +89844,7 @@ namespace H5
 
       public virtual dom.HTMLLIElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89864,7 +89859,7 @@ namespace H5
 
       public virtual dom.HTMLLabelElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89879,7 +89874,7 @@ namespace H5
 
       public virtual dom.HTMLLegendElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89894,7 +89889,7 @@ namespace H5
 
       public virtual dom.HTMLLinkElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89909,7 +89904,7 @@ namespace H5
 
       public virtual dom.HTMLMainElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89924,7 +89919,7 @@ namespace H5
 
       public virtual dom.HTMLMapElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89939,7 +89934,7 @@ namespace H5
 
       public virtual dom.HTMLMarqueeElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89954,7 +89949,7 @@ namespace H5
 
       public virtual dom.HTMLMediaElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -89987,7 +89982,7 @@ namespace H5
 
       public virtual dom.HTMLMenuElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90002,7 +89997,7 @@ namespace H5
 
       public virtual dom.HTMLMetaElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90017,7 +90012,7 @@ namespace H5
 
       public virtual dom.HTMLMeterElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90032,7 +90027,7 @@ namespace H5
 
       public virtual dom.HTMLModElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90047,7 +90042,7 @@ namespace H5
 
       public virtual dom.HTMLOListElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90062,7 +90057,7 @@ namespace H5
 
       public virtual dom.HTMLObjectElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90077,7 +90072,7 @@ namespace H5
 
       public virtual dom.HTMLOptGroupElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90092,7 +90087,7 @@ namespace H5
 
       public virtual dom.HTMLOptionElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90107,7 +90102,7 @@ namespace H5
 
       public virtual dom.HTMLOptionsCollection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90122,7 +90117,7 @@ namespace H5
 
       public virtual dom.HTMLOutputElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90137,7 +90132,7 @@ namespace H5
 
       public virtual dom.HTMLParagraphElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90152,7 +90147,7 @@ namespace H5
 
       public virtual dom.HTMLParamElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90167,7 +90162,7 @@ namespace H5
 
       public virtual dom.HTMLPictureElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90182,7 +90177,7 @@ namespace H5
 
       public virtual dom.HTMLPreElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90197,7 +90192,7 @@ namespace H5
 
       public virtual dom.HTMLProgressElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90212,7 +90207,7 @@ namespace H5
 
       public virtual dom.HTMLQuoteElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90227,7 +90222,7 @@ namespace H5
 
       public virtual dom.HTMLScriptElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90242,7 +90237,7 @@ namespace H5
 
       public virtual dom.HTMLSelectElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90257,7 +90252,7 @@ namespace H5
 
       public virtual dom.HTMLSourceElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90272,7 +90267,7 @@ namespace H5
 
       public virtual dom.HTMLSpanElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90287,7 +90282,7 @@ namespace H5
 
       public virtual dom.HTMLStyleElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90302,7 +90297,7 @@ namespace H5
 
       public virtual dom.HTMLSummaryElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90317,7 +90312,7 @@ namespace H5
 
       public virtual dom.HTMLTableCaptionElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90332,7 +90327,7 @@ namespace H5
 
       public virtual dom.HTMLTableCellElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90347,7 +90342,7 @@ namespace H5
 
       public virtual dom.HTMLTableColElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90362,7 +90357,7 @@ namespace H5
 
       public virtual dom.HTMLTableDataCellElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90377,7 +90372,7 @@ namespace H5
 
       public virtual dom.HTMLTableElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90392,7 +90387,7 @@ namespace H5
 
       public virtual dom.HTMLTableHeaderCellElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90407,7 +90402,7 @@ namespace H5
 
       public virtual dom.HTMLTableRowElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90422,7 +90417,7 @@ namespace H5
 
       public virtual dom.HTMLTableSectionElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90437,7 +90432,7 @@ namespace H5
 
       public virtual dom.HTMLTemplateElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90452,7 +90447,7 @@ namespace H5
 
       public virtual dom.HTMLTextAreaElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90467,7 +90462,7 @@ namespace H5
 
       public virtual dom.HTMLTimeElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90482,7 +90477,7 @@ namespace H5
 
       public virtual dom.HTMLTitleElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90497,7 +90492,7 @@ namespace H5
 
       public virtual dom.HTMLTrackElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90520,7 +90515,7 @@ namespace H5
 
       public virtual dom.HTMLUListElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90535,7 +90530,7 @@ namespace H5
 
       public virtual dom.HTMLUnknownElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90550,7 +90545,7 @@ namespace H5
 
       public virtual dom.HTMLVideoElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90565,7 +90560,7 @@ namespace H5
 
       public virtual dom.HTMLegendElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90580,7 +90575,7 @@ namespace H5
 
       public virtual dom.HashChangeEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90598,7 +90593,7 @@ namespace H5
 
       public virtual dom.Headers prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90629,7 +90624,7 @@ namespace H5
 
       public virtual dom.History prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90644,7 +90639,7 @@ namespace H5
 
       public virtual dom.IDBCursor prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90667,7 +90662,7 @@ namespace H5
 
       public virtual dom.IDBCursorWithValue prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90682,7 +90677,7 @@ namespace H5
 
       public virtual dom.IDBDatabase prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90697,7 +90692,7 @@ namespace H5
 
       public virtual dom.IDBFactory prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90712,7 +90707,7 @@ namespace H5
 
       public virtual dom.IDBIndex prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90727,7 +90722,7 @@ namespace H5
 
       public virtual dom.IDBKeyRange prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90762,7 +90757,7 @@ namespace H5
 
       public virtual dom.IDBObjectStore prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90777,7 +90772,7 @@ namespace H5
 
       public virtual dom.IDBOpenDBRequest prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90792,7 +90787,7 @@ namespace H5
 
       public virtual dom.IDBRequest prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90807,7 +90802,7 @@ namespace H5
 
       public virtual dom.IDBTransaction prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90828,7 +90823,7 @@ namespace H5
 
       public virtual dom.IDBVersionChangeEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90843,7 +90838,7 @@ namespace H5
 
       public virtual dom.IIRFilterNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90858,7 +90853,7 @@ namespace H5
 
       public virtual dom.ImageData prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90879,7 +90874,7 @@ namespace H5
 
       public virtual dom.IntersectionObserver prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90899,7 +90894,7 @@ namespace H5
 
       public virtual dom.IntersectionObserverEntry prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90915,7 +90910,7 @@ namespace H5
 
       public virtual dom.KeyboardEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90945,7 +90940,7 @@ namespace H5
 
       public virtual dom.ListeningStateChangedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90960,7 +90955,7 @@ namespace H5
 
       public virtual dom.Location prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90975,7 +90970,7 @@ namespace H5
 
       public virtual dom.MSAssertion prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -90990,7 +90985,7 @@ namespace H5
 
       public virtual dom.MSBlobBuilder prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91005,7 +91000,7 @@ namespace H5
 
       public virtual dom.MSCredentials prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91020,7 +91015,7 @@ namespace H5
 
       public virtual dom.MSDCCEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91035,7 +91030,7 @@ namespace H5
 
       public virtual dom.MSDSHEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91050,7 +91045,7 @@ namespace H5
 
       public virtual dom.MSFIDOCredentialAssertion prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91065,7 +91060,7 @@ namespace H5
 
       public virtual dom.MSFIDOSignature prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91080,7 +91075,7 @@ namespace H5
 
       public virtual dom.MSFIDOSignatureAssertion prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91095,7 +91090,7 @@ namespace H5
 
       public virtual dom.MSGesture prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91110,7 +91105,7 @@ namespace H5
 
       public virtual dom.MSGestureEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91135,7 +91130,7 @@ namespace H5
 
       public virtual dom.MSGraphicsTrust prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91150,7 +91145,7 @@ namespace H5
 
       public virtual dom.MSInputMethodContext prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91165,7 +91160,7 @@ namespace H5
 
       public virtual dom.MSMediaKeyError prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91192,7 +91187,7 @@ namespace H5
 
       public virtual dom.MSMediaKeyMessageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91207,7 +91202,7 @@ namespace H5
 
       public virtual dom.MSMediaKeyNeededEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91222,7 +91217,7 @@ namespace H5
 
       public virtual dom.MSMediaKeySession prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91237,7 +91232,7 @@ namespace H5
 
       public virtual dom.MSMediaKeys prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91260,7 +91255,7 @@ namespace H5
 
       public virtual dom.MSPointerEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91278,7 +91273,7 @@ namespace H5
 
       public virtual dom.MSStream prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91293,7 +91288,7 @@ namespace H5
 
       public virtual dom.MSStreamReader prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91314,7 +91309,7 @@ namespace H5
 
       public virtual dom.MediaDeviceInfo prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91329,7 +91324,7 @@ namespace H5
 
       public virtual dom.MediaDevices prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91344,7 +91339,7 @@ namespace H5
 
       public virtual dom.MediaElementAudioSourceNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91359,7 +91354,7 @@ namespace H5
 
       public virtual dom.MediaEncryptedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91379,7 +91374,7 @@ namespace H5
 
       public virtual dom.MediaError prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91404,7 +91399,7 @@ namespace H5
 
       public virtual dom.MediaKeyMessageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91424,7 +91419,7 @@ namespace H5
 
       public virtual dom.MediaKeySession prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91439,7 +91434,7 @@ namespace H5
 
       public virtual dom.MediaKeyStatusMap prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91454,7 +91449,7 @@ namespace H5
 
       public virtual dom.MediaKeySystemAccess prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91469,7 +91464,7 @@ namespace H5
 
       public virtual dom.MediaKeys prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91484,7 +91479,7 @@ namespace H5
 
       public virtual dom.MediaList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91499,7 +91494,7 @@ namespace H5
 
       public virtual dom.MediaQueryList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91514,7 +91509,7 @@ namespace H5
 
       public virtual dom.MediaSource prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91531,7 +91526,7 @@ namespace H5
 
       public virtual dom.MediaStream prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91552,7 +91547,7 @@ namespace H5
 
       public virtual dom.MediaStreamAudioSourceNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91567,7 +91562,7 @@ namespace H5
 
       public virtual dom.MediaStreamError prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91582,7 +91577,7 @@ namespace H5
 
       public virtual dom.MediaStreamErrorEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91602,7 +91597,7 @@ namespace H5
 
       public virtual dom.MediaStreamEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91619,7 +91614,7 @@ namespace H5
 
       public virtual dom.MediaStreamTrack prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91634,7 +91629,7 @@ namespace H5
 
       public virtual dom.MediaStreamTrackEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91654,7 +91649,7 @@ namespace H5
 
       public virtual dom.MessageChannel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91669,7 +91664,7 @@ namespace H5
 
       public virtual dom.MessageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91687,7 +91682,7 @@ namespace H5
 
       public virtual dom.MessagePort prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91702,7 +91697,7 @@ namespace H5
 
       public virtual dom.MimeType prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91717,7 +91712,7 @@ namespace H5
 
       public virtual dom.MimeTypeArray prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91732,7 +91727,7 @@ namespace H5
 
       public virtual dom.MouseEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91750,7 +91745,7 @@ namespace H5
 
       public virtual dom.MutationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91771,7 +91766,7 @@ namespace H5
 
       public virtual dom.MutationObserver prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91786,7 +91781,7 @@ namespace H5
 
       public virtual dom.MutationRecord prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91801,7 +91796,7 @@ namespace H5
 
       public virtual dom.NamedNodeMap prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91816,7 +91811,7 @@ namespace H5
 
       public virtual dom.Navigator prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91831,7 +91826,7 @@ namespace H5
 
       public virtual dom.Node prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91918,7 +91913,7 @@ namespace H5
 
       public virtual dom.NodeIterator prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91933,7 +91928,7 @@ namespace H5
 
       public virtual dom.NodeList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91948,7 +91943,7 @@ namespace H5
 
       public virtual dom.Notification prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91971,7 +91966,7 @@ namespace H5
 
       public virtual dom.OES_element_index_uint prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -91986,7 +91981,7 @@ namespace H5
 
       public virtual dom.OES_standard_derivatives prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92003,7 +91998,7 @@ namespace H5
 
       public virtual dom.OES_texture_float prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92018,7 +92013,7 @@ namespace H5
 
       public virtual dom.OES_texture_float_linear prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92033,7 +92028,7 @@ namespace H5
 
       public virtual dom.OES_texture_half_float prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92050,7 +92045,7 @@ namespace H5
 
       public virtual dom.OES_texture_half_float_linear prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92065,7 +92060,7 @@ namespace H5
 
       public virtual dom.OfflineAudioCompletionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92080,7 +92075,7 @@ namespace H5
 
       public virtual dom.OfflineAudioContext prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92098,7 +92093,7 @@ namespace H5
 
       public virtual dom.OscillatorNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92113,7 +92108,7 @@ namespace H5
 
       public virtual dom.OverflowEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92134,7 +92129,7 @@ namespace H5
 
       public virtual dom.PageTransitionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92149,7 +92144,7 @@ namespace H5
 
       public virtual dom.PannerNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92164,7 +92159,7 @@ namespace H5
 
       public virtual dom.Path2D prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92188,7 +92183,7 @@ namespace H5
 
       public virtual dom.PaymentAddress prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92203,7 +92198,7 @@ namespace H5
 
       public virtual dom.PaymentRequest prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92226,7 +92221,7 @@ namespace H5
 
       public virtual dom.PaymentRequestUpdateEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92246,7 +92241,7 @@ namespace H5
 
       public virtual dom.PaymentResponse prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92261,7 +92256,7 @@ namespace H5
 
       public virtual dom.PerfWidgetExternal prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92276,7 +92271,7 @@ namespace H5
 
       public virtual dom.Performance prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92291,7 +92286,7 @@ namespace H5
 
       public virtual dom.PerformanceEntry prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92306,7 +92301,7 @@ namespace H5
 
       public virtual dom.PerformanceMark prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92321,7 +92316,7 @@ namespace H5
 
       public virtual dom.PerformanceMeasure prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92336,7 +92331,7 @@ namespace H5
 
       public virtual dom.PerformanceNavigation prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92359,7 +92354,7 @@ namespace H5
 
       public virtual dom.PerformanceNavigationTiming prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92374,7 +92369,7 @@ namespace H5
 
       public virtual dom.PerformanceResourceTiming prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92389,7 +92384,7 @@ namespace H5
 
       public virtual dom.PerformanceTiming prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92404,7 +92399,7 @@ namespace H5
 
       public virtual dom.PeriodicWave prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92419,7 +92414,7 @@ namespace H5
 
       public virtual dom.PermissionRequest prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92434,7 +92429,7 @@ namespace H5
 
       public virtual dom.PermissionRequestedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92449,7 +92444,7 @@ namespace H5
 
       public virtual dom.Plugin prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92464,7 +92459,7 @@ namespace H5
 
       public virtual dom.PluginArray prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92479,7 +92474,7 @@ namespace H5
 
       public virtual dom.PointerEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92497,7 +92492,7 @@ namespace H5
 
       public virtual dom.PopStateEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92515,7 +92510,7 @@ namespace H5
 
       public virtual dom.Position prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92530,7 +92525,7 @@ namespace H5
 
       public virtual dom.PositionError prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92551,7 +92546,7 @@ namespace H5
 
       public virtual dom.ProcessingInstruction prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92566,7 +92561,7 @@ namespace H5
 
       public virtual dom.ProgressEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92584,7 +92579,7 @@ namespace H5
 
       public virtual dom.PushManager prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92599,7 +92594,7 @@ namespace H5
 
       public virtual dom.PushSubscription prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92614,7 +92609,7 @@ namespace H5
 
       public virtual dom.PushSubscriptionOptions prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92629,7 +92624,7 @@ namespace H5
 
       public virtual dom.RTCDTMFToneChangeEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92646,7 +92641,7 @@ namespace H5
 
       public virtual dom.RTCDtlsTransport prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92661,7 +92656,7 @@ namespace H5
 
       public virtual dom.RTCDtlsTransportStateChangedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92676,7 +92671,7 @@ namespace H5
 
       public virtual dom.RTCDtmfSender prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92691,7 +92686,7 @@ namespace H5
 
       public virtual dom.RTCIceCandidate prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92709,7 +92704,7 @@ namespace H5
 
       public virtual dom.RTCIceCandidatePairChangedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92724,7 +92719,7 @@ namespace H5
 
       public virtual dom.RTCIceGatherer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92739,7 +92734,7 @@ namespace H5
 
       public virtual dom.RTCIceGathererEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92754,7 +92749,7 @@ namespace H5
 
       public virtual dom.RTCIceTransport prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92769,7 +92764,7 @@ namespace H5
 
       public virtual dom.RTCIceTransportStateChangedEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92784,7 +92779,7 @@ namespace H5
 
       public virtual dom.RTCPeerConnection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92799,7 +92794,7 @@ namespace H5
 
       public virtual dom.RTCPeerConnectionIceEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92816,7 +92811,7 @@ namespace H5
 
       public virtual dom.RTCRtpReceiver prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92861,7 +92856,7 @@ namespace H5
 
       public virtual dom.RTCRtpSender prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92910,7 +92905,7 @@ namespace H5
 
       public virtual dom.RTCSessionDescription prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92929,7 +92924,7 @@ namespace H5
 
       public virtual dom.RTCSrtpSdesTransport prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92949,7 +92944,7 @@ namespace H5
 
       public virtual dom.RTCSsrcConflictEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92964,7 +92959,7 @@ namespace H5
 
       public virtual dom.RTCStatsProvider prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92979,7 +92974,7 @@ namespace H5
 
       public virtual dom.RandomSource prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -92994,7 +92989,7 @@ namespace H5
 
       public virtual dom.Range prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93017,7 +93012,7 @@ namespace H5
 
       public virtual dom.ReadableStream prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93032,7 +93027,7 @@ namespace H5
 
       public virtual dom.ReadableStreamReader prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93047,7 +93042,7 @@ namespace H5
 
       public virtual dom.Request prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93077,7 +93072,7 @@ namespace H5
 
       public virtual dom.Response prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93197,7 +93192,7 @@ namespace H5
 
       public virtual dom.SVGAElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93212,7 +93207,7 @@ namespace H5
 
       public virtual dom.SVGAngle prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93237,7 +93232,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedAngle prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93252,7 +93247,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedBoolean prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93267,7 +93262,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedEnumeration prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93282,7 +93277,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedInteger prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93297,7 +93292,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedLength prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93312,7 +93307,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedLengthList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93327,7 +93322,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedNumber prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93342,7 +93337,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedNumberList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93357,7 +93352,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedPreserveAspectRatio prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93372,7 +93367,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedRect prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93387,7 +93382,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedString prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93402,7 +93397,7 @@ namespace H5
 
       public virtual dom.SVGAnimatedTransformList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93417,7 +93412,7 @@ namespace H5
 
       public virtual dom.SVGCircleElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93432,7 +93427,7 @@ namespace H5
 
       public virtual dom.SVGClipPathElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93447,7 +93442,7 @@ namespace H5
 
       public virtual dom.SVGComponentTransferFunctionElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93474,7 +93469,7 @@ namespace H5
 
       public virtual dom.SVGDefsElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93489,7 +93484,7 @@ namespace H5
 
       public virtual dom.SVGDescElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93504,7 +93499,7 @@ namespace H5
 
       public virtual dom.SVGElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93519,7 +93514,7 @@ namespace H5
 
       public virtual dom.SVGElementInstance prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93534,7 +93529,7 @@ namespace H5
 
       public virtual dom.SVGElementInstanceList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93549,7 +93544,7 @@ namespace H5
 
       public virtual dom.SVGEllipseElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93564,7 +93559,7 @@ namespace H5
 
       public virtual dom.SVGFEBlendElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93613,7 +93608,7 @@ namespace H5
 
       public virtual dom.SVGFEColorMatrixElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93638,7 +93633,7 @@ namespace H5
 
       public virtual dom.SVGFEComponentTransferElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93653,7 +93648,7 @@ namespace H5
 
       public virtual dom.SVGFECompositeElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93682,7 +93677,7 @@ namespace H5
 
       public virtual dom.SVGFEConvolveMatrixElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93705,7 +93700,7 @@ namespace H5
 
       public virtual dom.SVGFEDiffuseLightingElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93720,7 +93715,7 @@ namespace H5
 
       public virtual dom.SVGFEDisplacementMapElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93745,7 +93740,7 @@ namespace H5
 
       public virtual dom.SVGFEDistantLightElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93760,7 +93755,7 @@ namespace H5
 
       public virtual dom.SVGFEFloodElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93775,7 +93770,7 @@ namespace H5
 
       public virtual dom.SVGFEFuncAElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93790,7 +93785,7 @@ namespace H5
 
       public virtual dom.SVGFEFuncBElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93805,7 +93800,7 @@ namespace H5
 
       public virtual dom.SVGFEFuncGElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93820,7 +93815,7 @@ namespace H5
 
       public virtual dom.SVGFEFuncRElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93835,7 +93830,7 @@ namespace H5
 
       public virtual dom.SVGFEGaussianBlurElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93850,7 +93845,7 @@ namespace H5
 
       public virtual dom.SVGFEImageElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93865,7 +93860,7 @@ namespace H5
 
       public virtual dom.SVGFEMergeElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93880,7 +93875,7 @@ namespace H5
 
       public virtual dom.SVGFEMergeNodeElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93895,7 +93890,7 @@ namespace H5
 
       public virtual dom.SVGFEMorphologyElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93916,7 +93911,7 @@ namespace H5
 
       public virtual dom.SVGFEOffsetElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93931,7 +93926,7 @@ namespace H5
 
       public virtual dom.SVGFEPointLightElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93946,7 +93941,7 @@ namespace H5
 
       public virtual dom.SVGFESpecularLightingElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93961,7 +93956,7 @@ namespace H5
 
       public virtual dom.SVGFESpotLightElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93976,7 +93971,7 @@ namespace H5
 
       public virtual dom.SVGFETileElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -93991,7 +93986,7 @@ namespace H5
 
       public virtual dom.SVGFETurbulenceElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94018,7 +94013,7 @@ namespace H5
 
       public virtual dom.SVGFilterElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94033,7 +94028,7 @@ namespace H5
 
       public virtual dom.SVGForeignObjectElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94048,7 +94043,7 @@ namespace H5
 
       public virtual dom.SVGGElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94063,7 +94058,7 @@ namespace H5
 
       public virtual dom.SVGGradientElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94086,7 +94081,7 @@ namespace H5
 
       public virtual dom.SVGGraphicsElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94101,7 +94096,7 @@ namespace H5
 
       public virtual dom.SVGImageElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94116,7 +94111,7 @@ namespace H5
 
       public virtual dom.SVGLength prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94153,7 +94148,7 @@ namespace H5
 
       public virtual dom.SVGLengthList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94168,7 +94163,7 @@ namespace H5
 
       public virtual dom.SVGLineElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94183,7 +94178,7 @@ namespace H5
 
       public virtual dom.SVGLinearGradientElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94198,7 +94193,7 @@ namespace H5
 
       public virtual dom.SVGMarkerElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94225,7 +94220,7 @@ namespace H5
 
       public virtual dom.SVGMaskElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94240,7 +94235,7 @@ namespace H5
 
       public virtual dom.SVGMatrix prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94255,7 +94250,7 @@ namespace H5
 
       public virtual dom.SVGMetadataElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94270,7 +94265,7 @@ namespace H5
 
       public virtual dom.SVGNumber prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94285,7 +94280,7 @@ namespace H5
 
       public virtual dom.SVGNumberList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94300,7 +94295,7 @@ namespace H5
 
       public virtual dom.SVGPathElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94315,7 +94310,7 @@ namespace H5
 
       public virtual dom.SVGPathSeg prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94370,7 +94365,7 @@ namespace H5
 
       public virtual dom.SVGPathSegArcAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94385,7 +94380,7 @@ namespace H5
 
       public virtual dom.SVGPathSegArcRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94400,7 +94395,7 @@ namespace H5
 
       public virtual dom.SVGPathSegClosePath prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94415,7 +94410,7 @@ namespace H5
 
       public virtual dom.SVGPathSegCurvetoCubicAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94430,7 +94425,7 @@ namespace H5
 
       public virtual dom.SVGPathSegCurvetoCubicRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94445,7 +94440,7 @@ namespace H5
 
       public virtual dom.SVGPathSegCurvetoCubicSmoothAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94460,7 +94455,7 @@ namespace H5
 
       public virtual dom.SVGPathSegCurvetoCubicSmoothRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94475,7 +94470,7 @@ namespace H5
 
       public virtual dom.SVGPathSegCurvetoQuadraticAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94490,7 +94485,7 @@ namespace H5
 
       public virtual dom.SVGPathSegCurvetoQuadraticRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94505,7 +94500,7 @@ namespace H5
 
       public virtual dom.SVGPathSegCurvetoQuadraticSmoothAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94520,7 +94515,7 @@ namespace H5
 
       public virtual dom.SVGPathSegCurvetoQuadraticSmoothRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94535,7 +94530,7 @@ namespace H5
 
       public virtual dom.SVGPathSegLinetoAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94550,7 +94545,7 @@ namespace H5
 
       public virtual dom.SVGPathSegLinetoHorizontalAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94565,7 +94560,7 @@ namespace H5
 
       public virtual dom.SVGPathSegLinetoHorizontalRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94580,7 +94575,7 @@ namespace H5
 
       public virtual dom.SVGPathSegLinetoRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94595,7 +94590,7 @@ namespace H5
 
       public virtual dom.SVGPathSegLinetoVerticalAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94610,7 +94605,7 @@ namespace H5
 
       public virtual dom.SVGPathSegLinetoVerticalRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94625,7 +94620,7 @@ namespace H5
 
       public virtual dom.SVGPathSegList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94640,7 +94635,7 @@ namespace H5
 
       public virtual dom.SVGPathSegMovetoAbs prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94655,7 +94650,7 @@ namespace H5
 
       public virtual dom.SVGPathSegMovetoRel prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94670,7 +94665,7 @@ namespace H5
 
       public virtual dom.SVGPatternElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94685,7 +94680,7 @@ namespace H5
 
       public virtual dom.SVGPoint prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94700,7 +94695,7 @@ namespace H5
 
       public virtual dom.SVGPointList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94715,7 +94710,7 @@ namespace H5
 
       public virtual dom.SVGPolygonElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94730,7 +94725,7 @@ namespace H5
 
       public virtual dom.SVGPolylineElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94745,7 +94740,7 @@ namespace H5
 
       public virtual dom.SVGPreserveAspectRatio prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94788,7 +94783,7 @@ namespace H5
 
       public virtual dom.SVGRadialGradientElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94803,7 +94798,7 @@ namespace H5
 
       public virtual dom.SVGRect prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94818,7 +94813,7 @@ namespace H5
 
       public virtual dom.SVGRectElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94833,7 +94828,7 @@ namespace H5
 
       public virtual dom.SVGSVGElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94848,7 +94843,7 @@ namespace H5
 
       public virtual dom.SVGScriptElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94863,7 +94858,7 @@ namespace H5
 
       public virtual dom.SVGStopElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94878,7 +94873,7 @@ namespace H5
 
       public virtual dom.SVGStringList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94893,7 +94888,7 @@ namespace H5
 
       public virtual dom.SVGStylable prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94908,7 +94903,7 @@ namespace H5
 
       public virtual dom.SVGStyleElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94923,7 +94918,7 @@ namespace H5
 
       public virtual dom.SVGSwitchElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94938,7 +94933,7 @@ namespace H5
 
       public virtual dom.SVGSymbolElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94953,7 +94948,7 @@ namespace H5
 
       public virtual dom.SVGTSpanElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94968,7 +94963,7 @@ namespace H5
 
       public virtual dom.SVGTextContentElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -94989,7 +94984,7 @@ namespace H5
 
       public virtual dom.SVGTextElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95004,7 +94999,7 @@ namespace H5
 
       public virtual dom.SVGTextPathElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95031,7 +95026,7 @@ namespace H5
 
       public virtual dom.SVGTextPositioningElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95046,7 +95041,7 @@ namespace H5
 
       public virtual dom.SVGTitleElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95061,7 +95056,7 @@ namespace H5
 
       public virtual dom.SVGTransform prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95090,7 +95085,7 @@ namespace H5
 
       public virtual dom.SVGTransformList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95105,7 +95100,7 @@ namespace H5
 
       public virtual dom.SVGUseElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95120,7 +95115,7 @@ namespace H5
 
       public virtual dom.SVGViewElement prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95145,7 +95140,7 @@ namespace H5
 
       public virtual dom.SVGZoomEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95160,7 +95155,7 @@ namespace H5
 
       public virtual dom.ScopedCredential prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95175,7 +95170,7 @@ namespace H5
 
       public virtual dom.ScopedCredentialInfo prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95190,7 +95185,7 @@ namespace H5
 
       public virtual dom.Screen prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95205,7 +95200,7 @@ namespace H5
 
       public virtual dom.ScriptProcessorNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95220,7 +95215,7 @@ namespace H5
 
       public virtual dom.SecurityPolicyViolationEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95240,7 +95235,7 @@ namespace H5
 
       public virtual dom.Selection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95255,7 +95250,7 @@ namespace H5
 
       public virtual dom.ServiceWorker prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95270,7 +95265,7 @@ namespace H5
 
       public virtual dom.ServiceWorkerContainer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95285,7 +95280,7 @@ namespace H5
 
       public virtual dom.ServiceWorkerMessageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95305,7 +95300,7 @@ namespace H5
 
       public virtual dom.ServiceWorkerRegistration prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95320,7 +95315,7 @@ namespace H5
 
       public virtual dom.SourceBuffer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95335,7 +95330,7 @@ namespace H5
 
       public virtual dom.SourceBufferList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95350,7 +95345,7 @@ namespace H5
 
       public virtual dom.SpeechSynthesis prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95365,7 +95360,7 @@ namespace H5
 
       public virtual dom.SpeechSynthesisEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95385,7 +95380,7 @@ namespace H5
 
       public virtual dom.SpeechSynthesisUtterance prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95403,7 +95398,7 @@ namespace H5
 
       public virtual dom.SpeechSynthesisVoice prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95418,7 +95413,7 @@ namespace H5
 
       public virtual dom.StereoPannerNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95433,7 +95428,7 @@ namespace H5
 
       public virtual dom.Storage prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95448,7 +95443,7 @@ namespace H5
 
       public virtual dom.StorageEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95466,7 +95461,7 @@ namespace H5
 
       public virtual dom.StyleMedia prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95481,7 +95476,7 @@ namespace H5
 
       public virtual dom.StyleSheet prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95496,7 +95491,7 @@ namespace H5
 
       public virtual dom.StyleSheetList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95511,7 +95506,7 @@ namespace H5
 
       public virtual dom.SubtleCrypto prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95526,7 +95521,7 @@ namespace H5
 
       public virtual dom.SyncManager prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95541,7 +95536,7 @@ namespace H5
 
       public virtual dom.Text prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95559,7 +95554,7 @@ namespace H5
 
       public virtual dom.TextDecoder prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95580,7 +95575,7 @@ namespace H5
 
       public virtual dom.TextEncoder prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95595,7 +95590,7 @@ namespace H5
 
       public virtual dom.TextEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95630,7 +95625,7 @@ namespace H5
 
       public virtual dom.TextMetrics prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95645,7 +95640,7 @@ namespace H5
 
       public virtual dom.TextTrack prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95674,7 +95669,7 @@ namespace H5
 
       public virtual dom.TextTrackCue prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95689,7 +95684,7 @@ namespace H5
 
       public virtual dom.TextTrackCueList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95704,7 +95699,7 @@ namespace H5
 
       public virtual dom.TextTrackList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95719,7 +95714,7 @@ namespace H5
 
       public virtual dom.TimeRanges prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95734,7 +95729,7 @@ namespace H5
 
       public virtual dom.Touch prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95749,7 +95744,7 @@ namespace H5
 
       public virtual dom.TouchEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95767,7 +95762,7 @@ namespace H5
 
       public virtual dom.TouchList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95782,7 +95777,7 @@ namespace H5
 
       public virtual dom.TrackEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95800,7 +95795,7 @@ namespace H5
 
       public virtual dom.TransitionEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95820,7 +95815,7 @@ namespace H5
 
       public virtual dom.TreeWalker prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95835,7 +95830,7 @@ namespace H5
 
       public virtual dom.UIEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95853,7 +95848,7 @@ namespace H5
 
       public virtual dom.URL prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95883,7 +95878,7 @@ namespace H5
 
       public virtual dom.URLSearchParams prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95907,7 +95902,7 @@ namespace H5
 
       public virtual dom.VRDisplay prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95922,7 +95917,7 @@ namespace H5
 
       public virtual dom.VRDisplayCapabilities prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95937,7 +95932,7 @@ namespace H5
 
       public virtual dom.VRDisplayEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95952,7 +95947,7 @@ namespace H5
 
       public virtual dom.VREyeParameters prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95967,7 +95962,7 @@ namespace H5
 
       public virtual dom.VRFieldOfView prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95982,7 +95977,7 @@ namespace H5
 
       public virtual dom.VRFrameData prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -95997,7 +95992,7 @@ namespace H5
 
       public virtual dom.VRPose prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96012,7 +96007,7 @@ namespace H5
 
       public virtual dom.ValidityState prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96027,7 +96022,7 @@ namespace H5
 
       public virtual dom.VideoPlaybackQuality prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96042,7 +96037,7 @@ namespace H5
 
       public virtual dom.VideoTrack prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96057,7 +96052,7 @@ namespace H5
 
       public virtual dom.VideoTrackList prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96072,7 +96067,7 @@ namespace H5
 
       public virtual dom.WEBGL_compressed_texture_s3tc prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96095,7 +96090,7 @@ namespace H5
 
       public virtual dom.WEBGL_debug_renderer_info prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96114,7 +96109,7 @@ namespace H5
 
       public virtual dom.WEBGL_depth_texture prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96131,7 +96126,7 @@ namespace H5
 
       public virtual dom.WaveShaperNode prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96146,7 +96141,7 @@ namespace H5
 
       public virtual dom.WebAuthentication prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96161,7 +96156,7 @@ namespace H5
 
       public virtual dom.WebAuthnAssertion prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96176,7 +96171,7 @@ namespace H5
 
       public virtual dom.WebGLActiveInfo prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96191,7 +96186,7 @@ namespace H5
 
       public virtual dom.WebGLBuffer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96206,7 +96201,7 @@ namespace H5
 
       public virtual dom.WebGLContextEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96226,7 +96221,7 @@ namespace H5
 
       public virtual dom.WebGLFramebuffer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96241,7 +96236,7 @@ namespace H5
 
       public virtual dom.WebGLObject prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96256,7 +96251,7 @@ namespace H5
 
       public virtual dom.WebGLProgram prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96271,7 +96266,7 @@ namespace H5
 
       public virtual dom.WebGLRenderbuffer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96286,7 +96281,7 @@ namespace H5
 
       public virtual dom.WebGLRenderingContext prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96895,7 +96890,7 @@ namespace H5
 
       public virtual dom.WebGLShader prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96910,7 +96905,7 @@ namespace H5
 
       public virtual dom.WebGLShaderPrecisionFormat prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96925,7 +96920,7 @@ namespace H5
 
       public virtual dom.WebGLTexture prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96940,7 +96935,7 @@ namespace H5
 
       public virtual dom.WebGLUniformLocation prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96955,7 +96950,7 @@ namespace H5
 
       public virtual dom.WebKitCSSMatrix prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96973,7 +96968,7 @@ namespace H5
 
       public virtual dom.WebKitDirectoryEntry prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -96988,7 +96983,7 @@ namespace H5
 
       public virtual dom.WebKitDirectoryReader prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97003,7 +96998,7 @@ namespace H5
 
       public virtual dom.WebKitEntry prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97018,7 +97013,7 @@ namespace H5
 
       public virtual dom.WebKitFileEntry prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97033,7 +97028,7 @@ namespace H5
 
       public virtual dom.WebKitFileSystem prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97048,7 +97043,7 @@ namespace H5
 
       public virtual dom.WebKitPoint prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97069,7 +97064,7 @@ namespace H5
 
       public virtual dom.WebSocket prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97101,7 +97096,7 @@ namespace H5
 
       public virtual dom.WheelEvent prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97125,7 +97120,7 @@ namespace H5
 
       public virtual dom.Window prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97140,7 +97135,7 @@ namespace H5
 
       public virtual dom.Worker prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97155,7 +97150,7 @@ namespace H5
 
       public virtual dom.WritableStream prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97178,7 +97173,7 @@ namespace H5
 
       public virtual dom.WritableStreamDefaultController prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97193,7 +97188,7 @@ namespace H5
 
       public virtual dom.WritableStreamDefaultWriter prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97208,7 +97203,7 @@ namespace H5
 
       public virtual dom.XMLDocument prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97223,7 +97218,7 @@ namespace H5
 
       public virtual dom.XMLHttpRequest prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97248,7 +97243,7 @@ namespace H5
 
       public virtual dom.XMLHttpRequestUpload prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97263,7 +97258,7 @@ namespace H5
 
       public virtual dom.XMLSerializer prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97278,7 +97273,7 @@ namespace H5
 
       public virtual dom.XPathEvaluator prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97293,7 +97288,7 @@ namespace H5
 
       public virtual dom.XPathExpression prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97308,7 +97303,7 @@ namespace H5
 
       public virtual dom.XPathNSResolver prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97323,7 +97318,7 @@ namespace H5
 
       public virtual dom.XPathResult prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97358,7 +97353,7 @@ namespace H5
 
       public virtual dom.XSLTProcessor prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -97373,7 +97368,7 @@ namespace H5
 
       public virtual dom.webkitRTCPeerConnection prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -101635,7 +101630,7 @@ namespace H5
 
       public dom.Blob prototype
       {
-    set;
+    get;
     set;
       }
     }
@@ -101660,7 +101655,7 @@ namespace H5
 
       public dom.URL prototype
       {
-    set;
+    get;
     set;
       }
 
@@ -101691,7 +101686,7 @@ namespace H5
 
       public dom.URLSearchParams prototype
       {
-    set;
+    get;
     set;
       }
     }

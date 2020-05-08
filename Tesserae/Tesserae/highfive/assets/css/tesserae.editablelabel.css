@@ -1,0 +1,89 @@
+﻿/* EditableLabel */
+.tss-editablelabel {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.tss-editablelabel-displaybox {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    white-space: pre-wrap;
+}
+
+.tss-editablelabel-editbox {
+    display: none;
+    align-items: center;
+}
+
+.tss-editablelabel-textspan {
+    display: inline-flex;
+}
+
+.tss-editablelabel-textbox {
+    box-shadow: none;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid var(--tss-default-border-color);
+    border-radius: 2px;
+    background: var(--tss-default-background-color) none repeat scroll 0% 0%;
+    color: var(--tss-default-foreground-color);
+    cursor: text;
+    min-height: 32px;
+    align-items: stretch;
+    display: block;
+    max-width: 100%;
+    outline: transparent none medium;
+    padding: 0px 5px;
+}
+
+.tss-editablelabel-edit-icon {
+    visibility: hidden;
+    margin-left: 16px;
+}
+
+.tss-editablelabel-cancel-icon {
+    font-size: 16px;
+    visibility: hidden;
+    color: var(--tss-danger-background-color);
+    visibility: hidden;
+    padding-left: 7px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: -4px;
+    margin-top: -4px;
+    border: transparent;
+    background: transparent;
+}
+
+.tss-editablelabel-displaybox:hover {
+    background-color: var(--tss-default-background-hover-color);
+}
+
+.tss-editablelabel-displaybox:hover > .tss-editablelabel-edit-icon {
+    visibility: visible;
+}
+
+.tss-editablelabel.tss-editing > .tss-editablelabel-edit-icon {
+    visibility: collapse;
+}
+
+.tss-editablelabel.tss-editing {
+    background-color: unset;
+}
+
+    .tss-editablelabel.tss-editing > .tss-editablelabel-displaybox {
+        display:none;
+    }
+
+    .tss-editablelabel.tss-editing > .tss-editablelabel-editbox {
+        display: inline-flex;
+    }
+
+
+.tss-editablelabel.tss-editing > .tss-editablelabel-editbox > .tss-editablelabel-cancel-icon {
+    visibility: visible;
+}
+

@@ -8,25 +8,26 @@ using HighFive;
 
 namespace H5.Primitive
 {
-  [IgnoreCast]
-  [Namespace(false)]
-  public interface StringConstructor : IObject
-  {
-    [Template("new {this}()")]
-    String New();
+    [IgnoreCast]
+    [Namespace(false)]
+    [Virtual]
+    public interface StringConstructor : IObject
+    {
+        [Template("new {this}()")]
+        String New();
 
-    [Template("new {this}({0})")]
-    String New(object value);
+        [Template("new {this}({0})")]
+        String New(object value);
 
-    [Template("{this}()")]
-    string Self();
+        [Template("{this}()")]
+        string Self();
 
-    [Template("{this}({0})")]
-    string Self(object value);
+        [Template("{this}({0})")]
+        string Self(object value);
 
-    String prototype { get; }
+        String prototype { get; }
 
-    [ExpandParams]
-    string fromCharCode(params double[] codes);
-  }
+        [ExpandParams]
+        string fromCharCode(params double[] codes);
+    }
 }

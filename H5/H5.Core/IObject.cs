@@ -8,10 +8,11 @@ using HighFive;
 
 namespace H5
 {
-  [IgnoreCast]
-  [ObjectLiteral]
-  [ExportedAs("object")]
-  public interface IObject
-  {
-  }
+    [IgnoreCast]
+    [ObjectLiteral]
+    [Virtual]
+    [ExportedAs("object")]
+    public interface IObject
+    {
+    }
 }

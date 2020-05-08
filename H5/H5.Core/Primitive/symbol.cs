@@ -8,10 +8,11 @@ using HighFive;
 
 namespace H5.Primitive
 {
-  [IgnoreCast]
-  [Name("symbol")]
-  [ExportedAs("symbol")]
-  public abstract class symbol
-  {
-  }
+    [IgnoreCast]
+    [Name("symbol")]
+    [ExportedAs("symbol")]
+    [Virtual]
+    public abstract class symbol
+    {
+    }
 }

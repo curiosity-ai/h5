@@ -8,22 +8,23 @@ using HighFive;
 
 namespace H5.Primitive
 {
-  [IgnoreCast]
-  [Namespace(false)]
-  public interface BooleanConstructor : IObject
-  {
-    [Template("new {this}()")]
-    Boolean New();
+    [IgnoreCast]
+    [Namespace(false)]
+    [Virtual]
+    public interface BooleanConstructor : IObject
+    {
+        [Template("new {this}()")]
+        Boolean New();
 
-    [Template("new {this}({0})")]
-    Boolean New(object value);
+        [Template("new {this}({0})")]
+        Boolean New(object value);
 
-    [Template("{this}()")]
-    bool Self();
+        [Template("{this}()")]
+        bool Self();
 
-    [Template("{this}({0})")]
-    bool Self(object value);
+        [Template("{this}({0})")]
+        bool Self(object value);
 
-    Boolean prototype { get; }
-  }
+        Boolean prototype { get; }
+    }
 }

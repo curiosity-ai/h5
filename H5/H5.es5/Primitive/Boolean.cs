@@ -8,38 +8,39 @@ using HighFive;
 
 namespace H5.Primitive
 {
-  [CombinedClass]
-  [StaticInterface("BooleanConstructor")]
-  [Namespace(false)]
-  public class Boolean : Object, Boolean.Interface, IObject
-  {
-    public extern Boolean();
-
-    public extern Boolean(object value);
-
-    public static Boolean prototype
+    [CombinedClass]
+    [StaticInterface("BooleanConstructor")]
+    [Namespace(false)]
+    [Virtual]
+    public class Boolean : Object, Boolean.Interface, IObject
     {
-      get;
+        public extern Boolean();
+
+        public extern Boolean(object value);
+
+        public static Boolean prototype
+        {
+            get;
+        }
+
+        public static extern bool Self();
+
+        public static extern bool Self(object value);
+
+        public virtual extern bool valueOf();
+
+        public static extern implicit operator Boolean(bool value);
+
+        [Template("{this} != null ? {this}.valueOf() : {this}")]
+        public static extern implicit operator bool(Boolean value);
+
+        [Generated]
+        [IgnoreCast]
+        [ClassInterface]
+        [Name("Boolean")]
+        public new interface Interface : IObject
+        {
+            bool valueOf();
+        }
     }
-
-    public static extern bool Self();
-
-    public static extern bool Self(object value);
-
-    public virtual extern bool valueOf();
-
-    public static extern implicit operator Boolean(bool value);
-
-    [Template("{this} != null ? {this}.valueOf() : {this}")]
-    public static extern implicit operator bool(Boolean value);
-
-    [Generated]
-    [IgnoreCast]
-    [ClassInterface]
-    [Name("Boolean")]
-    public new interface Interface : IObject
-    {
-      bool valueOf();
-    }
-  }
 }

@@ -16,6 +16,7 @@ namespace H5
 {
     [Scope]
     [GlobalMethods]
+    [Virtual]
     public static class es5
     {
         public static readonly double NaN;

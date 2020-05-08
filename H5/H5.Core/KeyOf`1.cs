@@ -8,15 +8,16 @@ using HighFive;
 
 namespace H5
 {
-  [IgnoreGeneric(AllowInTypeScript = true)]
-  [IgnoreCast]
-  [HighFive.Name("String")]
-  [ExportedAs("KeyOf")]
-  public class KeyOf<T>
-  {
-    [Template("{this}")]
-    public static readonly string Name;
+    [IgnoreGeneric(AllowInTypeScript = true)]
+    [IgnoreCast]
+    [HighFive.Name("String")]
+    [ExportedAs("KeyOf")]
+    [Virtual]
+    public class KeyOf<T>
+    {
+        [Template("{this}")]
+        public static readonly string Name;
 
-    private extern KeyOf();
-  }
+        private extern KeyOf();
+    }
 }

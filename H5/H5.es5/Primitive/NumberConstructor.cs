@@ -8,32 +8,33 @@ using HighFive;
 
 namespace H5.Primitive
 {
-  [IgnoreCast]
-  [Namespace(false)]
-  public interface NumberConstructor : IObject
-  {
-    [Template("new {this}()")]
-    Number New();
+    [IgnoreCast]
+    [Namespace(false)]
+    [Virtual]
+    public interface NumberConstructor : IObject
+    {
+        [Template("new {this}()")]
+        Number New();
 
-    [Template("new {this}({0})")]
-    Number New(object value);
+        [Template("new {this}({0})")]
+        Number New(object value);
 
-    [Template("{this}()")]
-    double Self();
+        [Template("{this}()")]
+        double Self();
 
-    [Template("{this}({0})")]
-    double Self(object value);
+        [Template("{this}({0})")]
+        double Self(object value);
 
-    Number prototype { get; }
+        Number prototype { get; }
 
-    double MAX_VALUE { get; }
+        double MAX_VALUE { get; }
 
-    double MIN_VALUE { get; }
+        double MIN_VALUE { get; }
 
-    double NaN { get; }
+        double NaN { get; }
 
-    double NEGATIVE_INFINITY { get; }
+        double NEGATIVE_INFINITY { get; }
 
-    double POSITIVE_INFINITY { get; }
-  }
+        double POSITIVE_INFINITY { get; }
+    }
 }

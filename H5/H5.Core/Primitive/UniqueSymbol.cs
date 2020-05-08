@@ -8,11 +8,12 @@ using HighFive;
 
 namespace H5.Primitive
 {
-  [IgnoreCast]
-  [Name("unique symbol")]
-  [ExportedAs("unique symbol")]
-  public class UniqueSymbol : symbol
-  {
-    private extern UniqueSymbol();
-  }
+    [IgnoreCast]
+    [Name("unique symbol")]
+    [ExportedAs("unique symbol")]
+    [Virtual]
+    public class UniqueSymbol : symbol
+    {
+        private extern UniqueSymbol();
+    }
 }

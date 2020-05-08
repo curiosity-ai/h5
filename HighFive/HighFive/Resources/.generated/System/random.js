@@ -58,7 +58,7 @@
         },
         methods: {
             Sample: function () {
-                return (this.InternalSample() * (4.6566128752457969E-10));
+                return (this.InternalSample() * (4.656612875245797E-10));
             },
             InternalSample: function () {
                 var retVal;

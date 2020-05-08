@@ -14,6 +14,8 @@ namespace HighFive.Builder
     {
         private static int Main(string[] args)
         {
+            Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
+
             var logger = new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter());
 
             logger.Info("Executing HighFive.Builder.Console...");

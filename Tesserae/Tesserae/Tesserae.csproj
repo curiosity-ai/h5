@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.Build.NoTargets/1.0.94">
+﻿<Project Sdk="Microsoft.Build.NoTargets/1.0.40">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>

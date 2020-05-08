@@ -18,7 +18,7 @@ namespace System.Collections.Generic
         #region Constructors
 
         public HashSet()
-            : this(EqualityComparer<T>.Default)
+            : this(EqualityComparer<T>.Default())
         {
         }
 
@@ -26,7 +26,7 @@ namespace System.Collections.Generic
         {
             if (comparer == null)
             {
-                comparer = EqualityComparer<T>.Default;
+                comparer = EqualityComparer<T>.Default();
             }
             _comparer = comparer;
             _lastIndex = 0;
@@ -36,7 +36,7 @@ namespace System.Collections.Generic
         }
 
         public HashSet(IEnumerable<T> collection)
-            : this(collection, EqualityComparer<T>.Default)
+            : this(collection, EqualityComparer<T>.Default())
         {
         }
 

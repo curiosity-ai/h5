@@ -44,9 +44,9 @@ namespace System.Collections.Generic
         {
             if (capacity < 0) ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.capacity);
             if (capacity > 0) Initialize(capacity);
-            this.comparer = comparer ?? EqualityComparer<TKey>.Default;
+            this.comparer = comparer ?? EqualityComparer<TKey>.Default();
 
-            this.isSimpleKey = ((typeof(TKey) == typeof(System.String)) || (Script.Get<bool>("TKey.$number") == true && typeof(TKey) != typeof(System.Int64) && typeof(TKey) != typeof(System.UInt64)) || (typeof(TKey) == typeof(System.Char))) && (this.comparer == EqualityComparer<TKey>.Default);
+            this.isSimpleKey = ((typeof(TKey) == typeof(System.String)) || (Script.Get<bool>("TKey.$number") == true && typeof(TKey) != typeof(System.Int64) && typeof(TKey) != typeof(System.UInt64)) || (typeof(TKey) == typeof(System.Char))) && (this.comparer == EqualityComparer<TKey>.Default());
         }
 
         public Dictionary(IDictionary<TKey, TValue> dictionary) : this(dictionary, null) { }
@@ -168,7 +168,7 @@ namespace System.Collections.Generic
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> keyValuePair)
         {
             int i = FindEntry(keyValuePair.Key);
-            if (i >= 0 && EqualityComparer<TValue>.Default.Equals(entries[i].value, keyValuePair.Value))
+            if (i >= 0 && EqualityComparer<TValue>.Default().Equals(entries[i].value, keyValuePair.Value))
             {
                 return true;
             }
@@ -178,7 +178,7 @@ namespace System.Collections.Generic
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> keyValuePair)
         {
             int i = FindEntry(keyValuePair.Key);
-            if (i >= 0 && EqualityComparer<TValue>.Default.Equals(entries[i].value, keyValuePair.Value))
+            if (i >= 0 && EqualityComparer<TValue>.Default().Equals(entries[i].value, keyValuePair.Value))
             {
                 Remove(keyValuePair.Key);
                 return true;
@@ -219,7 +219,7 @@ namespace System.Collections.Generic
             }
             else
             {
-                EqualityComparer<TValue> c = EqualityComparer<TValue>.Default;
+                EqualityComparer<TValue> c = EqualityComparer<TValue>.Default();
                 for (int i = 0; i < count; i++)
                 {
                     if (entries[i].hashCode >= 0 && c.Equals(entries[i].value, value)) return true;

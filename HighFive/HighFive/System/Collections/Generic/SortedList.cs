@@ -133,7 +133,7 @@ namespace System.Collections.Generic
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> keyValuePair)
         {
             int index = IndexOfKey(keyValuePair.Key);
-            if (index >= 0 && EqualityComparer<TValue>.Default.Equals(values[index], keyValuePair.Value))
+            if (index >= 0 && EqualityComparer<TValue>.Default().Equals(values[index], keyValuePair.Value))
             {
                 return true;
             }
@@ -143,7 +143,7 @@ namespace System.Collections.Generic
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> keyValuePair)
         {
             int index = IndexOfKey(keyValuePair.Key);
-            if (index >= 0 && EqualityComparer<TValue>.Default.Equals(values[index], keyValuePair.Value))
+            if (index >= 0 && EqualityComparer<TValue>.Default().Equals(values[index], keyValuePair.Value))
             {
                 RemoveAt(index);
                 return true;

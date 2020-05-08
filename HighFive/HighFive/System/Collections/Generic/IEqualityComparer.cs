@@ -17,14 +17,13 @@ namespace System.Collections.Generic
     [HighFive.Reflectable]
     public abstract class EqualityComparer<T> : IEqualityComparer<T>, HighFive.IHighFiveClass
     {
-        public static EqualityComparer<T> Default
+        [HighFive.Template("System.Collections.Generic.EqualityComparer$1({T}).def")]
+        public static EqualityComparer<T> Default()
         {
-            [HighFive.Template("System.Collections.Generic.EqualityComparer$1({T}).def")]
-            get
-            {
-                return null;
-            }
+            return null; // new EqualityComparer<T>();
         }
+
+        //private extern EqualityComparer();
 
         public virtual extern bool Equals(T x, T y);
 

@@ -62,7 +62,7 @@ namespace System.Collections.Generic
         #region Constructors
         public SortedSet()
         {
-            this.comparer = Comparer<T>.Default;
+            this.comparer = Comparer<T>.Default();
 
         }
 
@@ -70,7 +70,7 @@ namespace System.Collections.Generic
         {
             if (comparer == null)
             {
-                this.comparer = Comparer<T>.Default;
+                this.comparer = Comparer<T>.Default();
             }
             else
             {
@@ -79,7 +79,7 @@ namespace System.Collections.Generic
         }
 
 
-        public SortedSet(IEnumerable<T> collection) : this(collection, Comparer<T>.Default) { }
+        public SortedSet(IEnumerable<T> collection) : this(collection, Comparer<T>.Default()) { }
 
         public SortedSet(IEnumerable<T> collection, IComparer<T> comparer)
             : this(comparer)
@@ -1458,7 +1458,7 @@ namespace System.Collections.Generic
                 SymmetricExceptWithSameEC(asSorted);
             }
 
- else if (asHash != null && this.comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
+ else if (asHash != null && this.comparer.Equals(Comparer<T>.Default()) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
                 SymmetricExceptWithSameEC(asHash);
             }
 
@@ -1587,7 +1587,7 @@ namespace System.Collections.Generic
 
             //do it one way for HashSets
             HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
+            if (asHash != null && comparer.Equals(Comparer<T>.Default()) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
                 return asHash.IsProperSupersetOf(this);
             }
 
@@ -1626,7 +1626,7 @@ namespace System.Collections.Generic
             //do it one way for HashSets
 
             HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
+            if (asHash != null && comparer.Equals(Comparer<T>.Default()) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
                 return asHash.IsSubsetOf(this);
             }
 
@@ -1670,7 +1670,7 @@ namespace System.Collections.Generic
             //do it one way for HashSets
 
             HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
+            if (asHash != null && comparer.Equals(Comparer<T>.Default()) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
                 return asHash.IsProperSubsetOf(this);
             }
 
@@ -1713,7 +1713,7 @@ namespace System.Collections.Generic
             }
 
             HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
+            if (asHash != null && comparer.Equals(Comparer<T>.Default()) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
                 return asHash.SetEquals(this);
             }
 
@@ -1769,7 +1769,7 @@ namespace System.Collections.Generic
             }
 
             HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
+            if (asHash != null && comparer.Equals(Comparer<T>.Default()) && asHash.Comparer.Equals(EqualityComparer<T>.Default())) {
                 return asHash.Overlaps(this);
             }
 
@@ -2529,7 +2529,7 @@ namespace System.Collections.Generic
         public SortedSetEqualityComparer(IComparer<T> comparer, IEqualityComparer<T> memberEqualityComparer)
         {
             if (comparer == null)
-                this.comparer = Comparer<T>.Default;
+                this.comparer = Comparer<T>.Default();
             else
                 this.comparer = comparer;
             if (memberEqualityComparer == null)

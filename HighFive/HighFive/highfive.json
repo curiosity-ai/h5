@@ -386,14 +386,6 @@
       ]
     },
     {
-      "name": "highfive.d.ts",
-      "header": "Resources/.typescript/header.d.ts",
-      "extract": false,
-      "files": [
-        "Resources/.typescript/highfive.d.ts"
-      ]
-    },
-    {
       "name": "highfive.meta.js",
       "header": "Resources/.auxiliary/header.js",
       "extract": false,

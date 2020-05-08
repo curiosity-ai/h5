@@ -191,6 +191,7 @@
                 this.VersionCheckImpl();
             },
             VersionCheckImpl: function () {
+                System.Diagnostics.Debug.Assert$1(this.underlying != null, "Underlying set no longer exists");
                 if (this.version !== this.underlying.version) {
                     this.root = this.underlying.FindRange$1(this.min, this.max, this.lBoundActive, this.uBoundActive);
                     this.version = this.underlying.version;

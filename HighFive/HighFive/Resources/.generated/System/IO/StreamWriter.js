@@ -214,6 +214,7 @@
                     if (n > count) {
                         n = count;
                     }
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return n > 0; }, "StreamWriter::Write(char[]) isn't making progress!  This is most likely a ---- in user code.");
                     System.Array.copy(buffer, index, this.charBuffer, this.charPos, n);
                     this.charPos = (this.charPos + n) | 0;
                     index = (index + n) | 0;
@@ -245,6 +246,7 @@
                     if (n > count) {
                         n = count;
                     }
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return n > 0; }, "StreamWriter::Write(char[], int, int) isn't making progress!  This is most likely a race condition in user code.");
                     System.Array.copy(buffer, index, this.charBuffer, this.charPos, n);
                     this.charPos = (this.charPos + n) | 0;
                     index = (index + n) | 0;
@@ -266,6 +268,7 @@
                         if (n > count) {
                             n = count;
                         }
+                        System.Diagnostics.Contracts.Contract.assert(4, this, function () { return n > 0; }, "StreamWriter::Write(String) isn't making progress!  This is most likely a race condition in user code.");
                         System.String.copyTo(value, index, this.charBuffer, this.charPos, n);
                         this.charPos = (this.charPos + n) | 0;
                         index = (index + n) | 0;

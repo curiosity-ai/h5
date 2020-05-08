@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
+using System.Threading;
 
 namespace HighFive.Translator
 {
@@ -51,14 +52,23 @@ namespace HighFive.Translator
             var updatedMembers = new Dictionary<MemberAccessExpressionSyntax, string>();
             foreach (var memberAccess in root.DescendantNodes().OfType<MemberAccessExpressionSyntax>())
             {
-                var symbol = model.GetSymbolInfo(memberAccess).Symbol;
-
-                if (symbol != null && symbol is IFieldSymbol && symbol.ContainingType.IsTupleType)
+                try
                 {
-                    var field = symbol as IFieldSymbol;
-                    var tupleField = field.CorrespondingTupleField;
-                    updatedMembers[memberAccess] = tupleField.Name;
+                    var symbol = model.GetSymbolInfo(memberAccess).Symbol;
+                    
+                    if (symbol != null && symbol is IFieldSymbol && symbol.ContainingType.IsTupleType)
+                    {
+                        var field = symbol as IFieldSymbol;
+                        var tupleField = field.CorrespondingTupleField;
+                        updatedMembers[memberAccess] = tupleField.Name;
+                    }
                 }
+                catch(Exception E)
+                {
+                    Console.WriteLine(E);
+                }
+
+     
             }
 
             var updatedStatements = new Dictionary<StatementSyntax, List<LocalDeclarationStatementSyntax>>();

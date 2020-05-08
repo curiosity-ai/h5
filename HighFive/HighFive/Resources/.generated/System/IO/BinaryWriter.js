@@ -105,6 +105,7 @@
                     throw new System.ArgumentException.$ctor1("Arg_SurrogatesNotAllowedAsSingleChar");
                 }
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._encoding.GetMaxByteCount(1) <= 16; }, "_encoding.GetMaxByteCount(1) <= 16)");
                 var numBytes = 0;
                 numBytes = this._encoding.GetBytes$3(System.Array.init([ch], System.Char), 0, 1, this._buffer, 0);
 

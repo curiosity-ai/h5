@@ -153,6 +153,7 @@
                         return System.ThrowHelper.GetArgumentOutOfRangeException(System.ExceptionArgument.count, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
                     }
 
+                    System.Diagnostics.Debug.Assert(((array.length - offset) | 0) < count);
                     return System.ThrowHelper.GetArgumentException(System.ExceptionResource.Argument_InvalidOffLen);
                 },
                 GetArgumentException: function (resource) {
@@ -188,10 +189,12 @@
                     }
                 },
                 GetArgumentName: function (argument) {
+                    System.Diagnostics.Debug.Assert$1(System.Enum.isDefined(System.ExceptionArgument, HighFive.box(argument, System.ExceptionArgument, System.Enum.toStringFn(System.ExceptionArgument))), "The enum value is not defined, please check the ExceptionArgument Enum.");
 
                     return System.Enum.toString(System.ExceptionArgument, argument);
                 },
                 GetResourceString: function (resource) {
+                    System.Diagnostics.Debug.Assert$1(System.Enum.isDefined(System.ExceptionResource, HighFive.box(resource, System.ExceptionResource, System.Enum.toStringFn(System.ExceptionResource))), "The enum value is not defined, please check the ExceptionResource Enum.");
 
                     return System.SR.GetResourceString(System.Enum.toString(System.ExceptionResource, resource));
                 },

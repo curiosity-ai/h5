@@ -200,6 +200,7 @@
                 var dayOfYear = (this.GetDayOfYear(time) - 1) | 0;
                 var dayForJan1 = (this.GetDayOfWeek(time) - (dayOfYear % 7)) | 0;
                 var offset = (((((dayForJan1 - firstDayOfWeek) | 0) + 14) | 0)) % 7;
+                System.Diagnostics.Debug.Assert$1(offset >= 0, "Calendar.GetFirstDayWeekOfYear(): offset >= 0");
                 return (((((HighFive.Int.div((((dayOfYear + offset) | 0)), 7)) | 0) + 1) | 0));
             },
             GetWeekOfYearFullDays: function (time, firstDayOfWeek, fullDays) {

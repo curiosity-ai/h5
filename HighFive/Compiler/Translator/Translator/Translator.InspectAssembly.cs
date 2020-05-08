@@ -91,8 +91,9 @@ namespace HighFive.Translator
 
             foreach (var path in locations)
             {
+                var ms = LoadAssemblyInMemoryStream(path);
                 var reference = AssemblyDefinition.ReadAssembly(
-                    path,
+                    ms,
                     new ReaderParameters()
                     {
                         ReadingMode = ReadingMode.Deferred,
@@ -121,8 +122,10 @@ namespace HighFive.Translator
 
             CurrentAssemblyLocationInspected.Push(location);
 
+            var ms = LoadAssemblyInMemoryStream(location);
+
             var assemblyDefinition = AssemblyDefinition.ReadAssembly(
-                    location,
+                    ms,
                     new ReaderParameters()
                     {
                         ReadingMode = ReadingMode.Deferred,
@@ -174,6 +177,19 @@ namespace HighFive.Translator
             }
 
             return assemblyDefinition;
+        }
+
+        private static MemoryStream LoadAssemblyInMemoryStream(string location)
+        {
+            var ms = new MemoryStream();
+            using (var file = File.OpenRead(location))
+            {
+                file.CopyTo(ms);
+                file.Close();
+                ms.Seek(0, SeekOrigin.Begin);
+            }
+
+            return ms;
         }
 
         protected virtual void ReadTypes(AssemblyDefinition assembly)

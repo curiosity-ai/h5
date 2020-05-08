@@ -1,6 +1,6 @@
     HighFive.init(function () {
-        HighFive.SystemAssembly.version = "17.10.1";
-        HighFive.SystemAssembly.compiler = "17.10.1";
+        HighFive.SystemAssembly.version = "";
+        HighFive.SystemAssembly.compiler = "1.0.0";
     });
 
     HighFive.define("HighFive.Utils.SystemAssemblyVersion");

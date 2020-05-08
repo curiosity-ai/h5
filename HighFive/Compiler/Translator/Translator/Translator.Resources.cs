@@ -60,7 +60,7 @@ namespace HighFive.Translator
 
             var resourcesToEmbed = this.PrepareAndExtractResources(outputPath, projectPath);
 
-            this.EmbeddResources(PrepareResourcesForEmbedding(resourcesToEmbed));
+            this.EmbedResources(PrepareResourcesForEmbedding(resourcesToEmbed));
 
             this.Log.Info("Done injecting resources");
         }
@@ -442,7 +442,7 @@ namespace HighFive.Translator
             }
         }
 
-        private void EmbeddResources(List<HighFiveResourceInfo> resourcesToEmbed)
+        private void EmbedResources(List<HighFiveResourceInfo> resourcesToEmbed)
         {
             this.Log.Trace("Embedding resources...");
 

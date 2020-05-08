@@ -54,6 +54,13 @@
         ctors: {
             ctor: function (members, info, types, numItems) {
                 this.$initialize();
+                System.Diagnostics.Debug.Assert$1(members != null, "[SerializationInfoEnumerator.ctor]members!=null");
+                System.Diagnostics.Debug.Assert$1(info != null, "[SerializationInfoEnumerator.ctor]info!=null");
+                System.Diagnostics.Debug.Assert$1(types != null, "[SerializationInfoEnumerator.ctor]types!=null");
+                System.Diagnostics.Debug.Assert$1(numItems >= 0, "[SerializationInfoEnumerator.ctor]numItems>=0");
+                System.Diagnostics.Debug.Assert$1(members.length >= numItems, "[SerializationInfoEnumerator.ctor]members.Length>=numItems");
+                System.Diagnostics.Debug.Assert$1(info.length >= numItems, "[SerializationInfoEnumerator.ctor]info.Length>=numItems");
+                System.Diagnostics.Debug.Assert$1(types.length >= numItems, "[SerializationInfoEnumerator.ctor]types.Length>=numItems");
 
                 this._members = members;
                 this._data = info;

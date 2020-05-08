@@ -115,12 +115,11 @@
         inherits: function () { return [System.IEquatable$1(System.ValueTuple$1(T1)),System.Collections.IStructuralEquatable,System.Collections.IStructuralComparable,System.IComparable,System.IComparable$1(System.ValueTuple$1(T1)),System.ITupleInternal]; },
         $kind: "struct",
         statics: {
-            fields: {
-                s_t1Comparer: null
-            },
-            ctors: {
-                init: function () {
-                    this.s_t1Comparer = System.Collections.Generic.EqualityComparer$1(T1).def;
+            props: {
+                s_t1Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T1).def;
+                    }
                 }
             },
             methods: {
@@ -222,14 +221,16 @@
         inherits: function () { return [System.IEquatable$1(System.ValueTuple$2(T1,T2)),System.Collections.IStructuralEquatable,System.Collections.IStructuralComparable,System.IComparable,System.IComparable$1(System.ValueTuple$2(T1,T2)),System.ITupleInternal]; },
         $kind: "struct",
         statics: {
-            fields: {
-                s_t1Comparer: null,
-                s_t2Comparer: null
-            },
-            ctors: {
-                init: function () {
-                    this.s_t1Comparer = System.Collections.Generic.EqualityComparer$1(T1).def;
-                    this.s_t2Comparer = System.Collections.Generic.EqualityComparer$1(T2).def;
+            props: {
+                s_t1Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T1).def;
+                    }
+                },
+                s_t2Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T2).def;
+                    }
                 }
             },
             methods: {
@@ -345,16 +346,21 @@
         inherits: function () { return [System.IEquatable$1(System.ValueTuple$3(T1,T2,T3)),System.Collections.IStructuralEquatable,System.Collections.IStructuralComparable,System.IComparable,System.IComparable$1(System.ValueTuple$3(T1,T2,T3)),System.ITupleInternal]; },
         $kind: "struct",
         statics: {
-            fields: {
-                s_t1Comparer: null,
-                s_t2Comparer: null,
-                s_t3Comparer: null
-            },
-            ctors: {
-                init: function () {
-                    this.s_t1Comparer = System.Collections.Generic.EqualityComparer$1(T1).def;
-                    this.s_t2Comparer = System.Collections.Generic.EqualityComparer$1(T2).def;
-                    this.s_t3Comparer = System.Collections.Generic.EqualityComparer$1(T3).def;
+            props: {
+                s_t1Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T1).def;
+                    }
+                },
+                s_t2Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T2).def;
+                    }
+                },
+                s_t3Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T3).def;
+                    }
                 }
             },
             methods: {
@@ -483,18 +489,26 @@
         inherits: function () { return [System.IEquatable$1(System.ValueTuple$4(T1,T2,T3,T4)),System.Collections.IStructuralEquatable,System.Collections.IStructuralComparable,System.IComparable,System.IComparable$1(System.ValueTuple$4(T1,T2,T3,T4)),System.ITupleInternal]; },
         $kind: "struct",
         statics: {
-            fields: {
-                s_t1Comparer: null,
-                s_t2Comparer: null,
-                s_t3Comparer: null,
-                s_t4Comparer: null
-            },
-            ctors: {
-                init: function () {
-                    this.s_t1Comparer = System.Collections.Generic.EqualityComparer$1(T1).def;
-                    this.s_t2Comparer = System.Collections.Generic.EqualityComparer$1(T2).def;
-                    this.s_t3Comparer = System.Collections.Generic.EqualityComparer$1(T3).def;
-                    this.s_t4Comparer = System.Collections.Generic.EqualityComparer$1(T4).def;
+            props: {
+                s_t1Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T1).def;
+                    }
+                },
+                s_t2Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T2).def;
+                    }
+                },
+                s_t3Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T3).def;
+                    }
+                },
+                s_t4Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T4).def;
+                    }
                 }
             },
             methods: {
@@ -636,20 +650,31 @@
         inherits: function () { return [System.IEquatable$1(System.ValueTuple$5(T1,T2,T3,T4,T5)),System.Collections.IStructuralEquatable,System.Collections.IStructuralComparable,System.IComparable,System.IComparable$1(System.ValueTuple$5(T1,T2,T3,T4,T5)),System.ITupleInternal]; },
         $kind: "struct",
         statics: {
-            fields: {
-                s_t1Comparer: null,
-                s_t2Comparer: null,
-                s_t3Comparer: null,
-                s_t4Comparer: null,
-                s_t5Comparer: null
-            },
-            ctors: {
-                init: function () {
-                    this.s_t1Comparer = System.Collections.Generic.EqualityComparer$1(T1).def;
-                    this.s_t2Comparer = System.Collections.Generic.EqualityComparer$1(T2).def;
-                    this.s_t3Comparer = System.Collections.Generic.EqualityComparer$1(T3).def;
-                    this.s_t4Comparer = System.Collections.Generic.EqualityComparer$1(T4).def;
-                    this.s_t5Comparer = System.Collections.Generic.EqualityComparer$1(T5).def;
+            props: {
+                s_t1Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T1).def;
+                    }
+                },
+                s_t2Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T2).def;
+                    }
+                },
+                s_t3Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T3).def;
+                    }
+                },
+                s_t4Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T4).def;
+                    }
+                },
+                s_t5Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T5).def;
+                    }
                 }
             },
             methods: {
@@ -804,22 +829,36 @@
         inherits: function () { return [System.IEquatable$1(System.ValueTuple$6(T1,T2,T3,T4,T5,T6)),System.Collections.IStructuralEquatable,System.Collections.IStructuralComparable,System.IComparable,System.IComparable$1(System.ValueTuple$6(T1,T2,T3,T4,T5,T6)),System.ITupleInternal]; },
         $kind: "struct",
         statics: {
-            fields: {
-                s_t1Comparer: null,
-                s_t2Comparer: null,
-                s_t3Comparer: null,
-                s_t4Comparer: null,
-                s_t5Comparer: null,
-                s_t6Comparer: null
-            },
-            ctors: {
-                init: function () {
-                    this.s_t1Comparer = System.Collections.Generic.EqualityComparer$1(T1).def;
-                    this.s_t2Comparer = System.Collections.Generic.EqualityComparer$1(T2).def;
-                    this.s_t3Comparer = System.Collections.Generic.EqualityComparer$1(T3).def;
-                    this.s_t4Comparer = System.Collections.Generic.EqualityComparer$1(T4).def;
-                    this.s_t5Comparer = System.Collections.Generic.EqualityComparer$1(T5).def;
-                    this.s_t6Comparer = System.Collections.Generic.EqualityComparer$1(T6).def;
+            props: {
+                s_t1Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T1).def;
+                    }
+                },
+                s_t2Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T2).def;
+                    }
+                },
+                s_t3Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T3).def;
+                    }
+                },
+                s_t4Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T4).def;
+                    }
+                },
+                s_t5Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T5).def;
+                    }
+                },
+                s_t6Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T6).def;
+                    }
                 }
             },
             methods: {
@@ -987,24 +1026,41 @@
         inherits: function () { return [System.IEquatable$1(System.ValueTuple$7(T1,T2,T3,T4,T5,T6,T7)),System.Collections.IStructuralEquatable,System.Collections.IStructuralComparable,System.IComparable,System.IComparable$1(System.ValueTuple$7(T1,T2,T3,T4,T5,T6,T7)),System.ITupleInternal]; },
         $kind: "struct",
         statics: {
-            fields: {
-                s_t1Comparer: null,
-                s_t2Comparer: null,
-                s_t3Comparer: null,
-                s_t4Comparer: null,
-                s_t5Comparer: null,
-                s_t6Comparer: null,
-                s_t7Comparer: null
-            },
-            ctors: {
-                init: function () {
-                    this.s_t1Comparer = System.Collections.Generic.EqualityComparer$1(T1).def;
-                    this.s_t2Comparer = System.Collections.Generic.EqualityComparer$1(T2).def;
-                    this.s_t3Comparer = System.Collections.Generic.EqualityComparer$1(T3).def;
-                    this.s_t4Comparer = System.Collections.Generic.EqualityComparer$1(T4).def;
-                    this.s_t5Comparer = System.Collections.Generic.EqualityComparer$1(T5).def;
-                    this.s_t6Comparer = System.Collections.Generic.EqualityComparer$1(T6).def;
-                    this.s_t7Comparer = System.Collections.Generic.EqualityComparer$1(T7).def;
+            props: {
+                s_t1Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T1).def;
+                    }
+                },
+                s_t2Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T2).def;
+                    }
+                },
+                s_t3Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T3).def;
+                    }
+                },
+                s_t4Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T4).def;
+                    }
+                },
+                s_t5Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T5).def;
+                    }
+                },
+                s_t6Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T6).def;
+                    }
+                },
+                s_t7Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T7).def;
+                    }
                 }
             },
             methods: {
@@ -1185,26 +1241,46 @@
         inherits: function () { return [System.IEquatable$1(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest)),System.Collections.IStructuralEquatable,System.Collections.IStructuralComparable,System.IComparable,System.IComparable$1(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest)),System.ITupleInternal]; },
         $kind: "struct",
         statics: {
-            fields: {
-                s_t1Comparer: null,
-                s_t2Comparer: null,
-                s_t3Comparer: null,
-                s_t4Comparer: null,
-                s_t5Comparer: null,
-                s_t6Comparer: null,
-                s_t7Comparer: null,
-                s_tRestComparer: null
-            },
-            ctors: {
-                init: function () {
-                    this.s_t1Comparer = System.Collections.Generic.EqualityComparer$1(T1).def;
-                    this.s_t2Comparer = System.Collections.Generic.EqualityComparer$1(T2).def;
-                    this.s_t3Comparer = System.Collections.Generic.EqualityComparer$1(T3).def;
-                    this.s_t4Comparer = System.Collections.Generic.EqualityComparer$1(T4).def;
-                    this.s_t5Comparer = System.Collections.Generic.EqualityComparer$1(T5).def;
-                    this.s_t6Comparer = System.Collections.Generic.EqualityComparer$1(T6).def;
-                    this.s_t7Comparer = System.Collections.Generic.EqualityComparer$1(T7).def;
-                    this.s_tRestComparer = System.Collections.Generic.EqualityComparer$1(TRest).def;
+            props: {
+                s_t1Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T1).def;
+                    }
+                },
+                s_t2Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T2).def;
+                    }
+                },
+                s_t3Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T3).def;
+                    }
+                },
+                s_t4Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T4).def;
+                    }
+                },
+                s_t5Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T5).def;
+                    }
+                },
+                s_t6Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T6).def;
+                    }
+                },
+                s_t7Comparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(T7).def;
+                    }
+                },
+                s_tRestComparer: {
+                    get: function () {
+                        return System.Collections.Generic.EqualityComparer$1(TRest).def;
+                    }
                 }
             },
             methods: {

@@ -29,7 +29,7 @@ namespace System.Collections.Generic
             keys = emptyKeys;
             values = emptyValues;
             _size = 0;
-            comparer = Comparer<TKey>.Default;
+            comparer = Comparer<TKey>.Default();
         }
 
         // Constructs a new sorted list. The sorted list is initially empty and has
@@ -45,7 +45,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.capacity);
             keys = new TKey[capacity];
             values = new TValue[capacity];
-            comparer = Comparer<TKey>.Default;
+            comparer = Comparer<TKey>.Default();
         }
 
         // Constructs a new sorted list with a given IComparer

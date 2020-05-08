@@ -181,9 +181,9 @@
             tooltip: null,
             consoleWrap: null,
             consoleMessages: null,
-            highfiveIcon: null,
-            highfiveIconPath: null,
-            highfiveConsoleLabel: null,
+            highFiveIcon: null,
+            highFiveIconPath: null,
+            highFiveConsoleLabel: null,
             closeBtn: null,
             closeIcon: null,
             closeIconPath: null,
@@ -218,22 +218,22 @@
 
                 var consoleBodyStyles = $asm.$.HighFive.Console.f3(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
-                this.highfiveIcon = this.highfiveIcon || document.createElementNS(this.svgNS, "svg");
+                this.highFiveIcon = this.highFiveIcon || document.createElementNS(this.svgNS, "svg");
 
                 var items = HighFive.fn.bind(this, $asm.$.HighFive.Console.f4)(new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor());
 
-                this.setAttributes(this.highfiveIcon, items);
+                this.setAttributes(this.highFiveIcon, items);
 
-                this.highfiveIconPath = this.highfiveIconPath || document.createElementNS(this.svgNS, "path");
+                this.highFiveIconPath = this.highFiveIconPath || document.createElementNS(this.svgNS, "path");
 
                 var items2 = new (System.Collections.Generic.Dictionary$2(System.String,System.String)).ctor();
                 items2.setItem("d", "M19 14.4h2.2V9.6L19 7.1v7.3zm4.3-2.5v2.5h2.2l-2.2-2.5zm-8.5 2.5H17V4.8l-2.2-2.5v12.1zM0 14.4h3l7.5-8.5v8.5h2.2V0L0 14.4z");
                 items2.setItem("fill", "#555");
 
-                this.setAttributes(this.highfiveIconPath, items2);
+                this.setAttributes(this.highFiveIconPath, items2);
 
-                this.highfiveConsoleLabel = this.highfiveConsoleLabel || document.createElement("span");
-                this.highfiveConsoleLabel.innerHTML = "HighFive Console";
+                this.highFiveConsoleLabel = this.highFiveConsoleLabel || document.createElement("span");
+                this.highFiveConsoleLabel.innerHTML = "HighFive Console";
 
                 this.closeBtn = this.closeBtn || document.createElement("span");
                 this.closeBtn.setAttribute("style", "position: relative;display: inline-block;float: right;cursor: pointer");
@@ -289,13 +289,13 @@
                 cm.setAttribute("style", "margin: 0;padding: 0;list-style: none;");
 
                 if (!reinit) {
-                    this.highfiveIcon.appendChild(this.highfiveIconPath);
+                    this.highFiveIcon.appendChild(this.highFiveIconPath);
                     this.closeIcon.appendChild(this.closeIconPath);
                     this.closeBtn.appendChild(this.closeIcon);
                     this.closeBtn.appendChild(this.tooltip);
 
-                    this.consoleHeader.appendChild(this.highfiveIcon);
-                    this.consoleHeader.appendChild(this.highfiveConsoleLabel);
+                    this.consoleHeader.appendChild(this.highFiveIcon);
+                    this.consoleHeader.appendChild(this.highFiveConsoleLabel);
                     this.consoleHeader.appendChild(this.closeBtn);
 
                     this.consoleBody.appendChild(cm);

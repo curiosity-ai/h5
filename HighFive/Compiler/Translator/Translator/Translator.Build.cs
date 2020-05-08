@@ -288,6 +288,8 @@ namespace HighFive.Translator
             using (var outputStream = new FileStream(this.AssemblyLocation, FileMode.Create))
             {
                 emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: "v4.0.30319", includePrivateMembers: true));
+                outputStream.Flush();
+                outputStream.Close();
             }
 
             if (!emitResult.Success)

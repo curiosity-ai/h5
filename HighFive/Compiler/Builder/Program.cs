@@ -103,10 +103,10 @@ namespace HighFive.Builder
                            [default: shows timestamp]");
 
 #if DEBUG
-            // This code and logic is only compiled in when building highfive.net in Debug configuration
+            // This code and logic is only compiled in when building H5 in Debug configuration
             logger.Warn(@"-d --debug                 Attach the builder to a visual studio debugging
                            session. Use this to attach the process to an
-                           open HighFive.NET solution. This option is equivalent
+                           open H5 solution. This option is equivalent
                            to Build.dll's 'AttachDebugger'.");
 #endif
         }

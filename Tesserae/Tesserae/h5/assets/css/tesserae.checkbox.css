@@ -1,0 +1,76 @@
+﻿/* CheckBox */
+.tss-checkbox-container {
+    position: relative;
+    cursor: pointer;
+    color: var(--tss-default-foreground-color);
+    font-size: var(--tss-font-size-small);
+    font-weight: var(--tss-font-weight-regular);
+    user-select: none;
+    padding-left: 25px;
+    margin: 4px;
+    display: block;
+}
+
+    .tss-checkbox-container .tss-checkbox {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .tss-checkbox-container .tss-checkbox-mark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 2px;
+        background-color: var(--tss-default-background-color);
+        border: 1px solid var(--tss-default-foreground-color);
+    }
+
+    .tss-checkbox-container:hover input ~ .tss-checkbox-mark:after {
+        display: block;
+    }
+
+    .tss-checkbox-container input:checked ~ .tss-checkbox-mark {
+        background-color: var(--tss-primary-background-color);
+        border-color: var(--tss-primary-background-color);
+    }
+
+    .tss-checkbox-container:hover input:checked ~ .tss-checkbox-mark {
+        background-color: var(--tss-primary-background-hover-color);
+    }
+
+    .tss-checkbox-container input:checked ~ .tss-checkbox-mark:after {
+        display: block;
+        border-color: var(--tss-primary-foreground-color);
+    }
+
+    .tss-checkbox-container .tss-checkbox-mark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 6px;
+        top: 1px;
+        width: 7px;
+        height: 12px;
+        border: solid var(--tss-dark-border-color);
+        border-width: 0 1px 1px 0;
+        transform: rotate(45deg);
+    }
+
+    .tss-checkbox-container.tss-disabled {
+        color: var(--tss-disabled-foreground-color);
+    }
+
+        .tss-checkbox-container.tss-disabled .tss-checkbox-mark {
+            background-color: var(--tss-disabled-background-color);
+            border-color: var(--tss-disabled-foreground-color);
+        }
+
+        .tss-checkbox-container.tss-disabled input:checked ~ .tss-checkbox-mark {
+            background-color: var(--tss-disabled-foreground-color);
+            border-color: var(--tss-disabled-foreground-color);
+        }

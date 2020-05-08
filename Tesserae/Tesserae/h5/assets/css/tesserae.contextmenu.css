@@ -1,0 +1,175 @@
+﻿/* Dropdown */
+.tss-contextmenu {
+    box-shadow: none;
+    margin: 0px;
+    margin-right: 16px;
+    padding: 0px;
+    border: 1px solid var(--tss-default-border-color);
+    background: var(--tss-default-background-color) none repeat scroll 0% 0%;
+    color: var(--tss-default-foreground-color);
+    cursor: pointer;
+    height: 32px;
+    align-items: stretch;
+    font-size: var(--tss-font-size-small);
+    font-weight: var(--tss-font-weight-regular);
+    display: block;
+    width: 100%;
+    outline: transparent none medium;
+    padding: 5px 5px;
+    user-select: none;
+}
+
+    .tss-contextmenu.tss-disabled {
+        border-color: var(--tss-disabled-background-color);
+        background-color: var(--tss-disabled-background-color);
+        color: var(--tss-disabled-foreground-color);
+    }
+
+    .tss-contextmenu:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        right: 8px;
+        top: 10px;
+        width: 8px;
+        height: 8px;
+        border-left: 1px solid var(--tss-default-border-color);
+        border-top: 1px solid var(--tss-default-border-color);
+        transform: rotate(225deg);
+    }
+
+.tss-contextmenu-container {
+    position: relative;
+    margin-bottom: 4px;
+    margin-right: 16px;
+}
+
+    .tss-contextmenu-container.tss-invalid .tss-contextmenu {
+        border-color: var(--tss-invalid-border-color);
+    }
+
+.tss-contextmenu-container .tss-spinner {
+    position: absolute;
+    right: 2px;
+    top: 6px;
+    width: 20px;
+    height: 20px;
+}
+
+    .tss-contextmenu-error {
+        color: var(--tss-invalid-border-color);
+        display: none;
+        font-size: var(--tss-font-size-tiny);
+    }
+
+.tss-contextmenu-container.tss-invalid .tss-contextmenu-error {
+    display: block;
+}
+
+.tss-contextmenu-popup {
+    position: absolute;
+    border-radius: 0px 0px 2px 2px;
+    background: var(--tss-default-background-color) none repeat scroll 0% 0%;
+    min-height: 36px;
+    visibility: visible;
+    box-shadow: var(--tss-box-shadow);
+    overflow-y: auto;
+    user-select: none;
+}
+
+.tss-contextmenu-item {
+    font-size: var(--tss-font-size-small);
+    font-weight: var(--tss-font-weight-regular);
+    background: var(--tss-default-background-color) none repeat scroll 0% 0%;
+    border: 1px solid transparent;
+    color: var(--tss-default-foreground-color);
+    outline: transparent none medium;
+    cursor: pointer;
+    text-align: left;
+    display: block;
+    padding: 0 8px;
+    min-height: 36px;
+    line-height: 20px;
+    width: 100%;
+    position: relative;
+}
+
+    .tss-contextmenu-item:hover {
+        background-color: var(--tss-secondary-background-color);
+        outline: transparent none medium;
+    }
+
+    .tss-contextmenu-item:focus {
+        border: 1px solid var(--tss-secondary-foreground-color);
+        outline: transparent none medium;
+    }
+
+    .tss-contextmenu-item.tss-selected {
+        background-color: var(--tss-default-background-hover-color);
+    }
+
+.tss-contextmenu-popup.tss-no-focus .tss-contextmenu-item:focus {
+    border: 1px solid transparent;
+    outline: transparent none medium;
+}
+
+.tss-contextmenu-header {
+    background: var(--tss-default-background-color) none repeat scroll 0% 0%;
+    border: 1px solid transparent;
+    outline: transparent none medium;
+    text-align: left;
+    display: block;
+    padding: 0 8px;
+    min-height: 36px;
+    line-height: 20px;
+    width: 100%;
+    position: relative;
+    color: var(--tss-primary-background-color);
+    font-size: var(--tss-font-size-small);
+    cursor: default;
+    font-weight: var(--tss-font-weight-semibold);
+}
+
+    /*.tss-contextmenu-header:hover {
+        background-color: var(--tss-default-background-color);
+    }
+
+    .tss-contextmenu-header:focus {
+        border: 1px solid transparent;
+    }*/
+
+.tss-contextmenu-divider {
+    content: "";
+    height: 1px;
+    line-height: 20px;
+    width: 100%;
+    border: 1px solid transparent;
+    outline: transparent none medium;
+    text-align: left;
+    display: block;
+    padding: 0 8px;
+    position: relative;
+    background-color: var(--tss-default-background-hover-color);
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.tss-contextmenu-item.tss-disabled {
+    color: var(--tss-disabled-foreground-color);
+}
+
+.tss-contextmenu-item > .tss-btn:hover {
+    background-color: var(--tss-secondary-background-color);
+    outline: transparent none medium;
+}
+
+.tss-contextmenu-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    visibility:visible;
+}

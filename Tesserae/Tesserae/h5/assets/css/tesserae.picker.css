@@ -1,0 +1,88 @@
+.tss-picker-container {
+    width: 100%;
+}
+
+    .tss-picker-container > .tss-textbox-container{
+        margin:0px;
+    }
+
+    .tss-picker-container-inline-selections {
+        display: inline-flex;
+    }
+
+    .tss-picker-container-inline-selections > .tss-textbox-container {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+.tss-layer-picker-suggestions {
+    background: var(--tss-default-background-color);
+    border-radius: 2px;
+    box-shadow: var(--tss-box-shadow);
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 400;
+    min-width: 260px;
+    position: absolute;
+    -webkit-font-smoothing: antialiased;
+    padding: 4px;
+}
+
+.tss-picker-suggestions {
+    padding: 10px;
+}
+
+    .tss-picker-suggestions > .tss-picker-label {
+        padding-bottom: 10px;
+    }
+
+    .tss-picker-suggestions > .tss-picker-suggestion {
+        padding: 5px 0px;
+        position: relative;
+        text-align: left;
+        user-select: none;
+        cursor: pointer;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+        .tss-picker-suggestions > .tss-picker-suggestion:hover {
+            background: var(--tss-primary-background-hover-color);
+            color: var(--tss-primary-foreground-hover-color)
+        }
+
+.tss-picker-selections-inline {
+    align-items: center;
+    display: inline-flex;
+}
+
+    .tss-picker-selections-inline > .tss-picker-selection {
+        margin-right: 5px;
+    }
+
+.tss-picker-selection {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    user-select: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    align-items: center;
+}
+    .tss-picker-selection:hover {
+        background: var(--tss-default-background-hover-color);
+    }
+
+.tss-picker-remove {
+    min-width: unset;
+    margin: 0px;
+    padding: 0px;
+    padding: 4px;
+    margin-left: 4px;
+    border: 1px solid transparent;
+}
+
+    .tss-picker-remove:hover {
+        border: 1px solid var(--tss-default-border-color);
+        background: var(--tss-default-background-hover-color);
+    }

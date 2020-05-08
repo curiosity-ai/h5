@@ -1,0 +1,22 @@
+﻿/* overwrite icon styles to all use the same font weight till they fix this on line-awesome */
+.la, .las, .lal, .lar {
+    font-family: 'Line Awesome Free';
+    font-weight: 900 !important;
+}
+
+/* the chevron icon is not solid on line-awesome, so overwite it with the angle icons */
+.la-chevron-right:before {
+    content: "\f105";
+}
+
+.la-chevron-down:before {
+    content: "\f107";
+}
+
+.la-chevron-up:before {
+    content: "\f106";
+}
+
+.la-chevron-left:before {
+    content: "\f104";
+}

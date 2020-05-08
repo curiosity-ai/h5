@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "H5.Builder": {
+      "commandName": "Project",
+      "commandLineArgs": "--rebuild -p \"$(SolutionDir)Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -b \"$(SolutionDir)lib\\H5.dll\" -cfg \"$(Configuration)\" --platform \"$(Platform)\""
+    }
+  }
+}

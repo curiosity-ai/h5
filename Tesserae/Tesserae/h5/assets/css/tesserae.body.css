@@ -1,0 +1,16 @@
+﻿/* Body */
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100vh;
+    min-width: 320px;
+    line-height: 1.4;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    color: var(--tss-default-foreground-color);
+    background-color: var(--tss-default-background-color);
+    font-size: var(--tss-font-size-small);
+    font-family: Segoe UI, SegoeUI, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

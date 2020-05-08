@@ -126,7 +126,7 @@ namespace Tesserae.Tests.Samples
                     dd.Error = "Some error happens, need 1-1";
                 }
                 else dd.IsInvalid = false;
-            }, Validation.Mode.OnInput);
+            }, Components.Validation.Mode.OnInput);
         }
 
         private async Task<Dropdown.Item[]> GetItemsAsync()

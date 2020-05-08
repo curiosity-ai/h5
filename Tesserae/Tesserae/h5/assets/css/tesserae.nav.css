@@ -1,0 +1,118 @@
+﻿/* Nav */
+.tss-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /*margin-right: 24px;*/
+    min-height: 32px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex-wrap:nowrap;
+}
+
+.tss-nav-link {
+    list-style: none;
+    min-height: 32px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+
+.tss-nav-link-button {
+    background: transparent;
+    display: none;
+    position: absolute;
+    left: 5px;
+    top: calc(50% - 10px);
+    height: 20px;
+    width: 20px;
+    border: none;
+    outline: transparent none medium;
+    user-select: none;
+    margin: 0;
+    cursor: pointer;
+}
+
+    .tss-nav-link-button:after {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 6px;
+        width: 8px;
+        height: 8px;
+        border: solid var(--tss-dark-border-color);
+        border-width: 0 1px 1px 0;
+        transform: rotate(-45deg);
+        transition: transform 0.15s linear;
+    }
+
+    .tss-nav-link-button:focus {
+        outline: transparent none medium;
+    }
+
+
+
+.tss-expandable > .tss-nav-link-button {
+    display: inline-block;
+}
+
+.tss-nav-link.tss-expanded > .tss-nav-link-header > .tss-nav-link-button:after {
+    transform: translateY(-1px) rotate(45deg);
+}
+
+.tss-nav-link > .tss-nav-link-header {
+    background: var(--tss-default-background-color);
+    border-left: 4px solid var(--tss-default-background-color);
+    cursor: pointer;
+    user-select: none;
+    padding: 8px;
+    position: relative;
+}
+
+    .tss-nav-link > .tss-nav-link-header:hover {
+        background: var(--tss-default-background-active-color);
+        text-decoration: underline;
+    }
+
+        .tss-nav-link > .tss-nav-link-header:hover > .tss-nav-link-button:after {
+            border: solid var(--tss-default-foreground-color);
+            border-width: 0 1px 1px 0;
+        }
+
+    .tss-nav-link > .tss-nav-link-header.tss-selected {
+        background: var(--tss-default-background-active-color);
+        border-left-color: var(--tss-primary-background-color);
+    }
+
+    .tss-nav-link > .tss-nav-link-header > span {
+        margin-left: 25px;
+    }
+
+.tss-nav.tss-nav-right .tss-nav-link > .tss-nav-link-header {
+    border-left: unset;
+    border-right: 4px solid var(--tss-default-background-color);
+}
+    .tss-nav.tss-nav-right .tss-nav-link > .tss-nav-link-header.tss-selected {
+        border-left-color: unset;
+        border-right-color: var(--tss-primary-background-color);
+    }
+
+
+.tss-nav-link > .tss-nav-link-container {
+    display: none;
+    padding: 0;
+}
+
+.tss-nav-link.tss-expanded > .tss-nav-link-container {
+    display: block;
+}
+
+.tss-nav-link > .tss-nav-link-container {
+    margin-left:8px;
+}
+
+.tss-nav.tss-nav-small .tss-nav-link-header {
+    padding: 0px 2px 0px 8px;
+}

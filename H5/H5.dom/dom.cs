@@ -4,7 +4,7 @@
 // MVID: 57CCBF73-D494-47BA-ACF8-95E65E795865
 // Assembly location: C:\work\curiosity\tesserae\Tesserae\bin\Debug\net461\H5.dom.dll
 
-using Bridge;
+using HighFive;
 using H5.Primitive;
 using System;
 using System.Collections;

@@ -36,6 +36,10 @@ using System.Reflection;
 using System.Reflection.Emit;
 #endif
 
+#if NETSTANDARD2_0
+using ICSharpCode.NRefactory.CSharp;
+#endif
+
 namespace ICSharpCode.NRefactory.MonoCSharp
 {
     //
@@ -57,36 +61,45 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public int CounterAnonymousContainers { get; set; }
         public int CounterSwitchTypes { get; set; }
 
-        protected TypeContainer (TypeContainer parent, MemberName name, Attributes attrs, MemberKind kind)
-            : base (parent, name, attrs)
+        protected TypeContainer(TypeContainer parent, MemberName name, Attributes attrs, MemberKind kind)
+            : base(parent, name, attrs)
         {
             this.Kind = kind;
-            defined_names = new Dictionary<string, MemberCore> ();
+            defined_names = new Dictionary<string, MemberCore>();
         }
 
-        public override TypeSpec CurrentType {
-            get {
+        public override TypeSpec CurrentType
+        {
+            get
+            {
                 return null;
             }
         }
 
-        public Dictionary<string, MemberCore> DefinedNames {
-            get {
+        public Dictionary<string, MemberCore> DefinedNames
+        {
+            get
+            {
                 return defined_names;
             }
         }
 
-        public TypeDefinition PartialContainer {
-            get {
+        public TypeDefinition PartialContainer
+        {
+            get
+            {
                 return main_container;
             }
-            protected set {
+            protected set
+            {
                 main_container = value;
             }
         }
 
-        public IList<TypeContainer> Containers {
-            get {
+        public IList<TypeContainer> Containers
+        {
+            get
+            {
                 return containers;
             }
         }
@@ -95,206 +108,245 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         // Any unattached attributes during parsing get added here. User
         // by FULL_AST mode
         //
-        public Attributes UnattachedAttributes {
+        public Attributes UnattachedAttributes
+        {
             get; set;
         }
 
-        public void AddCompilerGeneratedClass (CompilerGeneratedContainer c)
+        public void AddCompilerGeneratedClass(CompilerGeneratedContainer c)
         {
-            AddTypeContainerMember (c);
+            AddTypeContainerMember(c);
         }
 
-        public virtual void AddPartial (TypeDefinition next_part)
+        public virtual void AddPartial(TypeDefinition next_part)
         {
             MemberCore mc;
-            (PartialContainer ?? this).defined_names.TryGetValue (next_part.MemberName.Basename, out mc);
+            (PartialContainer ?? this).defined_names.TryGetValue(next_part.MemberName.Basename, out mc);
 
-            AddPartial (next_part, mc as TypeDefinition);
+            AddPartial(next_part, mc as TypeDefinition);
         }
 
-        protected void AddPartial (TypeDefinition next_part, TypeDefinition existing)
+        protected void AddPartial(TypeDefinition next_part, TypeDefinition existing)
         {
             next_part.ModFlags |= Modifiers.PARTIAL;
 
-            if (existing == null) {
-                AddTypeContainer (next_part);
+            if (existing == null)
+            {
+                AddTypeContainer(next_part);
                 return;
             }
 
-            if ((existing.ModFlags & Modifiers.PARTIAL) == 0) {
-                if (existing.Kind != next_part.Kind) {
-                    AddTypeContainer (next_part);
-                } else {
-                    Report.SymbolRelatedToPreviousError (next_part);
-                    Error_MissingPartialModifier (existing);
+            if ((existing.ModFlags & Modifiers.PARTIAL) == 0)
+            {
+                if (existing.Kind != next_part.Kind)
+                {
+                    AddTypeContainer(next_part);
+                }
+                else
+                {
+                    Report.SymbolRelatedToPreviousError(next_part);
+                    Error_MissingPartialModifier(existing);
                 }
 
                 return;
             }
 
-            if (existing.Kind != next_part.Kind) {
-                Report.SymbolRelatedToPreviousError (existing);
-                Report.Error (261, next_part.Location,
+            if (existing.Kind != next_part.Kind)
+            {
+                Report.SymbolRelatedToPreviousError(existing);
+                Report.Error(261, next_part.Location,
                     "Partial declarations of `{0}' must be all classes, all structs or all interfaces",
-                    next_part.GetSignatureForError ());
+                    next_part.GetSignatureForError());
             }
 
             if ((existing.ModFlags & Modifiers.AccessibilityMask) != (next_part.ModFlags & Modifiers.AccessibilityMask) &&
                 ((existing.ModFlags & Modifiers.DEFAULT_ACCESS_MODIFIER) == 0 &&
-                 (next_part.ModFlags & Modifiers.DEFAULT_ACCESS_MODIFIER) == 0)) {
-                     Report.SymbolRelatedToPreviousError (existing);
-                Report.Error (262, next_part.Location,
+                 (next_part.ModFlags & Modifiers.DEFAULT_ACCESS_MODIFIER) == 0))
+            {
+                Report.SymbolRelatedToPreviousError(existing);
+                Report.Error(262, next_part.Location,
                     "Partial declarations of `{0}' have conflicting accessibility modifiers",
-                    next_part.GetSignatureForError ());
+                    next_part.GetSignatureForError());
             }
 
             var tc_names = existing.CurrentTypeParameters;
-            if (tc_names != null) {
-                for (int i = 0; i < tc_names.Count; ++i) {
+            if (tc_names != null)
+            {
+                for (int i = 0; i < tc_names.Count; ++i)
+                {
                     var tp = next_part.MemberName.TypeParameters[i];
-                    if (tc_names[i].MemberName.Name != tp.MemberName.Name) {
-                        Report.SymbolRelatedToPreviousError (existing.Location, "");
-                        Report.Error (264, next_part.Location, "Partial declarations of `{0}' must have the same type parameter names in the same order",
-                            next_part.GetSignatureForError ());
+                    if (tc_names[i].MemberName.Name != tp.MemberName.Name)
+                    {
+                        Report.SymbolRelatedToPreviousError(existing.Location, "");
+                        Report.Error(264, next_part.Location, "Partial declarations of `{0}' must have the same type parameter names in the same order",
+                            next_part.GetSignatureForError());
                         break;
                     }
 
-                    if (tc_names[i].Variance != tp.Variance) {
-                        Report.SymbolRelatedToPreviousError (existing.Location, "");
-                        Report.Error (1067, next_part.Location, "Partial declarations of `{0}' must have the same type parameter variance modifiers",
-                            next_part.GetSignatureForError ());
+                    if (tc_names[i].Variance != tp.Variance)
+                    {
+                        Report.SymbolRelatedToPreviousError(existing.Location, "");
+                        Report.Error(1067, next_part.Location, "Partial declarations of `{0}' must have the same type parameter variance modifiers",
+                            next_part.GetSignatureForError());
                         break;
                     }
                 }
             }
 
-            if ((next_part.ModFlags & Modifiers.DEFAULT_ACCESS_MODIFIER) != 0) {
+            if ((next_part.ModFlags & Modifiers.DEFAULT_ACCESS_MODIFIER) != 0)
+            {
                 existing.ModFlags |= next_part.ModFlags & ~(Modifiers.DEFAULT_ACCESS_MODIFIER | Modifiers.AccessibilityMask);
-            } else if ((existing.ModFlags & Modifiers.DEFAULT_ACCESS_MODIFIER) != 0) {
+            }
+            else if ((existing.ModFlags & Modifiers.DEFAULT_ACCESS_MODIFIER) != 0)
+            {
                 existing.ModFlags &= ~(Modifiers.DEFAULT_ACCESS_MODIFIER | Modifiers.AccessibilityMask);
                 existing.ModFlags |= next_part.ModFlags;
-            } else {
+            }
+            else
+            {
                 existing.ModFlags |= next_part.ModFlags;
             }
 
             existing.Definition.Modifiers = existing.ModFlags;
 
-            if (next_part.attributes != null) {
+            if (next_part.attributes != null)
+            {
                 if (existing.attributes == null)
                     existing.attributes = next_part.attributes;
                 else
-                    existing.attributes.AddAttributes (next_part.attributes.Attrs);
+                    existing.attributes.AddAttributes(next_part.attributes.Attrs);
             }
 
             next_part.PartialContainer = existing;
 
-            existing.AddPartialPart (next_part);
+            existing.AddPartialPart(next_part);
 
-            AddTypeContainerMember (next_part);
+            AddTypeContainerMember(next_part);
         }
 
-        public virtual void AddTypeContainer (TypeContainer tc)
+        public virtual void AddTypeContainer(TypeContainer tc)
         {
-            AddTypeContainerMember (tc);
+            AddTypeContainerMember(tc);
 
             var tparams = tc.MemberName.TypeParameters;
-            if (tparams != null && tc.PartialContainer != null) {
-                var td = (TypeDefinition) tc;
-                for (int i = 0; i < tparams.Count; ++i) {
+            if (tparams != null && tc.PartialContainer != null)
+            {
+                var td = (TypeDefinition)tc;
+                for (int i = 0; i < tparams.Count; ++i)
+                {
                     var tp = tparams[i];
                     if (tp.MemberName == null)
                         continue;
 
-                    td.AddNameToContainer (tp, tp.Name);
+                    td.AddNameToContainer(tp, tp.Name);
                 }
             }
         }
 
-        protected virtual void AddTypeContainerMember (TypeContainer tc)
+        protected virtual void AddTypeContainerMember(TypeContainer tc)
         {
-            containers.Add (tc);
+            containers.Add(tc);
         }
 
-        public virtual void CloseContainer ()
+        public virtual void CloseContainer()
         {
-            if (containers != null) {
-                foreach (TypeContainer tc in containers) {
-                    tc.CloseContainer ();
+            if (containers != null)
+            {
+                foreach (TypeContainer tc in containers)
+                {
+                    tc.CloseContainer();
                 }
             }
         }
 
-        public virtual void CreateMetadataName (StringBuilder sb)
+        public virtual void CreateMetadataName(StringBuilder sb)
         {
             if (Parent != null && Parent.MemberName != null)
-                Parent.CreateMetadataName (sb);
+                Parent.CreateMetadataName(sb);
 
-            MemberName.CreateMetadataName (sb);
+            MemberName.CreateMetadataName(sb);
         }
 
-        public virtual bool CreateContainer ()
+        public virtual bool CreateContainer()
         {
-            if (containers != null) {
-                foreach (TypeContainer tc in containers) {
-                    tc.CreateContainer ();
+            if (containers != null)
+            {
+                foreach (TypeContainer tc in containers)
+                {
+                    tc.CreateContainer();
                 }
             }
 
             return true;
         }
 
-        public override bool Define ()
+        public override bool Define()
         {
-            if (containers != null) {
-                foreach (TypeContainer tc in containers) {
-                    tc.Define ();
+            if (containers != null)
+            {
+                foreach (TypeContainer tc in containers)
+                {
+                    tc.Define();
                 }
             }
 
             // Release cache used by parser only
-            if (Module.Evaluator == null) {
+            if (Module.Evaluator == null)
+            {
                 defined_names = null;
-            } else {
-                defined_names.Clear ();
+            }
+            else
+            {
+                defined_names.Clear();
             }
 
             return true;
         }
 
-        public virtual void PrepareEmit ()
+        public virtual void PrepareEmit()
         {
-            if (containers != null) {
-                foreach (var t in containers) {
-                    try {
-                        t.PrepareEmit ();
-                    } catch (Exception e) {
+            if (containers != null)
+            {
+                foreach (var t in containers)
+                {
+                    try
+                    {
+                        t.PrepareEmit();
+                    }
+                    catch (Exception e)
+                    {
                         if (MemberName == MemberName.Null)
                             throw;
 
-                        throw new InternalErrorException (t, e);
+                        throw new InternalErrorException(t, e);
                     }
                 }
             }
         }
 
-        public virtual bool DefineContainer ()
+        public virtual bool DefineContainer()
         {
             if (is_defined)
                 return true;
 
             is_defined = true;
 
-            DoDefineContainer ();
+            DoDefineContainer();
 
-            if (containers != null) {
-                foreach (TypeContainer tc in containers) {
-                    try {
-                        tc.DefineContainer ();
-                    } catch (Exception e) {
+            if (containers != null)
+            {
+                foreach (TypeContainer tc in containers)
+                {
+                    try
+                    {
+                        tc.DefineContainer();
+                    }
+                    catch (Exception e)
+                    {
                         if (MemberName == MemberName.Null)
                             throw;
 
-                        throw new InternalErrorException (tc, e);
+                        throw new InternalErrorException(tc, e);
                     }
                 }
             }
@@ -302,92 +354,103 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return true;
         }
 
-        public virtual void ExpandBaseInterfaces ()
+        public virtual void ExpandBaseInterfaces()
         {
-            if (containers != null) {
-                foreach (TypeContainer tc in containers) {
-                    tc.ExpandBaseInterfaces ();
+            if (containers != null)
+            {
+                foreach (TypeContainer tc in containers)
+                {
+                    tc.ExpandBaseInterfaces();
                 }
             }
         }
 
-        protected virtual void DefineNamespace ()
+        protected virtual void DefineNamespace()
         {
-            if (containers != null) {
-                foreach (var tc in containers) {
-                    try {
-                        tc.DefineNamespace ();
-                    } catch (Exception e) {
-                        throw new InternalErrorException (tc, e);
+            if (containers != null)
+            {
+                foreach (var tc in containers)
+                {
+                    try
+                    {
+                        tc.DefineNamespace();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new InternalErrorException(tc, e);
                     }
                 }
             }
         }
 
-        protected virtual void DoDefineContainer ()
+        protected virtual void DoDefineContainer()
         {
         }
 
-        public virtual void EmitContainer ()
-        {
-            if (containers != null) {
-                for (int i = 0; i < containers.Count; ++i)
-                    containers[i].EmitContainer ();
-            }
-        }
-
-        protected void Error_MissingPartialModifier (MemberCore type)
-        {
-            Report.Error (260, type.Location,
-                "Missing partial modifier on declaration of type `{0}'. Another partial declaration of this type exists",
-                type.GetSignatureForError ());
-        }
-
-        public override string GetSignatureForDocumentation ()
-        {
-            if (Parent != null && Parent.MemberName != null)
-                return Parent.GetSignatureForDocumentation () + "." + MemberName.GetSignatureForDocumentation ();
-
-            return MemberName.GetSignatureForDocumentation ();
-        }
-
-        public override string GetSignatureForError ()
-        {
-            if (Parent != null && Parent.MemberName != null) 
-                return Parent.GetSignatureForError () + "." + MemberName.GetSignatureForError ();
-
-            return MemberName.GetSignatureForError ();
-        }
-
-        public virtual string GetSignatureForMetadata ()
-        {
-            var sb = new StringBuilder ();
-            CreateMetadataName (sb);
-            return sb.ToString ();
-        }
-
-        public virtual void RemoveContainer (TypeContainer cont)
+        public virtual void EmitContainer()
         {
             if (containers != null)
-                containers.Remove (cont);
-
-            var tc = Parent == Module ? Module : this;
-            tc.defined_names.Remove (cont.MemberName.Basename);
-        }
-
-        public virtual void VerifyMembers ()
-        {
-            if (containers != null) {
-                foreach (TypeContainer tc in containers)
-                    tc.VerifyMembers ();
+            {
+                for (int i = 0; i < containers.Count; ++i)
+                    containers[i].EmitContainer();
             }
         }
 
-        public override void WriteDebugSymbol (MonoSymbolFile file)
+        protected void Error_MissingPartialModifier(MemberCore type)
         {
-            if (containers != null) {
-                foreach (TypeContainer tc in containers) {
-                    tc.WriteDebugSymbol (file);
+            Report.Error(260, type.Location,
+                "Missing partial modifier on declaration of type `{0}'. Another partial declaration of this type exists",
+                type.GetSignatureForError());
+        }
+
+        public override string GetSignatureForDocumentation()
+        {
+            if (Parent != null && Parent.MemberName != null)
+                return Parent.GetSignatureForDocumentation() + "." + MemberName.GetSignatureForDocumentation();
+
+            return MemberName.GetSignatureForDocumentation();
+        }
+
+        public override string GetSignatureForError()
+        {
+            if (Parent != null && Parent.MemberName != null)
+                return Parent.GetSignatureForError() + "." + MemberName.GetSignatureForError();
+
+            return MemberName.GetSignatureForError();
+        }
+
+        public virtual string GetSignatureForMetadata()
+        {
+            var sb = new StringBuilder();
+            CreateMetadataName(sb);
+            return sb.ToString();
+        }
+
+        public virtual void RemoveContainer(TypeContainer cont)
+        {
+            if (containers != null)
+                containers.Remove(cont);
+
+            var tc = Parent == Module ? Module : this;
+            tc.defined_names.Remove(cont.MemberName.Basename);
+        }
+
+        public virtual void VerifyMembers()
+        {
+            if (containers != null)
+            {
+                foreach (TypeContainer tc in containers)
+                    tc.VerifyMembers();
+            }
+        }
+
+        public override void WriteDebugSymbol(MonoSymbolFile file)
+        {
+            if (containers != null)
+            {
+                foreach (TypeContainer tc in containers)
+                {
+                    tc.WriteDebugSymbol(file);
                 }
             }
         }
@@ -404,83 +467,93 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             TypeContainer tc;
 
-            public BaseContext (TypeContainer tc)
+            public BaseContext(TypeContainer tc)
             {
                 this.tc = tc;
             }
 
-            #region IMemberContext Members
+#region IMemberContext Members
 
-            public CompilerContext Compiler {
+            public CompilerContext Compiler
+            {
                 get { return tc.Compiler; }
             }
 
-            public TypeSpec CurrentType {
+            public TypeSpec CurrentType
+            {
                 get { return tc.PartialContainer.CurrentType; }
             }
 
-            public TypeParameters CurrentTypeParameters {
+            public TypeParameters CurrentTypeParameters
+            {
                 get { return tc.PartialContainer.CurrentTypeParameters; }
             }
 
-            public MemberCore CurrentMemberDefinition {
+            public MemberCore CurrentMemberDefinition
+            {
                 get { return tc; }
             }
 
-            public bool IsObsolete {
+            public bool IsObsolete
+            {
                 get { return tc.IsObsolete; }
             }
 
-            public bool IsUnsafe {
+            public bool IsUnsafe
+            {
                 get { return tc.IsUnsafe; }
             }
 
-            public bool IsStatic {
+            public bool IsStatic
+            {
                 get { return tc.IsStatic; }
             }
 
-            public ModuleContainer Module {
+            public ModuleContainer Module
+            {
                 get { return tc.Module; }
             }
 
-            public string GetSignatureForError ()
+            public string GetSignatureForError()
             {
-                return tc.GetSignatureForError ();
+                return tc.GetSignatureForError();
             }
 
-            public ExtensionMethodCandidates LookupExtensionMethod (string name, int arity)
+            public ExtensionMethodCandidates LookupExtensionMethod(string name, int arity)
             {
                 return null;
             }
 
-            public FullNamedExpression LookupNamespaceAlias (string name)
+            public FullNamedExpression LookupNamespaceAlias(string name)
             {
-                return tc.Parent.LookupNamespaceAlias (name);
+                return tc.Parent.LookupNamespaceAlias(name);
             }
 
-            public FullNamedExpression LookupNamespaceOrType (string name, int arity, LookupMode mode, Location loc)
+            public FullNamedExpression LookupNamespaceOrType(string name, int arity, LookupMode mode, Location loc)
             {
-                if (arity == 0) {
+                if (arity == 0)
+                {
                     var tp = CurrentTypeParameters;
-                    if (tp != null) {
-                        TypeParameter t = tp.Find (name);
+                    if (tp != null)
+                    {
+                        TypeParameter t = tp.Find(name);
                         if (t != null)
-                            return new TypeParameterExpr (t, loc);
+                            return new TypeParameterExpr(t, loc);
                     }
                 }
 
-                return tc.Parent.LookupNamespaceOrType (name, arity, mode, loc);
+                return tc.Parent.LookupNamespaceOrType(name, arity, mode, loc);
             }
 
-            #endregion
+#endregion
         }
 
         [Flags]
         enum CachedMethods
         {
-            Equals                = 1,
-            GetHashCode            = 1 << 1,
-            HasStaticFieldInitializer    = 1 << 2
+            Equals = 1,
+            GetHashCode = 1 << 1,
+            HasStaticFieldInitializer = 1 << 2
         }
 
         readonly List<MemberCore> members;
@@ -493,7 +566,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         Dictionary<MethodSpec, Method> hoisted_base_call_proxies;
 
-        Dictionary<string, FullNamedExpression> Cache = new Dictionary<string, FullNamedExpression> ();
+        Dictionary<string, FullNamedExpression> Cache = new Dictionary<string, FullNamedExpression>();
 
         //
         // Points to the first non-static field added to the container.
@@ -545,8 +618,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public int AnonymousMethodsCounter;
         public int MethodGroupsCounter;
 
-        static readonly string[] attribute_targets = new [] { "type" };
-        static readonly string[] attribute_targets_primary = new [] { "type", "method" };
+        static readonly string[] attribute_targets = new[] { "type" };
+        static readonly string[] attribute_targets_primary = new[] { "type", "method" };
 
         /// <remarks>
         ///  The pending methods that need to be implemented
@@ -554,31 +627,39 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         /// </remarks>
         PendingImplementation pending;
 
-        protected TypeDefinition (TypeContainer parent, MemberName name, Attributes attrs, MemberKind kind)
-            : base (parent, name, attrs, kind)
+        protected TypeDefinition(TypeContainer parent, MemberName name, Attributes attrs, MemberKind kind)
+            : base(parent, name, attrs, kind)
         {
             PartialContainer = this;
-            members = new List<MemberCore> ();
+            members = new List<MemberCore>();
         }
 
-        #region Properties
+#region Properties
 
-        public List<FullNamedExpression> BaseTypeExpressions {
-            get {
+        public List<FullNamedExpression> BaseTypeExpressions
+        {
+            get
+            {
                 return type_bases;
             }
         }
 
-        public override TypeSpec CurrentType {
-            get {
-                if (current_type == null) {
-                    if (IsGenericOrParentIsGeneric) {
+        public override TypeSpec CurrentType
+        {
+            get
+            {
+                if (current_type == null)
+                {
+                    if (IsGenericOrParentIsGeneric)
+                    {
                         //
                         // Switch to inflated version as it's used by all expressions
                         //
                         var targs = CurrentTypeParameters == null ? TypeSpec.EmptyTypes : CurrentTypeParameters.Types;
-                        current_type = spec.MakeGenericType (this, targs);
-                    } else {
+                        current_type = spec.MakeGenericType(this, targs);
+                    }
+                    else
+                    {
                         current_type = spec;
                     }
                 }
@@ -587,113 +668,148 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
         }
 
-        public override TypeParameters CurrentTypeParameters {
-            get {
+        public override TypeParameters CurrentTypeParameters
+        {
+            get
+            {
                 return PartialContainer.MemberName.TypeParameters;
             }
         }
 
-        int CurrentTypeParametersStartIndex {
-            get {
+        int CurrentTypeParametersStartIndex
+        {
+            get
+            {
                 int total = all_tp_builders.Length;
-                if (CurrentTypeParameters != null) {
+                if (CurrentTypeParameters != null)
+                {
                     return total - CurrentTypeParameters.Count;
                 }
                 return total;
             }
         }
 
-        public virtual AssemblyDefinition DeclaringAssembly {
-            get {
+        public virtual AssemblyDefinition DeclaringAssembly
+        {
+            get
+            {
                 return Module.DeclaringAssembly;
             }
         }
 
-        IAssemblyDefinition ITypeDefinition.DeclaringAssembly {
-            get {
+        IAssemblyDefinition ITypeDefinition.DeclaringAssembly
+        {
+            get
+            {
                 return Module.DeclaringAssembly;
             }
         }
 
-        public TypeSpec Definition {
-            get {
+        public TypeSpec Definition
+        {
+            get
+            {
                 return spec;
             }
         }
 
-        public bool HasMembersDefined {
-            get {
+        public bool HasMembersDefined
+        {
+            get
+            {
                 return members_defined;
             }
         }
 
-        public List<FullNamedExpression> TypeBaseExpressions {
-            get {
+        public List<FullNamedExpression> TypeBaseExpressions
+        {
+            get
+            {
                 return type_bases;
             }
         }
 
-        public bool HasInstanceConstructor {
-            get {
+        public bool HasInstanceConstructor
+        {
+            get
+            {
                 return (caching_flags & Flags.HasInstanceConstructor) != 0;
             }
-            set {
+            set
+            {
                 caching_flags |= Flags.HasInstanceConstructor;
             }
         }
 
         // Indicated whether container has StructLayout attribute set Explicit
-        public bool HasExplicitLayout {
+        public bool HasExplicitLayout
+        {
             get { return (caching_flags & Flags.HasExplicitLayout) != 0; }
             set { caching_flags |= Flags.HasExplicitLayout; }
         }
 
-        public bool HasOperators {
-            get {
+        public bool HasOperators
+        {
+            get
+            {
                 return (caching_flags & Flags.HasUserOperators) != 0;
             }
-            set {
+            set
+            {
                 caching_flags |= Flags.HasUserOperators;
             }
         }
 
-        public bool HasStructLayout {
+        public bool HasStructLayout
+        {
             get { return (caching_flags & Flags.HasStructLayout) != 0; }
             set { caching_flags |= Flags.HasStructLayout; }
         }
 
-        public TypeSpec[] Interfaces {
-            get {
+        public TypeSpec[] Interfaces
+        {
+            get
+            {
                 return iface_exprs;
             }
         }
 
-        public bool IsGenericOrParentIsGeneric {
-            get {
+        public bool IsGenericOrParentIsGeneric
+        {
+            get
+            {
                 return all_type_parameters != null;
             }
         }
 
-        public bool IsTopLevel {
-            get {
+        public bool IsTopLevel
+        {
+            get
+            {
                 return !(Parent is TypeDefinition);
             }
         }
 
-        public bool IsPartial {
-            get {
+        public bool IsPartial
+        {
+            get
+            {
                 return (ModFlags & Modifiers.PARTIAL) != 0;
             }
         }
 
-        bool ITypeDefinition.IsTypeForwarder {
-            get {
+        bool ITypeDefinition.IsTypeForwarder
+        {
+            get
+            {
                 return false;
             }
         }
 
-        bool ITypeDefinition.IsCyclicTypeForwarder {
-            get {
+        bool ITypeDefinition.IsCyclicTypeForwarder
+        {
+            get
+            {
                 return false;
             }
         }
@@ -701,31 +817,39 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         //
         // Returns true for secondary partial containers
         //
-        bool IsPartialPart {
-            get {
+        bool IsPartialPart
+        {
+            get
+            {
                 return PartialContainer != this;
             }
         }
 
-        public MemberCache MemberCache {
-            get {
+        public MemberCache MemberCache
+        {
+            get
+            {
                 return spec.MemberCache;
             }
         }
 
-        public List<MemberCore> Members {
-            get {
+        public List<MemberCore> Members
+        {
+            get
+            {
                 return members;
             }
         }
 
-        string ITypeDefinition.Namespace {
-            get {
+        string ITypeDefinition.Namespace
+        {
+            get
+            {
                 var p = Parent;
                 while (p.Kind != MemberKind.Namespace)
                     p = p.Parent;
 
-                return p.MemberName == null ? null : p.GetSignatureForError ();
+                return p.MemberName == null ? null : p.GetSignatureForError();
             }
         }
 
@@ -735,150 +859,170 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public Location PrimaryConstructorBaseArgumentsStart { get; set; }
 
-        public TypeParameters TypeParametersAll {
-            get {
+        public TypeParameters TypeParametersAll
+        {
+            get
+            {
                 return all_type_parameters;
             }
         }
 
-        public override string[] ValidAttributeTargets {
-            get {
+        public override string[] ValidAttributeTargets
+        {
+            get
+            {
                 return PrimaryConstructorParameters != null ? attribute_targets_primary : attribute_targets;
             }
         }
 
 #if FULL_AST
-        public bool HasOptionalSemicolon {
+        public bool HasOptionalSemicolon
+        {
             get;
             private set;
         }
         Location optionalSemicolon;
-        public Location OptionalSemicolon {
-            get {
+        public Location OptionalSemicolon
+        {
+            get
+            {
                 return optionalSemicolon;
             }
-            set {
+            set
+            {
                 optionalSemicolon = value;
                 HasOptionalSemicolon = true;
             }
         }
 #endif
 
-        #endregion
+#endregion
 
-        public override void Accept (StructuralVisitor visitor)
+        public override void Accept(StructuralVisitor visitor)
         {
-            visitor.Visit (this);
+            visitor.Visit(this);
         }
 
-        public void AddMember (MemberCore symbol)
+        public void AddMember(MemberCore symbol)
         {
-            if (symbol.MemberName.ExplicitInterface != null) {
-                if (!(Kind == MemberKind.Class || Kind == MemberKind.Struct)) {
-                    Report.Error (541, symbol.Location,
+            if (symbol.MemberName.ExplicitInterface != null)
+            {
+                if (!(Kind == MemberKind.Class || Kind == MemberKind.Struct))
+                {
+                    Report.Error(541, symbol.Location,
                         "`{0}': explicit interface declaration can only be declared in a class or struct",
-                        symbol.GetSignatureForError ());
+                        symbol.GetSignatureForError());
                 }
             }
 
-            AddNameToContainer (symbol, symbol.MemberName.Name);
-            members.Add (symbol);
+            AddNameToContainer(symbol, symbol.MemberName.Name);
+            members.Add(symbol);
         }
 
-        public override void AddTypeContainer (TypeContainer tc)
+        public override void AddTypeContainer(TypeContainer tc)
         {
-            AddNameToContainer (tc, tc.MemberName.Basename);
+            AddNameToContainer(tc, tc.MemberName.Basename);
 
-            base.AddTypeContainer (tc);
+            base.AddTypeContainer(tc);
         }
 
-        protected override void AddTypeContainerMember (TypeContainer tc)
+        protected override void AddTypeContainerMember(TypeContainer tc)
         {
-            members.Add (tc);
+            members.Add(tc);
 
             if (containers == null)
-                containers = new List<TypeContainer> ();
+                containers = new List<TypeContainer>();
 
-            base.AddTypeContainerMember (tc);
+            base.AddTypeContainerMember(tc);
         }
 
         //
         // Adds the member to defined_names table. It tests for duplications and enclosing name conflicts
         //
-        public virtual void AddNameToContainer (MemberCore symbol, string name)
+        public virtual void AddNameToContainer(MemberCore symbol, string name)
         {
             if (((ModFlags | symbol.ModFlags) & Modifiers.COMPILER_GENERATED) != 0)
                 return;
 
             MemberCore mc;
-            if (!PartialContainer.defined_names.TryGetValue (name, out mc)) {
-                PartialContainer.defined_names.Add (name, symbol);
+            if (!PartialContainer.defined_names.TryGetValue(name, out mc))
+            {
+                PartialContainer.defined_names.Add(name, symbol);
                 return;
             }
 
-            if (symbol.EnableOverloadChecks (mc))
+            if (symbol.EnableOverloadChecks(mc))
                 return;
 
             InterfaceMemberBase im = mc as InterfaceMemberBase;
             if (im != null && im.IsExplicitImpl)
                 return;
 
-            Report.SymbolRelatedToPreviousError (mc);
-            if ((mc.ModFlags & Modifiers.PARTIAL) != 0 && (symbol is ClassOrStruct || symbol is Interface)) {
-                Error_MissingPartialModifier (symbol);
+            Report.SymbolRelatedToPreviousError(mc);
+            if ((mc.ModFlags & Modifiers.PARTIAL) != 0 && (symbol is ClassOrStruct || symbol is Interface))
+            {
+                Error_MissingPartialModifier(symbol);
                 return;
             }
 
-            if (symbol is TypeParameter) {
-                Report.Error (692, symbol.Location,
-                    "Duplicate type parameter `{0}'", symbol.GetSignatureForError ());
-            } else {
-                Report.Error (102, symbol.Location,
+            if (symbol is TypeParameter)
+            {
+                Report.Error(692, symbol.Location,
+                    "Duplicate type parameter `{0}'", symbol.GetSignatureForError());
+            }
+            else
+            {
+                Report.Error(102, symbol.Location,
                     "The type `{0}' already contains a definition for `{1}'",
-                    GetSignatureForError (), name);
+                    GetSignatureForError(), name);
             }
 
             return;
         }
 
-        public void AddConstructor (Constructor c)
+        public void AddConstructor(Constructor c)
         {
-            AddConstructor (c, false);
+            AddConstructor(c, false);
         }
 
-        public void AddConstructor (Constructor c, bool isDefault)
+        public void AddConstructor(Constructor c, bool isDefault)
         {
             bool is_static = (c.ModFlags & Modifiers.STATIC) != 0;
             if (!isDefault)
-                AddNameToContainer (c, is_static ? Constructor.TypeConstructorName : Constructor.ConstructorName);
+                AddNameToContainer(c, is_static ? Constructor.TypeConstructorName : Constructor.ConstructorName);
 
-            if (is_static && c.ParameterInfo.IsEmpty) {
+            if (is_static && c.ParameterInfo.IsEmpty)
+            {
                 PartialContainer.has_static_constructor = true;
-            } else {
+            }
+            else
+            {
                 PartialContainer.HasInstanceConstructor = true;
             }
 
-            members.Add (c);
+            members.Add(c);
         }
 
-        public bool AddField (FieldBase field)
+        public bool AddField(FieldBase field)
         {
-            AddMember (field);
+            AddMember(field);
 
             if ((field.ModFlags & Modifiers.STATIC) != 0)
                 return true;
 
             var first_field = PartialContainer.first_nonstatic_field;
-            if (first_field == null) {
+            if (first_field == null)
+            {
                 PartialContainer.first_nonstatic_field = field;
                 return true;
             }
 
-            if (Kind == MemberKind.Struct && first_field.Parent != field.Parent) {
-                Report.SymbolRelatedToPreviousError (first_field.Parent);
-                Report.Warning (282, 3, field.Location,
+            if (Kind == MemberKind.Struct && first_field.Parent != field.Parent)
+            {
+                Report.SymbolRelatedToPreviousError(first_field.Parent);
+                Report.Warning(282, 3, field.Location,
                     "struct instance field `{0}' found in different declaration from instance field `{1}'",
-                    field.GetSignatureForError (), first_field.GetSignatureForError ());
+                    field.GetSignatureForError(), first_field.GetSignatureForError());
             }
             return true;
         }
@@ -886,154 +1030,183 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         /// <summary>
         /// Indexer has special handling in constrast to other AddXXX because the name can be driven by IndexerNameAttribute
         /// </summary>
-        public void AddIndexer (Indexer i)
+        public void AddIndexer(Indexer i)
         {
-            members.Add (i);
+            members.Add(i);
         }
 
-        public void AddOperator (Operator op)
+        public void AddOperator(Operator op)
         {
             PartialContainer.HasOperators = true;
-            AddMember (op);
+            AddMember(op);
         }
 
-        public void AddPartialPart (TypeDefinition part)
+        public void AddPartialPart(TypeDefinition part)
         {
             if (Kind != MemberKind.Class)
                 return;
 
             if (class_partial_parts == null)
-                class_partial_parts = new List<TypeDefinition> ();
+                class_partial_parts = new List<TypeDefinition>();
 
-            class_partial_parts.Add (part);
+            class_partial_parts.Add(part);
         }
 
-        public override void ApplyAttributeBuilder (Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
+        public override void ApplyAttributeBuilder(Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
         {
-            if (a.Target == AttributeTargets.Method) {
-                foreach (var m in members) {
+            if (a.Target == AttributeTargets.Method)
+            {
+                foreach (var m in members)
+                {
                     var c = m as Constructor;
                     if (c == null)
                         continue;
 
-                    if (c.IsPrimaryConstructor) {
-                        c.ApplyAttributeBuilder (a, ctor, cdata, pa);
+                    if (c.IsPrimaryConstructor)
+                    {
+                        c.ApplyAttributeBuilder(a, ctor, cdata, pa);
                         return;
                     }
                 }
 
-                throw new InternalErrorException ();
+                throw new InternalErrorException();
             }
 
-            if (has_normal_indexers && a.Type == pa.DefaultMember) {
-                Report.Error (646, a.Location, "Cannot specify the `DefaultMember' attribute on type containing an indexer");
+            if (has_normal_indexers && a.Type == pa.DefaultMember)
+            {
+                Report.Error(646, a.Location, "Cannot specify the `DefaultMember' attribute on type containing an indexer");
                 return;
             }
 
-            if (a.Type == pa.Required) {
-                Report.Error (1608, a.Location, "The RequiredAttribute attribute is not permitted on C# types");
+            if (a.Type == pa.Required)
+            {
+                Report.Error(1608, a.Location, "The RequiredAttribute attribute is not permitted on C# types");
                 return;
             }
 
-            TypeBuilder.SetCustomAttribute ((ConstructorInfo) ctor.GetMetaInfo (), cdata);
-        } 
+            TypeBuilder.SetCustomAttribute((ConstructorInfo)ctor.GetMetaInfo(), cdata);
+        }
 
-        public override AttributeTargets AttributeTargets {
-            get {
-                throw new NotSupportedException ();
+        public override AttributeTargets AttributeTargets
+        {
+            get
+            {
+                throw new NotSupportedException();
             }
         }
 
-        public TypeSpec BaseType {
-            get {
+        public TypeSpec BaseType
+        {
+            get
+            {
                 return spec.BaseType;
             }
         }
 
-        protected virtual TypeAttributes TypeAttr {
-            get {
-                return ModifiersExtensions.TypeAttr (ModFlags, IsTopLevel);
+        protected virtual TypeAttributes TypeAttr
+        {
+            get
+            {
+                return ModifiersExtensions.TypeAttr(ModFlags, IsTopLevel);
             }
         }
 
-        public int TypeParametersCount {
-            get {
+        public int TypeParametersCount
+        {
+            get
+            {
                 return MemberName.Arity;
             }
         }
 
-        TypeParameterSpec[] ITypeDefinition.TypeParameters {
-            get {
+        TypeParameterSpec[] ITypeDefinition.TypeParameters
+        {
+            get
+            {
                 return PartialContainer.CurrentTypeParameters.Types;
             }
         }
 
-        public string GetAttributeDefaultMember ()
+        public string GetAttributeDefaultMember()
         {
             return indexer_name ?? DefaultIndexerName;
         }
 
-        public bool IsComImport {
-            get {
+        public bool IsComImport
+        {
+            get
+            {
                 if (OptAttributes == null)
                     return false;
 
-                return OptAttributes.Contains (Module.PredefinedAttributes.ComImport);
+                return OptAttributes.Contains(Module.PredefinedAttributes.ComImport);
             }
         }
 
-        public void RegisterFieldForInitialization (MemberCore field, FieldInitializer expression)
+        public void RegisterFieldForInitialization(MemberCore field, FieldInitializer expression)
         {
             if (IsPartialPart)
-                PartialContainer.RegisterFieldForInitialization (field, expression);
+                PartialContainer.RegisterFieldForInitialization(field, expression);
 
-            if ((field.ModFlags & Modifiers.STATIC) != 0){
-                if (initialized_static_fields == null) {
+            if ((field.ModFlags & Modifiers.STATIC) != 0)
+            {
+                if (initialized_static_fields == null)
+                {
                     HasStaticFieldInitializer = true;
-                    initialized_static_fields = new List<FieldInitializer> (4);
+                    initialized_static_fields = new List<FieldInitializer>(4);
                 }
 
-                initialized_static_fields.Add (expression);
-            } else {
-                if (Kind == MemberKind.Struct) {
-                    if (Compiler.Settings.Version != LanguageVersion.Experimental) {
-                        Report.Error (573, expression.Location, "'{0}': Structs cannot have instance property or field initializers",
-                            GetSignatureForError ());
+                initialized_static_fields.Add(expression);
+            }
+            else
+            {
+                if (Kind == MemberKind.Struct)
+                {
+                    if (Compiler.Settings.Version != LanguageVersion.Experimental)
+                    {
+                        Report.Error(573, expression.Location, "'{0}': Structs cannot have instance property or field initializers",
+                            GetSignatureForError());
                     }
                 }
 
                 if (initialized_fields == null)
-                    initialized_fields = new List<FieldInitializer> (4);
+                    initialized_fields = new List<FieldInitializer>(4);
 
-                initialized_fields.Add (expression);
+                initialized_fields.Add(expression);
             }
         }
 
-        public void ResolveFieldInitializers (BlockContext ec)
+        public void ResolveFieldInitializers(BlockContext ec)
         {
-            Debug.Assert (!IsPartialPart);
+            Debug.Assert(!IsPartialPart);
 
-            if (ec.IsStatic) {
+            if (ec.IsStatic)
+            {
                 if (initialized_static_fields == null)
                     return;
 
                 bool has_complex_initializer = !ec.Module.Compiler.Settings.Optimize;
                 int i;
-                ExpressionStatement [] init = new ExpressionStatement [initialized_static_fields.Count];
-                for (i = 0; i < initialized_static_fields.Count; ++i) {
-                    FieldInitializer fi = initialized_static_fields [i];
-                    ExpressionStatement s = fi.ResolveStatement (ec);
-                    if (s == null) {
+                ExpressionStatement[] init = new ExpressionStatement[initialized_static_fields.Count];
+                for (i = 0; i < initialized_static_fields.Count; ++i)
+                {
+                    FieldInitializer fi = initialized_static_fields[i];
+                    ExpressionStatement s = fi.ResolveStatement(ec);
+                    if (s == null)
+                    {
                         s = EmptyExpressionStatement.Instance;
-                    } else if (!fi.IsSideEffectFree) {
+                    }
+                    else if (!fi.IsSideEffectFree)
+                    {
                         has_complex_initializer = true;
                     }
 
-                    init [i] = s;
+                    init[i] = s;
                 }
 
-                for (i = 0; i < initialized_static_fields.Count; ++i) {
-                    FieldInitializer fi = initialized_static_fields [i];
+                for (i = 0; i < initialized_static_fields.Count; ++i)
+                {
+                    FieldInitializer fi = initialized_static_fields[i];
                     //
                     // Need special check to not optimize code like this
                     // static int a = b = 5;
@@ -1043,7 +1216,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         continue;
 
                     ec.AssignmentInfoOffset += fi.AssignmentOffset;
-                    ec.CurrentBlock.AddScopeStatement (new StatementExpression (init [i]));
+                    ec.CurrentBlock.AddScopeStatement(new StatementExpression(init[i]));
                 }
 
                 return;
@@ -1052,8 +1225,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (initialized_fields == null)
                 return;
 
-            for (int i = 0; i < initialized_fields.Count; ++i) {
-                FieldInitializer fi = initialized_fields [i];
+            for (int i = 0; i < initialized_fields.Count; ++i)
+            {
+                FieldInitializer fi = initialized_fields[i];
 
                 //
                 // Clone before resolving otherwise when field initializer is needed
@@ -1061,11 +1235,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 // only took the resolved expression which is problem for expressions
                 // that generate extra expressions or code during Resolve phase
                 //
-                var cloned = fi.Clone (new CloneContext ());
+                var cloned = fi.Clone(new CloneContext());
 
-                ExpressionStatement s = fi.ResolveStatement (ec);
-                if (s == null) {
-                    initialized_fields [i] = new FieldInitializer (fi.Field, ErrorExpression.Instance, Location.Null);
+                ExpressionStatement s = fi.ResolveStatement(ec);
+                if (s == null)
+                {
+                    initialized_fields[i] = new FieldInitializer(fi.Field, ErrorExpression.Instance, Location.Null);
                     continue;
                 }
 
@@ -1076,16 +1251,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     continue;
 
                 ec.AssignmentInfoOffset += fi.AssignmentOffset;
-                ec.CurrentBlock.AddScopeStatement (new StatementExpression (s));
-                initialized_fields [i] = (FieldInitializer) cloned;
+                ec.CurrentBlock.AddScopeStatement(new StatementExpression(s));
+                initialized_fields[i] = (FieldInitializer)cloned;
             }
         }
 
-        public override string DocComment {
-            get {
+        public override string DocComment
+        {
+            get
+            {
                 return comment;
             }
-            set {
+            set
+            {
                 if (value == null)
                     return;
 
@@ -1093,50 +1271,53 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
         }
 
-        public PendingImplementation PendingImplementations {
+        public PendingImplementation PendingImplementations
+        {
             get { return pending; }
         }
 
-        internal override void GenerateDocComment (DocumentationBuilder builder)
+        internal override void GenerateDocComment(DocumentationBuilder builder)
         {
             if (IsPartialPart)
                 return;
 
-            base.GenerateDocComment (builder);
+            base.GenerateDocComment(builder);
 
             foreach (var member in members)
-                member.GenerateDocComment (builder);
+                member.GenerateDocComment(builder);
         }
 
-        public TypeSpec GetAttributeCoClass ()
+        public TypeSpec GetAttributeCoClass()
         {
             if (OptAttributes == null)
                 return null;
 
-            Attribute a = OptAttributes.Search (Module.PredefinedAttributes.CoClass);
+            Attribute a = OptAttributes.Search(Module.PredefinedAttributes.CoClass);
             if (a == null)
                 return null;
 
-            return a.GetCoClassAttributeValue ();
+            return a.GetCoClassAttributeValue();
         }
 
-        public AttributeUsageAttribute GetAttributeUsage (PredefinedAttribute pa)
+        public AttributeUsageAttribute GetAttributeUsage(PredefinedAttribute pa)
         {
             Attribute a = null;
-            if (OptAttributes != null) {
-                a = OptAttributes.Search (pa);
+            if (OptAttributes != null)
+            {
+                a = OptAttributes.Search(pa);
             }
 
             if (a == null)
                 return null;
 
-            return a.GetAttributeUsageAttribute ();
+            return a.GetAttributeUsageAttribute();
         }
 
-        public virtual CompilationSourceFile GetCompilationSourceFile ()
+        public virtual CompilationSourceFile GetCompilationSourceFile()
         {
             TypeContainer ns = Parent;
-            while (true) {
+            while (true)
+            {
                 var sf = ns as CompilationSourceFile;
                 if (sf != null)
                     return sf;
@@ -1145,16 +1326,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
         }
 
-        public override string GetSignatureForMetadata ()
+        public override string GetSignatureForMetadata()
         {
-            if (Parent is TypeDefinition) {
-                return Parent.GetSignatureForMetadata () + "+" + TypeNameParser.Escape (FilterNestedName (MemberName.Basename));
+            if (Parent is TypeDefinition)
+            {
+                return Parent.GetSignatureForMetadata() + "+" + TypeNameParser.Escape(FilterNestedName(MemberName.Basename));
             }
 
-            return base.GetSignatureForMetadata ();
+            return base.GetSignatureForMetadata();
         }
 
-        public virtual void SetBaseTypes (List<FullNamedExpression> baseTypes)
+        public virtual void SetBaseTypes(List<FullNamedExpression> baseTypes)
         {
             type_bases = baseTypes;
         }
@@ -1169,7 +1351,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         ///   The @base_class argument is set to the base object or null
         ///   if this is `System.Object'. 
         /// </summary>
-        protected virtual TypeSpec[] ResolveBaseTypes (out FullNamedExpression base_class)
+        protected virtual TypeSpec[] ResolveBaseTypes(out FullNamedExpression base_class)
         {
             base_class = null;
             if (type_bases == null)
@@ -1177,18 +1359,21 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             int count = type_bases.Count;
             TypeSpec[] ifaces = null;
-            var base_context = new BaseContext (this);
-            for (int i = 0, j = 0; i < count; i++){
-                FullNamedExpression fne = type_bases [i];
+            var base_context = new BaseContext(this);
+            for (int i = 0, j = 0; i < count; i++)
+            {
+                FullNamedExpression fne = type_bases[i];
 
-                var fne_resolved = fne.ResolveAsType (base_context);
+                var fne_resolved = fne.ResolveAsType(base_context);
                 if (fne_resolved == null)
                     continue;
 
-                if (i == 0 && Kind == MemberKind.Class && !fne_resolved.IsInterface) {
-                    if (fne_resolved.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
-                        Report.Error (1965, Location, "Class `{0}' cannot derive from the dynamic type",
-                            GetSignatureForError ());
+                if (i == 0 && Kind == MemberKind.Class && !fne_resolved.IsInterface)
+                {
+                    if (fne_resolved.BuiltinType == BuiltinTypeSpec.Type.Dynamic)
+                    {
+                        Report.Error(1965, Location, "Class `{0}' cannot derive from the dynamic type",
+                            GetSignatureForError());
 
                         continue;
                     }
@@ -1199,36 +1384,45 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
 
                 if (ifaces == null)
-                    ifaces = new TypeSpec [count - i];
+                    ifaces = new TypeSpec[count - i];
 
-                if (fne_resolved.IsInterface) {
-                    for (int ii = 0; ii < j; ++ii) {
-                        if (fne_resolved == ifaces [ii]) {
-                            Report.Error (528, Location, "`{0}' is already listed in interface list",
-                                fne_resolved.GetSignatureForError ());
+                if (fne_resolved.IsInterface)
+                {
+                    for (int ii = 0; ii < j; ++ii)
+                    {
+                        if (fne_resolved == ifaces[ii])
+                        {
+                            Report.Error(528, Location, "`{0}' is already listed in interface list",
+                                fne_resolved.GetSignatureForError());
                             break;
                         }
                     }
 
-                    if (Kind == MemberKind.Interface && !IsAccessibleAs (fne_resolved)) {
-                        Report.Error (61, fne.Location,
+                    if (Kind == MemberKind.Interface && !IsAccessibleAs(fne_resolved))
+                    {
+                        Report.Error(61, fne.Location,
                             "Inconsistent accessibility: base interface `{0}' is less accessible than interface `{1}'",
-                            fne_resolved.GetSignatureForError (), GetSignatureForError ());
+                            fne_resolved.GetSignatureForError(), GetSignatureForError());
                     }
-                } else {
-                    Report.SymbolRelatedToPreviousError (fne_resolved);
-                    if (Kind != MemberKind.Class) {
-                        Report.Error (527, fne.Location, "Type `{0}' in interface list is not an interface", fne_resolved.GetSignatureForError ());
-                    } else if (base_class != null)
-                        Report.Error (1721, fne.Location, "`{0}': Classes cannot have multiple base classes (`{1}' and `{2}')",
-                            GetSignatureForError (), base_class.GetSignatureForError (), fne_resolved.GetSignatureForError ());
-                    else {
-                        Report.Error (1722, fne.Location, "`{0}': Base class `{1}' must be specified as first",
-                            GetSignatureForError (), fne_resolved.GetSignatureForError ());
+                }
+                else
+                {
+                    Report.SymbolRelatedToPreviousError(fne_resolved);
+                    if (Kind != MemberKind.Class)
+                    {
+                        Report.Error(527, fne.Location, "Type `{0}' in interface list is not an interface", fne_resolved.GetSignatureForError());
+                    }
+                    else if (base_class != null)
+                        Report.Error(1721, fne.Location, "`{0}': Classes cannot have multiple base classes (`{1}' and `{2}')",
+                            GetSignatureForError(), base_class.GetSignatureForError(), fne_resolved.GetSignatureForError());
+                    else
+                    {
+                        Report.Error(1722, fne.Location, "`{0}': Base class `{1}' must be specified as first",
+                            GetSignatureForError(), fne_resolved.GetSignatureForError());
                     }
                 }
 
-                ifaces [j++] = fne_resolved;
+                ifaces[j++] = fne_resolved;
             }
 
             return ifaces;
@@ -1243,12 +1437,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         //
         // They are matched based on the return type and the argument types
         //
-        void CheckPairedOperators ()
+        void CheckPairedOperators()
         {
             bool has_equality_or_inequality = false;
-            List<Operator.OpType> found_matched = new List<Operator.OpType> ();
+            List<Operator.OpType> found_matched = new List<Operator.OpType>();
 
-            for (int i = 0; i < members.Count; ++i) {
+            for (int i = 0; i < members.Count; ++i)
+            {
                 var o_a = members[i] as Operator;
                 if (o_a == null)
                     continue;
@@ -1257,63 +1452,69 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (o_type == Operator.OpType.Equality || o_type == Operator.OpType.Inequality)
                     has_equality_or_inequality = true;
 
-                if (found_matched.Contains (o_type))
+                if (found_matched.Contains(o_type))
                     continue;
 
-                var matching_type = o_a.GetMatchingOperator ();
-                if (matching_type == Operator.OpType.TOP) {
+                var matching_type = o_a.GetMatchingOperator();
+                if (matching_type == Operator.OpType.TOP)
+                {
                     continue;
                 }
 
                 bool pair_found = false;
-                for (int ii = 0; ii < members.Count; ++ii) {
+                for (int ii = 0; ii < members.Count; ++ii)
+                {
                     var o_b = members[ii] as Operator;
                     if (o_b == null || o_b.OperatorType != matching_type)
                         continue;
 
-                    if (!TypeSpecComparer.IsEqual (o_a.ReturnType, o_b.ReturnType))
+                    if (!TypeSpecComparer.IsEqual(o_a.ReturnType, o_b.ReturnType))
                         continue;
 
-                    if (!TypeSpecComparer.Equals (o_a.ParameterTypes, o_b.ParameterTypes))
+                    if (!TypeSpecComparer.Equals(o_a.ParameterTypes, o_b.ParameterTypes))
                         continue;
 
-                    found_matched.Add (matching_type);
+                    found_matched.Add(matching_type);
                     pair_found = true;
                     break;
                 }
 
-                if (!pair_found) {
-                    Report.Error (216, o_a.Location,
+                if (!pair_found)
+                {
+                    Report.Error(216, o_a.Location,
                         "The operator `{0}' requires a matching operator `{1}' to also be defined",
-                        o_a.GetSignatureForError (), Operator.GetName (matching_type));
+                        o_a.GetSignatureForError(), Operator.GetName(matching_type));
                 }
             }
 
-            if (has_equality_or_inequality) {
+            if (has_equality_or_inequality)
+            {
                 if (!HasEquals)
-                    Report.Warning (660, 2, Location, "`{0}' defines operator == or operator != but does not override Object.Equals(object o)",
-                        GetSignatureForError ());
+                    Report.Warning(660, 2, Location, "`{0}' defines operator == or operator != but does not override Object.Equals(object o)",
+                        GetSignatureForError());
 
                 if (!HasGetHashCode)
-                    Report.Warning (661, 2, Location, "`{0}' defines operator == or operator != but does not override Object.GetHashCode()",
-                        GetSignatureForError ());
+                    Report.Warning(661, 2, Location, "`{0}' defines operator == or operator != but does not override Object.GetHashCode()",
+                        GetSignatureForError());
             }
         }
 
-        public override void CreateMetadataName (StringBuilder sb)
+        public override void CreateMetadataName(StringBuilder sb)
         {
-            if (Parent.MemberName != null) {
-                Parent.CreateMetadataName (sb);
+            if (Parent.MemberName != null)
+            {
+                Parent.CreateMetadataName(sb);
 
-                if (sb.Length != 0) {
-                    sb.Append (".");
+                if (sb.Length != 0)
+                {
+                    sb.Append(".");
                 }
             }
 
-            sb.Append (MemberName.Basename);
+            sb.Append(MemberName.Basename);
         }
 
-        bool CreateTypeBuilder ()
+        bool CreateTypeBuilder()
         {
             //
             // Sets .size to 1 for structs with no instance fields
@@ -1321,42 +1522,48 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             int type_size = Kind == MemberKind.Struct && first_nonstatic_field == null && !(this is StateMachine) ? 1 : 0;
 
             var parent_def = Parent as TypeDefinition;
-            if (parent_def == null) {
-                var sb = new StringBuilder ();
-                CreateMetadataName (sb);
-                TypeBuilder = Module.CreateBuilder (sb.ToString (), TypeAttr, type_size);
-            } else {
-                TypeBuilder = parent_def.TypeBuilder.DefineNestedType (FilterNestedName (MemberName.Basename), TypeAttr, null, type_size);
+            if (parent_def == null)
+            {
+                var sb = new StringBuilder();
+                CreateMetadataName(sb);
+                TypeBuilder = Module.CreateBuilder(sb.ToString(), TypeAttr, type_size);
+            }
+            else
+            {
+                TypeBuilder = parent_def.TypeBuilder.DefineNestedType(FilterNestedName(MemberName.Basename), TypeAttr, null, type_size);
             }
 
             if (DeclaringAssembly.Importer != null)
-                DeclaringAssembly.Importer.AddCompiledType (TypeBuilder, spec);
+                DeclaringAssembly.Importer.AddCompiledType(TypeBuilder, spec);
 
-            spec.SetMetaInfo (TypeBuilder);
-            spec.MemberCache = new MemberCache (this);
+            spec.SetMetaInfo(TypeBuilder);
+            spec.MemberCache = new MemberCache(this);
 
             TypeParameters parentAllTypeParameters = null;
-            if (parent_def != null) {
+            if (parent_def != null)
+            {
                 spec.DeclaringType = Parent.CurrentType;
-                parent_def.MemberCache.AddMember (spec);
+                parent_def.MemberCache.AddMember(spec);
                 parentAllTypeParameters = parent_def.all_type_parameters;
             }
 
-            if (MemberName.TypeParameters != null || parentAllTypeParameters != null) {
-                var tparam_names = CreateTypeParameters (parentAllTypeParameters);
+            if (MemberName.TypeParameters != null || parentAllTypeParameters != null)
+            {
+                var tparam_names = CreateTypeParameters(parentAllTypeParameters);
 
-                all_tp_builders = TypeBuilder.DefineGenericParameters (tparam_names);
+                all_tp_builders = TypeBuilder.DefineGenericParameters(tparam_names);
 
-                if (CurrentTypeParameters != null) {
-                    CurrentTypeParameters.Create (spec, CurrentTypeParametersStartIndex, this);
-                    CurrentTypeParameters.Define (all_tp_builders);
+                if (CurrentTypeParameters != null)
+                {
+                    CurrentTypeParameters.Create(spec, CurrentTypeParametersStartIndex, this);
+                    CurrentTypeParameters.Define(all_tp_builders);
                 }
             }
 
             return true;
         }
 
-        public static string FilterNestedName (string name)
+        public static string FilterNestedName(string name)
         {
             //
             // SRE API does not handle namespaces and types separately but
@@ -1365,45 +1572,51 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // in name we avoid any ambiguities and never emit metadata
             // namespace for nested types
             //
-            return name.Replace ('.', '_');
+            return name.Replace('.', '_');
         }
 
-        string[] CreateTypeParameters (TypeParameters parentAllTypeParameters)
+        string[] CreateTypeParameters(TypeParameters parentAllTypeParameters)
         {
             string[] names;
             int parent_offset = 0;
-            if (parentAllTypeParameters != null) {
-                if (CurrentTypeParameters == null) {
+            if (parentAllTypeParameters != null)
+            {
+                if (CurrentTypeParameters == null)
+                {
                     all_type_parameters = parentAllTypeParameters;
-                    return parentAllTypeParameters.GetAllNames ();
+                    return parentAllTypeParameters.GetAllNames();
                 }
 
                 names = new string[parentAllTypeParameters.Count + CurrentTypeParameters.Count];
-                all_type_parameters = new TypeParameters (names.Length);
-                all_type_parameters.Add (parentAllTypeParameters);
+                all_type_parameters = new TypeParameters(names.Length);
+                all_type_parameters.Add(parentAllTypeParameters);
 
                 parent_offset = all_type_parameters.Count;
                 for (int i = 0; i < parent_offset; ++i)
                     names[i] = all_type_parameters[i].MemberName.Name;
 
-            } else {
+            }
+            else
+            {
                 names = new string[CurrentTypeParameters.Count];
             }
 
-            for (int i = 0; i < CurrentTypeParameters.Count; ++i) {
+            for (int i = 0; i < CurrentTypeParameters.Count; ++i)
+            {
                 if (all_type_parameters != null)
-                    all_type_parameters.Add (MemberName.TypeParameters[i]);
+                    all_type_parameters.Add(MemberName.TypeParameters[i]);
 
                 var name = CurrentTypeParameters[i].MemberName.Name;
                 names[parent_offset + i] = name;
-                for (int ii = 0; ii < parent_offset + i; ++ii) {
+                for (int ii = 0; ii < parent_offset + i; ++ii)
+                {
                     if (names[ii] != name)
                         continue;
 
                     var tp = CurrentTypeParameters[i];
                     var conflict = all_type_parameters[ii];
 
-                    tp.WarningParentNameConflict (conflict);
+                    tp.WarningParentNameConflict(conflict);
                 }
             }
 
@@ -1414,234 +1627,269 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         }
 
 
-        public SourceMethodBuilder CreateMethodSymbolEntry ()
+        public SourceMethodBuilder CreateMethodSymbolEntry()
         {
             if (Module.DeclaringAssembly.SymbolWriter == null || (ModFlags & Modifiers.DEBUGGER_HIDDEN) != 0)
                 return null;
 
-            var source_file = GetCompilationSourceFile ();
+            var source_file = GetCompilationSourceFile();
             if (source_file == null)
                 return null;
 
-            return new SourceMethodBuilder (source_file.SymbolUnitEntry);
+            return new SourceMethodBuilder(source_file.SymbolUnitEntry);
         }
 
         //
         // Creates a proxy base method call inside this container for hoisted base member calls
         //
-        public MethodSpec CreateHoistedBaseCallProxy (ResolveContext rc, MethodSpec method)
+        public MethodSpec CreateHoistedBaseCallProxy(ResolveContext rc, MethodSpec method)
         {
             Method proxy_method;
 
             //
             // One proxy per base method is enough
             //
-            if (hoisted_base_call_proxies == null) {
-                hoisted_base_call_proxies = new Dictionary<MethodSpec, Method> ();
+            if (hoisted_base_call_proxies == null)
+            {
+                hoisted_base_call_proxies = new Dictionary<MethodSpec, Method>();
                 proxy_method = null;
-            } else {
-                hoisted_base_call_proxies.TryGetValue (method, out proxy_method);
+            }
+            else
+            {
+                hoisted_base_call_proxies.TryGetValue(method, out proxy_method);
             }
 
-            if (proxy_method == null) {
-                string name = CompilerGeneratedContainer.MakeName (method.Name, null, "BaseCallProxy", hoisted_base_call_proxies.Count);
+            if (proxy_method == null)
+            {
+                string name = CompilerGeneratedContainer.MakeName(method.Name, null, "BaseCallProxy", hoisted_base_call_proxies.Count);
 
                 MemberName member_name;
                 TypeArguments targs = null;
                 TypeSpec return_type = method.ReturnType;
                 var local_param_types = method.Parameters.Types;
 
-                if (method.IsGeneric) {
+                if (method.IsGeneric)
+                {
                     //
                     // Copy all base generic method type parameters info
                     //
                     var hoisted_tparams = method.GenericDefinition.TypeParameters;
-                    var tparams = new TypeParameters ();
+                    var tparams = new TypeParameters();
 
-                    targs = new TypeArguments ();
+                    targs = new TypeArguments();
                     targs.Arguments = new TypeSpec[hoisted_tparams.Length];
-                    for (int i = 0; i < hoisted_tparams.Length; ++i) {
+                    for (int i = 0; i < hoisted_tparams.Length; ++i)
+                    {
                         var tp = hoisted_tparams[i];
-                        var local_tp = new TypeParameter (tp, null, new MemberName (tp.Name, Location), null);
-                        tparams.Add (local_tp);
+                        var local_tp = new TypeParameter(tp, null, new MemberName(tp.Name, Location), null);
+                        tparams.Add(local_tp);
 
-                        targs.Add (new SimpleName (tp.Name, Location));
+                        targs.Add(new SimpleName(tp.Name, Location));
                         targs.Arguments[i] = local_tp.Type;
                     }
 
-                    member_name = new MemberName (name, tparams, Location);
+                    member_name = new MemberName(name, tparams, Location);
 
                     //
                     // Mutate any method type parameters from original
                     // to newly created hoisted version
                     //
-                    var mutator = new TypeParameterMutator (hoisted_tparams, tparams);
-                    return_type = mutator.Mutate (return_type);
-                    local_param_types = mutator.Mutate (local_param_types);
-                } else {
-                    member_name = new MemberName (name);
+                    var mutator = new TypeParameterMutator(hoisted_tparams, tparams);
+                    return_type = mutator.Mutate(return_type);
+                    local_param_types = mutator.Mutate(local_param_types);
+                }
+                else
+                {
+                    member_name = new MemberName(name);
                 }
 
                 var base_parameters = new Parameter[method.Parameters.Count];
-                for (int i = 0; i < base_parameters.Length; ++i) {
+                for (int i = 0; i < base_parameters.Length; ++i)
+                {
                     var base_param = method.Parameters.FixedParameters[i];
-                    base_parameters[i] = new Parameter (new TypeExpression (local_param_types [i], Location),
+                    base_parameters[i] = new Parameter(new TypeExpression(local_param_types[i], Location),
                         base_param.Name, base_param.ModFlags, null, Location);
-                    base_parameters[i].Resolve (this, i);
+                    base_parameters[i].Resolve(this, i);
                 }
 
-                var cloned_params = ParametersCompiled.CreateFullyResolved (base_parameters, method.Parameters.Types);
-                if (method.Parameters.HasArglist) {
-                    cloned_params.FixedParameters[0] = new Parameter (null, "__arglist", Parameter.Modifier.NONE, null, Location);
-                    cloned_params.Types[0] = Module.PredefinedTypes.RuntimeArgumentHandle.Resolve ();
+                var cloned_params = ParametersCompiled.CreateFullyResolved(base_parameters, method.Parameters.Types);
+                if (method.Parameters.HasArglist)
+                {
+                    cloned_params.FixedParameters[0] = new Parameter(null, "__arglist", Parameter.Modifier.NONE, null, Location);
+                    cloned_params.Types[0] = Module.PredefinedTypes.RuntimeArgumentHandle.Resolve();
                 }
 
                 // Compiler generated proxy
-                proxy_method = new Method (this, new TypeExpression (return_type, Location),
+                proxy_method = new Method(this, new TypeExpression(return_type, Location),
                     Modifiers.PRIVATE | Modifiers.COMPILER_GENERATED | Modifiers.DEBUGGER_HIDDEN,
                     member_name, cloned_params, null);
 
-                var block = new ToplevelBlock (Compiler, proxy_method.ParameterInfo, Location) {
+                var block = new ToplevelBlock(Compiler, proxy_method.ParameterInfo, Location)
+                {
                     IsCompilerGenerated = true
                 };
 
-                var mg = MethodGroupExpr.CreatePredefined (method, method.DeclaringType, Location);
-                mg.InstanceExpression = new BaseThis (method.DeclaringType, Location);
+                var mg = MethodGroupExpr.CreatePredefined(method, method.DeclaringType, Location);
+                mg.InstanceExpression = new BaseThis(method.DeclaringType, Location);
                 if (targs != null)
-                    mg.SetTypeArguments (rc, targs);
+                    mg.SetTypeArguments(rc, targs);
 
                 // Get all the method parameters and pass them as arguments
-                var real_base_call = new Invocation (mg, block.GetAllParametersArguments ());
+                var real_base_call = new Invocation(mg, block.GetAllParametersArguments());
                 Statement statement;
                 if (method.ReturnType.Kind == MemberKind.Void)
-                    statement = new StatementExpression (real_base_call);
+                    statement = new StatementExpression(real_base_call);
                 else
-                    statement = new Return (real_base_call, Location);
+                    statement = new Return(real_base_call, Location);
 
-                block.AddStatement (statement);
+                block.AddStatement(statement);
                 proxy_method.Block = block;
 
-                members.Add (proxy_method);
-                proxy_method.Define ();
-                proxy_method.PrepareEmit ();
+                members.Add(proxy_method);
+                proxy_method.Define();
+                proxy_method.PrepareEmit();
 
-                hoisted_base_call_proxies.Add (method, proxy_method);
+                hoisted_base_call_proxies.Add(method, proxy_method);
             }
 
             return proxy_method.Spec;
         }
 
-        protected bool DefineBaseTypes ()
+        protected bool DefineBaseTypes()
         {
             if (IsPartialPart && Kind == MemberKind.Class)
                 return true;
 
-            return DoDefineBaseType ();
+            return DoDefineBaseType();
         }
 
-        bool DoDefineBaseType ()
+        bool DoDefineBaseType()
         {
-            iface_exprs = ResolveBaseTypes (out base_type_expr);
+            iface_exprs = ResolveBaseTypes(out base_type_expr);
             bool set_base_type;
 
-            if (IsPartialPart) {
+            if (IsPartialPart)
+            {
                 set_base_type = false;
 
-                if (base_type_expr != null) {
-                    if (PartialContainer.base_type_expr != null && PartialContainer.base_type != base_type) {
-                        Report.SymbolRelatedToPreviousError (base_type_expr.Location, "");
-                        Report.Error (263, Location,
+                if (base_type_expr != null)
+                {
+                    if (PartialContainer.base_type_expr != null && PartialContainer.base_type != base_type)
+                    {
+                        Report.SymbolRelatedToPreviousError(base_type_expr.Location, "");
+                        Report.Error(263, Location,
                             "Partial declarations of `{0}' must not specify different base classes",
-                            GetSignatureForError ());
-                    } else {
+                            GetSignatureForError());
+                    }
+                    else
+                    {
                         PartialContainer.base_type_expr = base_type_expr;
                         PartialContainer.base_type = base_type;
                         set_base_type = true;
                     }
                 }
 
-                if (iface_exprs != null) {
+                if (iface_exprs != null)
+                {
                     if (PartialContainer.iface_exprs == null)
                         PartialContainer.iface_exprs = iface_exprs;
-                    else {
-                        var ifaces = new List<TypeSpec> (PartialContainer.iface_exprs);
-                        foreach (var iface_partial in iface_exprs) {
-                            if (ifaces.Contains (iface_partial))
+                    else
+                    {
+                        var ifaces = new List<TypeSpec>(PartialContainer.iface_exprs);
+                        foreach (var iface_partial in iface_exprs)
+                        {
+                            if (ifaces.Contains(iface_partial))
                                 continue;
 
-                            ifaces.Add (iface_partial);
+                            ifaces.Add(iface_partial);
                         }
 
-                        PartialContainer.iface_exprs = ifaces.ToArray ();
+                        PartialContainer.iface_exprs = ifaces.ToArray();
                     }
                 }
 
-                PartialContainer.members.AddRange (members);
-                if (containers != null) {
+                PartialContainer.members.AddRange(members);
+                if (containers != null)
+                {
                     if (PartialContainer.containers == null)
-                        PartialContainer.containers = new List<TypeContainer> ();
+                        PartialContainer.containers = new List<TypeContainer>();
 
-                    PartialContainer.containers.AddRange (containers);
+                    PartialContainer.containers.AddRange(containers);
                 }
 
-                if (PrimaryConstructorParameters != null) {
-                    if (PartialContainer.PrimaryConstructorParameters != null) {
-                        Report.Error (8036, Location, "Only one part of a partial type can declare primary constructor parameters");
-                    } else {
+                if (PrimaryConstructorParameters != null)
+                {
+                    if (PartialContainer.PrimaryConstructorParameters != null)
+                    {
+                        Report.Error(8036, Location, "Only one part of a partial type can declare primary constructor parameters");
+                    }
+                    else
+                    {
                         PartialContainer.PrimaryConstructorParameters = PrimaryConstructorParameters;
                     }
                 }
 
                 members_defined = members_defined_ok = true;
                 caching_flags |= Flags.CloseTypeCreated;
-            } else {
+            }
+            else
+            {
                 set_base_type = true;
             }
 
-            var cycle = CheckRecursiveDefinition (this);
-            if (cycle != null) {
-                Report.SymbolRelatedToPreviousError (cycle);
-                if (this is Interface) {
-                    Report.Error (529, Location,
+            var cycle = CheckRecursiveDefinition(this);
+            if (cycle != null)
+            {
+                Report.SymbolRelatedToPreviousError(cycle);
+                if (this is Interface)
+                {
+                    Report.Error(529, Location,
                         "Inherited interface `{0}' causes a cycle in the interface hierarchy of `{1}'",
-                        GetSignatureForError (), cycle.GetSignatureForError ());
+                        GetSignatureForError(), cycle.GetSignatureForError());
 
                     iface_exprs = null;
                     PartialContainer.iface_exprs = null;
-                } else {
-                    Report.Error (146, Location,
+                }
+                else
+                {
+                    Report.Error(146, Location,
                         "Circular base class dependency involving `{0}' and `{1}'",
-                        GetSignatureForError (), cycle.GetSignatureForError ());
+                        GetSignatureForError(), cycle.GetSignatureForError());
 
                     base_type = null;
                     PartialContainer.base_type = null;
                 }
             }
 
-            if (iface_exprs != null) {
-                if (!PrimaryConstructorBaseArgumentsStart.IsNull) {
-                    Report.Error (8049, PrimaryConstructorBaseArgumentsStart, "Implemented interfaces cannot have arguments");
+            if (iface_exprs != null)
+            {
+                if (!PrimaryConstructorBaseArgumentsStart.IsNull)
+                {
+                    Report.Error(8049, PrimaryConstructorBaseArgumentsStart, "Implemented interfaces cannot have arguments");
                 }
 
-                foreach (var iface_type in iface_exprs) {
+                foreach (var iface_type in iface_exprs)
+                {
                     // Prevents a crash, the interface might not have been resolved: 442144
                     if (iface_type == null)
                         continue;
 
-                    if (!spec.AddInterfaceDefined (iface_type))
+                    if (!spec.AddInterfaceDefined(iface_type))
                         continue;
 
-                    TypeBuilder.AddInterfaceImplementation (iface_type.GetMetaInfo ());
+                    TypeBuilder.AddInterfaceImplementation(iface_type.GetMetaInfo());
                 }
             }
 
-            if (Kind == MemberKind.Interface) {
+            if (Kind == MemberKind.Interface)
+            {
                 spec.BaseType = Compiler.BuiltinTypes.Object;
                 return true;
             }
 
-            if (set_base_type) {
-                SetBaseType ();
+            if (set_base_type)
+            {
+                SetBaseType();
             }
 
             //
@@ -1650,12 +1898,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // partial parts because the base type can be specified in file
             // defined after current container
             //
-            if (class_partial_parts != null) {
-                foreach (var pp in class_partial_parts) {
+            if (class_partial_parts != null)
+            {
+                foreach (var pp in class_partial_parts)
+                {
                     if (pp.PrimaryConstructorBaseArguments != null)
                         PrimaryConstructorBaseArguments = pp.PrimaryConstructorBaseArguments;
 
-                    pp.DoDefineBaseType ();
+                    pp.DoDefineBaseType();
                 }
 
             }
@@ -1663,10 +1913,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return true;
         }
 
-        void SetBaseType ()
+        void SetBaseType()
         {
-            if (base_type == null) {
-                TypeBuilder.SetParent (null);
+            if (base_type == null)
+            {
+                TypeBuilder.SetParent(null);
                 return;
             }
 
@@ -1676,21 +1927,21 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             spec.BaseType = base_type;
 
             if (IsPartialPart)
-                spec.UpdateInflatedInstancesBaseType ();
+                spec.UpdateInflatedInstancesBaseType();
 
             // Set base type after type creation
-            TypeBuilder.SetParent (base_type.GetMetaInfo ());
+            TypeBuilder.SetParent(base_type.GetMetaInfo());
         }
 
-        public override void ExpandBaseInterfaces ()
+        public override void ExpandBaseInterfaces()
         {
             if (!IsPartialPart)
-                DoExpandBaseInterfaces ();
+                DoExpandBaseInterfaces();
 
-            base.ExpandBaseInterfaces ();
+            base.ExpandBaseInterfaces();
         }
 
-        public void DoExpandBaseInterfaces ()
+        public void DoExpandBaseInterfaces()
         {
             if ((caching_flags & Flags.InterfacesExpanded) != 0)
                 return;
@@ -1701,21 +1952,25 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // Expand base interfaces. It cannot be done earlier because all partial
             // interface parts need to be defined before the type they are used from
             //
-            if (iface_exprs != null) {
-                foreach (var iface in iface_exprs) {
+            if (iface_exprs != null)
+            {
+                foreach (var iface in iface_exprs)
+                {
                     if (iface == null)
                         continue;
 
                     var td = iface.MemberDefinition as TypeDefinition;
                     if (td != null)
-                        td.DoExpandBaseInterfaces ();
+                        td.DoExpandBaseInterfaces();
 
                     if (iface.Interfaces == null)
                         continue;
 
-                    foreach (var biface in iface.Interfaces) {
-                        if (spec.AddInterfaceDefined (biface)) {
-                            TypeBuilder.AddInterfaceImplementation (biface.GetMetaInfo ());
+                    foreach (var biface in iface.Interfaces)
+                    {
+                        if (spec.AddInterfaceDefined(biface))
+                        {
+                            TypeBuilder.AddInterfaceImplementation(biface.GetMetaInfo());
                         }
                     }
                 }
@@ -1724,10 +1979,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             //
             // Include all base type interfaces too, see ImportTypeBase for details
             //
-            if (base_type != null) {
+            if (base_type != null)
+            {
                 var td = base_type.MemberDefinition as TypeDefinition;
                 if (td != null)
-                    td.DoExpandBaseInterfaces ();
+                    td.DoExpandBaseInterfaces();
 
                 //
                 // Simply use base interfaces only, they are all expanded which makes
@@ -1738,51 +1994,56 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 // interface IB<U> : IC<U>
                 // interface IC<V>
                 //
-                if (base_type.Interfaces != null) {
-                    foreach (var iface in base_type.Interfaces) {
-                        spec.AddInterfaceDefined (iface);
+                if (base_type.Interfaces != null)
+                {
+                    foreach (var iface in base_type.Interfaces)
+                    {
+                        spec.AddInterfaceDefined(iface);
                     }
                 }
             }
         }
 
-        public override void PrepareEmit ()
+        public override void PrepareEmit()
         {
             if ((caching_flags & Flags.CloseTypeCreated) != 0)
                 return;
 
-            foreach (var member in members) {
+            foreach (var member in members)
+            {
                 var pbm = member as PropertyBasedMember;
                 if (pbm != null)
-                    pbm.PrepareEmit ();
+                    pbm.PrepareEmit();
 
                 var pm = member as IParametersMember;
-                if (pm != null) {
+                if (pm != null)
+                {
                     var mc = member as MethodOrOperator;
-                    if (mc != null) {
-                        mc.PrepareEmit ();
+                    if (mc != null)
+                    {
+                        mc.PrepareEmit();
                     }
 
                     var p = pm.Parameters;
                     if (p.IsEmpty)
                         continue;
 
-                    ((ParametersCompiled) p).ResolveDefaultValues (member);
+                    ((ParametersCompiled)p).ResolveDefaultValues(member);
                     continue;
                 }
 
                 var c = member as Const;
                 if (c != null)
-                    c.DefineValue ();
+                    c.DefineValue();
             }
 
-            base.PrepareEmit ();
+            base.PrepareEmit();
         }
 
         //
         // Defines the type in the appropriate ModuleBuilder or TypeBuilder.
         //
-        public override bool CreateContainer ()
+        public override bool CreateContainer()
         {
             if (TypeBuilder != null)
                 return !error;
@@ -1790,33 +2051,37 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (error)
                 return false;
 
-            if (IsPartialPart) {
+            if (IsPartialPart)
+            {
                 spec = PartialContainer.spec;
                 TypeBuilder = PartialContainer.TypeBuilder;
                 all_tp_builders = PartialContainer.all_tp_builders;
                 all_type_parameters = PartialContainer.all_type_parameters;
-            } else {
-                if (!CreateTypeBuilder ()) {
+            }
+            else
+            {
+                if (!CreateTypeBuilder())
+                {
                     error = true;
                     return false;
                 }
             }
 
-            return base.CreateContainer ();
+            return base.CreateContainer();
         }
 
-        protected override void DoDefineContainer ()
+        protected override void DoDefineContainer()
         {
-            DefineBaseTypes ();
+            DefineBaseTypes();
 
-            DoResolveTypeParameters ();
+            DoResolveTypeParameters();
         }
 
         //
         // Replaces normal spec with predefined one when compiling corlib
         // and this type container defines predefined type
         //
-        public void SetPredefinedSpec (BuiltinTypeSpec spec)
+        public void SetPredefinedSpec(BuiltinTypeSpec spec)
         {
             // When compiling build-in types we start with two
             // version of same type. One is of BuiltinTypeSpec and
@@ -1826,7 +2091,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // that means TypeSpec create during CreateType of this
             // type has to be replaced with builtin one
             // 
-            spec.SetMetaInfo (TypeBuilder);
+            spec.SetMetaInfo(TypeBuilder);
             spec.MemberCache = this.spec.MemberCache;
             spec.DeclaringType = this.spec.DeclaringType;
 
@@ -1834,75 +2099,83 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             current_type = null;
         }
 
-        public override void RemoveContainer (TypeContainer cont)
+        public override void RemoveContainer(TypeContainer cont)
         {
-            base.RemoveContainer (cont);
-            Members.Remove (cont);
-            Cache.Remove (cont.MemberName.Basename);
+            base.RemoveContainer(cont);
+            Members.Remove(cont);
+            Cache.Remove(cont.MemberName.Basename);
         }
 
-        protected virtual bool DoResolveTypeParameters ()
+        protected virtual bool DoResolveTypeParameters()
         {
             var tparams = MemberName.TypeParameters;
             if (tparams == null)
                 return true;
 
-            var base_context = new BaseContext (this);
-            for (int i = 0; i < tparams.Count; ++i) {
+            var base_context = new BaseContext(this);
+            for (int i = 0; i < tparams.Count; ++i)
+            {
                 var tp = tparams[i];
 
-                if (!tp.ResolveConstraints (base_context)) {
+                if (!tp.ResolveConstraints(base_context))
+                {
                     error = true;
                     return false;
                 }
 
-                if (IsPartialPart) {
-                    var pc_tp = PartialContainer.CurrentTypeParameters [i];
+                if (IsPartialPart)
+                {
+                    var pc_tp = PartialContainer.CurrentTypeParameters[i];
 
-                    tp.Create (spec, this);
-                    tp.Define (pc_tp);
+                    tp.Create(spec, this);
+                    tp.Define(pc_tp);
 
-                    if (tp.OptAttributes != null) {
+                    if (tp.OptAttributes != null)
+                    {
                         if (pc_tp.OptAttributes == null)
                             pc_tp.OptAttributes = tp.OptAttributes;
                         else
-                            pc_tp.OptAttributes.Attrs.AddRange (tp.OptAttributes.Attrs);
+                            pc_tp.OptAttributes.Attrs.AddRange(tp.OptAttributes.Attrs);
                     }
                 }
             }
 
-            if (IsPartialPart) {
-                PartialContainer.CurrentTypeParameters.UpdateConstraints (this);
+            if (IsPartialPart)
+            {
+                PartialContainer.CurrentTypeParameters.UpdateConstraints(this);
             }
 
             return true;
         }
 
-        TypeSpec CheckRecursiveDefinition (TypeDefinition tc)
+        TypeSpec CheckRecursiveDefinition(TypeDefinition tc)
         {
             if (InTransit != null)
                 return spec;
 
             InTransit = tc;
 
-            if (base_type != null) {
+            if (base_type != null)
+            {
                 var ptc = base_type.MemberDefinition as TypeDefinition;
-                if (ptc != null && ptc.CheckRecursiveDefinition (this) != null)
+                if (ptc != null && ptc.CheckRecursiveDefinition(this) != null)
                     return base_type;
             }
 
-            if (iface_exprs != null) {
-                foreach (var iface in iface_exprs) {
+            if (iface_exprs != null)
+            {
+                foreach (var iface in iface_exprs)
+                {
                     // the interface might not have been resolved, prevents a crash, see #442144
                     if (iface == null)
                         continue;
                     var ptc = iface.MemberDefinition as Interface;
-                    if (ptc != null && ptc.CheckRecursiveDefinition (this) != null)
+                    if (ptc != null && ptc.CheckRecursiveDefinition(this) != null)
                         return iface;
                 }
             }
 
-            if (!IsTopLevel && Parent.PartialContainer.CheckRecursiveDefinition (this) != null)
+            if (!IsTopLevel && Parent.PartialContainer.CheckRecursiveDefinition(this) != null)
                 return spec;
 
             InTransit = null;
@@ -1912,90 +2185,102 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         /// <summary>
         ///   Populates our TypeBuilder with fields and methods
         /// </summary>
-        public sealed override bool Define ()
+        public sealed override bool Define()
         {
             if (members_defined)
                 return members_defined_ok;
 
-            members_defined_ok = DoDefineMembers ();
+            members_defined_ok = DoDefineMembers();
             members_defined = true;
 
-            base.Define ();
+            base.Define();
 
             return members_defined_ok;
         }
 
-        protected virtual bool DoDefineMembers ()
+        protected virtual bool DoDefineMembers()
         {
-            Debug.Assert (!IsPartialPart);
+            Debug.Assert(!IsPartialPart);
 
-            if (iface_exprs != null) {
-                foreach (var iface_type in iface_exprs) {
+            if (iface_exprs != null)
+            {
+                foreach (var iface_type in iface_exprs)
+                {
                     if (iface_type == null)
                         continue;
 
                     // Ensure the base is always setup
                     var compiled_iface = iface_type.MemberDefinition as Interface;
                     if (compiled_iface != null)
-                        compiled_iface.Define ();
+                        compiled_iface.Define();
 
-                    ObsoleteAttribute oa = iface_type.GetAttributeObsolete ();
+                    ObsoleteAttribute oa = iface_type.GetAttributeObsolete();
                     if (oa != null && !IsObsolete)
-                        AttributeTester.Report_ObsoleteMessage (oa, iface_type.GetSignatureForError (), Location, Report);
+                        AttributeTester.Report_ObsoleteMessage(oa, iface_type.GetSignatureForError(), Location, Report);
 
-                    if (iface_type.Arity > 0) {
+                    if (iface_type.Arity > 0)
+                    {
                         // TODO: passing `this' is wrong, should be base type iface instead
-                        VarianceDecl.CheckTypeVariance (iface_type, Variance.Covariant, this);
+                        VarianceDecl.CheckTypeVariance(iface_type, Variance.Covariant, this);
 
-                        if (((InflatedTypeSpec) iface_type).HasDynamicArgument () && !IsCompilerGenerated) {
-                            Report.Error (1966, Location,
+                        if (((InflatedTypeSpec)iface_type).HasDynamicArgument() && !IsCompilerGenerated)
+                        {
+                            Report.Error(1966, Location,
                                 "`{0}': cannot implement a dynamic interface `{1}'",
-                                GetSignatureForError (), iface_type.GetSignatureForError ());
+                                GetSignatureForError(), iface_type.GetSignatureForError());
                             return false;
                         }
                     }
 
-                    if (iface_type.IsGenericOrParentIsGeneric) {
-                        foreach (var prev_iface in iface_exprs) {
+                    if (iface_type.IsGenericOrParentIsGeneric)
+                    {
+                        foreach (var prev_iface in iface_exprs)
+                        {
                             if (prev_iface == iface_type || prev_iface == null)
                                 break;
 
-                            if (!TypeSpecComparer.Unify.IsEqual (iface_type, prev_iface))
+                            if (!TypeSpecComparer.Unify.IsEqual(iface_type, prev_iface))
                                 continue;
 
-                            Report.Error (695, Location,
+                            Report.Error(695, Location,
                                 "`{0}' cannot implement both `{1}' and `{2}' because they may unify for some type parameter substitutions",
-                                GetSignatureForError (), prev_iface.GetSignatureForError (), iface_type.GetSignatureForError ());
+                                GetSignatureForError(), prev_iface.GetSignatureForError(), iface_type.GetSignatureForError());
                         }
                     }
                 }
 
-                if (Kind == MemberKind.Interface) {
-                    foreach (var iface in spec.Interfaces) {
-                        MemberCache.AddInterface (iface);
+                if (Kind == MemberKind.Interface)
+                {
+                    foreach (var iface in spec.Interfaces)
+                    {
+                        MemberCache.AddInterface(iface);
                     }
                 }
             }
 
-            if (base_type != null) {
+            if (base_type != null)
+            {
                 //
                 // Run checks skipped during DefineType (e.g FullNamedExpression::ResolveAsType)
                 //
-                if (base_type_expr != null) {
-                    ObsoleteAttribute obsolete_attr = base_type.GetAttributeObsolete ();
+                if (base_type_expr != null)
+                {
+                    ObsoleteAttribute obsolete_attr = base_type.GetAttributeObsolete();
                     if (obsolete_attr != null && !IsObsolete)
-                        AttributeTester.Report_ObsoleteMessage (obsolete_attr, base_type.GetSignatureForError (), base_type_expr.Location, Report);
+                        AttributeTester.Report_ObsoleteMessage(obsolete_attr, base_type.GetSignatureForError(), base_type_expr.Location, Report);
 
-                    if (IsGenericOrParentIsGeneric && base_type.IsAttribute) {
-                        Report.Error (698, base_type_expr.Location,
+                    if (IsGenericOrParentIsGeneric && base_type.IsAttribute)
+                    {
+                        Report.Error(698, base_type_expr.Location,
                             "A generic type cannot derive from `{0}' because it is an attribute class",
-                            base_type.GetSignatureForError ());
+                            base_type.GetSignatureForError());
                     }
                 }
 
                 var baseContainer = base_type.MemberDefinition as ClassOrStruct;
-                if (baseContainer != null) {
-                    baseContainer.Define ();
+                if (baseContainer != null)
+                {
+                    baseContainer.Define();
 
                     //
                     // It can trigger define of this type (for generic types only)
@@ -2005,24 +2290,30 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
             }
 
-            if (Kind == MemberKind.Struct || Kind == MemberKind.Class) {
-                pending = PendingImplementation.GetPendingImplementations (this);
+            if (Kind == MemberKind.Struct || Kind == MemberKind.Class)
+            {
+                pending = PendingImplementation.GetPendingImplementations(this);
             }
 
             var count = members.Count;
-            for (int i = 0; i < count; ++i) {
+            for (int i = 0; i < count; ++i)
+            {
                 var mc = members[i] as InterfaceMemberBase;
                 if (mc == null || !mc.IsExplicitImpl)
                     continue;
 
-                try {
-                    mc.Define ();
-                } catch (Exception e) {
-                    throw new InternalErrorException (mc, e);
+                try
+                {
+                    mc.Define();
+                }
+                catch (Exception e)
+                {
+                    throw new InternalErrorException(mc, e);
                 }
             }
 
-            for (int i = 0; i < count; ++i) {
+            for (int i = 0; i < count; ++i)
+            {
                 var mc = members[i] as InterfaceMemberBase;
                 if (mc != null && mc.IsExplicitImpl)
                     continue;
@@ -2030,43 +2321,51 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (members[i] is TypeContainer)
                     continue;
 
-                try {
-                    members[i].Define ();
-                } catch (Exception e) {
-                    throw new InternalErrorException (members[i], e);
+                try
+                {
+                    members[i].Define();
+                }
+                catch (Exception e)
+                {
+                    throw new InternalErrorException(members[i], e);
                 }
             }
 
-            if (HasOperators) {
-                CheckPairedOperators ();
+            if (HasOperators)
+            {
+                CheckPairedOperators();
             }
 
-            if (requires_delayed_unmanagedtype_check) {
+            if (requires_delayed_unmanagedtype_check)
+            {
                 requires_delayed_unmanagedtype_check = false;
-                foreach (var member in members) {
+                foreach (var member in members)
+                {
                     var f = member as Field;
                     if (f != null && f.MemberType != null && f.MemberType.IsPointer)
-                        TypeManager.VerifyUnmanaged (Module, f.MemberType, f.Location);
+                        TypeManager.VerifyUnmanaged(Module, f.MemberType, f.Location);
                 }
             }
 
             ComputeIndexerName();
 
-            if (HasEquals && !HasGetHashCode) {
-                Report.Warning (659, 3, Location,
-                    "`{0}' overrides Object.Equals(object) but does not override Object.GetHashCode()", GetSignatureForError ());
+            if (HasEquals && !HasGetHashCode)
+            {
+                Report.Warning(659, 3, Location,
+                    "`{0}' overrides Object.Equals(object) but does not override Object.GetHashCode()", GetSignatureForError());
             }
 
-            if (Kind == MemberKind.Interface && iface_exprs != null) {
-                MemberCache.RemoveHiddenMembers (spec);
+            if (Kind == MemberKind.Interface && iface_exprs != null)
+            {
+                MemberCache.RemoveHiddenMembers(spec);
             }
 
             return true;
         }
 
-        void ComputeIndexerName ()
+        void ComputeIndexerName()
         {
-            var indexers = MemberCache.FindMembers (spec, MemberCache.IndexerNameAlias, true);
+            var indexers = MemberCache.FindMembers(spec, MemberCache.IndexerNameAlias, true);
             if (indexers == null)
                 return;
 
@@ -2076,7 +2375,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // Check normal indexers for consistent name, explicit interface implementation
             // indexers are ignored
             //
-            foreach (var indexer in indexers) {
+            foreach (var indexer in indexers)
+            {
                 //
                 // FindMembers can return unfiltered full hierarchy names
                 //
@@ -2085,70 +2385,80 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                 has_normal_indexers = true;
 
-                if (class_indexer_name == null) {
+                if (class_indexer_name == null)
+                {
                     indexer_name = class_indexer_name = indexer.Name;
                     continue;
                 }
 
                 if (indexer.Name != class_indexer_name)
-                    Report.Error (668, ((Indexer)indexer.MemberDefinition).Location,
+                    Report.Error(668, ((Indexer)indexer.MemberDefinition).Location,
                         "Two indexers have different names; the IndexerName attribute must be used with the same name on every indexer within a type");
             }
         }
 
-        void EmitIndexerName ()
+        void EmitIndexerName()
         {
             if (!has_normal_indexers)
                 return;
 
-            var ctor = Module.PredefinedMembers.DefaultMemberAttributeCtor.Get ();
+            var ctor = Module.PredefinedMembers.DefaultMemberAttributeCtor.Get();
             if (ctor == null)
                 return;
 
-            var encoder = new AttributeEncoder ();
-            encoder.Encode (GetAttributeDefaultMember ());
-            encoder.EncodeEmptyNamedArguments ();
+            var encoder = new AttributeEncoder();
+            encoder.Encode(GetAttributeDefaultMember());
+            encoder.EncodeEmptyNamedArguments();
 
-            TypeBuilder.SetCustomAttribute ((ConstructorInfo) ctor.GetMetaInfo (), encoder.ToArray ());
+            TypeBuilder.SetCustomAttribute((ConstructorInfo)ctor.GetMetaInfo(), encoder.ToArray());
         }
 
-        public override void VerifyMembers ()
+        public override void VerifyMembers()
         {
             //
             // Check for internal or private fields that were never assigned
             //
-            if (!IsCompilerGenerated && Compiler.Settings.WarningLevel >= 3 && this == PartialContainer) {
-                bool is_type_exposed = Kind == MemberKind.Struct || IsExposedFromAssembly ();
-                foreach (var member in members) {
-                    if (member is Event) {
+            if (!IsCompilerGenerated && Compiler.Settings.WarningLevel >= 3 && this == PartialContainer)
+            {
+                bool is_type_exposed = Kind == MemberKind.Struct || IsExposedFromAssembly();
+                foreach (var member in members)
+                {
+                    if (member is Event)
+                    {
                         //
                         // An event can be assigned from same class only, report
                         // this warning for all accessibility modes
                         //
                         if (!member.IsUsed && !PartialContainer.HasStructLayout)
-                            Report.Warning (67, 3, member.Location, "The event `{0}' is never used", member.GetSignatureForError ());
+                            Report.Warning(67, 3, member.Location, "The event `{0}' is never used", member.GetSignatureForError());
 
                         continue;
                     }
 
-                    if ((member.ModFlags & Modifiers.AccessibilityMask) != Modifiers.PRIVATE) {
+                    if ((member.ModFlags & Modifiers.AccessibilityMask) != Modifiers.PRIVATE)
+                    {
                         if (is_type_exposed)
                             continue;
 
-                        member.SetIsUsed ();
+                        member.SetIsUsed();
                     }
 
                     var f = member as Field;
                     if (f == null)
                         continue;
 
-                    if (!member.IsUsed) {
-                        if (!PartialContainer.HasStructLayout) {
-                            if ((member.caching_flags & Flags.IsAssigned) == 0) {
-                                Report.Warning (169, 3, member.Location, "The private field `{0}' is never used", member.GetSignatureForError ());
-                            } else {
-                                Report.Warning (414, 3, member.Location, "The private field `{0}' is assigned but its value is never used",
-                                    member.GetSignatureForError ());
+                    if (!member.IsUsed)
+                    {
+                        if (!PartialContainer.HasStructLayout)
+                        {
+                            if ((member.caching_flags & Flags.IsAssigned) == 0)
+                            {
+                                Report.Warning(169, 3, member.Location, "The private field `{0}' is never used", member.GetSignatureForError());
+                            }
+                            else
+                            {
+                                Report.Warning(414, 3, member.Location, "The private field `{0}' is assigned but its value is never used",
+                                    member.GetSignatureForError());
                             }
                         }
 
@@ -2170,113 +2480,134 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     if (f.OptAttributes != null || PartialContainer.HasStructLayout)
                         continue;
 
-                    Constant c = New.Constantify (f.MemberType, f.Location);
+                    Constant c = New.Constantify(f.MemberType, f.Location);
                     string value;
-                    if (c != null) {
-                        value = c.GetValueAsLiteral ();
-                    } else if (TypeSpec.IsReferenceType (f.MemberType)) {
+                    if (c != null)
+                    {
+                        value = c.GetValueAsLiteral();
+                    }
+                    else if (TypeSpec.IsReferenceType(f.MemberType))
+                    {
                         value = "null";
-                    } else {
+                    }
+                    else
+                    {
                         value = null;
                     }
 
                     if (value != null)
                         value = " `" + value + "'";
 
-                    Report.Warning (649, 4, f.Location, "Field `{0}' is never assigned to, and will always have its default value{1}",
-                        f.GetSignatureForError (), value);
+                    Report.Warning(649, 4, f.Location, "Field `{0}' is never assigned to, and will always have its default value{1}",
+                        f.GetSignatureForError(), value);
                 }
             }
 
-            base.VerifyMembers ();
+            base.VerifyMembers();
         }
 
-        public override void Emit ()
+        public override void Emit()
         {
             if (OptAttributes != null)
-                OptAttributes.Emit ();
+                OptAttributes.Emit();
 
-            if (!IsCompilerGenerated) {
-                if (!IsTopLevel) {
+            if (!IsCompilerGenerated)
+            {
+                if (!IsTopLevel)
+                {
                     MemberSpec candidate;
                     bool overrides = false;
-                    var conflict_symbol = MemberCache.FindBaseMember (this, out candidate, ref overrides);
-                    if (conflict_symbol == null && candidate == null) {
+                    var conflict_symbol = MemberCache.FindBaseMember(this, out candidate, ref overrides);
+                    if (conflict_symbol == null && candidate == null)
+                    {
                         if ((ModFlags & Modifiers.NEW) != 0)
-                            Report.Warning (109, 4, Location, "The member `{0}' does not hide an inherited member. The new keyword is not required",
-                                GetSignatureForError ());
-                    } else {
-                        if ((ModFlags & Modifiers.NEW) == 0) {
+                            Report.Warning(109, 4, Location, "The member `{0}' does not hide an inherited member. The new keyword is not required",
+                                GetSignatureForError());
+                    }
+                    else
+                    {
+                        if ((ModFlags & Modifiers.NEW) == 0)
+                        {
                             if (candidate == null)
                                 candidate = conflict_symbol;
 
-                            Report.SymbolRelatedToPreviousError (candidate);
-                            Report.Warning (108, 2, Location, "`{0}' hides inherited member `{1}'. Use the new keyword if hiding was intended",
-                                GetSignatureForError (), candidate.GetSignatureForError ());
+                            Report.SymbolRelatedToPreviousError(candidate);
+                            Report.Warning(108, 2, Location, "`{0}' hides inherited member `{1}'. Use the new keyword if hiding was intended",
+                                GetSignatureForError(), candidate.GetSignatureForError());
                         }
                     }
                 }
 
                 // Run constraints check on all possible generic types
-                if (base_type != null && base_type_expr != null) {
-                    ConstraintChecker.Check (this, base_type, base_type_expr.Location);
+                if (base_type != null && base_type_expr != null)
+                {
+                    ConstraintChecker.Check(this, base_type, base_type_expr.Location);
                 }
 
-                if (iface_exprs != null) {
-                    foreach (var iface_type in iface_exprs) {
+                if (iface_exprs != null)
+                {
+                    foreach (var iface_type in iface_exprs)
+                    {
                         if (iface_type == null)
                             continue;
 
-                        ConstraintChecker.Check (this, iface_type, Location);    // TODO: Location is wrong
+                        ConstraintChecker.Check(this, iface_type, Location);    // TODO: Location is wrong
                     }
                 }
             }
 
-            if (all_tp_builders != null) {
+            if (all_tp_builders != null)
+            {
                 int current_starts_index = CurrentTypeParametersStartIndex;
-                for (int i = 0; i < all_tp_builders.Length; i++) {
-                    if (i < current_starts_index) {
-                        all_type_parameters[i].EmitConstraints (all_tp_builders [i]);
-                    } else {
-                        var tp = CurrentTypeParameters [i - current_starts_index];
-                        tp.CheckGenericConstraints (!IsObsolete);
-                        tp.Emit ();
+                for (int i = 0; i < all_tp_builders.Length; i++)
+                {
+                    if (i < current_starts_index)
+                    {
+                        all_type_parameters[i].EmitConstraints(all_tp_builders[i]);
+                    }
+                    else
+                    {
+                        var tp = CurrentTypeParameters[i - current_starts_index];
+                        tp.CheckGenericConstraints(!IsObsolete);
+                        tp.Emit();
                     }
                 }
             }
 
             if ((ModFlags & Modifiers.COMPILER_GENERATED) != 0 && !Parent.IsCompilerGenerated)
-                Module.PredefinedAttributes.CompilerGenerated.EmitAttribute (TypeBuilder);
+                Module.PredefinedAttributes.CompilerGenerated.EmitAttribute(TypeBuilder);
 
 #if STATIC
             if ((TypeBuilder.Attributes & TypeAttributes.StringFormatMask) == 0 && Module.HasDefaultCharSet)
                 TypeBuilder.__SetAttributes (TypeBuilder.Attributes | Module.DefaultCharSetType);
 #endif
 
-            base.Emit ();
+            base.Emit();
 
-            for (int i = 0; i < members.Count; i++) {
+            for (int i = 0; i < members.Count; i++)
+            {
                 var m = members[i];
                 if ((m.caching_flags & Flags.CloseTypeCreated) != 0)
                     continue;
 
-                m.Emit ();
+                m.Emit();
             }
 
-            EmitIndexerName ();
-            CheckAttributeClsCompliance ();
+            EmitIndexerName();
+            CheckAttributeClsCompliance();
 
             if (pending != null)
-                pending.VerifyPendingMethods ();
+                pending.VerifyPendingMethods();
         }
 
 
-        void CheckAttributeClsCompliance ()
+        void CheckAttributeClsCompliance()
         {
-            if (!spec.IsAttribute || !IsExposedFromAssembly () || !Compiler.Settings.VerifyClsCompliance || !IsClsComplianceRequired ())
+            if (!spec.IsAttribute || !IsExposedFromAssembly() || !Compiler.Settings.VerifyClsCompliance || !IsClsComplianceRequired())
                 return;
 
-            foreach (var m in members) {
+            foreach (var m in members)
+            {
                 var c = m as Constructor;
                 if (c == null)
                     continue;
@@ -2285,45 +2616,56 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     return;
             }
 
-            Report.Warning (3015, 1, Location, "`{0}' has no accessible constructors which use only CLS-compliant types", GetSignatureForError ());
+            Report.Warning(3015, 1, Location, "`{0}' has no accessible constructors which use only CLS-compliant types", GetSignatureForError());
         }
 
-        public sealed override void EmitContainer ()
+        public sealed override void EmitContainer()
         {
             if ((caching_flags & Flags.CloseTypeCreated) != 0)
                 return;
 
-            Emit ();
+            Emit();
         }
 
-        public override void CloseContainer ()
+        public override void CloseContainer()
         {
             if ((caching_flags & Flags.CloseTypeCreated) != 0)
                 return;
 
             // Close base type container first to avoid TypeLoadException
-            if (spec.BaseType != null) {
+            if (spec.BaseType != null)
+            {
                 var btype = spec.BaseType.MemberDefinition as TypeContainer;
-                if (btype != null) {
-                    btype.CloseContainer ();
+                if (btype != null)
+                {
+                    btype.CloseContainer();
 
                     if ((caching_flags & Flags.CloseTypeCreated) != 0)
                         return;
                 }
             }
 
-            try {
+            try
+            {
                 caching_flags |= Flags.CloseTypeCreated;
-                TypeBuilder.CreateType ();
-            } catch (TypeLoadException) {
+#if NETSTANDARD2_0
+                TypeBuilder.CreateTypeInfo();
+#else
+                TypeBuilder.CreateType();
+#endif
+            }
+            catch (TypeLoadException)
+            {
                 //
                 // This is fine, the code still created the type
                 //
-            } catch (Exception e) {
-                throw new InternalErrorException (this, e);
+            }
+            catch (Exception e)
+            {
+                throw new InternalErrorException(this, e);
             }
 
-            base.CloseContainer ();
+            base.CloseContainer();
 
             containers = null;
             initialized_fields = null;
@@ -2338,7 +2680,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         //
         // TODO: Why is it not done at parse stage, move to Modifiers::Check
         //
-        public bool MethodModifiersValid (MemberCore mc)
+        public bool MethodModifiersValid(MemberCore mc)
         {
             const Modifiers vao = (Modifiers.VIRTUAL | Modifiers.ABSTRACT | Modifiers.OVERRIDE);
             const Modifiers nv = (Modifiers.NEW | Modifiers.VIRTUAL);
@@ -2348,17 +2690,20 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             //
             // At most one of static, virtual or override
             //
-            if ((flags & Modifiers.STATIC) != 0){
-                if ((flags & vao) != 0){
-                    Report.Error (112, mc.Location, "A static member `{0}' cannot be marked as override, virtual or abstract",
-                        mc.GetSignatureForError ());
+            if ((flags & Modifiers.STATIC) != 0)
+            {
+                if ((flags & vao) != 0)
+                {
+                    Report.Error(112, mc.Location, "A static member `{0}' cannot be marked as override, virtual or abstract",
+                        mc.GetSignatureForError());
                     ok = false;
                 }
             }
 
-            if ((flags & Modifiers.OVERRIDE) != 0 && (flags & nv) != 0){
-                Report.Error (113, mc.Location, "A member `{0}' marked as override cannot be marked as new or virtual",
-                    mc.GetSignatureForError ());
+            if ((flags & Modifiers.OVERRIDE) != 0 && (flags & nv) != 0)
+            {
+                Report.Error(113, mc.Location, "A member `{0}' marked as override cannot be marked as new or virtual",
+                    mc.GetSignatureForError());
                 ok = false;
             }
 
@@ -2366,41 +2711,50 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // If the declaration includes the abstract modifier, then the
             // declaration does not include static, virtual or extern
             //
-            if ((flags & Modifiers.ABSTRACT) != 0){
-                if ((flags & Modifiers.EXTERN) != 0){
-                    Report.Error (
-                        180, mc.Location, "`{0}' cannot be both extern and abstract", mc.GetSignatureForError ());
+            if ((flags & Modifiers.ABSTRACT) != 0)
+            {
+                if ((flags & Modifiers.EXTERN) != 0)
+                {
+                    Report.Error(
+                        180, mc.Location, "`{0}' cannot be both extern and abstract", mc.GetSignatureForError());
                     ok = false;
                 }
 
-                if ((flags & Modifiers.SEALED) != 0) {
-                    Report.Error (502, mc.Location, "`{0}' cannot be both abstract and sealed", mc.GetSignatureForError ());
+                if ((flags & Modifiers.SEALED) != 0)
+                {
+                    Report.Error(502, mc.Location, "`{0}' cannot be both abstract and sealed", mc.GetSignatureForError());
                     ok = false;
                 }
 
-                if ((flags & Modifiers.VIRTUAL) != 0){
-                    Report.Error (503, mc.Location, "The abstract method `{0}' cannot be marked virtual", mc.GetSignatureForError ());
+                if ((flags & Modifiers.VIRTUAL) != 0)
+                {
+                    Report.Error(503, mc.Location, "The abstract method `{0}' cannot be marked virtual", mc.GetSignatureForError());
                     ok = false;
                 }
 
-                if ((ModFlags & Modifiers.ABSTRACT) == 0){
-                    Report.SymbolRelatedToPreviousError (this);
-                    Report.Error (513, mc.Location, "`{0}' is abstract but it is declared in the non-abstract class `{1}'",
-                        mc.GetSignatureForError (), GetSignatureForError ());
+                if ((ModFlags & Modifiers.ABSTRACT) == 0)
+                {
+                    Report.SymbolRelatedToPreviousError(this);
+                    Report.Error(513, mc.Location, "`{0}' is abstract but it is declared in the non-abstract class `{1}'",
+                        mc.GetSignatureForError(), GetSignatureForError());
                     ok = false;
                 }
             }
 
-            if ((flags & Modifiers.PRIVATE) != 0){
-                if ((flags & vao) != 0){
-                    Report.Error (621, mc.Location, "`{0}': virtual or abstract members cannot be private", mc.GetSignatureForError ());
+            if ((flags & Modifiers.PRIVATE) != 0)
+            {
+                if ((flags & vao) != 0)
+                {
+                    Report.Error(621, mc.Location, "`{0}': virtual or abstract members cannot be private", mc.GetSignatureForError());
                     ok = false;
                 }
             }
 
-            if ((flags & Modifiers.SEALED) != 0){
-                if ((flags & Modifiers.OVERRIDE) == 0){
-                    Report.Error (238, mc.Location, "`{0}' cannot be sealed because it is not an override", mc.GetSignatureForError ());
+            if ((flags & Modifiers.SEALED) != 0)
+            {
+                if ((flags & Modifiers.OVERRIDE) == 0)
+                {
+                    Report.Error(238, mc.Location, "`{0}' cannot be sealed because it is not an override", mc.GetSignatureForError());
                     ok = false;
                 }
             }
@@ -2408,18 +2762,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return ok;
         }
 
-        protected override bool VerifyClsCompliance ()
+        protected override bool VerifyClsCompliance()
         {
-            if (!base.VerifyClsCompliance ())
+            if (!base.VerifyClsCompliance())
                 return false;
 
             // Check all container names for user classes
             if (Kind != MemberKind.Delegate)
-                MemberCache.VerifyClsCompliance (Definition, Report);
+                MemberCache.VerifyClsCompliance(Definition, Report);
 
-            if (BaseType != null && !BaseType.IsCLSCompliant ()) {
-                Report.Warning (3009, 1, Location, "`{0}': base type `{1}' is not CLS-compliant",
-                    GetSignatureForError (), BaseType.GetSignatureForError ());
+            if (BaseType != null && !BaseType.IsCLSCompliant())
+            {
+                Report.Warning(3009, 1, Location, "`{0}': base type `{1}' is not CLS-compliant",
+                    GetSignatureForError(), BaseType.GetSignatureForError());
             }
             return true;
         }
@@ -2429,11 +2784,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         ///   checks whether the `interface_type' is a base inteface implementation.
         ///   Then it checks whether `name' exists in the interface type.
         /// </summary>
-        public bool VerifyImplements (InterfaceMemberBase mb)
+        public bool VerifyImplements(InterfaceMemberBase mb)
         {
             var ifaces = PartialContainer.Interfaces;
-            if (ifaces != null) {
-                foreach (TypeSpec t in ifaces){
+            if (ifaces != null)
+            {
+                foreach (TypeSpec t in ifaces)
+                {
                     if (t == mb.InterfaceType)
                         return true;
 
@@ -2441,16 +2798,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     if (expanded_base == null)
                         continue;
 
-                    foreach (var bt in expanded_base) {
+                    foreach (var bt in expanded_base)
+                    {
                         if (bt == mb.InterfaceType)
                             return true;
                     }
                 }
             }
 
-            Report.SymbolRelatedToPreviousError (mb.InterfaceType);
-            Report.Error (540, mb.Location, "`{0}': containing type does not implement interface `{1}'",
-                mb.GetSignatureForError (), mb.InterfaceType.GetSignatureForError ());
+            Report.SymbolRelatedToPreviousError(mb.InterfaceType);
+            Report.Error(540, mb.Location, "`{0}': containing type does not implement interface `{1}'",
+                mb.GetSignatureForError(), mb.InterfaceType.GetSignatureForError());
             return false;
         }
 
@@ -2458,14 +2816,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         // Used for visiblity checks to tests whether this definition shares
         // base type baseType, it does member-definition search
         //
-        public bool IsBaseTypeDefinition (TypeSpec baseType)
+        public bool IsBaseTypeDefinition(TypeSpec baseType)
         {
             // RootContext check
             if (TypeBuilder == null)
                 return false;
 
             var type = spec;
-            do {
+            do
+            {
                 if (type.MemberDefinition == baseType.MemberDefinition)
                     return true;
 
@@ -2475,27 +2834,27 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return false;
         }
 
-        public override bool IsClsComplianceRequired ()
+        public override bool IsClsComplianceRequired()
         {
             if (IsPartialPart)
-                return PartialContainer.IsClsComplianceRequired ();
+                return PartialContainer.IsClsComplianceRequired();
 
-            return base.IsClsComplianceRequired ();
+            return base.IsClsComplianceRequired();
         }
 
-        bool ITypeDefinition.IsInternalAsPublic (IAssemblyDefinition assembly)
+        bool ITypeDefinition.IsInternalAsPublic(IAssemblyDefinition assembly)
         {
             return Module.DeclaringAssembly == assembly;
         }
 
-        public virtual bool IsUnmanagedType ()
+        public virtual bool IsUnmanagedType()
         {
             return false;
         }
 
-        public void LoadMembers (TypeSpec declaringType, bool onlyTypes, ref MemberCache cache)
+        public void LoadMembers(TypeSpec declaringType, bool onlyTypes, ref MemberCache cache)
         {
-            throw new NotSupportedException ("Not supported for compiled definition " + GetSignatureForError ());
+            throw new NotSupportedException("Not supported for compiled definition " + GetSignatureForError());
         }
 
         //
@@ -2503,31 +2862,35 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         //
         // Returns: Type or null if they type can not be found.
         //
-        public override FullNamedExpression LookupNamespaceOrType (string name, int arity, LookupMode mode, Location loc)
+        public override FullNamedExpression LookupNamespaceOrType(string name, int arity, LookupMode mode, Location loc)
         {
             FullNamedExpression e;
-            if (arity == 0 && Cache.TryGetValue (name, out e) && mode != LookupMode.IgnoreAccessibility)
+            if (arity == 0 && Cache.TryGetValue(name, out e) && mode != LookupMode.IgnoreAccessibility)
                 return e;
 
             e = null;
 
-            if (arity == 0) {
+            if (arity == 0)
+            {
                 var tp = CurrentTypeParameters;
-                if (tp != null) {
-                    TypeParameter tparam = tp.Find (name);
+                if (tp != null)
+                {
+                    TypeParameter tparam = tp.Find(name);
                     if (tparam != null)
-                        e = new TypeParameterExpr (tparam, Location.Null);
+                        e = new TypeParameterExpr(tparam, Location.Null);
                 }
             }
 
-            if (e == null) {
-                TypeSpec t = LookupNestedTypeInHierarchy (name, arity);
+            if (e == null)
+            {
+                TypeSpec t = LookupNestedTypeInHierarchy(name, arity);
 
-                if (t != null && (t.IsAccessible (this) || mode == LookupMode.IgnoreAccessibility))
-                    e = new TypeExpression (t, Location.Null);
-                else {
+                if (t != null && (t.IsAccessible(this) || mode == LookupMode.IgnoreAccessibility))
+                    e = new TypeExpression(t, Location.Null);
+                else
+                {
                     var errors = Compiler.Report.Errors;
-                    e = Parent.LookupNamespaceOrType (name, arity, mode, loc);
+                    e = Parent.LookupNamespaceOrType(name, arity, mode, loc);
 
                     // TODO: LookupNamespaceOrType does more than just lookup. The result
                     // cannot be cached or the error reporting won't happen
@@ -2543,7 +2906,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return e;
         }
 
-        TypeSpec LookupNestedTypeInHierarchy (string name, int arity)
+        TypeSpec LookupNestedTypeInHierarchy(string name, int arity)
         {
             // Has any nested type
             // Does not work, because base type can have
@@ -2551,52 +2914,60 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             //    return null;
 
             var container = PartialContainer.CurrentType;
-            return MemberCache.FindNestedType (container, name, arity);
+            return MemberCache.FindNestedType(container, name, arity);
         }
 
-        public void Mark_HasEquals ()
+        public void Mark_HasEquals()
         {
             cached_method |= CachedMethods.Equals;
         }
 
-        public void Mark_HasGetHashCode ()
+        public void Mark_HasGetHashCode()
         {
             cached_method |= CachedMethods.GetHashCode;
         }
 
-        public override void WriteDebugSymbol (MonoSymbolFile file)
+        public override void WriteDebugSymbol(MonoSymbolFile file)
         {
             if (IsPartialPart)
                 return;
 
-            foreach (var m in members) {
-                m.WriteDebugSymbol (file);
+            foreach (var m in members)
+            {
+                m.WriteDebugSymbol(file);
             }
         }
 
         /// <summary>
         /// Method container contains Equals method
         /// </summary>
-        public bool HasEquals {
-            get {
+        public bool HasEquals
+        {
+            get
+            {
                 return (cached_method & CachedMethods.Equals) != 0;
             }
         }
- 
+
         /// <summary>
         /// Method container contains GetHashCode method
         /// </summary>
-        public bool HasGetHashCode {
-            get {
+        public bool HasGetHashCode
+        {
+            get
+            {
                 return (cached_method & CachedMethods.GetHashCode) != 0;
             }
         }
 
-        public bool HasStaticFieldInitializer {
-            get {
+        public bool HasStaticFieldInitializer
+        {
+            get
+            {
                 return (cached_method & CachedMethods.HasStaticFieldInitializer) != 0;
             }
-            set {
+            set
+            {
                 if (value)
                     cached_method |= CachedMethods.HasStaticFieldInitializer;
                 else
@@ -2604,7 +2975,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
         }
 
-        public override string DocCommentHeader {
+        public override string DocCommentHeader
+        {
             get { return "T:"; }
         }
     }
@@ -2616,24 +2988,29 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         SecurityType declarative_security;
         protected Constructor generated_primary_constructor;
 
-        protected ClassOrStruct (TypeContainer parent, MemberName name, Attributes attrs, MemberKind kind)
-            : base (parent, name, attrs, kind)
+        protected ClassOrStruct(TypeContainer parent, MemberName name, Attributes attrs, MemberKind kind)
+            : base(parent, name, attrs, kind)
         {
         }
 
         public ToplevelBlock PrimaryConstructorBlock { get; set; }
 
-        protected override TypeAttributes TypeAttr {
-            get {
+        protected override TypeAttributes TypeAttr
+        {
+            get
+            {
                 TypeAttributes ta = base.TypeAttr;
                 if (!has_static_constructor)
                     ta |= TypeAttributes.BeforeFieldInit;
 
-                if (Kind == MemberKind.Class) {
+                if (Kind == MemberKind.Class)
+                {
                     ta |= TypeAttributes.AutoLayout | TypeAttributes.Class;
                     if (IsStatic)
                         ta |= StaticClassAttribute;
-                } else {
+                }
+                else
+                {
                     ta |= TypeAttributes.SequentialLayout;
                 }
 
@@ -2641,53 +3018,59 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
         }
 
-        public override void AddNameToContainer (MemberCore symbol, string name)
+        public override void AddNameToContainer(MemberCore symbol, string name)
         {
-            if (!(symbol is Constructor) && symbol.MemberName.Name == MemberName.Name) {
-                if (symbol is TypeParameter) {
-                    Report.Error (694, symbol.Location,
+            if (!(symbol is Constructor) && symbol.MemberName.Name == MemberName.Name)
+            {
+                if (symbol is TypeParameter)
+                {
+                    Report.Error(694, symbol.Location,
                         "Type parameter `{0}' has same name as containing type, or method",
-                        symbol.GetSignatureForError ());
+                        symbol.GetSignatureForError());
                     return;
                 }
 
                 InterfaceMemberBase imb = symbol as InterfaceMemberBase;
-                if (imb == null || !imb.IsExplicitImpl) {
-                    Report.SymbolRelatedToPreviousError (this);
-                    Report.Error (542, symbol.Location, "`{0}': member names cannot be the same as their enclosing type",
-                        symbol.GetSignatureForError ());
+                if (imb == null || !imb.IsExplicitImpl)
+                {
+                    Report.SymbolRelatedToPreviousError(this);
+                    Report.Error(542, symbol.Location, "`{0}': member names cannot be the same as their enclosing type",
+                        symbol.GetSignatureForError());
                     return;
                 }
             }
 
-            base.AddNameToContainer (symbol, name);
+            base.AddNameToContainer(symbol, name);
         }
 
-        public override void ApplyAttributeBuilder (Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
+        public override void ApplyAttributeBuilder(Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
         {
-            if (a.IsValidSecurityAttribute ()) {
-                a.ExtractSecurityPermissionSet (ctor, ref declarative_security);
+            if (a.IsValidSecurityAttribute())
+            {
+                a.ExtractSecurityPermissionSet(ctor, ref declarative_security);
                 return;
             }
 
-            if (a.Type == pa.StructLayout) {
+            if (a.Type == pa.StructLayout)
+            {
                 PartialContainer.HasStructLayout = true;
-                if (a.IsExplicitLayoutKind ())
+                if (a.IsExplicitLayoutKind())
                     PartialContainer.HasExplicitLayout = true;
             }
 
-            if (a.Type == pa.Dynamic) {
-                a.Error_MisusedDynamicAttribute ();
+            if (a.Type == pa.Dynamic)
+            {
+                a.Error_MisusedDynamicAttribute();
                 return;
             }
 
-            base.ApplyAttributeBuilder (a, ctor, cdata, pa);
+            base.ApplyAttributeBuilder(a, ctor, cdata, pa);
         }
 
         /// <summary>
         /// Defines the default constructors 
         /// </summary>
-        protected virtual Constructor DefineDefaultConstructor (bool is_static)
+        protected virtual Constructor DefineDefaultConstructor(bool is_static)
         {
             // The default instance constructor is public
             // If the class is abstract, the default constructor is protected
@@ -2695,82 +3078,100 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             Modifiers mods;
             ParametersCompiled parameters = null;
-            if (is_static) {
+            if (is_static)
+            {
                 mods = Modifiers.STATIC | Modifiers.PRIVATE;
                 parameters = ParametersCompiled.EmptyReadOnlyParameters;
-            } else {
+            }
+            else
+            {
                 mods = ((ModFlags & Modifiers.ABSTRACT) != 0) ? Modifiers.PROTECTED : Modifiers.PUBLIC;
                 parameters = PrimaryConstructorParameters ?? ParametersCompiled.EmptyReadOnlyParameters;
             }
 
-            var c = new Constructor (this, MemberName.Name, mods, null, parameters, Location);
+            var c = new Constructor(this, MemberName.Name, mods, null, parameters, Location);
             if (Kind == MemberKind.Class)
-                c.Initializer = new GeneratedBaseInitializer (Location, PrimaryConstructorBaseArguments);
+                c.Initializer = new GeneratedBaseInitializer(Location, PrimaryConstructorBaseArguments);
 
-            if (PrimaryConstructorParameters != null && !is_static) {
+            if (PrimaryConstructorParameters != null && !is_static)
+            {
                 c.IsPrimaryConstructor = true;
                 c.caching_flags |= Flags.MethodOverloadsExist;
             }
 
-            AddConstructor (c, true);
-            if (PrimaryConstructorBlock == null) {
-                c.Block = new ToplevelBlock (Compiler, parameters, Location) {
+            AddConstructor(c, true);
+            if (PrimaryConstructorBlock == null)
+            {
+                c.Block = new ToplevelBlock(Compiler, parameters, Location)
+                {
                     IsCompilerGenerated = true
                 };
-            } else {
+            }
+            else
+            {
                 c.Block = PrimaryConstructorBlock;
             }
 
             return c;
         }
 
-        protected override bool DoDefineMembers ()
+        protected override bool DoDefineMembers()
         {
-            CheckProtectedModifier ();
+            CheckProtectedModifier();
 
-            if (PrimaryConstructorParameters != null) {
+            if (PrimaryConstructorParameters != null)
+            {
 
-                foreach (Parameter p in PrimaryConstructorParameters.FixedParameters) {
-                    if (p.Name == MemberName.Name) {
-                        Report.Error (8039, p.Location, "Primary constructor of type `{0}' has parameter of same name as containing type",
-                            GetSignatureForError ());
+                foreach (Parameter p in PrimaryConstructorParameters.FixedParameters)
+                {
+                    if (p.Name == MemberName.Name)
+                    {
+                        Report.Error(8039, p.Location, "Primary constructor of type `{0}' has parameter of same name as containing type",
+                            GetSignatureForError());
                     }
 
-                    if (CurrentTypeParameters != null) {
-                        for (int i = 0; i < CurrentTypeParameters.Count; ++i) {
-                            var tp = CurrentTypeParameters [i];
-                            if (p.Name == tp.Name) {
-                                Report.Error (8038, p.Location, "Primary constructor of type `{0}' has parameter of same name as type parameter `{1}'",
-                                    GetSignatureForError (), p.GetSignatureForError ());
+                    if (CurrentTypeParameters != null)
+                    {
+                        for (int i = 0; i < CurrentTypeParameters.Count; ++i)
+                        {
+                            var tp = CurrentTypeParameters[i];
+                            if (p.Name == tp.Name)
+                            {
+                                Report.Error(8038, p.Location, "Primary constructor of type `{0}' has parameter of same name as type parameter `{1}'",
+                                    GetSignatureForError(), p.GetSignatureForError());
                             }
                         }
                     }
                 }
             }
 
-            base.DoDefineMembers ();
+            base.DoDefineMembers();
 
             return true;
         }
 
-        public override void Emit ()
+        public override void Emit()
         {
-            if (!has_static_constructor && HasStaticFieldInitializer) {
-                var c = DefineDefaultConstructor (true);
-                c.Define ();
+            if (!has_static_constructor && HasStaticFieldInitializer)
+            {
+                var c = DefineDefaultConstructor(true);
+                c.Define();
             }
 
-            base.Emit ();
+            base.Emit();
 
-            if (declarative_security != null) {
-                foreach (var de in declarative_security) {
+#if NETSTANDARD2_0
+#else
+            if (declarative_security != null)
+            {
+                foreach (var de in declarative_security)
+                {
 #if STATIC
                     TypeBuilder.__AddDeclarativeSecurity (de);
 #else
-                    TypeBuilder.AddDeclarativeSecurity (de.Key, de.Value);
+                    TypeBuilder.AddDeclarativeSecurity(de.Key, de.Value);
 #endif
-                }
-            }
+#endif
         }
     }
 
@@ -2788,187 +3189,221 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Modifiers.STATIC |
             Modifiers.UNSAFE;
 
-        public Class (TypeContainer parent, MemberName name, Modifiers mod, Attributes attrs)
-            : base (parent, name, attrs, MemberKind.Class)
+        public Class(TypeContainer parent, MemberName name, Modifiers mod, Attributes attrs)
+            : base(parent, name, attrs, MemberKind.Class)
         {
             var accmods = IsTopLevel ? Modifiers.INTERNAL : Modifiers.PRIVATE;
-            this.ModFlags = ModifiersExtensions.Check (AllowedModifiers, mod, accmods, Location, Report);
-            spec = new TypeSpec (Kind, null, this, null, ModFlags);
+            this.ModFlags = ModifiersExtensions.Check(AllowedModifiers, mod, accmods, Location, Report);
+            spec = new TypeSpec(Kind, null, this, null, ModFlags);
         }
 
-        public override void Accept (StructuralVisitor visitor)
+        public override void Accept(StructuralVisitor visitor)
         {
-            visitor.Visit (this);
+            visitor.Visit(this);
         }
 
-        public override void SetBaseTypes (List<FullNamedExpression> baseTypes)
+        public override void SetBaseTypes(List<FullNamedExpression> baseTypes)
         {
             var pmn = MemberName;
             if (pmn.Name == "Object" && !pmn.IsGeneric && Parent.MemberName.Name == "System" && Parent.MemberName.Left == null)
-                Report.Error (537, Location,
+                Report.Error(537, Location,
                     "The class System.Object cannot have a base class or implement an interface.");
 
-            base.SetBaseTypes (baseTypes);
+            base.SetBaseTypes(baseTypes);
         }
 
-        public override void ApplyAttributeBuilder (Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
+        public override void ApplyAttributeBuilder(Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
         {
-            if (a.Type == pa.AttributeUsage) {
-                if (!BaseType.IsAttribute && spec.BuiltinType != BuiltinTypeSpec.Type.Attribute) {
-                    Report.Error (641, a.Location, "Attribute `{0}' is only valid on classes derived from System.Attribute", a.GetSignatureForError ());
+            if (a.Type == pa.AttributeUsage)
+            {
+                if (!BaseType.IsAttribute && spec.BuiltinType != BuiltinTypeSpec.Type.Attribute)
+                {
+                    Report.Error(641, a.Location, "Attribute `{0}' is only valid on classes derived from System.Attribute", a.GetSignatureForError());
                 }
             }
 
-            if (a.Type == pa.Conditional && !BaseType.IsAttribute) {
-                Report.Error (1689, a.Location, "Attribute `System.Diagnostics.ConditionalAttribute' is only valid on methods or attribute classes");
+            if (a.Type == pa.Conditional && !BaseType.IsAttribute)
+            {
+                Report.Error(1689, a.Location, "Attribute `System.Diagnostics.ConditionalAttribute' is only valid on methods or attribute classes");
                 return;
             }
 
-            if (a.Type == pa.ComImport && !attributes.Contains (pa.Guid)) {
-                a.Error_MissingGuidAttribute ();
+            if (a.Type == pa.ComImport && !attributes.Contains(pa.Guid))
+            {
+                a.Error_MissingGuidAttribute();
                 return;
             }
 
-            if (a.Type == pa.Extension) {
-                a.Error_MisusedExtensionAttribute ();
+            if (a.Type == pa.Extension)
+            {
+                a.Error_MisusedExtensionAttribute();
                 return;
             }
 
-            if (a.Type.IsConditionallyExcluded (this))
+            if (a.Type.IsConditionallyExcluded(this))
                 return;
 
-            base.ApplyAttributeBuilder (a, ctor, cdata, pa);
+            base.ApplyAttributeBuilder(a, ctor, cdata, pa);
         }
 
-        public override AttributeTargets AttributeTargets {
-            get {
+        public override AttributeTargets AttributeTargets
+        {
+            get
+            {
                 return AttributeTargets.Class;
             }
         }
 
-        protected override bool DoDefineMembers ()
+        protected override bool DoDefineMembers()
         {
-            if ((ModFlags & Modifiers.ABSTRACT) == Modifiers.ABSTRACT && (ModFlags & (Modifiers.SEALED | Modifiers.STATIC)) != 0) {
-                Report.Error (418, Location, "`{0}': an abstract class cannot be sealed or static", GetSignatureForError ());
+            if ((ModFlags & Modifiers.ABSTRACT) == Modifiers.ABSTRACT && (ModFlags & (Modifiers.SEALED | Modifiers.STATIC)) != 0)
+            {
+                Report.Error(418, Location, "`{0}': an abstract class cannot be sealed or static", GetSignatureForError());
             }
 
-            if ((ModFlags & (Modifiers.SEALED | Modifiers.STATIC)) == (Modifiers.SEALED | Modifiers.STATIC)) {
-                Report.Error (441, Location, "`{0}': a class cannot be both static and sealed", GetSignatureForError ());
+            if ((ModFlags & (Modifiers.SEALED | Modifiers.STATIC)) == (Modifiers.SEALED | Modifiers.STATIC))
+            {
+                Report.Error(441, Location, "`{0}': a class cannot be both static and sealed", GetSignatureForError());
             }
 
-            if (IsStatic) {
-                if (PrimaryConstructorParameters != null) {
-                    Report.Error (-800, Location, "`{0}': Static classes cannot have primary constructor", GetSignatureForError ());
+            if (IsStatic)
+            {
+                if (PrimaryConstructorParameters != null)
+                {
+                    Report.Error(-800, Location, "`{0}': Static classes cannot have primary constructor", GetSignatureForError());
                     PrimaryConstructorParameters = null;
                 }
 
-                foreach (var m in Members) {
-                    if (m is Operator) {
-                        Report.Error (715, m.Location, "`{0}': Static classes cannot contain user-defined operators", m.GetSignatureForError ());
+                foreach (var m in Members)
+                {
+                    if (m is Operator)
+                    {
+                        Report.Error(715, m.Location, "`{0}': Static classes cannot contain user-defined operators", m.GetSignatureForError());
                         continue;
                     }
 
-                    if (m is Destructor) {
-                        Report.Error (711, m.Location, "`{0}': Static classes cannot contain destructor", GetSignatureForError ());
+                    if (m is Destructor)
+                    {
+                        Report.Error(711, m.Location, "`{0}': Static classes cannot contain destructor", GetSignatureForError());
                         continue;
                     }
 
-                    if (m is Indexer) {
-                        Report.Error (720, m.Location, "`{0}': cannot declare indexers in a static class", m.GetSignatureForError ());
+                    if (m is Indexer)
+                    {
+                        Report.Error(720, m.Location, "`{0}': cannot declare indexers in a static class", m.GetSignatureForError());
                         continue;
                     }
 
                     if ((m.ModFlags & Modifiers.STATIC) != 0 || m is TypeContainer)
                         continue;
 
-                    if (m is Constructor) {
-                        Report.Error (710, m.Location, "`{0}': Static classes cannot have instance constructors", GetSignatureForError ());
+                    if (m is Constructor)
+                    {
+                        Report.Error(710, m.Location, "`{0}': Static classes cannot have instance constructors", GetSignatureForError());
                         continue;
                     }
 
-                    Report.Error (708, m.Location, "`{0}': cannot declare instance members in a static class", m.GetSignatureForError ());
+                    Report.Error(708, m.Location, "`{0}': cannot declare instance members in a static class", m.GetSignatureForError());
                 }
-            } else {
+            }
+            else
+            {
                 if (!PartialContainer.HasInstanceConstructor || PrimaryConstructorParameters != null)
-                    generated_primary_constructor = DefineDefaultConstructor (false);
+                    generated_primary_constructor = DefineDefaultConstructor(false);
             }
 
-            return base.DoDefineMembers ();
+            return base.DoDefineMembers();
         }
 
-        public override void Emit ()
+        public override void Emit()
         {
-            base.Emit ();
+            base.Emit();
 
             if ((ModFlags & Modifiers.METHOD_EXTENSION) != 0)
-                Module.PredefinedAttributes.Extension.EmitAttribute (TypeBuilder);
+                Module.PredefinedAttributes.Extension.EmitAttribute(TypeBuilder);
 
-            if (base_type != null && base_type.HasDynamicElement) {
-                Module.PredefinedAttributes.Dynamic.EmitAttribute (TypeBuilder, base_type, Location);
+            if (base_type != null && base_type.HasDynamicElement)
+            {
+                Module.PredefinedAttributes.Dynamic.EmitAttribute(TypeBuilder, base_type, Location);
             }
         }
 
-        public override void GetCompletionStartingWith (string prefix, List<string> results)
+        public override void GetCompletionStartingWith(string prefix, List<string> results)
         {
-            base.GetCompletionStartingWith (prefix, results);
+            base.GetCompletionStartingWith(prefix, results);
 
             var bt = base_type;
-            while (bt != null) {
-                results.AddRange (MemberCache.GetCompletitionMembers (this, bt, prefix).Where (l => l.IsStatic).Select (l => l.Name));
+            while (bt != null)
+            {
+                results.AddRange(MemberCache.GetCompletitionMembers(this, bt, prefix).Where(l => l.IsStatic).Select(l => l.Name));
                 bt = bt.BaseType;
             }
         }
 
-        protected override TypeSpec[] ResolveBaseTypes (out FullNamedExpression base_class)
+        protected override TypeSpec[] ResolveBaseTypes(out FullNamedExpression base_class)
         {
-            var ifaces = base.ResolveBaseTypes (out base_class);
+            var ifaces = base.ResolveBaseTypes(out base_class);
 
-            if (base_class == null) {
+            if (base_class == null)
+            {
                 if (spec.BuiltinType != BuiltinTypeSpec.Type.Object)
                     base_type = Compiler.BuiltinTypes.Object;
-            } else {
-                if (base_type.IsGenericParameter){
-                    Report.Error (689, base_class.Location, "`{0}': Cannot derive from type parameter `{1}'",
-                        GetSignatureForError (), base_type.GetSignatureForError ());
-                } else if (base_type.IsStatic) {
-                    Report.SymbolRelatedToPreviousError (base_type);
-                    Report.Error (709, Location, "`{0}': Cannot derive from static class `{1}'",
-                        GetSignatureForError (), base_type.GetSignatureForError ());
-                } else if (base_type.IsSealed) {
-                    Report.SymbolRelatedToPreviousError (base_type);
-                    Report.Error (509, Location, "`{0}': cannot derive from sealed type `{1}'",
-                        GetSignatureForError (), base_type.GetSignatureForError ());
-                } else if (PartialContainer.IsStatic && base_type.BuiltinType != BuiltinTypeSpec.Type.Object) {
-                    Report.Error (713, Location, "Static class `{0}' cannot derive from type `{1}'. Static classes must derive from object",
-                        GetSignatureForError (), base_type.GetSignatureForError ());
+            }
+            else
+            {
+                if (base_type.IsGenericParameter)
+                {
+                    Report.Error(689, base_class.Location, "`{0}': Cannot derive from type parameter `{1}'",
+                        GetSignatureForError(), base_type.GetSignatureForError());
+                }
+                else if (base_type.IsStatic)
+                {
+                    Report.SymbolRelatedToPreviousError(base_type);
+                    Report.Error(709, Location, "`{0}': Cannot derive from static class `{1}'",
+                        GetSignatureForError(), base_type.GetSignatureForError());
+                }
+                else if (base_type.IsSealed)
+                {
+                    Report.SymbolRelatedToPreviousError(base_type);
+                    Report.Error(509, Location, "`{0}': cannot derive from sealed type `{1}'",
+                        GetSignatureForError(), base_type.GetSignatureForError());
+                }
+                else if (PartialContainer.IsStatic && base_type.BuiltinType != BuiltinTypeSpec.Type.Object)
+                {
+                    Report.Error(713, Location, "Static class `{0}' cannot derive from type `{1}'. Static classes must derive from object",
+                        GetSignatureForError(), base_type.GetSignatureForError());
                 }
 
-                switch (base_type.BuiltinType) {
-                case BuiltinTypeSpec.Type.Enum:
-                case BuiltinTypeSpec.Type.ValueType:
-                case BuiltinTypeSpec.Type.MulticastDelegate:
-                case BuiltinTypeSpec.Type.Delegate:
-                case BuiltinTypeSpec.Type.Array:
-                    if (!(spec is BuiltinTypeSpec)) {
-                        Report.Error (644, Location, "`{0}' cannot derive from special class `{1}'",
-                            GetSignatureForError (), base_type.GetSignatureForError ());
+                switch (base_type.BuiltinType)
+                {
+                    case BuiltinTypeSpec.Type.Enum:
+                    case BuiltinTypeSpec.Type.ValueType:
+                    case BuiltinTypeSpec.Type.MulticastDelegate:
+                    case BuiltinTypeSpec.Type.Delegate:
+                    case BuiltinTypeSpec.Type.Array:
+                        if (!(spec is BuiltinTypeSpec))
+                        {
+                            Report.Error(644, Location, "`{0}' cannot derive from special class `{1}'",
+                                GetSignatureForError(), base_type.GetSignatureForError());
 
-                        base_type = Compiler.BuiltinTypes.Object;
-                    }
-                    break;
+                            base_type = Compiler.BuiltinTypes.Object;
+                        }
+                        break;
                 }
 
-                if (!IsAccessibleAs (base_type)) {
-                    Report.SymbolRelatedToPreviousError (base_type);
-                    Report.Error (60, Location, "Inconsistent accessibility: base class `{0}' is less accessible than class `{1}'",
-                        base_type.GetSignatureForError (), GetSignatureForError ());
+                if (!IsAccessibleAs(base_type))
+                {
+                    Report.SymbolRelatedToPreviousError(base_type);
+                    Report.Error(60, Location, "Inconsistent accessibility: base class `{0}' is less accessible than class `{1}'",
+                        base_type.GetSignatureForError(), GetSignatureForError());
                 }
             }
 
-            if (PartialContainer.IsStatic && ifaces != null) {
+            if (PartialContainer.IsStatic && ifaces != null)
+            {
                 foreach (var t in ifaces)
-                    Report.SymbolRelatedToPreviousError (t);
-                Report.Error (714, Location, "Static class `{0}' cannot implement interfaces", GetSignatureForError ());
+                    Report.SymbolRelatedToPreviousError(t);
+                Report.Error(714, Location, "Static class `{0}' cannot implement interfaces", GetSignatureForError());
             }
 
             return ifaces;
@@ -2976,7 +3411,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         /// Search for at least one defined condition in ConditionalAttribute of attribute class
         /// Valid only for attribute classes.
-        public override string[] ConditionalConditions ()
+        public override string[] ConditionalConditions()
         {
             if ((caching_flags & (Flags.Excluded_Undetected | Flags.Excluded)) == 0)
                 return null;
@@ -2986,13 +3421,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (OptAttributes == null)
                 return null;
 
-            Attribute[] attrs = OptAttributes.SearchMulti (Module.PredefinedAttributes.Conditional);
+            Attribute[] attrs = OptAttributes.SearchMulti(Module.PredefinedAttributes.Conditional);
             if (attrs == null)
                 return null;
 
             string[] conditions = new string[attrs.Length];
             for (int i = 0; i < conditions.Length; ++i)
-                conditions[i] = attrs[i].GetConditionalAttributeValue ();
+                conditions[i] = attrs[i].GetConditionalAttributeValue();
 
             caching_flags |= Flags.Excluded;
             return conditions;
@@ -3008,63 +3443,68 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         //   Modifiers allowed in a struct declaration
         // </summary>
         const Modifiers AllowedModifiers =
-            Modifiers.NEW       |
-            Modifiers.PUBLIC    |
+            Modifiers.NEW |
+            Modifiers.PUBLIC |
             Modifiers.PROTECTED |
-            Modifiers.INTERNAL  |
-            Modifiers.UNSAFE    |
+            Modifiers.INTERNAL |
+            Modifiers.UNSAFE |
             Modifiers.PRIVATE;
 
-        public Struct (TypeContainer parent, MemberName name, Modifiers mod, Attributes attrs)
-            : base (parent, name, attrs, MemberKind.Struct)
+        public Struct(TypeContainer parent, MemberName name, Modifiers mod, Attributes attrs)
+            : base(parent, name, attrs, MemberKind.Struct)
         {
             var accmods = IsTopLevel ? Modifiers.INTERNAL : Modifiers.PRIVATE;
-            this.ModFlags = ModifiersExtensions.Check (AllowedModifiers, mod, accmods, Location, Report) | Modifiers.SEALED ;
-            spec = new TypeSpec (Kind, null, this, null, ModFlags);
+            this.ModFlags = ModifiersExtensions.Check(AllowedModifiers, mod, accmods, Location, Report) | Modifiers.SEALED;
+            spec = new TypeSpec(Kind, null, this, null, ModFlags);
         }
 
-        public override AttributeTargets AttributeTargets {
-            get {
+        public override AttributeTargets AttributeTargets
+        {
+            get
+            {
                 return AttributeTargets.Struct;
             }
         }
 
-        public override void Accept (StructuralVisitor visitor)
+        public override void Accept(StructuralVisitor visitor)
         {
-            visitor.Visit (this);
+            visitor.Visit(this);
         }
 
-        public override void ApplyAttributeBuilder (Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
+        public override void ApplyAttributeBuilder(Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
         {
-            base.ApplyAttributeBuilder (a, ctor, cdata, pa);
+            base.ApplyAttributeBuilder(a, ctor, cdata, pa);
 
             //
             // When struct constains fixed fixed and struct layout has explicitly
             // set CharSet, its value has to be propagated to compiler generated
             // fixed types
             //
-            if (a.Type == pa.StructLayout) {
-                var value = a.GetNamedValue ("CharSet");
+            if (a.Type == pa.StructLayout)
+            {
+                var value = a.GetNamedValue("CharSet");
                 if (value == null)
                     return;
 
-                for (int i = 0; i < Members.Count; ++i) {
-                    FixedField ff = Members [i] as FixedField;
+                for (int i = 0; i < Members.Count; ++i)
+                {
+                    FixedField ff = Members[i] as FixedField;
                     if (ff == null)
                         continue;
 
-                    ff.CharSet = (CharSet) System.Enum.Parse (typeof (CharSet), value.GetValue ().ToString ());
+                    ff.CharSet = (CharSet)System.Enum.Parse(typeof(CharSet), value.GetValue().ToString());
                 }
             }
         }
 
-        bool CheckStructCycles ()
+        bool CheckStructCycles()
         {
             if (InTransit)
                 return false;
 
             InTransit = true;
-            foreach (var member in Members) {
+            foreach (var member in Members)
+            {
                 var field = member as Field;
                 if (field == null)
                     continue;
@@ -3076,11 +3516,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (ftype is BuiltinTypeSpec)
                     continue;
 
-                foreach (var targ in ftype.TypeArguments) {
-                    if (!CheckFieldTypeCycle (targ)) {
-                        Report.Error (523, field.Location,
+                foreach (var targ in ftype.TypeArguments)
+                {
+                    if (!CheckFieldTypeCycle(targ))
+                    {
+                        Report.Error(523, field.Location,
                             "Struct member `{0}' of type `{1}' causes a cycle in the struct layout",
-                            field.GetSignatureForError (), ftype.GetSignatureForError ());
+                            field.GetSignatureForError(), ftype.GetSignatureForError());
                         break;
                     }
                 }
@@ -3091,10 +3533,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (field.IsStatic && ftype == CurrentType)
                     continue;
 
-                if (!CheckFieldTypeCycle (ftype)) {
-                    Report.Error (523, field.Location,
+                if (!CheckFieldTypeCycle(ftype))
+                {
+                    Report.Error(523, field.Location,
                         "Struct member `{0}' of type `{1}' causes a cycle in the struct layout",
-                        field.GetSignatureForError (), ftype.GetSignatureForError ());
+                        field.GetSignatureForError(), ftype.GetSignatureForError());
                     break;
                 }
             }
@@ -3103,37 +3546,39 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return true;
         }
 
-        static bool CheckFieldTypeCycle (TypeSpec ts)
+        static bool CheckFieldTypeCycle(TypeSpec ts)
         {
             var fts = ts.MemberDefinition as Struct;
             if (fts == null)
                 return true;
 
-            return fts.CheckStructCycles ();
+            return fts.CheckStructCycles();
         }
 
-        protected override bool DoDefineMembers ()
+        protected override bool DoDefineMembers()
         {
-            var res = base.DoDefineMembers ();
+            var res = base.DoDefineMembers();
 
-            if (PrimaryConstructorParameters != null || (initialized_fields != null && !HasUserDefaultConstructor ())) {
-                generated_primary_constructor = DefineDefaultConstructor (false);
-                generated_primary_constructor.Define ();
+            if (PrimaryConstructorParameters != null || (initialized_fields != null && !HasUserDefaultConstructor()))
+            {
+                generated_primary_constructor = DefineDefaultConstructor(false);
+                generated_primary_constructor.Define();
             }
 
             return res;
         }
 
-        public override void Emit ()
+        public override void Emit()
         {
-            CheckStructCycles ();
+            CheckStructCycles();
 
-            base.Emit ();
+            base.Emit();
         }
 
-        bool HasUserDefaultConstructor ()
+        bool HasUserDefaultConstructor()
         {
-            foreach (var m in PartialContainer.Members) {
+            foreach (var m in PartialContainer.Members)
+            {
                 var c = m as Constructor;
                 if (c == null)
                     continue;
@@ -3145,7 +3590,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return false;
         }
 
-        public override bool IsUnmanagedType ()
+        public override bool IsUnmanagedType()
         {
             if (has_unmanaged_check_done)
                 return is_unmanaged;
@@ -3154,15 +3599,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return true;
 
             var parent_def = Parent.PartialContainer;
-            if (parent_def != null && parent_def.IsGenericOrParentIsGeneric) {
+            if (parent_def != null && parent_def.IsGenericOrParentIsGeneric)
+            {
                 has_unmanaged_check_done = true;
                 return false;
             }
 
-            if (first_nonstatic_field != null) {
+            if (first_nonstatic_field != null)
+            {
                 requires_delayed_unmanagedtype_check = true;
 
-                foreach (var member in Members) {
+                foreach (var member in Members)
+                {
                     var f = member as Field;
                     if (f == null)
                         continue;
@@ -3173,7 +3621,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     // It can happen when recursive unmanaged types are defined
                     // struct S { S* s; }
                     TypeSpec mt = f.MemberType;
-                    if (mt == null) {
+                    if (mt == null)
+                    {
                         return true;
                     }
 
@@ -3191,9 +3640,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return true;
         }
 
-        protected override TypeSpec[] ResolveBaseTypes (out FullNamedExpression base_class)
+        protected override TypeSpec[] ResolveBaseTypes(out FullNamedExpression base_class)
         {
-            var ifaces = base.ResolveBaseTypes (out base_class);
+            var ifaces = base.ResolveBaseTypes(out base_class);
             base_type = Compiler.BuiltinTypes.ValueType;
             return ifaces;
         }
@@ -3202,38 +3651,43 @@ namespace ICSharpCode.NRefactory.MonoCSharp
     /// <summary>
     ///   Interfaces
     /// </summary>
-    public sealed class Interface : TypeDefinition {
+    public sealed class Interface : TypeDefinition
+    {
 
         /// <summary>
         ///   Modifiers allowed in a class declaration
         /// </summary>
         const Modifiers AllowedModifiers =
-            Modifiers.NEW       |
-            Modifiers.PUBLIC    |
+            Modifiers.NEW |
+            Modifiers.PUBLIC |
             Modifiers.PROTECTED |
-            Modifiers.INTERNAL  |
-             Modifiers.UNSAFE    |
+            Modifiers.INTERNAL |
+             Modifiers.UNSAFE |
             Modifiers.PRIVATE;
 
-        public Interface (TypeContainer parent, MemberName name, Modifiers mod, Attributes attrs)
-            : base (parent, name, attrs, MemberKind.Interface)
+        public Interface(TypeContainer parent, MemberName name, Modifiers mod, Attributes attrs)
+            : base(parent, name, attrs, MemberKind.Interface)
         {
             var accmods = IsTopLevel ? Modifiers.INTERNAL : Modifiers.PRIVATE;
 
-            this.ModFlags = ModifiersExtensions.Check (AllowedModifiers, mod, accmods, name.Location, Report);
-            spec = new TypeSpec (Kind, null, this, null, ModFlags);
+            this.ModFlags = ModifiersExtensions.Check(AllowedModifiers, mod, accmods, name.Location, Report);
+            spec = new TypeSpec(Kind, null, this, null, ModFlags);
         }
 
-        #region Properties
+#region Properties
 
-        public override AttributeTargets AttributeTargets {
-            get {
+        public override AttributeTargets AttributeTargets
+        {
+            get
+            {
                 return AttributeTargets.Interface;
             }
         }
 
-        protected override TypeAttributes TypeAttr {
-            get {
+        protected override TypeAttributes TypeAttr
+        {
+            get
+            {
                 const TypeAttributes DefaultTypeAttributes =
                     TypeAttributes.AutoLayout |
                     TypeAttributes.Abstract |
@@ -3243,36 +3697,39 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
         }
 
-        #endregion
+#endregion
 
-        public override void Accept (StructuralVisitor visitor)
+        public override void Accept(StructuralVisitor visitor)
         {
-            visitor.Visit (this);
+            visitor.Visit(this);
         }
 
-        public override void ApplyAttributeBuilder (Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
+        public override void ApplyAttributeBuilder(Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
         {
-            if (a.Type == pa.ComImport && !attributes.Contains (pa.Guid)) {
-                a.Error_MissingGuidAttribute ();
+            if (a.Type == pa.ComImport && !attributes.Contains(pa.Guid))
+            {
+                a.Error_MissingGuidAttribute();
                 return;
             }
 
-            base.ApplyAttributeBuilder (a, ctor, cdata, pa);
+            base.ApplyAttributeBuilder(a, ctor, cdata, pa);
         }
 
-        protected override bool VerifyClsCompliance ()
+        protected override bool VerifyClsCompliance()
         {
-            if (!base.VerifyClsCompliance ())
+            if (!base.VerifyClsCompliance())
                 return false;
 
-            if (iface_exprs != null) {
-                foreach (var iface in iface_exprs) {
-                    if (iface.IsCLSCompliant ())
+            if (iface_exprs != null)
+            {
+                foreach (var iface in iface_exprs)
+                {
+                    if (iface.IsCLSCompliant())
                         continue;
 
-                    Report.SymbolRelatedToPreviousError (iface);
-                    Report.Warning (3027, 1, Location, "`{0}' is not CLS-compliant because base interface `{1}' is not CLS-compliant",
-                        GetSignatureForError (), iface.GetSignatureForError ());
+                    Report.SymbolRelatedToPreviousError(iface);
+                    Report.Warning(3027, 1, Location, "`{0}' is not CLS-compliant because base interface `{1}' is not CLS-compliant",
+                        GetSignatureForError(), iface.GetSignatureForError());
                 }
             }
 
@@ -3345,8 +3802,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         readonly Modifiers explicit_mod_flags;
         public MethodAttributes flags;
 
-        protected InterfaceMemberBase (TypeDefinition parent, FullNamedExpression type, Modifiers mod, Modifiers allowed_mod, MemberName name, Attributes attrs)
-            : base (parent, type, mod, allowed_mod, Modifiers.PRIVATE, name, attrs)
+        protected InterfaceMemberBase(TypeDefinition parent, FullNamedExpression type, Modifiers mod, Modifiers allowed_mod, MemberName name, Attributes attrs)
+            : base(parent, type, mod, allowed_mod, Modifiers.PRIVATE, name, attrs)
         {
             IsInterface = parent.Kind == MemberKind.Interface;
             IsExplicitImpl = (MemberName.ExplicitInterface != null);
@@ -3355,13 +3812,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public abstract Variance ExpectedMemberTypeVariance { get; }
 
-        protected override bool CheckBase ()
+        protected override bool CheckBase()
         {
-            if (!base.CheckBase ())
+            if (!base.CheckBase())
                 return false;
 
             if ((caching_flags & Flags.MethodOverloadsExist) != 0)
-                CheckForDuplications ();
+                CheckForDuplications();
 
             if (IsExplicitImpl)
                 return true;
@@ -3372,29 +3829,37 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             MemberSpec candidate;
             bool overrides = false;
-            var base_member = FindBaseMember (out candidate, ref overrides);
+            var base_member = FindBaseMember(out candidate, ref overrides);
 
-            if ((ModFlags & Modifiers.OVERRIDE) != 0) {
-                if (base_member == null) {
-                    if (candidate == null) {
-                        if (this is Method && ((Method)this).ParameterInfo.IsEmpty && MemberName.Name == Destructor.MetadataName && MemberName.Arity == 0) {
-                            Report.Error (249, Location, "Do not override `{0}'. Use destructor syntax instead",
+            if ((ModFlags & Modifiers.OVERRIDE) != 0)
+            {
+                if (base_member == null)
+                {
+                    if (candidate == null)
+                    {
+                        if (this is Method && ((Method)this).ParameterInfo.IsEmpty && MemberName.Name == Destructor.MetadataName && MemberName.Arity == 0)
+                        {
+                            Report.Error(249, Location, "Do not override `{0}'. Use destructor syntax instead",
                                 "object.Finalize()");
-                        } else {
-                            Report.Error (115, Location, "`{0}' is marked as an override but no suitable {1} found to override",
-                                GetSignatureForError (), SimpleName.GetMemberType (this));
                         }
-                    } else {
-                        Report.SymbolRelatedToPreviousError (candidate);
-                        if (this is Event)
-                            Report.Error (72, Location, "`{0}': cannot override because `{1}' is not an event",
-                                GetSignatureForError (), TypeManager.GetFullNameSignature (candidate));
-                        else if (this is PropertyBase)
-                            Report.Error (544, Location, "`{0}': cannot override because `{1}' is not a property",
-                                GetSignatureForError (), TypeManager.GetFullNameSignature (candidate));
                         else
-                            Report.Error (505, Location, "`{0}': cannot override because `{1}' is not a method",
-                                GetSignatureForError (), TypeManager.GetFullNameSignature (candidate));
+                        {
+                            Report.Error(115, Location, "`{0}' is marked as an override but no suitable {1} found to override",
+                                GetSignatureForError(), SimpleName.GetMemberType(this));
+                        }
+                    }
+                    else
+                    {
+                        Report.SymbolRelatedToPreviousError(candidate);
+                        if (this is Event)
+                            Report.Error(72, Location, "`{0}': cannot override because `{1}' is not an event",
+                                GetSignatureForError(), TypeManager.GetFullNameSignature(candidate));
+                        else if (this is PropertyBase)
+                            Report.Error(544, Location, "`{0}': cannot override because `{1}' is not a property",
+                                GetSignatureForError(), TypeManager.GetFullNameSignature(candidate));
+                        else
+                            Report.Error(505, Location, "`{0}': cannot override because `{1}' is not a method",
+                                GetSignatureForError(), TypeManager.GetFullNameSignature(candidate));
                     }
 
                     return false;
@@ -3403,34 +3868,40 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 //
                 // Handles ambiguous overrides
                 //
-                if (candidate != null) {
-                    Report.SymbolRelatedToPreviousError (candidate);
-                    Report.SymbolRelatedToPreviousError (base_member);
+                if (candidate != null)
+                {
+                    Report.SymbolRelatedToPreviousError(candidate);
+                    Report.SymbolRelatedToPreviousError(base_member);
 
                     // Get member definition for error reporting
-                    var m1 = MemberCache.GetMember (base_member.DeclaringType.GetDefinition (), base_member);
-                    var m2 = MemberCache.GetMember (candidate.DeclaringType.GetDefinition (), candidate);
+                    var m1 = MemberCache.GetMember(base_member.DeclaringType.GetDefinition(), base_member);
+                    var m2 = MemberCache.GetMember(candidate.DeclaringType.GetDefinition(), candidate);
 
-                    Report.Error (462, Location,
+                    Report.Error(462, Location,
                         "`{0}' cannot override inherited members `{1}' and `{2}' because they have the same signature when used in type `{3}'",
-                        GetSignatureForError (), m1.GetSignatureForError (), m2.GetSignatureForError (), Parent.GetSignatureForError ());
+                        GetSignatureForError(), m1.GetSignatureForError(), m2.GetSignatureForError(), Parent.GetSignatureForError());
                 }
 
-                if (!CheckOverrideAgainstBase (base_member))
+                if (!CheckOverrideAgainstBase(base_member))
                     return false;
 
-                ObsoleteAttribute oa = base_member.GetAttributeObsolete ();
-                if (oa != null) {
-                    if (OptAttributes == null || !OptAttributes.Contains (Module.PredefinedAttributes.Obsolete)) {
-                        Report.SymbolRelatedToPreviousError (base_member);
-                        Report.Warning (672, 1, Location, "Member `{0}' overrides obsolete member `{1}'. Add the Obsolete attribute to `{0}'",
-                            GetSignatureForError (), base_member.GetSignatureForError ());
+                ObsoleteAttribute oa = base_member.GetAttributeObsolete();
+                if (oa != null)
+                {
+                    if (OptAttributes == null || !OptAttributes.Contains(Module.PredefinedAttributes.Obsolete))
+                    {
+                        Report.SymbolRelatedToPreviousError(base_member);
+                        Report.Warning(672, 1, Location, "Member `{0}' overrides obsolete member `{1}'. Add the Obsolete attribute to `{0}'",
+                            GetSignatureForError(), base_member.GetSignatureForError());
                     }
-                } else {
-                    if (OptAttributes != null && OptAttributes.Contains (Module.PredefinedAttributes.Obsolete)) {
-                        Report.SymbolRelatedToPreviousError (base_member);
-                        Report.Warning (809, 1, Location, "Obsolete member `{0}' overrides non-obsolete member `{1}'",
-                            GetSignatureForError (), base_member.GetSignatureForError ());
+                }
+                else
+                {
+                    if (OptAttributes != null && OptAttributes.Contains(Module.PredefinedAttributes.Obsolete))
+                    {
+                        Report.SymbolRelatedToPreviousError(base_member);
+                        Report.Warning(809, 1, Location, "Obsolete member `{0}' overrides non-obsolete member `{1}'",
+                            GetSignatureForError(), base_member.GetSignatureForError());
                     }
                 }
 
@@ -3441,76 +3912,93 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (base_member == null && candidate != null && (!(candidate is IParametersMember) || !(this is IParametersMember)))
                 base_member = candidate;
 
-            if (base_member == null) {
-                if ((ModFlags & Modifiers.NEW) != 0) {
-                    if (base_member == null) {
-                        Report.Warning (109, 4, Location, "The member `{0}' does not hide an inherited member. The new keyword is not required",
-                            GetSignatureForError ());
+            if (base_member == null)
+            {
+                if ((ModFlags & Modifiers.NEW) != 0)
+                {
+                    if (base_member == null)
+                    {
+                        Report.Warning(109, 4, Location, "The member `{0}' does not hide an inherited member. The new keyword is not required",
+                            GetSignatureForError());
                     }
                 }
-            } else {
-                if ((ModFlags & Modifiers.NEW) == 0) {
+            }
+            else
+            {
+                if ((ModFlags & Modifiers.NEW) == 0)
+                {
                     ModFlags |= Modifiers.NEW;
-                    if (!IsCompilerGenerated) {
-                        Report.SymbolRelatedToPreviousError (base_member);
-                        if (!IsInterface && (base_member.Modifiers & (Modifiers.ABSTRACT | Modifiers.VIRTUAL | Modifiers.OVERRIDE)) != 0) {
-                            Report.Warning (114, 2, Location, "`{0}' hides inherited member `{1}'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword",
-                                GetSignatureForError (), base_member.GetSignatureForError ());
-                        } else {
-                            Report.Warning (108, 2, Location, "`{0}' hides inherited member `{1}'. Use the new keyword if hiding was intended",
-                                GetSignatureForError (), base_member.GetSignatureForError ());
+                    if (!IsCompilerGenerated)
+                    {
+                        Report.SymbolRelatedToPreviousError(base_member);
+                        if (!IsInterface && (base_member.Modifiers & (Modifiers.ABSTRACT | Modifiers.VIRTUAL | Modifiers.OVERRIDE)) != 0)
+                        {
+                            Report.Warning(114, 2, Location, "`{0}' hides inherited member `{1}'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword",
+                                GetSignatureForError(), base_member.GetSignatureForError());
+                        }
+                        else
+                        {
+                            Report.Warning(108, 2, Location, "`{0}' hides inherited member `{1}'. Use the new keyword if hiding was intended",
+                                GetSignatureForError(), base_member.GetSignatureForError());
                         }
                     }
                 }
 
-                if (!IsInterface && base_member.IsAbstract && !overrides && !IsStatic) {
-                    Report.SymbolRelatedToPreviousError (base_member);
-                    Report.Error (533, Location, "`{0}' hides inherited abstract member `{1}'",
-                        GetSignatureForError (), base_member.GetSignatureForError ());
+                if (!IsInterface && base_member.IsAbstract && !overrides && !IsStatic)
+                {
+                    Report.SymbolRelatedToPreviousError(base_member);
+                    Report.Error(533, Location, "`{0}' hides inherited abstract member `{1}'",
+                        GetSignatureForError(), base_member.GetSignatureForError());
                 }
             }
 
             return true;
         }
 
-        protected virtual bool CheckForDuplications ()
+        protected virtual bool CheckForDuplications()
         {
-            return Parent.MemberCache.CheckExistingMembersOverloads (this, ParametersCompiled.EmptyReadOnlyParameters);
+            return Parent.MemberCache.CheckExistingMembersOverloads(this, ParametersCompiled.EmptyReadOnlyParameters);
         }
 
         //
         // Performs various checks on the MethodInfo `mb' regarding the modifier flags
         // that have been defined.
         //
-        protected virtual bool CheckOverrideAgainstBase (MemberSpec base_member)
+        protected virtual bool CheckOverrideAgainstBase(MemberSpec base_member)
         {
             bool ok = true;
 
-            if ((base_member.Modifiers & (Modifiers.ABSTRACT | Modifiers.VIRTUAL | Modifiers.OVERRIDE)) == 0) {
-                Report.SymbolRelatedToPreviousError (base_member);
-                Report.Error (506, Location,
+            if ((base_member.Modifiers & (Modifiers.ABSTRACT | Modifiers.VIRTUAL | Modifiers.OVERRIDE)) == 0)
+            {
+                Report.SymbolRelatedToPreviousError(base_member);
+                Report.Error(506, Location,
                     "`{0}': cannot override inherited member `{1}' because it is not marked virtual, abstract or override",
-                     GetSignatureForError (), TypeManager.CSharpSignature (base_member));
+                     GetSignatureForError(), TypeManager.CSharpSignature(base_member));
                 ok = false;
             }
 
             // Now we check that the overriden method is not final
-            if ((base_member.Modifiers & Modifiers.SEALED) != 0) {
-                Report.SymbolRelatedToPreviousError (base_member);
-                Report.Error (239, Location, "`{0}': cannot override inherited member `{1}' because it is sealed",
-                              GetSignatureForError (), TypeManager.CSharpSignature (base_member));
+            if ((base_member.Modifiers & Modifiers.SEALED) != 0)
+            {
+                Report.SymbolRelatedToPreviousError(base_member);
+                Report.Error(239, Location, "`{0}': cannot override inherited member `{1}' because it is sealed",
+                              GetSignatureForError(), TypeManager.CSharpSignature(base_member));
                 ok = false;
             }
 
-            var base_member_type = ((IInterfaceMemberSpec) base_member).MemberType;
-            if (!TypeSpecComparer.Override.IsEqual (MemberType, base_member_type)) {
-                Report.SymbolRelatedToPreviousError (base_member);
-                if (this is PropertyBasedMember) {
-                    Report.Error (1715, Location, "`{0}': type must be `{1}' to match overridden member `{2}'",
-                        GetSignatureForError (), base_member_type.GetSignatureForError (), base_member.GetSignatureForError ());
-                } else {
-                    Report.Error (508, Location, "`{0}': return type must be `{1}' to match overridden member `{2}'",
-                        GetSignatureForError (), base_member_type.GetSignatureForError (), base_member.GetSignatureForError ());
+            var base_member_type = ((IInterfaceMemberSpec)base_member).MemberType;
+            if (!TypeSpecComparer.Override.IsEqual(MemberType, base_member_type))
+            {
+                Report.SymbolRelatedToPreviousError(base_member);
+                if (this is PropertyBasedMember)
+                {
+                    Report.Error(1715, Location, "`{0}': type must be `{1}' to match overridden member `{2}'",
+                        GetSignatureForError(), base_member_type.GetSignatureForError(), base_member.GetSignatureForError());
+                }
+                else
+                {
+                    Report.Error(508, Location, "`{0}': return type must be `{1}' to match overridden member `{2}'",
+                        GetSignatureForError(), base_member_type.GetSignatureForError(), base_member.GetSignatureForError());
                 }
                 ok = false;
             }
@@ -3518,16 +4006,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return ok;
         }
 
-        protected static bool CheckAccessModifiers (MemberCore this_member, MemberSpec base_member)
+        protected static bool CheckAccessModifiers(MemberCore this_member, MemberSpec base_member)
         {
             var thisp = this_member.ModFlags & Modifiers.AccessibilityMask;
             var base_classp = base_member.Modifiers & Modifiers.AccessibilityMask;
 
-            if ((base_classp & (Modifiers.PROTECTED | Modifiers.INTERNAL)) == (Modifiers.PROTECTED | Modifiers.INTERNAL)) {
+            if ((base_classp & (Modifiers.PROTECTED | Modifiers.INTERNAL)) == (Modifiers.PROTECTED | Modifiers.INTERNAL))
+            {
                 //
                 // It must be at least "protected"
                 //
-                if ((thisp & Modifiers.PROTECTED) == 0) {
+                if ((thisp & Modifiers.PROTECTED) == 0)
+                {
                     return false;
                 }
 
@@ -3536,15 +4026,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 // protected internal only within the same assembly or assembly
                 // which has InternalsVisibleTo
                 //
-                if ((thisp & Modifiers.INTERNAL) != 0) {
-                    return base_member.DeclaringType.MemberDefinition.IsInternalAsPublic (this_member.Module.DeclaringAssembly);
+                if ((thisp & Modifiers.INTERNAL) != 0)
+                {
+                    return base_member.DeclaringType.MemberDefinition.IsInternalAsPublic(this_member.Module.DeclaringAssembly);
                 }
 
                 //
                 // protected overriding protected internal inside same assembly
                 // requires internal modifier as well
                 //
-                if (base_member.DeclaringType.MemberDefinition.IsInternalAsPublic (this_member.Module.DeclaringAssembly)) {
+                if (base_member.DeclaringType.MemberDefinition.IsInternalAsPublic(this_member.Module.DeclaringAssembly))
+                {
                     return false;
                 }
 
@@ -3554,9 +4046,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return thisp == base_classp;
         }
 
-        public override bool Define ()
+        public override bool Define()
         {
-            if (IsInterface) {
+            if (IsInterface)
+            {
                 ModFlags = Modifiers.PUBLIC | Modifiers.ABSTRACT |
                     Modifiers.VIRTUAL | (ModFlags & (Modifiers.UNSAFE | Modifiers.NEW));
 
@@ -3565,108 +4058,122 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     MethodAttributes.HideBySig |
                     MethodAttributes.NewSlot |
                     MethodAttributes.Virtual;
-            } else {
-                Parent.PartialContainer.MethodModifiersValid (this);
+            }
+            else
+            {
+                Parent.PartialContainer.MethodModifiersValid(this);
 
-                flags = ModifiersExtensions.MethodAttr (ModFlags);
+                flags = ModifiersExtensions.MethodAttr(ModFlags);
             }
 
-            if (IsExplicitImpl) {
-                InterfaceType = MemberName.ExplicitInterface.ResolveAsType (Parent);
+            if (IsExplicitImpl)
+            {
+                InterfaceType = MemberName.ExplicitInterface.ResolveAsType(Parent);
                 if (InterfaceType == null)
                     return false;
 
-                if ((ModFlags & Modifiers.PARTIAL) != 0) {
-                    Report.Error (754, Location, "A partial method `{0}' cannot explicitly implement an interface",
-                        GetSignatureForError ());
+                if ((ModFlags & Modifiers.PARTIAL) != 0)
+                {
+                    Report.Error(754, Location, "A partial method `{0}' cannot explicitly implement an interface",
+                        GetSignatureForError());
                 }
 
-                if (!InterfaceType.IsInterface) {
-                    Report.SymbolRelatedToPreviousError (InterfaceType);
-                    Report.Error (538, Location, "The type `{0}' in explicit interface declaration is not an interface",
-                        InterfaceType.GetSignatureForError ());
-                } else {
-                    Parent.PartialContainer.VerifyImplements (this);
+                if (!InterfaceType.IsInterface)
+                {
+                    Report.SymbolRelatedToPreviousError(InterfaceType);
+                    Report.Error(538, Location, "The type `{0}' in explicit interface declaration is not an interface",
+                        InterfaceType.GetSignatureForError());
+                }
+                else
+                {
+                    Parent.PartialContainer.VerifyImplements(this);
                 }
 
                 Modifiers allowed_explicit = Modifiers.AllowedExplicitImplFlags;
                 if (this is Method)
                     allowed_explicit |= Modifiers.ASYNC;
 
-                ModifiersExtensions.Check (allowed_explicit, explicit_mod_flags, 0, Location, Report);
+                ModifiersExtensions.Check(allowed_explicit, explicit_mod_flags, 0, Location, Report);
             }
 
-            return base.Define ();
+            return base.Define();
         }
 
-        protected bool DefineParameters (ParametersCompiled parameters)
+        protected bool DefineParameters(ParametersCompiled parameters)
         {
-            if (!parameters.Resolve (this))
+            if (!parameters.Resolve(this))
                 return false;
 
             bool error = false;
-            for (int i = 0; i < parameters.Count; ++i) {
-                Parameter p = parameters [i];
+            for (int i = 0; i < parameters.Count; ++i)
+            {
+                Parameter p = parameters[i];
 
                 if (p.HasDefaultValue && (IsExplicitImpl || this is Operator || (this is Indexer && parameters.Count == 1)))
-                    p.Warning_UselessOptionalParameter (Report);
+                    p.Warning_UselessOptionalParameter(Report);
 
-                if (p.CheckAccessibility (this))
+                if (p.CheckAccessibility(this))
                     continue;
 
-                TypeSpec t = parameters.Types [i];
-                Report.SymbolRelatedToPreviousError (t);
+                TypeSpec t = parameters.Types[i];
+                Report.SymbolRelatedToPreviousError(t);
                 if (this is Indexer)
-                    Report.Error (55, Location,
+                    Report.Error(55, Location,
                               "Inconsistent accessibility: parameter type `{0}' is less accessible than indexer `{1}'",
-                              t.GetSignatureForError (), GetSignatureForError ());
+                              t.GetSignatureForError(), GetSignatureForError());
                 else if (this is Operator)
-                    Report.Error (57, Location,
+                    Report.Error(57, Location,
                               "Inconsistent accessibility: parameter type `{0}' is less accessible than operator `{1}'",
-                              t.GetSignatureForError (), GetSignatureForError ());
+                              t.GetSignatureForError(), GetSignatureForError());
                 else
-                    Report.Error (51, Location,
+                    Report.Error(51, Location,
                         "Inconsistent accessibility: parameter type `{0}' is less accessible than method `{1}'",
-                        t.GetSignatureForError (), GetSignatureForError ());
+                        t.GetSignatureForError(), GetSignatureForError());
                 error = true;
             }
             return !error;
         }
 
-        protected override void DoMemberTypeDependentChecks ()
+        protected override void DoMemberTypeDependentChecks()
         {
-            base.DoMemberTypeDependentChecks ();
+            base.DoMemberTypeDependentChecks();
 
-            VarianceDecl.CheckTypeVariance (MemberType, ExpectedMemberTypeVariance, this);
+            VarianceDecl.CheckTypeVariance(MemberType, ExpectedMemberTypeVariance, this);
         }
 
         public override void Emit()
         {
             // for extern static method must be specified either DllImport attribute or MethodImplAttribute.
             // We are more strict than csc and report this as an error because SRE does not allow emit that
-            if ((ModFlags & Modifiers.EXTERN) != 0 && !is_external_implementation && (OptAttributes == null || !OptAttributes.HasResolveError ())) {
-                if (this is Constructor) {
-                    Report.Warning (824, 1, Location,
-                        "Constructor `{0}' is marked `external' but has no external implementation specified", GetSignatureForError ());
-                } else {
-                    Report.Warning (626, 1, Location,
+            if ((ModFlags & Modifiers.EXTERN) != 0 && !is_external_implementation && (OptAttributes == null || !OptAttributes.HasResolveError()))
+            {
+                if (this is Constructor)
+                {
+                    Report.Warning(824, 1, Location,
+                        "Constructor `{0}' is marked `external' but has no external implementation specified", GetSignatureForError());
+                }
+                else
+                {
+                    Report.Warning(626, 1, Location,
                         "`{0}' is marked as an external but has no DllImport attribute. Consider adding a DllImport attribute to specify the external implementation",
-                        GetSignatureForError ());
+                        GetSignatureForError());
                 }
             }
 
-            base.Emit ();
+            base.Emit();
         }
 
-        public override bool EnableOverloadChecks (MemberCore overload)
+        public override bool EnableOverloadChecks(MemberCore overload)
         {
             //
             // Two members can differ in their explicit interface
             // type parameter only
             //
             InterfaceMemberBase imb = overload as InterfaceMemberBase;
-            if (imb != null && imb.IsExplicitImpl) {
-                if (IsExplicitImpl) {
+            if (imb != null && imb.IsExplicitImpl)
+            {
+                if (IsExplicitImpl)
+                {
                     caching_flags |= Flags.MethodOverloadsExist;
                 }
                 return true;
@@ -3675,55 +4182,56 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return IsExplicitImpl;
         }
 
-        protected void Error_CannotChangeAccessModifiers (MemberCore member, MemberSpec base_member)
+        protected void Error_CannotChangeAccessModifiers(MemberCore member, MemberSpec base_member)
         {
             var base_modifiers = base_member.Modifiers;
 
             // Remove internal modifier from types which are not internally accessible
             if ((base_modifiers & Modifiers.AccessibilityMask) == (Modifiers.PROTECTED | Modifiers.INTERNAL) &&
-                !base_member.DeclaringType.MemberDefinition.IsInternalAsPublic (member.Module.DeclaringAssembly))
+                !base_member.DeclaringType.MemberDefinition.IsInternalAsPublic(member.Module.DeclaringAssembly))
                 base_modifiers = Modifiers.PROTECTED;
 
-            Report.SymbolRelatedToPreviousError (base_member);
-            Report.Error (507, member.Location,
+            Report.SymbolRelatedToPreviousError(base_member);
+            Report.Error(507, member.Location,
                 "`{0}': cannot change access modifiers when overriding `{1}' inherited member `{2}'",
-                member.GetSignatureForError (),
-                ModifiersExtensions.AccessibilityName (base_modifiers),
-                base_member.GetSignatureForError ());
+                member.GetSignatureForError(),
+                ModifiersExtensions.AccessibilityName(base_modifiers),
+                base_member.GetSignatureForError());
         }
 
-        protected void Error_StaticReturnType ()
+        protected void Error_StaticReturnType()
         {
-            Report.Error (722, Location,
+            Report.Error(722, Location,
                 "`{0}': static types cannot be used as return types",
-                MemberType.GetSignatureForError ());
+                MemberType.GetSignatureForError());
         }
 
         /// <summary>
         /// Gets base method and its return type
         /// </summary>
-        protected virtual MemberSpec FindBaseMember (out MemberSpec bestCandidate, ref bool overrides)
+        protected virtual MemberSpec FindBaseMember(out MemberSpec bestCandidate, ref bool overrides)
         {
-            return MemberCache.FindBaseMember (this, out bestCandidate, ref overrides);
+            return MemberCache.FindBaseMember(this, out bestCandidate, ref overrides);
         }
 
         //
         // The "short" name of this property / indexer / event.  This is the
         // name without the explicit interface.
         //
-        public string ShortName {
+        public string ShortName
+        {
             get { return MemberName.Name; }
         }
 
         //
         // Returns full metadata method name
         //
-        public string GetFullName (MemberName name)
+        public string GetFullName(MemberName name)
         {
-            return GetFullName (name.Name);
+            return GetFullName(name.Name);
         }
 
-        public string GetFullName (string name)
+        public string GetFullName(string name)
         {
             if (!IsExplicitImpl)
                 return name;
@@ -3736,31 +4244,32 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // replacing predefined names which saves some space and name
             // is still unique
             //
-            return InterfaceType.GetSignatureForError () + "." + name;
+            return InterfaceType.GetSignatureForError() + "." + name;
         }
 
-        public override string GetSignatureForDocumentation ()
+        public override string GetSignatureForDocumentation()
         {
             if (IsExplicitImpl)
-                return Parent.GetSignatureForDocumentation () + "." + InterfaceType.GetSignatureForDocumentation (true) + "#" + ShortName;
+                return Parent.GetSignatureForDocumentation() + "." + InterfaceType.GetSignatureForDocumentation(true) + "#" + ShortName;
 
-            return Parent.GetSignatureForDocumentation () + "." + ShortName;
+            return Parent.GetSignatureForDocumentation() + "." + ShortName;
         }
 
-        public override bool IsUsed 
+        public override bool IsUsed
         {
             get { return IsExplicitImpl || base.IsUsed; }
         }
 
-        public override void SetConstraints (List<Constraints> constraints_list)
+        public override void SetConstraints(List<Constraints> constraints_list)
         {
-            if (((ModFlags & Modifiers.OVERRIDE) != 0 || IsExplicitImpl)) {
-                Report.Error (460, Location,
+            if (((ModFlags & Modifiers.OVERRIDE) != 0 || IsExplicitImpl))
+            {
+                Report.Error(460, Location,
                     "`{0}': Cannot specify constraints for overrides and explicit interface implementation methods",
-                    GetSignatureForError ());
+                    GetSignatureForError());
             }
 
-            base.SetConstraints (constraints_list);
+            base.SetConstraints(constraints_list);
         }
     }
 
@@ -3770,139 +4279,156 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         protected TypeSpec member_type;
         public new TypeDefinition Parent;
 
-        protected MemberBase (TypeDefinition parent, FullNamedExpression type, Modifiers mod, Modifiers allowed_mod, Modifiers def_mod, MemberName name, Attributes attrs)
-            : base (parent, name, attrs)
+        protected MemberBase(TypeDefinition parent, FullNamedExpression type, Modifiers mod, Modifiers allowed_mod, Modifiers def_mod, MemberName name, Attributes attrs)
+            : base(parent, name, attrs)
         {
             this.Parent = parent;
             this.type_expr = type;
 
             if (name != MemberName.Null)
-                ModFlags = ModifiersExtensions.Check (allowed_mod, mod, def_mod, Location, Report);
+                ModFlags = ModifiersExtensions.Check(allowed_mod, mod, def_mod, Location, Report);
         }
 
-        #region Properties
+#region Properties
 
-        public TypeSpec MemberType {
-            get {
+        public TypeSpec MemberType
+        {
+            get
+            {
                 return member_type;
             }
         }
 
-        public FullNamedExpression TypeExpression {
-            get {
+        public FullNamedExpression TypeExpression
+        {
+            get
+            {
                 return type_expr;
             }
         }
 
-        #endregion
+#endregion
 
         //
         // Main member define entry
         //
-        public override bool Define ()
+        public override bool Define()
         {
-            DoMemberTypeIndependentChecks ();
+            DoMemberTypeIndependentChecks();
 
             //
             // Returns false only when type resolution failed
             //
-            if (!ResolveMemberType ())
+            if (!ResolveMemberType())
                 return false;
 
-            DoMemberTypeDependentChecks ();
+            DoMemberTypeDependentChecks();
             return true;
         }
 
         //
         // Any type_name independent checks
         //
-        protected virtual void DoMemberTypeIndependentChecks ()
+        protected virtual void DoMemberTypeIndependentChecks()
         {
             if ((Parent.ModFlags & Modifiers.SEALED) != 0 &&
-                (ModFlags & (Modifiers.VIRTUAL | Modifiers.ABSTRACT)) != 0) {
-                Report.Error (549, Location, "New virtual member `{0}' is declared in a sealed class `{1}'",
-                    GetSignatureForError (), Parent.GetSignatureForError ());
+                (ModFlags & (Modifiers.VIRTUAL | Modifiers.ABSTRACT)) != 0)
+            {
+                Report.Error(549, Location, "New virtual member `{0}' is declared in a sealed class `{1}'",
+                    GetSignatureForError(), Parent.GetSignatureForError());
             }
         }
 
         //
         // Any type_name dependent checks
         //
-        protected virtual void DoMemberTypeDependentChecks ()
+        protected virtual void DoMemberTypeDependentChecks()
         {
             // verify accessibility
-            if (!IsAccessibleAs (MemberType)) {
-                Report.SymbolRelatedToPreviousError (MemberType);
+            if (!IsAccessibleAs(MemberType))
+            {
+                Report.SymbolRelatedToPreviousError(MemberType);
                 if (this is Property)
-                    Report.Error (53, Location,
+                    Report.Error(53, Location,
                         "Inconsistent accessibility: property type `" +
-                        MemberType.GetSignatureForError () + "' is less " +
-                        "accessible than property `" + GetSignatureForError () + "'");
+                        MemberType.GetSignatureForError() + "' is less " +
+                        "accessible than property `" + GetSignatureForError() + "'");
                 else if (this is Indexer)
-                    Report.Error (54, Location,
+                    Report.Error(54, Location,
                         "Inconsistent accessibility: indexer return type `" +
-                        MemberType.GetSignatureForError () + "' is less " +
-                        "accessible than indexer `" + GetSignatureForError () + "'");
-                else if (this is MethodCore) {
+                        MemberType.GetSignatureForError() + "' is less " +
+                        "accessible than indexer `" + GetSignatureForError() + "'");
+                else if (this is MethodCore)
+                {
                     if (this is Operator)
-                        Report.Error (56, Location,
+                        Report.Error(56, Location,
                             "Inconsistent accessibility: return type `" +
-                            MemberType.GetSignatureForError () + "' is less " +
-                            "accessible than operator `" + GetSignatureForError () + "'");
+                            MemberType.GetSignatureForError() + "' is less " +
+                            "accessible than operator `" + GetSignatureForError() + "'");
                     else
-                        Report.Error (50, Location,
+                        Report.Error(50, Location,
                             "Inconsistent accessibility: return type `" +
-                            MemberType.GetSignatureForError () + "' is less " +
-                            "accessible than method `" + GetSignatureForError () + "'");
-                } else if (this is Event) {
-                    Report.Error (7025, Location,
+                            MemberType.GetSignatureForError() + "' is less " +
+                            "accessible than method `" + GetSignatureForError() + "'");
+                }
+                else if (this is Event)
+                {
+                    Report.Error(7025, Location,
                         "Inconsistent accessibility: event type `{0}' is less accessible than event `{1}'",
-                        MemberType.GetSignatureForError (), GetSignatureForError ());
-                } else {
-                    Report.Error (52, Location,
+                        MemberType.GetSignatureForError(), GetSignatureForError());
+                }
+                else
+                {
+                    Report.Error(52, Location,
                               "Inconsistent accessibility: field type `" +
-                              MemberType.GetSignatureForError () + "' is less " +
-                              "accessible than field `" + GetSignatureForError () + "'");
+                              MemberType.GetSignatureForError() + "' is less " +
+                              "accessible than field `" + GetSignatureForError() + "'");
                 }
             }
         }
 
-        protected void IsTypePermitted ()
+        protected void IsTypePermitted()
         {
-            if (MemberType.IsSpecialRuntimeType) {
-                if (Parent is StateMachine) {
-                    Report.Error (4012, Location,
+            if (MemberType.IsSpecialRuntimeType)
+            {
+                if (Parent is StateMachine)
+                {
+                    Report.Error(4012, Location,
                         "Parameters or local variables of type `{0}' cannot be declared in async methods or iterators",
-                        MemberType.GetSignatureForError ());
-                } else if (Parent is HoistedStoreyClass) {
-                    Report.Error (4013, Location,
+                        MemberType.GetSignatureForError());
+                }
+                else if (Parent is HoistedStoreyClass)
+                {
+                    Report.Error(4013, Location,
                         "Local variables of type `{0}' cannot be used inside anonymous methods, lambda expressions or query expressions",
-                        MemberType.GetSignatureForError ());
-                } else {
-                    Report.Error (610, Location, 
-                        "Field or property cannot be of type `{0}'", MemberType.GetSignatureForError ());
+                        MemberType.GetSignatureForError());
+                }
+                else
+                {
+                    Report.Error(610, Location,
+                        "Field or property cannot be of type `{0}'", MemberType.GetSignatureForError());
                 }
             }
         }
 
-        protected virtual bool CheckBase ()
+        protected virtual bool CheckBase()
         {
-            CheckProtectedModifier ();
+            CheckProtectedModifier();
 
             return true;
         }
 
-        public override string GetSignatureForDocumentation ()
+        public override string GetSignatureForDocumentation()
         {
-            return Parent.GetSignatureForDocumentation () + "." + MemberName.Basename;
+            return Parent.GetSignatureForDocumentation() + "." + MemberName.Basename;
         }
 
-        protected virtual bool ResolveMemberType ()
+        protected virtual bool ResolveMemberType()
         {
             if (member_type != null)
-                throw new InternalErrorException ("Multi-resolve");
+                throw new InternalErrorException("Multi-resolve");
 
-            member_type = type_expr.ResolveAsType (this);
+            member_type = type_expr.ResolveAsType(this);
             return member_type != null;
         }
     }

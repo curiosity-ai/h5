@@ -676,6 +676,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         CompiledMethod CompileBlock (Class host, Undo undo, Report Report)
         {
+
+#if NETSTANDARD2_0
+            throw new PlatformNotSupportedException();
+#else
+
 #if STATIC
             throw new NotSupportedException ();
 #else
@@ -832,6 +837,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             return (CompiledMethod) System.Delegate.CreateDelegate (typeof (CompiledMethod), mi);
+#endif
+
 #endif
         }
 

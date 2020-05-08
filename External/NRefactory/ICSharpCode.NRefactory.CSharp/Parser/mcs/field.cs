@@ -481,8 +481,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             Module.PredefinedAttributes.UnsafeValueType.EmitAttribute (fixed_buffer_type);
             Module.PredefinedAttributes.CompilerGenerated.EmitAttribute (fixed_buffer_type);
-            fixed_buffer_type.CreateType ();
 
+#if NETSTANDARD2_0
+            fixed_buffer_type.CreateTypeInfo();
+#else
+
+            fixed_buffer_type.CreateType ();
+#endif
             base.Emit ();
         }
 

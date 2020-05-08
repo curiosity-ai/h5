@@ -462,7 +462,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // but returned ISymbolWriter does not have all what we need therefore some
             // adaptor will be needed for now we alwayas emit MDB format when generating
             // debug info
-            return Builder.DefineDynamicModule (module_name, module_name, false);
+
+#if NETSTANDARD2_0
+            return Builder.DefineDynamicModule (module_name);
+#else
+            return Builder.DefineDynamicModule(module_name, module_name, false);
+#endif
         }
 
         public virtual void Emit ()
@@ -784,6 +789,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public void EmbedResources ()
         {
+#if NETSTANDARD2_0
+            throw new PlatformNotSupportedException();
+#else
             //
             // Add Win32 resources
             //
@@ -793,43 +801,61 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 Builder.DefineVersionInfoResource (vi_product, vi_product_version, vi_company, vi_copyright, vi_trademark);
             }
 
-            if (Compiler.Settings.Win32IconFile != null) {
-                builder_extra.DefineWin32IconResource (Compiler.Settings.Win32IconFile);
+            if (Compiler.Settings.Win32IconFile != null)
+            {
+                builder_extra.DefineWin32IconResource(Compiler.Settings.Win32IconFile);
             }
 
-            if (Compiler.Settings.Resources != null) {
-                if (Compiler.Settings.Target == Target.Module) {
-                    Report.Error (1507, "Cannot link resource file when building a module");
-                } else {
+            if (Compiler.Settings.Resources != null)
+            {
+                if (Compiler.Settings.Target == Target.Module)
+                {
+                    Report.Error(1507, "Cannot link resource file when building a module");
+                }
+                else
+                {
                     int counter = 0;
-                    foreach (var res in Compiler.Settings.Resources) {
-                        if (!File.Exists (res.FileName)) {
-                            Report.Error (1566, "Error reading resource file `{0}'", res.FileName);
+                    foreach (var res in Compiler.Settings.Resources)
+                    {
+                        if (!File.Exists(res.FileName))
+                        {
+                            Report.Error(1566, "Error reading resource file `{0}'", res.FileName);
                             continue;
                         }
 
-                        if (res.IsEmbeded) {
+                        if (res.IsEmbeded)
+                        {
                             Stream stream;
-                            if (counter++ < 10) {
-                                stream = File.OpenRead (res.FileName);
-                            } else {
+                            if (counter++ < 10)
+                            {
+                                stream = File.OpenRead(res.FileName);
+                            }
+                            else
+                            {
                                 // TODO: SRE API requires resource stream to be available during AssemblyBuilder::Save
                                 // we workaround it by reading everything into memory to compile projects with
                                 // many embedded resource (over 3500) references
-                                stream = new MemoryStream (File.ReadAllBytes (res.FileName));
+                                stream = new MemoryStream(File.ReadAllBytes(res.FileName));
                             }
 
-                            module.Builder.DefineManifestResource (res.Name, stream, res.Attributes);
-                        } else {
-                            Builder.AddResourceFile (res.Name, Path.GetFileName (res.FileName), res.Attributes);
+                            module.Builder.DefineManifestResource(res.Name, stream, res.Attributes);
+                        }
+                        else
+                        {
+                            Builder.AddResourceFile(res.Name, Path.GetFileName(res.FileName), res.Attributes);
                         }
                     }
                 }
             }
+#endif
         }
 
         public void Save ()
         {
+
+#if NETSTANDARD2_0
+            throw new PlatformNotSupportedException();
+#else
             PortableExecutableKinds pekind = PortableExecutableKinds.ILOnly;
             ImageFileMachine machine;
 
@@ -899,6 +925,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                 Compiler.TimeReporter.Stop (TimeReporter.TimerType.DebugSave);
             }
+#endif
         }
 
         protected virtual void SaveModule (PortableExecutableKinds pekind, ImageFileMachine machine)
@@ -916,6 +943,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         void SetEntryPoint ()
         {
+#if NETSTANDARD2_0
+            throw new PlatformNotSupportedException();
+#else
             if (!Compiler.Settings.NeedsEntryPoint) {
                 if (Compiler.Settings.MainClass != null)
                     Report.Error (2017, "Cannot specify -main if building a module or library");
@@ -965,6 +995,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             Builder.SetEntryPoint (entry_point.MethodBuilder, file_kind);
+#endif
         }
 
         void Error_ObsoleteSecurityAttribute (Attribute a, string option)
@@ -1043,14 +1074,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public string FileName { get; private set; }
         public bool IsEmbeded { get; set; }
 
-        #region IEquatable<AssemblyResource> Members
+#region IEquatable<AssemblyResource> Members
 
         public bool Equals (AssemblyResource other)
         {
             return Name == other.Name;
         }
 
-        #endregion
+#endregion
     }
 
     //

@@ -37,10 +37,10 @@
     <PackageReference Include="TopologicalSorting.netstandard" Version="1.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj" />
-    <ProjectReference Include="..\..\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />
-    <ProjectReference Include="..\..\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" />
-    <ProjectReference Include="..\..\Object.Net.Utilities\Object.Net.Utilities.csproj" />
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj" />
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" />
+    <ProjectReference Include="..\..\..\External\Object.Net.Utilities\Object.Net.Utilities.csproj" />
     <ProjectReference Include="..\Contract\HighFive.Contract.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -7,21 +7,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HighFive", "HighFive", "{32
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compiler", "Compiler", "{47D6D365-36CE-43C2-91D0-5A071928C62A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.Build", "Compiler\Build\HighFive.Build.csproj", "{28703D12-116A-4968-BD85-F26D7F7E7DA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.Build", "HighFive\Compiler\Build\HighFive.Build.csproj", "{28703D12-116A-4968-BD85-F26D7F7E7DA4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{243BB709-3912-4C65-82D4-787A5E2201D7} = {243BB709-3912-4C65-82D4-787A5E2201D7}
 		{DE78B8B7-C0F5-415B-A70B-02194433F450} = {DE78B8B7-C0F5-415B-A70B-02194433F450}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.Builder", "Compiler\Builder\HighFive.Builder.csproj", "{243BB709-3912-4C65-82D4-787A5E2201D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.Builder", "HighFive\Compiler\Builder\HighFive.Builder.csproj", "{243BB709-3912-4C65-82D4-787A5E2201D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive", "HighFive\HighFive.csproj", "{DE78B8B7-C0F5-415B-A70B-02194433F450}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive", "HighFive\HighFive\HighFive.csproj", "{DE78B8B7-C0F5-415B-A70B-02194433F450}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.Contract", "Compiler\Contract\HighFive.Contract.csproj", "{52AE9E3E-6929-4720-AB7A-F9F22B9A8972}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.Contract", "HighFive\Compiler\Contract\HighFive.Contract.csproj", "{52AE9E3E-6929-4720-AB7A-F9F22B9A8972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.Translator", "Compiler\Translator\HighFive.Translator.csproj", "{44124331-C60A-4071-B387-4B8E71324B10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.Translator", "HighFive\Compiler\Translator\HighFive.Translator.csproj", "{44124331-C60A-4071-B387-4B8E71324B10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.PostBuild", "PostBuild\HighFive.PostBuild.csproj", "{8DAF3989-FF37-470C-A55D-3E7868613AA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.PostBuild", "HighFive\PostBuild\HighFive.PostBuild.csproj", "{8DAF3989-FF37-470C-A55D-3E7868613AA5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{243BB709-3912-4C65-82D4-787A5E2201D7} = {243BB709-3912-4C65-82D4-787A5E2201D7}
 		{DE78B8B7-C0F5-415B-A70B-02194433F450} = {DE78B8B7-C0F5-415B-A70B-02194433F450}
@@ -29,15 +29,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighFive.PostBuild", "PostB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NRefactory", "NRefactory", "{3C35A275-09BC-4C5C-B33C-392FF15F2238}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.NRefactory", "NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj", "{3B2A5653-EC97-4001-BB9B-D90F1AF2C371}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.NRefactory", "External\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj", "{3B2A5653-EC97-4001-BB9B-D90F1AF2C371}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.NRefactory.Cecil", "NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj", "{2B8F4F83-C2B3-4E84-A27B-8DEE1BE0E006}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.NRefactory.Cecil", "External\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj", "{2B8F4F83-C2B3-4E84-A27B-8DEE1BE0E006}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.NRefactory.CSharp", "NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj", "{53DCA265-3C3C-42F9-B647-F72BA678122B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.NRefactory.CSharp", "External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj", "{53DCA265-3C3C-42F9-B647-F72BA678122B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Object.Net.Utilities", "Object.Net.Utilities", "{EA8CB234-60A5-4B07-9FAD-9EDE1659656E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Object.Net.Utilities", "Object.Net.Utilities\Object.Net.Utilities.csproj", "{351B6B9D-3FAF-4B95-A7D7-C10AC046D84F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Object.Net.Utilities", "External\Object.Net.Utilities\Object.Net.Utilities.csproj", "{351B6B9D-3FAF-4B95-A7D7-C10AC046D84F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

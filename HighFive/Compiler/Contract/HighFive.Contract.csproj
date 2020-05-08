@@ -25,8 +25,8 @@
     <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />
-    <ProjectReference Include="..\..\Object.Net.Utilities\Object.Net.Utilities.csproj" />
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />
+    <ProjectReference Include="..\..\..\External\Object.Net.Utilities\Object.Net.Utilities.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Overrides\" />

@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="CompressionUtils.cs" />
+    <Compile Remove="ControlUtils.cs" />
+    <Compile Remove="DateTimeUtils.cs" />
+    <Compile Remove="ReflectionUtils.cs" />
+  </ItemGroup>
+</Project>

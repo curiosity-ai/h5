@@ -11,8 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\HighFive\HighFive\HighFive.csproj" />
     <ProjectReference Include="..\..\H5\H5.Core\H5.Core.csproj" />
-    <ProjectReference Include="..\..\H5\H5.dom\H5.dom.csproj" />
-    <ProjectReference Include="..\..\H5\H5.es5\H5.es5.csproj" />
   </ItemGroup>
 </Project>
 

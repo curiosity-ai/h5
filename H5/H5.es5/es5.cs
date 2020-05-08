@@ -1738,12 +1738,12 @@ namespace H5
     {
       private static readonly es5.Array<object> _prototype_BackingField;
       private double _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_T\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_T\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_T\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_T_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_T_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_T_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Array();
 
@@ -1909,7 +1909,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_T\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_T_GT__D_Count_BackingField;
         }
       }
 
@@ -1917,7 +1917,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_T\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_T_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -1933,7 +1933,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_T\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_T_GT__D_Count_BackingField;
         }
       }
 
@@ -1944,7 +1944,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -1952,7 +1952,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -1960,7 +1960,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -2504,12 +2504,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESByte\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESByte\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002ESByte\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_SByte_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_SByte_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_SByte_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Int8Array(uint length);
 
@@ -2728,7 +2728,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESByte\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_SByte_GT__D_Count_BackingField;
         }
       }
 
@@ -2736,7 +2736,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESByte\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_SByte_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -2752,7 +2752,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002ESByte\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_SByte_GT__D_Count_BackingField;
         }
       }
 
@@ -2763,7 +2763,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -2771,7 +2771,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -2779,7 +2779,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -2909,12 +2909,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EByte\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_Byte_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_Byte_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Byte_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Uint8Array(uint length);
 
@@ -3133,7 +3133,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Byte_GT__D_Count_BackingField;
         }
       }
 
@@ -3141,7 +3141,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Byte_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -3157,7 +3157,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EByte\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Byte_GT__D_Count_BackingField;
         }
       }
 
@@ -3168,7 +3168,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -3176,7 +3176,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -3184,7 +3184,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -3314,12 +3314,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EByte\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_Byte_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_Byte_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Byte_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Uint8ClampedArray(uint length);
 
@@ -3547,7 +3547,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Byte_GT__D_Count_BackingField;
         }
       }
 
@@ -3555,7 +3555,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EByte\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Byte_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -3571,7 +3571,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EByte\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Byte_GT__D_Count_BackingField;
         }
       }
 
@@ -3582,7 +3582,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -3590,7 +3590,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -3598,7 +3598,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -3731,12 +3731,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt16\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt16\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EInt16\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_Int16_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_Int16_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Int16_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Int16Array(uint length);
 
@@ -3955,7 +3955,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt16\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Int16_GT__D_Count_BackingField;
         }
       }
 
@@ -3963,7 +3963,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt16\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Int16_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -3979,7 +3979,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EInt16\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Int16_GT__D_Count_BackingField;
         }
       }
 
@@ -3990,7 +3990,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -3998,7 +3998,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -4006,7 +4006,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -4136,12 +4136,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt16\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt16\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EUInt16\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_UInt16_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_UInt16_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_UInt16_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Uint16Array(uint length);
 
@@ -4360,7 +4360,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt16\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_UInt16_GT__D_Count_BackingField;
         }
       }
 
@@ -4368,7 +4368,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt16\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_UInt16_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -4384,7 +4384,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EUInt16\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_UInt16_GT__D_Count_BackingField;
         }
       }
 
@@ -4395,7 +4395,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -4403,7 +4403,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -4411,7 +4411,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -4541,12 +4541,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt32\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt32\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EInt32\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_Int32_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_Int32_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Int32_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Int32Array(uint length);
 
@@ -4764,7 +4764,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt32\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Int32_GT__D_Count_BackingField;
         }
       }
 
@@ -4772,7 +4772,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EInt32\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Int32_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -4788,7 +4788,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EInt32\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Int32_GT__D_Count_BackingField;
         }
       }
 
@@ -4799,7 +4799,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -4807,7 +4807,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -4815,7 +4815,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -4945,12 +4945,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt32\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt32\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EUInt32\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_UInt32_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_UInt32_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_UInt32_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Uint32Array(uint length);
 
@@ -5169,7 +5169,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt32\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_UInt32_GT__D_Count_BackingField;
         }
       }
 
@@ -5177,7 +5177,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EUInt32\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_UInt32_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -5193,7 +5193,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EUInt32\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_UInt32_GT__D_Count_BackingField;
         }
       }
 
@@ -5204,7 +5204,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -5212,7 +5212,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -5220,7 +5220,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -5350,12 +5350,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESingle\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESingle\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002ESingle\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_Single_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_Single_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Single_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Float32Array(uint length);
 
@@ -5576,7 +5576,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESingle\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Single_GT__D_Count_BackingField;
         }
       }
 
@@ -5584,7 +5584,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002ESingle\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Single_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -5600,7 +5600,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002ESingle\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Single_GT__D_Count_BackingField;
         }
       }
 
@@ -5611,7 +5611,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -5619,7 +5619,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -5627,7 +5627,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 
@@ -5757,12 +5757,12 @@ namespace H5
       private readonly uint _byteLength_BackingField;
       private readonly uint _byteOffset_BackingField;
       private readonly uint _length_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EDouble\u003E\u002ECount_BackingField;
-      private readonly bool _System\u002ECollections\u002EGeneric\u002EICollection_System\u002EDouble\u003E\u002EIsReadOnly_BackingField;
-      private readonly int _System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EDouble\u003E\u002ECount_BackingField;
-      private readonly int _System\u002ECollections\u002EICollection\u002ECount_BackingField;
-      private readonly object _System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
-      private readonly bool _System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_ICollection_System_D_Double_GT__D_Count_BackingField;
+      private readonly bool _System_D_Collections_D_Generic_D_ICollection_System_D_Double_GT__D_IsReadOnly_BackingField;
+      private readonly int _System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Double_GT__D_Count_BackingField;
+      private readonly int _System_D_Collections_D_ICollection_D_Count_BackingField;
+      private readonly object _System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
+      private readonly bool _System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
 
       public extern Float64Array(uint length);
 
@@ -5983,7 +5983,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EDouble\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Double_GT__D_Count_BackingField;
         }
       }
 
@@ -5991,7 +5991,7 @@ namespace H5
       {
         [Template("System.Array.getIsReadOnly({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EICollection_System\u002EDouble\u003E\u002EIsReadOnly_BackingField;
+          return this._System_D_Collections_D_Generic_D_ICollection_System_D_Double_GT__D_IsReadOnly_BackingField;
         }
       }
 
@@ -6007,7 +6007,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this}, {T})")] get
         {
-          return this._System\u002ECollections\u002EGeneric\u002EIReadOnlyCollection_System\u002EDouble\u003E\u002ECount_BackingField;
+          return this._System_D_Collections_D_Generic_D_IReadOnlyCollection_System_D_Double_GT__D_Count_BackingField;
         }
       }
 
@@ -6018,7 +6018,7 @@ namespace H5
       {
         [Template("System.Array.getCount({this})")] get
         {
-          return this._System\u002ECollections\u002EICollection\u002ECount_BackingField;
+          return this._System_D_Collections_D_ICollection_D_Count_BackingField;
         }
       }
 
@@ -6026,7 +6026,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002ESyncRoot_BackingField;
+          return this._System_D_Collections_D_ICollection_D_SyncRoot_BackingField;
         }
       }
 
@@ -6034,7 +6034,7 @@ namespace H5
       {
         get
         {
-          return this._System\u002ECollections\u002EICollection\u002EIsSynchronized_BackingField;
+          return this._System_D_Collections_D_ICollection_D_IsSynchronized_BackingField;
         }
       }
 

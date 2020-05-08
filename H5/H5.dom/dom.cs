@@ -42466,7 +42466,7 @@ namespace H5
       private readonly dom.Element _nextElementSibling_BackingField;
       private readonly dom.Element _previousElementSibling_BackingField;
       private readonly dom.HTMLCollection _children_BackingField;
-      private readonly uint _H5\u002Edom\u002EParentNode\u002EInterface\u002EchildElementCount_BackingField;
+      private readonly uint _H5_D_dom_D_ParentNode_D_Interface_D_childElementCount_BackingField;
 
       public static dom.Element prototype
       {
@@ -43538,7 +43538,7 @@ namespace H5
       {
         get
         {
-          return this._H5\u002Edom\u002EParentNode\u002EInterface\u002EchildElementCount_BackingField;
+          return this._H5_D_dom_D_ParentNode_D_Interface_D_childElementCount_BackingField;
         }
       }
 

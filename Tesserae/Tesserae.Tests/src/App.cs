@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tesserae.Components;
 using Tesserae.Tests.Samples;
-using static H5.dom;
+using static H5.Core.dom;
 using static Tesserae.UI;
 
 namespace Tesserae.Tests

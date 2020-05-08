@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using HighFive;
 using H5;
 using Tesserae.Components;
-using static H5.dom;
+using static H5.Core.dom;
 
 namespace Tesserae
 {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tesserae.Components;
-using static H5.dom;
+using static H5.Core.dom;
 
 namespace Tesserae
 {

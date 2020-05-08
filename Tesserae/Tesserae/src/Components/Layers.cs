@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using static H5.dom;
+using static H5.Core.dom;
 
 namespace Tesserae.Components
 {

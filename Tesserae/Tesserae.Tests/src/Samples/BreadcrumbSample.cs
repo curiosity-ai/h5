@@ -1,6 +1,6 @@
 ﻿using System;
 using Tesserae.Components;
-using static H5.dom;
+using static H5.Core.dom;
 using static Tesserae.UI;
 using static Tesserae.Tests.Samples.SamplesHelper;
 

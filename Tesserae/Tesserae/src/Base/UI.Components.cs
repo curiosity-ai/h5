@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Tesserae.Components;
-using static H5.dom;
+using static H5.Core.dom;
 
 namespace Tesserae
 {

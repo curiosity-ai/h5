@@ -33,7 +33,7 @@ namespace Bridge.Translator
                         dtsReferences.Add(path);
                     }
 
-                    if (!addNoLibReference && item.Assembly.StartsWith("Retyped."))
+                    if (!addNoLibReference && item.Assembly.StartsWith("H5."))
                     {
                         addNoLibReference = true;
                     }

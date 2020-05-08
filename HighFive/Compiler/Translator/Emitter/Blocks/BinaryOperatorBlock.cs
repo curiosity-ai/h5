@@ -153,7 +153,7 @@ namespace HighFive.Translator
 
         protected bool ResolveOperator(BinaryOperatorExpression binaryOperatorExpression, OperatorResolveResult orr)
         {
-            var method = orr != null ? orr.UserDefinedOperatorMethod : null;
+            var method = orr?.UserDefinedOperatorMethod;
 
             if (method != null)
             {
@@ -802,7 +802,7 @@ namespace HighFive.Translator
         private void HandleType(ResolveResult resolveOperator, KnownTypeCode typeCode, string op_name, string action)
         {
             var orr = resolveOperator as OperatorResolveResult;
-            var method = orr != null ? orr.UserDefinedOperatorMethod : null;
+            var method = orr?.UserDefinedOperatorMethod;
 
             if (orr != null && method == null)
             {

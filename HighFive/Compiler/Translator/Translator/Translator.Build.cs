@@ -98,7 +98,10 @@ namespace HighFive.Translator
             this.Log.Info("Building assembly...");
 
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
+
+
             var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, this.DefineConstants);
+
             var files = this.SourceFiles;
             IList<string> referencesPathes = null;
             var baseDir = Path.GetDirectoryName(this.Location);
@@ -276,7 +279,10 @@ namespace HighFive.Translator
                 references.Add(MetadataReference.CreateFromFile(path, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
             }
 
-            var compilation = CSharpCompilation.Create(this.ProjectProperties.AssemblyName ?? new DirectoryInfo(this.Location).Name, trees, references, compilationOptions);
+            var compilation = CSharpCompilation.Create(this.ProjectProperties.AssemblyName ?? new DirectoryInfo(this.Location).Name, trees, null, compilationOptions)
+                                .RemoveAllReferences()
+                                .AddReferences(references);
+
             Microsoft.CodeAnalysis.Emit.EmitResult emitResult;
 
             using (var outputStream = new FileStream(this.AssemblyLocation, FileMode.Create))

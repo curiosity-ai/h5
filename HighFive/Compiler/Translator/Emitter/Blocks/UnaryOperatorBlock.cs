@@ -462,7 +462,7 @@ namespace HighFive.Translator
                 return;
             }
 
-            var method = orr != null ? orr.UserDefinedOperatorMethod : null;
+            var method = orr?.UserDefinedOperatorMethod;
 
             if (orr != null && method == null)
             {

@@ -363,7 +363,7 @@ namespace HighFive.Translator
         {
             var resolveResult = this.Resolver.ResolveNode(reference, this) as TypeResolveResult;
             var type = this.HighFiveTypes.Get(resolveResult.Type, safe);
-            return type != null ? type.TypeDefinition : null;
+            return type?.TypeDefinition;
         }
 
         public virtual TypeDefinition GetBaseTypeDefinition()

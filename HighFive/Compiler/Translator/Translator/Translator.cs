@@ -111,6 +111,10 @@ namespace HighFive.Translator
 
             if (this.Rebuild)
             {
+                //if(File.Exists(this.AssemblyLocation))
+                //{
+                //    File.Delete(this.AssemblyLocation);
+                //}
                 logger.Info("Building assembly as Rebuild option is enabled");
                 this.BuildAssembly();
             }

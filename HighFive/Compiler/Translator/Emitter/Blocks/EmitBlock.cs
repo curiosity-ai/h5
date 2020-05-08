@@ -56,7 +56,7 @@ namespace HighFive.Translator
                         break;
 
                     case OutputBy.Module:
-                        fileName = module != null ? module.Name : null;
+                        fileName = module?.Name;
                         break;
 
                     case OutputBy.NamespacePath:

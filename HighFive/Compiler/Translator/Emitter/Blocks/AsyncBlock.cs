@@ -212,7 +212,7 @@ namespace HighFive.Translator
 
         protected void DetectReturnType()
         {
-            AstNode node = this.MethodDeclaration != null ? this.MethodDeclaration.ReturnType : null;
+            AstNode node = this.MethodDeclaration?.ReturnType;
 
             if (node == null)
             {

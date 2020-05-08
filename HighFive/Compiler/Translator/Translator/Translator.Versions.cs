@@ -111,10 +111,10 @@ namespace HighFive.Translator
                     ? new VersionContext.AssemblyVersion()
                     : new VersionContext.AssemblyVersion()
                     {
-                        CompanyName = versionInfo.CompanyName != null ? versionInfo.CompanyName.Trim() : null,
-                        Copyright = versionInfo.LegalCopyright != null ? versionInfo.LegalCopyright.Trim() : null,
+                        CompanyName = versionInfo.CompanyName?.Trim(),
+                        Copyright = versionInfo.LegalCopyright?.Trim(),
                         Version = GetProductVersionFromVersionInfo(versionInfo),
-                        Name = versionInfo.ProductName != null ? versionInfo.ProductName.Trim() : null
+                        Name = versionInfo.ProductName?.Trim()
                     };
         }
 

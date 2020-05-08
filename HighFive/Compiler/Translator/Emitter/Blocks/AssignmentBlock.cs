@@ -37,7 +37,7 @@ namespace HighFive.Translator
 
         protected bool ResolveOperator(AssignmentExpression assignmentExpression, OperatorResolveResult orr, int initCount, bool thisAssignment)
         {
-            var method = orr != null ? orr.UserDefinedOperatorMethod : null;
+            var method = orr?.UserDefinedOperatorMethod;
 
             if (method != null)
             {
@@ -102,7 +102,7 @@ namespace HighFive.Translator
 
         protected bool IsUserOperator(OperatorResolveResult orr)
         {
-            var method = orr != null ? orr.UserDefinedOperatorMethod : null;
+            var method = orr?.UserDefinedOperatorMethod;
 
             if (method != null)
             {
@@ -865,7 +865,7 @@ namespace HighFive.Translator
             }
 
             var orr = resolveOperator as OperatorResolveResult;
-            var method = orr != null ? orr.UserDefinedOperatorMethod : null;
+            var method = orr?.UserDefinedOperatorMethod;
             var assigmentType = Helpers.TypeOfAssignment(this.AssignmentExpression.Operator);
             if (orr != null && method == null)
             {

@@ -396,7 +396,7 @@ namespace HighFive.Translator
 
             Tuple<bool, bool, string> inlineInfo = member != null ? (isDynamic ? ((Emitter)this.Emitter).GetInlineCodeFromMember(member.Member, null) : this.Emitter.GetInlineCode(memberReferenceExpression)) : null;
             //string inline = member != null ? this.Emitter.GetInline(member.Member) : null;
-            string inline = inlineInfo != null ? inlineInfo.Item3 : null;
+            string inline = inlineInfo?.Item3;
 
             if (string.IsNullOrEmpty(inline) && member != null &&
                 member.Member is IMethod &&

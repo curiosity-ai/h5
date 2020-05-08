@@ -51,7 +51,15 @@ namespace HighFive.Translator
             var updatedMembers = new Dictionary<MemberAccessExpressionSyntax, string>();
             foreach (var memberAccess in root.DescendantNodes().OfType<MemberAccessExpressionSyntax>())
             {
-                var symbol = model.GetSymbolInfo(memberAccess).Symbol;
+                ISymbol symbol = null;
+                try
+                {
+                    symbol = model.GetSymbolInfo(memberAccess).Symbol;
+                }
+                catch(Exception E)
+                {
+                    Console.WriteLine(E);
+                }
                 if (symbol != null && symbol is IFieldSymbol && symbol.ContainingType.IsTupleType)
                 {
                     var field = symbol as IFieldSymbol;

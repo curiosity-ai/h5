@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>
     <NoStdLib>true</NoStdLib>
+    <LangVersion>7.2</LangVersion>
     <NoCompilerStandardLib>true</NoCompilerStandardLib>
     <NoExplicitReferenceToStdLib>true</NoExplicitReferenceToStdLib>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
@@ -11,4 +12,10 @@
   <Target Name="RunTool" AfterTargets="Build">
     <Message Importance="high" Text="This is the actual build" />
   </Target>
+  <ItemGroup>
+    <Compile Remove="shared\System\DateTime.cs" />
+    <Compile Remove="shared\System\Globalization\InternalGlobalizationHelper.cs" />
+    <Compile Remove="shared\System\Reflection\MethodInfo.cs" />
+    <Compile Remove="shared\System\Resources\RuntimeResourceSet.cs" />
+  </ItemGroup>
 </Project>

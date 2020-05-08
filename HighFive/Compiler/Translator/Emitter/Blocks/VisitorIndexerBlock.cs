@@ -55,8 +55,8 @@ namespace HighFive.Translator
                 }
             }
 
-            this.EmitIndexerMethod(this.IndexerDeclaration, prop, this.IndexerDeclaration.Getter, prop == null ? null : prop.Getter, false);
-            this.EmitIndexerMethod(this.IndexerDeclaration, prop, this.IndexerDeclaration.Setter, prop == null ? null : prop.Setter, true);
+            this.EmitIndexerMethod(this.IndexerDeclaration, prop, this.IndexerDeclaration.Getter, prop?.Getter, false);
+            this.EmitIndexerMethod(this.IndexerDeclaration, prop, this.IndexerDeclaration.Setter, prop?.Setter, true);
         }
 
         protected virtual void EmitIndexerMethod(IndexerDeclaration indexerDeclaration, IProperty prop, Accessor accessor, IMethod propAccessor, bool setter)

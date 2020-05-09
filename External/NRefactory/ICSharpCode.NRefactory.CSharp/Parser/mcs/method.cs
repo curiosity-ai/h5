@@ -707,6 +707,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (OptAttributes != null)
                 OptAttributes.Emit ();
 
+#if NETSTANDARD2_0
+#else
             if (declarative_security != null) {
                 foreach (var de in declarative_security) {
 #if STATIC
@@ -716,7 +718,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 #endif
                 }
             }
-
+#endif
             if (type_expr != null)
                 ConstraintChecker.Check (this, member_type, type_expr.Location);
 
@@ -759,7 +761,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
         }
 
-        #region IMethodData Members
+#region IMethodData Members
 
         bool IMethodData.IsAccessor {
             get {
@@ -814,7 +816,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             return conditions;
         }
 
-        #endregion
+#endregion
 
         public virtual void PrepareEmit ()
         {
@@ -869,7 +871,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
         }
 
-        #region Properties
+#region Properties
 
         public override TypeParameters CurrentTypeParameters {
             get {
@@ -889,7 +891,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
         }
 
-        #endregion
+#endregion
 
         public override void Accept (StructuralVisitor visitor)
         {
@@ -1797,6 +1799,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 }
             }
 
+#if NETSTANDARD2_0
+#else
             if (declarative_security != null) {
                 foreach (var de in declarative_security) {
 #if STATIC
@@ -1806,6 +1810,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 #endif
                 }
             }
+#endif
 
             block = null;
         }
@@ -1860,9 +1865,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             if (debug_builder == null)
                 return;
-
+#if NETSTANDARD2_0
+            int t = ConstructorBuilder.MetadataToken;
+#else
             var token = ConstructorBuilder.GetToken ();
             int t = token.Token;
+#endif
 #if STATIC
             if (ModuleBuilder.IsPseudoToken (t))
                 t = Module.Builder.ResolvePseudoToken (t);
@@ -1871,7 +1879,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             debug_builder.DefineMethod (file, t);
         }
 
-        #region IMethodData Members
+#region IMethodData Members
 
         public MemberName MethodName {
             get {
@@ -1890,7 +1898,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             throw new NotImplementedException ();
         }
 
-        #endregion
+#endregion
     }
 
     /// <summary>
@@ -2191,8 +2199,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (debug_builder == null)
                 return;
 
-            var token = builder.GetToken ();
-            int t = token.Token;
+#if NETSTANDARD2_0
+                var t = builder.MetadataToken;
+#else
+                var token = builder.GetToken ();
+                int t = token.Token;
+#endif
 #if STATIC
             if (ModuleBuilder.IsPseudoToken (t))
                 t = member.Module.Builder.ResolvePseudoToken (t);
@@ -2337,7 +2349,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             SetMemberName (SetupName (prefix, member, Location));
         }
 
-        #region IMethodData Members
+#region IMethodData Members
 
         public ToplevelBlock Block {
             get {
@@ -2387,7 +2399,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public abstract ParametersCompiled ParameterInfo { get ; }
         public abstract TypeSpec ReturnType { get; }
 
-        #endregion
+#endregion
 
         public override void ApplyAttributeBuilder (Attribute a, MethodSpec ctor, byte[] cdata, PredefinedAttributes pa)
         {
@@ -2450,6 +2462,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (OptAttributes != null)
                 OptAttributes.Emit ();
 
+#if NETSTANDARD2_0
+#else
             if (declarative_security != null) {
                 foreach (var de in declarative_security) {
 #if STATIC
@@ -2457,8 +2471,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 #else
                     method_data.MethodBuilder.AddDeclarativeSecurity (de.Key, de.Value);
 #endif
-                }
             }
+        }
+#endif
 
             block = null;
         }

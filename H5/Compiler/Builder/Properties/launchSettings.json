@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "H5.Builder": {
+      "commandName": "Project",
+      "commandLineArgs": "--rebuild -p \"$(SolutionDir)H5\\H5.Newtonsoft.Json\\H5.Newtonsoft.Json.csproj\" -b \"$(SolutionDir)lib\\H5.dll\" -cfg \"$(Configuration)\" --platform \"$(Platform)\""
+    }
+  }
+}

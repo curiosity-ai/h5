@@ -1,28 +1,23 @@
 ﻿// Decompiled with JetBrains decompiler
-// Type: H5.Primitive.This`1
+// Type: H5.Core.This`1
 // Assembly: H5.Core, Version=1.6.0.0, Culture=neutral, PublicKeyToken=null
 // MVID: 9E855DC6-9E83-4420-9E6F-8D2B7A117BBD
 // Assembly location: C:\work\curiosity\tesserae\Tesserae\bin\Debug\net461\H5.Core.dll
 
-using HighFive;
+using H5;
 
-namespace H5.Primitive
+namespace H5.Core
 {
   [IgnoreGeneric(AllowInTypeScript = true)]
   [IgnoreCast]
   [Virtual]
   public abstract class This<T>
   {
-    private readonly T _Value_BackingField;
-
     private extern This();
 
     public T Value
     {
-      [Template("{this}")] get
-      {
-        return this._Value_BackingField;
-      }
+      [Template("{this}")] get;
     }
 
     [Template("{this}")]

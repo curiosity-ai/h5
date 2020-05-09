@@ -1,0 +1,87 @@
+﻿/* Choice */
+.tss-choice-group {
+    display: flex;
+    margin: 4px;
+}
+
+    .tss-choice-group div {
+        margin-right: 12px;
+    }
+
+.tss-option-container {
+    position: relative;
+    cursor: pointer;
+    color: var(--tss-default-foreground-color);
+    font-size: var(--tss-font-size-small);
+    font-weight: var(--tss-font-weight-regular);
+    user-select: none;
+    padding-left: 28px;
+    margin: 4px;
+    display: block;
+    text-align:left;
+}
+
+    .tss-option-container .tss-option {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .tss-option-container .tss-option-mark {
+        position: absolute;
+        top: 2px;
+        left: 1px;
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        border: 1px solid var(--tss-default-foreground-color);
+    }
+
+    .tss-option-container:hover input ~ .tss-option-mark:after {
+        display: block;
+    }
+
+    .tss-option-container input:checked ~ .tss-option-mark {
+        border-color: var(--tss-primary-background-color);
+    }
+
+    .tss-option-container:hover input:checked ~ .tss-option-mark {
+        border-color: var(--tss-primary-background-hover-color);
+    }
+
+    .tss-option-container input:checked ~ .tss-option-mark:after {
+        display: block;
+        border-color: var(--tss-primary-background-color);
+    }
+
+    .tss-option-container:hover input:checked ~ .tss-option-mark:after {
+        border-color: var(--tss-primary-background-hover-color);
+    }
+
+
+    .tss-option-container .tss-option-mark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 3px;
+        top: 3px;
+        width: 10px;
+        height: 10px;
+        border: solid var(--tss-default-foreground-color);
+        border-width: 5px;
+        border-radius: 50%;
+    }
+
+    .tss-option-container.tss-disabled {
+        color: var(--tss-disabled-foreground-color);
+    }
+
+        .tss-option-container.tss-disabled .tss-option-mark {
+            border-color: var(--tss-disabled-foreground-color);
+        }
+
+        .tss-option-container.tss-disabled input:checked ~ .tss-option-mark {
+            border-color: var(--tss-disabled-foreground-color);
+        }

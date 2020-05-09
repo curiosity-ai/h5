@@ -208,21 +208,28 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 #if !STATIC
         public override ModuleBuilder CreateModuleBuilder ()
         {
+#if NETSTANDARD2_0
+            if (file_name == null)
+                return Builder.DefineDynamicModule(Name);
+#else
             if (file_name == null)
                 return Builder.DefineDynamicModule (Name, false);
-
+#endif
             return base.CreateModuleBuilder ();
         }
 #endif
-        //
-        // Initializes the code generator
-        //
-        public bool Create (AppDomain domain, AssemblyBuilderAccess access)
+            //
+            // Initializes the code generator
+            //
+            public bool Create (AppDomain domain, AssemblyBuilderAccess access)
         {
+#if NETSTANDARD2_0
+            throw new PlatformNotSupportedException();
+#else
 #if STATIC || FULL_AOT_RUNTIME
             throw new NotSupportedException ();
 #else
-            ResolveAssemblySecurityAttributes ();
+            ResolveAssemblySecurityAttributes();
             var an = CreateAssemblyName ();
 
             Builder = file_name == null ?
@@ -232,6 +239,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             module.Create (this, CreateModuleBuilder ());
             builder_extra = new AssemblyBuilderMonoSpecific (Builder, Compiler);
             return true;
+#endif
 #endif
         }
 
@@ -252,7 +260,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 #if !STATIC
         protected override void SaveModule (PortableExecutableKinds pekind, ImageFileMachine machine)
         {
-            try {
+#if NETSTANDARD2_0
+            throw new PlatformNotSupportedException();
+#else
+            try
+            {
                 var module_only = typeof (AssemblyBuilder).GetProperty ("IsModuleOnly", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                 var set_module_only = module_only.GetSetMethod (true);
 
@@ -262,9 +274,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             Builder.Save (file_name, pekind, machine);
+#endif
         }
 #endif
-    }
+        }
 
     //
     // Extension to System.Reflection.Emit.AssemblyBuilder to have fully compatible

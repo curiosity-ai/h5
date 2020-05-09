@@ -1,0 +1,235 @@
+﻿/* Modal */
+.tss-modal-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    margin: 0;
+    padding: 0;
+    background-color: var(--tss-overlay-light);
+    visibility: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: saturate(0);
+}
+
+    .tss-modal-container.tss-dark {
+        background-color: var(--tss-overlay-dark);
+    }
+
+
+.tss-modal {
+    margin: 0;
+    padding: 0;
+    background-color: var(--tss-default-background-color);
+    box-shadow: rgba(0, 0, 0, 0.22) 0px 25.6px 57.6px 0px, rgba(0, 0, 0, 0.18) 0px 4.8px 14.4px 0px;
+    border-radius: 2px;
+    position: relative;
+    text-align: left;
+    right: auto;
+    top: 0;
+    left: auto;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    outline: transparent solid 3px;
+    max-height: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+    min-height: 176px;
+    min-width: 288px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-items: stretch;
+    visibility: visible;
+    isolation: isolate;
+}
+
+.tss-modal-footer {
+    bottom: 0;
+    margin: 0;
+    border: 0;
+    width: 100%;
+    flex-shrink: 0;
+    padding: 0px 12px 0px 12px;
+    display: inline-flex;
+    align-items: center;
+    background: var(--tss-default-background-color);
+}
+
+
+
+.tss-modal-header {
+    margin: 0;
+    border: 0;
+    width: 100%;
+    padding: 0px 12px 0px 12px;
+    position: relative;
+    border-top: 4px solid var(--tss-primary-background-color);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    background: var(--tss-default-background-color);
+}
+
+    .tss-modal-header.tss-noborder {
+        border-top: unset;
+    }
+
+
+.tss-modal-header-content {
+    flex-grow: 1;
+    overflow: hidden;
+    display: inline-flex;
+    flex-wrap: nowrap;
+}
+
+    .tss-modal-header-content:not(:empty) {
+        padding: 6px 0px 6px 0px;
+    }
+
+
+.tss-modal-footer-content {
+    flex-grow: 1;
+    overflow: hidden;
+    display: inline-flex;
+    flex-wrap: nowrap;
+}
+
+    .tss-modal-footer-content:not(:empty) {
+        padding: 6px 0px 6px 0px;
+    }
+
+
+.tss-modal-header-commands {
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .tss-modal-header-commands:not(:empty) {
+        padding: 6px 0px 6px 0px;
+    }
+
+
+.tss-modal-footer-commands {
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .tss-modal-footer-commands:not(:empty) {
+        padding: 6px 0px 6px 0px;
+    }
+
+
+
+.tss-modal-header-commands > button {
+    background-color: transparent;
+    color: var(--tss-secondary-foreground-color);
+    border: none;
+    cursor: pointer;
+    min-width: 32px;
+    height: 32px;
+    user-select: none;
+    border-radius: 2px;
+    padding: 0 4px;
+    text-align: center;
+    display: inline-block;
+    font-size: var(--tss-font-size-mediumplus);
+    font-weight: var(--tss-font-weight-semibold);
+    box-shadow: none;
+}
+
+    .tss-modal-header-commands > button:not(:first-of-type) {
+        margin-left: 4px;
+    }
+
+    .tss-modal-header-commands > button:hover {
+        background-color: var(--tss-default-background-hover-color);
+        color: var(--tss-default-foreground-color);
+    }
+
+    .tss-modal-header-commands > button:active {
+        background-color: var(--tss-default-background-active-color);
+        color: var(--tss-primary-background-active-color);
+    }
+
+.tss-modal-footer-commands > button {
+    background-color: transparent;
+    color: var(--tss-secondary-foreground-color);
+    border: none;
+    cursor: pointer;
+    min-width: 32px;
+    height: 32px;
+    user-select: none;
+    border-radius: 2px;
+    padding: 0 4px;
+    text-align: center;
+    display: inline-block;
+    font-size: var(--tss-font-size-small);
+    font-weight: var(--tss-font-weight-semibold);
+    box-shadow: none;
+}
+
+    .tss-modal-footer-commands > button:not(:first-of-type) {
+        margin-left: 4px;
+    }
+
+    .tss-modal-footer-commands > button:hover {
+        background-color: var(--tss-default-background-hover-color);
+        color: var(--tss-default-foreground-color);
+    }
+
+    .tss-modal-footer-commands > button:active {
+        background-color: var(--tss-default-background-active-color);
+        color: var(--tss-primary-background-active-color);
+    }
+
+.tss-modal-content {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px 12px 0px 12px;
+}
+
+.tss-modal-centered-content {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.tss-modal-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+}
+
+.tss-modal-lightDismiss {
+    cursor: pointer;
+}
+
+.tss-modal-draggable {
+    cursor: move;
+}
+
+.tss-modal-modeless {
+    visibility: hidden;
+    backdrop-filter: none;
+}
+
+.tss-modal.tss-embedded {
+    box-shadow: var(--tss-card-shadow);
+    max-width: calc(100% - 4px);
+    max-height: calc(100% - 4px);
+    margin-bottom: 4px;
+}

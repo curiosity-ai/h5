@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>HighFive.NRefactory</id>
+    <id>H5.NRefactory</id>
     <version>0.0.0</version>
     <title>NRefactory</title>
     <authors>Object.NET,Inc.</authors>
     <owners>Object.NET,Inc.</owners>
     <licenseUrl>https://github.com/icsharpcode/NRefactory</licenseUrl>
     <projectUrl>https://github.com/icsharpcode/NRefactory</projectUrl>
-    <iconUrl>http://speed.highfive.net/identity/highfivedotnet-100x100.png</iconUrl>
+    <iconUrl>http://speed.h5.net/identity/h5dotnet-100x100.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>HighFive.NET fork of NRefactory project</description>
-    <summary>HighFive.NET fork of NRefactory project</summary>
+    <description>H5.NET fork of NRefactory project</description>
+    <summary>H5.NET fork of NRefactory project</summary>
     <copyright />
     <dependencies>
       <dependency id="Mono.Cecil" version="0.11.1" />

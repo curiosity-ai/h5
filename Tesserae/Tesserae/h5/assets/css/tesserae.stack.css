@@ -1,0 +1,13 @@
+﻿/* Stack */
+.tss-stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.tss-stack-item {
+    height: auto;
+}
+
+.tss-stack.tss-invalid {
+    border-color: var(--tss-invalid-border-color);
+}

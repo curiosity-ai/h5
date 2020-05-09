@@ -4,15 +4,17 @@
 // MVID: 9E855DC6-9E83-4420-9E6F-8D2B7A117BBD
 // Assembly location: C:\work\curiosity\tesserae\Tesserae\bin\Debug\net461\H5.Core.dll
 
+using H5;
 using System;
 
-namespace H5
+namespace H5.Core
 {
-  [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-  public sealed class GenericDefaultAttribute : Attribute
-  {
-    public extern GenericDefaultAttribute(string typeParamName, Type defaultType);
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    [Virtual]
+    public sealed class GenericDefaultAttribute : Attribute
+    {
+        public extern GenericDefaultAttribute(string typeParamName, Type defaultType);
 
-    public extern GenericDefaultAttribute(string typeParamName, string defaultTypeOfAnotherParam);
-  }
+        public extern GenericDefaultAttribute(string typeParamName, string defaultTypeOfAnotherParam);
+    }
 }

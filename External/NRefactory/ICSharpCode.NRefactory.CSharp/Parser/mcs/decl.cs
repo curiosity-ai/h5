@@ -32,6 +32,11 @@ using System.Reflection;
 using System.Reflection.Emit;
 #endif
 
+#if NETSTANDARD2_0
+using ICSharpCode.NRefactory.CSharp;
+#endif
+
+
 namespace ICSharpCode.NRefactory.MonoCSharp {
 
     //
@@ -854,7 +859,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
         }
 
-        #region IMemberContext Members
+#region IMemberContext Members
 
         public virtual CompilerContext Compiler {
             get {
@@ -898,7 +903,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
         }
 
-        #endregion
+#endregion
     }
 
     //
@@ -969,7 +974,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 state = StateFlags.Obsolete_Undetected | StateFlags.CLSCompliant_Undetected | StateFlags.MissingDependency_Undetected;
         }
 
-        #region Properties
+#region Properties
 
         public virtual int Arity {
             get {
@@ -1059,7 +1064,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
         }
 
-        #endregion
+#endregion
 
         public virtual ObsoleteAttribute GetAttributeObsolete ()
         {

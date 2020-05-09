@@ -1,0 +1,46 @@
+﻿/* HorizontalSeparator */
+.tss-horizontalseparator {
+    position: relative;
+    display: inline-block;
+    padding-top: 0px;
+    padding-right: 12px;
+    padding-bottom: 0px;
+    padding-left: 12px;
+    color: var(--tss-default-foreground-color);
+    background: var(--tss-default-background-color);
+}
+    .tss-horizontalseparator.tss-primary {
+        color: var(--tss-primary-background-color);
+    }
+
+.tss-horizontalseparator-container {
+    font-size: 14px;
+    font-weight: 400;
+    position: relative;
+    text-align: center;
+    padding-top: 4px;
+    padding-right: 0px;
+    padding-bottom: 4px;
+    padding-left: 0px;
+    -webkit-font-smoothing: antialiased;
+}
+
+    .tss-horizontalseparator-container::before {
+        background-color: var(--tss-default-separator-color);
+        height: 1px;
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+
+    .tss-horizontalseparator-container.tss-left {
+        text-align: start;
+    }
+
+    .tss-horizontalseparator-container.tss-right {
+        text-align: end;
+    }

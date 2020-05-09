@@ -31,63 +31,75 @@ namespace ICSharpCode.NRefactory.MonoCSharp
     {
         readonly CompilerContext ctx;
 
-        public Driver (CompilerContext ctx)
+        public Driver(CompilerContext ctx)
         {
             this.ctx = ctx;
         }
 
-        Report Report {
-            get {
+        Report Report
+        {
+            get
+            {
                 return ctx.Report;
             }
         }
 
-        void tokenize_file (SourceFile sourceFile, ModuleContainer module, ParserSession session)
+        void tokenize_file(SourceFile sourceFile, ModuleContainer module, ParserSession session)
         {
             Stream input;
 
-            try {
-                input = File.OpenRead (sourceFile.Name);
-            } catch {
-                Report.Error (2001, "Source file `" + sourceFile.Name + "' could not be found");
+            try
+            {
+                input = File.OpenRead(sourceFile.Name);
+            }
+            catch
+            {
+                Report.Error(2001, "Source file `" + sourceFile.Name + "' could not be found");
                 return;
             }
 
-            using (input){
-                SeekableStreamReader reader = new SeekableStreamReader (input, ctx.Settings.Encoding);
-                var file = new CompilationSourceFile (module, sourceFile);
+            using (input)
+            {
+                SeekableStreamReader reader = new SeekableStreamReader(input, ctx.Settings.Encoding);
+                var file = new CompilationSourceFile(module, sourceFile);
 
-                Tokenizer lexer = new Tokenizer (reader, file, session, ctx.Report);
+                Tokenizer lexer = new Tokenizer(reader, file, session, ctx.Report);
                 int token, tokens = 0, errors = 0;
 
-                while ((token = lexer.token ()) != Token.EOF){
+                while ((token = lexer.token()) != Token.EOF)
+                {
                     tokens++;
                     if (token == Token.ERROR)
                         errors++;
                 }
-                Console.WriteLine ("Tokenized: " + tokens + " found " + errors + " errors");
+                Console.WriteLine("Tokenized: " + tokens + " found " + errors + " errors");
             }
 
             return;
         }
 
-        void Parse (ModuleContainer module)
+        void Parse(ModuleContainer module)
         {
             bool tokenize_only = module.Compiler.Settings.TokenizeOnly;
             var sources = module.Compiler.SourceFiles;
 
-            Location.Initialize (sources);
+            Location.Initialize(sources);
 
-            var session = new ParserSession {
+            var session = new ParserSession
+            {
                 UseJayGlobalArrays = true,
                 LocatedTokens = new LocatedToken[15000]
             };
 
-            for (int i = 0; i < sources.Count; ++i) {
-                if (tokenize_only) {
-                    tokenize_file (sources[i], module, session);
-                } else {
-                    Parse (sources[i], module, session, Report);
+            for (int i = 0; i < sources.Count; ++i)
+            {
+                if (tokenize_only)
+                {
+                    tokenize_file(sources[i], module, session);
+                }
+                else
+                {
+                    Parse(sources[i], module, session, Report);
                 }
             }
         }
@@ -127,129 +139,144 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         }
 #endif
 
-        public void Parse (SourceFile file, ModuleContainer module, ParserSession session, Report report)
+        public void Parse(SourceFile file, ModuleContainer module, ParserSession session, Report report)
         {
             Stream input;
 
-            try {
-                input = File.OpenRead (file.Name);
-            } catch {
-                report.Error (2001, "Source file `{0}' could not be found", file.Name);
+            try
+            {
+                input = File.OpenRead(file.Name);
+            }
+            catch
+            {
+                report.Error(2001, "Source file `{0}' could not be found", file.Name);
                 return;
             }
 
             // Check 'MZ' header
-            if (input.ReadByte () == 77 && input.ReadByte () == 90) {
+            if (input.ReadByte() == 77 && input.ReadByte() == 90)
+            {
 
-                report.Error (2015, "Source file `{0}' is a binary file and not a text file", file.Name);
-                input.Close ();
+                report.Error(2015, "Source file `{0}' is a binary file and not a text file", file.Name);
+                input.Close();
                 return;
             }
 
             input.Position = 0;
-            SeekableStreamReader reader = new SeekableStreamReader (input, ctx.Settings.Encoding, session.StreamReaderBuffer);
+            SeekableStreamReader reader = new SeekableStreamReader(input, ctx.Settings.Encoding, session.StreamReaderBuffer);
 
-            Parse (reader, file, module, session, report);
+            Parse(reader, file, module, session, report);
 
-            if (ctx.Settings.GenerateDebugInfo && report.Errors == 0 && !file.HasChecksum) {
+            if (ctx.Settings.GenerateDebugInfo && report.Errors == 0 && !file.HasChecksum)
+            {
                 input.Position = 0;
-                var checksum = session.GetChecksumAlgorithm ();
-                file.SetChecksum (checksum.ComputeHash (input));
+                var checksum = session.GetChecksumAlgorithm();
+                file.SetChecksum(checksum.ComputeHash(input));
             }
 
-            reader.Dispose ();
-            input.Close ();
+            reader.Dispose();
+            input.Close();
         }
 
-        public static CSharpParser Parse (SeekableStreamReader reader, SourceFile sourceFile, ModuleContainer module, ParserSession session, Report report, int lineModifier = 0, int colModifier = 0)
+        public static CSharpParser Parse(SeekableStreamReader reader, SourceFile sourceFile, ModuleContainer module, ParserSession session, Report report, int lineModifier = 0, int colModifier = 0)
         {
-            var file = new CompilationSourceFile (module, sourceFile);
+            var file = new CompilationSourceFile(module, sourceFile);
             module.AddTypeContainer(file);
 
-            CSharpParser parser = new CSharpParser (reader, file, report, session);
+            CSharpParser parser = new CSharpParser(reader, file, report, session);
             parser.Lexer.Line += lineModifier;
             parser.Lexer.Column += colModifier;
-            parser.Lexer.sbag = new SpecialsBag ();
-            parser.parse ();
+            parser.Lexer.sbag = new SpecialsBag();
+            parser.parse();
             return parser;
         }
 
-        public static int Main (string[] args)
+        public static int Main(string[] args)
         {
-            Location.InEmacs = Environment.GetEnvironmentVariable ("EMACS") == "t";
+            Location.InEmacs = Environment.GetEnvironmentVariable("EMACS") == "t";
 
-            CommandLineParser cmd = new CommandLineParser (Console.Out);
-            var settings = cmd.ParseArguments (args);
+            CommandLineParser cmd = new CommandLineParser(Console.Out);
+            var settings = cmd.ParseArguments(args);
             if (settings == null)
                 return 1;
 
             if (cmd.HasBeenStopped)
                 return 0;
 
-            Driver d = new Driver (new CompilerContext (settings, new ConsoleReportPrinter ()));
+            Driver d = new Driver(new CompilerContext(settings, new ConsoleReportPrinter()));
 
-            if (d.Compile () && d.Report.Errors == 0) {
-                if (d.Report.Warnings > 0) {
-                    Console.WriteLine ("Compilation succeeded - {0} warning(s)", d.Report.Warnings);
+            if (d.Compile() && d.Report.Errors == 0)
+            {
+                if (d.Report.Warnings > 0)
+                {
+                    Console.WriteLine("Compilation succeeded - {0} warning(s)", d.Report.Warnings);
                 }
-                Environment.Exit (0);
+                Environment.Exit(0);
                 return 0;
             }
 
 
             Console.WriteLine("Compilation failed: {0} error(s), {1} warnings",
                 d.Report.Errors, d.Report.Warnings);
-            Environment.Exit (1);
+            Environment.Exit(1);
             return 1;
         }
 
-        public static string GetPackageFlags (string packages, Report report)
+        public static string GetPackageFlags(string packages, Report report)
         {
-            ProcessStartInfo pi = new ProcessStartInfo ();
+            ProcessStartInfo pi = new ProcessStartInfo();
             pi.FileName = "pkg-config";
             pi.RedirectStandardOutput = true;
             pi.UseShellExecute = false;
             pi.Arguments = "--libs " + packages;
             Process p = null;
-            try {
-                p = Process.Start (pi);
-            } catch (Exception e) {
+            try
+            {
+                p = Process.Start(pi);
+            }
+            catch (Exception e)
+            {
                 if (report == null)
                     throw;
 
-                report.Error (-27, "Couldn't run pkg-config: " + e.Message);
+                report.Error(-27, "Couldn't run pkg-config: " + e.Message);
                 return null;
             }
 
-            if (p.StandardOutput == null) {
+            if (p.StandardOutput == null)
+            {
                 if (report == null)
-                    throw new ApplicationException ("Specified package did not return any information");
+                    throw new ApplicationException("Specified package did not return any information");
 
-                report.Warning (-27, 1, "Specified package did not return any information");
-                p.Close ();
+                report.Warning(-27, 1, "Specified package did not return any information");
+                p.Close();
                 return null;
             }
 
-            string pkgout = p.StandardOutput.ReadToEnd ();
-            p.WaitForExit ();
-            if (p.ExitCode != 0) {
+            string pkgout = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            if (p.ExitCode != 0)
+            {
                 if (report == null)
-                    throw new ApplicationException (pkgout);
+                    throw new ApplicationException(pkgout);
 
-                report.Error (-27, "Error running pkg-config. Check the above output.");
-                p.Close ();
+                report.Error(-27, "Error running pkg-config. Check the above output.");
+                p.Close();
                 return null;
             }
 
-            p.Close ();
+            p.Close();
             return pkgout;
         }
 
         //
         // Main compilation method
         //
-        public bool Compile ()
+        public bool Compile()
         {
+#if NETSTANDARD2_0
+            throw new PlatformNotSupportedException();
+#else
             var settings = ctx.Settings;
 
             //
@@ -414,9 +441,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             return Report.Errors == 0;
         }
+#endif
+        }
     }
 
-    public class CompilerCompilationUnit {
+    public class CompilerCompilationUnit
+    {
         public ModuleContainer ModuleCompiled { get; set; }
         public LocationsBag LocationsBag { get; set; }
         public SpecialsBag SpecialsBag { get; set; }
@@ -429,47 +459,51 @@ namespace ICSharpCode.NRefactory.MonoCSharp
     //
     public class CompilerCallableEntryPoint : MarshalByRefObject
     {
-        public static bool InvokeCompiler (string [] args, TextWriter error)
+        public static bool InvokeCompiler(string[] args, TextWriter error)
         {
-            try {
-                CommandLineParser cmd = new CommandLineParser (error);
-                var setting = cmd.ParseArguments (args);
+            try
+            {
+                CommandLineParser cmd = new CommandLineParser(error);
+                var setting = cmd.ParseArguments(args);
                 if (setting == null)
                     return false;
 
-                var d = new Driver (new CompilerContext (setting, new StreamReportPrinter (error)));
-                return d.Compile ();
-            } finally {
-                Reset ();
+                var d = new Driver(new CompilerContext(setting, new StreamReportPrinter(error)));
+                return d.Compile();
+            }
+            finally
+            {
+                Reset();
             }
         }
 
-        public static int[] AllWarningNumbers {
-            get {
+        public static int[] AllWarningNumbers
+        {
+            get
+            {
                 return Report.AllWarnings;
             }
         }
 
-        public static void Reset ()
+        public static void Reset()
         {
-            Reset (true);
+            Reset(true);
         }
 
-        public static void PartialReset ()
+        public static void PartialReset()
         {
-            Reset (false);
+            Reset(false);
         }
 
-        public static void Reset (bool full_flag)
+        public static void Reset(bool full_flag)
         {
-            Location.Reset ();
+            Location.Reset();
 
             if (!full_flag)
                 return;
 
-            Linq.QueryBlock.TransparentParameter.Reset ();
-            TypeInfo.Reset ();
+            Linq.QueryBlock.TransparentParameter.Reset();
+            TypeInfo.Reset();
         }
     }
-
 }

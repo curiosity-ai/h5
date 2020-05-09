@@ -4,7 +4,6 @@ variables:
   h5base: '$(Build.SourcesDirectory)/H5/H5/H5.csproj'
   h5core: '$(Build.SourcesDirectory)/H5/H5.Core/H5.Core.csproj'
   h5json: '$(Build.SourcesDirectory)/H5/H5.Newtonsoft.Json/H5.Newtonsoft.Json.csproj'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 pool:
@@ -23,7 +22,6 @@ pr: none
 
 steps:
 - checkout: self
-  submodules: true
   
 - task: UseDotNet@2
   displayName: 'Use .NET Core sdk'
@@ -36,7 +34,7 @@ steps:
   displayName: 'restore nuget'
   inputs:
     command: 'restore'
-    projects: '$(project)'
+    projects: '$(compiler)'
 
 - task: DotNetCoreCLI@2
   displayName: 'build'
@@ -58,6 +56,6 @@ steps:
   displayName: 'push nuget'
   inputs:
     command: 'push'
-    packagesToPush: '**/H5.0.0.$(build.buildId).nupkg'
+    packagesToPush: '**/h5-compiler.0.0.$(build.buildId).nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget-curiosity'

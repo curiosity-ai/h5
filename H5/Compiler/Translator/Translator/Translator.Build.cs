@@ -18,6 +18,8 @@ namespace H5.Translator
 {
     public partial class Translator
     {
+        private const string RuntimeMetadataVersion = "v4.0.30319";
+
         public virtual string[] GetProjectReferenceAssemblies()
         {
             var baseDir = Path.GetDirectoryName(this.Location);
@@ -98,7 +100,6 @@ namespace H5.Translator
             this.Log.Info("Building assembly...");
 
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
-
 
             var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, this.DefineConstants);
 
@@ -287,7 +288,7 @@ namespace H5.Translator
 
             using (var outputStream = new FileStream(this.AssemblyLocation, FileMode.Create))
             {
-                emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: "v4.0.30319", includePrivateMembers: true));
+                emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true));
                 outputStream.Flush();
                 outputStream.Close();
             }

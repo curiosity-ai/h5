@@ -1,19 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
-  </PropertyGroup>
-  <PropertyGroup>
     <DefineConstants>H5_COMPILER</DefineConstants>
-    <OutputType>Exe</OutputType>
     <StartupObject>H5.Builder.Program</StartupObject>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <AssemblyName>h5</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>mosaik</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <ApplicationIcon />
+    <LangVersion>latest</LangVersion>
+    <PackageId>h5-compiler</PackageId>
+    <Authors>Curiosity GmbH, Object.NET, Inc.</Authors>
+    <Company>Curiosity GmbH</Company>
+    <Description />
+    <Copyright>(c) Copyright 2020 Curiosity GmbH - all right reserved, (c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.0.42</Version>
+    <IncludeReferencedProjects>true</IncludeReferencedProjects>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>true</IsPackable>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Overrides\ResolveVisitor.cs" />

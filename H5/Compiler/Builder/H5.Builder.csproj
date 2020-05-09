@@ -11,7 +11,7 @@
 
   <PropertyGroup>
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>mosaik</ToolCommandName>
+    <ToolCommandName>h5</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <ApplicationIcon />
     <LangVersion>latest</LangVersion>

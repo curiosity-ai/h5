@@ -15,7 +15,7 @@ trigger:
     - master
   paths:
     include:
-    - H5/*
+    - H5/Compiler/*
     - .devops/build-dotnet-tool.yml
 
 pr: none

@@ -1,0 +1,2 @@
+    Newtonsoft.Json.$cache = [];
+});

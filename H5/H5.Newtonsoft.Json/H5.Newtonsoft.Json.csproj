@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets/1.0.40">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>
+    <NoStdLib>true</NoStdLib>
+    <NoCompilerStandardLib>true</NoCompilerStandardLib>
+    <NoExplicitReferenceToStdLib>true</NoExplicitReferenceToStdLib>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\H5\H5\H5.csproj" />
+  </ItemGroup>
+</Project>

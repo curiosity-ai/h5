@@ -49,7 +49,7 @@ steps:
   displayName: 'pack nuget'
   inputs:
     command: 'pack'
-    packagesToPack: '$(h5base)'
+    packagesToPack: '$(h5core)'
     configuration: '$(buildConfiguration)'
     versioningScheme: 'off'
     buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'

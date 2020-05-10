@@ -13,6 +13,7 @@
 
   <PropertyGroup>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <IncludeSymbols>false</IncludeSymbols>
     <ApplicationIcon />
     <LangVersion>latest</LangVersion>
     <PackageId>h5</PackageId>

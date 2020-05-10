@@ -2,7 +2,8 @@
   "profiles": {
     "H5.Builder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"$(SolutionDir)H5\\H5\\H5.csproj\" -cfg \"$(Configuration)\" --platform \"$(Platform)\""
+      "commandLineArgs": "--rebuild -p \"$(SolutionDir)H5\\H5.Core\\H5.Core.csproj\" -cfg \"$(Configuration)\" --platform \"$(Platform)\"",
+      "workingDirectory": "$(SolutionDir)H5\\H5.Core\\"
     }
   }
 }

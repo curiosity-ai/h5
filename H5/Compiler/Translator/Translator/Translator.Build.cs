@@ -13,6 +13,13 @@ using ICSharpCode.NRefactory.Documentation;
 using System.Text;
 using System.Globalization;
 using Mono.Cecil;
+using NuGet.Packaging;
+using NuGet.Packaging.Core;
+using NuGet.Frameworks;
+using NuGet.Versioning;
+using ICSharpCode.NRefactory.Semantics;
+using H5.Contract.Constants;
+using System.Runtime.InteropServices;
 
 namespace H5.Translator
 {
@@ -105,6 +112,7 @@ namespace H5.Translator
 
             var files = this.SourceFiles;
             IList<string> referencesPathes = null;
+            IList<PackageReference> referencedPackages = null;
             var baseDir = Path.GetDirectoryName(this.Location);
 
             if (!this.FolderMode)
@@ -122,6 +130,15 @@ namespace H5.Translator
                     .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
                     .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
                     .ToList();
+
+                referencedPackages = projDefinition
+                    .Element(rootNs + "Project")
+                    .Elements(rootNs + "ItemGroup")
+                    .Elements(rootNs + "PackageReference")
+                    .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+                    .Select(refElem => new PackageReference(new PackageIdentity(refElem.Attribute("Include").Value, new NuGetVersion(refElem.Attribute("Version").Value)), NuGetFramework.Parse("netstandard2.0")))
+                    .ToList();
+
 
                 var projectReferences = projDefinition
                     .Element(rootNs + "Project")
@@ -280,9 +297,53 @@ namespace H5.Translator
                 references.Add(MetadataReference.CreateFromFile(path, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
             }
 
+
+            var referencesFromPackages = new List<MetadataReference>();
+
+            if (referencedPackages is object && referencedPackages.Any())
+            {
+                PackageReferencesDiscoveredPaths = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+
+                //TODO: add support for linux & os-x
+
+                string packagePath = GetPackagesCacheFolder();
+
+                foreach (var rp in referencedPackages)
+                {
+                    var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
+                    if (Directory.Exists(pp))
+                    {
+                        var p = Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName(), rp.PackageIdentity.Id + ".dll");
+                        referencesFromPackages.Add(MetadataReference.CreateFromFile(p));
+
+                        PackageReferencesDiscoveredPaths[rp.PackageIdentity.Id] = p;
+
+                        if (string.Equals(rp.PackageIdentity.Id, CS.NS.H5, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            this.H5Location = p;
+                        }
+                    }
+                }
+
+                //var resolver = new NuGet.Resolver.PackageResolver();
+                //var packages = resolver.Resolve(new NuGet.Resolver.PackageResolverContext(NuGet.Resolver.DependencyBehavior.Highest,
+                //                                    referencedPackages.Select(p => p.PackageIdentity.Id), 
+                //                                    referencedPackages.Select(p => p.PackageIdentity.Id),
+                //                                    referencedPackages, referencedPackages.Select(p => p.PackageIdentity),
+                //                                    Enumerable.Empty<PackageIdentity>(),
+                //packages,
+                //Enumerable.Empty<PackageSource>()));
+
+            }
+            //var trustedAssembliesPaths = ((string)AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES")).Split(Path.PathSeparator);
+            //var referencesFromTrustedPath = trustedAssembliesPaths
+            //    .Where(p => neededAssemblies.Contains(Path.GetFileNameWithoutExtension(p)))
+            //    .Select(p => MetadataReference.CreateFromFile(p))
+            //    .ToList();
+
             var compilation = CSharpCompilation.Create(this.ProjectProperties.AssemblyName ?? new DirectoryInfo(this.Location).Name, trees, null, compilationOptions)
-                                .RemoveAllReferences()
-                                .AddReferences(references);
+                                .AddReferences(references)
+                                .AddReferences(referencesFromPackages);
 
             Microsoft.CodeAnalysis.Emit.EmitResult emitResult;
 
@@ -326,6 +387,29 @@ namespace H5.Translator
             }
 
             this.Log.Info("Building assembly done");
+        }
+
+        private static string GetPackagesCacheFolder()
+        {
+            var overridePath = Environment.GetEnvironmentVariable("NUGET_PACKAGES");
+
+            if (!string.IsNullOrWhiteSpace(overridePath))
+            {
+                overridePath = Environment.ExpandEnvironmentVariables(overridePath);
+                if (Directory.Exists(overridePath))
+                {
+                    return overridePath;
+                }
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return Environment.ExpandEnvironmentVariables(@"%userprofile%\.nuget\packages");
+            }
+            else
+            {
+                return "~/.nuget/packages";
+            }
         }
 
         private static void AddPackageAssembly(List<string> list, string packageDir)

@@ -159,6 +159,11 @@ namespace H5.Translator
 
                     var path = Path.Combine(Path.GetDirectoryName(location), name) + ".dll";
 
+                    if(!File.Exists(path) && PackageReferencesDiscoveredPaths is object && PackageReferencesDiscoveredPaths.TryGetValue(name, out var discoveredPath))
+                    {
+                        path = discoveredPath;
+                    }
+
                     var updateH5Location = name.ToLowerInvariant() == "h5" && (string.IsNullOrWhiteSpace(this.H5Location) || !File.Exists(this.H5Location));
 
                     if (updateH5Location)

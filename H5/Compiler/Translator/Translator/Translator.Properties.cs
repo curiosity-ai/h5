@@ -37,6 +37,8 @@ namespace H5.Translator
             set;
         }
 
+        public Dictionary<string, string> PackageReferencesDiscoveredPaths { get; set; }
+
         public string Location
         {
             get;

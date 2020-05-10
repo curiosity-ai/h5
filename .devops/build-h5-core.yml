@@ -1,0 +1,63 @@
+variables:
+  compilerPath:  '$(Build.SourcesDirectory)/H5/Compiler/Builder/'
+  compiler:  '$(compilerPath)H5.Builder.csproj'
+  h5base: '$(Build.SourcesDirectory)/H5/H5/H5.csproj'
+  h5core: '$(Build.SourcesDirectory)/H5/H5.Core/H5.Core.csproj'
+  h5json: '$(Build.SourcesDirectory)/H5/H5.Newtonsoft.Json/H5.Newtonsoft.Json.csproj'
+  buildConfiguration: 'Release'
+
+
+
+pool:
+  vmImage: 'windows-2019'
+
+trigger: 
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - H5/H5/*
+    - .devops/build-h5-lib.yml
+
+pr: none
+
+steps:
+- checkout: self
+  
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 3.1.201
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: DotNetCoreCLI@2
+  displayName: 'restore nuget'
+  inputs:
+    command: 'restore'
+    projects: '$(h5core)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'build'
+  inputs:
+    command: 'build'
+    projects: '$(h5core)'
+    arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)  /p:AllowUnsafeBlocks=True /p:LangVersion=latest'
+
+- task: DotNetCoreCLI@2
+  displayName: 'pack nuget'
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(h5base)'
+    configuration: '$(buildConfiguration)'
+    versioningScheme: 'off'
+    buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'
+
+- task: NuGetCommand@2
+  displayName: 'push nuget'
+  inputs:
+    command: 'push'
+    packagesToPush: '**/h5.core.0.0.$(build.buildId).nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget-curiosity'

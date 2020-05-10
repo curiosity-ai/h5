@@ -11,7 +11,6 @@
     <AssemblyName>H5</AssemblyName>
   </PropertyGroup>
 
-
   <PropertyGroup>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <ApplicationIcon />
@@ -39,6 +38,6 @@
 
   <Target Name="RunTool" AfterTargets="Build">
     <Message Importance="high" Text="This is the actual build" />
-    <Exec Command="dotnet tool update --global h5-compiler&#xD;&#xA;pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -p &quot;$(ProjectPath)&quot; -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
+    <Exec Command="dotnet tool update --global h5-compiler&#xD;&#xA;pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
   </Target>
 </Project>

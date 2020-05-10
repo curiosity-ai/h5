@@ -51,7 +51,6 @@ steps:
     command: 'pack'
     packagesToPack: '$(h5base)'
     configuration: '$(buildConfiguration)'
-    nobuild: true
     versioningScheme: 'off'
     buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'
 

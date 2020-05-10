@@ -9,9 +9,18 @@
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\H5\H5\H5.csproj" />
-    <ProjectReference Include="..\..\H5\H5.Core\H5.Core.csproj" />
+    <PackageReference Include="h5" Version="0.0.7699" />
+    <PackageReference Include="h5.core" Version="0.0.7701" />
+    <PackageReference Include="h5.Newtonsoft.Json" Version="0.0.7702" />
   </ItemGroup>
+
+  <Target Name="RunTool" AfterTargets="Build">
+    <Message Importance="high" Text="Installing (or updating) the h5 compiler" />
+    <Exec Command="dotnet tool update --global h5-compiler" />
+    <Message Importance="high" Text="H5 compilation begins now... " />
+    <Exec Command="pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -p &quot;$(ProjectPath)&quot; -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
+    <Message Importance="high" Text="... H5 compilation finished!" />
+  </Target>
 </Project>
 
 

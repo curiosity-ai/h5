@@ -17,8 +17,8 @@ trigger:
     - master
   paths:
     include:
-    - H5/H5/*
-    - .devops/build-h5-lib.yml
+    - H5/H5.Core/*
+    - .devops/build-h5-core.yml
 
 pr: none
 

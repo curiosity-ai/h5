@@ -9,6 +9,7 @@
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
     <AssemblyName>H5</AssemblyName>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -21,7 +22,6 @@
     <Company>Curiosity GmbH</Company>
     <Description />
     <Copyright>(c) Copyright 2020 Curiosity GmbH - all right reserved, (c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>0.0.42</Version>
     <IncludeReferencedProjects>true</IncludeReferencedProjects>
@@ -38,7 +38,10 @@
   </ItemGroup>
 
   <Target Name="RunTool" AfterTargets="Build">
-    <Message Importance="high" Text="This is the actual build" />
-    <Exec Command="dotnet tool update --global h5-compiler&#xD;&#xA;pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
+    <Message Importance="high" Text="Installing (or updating) the h5 compiler" />
+    <Exec Command="dotnet tool update --global h5-compiler" />
+    <Message Importance="high" Text="H5 compilation begins now... " />
+    <Exec Command="pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
+    <Message Importance="high" Text="... H5 compilation finished!" />
   </Target>
 </Project>

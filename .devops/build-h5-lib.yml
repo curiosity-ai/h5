@@ -49,8 +49,9 @@ steps:
   displayName: 'pack nuget'
   inputs:
     command: 'pack'
-    configuration: '$(buildConfiguration)'
     packagesToPack: '$(h5base)'
+    configuration: '$(buildConfiguration)'
+    nobuild: true
     versioningScheme: 'off'
     buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'
 

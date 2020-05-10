@@ -3,20 +3,45 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>
     <NoStdLib>true</NoStdLib>
+    <LangVersion>7.2</LangVersion>
     <NoCompilerStandardLib>true</NoCompilerStandardLib>
     <NoExplicitReferenceToStdLib>true</NoExplicitReferenceToStdLib>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <AssemblyName>H5.Newtonsoft.Json</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DebugType>None</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <IncludeSymbols>false</IncludeSymbols>
+    <ApplicationIcon />
+    <LangVersion>latest</LangVersion>
+    <PackageId>h5.Newtonsoft.Json</PackageId>
+    <Authors>Curiosity GmbH, Object.NET, Inc.</Authors>
+    <Company>Curiosity GmbH</Company>
+    <Description />
+    <Copyright>(c) Copyright 2020 Curiosity GmbH - all right reserved, (c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.0.42</Version>
+    <IncludeReferencedProjects>true</IncludeReferencedProjects>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>true</IsPackable>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+
+
   <ItemGroup>
-    <PackageReference Include="h5" Version="*" />
+    <PackageReference Include="h5" Version="0.0.7697" />
   </ItemGroup>
 
   <Target Name="RunTool" AfterTargets="Build">
     <Message Importance="high" Text="Installing (or updating) the h5 compiler" />
     <Exec Command="dotnet tool update --global h5-compiler" />
     <Message Importance="high" Text="H5 compilation begins now... " />
-    <Exec Command="pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
+    <Exec Command="pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -p &quot;$(ProjectPath)&quot; -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
     <Message Importance="high" Text="... H5 compilation finished!" />
   </Target>
 </Project>

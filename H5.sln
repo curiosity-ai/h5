@@ -47,6 +47,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F9C341F8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Newtonsoft.Json", "H5\H5.Newtonsoft.Json\H5.Newtonsoft.Json.csproj", "{A7BAAC21-D709-44FB-93C6-992A4AEFC2C8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".devops", ".devops", "{E9B81935-86AE-4110-9237-17FF9A1AB806}"
+	ProjectSection(SolutionItems) = preProject
+		.devops\build-dotnet-tool.yml = .devops\build-dotnet-tool.yml
+		.devops\build-h5-core.yml = .devops\build-h5-core.yml
+		.devops\build-h5-json.yml = .devops\build-h5-json.yml
+		.devops\build-h5-lib.yml = .devops\build-h5-lib.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

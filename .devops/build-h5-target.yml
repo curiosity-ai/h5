@@ -46,7 +46,7 @@ steps:
     packagesToPack: '$(targetPath)'
     configuration: '$(buildConfiguration)'
     versioningScheme: 'off'
-    buildProperties: 'Version="0.0.$(build.buildId)";'
+    buildProperties: 'Version="0.0.$(build.buildId)"'
 
 - task: NuGetCommand@2
   displayName: 'push nuget'

@@ -287,17 +287,25 @@ namespace H5.Translator
                             _packagedFiles[Path.GetFileName(file)] = file;
                         }
 
-                        foreach (var file in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
+                        foreach (var source in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
                         {
-                            File.Copy(file, Path.Combine(outputFolder, Path.GetFileName(file)), overwrite:true);
+                            var target = Path.Combine(outputFolder, Path.GetFileName(source));
+                            if (!File.Exists(target))
+                            {
+                                File.Copy(source, target, overwrite: false);
+                            }
                         }
 
                         var contentFolder = Path.Combine(pp, "content");
                         if (Directory.Exists(contentFolder))
                         {
-                            foreach (var file in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
+                            foreach (var source in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
                             {
-                                File.Copy(file, Path.Combine(outputFolder, Path.GetFileName(file)), overwrite: true);
+                                var target = Path.Combine(outputFolder, Path.GetFileName(source));
+                                if (!File.Exists(target))
+                                {
+                                    File.Copy(source, target, overwrite: false);
+                                }
                             }
                         }
 

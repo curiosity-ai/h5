@@ -33,13 +33,6 @@ steps:
     projects: '$(targetPath)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'build'
-  inputs:
-    command: 'build'
-    projects: '$(targetPath)'
-    arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)'
-
-- task: DotNetCoreCLI@2
   displayName: 'pack nuget'
   inputs:
     command: 'pack'

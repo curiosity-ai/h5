@@ -4,23 +4,21 @@
     <Description>Provides targets for H5-based projects that compile C# to Javascript</Description>
     <PackageTags>MSBuild MSBuildSdk h5 javascript compiler</PackageTags>
     <ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageType>MSBuildSdk</PackageType>
     <PackageId>h5.Target</PackageId>
     <Company>Curiosity GmbH</Company>
     <Authors>Curiosity GmbH</Authors>
+    
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <ContentTargetFolders>./</ContentTargetFolders>
   </PropertyGroup>
+  
   <ItemGroup>
-    <None Remove="Sdk\Sdk.props" />
-    <None Remove="Sdk\Sdk.targets" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Sdk\Sdk.props">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sdk\Sdk.targets">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Sdk\**\*" Exclude="Sdk\**\bin\**;Sdk\**\obj\**" />
+    <Compile Remove="**\*" />
   </ItemGroup>
 </Project>

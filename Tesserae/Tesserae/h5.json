@@ -1,4 +1,4 @@
-// See all h5.json configuration options at https://github.com/h5dotnet/Bridge/wiki/global-configuration
+// See all h5.json configuration options at https://github.com/bridgedotnet/Bridge/wiki/global-configuration
 {
   // Always build both minified and non-minified versions of the code so that resource for both versions are always included in the binary and so referencing projects can decide whether
   // to use the minified versions or the non-minified versions

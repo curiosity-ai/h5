@@ -1,4 +1,4 @@
-﻿<Project Sdk="h5.Target/0.0.7788">
+﻿<Project Sdk="h5.Target/0.0.7789">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Tesserae</AssemblyName>

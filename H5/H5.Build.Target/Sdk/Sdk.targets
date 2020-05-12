@@ -56,7 +56,7 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   
-  <Target Name="RunH5Compiler" AfterTargets="Build">
+  <Target Name="RunH5Compiler" BeforeTargets="Build">
     <Message Importance="high" Text="Installing (or updating) the h5 compiler." />
     <Exec Command="dotnet tool update --global h5-compiler" />
     <Message Importance="high" Text="H5 compilation begins now... " />

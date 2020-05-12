@@ -1,24 +1,15 @@
-﻿<Project Sdk="Microsoft.Build.NoTargets/1.0.40">
+﻿<Project Sdk="h5.Target/0.0.7789">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>
-    <NoStdLib>true</NoStdLib>
-    <LangVersion>7.2</LangVersion>
-    <NoCompilerStandardLib>true</NoCompilerStandardLib>
-    <NoExplicitReferenceToStdLib>true</NoExplicitReferenceToStdLib>
-    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
     <AssemblyName>H5</AssemblyName>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageOutputPath>./nupkg</PackageOutputPath>
     <IncludeSymbols>false</IncludeSymbols>
     <ApplicationIcon />
-    <LangVersion>latest</LangVersion>
     <PackageId>h5</PackageId>
     <Authors>Curiosity GmbH, Object.NET, Inc.</Authors>
     <Company>Curiosity GmbH</Company>
@@ -38,12 +29,4 @@
     <Compile Remove="shared\System\Reflection\MethodInfo.cs" />
     <Compile Remove="shared\System\Resources\RuntimeResourceSet.cs" />
   </ItemGroup>
-
-  <Target Name="RunTool" AfterTargets="Build">
-    <Message Importance="high" Text="Installing (or updating) the h5 compiler" />
-    <Exec Command="dotnet tool update --global h5-compiler" />
-    <Message Importance="high" Text="H5 compilation begins now... " />
-    <Exec Command="pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -p &quot;$(ProjectPath)&quot;  -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
-    <Message Importance="high" Text="... H5 compilation finished!" />
-  </Target>
 </Project>

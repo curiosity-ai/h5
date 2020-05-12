@@ -1,4 +1,4 @@
-﻿<Project Sdk="h5.Target/0.0.7788">
+﻿<Project Sdk="h5.Target/0.0.7789">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DebugType>None</DebugType>
@@ -8,5 +8,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tesserae\Tesserae.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="h5" Version="0.0.7699" />
   </ItemGroup>
 </Project>

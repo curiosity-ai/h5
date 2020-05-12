@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  
+  Licensed under the MIT license.
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--
+    Set LanguageTargets to Microsoft.Common.targets for any project that the SDK won't (.proj, .noproj, etc)
+    https://github.com/dotnet/sdk/blob/50ddfbb91be94d068514e8f4b0ce1052156364a0/src/Tasks/Microsoft.NET.Build.Tasks/sdk/Sdk.targets#L28
+    
+    We can't default LanguageTargets it is set in the SDK and immediately imported.  So we can only default
+    it if we know the SDK won't.  Projects probably won't load in Visual Studio but will build from the
+    command-line just fine.
+  -->
+  <PropertyGroup>
+    <LanguageTargets Condition=" '$(LanguageTargets)' == '' And '$(MSBuildProjectExtension)' != '.csproj' And '$(MSBuildProjectExtension)' != '.vbproj' And '$(MSBuildProjectExtension)' != '.fsproj' ">$(MSBuildToolsPath)\Microsoft.Common.targets</LanguageTargets>
+  </PropertyGroup>
+
+  <Import Project="$(CustomBeforeH5)" Condition="'$(CustomBeforeH5)' != '' and Exists('$(CustomBeforeH5)')" />
+
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" Condition=" '$(CommonTargetsPath)' == '' " />
+
+  <ItemGroup>
+    <IntermediateAssembly Remove="@(IntermediateAssembly)" />
+    <IntermediateRefAssembly Remove="@(IntermediateRefAssembly)" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!--
+      This property must be overridden to remove a few targets that compile assemblies
+    -->
+    <CoreBuildDependsOn>
+      BuildOnlySettings;
+      PrepareForBuild;
+      PreBuildEvent;
+      ResolveProjectReferences;
+      GetTargetPath;
+      PrepareForRun;
+      IncrementalClean;
+      PostBuildEvent
+    </CoreBuildDependsOn>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>
+    <NoStdLib>true</NoStdLib>
+    <LangVersion>7.2</LangVersion>
+    <NoCompilerStandardLib>true</NoCompilerStandardLib>
+    <NoExplicitReferenceToStdLib>true</NoExplicitReferenceToStdLib>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <DebugType>None</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="h5" Version="*" />
+  </ItemGroup>
+
+  <Target Name="RunH5Compiler" AfterTargets="Build">
+    <Message Importance="high" Text="Installing (or updating) the h5 compiler." />
+    <Exec Command="dotnet tool update --global h5-compiler" />
+    <Message Importance="high" Text="H5 compilation begins now... " />
+    <Exec Command="h5 --rebuild -p &quot;$(ProjectPath)&quot; -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)"/>
+    <Message Importance="high" Text="... H5 compilation finished!" />
+  </Target>
+
+  <Import Project="$(CustomAfterH5)" Condition="'$(CustomAfterH5)' != '' and Exists('$(CustomAfterH5)')" />
+</Project>

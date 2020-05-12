@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  
+  Licensed under the MIT license.
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(CustomBeforeH5Props)" Condition=" '$(CustomBeforeH5Props)' != '' And Exists('$(CustomBeforeH5Props)') " />
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" Condition=" '$(MicrosoftCommonPropsHasBeenImported)' != 'true' "/>
+
+  <Import Project="$(CustomAfterH5Props)" Condition=" '$(CustomAfterH5Props)' != '' And Exists('$(CustomAfterH5Props)') " />
+</Project>

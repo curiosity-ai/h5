@@ -14,6 +14,22 @@
     <PackageReference Include="h5.Newtonsoft.Json" Version="0.0.7702" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>(c) Copyright 2020 Curiosity GmbH - all right reserved</Copyright>
+    <Company>Curiosity GmbH</Company>
+    <Authors>Curiosity GmbH</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>7.1</LangVersion>
+    <PackageProjectUrl>https://github.com/curiosity-ai/tesserae</PackageProjectUrl>
+    <DefineConstants>H5</DefineConstants>
+    <PackageId>H5.Tesserae</PackageId>
+    <Description>Tesserae is a UI toolkit for building web applications using H5</Description>
+    <PackageTags>h5, HTML, UI</PackageTags>
+    <DocumentationFile>Tesserae.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+  
   <Target Name="RunTool" AfterTargets="Build">
     <Message Importance="high" Text="Installing (or updating) the h5 compiler" />
     <Exec Command="dotnet tool update --global h5-compiler" />
@@ -22,50 +38,3 @@
     <Message Importance="high" Text="... H5 compilation finished!" />
   </Target>
 </Project>
-
-
-<!--<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Copyright>(c) Copyright 2020 Curiosity GmbH - all right reserved</Copyright>
-    <Company>Curiosity GmbH</Company>
-    <Authors>Curiosity GmbH</Authors>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <LangVersion>7.1</LangVersion>
-    <PackageProjectUrl>https://github.com/curiosity-ai/tesserae</PackageProjectUrl>
-    <DefineConstants>BRIDGE</DefineConstants>
-    <PackageId>Tesserae</PackageId>
-    <Description>Tesserae is a UI toolkit for building web applications using Bridge.NET</Description>
-    <PackageTags>Bridge.NET, HTML, UI</PackageTags>
-    <DocumentationFile>Tesserae.xml</DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Bridge" Version="17.9.0" />
-    <PackageReference Include="Bridge.Core" Version="17.9.0" />
-    <PackageReference Include="Retyped" Version="1.6.6733" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="bridge.Debug.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="bridge.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="bridge.Release.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="bridge\**\*.*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="bridge\assets\img\**" />
-    <EmbeddedResource Remove="bridge\assets\img\**" />
-    <None Remove="bridge\assets\img\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="WaitForWith.xml" Visible="false" />
-  </ItemGroup>
-</Project>-->

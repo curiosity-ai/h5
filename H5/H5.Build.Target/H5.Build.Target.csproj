@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets/1.0.40">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Provides targets for H5-based projects that compile C# to Javascript</Description>
+    <PackageTags>MSBuild MSBuildSdk h5 javascript compiler</PackageTags>
+    <ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageType>MSBuildSdk</PackageType>
+    <PackageId>h5.Target</PackageId>
+    <Company>Curiosity GmbH</Company>
+    <Authors>Curiosity GmbH</Authors>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Sdk\Sdk.props" />
+    <None Remove="Sdk\Sdk.targets" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sdk\Sdk.props">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sdk\Sdk.targets">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

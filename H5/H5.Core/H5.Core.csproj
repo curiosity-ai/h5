@@ -1,8 +1,15 @@
-﻿<Project Sdk="h5.Target/0.0.7785">
+﻿<Project Sdk="h5.Target/0.0.7788">
   <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>H5.Core</AssemblyName>
+    <DebugType>None</DebugType>
+    <DebugSymbols>false</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="h5" Version="0.0.7699" />
+  </ItemGroup>
 
   <PropertyGroup>
     <PackageOutputPath>./nupkg</PackageOutputPath>

@@ -45,7 +45,6 @@
 
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>
     <NoStdLib>true</NoStdLib>
     <LangVersion>7.2</LangVersion>
@@ -57,10 +56,6 @@
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   
-  <ItemGroup>
-    <PackageReference Include="h5" Version="*" />
-  </ItemGroup>
-
   <Target Name="RunH5Compiler" AfterTargets="Build">
     <Message Importance="high" Text="Installing (or updating) the h5 compiler." />
     <Exec Command="dotnet tool update --global h5-compiler" />

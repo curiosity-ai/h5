@@ -20,12 +20,15 @@ using NuGet.Versioning;
 using ICSharpCode.NRefactory.Semantics;
 using H5.Contract.Constants;
 using System.Runtime.InteropServices;
+using System.Collections.Concurrent;
 
 namespace H5.Translator
 {
     public partial class Translator
     {
         private const string RuntimeMetadataVersion = "v4.0.30319";
+
+        private ConcurrentDictionary<string, string> _packagedFiles = new ConcurrentDictionary<string, string>();
 
         public virtual string[] GetProjectReferenceAssemblies()
         {
@@ -412,7 +415,7 @@ namespace H5.Translator
             }
         }
 
-        private static void AddPackageAssembly(List<string> list, string packageDir)
+        private void AddPackageAssembly(List<string> list, string packageDir)
         {
             if (Directory.Exists(packageDir))
             {
@@ -430,6 +433,7 @@ namespace H5.Translator
                         foreach (var assembly in assemblies)
                         {
                             list.Add(assembly);
+                            _packagedFiles[Path.GetFileName(assembly)] = assembly;
                         }
                     }
                 }
@@ -438,6 +442,17 @@ namespace H5.Translator
 
         private void AddNestedReferences(IList<string> referencesPathes, string refPath)
         {
+            if (!File.Exists(refPath))
+            {
+
+                var assemblyFileName = Path.GetFileName(refPath);
+                if (_packagedFiles.TryGetValue(assemblyFileName, out var assemblyInPackagePath) && File.Exists(assemblyInPackagePath))
+                {
+                    Log.Info($"Redirecting assembly {refPath} to assembly in package {assemblyInPackagePath}");
+                    refPath = assemblyInPackagePath;
+                }
+            }
+
             var asm = Mono.Cecil.AssemblyDefinition.ReadAssembly(refPath, new ReaderParameters()
             {
                 ReadingMode = ReadingMode.Deferred,

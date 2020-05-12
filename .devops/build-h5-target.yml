@@ -45,6 +45,6 @@ steps:
   displayName: 'push nuget'
   inputs:
     command: 'push'
-    packagesToPush: '**/h5.Target.0.0.$(build.buildId).nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/h5.Target.0.0.$(build.buildId).nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget-curiosity'

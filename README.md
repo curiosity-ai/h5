@@ -4,13 +4,13 @@
 
 [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5-compiler?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=38&branchName=master)
 
-This repository contains our experimental fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler.
+This repository contains an experimental fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler.
 
 The key goal with this fork is to bring it closer to the C# .NET Core 3.1 / .NET Standard world, and experiment with new ideas for supporting a more integrated development experience (such as the awesome new [C# Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/)).
 
 ##  Getting Started ⚡
 
-This new compiler build is fully based on [netstandard2.0](https://github.com/curiosity-ai/h5/blob/master/H5/H5/H5.csproj) & [netcore3.1](https://github.com/curiosity-ai/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework.
+This new compiler build is fully based on [netstandard2.0](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj) & [netcore3.1](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework.
 
 To get started with it, you can use the following project template  
 

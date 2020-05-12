@@ -12,15 +12,34 @@ The key goal with this fork is to bring it closer to the C# .NET Core 3.1 / .NET
 
 ##  Getting Started ⚡
 
-To  get started with h5, install the compiler as a ``dotnet global`` tool:
-
-````bash
-dotnet tool install --global h5-compiler --version 0.0.7698
-````
-
 This new compiler build is fully based on [netstandard2.0](https://github.com/curiosity-ai/h5/blob/master/H5/H5/H5.csproj) & [netcore3.1](https://github.com/curiosity-ai/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework.
 
-We'll very soon add a `dotnet new` template supporting h5, but until then, feel free to experiment something similar to the [Tesserae project file](https://github.com/curiosity-ai/h5/blob/master/Tesserae/Tesserae/Tesserae.csproj) we are using to test the compiler.
+To get started with it, you can use the following project template  
+
+````xml
+<Project Sdk="h5.Target/0.0.7789">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="h5" Version="*" />
+    <PackageReference Include="h5.Core" Version="*" />
+  </ItemGroup>
+</Project>
+````
+
+The Sdk target above (``<Project Sdk="h5.Target/0.0.7789">``) will automatically install (and update) the compiler as a ``dotnet global tool``. You can also manually install it with:
+
+````bash
+dotnet tool update --global h5-compiler
+````
+
+
+
+
+> Don't forget to run ``dotnet restore`` to fill the versions with the latest values.
+
+We'll very soon add a `dotnet new` template supporting h5.
 
 ##  Breaking Changes 💥
 

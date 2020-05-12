@@ -201,7 +201,7 @@ namespace H5.Translator
             var h5Options = this.H5Options;
             var assemblyConfig = this.TranslatorConfiguration;
 
-            if (h5Options.NoLoggerSetUp)
+            if (h5Options.NoLoggerSetUp)    
             {
                 return;
             }

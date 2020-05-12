@@ -1,13 +1,12 @@
-﻿<Project Sdk="Microsoft.Build.NoTargets/1.0.40">
+﻿<Project Sdk="h5.Target/0.0.7788">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>
-    <NoStdLib>true</NoStdLib>
-    <NoCompilerStandardLib>true</NoCompilerStandardLib>
-    <NoExplicitReferenceToStdLib>true</NoExplicitReferenceToStdLib>
-    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <AssemblyName>H5.Newtonsoft.Json</AssemblyName>
+    <DebugType>None</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="h5" Version="0.0.7699" />
     <PackageReference Include="h5.core" Version="0.0.7701" />
@@ -19,8 +18,7 @@
     <Copyright>(c) Copyright 2020 Curiosity GmbH - all right reserved</Copyright>
     <Company>Curiosity GmbH</Company>
     <Authors>Curiosity GmbH</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <PackageProjectUrl>https://github.com/curiosity-ai/tesserae</PackageProjectUrl>
     <DefineConstants>H5</DefineConstants>
     <PackageId>H5.Tesserae</PackageId>
@@ -29,12 +27,4 @@
     <DocumentationFile>Tesserae.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-  
-  <Target Name="RunTool" AfterTargets="Build">
-    <Message Importance="high" Text="Installing (or updating) the h5 compiler" />
-    <Exec Command="dotnet tool update --global h5-compiler" />
-    <Message Importance="high" Text="H5 compilation begins now... " />
-    <Exec Command="pushd $(ProjectDir)&#xD;&#xA;h5 --rebuild -p &quot;$(ProjectPath)&quot; -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;&#xD;&#xA;popd" />
-    <Message Importance="high" Text="... H5 compilation finished!" />
-  </Target>
 </Project>

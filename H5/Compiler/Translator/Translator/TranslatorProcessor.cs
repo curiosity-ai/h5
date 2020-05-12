@@ -222,7 +222,7 @@ namespace H5.Translator
             if (loggerLevel <= LoggerLevel.None)
             {
                 logger.Info("    To enable detailed logging, configure \"logging\" in h5.json.");
-                logger.Info("    https://github.com/curiosity-ai/h5/wiki/global-configuration#logging");
+                logger.Info("    https://github.com/bridgedotnet/bridge/wiki/global-configuration#logging");
             }
 
             logger.LoggerLevel = loggerLevel;

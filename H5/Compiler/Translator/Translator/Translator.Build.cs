@@ -289,7 +289,7 @@ namespace H5.Translator
 
                         foreach (var file in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
                         {
-                            File.Copy(file, Path.Combine(outputFolder, Path.GetFileName(file)));
+                            File.Copy(file, Path.Combine(outputFolder, Path.GetFileName(file)), overwrite:true);
                         }
 
                         var contentFolder = Path.Combine(pp, "content");
@@ -297,7 +297,7 @@ namespace H5.Translator
                         {
                             foreach (var file in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
                             {
-                                File.Copy(file, Path.Combine(outputFolder, Path.GetFileName(file)));
+                                File.Copy(file, Path.Combine(outputFolder, Path.GetFileName(file)), overwrite: true);
                             }
                         }
 

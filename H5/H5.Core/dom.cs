@@ -2538,7 +2538,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class Account : IObject
+        public class Account : IObject
         {
             public string displayName { get; set; }
 
@@ -2555,7 +2555,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AddEventListenerOptions : dom.EventListenerOptions
+        public class AddEventListenerOptions : dom.EventListenerOptions
         {
             public bool? once { get; set; }
 
@@ -2566,7 +2566,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AesCbcParams : dom.Algorithm
+        public class AesCbcParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> iv { get; set; }
         }
@@ -2575,7 +2575,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AesCtrParams : dom.Algorithm
+        public class AesCtrParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> counter { get; set; }
 
@@ -2586,7 +2586,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AesDerivedKeyParams : dom.Algorithm
+        public class AesDerivedKeyParams : dom.Algorithm
         {
             public double length { get; set; }
         }
@@ -2595,7 +2595,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AesGcmParams : dom.Algorithm
+        public class AesGcmParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> additionalData { get; set; }
 
@@ -2608,7 +2608,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AesKeyAlgorithm : dom.KeyAlgorithm
+        public class AesKeyAlgorithm : dom.KeyAlgorithm
         {
             public double length { get; set; }
         }
@@ -2617,7 +2617,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AesKeyGenParams : dom.Algorithm
+        public class AesKeyGenParams : dom.Algorithm
         {
             public double length { get; set; }
         }
@@ -2626,7 +2626,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class Algorithm : IObject
+        public class Algorithm : IObject
         {
             public string name { get; set; }
         }
@@ -2635,7 +2635,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AnalyserOptions : dom.AudioNodeOptions
+        public class AnalyserOptions : dom.AudioNodeOptions
         {
             public double? fftSize { get; set; }
 
@@ -2650,7 +2650,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AnimationEventInit : dom.EventInit
+        public class AnimationEventInit : dom.EventInit
         {
             public string animationName { get; set; }
 
@@ -2661,7 +2661,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AssertionOptions : IObject
+        public class AssertionOptions : IObject
         {
             public dom.ScopedCredentialDescriptor[] allowList { get; set; }
 
@@ -2676,7 +2676,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioBufferOptions : IObject
+        public class AudioBufferOptions : IObject
         {
             public double length { get; set; }
 
@@ -2689,7 +2689,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioBufferSourceOptions : IObject
+        public class AudioBufferSourceOptions : IObject
         {
             public dom.AudioBuffer buffer { get; set; }
 
@@ -2708,7 +2708,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioContextInfo : IObject
+        public class AudioContextInfo : IObject
         {
             public double? currentTime { get; set; }
 
@@ -2719,7 +2719,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioContextOptions : IObject
+        public class AudioContextOptions : IObject
         {
             public Union<dom.AudioContextLatencyCategory, double> latencyHint { get; set; }
 
@@ -2730,7 +2730,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioNodeOptions : IObject
+        public class AudioNodeOptions : IObject
         {
             public double? channelCount { get; set; }
 
@@ -2743,7 +2743,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioParamDescriptor : IObject
+        public class AudioParamDescriptor : IObject
         {
             public double? defaultValue { get; set; }
 
@@ -2758,7 +2758,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioProcessingEventInit : dom.EventInit
+        public class AudioProcessingEventInit : dom.EventInit
         {
             public dom.AudioBuffer inputBuffer { get; set; }
 
@@ -2771,7 +2771,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioTimestamp : IObject
+        public class AudioTimestamp : IObject
         {
             public double? contextTime { get; set; }
 
@@ -2782,7 +2782,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class BiquadFilterOptions : dom.AudioNodeOptions
+        public class BiquadFilterOptions : dom.AudioNodeOptions
         {
             public double? Q { get; set; }
 
@@ -2799,7 +2799,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ByteLengthChunk : IObject
+        public class ByteLengthChunk : IObject
         {
             public double? byteLength { get; set; }
         }
@@ -2808,7 +2808,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class CacheQueryOptions : IObject
+        public class CacheQueryOptions : IObject
         {
             public string cacheName { get; set; }
 
@@ -2823,7 +2823,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ChannelMergerOptions : dom.AudioNodeOptions
+        public class ChannelMergerOptions : dom.AudioNodeOptions
         {
             public double? numberOfInputs { get; set; }
         }
@@ -2832,7 +2832,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ChannelSplitterOptions : dom.AudioNodeOptions
+        public class ChannelSplitterOptions : dom.AudioNodeOptions
         {
             public double? numberOfOutputs { get; set; }
         }
@@ -2841,7 +2841,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ClientData : IObject
+        public class ClientData : IObject
         {
             public string challenge { get; set; }
 
@@ -2860,7 +2860,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ClientQueryOptions : IObject
+        public class ClientQueryOptions : IObject
         {
             public bool? includeReserved { get; set; }
 
@@ -2873,7 +2873,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class CloseEventInit : dom.EventInit
+        public class CloseEventInit : dom.EventInit
         {
             public ushort? code { get; set; }
 
@@ -2886,7 +2886,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class CompositionEventInit : dom.UIEventInit
+        public class CompositionEventInit : dom.UIEventInit
         {
             public string data { get; set; }
         }
@@ -2895,7 +2895,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConfirmSiteSpecificExceptionsInformation : dom.ExceptionInformation
+        public class ConfirmSiteSpecificExceptionsInformation : dom.ExceptionInformation
         {
             public string[] arrayOfDomainStrings { get; set; }
         }
@@ -2904,7 +2904,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConstantSourceOptions : IObject
+        public class ConstantSourceOptions : IObject
         {
             public double? offset { get; set; }
         }
@@ -2913,7 +2913,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConstrainBooleanParameters : IObject
+        public class ConstrainBooleanParameters : IObject
         {
             public bool? exact { get; set; }
 
@@ -2924,7 +2924,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConstrainDOMStringParameters : IObject
+        public class ConstrainDOMStringParameters : IObject
         {
             public Union<string, string[]> exact { get; set; }
 
@@ -2935,7 +2935,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConstrainDoubleRange : dom.DoubleRange
+        public class ConstrainDoubleRange : dom.DoubleRange
         {
             public double? exact { get; set; }
 
@@ -2946,7 +2946,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConstrainLongRange : dom.LongRange
+        public class ConstrainLongRange : dom.LongRange
         {
             public double? exact { get; set; }
 
@@ -2957,7 +2957,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConstrainVideoFacingModeParameters : IObject
+        public class ConstrainVideoFacingModeParameters : IObject
         {
             public Union<dom.VideoFacingModeEnum, dom.VideoFacingModeEnum[]> exact { get; set; }
 
@@ -2968,7 +2968,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConvolverOptions : dom.AudioNodeOptions
+        public class ConvolverOptions : dom.AudioNodeOptions
         {
             public dom.AudioBuffer buffer { get; set; }
 
@@ -2981,7 +2981,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class CustomEventInit<T> : dom.EventInit
+        public class CustomEventInit<T> : dom.EventInit
         {
             public T detail { get; set; }
         }
@@ -2990,7 +2990,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMRectInit : IObject
+        public class DOMRectInit : IObject
         {
             public double? height { get; set; }
 
@@ -3005,7 +3005,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DelayOptions : dom.AudioNodeOptions
+        public class DelayOptions : dom.AudioNodeOptions
         {
             public double? delayTime { get; set; }
 
@@ -3016,7 +3016,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceAccelerationDict : IObject
+        public class DeviceAccelerationDict : IObject
         {
             public double? x { get; set; }
 
@@ -3029,7 +3029,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceLightEventInit : dom.EventInit
+        public class DeviceLightEventInit : dom.EventInit
         {
             public double? value { get; set; }
         }
@@ -3038,7 +3038,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceMotionEventInit : dom.EventInit
+        public class DeviceMotionEventInit : dom.EventInit
         {
             public dom.DeviceAccelerationDict acceleration { get; set; }
 
@@ -3053,7 +3053,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceOrientationEventInit : dom.EventInit
+        public class DeviceOrientationEventInit : dom.EventInit
         {
             public bool? absolute { get; set; }
 
@@ -3068,7 +3068,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceRotationRateDict : IObject
+        public class DeviceRotationRateDict : IObject
         {
             public double? alpha { get; set; }
 
@@ -3081,7 +3081,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DoubleRange : IObject
+        public class DoubleRange : IObject
         {
             public double? max { get; set; }
 
@@ -3092,7 +3092,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DynamicsCompressorOptions : dom.AudioNodeOptions
+        public class DynamicsCompressorOptions : dom.AudioNodeOptions
         {
             public double? attack { get; set; }
 
@@ -3109,7 +3109,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EcKeyAlgorithm : dom.KeyAlgorithm
+        public class EcKeyAlgorithm : dom.KeyAlgorithm
         {
             public string namedCurve { get; set; }
         }
@@ -3118,7 +3118,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EcKeyGenParams : dom.Algorithm
+        public class EcKeyGenParams : dom.Algorithm
         {
             public string namedCurve { get; set; }
         }
@@ -3127,7 +3127,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EcKeyImportParams : dom.Algorithm
+        public class EcKeyImportParams : dom.Algorithm
         {
             public string namedCurve { get; set; }
         }
@@ -3136,7 +3136,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EcdhKeyDeriveParams : dom.Algorithm
+        public class EcdhKeyDeriveParams : dom.Algorithm
         {
             [Name("public")]
             public dom.CryptoKey @public { get; set; }
@@ -3146,7 +3146,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EcdsaParams : dom.Algorithm
+        public class EcdsaParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
         }
@@ -3155,7 +3155,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ErrorEventInit : dom.EventInit
+        public class ErrorEventInit : dom.EventInit
         {
             public uint? colno { get; set; }
 
@@ -3172,7 +3172,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EventInit : IObject
+        public class EventInit : IObject
         {
             public bool? bubbles { get; set; }
 
@@ -3185,7 +3185,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EventListenerOptions : IObject
+        public class EventListenerOptions : IObject
         {
             public bool? capture { get; set; }
         }
@@ -3194,7 +3194,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EventModifierInit : dom.UIEventInit
+        public class EventModifierInit : dom.UIEventInit
         {
             public bool? altKey { get; set; }
 
@@ -3231,7 +3231,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ExceptionInformation : IObject
+        public class ExceptionInformation : IObject
         {
             public string domain { get; set; }
         }
@@ -3240,7 +3240,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ExtendableEventInit : dom.EventInit
+        public class ExtendableEventInit : dom.EventInit
         {
         }
 
@@ -3248,7 +3248,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ExtendableMessageEventInit : dom.ExtendableEventInit
+        public class ExtendableMessageEventInit : dom.ExtendableEventInit
         {
             public object data { get; set; }
 
@@ -3265,7 +3265,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class FetchEventInit : dom.ExtendableEventInit
+        public class FetchEventInit : dom.ExtendableEventInit
         {
             public string clientId { get; set; }
 
@@ -3280,7 +3280,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class FocusEventInit : dom.UIEventInit
+        public class FocusEventInit : dom.UIEventInit
         {
             public dom.EventTarget relatedTarget { get; set; }
         }
@@ -3289,7 +3289,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class FocusNavigationEventInit : dom.EventInit
+        public class FocusNavigationEventInit : dom.EventInit
         {
             public string navigationReason { get; set; }
 
@@ -3306,7 +3306,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class FocusNavigationOrigin : IObject
+        public class FocusNavigationOrigin : IObject
         {
             public double? originHeight { get; set; }
 
@@ -3321,7 +3321,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class GainOptions : dom.AudioNodeOptions
+        public class GainOptions : dom.AudioNodeOptions
         {
             public double? gain { get; set; }
         }
@@ -3330,7 +3330,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class GamepadEventInit : dom.EventInit
+        public class GamepadEventInit : dom.EventInit
         {
             public dom.Gamepad gamepad { get; set; }
         }
@@ -3339,7 +3339,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class GetNotificationOptions : IObject
+        public class GetNotificationOptions : IObject
         {
             public string tag { get; set; }
         }
@@ -3348,7 +3348,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HashChangeEventInit : dom.EventInit
+        public class HashChangeEventInit : dom.EventInit
         {
             public string newURL { get; set; }
 
@@ -3359,7 +3359,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HkdfParams : dom.Algorithm
+        public class HkdfParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
 
@@ -3372,7 +3372,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HmacImportParams : dom.Algorithm
+        public class HmacImportParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
 
@@ -3383,7 +3383,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HmacKeyAlgorithm : dom.KeyAlgorithm
+        public class HmacKeyAlgorithm : dom.KeyAlgorithm
         {
             public dom.KeyAlgorithm hash { get; set; }
 
@@ -3394,7 +3394,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HmacKeyGenParams : dom.Algorithm
+        public class HmacKeyGenParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
 
@@ -3405,7 +3405,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBIndexParameters : IObject
+        public class IDBIndexParameters : IObject
         {
             public bool? multiEntry { get; set; }
 
@@ -3416,7 +3416,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBObjectStoreParameters : IObject
+        public class IDBObjectStoreParameters : IObject
         {
             public bool? autoIncrement { get; set; }
 
@@ -3427,7 +3427,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IIRFilterOptions : dom.AudioNodeOptions
+        public class IIRFilterOptions : dom.AudioNodeOptions
         {
             public double[] feedback { get; set; }
 
@@ -3438,7 +3438,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IntersectionObserverEntryInit : IObject
+        public class IntersectionObserverEntryInit : IObject
         {
             public dom.DOMRectInit boundingClientRect { get; set; }
 
@@ -3457,7 +3457,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IntersectionObserverInit : IObject
+        public class IntersectionObserverInit : IObject
         {
             public dom.Element root { get; set; }
 
@@ -3470,7 +3470,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class JsonWebKey : IObject
+        public class JsonWebKey : IObject
         {
             public string alg { get; set; }
 
@@ -3513,7 +3513,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class KeyAlgorithm : IObject
+        public class KeyAlgorithm : IObject
         {
             public string name { get; set; }
         }
@@ -3522,7 +3522,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class KeyboardEventInit : dom.EventModifierInit
+        public class KeyboardEventInit : dom.EventModifierInit
         {
             public string code { get; set; }
 
@@ -3537,7 +3537,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class LongRange : IObject
+        public class LongRange : IObject
         {
             public double? max { get; set; }
 
@@ -3548,7 +3548,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSAccountInfo : IObject
+        public class MSAccountInfo : IObject
         {
             public string accountImageUri { get; set; }
 
@@ -3565,7 +3565,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSAudioLocalClientEvent : dom.MSLocalClientEventBase
+        public class MSAudioLocalClientEvent : dom.MSLocalClientEventBase
         {
             public double? cpuInsufficientEventRatio { get; set; }
 
@@ -3604,7 +3604,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSAudioRecvPayload : dom.MSPayloadBase
+        public class MSAudioRecvPayload : dom.MSPayloadBase
         {
             public double? burstLossLength1 { get; set; }
 
@@ -3649,7 +3649,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSAudioRecvSignal : IObject
+        public class MSAudioRecvSignal : IObject
         {
             public double? initialSignalLevelRMS { get; set; }
 
@@ -3668,7 +3668,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSAudioSendPayload : dom.MSPayloadBase
+        public class MSAudioSendPayload : dom.MSPayloadBase
         {
             public bool? audioFECUsed { get; set; }
 
@@ -3683,7 +3683,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSAudioSendSignal : IObject
+        public class MSAudioSendSignal : IObject
         {
             public double? noiseLevel { get; set; }
 
@@ -3696,7 +3696,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSConnectivity : IObject
+        public class MSConnectivity : IObject
         {
             public dom.MSIceType iceType { get; set; }
 
@@ -3709,7 +3709,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSCredentialFilter : IObject
+        public class MSCredentialFilter : IObject
         {
             public dom.MSCredentialSpec[] accept { get; set; }
         }
@@ -3718,7 +3718,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSCredentialParameters : IObject
+        public class MSCredentialParameters : IObject
         {
             public dom.MSCredentialType type { get; set; }
         }
@@ -3727,7 +3727,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSCredentialSpec : IObject
+        public class MSCredentialSpec : IObject
         {
             public string id { get; set; }
 
@@ -3738,7 +3738,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSDCCEventInit : dom.EventInit
+        public class MSDCCEventInit : dom.EventInit
         {
             public double? maxFr { get; set; }
 
@@ -3749,7 +3749,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSDSHEventInit : dom.EventInit
+        public class MSDSHEventInit : dom.EventInit
         {
             public double[] sources { get; set; }
 
@@ -3760,7 +3760,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSDelay : IObject
+        public class MSDelay : IObject
         {
             public double? roundTrip { get; set; }
 
@@ -3771,7 +3771,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSDescription : dom.RTCStats
+        public class MSDescription : dom.RTCStats
         {
             public dom.MSConnectivity connectivity { get; set; }
 
@@ -3792,7 +3792,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSFIDOCredentialParameters : dom.MSCredentialParameters
+        public class MSFIDOCredentialParameters : dom.MSCredentialParameters
         {
             public Union<string, dom.Algorithm> algorithm { get; set; }
 
@@ -3803,7 +3803,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSIPAddressInfo : IObject
+        public class MSIPAddressInfo : IObject
         {
             public string ipAddr { get; set; }
 
@@ -3816,7 +3816,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSIceWarningFlags : IObject
+        public class MSIceWarningFlags : IObject
         {
             public bool? allocationMessageIntegrityFailed { get; set; }
 
@@ -3867,7 +3867,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSJitter : IObject
+        public class MSJitter : IObject
         {
             public double? interArrival { get; set; }
 
@@ -3880,7 +3880,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSLocalClientEventBase : dom.RTCStats
+        public class MSLocalClientEventBase : dom.RTCStats
         {
             public double? networkBandwidthLowEventRatio { get; set; }
 
@@ -3891,7 +3891,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSNetwork : dom.RTCStats
+        public class MSNetwork : dom.RTCStats
         {
             public dom.MSDelay delay { get; set; }
 
@@ -3906,7 +3906,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSNetworkConnectivityInfo : IObject
+        public class MSNetworkConnectivityInfo : IObject
         {
             public double? linkspeed { get; set; }
 
@@ -3919,7 +3919,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSNetworkInterfaceType : IObject
+        public class MSNetworkInterfaceType : IObject
         {
             public bool? interfaceTypeEthernet { get; set; }
 
@@ -3936,7 +3936,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSOutboundNetwork : dom.MSNetwork
+        public class MSOutboundNetwork : dom.MSNetwork
         {
             public double? appliedBandwidthLimit { get; set; }
         }
@@ -3945,7 +3945,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSPacketLoss : IObject
+        public class MSPacketLoss : IObject
         {
             public double? lossRate { get; set; }
 
@@ -3956,7 +3956,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSPayloadBase : dom.RTCStats
+        public class MSPayloadBase : dom.RTCStats
         {
             public string payloadDescription { get; set; }
         }
@@ -3965,7 +3965,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSPortRange : IObject
+        public class MSPortRange : IObject
         {
             public double? max { get; set; }
 
@@ -3976,7 +3976,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSRelayAddress : IObject
+        public class MSRelayAddress : IObject
         {
             public double? port { get; set; }
 
@@ -3987,7 +3987,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSSignatureParameters : IObject
+        public class MSSignatureParameters : IObject
         {
             public string userPrompt { get; set; }
         }
@@ -3996,7 +3996,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSTransportDiagnosticsStats : dom.RTCStats
+        public class MSTransportDiagnosticsStats : dom.RTCStats
         {
             public double? allocationTimeInMs { get; set; }
 
@@ -4059,7 +4059,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSUtilization : IObject
+        public class MSUtilization : IObject
         {
             public double? bandwidthEstimation { get; set; }
 
@@ -4078,7 +4078,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSVideoPayload : dom.MSPayloadBase
+        public class MSVideoPayload : dom.MSPayloadBase
         {
             public double? durationSeconds { get; set; }
 
@@ -4097,7 +4097,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSVideoRecvPayload : dom.MSVideoPayload
+        public class MSVideoRecvPayload : dom.MSVideoPayload
         {
             public double? lowBitRateCallPercent { get; set; }
 
@@ -4148,7 +4148,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSVideoResolutionDistribution : IObject
+        public class MSVideoResolutionDistribution : IObject
         {
             public double? cifQuality { get; set; }
 
@@ -4167,7 +4167,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSVideoSendPayload : dom.MSVideoPayload
+        public class MSVideoSendPayload : dom.MSVideoPayload
         {
             public double? sendBitRateAverage { get; set; }
 
@@ -4186,7 +4186,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaElementAudioSourceOptions : IObject
+        public class MediaElementAudioSourceOptions : IObject
         {
             public dom.HTMLMediaElement mediaElement { get; set; }
         }
@@ -4195,7 +4195,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaEncryptedEventInit : dom.EventInit
+        public class MediaEncryptedEventInit : dom.EventInit
         {
             public es5.ArrayBuffer initData { get; set; }
 
@@ -4206,7 +4206,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaKeyMessageEventInit : dom.EventInit
+        public class MediaKeyMessageEventInit : dom.EventInit
         {
             public es5.ArrayBuffer message { get; set; }
 
@@ -4217,7 +4217,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaKeySystemConfiguration : IObject
+        public class MediaKeySystemConfiguration : IObject
         {
             public dom.MediaKeySystemMediaCapability[] audioCapabilities { get; set; }
 
@@ -4234,7 +4234,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaKeySystemMediaCapability : IObject
+        public class MediaKeySystemMediaCapability : IObject
         {
             public string contentType { get; set; }
 
@@ -4245,7 +4245,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamConstraints : IObject
+        public class MediaStreamConstraints : IObject
         {
             public Union<bool, dom.MediaTrackConstraints> audio { get; set; }
 
@@ -4256,7 +4256,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamErrorEventInit : dom.EventInit
+        public class MediaStreamErrorEventInit : dom.EventInit
         {
             public dom.MediaStreamError error { get; set; }
         }
@@ -4265,7 +4265,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamEventInit : dom.EventInit
+        public class MediaStreamEventInit : dom.EventInit
         {
             public dom.MediaStream stream { get; set; }
         }
@@ -4274,7 +4274,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamTrackEventInit : dom.EventInit
+        public class MediaStreamTrackEventInit : dom.EventInit
         {
             public dom.MediaStreamTrack track { get; set; }
         }
@@ -4283,7 +4283,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaTrackCapabilities : IObject
+        public class MediaTrackCapabilities : IObject
         {
             public Union<double, dom.DoubleRange> aspectRatio { get; set; }
 
@@ -4312,7 +4312,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaTrackConstraintSet : IObject
+        public class MediaTrackConstraintSet : IObject
         {
             public Union<double, dom.ConstrainDoubleRange> aspectRatio { get; set; }
 
@@ -4349,7 +4349,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaTrackConstraints : dom.MediaTrackConstraintSet
+        public class MediaTrackConstraints : dom.MediaTrackConstraintSet
         {
             public dom.MediaTrackConstraintSet[] advanced { get; set; }
         }
@@ -4358,7 +4358,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaTrackSettings : IObject
+        public class MediaTrackSettings : IObject
         {
             public double? aspectRatio { get; set; }
 
@@ -4387,7 +4387,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaTrackSupportedConstraints : IObject
+        public class MediaTrackSupportedConstraints : IObject
         {
             public bool? aspectRatio { get; set; }
 
@@ -4416,7 +4416,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MessageEventInit : dom.EventInit
+        public class MessageEventInit : dom.EventInit
         {
             public string channel { get; set; }
 
@@ -4435,7 +4435,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MouseEventInit : dom.EventModifierInit
+        public class MouseEventInit : dom.EventModifierInit
         {
             public short? button { get; set; }
 
@@ -4456,7 +4456,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MsZoomToOptions : IObject
+        public class MsZoomToOptions : IObject
         {
             public string animate { get; set; }
 
@@ -4475,7 +4475,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MutationObserverInit : IObject
+        public class MutationObserverInit : IObject
         {
             public string[] attributeFilter { get; set; }
 
@@ -4496,7 +4496,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class NotificationEventInit : dom.ExtendableEventInit
+        public class NotificationEventInit : dom.ExtendableEventInit
         {
             public string action { get; set; }
 
@@ -4507,7 +4507,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class NotificationOptions : IObject
+        public class NotificationOptions : IObject
         {
             public string body { get; set; }
 
@@ -4526,7 +4526,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ObjectURLOptions : IObject
+        public class ObjectURLOptions : IObject
         {
             public bool? oneTimeOnly { get; set; }
         }
@@ -4535,7 +4535,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class OfflineAudioCompletionEventInit : dom.EventInit
+        public class OfflineAudioCompletionEventInit : dom.EventInit
         {
             public dom.AudioBuffer renderedBuffer { get; set; }
         }
@@ -4544,7 +4544,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class OscillatorOptions : dom.AudioNodeOptions
+        public class OscillatorOptions : dom.AudioNodeOptions
         {
             public double? detune { get; set; }
 
@@ -4559,7 +4559,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PannerOptions : dom.AudioNodeOptions
+        public class PannerOptions : dom.AudioNodeOptions
         {
             public double? coneInnerAngle { get; set; }
 
@@ -4594,7 +4594,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentCurrencyAmount : IObject
+        public class PaymentCurrencyAmount : IObject
         {
             public string currency { get; set; }
 
@@ -4607,7 +4607,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentDetailsBase : IObject
+        public class PaymentDetailsBase : IObject
         {
             public dom.PaymentItem[] displayItems { get; set; }
 
@@ -4620,7 +4620,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentDetailsInit : dom.PaymentDetailsBase
+        public class PaymentDetailsInit : dom.PaymentDetailsBase
         {
             public string id { get; set; }
 
@@ -4631,7 +4631,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentDetailsModifier : IObject
+        public class PaymentDetailsModifier : IObject
         {
             public dom.PaymentItem[] additionalDisplayItems { get; set; }
 
@@ -4646,7 +4646,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentDetailsUpdate : dom.PaymentDetailsBase
+        public class PaymentDetailsUpdate : dom.PaymentDetailsBase
         {
             public string error { get; set; }
 
@@ -4657,7 +4657,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentItem : IObject
+        public class PaymentItem : IObject
         {
             public dom.PaymentCurrencyAmount amount { get; set; }
 
@@ -4670,7 +4670,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentMethodData : IObject
+        public class PaymentMethodData : IObject
         {
             public object data { get; set; }
 
@@ -4681,7 +4681,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentOptions : IObject
+        public class PaymentOptions : IObject
         {
             public bool? requestPayerEmail { get; set; }
 
@@ -4698,7 +4698,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentRequestUpdateEventInit : dom.EventInit
+        public class PaymentRequestUpdateEventInit : dom.EventInit
         {
         }
 
@@ -4706,7 +4706,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentShippingOption : IObject
+        public class PaymentShippingOption : IObject
         {
             public dom.PaymentCurrencyAmount amount { get; set; }
 
@@ -4721,7 +4721,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class Pbkdf2Params : dom.Algorithm
+        public class Pbkdf2Params : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
 
@@ -4734,7 +4734,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PeriodicWaveConstraints : IObject
+        public class PeriodicWaveConstraints : IObject
         {
             public bool? disableNormalization { get; set; }
         }
@@ -4743,7 +4743,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PeriodicWaveOptions : dom.PeriodicWaveConstraints
+        public class PeriodicWaveOptions : dom.PeriodicWaveConstraints
         {
             public double[] imag { get; set; }
 
@@ -4754,7 +4754,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PointerEventInit : dom.MouseEventInit
+        public class PointerEventInit : dom.MouseEventInit
         {
             public double? height { get; set; }
 
@@ -4777,7 +4777,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PopStateEventInit : dom.EventInit
+        public class PopStateEventInit : dom.EventInit
         {
             public object state { get; set; }
         }
@@ -4786,7 +4786,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PositionOptions : IObject
+        public class PositionOptions : IObject
         {
             public bool? enableHighAccuracy { get; set; }
 
@@ -4799,7 +4799,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ProgressEventInit : dom.EventInit
+        public class ProgressEventInit : dom.EventInit
         {
             public bool? lengthComputable { get; set; }
 
@@ -4812,7 +4812,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PushEventInit : dom.ExtendableEventInit
+        public class PushEventInit : dom.ExtendableEventInit
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, string, Null> data { get; set; }
         }
@@ -4821,7 +4821,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PushSubscriptionChangeInit : dom.ExtendableEventInit
+        public class PushSubscriptionChangeInit : dom.ExtendableEventInit
         {
             public dom.PushSubscription newSubscription { get; set; }
 
@@ -4832,7 +4832,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PushSubscriptionOptionsInit : IObject
+        public class PushSubscriptionOptionsInit : IObject
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, string, Null> applicationServerKey { get; set; }
 
@@ -4843,7 +4843,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class QueuingStrategy : IObject
+        public class QueuingStrategy : IObject
         {
             public double? highWaterMark { get; set; }
 
@@ -4854,7 +4854,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCConfiguration : IObject
+        public class RTCConfiguration : IObject
         {
             public dom.RTCBundlePolicy bundlePolicy { get; set; }
 
@@ -4869,7 +4869,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDTMFToneChangeEventInit : dom.EventInit
+        public class RTCDTMFToneChangeEventInit : dom.EventInit
         {
             public string tone { get; set; }
         }
@@ -4878,7 +4878,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDtlsFingerprint : IObject
+        public class RTCDtlsFingerprint : IObject
         {
             public string algorithm { get; set; }
 
@@ -4889,7 +4889,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDtlsParameters : IObject
+        public class RTCDtlsParameters : IObject
         {
             public dom.RTCDtlsFingerprint[] fingerprints { get; set; }
 
@@ -4900,7 +4900,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceCandidateAttributes : dom.RTCStats
+        public class RTCIceCandidateAttributes : dom.RTCStats
         {
             public string addressSourceUrl { get; set; }
 
@@ -4919,7 +4919,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceCandidateComplete : IObject
+        public class RTCIceCandidateComplete : IObject
         {
         }
 
@@ -4927,7 +4927,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceCandidateDictionary : IObject
+        public class RTCIceCandidateDictionary : IObject
         {
             public string foundation { get; set; }
 
@@ -4954,7 +4954,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceCandidateInit : IObject
+        public class RTCIceCandidateInit : IObject
         {
             public string candidate { get; set; }
 
@@ -4967,7 +4967,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceCandidatePair : IObject
+        public class RTCIceCandidatePair : IObject
         {
             public dom.RTCIceCandidateDictionary local { get; set; }
 
@@ -4978,7 +4978,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceCandidatePairStats : dom.RTCStats
+        public class RTCIceCandidatePairStats : dom.RTCStats
         {
             public double? availableIncomingBitrate { get; set; }
 
@@ -5011,7 +5011,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceGatherOptions : IObject
+        public class RTCIceGatherOptions : IObject
         {
             public dom.RTCIceGatherPolicy gatherPolicy { get; set; }
 
@@ -5024,7 +5024,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceParameters : IObject
+        public class RTCIceParameters : IObject
         {
             public bool? iceLite { get; set; }
 
@@ -5037,7 +5037,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceServer : IObject
+        public class RTCIceServer : IObject
         {
             public string credential { get; set; }
 
@@ -5050,7 +5050,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCInboundRTPStreamStats : dom.RTCRTPStreamStats
+        public class RTCInboundRTPStreamStats : dom.RTCRTPStreamStats
         {
             public double? bytesReceived { get; set; }
 
@@ -5067,7 +5067,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCMediaStreamTrackStats : dom.RTCStats
+        public class RTCMediaStreamTrackStats : dom.RTCStats
         {
             public double? audioLevel { get; set; }
 
@@ -5102,7 +5102,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCOfferOptions : IObject
+        public class RTCOfferOptions : IObject
         {
             public bool? iceRestart { get; set; }
 
@@ -5117,7 +5117,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCOutboundRTPStreamStats : dom.RTCRTPStreamStats
+        public class RTCOutboundRTPStreamStats : dom.RTCRTPStreamStats
         {
             public double? bytesSent { get; set; }
 
@@ -5132,7 +5132,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCPeerConnectionIceEventInit : dom.EventInit
+        public class RTCPeerConnectionIceEventInit : dom.EventInit
         {
             public dom.RTCIceCandidate candidate { get; set; }
         }
@@ -5141,7 +5141,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRTPStreamStats : dom.RTCStats
+        public class RTCRTPStreamStats : dom.RTCStats
         {
             public string associateStatsId { get; set; }
 
@@ -5170,7 +5170,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtcpFeedback : IObject
+        public class RTCRtcpFeedback : IObject
         {
             public string parameter { get; set; }
 
@@ -5181,7 +5181,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtcpParameters : IObject
+        public class RTCRtcpParameters : IObject
         {
             public string cname { get; set; }
 
@@ -5196,7 +5196,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpCapabilities : IObject
+        public class RTCRtpCapabilities : IObject
         {
             public dom.RTCRtpCodecCapability[] codecs { get; set; }
 
@@ -5209,7 +5209,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpCodecCapability : IObject
+        public class RTCRtpCodecCapability : IObject
         {
             public double? clockRate { get; set; }
 
@@ -5242,7 +5242,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpCodecParameters : IObject
+        public class RTCRtpCodecParameters : IObject
         {
             public double? clockRate { get; set; }
 
@@ -5265,7 +5265,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpContributingSource : IObject
+        public class RTCRtpContributingSource : IObject
         {
             public double? audioLevel { get; set; }
 
@@ -5278,7 +5278,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpEncodingParameters : IObject
+        public class RTCRtpEncodingParameters : IObject
         {
             public bool? active { get; set; }
 
@@ -5313,7 +5313,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpFecParameters : IObject
+        public class RTCRtpFecParameters : IObject
         {
             public string mechanism { get; set; }
 
@@ -5324,7 +5324,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpHeaderExtension : IObject
+        public class RTCRtpHeaderExtension : IObject
         {
             public string kind { get; set; }
 
@@ -5339,7 +5339,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpHeaderExtensionParameters : IObject
+        public class RTCRtpHeaderExtensionParameters : IObject
         {
             public bool? encrypt { get; set; }
 
@@ -5352,7 +5352,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpParameters : IObject
+        public class RTCRtpParameters : IObject
         {
             public dom.RTCRtpCodecParameters[] codecs { get; set; }
 
@@ -5371,7 +5371,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpRtxParameters : IObject
+        public class RTCRtpRtxParameters : IObject
         {
             public double? ssrc { get; set; }
         }
@@ -5380,7 +5380,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpUnhandled : IObject
+        public class RTCRtpUnhandled : IObject
         {
             public string muxId { get; set; }
 
@@ -5393,7 +5393,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCSessionDescriptionInit : IObject
+        public class RTCSessionDescriptionInit : IObject
         {
             public string sdp { get; set; }
 
@@ -5404,7 +5404,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCSrtpKeyParam : IObject
+        public class RTCSrtpKeyParam : IObject
         {
             public string keyMethod { get; set; }
 
@@ -5421,7 +5421,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCSrtpSdesParameters : IObject
+        public class RTCSrtpSdesParameters : IObject
         {
             public string cryptoSuite { get; set; }
 
@@ -5436,7 +5436,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCSsrcRange : IObject
+        public class RTCSsrcRange : IObject
         {
             public double? max { get; set; }
 
@@ -5447,7 +5447,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCStats : IObject
+        public class RTCStats : IObject
         {
             public string id { get; set; }
 
@@ -5462,7 +5462,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCStatsReport : IObject
+        public class RTCStatsReport : IObject
         {
         }
 
@@ -5470,7 +5470,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCTransportStats : dom.RTCStats
+        public class RTCTransportStats : dom.RTCStats
         {
             public bool? activeConnection { get; set; }
 
@@ -5491,7 +5491,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RegistrationOptions : IObject
+        public class RegistrationOptions : IObject
         {
             public string scope { get; set; }
         }
@@ -5500,7 +5500,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RequestInit : IObject
+        public class RequestInit : IObject
         {
             public Union<dom.Blob, es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, dom.FormData, string, Null> body { get; set; }
 
@@ -5533,7 +5533,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ResponseInit : IObject
+        public class ResponseInit : IObject
         {
             public dom.HeadersInit headers { get; set; }
 
@@ -5546,7 +5546,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RsaHashedImportParams : dom.Algorithm
+        public class RsaHashedImportParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
         }
@@ -5555,7 +5555,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RsaHashedKeyAlgorithm : dom.RsaKeyAlgorithm
+        public class RsaHashedKeyAlgorithm : dom.RsaKeyAlgorithm
         {
             public dom.KeyAlgorithm hash { get; set; }
         }
@@ -5564,7 +5564,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RsaHashedKeyGenParams : dom.RsaKeyGenParams
+        public class RsaHashedKeyGenParams : dom.RsaKeyGenParams
         {
             public Union<string, dom.Algorithm> hash { get; set; }
         }
@@ -5573,7 +5573,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RsaKeyAlgorithm : dom.KeyAlgorithm
+        public class RsaKeyAlgorithm : dom.KeyAlgorithm
         {
             public double modulusLength { get; set; }
 
@@ -5584,7 +5584,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RsaKeyGenParams : dom.Algorithm
+        public class RsaKeyGenParams : dom.Algorithm
         {
             public double modulusLength { get; set; }
 
@@ -5595,7 +5595,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RsaOaepParams : dom.Algorithm
+        public class RsaOaepParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> label { get; set; }
         }
@@ -5604,7 +5604,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RsaOtherPrimesInfo : IObject
+        public class RsaOtherPrimesInfo : IObject
         {
             public string d { get; set; }
 
@@ -5617,7 +5617,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RsaPssParams : dom.Algorithm
+        public class RsaPssParams : dom.Algorithm
         {
             public double saltLength { get; set; }
         }
@@ -5626,7 +5626,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ScopedCredentialDescriptor : IObject
+        public class ScopedCredentialDescriptor : IObject
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> id { get; set; }
 
@@ -5639,7 +5639,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ScopedCredentialOptions : IObject
+        public class ScopedCredentialOptions : IObject
         {
             public dom.ScopedCredentialDescriptor[] excludeList { get; set; }
 
@@ -5654,7 +5654,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ScopedCredentialParameters : IObject
+        public class ScopedCredentialParameters : IObject
         {
             public Union<string, dom.Algorithm> algorithm { get; set; }
 
@@ -5665,7 +5665,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class SecurityPolicyViolationEventInit : dom.EventInit
+        public class SecurityPolicyViolationEventInit : dom.EventInit
         {
             public string blockedURI { get; set; }
 
@@ -5692,7 +5692,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ServiceWorkerMessageEventInit : dom.EventInit
+        public class ServiceWorkerMessageEventInit : dom.EventInit
         {
             public object data { get; set; }
 
@@ -5709,7 +5709,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class SpeechSynthesisEventInit : dom.EventInit
+        public class SpeechSynthesisEventInit : dom.EventInit
         {
             public double? charIndex { get; set; }
 
@@ -5726,7 +5726,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class StereoPannerOptions : dom.AudioNodeOptions
+        public class StereoPannerOptions : dom.AudioNodeOptions
         {
             public double? pan { get; set; }
         }
@@ -5735,7 +5735,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class StoreExceptionsInformation : dom.ExceptionInformation
+        public class StoreExceptionsInformation : dom.ExceptionInformation
         {
             public string detailURI { get; set; }
 
@@ -5748,7 +5748,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class StoreSiteSpecificExceptionsInformation : dom.StoreExceptionsInformation
+        public class StoreSiteSpecificExceptionsInformation : dom.StoreExceptionsInformation
         {
             public string[] arrayOfDomainStrings { get; set; }
         }
@@ -5757,7 +5757,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class SyncEventInit : dom.ExtendableEventInit
+        public class SyncEventInit : dom.ExtendableEventInit
         {
             public bool? lastChance { get; set; }
 
@@ -5768,7 +5768,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class TextDecodeOptions : IObject
+        public class TextDecodeOptions : IObject
         {
             public bool? stream { get; set; }
         }
@@ -5777,7 +5777,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class TextDecoderOptions : IObject
+        public class TextDecoderOptions : IObject
         {
             public bool? fatal { get; set; }
 
@@ -5788,7 +5788,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class TrackEventInit : dom.EventInit
+        public class TrackEventInit : dom.EventInit
         {
             public Union<dom.VideoTrack, dom.AudioTrack, dom.TextTrack, Null> track { get; set; }
         }
@@ -5797,7 +5797,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class TransitionEventInit : dom.EventInit
+        public class TransitionEventInit : dom.EventInit
         {
             public double? elapsedTime { get; set; }
 
@@ -5808,7 +5808,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class UIEventInit : dom.EventInit
+        public class UIEventInit : dom.EventInit
         {
             public int? detail { get; set; }
 
@@ -5819,7 +5819,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class UnderlyingSink : IObject
+        public class UnderlyingSink : IObject
         {
             public dom.WritableStreamErrorCallback abort { get; set; }
 
@@ -5834,7 +5834,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class VRDisplayEventInit : dom.EventInit
+        public class VRDisplayEventInit : dom.EventInit
         {
             public dom.VRDisplay display { get; set; }
 
@@ -5845,7 +5845,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class VRLayer : IObject
+        public class VRLayer : IObject
         {
             public double[] leftBounds { get; set; }
 
@@ -5858,7 +5858,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class VRStageParameters : IObject
+        public class VRStageParameters : IObject
         {
             public es5.Float32Array sittingToStandingTransform { get; set; }
 
@@ -5871,7 +5871,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WaveShaperOptions : dom.AudioNodeOptions
+        public class WaveShaperOptions : dom.AudioNodeOptions
         {
             public double[] curve { get; set; }
 
@@ -5882,7 +5882,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WebAuthnExtensions : IObject
+        public class WebAuthnExtensions : IObject
         {
         }
 
@@ -5890,7 +5890,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLContextAttributes : IObject
+        public class WebGLContextAttributes : IObject
         {
             public bool? alpha { get; set; }
 
@@ -5911,7 +5911,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLContextEventInit : dom.EventInit
+        public class WebGLContextEventInit : dom.EventInit
         {
             public string statusMessage { get; set; }
         }
@@ -5920,7 +5920,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WheelEventInit : dom.MouseEventInit
+        public class WheelEventInit : dom.MouseEventInit
         {
             public uint? deltaMode { get; set; }
 
@@ -5936,7 +5936,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ANGLE_instanced_arrays : IObject
+        public class ANGLE_instanced_arrays : IObject
         {
             public static dom.ANGLE_instanced_arrays prototype { get; set; }
 
@@ -5964,7 +5964,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AbortController : IObject
+        public class AbortController : IObject
         {
             public static dom.AbortController prototype { get; set; }
 
@@ -5977,7 +5977,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AbortSignalEventMap : IObject
+        public class AbortSignalEventMap : IObject
         {
             public dom.ProgressEvent abort { get; set; }
 
@@ -5992,7 +5992,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AbortSignal : dom.EventTarget
+        public class AbortSignal : dom.EventTarget
         {
             public static dom.AbortSignal prototype { get; set; }
 
@@ -6101,7 +6101,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AbstractWorkerEventMap : IObject
+        public class AbstractWorkerEventMap : IObject
         {
             public dom.ErrorEvent error { get; set; }
 
@@ -6462,7 +6462,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AesCfbParams : dom.Algorithm
+        public class AesCfbParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> iv { get; set; }
         }
@@ -6471,7 +6471,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AesCmacParams : dom.Algorithm
+        public class AesCmacParams : dom.Algorithm
         {
             public double length { get; set; }
         }
@@ -6479,7 +6479,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AnalyserNode : dom.AudioNode
+        public class AnalyserNode : dom.AudioNode
         {
             public static dom.AnalyserNode prototype { get; set; }
 
@@ -6505,7 +6505,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Animation : IObject
+        public class Animation : IObject
         {
             public extern Animation();
 
@@ -6569,7 +6569,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AnimationEvent : dom.Event
+        public class AnimationEvent : dom.Event
         {
             public extern AnimationEvent(string typeArg);
 
@@ -6585,7 +6585,7 @@ namespace H5.Core
         [IgnoreCast]
         [Virtual]
         [FormerInterface]
-        public abstract class AnimationKeyFrame : IObject
+        public class AnimationKeyFrame : IObject
         {
             public virtual Union<string, string[]> easing { get; set; }
 
@@ -6598,7 +6598,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AnimationOptions : IObject
+        public class AnimationOptions : IObject
         {
             public double? delay { get; set; }
 
@@ -6622,7 +6622,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AnimationPlaybackEvent : dom.Event
+        public class AnimationPlaybackEvent : dom.Event
         {
             public extern AnimationPlaybackEvent(string type);
 
@@ -6641,7 +6641,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AnimationPlaybackEventInit : dom.EventInit
+        public class AnimationPlaybackEventInit : dom.EventInit
         {
             public double? currentTime { get; set; }
 
@@ -6652,7 +6652,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AnimationTimeline : IObject
+        public class AnimationTimeline : IObject
         {
             public double? currentTime { get; }
         }
@@ -6661,7 +6661,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ApplicationCacheEventMap : IObject
+        public class ApplicationCacheEventMap : IObject
         {
             public dom.Event cached { get; set; }
 
@@ -6704,7 +6704,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ApplicationCache : dom.EventTarget
+        public class ApplicationCache : dom.EventTarget
         {
             public static dom.ApplicationCache prototype { get; set; }
 
@@ -6866,7 +6866,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AssignedNodesOptions : IObject
+        public class AssignedNodesOptions : IObject
         {
             public bool? flatten { get; set; }
         }
@@ -6874,7 +6874,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Attr : dom.Node
+        public class Attr : dom.Node
         {
             public static dom.Attr prototype { get; set; }
 
@@ -6892,7 +6892,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioBuffer : IObject
+        public class AudioBuffer : IObject
         {
             public static dom.AudioBuffer prototype { get; set; }
 
@@ -6925,7 +6925,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioBufferSourceNodeEventMap : IObject
+        public class AudioBufferSourceNodeEventMap : IObject
         {
             public dom.Event ended { get; set; }
 
@@ -6940,7 +6940,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioBufferSourceNode : dom.AudioNode
+        public class AudioBufferSourceNode : dom.AudioNode
         {
             public static dom.AudioBufferSourceNode prototype { get; set; }
 
@@ -7160,7 +7160,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioContextEventMap : IObject
+        public class AudioContextEventMap : IObject
         {
             public dom.Event statechange { get; set; }
 
@@ -7368,7 +7368,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioContext : dom.AudioContextBase
+        public class AudioContext : dom.AudioContextBase
         {
             public static dom.AudioContext prototype { get; set; }
 
@@ -7550,7 +7550,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioDestinationNode : dom.AudioNode
+        public class AudioDestinationNode : dom.AudioNode
         {
             public static dom.AudioDestinationNode prototype { get; set; }
 
@@ -7560,7 +7560,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioListener : IObject
+        public class AudioListener : IObject
         {
             public static dom.AudioListener prototype { get; set; }
 
@@ -7584,7 +7584,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioNode : dom.EventTarget
+        public class AudioNode : dom.EventTarget
         {
             public static dom.AudioNode prototype { get; set; }
 
@@ -7631,7 +7631,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioParam : IObject
+        public class AudioParam : IObject
         {
             public static dom.AudioParam prototype { get; set; }
 
@@ -7663,7 +7663,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioProcessingEvent : dom.Event
+        public class AudioProcessingEvent : dom.Event
         {
             public static dom.AudioProcessingEvent prototype { get; set; }
 
@@ -7677,7 +7677,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioTrack : IObject
+        public class AudioTrack : IObject
         {
             public static dom.AudioTrack prototype { get; set; }
 
@@ -7698,7 +7698,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioTrackListEventMap : IObject
+        public class AudioTrackListEventMap : IObject
         {
             public dom.TrackEvent addtrack { get; set; }
 
@@ -7721,7 +7721,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class AudioTrackList : dom.EventTarget
+        public class AudioTrackList : dom.EventTarget
         {
             public static dom.AudioTrackList prototype { get; set; }
 
@@ -7842,7 +7842,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class BarProp : IObject
+        public class BarProp : IObject
         {
             public static dom.BarProp prototype { get; set; }
 
@@ -7852,7 +7852,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class BeforeUnloadEvent : dom.Event
+        public class BeforeUnloadEvent : dom.Event
         {
             public static dom.BeforeUnloadEvent prototype { get; set; }
 
@@ -7862,7 +7862,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class BhxBrowser : IObject
+        public class BhxBrowser : IObject
         {
             public static dom.BhxBrowser prototype { get; set; }
 
@@ -7930,7 +7930,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class BiquadFilterNode : dom.AudioNode
+        public class BiquadFilterNode : dom.AudioNode
         {
             public static dom.BiquadFilterNode prototype { get; set; }
 
@@ -7953,7 +7953,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Blob : IObject
+        public class Blob : IObject
         {
             public extern Blob();
 
@@ -7984,7 +7984,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class BlobPropertyBag : IObject
+        public class BlobPropertyBag : IObject
         {
             public string endings { get; set; }
 
@@ -8012,7 +8012,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class BroadcastChannel : dom.EventTarget
+        public class BroadcastChannel : dom.EventTarget
         {
             public extern BroadcastChannel(string name);
 
@@ -8132,7 +8132,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class BroadcastChannelEventMap : IObject
+        public class BroadcastChannelEventMap : IObject
         {
             public dom.MessageEvent message { get; set; }
 
@@ -8151,7 +8151,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ByteLengthQueuingStrategy : IObject
+        public class ByteLengthQueuingStrategy : IObject
         {
             public extern ByteLengthQueuingStrategy(dom.QueuingStrategy strategy);
 
@@ -8167,7 +8167,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CDATASection : dom.Text
+        public class CDATASection : dom.Text
         {
             public static dom.CDATASection prototype { get; set; }
         }
@@ -8187,7 +8187,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSConditionRule : dom.CSSGroupingRule
+        public class CSSConditionRule : dom.CSSGroupingRule
         {
             public static dom.CSSConditionRule prototype { get; set; }
 
@@ -8197,7 +8197,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSFontFaceRule : dom.CSSRule
+        public class CSSFontFaceRule : dom.CSSRule
         {
             public static dom.CSSFontFaceRule prototype { get; set; }
 
@@ -8207,7 +8207,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSGroupingRule : dom.CSSRule
+        public class CSSGroupingRule : dom.CSSRule
         {
             public static dom.CSSGroupingRule prototype { get; set; }
 
@@ -8221,7 +8221,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSImportRule : dom.CSSRule
+        public class CSSImportRule : dom.CSSRule
         {
             public static dom.CSSImportRule prototype { get; set; }
 
@@ -8235,7 +8235,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSKeyframeRule : dom.CSSRule
+        public class CSSKeyframeRule : dom.CSSRule
         {
             public static dom.CSSKeyframeRule prototype { get; set; }
 
@@ -8247,7 +8247,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSKeyframesRule : dom.CSSRule
+        public class CSSKeyframesRule : dom.CSSRule
         {
             public static dom.CSSKeyframesRule prototype { get; set; }
 
@@ -8265,7 +8265,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSMediaRule : dom.CSSConditionRule
+        public class CSSMediaRule : dom.CSSConditionRule
         {
             public static dom.CSSMediaRule prototype { get; set; }
 
@@ -8275,7 +8275,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSNamespaceRule : dom.CSSRule
+        public class CSSNamespaceRule : dom.CSSRule
         {
             public static dom.CSSNamespaceRule prototype { get; set; }
 
@@ -8287,7 +8287,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSPageRule : dom.CSSRule
+        public class CSSPageRule : dom.CSSRule
         {
             public static dom.CSSPageRule prototype { get; set; }
 
@@ -8303,7 +8303,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSRule : IObject
+        public class CSSRule : IObject
         {
             public static dom.CSSRule prototype { get; set; }
 
@@ -8379,7 +8379,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSRuleList : IEnumerable<dom.CSSRule>, IEnumerable, IH5Class, IObject
+        public class CSSRuleList : IEnumerable<dom.CSSRule>, IEnumerable, IH5Class, IObject
         {
             public static dom.CSSRuleList prototype { get; set; }
 
@@ -8399,7 +8399,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSStyleDeclaration : IObject
+        public class CSSStyleDeclaration : IObject
         {
             public static dom.CSSStyleDeclaration prototype { get; set; }
 
@@ -9169,7 +9169,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSStyleRule : dom.CSSRule
+        public class CSSStyleRule : dom.CSSRule
         {
             public static dom.CSSStyleRule prototype { get; set; }
 
@@ -9181,7 +9181,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSStyleSheet : dom.StyleSheet
+        public class CSSStyleSheet : dom.StyleSheet
         {
             public static dom.CSSStyleSheet prototype { get; set; }
 
@@ -9240,7 +9240,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CSSSupportsRule : dom.CSSConditionRule
+        public class CSSSupportsRule : dom.CSSConditionRule
         {
             public static dom.CSSSupportsRule prototype { get; set; }
         }
@@ -9248,7 +9248,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Cache : IObject
+        public class Cache : IObject
         {
             public static dom.Cache prototype { get; set; }
 
@@ -9359,7 +9359,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CacheStorage : IObject
+        public class CacheStorage : IObject
         {
             public static dom.CacheStorage prototype { get; set; }
 
@@ -9393,7 +9393,7 @@ namespace H5.Core
         [IgnoreCast]
         [Virtual]
         [FormerInterface]
-        public abstract class Canvas2DContextAttributes : IObject
+        public class Canvas2DContextAttributes : IObject
         {
             public virtual bool? alpha { get; set; }
 
@@ -9407,7 +9407,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CanvasGradient : IObject
+        public class CanvasGradient : IObject
         {
             public static dom.CanvasGradient prototype { get; set; }
 
@@ -9486,7 +9486,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CanvasPattern : IObject
+        public class CanvasPattern : IObject
         {
             public static dom.CanvasPattern prototype { get; set; }
 
@@ -9496,7 +9496,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CanvasRenderingContext2D : dom.CanvasPathMethods
+        public class CanvasRenderingContext2D : dom.CanvasPathMethods
         {
             public static dom.CanvasRenderingContext2D prototype { get; set; }
 
@@ -9898,7 +9898,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ChannelMergerNode : dom.AudioNode
+        public class ChannelMergerNode : dom.AudioNode
         {
             public static dom.ChannelMergerNode prototype { get; set; }
         }
@@ -9906,7 +9906,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ChannelSplitterNode : dom.AudioNode
+        public class ChannelSplitterNode : dom.AudioNode
         {
             public static dom.ChannelSplitterNode prototype { get; set; }
         }
@@ -9914,7 +9914,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CharacterData : dom.Node, dom.ChildNode.Interface, IObject
+        public class CharacterData : dom.Node, dom.ChildNode.Interface, IObject
         {
             public static dom.CharacterData prototype { get; set; }
 
@@ -9953,7 +9953,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ClientRect : IObject
+        public class ClientRect : IObject
         {
             public static dom.ClientRect prototype { get; set; }
 
@@ -9973,7 +9973,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ClientRectList : IObject
+        public class ClientRectList : IObject
         {
             public static dom.ClientRectList prototype { get; set; }
 
@@ -9987,7 +9987,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ClipboardEvent : dom.Event
+        public class ClipboardEvent : dom.Event
         {
             public extern ClipboardEvent(string type);
 
@@ -10002,7 +10002,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ClipboardEventInit : dom.EventInit
+        public class ClipboardEventInit : dom.EventInit
         {
             public string data { get; set; }
 
@@ -10012,7 +10012,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CloseEvent : dom.Event
+        public class CloseEvent : dom.Event
         {
             public extern CloseEvent(string type);
 
@@ -10038,7 +10038,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Comment : dom.CharacterData
+        public class Comment : dom.CharacterData
         {
             public extern Comment();
 
@@ -10052,7 +10052,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CompositionEvent : dom.UIEvent
+        public class CompositionEvent : dom.UIEvent
         {
             public extern CompositionEvent(string typeArg);
 
@@ -10077,7 +10077,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ComputedTimingProperties : IObject
+        public class ComputedTimingProperties : IObject
         {
             public double activeDuration { get; set; }
 
@@ -10094,7 +10094,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ConcatParams : dom.Algorithm
+        public class ConcatParams : dom.Algorithm
         {
             public es5.Uint8Array algorithmId { get; set; }
 
@@ -10112,7 +10112,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Console : IObject
+        public class Console : IObject
         {
             public static dom.Console prototype { get; set; }
 
@@ -10226,7 +10226,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ContentScriptGlobalScope : dom.EventTarget
+        public class ContentScriptGlobalScope : dom.EventTarget
         {
             public static dom.ContentScriptGlobalScope prototype { get; set; }
 
@@ -10238,7 +10238,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ConvolverNode : dom.AudioNode
+        public class ConvolverNode : dom.AudioNode
         {
             public static dom.ConvolverNode prototype { get; set; }
 
@@ -10250,7 +10250,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Coordinates : IObject
+        public class Coordinates : IObject
         {
             public static dom.Coordinates prototype { get; set; }
 
@@ -10272,7 +10272,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CountQueuingStrategy : IObject
+        public class CountQueuingStrategy : IObject
         {
             public extern CountQueuingStrategy(dom.QueuingStrategy strategy);
 
@@ -10286,7 +10286,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Crypto : IObject
+        public class Crypto : IObject
         {
             public static dom.Crypto prototype { get; set; }
 
@@ -10332,7 +10332,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CryptoKey : IObject
+        public class CryptoKey : IObject
         {
             public static dom.CryptoKey prototype { get; set; }
 
@@ -10348,7 +10348,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class CryptoKeyPair : IObject
+        public class CryptoKeyPair : IObject
         {
             public static dom.CryptoKeyPair prototype { get; set; }
 
@@ -10409,7 +10409,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMError : IObject
+        public class DOMError : IObject
         {
             public static dom.DOMError prototype { get; set; }
 
@@ -10421,7 +10421,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMException : IObject
+        public class DOMException : IObject
         {
             public extern DOMException();
 
@@ -10578,7 +10578,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMImplementation : IObject
+        public class DOMImplementation : IObject
         {
             public static dom.DOMImplementation prototype { get; set; }
 
@@ -10602,7 +10602,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class DOML2DeprecatedColorProperty : dom.DOML2DeprecatedColorProperty.Interface, IObject
+        public class DOML2DeprecatedColorProperty : dom.DOML2DeprecatedColorProperty.Interface, IObject
         {
             public string color { get; set; }
 
@@ -10618,7 +10618,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class DOML2DeprecatedSizeProperty : dom.DOML2DeprecatedSizeProperty.Interface, IObject
+        public class DOML2DeprecatedSizeProperty : dom.DOML2DeprecatedSizeProperty.Interface, IObject
         {
             public double size { get; set; }
 
@@ -10634,7 +10634,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMParser : IObject
+        public class DOMParser : IObject
         {
             public static dom.DOMParser prototype { get; set; }
 
@@ -10644,7 +10644,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMRect : dom.DOMRectReadOnly
+        public class DOMRect : dom.DOMRectReadOnly
         {
             public extern DOMRect();
 
@@ -10692,7 +10692,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMRectReadOnly : IObject
+        public class DOMRectReadOnly : IObject
         {
             public extern DOMRectReadOnly();
 
@@ -10730,7 +10730,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMSettableTokenList : dom.DOMTokenList
+        public class DOMSettableTokenList : dom.DOMTokenList
         {
             public static dom.DOMSettableTokenList prototype { get; set; }
 
@@ -10740,7 +10740,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMStringList : IEnumerable<string>, IEnumerable, IH5Class, IObject
+        public class DOMStringList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
             public static dom.DOMStringList prototype { get; set; }
 
@@ -10762,7 +10762,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMStringMap : IObject
+        public class DOMStringMap : IObject
         {
             public static dom.DOMStringMap prototype { get; set; }
 
@@ -10772,7 +10772,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DOMTokenList : IEnumerable<string>, IEnumerable, IH5Class, IObject
+        public class DOMTokenList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
             public static dom.DOMTokenList prototype { get; set; }
 
@@ -10808,7 +10808,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DataCue : dom.TextTrackCue
+        public class DataCue : dom.TextTrackCue
         {
             public static dom.DataCue prototype { get; set; }
 
@@ -10872,7 +10872,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DataTransfer : IObject
+        public class DataTransfer : IObject
         {
             public static dom.DataTransfer prototype { get; set; }
 
@@ -10900,7 +10900,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DataTransferItem : IObject
+        public class DataTransferItem : IObject
         {
             public static dom.DataTransferItem prototype { get; set; }
 
@@ -10918,7 +10918,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DataTransferItemList : IEnumerable<dom.DataTransferItem>, IEnumerable, IH5Class, IObject
+        public class DataTransferItemList : IEnumerable<dom.DataTransferItem>, IEnumerable, IH5Class, IObject
         {
             public static dom.DataTransferItemList prototype { get; set; }
 
@@ -10946,7 +10946,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DeferredPermissionRequest : IObject
+        public class DeferredPermissionRequest : IObject
         {
             public static dom.DeferredPermissionRequest prototype { get; set; }
 
@@ -10964,7 +10964,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DelayNode : dom.AudioNode
+        public class DelayNode : dom.AudioNode
         {
             public static dom.DelayNode prototype { get; set; }
 
@@ -10974,7 +10974,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceAcceleration : IObject
+        public class DeviceAcceleration : IObject
         {
             public static dom.DeviceAcceleration prototype { get; set; }
 
@@ -10988,7 +10988,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceLightEvent : dom.Event
+        public class DeviceLightEvent : dom.Event
         {
             public extern DeviceLightEvent(string typeArg);
 
@@ -11002,7 +11002,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceMotionEvent : dom.Event
+        public class DeviceMotionEvent : dom.Event
         {
             public extern DeviceMotionEvent(string typeArg);
 
@@ -11031,7 +11031,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceOrientationEvent : dom.Event
+        public class DeviceOrientationEvent : dom.Event
         {
             public extern DeviceOrientationEvent(string typeArg);
 
@@ -11062,7 +11062,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DeviceRotationRate : IObject
+        public class DeviceRotationRate : IObject
         {
             public static dom.DeviceRotationRate prototype { get; set; }
 
@@ -11077,7 +11077,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DhImportKeyParams : dom.Algorithm
+        public class DhImportKeyParams : dom.Algorithm
         {
             public es5.Uint8Array generator { get; set; }
 
@@ -11088,7 +11088,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DhKeyAlgorithm : dom.KeyAlgorithm
+        public class DhKeyAlgorithm : dom.KeyAlgorithm
         {
             public es5.Uint8Array generator { get; set; }
 
@@ -11099,7 +11099,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DhKeyDeriveParams : dom.Algorithm
+        public class DhKeyDeriveParams : dom.Algorithm
         {
             [Name("public")]
             public dom.CryptoKey @public { get; set; }
@@ -11109,7 +11109,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DhKeyGenParams : dom.Algorithm
+        public class DhKeyGenParams : dom.Algorithm
         {
             public es5.Uint8Array generator { get; set; }
 
@@ -11120,7 +11120,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class DocumentEventMap : dom.GlobalEventHandlersEventMap
+        public class DocumentEventMap : dom.GlobalEventHandlersEventMap
         {
             public dom.UIEvent abort { get; set; }
 
@@ -11483,7 +11483,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Document : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ParentNode.Interface, dom.DocumentEvent.Interface
+        public class Document : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ParentNode.Interface, dom.DocumentEvent.Interface
         {
             public static dom.Document prototype { get; set; }
 
@@ -13103,7 +13103,7 @@ namespace H5.Core
         }
 
         [CombinedClass]
-        public abstract class DocumentFragment : dom.Node, dom.DocumentFragment.Interface, dom.Node.Interface, dom.EventTarget.Interface, IObject, dom.ParentNode.Interface
+        public class DocumentFragment : dom.Node, dom.DocumentFragment.Interface, dom.Node.Interface, dom.EventTarget.Interface, IObject, dom.ParentNode.Interface
         {
             public static dom.DocumentFragment prototype { get; set; }
 
@@ -13166,7 +13166,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DocumentType : dom.Node, dom.ChildNode.Interface, IObject
+        public class DocumentType : dom.Node, dom.ChildNode.Interface, IObject
         {
             public static dom.DocumentType prototype { get; set; }
 
@@ -13188,7 +13188,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DragEvent : dom.MouseEvent
+        public class DragEvent : dom.MouseEvent
         {
             public extern DragEvent(dom.Literals.Options.type2 type);
 
@@ -13221,7 +13221,7 @@ namespace H5.Core
             public virtual extern void msConvertURL(dom.File file, string targetType, string targetURL);
 
             [ObjectLiteral]
-            public abstract class Config : IObject
+            public class Config : IObject
             {
                 public dom.DataTransfer dataTransfer { get; set; }
             }
@@ -13230,7 +13230,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class DynamicsCompressorNode : dom.AudioNode
+        public class DynamicsCompressorNode : dom.AudioNode
         {
             public static dom.DynamicsCompressorNode prototype { get; set; }
 
@@ -13251,7 +13251,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EXT_blend_minmax : IObject
+        public class EXT_blend_minmax : IObject
         {
             public double MAX_EXT { get; }
 
@@ -13262,7 +13262,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EXT_frag_depth : IObject
+        public class EXT_frag_depth : IObject
         {
         }
 
@@ -13270,7 +13270,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EXT_sRGB : IObject
+        public class EXT_sRGB : IObject
         {
             public double FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT { get; }
 
@@ -13285,14 +13285,14 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EXT_shader_texture_lod : IObject
+        public class EXT_shader_texture_lod : IObject
         {
         }
 
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class EXT_texture_filter_anisotropic : IObject
+        public class EXT_texture_filter_anisotropic : IObject
         {
             public static dom.EXT_texture_filter_anisotropic prototype { get; set; }
 
@@ -13311,7 +13311,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ElementEventMap : dom.GlobalEventHandlersEventMap
+        public class ElementEventMap : dom.GlobalEventHandlersEventMap
         {
             public dom.Event ariarequest { get; set; }
 
@@ -13430,7 +13430,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Element : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ElementTraversal.Interface, dom.ParentNode.Interface, dom.ChildNode.Interface
+        public class Element : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ElementTraversal.Interface, dom.ParentNode.Interface, dom.ChildNode.Interface
         {
             public static dom.Element prototype { get; set; }
 
@@ -13957,7 +13957,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class ElementCSSInlineStyle : dom.ElementCSSInlineStyle.Interface, IObject
+        public class ElementCSSInlineStyle : dom.ElementCSSInlineStyle.Interface, IObject
         {
             public dom.CSSStyleDeclaration style { get; }
 
@@ -13974,7 +13974,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ElementCreationOptions : IObject
+        public class ElementCreationOptions : IObject
         {
             [Name("is")]
             public string @is { get; set; }
@@ -13984,7 +13984,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ElementDefinitionOptions : IObject
+        public class ElementDefinitionOptions : IObject
         {
             public string extends { get; set; }
         }
@@ -13992,7 +13992,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class ElementTraversal : dom.ElementTraversal.Interface, IObject
+        public class ElementTraversal : dom.ElementTraversal.Interface, IObject
         {
             public double childElementCount { get; }
 
@@ -14024,7 +14024,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ErrorEvent : dom.Event
+        public class ErrorEvent : dom.Event
         {
             public extern ErrorEvent(string typeArg);
 
@@ -14054,7 +14054,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Event : IObject
+        public class Event : IObject
         {
             public extern Event();
 
@@ -14136,7 +14136,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class EventSource : dom.EventTarget
+        public class EventSource : dom.EventTarget
         {
             public extern EventSource(string url);
 
@@ -14178,13 +14178,13 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class EventSourceInit : IObject
+        public class EventSourceInit : IObject
         {
             public bool withCredentials { get; }
         }
 
         [CombinedClass]
-        public abstract class EventTarget : dom.EventTarget.Interface, IObject
+        public class EventTarget : dom.EventTarget.Interface, IObject
         {
             public static dom.EventTarget prototype { get; set; }
 
@@ -14379,7 +14379,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ExtensionScriptApis : IObject
+        public class ExtensionScriptApis : IObject
         {
             public static dom.ExtensionScriptApis prototype { get; set; }
 
@@ -14432,7 +14432,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class External : IObject
+        public class External : IObject
         {
             public static dom.External prototype { get; set; }
         }
@@ -14440,7 +14440,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class File : dom.Blob
+        public class File : dom.Blob
         {
             public extern File(
               Union<es5.ArrayBuffer, es5.ArrayBufferView, dom.Blob, string>[] parts,
@@ -14484,7 +14484,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class FileList : IEnumerable<dom.File>, IEnumerable, IH5Class, IObject
+        public class FileList : IEnumerable<dom.File>, IEnumerable, IH5Class, IObject
         {
             public static dom.FileList prototype { get; set; }
 
@@ -14505,7 +14505,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class FilePropertyBag : dom.BlobPropertyBag
+        public class FilePropertyBag : dom.BlobPropertyBag
         {
             public long? lastModified { get; set; }
         }
@@ -14514,7 +14514,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class FileReaderEventMap : IObject
+        public class FileReaderEventMap : IObject
         {
             public dom.ProgressEvent abort { get; set; }
 
@@ -14549,7 +14549,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class FileReader : dom.EventTarget
+        public class FileReader : dom.EventTarget
         {
             public static dom.FileReader prototype { get; set; }
 
@@ -14708,7 +14708,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class FocusEvent : dom.UIEvent
+        public class FocusEvent : dom.UIEvent
         {
             public extern FocusEvent(string typeArg);
 
@@ -14730,7 +14730,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class FocusNavigationEvent : dom.Event
+        public class FocusNavigationEvent : dom.Event
         {
             public extern FocusNavigationEvent(string type);
 
@@ -14754,7 +14754,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class FormData : IObject
+        public class FormData : IObject
         {
             public extern FormData();
 
@@ -14801,7 +14801,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class GainNode : dom.AudioNode
+        public class GainNode : dom.AudioNode
         {
             public static dom.GainNode prototype { get; set; }
 
@@ -14811,7 +14811,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Gamepad : IObject
+        public class Gamepad : IObject
         {
             public static dom.Gamepad prototype { get; set; }
 
@@ -14841,7 +14841,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class GamepadButton : IObject
+        public class GamepadButton : IObject
         {
             public static dom.GamepadButton prototype { get; set; }
 
@@ -14855,7 +14855,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class GamepadEvent : dom.Event
+        public class GamepadEvent : dom.Event
         {
             public extern GamepadEvent(string typeArg);
 
@@ -14869,7 +14869,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class GamepadHapticActuator : IObject
+        public class GamepadHapticActuator : IObject
         {
             public static dom.GamepadHapticActuator prototype { get; set; }
 
@@ -14881,7 +14881,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class GamepadPose : IObject
+        public class GamepadPose : IObject
         {
             public static dom.GamepadPose prototype { get; set; }
 
@@ -14905,7 +14905,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Geolocation : IObject
+        public class Geolocation : IObject
         {
             public static dom.Geolocation prototype { get; set; }
 
@@ -14953,7 +14953,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class GlobalEventHandlersEventMap : IObject
+        public class GlobalEventHandlersEventMap : IObject
         {
             public dom.PointerEvent pointercancel { get; set; }
 
@@ -15425,7 +15425,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLAllCollection : IObject
+        public class HTMLAllCollection : IObject
         {
             public static dom.HTMLAllCollection prototype { get; set; }
 
@@ -15445,7 +15445,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLAnchorElement : dom.HTMLElement, dom.HTMLHyperlinkElementUtils.Interface, IObject
+        public class HTMLAnchorElement : dom.HTMLElement, dom.HTMLHyperlinkElementUtils.Interface, IObject
         {
             [Template("document.createElement(\"a\")")]
             public extern HTMLAnchorElement();
@@ -15562,7 +15562,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLAppletElement : dom.HTMLElement
+        public class HTMLAppletElement : dom.HTMLElement
         {
             [Template("document.createElement(\"applet\")")]
             public extern HTMLAppletElement();
@@ -15652,7 +15652,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLAreaElement : dom.HTMLElement, dom.HTMLHyperlinkElementUtils.Interface, IObject
+        public class HTMLAreaElement : dom.HTMLElement, dom.HTMLHyperlinkElementUtils.Interface, IObject
         {
             [Template("document.createElement(\"area\")")]
             public extern HTMLAreaElement();
@@ -15751,7 +15751,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLAreasCollection : dom.HTMLCollectionBase
+        public class HTMLAreasCollection : dom.HTMLCollectionBase
         {
             public static dom.HTMLAreasCollection prototype { get; set; }
 
@@ -15763,7 +15763,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLAudioElement : dom.HTMLMediaElement
+        public class HTMLAudioElement : dom.HTMLMediaElement
         {
             [Template("document.createElement(\"audio\")")]
             public extern HTMLAudioElement();
@@ -15828,7 +15828,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLBRElement : dom.HTMLElement
+        public class HTMLBRElement : dom.HTMLElement
        {
             [Template("document.createElement(\"br\")")]
             public extern HTMLBRElement();
@@ -15895,7 +15895,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLBaseElement : dom.HTMLElement
+        public class HTMLBaseElement : dom.HTMLElement
         {
             [Template("document.createElement(\"base\")")]
             public extern HTMLBaseElement();
@@ -15964,7 +15964,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLBaseFontElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject
+        public class HTMLBaseFontElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject
         {
             [Template("document.createElement(\"basefont\")")]
             public extern HTMLBaseFontElement();
@@ -16036,7 +16036,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLBodyElementEventMap : dom.HTMLElementEventMap, dom.WindowEventHandlersEventMap.Interface, IObject
+        public class HTMLBodyElementEventMap : dom.HTMLElementEventMap, dom.WindowEventHandlersEventMap.Interface, IObject
         {
             public dom.Event orientationchange { get; set; }
 
@@ -16103,7 +16103,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLBodyElement : dom.HTMLElement, dom.WindowEventHandlers.Interface, IObject
+        public class HTMLBodyElement : dom.HTMLElement, dom.WindowEventHandlers.Interface, IObject
         {
             [Template("document.createElement(\"body\")")]
             public extern HTMLBodyElement();
@@ -16264,7 +16264,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLButtonElement : dom.HTMLElement
+        public class HTMLButtonElement : dom.HTMLElement
         {
             [Template("document.createElement(\"button\")")]
             public extern HTMLButtonElement();
@@ -16363,7 +16363,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLCanvasElement : dom.HTMLElement
+        public class HTMLCanvasElement : dom.HTMLElement
         {
             [Template("document.createElement(\"canvas\")")]
             public extern HTMLCanvasElement();
@@ -16489,7 +16489,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLCollection : dom.HTMLCollectionBase
+        public class HTMLCollection : dom.HTMLCollectionBase
         {
             public static dom.HTMLCollection prototype { get; set; }
 
@@ -16520,7 +16520,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLDListElement : dom.HTMLElement
+        public class HTMLDListElement : dom.HTMLElement
         {
             [Template("document.createElement(\"dl\")")]
             public extern HTMLDListElement();
@@ -16587,7 +16587,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLDataElement : dom.HTMLElement
+        public class HTMLDataElement : dom.HTMLElement
         {
             [Template("document.createElement(\"data\")")]
             public extern HTMLDataElement();
@@ -16654,7 +16654,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLDataListElement : dom.HTMLElement
+        public class HTMLDataListElement : dom.HTMLElement
         {
             [Template("document.createElement(\"datalist\")")]
             public extern HTMLDataListElement();
@@ -16721,7 +16721,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLDetailsElement : dom.HTMLElement
+        public class HTMLDetailsElement : dom.HTMLElement
         {
             public static dom.HTMLDetailsElement prototype { get; set; }
 
@@ -16785,7 +16785,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLDialogElement : dom.HTMLElement
+        public class HTMLDialogElement : dom.HTMLElement
         {
             public static dom.HTMLDialogElement prototype { get; set; }
 
@@ -16859,7 +16859,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLDirectoryElement : dom.HTMLElement
+        public class HTMLDirectoryElement : dom.HTMLElement
         {
             [Template("document.createElement(\"dir\")")]
             public extern HTMLDirectoryElement();
@@ -16926,7 +16926,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLDivElement : dom.HTMLElement
+        public class HTMLDivElement : dom.HTMLElement
         {
             [Template("document.createElement(\"div\")")]
             public extern HTMLDivElement();
@@ -16995,7 +16995,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLDocument : dom.Document
+        public class HTMLDocument : dom.Document
         {
             public static dom.HTMLDocument prototype { get; set; }
 
@@ -17058,7 +17058,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLElementEventMap : dom.ElementEventMap
+        public class HTMLElementEventMap : dom.ElementEventMap
         {
             public dom.UIEvent abort { get; set; }
 
@@ -17337,7 +17337,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLElement : dom.Element, dom.ElementCSSInlineStyle.Interface, IObject
+        public class HTMLElement : dom.Element, dom.ElementCSSInlineStyle.Interface, IObject
         {
             public static dom.HTMLElement prototype { get; set; }
 
@@ -17641,7 +17641,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLEmbedElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
+        public class HTMLEmbedElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
             [Template("document.createElement(\"embed\")")]
             public extern HTMLEmbedElement();
@@ -17734,7 +17734,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLFieldSetElement : dom.HTMLElement
+        public class HTMLFieldSetElement : dom.HTMLElement
         {
             [Template("document.createElement(\"fieldset\")")]
             public extern HTMLFieldSetElement();
@@ -17817,7 +17817,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLFontElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject, dom.DOML2DeprecatedSizeProperty.Interface
+        public class HTMLFontElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject, dom.DOML2DeprecatedSizeProperty.Interface
         {
             [Template("document.createElement(\"font\")")]
             public extern HTMLFontElement();
@@ -17888,7 +17888,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLFormControlsCollection : dom.HTMLCollectionBase
+        public class HTMLFormControlsCollection : dom.HTMLCollectionBase
         {
             public static dom.HTMLFormControlsCollection prototype { get; set; }
 
@@ -17903,7 +17903,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLFormElement : dom.HTMLElement
+        public class HTMLFormElement : dom.HTMLElement
         {
             [Template("document.createElement(\"form\")")]
             public extern HTMLFormElement();
@@ -18007,14 +18007,14 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLFrameElementEventMap : dom.HTMLElementEventMap
+        public class HTMLFrameElementEventMap : dom.HTMLElementEventMap
         {
         }
 
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLFrameElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
+        public class HTMLFrameElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
             [Template("document.createElement(\"frame\")")]
             public extern HTMLFrameElement();
@@ -18112,7 +18112,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLFrameSetElementEventMap : dom.HTMLElementEventMap, dom.WindowEventHandlersEventMap.Interface, IObject
+        public class HTMLFrameSetElementEventMap : dom.HTMLElementEventMap, dom.WindowEventHandlersEventMap.Interface, IObject
         {
             public dom.Event orientationchange { get; set; }
 
@@ -18179,7 +18179,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLFrameSetElement : dom.HTMLElement, dom.WindowEventHandlers.Interface, IObject
+        public class HTMLFrameSetElement : dom.HTMLElement, dom.WindowEventHandlers.Interface, IObject
         {
             [Template("document.createElement(\"frameset\")")]
             public extern HTMLFrameSetElement();
@@ -18330,7 +18330,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLHRElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject, dom.DOML2DeprecatedSizeProperty.Interface
+        public class HTMLHRElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject, dom.DOML2DeprecatedSizeProperty.Interface
         {
             [Template("document.createElement(\"hr\")")]
             public extern HTMLHRElement();
@@ -18405,7 +18405,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLHeadElement : dom.HTMLElement
+        public class HTMLHeadElement : dom.HTMLElement
         {
             [Template("document.createElement(\"head\")")]
             public extern HTMLHeadElement();
@@ -18472,7 +18472,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLHeadingElement : dom.HTMLElement
+        public class HTMLHeadingElement : dom.HTMLElement
         {
             [Template("document.createElement(\"h1\")")]
             public extern HTMLHeadingElement();
@@ -18539,7 +18539,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLHtmlElement : dom.HTMLElement
+        public class HTMLHtmlElement : dom.HTMLElement
         {
             [Template("document.createElement(\"html\")")]
             public extern HTMLHtmlElement();
@@ -18658,14 +18658,14 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLIFrameElementEventMap : dom.HTMLElementEventMap
+        public class HTMLIFrameElementEventMap : dom.HTMLElementEventMap
         {
         }
 
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLIFrameElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
+        public class HTMLIFrameElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
             [Template("document.createElement(\"iframe\")")]
             public extern HTMLIFrameElement();
@@ -18764,7 +18764,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLImageElement : dom.HTMLElement
+        public class HTMLImageElement : dom.HTMLElement
         {
             [Template("document.createElement(\"img\")")]
             public extern HTMLImageElement();
@@ -18885,7 +18885,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLInputElement : dom.HTMLElement
+        public class HTMLInputElement : dom.HTMLElement
         {
             [Template("document.createElement(\"input\")")]
             public extern HTMLInputElement();
@@ -19062,7 +19062,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLLIElement : dom.HTMLElement
+        public class HTMLLIElement : dom.HTMLElement
         {
             [Template("document.createElement(\"li\")")]
             public extern HTMLLIElement();
@@ -19131,7 +19131,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLLabelElement : dom.HTMLElement
+        public class HTMLLabelElement : dom.HTMLElement
         {
             [Template("document.createElement(\"label\")")]
             public extern HTMLLabelElement();
@@ -19202,7 +19202,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLLegendElement : dom.HTMLElement
+        public class HTMLLegendElement : dom.HTMLElement
         {
             [Template("document.createElement(\"legend\")")]
             public extern HTMLLegendElement();
@@ -19271,7 +19271,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLLinkElement : dom.HTMLElement, dom.LinkStyle.Interface, IObject
+        public class HTMLLinkElement : dom.HTMLElement, dom.LinkStyle.Interface, IObject
         {
             [Template("document.createElement(\"link\")")]
             public extern HTMLLinkElement();
@@ -19362,7 +19362,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMainElement : dom.HTMLElement
+        public class HTMLMainElement : dom.HTMLElement
         {
             public static dom.HTMLMainElement prototype { get; set; }
 
@@ -19424,7 +19424,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMapElement : dom.HTMLElement
+        public class HTMLMapElement : dom.HTMLElement
         {
             [Template("document.createElement(\"map\")")]
             public extern HTMLMapElement();
@@ -19494,7 +19494,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMarqueeElementEventMap : dom.HTMLElementEventMap
+        public class HTMLMarqueeElementEventMap : dom.HTMLElementEventMap
         {
             public dom.Event bounce { get; set; }
 
@@ -19517,7 +19517,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMarqueeElement : dom.HTMLElement
+        public class HTMLMarqueeElement : dom.HTMLElement
         {
             [Template("document.createElement(\"marquee\")")]
             public extern HTMLMarqueeElement();
@@ -19618,7 +19618,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMediaElementEventMap : dom.HTMLElementEventMap
+        public class HTMLMediaElementEventMap : dom.HTMLElementEventMap
         {
             public dom.MediaEncryptedEvent encrypted { get; set; }
 
@@ -19637,7 +19637,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMediaElement : dom.HTMLElement
+        public class HTMLMediaElement : dom.HTMLElement
         {
             public static dom.HTMLMediaElement prototype { get; set; }
 
@@ -19865,7 +19865,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMenuElement : dom.HTMLElement
+        public class HTMLMenuElement : dom.HTMLElement
         {
             [Template("document.createElement(\"menu\")")]
             public extern HTMLMenuElement();
@@ -19934,7 +19934,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMetaElement : dom.HTMLElement
+        public class HTMLMetaElement : dom.HTMLElement
         {
             [Template("document.createElement(\"meta\")")]
             public extern HTMLMetaElement();
@@ -20011,7 +20011,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLMeterElement : dom.HTMLElement
+        public class HTMLMeterElement : dom.HTMLElement
         {
             [Template("document.createElement(\"meter\")")]
             public extern HTMLMeterElement();
@@ -20088,7 +20088,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLModElement : dom.HTMLElement
+        public class HTMLModElement : dom.HTMLElement
         {
             [Template("document.createElement(\"del\")")]
             public extern HTMLModElement();
@@ -20157,7 +20157,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLOListElement : dom.HTMLElement
+        public class HTMLOListElement : dom.HTMLElement
         {
             [Template("document.createElement(\"ol\")")]
             public extern HTMLOListElement();
@@ -20228,7 +20228,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLObjectElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
+        public class HTMLObjectElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
             [Template("document.createElement(\"object\")")]
             public extern HTMLObjectElement();
@@ -20355,7 +20355,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLOptGroupElement : dom.HTMLElement
+        public class HTMLOptGroupElement : dom.HTMLElement
         {
             [Template("document.createElement(\"optgroup\")")]
             public extern HTMLOptGroupElement();
@@ -20426,7 +20426,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLOptionElement : dom.HTMLElement
+        public class HTMLOptionElement : dom.HTMLElement
         {
             [Template("document.createElement(\"option\")")]
             public extern HTMLOptionElement();
@@ -20507,7 +20507,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLOptionsCollection : dom.HTMLCollectionOf<dom.HTMLOptionElement>
+        public class HTMLOptionsCollection : dom.HTMLCollectionOf<dom.HTMLOptionElement>
         {
             public static dom.HTMLOptionsCollection prototype { get; set; }
 
@@ -20550,7 +20550,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLOutputElement : dom.HTMLElement
+        public class HTMLOutputElement : dom.HTMLElement
         {
             [Template("document.createElement(\"output\")")]
             public extern HTMLOutputElement();
@@ -20639,7 +20639,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLParagraphElement : dom.HTMLElement
+        public class HTMLParagraphElement : dom.HTMLElement
         {
             [Template("document.createElement(\"p\")")]
             public extern HTMLParagraphElement();
@@ -20708,7 +20708,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLParamElement : dom.HTMLElement
+        public class HTMLParamElement : dom.HTMLElement
         {
             [Template("document.createElement(\"param\")")]
             public extern HTMLParamElement();
@@ -20781,7 +20781,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLPictureElement : dom.HTMLElement
+        public class HTMLPictureElement : dom.HTMLElement
         {
             [Template("document.createElement(\"picture\")")]
             public extern HTMLPictureElement();
@@ -20846,7 +20846,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLPreElement : dom.HTMLElement
+        public class HTMLPreElement : dom.HTMLElement
         {
             [Template("document.createElement(\"pre\")")]
             public extern HTMLPreElement();
@@ -20913,7 +20913,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLProgressElement : dom.HTMLElement
+        public class HTMLProgressElement : dom.HTMLElement
         {
             [Template("document.createElement(\"progress\")")]
             public extern HTMLProgressElement();
@@ -20986,7 +20986,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLQuoteElement : dom.HTMLElement
+        public class HTMLQuoteElement : dom.HTMLElement
         {
             [Template("document.createElement(\"blockquote\")")]
             public extern HTMLQuoteElement();
@@ -21053,7 +21053,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLScriptElement : dom.HTMLElement
+        public class HTMLScriptElement : dom.HTMLElement
         {
             [Template("document.createElement(\"script\")")]
             public extern HTMLScriptElement();
@@ -21141,7 +21141,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLSelectElement : dom.HTMLElement
+        public class HTMLSelectElement : dom.HTMLElement
         {
             [Template("document.createElement(\"select\")")]
             public extern HTMLSelectElement();
@@ -21343,7 +21343,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLSourceElement : dom.HTMLElement
+        public class HTMLSourceElement : dom.HTMLElement
         {
             [Template("document.createElement(\"source\")")]
             public extern HTMLSourceElement();
@@ -21420,7 +21420,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLSpanElement : dom.HTMLElement
+        public class HTMLSpanElement : dom.HTMLElement
         {
             [Template("document.createElement(\"span\")")]
             public extern HTMLSpanElement();
@@ -21485,7 +21485,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLStyleElement : dom.HTMLElement, dom.LinkStyle.Interface, IObject
+        public class HTMLStyleElement : dom.HTMLElement, dom.LinkStyle.Interface, IObject
         {
             [Template("document.createElement(\"style\")")]
             public extern HTMLStyleElement();
@@ -21558,7 +21558,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLSummaryElement : dom.HTMLElement
+        public class HTMLSummaryElement : dom.HTMLElement
         {
             public static dom.HTMLSummaryElement prototype { get; set; }
 
@@ -21620,7 +21620,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTableCaptionElement : dom.HTMLElement
+        public class HTMLTableCaptionElement : dom.HTMLElement
         {
             [Template("document.createElement(\"caption\")")]
             public extern HTMLTableCaptionElement();
@@ -21687,7 +21687,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTableCellElement : dom.HTMLElement
+        public class HTMLTableCellElement : dom.HTMLElement
         {
             public static dom.HTMLTableCellElement prototype { get; set; }
 
@@ -21779,7 +21779,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTableColElement : dom.HTMLElement
+        public class HTMLTableColElement : dom.HTMLElement
         {
             [Template("document.createElement(\"col\")")]
             public extern HTMLTableColElement();
@@ -21856,7 +21856,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTableDataCellElement : dom.HTMLTableCellElement
+        public class HTMLTableDataCellElement : dom.HTMLTableCellElement
         {
             [Template("document.createElement(\"td\")")]
             public extern HTMLTableDataCellElement();
@@ -21921,7 +21921,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTableElement : dom.HTMLElement
+        public class HTMLTableElement : dom.HTMLElement
         {
             [Template("document.createElement(\"table\")")]
             public extern HTMLTableElement();
@@ -22036,7 +22036,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTableHeaderCellElement : dom.HTMLTableCellElement
+        public class HTMLTableHeaderCellElement : dom.HTMLTableCellElement
         {
             [Template("document.createElement(\"th\")")]
             public extern HTMLTableHeaderCellElement();
@@ -22101,7 +22101,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTableRowElement : dom.HTMLElement
+        public class HTMLTableRowElement : dom.HTMLElement
         {
             [Template("document.createElement(\"tr\")")]
             public extern HTMLTableRowElement();
@@ -22190,7 +22190,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTableSectionElement : dom.HTMLElement
+        public class HTMLTableSectionElement : dom.HTMLElement
         {
             [Template("document.createElement(\"tbody\")")]
             public extern HTMLTableSectionElement();
@@ -22273,7 +22273,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTemplateElement : dom.HTMLElement
+        public class HTMLTemplateElement : dom.HTMLElement
         {
             [Template("document.createElement(\"template\")")]
             public extern HTMLTemplateElement();
@@ -22340,7 +22340,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTextAreaElement : dom.HTMLElement
+        public class HTMLTextAreaElement : dom.HTMLElement
         {
             [Template("document.createElement(\"textarea\")")]
             public extern HTMLTextAreaElement();
@@ -22458,7 +22458,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTimeElement : dom.HTMLElement
+        public class HTMLTimeElement : dom.HTMLElement
         {
             [Template("document.createElement(\"time\")")]
             public extern HTMLTimeElement();
@@ -22525,7 +22525,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTitleElement : dom.HTMLElement
+        public class HTMLTitleElement : dom.HTMLElement
         {
             [Template("document.createElement(\"title\")")]
             public extern HTMLTitleElement();
@@ -22592,7 +22592,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLTrackElement : dom.HTMLElement
+        public class HTMLTrackElement : dom.HTMLElement
         {
             [Template("document.createElement(\"track\")")]
             public extern HTMLTrackElement();
@@ -22692,7 +22692,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLUListElement : dom.HTMLElement
+        public class HTMLUListElement : dom.HTMLElement
         {
             [Template("document.createElement(\"ul\")")]
             public extern HTMLUListElement();
@@ -22761,7 +22761,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLUnknownElement : dom.HTMLElement
+        public class HTMLUnknownElement : dom.HTMLElement
         {
             [Template("document.createElement(\"isindex\")")]
             public extern HTMLUnknownElement();
@@ -22827,7 +22827,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLVideoElementEventMap : dom.HTMLMediaElementEventMap
+        public class HTMLVideoElementEventMap : dom.HTMLMediaElementEventMap
         {
             public dom.Event MSVideoFormatChanged { get; set; }
 
@@ -22850,7 +22850,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLVideoElement : dom.HTMLMediaElement
+        public class HTMLVideoElement : dom.HTMLMediaElement
         {
             [Template("document.createElement(\"video\")")]
             public extern HTMLVideoElement();
@@ -22975,7 +22975,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLegendElement : IObject
+        public class HTMLegendElement : IObject
         {
             public static dom.HTMLegendElement prototype { get; set; }
 
@@ -22985,7 +22985,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class HashChangeEvent : dom.Event
+        public class HashChangeEvent : dom.Event
         {
             public extern HashChangeEvent(string type);
 
@@ -23001,7 +23001,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Headers : IObject
+        public class Headers : IObject
         {
             public extern Headers();
 
@@ -23044,7 +23044,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class History : IObject
+        public class History : IObject
         {
             public static dom.History prototype { get; set; }
 
@@ -23083,7 +23083,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HkdfCtrParams : dom.Algorithm
+        public class HkdfCtrParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> context { get; set; }
 
@@ -23095,14 +23095,14 @@ namespace H5.Core
         [IgnoreCast]
         [Virtual]
         [FormerInterface]
-        public abstract class IDBArrayKey : es5.Array<Union<double, string, es5.Date, dom.IDBArrayKey>>
+        public class IDBArrayKey : es5.Array<Union<double, string, es5.Date, dom.IDBArrayKey>>
         {
         }
 
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBCursor : IObject
+        public class IDBCursor : IObject
         {
             public static dom.IDBCursor prototype { get; set; }
 
@@ -23166,7 +23166,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBCursorWithValue : dom.IDBCursor
+        public class IDBCursorWithValue : dom.IDBCursor
         {
             public static dom.IDBCursorWithValue prototype { get; set; }
 
@@ -23177,7 +23177,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBDatabaseEventMap : IObject
+        public class IDBDatabaseEventMap : IObject
         {
             public dom.Event abort { get; set; }
 
@@ -23196,7 +23196,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBDatabase : dom.EventTarget
+        public class IDBDatabase : dom.EventTarget
         {
             public static dom.IDBDatabase prototype { get; set; }
 
@@ -23340,7 +23340,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class IDBEnvironment : dom.IDBEnvironment.Interface, IObject
+        public class IDBEnvironment : dom.IDBEnvironment.Interface, IObject
         {
             public dom.IDBFactory indexedDB { get; }
 
@@ -23356,7 +23356,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBFactory : IObject
+        public class IDBFactory : IObject
         {
             public static dom.IDBFactory prototype { get; set; }
 
@@ -23372,7 +23372,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBIndex : IObject
+        public class IDBIndex : IObject
         {
             public static dom.IDBIndex prototype { get; set; }
 
@@ -23509,7 +23509,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBKeyRange : IObject
+        public class IDBKeyRange : IObject
         {
             public static dom.IDBKeyRange prototype { get; set; }
 
@@ -23545,7 +23545,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBObjectStore : IObject
+        public class IDBObjectStore : IObject
         {
             public static dom.IDBObjectStore prototype { get; set; }
 
@@ -23694,7 +23694,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBOpenDBRequestEventMap : dom.IDBRequestEventMap
+        public class IDBOpenDBRequestEventMap : dom.IDBRequestEventMap
         {
             public dom.Event blocked { get; set; }
 
@@ -23713,7 +23713,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBOpenDBRequest : dom.IDBRequest
+        public class IDBOpenDBRequest : dom.IDBRequest
         {
             public static dom.IDBOpenDBRequest prototype { get; set; }
 
@@ -23786,7 +23786,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBRequestEventMap : IObject
+        public class IDBRequestEventMap : IObject
         {
             public dom.Event error { get; set; }
 
@@ -23805,7 +23805,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBRequest : dom.EventTarget
+        public class IDBRequest : dom.EventTarget
         {
             public static dom.IDBRequest prototype { get; set; }
 
@@ -23924,7 +23924,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBTransactionEventMap : IObject
+        public class IDBTransactionEventMap : IObject
         {
             public dom.Event abort { get; set; }
 
@@ -23947,7 +23947,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBTransaction : dom.EventTarget
+        public class IDBTransaction : dom.EventTarget
         {
             public static dom.IDBTransaction prototype { get; set; }
 
@@ -24082,7 +24082,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IDBVersionChangeEvent : dom.Event
+        public class IDBVersionChangeEvent : dom.Event
         {
             public static dom.IDBVersionChangeEvent prototype { get; set; }
 
@@ -24094,7 +24094,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IIRFilterNode : dom.AudioNode
+        public class IIRFilterNode : dom.AudioNode
         {
             public static dom.IIRFilterNode prototype { get; set; }
 
@@ -24120,7 +24120,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ImageBitmapOptions : IObject
+        public class ImageBitmapOptions : IObject
         {
             public dom.Literals.Options.colorSpaceConversion colorSpaceConversion { get; set; }
 
@@ -24138,7 +24138,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ImageData : IObject
+        public class ImageData : IObject
         {
             public extern ImageData(double width, double height);
 
@@ -24156,7 +24156,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IntersectionObserver : IObject
+        public class IntersectionObserver : IObject
         {
             public extern IntersectionObserver(dom.IntersectionObserverCallback callback);
 
@@ -24184,7 +24184,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class IntersectionObserverEntry : IObject
+        public class IntersectionObserverEntry : IObject
         {
             public extern IntersectionObserverEntry(
               dom.IntersectionObserverEntryInit intersectionObserverEntryInit);
@@ -24209,7 +24209,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class KeyboardEvent : dom.UIEvent
+        public class KeyboardEvent : dom.UIEvent
         {
             public extern KeyboardEvent(string typeArg);
 
@@ -24289,7 +24289,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class LinkStyle : dom.LinkStyle.Interface, IObject
+        public class LinkStyle : dom.LinkStyle.Interface, IObject
         {
             public dom.StyleSheet sheet { get; }
 
@@ -24305,7 +24305,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ListeningStateChangedEvent : dom.Event
+        public class ListeningStateChangedEvent : dom.Event
         {
             public static dom.ListeningStateChangedEvent prototype { get; set; }
 
@@ -24317,7 +24317,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Location : IObject
+        public class Location : IObject
         {
             public static dom.Location prototype { get; set; }
 
@@ -24353,7 +24353,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSAssertion : IObject
+        public class MSAssertion : IObject
         {
             public static dom.MSAssertion prototype { get; set; }
 
@@ -24365,7 +24365,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSBlobBuilder : IObject
+        public class MSBlobBuilder : IObject
         {
             public static dom.MSBlobBuilder prototype { get; set; }
 
@@ -24381,7 +24381,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSCredentials : IObject
+        public class MSCredentials : IObject
         {
             public static dom.MSCredentials prototype { get; set; }
 
@@ -24409,7 +24409,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSDCCEvent : dom.Event
+        public class MSDCCEvent : dom.Event
         {
             public extern MSDCCEvent(string type, dom.MSDCCEventInit eventInitDict);
 
@@ -24423,7 +24423,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSDSHEvent : dom.Event
+        public class MSDSHEvent : dom.Event
         {
             public extern MSDSHEvent(string type, dom.MSDSHEventInit eventInitDict);
 
@@ -24437,7 +24437,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSFIDOCredentialAssertion : dom.MSAssertion
+        public class MSFIDOCredentialAssertion : dom.MSAssertion
         {
             public static dom.MSFIDOCredentialAssertion prototype { get; set; }
 
@@ -24453,7 +24453,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSFIDOSignature : IObject
+        public class MSFIDOSignature : IObject
         {
             public static dom.MSFIDOSignature prototype { get; set; }
 
@@ -24467,7 +24467,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSFIDOSignatureAssertion : dom.MSAssertion
+        public class MSFIDOSignatureAssertion : dom.MSAssertion
         {
             public static dom.MSFIDOSignatureAssertion prototype { get; set; }
 
@@ -24504,7 +24504,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSGesture : IObject
+        public class MSGesture : IObject
         {
             public static dom.MSGesture prototype { get; set; }
 
@@ -24518,7 +24518,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSGestureEvent : dom.UIEvent
+        public class MSGestureEvent : dom.UIEvent
         {
             public static dom.MSGestureEvent prototype { get; set; }
 
@@ -24608,7 +24608,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSGraphicsTrust : IObject
+        public class MSGraphicsTrust : IObject
         {
             public static dom.MSGraphicsTrust prototype { get; set; }
 
@@ -24621,7 +24621,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSInputMethodContextEventMap : IObject
+        public class MSInputMethodContextEventMap : IObject
         {
             public dom.Event MSCandidateWindowHide { get; set; }
 
@@ -24644,7 +24644,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSInputMethodContext : dom.EventTarget
+        public class MSInputMethodContext : dom.EventTarget
         {
             public static dom.MSInputMethodContext prototype { get; set; }
 
@@ -24768,7 +24768,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSMediaKeyError : IObject
+        public class MSMediaKeyError : IObject
         {
             public static dom.MSMediaKeyError prototype { get; set; }
 
@@ -24810,7 +24810,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSMediaKeyMessageEvent : dom.Event
+        public class MSMediaKeyMessageEvent : dom.Event
         {
             public static dom.MSMediaKeyMessageEvent prototype { get; set; }
 
@@ -24822,7 +24822,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSMediaKeyNeededEvent : dom.Event
+        public class MSMediaKeyNeededEvent : dom.Event
         {
             public static dom.MSMediaKeyNeededEvent prototype { get; set; }
 
@@ -24832,7 +24832,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSMediaKeySession : dom.EventTarget
+        public class MSMediaKeySession : dom.EventTarget
         {
             public static dom.MSMediaKeySession prototype { get; set; }
 
@@ -24850,7 +24850,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSMediaKeys : IObject
+        public class MSMediaKeys : IObject
         {
             public extern MSMediaKeys(string keySystem);
 
@@ -24916,7 +24916,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSPointerEvent : dom.MouseEvent
+        public class MSPointerEvent : dom.MouseEvent
         {
             public extern MSPointerEvent(string typeArg);
 
@@ -24985,7 +24985,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSStream : IObject
+        public class MSStream : IObject
         {
             public static dom.MSStream prototype { get; set; }
 
@@ -25000,7 +25000,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MSStreamReaderEventMap : IObject
+        public class MSStreamReaderEventMap : IObject
         {
             public dom.UIEvent abort { get; set; }
 
@@ -25035,7 +25035,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MSStreamReader : dom.EventTarget
+        public class MSStreamReader : dom.EventTarget
         {
             public static dom.MSStreamReader prototype { get; set; }
 
@@ -25205,7 +25205,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaDeviceInfo : IObject
+        public class MediaDeviceInfo : IObject
         {
             public static dom.MediaDeviceInfo prototype { get; set; }
 
@@ -25222,7 +25222,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaDevicesEventMap : IObject
+        public class MediaDevicesEventMap : IObject
         {
             public dom.Event devicechange { get; set; }
 
@@ -25237,7 +25237,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaDevices : dom.EventTarget
+        public class MediaDevices : dom.EventTarget
         {
             public static dom.MediaDevices prototype { get; set; }
 
@@ -25350,7 +25350,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaElementAudioSourceNode : dom.AudioNode
+        public class MediaElementAudioSourceNode : dom.AudioNode
         {
             public static dom.MediaElementAudioSourceNode prototype { get; set; }
         }
@@ -25358,7 +25358,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaEncryptedEvent : dom.Event
+        public class MediaEncryptedEvent : dom.Event
         {
             public extern MediaEncryptedEvent(string type);
 
@@ -25374,7 +25374,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaError : IObject
+        public class MediaError : IObject
         {
             public static dom.MediaError prototype { get; set; }
 
@@ -25413,7 +25413,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaKeyMessageEvent : dom.Event
+        public class MediaKeyMessageEvent : dom.Event
         {
             public extern MediaKeyMessageEvent(string type);
 
@@ -25429,7 +25429,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaKeySession : dom.EventTarget
+        public class MediaKeySession : dom.EventTarget
         {
             public static dom.MediaKeySession prototype { get; set; }
 
@@ -25539,7 +25539,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaKeyStatusMap : IObject
+        public class MediaKeyStatusMap : IObject
         {
             public static dom.MediaKeyStatusMap prototype { get; set; }
 
@@ -25615,7 +25615,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaKeySystemAccess : IObject
+        public class MediaKeySystemAccess : IObject
         {
             public static dom.MediaKeySystemAccess prototype { get; set; }
 
@@ -25629,7 +25629,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaKeys : IObject
+        public class MediaKeys : IObject
         {
             public static dom.MediaKeys prototype { get; set; }
 
@@ -25680,7 +25680,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaList : IEnumerable<string>, IEnumerable, IH5Class, IObject
+        public class MediaList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
             public static dom.MediaList prototype { get; set; }
 
@@ -25708,7 +25708,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaQueryList : IObject
+        public class MediaQueryList : IObject
         {
             public static dom.MediaQueryList prototype { get; set; }
 
@@ -25724,7 +25724,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaSource : dom.EventTarget
+        public class MediaSource : dom.EventTarget
         {
             public static dom.MediaSource prototype { get; set; }
 
@@ -25751,7 +25751,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamEventMap : IObject
+        public class MediaStreamEventMap : IObject
         {
             public dom.Event active { get; set; }
 
@@ -25778,7 +25778,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStream : dom.EventTarget
+        public class MediaStream : dom.EventTarget
         {
             public extern MediaStream();
 
@@ -25919,7 +25919,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamAudioSourceNode : dom.AudioNode
+        public class MediaStreamAudioSourceNode : dom.AudioNode
         {
             public static dom.MediaStreamAudioSourceNode prototype { get; set; }
         }
@@ -25927,7 +25927,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamError : IObject
+        public class MediaStreamError : IObject
         {
             public static dom.MediaStreamError prototype { get; set; }
 
@@ -25941,7 +25941,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamErrorEvent : dom.Event
+        public class MediaStreamErrorEvent : dom.Event
         {
             public extern MediaStreamErrorEvent(string typeArg);
 
@@ -25957,7 +25957,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamEvent : dom.Event
+        public class MediaStreamEvent : dom.Event
         {
             public extern MediaStreamEvent(string type, dom.MediaStreamEventInit eventInitDict);
 
@@ -25970,7 +25970,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamTrackEventMap : IObject
+        public class MediaStreamTrackEventMap : IObject
         {
             public dom.MediaStreamErrorEvent ended { get; set; }
 
@@ -25997,7 +25997,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamTrack : dom.EventTarget
+        public class MediaStreamTrack : dom.EventTarget
         {
             public static dom.MediaStreamTrack prototype { get; set; }
 
@@ -26142,7 +26142,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MediaStreamTrackEvent : dom.Event
+        public class MediaStreamTrackEvent : dom.Event
         {
             public extern MediaStreamTrackEvent(string typeArg);
 
@@ -26158,7 +26158,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MessageChannel : IObject
+        public class MessageChannel : IObject
         {
             public static dom.MessageChannel prototype { get; set; }
 
@@ -26170,7 +26170,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MessageEvent : dom.Event
+        public class MessageEvent : dom.Event
         {
             public extern MessageEvent(string type);
 
@@ -26200,7 +26200,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class MessagePortEventMap : IObject
+        public class MessagePortEventMap : IObject
         {
             public dom.MessageEvent message { get; set; }
 
@@ -26215,7 +26215,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MessagePort : dom.EventTarget
+        public class MessagePort : dom.EventTarget
         {
             public static dom.MessagePort prototype { get; set; }
 
@@ -26331,7 +26331,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MimeType : IObject
+        public class MimeType : IObject
         {
             public static dom.MimeType prototype { get; set; }
 
@@ -26347,7 +26347,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MimeTypeArray : IEnumerable<dom.MimeType>, IEnumerable, IH5Class, IObject
+        public class MimeTypeArray : IEnumerable<dom.MimeType>, IEnumerable, IH5Class, IObject
         {
             public static dom.MimeTypeArray prototype { get; set; }
 
@@ -26369,7 +26369,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MouseEvent : dom.UIEvent
+        public class MouseEvent : dom.UIEvent
         {
             public extern MouseEvent(string typeArg);
 
@@ -26448,7 +26448,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MutationEvent : dom.Event
+        public class MutationEvent : dom.Event
         {
             public static dom.MutationEvent prototype { get; set; }
 
@@ -26491,7 +26491,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MutationObserver : IObject
+        public class MutationObserver : IObject
         {
             public extern MutationObserver(dom.MutationCallback callback);
 
@@ -26507,7 +26507,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class MutationRecord : IObject
+        public class MutationRecord : IObject
         {
             public static dom.MutationRecord prototype { get; set; }
 
@@ -26533,7 +26533,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class NamedNodeMap : IObject
+        public class NamedNodeMap : IObject
         {
             public static dom.NamedNodeMap prototype { get; set; }
 
@@ -26559,7 +26559,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Navigator : dom.NavigatorID, dom.NavigatorOnLine.Interface, IObject, dom.NavigatorContentUtils.Interface, dom.NavigatorStorageUtils.Interface, dom.MSNavigatorDoNotTrack.Interface, dom.MSFileSaver.Interface, dom.NavigatorBeacon.Interface, dom.NavigatorConcurrentHardware.Interface, dom.NavigatorUserMedia.Interface, dom.NavigatorLanguage.Interface
+        public class Navigator : dom.NavigatorID, dom.NavigatorOnLine.Interface, IObject, dom.NavigatorContentUtils.Interface, dom.NavigatorStorageUtils.Interface, dom.MSNavigatorDoNotTrack.Interface, dom.MSFileSaver.Interface, dom.NavigatorBeacon.Interface, dom.NavigatorConcurrentHardware.Interface, dom.NavigatorUserMedia.Interface, dom.NavigatorLanguage.Interface
         {
             public static dom.Navigator prototype { get; set; }
 
@@ -26781,7 +26781,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class NavigatorConcurrentHardware : dom.NavigatorConcurrentHardware.Interface, IObject
+        public class NavigatorConcurrentHardware : dom.NavigatorConcurrentHardware.Interface, IObject
         {
             public ulong hardwareConcurrency { get; }
 
@@ -26797,7 +26797,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class NavigatorContentUtils : dom.NavigatorContentUtils.Interface, IObject
+        public class NavigatorContentUtils : dom.NavigatorContentUtils.Interface, IObject
         {
             [Generated]
             [ObjectLiteral]
@@ -26811,7 +26811,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class NavigatorID : IObject
+        public class NavigatorID : IObject
         {
             public string appCodeName { get; }
 
@@ -26835,7 +26835,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class NavigatorLanguage : dom.NavigatorLanguage.Interface, IObject
+        public class NavigatorLanguage : dom.NavigatorLanguage.Interface, IObject
         {
             public string language { get; }
 
@@ -26855,7 +26855,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class NavigatorOnLine : dom.NavigatorOnLine.Interface, IObject
+        public class NavigatorOnLine : dom.NavigatorOnLine.Interface, IObject
         {
             public bool onLine { get; }
 
@@ -26871,7 +26871,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class NavigatorStorageUtils : dom.NavigatorStorageUtils.Interface, IObject
+        public class NavigatorStorageUtils : dom.NavigatorStorageUtils.Interface, IObject
         {
             [Generated]
             [ObjectLiteral]
@@ -26912,7 +26912,7 @@ namespace H5.Core
         }
 
         [CombinedClass]
-        public abstract class Node : dom.EventTarget, dom.Node.Interface, dom.EventTarget.Interface, IObject
+        public class Node : dom.EventTarget, dom.Node.Interface, dom.EventTarget.Interface, IObject
         {
             public static dom.Node prototype { get; set; }
 
@@ -27193,7 +27193,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class NodeIterator : IObject
+        public class NodeIterator : IObject
         {
             public static dom.NodeIterator prototype { get; set; }
 
@@ -27215,7 +27215,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class NodeList : IEnumerable<dom.Node>, IEnumerable, IH5Class, IObject
+        public class NodeList : IEnumerable<dom.Node>, IEnumerable, IH5Class, IObject
         {
             public static dom.NodeList prototype { get; set; }
 
@@ -27282,7 +27282,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class NotificationEventMap : IObject
+        public class NotificationEventMap : IObject
         {
             public dom.Event click { get; set; }
 
@@ -27309,7 +27309,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Notification : dom.EventTarget
+        public class Notification : dom.EventTarget
         {
             public extern Notification(string title);
 
@@ -27448,7 +27448,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OES_element_index_uint : IObject
+        public class OES_element_index_uint : IObject
         {
             public static dom.OES_element_index_uint prototype { get; set; }
         }
@@ -27456,7 +27456,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OES_standard_derivatives : IObject
+        public class OES_standard_derivatives : IObject
         {
             public static dom.OES_standard_derivatives prototype { get; set; }
 
@@ -27469,7 +27469,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OES_texture_float : IObject
+        public class OES_texture_float : IObject
         {
             public static dom.OES_texture_float prototype { get; set; }
         }
@@ -27477,7 +27477,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OES_texture_float_linear : IObject
+        public class OES_texture_float_linear : IObject
         {
             public static dom.OES_texture_float_linear prototype { get; set; }
         }
@@ -27485,7 +27485,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OES_texture_half_float : IObject
+        public class OES_texture_half_float : IObject
         {
             public static dom.OES_texture_half_float prototype { get; set; }
 
@@ -27498,7 +27498,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OES_texture_half_float_linear : IObject
+        public class OES_texture_half_float_linear : IObject
         {
             public static dom.OES_texture_half_float_linear prototype { get; set; }
         }
@@ -27522,7 +27522,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OfflineAudioCompletionEvent : dom.Event
+        public class OfflineAudioCompletionEvent : dom.Event
         {
             public static dom.OfflineAudioCompletionEvent prototype { get; set; }
 
@@ -27533,7 +27533,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class OfflineAudioContextEventMap : dom.AudioContextEventMap
+        public class OfflineAudioContextEventMap : dom.AudioContextEventMap
         {
             public dom.OfflineAudioCompletionEvent complete { get; set; }
 
@@ -27548,7 +27548,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OfflineAudioContext : dom.AudioContextBase
+        public class OfflineAudioContext : dom.AudioContextBase
         {
             public extern OfflineAudioContext(double numberOfChannels, double length, double sampleRate);
 
@@ -27796,7 +27796,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class OscillatorNodeEventMap : IObject
+        public class OscillatorNodeEventMap : IObject
         {
             public dom.Event ended { get; set; }
 
@@ -27811,7 +27811,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OscillatorNode : dom.AudioNode
+        public class OscillatorNode : dom.AudioNode
         {
             public static dom.OscillatorNode prototype { get; set; }
 
@@ -28022,7 +28022,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class OverflowEvent : dom.UIEvent
+        public class OverflowEvent : dom.UIEvent
         {
             public static dom.OverflowEvent prototype { get; set; }
 
@@ -28051,7 +28051,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PageTransitionEvent : dom.Event
+        public class PageTransitionEvent : dom.Event
         {
             public static dom.PageTransitionEvent prototype { get; set; }
 
@@ -28061,7 +28061,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PannerNode : dom.AudioNode
+        public class PannerNode : dom.AudioNode
         {
             public static dom.PannerNode prototype { get; set; }
 
@@ -28158,7 +28158,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Path2D : dom.CanvasPathMethods
+        public class Path2D : dom.CanvasPathMethods
         {
             public extern Path2D();
 
@@ -28242,7 +28242,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentAddress : IObject
+        public class PaymentAddress : IObject
         {
             public static dom.PaymentAddress prototype { get; set; }
 
@@ -28275,7 +28275,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentRequestEventMap : IObject
+        public class PaymentRequestEventMap : IObject
         {
             public dom.Event shippingaddresschange { get; set; }
 
@@ -28294,7 +28294,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentRequest : dom.EventTarget
+        public class PaymentRequest : dom.EventTarget
         {
             public extern PaymentRequest(
               dom.PaymentMethodData[] methodData,
@@ -28425,7 +28425,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentRequestUpdateEvent : dom.Event
+        public class PaymentRequestUpdateEvent : dom.Event
         {
             public extern PaymentRequestUpdateEvent(string type);
 
@@ -28442,7 +28442,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PaymentResponse : IObject
+        public class PaymentResponse : IObject
         {
             public static dom.PaymentResponse prototype { get; set; }
 
@@ -28473,7 +28473,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PerfWidgetExternal : IObject
+        public class PerfWidgetExternal : IObject
         {
             public static dom.PerfWidgetExternal prototype { get; set; }
 
@@ -28531,7 +28531,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Performance : IObject
+        public class Performance : IObject
         {
             public static dom.Performance prototype { get; set; }
 
@@ -28588,7 +28588,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PerformanceEntry : IObject
+        public class PerformanceEntry : IObject
         {
             public static dom.PerformanceEntry prototype { get; set; }
 
@@ -28606,7 +28606,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PerformanceMark : dom.PerformanceEntry
+        public class PerformanceMark : dom.PerformanceEntry
         {
             public static dom.PerformanceMark prototype { get; set; }
         }
@@ -28614,7 +28614,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PerformanceMeasure : dom.PerformanceEntry
+        public class PerformanceMeasure : dom.PerformanceEntry
         {
             public static dom.PerformanceMeasure prototype { get; set; }
         }
@@ -28622,7 +28622,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PerformanceNavigation : IObject
+        public class PerformanceNavigation : IObject
         {
             public static dom.PerformanceNavigation prototype { get; set; }
 
@@ -28656,7 +28656,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PerformanceNavigationTiming : dom.PerformanceEntry
+        public class PerformanceNavigationTiming : dom.PerformanceEntry
         {
             public static dom.PerformanceNavigationTiming prototype { get; set; }
 
@@ -28710,7 +28710,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PerformanceResourceTiming : dom.PerformanceEntry
+        public class PerformanceResourceTiming : dom.PerformanceEntry
         {
             public static dom.PerformanceResourceTiming prototype { get; set; }
 
@@ -28742,7 +28742,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PerformanceTiming : IObject
+        public class PerformanceTiming : IObject
         {
             public static dom.PerformanceTiming prototype { get; set; }
 
@@ -28796,7 +28796,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PeriodicWave : IObject
+        public class PeriodicWave : IObject
         {
             public static dom.PeriodicWave prototype { get; set; }
         }
@@ -28804,7 +28804,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PermissionRequest : dom.DeferredPermissionRequest
+        public class PermissionRequest : dom.DeferredPermissionRequest
         {
             public static dom.PermissionRequest prototype { get; set; }
 
@@ -28816,7 +28816,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PermissionRequestedEvent : dom.Event
+        public class PermissionRequestedEvent : dom.Event
         {
             public static dom.PermissionRequestedEvent prototype { get; set; }
 
@@ -28826,7 +28826,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Plugin : IObject
+        public class Plugin : IObject
         {
             public static dom.Plugin prototype { get; set; }
 
@@ -28850,7 +28850,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PluginArray : IEnumerable<dom.Plugin>, IEnumerable, IH5Class, IObject
+        public class PluginArray : IEnumerable<dom.Plugin>, IEnumerable, IH5Class, IObject
         {
             public static dom.PluginArray prototype { get; set; }
 
@@ -28876,7 +28876,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PointerEvent : dom.MouseEvent
+        public class PointerEvent : dom.MouseEvent
         {
             public extern PointerEvent(string typeArg);
 
@@ -28945,7 +28945,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PopStateEvent : dom.Event
+        public class PopStateEvent : dom.Event
         {
             public extern PopStateEvent(string type);
 
@@ -28959,7 +28959,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Position : IObject
+        public class Position : IObject
         {
             public static dom.Position prototype { get; set; }
 
@@ -28971,7 +28971,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PositionError : IObject
+        public class PositionError : IObject
         {
             public static dom.PositionError prototype { get; set; }
 
@@ -29000,7 +29000,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ProcessingInstruction : dom.CharacterData
+        public class ProcessingInstruction : dom.CharacterData
         {
             public static dom.ProcessingInstruction prototype { get; set; }
 
@@ -29010,7 +29010,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ProgressEvent : dom.Event
+        public class ProgressEvent : dom.Event
         {
             public extern ProgressEvent(string typeArg);
 
@@ -29049,7 +29049,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class PromiseRejectionEventInit : dom.EventInit
+        public class PromiseRejectionEventInit : dom.EventInit
         {
             public es5.PromiseLike<object> promise { get; set; }
 
@@ -29059,7 +29059,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PushManager : IObject
+        public class PushManager : IObject
         {
             public static dom.PushManager prototype { get; set; }
 
@@ -29081,7 +29081,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PushSubscription : IObject
+        public class PushSubscription : IObject
         {
             public static dom.PushSubscription prototype { get; set; }
 
@@ -29101,7 +29101,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class PushSubscriptionOptions : IObject
+        public class PushSubscriptionOptions : IObject
         {
             public static dom.PushSubscriptionOptions prototype { get; set; }
 
@@ -29113,7 +29113,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDTMFToneChangeEvent : dom.Event
+        public class RTCDTMFToneChangeEvent : dom.Event
         {
             public extern RTCDTMFToneChangeEvent(
               string typeArg,
@@ -29128,7 +29128,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDtlsTransportEventMap : IObject
+        public class RTCDtlsTransportEventMap : IObject
         {
             public dom.RTCDtlsTransportStateChangedEvent dtlsstatechange { get; set; }
 
@@ -29147,7 +29147,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDtlsTransport : dom.RTCStatsProvider
+        public class RTCDtlsTransport : dom.RTCStatsProvider
         {
             public extern RTCDtlsTransport(dom.RTCIceTransport transport);
 
@@ -29363,7 +29363,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDtlsTransportStateChangedEvent : dom.Event
+        public class RTCDtlsTransportStateChangedEvent : dom.Event
         {
             public static dom.RTCDtlsTransportStateChangedEvent prototype { get; set; }
 
@@ -29374,7 +29374,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDtmfSenderEventMap : IObject
+        public class RTCDtmfSenderEventMap : IObject
         {
             public dom.RTCDTMFToneChangeEvent tonechange { get; set; }
 
@@ -29389,7 +29389,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCDtmfSender : dom.EventTarget
+        public class RTCDtmfSender : dom.EventTarget
         {
             public extern RTCDtmfSender(dom.RTCRtpSender sender);
 
@@ -29513,7 +29513,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceCandidate : IObject
+        public class RTCIceCandidate : IObject
         {
             public extern RTCIceCandidate();
 
@@ -29533,7 +29533,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceCandidatePairChangedEvent : dom.Event
+        public class RTCIceCandidatePairChangedEvent : dom.Event
         {
             public static dom.RTCIceCandidatePairChangedEvent prototype { get; set; }
 
@@ -29544,7 +29544,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceGathererEventMap : IObject
+        public class RTCIceGathererEventMap : IObject
         {
             public dom.Event error { get; set; }
 
@@ -29563,7 +29563,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceGatherer : dom.RTCStatsProvider
+        public class RTCIceGatherer : dom.RTCStatsProvider
         {
             public extern RTCIceGatherer(dom.RTCIceGatherOptions options);
 
@@ -29773,7 +29773,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceGathererEvent : dom.Event
+        public class RTCIceGathererEvent : dom.Event
         {
             public static dom.RTCIceGathererEvent prototype { get; set; }
 
@@ -29784,7 +29784,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceTransportEventMap : IObject
+        public class RTCIceTransportEventMap : IObject
         {
             public dom.RTCIceCandidatePairChangedEvent candidatepairchange { get; set; }
 
@@ -29803,7 +29803,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceTransport : dom.RTCStatsProvider
+        public class RTCIceTransport : dom.RTCStatsProvider
         {
             public static dom.RTCIceTransport prototype { get; set; }
 
@@ -30040,7 +30040,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCIceTransportStateChangedEvent : dom.Event
+        public class RTCIceTransportStateChangedEvent : dom.Event
         {
             public static dom.RTCIceTransportStateChangedEvent prototype { get; set; }
 
@@ -30051,7 +30051,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCPeerConnectionEventMap : IObject
+        public class RTCPeerConnectionEventMap : IObject
         {
             public dom.MediaStreamEvent addstream { get; set; }
 
@@ -30090,7 +30090,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCPeerConnection : dom.EventTarget
+        public class RTCPeerConnection : dom.EventTarget
         {
             public extern RTCPeerConnection(dom.RTCConfiguration configuration);
 
@@ -30279,7 +30279,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCPeerConnectionIceEvent : dom.Event
+        public class RTCPeerConnectionIceEvent : dom.Event
         {
             public extern RTCPeerConnectionIceEvent(
               string type,
@@ -30294,7 +30294,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpReceiverEventMap : IObject
+        public class RTCRtpReceiverEventMap : IObject
         {
             public dom.Event error { get; set; }
 
@@ -30317,7 +30317,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpReceiver : dom.RTCStatsProvider
+        public class RTCRtpReceiver : dom.RTCStatsProvider
         {
             public extern RTCRtpReceiver(
               Union<dom.RTCDtlsTransport, dom.RTCSrtpSdesTransport> transport,
@@ -30577,7 +30577,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpSenderEventMap : IObject
+        public class RTCRtpSenderEventMap : IObject
         {
             public dom.Event error { get; set; }
 
@@ -30596,7 +30596,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCRtpSender : dom.RTCStatsProvider
+        public class RTCRtpSender : dom.RTCStatsProvider
         {
             public extern RTCRtpSender(
               dom.MediaStreamTrack track,
@@ -30854,7 +30854,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCSessionDescription : IObject
+        public class RTCSessionDescription : IObject
         {
             public extern RTCSessionDescription();
 
@@ -30873,7 +30873,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCSrtpSdesTransportEventMap : IObject
+        public class RTCSrtpSdesTransportEventMap : IObject
         {
             public dom.Event error { get; set; }
 
@@ -30888,7 +30888,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCSrtpSdesTransport : dom.EventTarget
+        public class RTCSrtpSdesTransport : dom.EventTarget
         {
             public extern RTCSrtpSdesTransport(
               dom.RTCIceTransport transport,
@@ -31003,7 +31003,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCSsrcConflictEvent : dom.Event
+        public class RTCSsrcConflictEvent : dom.Event
         {
             public static dom.RTCSsrcConflictEvent prototype { get; set; }
 
@@ -31013,7 +31013,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RTCStatsProvider : dom.EventTarget
+        public class RTCStatsProvider : dom.EventTarget
         {
             public static dom.RTCStatsProvider prototype { get; set; }
 
@@ -31025,7 +31025,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class RandomSource : IObject
+        public class RandomSource : IObject
         {
             public static dom.RandomSource prototype { get; set; }
 
@@ -31042,7 +31042,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Range : IObject
+        public class Range : IObject
         {
             public static dom.Range prototype { get; set; }
 
@@ -31130,7 +31130,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ReadableStream : IObject
+        public class ReadableStream : IObject
         {
             public static dom.ReadableStream prototype { get; set; }
 
@@ -31144,7 +31144,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ReadableStreamReader : IObject
+        public class ReadableStreamReader : IObject
         {
             public static dom.ReadableStreamReader prototype { get; set; }
 
@@ -31158,7 +31158,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Request : dom.Body
+        public class Request : dom.Body
         {
             public extern Request(Union<dom.Request, string> input);
 
@@ -31220,7 +31220,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Response : dom.Body
+        public class Response : dom.Body
         {
             public extern Response();
 
@@ -31333,7 +31333,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
+        public class SVGAElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"a\")")]
             public extern SVGAElement();
@@ -31402,7 +31402,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAngle : IObject
+        public class SVGAngle : IObject
         {
             public static dom.SVGAngle prototype { get; set; }
 
@@ -31449,7 +31449,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedAngle : IObject
+        public class SVGAnimatedAngle : IObject
         {
             public static dom.SVGAnimatedAngle prototype { get; set; }
 
@@ -31461,7 +31461,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedBoolean : IObject
+        public class SVGAnimatedBoolean : IObject
         {
             public static dom.SVGAnimatedBoolean prototype { get; set; }
 
@@ -31473,7 +31473,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedEnumeration : IObject
+        public class SVGAnimatedEnumeration : IObject
         {
             public static dom.SVGAnimatedEnumeration prototype { get; set; }
 
@@ -31485,7 +31485,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedInteger : IObject
+        public class SVGAnimatedInteger : IObject
         {
             public static dom.SVGAnimatedInteger prototype { get; set; }
 
@@ -31497,7 +31497,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedLength : IObject
+        public class SVGAnimatedLength : IObject
         {
             public static dom.SVGAnimatedLength prototype { get; set; }
 
@@ -31509,7 +31509,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedLengthList : IObject
+        public class SVGAnimatedLengthList : IObject
         {
             public static dom.SVGAnimatedLengthList prototype { get; set; }
 
@@ -31521,7 +31521,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedNumber : IObject
+        public class SVGAnimatedNumber : IObject
         {
             public static dom.SVGAnimatedNumber prototype { get; set; }
 
@@ -31533,7 +31533,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedNumberList : IObject
+        public class SVGAnimatedNumberList : IObject
         {
             public static dom.SVGAnimatedNumberList prototype { get; set; }
 
@@ -31545,7 +31545,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class SVGAnimatedPoints : dom.SVGAnimatedPoints.Interface, IObject
+        public class SVGAnimatedPoints : dom.SVGAnimatedPoints.Interface, IObject
         {
             public dom.SVGPointList animatedPoints { get; }
 
@@ -31565,7 +31565,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedPreserveAspectRatio : IObject
+        public class SVGAnimatedPreserveAspectRatio : IObject
         {
             public static dom.SVGAnimatedPreserveAspectRatio prototype { get; set; }
 
@@ -31577,7 +31577,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedRect : IObject
+        public class SVGAnimatedRect : IObject
         {
             public static dom.SVGAnimatedRect prototype { get; set; }
 
@@ -31589,7 +31589,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedString : IObject
+        public class SVGAnimatedString : IObject
         {
             public static dom.SVGAnimatedString prototype { get; set; }
 
@@ -31601,7 +31601,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGAnimatedTransformList : IObject
+        public class SVGAnimatedTransformList : IObject
         {
             public static dom.SVGAnimatedTransformList prototype { get; set; }
 
@@ -31613,7 +31613,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGCircleElement : dom.SVGGraphicsElement
+        public class SVGCircleElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"circle\")")]
             public extern SVGCircleElement();
@@ -31684,7 +31684,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGClipPathElement : dom.SVGGraphicsElement, dom.SVGUnitTypes.Interface, IObject
+        public class SVGClipPathElement : dom.SVGGraphicsElement, dom.SVGUnitTypes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"clipPath\")")]
             public extern SVGClipPathElement();
@@ -31757,7 +31757,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGComponentTransferFunctionElement : dom.SVGElement
+        public class SVGComponentTransferFunctionElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"componentTransferFunction\")")]
             public extern SVGComponentTransferFunctionElement();
@@ -31866,7 +31866,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGDefsElement : dom.SVGGraphicsElement
+        public class SVGDefsElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"defs\")")]
             public extern SVGDefsElement();
@@ -31931,7 +31931,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGDescElement : dom.SVGElement
+        public class SVGDescElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"desc\")")]
             public extern SVGDescElement();
@@ -31997,7 +31997,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGElementEventMap : dom.ElementEventMap
+        public class SVGElementEventMap : dom.ElementEventMap
         {
             public dom.MouseEvent click { get; set; }
 
@@ -32048,7 +32048,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGElement : dom.Element, dom.ElementCSSInlineStyle.Interface, IObject
+        public class SVGElement : dom.Element, dom.ElementCSSInlineStyle.Interface, IObject
         {
             protected extern SVGElement();
 
@@ -32154,7 +32154,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGElementInstance : dom.EventTarget
+        public class SVGElementInstance : dom.EventTarget
         {
             public static dom.SVGElementInstance prototype { get; set; }
 
@@ -32178,7 +32178,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGElementInstanceList : IObject
+        public class SVGElementInstanceList : IObject
         {
             public static dom.SVGElementInstanceList prototype { get; set; }
 
@@ -32190,7 +32190,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGEllipseElement : dom.SVGGraphicsElement
+        public class SVGEllipseElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"ellipse\")")]
             public extern SVGEllipseElement();
@@ -32263,7 +32263,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEBlendElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEBlendElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feBlend\")")]
             public extern SVGFEBlendElement();
@@ -32429,7 +32429,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEColorMatrixElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEColorMatrixElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feColorMatrix\")")]
             public extern SVGFEColorMatrixElement();
@@ -32535,7 +32535,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEComponentTransferElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEComponentTransferElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feComponentTransfer\")")]
             public extern SVGFEComponentTransferElement();
@@ -32612,7 +32612,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFECompositeElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFECompositeElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feComposite\")")]
             public extern SVGFECompositeElement();
@@ -32737,7 +32737,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEConvolveMatrixElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEConvolveMatrixElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feConvolveMatrix\")")]
             public extern SVGFEConvolveMatrixElement();
@@ -32856,7 +32856,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEDiffuseLightingElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEDiffuseLightingElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feDiffuseLighting\")")]
             public extern SVGFEDiffuseLightingElement();
@@ -32941,7 +32941,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEDisplacementMapElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEDisplacementMapElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feDisplacementMap\")")]
             public extern SVGFEDisplacementMapElement();
@@ -33051,7 +33051,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEDistantLightElement : dom.SVGElement
+        public class SVGFEDistantLightElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feDistantLight\")")]
             public extern SVGFEDistantLightElement();
@@ -33120,7 +33120,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEFloodElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEFloodElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFlood\")")]
             public extern SVGFEFloodElement();
@@ -33195,7 +33195,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEFuncAElement : dom.SVGComponentTransferFunctionElement
+        public class SVGFEFuncAElement : dom.SVGComponentTransferFunctionElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncA\")")]
             public extern SVGFEFuncAElement();
@@ -33260,7 +33260,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEFuncBElement : dom.SVGComponentTransferFunctionElement
+        public class SVGFEFuncBElement : dom.SVGComponentTransferFunctionElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncB\")")]
             public extern SVGFEFuncBElement();
@@ -33325,7 +33325,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEFuncGElement : dom.SVGComponentTransferFunctionElement
+        public class SVGFEFuncGElement : dom.SVGComponentTransferFunctionElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncG\")")]
             public extern SVGFEFuncGElement();
@@ -33390,7 +33390,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEFuncRElement : dom.SVGComponentTransferFunctionElement
+        public class SVGFEFuncRElement : dom.SVGComponentTransferFunctionElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncR\")")]
             public extern SVGFEFuncRElement();
@@ -33455,7 +33455,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEGaussianBlurElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEGaussianBlurElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feGaussianBlur\")")]
             public extern SVGFEGaussianBlurElement();
@@ -33538,7 +33538,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEImageElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject, dom.SVGURIReference.Interface
+        public class SVGFEImageElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject, dom.SVGURIReference.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feImage\")")]
             public extern SVGFEImageElement();
@@ -33617,7 +33617,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEMergeElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEMergeElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feMerge\")")]
             public extern SVGFEMergeElement();
@@ -33692,7 +33692,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEMergeNodeElement : dom.SVGElement
+        public class SVGFEMergeNodeElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feMergeNode\")")]
             public extern SVGFEMergeNodeElement();
@@ -33759,7 +33759,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEMorphologyElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEMorphologyElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feMorphology\")")]
             public extern SVGFEMorphologyElement();
@@ -33858,7 +33858,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEOffsetElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFEOffsetElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feOffset\")")]
             public extern SVGFEOffsetElement();
@@ -33939,7 +33939,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFEPointLightElement : dom.SVGElement
+        public class SVGFEPointLightElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"fePointLight\")")]
             public extern SVGFEPointLightElement();
@@ -34010,7 +34010,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFESpecularLightingElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFESpecularLightingElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feSpecularLighting\")")]
             public extern SVGFESpecularLightingElement();
@@ -34097,7 +34097,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFESpotLightElement : dom.SVGElement
+        public class SVGFESpotLightElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feSpotLight\")")]
             public extern SVGFESpotLightElement();
@@ -34178,7 +34178,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFETileElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFETileElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feTile\")")]
             public extern SVGFETileElement();
@@ -34255,7 +34255,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFETurbulenceElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFETurbulenceElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feTurbulence\")")]
             public extern SVGFETurbulenceElement();
@@ -34372,7 +34372,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGFilterElement : dom.SVGElement, dom.SVGUnitTypes.Interface, IObject, dom.SVGURIReference.Interface
+        public class SVGFilterElement : dom.SVGElement, dom.SVGUnitTypes.Interface, IObject, dom.SVGURIReference.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"filter\")")]
             public extern SVGFilterElement();
@@ -34463,7 +34463,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class SVGFilterPrimitiveStandardAttributes : dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
+        public class SVGFilterPrimitiveStandardAttributes : dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             public dom.SVGAnimatedLength height { get; }
 
@@ -34495,7 +34495,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class SVGFitToViewBox : dom.SVGFitToViewBox.Interface, IObject
+        public class SVGFitToViewBox : dom.SVGFitToViewBox.Interface, IObject
         {
             public dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio { get; }
 
@@ -34515,7 +34515,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGForeignObjectElement : dom.SVGGraphicsElement
+        public class SVGForeignObjectElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"foreignObject\")")]
             public extern SVGForeignObjectElement();
@@ -34588,7 +34588,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGGElement : dom.SVGGraphicsElement
+        public class SVGGElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"g\")")]
             public extern SVGGElement();
@@ -34653,7 +34653,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGGradientElement : dom.SVGElement, dom.SVGUnitTypes.Interface, IObject, dom.SVGURIReference.Interface
+        public class SVGGradientElement : dom.SVGElement, dom.SVGUnitTypes.Interface, IObject, dom.SVGURIReference.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"gradient\")")]
             public extern SVGGradientElement();
@@ -34752,7 +34752,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGGraphicsElement : dom.SVGElement, dom.SVGTests.Interface, IObject
+        public class SVGGraphicsElement : dom.SVGElement, dom.SVGTests.Interface, IObject
         {
             public static dom.SVGGraphicsElement prototype { get; set; }
 
@@ -34836,7 +34836,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGImageElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
+        public class SVGImageElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"image\")")]
             public extern SVGImageElement();
@@ -34913,7 +34913,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGLength : IObject
+        public class SVGLength : IObject
         {
             public static dom.SVGLength prototype { get; set; }
 
@@ -34990,7 +34990,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGLengthList : IEnumerable<dom.SVGLength>, IEnumerable, IH5Class, IObject
+        public class SVGLengthList : IEnumerable<dom.SVGLength>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGLengthList prototype { get; set; }
 
@@ -35020,7 +35020,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGLineElement : dom.SVGGraphicsElement
+        public class SVGLineElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"line\")")]
             public extern SVGLineElement();
@@ -35093,7 +35093,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGLinearGradientElement : dom.SVGGradientElement
+        public class SVGLinearGradientElement : dom.SVGGradientElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"linearGradient\")")]
             public extern SVGLinearGradientElement();
@@ -35166,7 +35166,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGMarkerElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject
+        public class SVGMarkerElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"marker\")")]
             public extern SVGMarkerElement();
@@ -35283,7 +35283,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGMaskElement : dom.SVGElement, dom.SVGTests.Interface, IObject, dom.SVGUnitTypes.Interface
+        public class SVGMaskElement : dom.SVGElement, dom.SVGTests.Interface, IObject, dom.SVGUnitTypes.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"mask\")")]
             public extern SVGMaskElement();
@@ -35374,7 +35374,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGMatrix : IObject
+        public class SVGMatrix : IObject
         {
             public static dom.SVGMatrix prototype { get; set; }
 
@@ -35418,7 +35418,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGMetadataElement : dom.SVGElement
+        public class SVGMetadataElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"metadata\")")]
             public extern SVGMetadataElement();
@@ -35483,7 +35483,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGNumber : IObject
+        public class SVGNumber : IObject
         {
             public static dom.SVGNumber prototype { get; set; }
 
@@ -35493,7 +35493,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGNumberList : IEnumerable<dom.SVGNumber>, IEnumerable, IH5Class, IObject
+        public class SVGNumberList : IEnumerable<dom.SVGNumber>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGNumberList prototype { get; set; }
 
@@ -35523,7 +35523,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathElement : dom.SVGGraphicsElement
+        public class SVGPathElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"path\")")]
             public extern SVGPathElement();
@@ -35684,7 +35684,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSeg : IObject
+        public class SVGPathSeg : IObject
         {
             public static dom.SVGPathSeg prototype { get; set; }
 
@@ -35796,7 +35796,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegArcAbs : dom.SVGPathSeg
+        public class SVGPathSegArcAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegArcAbs prototype { get; set; }
 
@@ -35818,7 +35818,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegArcRel : dom.SVGPathSeg
+        public class SVGPathSegArcRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegArcRel prototype { get; set; }
 
@@ -35840,7 +35840,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegClosePath : dom.SVGPathSeg
+        public class SVGPathSegClosePath : dom.SVGPathSeg
         {
             public static dom.SVGPathSegClosePath prototype { get; set; }
         }
@@ -35848,7 +35848,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegCurvetoCubicAbs : dom.SVGPathSeg
+        public class SVGPathSegCurvetoCubicAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoCubicAbs prototype { get; set; }
 
@@ -35868,7 +35868,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegCurvetoCubicRel : dom.SVGPathSeg
+        public class SVGPathSegCurvetoCubicRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoCubicRel prototype { get; set; }
 
@@ -35888,7 +35888,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegCurvetoCubicSmoothAbs : dom.SVGPathSeg
+        public class SVGPathSegCurvetoCubicSmoothAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoCubicSmoothAbs prototype { get; set; }
 
@@ -35904,7 +35904,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegCurvetoCubicSmoothRel : dom.SVGPathSeg
+        public class SVGPathSegCurvetoCubicSmoothRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoCubicSmoothRel prototype { get; set; }
 
@@ -35920,7 +35920,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegCurvetoQuadraticAbs : dom.SVGPathSeg
+        public class SVGPathSegCurvetoQuadraticAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoQuadraticAbs prototype { get; set; }
 
@@ -35936,7 +35936,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegCurvetoQuadraticRel : dom.SVGPathSeg
+        public class SVGPathSegCurvetoQuadraticRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoQuadraticRel prototype { get; set; }
 
@@ -35952,7 +35952,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegCurvetoQuadraticSmoothAbs : dom.SVGPathSeg
+        public class SVGPathSegCurvetoQuadraticSmoothAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoQuadraticSmoothAbs prototype { get; set; }
 
@@ -35964,7 +35964,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegCurvetoQuadraticSmoothRel : dom.SVGPathSeg
+        public class SVGPathSegCurvetoQuadraticSmoothRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoQuadraticSmoothRel prototype { get; set; }
 
@@ -35976,7 +35976,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegLinetoAbs : dom.SVGPathSeg
+        public class SVGPathSegLinetoAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoAbs prototype { get; set; }
 
@@ -35988,7 +35988,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegLinetoHorizontalAbs : dom.SVGPathSeg
+        public class SVGPathSegLinetoHorizontalAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoHorizontalAbs prototype { get; set; }
 
@@ -35998,7 +35998,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegLinetoHorizontalRel : dom.SVGPathSeg
+        public class SVGPathSegLinetoHorizontalRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoHorizontalRel prototype { get; set; }
 
@@ -36008,7 +36008,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegLinetoRel : dom.SVGPathSeg
+        public class SVGPathSegLinetoRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoRel prototype { get; set; }
 
@@ -36020,7 +36020,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegLinetoVerticalAbs : dom.SVGPathSeg
+        public class SVGPathSegLinetoVerticalAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoVerticalAbs prototype { get; set; }
 
@@ -36030,7 +36030,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegLinetoVerticalRel : dom.SVGPathSeg
+        public class SVGPathSegLinetoVerticalRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoVerticalRel prototype { get; set; }
 
@@ -36040,7 +36040,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegList : IEnumerable<dom.SVGPathSeg>, IEnumerable, IH5Class, IObject
+        public class SVGPathSegList : IEnumerable<dom.SVGPathSeg>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGPathSegList prototype { get; set; }
 
@@ -36070,7 +36070,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegMovetoAbs : dom.SVGPathSeg
+        public class SVGPathSegMovetoAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegMovetoAbs prototype { get; set; }
 
@@ -36082,7 +36082,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPathSegMovetoRel : dom.SVGPathSeg
+        public class SVGPathSegMovetoRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegMovetoRel prototype { get; set; }
 
@@ -36094,7 +36094,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPatternElement : dom.SVGElement, dom.SVGTests.Interface, IObject, dom.SVGUnitTypes.Interface, dom.SVGFitToViewBox.Interface, dom.SVGURIReference.Interface
+        public class SVGPatternElement : dom.SVGElement, dom.SVGTests.Interface, IObject, dom.SVGUnitTypes.Interface, dom.SVGFitToViewBox.Interface, dom.SVGURIReference.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"pattern\")")]
             public extern SVGPatternElement();
@@ -36193,7 +36193,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPoint : IObject
+        public class SVGPoint : IObject
         {
             public static dom.SVGPoint prototype { get; set; }
 
@@ -36207,7 +36207,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPointList : IEnumerable<dom.SVGPoint>, IEnumerable, IH5Class, IObject
+        public class SVGPointList : IEnumerable<dom.SVGPoint>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGPointList prototype { get; set; }
 
@@ -36237,7 +36237,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPolygonElement : dom.SVGGraphicsElement, dom.SVGAnimatedPoints.Interface, IObject
+        public class SVGPolygonElement : dom.SVGGraphicsElement, dom.SVGAnimatedPoints.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"polygon\")")]
             public extern SVGPolygonElement();
@@ -36306,7 +36306,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPolylineElement : dom.SVGGraphicsElement, dom.SVGAnimatedPoints.Interface, IObject
+        public class SVGPolylineElement : dom.SVGGraphicsElement, dom.SVGAnimatedPoints.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"polyline\")")]
             public extern SVGPolylineElement();
@@ -36375,7 +36375,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGPreserveAspectRatio : IObject
+        public class SVGPreserveAspectRatio : IObject
         {
             public static dom.SVGPreserveAspectRatio prototype { get; set; }
 
@@ -36457,7 +36457,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGRadialGradientElement : dom.SVGGradientElement
+        public class SVGRadialGradientElement : dom.SVGGradientElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"radialGradient\")")]
             public extern SVGRadialGradientElement();
@@ -36532,7 +36532,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGRect : IObject
+        public class SVGRect : IObject
         {
             public static dom.SVGRect prototype { get; set; }
 
@@ -36548,7 +36548,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGRectElement : dom.SVGGraphicsElement
+        public class SVGRectElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"rect\")")]
             public extern SVGRectElement();
@@ -36626,7 +36626,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGSVGElementEventMap : dom.SVGElementEventMap
+        public class SVGSVGElementEventMap : dom.SVGElementEventMap
         {
             public dom.Event SVGAbort { get; set; }
 
@@ -36661,7 +36661,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGSVGElement : dom.SVGGraphicsElement, dom.DocumentEvent.Interface, IObject, dom.SVGFitToViewBox.Interface, dom.SVGZoomAndPan.Interface
+        public class SVGSVGElement : dom.SVGGraphicsElement, dom.DocumentEvent.Interface, IObject, dom.SVGFitToViewBox.Interface, dom.SVGZoomAndPan.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"svg\")")]
             public extern SVGSVGElement();
@@ -37033,7 +37033,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGScriptElement : dom.SVGElement, dom.SVGURIReference.Interface, IObject
+        public class SVGScriptElement : dom.SVGElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"script\")")]
             public extern SVGScriptElement();
@@ -37102,7 +37102,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGStopElement : dom.SVGElement
+        public class SVGStopElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"stop\")")]
             public extern SVGStopElement();
@@ -37169,7 +37169,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGStringList : IEnumerable<string>, IEnumerable, IH5Class, IObject
+        public class SVGStringList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGStringList prototype { get; set; }
 
@@ -37199,7 +37199,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGStylable : IObject
+        public class SVGStylable : IObject
         {
             public static dom.SVGStylable prototype { get; set; }
 
@@ -37209,7 +37209,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGStyleElement : dom.SVGElement
+        public class SVGStyleElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"style\")")]
             public extern SVGStyleElement();
@@ -37282,7 +37282,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGSwitchElement : dom.SVGGraphicsElement
+        public class SVGSwitchElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"switch\")")]
             public extern SVGSwitchElement();
@@ -37347,7 +37347,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGSymbolElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject
+        public class SVGSymbolElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"symbol\")")]
             public extern SVGSymbolElement();
@@ -37416,7 +37416,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGTSpanElement : dom.SVGTextPositioningElement
+        public class SVGTSpanElement : dom.SVGTextPositioningElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"tspan\")")]
             public extern SVGTSpanElement();
@@ -37508,7 +37508,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGTextContentElement : dom.SVGGraphicsElement
+        public class SVGTextContentElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"textContent\")")]
             public extern SVGTextContentElement();
@@ -37610,7 +37610,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGTextElement : dom.SVGTextPositioningElement
+        public class SVGTextElement : dom.SVGTextPositioningElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"text\")")]
             public extern SVGTextElement();
@@ -37675,7 +37675,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGTextPathElement : dom.SVGTextContentElement, dom.SVGURIReference.Interface, IObject
+        public class SVGTextPathElement : dom.SVGTextContentElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"textPath\")")]
             public extern SVGTextPathElement();
@@ -37778,7 +37778,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGTextPositioningElement : dom.SVGTextContentElement
+        public class SVGTextPositioningElement : dom.SVGTextContentElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"textPositioning\")")]
             public extern SVGTextPositioningElement();
@@ -37853,7 +37853,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGTitleElement : dom.SVGElement
+        public class SVGTitleElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"title\")")]
             public extern SVGTitleElement();
@@ -37918,7 +37918,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGTransform : IObject
+        public class SVGTransform : IObject
         {
             public static dom.SVGTransform prototype { get; set; }
 
@@ -37979,7 +37979,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGTransformList : IEnumerable<dom.SVGTransform>, IEnumerable, IH5Class, IObject
+        public class SVGTransformList : IEnumerable<dom.SVGTransform>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGTransformList prototype { get; set; }
 
@@ -38015,7 +38015,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class SVGURIReference : dom.SVGURIReference.Interface, IObject
+        public class SVGURIReference : dom.SVGURIReference.Interface, IObject
         {
             public dom.SVGAnimatedString href { get; }
 
@@ -38031,7 +38031,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class SVGUnitTypes : dom.SVGUnitTypes.Interface, IObject
+        public class SVGUnitTypes : dom.SVGUnitTypes.Interface, IObject
         {
             public ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX { get; }
 
@@ -38055,7 +38055,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGUseElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
+        public class SVGUseElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"use\")")]
             public extern SVGUseElement();
@@ -38134,7 +38134,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGViewElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject, dom.SVGZoomAndPan.Interface
+        public class SVGViewElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject, dom.SVGZoomAndPan.Interface
         {
             public static dom.SVGViewElement prototype { get; set; }
 
@@ -38204,7 +38204,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class SVGZoomAndPan : dom.SVGZoomAndPan.Interface, IObject
+        public class SVGZoomAndPan : dom.SVGZoomAndPan.Interface, IObject
         {
             public ushort zoomAndPan { get; }
 
@@ -38220,7 +38220,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SVGZoomEvent : dom.UIEvent
+        public class SVGZoomEvent : dom.UIEvent
         {
             public static dom.SVGZoomEvent prototype { get; set; }
 
@@ -38238,7 +38238,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ScopedCredential : IObject
+        public class ScopedCredential : IObject
         {
             public static dom.ScopedCredential prototype { get; set; }
 
@@ -38250,7 +38250,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ScopedCredentialInfo : IObject
+        public class ScopedCredentialInfo : IObject
         {
             public static dom.ScopedCredentialInfo prototype { get; set; }
 
@@ -38263,7 +38263,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ScreenEventMap : IObject
+        public class ScreenEventMap : IObject
         {
             public dom.Event MSOrientationChange { get; set; }
 
@@ -38278,7 +38278,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Screen : dom.EventTarget
+        public class Screen : dom.EventTarget
         {
             public static dom.Screen prototype { get; set; }
 
@@ -38432,7 +38432,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ScriptProcessorNodeEventMap : IObject
+        public class ScriptProcessorNodeEventMap : IObject
         {
             public dom.AudioProcessingEvent audioprocess { get; set; }
 
@@ -38447,7 +38447,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ScriptProcessorNode : dom.AudioNode
+        public class ScriptProcessorNode : dom.AudioNode
         {
             public static dom.ScriptProcessorNode prototype { get; set; }
 
@@ -38645,7 +38645,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ScrollIntoViewOptions : dom.ScrollOptions
+        public class ScrollIntoViewOptions : dom.ScrollOptions
         {
             public dom.ScrollLogicalPosition block { get; set; }
 
@@ -38656,7 +38656,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ScrollOptions : IObject
+        public class ScrollOptions : IObject
         {
             public dom.ScrollBehavior behavior { get; set; }
         }
@@ -38665,7 +38665,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ScrollToOptions : dom.ScrollOptions
+        public class ScrollToOptions : dom.ScrollOptions
         {
             public double? left { get; set; }
 
@@ -38675,7 +38675,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SecurityPolicyViolationEvent : dom.Event
+        public class SecurityPolicyViolationEvent : dom.Event
         {
             public extern SecurityPolicyViolationEvent(string type);
 
@@ -38709,7 +38709,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Selection : IObject
+        public class Selection : IObject
         {
             public static dom.Selection prototype { get; set; }
 
@@ -38784,7 +38784,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ServiceWorkerEventMap : dom.AbstractWorkerEventMap
+        public class ServiceWorkerEventMap : dom.AbstractWorkerEventMap
         {
             public dom.Event statechange { get; set; }
 
@@ -38799,7 +38799,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ServiceWorker : dom.EventTarget, dom.AbstractWorker.Interface, IObject
+        public class ServiceWorker : dom.EventTarget, dom.AbstractWorker.Interface, IObject
         {
             public static dom.ServiceWorker prototype { get; set; }
 
@@ -38962,7 +38962,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ServiceWorkerContainerEventMap : IObject
+        public class ServiceWorkerContainerEventMap : IObject
         {
             public dom.Event controllerchange { get; set; }
 
@@ -38985,7 +38985,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ServiceWorkerContainer : dom.EventTarget
+        public class ServiceWorkerContainer : dom.EventTarget
         {
             public static dom.ServiceWorkerContainer prototype { get; set; }
 
@@ -39121,7 +39121,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ServiceWorkerMessageEvent : dom.Event
+        public class ServiceWorkerMessageEvent : dom.Event
         {
             public extern ServiceWorkerMessageEvent(string type);
 
@@ -39146,7 +39146,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ServiceWorkerRegistrationEventMap : IObject
+        public class ServiceWorkerRegistrationEventMap : IObject
         {
             public dom.Event updatefound { get; set; }
 
@@ -39161,7 +39161,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ServiceWorkerRegistration : dom.EventTarget
+        public class ServiceWorkerRegistration : dom.EventTarget
         {
             public static dom.ServiceWorkerRegistration prototype { get; set; }
 
@@ -39532,7 +39532,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ShadowRootInit : IObject
+        public class ShadowRootInit : IObject
         {
             public bool? delegatesFocus { get; set; }
 
@@ -39542,7 +39542,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SourceBuffer : dom.EventTarget
+        public class SourceBuffer : dom.EventTarget
         {
             public static dom.SourceBuffer prototype { get; set; }
 
@@ -39601,7 +39601,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SourceBufferList : dom.EventTarget
+        public class SourceBufferList : dom.EventTarget
         {
             public static dom.SourceBufferList prototype { get; set; }
 
@@ -39616,7 +39616,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class SpeechSynthesisEventMap : IObject
+        public class SpeechSynthesisEventMap : IObject
         {
             public dom.Event voiceschanged { get; set; }
 
@@ -39631,7 +39631,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SpeechSynthesis : dom.EventTarget
+        public class SpeechSynthesis : dom.EventTarget
         {
             public static dom.SpeechSynthesis prototype { get; set; }
 
@@ -39753,7 +39753,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SpeechSynthesisEvent : dom.Event
+        public class SpeechSynthesisEvent : dom.Event
         {
             public extern SpeechSynthesisEvent(string type);
 
@@ -39776,7 +39776,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class SpeechSynthesisUtteranceEventMap : IObject
+        public class SpeechSynthesisUtteranceEventMap : IObject
         {
             public dom.Event boundary { get; set; }
 
@@ -39815,7 +39815,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SpeechSynthesisUtterance : dom.EventTarget
+        public class SpeechSynthesisUtterance : dom.EventTarget
         {
             public extern SpeechSynthesisUtterance();
 
@@ -39949,7 +39949,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SpeechSynthesisVoice : IObject
+        public class SpeechSynthesisVoice : IObject
         {
             public static dom.SpeechSynthesisVoice prototype { get; set; }
 
@@ -39968,7 +39968,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class StereoPannerNode : dom.AudioNode
+        public class StereoPannerNode : dom.AudioNode
         {
             public static dom.StereoPannerNode prototype { get; set; }
 
@@ -39978,7 +39978,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Storage : IObject
+        public class Storage : IObject
         {
             public static dom.Storage prototype { get; set; }
 
@@ -39998,7 +39998,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class StorageEvent : dom.Event
+        public class StorageEvent : dom.Event
         {
             public extern StorageEvent(string type);
 
@@ -40021,7 +40021,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class StorageEventInit : dom.EventInit
+        public class StorageEventInit : dom.EventInit
         {
             public string key { get; set; }
 
@@ -40037,7 +40037,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class StyleMedia : IObject
+        public class StyleMedia : IObject
         {
             public static dom.StyleMedia prototype { get; set; }
 
@@ -40049,7 +40049,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class StyleSheet : IObject
+        public class StyleSheet : IObject
         {
             public static dom.StyleSheet prototype { get; set; }
 
@@ -40071,7 +40071,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class StyleSheetList : IEnumerable<dom.StyleSheet>, IEnumerable, IH5Class, IObject
+        public class StyleSheetList : IEnumerable<dom.StyleSheet>, IEnumerable, IH5Class, IObject
         {
             public static dom.StyleSheetList prototype { get; set; }
 
@@ -40091,7 +40091,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SubtleCrypto : IObject
+        public class SubtleCrypto : IObject
         {
             public static dom.SubtleCrypto prototype { get; set; }
 
@@ -41262,7 +41262,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class SyncManager : IObject
+        public class SyncManager : IObject
         {
             public static dom.SyncManager prototype { get; set; }
 
@@ -41274,7 +41274,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Text : dom.CharacterData
+        public class Text : dom.CharacterData
         {
             public extern Text();
 
@@ -41292,7 +41292,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TextDecoder : IObject
+        public class TextDecoder : IObject
         {
             public extern TextDecoder();
 
@@ -41371,7 +41371,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TextEncoder : IObject
+        public class TextEncoder : IObject
         {
             public static dom.TextEncoder prototype { get; set; }
 
@@ -41385,7 +41385,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TextEvent : dom.UIEvent
+        public class TextEvent : dom.UIEvent
         {
             public static dom.TextEvent prototype { get; set; }
 
@@ -41454,7 +41454,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TextMetrics : IObject
+        public class TextMetrics : IObject
         {
             public static dom.TextMetrics prototype { get; set; }
 
@@ -41465,7 +41465,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class TextTrackEventMap : IObject
+        public class TextTrackEventMap : IObject
         {
             public dom.Event cuechange { get; set; }
 
@@ -41488,7 +41488,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TextTrack : dom.EventTarget
+        public class TextTrack : dom.EventTarget
         {
             public static dom.TextTrack prototype { get; set; }
 
@@ -41654,7 +41654,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class TextTrackCueEventMap : IObject
+        public class TextTrackCueEventMap : IObject
         {
             public dom.Event enter { get; set; }
 
@@ -41673,7 +41673,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TextTrackCue : dom.EventTarget
+        public class TextTrackCue : dom.EventTarget
         {
             public extern TextTrackCue();
             public extern TextTrackCue(double startTime, double endTime, string text);
@@ -41798,7 +41798,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TextTrackCueList : IEnumerable<dom.TextTrackCue>, IEnumerable, IH5Class, IObject
+        public class TextTrackCueList : IEnumerable<dom.TextTrackCue>, IEnumerable, IH5Class, IObject
         {
             public static dom.TextTrackCueList prototype { get; set; }
 
@@ -41821,7 +41821,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class TextTrackListEventMap : IObject
+        public class TextTrackListEventMap : IObject
         {
             public dom.TrackEvent addtrack { get; set; }
 
@@ -41836,7 +41836,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TextTrackList : dom.EventTarget, IEnumerable<dom.TextTrack>, IEnumerable, IH5Class
+        public class TextTrackList : dom.EventTarget, IEnumerable<dom.TextTrack>, IEnumerable, IH5Class
         {
             public static dom.TextTrackList prototype { get; set; }
 
@@ -41954,7 +41954,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TimeRanges : IObject
+        public class TimeRanges : IObject
         {
             public static dom.TimeRanges prototype { get; set; }
 
@@ -41968,7 +41968,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Touch : IObject
+        public class Touch : IObject
         {
             public static dom.Touch prototype { get; set; }
 
@@ -41992,7 +41992,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TouchEvent : dom.UIEvent
+        public class TouchEvent : dom.UIEvent
         {
             public extern TouchEvent(string type);
 
@@ -42025,7 +42025,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class TouchEventInit : dom.EventModifierInit
+        public class TouchEventInit : dom.EventModifierInit
         {
             public dom.Touch[] changedTouches { get; set; }
 
@@ -42037,7 +42037,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TouchList : IEnumerable<dom.Touch>, IEnumerable, IH5Class, IObject
+        public class TouchList : IEnumerable<dom.Touch>, IEnumerable, IH5Class, IObject
         {
             public static dom.TouchList prototype { get; set; }
 
@@ -42057,7 +42057,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TrackEvent : dom.Event
+        public class TrackEvent : dom.Event
         {
             public extern TrackEvent(string typeArg);
 
@@ -42071,7 +42071,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TransitionEvent : dom.Event
+        public class TransitionEvent : dom.Event
         {
             public extern TransitionEvent(string typeArg);
 
@@ -42094,7 +42094,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class TreeWalker : IObject
+        public class TreeWalker : IObject
         {
             public static dom.TreeWalker prototype { get; set; }
 
@@ -42126,7 +42126,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class UIEvent : dom.Event
+        public class UIEvent : dom.Event
         {
             public extern UIEvent();
 
@@ -42151,7 +42151,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class URL : IObject
+        public class URL : IObject
         {
             public extern URL(string url);
 
@@ -42199,7 +42199,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class URLSearchParams : IObject
+        public class URLSearchParams : IObject
         {
             public extern URLSearchParams();
 
@@ -42227,7 +42227,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VRDisplay : dom.EventTarget
+        public class VRDisplay : dom.EventTarget
         {
             public static dom.VRDisplay prototype { get; set; }
 
@@ -42274,7 +42274,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VRDisplayCapabilities : IObject
+        public class VRDisplayCapabilities : IObject
         {
             public static dom.VRDisplayCapabilities prototype { get; set; }
 
@@ -42292,7 +42292,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VRDisplayEvent : dom.Event
+        public class VRDisplayEvent : dom.Event
         {
             public extern VRDisplayEvent(string type, dom.VRDisplayEventInit eventInitDict);
 
@@ -42306,7 +42306,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VREyeParameters : IObject
+        public class VREyeParameters : IObject
         {
             public static dom.VREyeParameters prototype { get; set; }
 
@@ -42322,7 +42322,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VRFieldOfView : IObject
+        public class VRFieldOfView : IObject
         {
             public static dom.VRFieldOfView prototype { get; set; }
 
@@ -42338,7 +42338,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VRFrameData : IObject
+        public class VRFrameData : IObject
         {
             public static dom.VRFrameData prototype { get; set; }
 
@@ -42358,7 +42358,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VRPose : IObject
+        public class VRPose : IObject
         {
             public static dom.VRPose prototype { get; set; }
 
@@ -42380,7 +42380,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class ValidityState : IObject
+        public class ValidityState : IObject
         {
             public static dom.ValidityState prototype { get; set; }
 
@@ -42410,7 +42410,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VideoPlaybackQuality : IObject
+        public class VideoPlaybackQuality : IObject
         {
             public static dom.VideoPlaybackQuality prototype { get; set; }
 
@@ -42428,7 +42428,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VideoTrack : IObject
+        public class VideoTrack : IObject
         {
             public static dom.VideoTrack prototype { get; set; }
 
@@ -42449,7 +42449,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class VideoTrackListEventMap : IObject
+        public class VideoTrackListEventMap : IObject
         {
             public dom.TrackEvent addtrack { get; set; }
 
@@ -42472,7 +42472,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class VideoTrackList : dom.EventTarget
+        public class VideoTrackList : dom.EventTarget
         {
             public static dom.VideoTrackList prototype { get; set; }
 
@@ -42596,7 +42596,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WEBGL_color_buffer_float : IObject
+        public class WEBGL_color_buffer_float : IObject
         {
             public double FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT { get; }
 
@@ -42674,7 +42674,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WEBGL_compressed_texture_s3tc : IObject
+        public class WEBGL_compressed_texture_s3tc : IObject
         {
             public static dom.WEBGL_compressed_texture_s3tc prototype { get; set; }
 
@@ -42703,7 +42703,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WEBGL_compressed_texture_s3tc_srgb : IObject
+        public class WEBGL_compressed_texture_s3tc_srgb : IObject
         {
             public double COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT { get; }
 
@@ -42717,7 +42717,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WEBGL_debug_renderer_info : IObject
+        public class WEBGL_debug_renderer_info : IObject
         {
             public static dom.WEBGL_debug_renderer_info prototype { get; set; }
 
@@ -42743,7 +42743,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WEBGL_depth_texture : IObject
+        public class WEBGL_depth_texture : IObject
         {
             public static dom.WEBGL_depth_texture prototype { get; set; }
 
@@ -42842,7 +42842,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WaveShaperNode : dom.AudioNode
+        public class WaveShaperNode : dom.AudioNode
         {
             public static dom.WaveShaperNode prototype { get; set; }
 
@@ -42854,7 +42854,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebAuthentication : IObject
+        public class WebAuthentication : IObject
         {
             public static dom.WebAuthentication prototype { get; set; }
 
@@ -43096,7 +43096,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebAuthnAssertion : IObject
+        public class WebAuthnAssertion : IObject
         {
             public static dom.WebAuthnAssertion prototype { get; set; }
 
@@ -43112,7 +43112,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLActiveInfo : IObject
+        public class WebGLActiveInfo : IObject
         {
             public static dom.WebGLActiveInfo prototype { get; set; }
 
@@ -43126,7 +43126,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLBuffer : dom.WebGLObject
+        public class WebGLBuffer : dom.WebGLObject
         {
             public static dom.WebGLBuffer prototype { get; set; }
         }
@@ -43134,7 +43134,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLContextEvent : dom.Event
+        public class WebGLContextEvent : dom.Event
         {
             public extern WebGLContextEvent(string typeArg);
 
@@ -43148,7 +43148,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLFramebuffer : dom.WebGLObject
+        public class WebGLFramebuffer : dom.WebGLObject
         {
             public static dom.WebGLFramebuffer prototype { get; set; }
         }
@@ -43156,7 +43156,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLObject : IObject
+        public class WebGLObject : IObject
         {
             public static dom.WebGLObject prototype { get; set; }
         }
@@ -43164,7 +43164,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLProgram : dom.WebGLObject
+        public class WebGLProgram : dom.WebGLObject
         {
             public static dom.WebGLProgram prototype { get; set; }
         }
@@ -43172,7 +43172,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLRenderbuffer : dom.WebGLObject
+        public class WebGLRenderbuffer : dom.WebGLObject
         {
             public static dom.WebGLRenderbuffer prototype { get; set; }
         }
@@ -43180,7 +43180,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLRenderingContext : IObject
+        public class WebGLRenderingContext : IObject
         {
             public static dom.WebGLRenderingContext prototype { get; set; }
 
@@ -45749,7 +45749,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLShader : dom.WebGLObject
+        public class WebGLShader : dom.WebGLObject
         {
             public static dom.WebGLShader prototype { get; set; }
         }
@@ -45757,7 +45757,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLShaderPrecisionFormat : IObject
+        public class WebGLShaderPrecisionFormat : IObject
         {
             public static dom.WebGLShaderPrecisionFormat prototype { get; set; }
 
@@ -45771,7 +45771,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLTexture : dom.WebGLObject
+        public class WebGLTexture : dom.WebGLObject
         {
             public static dom.WebGLTexture prototype { get; set; }
         }
@@ -45779,7 +45779,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLUniformLocation : IObject
+        public class WebGLUniformLocation : IObject
         {
             public static dom.WebGLUniformLocation prototype { get; set; }
         }
@@ -45788,14 +45788,14 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WebGLVertexArrayObjectOES : IObject
+        public class WebGLVertexArrayObjectOES : IObject
         {
         }
 
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebKitCSSMatrix : IObject
+        public class WebKitCSSMatrix : IObject
         {
             public extern WebKitCSSMatrix();
 
@@ -45891,7 +45891,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebKitDirectoryEntry : dom.WebKitEntry
+        public class WebKitDirectoryEntry : dom.WebKitEntry
         {
             public static dom.WebKitDirectoryEntry prototype { get; set; }
 
@@ -45901,7 +45901,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebKitDirectoryReader : IObject
+        public class WebKitDirectoryReader : IObject
         {
             public static dom.WebKitDirectoryReader prototype { get; set; }
 
@@ -45960,7 +45960,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebKitEntry : IObject
+        public class WebKitEntry : IObject
         {
             public static dom.WebKitEntry prototype { get; set; }
 
@@ -45978,7 +45978,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebKitFileEntry : dom.WebKitEntry
+        public class WebKitFileEntry : dom.WebKitEntry
         {
             public static dom.WebKitFileEntry prototype { get; set; }
 
@@ -46037,7 +46037,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebKitFileSystem : IObject
+        public class WebKitFileSystem : IObject
         {
             public static dom.WebKitFileSystem prototype { get; set; }
 
@@ -46049,7 +46049,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebKitPoint : IObject
+        public class WebKitPoint : IObject
         {
             public extern WebKitPoint();
 
@@ -46068,7 +46068,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WebSocketEventMap : IObject
+        public class WebSocketEventMap : IObject
         {
             public dom.CloseEvent close { get; set; }
 
@@ -46095,7 +46095,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WebSocket : dom.EventTarget
+        public class WebSocket : dom.EventTarget
         {
             public extern WebSocket(string url);
 
@@ -46272,7 +46272,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WheelEvent : dom.MouseEvent
+        public class WheelEvent : dom.MouseEvent
         {
             public extern WheelEvent(string typeArg);
 
@@ -46334,7 +46334,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WindowEventMap : dom.GlobalEventHandlersEventMap
+        public class WindowEventMap : dom.GlobalEventHandlersEventMap
         {
             public dom.UIEvent abort { get; set; }
 
@@ -46737,7 +46737,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Window : dom.EventTarget, dom.WindowTimers.Interface, dom.WindowTimersExtension.Interface, IObject, dom.WindowSessionStorage.Interface, dom.WindowLocalStorage.Interface, dom.WindowConsole.Interface, dom.GlobalEventHandlers.Interface, dom.IDBEnvironment.Interface, dom.WindowBase64.Interface, dom.GlobalFetch.Interface
+        public class Window : dom.EventTarget, dom.WindowTimers.Interface, dom.WindowTimersExtension.Interface, IObject, dom.WindowSessionStorage.Interface, dom.WindowLocalStorage.Interface, dom.WindowConsole.Interface, dom.GlobalEventHandlers.Interface, dom.IDBEnvironment.Interface, dom.WindowBase64.Interface, dom.GlobalFetch.Interface
         {
             public static dom.Window prototype { get; set; }
 
@@ -47727,7 +47727,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class WindowConsole : dom.WindowConsole.Interface, IObject
+        public class WindowConsole : dom.WindowConsole.Interface, IObject
         {
             public dom.Console console { get; }
 
@@ -47743,7 +47743,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class WindowEventHandlersEventMap : dom.WindowEventHandlersEventMap.Interface, IObject
+        public class WindowEventHandlersEventMap : dom.WindowEventHandlersEventMap.Interface, IObject
         {
             public dom.Event afterprint { get; set; }
 
@@ -48241,7 +48241,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class WindowLocalStorage : dom.WindowLocalStorage.Interface, IObject
+        public class WindowLocalStorage : dom.WindowLocalStorage.Interface, IObject
         {
             public dom.Storage localStorage { get; }
 
@@ -48257,7 +48257,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class WindowSessionStorage : dom.WindowSessionStorage.Interface, IObject
+        public class WindowSessionStorage : dom.WindowSessionStorage.Interface, IObject
         {
             public dom.Storage sessionStorage { get; }
 
@@ -48365,7 +48365,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class WorkerEventMap : dom.AbstractWorkerEventMap
+        public class WorkerEventMap : dom.AbstractWorkerEventMap
         {
             public dom.MessageEvent message { get; set; }
 
@@ -48380,7 +48380,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class Worker : dom.EventTarget, dom.AbstractWorker.Interface, IObject
+        public class Worker : dom.EventTarget, dom.AbstractWorker.Interface, IObject
         {
             public extern Worker(string stringUrl);
 
@@ -48542,7 +48542,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WritableStream : IObject
+        public class WritableStream : IObject
         {
             public extern WritableStream();
 
@@ -48564,7 +48564,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WritableStreamDefaultController : IObject
+        public class WritableStreamDefaultController : IObject
         {
             public static dom.WritableStreamDefaultController prototype { get; set; }
 
@@ -48576,7 +48576,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class WritableStreamDefaultWriter : IObject
+        public class WritableStreamDefaultWriter : IObject
         {
             public static dom.WritableStreamDefaultWriter prototype { get; set; }
 
@@ -48602,7 +48602,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XMLDocument : dom.Document
+        public class XMLDocument : dom.Document
         {
             public static dom.XMLDocument prototype { get; set; }
 
@@ -48665,7 +48665,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class XMLHttpRequestEventMap : dom.XMLHttpRequestEventTargetEventMap
+        public class XMLHttpRequestEventMap : dom.XMLHttpRequestEventTargetEventMap
         {
             public dom.Event readystatechange { get; set; }
 
@@ -48680,7 +48680,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XMLHttpRequest : dom.EventTarget, dom.XMLHttpRequestEventTarget.Interface, IObject
+        public class XMLHttpRequest : dom.EventTarget, dom.XMLHttpRequestEventTarget.Interface, IObject
         {
             public static dom.XMLHttpRequest prototype { get; set; }
 
@@ -48925,7 +48925,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class XMLHttpRequestEventTargetEventMap : IObject
+        public class XMLHttpRequestEventTargetEventMap : IObject
         {
             public dom.Event abort { get; set; }
 
@@ -49341,7 +49341,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XMLHttpRequestUpload : dom.EventTarget, dom.XMLHttpRequestEventTarget.Interface, IObject
+        public class XMLHttpRequestUpload : dom.EventTarget, dom.XMLHttpRequestEventTarget.Interface, IObject
         {
             public static dom.XMLHttpRequestUpload prototype { get; set; }
 
@@ -49502,7 +49502,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XMLSerializer : IObject
+        public class XMLSerializer : IObject
         {
             public static dom.XMLSerializer prototype { get; set; }
 
@@ -49512,7 +49512,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XPathEvaluator : IObject
+        public class XPathEvaluator : IObject
         {
             public static dom.XPathEvaluator prototype { get; set; }
 
@@ -49535,7 +49535,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XPathExpression : IObject
+        public class XPathExpression : IObject
         {
             public static dom.XPathExpression prototype { get; set; }
 
@@ -49548,7 +49548,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XPathNSResolver : IObject
+        public class XPathNSResolver : IObject
         {
             public static dom.XPathNSResolver prototype { get; set; }
 
@@ -49558,7 +49558,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XPathResult : IObject
+        public class XPathResult : IObject
         {
             public static dom.XPathResult prototype { get; set; }
 
@@ -49634,7 +49634,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class XSLTProcessor : IObject
+        public class XSLTProcessor : IObject
         {
             public static dom.XSLTProcessor prototype { get; set; }
 
@@ -49660,7 +49660,7 @@ namespace H5.Core
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        public abstract class webkitRTCPeerConnection : dom.RTCPeerConnection
+        public class webkitRTCPeerConnection : dom.RTCPeerConnection
         {
             public extern webkitRTCPeerConnection(dom.RTCConfiguration configuration);
 
@@ -49728,7 +49728,7 @@ namespace H5.Core
         [IgnoreCast]
         [Virtual]
         [FormerInterface]
-        public abstract class ErrorEventHandler : IObject
+        public class ErrorEventHandler : IObject
         {
             [Template("{0}")]
             public extern ErrorEventHandler(dom.ErrorEventHandler.ErrorEventHandlerDelegate fn);
@@ -50077,7 +50077,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class HTMLElementTagNameMap : IObject
+        public class HTMLElementTagNameMap : IObject
         {
             public dom.HTMLAnchorElement a { get; set; }
 
@@ -50592,7 +50592,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [InterfaceWrapper]
-        public abstract class SVGElementTagNameMap : dom.SVGElementTagNameMap.Interface, IObject
+        public class SVGElementTagNameMap : dom.SVGElementTagNameMap.Interface, IObject
         {
             public dom.SVGCircleElement circle { get; set; }
 
@@ -50928,7 +50928,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        public abstract class ElementTagNameMap : dom.HTMLElementTagNameMap, dom.SVGElementTagNameMap.Interface, IObject
+        public class ElementTagNameMap : dom.HTMLElementTagNameMap, dom.SVGElementTagNameMap.Interface, IObject
         {
             public dom.SVGCircleElement circle { get; set; }
 
@@ -51183,7 +51183,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ScrollBehavior")]
-        public abstract class ScrollBehavior : LiteralType<string>
+        public class ScrollBehavior : LiteralType<string>
         {
             [Template("<self>\"auto\"")]
             public static readonly dom.Literals.Types.auto auto;
@@ -51203,7 +51203,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ScrollLogicalPosition")]
-        public abstract class ScrollLogicalPosition : LiteralType<string>
+        public class ScrollLogicalPosition : LiteralType<string>
         {
             [Template("<self>\"start\"")]
             public static readonly dom.Literals.Types.start start;
@@ -51238,7 +51238,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ScrollRestoration")]
-        public abstract class ScrollRestoration : LiteralType<string>
+        public class ScrollRestoration : LiteralType<string>
         {
             [Template("<self>\"auto\"")]
             public static readonly dom.Literals.Types.auto auto;
@@ -51276,7 +51276,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("InsertPosition")]
-        public abstract class InsertPosition : LiteralType<string>
+        public class InsertPosition : LiteralType<string>
         {
             [Template("<self>\"beforebegin\"")]
             public static readonly dom.Literals.Types.beforebegin beforebegin;
@@ -51332,7 +51332,7 @@ namespace H5.Core
               dom.HeadersInit value);
 
             [ObjectLiteral]
-            public abstract class HeadersInitConfig : IObject
+            public class HeadersInitConfig : IObject
             {
                 public extern string this[string key]  { get; set; }
             }
@@ -51340,7 +51340,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("OrientationLockType")]
-        public abstract class OrientationLockType : LiteralType<string>
+        public class OrientationLockType : LiteralType<string>
         {
             [Template("<self>\"any\"")]
             public static readonly dom.Literals.Types.any any;
@@ -51445,7 +51445,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MutationRecordType")]
-        public abstract class MutationRecordType : LiteralType<string>
+        public class MutationRecordType : LiteralType<string>
         {
             [Template("<self>\"attributes\"")]
             public static readonly dom.Literals.Types.attributes attributes;
@@ -51874,7 +51874,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ClientTypes")]
-        public abstract class ClientTypes : LiteralType<string>
+        public class ClientTypes : LiteralType<string>
         {
             [Template("<self>\"window\"")]
             public static readonly dom.Literals.Types.window window;
@@ -51899,7 +51899,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("AppendMode")]
-        public abstract class AppendMode : LiteralType<string>
+        public class AppendMode : LiteralType<string>
         {
             [Template("<self>\"segments\"")]
             public static readonly dom.Literals.Types.segments segments;
@@ -51915,7 +51915,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("AudioContextLatencyCategory")]
-        public abstract class AudioContextLatencyCategory : LiteralType<string>
+        public class AudioContextLatencyCategory : LiteralType<string>
         {
             [Template("<self>\"balanced\"")]
             public static readonly dom.Literals.Types.balanced balanced;
@@ -51938,7 +51938,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("AudioContextState")]
-        public abstract class AudioContextState : LiteralType<string>
+        public class AudioContextState : LiteralType<string>
         {
             [Template("<self>\"suspended\"")]
             public static readonly dom.Literals.Types.suspended suspended;
@@ -51961,7 +51961,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("BinaryType")]
-        public abstract class BinaryType : LiteralType<string>
+        public class BinaryType : LiteralType<string>
         {
             [Template("<self>\"blob\"")]
             public static readonly dom.Literals.Types.blob blob;
@@ -51977,7 +51977,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("BiquadFilterType")]
-        public abstract class BiquadFilterType : LiteralType<string>
+        public class BiquadFilterType : LiteralType<string>
         {
             [Template("<self>\"lowpass\"")]
             public static readonly dom.Literals.Types.lowpass lowpass;
@@ -52024,7 +52024,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("CanPlayTypeResult")]
-        public abstract class CanPlayTypeResult : LiteralType<string>
+        public class CanPlayTypeResult : LiteralType<string>
         {
             [Template("<self>\"\"")]
             public static readonly dom.Literals.Types._ _;
@@ -52045,7 +52045,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("CanvasFillRule")]
-        public abstract class CanvasFillRule : LiteralType<string>
+        public class CanvasFillRule : LiteralType<string>
         {
             [Template("<self>\"nonzero\"")]
             public static readonly dom.Literals.Types.nonzero nonzero;
@@ -52061,7 +52061,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ChannelCountMode")]
-        public abstract class ChannelCountMode : LiteralType<string>
+        public class ChannelCountMode : LiteralType<string>
         {
             [Template("<self>\"max\"")]
             public static readonly dom.Literals.Types.max max;
@@ -52083,7 +52083,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ChannelInterpretation")]
-        public abstract class ChannelInterpretation : LiteralType<string>
+        public class ChannelInterpretation : LiteralType<string>
         {
             [Template("<self>\"speakers\"")]
             public static readonly dom.Literals.Types.speakers speakers;
@@ -52101,7 +52101,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("DisplayCaptureSurfaceType")]
-        public abstract class DisplayCaptureSurfaceType : LiteralType<string>
+        public class DisplayCaptureSurfaceType : LiteralType<string>
         {
             [Template("<self>\"monitor\"")]
             public static readonly dom.Literals.Types.monitor monitor;
@@ -52129,7 +52129,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("DistanceModelType")]
-        public abstract class DistanceModelType : LiteralType<string>
+        public class DistanceModelType : LiteralType<string>
         {
             [Template("<self>\"linear\"")]
             public static readonly dom.Literals.Types.linear linear;
@@ -52152,7 +52152,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("EndOfStreamError")]
-        public abstract class EndOfStreamError : LiteralType<string>
+        public class EndOfStreamError : LiteralType<string>
         {
             [Template("<self>\"network\"")]
             public static readonly dom.Literals.Types.network network;
@@ -52169,7 +52169,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ExpandGranularity")]
-        public abstract class ExpandGranularity : LiteralType<string>
+        public class ExpandGranularity : LiteralType<string>
         {
             [Template("<self>\"character\"")]
             public static readonly dom.Literals.Types.character character;
@@ -52196,7 +52196,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("GamepadHand")]
-        public abstract class GamepadHand : LiteralType<string>
+        public class GamepadHand : LiteralType<string>
         {
             [Template("<self>\"\"")]
             public static readonly dom.Literals.Types._ _;
@@ -52250,7 +52250,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("GamepadInputEmulationType")]
-        public abstract class GamepadInputEmulationType : LiteralType<string>
+        public class GamepadInputEmulationType : LiteralType<string>
         {
             [Template("<self>\"mouse\"")]
             public static readonly dom.Literals.Types.mouse mouse;
@@ -52273,7 +52273,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("GamepadMappingType")]
-        public abstract class GamepadMappingType : LiteralType<string>
+        public class GamepadMappingType : LiteralType<string>
         {
             [Template("<self>\"\"")]
             public static readonly dom.Literals.Types._ _;
@@ -52290,7 +52290,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("IDBCursorDirection")]
-        public abstract class IDBCursorDirection : LiteralType<string>
+        public class IDBCursorDirection : LiteralType<string>
         {
             [Template("<self>\"next\"")]
             public static readonly dom.Literals.Types.next next;
@@ -52316,7 +52316,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("IDBRequestReadyState")]
-        public abstract class IDBRequestReadyState : LiteralType<string>
+        public class IDBRequestReadyState : LiteralType<string>
         {
             [Template("<self>\"pending\"")]
             public static readonly dom.Literals.Types.pending pending;
@@ -52334,7 +52334,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("IDBTransactionMode")]
-        public abstract class IDBTransactionMode : LiteralType<string>
+        public class IDBTransactionMode : LiteralType<string>
         {
             [Template("<self>\"readonly\"")]
             public static readonly dom.Literals.Types.@readonly @readonly;
@@ -52357,7 +52357,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("KeyFormat")]
-        public abstract class KeyFormat : LiteralType<string>
+        public class KeyFormat : LiteralType<string>
         {
             [Template("<self>\"raw\"")]
             public static readonly dom.Literals.Types.raw raw;
@@ -52383,7 +52383,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("KeyType")]
-        public abstract class KeyType : LiteralType<string>
+        public class KeyType : LiteralType<string>
         {
             [Template("<self>\"public\"")]
             public static readonly dom.Literals.Types.@public @public;
@@ -52403,7 +52403,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("KeyUsage")]
-        public abstract class KeyUsage : LiteralType<string>
+        public class KeyUsage : LiteralType<string>
         {
             [Template("<self>\"encrypt\"")]
             public static readonly dom.Literals.Types.encrypt encrypt;
@@ -52443,7 +52443,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ListeningState")]
-        public abstract class ListeningState : LiteralType<string>
+        public class ListeningState : LiteralType<string>
         {
             [Template("<self>\"inactive\"")]
             public static readonly dom.Literals.Types.inactive inactive;
@@ -52492,7 +52492,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MSIceAddrType")]
-        public abstract class MSIceAddrType : LiteralType<string>
+        public class MSIceAddrType : LiteralType<string>
         {
             [Template("<self>\"os\"")]
             public static readonly dom.Literals.Types.os os;
@@ -52517,7 +52517,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MSIceType")]
-        public abstract class MSIceType : LiteralType<string>
+        public class MSIceType : LiteralType<string>
         {
             [Template("<self>\"failed\"")]
             public static readonly dom.Literals.Types.failed failed;
@@ -52537,7 +52537,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MSStatsType")]
-        public abstract class MSStatsType : LiteralType<string>
+        public class MSStatsType : LiteralType<string>
         {
             [Template("<self>\"description\"")]
             public static readonly dom.Literals.Types.description description;
@@ -52579,7 +52579,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MSTransportType")]
-        public abstract class MSTransportType : LiteralType<string>
+        public class MSTransportType : LiteralType<string>
         {
             [Template("<self>\"Embedded\"")]
             public static readonly dom.Literals.Types.Embedded Embedded;
@@ -52604,7 +52604,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MSWebViewPermissionState")]
-        public abstract class MSWebViewPermissionState : LiteralType<string>
+        public class MSWebViewPermissionState : LiteralType<string>
         {
             [Template("<self>\"unknown\"")]
             public static readonly dom.Literals.Types.unknown unknown;
@@ -52632,7 +52632,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MSWebViewPermissionType")]
-        public abstract class MSWebViewPermissionType : LiteralType<string>
+        public class MSWebViewPermissionType : LiteralType<string>
         {
             [Template("<self>\"geolocation\"")]
             public static readonly dom.Literals.Types.geolocation geolocation;
@@ -52665,7 +52665,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MediaDeviceKind")]
-        public abstract class MediaDeviceKind : LiteralType<string>
+        public class MediaDeviceKind : LiteralType<string>
         {
             [Template("<self>\"audioinput\"")]
             public static readonly dom.Literals.Types.audioinput audioinput;
@@ -52688,7 +52688,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MediaKeyMessageType")]
-        public abstract class MediaKeyMessageType : LiteralType<string>
+        public class MediaKeyMessageType : LiteralType<string>
         {
             [Template("<self>\"license-request\"")]
             public static readonly dom.Literals.Types.license_request license_request;
@@ -52716,7 +52716,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MediaKeySessionType")]
-        public abstract class MediaKeySessionType : LiteralType<string>
+        public class MediaKeySessionType : LiteralType<string>
         {
             [Template("<self>\"temporary\"")]
             public static readonly dom.Literals.Types.temporary temporary;
@@ -52739,7 +52739,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MediaKeyStatus")]
-        public abstract class MediaKeyStatus : LiteralType<string>
+        public class MediaKeyStatus : LiteralType<string>
         {
             [Template("<self>\"usable\"")]
             public static readonly dom.Literals.Types.usable usable;
@@ -52775,7 +52775,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MediaKeysRequirement")]
-        public abstract class MediaKeysRequirement : LiteralType<string>
+        public class MediaKeysRequirement : LiteralType<string>
         {
             [Template("<self>\"required\"")]
             public static readonly dom.Literals.Types.required required;
@@ -52798,7 +52798,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("MediaStreamTrackState")]
-        public abstract class MediaStreamTrackState : LiteralType<string>
+        public class MediaStreamTrackState : LiteralType<string>
         {
             [Template("<self>\"live\"")]
             public static readonly dom.Literals.Types.live live;
@@ -52816,7 +52816,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("NavigationReason")]
-        public abstract class NavigationReason : LiteralType<string>
+        public class NavigationReason : LiteralType<string>
         {
             [Template("<self>\"up\"")]
             public static readonly dom.Literals.Types.up up;
@@ -52842,7 +52842,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("NavigationType")]
-        public abstract class NavigationType : LiteralType<string>
+        public class NavigationType : LiteralType<string>
         {
             [Template("<self>\"navigate\"")]
             public static readonly dom.Literals.Types.navigate navigate;
@@ -52868,7 +52868,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("NotificationDirection")]
-        public abstract class NotificationDirection : LiteralType<string>
+        public class NotificationDirection : LiteralType<string>
         {
             [Template("<self>\"auto\"")]
             public static readonly dom.Literals.Types.auto auto;
@@ -52891,7 +52891,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("NotificationPermission")]
-        public abstract class NotificationPermission : LiteralType<string>
+        public class NotificationPermission : LiteralType<string>
         {
             [Template("<self>\"default\"")]
             public static readonly dom.Literals.Types.@default @default;
@@ -52914,7 +52914,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("OscillatorType")]
-        public abstract class OscillatorType : LiteralType<string>
+        public class OscillatorType : LiteralType<string>
         {
             [Template("<self>\"sine\"")]
             public static readonly dom.Literals.Types.sine sine;
@@ -52942,7 +52942,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("OverSampleType")]
-        public abstract class OverSampleType : LiteralType<string>
+        public class OverSampleType : LiteralType<string>
         {
             [Template("<self>\"none\"")]
             public static readonly dom.Literals.Types.none none;
@@ -52962,7 +52962,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("PanningModelType")]
-        public abstract class PanningModelType : LiteralType<string>
+        public class PanningModelType : LiteralType<string>
         {
             [Template("<self>\"equalpower\"")]
             public static readonly dom.Literals.Types.equalpower equalpower;
@@ -52979,7 +52979,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("PaymentComplete")]
-        public abstract class PaymentComplete : LiteralType<string>
+        public class PaymentComplete : LiteralType<string>
         {
             [Template("<self>\"success\"")]
             public static readonly dom.Literals.Types.success success;
@@ -52999,7 +52999,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("PaymentShippingType")]
-        public abstract class PaymentShippingType : LiteralType<string>
+        public class PaymentShippingType : LiteralType<string>
         {
             [Template("<self>\"shipping\"")]
             public static readonly dom.Literals.Types.shipping shipping;
@@ -53022,7 +53022,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("PushEncryptionKeyName")]
-        public abstract class PushEncryptionKeyName : LiteralType<string>
+        public class PushEncryptionKeyName : LiteralType<string>
         {
             [Template("<self>\"p256dh\"")]
             public static readonly dom.Literals.Types.p256dh p256dh;
@@ -53040,7 +53040,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("PushPermissionState")]
-        public abstract class PushPermissionState : LiteralType<string>
+        public class PushPermissionState : LiteralType<string>
         {
             [Template("<self>\"granted\"")]
             public static readonly dom.Literals.Types.granted granted;
@@ -53063,7 +53063,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCBundlePolicy")]
-        public abstract class RTCBundlePolicy : LiteralType<string>
+        public class RTCBundlePolicy : LiteralType<string>
         {
             [Template("<self>\"balanced\"")]
             public static readonly dom.Literals.Types.balanced balanced;
@@ -53086,7 +53086,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCDegradationPreference")]
-        public abstract class RTCDegradationPreference : LiteralType<string>
+        public class RTCDegradationPreference : LiteralType<string>
         {
             [Template("<self>\"maintain-framerate\"")]
             public static readonly dom.Literals.Types.maintain_framerate maintain_framerate;
@@ -53109,7 +53109,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCDtlsRole")]
-        public abstract class RTCDtlsRole : LiteralType<string>
+        public class RTCDtlsRole : LiteralType<string>
         {
             [Template("<self>\"auto\"")]
             public static readonly dom.Literals.Types.auto auto;
@@ -53129,7 +53129,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCDtlsTransportState")]
-        public abstract class RTCDtlsTransportState : LiteralType<string>
+        public class RTCDtlsTransportState : LiteralType<string>
         {
             [Template("<self>\"new\"")]
             public static readonly dom.Literals.Types.@new @new;
@@ -53157,7 +53157,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceCandidateType")]
-        public abstract class RTCIceCandidateType : LiteralType<string>
+        public class RTCIceCandidateType : LiteralType<string>
         {
             [Template("<self>\"host\"")]
             public static readonly dom.Literals.Types.host host;
@@ -53185,7 +53185,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceComponent")]
-        public abstract class RTCIceComponent : LiteralType<string>
+        public class RTCIceComponent : LiteralType<string>
         {
             [Template("<self>\"RTP\"")]
             public static readonly dom.Literals.Types.RTP RTP;
@@ -53201,7 +53201,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceConnectionState")]
-        public abstract class RTCIceConnectionState : LiteralType<string>
+        public class RTCIceConnectionState : LiteralType<string>
         {
             [Template("<self>\"new\"")]
             public static readonly dom.Literals.Types.@new @new;
@@ -53247,7 +53247,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceGatherPolicy")]
-        public abstract class RTCIceGatherPolicy : LiteralType<string>
+        public class RTCIceGatherPolicy : LiteralType<string>
         {
             [Template("<self>\"all\"")]
             public static readonly dom.Literals.Types.all all;
@@ -53269,7 +53269,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceGathererState")]
-        public abstract class RTCIceGathererState : LiteralType<string>
+        public class RTCIceGathererState : LiteralType<string>
         {
             [Template("<self>\"new\"")]
             public static readonly dom.Literals.Types.@new @new;
@@ -53292,7 +53292,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceGatheringState")]
-        public abstract class RTCIceGatheringState : LiteralType<string>
+        public class RTCIceGatheringState : LiteralType<string>
         {
             [Template("<self>\"new\"")]
             public static readonly dom.Literals.Types.@new @new;
@@ -53318,7 +53318,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceProtocol")]
-        public abstract class RTCIceProtocol : LiteralType<string>
+        public class RTCIceProtocol : LiteralType<string>
         {
             [Template("<self>\"udp\"")]
             public static readonly dom.Literals.Types.udp udp;
@@ -53334,7 +53334,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceRole")]
-        public abstract class RTCIceRole : LiteralType<string>
+        public class RTCIceRole : LiteralType<string>
         {
             [Template("<self>\"controlling\"")]
             public static readonly dom.Literals.Types.controlling controlling;
@@ -53350,7 +53350,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceTcpCandidateType")]
-        public abstract class RTCIceTcpCandidateType : LiteralType<string>
+        public class RTCIceTcpCandidateType : LiteralType<string>
         {
             [Template("<self>\"active\"")]
             public static readonly dom.Literals.Types.active active;
@@ -53373,7 +53373,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceTransportPolicy")]
-        public abstract class RTCIceTransportPolicy : LiteralType<string>
+        public class RTCIceTransportPolicy : LiteralType<string>
         {
             [Template("<self>\"none\"")]
             public static readonly dom.Literals.Types.none none;
@@ -53396,7 +53396,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCIceTransportState")]
-        public abstract class RTCIceTransportState : LiteralType<string>
+        public class RTCIceTransportState : LiteralType<string>
         {
             [Template("<self>\"new\"")]
             public static readonly dom.Literals.Types.@new @new;
@@ -53434,7 +53434,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCSdpType")]
-        public abstract class RTCSdpType : LiteralType<string>
+        public class RTCSdpType : LiteralType<string>
         {
             [Template("<self>\"offer\"")]
             public static readonly dom.Literals.Types.offer offer;
@@ -53454,7 +53454,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCSignalingState")]
-        public abstract class RTCSignalingState : LiteralType<string>
+        public class RTCSignalingState : LiteralType<string>
         {
             [Template("<self>\"stable\"")]
             public static readonly dom.Literals.Types.stable stable;
@@ -53492,7 +53492,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCStatsIceCandidatePairState")]
-        public abstract class RTCStatsIceCandidatePairState : LiteralType<string>
+        public class RTCStatsIceCandidatePairState : LiteralType<string>
         {
             [Template("<self>\"frozen\"")]
             public static readonly dom.Literals.Types.frozen frozen;
@@ -53530,7 +53530,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCStatsIceCandidateType")]
-        public abstract class RTCStatsIceCandidateType : LiteralType<string>
+        public class RTCStatsIceCandidateType : LiteralType<string>
         {
             [Template("<self>\"host\"")]
             public static readonly dom.Literals.Types.host host;
@@ -53558,7 +53558,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RTCStatsType")]
-        public abstract class RTCStatsType : LiteralType<string>
+        public class RTCStatsType : LiteralType<string>
         {
             [Template("<self>\"inboundrtp\"")]
             public static readonly dom.Literals.Types.inboundrtp inboundrtp;
@@ -53607,7 +53607,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ReadyState")]
-        public abstract class ReadyState : LiteralType<string>
+        public class ReadyState : LiteralType<string>
         {
             [Template("<self>\"closed\"")]
             public static readonly dom.Literals.Types.closed closed;
@@ -53629,7 +53629,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ReferrerPolicy")]
-        public abstract class ReferrerPolicy : LiteralType<string>
+        public class ReferrerPolicy : LiteralType<string>
         {
             [Template("<self>\"\"")]
             public static readonly dom.Literals.Types._ _;
@@ -53666,7 +53666,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RequestCache")]
-        public abstract class RequestCache : LiteralType<string>
+        public class RequestCache : LiteralType<string>
         {
             [Template("<self>\"default\"")]
             public static readonly dom.Literals.Types.@default @default;
@@ -53695,7 +53695,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RequestCredentials")]
-        public abstract class RequestCredentials : LiteralType<string>
+        public class RequestCredentials : LiteralType<string>
         {
             [Template("<self>\"omit\"")]
             public static readonly dom.Literals.Types.omit omit;
@@ -53717,7 +53717,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RequestDestination")]
-        public abstract class RequestDestination : LiteralType<string>
+        public class RequestDestination : LiteralType<string>
         {
             [Template("<self>\"\"")]
             public static readonly dom.Literals.Types._ _;
@@ -53754,7 +53754,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RequestMode")]
-        public abstract class RequestMode : LiteralType<string>
+        public class RequestMode : LiteralType<string>
         {
             [Template("<self>\"navigate\"")]
             public static readonly dom.Literals.Types.navigate navigate;
@@ -53778,7 +53778,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RequestRedirect")]
-        public abstract class RequestRedirect : LiteralType<string>
+        public class RequestRedirect : LiteralType<string>
         {
             [Template("<self>\"follow\"")]
             public static readonly dom.Literals.Types.follow follow;
@@ -53798,7 +53798,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("RequestType")]
-        public abstract class RequestType : LiteralType<string>
+        public class RequestType : LiteralType<string>
         {
             [Template("<self>\"\"")]
             public static readonly dom.Literals.Types._ _;
@@ -53838,7 +53838,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ResponseType")]
-        public abstract class ResponseType : LiteralType<string>
+        public class ResponseType : LiteralType<string>
         {
             [Template("<self>\"basic\"")]
             public static readonly dom.Literals.Types.basic basic;
@@ -53903,7 +53903,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("ServiceWorkerState")]
-        public abstract class ServiceWorkerState : LiteralType<string>
+        public class ServiceWorkerState : LiteralType<string>
         {
             [Template("<self>\"installing\"")]
             public static readonly dom.Literals.Types.installing installing;
@@ -53936,7 +53936,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("TextTrackKind")]
-        public abstract class TextTrackKind : LiteralType<string>
+        public class TextTrackKind : LiteralType<string>
         {
             [Template("<self>\"subtitles\"")]
             public static readonly dom.Literals.Types.subtitles subtitles;
@@ -53965,7 +53965,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("TextTrackMode")]
-        public abstract class TextTrackMode : LiteralType<string>
+        public class TextTrackMode : LiteralType<string>
         {
             [Template("<self>\"disabled\"")]
             public static readonly dom.Literals.Types.disabled disabled;
@@ -53985,7 +53985,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("Transport")]
-        public abstract class Transport : LiteralType<string>
+        public class Transport : LiteralType<string>
         {
             [Template("<self>\"usb\"")]
             public static readonly dom.Literals.Types.usb usb;
@@ -54005,7 +54005,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("VRDisplayEventReason")]
-        public abstract class VRDisplayEventReason : LiteralType<string>
+        public class VRDisplayEventReason : LiteralType<string>
         {
             [Template("<self>\"mounted\"")]
             public static readonly dom.Literals.Types.mounted mounted;
@@ -54033,7 +54033,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("VREye")]
-        public abstract class VREye : LiteralType<string>
+        public class VREye : LiteralType<string>
         {
             [Template("<self>\"left\"")]
             public static readonly dom.Literals.Types.left left;
@@ -54049,7 +54049,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("VideoFacingModeEnum")]
-        public abstract class VideoFacingModeEnum : LiteralType<string>
+        public class VideoFacingModeEnum : LiteralType<string>
         {
             [Template("<self>\"user\"")]
             public static readonly dom.Literals.Types.user user;
@@ -54079,7 +54079,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("VisibilityState")]
-        public abstract class VisibilityState : LiteralType<string>
+        public class VisibilityState : LiteralType<string>
         {
             [Template("<self>\"hidden\"")]
             public static readonly dom.Literals.Types.hidden hidden;
@@ -54105,7 +54105,7 @@ namespace H5.Core
 
         [Name("System.String")]
         [ExportedAs("XMLHttpRequestResponseType")]
-        public abstract class XMLHttpRequestResponseType : LiteralType<string>
+        public class XMLHttpRequestResponseType : LiteralType<string>
         {
             [Template("<self>\"\"")]
             public static readonly dom.Literals.Types._ _;
@@ -55146,7 +55146,7 @@ namespace H5.Core
               dom.DragEventTypeConfig.NewConfig dragEventInit);
 
             [ObjectLiteral]
-            public abstract class NewConfig : IObject
+            public class NewConfig : IObject
             {
                 public dom.DataTransfer dataTransfer { get; set; }
             }
@@ -61983,2779 +61983,2779 @@ namespace H5.Core
             public static class Types
             {
                 [Name("System.String")]
-                public abstract class drag : LiteralType<string>
+                public class drag : LiteralType<string>
                 {
                     private extern drag();
                 }
 
                 [Name("System.String")]
-                public abstract class dragend : LiteralType<string>
+                public class dragend : LiteralType<string>
                 {
                     private extern dragend();
                 }
 
                 [Name("System.String")]
-                public abstract class dragenter : LiteralType<string>
+                public class dragenter : LiteralType<string>
                 {
                     private extern dragenter();
                 }
 
                 [Name("System.String")]
-                public abstract class dragexit : LiteralType<string>
+                public class dragexit : LiteralType<string>
                 {
                     private extern dragexit();
                 }
 
                 [Name("System.String")]
-                public abstract class dragleave : LiteralType<string>
+                public class dragleave : LiteralType<string>
                 {
                     private extern dragleave();
                 }
 
                 [Name("System.String")]
-                public abstract class dragover : LiteralType<string>
+                public class dragover : LiteralType<string>
                 {
                     private extern dragover();
                 }
 
                 [Name("System.String")]
-                public abstract class dragstart : LiteralType<string>
+                public class dragstart : LiteralType<string>
                 {
                     private extern dragstart();
                 }
 
                 [Name("System.String")]
-                public abstract class drop : LiteralType<string>
+                public class drop : LiteralType<string>
                 {
                     private extern drop();
                 }
 
                 [Name("System.String")]
-                public abstract class auto : LiteralType<string>
+                public class auto : LiteralType<string>
                 {
                     private extern auto();
                 }
 
                 [Name("System.String")]
-                public abstract class instant : LiteralType<string>
+                public class instant : LiteralType<string>
                 {
                     private extern instant();
                 }
 
                 [Name("System.String")]
-                public abstract class smooth : LiteralType<string>
+                public class smooth : LiteralType<string>
                 {
                     private extern smooth();
                 }
 
                 [Name("System.String")]
-                public abstract class start : LiteralType<string>
+                public class start : LiteralType<string>
                 {
                     private extern start();
                 }
 
                 [Name("System.String")]
-                public abstract class center : LiteralType<string>
+                public class center : LiteralType<string>
                 {
                     private extern center();
                 }
 
                 [Name("System.String")]
-                public abstract class end : LiteralType<string>
+                public class end : LiteralType<string>
                 {
                     private extern end();
                 }
 
                 [Name("System.String")]
-                public abstract class nearest : LiteralType<string>
+                public class nearest : LiteralType<string>
                 {
                     private extern nearest();
                 }
 
                 [Name("System.String")]
-                public abstract class manual : LiteralType<string>
+                public class manual : LiteralType<string>
                 {
                     private extern manual();
                 }
 
                 [Name("System.String")]
-                public abstract class beforebegin : LiteralType<string>
+                public class beforebegin : LiteralType<string>
                 {
                     private extern beforebegin();
                 }
 
                 [Name("System.String")]
-                public abstract class afterbegin : LiteralType<string>
+                public class afterbegin : LiteralType<string>
                 {
                     private extern afterbegin();
                 }
 
                 [Name("System.String")]
-                public abstract class beforeend : LiteralType<string>
+                public class beforeend : LiteralType<string>
                 {
                     private extern beforeend();
                 }
 
                 [Name("System.String")]
-                public abstract class afterend : LiteralType<string>
+                public class afterend : LiteralType<string>
                 {
                     private extern afterend();
                 }
 
                 [Name("System.String")]
-                public abstract class any : LiteralType<string>
+                public class any : LiteralType<string>
                 {
                     private extern any();
                 }
 
                 [Name("System.String")]
-                public abstract class natural : LiteralType<string>
+                public class natural : LiteralType<string>
                 {
                     private extern natural();
                 }
 
                 [Name("System.String")]
-                public abstract class portrait : LiteralType<string>
+                public class portrait : LiteralType<string>
                 {
                     private extern portrait();
                 }
 
                 [Name("System.String")]
-                public abstract class landscape : LiteralType<string>
+                public class landscape : LiteralType<string>
                 {
                     private extern landscape();
                 }
 
                 [Name("System.String")]
-                public abstract class portrait_primary : LiteralType<string>
+                public class portrait_primary : LiteralType<string>
                 {
                     private extern portrait_primary();
                 }
 
                 [Name("System.String")]
-                public abstract class portrait_secondary : LiteralType<string>
+                public class portrait_secondary : LiteralType<string>
                 {
                     private extern portrait_secondary();
                 }
 
                 [Name("System.String")]
-                public abstract class landscape_primary : LiteralType<string>
+                public class landscape_primary : LiteralType<string>
                 {
                     private extern landscape_primary();
                 }
 
                 [Name("System.String")]
-                public abstract class landscape_secondary : LiteralType<string>
+                public class landscape_secondary : LiteralType<string>
                 {
                     private extern landscape_secondary();
                 }
 
                 [Name("System.String")]
-                public abstract class attributes : LiteralType<string>
+                public class attributes : LiteralType<string>
                 {
                     private extern attributes();
                 }
 
                 [Name("System.String")]
-                public abstract class characterData : LiteralType<string>
+                public class characterData : LiteralType<string>
                 {
                     private extern characterData();
                 }
 
                 [Name("System.String")]
-                public abstract class childList : LiteralType<string>
+                public class childList : LiteralType<string>
                 {
                     private extern childList();
                 }
 
                 [Name("System.String")]
-                public abstract class window : LiteralType<string>
+                public class window : LiteralType<string>
                 {
                     private extern window();
                 }
 
                 [Name("System.String")]
-                public abstract class worker : LiteralType<string>
+                public class worker : LiteralType<string>
                 {
                     private extern worker();
                 }
 
                 [Name("System.String")]
-                public abstract class sharedworker : LiteralType<string>
+                public class sharedworker : LiteralType<string>
                 {
                     private extern sharedworker();
                 }
 
                 [Name("System.String")]
-                public abstract class all : LiteralType<string>
+                public class all : LiteralType<string>
                 {
                     private extern all();
                 }
 
                 [Name("System.String")]
-                public abstract class segments : LiteralType<string>
+                public class segments : LiteralType<string>
                 {
                     private extern segments();
                 }
 
                 [Name("System.String")]
-                public abstract class sequence : LiteralType<string>
+                public class sequence : LiteralType<string>
                 {
                     private extern sequence();
                 }
 
                 [Name("System.String")]
-                public abstract class balanced : LiteralType<string>
+                public class balanced : LiteralType<string>
                 {
                     private extern balanced();
                 }
 
                 [Name("System.String")]
-                public abstract class interactive : LiteralType<string>
+                public class interactive : LiteralType<string>
                 {
                     private extern interactive();
                 }
 
                 [Name("System.String")]
-                public abstract class playback : LiteralType<string>
+                public class playback : LiteralType<string>
                 {
                     private extern playback();
                 }
 
                 [Name("System.String")]
-                public abstract class suspended : LiteralType<string>
+                public class suspended : LiteralType<string>
                 {
                     private extern suspended();
                 }
 
                 [Name("System.String")]
-                public abstract class running : LiteralType<string>
+                public class running : LiteralType<string>
                 {
                     private extern running();
                 }
 
                 [Name("System.String")]
-                public abstract class closed : LiteralType<string>
+                public class closed : LiteralType<string>
                 {
                     private extern closed();
                 }
 
                 [Name("System.String")]
-                public abstract class blob : LiteralType<string>
+                public class blob : LiteralType<string>
                 {
                     private extern blob();
                 }
 
                 [Name("System.String")]
-                public abstract class arraybuffer : LiteralType<string>
+                public class arraybuffer : LiteralType<string>
                 {
                     private extern arraybuffer();
                 }
 
                 [Name("System.String")]
-                public abstract class lowpass : LiteralType<string>
+                public class lowpass : LiteralType<string>
                 {
                     private extern lowpass();
                 }
 
                 [Name("System.String")]
-                public abstract class highpass : LiteralType<string>
+                public class highpass : LiteralType<string>
                 {
                     private extern highpass();
                 }
 
                 [Name("System.String")]
-                public abstract class bandpass : LiteralType<string>
+                public class bandpass : LiteralType<string>
                 {
                     private extern bandpass();
                 }
 
                 [Name("System.String")]
-                public abstract class lowshelf : LiteralType<string>
+                public class lowshelf : LiteralType<string>
                 {
                     private extern lowshelf();
                 }
 
                 [Name("System.String")]
-                public abstract class highshelf : LiteralType<string>
+                public class highshelf : LiteralType<string>
                 {
                     private extern highshelf();
                 }
 
                 [Name("System.String")]
-                public abstract class peaking : LiteralType<string>
+                public class peaking : LiteralType<string>
                 {
                     private extern peaking();
                 }
 
                 [Name("System.String")]
-                public abstract class notch : LiteralType<string>
+                public class notch : LiteralType<string>
                 {
                     private extern notch();
                 }
 
                 [Name("System.String")]
-                public abstract class allpass : LiteralType<string>
+                public class allpass : LiteralType<string>
                 {
                     private extern allpass();
                 }
 
                 [Name("System.String")]
-                public abstract class _ : LiteralType<string>
+                public class _ : LiteralType<string>
                 {
                     private extern _();
                 }
 
                 [Name("System.String")]
-                public abstract class maybe : LiteralType<string>
+                public class maybe : LiteralType<string>
                 {
                     private extern maybe();
                 }
 
                 [Name("System.String")]
-                public abstract class probably : LiteralType<string>
+                public class probably : LiteralType<string>
                 {
                     private extern probably();
                 }
 
                 [Name("System.String")]
-                public abstract class nonzero : LiteralType<string>
+                public class nonzero : LiteralType<string>
                 {
                     private extern nonzero();
                 }
 
                 [Name("System.String")]
-                public abstract class evenodd : LiteralType<string>
+                public class evenodd : LiteralType<string>
                 {
                     private extern evenodd();
                 }
 
                 [Name("System.String")]
-                public abstract class max : LiteralType<string>
+                public class max : LiteralType<string>
                 {
                     private extern max();
                 }
 
                 [Name("System.String")]
-                public abstract class clamped_max : LiteralType<string>
+                public class clamped_max : LiteralType<string>
                 {
                     private extern clamped_max();
                 }
 
                 [Name("System.String")]
-                public abstract class @explicit : LiteralType<string>
+                public class @explicit : LiteralType<string>
                 {
                     private extern @explicit();
                 }
 
                 [Name("System.String")]
-                public abstract class speakers : LiteralType<string>
+                public class speakers : LiteralType<string>
                 {
                     private extern speakers();
                 }
 
                 [Name("System.String")]
-                public abstract class discrete : LiteralType<string>
+                public class discrete : LiteralType<string>
                 {
                     private extern discrete();
                 }
 
                 [Name("System.String")]
-                public abstract class monitor : LiteralType<string>
+                public class monitor : LiteralType<string>
                 {
                     private extern monitor();
                 }
 
                 [Name("System.String")]
-                public abstract class application : LiteralType<string>
+                public class application : LiteralType<string>
                 {
                     private extern application();
                 }
 
                 [Name("System.String")]
-                public abstract class browser : LiteralType<string>
+                public class browser : LiteralType<string>
                 {
                     private extern browser();
                 }
 
                 [Name("System.String")]
-                public abstract class linear : LiteralType<string>
+                public class linear : LiteralType<string>
                 {
                     private extern linear();
                 }
 
                 [Name("System.String")]
-                public abstract class inverse : LiteralType<string>
+                public class inverse : LiteralType<string>
                 {
                     private extern inverse();
                 }
 
                 [Name("System.String")]
-                public abstract class exponential : LiteralType<string>
+                public class exponential : LiteralType<string>
                 {
                     private extern exponential();
                 }
 
                 [Name("System.String")]
-                public abstract class network : LiteralType<string>
+                public class network : LiteralType<string>
                 {
                     private extern network();
                 }
 
                 [Name("System.String")]
-                public abstract class decode : LiteralType<string>
+                public class decode : LiteralType<string>
                 {
                     private extern decode();
                 }
 
                 [Name("System.String")]
-                public abstract class character : LiteralType<string>
+                public class character : LiteralType<string>
                 {
                     private extern character();
                 }
 
                 [Name("System.String")]
-                public abstract class word : LiteralType<string>
+                public class word : LiteralType<string>
                 {
                     private extern word();
                 }
 
                 [Name("System.String")]
-                public abstract class sentence : LiteralType<string>
+                public class sentence : LiteralType<string>
                 {
                     private extern sentence();
                 }
 
                 [Name("System.String")]
-                public abstract class textedit : LiteralType<string>
+                public class textedit : LiteralType<string>
                 {
                     private extern textedit();
                 }
 
                 [Name("System.String")]
-                public abstract class left : LiteralType<string>
+                public class left : LiteralType<string>
                 {
                     private extern left();
                 }
 
                 [Name("System.String")]
-                public abstract class right : LiteralType<string>
+                public class right : LiteralType<string>
                 {
                     private extern right();
                 }
 
                 [Name("System.String")]
-                public abstract class vibration : LiteralType<string>
+                public class vibration : LiteralType<string>
                 {
                     private extern vibration();
                 }
 
                 [Name("System.String")]
-                public abstract class mouse : LiteralType<string>
+                public class mouse : LiteralType<string>
                 {
                     private extern mouse();
                 }
 
                 [Name("System.String")]
-                public abstract class keyboard : LiteralType<string>
+                public class keyboard : LiteralType<string>
                 {
                     private extern keyboard();
                 }
 
                 [Name("System.String")]
-                public abstract class gamepad : LiteralType<string>
+                public class gamepad : LiteralType<string>
                 {
                     private extern gamepad();
                 }
 
                 [Name("System.String")]
-                public abstract class standard : LiteralType<string>
+                public class standard : LiteralType<string>
                 {
                     private extern standard();
                 }
 
                 [Name("System.String")]
-                public abstract class next : LiteralType<string>
+                public class next : LiteralType<string>
                 {
                     private extern next();
                 }
 
                 [Name("System.String")]
-                public abstract class nextunique : LiteralType<string>
+                public class nextunique : LiteralType<string>
                 {
                     private extern nextunique();
                 }
 
                 [Name("System.String")]
-                public abstract class prev : LiteralType<string>
+                public class prev : LiteralType<string>
                 {
                     private extern prev();
                 }
 
                 [Name("System.String")]
-                public abstract class prevunique : LiteralType<string>
+                public class prevunique : LiteralType<string>
                 {
                     private extern prevunique();
                 }
 
                 [Name("System.String")]
-                public abstract class pending : LiteralType<string>
+                public class pending : LiteralType<string>
                 {
                     private extern pending();
                 }
 
                 [Name("System.String")]
-                public abstract class done : LiteralType<string>
+                public class done : LiteralType<string>
                 {
                     private extern done();
                 }
 
                 [Name("System.String")]
-                public abstract class @readonly : LiteralType<string>
+                public class @readonly : LiteralType<string>
                 {
                     private extern @readonly();
                 }
 
                 [Name("System.String")]
-                public abstract class readwrite : LiteralType<string>
+                public class readwrite : LiteralType<string>
                 {
                     private extern readwrite();
                 }
 
                 [Name("System.String")]
-                public abstract class versionchange : LiteralType<string>
+                public class versionchange : LiteralType<string>
                 {
                     private extern versionchange();
                 }
 
                 [Name("System.String")]
-                public abstract class raw : LiteralType<string>
+                public class raw : LiteralType<string>
                 {
                     private extern raw();
                 }
 
                 [Name("System.String")]
-                public abstract class spki : LiteralType<string>
+                public class spki : LiteralType<string>
                 {
                     private extern spki();
                 }
 
                 [Name("System.String")]
-                public abstract class pkcs8 : LiteralType<string>
+                public class pkcs8 : LiteralType<string>
                 {
                     private extern pkcs8();
                 }
 
                 [Name("System.String")]
-                public abstract class jwk : LiteralType<string>
+                public class jwk : LiteralType<string>
                 {
                     private extern jwk();
                 }
 
                 [Name("System.String")]
-                public abstract class @public : LiteralType<string>
+                public class @public : LiteralType<string>
                 {
                     private extern @public();
                 }
 
                 [Name("System.String")]
-                public abstract class @private : LiteralType<string>
+                public class @private : LiteralType<string>
                 {
                     private extern @private();
                 }
 
                 [Name("System.String")]
-                public abstract class secret : LiteralType<string>
+                public class secret : LiteralType<string>
                 {
                     private extern secret();
                 }
 
                 [Name("System.String")]
-                public abstract class encrypt : LiteralType<string>
+                public class encrypt : LiteralType<string>
                 {
                     private extern encrypt();
                 }
 
                 [Name("System.String")]
-                public abstract class decrypt : LiteralType<string>
+                public class decrypt : LiteralType<string>
                 {
                     private extern decrypt();
                 }
 
                 [Name("System.String")]
-                public abstract class sign : LiteralType<string>
+                public class sign : LiteralType<string>
                 {
                     private extern sign();
                 }
 
                 [Name("System.String")]
-                public abstract class verify : LiteralType<string>
+                public class verify : LiteralType<string>
                 {
                     private extern verify();
                 }
 
                 [Name("System.String")]
-                public abstract class deriveKey : LiteralType<string>
+                public class deriveKey : LiteralType<string>
                 {
                     private extern deriveKey();
                 }
 
                 [Name("System.String")]
-                public abstract class deriveBits : LiteralType<string>
+                public class deriveBits : LiteralType<string>
                 {
                     private extern deriveBits();
                 }
 
                 [Name("System.String")]
-                public abstract class wrapKey : LiteralType<string>
+                public class wrapKey : LiteralType<string>
                 {
                     private extern wrapKey();
                 }
 
                 [Name("System.String")]
-                public abstract class unwrapKey : LiteralType<string>
+                public class unwrapKey : LiteralType<string>
                 {
                     private extern unwrapKey();
                 }
 
                 [Name("System.String")]
-                public abstract class inactive : LiteralType<string>
+                public class inactive : LiteralType<string>
                 {
                     private extern inactive();
                 }
 
                 [Name("System.String")]
-                public abstract class active : LiteralType<string>
+                public class active : LiteralType<string>
                 {
                     private extern active();
                 }
 
                 [Name("System.String")]
-                public abstract class disambiguation : LiteralType<string>
+                public class disambiguation : LiteralType<string>
                 {
                     private extern disambiguation();
                 }
 
                 [Name("System.String")]
-                public abstract class FIDO_2_0 : LiteralType<string>
+                public class FIDO_2_0 : LiteralType<string>
                 {
                     private extern FIDO_2_0();
                 }
 
                 [Name("System.String")]
-                public abstract class os : LiteralType<string>
+                public class os : LiteralType<string>
                 {
                     private extern os();
                 }
 
                 [Name("System.String")]
-                public abstract class stun : LiteralType<string>
+                public class stun : LiteralType<string>
                 {
                     private extern stun();
                 }
 
                 [Name("System.String")]
-                public abstract class turn : LiteralType<string>
+                public class turn : LiteralType<string>
                 {
                     private extern turn();
                 }
 
                 [Name("System.String")]
-                public abstract class peer_derived : LiteralType<string>
+                public class peer_derived : LiteralType<string>
                 {
                     private extern peer_derived();
                 }
 
                 [Name("System.String")]
-                public abstract class failed : LiteralType<string>
+                public class failed : LiteralType<string>
                 {
                     private extern failed();
                 }
 
                 [Name("System.String")]
-                public abstract class direct : LiteralType<string>
+                public class direct : LiteralType<string>
                 {
                     private extern direct();
                 }
 
                 [Name("System.String")]
-                public abstract class relay : LiteralType<string>
+                public class relay : LiteralType<string>
                 {
                     private extern relay();
                 }
 
                 [Name("System.String")]
-                public abstract class description : LiteralType<string>
+                public class description : LiteralType<string>
                 {
                     private extern description();
                 }
 
                 [Name("System.String")]
-                public abstract class localclientevent : LiteralType<string>
+                public class localclientevent : LiteralType<string>
                 {
                     private extern localclientevent();
                 }
 
                 [Name("System.String")]
-                public abstract class inbound_network : LiteralType<string>
+                public class inbound_network : LiteralType<string>
                 {
                     private extern inbound_network();
                 }
 
                 [Name("System.String")]
-                public abstract class outbound_network : LiteralType<string>
+                public class outbound_network : LiteralType<string>
                 {
                     private extern outbound_network();
                 }
 
                 [Name("System.String")]
-                public abstract class inbound_payload : LiteralType<string>
+                public class inbound_payload : LiteralType<string>
                 {
                     private extern inbound_payload();
                 }
 
                 [Name("System.String")]
-                public abstract class outbound_payload : LiteralType<string>
+                public class outbound_payload : LiteralType<string>
                 {
                     private extern outbound_payload();
                 }
 
                 [Name("System.String")]
-                public abstract class transportdiagnostics : LiteralType<string>
+                public class transportdiagnostics : LiteralType<string>
                 {
                     private extern transportdiagnostics();
                 }
 
                 [Name("System.String")]
-                public abstract class Embedded : LiteralType<string>
+                public class Embedded : LiteralType<string>
                 {
                     private extern Embedded();
                 }
 
                 [Name("System.String")]
-                public abstract class USB : LiteralType<string>
+                public class USB : LiteralType<string>
                 {
                     private extern USB();
                 }
 
                 [Name("System.String")]
-                public abstract class NFC : LiteralType<string>
+                public class NFC : LiteralType<string>
                 {
                     private extern NFC();
                 }
 
                 [Name("System.String")]
-                public abstract class BT : LiteralType<string>
+                public class BT : LiteralType<string>
                 {
                     private extern BT();
                 }
 
                 [Name("System.String")]
-                public abstract class unknown : LiteralType<string>
+                public class unknown : LiteralType<string>
                 {
                     private extern unknown();
                 }
 
                 [Name("System.String")]
-                public abstract class defer : LiteralType<string>
+                public class defer : LiteralType<string>
                 {
                     private extern defer();
                 }
 
                 [Name("System.String")]
-                public abstract class allow : LiteralType<string>
+                public class allow : LiteralType<string>
                 {
                     private extern allow();
                 }
 
                 [Name("System.String")]
-                public abstract class deny : LiteralType<string>
+                public class deny : LiteralType<string>
                 {
                     private extern deny();
                 }
 
                 [Name("System.String")]
-                public abstract class geolocation : LiteralType<string>
+                public class geolocation : LiteralType<string>
                 {
                     private extern geolocation();
                 }
 
                 [Name("System.String")]
-                public abstract class unlimitedIndexedDBQuota : LiteralType<string>
+                public class unlimitedIndexedDBQuota : LiteralType<string>
                 {
                     private extern unlimitedIndexedDBQuota();
                 }
 
                 [Name("System.String")]
-                public abstract class media : LiteralType<string>
+                public class media : LiteralType<string>
                 {
                     private extern media();
                 }
 
                 [Name("System.String")]
-                public abstract class pointerlock : LiteralType<string>
+                public class pointerlock : LiteralType<string>
                 {
                     private extern pointerlock();
                 }
 
                 [Name("System.String")]
-                public abstract class webnotifications : LiteralType<string>
+                public class webnotifications : LiteralType<string>
                 {
                     private extern webnotifications();
                 }
 
                 [Name("System.String")]
-                public abstract class audioinput : LiteralType<string>
+                public class audioinput : LiteralType<string>
                 {
                     private extern audioinput();
                 }
 
                 [Name("System.String")]
-                public abstract class audiooutput : LiteralType<string>
+                public class audiooutput : LiteralType<string>
                 {
                     private extern audiooutput();
                 }
 
                 [Name("System.String")]
-                public abstract class videoinput : LiteralType<string>
+                public class videoinput : LiteralType<string>
                 {
                     private extern videoinput();
                 }
 
                 [Name("System.String")]
-                public abstract class license_request : LiteralType<string>
+                public class license_request : LiteralType<string>
                 {
                     private extern license_request();
                 }
 
                 [Name("System.String")]
-                public abstract class license_renewal : LiteralType<string>
+                public class license_renewal : LiteralType<string>
                 {
                     private extern license_renewal();
                 }
 
                 [Name("System.String")]
-                public abstract class license_release : LiteralType<string>
+                public class license_release : LiteralType<string>
                 {
                     private extern license_release();
                 }
 
                 [Name("System.String")]
-                public abstract class individualization_request : LiteralType<string>
+                public class individualization_request : LiteralType<string>
                 {
                     private extern individualization_request();
                 }
 
                 [Name("System.String")]
-                public abstract class temporary : LiteralType<string>
+                public class temporary : LiteralType<string>
                 {
                     private extern temporary();
                 }
 
                 [Name("System.String")]
-                public abstract class persistent_license : LiteralType<string>
+                public class persistent_license : LiteralType<string>
                 {
                     private extern persistent_license();
                 }
 
                 [Name("System.String")]
-                public abstract class persistent_release_message : LiteralType<string>
+                public class persistent_release_message : LiteralType<string>
                 {
                     private extern persistent_release_message();
                 }
 
                 [Name("System.String")]
-                public abstract class usable : LiteralType<string>
+                public class usable : LiteralType<string>
                 {
                     private extern usable();
                 }
 
                 [Name("System.String")]
-                public abstract class expired : LiteralType<string>
+                public class expired : LiteralType<string>
                 {
                     private extern expired();
                 }
 
                 [Name("System.String")]
-                public abstract class output_downscaled : LiteralType<string>
+                public class output_downscaled : LiteralType<string>
                 {
                     private extern output_downscaled();
                 }
 
                 [Name("System.String")]
-                public abstract class output_not_allowed : LiteralType<string>
+                public class output_not_allowed : LiteralType<string>
                 {
                     private extern output_not_allowed();
                 }
 
                 [Name("System.String")]
-                public abstract class status_pending : LiteralType<string>
+                public class status_pending : LiteralType<string>
                 {
                     private extern status_pending();
                 }
 
                 [Name("System.String")]
-                public abstract class internal_error : LiteralType<string>
+                public class internal_error : LiteralType<string>
                 {
                     private extern internal_error();
                 }
 
                 [Name("System.String")]
-                public abstract class required : LiteralType<string>
+                public class required : LiteralType<string>
                 {
                     private extern required();
                 }
 
                 [Name("System.String")]
-                public abstract class optional : LiteralType<string>
+                public class optional : LiteralType<string>
                 {
                     private extern optional();
                 }
 
                 [Name("System.String")]
-                public abstract class not_allowed : LiteralType<string>
+                public class not_allowed : LiteralType<string>
                 {
                     private extern not_allowed();
                 }
 
                 [Name("System.String")]
-                public abstract class live : LiteralType<string>
+                public class live : LiteralType<string>
                 {
                     private extern live();
                 }
 
                 [Name("System.String")]
-                public abstract class ended : LiteralType<string>
+                public class ended : LiteralType<string>
                 {
                     private extern ended();
                 }
 
                 [Name("System.String")]
-                public abstract class up : LiteralType<string>
+                public class up : LiteralType<string>
                 {
                     private extern up();
                 }
 
                 [Name("System.String")]
-                public abstract class down : LiteralType<string>
+                public class down : LiteralType<string>
                 {
                     private extern down();
                 }
 
                 [Name("System.String")]
-                public abstract class navigate : LiteralType<string>
+                public class navigate : LiteralType<string>
                 {
                     private extern navigate();
                 }
 
                 [Name("System.String")]
-                public abstract class reload : LiteralType<string>
+                public class reload : LiteralType<string>
                 {
                     private extern reload();
                 }
 
                 [Name("System.String")]
-                public abstract class back_forward : LiteralType<string>
+                public class back_forward : LiteralType<string>
                 {
                     private extern back_forward();
                 }
 
                 [Name("System.String")]
-                public abstract class prerender : LiteralType<string>
+                public class prerender : LiteralType<string>
                 {
                     private extern prerender();
                 }
 
                 [Name("System.String")]
-                public abstract class ltr : LiteralType<string>
+                public class ltr : LiteralType<string>
                 {
                     private extern ltr();
                 }
 
                 [Name("System.String")]
-                public abstract class rtl : LiteralType<string>
+                public class rtl : LiteralType<string>
                 {
                     private extern rtl();
                 }
 
                 [Name("System.String")]
-                public abstract class @default : LiteralType<string>
+                public class @default : LiteralType<string>
                 {
                     private extern @default();
                 }
 
                 [Name("System.String")]
-                public abstract class denied : LiteralType<string>
+                public class denied : LiteralType<string>
                 {
                     private extern denied();
                 }
 
                 [Name("System.String")]
-                public abstract class granted : LiteralType<string>
+                public class granted : LiteralType<string>
                 {
                     private extern granted();
                 }
 
                 [Name("System.String")]
-                public abstract class sine : LiteralType<string>
+                public class sine : LiteralType<string>
                 {
                     private extern sine();
                 }
 
                 [Name("System.String")]
-                public abstract class square : LiteralType<string>
+                public class square : LiteralType<string>
                 {
                     private extern square();
                 }
 
                 [Name("System.String")]
-                public abstract class sawtooth : LiteralType<string>
+                public class sawtooth : LiteralType<string>
                 {
                     private extern sawtooth();
                 }
 
                 [Name("System.String")]
-                public abstract class triangle : LiteralType<string>
+                public class triangle : LiteralType<string>
                 {
                     private extern triangle();
                 }
 
                 [Name("System.String")]
-                public abstract class custom : LiteralType<string>
+                public class custom : LiteralType<string>
                 {
                     private extern custom();
                 }
 
                 [Name("System.String")]
-                public abstract class none : LiteralType<string>
+                public class none : LiteralType<string>
                 {
                     private extern none();
                 }
 
                 [Name("System.String")]
-                public abstract class _2x : LiteralType<string>
+                public class _2x : LiteralType<string>
                 {
                     private extern _2x();
                 }
 
                 [Name("System.String")]
-                public abstract class _4x : LiteralType<string>
+                public class _4x : LiteralType<string>
                 {
                     private extern _4x();
                 }
 
                 [Name("System.String")]
-                public abstract class equalpower : LiteralType<string>
+                public class equalpower : LiteralType<string>
                 {
                     private extern equalpower();
                 }
 
                 [Name("System.String")]
-                public abstract class HRTF : LiteralType<string>
+                public class HRTF : LiteralType<string>
                 {
                     private extern HRTF();
                 }
 
                 [Name("System.String")]
-                public abstract class success : LiteralType<string>
+                public class success : LiteralType<string>
                 {
                     private extern success();
                 }
 
                 [Name("System.String")]
-                public abstract class fail : LiteralType<string>
+                public class fail : LiteralType<string>
                 {
                     private extern fail();
                 }
 
                 [Name("System.String")]
-                public abstract class shipping : LiteralType<string>
+                public class shipping : LiteralType<string>
                 {
                     private extern shipping();
                 }
 
                 [Name("System.String")]
-                public abstract class delivery : LiteralType<string>
+                public class delivery : LiteralType<string>
                 {
                     private extern delivery();
                 }
 
                 [Name("System.String")]
-                public abstract class pickup : LiteralType<string>
+                public class pickup : LiteralType<string>
                 {
                     private extern pickup();
                 }
 
                 [Name("System.String")]
-                public abstract class p256dh : LiteralType<string>
+                public class p256dh : LiteralType<string>
                 {
                     private extern p256dh();
                 }
 
                 [Name("System.String")]
-                public abstract class auth : LiteralType<string>
+                public class auth : LiteralType<string>
                 {
                     private extern auth();
                 }
 
                 [Name("System.String")]
-                public abstract class prompt : LiteralType<string>
+                public class prompt : LiteralType<string>
                 {
                     private extern prompt();
                 }
 
                 [Name("System.String")]
-                public abstract class max_compat : LiteralType<string>
+                public class max_compat : LiteralType<string>
                 {
                     private extern max_compat();
                 }
 
                 [Name("System.String")]
-                public abstract class max_bundle : LiteralType<string>
+                public class max_bundle : LiteralType<string>
                 {
                     private extern max_bundle();
                 }
 
                 [Name("System.String")]
-                public abstract class maintain_framerate : LiteralType<string>
+                public class maintain_framerate : LiteralType<string>
                 {
                     private extern maintain_framerate();
                 }
 
                 [Name("System.String")]
-                public abstract class maintain_resolution : LiteralType<string>
+                public class maintain_resolution : LiteralType<string>
                 {
                     private extern maintain_resolution();
                 }
 
                 [Name("System.String")]
-                public abstract class client : LiteralType<string>
+                public class client : LiteralType<string>
                 {
                     private extern client();
                 }
 
                 [Name("System.String")]
-                public abstract class server : LiteralType<string>
+                public class server : LiteralType<string>
                 {
                     private extern server();
                 }
 
                 [Name("System.String")]
-                public abstract class @new : LiteralType<string>
+                public class @new : LiteralType<string>
                 {
                     private extern @new();
                 }
 
                 [Name("System.String")]
-                public abstract class connecting : LiteralType<string>
+                public class connecting : LiteralType<string>
                 {
                     private extern connecting();
                 }
 
                 [Name("System.String")]
-                public abstract class connected : LiteralType<string>
+                public class connected : LiteralType<string>
                 {
                     private extern connected();
                 }
 
                 [Name("System.String")]
-                public abstract class host : LiteralType<string>
+                public class host : LiteralType<string>
                 {
                     private extern host();
                 }
 
                 [Name("System.String")]
-                public abstract class srflx : LiteralType<string>
+                public class srflx : LiteralType<string>
                 {
                     private extern srflx();
                 }
 
                 [Name("System.String")]
-                public abstract class prflx : LiteralType<string>
+                public class prflx : LiteralType<string>
                 {
                     private extern prflx();
                 }
 
                 [Name("System.String")]
-                public abstract class RTP : LiteralType<string>
+                public class RTP : LiteralType<string>
                 {
                     private extern RTP();
                 }
 
                 [Name("System.String")]
-                public abstract class RTCP : LiteralType<string>
+                public class RTCP : LiteralType<string>
                 {
                     private extern RTCP();
                 }
 
                 [Name("System.String")]
-                public abstract class checking : LiteralType<string>
+                public class checking : LiteralType<string>
                 {
                     private extern checking();
                 }
 
                 [Name("System.String")]
-                public abstract class completed : LiteralType<string>
+                public class completed : LiteralType<string>
                 {
                     private extern completed();
                 }
 
                 [Name("System.String")]
-                public abstract class disconnected : LiteralType<string>
+                public class disconnected : LiteralType<string>
                 {
                     private extern disconnected();
                 }
 
                 [Name("System.String")]
-                public abstract class nohost : LiteralType<string>
+                public class nohost : LiteralType<string>
                 {
                     private extern nohost();
                 }
 
                 [Name("System.String")]
-                public abstract class gathering : LiteralType<string>
+                public class gathering : LiteralType<string>
                 {
                     private extern gathering();
                 }
 
                 [Name("System.String")]
-                public abstract class complete : LiteralType<string>
+                public class complete : LiteralType<string>
                 {
                     private extern complete();
                 }
 
                 [Name("System.String")]
-                public abstract class udp : LiteralType<string>
+                public class udp : LiteralType<string>
                 {
                     private extern udp();
                 }
 
                 [Name("System.String")]
-                public abstract class tcp : LiteralType<string>
+                public class tcp : LiteralType<string>
                 {
                     private extern tcp();
                 }
 
                 [Name("System.String")]
-                public abstract class controlling : LiteralType<string>
+                public class controlling : LiteralType<string>
                 {
                     private extern controlling();
                 }
 
                 [Name("System.String")]
-                public abstract class controlled : LiteralType<string>
+                public class controlled : LiteralType<string>
                 {
                     private extern controlled();
                 }
 
                 [Name("System.String")]
-                public abstract class passive : LiteralType<string>
+                public class passive : LiteralType<string>
                 {
                     private extern passive();
                 }
 
                 [Name("System.String")]
-                public abstract class so : LiteralType<string>
+                public class so : LiteralType<string>
                 {
                     private extern so();
                 }
 
                 [Name("System.String")]
-                public abstract class offer : LiteralType<string>
+                public class offer : LiteralType<string>
                 {
                     private extern offer();
                 }
 
                 [Name("System.String")]
-                public abstract class pranswer : LiteralType<string>
+                public class pranswer : LiteralType<string>
                 {
                     private extern pranswer();
                 }
 
                 [Name("System.String")]
-                public abstract class answer : LiteralType<string>
+                public class answer : LiteralType<string>
                 {
                     private extern answer();
                 }
 
                 [Name("System.String")]
-                public abstract class stable : LiteralType<string>
+                public class stable : LiteralType<string>
                 {
                     private extern stable();
                 }
 
                 [Name("System.String")]
-                public abstract class have_local_offer : LiteralType<string>
+                public class have_local_offer : LiteralType<string>
                 {
                     private extern have_local_offer();
                 }
 
                 [Name("System.String")]
-                public abstract class have_remote_offer : LiteralType<string>
+                public class have_remote_offer : LiteralType<string>
                 {
                     private extern have_remote_offer();
                 }
 
                 [Name("System.String")]
-                public abstract class have_local_pranswer : LiteralType<string>
+                public class have_local_pranswer : LiteralType<string>
                 {
                     private extern have_local_pranswer();
                 }
 
                 [Name("System.String")]
-                public abstract class have_remote_pranswer : LiteralType<string>
+                public class have_remote_pranswer : LiteralType<string>
                 {
                     private extern have_remote_pranswer();
                 }
 
                 [Name("System.String")]
-                public abstract class frozen : LiteralType<string>
+                public class frozen : LiteralType<string>
                 {
                     private extern frozen();
                 }
 
                 [Name("System.String")]
-                public abstract class waiting : LiteralType<string>
+                public class waiting : LiteralType<string>
                 {
                     private extern waiting();
                 }
 
                 [Name("System.String")]
-                public abstract class inprogress : LiteralType<string>
+                public class inprogress : LiteralType<string>
                 {
                     private extern inprogress();
                 }
 
                 [Name("System.String")]
-                public abstract class succeeded : LiteralType<string>
+                public class succeeded : LiteralType<string>
                 {
                     private extern succeeded();
                 }
 
                 [Name("System.String")]
-                public abstract class cancelled : LiteralType<string>
+                public class cancelled : LiteralType<string>
                 {
                     private extern cancelled();
                 }
 
                 [Name("System.String")]
-                public abstract class serverreflexive : LiteralType<string>
+                public class serverreflexive : LiteralType<string>
                 {
                     private extern serverreflexive();
                 }
 
                 [Name("System.String")]
-                public abstract class peerreflexive : LiteralType<string>
+                public class peerreflexive : LiteralType<string>
                 {
                     private extern peerreflexive();
                 }
 
                 [Name("System.String")]
-                public abstract class relayed : LiteralType<string>
+                public class relayed : LiteralType<string>
                 {
                     private extern relayed();
                 }
 
                 [Name("System.String")]
-                public abstract class inboundrtp : LiteralType<string>
+                public class inboundrtp : LiteralType<string>
                 {
                     private extern inboundrtp();
                 }
 
                 [Name("System.String")]
-                public abstract class outboundrtp : LiteralType<string>
+                public class outboundrtp : LiteralType<string>
                 {
                     private extern outboundrtp();
                 }
 
                 [Name("System.String")]
-                public abstract class session : LiteralType<string>
+                public class session : LiteralType<string>
                 {
                     private extern session();
                 }
 
                 [Name("System.String")]
-                public abstract class datachannel : LiteralType<string>
+                public class datachannel : LiteralType<string>
                 {
                     private extern datachannel();
                 }
 
                 [Name("System.String")]
-                public abstract class track : LiteralType<string>
+                public class track : LiteralType<string>
                 {
                     private extern track();
                 }
 
                 [Name("System.String")]
-                public abstract class transport : LiteralType<string>
+                public class transport : LiteralType<string>
                 {
                     private extern transport();
                 }
 
                 [Name("System.String")]
-                public abstract class candidatepair : LiteralType<string>
+                public class candidatepair : LiteralType<string>
                 {
                     private extern candidatepair();
                 }
 
                 [Name("System.String")]
-                public abstract class localcandidate : LiteralType<string>
+                public class localcandidate : LiteralType<string>
                 {
                     private extern localcandidate();
                 }
 
                 [Name("System.String")]
-                public abstract class remotecandidate : LiteralType<string>
+                public class remotecandidate : LiteralType<string>
                 {
                     private extern remotecandidate();
                 }
 
                 [Name("System.String")]
-                public abstract class open : LiteralType<string>
+                public class open : LiteralType<string>
                 {
                     private extern open();
                 }
 
                 [Name("System.String")]
-                public abstract class no_referrer : LiteralType<string>
+                public class no_referrer : LiteralType<string>
                 {
                     private extern no_referrer();
                 }
 
                 [Name("System.String")]
-                public abstract class no_referrer_when_downgrade : LiteralType<string>
+                public class no_referrer_when_downgrade : LiteralType<string>
                 {
                     private extern no_referrer_when_downgrade();
                 }
 
                 [Name("System.String")]
-                public abstract class origin_only : LiteralType<string>
+                public class origin_only : LiteralType<string>
                 {
                     private extern origin_only();
                 }
 
                 [Name("System.String")]
-                public abstract class origin_when_cross_origin : LiteralType<string>
+                public class origin_when_cross_origin : LiteralType<string>
                 {
                     private extern origin_when_cross_origin();
                 }
 
                 [Name("System.String")]
-                public abstract class unsafe_url : LiteralType<string>
+                public class unsafe_url : LiteralType<string>
                 {
                     private extern unsafe_url();
                 }
 
                 [Name("System.String")]
-                public abstract class no_store : LiteralType<string>
+                public class no_store : LiteralType<string>
                 {
                     private extern no_store();
                 }
 
                 [Name("System.String")]
-                public abstract class no_cache : LiteralType<string>
+                public class no_cache : LiteralType<string>
                 {
                     private extern no_cache();
                 }
 
                 [Name("System.String")]
-                public abstract class force_cache : LiteralType<string>
+                public class force_cache : LiteralType<string>
                 {
                     private extern force_cache();
                 }
 
                 [Name("System.String")]
-                public abstract class omit : LiteralType<string>
+                public class omit : LiteralType<string>
                 {
                     private extern omit();
                 }
 
                 [Name("System.String")]
-                public abstract class same_origin : LiteralType<string>
+                public class same_origin : LiteralType<string>
                 {
                     private extern same_origin();
                 }
 
                 [Name("System.String")]
-                public abstract class include : LiteralType<string>
+                public class include : LiteralType<string>
                 {
                     private extern include();
                 }
 
                 [Name("System.String")]
-                public abstract class document : LiteralType<string>
+                public class document : LiteralType<string>
                 {
                     private extern document();
                 }
 
                 [Name("System.String")]
-                public abstract class subresource : LiteralType<string>
+                public class subresource : LiteralType<string>
                 {
                     private extern subresource();
                 }
 
                 [Name("System.String")]
-                public abstract class no_cors : LiteralType<string>
+                public class no_cors : LiteralType<string>
                 {
                     private extern no_cors();
                 }
 
                 [Name("System.String")]
-                public abstract class cors : LiteralType<string>
+                public class cors : LiteralType<string>
                 {
                     private extern cors();
                 }
 
                 [Name("System.String")]
-                public abstract class follow : LiteralType<string>
+                public class follow : LiteralType<string>
                 {
                     private extern follow();
                 }
 
                 [Name("System.String")]
-                public abstract class error : LiteralType<string>
+                public class error : LiteralType<string>
                 {
                     private extern error();
                 }
 
                 [Name("System.String")]
-                public abstract class audio : LiteralType<string>
+                public class audio : LiteralType<string>
                 {
                     private extern audio();
                 }
 
                 [Name("System.String")]
-                public abstract class font : LiteralType<string>
+                public class font : LiteralType<string>
                 {
                     private extern font();
                 }
 
                 [Name("System.String")]
-                public abstract class image : LiteralType<string>
+                public class image : LiteralType<string>
                 {
                     private extern image();
                 }
 
                 [Name("System.String")]
-                public abstract class script : LiteralType<string>
+                public class script : LiteralType<string>
                 {
                     private extern script();
                 }
 
                 [Name("System.String")]
-                public abstract class style : LiteralType<string>
+                public class style : LiteralType<string>
                 {
                     private extern style();
                 }
 
                 [Name("System.String")]
-                public abstract class video : LiteralType<string>
+                public class video : LiteralType<string>
                 {
                     private extern video();
                 }
 
                 [Name("System.String")]
-                public abstract class basic : LiteralType<string>
+                public class basic : LiteralType<string>
                 {
                     private extern basic();
                 }
 
                 [Name("System.String")]
-                public abstract class opaque : LiteralType<string>
+                public class opaque : LiteralType<string>
                 {
                     private extern opaque();
                 }
 
                 [Name("System.String")]
-                public abstract class opaqueredirect : LiteralType<string>
+                public class opaqueredirect : LiteralType<string>
                 {
                     private extern opaqueredirect();
                 }
 
                 [Name("System.String")]
-                public abstract class ScopedCred : LiteralType<string>
+                public class ScopedCred : LiteralType<string>
                 {
                     private extern ScopedCred();
                 }
 
                 [Name("System.String")]
-                public abstract class installing : LiteralType<string>
+                public class installing : LiteralType<string>
                 {
                     private extern installing();
                 }
 
                 [Name("System.String")]
-                public abstract class installed : LiteralType<string>
+                public class installed : LiteralType<string>
                 {
                     private extern installed();
                 }
 
                 [Name("System.String")]
-                public abstract class activating : LiteralType<string>
+                public class activating : LiteralType<string>
                 {
                     private extern activating();
                 }
 
                 [Name("System.String")]
-                public abstract class activated : LiteralType<string>
+                public class activated : LiteralType<string>
                 {
                     private extern activated();
                 }
 
                 [Name("System.String")]
-                public abstract class redundant : LiteralType<string>
+                public class redundant : LiteralType<string>
                 {
                     private extern redundant();
                 }
 
                 [Name("System.String")]
-                public abstract class subtitles : LiteralType<string>
+                public class subtitles : LiteralType<string>
                 {
                     private extern subtitles();
                 }
 
                 [Name("System.String")]
-                public abstract class captions : LiteralType<string>
+                public class captions : LiteralType<string>
                 {
                     private extern captions();
                 }
 
                 [Name("System.String")]
-                public abstract class descriptions : LiteralType<string>
+                public class descriptions : LiteralType<string>
                 {
                     private extern descriptions();
                 }
 
                 [Name("System.String")]
-                public abstract class chapters : LiteralType<string>
+                public class chapters : LiteralType<string>
                 {
                     private extern chapters();
                 }
 
                 [Name("System.String")]
-                public abstract class metadata : LiteralType<string>
+                public class metadata : LiteralType<string>
                 {
                     private extern metadata();
                 }
 
                 [Name("System.String")]
-                public abstract class disabled : LiteralType<string>
+                public class disabled : LiteralType<string>
                 {
                     private extern disabled();
                 }
 
                 [Name("System.String")]
-                public abstract class hidden : LiteralType<string>
+                public class hidden : LiteralType<string>
                 {
                     private extern hidden();
                 }
 
                 [Name("System.String")]
-                public abstract class showing : LiteralType<string>
+                public class showing : LiteralType<string>
                 {
                     private extern showing();
                 }
 
                 [Name("System.String")]
-                public abstract class usb : LiteralType<string>
+                public class usb : LiteralType<string>
                 {
                     private extern usb();
                 }
 
                 [Name("System.String")]
-                public abstract class nfc : LiteralType<string>
+                public class nfc : LiteralType<string>
                 {
                     private extern nfc();
                 }
 
                 [Name("System.String")]
-                public abstract class ble : LiteralType<string>
+                public class ble : LiteralType<string>
                 {
                     private extern ble();
                 }
 
                 [Name("System.String")]
-                public abstract class mounted : LiteralType<string>
+                public class mounted : LiteralType<string>
                 {
                     private extern mounted();
                 }
 
                 [Name("System.String")]
-                public abstract class navigation : LiteralType<string>
+                public class navigation : LiteralType<string>
                 {
                     private extern navigation();
                 }
 
                 [Name("System.String")]
-                public abstract class requested : LiteralType<string>
+                public class requested : LiteralType<string>
                 {
                     private extern requested();
                 }
 
                 [Name("System.String")]
-                public abstract class unmounted : LiteralType<string>
+                public class unmounted : LiteralType<string>
                 {
                     private extern unmounted();
                 }
 
                 [Name("System.String")]
-                public abstract class user : LiteralType<string>
+                public class user : LiteralType<string>
                 {
                     private extern user();
                 }
 
                 [Name("System.String")]
-                public abstract class environment : LiteralType<string>
+                public class environment : LiteralType<string>
                 {
                     private extern environment();
                 }
 
                 [Name("System.String")]
-                public abstract class visible : LiteralType<string>
+                public class visible : LiteralType<string>
                 {
                     private extern visible();
                 }
 
                 [Name("System.String")]
-                public abstract class unloaded : LiteralType<string>
+                public class unloaded : LiteralType<string>
                 {
                     private extern unloaded();
                 }
 
                 [Name("System.String")]
-                public abstract class json : LiteralType<string>
+                public class json : LiteralType<string>
                 {
                     private extern json();
                 }
 
                 [Name("System.String")]
-                public abstract class text : LiteralType<string>
+                public class text : LiteralType<string>
                 {
                     private extern text();
                 }
 
                 [Name("System.String")]
-                public abstract class idle : LiteralType<string>
+                public class idle : LiteralType<string>
                 {
                     private extern idle();
                 }
 
                 [Name("System.String")]
-                public abstract class paused : LiteralType<string>
+                public class paused : LiteralType<string>
                 {
                     private extern paused();
                 }
 
                 [Name("System.String")]
-                public abstract class finished : LiteralType<string>
+                public class finished : LiteralType<string>
                 {
                     private extern finished();
                 }
 
                 [Name("System.String")]
-                public abstract class normal : LiteralType<string>
+                public class normal : LiteralType<string>
                 {
                     private extern normal();
                 }
 
                 [Name("System.String")]
-                public abstract class reverse : LiteralType<string>
+                public class reverse : LiteralType<string>
                 {
                     private extern reverse();
                 }
 
                 [Name("System.String")]
-                public abstract class alternate : LiteralType<string>
+                public class alternate : LiteralType<string>
                 {
                     private extern alternate();
                 }
 
                 [Name("System.String")]
-                public abstract class alternate_reverse : LiteralType<string>
+                public class alternate_reverse : LiteralType<string>
                 {
                     private extern alternate_reverse();
                 }
 
                 [Name("System.String")]
-                public abstract class forwards : LiteralType<string>
+                public class forwards : LiteralType<string>
                 {
                     private extern forwards();
                 }
 
                 [Name("System.String")]
-                public abstract class backwards : LiteralType<string>
+                public class backwards : LiteralType<string>
                 {
                     private extern backwards();
                 }
 
                 [Name("System.String")]
-                public abstract class both : LiteralType<string>
+                public class both : LiteralType<string>
                 {
                     private extern both();
                 }
 
                 [Name("System.String")]
-                public abstract class http_SlashSlashwww_w3_orgSlash1999Slashxhtml : LiteralType<string>
+                public class http_SlashSlashwww_w3_orgSlash1999Slashxhtml : LiteralType<string>
                 {
                     private extern http_SlashSlashwww_w3_orgSlash1999Slashxhtml();
                 }
 
                 [Name("System.String")]
-                public abstract class http_SlashSlashwww_w3_orgSlash2000Slashsvg : LiteralType<string>
+                public class http_SlashSlashwww_w3_orgSlash2000Slashsvg : LiteralType<string>
                 {
                     private extern http_SlashSlashwww_w3_orgSlash2000Slashsvg();
                 }
 
                 [Name("System.String")]
-                public abstract class a : LiteralType<string>
+                public class a : LiteralType<string>
                 {
                     private extern a();
                 }
 
                 [Name("System.String")]
-                public abstract class circle : LiteralType<string>
+                public class circle : LiteralType<string>
                 {
                     private extern circle();
                 }
 
                 [Name("System.String")]
-                public abstract class clipPath : LiteralType<string>
+                public class clipPath : LiteralType<string>
                 {
                     private extern clipPath();
                 }
 
                 [Name("System.String")]
-                public abstract class componentTransferFunction : LiteralType<string>
+                public class componentTransferFunction : LiteralType<string>
                 {
                     private extern componentTransferFunction();
                 }
 
                 [Name("System.String")]
-                public abstract class defs : LiteralType<string>
+                public class defs : LiteralType<string>
                 {
                     private extern defs();
                 }
 
                 [Name("System.String")]
-                public abstract class desc : LiteralType<string>
+                public class desc : LiteralType<string>
                 {
                     private extern desc();
                 }
 
                 [Name("System.String")]
-                public abstract class ellipse : LiteralType<string>
+                public class ellipse : LiteralType<string>
                 {
                     private extern ellipse();
                 }
 
                 [Name("System.String")]
-                public abstract class feBlend : LiteralType<string>
+                public class feBlend : LiteralType<string>
                 {
                     private extern feBlend();
                 }
 
                 [Name("System.String")]
-                public abstract class feColorMatrix : LiteralType<string>
+                public class feColorMatrix : LiteralType<string>
                 {
                     private extern feColorMatrix();
                 }
 
                 [Name("System.String")]
-                public abstract class feComponentTransfer : LiteralType<string>
+                public class feComponentTransfer : LiteralType<string>
                 {
                     private extern feComponentTransfer();
                 }
 
                 [Name("System.String")]
-                public abstract class feComposite : LiteralType<string>
+                public class feComposite : LiteralType<string>
                 {
                     private extern feComposite();
                 }
 
                 [Name("System.String")]
-                public abstract class feConvolveMatrix : LiteralType<string>
+                public class feConvolveMatrix : LiteralType<string>
                 {
                     private extern feConvolveMatrix();
                 }
 
                 [Name("System.String")]
-                public abstract class feDiffuseLighting : LiteralType<string>
+                public class feDiffuseLighting : LiteralType<string>
                 {
                     private extern feDiffuseLighting();
                 }
 
                 [Name("System.String")]
-                public abstract class feDisplacementMap : LiteralType<string>
+                public class feDisplacementMap : LiteralType<string>
                 {
                     private extern feDisplacementMap();
                 }
 
                 [Name("System.String")]
-                public abstract class feDistantLight : LiteralType<string>
+                public class feDistantLight : LiteralType<string>
                 {
                     private extern feDistantLight();
                 }
 
                 [Name("System.String")]
-                public abstract class feFlood : LiteralType<string>
+                public class feFlood : LiteralType<string>
                 {
                     private extern feFlood();
                 }
 
                 [Name("System.String")]
-                public abstract class feFuncA : LiteralType<string>
+                public class feFuncA : LiteralType<string>
                 {
                     private extern feFuncA();
                 }
 
                 [Name("System.String")]
-                public abstract class feFuncB : LiteralType<string>
+                public class feFuncB : LiteralType<string>
                 {
                     private extern feFuncB();
                 }
 
                 [Name("System.String")]
-                public abstract class feFuncG : LiteralType<string>
+                public class feFuncG : LiteralType<string>
                 {
                     private extern feFuncG();
                 }
 
                 [Name("System.String")]
-                public abstract class feFuncR : LiteralType<string>
+                public class feFuncR : LiteralType<string>
                 {
                     private extern feFuncR();
                 }
 
                 [Name("System.String")]
-                public abstract class feGaussianBlur : LiteralType<string>
+                public class feGaussianBlur : LiteralType<string>
                 {
                     private extern feGaussianBlur();
                 }
 
                 [Name("System.String")]
-                public abstract class feImage : LiteralType<string>
+                public class feImage : LiteralType<string>
                 {
                     private extern feImage();
                 }
 
                 [Name("System.String")]
-                public abstract class feMerge : LiteralType<string>
+                public class feMerge : LiteralType<string>
                 {
                     private extern feMerge();
                 }
 
                 [Name("System.String")]
-                public abstract class feMergeNode : LiteralType<string>
+                public class feMergeNode : LiteralType<string>
                 {
                     private extern feMergeNode();
                 }
 
                 [Name("System.String")]
-                public abstract class feMorphology : LiteralType<string>
+                public class feMorphology : LiteralType<string>
                 {
                     private extern feMorphology();
                 }
 
                 [Name("System.String")]
-                public abstract class feOffset : LiteralType<string>
+                public class feOffset : LiteralType<string>
                 {
                     private extern feOffset();
                 }
 
                 [Name("System.String")]
-                public abstract class fePointLight : LiteralType<string>
+                public class fePointLight : LiteralType<string>
                 {
                     private extern fePointLight();
                 }
 
                 [Name("System.String")]
-                public abstract class feSpecularLighting : LiteralType<string>
+                public class feSpecularLighting : LiteralType<string>
                 {
                     private extern feSpecularLighting();
                 }
 
                 [Name("System.String")]
-                public abstract class feSpotLight : LiteralType<string>
+                public class feSpotLight : LiteralType<string>
                 {
                     private extern feSpotLight();
                 }
 
                 [Name("System.String")]
-                public abstract class feTile : LiteralType<string>
+                public class feTile : LiteralType<string>
                 {
                     private extern feTile();
                 }
 
                 [Name("System.String")]
-                public abstract class feTurbulence : LiteralType<string>
+                public class feTurbulence : LiteralType<string>
                 {
                     private extern feTurbulence();
                 }
 
                 [Name("System.String")]
-                public abstract class filter : LiteralType<string>
+                public class filter : LiteralType<string>
                 {
                     private extern filter();
                 }
 
                 [Name("System.String")]
-                public abstract class foreignObject : LiteralType<string>
+                public class foreignObject : LiteralType<string>
                 {
                     private extern foreignObject();
                 }
 
                 [Name("System.String")]
-                public abstract class g : LiteralType<string>
+                public class g : LiteralType<string>
                 {
                     private extern g();
                 }
 
                 [Name("System.String")]
-                public abstract class gradient : LiteralType<string>
+                public class gradient : LiteralType<string>
                 {
                     private extern gradient();
                 }
 
                 [Name("System.String")]
-                public abstract class line : LiteralType<string>
+                public class line : LiteralType<string>
                 {
                     private extern line();
                 }
 
                 [Name("System.String")]
-                public abstract class linearGradient : LiteralType<string>
+                public class linearGradient : LiteralType<string>
                 {
                     private extern linearGradient();
                 }
 
                 [Name("System.String")]
-                public abstract class marker : LiteralType<string>
+                public class marker : LiteralType<string>
                 {
                     private extern marker();
                 }
 
                 [Name("System.String")]
-                public abstract class mask : LiteralType<string>
+                public class mask : LiteralType<string>
                 {
                     private extern mask();
                 }
 
                 [Name("System.String")]
-                public abstract class path : LiteralType<string>
+                public class path : LiteralType<string>
                 {
                     private extern path();
                 }
 
                 [Name("System.String")]
-                public abstract class pattern : LiteralType<string>
+                public class pattern : LiteralType<string>
                 {
                     private extern pattern();
                 }
 
                 [Name("System.String")]
-                public abstract class polygon : LiteralType<string>
+                public class polygon : LiteralType<string>
                 {
                     private extern polygon();
                 }
 
                 [Name("System.String")]
-                public abstract class polyline : LiteralType<string>
+                public class polyline : LiteralType<string>
                 {
                     private extern polyline();
                 }
 
                 [Name("System.String")]
-                public abstract class radialGradient : LiteralType<string>
+                public class radialGradient : LiteralType<string>
                 {
                     private extern radialGradient();
                 }
 
                 [Name("System.String")]
-                public abstract class rect : LiteralType<string>
+                public class rect : LiteralType<string>
                 {
                     private extern rect();
                 }
 
                 [Name("System.String")]
-                public abstract class svg : LiteralType<string>
+                public class svg : LiteralType<string>
                 {
                     private extern svg();
                 }
 
                 [Name("System.String")]
-                public abstract class stop : LiteralType<string>
+                public class stop : LiteralType<string>
                 {
                     private extern stop();
                 }
 
                 [Name("System.String")]
-                public abstract class @switch : LiteralType<string>
+                public class @switch : LiteralType<string>
                 {
                     private extern @switch();
                 }
 
                 [Name("System.String")]
-                public abstract class symbol : LiteralType<string>
+                public class symbol : LiteralType<string>
                 {
                     private extern symbol();
                 }
 
                 [Name("System.String")]
-                public abstract class tspan : LiteralType<string>
+                public class tspan : LiteralType<string>
                 {
                     private extern tspan();
                 }
 
                 [Name("System.String")]
-                public abstract class textContent : LiteralType<string>
+                public class textContent : LiteralType<string>
                 {
                     private extern textContent();
                 }
 
                 [Name("System.String")]
-                public abstract class textPath : LiteralType<string>
+                public class textPath : LiteralType<string>
                 {
                     private extern textPath();
                 }
 
                 [Name("System.String")]
-                public abstract class textPositioning : LiteralType<string>
+                public class textPositioning : LiteralType<string>
                 {
                     private extern textPositioning();
                 }
 
                 [Name("System.String")]
-                public abstract class title : LiteralType<string>
+                public class title : LiteralType<string>
                 {
                     private extern title();
                 }
 
                 [Name("System.String")]
-                public abstract class use : LiteralType<string>
+                public class use : LiteralType<string>
                 {
                     private extern use();
                 }
 
                 [Name("System.String")]
-                public abstract class view : LiteralType<string>
+                public class view : LiteralType<string>
                 {
                     private extern view();
                 }
 
                 [Name("System.String")]
-                public abstract class AnimationEvent : LiteralType<string>
+                public class AnimationEvent : LiteralType<string>
                 {
                     private extern AnimationEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class AnimationPlaybackEvent : LiteralType<string>
+                public class AnimationPlaybackEvent : LiteralType<string>
                 {
                     private extern AnimationPlaybackEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class AudioProcessingEvent : LiteralType<string>
+                public class AudioProcessingEvent : LiteralType<string>
                 {
                     private extern AudioProcessingEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class BeforeUnloadEvent : LiteralType<string>
+                public class BeforeUnloadEvent : LiteralType<string>
                 {
                     private extern BeforeUnloadEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class ClipboardEvent : LiteralType<string>
+                public class ClipboardEvent : LiteralType<string>
                 {
                     private extern ClipboardEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class CloseEvent : LiteralType<string>
+                public class CloseEvent : LiteralType<string>
                 {
                     private extern CloseEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class CompositionEvent : LiteralType<string>
+                public class CompositionEvent : LiteralType<string>
                 {
                     private extern CompositionEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class CustomEvent : LiteralType<string>
+                public class CustomEvent : LiteralType<string>
                 {
                     private extern CustomEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class DeviceLightEvent : LiteralType<string>
+                public class DeviceLightEvent : LiteralType<string>
                 {
                     private extern DeviceLightEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class DeviceMotionEvent : LiteralType<string>
+                public class DeviceMotionEvent : LiteralType<string>
                 {
                     private extern DeviceMotionEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class DeviceOrientationEvent : LiteralType<string>
+                public class DeviceOrientationEvent : LiteralType<string>
                 {
                     private extern DeviceOrientationEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class DragEvent : LiteralType<string>
+                public class DragEvent : LiteralType<string>
                 {
                     private extern DragEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class ErrorEvent : LiteralType<string>
+                public class ErrorEvent : LiteralType<string>
                 {
                     private extern ErrorEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class Event : LiteralType<string>
+                public class Event : LiteralType<string>
                 {
                     private extern Event();
                 }
 
                 [Name("System.String")]
-                public abstract class Events : LiteralType<string>
+                public class Events : LiteralType<string>
                 {
                     private extern Events();
                 }
 
                 [Name("System.String")]
-                public abstract class FocusEvent : LiteralType<string>
+                public class FocusEvent : LiteralType<string>
                 {
                     private extern FocusEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class FocusNavigationEvent : LiteralType<string>
+                public class FocusNavigationEvent : LiteralType<string>
                 {
                     private extern FocusNavigationEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class GamepadEvent : LiteralType<string>
+                public class GamepadEvent : LiteralType<string>
                 {
                     private extern GamepadEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class HashChangeEvent : LiteralType<string>
+                public class HashChangeEvent : LiteralType<string>
                 {
                     private extern HashChangeEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class IDBVersionChangeEvent : LiteralType<string>
+                public class IDBVersionChangeEvent : LiteralType<string>
                 {
                     private extern IDBVersionChangeEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class KeyboardEvent : LiteralType<string>
+                public class KeyboardEvent : LiteralType<string>
                 {
                     private extern KeyboardEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class ListeningStateChangedEvent : LiteralType<string>
+                public class ListeningStateChangedEvent : LiteralType<string>
                 {
                     private extern ListeningStateChangedEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MSDCCEvent : LiteralType<string>
+                public class MSDCCEvent : LiteralType<string>
                 {
                     private extern MSDCCEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MSDSHEvent : LiteralType<string>
+                public class MSDSHEvent : LiteralType<string>
                 {
                     private extern MSDSHEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MSMediaKeyMessageEvent : LiteralType<string>
+                public class MSMediaKeyMessageEvent : LiteralType<string>
                 {
                     private extern MSMediaKeyMessageEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MSMediaKeyNeededEvent : LiteralType<string>
+                public class MSMediaKeyNeededEvent : LiteralType<string>
                 {
                     private extern MSMediaKeyNeededEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MediaEncryptedEvent : LiteralType<string>
+                public class MediaEncryptedEvent : LiteralType<string>
                 {
                     private extern MediaEncryptedEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MediaKeyMessageEvent : LiteralType<string>
+                public class MediaKeyMessageEvent : LiteralType<string>
                 {
                     private extern MediaKeyMessageEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MediaStreamErrorEvent : LiteralType<string>
+                public class MediaStreamErrorEvent : LiteralType<string>
                 {
                     private extern MediaStreamErrorEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MediaStreamEvent : LiteralType<string>
+                public class MediaStreamEvent : LiteralType<string>
                 {
                     private extern MediaStreamEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MediaStreamTrackEvent : LiteralType<string>
+                public class MediaStreamTrackEvent : LiteralType<string>
                 {
                     private extern MediaStreamTrackEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MessageEvent : LiteralType<string>
+                public class MessageEvent : LiteralType<string>
                 {
                     private extern MessageEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MouseEvent : LiteralType<string>
+                public class MouseEvent : LiteralType<string>
                 {
                     private extern MouseEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MouseEvents : LiteralType<string>
+                public class MouseEvents : LiteralType<string>
                 {
                     private extern MouseEvents();
                 }
 
                 [Name("System.String")]
-                public abstract class MutationEvent : LiteralType<string>
+                public class MutationEvent : LiteralType<string>
                 {
                     private extern MutationEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class MutationEvents : LiteralType<string>
+                public class MutationEvents : LiteralType<string>
                 {
                     private extern MutationEvents();
                 }
 
                 [Name("System.String")]
-                public abstract class OfflineAudioCompletionEvent : LiteralType<string>
+                public class OfflineAudioCompletionEvent : LiteralType<string>
                 {
                     private extern OfflineAudioCompletionEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class OverflowEvent : LiteralType<string>
+                public class OverflowEvent : LiteralType<string>
                 {
                     private extern OverflowEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class PageTransitionEvent : LiteralType<string>
+                public class PageTransitionEvent : LiteralType<string>
                 {
                     private extern PageTransitionEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class PaymentRequestUpdateEvent : LiteralType<string>
+                public class PaymentRequestUpdateEvent : LiteralType<string>
                 {
                     private extern PaymentRequestUpdateEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class PermissionRequestedEvent : LiteralType<string>
+                public class PermissionRequestedEvent : LiteralType<string>
                 {
                     private extern PermissionRequestedEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class PointerEvent : LiteralType<string>
+                public class PointerEvent : LiteralType<string>
                 {
                     private extern PointerEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class PopStateEvent : LiteralType<string>
+                public class PopStateEvent : LiteralType<string>
                 {
                     private extern PopStateEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class ProgressEvent : LiteralType<string>
+                public class ProgressEvent : LiteralType<string>
                 {
                     private extern ProgressEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class PromiseRejectionEvent : LiteralType<string>
+                public class PromiseRejectionEvent : LiteralType<string>
                 {
                     private extern PromiseRejectionEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class RTCDTMFToneChangeEvent : LiteralType<string>
+                public class RTCDTMFToneChangeEvent : LiteralType<string>
                 {
                     private extern RTCDTMFToneChangeEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class RTCDtlsTransportStateChangedEvent : LiteralType<string>
+                public class RTCDtlsTransportStateChangedEvent : LiteralType<string>
                 {
                     private extern RTCDtlsTransportStateChangedEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class RTCIceCandidatePairChangedEvent : LiteralType<string>
+                public class RTCIceCandidatePairChangedEvent : LiteralType<string>
                 {
                     private extern RTCIceCandidatePairChangedEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class RTCIceGathererEvent : LiteralType<string>
+                public class RTCIceGathererEvent : LiteralType<string>
                 {
                     private extern RTCIceGathererEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class RTCIceTransportStateChangedEvent : LiteralType<string>
+                public class RTCIceTransportStateChangedEvent : LiteralType<string>
                 {
                     private extern RTCIceTransportStateChangedEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class RTCPeerConnectionIceEvent : LiteralType<string>
+                public class RTCPeerConnectionIceEvent : LiteralType<string>
                 {
                     private extern RTCPeerConnectionIceEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class RTCSsrcConflictEvent : LiteralType<string>
+                public class RTCSsrcConflictEvent : LiteralType<string>
                 {
                     private extern RTCSsrcConflictEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class SVGZoomEvent : LiteralType<string>
+                public class SVGZoomEvent : LiteralType<string>
                 {
                     private extern SVGZoomEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class SVGZoomEvents : LiteralType<string>
+                public class SVGZoomEvents : LiteralType<string>
                 {
                     private extern SVGZoomEvents();
                 }
 
                 [Name("System.String")]
-                public abstract class SecurityPolicyViolationEvent : LiteralType<string>
+                public class SecurityPolicyViolationEvent : LiteralType<string>
                 {
                     private extern SecurityPolicyViolationEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class ServiceWorkerMessageEvent : LiteralType<string>
+                public class ServiceWorkerMessageEvent : LiteralType<string>
                 {
                     private extern ServiceWorkerMessageEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class SpeechSynthesisEvent : LiteralType<string>
+                public class SpeechSynthesisEvent : LiteralType<string>
                 {
                     private extern SpeechSynthesisEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class StorageEvent : LiteralType<string>
+                public class StorageEvent : LiteralType<string>
                 {
                     private extern StorageEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class TextEvent : LiteralType<string>
+                public class TextEvent : LiteralType<string>
                 {
                     private extern TextEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class TouchEvent : LiteralType<string>
+                public class TouchEvent : LiteralType<string>
                 {
                     private extern TouchEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class TrackEvent : LiteralType<string>
+                public class TrackEvent : LiteralType<string>
                 {
                     private extern TrackEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class TransitionEvent : LiteralType<string>
+                public class TransitionEvent : LiteralType<string>
                 {
                     private extern TransitionEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class UIEvent : LiteralType<string>
+                public class UIEvent : LiteralType<string>
                 {
                     private extern UIEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class UIEvents : LiteralType<string>
+                public class UIEvents : LiteralType<string>
                 {
                     private extern UIEvents();
                 }
 
                 [Name("System.String")]
-                public abstract class VRDisplayEvent : LiteralType<string>
+                public class VRDisplayEvent : LiteralType<string>
                 {
                     private extern VRDisplayEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class VRDisplayEvent_ : LiteralType<string>
+                public class VRDisplayEvent_ : LiteralType<string>
                 {
                     private extern VRDisplayEvent_();
                 }
 
                 [Name("System.String")]
-                public abstract class WebGLContextEvent : LiteralType<string>
+                public class WebGLContextEvent : LiteralType<string>
                 {
                     private extern WebGLContextEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class WheelEvent : LiteralType<string>
+                public class WheelEvent : LiteralType<string>
                 {
                     private extern WheelEvent();
                 }
 
                 [Name("System.String")]
-                public abstract class _2d : LiteralType<string>
+                public class _2d : LiteralType<string>
                 {
                     private extern _2d();
                 }
 
                 [Name("System.String")]
-                public abstract class webgl : LiteralType<string>
+                public class webgl : LiteralType<string>
                 {
                     private extern webgl();
                 }
 
                 [Name("System.String")]
-                public abstract class experimental_webgl : LiteralType<string>
+                public class experimental_webgl : LiteralType<string>
                 {
                     private extern experimental_webgl();
                 }
 
                 [Name("System.String")]
-                public abstract class async : LiteralType<string>
+                public class async : LiteralType<string>
                 {
                     private extern async();
                 }
 
                 [Name("System.String")]
-                public abstract class sync : LiteralType<string>
+                public class sync : LiteralType<string>
                 {
                     private extern sync();
                 }
 
                 [Name("System.String")]
-                public abstract class forward : LiteralType<string>
+                public class forward : LiteralType<string>
                 {
                     private extern forward();
                 }
 
                 [Name("System.String")]
-                public abstract class backward : LiteralType<string>
+                public class backward : LiteralType<string>
                 {
                     private extern backward();
                 }
 
                 [Name("System.String")]
-                public abstract class flipY : LiteralType<string>
+                public class flipY : LiteralType<string>
                 {
                     private extern flipY();
                 }
 
                 [Name("System.String")]
-                public abstract class premultiply : LiteralType<string>
+                public class premultiply : LiteralType<string>
                 {
                     private extern premultiply();
                 }
 
                 [Name("System.String")]
-                public abstract class pixelated : LiteralType<string>
+                public class pixelated : LiteralType<string>
                 {
                     private extern pixelated();
                 }
 
                 [Name("System.String")]
-                public abstract class low : LiteralType<string>
+                public class low : LiteralType<string>
                 {
                     private extern low();
                 }
 
                 [Name("System.String")]
-                public abstract class medium : LiteralType<string>
+                public class medium : LiteralType<string>
                 {
                     private extern medium();
                 }
 
                 [Name("System.String")]
-                public abstract class high : LiteralType<string>
+                public class high : LiteralType<string>
                 {
                     private extern high();
                 }
 
                 [Name("System.String")]
-                public abstract class EXT_blend_minmax : LiteralType<string>
+                public class EXT_blend_minmax : LiteralType<string>
                 {
                     private extern EXT_blend_minmax();
                 }
 
                 [Name("System.String")]
-                public abstract class EXT_texture_filter_anisotropic : LiteralType<string>
+                public class EXT_texture_filter_anisotropic : LiteralType<string>
                 {
                     private extern EXT_texture_filter_anisotropic();
                 }
 
                 [Name("System.String")]
-                public abstract class EXT_frag_depth : LiteralType<string>
+                public class EXT_frag_depth : LiteralType<string>
                 {
                     private extern EXT_frag_depth();
                 }
 
                 [Name("System.String")]
-                public abstract class EXT_shader_texture_lod : LiteralType<string>
+                public class EXT_shader_texture_lod : LiteralType<string>
                 {
                     private extern EXT_shader_texture_lod();
                 }
 
                 [Name("System.String")]
-                public abstract class EXT_sRGB : LiteralType<string>
+                public class EXT_sRGB : LiteralType<string>
                 {
                     private extern EXT_sRGB();
                 }
 
                 [Name("System.String")]
-                public abstract class OES_vertex_array_object : LiteralType<string>
+                public class OES_vertex_array_object : LiteralType<string>
                 {
                     private extern OES_vertex_array_object();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_color_buffer_float : LiteralType<string>
+                public class WEBGL_color_buffer_float : LiteralType<string>
                 {
                     private extern WEBGL_color_buffer_float();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_compressed_texture_astc : LiteralType<string>
+                public class WEBGL_compressed_texture_astc : LiteralType<string>
                 {
                     private extern WEBGL_compressed_texture_astc();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_compressed_texture_s3tc_srgb : LiteralType<string>
+                public class WEBGL_compressed_texture_s3tc_srgb : LiteralType<string>
                 {
                     private extern WEBGL_compressed_texture_s3tc_srgb();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_debug_shaders : LiteralType<string>
+                public class WEBGL_debug_shaders : LiteralType<string>
                 {
                     private extern WEBGL_debug_shaders();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_draw_buffers : LiteralType<string>
+                public class WEBGL_draw_buffers : LiteralType<string>
                 {
                     private extern WEBGL_draw_buffers();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_lose_context : LiteralType<string>
+                public class WEBGL_lose_context : LiteralType<string>
                 {
                     private extern WEBGL_lose_context();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_depth_texture : LiteralType<string>
+                public class WEBGL_depth_texture : LiteralType<string>
                 {
                     private extern WEBGL_depth_texture();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_debug_renderer_info : LiteralType<string>
+                public class WEBGL_debug_renderer_info : LiteralType<string>
                 {
                     private extern WEBGL_debug_renderer_info();
                 }
 
                 [Name("System.String")]
-                public abstract class WEBGL_compressed_texture_s3tc : LiteralType<string>
+                public class WEBGL_compressed_texture_s3tc : LiteralType<string>
                 {
                     private extern WEBGL_compressed_texture_s3tc();
                 }
 
                 [Name("System.String")]
-                public abstract class OES_texture_half_float_linear : LiteralType<string>
+                public class OES_texture_half_float_linear : LiteralType<string>
                 {
                     private extern OES_texture_half_float_linear();
                 }
 
                 [Name("System.String")]
-                public abstract class OES_texture_half_float : LiteralType<string>
+                public class OES_texture_half_float : LiteralType<string>
                 {
                     private extern OES_texture_half_float();
                 }
 
                 [Name("System.String")]
-                public abstract class OES_texture_float_linear : LiteralType<string>
+                public class OES_texture_float_linear : LiteralType<string>
                 {
                     private extern OES_texture_float_linear();
                 }
 
                 [Name("System.String")]
-                public abstract class OES_texture_float : LiteralType<string>
+                public class OES_texture_float : LiteralType<string>
                 {
                     private extern OES_texture_float();
                 }
 
                 [Name("System.String")]
-                public abstract class OES_standard_derivatives : LiteralType<string>
+                public class OES_standard_derivatives : LiteralType<string>
                 {
                     private extern OES_standard_derivatives();
                 }
 
                 [Name("System.String")]
-                public abstract class OES_element_index_uint : LiteralType<string>
+                public class OES_element_index_uint : LiteralType<string>
                 {
                     private extern OES_element_index_uint();
                 }
 
                 [Name("System.String")]
-                public abstract class ANGLE_instanced_arrays : LiteralType<string>
+                public class ANGLE_instanced_arrays : LiteralType<string>
                 {
                     private extern ANGLE_instanced_arrays();
                 }
@@ -64764,7 +64764,7 @@ namespace H5.Core
             public static class Options
             {
                 [Name("System.String")]
-                public abstract class type : LiteralType<string>
+                public class type : LiteralType<string>
                 {
                     [Template("<self>\"drag\"")]
                     public static readonly dom.Literals.Types.drag drag;
@@ -64811,7 +64811,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class playState : LiteralType<string>
+                public class playState : LiteralType<string>
                 {
                     [Template("<self>\"idle\"")]
                     public static readonly dom.Literals.Types.idle idle;
@@ -64838,7 +64838,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class direction : LiteralType<string>
+                public class direction : LiteralType<string>
                 {
                     [Template("<self>\"normal\"")]
                     public static readonly dom.Literals.Types.normal normal;
@@ -64865,7 +64865,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class fill : LiteralType<string>
+                public class fill : LiteralType<string>
                 {
                     [Template("<self>\"none\"")]
                     public static readonly dom.Literals.Types.none none;
@@ -64897,7 +64897,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class type2 : LiteralType<string>
+                public class type2 : LiteralType<string>
                 {
                     [Template("<self>\"drag\"")]
                     public static readonly dom.Literals.Types.drag drag;
@@ -64947,7 +64947,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class contextId : LiteralType<string>
+                public class contextId : LiteralType<string>
                 {
                     [Template("<self>\"webgl\"")]
                     public static readonly dom.Literals.Types.webgl webgl;
@@ -64964,7 +64964,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class decoding : LiteralType<string>
+                public class decoding : LiteralType<string>
                 {
                     [Template("<self>\"async\"")]
                     public static readonly dom.Literals.Types.async async;
@@ -64986,7 +64986,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class direction2 : LiteralType<string>
+                public class direction2 : LiteralType<string>
                 {
                     [Template("<self>\"forward\"")]
                     public static readonly dom.Literals.Types.forward forward;
@@ -65008,7 +65008,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class direction3 : LiteralType<string>
+                public class direction3 : LiteralType<string>
                 {
                     [Template("<self>\"forward\"")]
                     public static readonly dom.Literals.Types.forward forward;
@@ -65033,7 +65033,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class colorSpaceConversion : LiteralType<string>
+                public class colorSpaceConversion : LiteralType<string>
                 {
                     [Template("<self>\"none\"")]
                     public static readonly dom.Literals.Types.none none;
@@ -65050,7 +65050,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class imageOrientation : LiteralType<string>
+                public class imageOrientation : LiteralType<string>
                 {
                     [Template("<self>\"none\"")]
                     public static readonly dom.Literals.Types.none none;
@@ -65067,7 +65067,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class premultiplyAlpha : LiteralType<string>
+                public class premultiplyAlpha : LiteralType<string>
                 {
                     [Template("<self>\"none\"")]
                     public static readonly dom.Literals.Types.none none;
@@ -65092,7 +65092,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class resizeQuality : LiteralType<string>
+                public class resizeQuality : LiteralType<string>
                 {
                     [Template("<self>\"pixelated\"")]
                     public static readonly dom.Literals.Types.pixelated pixelated;
@@ -65119,7 +65119,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class mode : LiteralType<string>
+                public class mode : LiteralType<string>
                 {
                     [Template("<self>\"open\"")]
                     public static readonly dom.Literals.Types.open open;
@@ -65136,7 +65136,7 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public abstract class format : LiteralType<string>
+                public class format : LiteralType<string>
                 {
                     [Template("<self>\"raw\"")]
                     public static readonly dom.Literals.Types.raw raw;

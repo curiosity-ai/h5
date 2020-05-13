@@ -5,14 +5,14 @@
 // Assembly location: C:\work\curiosity\tesserae\Tesserae\bin\Debug\net461\H5.es5.dll
 
 using H5;
-using HTML;
+using H5.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace HTML
+namespace H5.Core
 {
     [Scope]
     [GlobalMethods]
@@ -1733,7 +1733,7 @@ namespace HTML
         {
             public extern es5.Promise<T> then();
 
-            public extern es5.Promise<HTML.Void> then(Action<T> onfulfilled);
+            public extern es5.Promise<H5.Core.Void> then(Action<T> onfulfilled);
 
             public extern es5.Promise<TResult> then<TResult>(Func<T, TResult> onfulfilled);
 
@@ -1766,7 +1766,7 @@ namespace HTML
         {
             public extern es5.Promise<T> then();
 
-            public extern es5.Promise<HTML.Void> then(Action<T> onfulfilled);
+            public extern es5.Promise<H5.Core.Void> then(Action<T> onfulfilled);
 
             public extern es5.Promise<TResult> then<TResult>(Func<T, TResult> onfulfilled);
 
@@ -1791,7 +1791,7 @@ namespace HTML
             public extern es5.Promise<T> @catch();
 
             [Name("catch")]
-            public extern es5.Promise<Union<T, HTML.Void>> @catch(
+            public extern es5.Promise<Union<T, H5.Core.Void>> @catch(
               Action<object> onrejected);
 
             [Name("catch")]
@@ -6065,36 +6065,36 @@ namespace HTML
         {
             [Template("{this}({0})")]
             [Where("TFunction", typeof(es5.Function), EnableImplicitConversion = true)]
-            public extern Union<TFunction, HTML.Void> Invoke<TFunction>(
+            public extern Union<TFunction, H5.Core.Void> Invoke<TFunction>(
               TFunction target);
         }
 
-        public delegate void PropertyDecorator(HTML.Object target, Union<string, symbol> propertyKey);
+        public delegate void PropertyDecorator(H5.Core.Object target, Union<string, symbol> propertyKey);
 
         [Virtual]
         public abstract class MethodDecorator : IObject
         {
             [Template("{this}({0}, {1}, {2})")]
-            public extern Union<es5.TypedPropertyDescriptor<T>, HTML.Void> Invoke<T>(
-              HTML.Object target,
+            public extern Union<es5.TypedPropertyDescriptor<T>, H5.Core.Void> Invoke<T>(
+              H5.Core.Object target,
               Union<string, symbol> propertyKey,
               es5.TypedPropertyDescriptor<T> descriptor);
 
             [Template("{this}({0}, {1}, {2})")]
-            public extern Union<es5.TypedPropertyDescriptor<T>, HTML.Void> Invoke<T>(
-              HTML.Object target,
+            public extern Union<es5.TypedPropertyDescriptor<T>, H5.Core.Void> Invoke<T>(
+              H5.Core.Object target,
               string propertyKey,
               es5.TypedPropertyDescriptor<T> descriptor);
 
             [Template("{this}({0}, {1}, {2})")]
-            public extern Union<es5.TypedPropertyDescriptor<T>, HTML.Void> Invoke<T>(
-              HTML.Object target,
+            public extern Union<es5.TypedPropertyDescriptor<T>, H5.Core.Void> Invoke<T>(
+              H5.Core.Object target,
               symbol propertyKey,
               es5.TypedPropertyDescriptor<T> descriptor);
         }
 
         public delegate void ParameterDecorator(
-          HTML.Object target,
+          H5.Core.Object target,
           Union<string, symbol> propertyKey,
           double parameterIndex);
 
@@ -6139,7 +6139,7 @@ namespace HTML
 
         [IgnoreGeneric(AllowInTypeScript = true)]
         [ObjectLiteral]
-        [Where("K", typeof(HTML.String.Interface), EnableImplicitConversion = true)]
+        [Where("K", typeof(H5.Core.String.Interface), EnableImplicitConversion = true)]
         public class Record<K, T> : IObject
         {
             public extern T this[string P] { get; set; }

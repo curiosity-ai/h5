@@ -5,7 +5,6 @@
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <DefineConstants>H5</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup>

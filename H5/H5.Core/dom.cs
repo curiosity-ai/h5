@@ -5,12 +5,12 @@
 // Assembly location: C:\work\curiosity\tesserae\Tesserae\bin\Debug\net461\H5.dom.dll
 
 using H5;
-using HTML;
+using H5.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace HTML
+namespace H5.Core
 {
     [Scope]
     [GlobalMethods]
@@ -6934,7 +6934,7 @@ namespace HTML
 
             public abstract dom.AudioContextState state  { get; }
 
-            public abstract es5.Promise<HTML.Void> close();
+            public abstract es5.Promise<H5.Core.Void> close();
 
             public abstract dom.AnalyserNode createAnalyser();
 
@@ -7014,7 +7014,7 @@ namespace HTML
               dom.DecodeSuccessCallback successCallback,
               dom.DecodeErrorCallback errorCallback);
 
-            public abstract es5.Promise<HTML.Void> resume();
+            public abstract es5.Promise<H5.Core.Void> resume();
 
             [Where("K", typeof(KeyOf<dom.AudioContextEventMap>), EnableImplicitConversion = true)]
             public abstract void addEventListener<K>(
@@ -7116,7 +7116,7 @@ namespace HTML
         {
             public static dom.AudioContext prototype { get; set; }
 
-            public virtual extern es5.Promise<HTML.Void> suspend();
+            public virtual extern es5.Promise<H5.Core.Void> suspend();
 
             public override extern double currentTime  { get; }
 
@@ -7128,7 +7128,7 @@ namespace HTML
 
             public override extern dom.AudioContextState state  { get; }
 
-            public override extern es5.Promise<HTML.Void> close();
+            public override extern es5.Promise<H5.Core.Void> close();
 
             public override extern dom.AnalyserNode createAnalyser();
 
@@ -7211,7 +7211,7 @@ namespace HTML
               dom.DecodeSuccessCallback successCallback,
               dom.DecodeErrorCallback errorCallback);
 
-            public override extern es5.Promise<HTML.Void> resume();
+            public override extern es5.Promise<H5.Core.Void> resume();
 
             public override extern void addEventListener<K>(
               K type,
@@ -8962,19 +8962,19 @@ namespace HTML
         {
             public static dom.Cache prototype { get; set; }
 
-            public virtual extern es5.Promise<HTML.Void> add(
+            public virtual extern es5.Promise<H5.Core.Void> add(
               Union<dom.Request, string> request);
 
-            public virtual extern es5.Promise<HTML.Void> add(dom.Request request);
+            public virtual extern es5.Promise<H5.Core.Void> add(dom.Request request);
 
-            public virtual extern es5.Promise<HTML.Void> add(string request);
+            public virtual extern es5.Promise<H5.Core.Void> add(string request);
 
-            public virtual extern es5.Promise<HTML.Void> addAll(
+            public virtual extern es5.Promise<H5.Core.Void> addAll(
               Union<dom.Request, string>[] requests);
 
-            public virtual extern es5.Promise<HTML.Void> addAll(dom.Request[] requests);
+            public virtual extern es5.Promise<H5.Core.Void> addAll(dom.Request[] requests);
 
-            public virtual extern es5.Promise<HTML.Void> addAll(string[] requests);
+            public virtual extern es5.Promise<H5.Core.Void> addAll(string[] requests);
 
             public virtual extern es5.Promise<bool> delete(Union<dom.Request, string> request);
 
@@ -9053,15 +9053,15 @@ namespace HTML
               string request,
               dom.CacheQueryOptions options);
 
-            public virtual extern es5.Promise<HTML.Void> put(
+            public virtual extern es5.Promise<H5.Core.Void> put(
               Union<dom.Request, string> request,
               dom.Response response);
 
-            public virtual extern es5.Promise<HTML.Void> put(
+            public virtual extern es5.Promise<H5.Core.Void> put(
               dom.Request request,
               dom.Response response);
 
-            public virtual extern es5.Promise<HTML.Void> put(
+            public virtual extern es5.Promise<H5.Core.Void> put(
               string request,
               dom.Response response);
         }
@@ -10071,7 +10071,7 @@ namespace HTML
 
             public abstract object get(string name);
 
-            public abstract es5.PromiseLike<HTML.Void> whenDefined(string name);
+            public abstract es5.PromiseLike<H5.Core.Void> whenDefined(string name);
         }
 
         [IgnoreCast]
@@ -19352,9 +19352,9 @@ namespace HTML
 
             public virtual extern void pause();
 
-            public virtual extern es5.Promise<HTML.Void> play();
+            public virtual extern es5.Promise<H5.Core.Void> play();
 
-            public virtual extern es5.Promise<HTML.Void> setMediaKeys(
+            public virtual extern es5.Promise<H5.Core.Void> setMediaKeys(
               dom.MediaKeys mediaKeys);
 
             public virtual ushort HAVE_CURRENT_DATA { get; }
@@ -24910,7 +24910,7 @@ namespace HTML
         {
             public static dom.MediaKeySession prototype { get; set; }
 
-            public virtual es5.Promise<HTML.Void> closed { get; }
+            public virtual es5.Promise<H5.Core.Void> closed { get; }
 
             public virtual double expiration { get; }
 
@@ -24918,99 +24918,99 @@ namespace HTML
 
             public virtual string sessionId { get; }
 
-            public virtual extern es5.Promise<HTML.Void> close();
+            public virtual extern es5.Promise<H5.Core.Void> close();
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Int8Array initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Int16Array initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Int32Array initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Uint8Array initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Uint16Array initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Uint32Array initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Uint8ClampedArray initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Float32Array initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.Float64Array initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.DataView initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               es5.ArrayBuffer initData);
 
-            public virtual extern es5.Promise<HTML.Void> generateRequest(
+            public virtual extern es5.Promise<H5.Core.Void> generateRequest(
               string initDataType,
               Null initData);
 
             public virtual extern es5.Promise<bool> load(string sessionId);
 
-            public virtual extern es5.Promise<HTML.Void> remove();
+            public virtual extern es5.Promise<H5.Core.Void> remove();
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> response);
 
-            public virtual extern es5.Promise<HTML.Void> update(es5.Int8Array response);
+            public virtual extern es5.Promise<H5.Core.Void> update(es5.Int8Array response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.Int16Array response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.Int32Array response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.Uint8Array response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.Uint16Array response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.Uint32Array response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.Uint8ClampedArray response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.Float32Array response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.Float64Array response);
 
-            public virtual extern es5.Promise<HTML.Void> update(es5.DataView response);
+            public virtual extern es5.Promise<H5.Core.Void> update(es5.DataView response);
 
-            public virtual extern es5.Promise<HTML.Void> update(
+            public virtual extern es5.Promise<H5.Core.Void> update(
               es5.ArrayBuffer response);
 
-            public virtual extern es5.Promise<HTML.Void> update(Null response);
+            public virtual extern es5.Promise<H5.Core.Void> update(Null response);
         }
 
         [CombinedClass]
@@ -25111,43 +25111,43 @@ namespace HTML
 
             public virtual extern dom.MediaKeySession createSession(dom.MediaKeySessionType sessionType);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Int8Array serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Int16Array serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Int32Array serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Uint8Array serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Uint16Array serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Uint32Array serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Uint8ClampedArray serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Float32Array serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.Float64Array serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.DataView serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               es5.ArrayBuffer serverCertificate);
 
-            public virtual extern es5.Promise<HTML.Void> setServerCertificate(
+            public virtual extern es5.Promise<H5.Core.Void> setServerCertificate(
               Null serverCertificate);
         }
 
@@ -25489,7 +25489,7 @@ namespace HTML
 
             public virtual bool remote { get; }
 
-            public virtual extern es5.Promise<HTML.Void> applyConstraints(
+            public virtual extern es5.Promise<H5.Core.Void> applyConstraints(
               dom.MediaTrackConstraints constraints);
 
             public virtual extern dom.MediaStreamTrack clone();
@@ -26996,7 +26996,7 @@ namespace HTML
 
             public virtual extern es5.Promise<dom.AudioBuffer> startRendering();
 
-            public virtual extern es5.Promise<HTML.Void> suspend(double suspendTime);
+            public virtual extern es5.Promise<H5.Core.Void> suspend(double suspendTime);
 
             [Where("K", typeof(KeyOf<dom.OfflineAudioContextEventMap>), EnableImplicitConversion = true)]
             public virtual extern void addEventListener<K>(
@@ -27054,7 +27054,7 @@ namespace HTML
 
             public override extern dom.AudioContextState state  { get; }
 
-            public override extern es5.Promise<HTML.Void> close();
+            public override extern es5.Promise<H5.Core.Void> close();
 
             public override extern dom.AnalyserNode createAnalyser();
 
@@ -27137,7 +27137,7 @@ namespace HTML
               dom.DecodeSuccessCallback successCallback,
               dom.DecodeErrorCallback errorCallback);
 
-            public override extern es5.Promise<HTML.Void> resume();
+            public override extern es5.Promise<H5.Core.Void> resume();
 
             public override extern void addEventListener<K>(
               K type,
@@ -27746,7 +27746,7 @@ namespace HTML
 
             public virtual dom.PaymentShippingType shippingType { get; }
 
-            public virtual extern es5.Promise<HTML.Void> abort();
+            public virtual extern es5.Promise<H5.Core.Void> abort();
 
             public virtual extern es5.Promise<bool> canMakePayment();
 
@@ -27887,9 +27887,9 @@ namespace HTML
 
             public virtual string shippingOption { get; }
 
-            public virtual extern es5.Promise<HTML.Void> complete();
+            public virtual extern es5.Promise<H5.Core.Void> complete();
 
-            public virtual extern es5.Promise<HTML.Void> complete(
+            public virtual extern es5.Promise<H5.Core.Void> complete(
               dom.PaymentComplete result);
 
             public virtual extern object toJSON();
@@ -29507,13 +29507,13 @@ namespace HTML
 
             public virtual dom.RTCSignalingState signalingState { get; }
 
-            public virtual extern es5.Promise<HTML.Void> addIceCandidate(
+            public virtual extern es5.Promise<H5.Core.Void> addIceCandidate(
               Union<dom.RTCIceCandidateInit, dom.RTCIceCandidate> candidate);
 
-            public virtual extern es5.Promise<HTML.Void> addIceCandidate(
+            public virtual extern es5.Promise<H5.Core.Void> addIceCandidate(
               dom.RTCIceCandidateInit candidate);
 
-            public virtual extern es5.Promise<HTML.Void> addIceCandidate(
+            public virtual extern es5.Promise<H5.Core.Void> addIceCandidate(
               dom.RTCIceCandidate candidate);
 
             public virtual extern void addStream(dom.MediaStream stream);
@@ -29552,10 +29552,10 @@ namespace HTML
 
             public virtual extern void removeStream(dom.MediaStream stream);
 
-            public virtual extern es5.Promise<HTML.Void> setLocalDescription(
+            public virtual extern es5.Promise<H5.Core.Void> setLocalDescription(
               dom.RTCSessionDescriptionInit description);
 
-            public virtual extern es5.Promise<HTML.Void> setRemoteDescription(
+            public virtual extern es5.Promise<H5.Core.Void> setRemoteDescription(
               dom.RTCSessionDescriptionInit description);
 
             [Where("K", typeof(KeyOf<dom.RTCPeerConnectionEventMap>), EnableImplicitConversion = true)]
@@ -30508,7 +30508,7 @@ namespace HTML
 
             public virtual bool locked { get; }
 
-            public virtual extern es5.Promise<HTML.Void> cancel();
+            public virtual extern es5.Promise<H5.Core.Void> cancel();
 
             public virtual extern dom.ReadableStreamReader getReader();
         }
@@ -30519,7 +30519,7 @@ namespace HTML
         {
             public static dom.ReadableStreamReader prototype { get; set; }
 
-            public virtual extern es5.Promise<HTML.Void> cancel();
+            public virtual extern es5.Promise<H5.Core.Void> cancel();
 
             public virtual extern es5.Promise<object> read();
 
@@ -38420,15 +38420,15 @@ namespace HTML
             public virtual extern es5.Promise<dom.Notification[]> getNotifications(
               dom.GetNotificationOptions filter);
 
-            public virtual extern es5.Promise<HTML.Void> showNotification(string title);
+            public virtual extern es5.Promise<H5.Core.Void> showNotification(string title);
 
-            public virtual extern es5.Promise<HTML.Void> showNotification(
+            public virtual extern es5.Promise<H5.Core.Void> showNotification(
               string title,
               dom.NotificationOptions options);
 
             public virtual extern es5.Promise<bool> unregister();
 
-            public virtual extern es5.Promise<HTML.Void> update();
+            public virtual extern es5.Promise<H5.Core.Void> update();
 
             [Where("K", typeof(KeyOf<dom.ServiceWorkerRegistrationEventMap>), EnableImplicitConversion = true)]
             public virtual extern void addEventListener<K>(
@@ -40486,7 +40486,7 @@ namespace HTML
 
             public virtual extern es5.Promise<string[]> getTags();
 
-            public virtual extern es5.Promise<HTML.Void> register(string tag);
+            public virtual extern es5.Promise<H5.Core.Void> register(string tag);
         }
 
         [CombinedClass]
@@ -41443,7 +41443,7 @@ namespace HTML
 
             public virtual extern void cancelAnimationFrame(double handle);
 
-            public virtual extern es5.Promise<HTML.Void> exitPresent();
+            public virtual extern es5.Promise<H5.Core.Void> exitPresent();
 
             public virtual extern dom.VREyeParameters getEyeParameters(string whichEye);
 
@@ -41455,7 +41455,7 @@ namespace HTML
 
             public virtual extern double requestAnimationFrame(dom.FrameRequestCallback callback);
 
-            public virtual extern es5.Promise<HTML.Void> requestPresent(
+            public virtual extern es5.Promise<H5.Core.Void> requestPresent(
               dom.VRLayer[] layers);
 
             public virtual extern void resetPose();
@@ -47701,9 +47701,9 @@ namespace HTML
 
             public virtual bool locked { get; }
 
-            public virtual extern es5.Promise<HTML.Void> abort();
+            public virtual extern es5.Promise<H5.Core.Void> abort();
 
-            public virtual extern es5.Promise<HTML.Void> abort(object reason);
+            public virtual extern es5.Promise<H5.Core.Void> abort(object reason);
 
             public virtual extern dom.WritableStreamDefaultWriter getWriter();
         }
@@ -47725,17 +47725,17 @@ namespace HTML
         {
             public static dom.WritableStreamDefaultWriter prototype { get; set; }
 
-            public virtual es5.Promise<HTML.Void> closed { get; }
+            public virtual es5.Promise<H5.Core.Void> closed { get; }
 
             public virtual double desiredSize { get; }
 
-            public virtual es5.Promise<HTML.Void> ready { get; }
+            public virtual es5.Promise<H5.Core.Void> ready { get; }
 
-            public virtual extern es5.Promise<HTML.Void> abort();
+            public virtual extern es5.Promise<H5.Core.Void> abort();
 
-            public virtual extern es5.Promise<HTML.Void> abort(object reason);
+            public virtual extern es5.Promise<H5.Core.Void> abort(object reason);
 
-            public virtual extern es5.Promise<HTML.Void> close();
+            public virtual extern es5.Promise<H5.Core.Void> close();
 
             public virtual extern void releaseLock();
 

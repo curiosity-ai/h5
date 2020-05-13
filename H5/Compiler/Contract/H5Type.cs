@@ -566,10 +566,18 @@ namespace H5.Contract
             if (!ignoreVirtual && !isAlias)
             {
                 var td = type.GetDefinition();
-                if (td != null && emitter.Validator.IsVirtualType(td))
+                if (td != null && emitter.Validator.IsVirtualType(td)) 
                 {
-                    string fnName = td.Kind == TypeKind.Interface ? JS.Types.H5.GET_INTERFACE : JS.Types.H5.GET_CLASS;
-                    name = fnName + "(\"" + name + "\")";
+                    //RFO: Possible hack to avoid emitting H5.Core classes that are always going to map to javascript objects and not to actual classes
+                    if (td.FullName.StartsWith("H5.Core"))
+                    {
+                        Console.WriteLine($"Avoiding a virtual call for type: {td.FullName}");
+                    }
+                    else
+                    {
+                        string fnName = td.Kind == TypeKind.Interface ? JS.Types.H5.GET_INTERFACE : JS.Types.H5.GET_CLASS;
+                        name = fnName + "(\"" + name + "\")";
+                    }
                 }
                 else if (!isAlias && itypeDef != null && itypeDef.Kind == TypeKind.Interface)
                 {

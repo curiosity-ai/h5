@@ -11,7 +11,6 @@ namespace HTML
     [IgnoreCast]
     [Name("symbol")]
     [ExportedAs("symbol")]
-    [Virtual]
     public abstract class symbol
     {
     }

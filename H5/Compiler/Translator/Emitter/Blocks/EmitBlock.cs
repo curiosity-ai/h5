@@ -289,7 +289,7 @@ namespace H5.Translator
                 if (type.IsObjectLiteral)
                 {
                     var mode = this.Emitter.Validator.GetObjectCreateMode(this.Emitter.GetTypeDefinition(type.Type));
-                    var ignore = mode == 0 && !type.Type.GetMethods(null, GetMemberOptions.IgnoreInheritedMembers).Any(m => !m.IsConstructor && !m.IsAccessor);
+                    var ignore = mode == 0 && !type.Type.GetMethods(null, GetMemberOptions.IgnoreInheritedMembers).Any(m => !m.IsConstructor && !m.IsAccessor && !m.IsVirtual);
 
                     if (this.Emitter.Validator.IsExternalType(typeDef) || ignore)
                     {

@@ -10,6 +10,7 @@ namespace H5.Core
 {
     [IgnoreCast]
     [Namespace(false)]
+    [Virtual]
     public interface BooleanConstructor : IObject
     {
         [Template("new {this}()")]

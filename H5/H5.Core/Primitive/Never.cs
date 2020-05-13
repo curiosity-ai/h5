@@ -11,6 +11,7 @@ namespace H5.Core
 {
   [IgnoreCast]
   [ExportedAs("never")]
+  [Virtual]
   public class Never
   {
     private extern Never();

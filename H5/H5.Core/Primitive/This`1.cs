@@ -10,6 +10,7 @@ namespace H5.Core
 {
   [IgnoreGeneric(AllowInTypeScript = true)]
   [IgnoreCast]
+  [Virtual]
   public abstract class This<T>
   {
     private extern This();

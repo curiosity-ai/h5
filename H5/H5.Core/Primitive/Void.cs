@@ -10,6 +10,7 @@ namespace H5.Core
 {
   [IgnoreCast]
   [ExportedAs("void")]
+  [Virtual]
   public class Void
   {
     private extern Void();

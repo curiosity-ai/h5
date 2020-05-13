@@ -11,6 +11,7 @@ namespace H5.Core
 {
   [IgnoreCast]
   [ExportedAs("undefined")]
+  [Virtual]
   public class Undefined
   {
     [Template("undefined")]

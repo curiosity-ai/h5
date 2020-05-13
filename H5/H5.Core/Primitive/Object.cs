@@ -12,6 +12,7 @@ namespace H5.Core
     [CombinedClass]
     [StaticInterface("ObjectConstructor")]
     [Namespace(false)]
+    [Virtual]
     public class Object : Object.Interface, IObject
     {
         public extern Object();

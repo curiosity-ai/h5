@@ -11,9 +11,9 @@
     <IncludeSymbols>false</IncludeSymbols>
     <ApplicationIcon />
     <PackageId>h5</PackageId>
-    <Authors>Curiosity GmbH, Object.NET, Inc.</Authors>
-    <Company>Curiosity GmbH</Company>
-    <Description />
+    <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
+    <Company>Rafael Oliveira</Company>
+    <Description>Base library used by the .NET Core C# to JavaScript compiler 🚀</Description>
     <Copyright>(c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>0.0.42</Version>

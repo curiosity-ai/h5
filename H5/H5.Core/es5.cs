@@ -49,7 +49,6 @@ namespace HTML
         [IgnoreCast]
         [ObjectLiteral]
         [FormerInterface]
-        [Virtual]
         public class PropertyDescriptor : IObject
         {
             public bool? configurable
@@ -97,7 +96,6 @@ namespace HTML
         [CombinedClass]
         [StaticInterface("FunctionConstructor")]
         [FormerInterface]
-        [Virtual]
         public class Function : IObject
         {
             [ExpandParams]
@@ -339,7 +337,6 @@ namespace HTML
         [CombinedClass]
         [StaticInterface("DateConstructor")]
         [FormerInterface]
-        [Virtual]
         public class Date : IObject
         {
             public extern Date();
@@ -1128,7 +1125,6 @@ namespace HTML
         [CombinedClass]
         [StaticInterface("URIErrorConstructor")]
         [FormerInterface]
-        [Virtual]
         public class URIError : es5.Error
         {
             public extern URIError();

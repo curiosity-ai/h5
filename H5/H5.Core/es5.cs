@@ -6337,7 +6337,6 @@ namespace H5.Core
             //[IgnoreGeneric(AllowInTypeScript = true)]
             //[IgnoreCast]
             //[Virtual]
-        [External]
             //public abstract class InstanceTypeCtorFnAlias<T> : TypeAlias<es5.InstanceType<T>.InstanceTypeCtorFn<T>>
             //{
             //  public static extern implicit operator es5.InstanceType<T>.InstanceTypeCtorFnAlias<T>(

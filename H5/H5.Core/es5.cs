@@ -17,7 +17,6 @@ namespace HTML
     [Scope]
     [GlobalMethods]
     [Virtual]
-    [External]
     public static class es5
     {
         public static readonly double NaN;

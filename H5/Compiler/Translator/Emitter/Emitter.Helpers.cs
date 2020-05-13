@@ -210,7 +210,7 @@ namespace H5.Translator
                 }
                 else if (member.Name == CS.Methods.TOSTRING)
                 {
-                    tpl = string.Format(JS.Types.SYSTEM_NULLABLE + "." + JS.Funcs.TOSTIRNG + "({{this}}, {0})", tpl);
+                    tpl = string.Format(JS.Types.SYSTEM_NULLABLE + "." + JS.Funcs.TOSTRING + "({{this}}, {0})", tpl);
                 }
                 else if (member.Name == CS.Methods.GETHASHCODE)
                 {

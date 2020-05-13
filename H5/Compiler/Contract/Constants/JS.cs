@@ -69,7 +69,7 @@
             public const string CLONE = "$clone";
             public const string MOVE_NEXT = "moveNext";
             public const string GET_CURRENT = "Current";
-            public const string TOSTIRNG = "toString";
+            public const string TOSTRING = "toString";
             public const string EQUALS = "equals";
             public const string GETHASHCODE = "getHashCode";
             public const string GETDEFAULTVALUE = "getDefaultValue";

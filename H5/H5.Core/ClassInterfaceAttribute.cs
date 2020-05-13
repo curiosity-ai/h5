@@ -10,7 +10,6 @@ using System;
 namespace H5.Core
 {
     [AttributeUsage(AttributeTargets.Interface)]
-    [Virtual]
     public sealed class ClassInterfaceAttribute : Attribute
     {
     }

@@ -430,6 +430,12 @@ namespace H5.Translator
                 }
             }
 
+            //RFO: Temp fix for invalid handling of A?.Method() being converted to A != null ? A.Method() : ()null
+            if (rewriten[index].Contains("()null"))
+            {
+                rewriten[index] = rewriten[index].Replace("()null", "null");
+            }
+
             var syntaxTree = parser.Parse(rewriten[index], fileName);
             syntaxTree.FileName = fileName;
             this.Log.Trace("\tParsing syntax tree done");

@@ -10,7 +10,6 @@ namespace H5.Core
 {
     [IgnoreCast]
     [ObjectLiteral]
-    [Virtual]
     [ExportedAs("object")]
     public interface IObject
     {

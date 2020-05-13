@@ -16,9 +16,9 @@
     <ApplicationIcon />
     <LangVersion>latest</LangVersion>
     <PackageId>h5-compiler</PackageId>
-    <Authors>Curiosity GmbH, Object.NET, Inc.</Authors>
-    <Company>Curiosity GmbH</Company>
-    <Description />
+    <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
+    <Company></Company>
+    <Description>The .NET Core C# to JavaScript compiler 🚀</Description>
     <Copyright>(c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

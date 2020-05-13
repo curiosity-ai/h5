@@ -1550,6 +1550,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             if (typeArguments.Count == 0 && identifier == "dynamic") {
                 return new TypeResolveResult(SpecialType.Dynamic);
             } else {
+                //RFO: There is a bug that ends up here when using anonymous types: https://github.com/bridgedotnet/Bridge/issues/4065
+                // Need to check how to handle anonymous types properly (i.e. identifier == "anonymous" when it gets here)
                 return new UnknownIdentifierResolveResult(identifier, typeArguments.Count);
             }
         }

@@ -8,7 +8,6 @@ using H5;
 
 namespace H5.Core
 {
-    [Virtual]
     public abstract class CtorDelegate
     {
     }

@@ -12,6 +12,9 @@ namespace H5.Translator
         public ProjectProperties ProjectProperties { get; set; }
 
         public string ProjectLocation { get; set; }
+
+        internal bool SkipEmbeddingResources => ProjectLocation.Contains("H5.Core.csproj");
+
         public string OutputLocation { get; set; }
         public string DefaultFileName { get; set; }
         public string H5Location { get; set; }

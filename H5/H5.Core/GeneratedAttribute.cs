@@ -9,7 +9,6 @@ using System;
 
 namespace H5.Core
 {
-    [Virtual]
     public sealed class GeneratedAttribute : Attribute
     {
     }

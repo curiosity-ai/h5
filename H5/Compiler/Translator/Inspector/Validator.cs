@@ -518,6 +518,8 @@ namespace H5.Translator
 
         public virtual bool IsObjectLiteral(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type)
         {
+            if (type.FullName.StartsWith("H5.Core")) return true;
+
             var hasOL = this.HasAttribute(type.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
             if (!hasOL)
             {

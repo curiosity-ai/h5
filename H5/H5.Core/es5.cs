@@ -6298,7 +6298,6 @@ namespace H5.Core
             //[IgnoreGeneric(AllowInTypeScript = true)]
             //[IgnoreCast]
             //[Virtual]
-        [External]
             //public abstract class ReturnTypeFnAlias<T> : TypeAlias<es5.ReturnType<T>.ReturnTypeFn<T>>
             //{
             //  public static extern implicit operator es5.ReturnType<T>.ReturnTypeFnAlias<T>(

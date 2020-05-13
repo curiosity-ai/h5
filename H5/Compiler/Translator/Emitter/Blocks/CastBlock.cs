@@ -312,7 +312,7 @@ namespace H5.Translator
 
                 var fullName = type.FullName;
 
-                if (fullName.StartsWith("H5.") || fullName.StartsWith("System."))
+                if ((fullName.StartsWith("H5.") && !fullName.StartsWith("H5.Core")) || fullName.StartsWith("System."))
                 {
                     return false;
                 }

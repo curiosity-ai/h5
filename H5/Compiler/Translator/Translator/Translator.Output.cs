@@ -33,7 +33,7 @@ namespace H5.Translator
                         dtsReferences.Add(path);
                     }
 
-                    if (!addNoLibReference && item.Assembly.StartsWith("H5."))
+                    if (!addNoLibReference && (item.Assembly.StartsWith("H5.") && !item.Assembly.StartsWith("H5.Core")))
                     {
                         addNoLibReference = true;
                     }

@@ -14,7 +14,6 @@ namespace H5.Core
 {
     [Scope]
     [GlobalMethods]
-    [Virtual]
     public static class dom
     {
         public static readonly Never name;

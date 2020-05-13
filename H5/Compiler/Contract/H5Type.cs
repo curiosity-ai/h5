@@ -617,7 +617,7 @@ namespace H5.Contract
                 emitter,
                 astType.Parent is TypeOfExpression && symbol != null && symbol.SymbolKind == SymbolKind.TypeDefinition);
 
-            if (name != CS.NS.H5 && !name.StartsWith(CS.H5.DOTNAME) && astType.ToString().StartsWith(CS.NS.GLOBAL))
+            if (name != CS.NS.H5 && !(name.StartsWith(CS.H5.DOTNAME) && ! name.StartsWith("H5.Core")) && astType.ToString().StartsWith(CS.NS.GLOBAL))
             {
                 return JS.Types.H5.Global.DOTNAME + name;
             }

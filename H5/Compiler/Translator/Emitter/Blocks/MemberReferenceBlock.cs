@@ -96,7 +96,7 @@ namespace H5.Translator
 
             if (member.Member.IsStatic
                 && target != CS.NS.H5
-                && !target.StartsWith(CS.H5.DOTNAME)
+                && !(target.StartsWith(CS.H5.DOTNAME) && !target.StartsWith("H5.Core"))
                 && this.MemberReferenceExpression.Target.ToString().StartsWith(CS.NS.GLOBAL))
             {
                 this.Write(JS.Types.H5.Global.DOTNAME);

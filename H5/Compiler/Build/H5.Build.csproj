@@ -24,15 +24,15 @@
     <PackageReference Include="System.CodeDom" Version="4.7.0" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
-    <PackageReference Include="System.Composition.AttributedModel" Version="1.4.0" />
-    <PackageReference Include="System.Composition.Convention" Version="1.4.0" />
-    <PackageReference Include="System.Composition.Hosting" Version="1.4.0" />
-    <PackageReference Include="System.Composition.Runtime" Version="1.4.0" />
-    <PackageReference Include="System.Composition.TypedParts" Version="1.4.0" />
+    <PackageReference Include="System.Composition.AttributedModel" Version="1.4.1" />
+    <PackageReference Include="System.Composition.Convention" Version="1.4.1" />
+    <PackageReference Include="System.Composition.Hosting" Version="1.4.1" />
+    <PackageReference Include="System.Composition.Runtime" Version="1.4.1" />
+    <PackageReference Include="System.Composition.TypedParts" Version="1.4.1" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-    <PackageReference Include="System.Reflection.Metadata" Version="1.8.0" />
+    <PackageReference Include="System.Reflection.Metadata" Version="1.8.1" />
     <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
     <PackageReference Include="TopologicalSorting.netstandard" Version="1.0.3" />
   </ItemGroup>

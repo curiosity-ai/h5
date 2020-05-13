@@ -51,6 +51,7 @@ namespace H5.Core
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
+        [External]
         public class PropertyDescriptor : IObject
         {
             public bool? configurable
@@ -89,6 +90,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public class PropertyDescriptorMap : IObject
         {
@@ -99,6 +101,7 @@ namespace H5.Core
         [StaticInterface("FunctionConstructor")]
         [FormerInterface]
         [Virtual]
+        [External]
         public class Function : IObject
         {
             [ExpandParams]
@@ -168,6 +171,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public class IArguments : IObject
         {
@@ -186,6 +190,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class TemplateStringsArray : es5.ReadonlyArray<string>
         {
@@ -194,6 +199,7 @@ namespace H5.Core
 
         [CombinedClass]
         [Virtual]
+        [External]
         [StaticInterface("Math.Interface")]
         public static class Math
         {
@@ -341,6 +347,7 @@ namespace H5.Core
         [StaticInterface("DateConstructor")]
         [FormerInterface]
         [Virtual]
+        [External]
         public class Date : IObject
         {
             public extern Date();
@@ -674,6 +681,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public class RegExpMatchArray : es5.Array<string>
         {
@@ -691,6 +699,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public class RegExpExecArray : es5.Array<string>
         {
@@ -708,6 +717,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("RegExpConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class RegExp : IObject
         {
@@ -886,6 +896,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("ErrorConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Error : IObject
         {
@@ -939,6 +950,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("EvalErrorConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class EvalError : es5.Error
         {
@@ -977,6 +989,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("RangeErrorConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class RangeError : es5.Error
         {
@@ -1015,6 +1028,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("ReferenceErrorConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class ReferenceError : es5.Error
         {
@@ -1053,6 +1067,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("SyntaxErrorConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class SyntaxError : es5.Error
         {
@@ -1091,6 +1106,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("TypeErrorConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class TypeError : es5.Error
         {
@@ -1130,6 +1146,7 @@ namespace H5.Core
         [StaticInterface("URIErrorConstructor")]
         [FormerInterface]
         [Virtual]
+        [External]
         public class URIError : es5.Error
         {
             public extern URIError();
@@ -1167,6 +1184,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("JSON.Interface")]
         [Virtual]
+        [External]
         public static class JSON
         {
             public static extern object parse(string text);
@@ -1261,6 +1279,7 @@ namespace H5.Core
         [IgnoreCast]
         [IgnoreGeneric(AllowInTypeScript = true)]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class ReadonlyArray<T> : IObject
         {
@@ -1390,6 +1409,7 @@ namespace H5.Core
         [IgnoreCast]
         [IgnoreGeneric(AllowInTypeScript = true)]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class ConcatArray<T> : IObject
         {
@@ -1412,6 +1432,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Array<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IH5Class, IReadOnlyList<T>, IReadOnlyCollection<T>, ICollection, IObject
         {
@@ -1693,6 +1714,7 @@ namespace H5.Core
         [IgnoreGeneric(AllowInTypeScript = true)]
         [ObjectLiteral]
         [Virtual]
+        [External]
         [FormerInterface]
         public class TypedPropertyDescriptor<T> : IObject
         {
@@ -1733,6 +1755,7 @@ namespace H5.Core
         [IgnoreCast]
         [IgnoreGeneric(AllowInTypeScript = true)]
         [Virtual]
+        [External]
         [FormerInterface]
         public class PromiseLike<T>
         {
@@ -1766,6 +1789,7 @@ namespace H5.Core
         [IgnoreCast]
         [IgnoreGeneric(AllowInTypeScript = true)]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Promise<T>
         {
@@ -1830,6 +1854,7 @@ namespace H5.Core
         [IgnoreCast]
         [IgnoreGeneric(AllowInTypeScript = true)]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class ArrayLike<T> : IObject
         {
@@ -1852,6 +1877,7 @@ namespace H5.Core
         [IgnoreGeneric(AllowInTypeScript = true)]
         [ObjectLiteral]
         [Virtual]
+        [External]
         [FormerInterface]
         public class ThisType<T> : IObject
         {
@@ -1860,6 +1886,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("ArrayBufferConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class ArrayBuffer : IObject
         {
@@ -1885,6 +1912,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [Virtual]
+        [External]
         [FormerInterface]
         public class ArrayBufferTypes : IObject
         {
@@ -1905,6 +1933,7 @@ namespace H5.Core
         [IgnoreCast]
         [ObjectLiteral]
         [Virtual]
+        [External]
         [FormerInterface]
         public class ArrayBufferView : IObject
         {
@@ -1928,6 +1957,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("DataViewConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class DataView : IObject
         {
@@ -2040,6 +2070,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Int8ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Int8Array : IList<sbyte>, ICollection<sbyte>, IEnumerable<sbyte>, IEnumerable, IH5Class, IReadOnlyList<sbyte>, IReadOnlyCollection<sbyte>, ICollection, IObject
         {
@@ -2339,6 +2370,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Int8ArrayConstructor : IObject
         {
@@ -2398,6 +2430,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Uint8ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Uint8Array : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IH5Class, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
         {
@@ -2696,6 +2729,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Uint8ArrayConstructor : IObject
         {
@@ -2755,6 +2789,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Uint8ClampedArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Uint8ClampedArray : IList<byte>, ICollection<byte>, IEnumerable<byte>, IEnumerable, IH5Class, IReadOnlyList<byte>, IReadOnlyCollection<byte>, ICollection, IObject
         {
@@ -3063,6 +3098,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Uint8ClampedArrayConstructor : IObject
         {
@@ -3125,6 +3161,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Int16ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Int16Array : IList<short>, ICollection<short>, IEnumerable<short>, IEnumerable, IH5Class, IReadOnlyList<short>, IReadOnlyCollection<short>, ICollection, IObject
         {
@@ -3423,6 +3460,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Int16ArrayConstructor : IObject
         {
@@ -3482,6 +3520,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Uint16ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Uint16Array : IList<ushort>, ICollection<ushort>, IEnumerable<ushort>, IEnumerable, IH5Class, IReadOnlyList<ushort>, IReadOnlyCollection<ushort>, ICollection, IObject
         {
@@ -3780,6 +3819,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Uint16ArrayConstructor : IObject
         {
@@ -3839,6 +3879,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Int32ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Int32Array : IList<int>, ICollection<int>, IEnumerable<int>, IEnumerable, IH5Class, IReadOnlyList<int>, IReadOnlyCollection<int>, ICollection, IObject
         {
@@ -4137,6 +4178,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Int32ArrayConstructor : IObject
         {
@@ -4196,6 +4238,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Uint32ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Uint32Array : IList<uint>, ICollection<uint>, IEnumerable<uint>, IEnumerable, IH5Class, IReadOnlyList<uint>, IReadOnlyCollection<uint>, ICollection, IObject
         {
@@ -4495,6 +4538,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Uint32ArrayConstructor : IObject
         {
@@ -4554,6 +4598,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Float32ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Float32Array : IList<float>, ICollection<float>, IEnumerable<float>, IEnumerable, IH5Class, IReadOnlyList<float>, IReadOnlyCollection<float>, ICollection, IObject
         {
@@ -4854,6 +4899,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Float32ArrayConstructor : IObject
         {
@@ -4913,6 +4959,7 @@ namespace H5.Core
         [CombinedClass]
         [StaticInterface("Float64ArrayConstructor")]
         [Virtual]
+        [External]
         [FormerInterface]
         public class Float64Array : IList<double>, ICollection<double>, IEnumerable<double>, IEnumerable, IH5Class, IReadOnlyList<double>, IReadOnlyCollection<double>, ICollection, IObject
         {
@@ -5214,6 +5261,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         [FormerInterface]
         public abstract class Float64ArrayConstructor : IObject
         {
@@ -5271,6 +5319,7 @@ namespace H5.Core
         }
 
         [Virtual]
+        [External]
         [Scope]
         public static class Intl
         {
@@ -5381,6 +5430,7 @@ namespace H5.Core
 
             [CombinedClass]
             [Virtual]
+        [External]
             [FormerInterface]
             public abstract class Collator : IObject
             {
@@ -5562,6 +5612,7 @@ namespace H5.Core
 
             [CombinedClass]
             [Virtual]
+        [External]
             [FormerInterface]
             public abstract class NumberFormat : IObject
             {
@@ -5774,6 +5825,7 @@ namespace H5.Core
 
             [CombinedClass]
             [Virtual]
+        [External]
             [FormerInterface]
             public abstract class DateTimeFormat : IObject
             {
@@ -5843,6 +5895,7 @@ namespace H5.Core
             }
 
             [Virtual]
+        [External]
             public abstract class CollatorTypeConfig : IObject
             {
                 [Template("new {this}()")]
@@ -5913,6 +5966,7 @@ namespace H5.Core
             }
 
             [Virtual]
+        [External]
             public abstract class NumberFormatTypeConfig : IObject
             {
                 [Template("new {this}()")]
@@ -5989,6 +6043,7 @@ namespace H5.Core
             }
 
             [Virtual]
+        [External]
             public abstract class DateTimeFormatTypeConfig : IObject
             {
                 [Template("new {this}()")]
@@ -6066,6 +6121,7 @@ namespace H5.Core
         }
 
         [Virtual]
+        [External]
         public abstract class ClassDecorator : IObject
         {
             [Template("{this}({0})")]
@@ -6077,6 +6133,7 @@ namespace H5.Core
         public delegate void PropertyDecorator(H5.Core.Object target, Union<string, symbol> propertyKey);
 
         [Virtual]
+        [External]
         public abstract class MethodDecorator : IObject
         {
             [Template("{this}({0}, {1}, {2})")]
@@ -6129,6 +6186,7 @@ namespace H5.Core
 
         [IgnoreGeneric(AllowInTypeScript = true)]
         [Virtual]
+        [External]
         public abstract class Readonly<T> : IObject
         {
             public abstract object this[KeyOf<T> P] { get; }
@@ -6153,6 +6211,7 @@ namespace H5.Core
         [IgnoreGeneric(AllowInTypeScript = true)]
         [IgnoreCast]
         [Virtual]
+        [External]
         public abstract class Exclude<T, U> : TypeAlias<Union<Never, T>>
         {
             public static extern implicit operator es5.Exclude<T, U>(Union<Never, T> value);
@@ -6175,6 +6234,7 @@ namespace H5.Core
         [IgnoreGeneric(AllowInTypeScript = true)]
         [IgnoreCast]
         [Virtual]
+        [External]
         public abstract class Extract<T, U> : TypeAlias<Union<T, Never>>
         {
             public static extern implicit operator es5.Extract<T, U>(Union<T, Never> value);
@@ -6197,6 +6257,7 @@ namespace H5.Core
         [IgnoreGeneric(AllowInTypeScript = true)]
         [IgnoreCast]
         [Virtual]
+        [External]
         public abstract class NonNullable<T> : TypeAlias<Union<Never, T>>
         {
             public static extern implicit operator es5.NonNullable<T>(Union<Never, T> value);
@@ -6219,6 +6280,7 @@ namespace H5.Core
         [IgnoreGeneric(AllowInTypeScript = true)]
         [IgnoreCast]
         [Virtual]
+        [External]
         [Where("T", new string[] { "ReturnTypeFnAlias" }, EnableImplicitConversion = true)]
         public abstract class ReturnType<T> : TypeAlias<Union<object, object>>
         {
@@ -6236,6 +6298,7 @@ namespace H5.Core
             //[IgnoreGeneric(AllowInTypeScript = true)]
             //[IgnoreCast]
             //[Virtual]
+        [External]
             //public abstract class ReturnTypeFnAlias<T> : TypeAlias<es5.ReturnType<T>.ReturnTypeFn<T>>
             //{
             //  public static extern implicit operator es5.ReturnType<T>.ReturnTypeFnAlias<T>(
@@ -6246,6 +6309,7 @@ namespace H5.Core
         [IgnoreGeneric(AllowInTypeScript = true)]
         [IgnoreCast]
         [Virtual]
+        [External]
         [Where("T", new string[] { "InstanceTypeCtorFnAlias" }, EnableImplicitConversion = true)]
         public abstract class InstanceType<T> : TypeAlias<Union<object, object>>
         {
@@ -6274,6 +6338,7 @@ namespace H5.Core
             //[IgnoreGeneric(AllowInTypeScript = true)]
             //[IgnoreCast]
             //[Virtual]
+        [External]
             //public abstract class InstanceTypeCtorFnAlias<T> : TypeAlias<es5.InstanceType<T>.InstanceTypeCtorFn<T>>
             //{
             //  public static extern implicit operator es5.InstanceType<T>.InstanceTypeCtorFnAlias<T>(
@@ -6283,6 +6348,7 @@ namespace H5.Core
 
         [IgnoreCast]
         [Virtual]
+        [External]
         public abstract class ArrayBufferLike : TypeAlias<es5.ArrayBuffer>
         {
             public static extern implicit operator es5.ArrayBufferLike(es5.ArrayBuffer arg);

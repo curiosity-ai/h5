@@ -12,7 +12,6 @@ namespace H5.Core
     [IgnoreCast]
     [H5.Name("String")]
     [ExportedAs("KeyOf")]
-    [Virtual]
     public class KeyOf<T>
     {
         [Template("{this}")]

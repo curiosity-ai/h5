@@ -9,7 +9,6 @@ using H5;
 namespace H5.Core
 {
     [Name("this")]
-    [Virtual]
     public static class This
     {
         [Template("this")]

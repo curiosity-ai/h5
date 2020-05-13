@@ -11,7 +11,6 @@ namespace H5.Core
     [IgnoreCast]
     [Name("symbol")]
     [ExportedAs("symbol")]
-    [Virtual]
     public abstract class symbol
     {
     }

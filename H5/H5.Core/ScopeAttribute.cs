@@ -10,7 +10,6 @@ using System;
 namespace H5.Core
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    [Virtual]
     public sealed class ScopeAttribute : Attribute
     {
     }

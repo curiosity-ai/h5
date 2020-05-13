@@ -2539,7 +2539,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Account : IObject
         {
             public string displayName { get; set; }
@@ -2557,7 +2556,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AddEventListenerOptions : dom.EventListenerOptions
         {
             public bool? once { get; set; }
@@ -2569,7 +2567,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AesCbcParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> iv { get; set; }
@@ -2579,7 +2576,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AesCtrParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> counter { get; set; }
@@ -2591,7 +2587,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AesDerivedKeyParams : dom.Algorithm
         {
             public double length { get; set; }
@@ -2601,7 +2596,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AesGcmParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> additionalData { get; set; }
@@ -2615,7 +2609,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AesKeyAlgorithm : dom.KeyAlgorithm
         {
             public double length { get; set; }
@@ -2625,7 +2618,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AesKeyGenParams : dom.Algorithm
         {
             public double length { get; set; }
@@ -2635,7 +2627,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Algorithm : IObject
         {
             public string name { get; set; }
@@ -2645,7 +2636,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AnalyserOptions : dom.AudioNodeOptions
         {
             public double? fftSize { get; set; }
@@ -2661,7 +2651,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AnimationEventInit : dom.EventInit
         {
             public string animationName { get; set; }
@@ -2673,7 +2662,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AssertionOptions : IObject
         {
             public dom.ScopedCredentialDescriptor[] allowList { get; set; }
@@ -2689,7 +2677,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioBufferOptions : IObject
         {
             public double length { get; set; }
@@ -2703,7 +2690,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioBufferSourceOptions : IObject
         {
             public dom.AudioBuffer buffer { get; set; }
@@ -2723,7 +2709,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioContextInfo : IObject
         {
             public double? currentTime { get; set; }
@@ -2735,7 +2720,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioContextOptions : IObject
         {
             public Union<dom.AudioContextLatencyCategory, double> latencyHint { get; set; }
@@ -2747,7 +2731,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioNodeOptions : IObject
         {
             public double? channelCount { get; set; }
@@ -2761,7 +2744,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioParamDescriptor : IObject
         {
             public double? defaultValue { get; set; }
@@ -2777,7 +2759,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioProcessingEventInit : dom.EventInit
         {
             public dom.AudioBuffer inputBuffer { get; set; }
@@ -2791,7 +2772,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioTimestamp : IObject
         {
             public double? contextTime { get; set; }
@@ -2803,7 +2783,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class BiquadFilterOptions : dom.AudioNodeOptions
         {
             public double? Q { get; set; }
@@ -2821,7 +2800,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ByteLengthChunk : IObject
         {
             public double? byteLength { get; set; }
@@ -2831,7 +2809,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CacheQueryOptions : IObject
         {
             public string cacheName { get; set; }
@@ -2847,7 +2824,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ChannelMergerOptions : dom.AudioNodeOptions
         {
             public double? numberOfInputs { get; set; }
@@ -2857,7 +2833,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ChannelSplitterOptions : dom.AudioNodeOptions
         {
             public double? numberOfOutputs { get; set; }
@@ -2867,7 +2842,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ClientData : IObject
         {
             public string challenge { get; set; }
@@ -2887,7 +2861,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ClientQueryOptions : IObject
         {
             public bool? includeReserved { get; set; }
@@ -2901,7 +2874,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CloseEventInit : dom.EventInit
         {
             public ushort? code { get; set; }
@@ -2915,7 +2887,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CompositionEventInit : dom.UIEventInit
         {
             public string data { get; set; }
@@ -2925,7 +2896,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConfirmSiteSpecificExceptionsInformation : dom.ExceptionInformation
         {
             public string[] arrayOfDomainStrings { get; set; }
@@ -2935,7 +2905,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConstantSourceOptions : IObject
         {
             public double? offset { get; set; }
@@ -2945,7 +2914,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConstrainBooleanParameters : IObject
         {
             public bool? exact { get; set; }
@@ -2957,7 +2925,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConstrainDOMStringParameters : IObject
         {
             public Union<string, string[]> exact { get; set; }
@@ -2969,7 +2936,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConstrainDoubleRange : dom.DoubleRange
         {
             public double? exact { get; set; }
@@ -2981,7 +2947,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConstrainLongRange : dom.LongRange
         {
             public double? exact { get; set; }
@@ -2993,7 +2958,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConstrainVideoFacingModeParameters : IObject
         {
             public Union<dom.VideoFacingModeEnum, dom.VideoFacingModeEnum[]> exact { get; set; }
@@ -3005,7 +2969,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConvolverOptions : dom.AudioNodeOptions
         {
             public dom.AudioBuffer buffer { get; set; }
@@ -3019,7 +2982,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CustomEventInit<T> : dom.EventInit
         {
             public T detail { get; set; }
@@ -3029,7 +2991,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMRectInit : IObject
         {
             public double? height { get; set; }
@@ -3045,7 +3006,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DelayOptions : dom.AudioNodeOptions
         {
             public double? delayTime { get; set; }
@@ -3057,7 +3017,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceAccelerationDict : IObject
         {
             public double? x { get; set; }
@@ -3071,7 +3030,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceLightEventInit : dom.EventInit
         {
             public double? value { get; set; }
@@ -3081,7 +3039,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceMotionEventInit : dom.EventInit
         {
             public dom.DeviceAccelerationDict acceleration { get; set; }
@@ -3097,7 +3054,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceOrientationEventInit : dom.EventInit
         {
             public bool? absolute { get; set; }
@@ -3113,7 +3069,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceRotationRateDict : IObject
         {
             public double? alpha { get; set; }
@@ -3127,7 +3082,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DoubleRange : IObject
         {
             public double? max { get; set; }
@@ -3139,7 +3093,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DynamicsCompressorOptions : dom.AudioNodeOptions
         {
             public double? attack { get; set; }
@@ -3157,7 +3110,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EcKeyAlgorithm : dom.KeyAlgorithm
         {
             public string namedCurve { get; set; }
@@ -3167,7 +3119,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EcKeyGenParams : dom.Algorithm
         {
             public string namedCurve { get; set; }
@@ -3177,7 +3128,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EcKeyImportParams : dom.Algorithm
         {
             public string namedCurve { get; set; }
@@ -3187,7 +3137,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EcdhKeyDeriveParams : dom.Algorithm
         {
             [Name("public")]
@@ -3198,7 +3147,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EcdsaParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
@@ -3208,7 +3156,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ErrorEventInit : dom.EventInit
         {
             public uint? colno { get; set; }
@@ -3226,7 +3173,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EventInit : IObject
         {
             public bool? bubbles { get; set; }
@@ -3240,7 +3186,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EventListenerOptions : IObject
         {
             public bool? capture { get; set; }
@@ -3250,7 +3195,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EventModifierInit : dom.UIEventInit
         {
             public bool? altKey { get; set; }
@@ -3288,7 +3232,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ExceptionInformation : IObject
         {
             public string domain { get; set; }
@@ -3298,7 +3241,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ExtendableEventInit : dom.EventInit
         {
         }
@@ -3307,7 +3249,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ExtendableMessageEventInit : dom.ExtendableEventInit
         {
             public object data { get; set; }
@@ -3325,7 +3266,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FetchEventInit : dom.ExtendableEventInit
         {
             public string clientId { get; set; }
@@ -3341,7 +3281,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FocusEventInit : dom.UIEventInit
         {
             public dom.EventTarget relatedTarget { get; set; }
@@ -3351,7 +3290,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FocusNavigationEventInit : dom.EventInit
         {
             public string navigationReason { get; set; }
@@ -3369,7 +3307,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FocusNavigationOrigin : IObject
         {
             public double? originHeight { get; set; }
@@ -3385,7 +3322,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GainOptions : dom.AudioNodeOptions
         {
             public double? gain { get; set; }
@@ -3395,7 +3331,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GamepadEventInit : dom.EventInit
         {
             public dom.Gamepad gamepad { get; set; }
@@ -3405,7 +3340,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GetNotificationOptions : IObject
         {
             public string tag { get; set; }
@@ -3415,7 +3349,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HashChangeEventInit : dom.EventInit
         {
             public string newURL { get; set; }
@@ -3427,7 +3360,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HkdfParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
@@ -3441,7 +3373,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HmacImportParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
@@ -3453,7 +3384,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HmacKeyAlgorithm : dom.KeyAlgorithm
         {
             public dom.KeyAlgorithm hash { get; set; }
@@ -3465,7 +3395,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HmacKeyGenParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
@@ -3477,7 +3406,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBIndexParameters : IObject
         {
             public bool? multiEntry { get; set; }
@@ -3489,7 +3417,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBObjectStoreParameters : IObject
         {
             public bool? autoIncrement { get; set; }
@@ -3501,7 +3428,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IIRFilterOptions : dom.AudioNodeOptions
         {
             public double[] feedback { get; set; }
@@ -3513,7 +3439,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IntersectionObserverEntryInit : IObject
         {
             public dom.DOMRectInit boundingClientRect { get; set; }
@@ -3533,7 +3458,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IntersectionObserverInit : IObject
         {
             public dom.Element root { get; set; }
@@ -3547,7 +3471,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class JsonWebKey : IObject
         {
             public string alg { get; set; }
@@ -3591,7 +3514,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class KeyAlgorithm : IObject
         {
             public string name { get; set; }
@@ -3601,7 +3523,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class KeyboardEventInit : dom.EventModifierInit
         {
             public string code { get; set; }
@@ -3617,7 +3538,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class LongRange : IObject
         {
             public double? max { get; set; }
@@ -3629,7 +3549,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSAccountInfo : IObject
         {
             public string accountImageUri { get; set; }
@@ -3647,7 +3566,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSAudioLocalClientEvent : dom.MSLocalClientEventBase
         {
             public double? cpuInsufficientEventRatio { get; set; }
@@ -3687,7 +3605,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSAudioRecvPayload : dom.MSPayloadBase
         {
             public double? burstLossLength1 { get; set; }
@@ -3733,7 +3650,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSAudioRecvSignal : IObject
         {
             public double? initialSignalLevelRMS { get; set; }
@@ -3753,7 +3669,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSAudioSendPayload : dom.MSPayloadBase
         {
             public bool? audioFECUsed { get; set; }
@@ -3769,7 +3684,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSAudioSendSignal : IObject
         {
             public double? noiseLevel { get; set; }
@@ -3783,7 +3697,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSConnectivity : IObject
         {
             public dom.MSIceType iceType { get; set; }
@@ -3797,7 +3710,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSCredentialFilter : IObject
         {
             public dom.MSCredentialSpec[] accept { get; set; }
@@ -3807,7 +3719,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSCredentialParameters : IObject
         {
             public dom.MSCredentialType type { get; set; }
@@ -3817,7 +3728,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSCredentialSpec : IObject
         {
             public string id { get; set; }
@@ -3829,7 +3739,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSDCCEventInit : dom.EventInit
         {
             public double? maxFr { get; set; }
@@ -3841,7 +3750,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSDSHEventInit : dom.EventInit
         {
             public double[] sources { get; set; }
@@ -3853,7 +3761,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSDelay : IObject
         {
             public double? roundTrip { get; set; }
@@ -3865,7 +3772,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSDescription : dom.RTCStats
         {
             public dom.MSConnectivity connectivity { get; set; }
@@ -3887,7 +3793,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSFIDOCredentialParameters : dom.MSCredentialParameters
         {
             public Union<string, dom.Algorithm> algorithm { get; set; }
@@ -3899,7 +3804,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSIPAddressInfo : IObject
         {
             public string ipAddr { get; set; }
@@ -3913,7 +3817,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSIceWarningFlags : IObject
         {
             public bool? allocationMessageIntegrityFailed { get; set; }
@@ -3965,7 +3868,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSJitter : IObject
         {
             public double? interArrival { get; set; }
@@ -3979,7 +3881,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSLocalClientEventBase : dom.RTCStats
         {
             public double? networkBandwidthLowEventRatio { get; set; }
@@ -3991,7 +3892,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSNetwork : dom.RTCStats
         {
             public dom.MSDelay delay { get; set; }
@@ -4007,7 +3907,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSNetworkConnectivityInfo : IObject
         {
             public double? linkspeed { get; set; }
@@ -4021,7 +3920,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSNetworkInterfaceType : IObject
         {
             public bool? interfaceTypeEthernet { get; set; }
@@ -4039,7 +3937,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSOutboundNetwork : dom.MSNetwork
         {
             public double? appliedBandwidthLimit { get; set; }
@@ -4049,7 +3946,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSPacketLoss : IObject
         {
             public double? lossRate { get; set; }
@@ -4061,7 +3957,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSPayloadBase : dom.RTCStats
         {
             public string payloadDescription { get; set; }
@@ -4071,7 +3966,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSPortRange : IObject
         {
             public double? max { get; set; }
@@ -4083,7 +3977,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSRelayAddress : IObject
         {
             public double? port { get; set; }
@@ -4095,7 +3988,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSSignatureParameters : IObject
         {
             public string userPrompt { get; set; }
@@ -4105,7 +3997,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSTransportDiagnosticsStats : dom.RTCStats
         {
             public double? allocationTimeInMs { get; set; }
@@ -4169,7 +4060,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSUtilization : IObject
         {
             public double? bandwidthEstimation { get; set; }
@@ -4189,7 +4079,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSVideoPayload : dom.MSPayloadBase
         {
             public double? durationSeconds { get; set; }
@@ -4209,7 +4098,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSVideoRecvPayload : dom.MSVideoPayload
         {
             public double? lowBitRateCallPercent { get; set; }
@@ -4261,7 +4149,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSVideoResolutionDistribution : IObject
         {
             public double? cifQuality { get; set; }
@@ -4281,7 +4168,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSVideoSendPayload : dom.MSVideoPayload
         {
             public double? sendBitRateAverage { get; set; }
@@ -4301,7 +4187,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaElementAudioSourceOptions : IObject
         {
             public dom.HTMLMediaElement mediaElement { get; set; }
@@ -4311,7 +4196,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaEncryptedEventInit : dom.EventInit
         {
             public es5.ArrayBuffer initData { get; set; }
@@ -4323,7 +4207,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaKeyMessageEventInit : dom.EventInit
         {
             public es5.ArrayBuffer message { get; set; }
@@ -4335,7 +4218,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaKeySystemConfiguration : IObject
         {
             public dom.MediaKeySystemMediaCapability[] audioCapabilities { get; set; }
@@ -4353,7 +4235,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaKeySystemMediaCapability : IObject
         {
             public string contentType { get; set; }
@@ -4365,7 +4246,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamConstraints : IObject
         {
             public Union<bool, dom.MediaTrackConstraints> audio { get; set; }
@@ -4377,7 +4257,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamErrorEventInit : dom.EventInit
         {
             public dom.MediaStreamError error { get; set; }
@@ -4387,7 +4266,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamEventInit : dom.EventInit
         {
             public dom.MediaStream stream { get; set; }
@@ -4397,7 +4275,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamTrackEventInit : dom.EventInit
         {
             public dom.MediaStreamTrack track { get; set; }
@@ -4407,7 +4284,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaTrackCapabilities : IObject
         {
             public Union<double, dom.DoubleRange> aspectRatio { get; set; }
@@ -4437,7 +4313,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaTrackConstraintSet : IObject
         {
             public Union<double, dom.ConstrainDoubleRange> aspectRatio { get; set; }
@@ -4475,7 +4350,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaTrackConstraints : dom.MediaTrackConstraintSet
         {
             public dom.MediaTrackConstraintSet[] advanced { get; set; }
@@ -4485,7 +4359,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaTrackSettings : IObject
         {
             public double? aspectRatio { get; set; }
@@ -4515,7 +4388,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaTrackSupportedConstraints : IObject
         {
             public bool? aspectRatio { get; set; }
@@ -4545,7 +4417,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MessageEventInit : dom.EventInit
         {
             public string channel { get; set; }
@@ -4565,7 +4436,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MouseEventInit : dom.EventModifierInit
         {
             public short? button { get; set; }
@@ -4587,7 +4457,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MsZoomToOptions : IObject
         {
             public string animate { get; set; }
@@ -4607,7 +4476,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MutationObserverInit : IObject
         {
             public string[] attributeFilter { get; set; }
@@ -4629,7 +4497,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class NotificationEventInit : dom.ExtendableEventInit
         {
             public string action { get; set; }
@@ -4641,7 +4508,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class NotificationOptions : IObject
         {
             public string body { get; set; }
@@ -4661,7 +4527,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ObjectURLOptions : IObject
         {
             public bool? oneTimeOnly { get; set; }
@@ -4671,7 +4536,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OfflineAudioCompletionEventInit : dom.EventInit
         {
             public dom.AudioBuffer renderedBuffer { get; set; }
@@ -4681,7 +4545,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OscillatorOptions : dom.AudioNodeOptions
         {
             public double? detune { get; set; }
@@ -4697,7 +4560,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PannerOptions : dom.AudioNodeOptions
         {
             public double? coneInnerAngle { get; set; }
@@ -4733,7 +4595,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentCurrencyAmount : IObject
         {
             public string currency { get; set; }
@@ -4747,7 +4608,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentDetailsBase : IObject
         {
             public dom.PaymentItem[] displayItems { get; set; }
@@ -4761,7 +4621,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentDetailsInit : dom.PaymentDetailsBase
         {
             public string id { get; set; }
@@ -4773,7 +4632,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentDetailsModifier : IObject
         {
             public dom.PaymentItem[] additionalDisplayItems { get; set; }
@@ -4789,7 +4647,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentDetailsUpdate : dom.PaymentDetailsBase
         {
             public string error { get; set; }
@@ -4801,7 +4658,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentItem : IObject
         {
             public dom.PaymentCurrencyAmount amount { get; set; }
@@ -4815,7 +4671,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentMethodData : IObject
         {
             public object data { get; set; }
@@ -4827,7 +4682,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentOptions : IObject
         {
             public bool? requestPayerEmail { get; set; }
@@ -4845,7 +4699,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentRequestUpdateEventInit : dom.EventInit
         {
         }
@@ -4854,7 +4707,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentShippingOption : IObject
         {
             public dom.PaymentCurrencyAmount amount { get; set; }
@@ -4870,7 +4722,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Pbkdf2Params : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
@@ -4884,7 +4735,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PeriodicWaveConstraints : IObject
         {
             public bool? disableNormalization { get; set; }
@@ -4894,7 +4744,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PeriodicWaveOptions : dom.PeriodicWaveConstraints
         {
             public double[] imag { get; set; }
@@ -4906,7 +4755,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PointerEventInit : dom.MouseEventInit
         {
             public double? height { get; set; }
@@ -4930,7 +4778,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PopStateEventInit : dom.EventInit
         {
             public object state { get; set; }
@@ -4940,7 +4787,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PositionOptions : IObject
         {
             public bool? enableHighAccuracy { get; set; }
@@ -4954,7 +4800,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ProgressEventInit : dom.EventInit
         {
             public bool? lengthComputable { get; set; }
@@ -4968,7 +4813,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PushEventInit : dom.ExtendableEventInit
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, string, Null> data { get; set; }
@@ -4978,7 +4822,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PushSubscriptionChangeInit : dom.ExtendableEventInit
         {
             public dom.PushSubscription newSubscription { get; set; }
@@ -4990,7 +4833,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PushSubscriptionOptionsInit : IObject
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, string, Null> applicationServerKey { get; set; }
@@ -5002,7 +4844,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class QueuingStrategy : IObject
         {
             public double? highWaterMark { get; set; }
@@ -5014,7 +4855,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCConfiguration : IObject
         {
             public dom.RTCBundlePolicy bundlePolicy { get; set; }
@@ -5030,7 +4870,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDTMFToneChangeEventInit : dom.EventInit
         {
             public string tone { get; set; }
@@ -5040,7 +4879,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDtlsFingerprint : IObject
         {
             public string algorithm { get; set; }
@@ -5052,7 +4890,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDtlsParameters : IObject
         {
             public dom.RTCDtlsFingerprint[] fingerprints { get; set; }
@@ -5064,7 +4901,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceCandidateAttributes : dom.RTCStats
         {
             public string addressSourceUrl { get; set; }
@@ -5084,7 +4920,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceCandidateComplete : IObject
         {
         }
@@ -5093,7 +4928,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceCandidateDictionary : IObject
         {
             public string foundation { get; set; }
@@ -5121,7 +4955,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceCandidateInit : IObject
         {
             public string candidate { get; set; }
@@ -5135,7 +4968,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceCandidatePair : IObject
         {
             public dom.RTCIceCandidateDictionary local { get; set; }
@@ -5147,7 +4979,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceCandidatePairStats : dom.RTCStats
         {
             public double? availableIncomingBitrate { get; set; }
@@ -5181,7 +5012,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceGatherOptions : IObject
         {
             public dom.RTCIceGatherPolicy gatherPolicy { get; set; }
@@ -5195,7 +5025,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceParameters : IObject
         {
             public bool? iceLite { get; set; }
@@ -5209,7 +5038,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceServer : IObject
         {
             public string credential { get; set; }
@@ -5223,7 +5051,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCInboundRTPStreamStats : dom.RTCRTPStreamStats
         {
             public double? bytesReceived { get; set; }
@@ -5241,7 +5068,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCMediaStreamTrackStats : dom.RTCStats
         {
             public double? audioLevel { get; set; }
@@ -5277,7 +5103,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCOfferOptions : IObject
         {
             public bool? iceRestart { get; set; }
@@ -5293,7 +5118,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCOutboundRTPStreamStats : dom.RTCRTPStreamStats
         {
             public double? bytesSent { get; set; }
@@ -5309,7 +5133,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCPeerConnectionIceEventInit : dom.EventInit
         {
             public dom.RTCIceCandidate candidate { get; set; }
@@ -5319,7 +5142,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRTPStreamStats : dom.RTCStats
         {
             public string associateStatsId { get; set; }
@@ -5349,7 +5171,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtcpFeedback : IObject
         {
             public string parameter { get; set; }
@@ -5361,7 +5182,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtcpParameters : IObject
         {
             public string cname { get; set; }
@@ -5377,7 +5197,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpCapabilities : IObject
         {
             public dom.RTCRtpCodecCapability[] codecs { get; set; }
@@ -5391,7 +5210,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpCodecCapability : IObject
         {
             public double? clockRate { get; set; }
@@ -5425,7 +5243,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpCodecParameters : IObject
         {
             public double? clockRate { get; set; }
@@ -5449,7 +5266,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpContributingSource : IObject
         {
             public double? audioLevel { get; set; }
@@ -5463,7 +5279,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpEncodingParameters : IObject
         {
             public bool? active { get; set; }
@@ -5499,7 +5314,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpFecParameters : IObject
         {
             public string mechanism { get; set; }
@@ -5511,7 +5325,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpHeaderExtension : IObject
         {
             public string kind { get; set; }
@@ -5527,7 +5340,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpHeaderExtensionParameters : IObject
         {
             public bool? encrypt { get; set; }
@@ -5541,7 +5353,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpParameters : IObject
         {
             public dom.RTCRtpCodecParameters[] codecs { get; set; }
@@ -5561,7 +5372,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpRtxParameters : IObject
         {
             public double? ssrc { get; set; }
@@ -5571,7 +5381,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpUnhandled : IObject
         {
             public string muxId { get; set; }
@@ -5585,7 +5394,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCSessionDescriptionInit : IObject
         {
             public string sdp { get; set; }
@@ -5597,7 +5405,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCSrtpKeyParam : IObject
         {
             public string keyMethod { get; set; }
@@ -5615,7 +5422,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCSrtpSdesParameters : IObject
         {
             public string cryptoSuite { get; set; }
@@ -5631,7 +5437,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCSsrcRange : IObject
         {
             public double? max { get; set; }
@@ -5643,7 +5448,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCStats : IObject
         {
             public string id { get; set; }
@@ -5659,7 +5463,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCStatsReport : IObject
         {
         }
@@ -5668,7 +5471,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCTransportStats : dom.RTCStats
         {
             public bool? activeConnection { get; set; }
@@ -5690,7 +5492,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RegistrationOptions : IObject
         {
             public string scope { get; set; }
@@ -5700,7 +5501,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RequestInit : IObject
         {
             public Union<dom.Blob, es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, dom.FormData, string, Null> body { get; set; }
@@ -5734,7 +5534,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ResponseInit : IObject
         {
             public dom.HeadersInit headers { get; set; }
@@ -5748,7 +5547,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RsaHashedImportParams : dom.Algorithm
         {
             public Union<string, dom.Algorithm> hash { get; set; }
@@ -5758,7 +5556,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RsaHashedKeyAlgorithm : dom.RsaKeyAlgorithm
         {
             public dom.KeyAlgorithm hash { get; set; }
@@ -5768,7 +5565,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RsaHashedKeyGenParams : dom.RsaKeyGenParams
         {
             public Union<string, dom.Algorithm> hash { get; set; }
@@ -5778,7 +5574,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RsaKeyAlgorithm : dom.KeyAlgorithm
         {
             public double modulusLength { get; set; }
@@ -5790,7 +5585,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RsaKeyGenParams : dom.Algorithm
         {
             public double modulusLength { get; set; }
@@ -5802,7 +5596,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RsaOaepParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> label { get; set; }
@@ -5812,7 +5605,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RsaOtherPrimesInfo : IObject
         {
             public string d { get; set; }
@@ -5826,7 +5618,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RsaPssParams : dom.Algorithm
         {
             public double saltLength { get; set; }
@@ -5836,7 +5627,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScopedCredentialDescriptor : IObject
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> id { get; set; }
@@ -5850,7 +5640,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScopedCredentialOptions : IObject
         {
             public dom.ScopedCredentialDescriptor[] excludeList { get; set; }
@@ -5866,7 +5655,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScopedCredentialParameters : IObject
         {
             public Union<string, dom.Algorithm> algorithm { get; set; }
@@ -5878,7 +5666,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SecurityPolicyViolationEventInit : dom.EventInit
         {
             public string blockedURI { get; set; }
@@ -5906,7 +5693,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ServiceWorkerMessageEventInit : dom.EventInit
         {
             public object data { get; set; }
@@ -5924,7 +5710,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SpeechSynthesisEventInit : dom.EventInit
         {
             public double? charIndex { get; set; }
@@ -5942,7 +5727,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StereoPannerOptions : dom.AudioNodeOptions
         {
             public double? pan { get; set; }
@@ -5952,7 +5736,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StoreExceptionsInformation : dom.ExceptionInformation
         {
             public string detailURI { get; set; }
@@ -5966,7 +5749,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StoreSiteSpecificExceptionsInformation : dom.StoreExceptionsInformation
         {
             public string[] arrayOfDomainStrings { get; set; }
@@ -5976,7 +5758,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SyncEventInit : dom.ExtendableEventInit
         {
             public bool? lastChance { get; set; }
@@ -5988,7 +5769,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextDecodeOptions : IObject
         {
             public bool? stream { get; set; }
@@ -5998,7 +5778,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextDecoderOptions : IObject
         {
             public bool? fatal { get; set; }
@@ -6010,7 +5789,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TrackEventInit : dom.EventInit
         {
             public Union<dom.VideoTrack, dom.AudioTrack, dom.TextTrack, Null> track { get; set; }
@@ -6020,7 +5798,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TransitionEventInit : dom.EventInit
         {
             public double? elapsedTime { get; set; }
@@ -6032,7 +5809,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class UIEventInit : dom.EventInit
         {
             public int? detail { get; set; }
@@ -6044,7 +5820,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class UnderlyingSink : IObject
         {
             public dom.WritableStreamErrorCallback abort { get; set; }
@@ -6060,7 +5835,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRDisplayEventInit : dom.EventInit
         {
             public dom.VRDisplay display { get; set; }
@@ -6072,7 +5846,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRLayer : IObject
         {
             public double[] leftBounds { get; set; }
@@ -6086,7 +5859,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRStageParameters : IObject
         {
             public es5.Float32Array sittingToStandingTransform { get; set; }
@@ -6100,7 +5872,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WaveShaperOptions : dom.AudioNodeOptions
         {
             public double[] curve { get; set; }
@@ -6112,7 +5883,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebAuthnExtensions : IObject
         {
         }
@@ -6121,7 +5891,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLContextAttributes : IObject
         {
             public bool? alpha { get; set; }
@@ -6143,7 +5912,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLContextEventInit : dom.EventInit
         {
             public string statusMessage { get; set; }
@@ -6153,7 +5921,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WheelEventInit : dom.MouseEventInit
         {
             public uint? deltaMode { get; set; }
@@ -6170,7 +5937,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ANGLE_instanced_arrays : IObject
         {
             public static dom.ANGLE_instanced_arrays prototype { get; set; }
@@ -6199,7 +5965,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AbortController : IObject
         {
             public static dom.AbortController prototype { get; set; }
@@ -6213,7 +5978,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AbortSignalEventMap : IObject
         {
             public dom.ProgressEvent abort { get; set; }
@@ -6229,7 +5993,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AbortSignal : dom.EventTarget
         {
             public static dom.AbortSignal prototype { get; set; }
@@ -6339,7 +6102,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AbstractWorkerEventMap : IObject
         {
             public dom.ErrorEvent error { get; set; }
@@ -6354,7 +6116,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class AbstractWorker : dom.AbstractWorker.Interface, IObject
         {
@@ -6702,7 +6463,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AesCfbParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> iv { get; set; }
@@ -6712,7 +6472,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AesCmacParams : dom.Algorithm
         {
             public double length { get; set; }
@@ -6721,7 +6480,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AnalyserNode : dom.AudioNode
         {
             public static dom.AnalyserNode prototype { get; set; }
@@ -6748,7 +6506,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Animation : IObject
         {
             public extern Animation();
@@ -6802,7 +6559,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class AnimationEffectReadOnly : IObject
         {
@@ -6814,7 +6570,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AnimationEvent : dom.Event
         {
             public extern AnimationEvent(string typeArg);
@@ -6830,7 +6585,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public class AnimationKeyFrame : IObject
         {
@@ -6845,7 +6599,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AnimationOptions : IObject
         {
             public double? delay { get; set; }
@@ -6870,7 +6623,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AnimationPlaybackEvent : dom.Event
         {
             public extern AnimationPlaybackEvent(string type);
@@ -6890,7 +6642,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AnimationPlaybackEventInit : dom.EventInit
         {
             public double? currentTime { get; set; }
@@ -6902,7 +6653,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AnimationTimeline : IObject
         {
             public double? currentTime { get; }
@@ -6912,7 +6662,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ApplicationCacheEventMap : IObject
         {
             public dom.Event cached { get; set; }
@@ -6956,7 +6705,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ApplicationCache : dom.EventTarget
         {
             public static dom.ApplicationCache prototype { get; set; }
@@ -7119,7 +6867,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AssignedNodesOptions : IObject
         {
             public bool? flatten { get; set; }
@@ -7128,7 +6875,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Attr : dom.Node
         {
             public static dom.Attr prototype { get; set; }
@@ -7147,7 +6893,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioBuffer : IObject
         {
             public static dom.AudioBuffer prototype { get; set; }
@@ -7181,7 +6926,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioBufferSourceNodeEventMap : IObject
         {
             public dom.Event ended { get; set; }
@@ -7197,7 +6941,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioBufferSourceNode : dom.AudioNode
         {
             public static dom.AudioBufferSourceNode prototype { get; set; }
@@ -7418,7 +7161,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioContextEventMap : IObject
         {
             public dom.Event statechange { get; set; }
@@ -7433,7 +7175,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class AudioContextBase : dom.EventTarget
         {
@@ -7628,7 +7369,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioContext : dom.AudioContextBase
         {
             public static dom.AudioContext prototype { get; set; }
@@ -7811,7 +7551,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioDestinationNode : dom.AudioNode
         {
             public static dom.AudioDestinationNode prototype { get; set; }
@@ -7822,7 +7561,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioListener : IObject
         {
             public static dom.AudioListener prototype { get; set; }
@@ -7847,7 +7585,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioNode : dom.EventTarget
         {
             public static dom.AudioNode prototype { get; set; }
@@ -7895,7 +7632,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioParam : IObject
         {
             public static dom.AudioParam prototype { get; set; }
@@ -7928,7 +7664,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioProcessingEvent : dom.Event
         {
             public static dom.AudioProcessingEvent prototype { get; set; }
@@ -7943,7 +7678,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioTrack : IObject
         {
             public static dom.AudioTrack prototype { get; set; }
@@ -7965,7 +7699,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioTrackListEventMap : IObject
         {
             public dom.TrackEvent addtrack { get; set; }
@@ -7989,7 +7722,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class AudioTrackList : dom.EventTarget
         {
             public static dom.AudioTrackList prototype { get; set; }
@@ -8111,7 +7843,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class BarProp : IObject
         {
             public static dom.BarProp prototype { get; set; }
@@ -8122,7 +7853,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class BeforeUnloadEvent : dom.Event
         {
             public static dom.BeforeUnloadEvent prototype { get; set; }
@@ -8133,7 +7863,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class BhxBrowser : IObject
         {
             public static dom.BhxBrowser prototype { get; set; }
@@ -8202,7 +7931,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class BiquadFilterNode : dom.AudioNode
         {
             public static dom.BiquadFilterNode prototype { get; set; }
@@ -8226,7 +7954,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Blob : IObject
         {
             public extern Blob();
@@ -8258,7 +7985,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class BlobPropertyBag : IObject
         {
             public string endings { get; set; }
@@ -8268,7 +7994,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class Body : IObject
         {
@@ -8288,7 +8013,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class BroadcastChannel : dom.EventTarget
         {
             public extern BroadcastChannel(string name);
@@ -8409,7 +8133,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class BroadcastChannelEventMap : IObject
         {
             public dom.MessageEvent message { get; set; }
@@ -8429,7 +8152,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ByteLengthQueuingStrategy : IObject
         {
             public extern ByteLengthQueuingStrategy(dom.QueuingStrategy strategy);
@@ -8446,7 +8168,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CDATASection : dom.Text
         {
             public static dom.CDATASection prototype { get; set; }
@@ -8454,7 +8175,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class CSS : IObject
         {
@@ -8468,7 +8188,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSConditionRule : dom.CSSGroupingRule
         {
             public static dom.CSSConditionRule prototype { get; set; }
@@ -8479,7 +8198,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSFontFaceRule : dom.CSSRule
         {
             public static dom.CSSFontFaceRule prototype { get; set; }
@@ -8490,7 +8208,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSGroupingRule : dom.CSSRule
         {
             public static dom.CSSGroupingRule prototype { get; set; }
@@ -8505,7 +8222,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSImportRule : dom.CSSRule
         {
             public static dom.CSSImportRule prototype { get; set; }
@@ -8520,7 +8236,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSKeyframeRule : dom.CSSRule
         {
             public static dom.CSSKeyframeRule prototype { get; set; }
@@ -8533,7 +8248,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSKeyframesRule : dom.CSSRule
         {
             public static dom.CSSKeyframesRule prototype { get; set; }
@@ -8552,7 +8266,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSMediaRule : dom.CSSConditionRule
         {
             public static dom.CSSMediaRule prototype { get; set; }
@@ -8563,7 +8276,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSNamespaceRule : dom.CSSRule
         {
             public static dom.CSSNamespaceRule prototype { get; set; }
@@ -8576,7 +8288,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSPageRule : dom.CSSRule
         {
             public static dom.CSSPageRule prototype { get; set; }
@@ -8593,7 +8304,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSRule : IObject
         {
             public static dom.CSSRule prototype { get; set; }
@@ -8670,7 +8380,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSRuleList : IEnumerable<dom.CSSRule>, IEnumerable, IH5Class, IObject
         {
             public static dom.CSSRuleList prototype { get; set; }
@@ -8691,7 +8400,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSStyleDeclaration : IObject
         {
             public static dom.CSSStyleDeclaration prototype { get; set; }
@@ -9462,7 +9170,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSStyleRule : dom.CSSRule
         {
             public static dom.CSSStyleRule prototype { get; set; }
@@ -9475,7 +9182,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSStyleSheet : dom.StyleSheet
         {
             public static dom.CSSStyleSheet prototype { get; set; }
@@ -9535,7 +9241,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CSSSupportsRule : dom.CSSConditionRule
         {
             public static dom.CSSSupportsRule prototype { get; set; }
@@ -9544,7 +9249,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Cache : IObject
         {
             public static dom.Cache prototype { get; set; }
@@ -9656,7 +9360,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CacheStorage : IObject
         {
             public static dom.CacheStorage prototype { get; set; }
@@ -9690,7 +9393,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public class Canvas2DContextAttributes : IObject
         {
@@ -9706,7 +9408,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CanvasGradient : IObject
         {
             public static dom.CanvasGradient prototype { get; set; }
@@ -9716,7 +9417,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class CanvasPathMethods : IObject
         {
@@ -9787,7 +9487,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CanvasPattern : IObject
         {
             public static dom.CanvasPattern prototype { get; set; }
@@ -9798,7 +9497,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CanvasRenderingContext2D : dom.CanvasPathMethods
         {
             public static dom.CanvasRenderingContext2D prototype { get; set; }
@@ -10201,7 +9899,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ChannelMergerNode : dom.AudioNode
         {
             public static dom.ChannelMergerNode prototype { get; set; }
@@ -10210,7 +9907,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ChannelSplitterNode : dom.AudioNode
         {
             public static dom.ChannelSplitterNode prototype { get; set; }
@@ -10219,7 +9915,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CharacterData : dom.Node, dom.ChildNode.Interface, IObject
         {
             public static dom.CharacterData prototype { get; set; }
@@ -10243,7 +9938,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class ChildNode : dom.ChildNode.Interface, IObject
         {
@@ -10260,7 +9954,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ClientRect : IObject
         {
             public static dom.ClientRect prototype { get; set; }
@@ -10281,7 +9974,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ClientRectList : IObject
         {
             public static dom.ClientRectList prototype { get; set; }
@@ -10296,7 +9988,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ClipboardEvent : dom.Event
         {
             public extern ClipboardEvent(string type);
@@ -10312,7 +10003,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ClipboardEventInit : dom.EventInit
         {
             public string data { get; set; }
@@ -10323,7 +10013,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CloseEvent : dom.Event
         {
             public extern CloseEvent(string type);
@@ -10350,7 +10039,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Comment : dom.CharacterData
         {
             public extern Comment();
@@ -10365,7 +10053,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CompositionEvent : dom.UIEvent
         {
             public extern CompositionEvent(string typeArg);
@@ -10391,7 +10078,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ComputedTimingProperties : IObject
         {
             public double activeDuration { get; set; }
@@ -10409,7 +10095,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConcatParams : dom.Algorithm
         {
             public es5.Uint8Array algorithmId { get; set; }
@@ -10428,7 +10113,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Console : IObject
         {
             public static dom.Console prototype { get; set; }
@@ -10543,7 +10227,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ContentScriptGlobalScope : dom.EventTarget
         {
             public static dom.ContentScriptGlobalScope prototype { get; set; }
@@ -10556,7 +10239,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ConvolverNode : dom.AudioNode
         {
             public static dom.ConvolverNode prototype { get; set; }
@@ -10569,7 +10251,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Coordinates : IObject
         {
             public static dom.Coordinates prototype { get; set; }
@@ -10592,7 +10273,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CountQueuingStrategy : IObject
         {
             public extern CountQueuingStrategy(dom.QueuingStrategy strategy);
@@ -10607,7 +10287,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Crypto : IObject
         {
             public static dom.Crypto prototype { get; set; }
@@ -10654,7 +10333,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CryptoKey : IObject
         {
             public static dom.CryptoKey prototype { get; set; }
@@ -10671,7 +10349,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class CryptoKeyPair : IObject
         {
             public static dom.CryptoKeyPair prototype { get; set; }
@@ -10683,7 +10360,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class CustomElementRegistry : IObject
         {
@@ -10717,7 +10393,6 @@ namespace HTML
         [IgnoreGeneric(AllowInTypeScript = true)]
         [GenericDefault("T", typeof(object))]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class CustomEvent<T> : dom.Event
         {
@@ -10735,7 +10410,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMError : IObject
         {
             public static dom.DOMError prototype { get; set; }
@@ -10748,7 +10422,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMException : IObject
         {
             public extern DOMException();
@@ -10906,7 +10579,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMImplementation : IObject
         {
             public static dom.DOMImplementation prototype { get; set; }
@@ -10963,7 +10635,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMParser : IObject
         {
             public static dom.DOMParser prototype { get; set; }
@@ -10974,7 +10645,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMRect : dom.DOMRectReadOnly
         {
             public extern DOMRect();
@@ -11004,7 +10674,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class DOMRectList : IEnumerable<dom.DOMRect>, IEnumerable, IH5Class, IObject
         {
@@ -11024,7 +10693,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMRectReadOnly : IObject
         {
             public extern DOMRectReadOnly();
@@ -11063,7 +10731,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMSettableTokenList : dom.DOMTokenList
         {
             public static dom.DOMSettableTokenList prototype { get; set; }
@@ -11074,7 +10741,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMStringList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
             public static dom.DOMStringList prototype { get; set; }
@@ -11097,7 +10763,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMStringMap : IObject
         {
             public static dom.DOMStringMap prototype { get; set; }
@@ -11108,7 +10773,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DOMTokenList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
             public static dom.DOMTokenList prototype { get; set; }
@@ -11145,7 +10809,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DataCue : dom.TextTrackCue
         {
             public static dom.DataCue prototype { get; set; }
@@ -11210,7 +10873,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DataTransfer : IObject
         {
             public static dom.DataTransfer prototype { get; set; }
@@ -11239,7 +10901,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DataTransferItem : IObject
         {
             public static dom.DataTransferItem prototype { get; set; }
@@ -11258,7 +10919,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DataTransferItemList : IEnumerable<dom.DataTransferItem>, IEnumerable, IH5Class, IObject
         {
             public static dom.DataTransferItemList prototype { get; set; }
@@ -11287,7 +10947,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeferredPermissionRequest : IObject
         {
             public static dom.DeferredPermissionRequest prototype { get; set; }
@@ -11306,7 +10965,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DelayNode : dom.AudioNode
         {
             public static dom.DelayNode prototype { get; set; }
@@ -11317,7 +10975,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceAcceleration : IObject
         {
             public static dom.DeviceAcceleration prototype { get; set; }
@@ -11332,7 +10989,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceLightEvent : dom.Event
         {
             public extern DeviceLightEvent(string typeArg);
@@ -11347,7 +11003,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceMotionEvent : dom.Event
         {
             public extern DeviceMotionEvent(string typeArg);
@@ -11377,7 +11032,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceOrientationEvent : dom.Event
         {
             public extern DeviceOrientationEvent(string typeArg);
@@ -11409,7 +11063,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DeviceRotationRate : IObject
         {
             public static dom.DeviceRotationRate prototype { get; set; }
@@ -11425,7 +11078,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DhImportKeyParams : dom.Algorithm
         {
             public es5.Uint8Array generator { get; set; }
@@ -11437,7 +11089,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DhKeyAlgorithm : dom.KeyAlgorithm
         {
             public es5.Uint8Array generator { get; set; }
@@ -11449,7 +11100,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DhKeyDeriveParams : dom.Algorithm
         {
             [Name("public")]
@@ -11460,7 +11110,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DhKeyGenParams : dom.Algorithm
         {
             public es5.Uint8Array generator { get; set; }
@@ -11472,7 +11121,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DocumentEventMap : dom.GlobalEventHandlersEventMap
         {
             public dom.UIEvent abort { get; set; }
@@ -11836,7 +11484,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Document : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ParentNode.Interface, dom.DocumentEvent.Interface
         {
             public static dom.Document prototype { get; set; }
@@ -13094,7 +12741,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class DocumentEvent : dom.DocumentEvent.Interface, IObject
         {
@@ -13504,7 +13150,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class DocumentOrShadowRoot : IObject
         {
@@ -13522,7 +13167,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DocumentType : dom.Node, dom.ChildNode.Interface, IObject
         {
             public static dom.DocumentType prototype { get; set; }
@@ -13545,7 +13189,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DragEvent : dom.MouseEvent
         {
             public extern DragEvent(dom.Literals.Options.type2 type);
@@ -13588,7 +13231,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class DynamicsCompressorNode : dom.AudioNode
         {
             public static dom.DynamicsCompressorNode prototype { get; set; }
@@ -13610,7 +13252,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EXT_blend_minmax : IObject
         {
             public double MAX_EXT { get; }
@@ -13622,7 +13263,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EXT_frag_depth : IObject
         {
         }
@@ -13631,7 +13271,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EXT_sRGB : IObject
         {
             public double FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT { get; }
@@ -13647,7 +13286,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EXT_shader_texture_lod : IObject
         {
         }
@@ -13655,7 +13293,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EXT_texture_filter_anisotropic : IObject
         {
             public static dom.EXT_texture_filter_anisotropic prototype { get; set; }
@@ -13675,7 +13312,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ElementEventMap : dom.GlobalEventHandlersEventMap
         {
             public dom.Event ariarequest { get; set; }
@@ -13795,7 +13431,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Element : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ElementTraversal.Interface, dom.ParentNode.Interface, dom.ChildNode.Interface
         {
             public static dom.Element prototype { get; set; }
@@ -14340,7 +13975,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ElementCreationOptions : IObject
         {
             [Name("is")]
@@ -14351,7 +13985,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ElementDefinitionOptions : IObject
         {
             public string extends { get; set; }
@@ -14392,7 +14025,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ErrorEvent : dom.Event
         {
             public extern ErrorEvent(string typeArg);
@@ -14423,7 +14055,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Event : IObject
         {
             public extern Event();
@@ -14497,7 +14128,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class EventListenerObject : IObject
         {
@@ -14507,7 +14137,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EventSource : dom.EventTarget
         {
             public extern EventSource(string url);
@@ -14550,7 +14179,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class EventSourceInit : IObject
         {
             public bool withCredentials { get; }
@@ -14752,7 +14380,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ExtensionScriptApis : IObject
         {
             public static dom.ExtensionScriptApis prototype { get; set; }
@@ -14806,7 +14433,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class External : IObject
         {
             public static dom.External prototype { get; set; }
@@ -14815,7 +14441,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class File : dom.Blob
         {
             public extern File(
@@ -14860,7 +14485,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FileList : IEnumerable<dom.File>, IEnumerable, IH5Class, IObject
         {
             public static dom.FileList prototype { get; set; }
@@ -14882,7 +14506,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FilePropertyBag : dom.BlobPropertyBag
         {
             public long? lastModified { get; set; }
@@ -14892,7 +14515,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FileReaderEventMap : IObject
         {
             public dom.ProgressEvent abort { get; set; }
@@ -14928,7 +14550,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FileReader : dom.EventTarget
         {
             public static dom.FileReader prototype { get; set; }
@@ -15077,7 +14698,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class FileReaderProgressEvent : dom.ProgressEvent
         {
@@ -15089,7 +14709,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FocusEvent : dom.UIEvent
         {
             public extern FocusEvent(string typeArg);
@@ -15112,7 +14731,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FocusNavigationEvent : dom.Event
         {
             public extern FocusNavigationEvent(string type);
@@ -15137,7 +14755,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class FormData : IObject
         {
             public extern FormData();
@@ -15185,7 +14802,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GainNode : dom.AudioNode
         {
             public static dom.GainNode prototype { get; set; }
@@ -15196,7 +14812,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Gamepad : IObject
         {
             public static dom.Gamepad prototype { get; set; }
@@ -15227,7 +14842,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GamepadButton : IObject
         {
             public static dom.GamepadButton prototype { get; set; }
@@ -15242,7 +14856,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GamepadEvent : dom.Event
         {
             public extern GamepadEvent(string typeArg);
@@ -15257,7 +14870,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GamepadHapticActuator : IObject
         {
             public static dom.GamepadHapticActuator prototype { get; set; }
@@ -15270,7 +14882,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GamepadPose : IObject
         {
             public static dom.GamepadPose prototype { get; set; }
@@ -15295,7 +14906,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Geolocation : IObject
         {
             public static dom.Geolocation prototype { get; set; }
@@ -15327,7 +14937,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class GetSVGDocument : dom.GetSVGDocument.Interface, IObject
         {
@@ -15345,7 +14954,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class GlobalEventHandlersEventMap : IObject
         {
             public dom.PointerEvent pointercancel { get; set; }
@@ -15392,7 +15000,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class GlobalEventHandlers : dom.GlobalEventHandlers.Interface, IObject
         {
@@ -15775,7 +15382,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class GlobalFetch : dom.GlobalFetch.Interface, IObject
         {
@@ -15820,7 +15426,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLAllCollection : IObject
         {
             public static dom.HTMLAllCollection prototype { get; set; }
@@ -15841,7 +15446,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLAnchorElement : dom.HTMLElement, dom.HTMLHyperlinkElementUtils.Interface, IObject
         {
             [Template("document.createElement(\"a\")")]
@@ -15959,7 +15563,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLAppletElement : dom.HTMLElement
         {
             [Template("document.createElement(\"applet\")")]
@@ -16050,7 +15653,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLAreaElement : dom.HTMLElement, dom.HTMLHyperlinkElementUtils.Interface, IObject
         {
             [Template("document.createElement(\"area\")")]
@@ -16150,7 +15752,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLAreasCollection : dom.HTMLCollectionBase
         {
             public static dom.HTMLAreasCollection prototype { get; set; }
@@ -16163,7 +15764,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLAudioElement : dom.HTMLMediaElement
         {
             [Template("document.createElement(\"audio\")")]
@@ -16229,7 +15829,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLBRElement : dom.HTMLElement
        {
             [Template("document.createElement(\"br\")")]
@@ -16297,7 +15896,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLBaseElement : dom.HTMLElement
         {
             [Template("document.createElement(\"base\")")]
@@ -16367,7 +15965,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLBaseFontElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject
         {
             [Template("document.createElement(\"basefont\")")]
@@ -16440,7 +16037,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLBodyElementEventMap : dom.HTMLElementEventMap, dom.WindowEventHandlersEventMap.Interface, IObject
         {
             public dom.Event orientationchange { get; set; }
@@ -16508,7 +16104,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLBodyElement : dom.HTMLElement, dom.WindowEventHandlers.Interface, IObject
         {
             [Template("document.createElement(\"body\")")]
@@ -16670,7 +16265,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLButtonElement : dom.HTMLElement
         {
             [Template("document.createElement(\"button\")")]
@@ -16770,7 +16364,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLCanvasElement : dom.HTMLElement
         {
             [Template("document.createElement(\"canvas\")")]
@@ -16878,7 +16471,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class HTMLCollectionBase : IEnumerable<dom.Element>, IEnumerable, IH5Class, IObject
         {
@@ -16898,7 +16490,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLCollection : dom.HTMLCollectionBase
         {
             public static dom.HTMLCollection prototype { get; set; }
@@ -16913,7 +16504,6 @@ namespace HTML
         [IgnoreCast]
         [IgnoreGeneric(AllowInTypeScript = true)]
         [Virtual]
-        [External]
         [FormerInterface]
         [Where("T", typeof(dom.Element), EnableImplicitConversion = true)]
         public abstract class HTMLCollectionOf<T> : dom.HTMLCollectionBase, IEnumerable<T>, IEnumerable, IH5Class
@@ -16931,7 +16521,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLDListElement : dom.HTMLElement
         {
             [Template("document.createElement(\"dl\")")]
@@ -16999,7 +16588,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLDataElement : dom.HTMLElement
         {
             [Template("document.createElement(\"data\")")]
@@ -17067,7 +16655,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLDataListElement : dom.HTMLElement
         {
             [Template("document.createElement(\"datalist\")")]
@@ -17135,7 +16722,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLDetailsElement : dom.HTMLElement
         {
             public static dom.HTMLDetailsElement prototype { get; set; }
@@ -17200,7 +16786,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLDialogElement : dom.HTMLElement
         {
             public static dom.HTMLDialogElement prototype { get; set; }
@@ -17275,7 +16860,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLDirectoryElement : dom.HTMLElement
         {
             [Template("document.createElement(\"dir\")")]
@@ -17343,7 +16927,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLDivElement : dom.HTMLElement
         {
             [Template("document.createElement(\"div\")")]
@@ -17413,7 +16996,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLDocument : dom.Document
         {
             public static dom.HTMLDocument prototype { get; set; }
@@ -17477,7 +17059,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLElementEventMap : dom.ElementEventMap
         {
             public dom.UIEvent abort { get; set; }
@@ -17757,7 +17338,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLElement : dom.Element, dom.ElementCSSInlineStyle.Interface, IObject
         {
             public static dom.HTMLElement prototype { get; set; }
@@ -18062,7 +17642,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLEmbedElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
             [Template("document.createElement(\"embed\")")]
@@ -18156,7 +17735,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLFieldSetElement : dom.HTMLElement
         {
             [Template("document.createElement(\"fieldset\")")]
@@ -18240,7 +17818,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLFontElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject, dom.DOML2DeprecatedSizeProperty.Interface
         {
             [Template("document.createElement(\"font\")")]
@@ -18312,7 +17889,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLFormControlsCollection : dom.HTMLCollectionBase
         {
             public static dom.HTMLFormControlsCollection prototype { get; set; }
@@ -18328,7 +17904,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLFormElement : dom.HTMLElement
         {
             [Template("document.createElement(\"form\")")]
@@ -18433,7 +18008,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLFrameElementEventMap : dom.HTMLElementEventMap
         {
         }
@@ -18441,7 +18015,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLFrameElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
             [Template("document.createElement(\"frame\")")]
@@ -18540,7 +18113,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLFrameSetElementEventMap : dom.HTMLElementEventMap, dom.WindowEventHandlersEventMap.Interface, IObject
         {
             public dom.Event orientationchange { get; set; }
@@ -18608,7 +18180,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLFrameSetElement : dom.HTMLElement, dom.WindowEventHandlers.Interface, IObject
         {
             [Template("document.createElement(\"frameset\")")]
@@ -18760,7 +18331,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLHRElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject, dom.DOML2DeprecatedSizeProperty.Interface
         {
             [Template("document.createElement(\"hr\")")]
@@ -18836,7 +18406,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLHeadElement : dom.HTMLElement
         {
             [Template("document.createElement(\"head\")")]
@@ -18904,7 +18473,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLHeadingElement : dom.HTMLElement
         {
             [Template("document.createElement(\"h1\")")]
@@ -18972,7 +18540,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLHtmlElement : dom.HTMLElement
         {
             [Template("document.createElement(\"html\")")]
@@ -19039,7 +18606,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class HTMLHyperlinkElementUtils : dom.HTMLHyperlinkElementUtils.Interface, IObject
         {
@@ -19093,7 +18659,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLIFrameElementEventMap : dom.HTMLElementEventMap
         {
         }
@@ -19101,7 +18666,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLIFrameElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
             [Template("document.createElement(\"iframe\")")]
@@ -19201,7 +18765,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLImageElement : dom.HTMLElement
         {
             [Template("document.createElement(\"img\")")]
@@ -19323,7 +18886,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLInputElement : dom.HTMLElement
         {
             [Template("document.createElement(\"input\")")]
@@ -19501,7 +19063,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLLIElement : dom.HTMLElement
         {
             [Template("document.createElement(\"li\")")]
@@ -19571,7 +19132,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLLabelElement : dom.HTMLElement
         {
             [Template("document.createElement(\"label\")")]
@@ -19643,7 +19203,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLLegendElement : dom.HTMLElement
         {
             [Template("document.createElement(\"legend\")")]
@@ -19713,7 +19272,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLLinkElement : dom.HTMLElement, dom.LinkStyle.Interface, IObject
         {
             [Template("document.createElement(\"link\")")]
@@ -19805,7 +19363,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMainElement : dom.HTMLElement
         {
             public static dom.HTMLMainElement prototype { get; set; }
@@ -19868,7 +19425,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMapElement : dom.HTMLElement
         {
             [Template("document.createElement(\"map\")")]
@@ -19939,7 +19495,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMarqueeElementEventMap : dom.HTMLElementEventMap
         {
             public dom.Event bounce { get; set; }
@@ -19963,7 +19518,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMarqueeElement : dom.HTMLElement
         {
             [Template("document.createElement(\"marquee\")")]
@@ -20065,7 +19619,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMediaElementEventMap : dom.HTMLElementEventMap
         {
             public dom.MediaEncryptedEvent encrypted { get; set; }
@@ -20085,7 +19638,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMediaElement : dom.HTMLElement
         {
             public static dom.HTMLMediaElement prototype { get; set; }
@@ -20314,7 +19866,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMenuElement : dom.HTMLElement
         {
             [Template("document.createElement(\"menu\")")]
@@ -20384,7 +19935,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMetaElement : dom.HTMLElement
         {
             [Template("document.createElement(\"meta\")")]
@@ -20462,7 +20012,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLMeterElement : dom.HTMLElement
         {
             [Template("document.createElement(\"meter\")")]
@@ -20540,7 +20089,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLModElement : dom.HTMLElement
         {
             [Template("document.createElement(\"del\")")]
@@ -20610,7 +20158,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLOListElement : dom.HTMLElement
         {
             [Template("document.createElement(\"ol\")")]
@@ -20682,7 +20229,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLObjectElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
             [Template("document.createElement(\"object\")")]
@@ -20810,7 +20356,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLOptGroupElement : dom.HTMLElement
         {
             [Template("document.createElement(\"optgroup\")")]
@@ -20882,7 +20427,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLOptionElement : dom.HTMLElement
         {
             [Template("document.createElement(\"option\")")]
@@ -20964,7 +20508,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLOptionsCollection : dom.HTMLCollectionOf<dom.HTMLOptionElement>
         {
             public static dom.HTMLOptionsCollection prototype { get; set; }
@@ -21008,7 +20551,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLOutputElement : dom.HTMLElement
         {
             [Template("document.createElement(\"output\")")]
@@ -21098,7 +20640,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLParagraphElement : dom.HTMLElement
         {
             [Template("document.createElement(\"p\")")]
@@ -21168,7 +20709,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLParamElement : dom.HTMLElement
         {
             [Template("document.createElement(\"param\")")]
@@ -21242,7 +20782,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLPictureElement : dom.HTMLElement
         {
             [Template("document.createElement(\"picture\")")]
@@ -21308,7 +20847,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLPreElement : dom.HTMLElement
         {
             [Template("document.createElement(\"pre\")")]
@@ -21376,7 +20914,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLProgressElement : dom.HTMLElement
         {
             [Template("document.createElement(\"progress\")")]
@@ -21450,7 +20987,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLQuoteElement : dom.HTMLElement
         {
             [Template("document.createElement(\"blockquote\")")]
@@ -21518,7 +21054,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLScriptElement : dom.HTMLElement
         {
             [Template("document.createElement(\"script\")")]
@@ -21607,7 +21142,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLSelectElement : dom.HTMLElement
         {
             [Template("document.createElement(\"select\")")]
@@ -21743,7 +21277,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class HTMLSlotElement : dom.HTMLElement
         {
@@ -21811,7 +21344,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLSourceElement : dom.HTMLElement
         {
             [Template("document.createElement(\"source\")")]
@@ -21889,7 +21421,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLSpanElement : dom.HTMLElement
         {
             [Template("document.createElement(\"span\")")]
@@ -21955,7 +21486,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLStyleElement : dom.HTMLElement, dom.LinkStyle.Interface, IObject
         {
             [Template("document.createElement(\"style\")")]
@@ -22029,7 +21559,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLSummaryElement : dom.HTMLElement
         {
             public static dom.HTMLSummaryElement prototype { get; set; }
@@ -22092,7 +21621,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTableCaptionElement : dom.HTMLElement
         {
             [Template("document.createElement(\"caption\")")]
@@ -22160,7 +21688,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTableCellElement : dom.HTMLElement
         {
             public static dom.HTMLTableCellElement prototype { get; set; }
@@ -22253,7 +21780,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTableColElement : dom.HTMLElement
         {
             [Template("document.createElement(\"col\")")]
@@ -22331,7 +21857,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTableDataCellElement : dom.HTMLTableCellElement
         {
             [Template("document.createElement(\"td\")")]
@@ -22397,7 +21922,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTableElement : dom.HTMLElement
         {
             [Template("document.createElement(\"table\")")]
@@ -22513,7 +22037,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTableHeaderCellElement : dom.HTMLTableCellElement
         {
             [Template("document.createElement(\"th\")")]
@@ -22579,7 +22102,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTableRowElement : dom.HTMLElement
         {
             [Template("document.createElement(\"tr\")")]
@@ -22669,7 +22191,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTableSectionElement : dom.HTMLElement
         {
             [Template("document.createElement(\"tbody\")")]
@@ -22753,7 +22274,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTemplateElement : dom.HTMLElement
         {
             [Template("document.createElement(\"template\")")]
@@ -22821,7 +22341,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTextAreaElement : dom.HTMLElement
         {
             [Template("document.createElement(\"textarea\")")]
@@ -22940,7 +22459,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTimeElement : dom.HTMLElement
         {
             [Template("document.createElement(\"time\")")]
@@ -23008,7 +22526,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTitleElement : dom.HTMLElement
         {
             [Template("document.createElement(\"title\")")]
@@ -23076,7 +22593,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLTrackElement : dom.HTMLElement
         {
             [Template("document.createElement(\"track\")")]
@@ -23177,7 +22693,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLUListElement : dom.HTMLElement
         {
             [Template("document.createElement(\"ul\")")]
@@ -23247,7 +22762,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLUnknownElement : dom.HTMLElement
         {
             [Template("document.createElement(\"isindex\")")]
@@ -23314,7 +22828,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLVideoElementEventMap : dom.HTMLMediaElementEventMap
         {
             public dom.Event MSVideoFormatChanged { get; set; }
@@ -23338,7 +22851,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLVideoElement : dom.HTMLMediaElement
         {
             [Template("document.createElement(\"video\")")]
@@ -23464,7 +22976,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLegendElement : IObject
         {
             public static dom.HTMLegendElement prototype { get; set; }
@@ -23475,7 +22986,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HashChangeEvent : dom.Event
         {
             public extern HashChangeEvent(string type);
@@ -23492,7 +23002,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Headers : IObject
         {
             public extern Headers();
@@ -23536,7 +23045,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class History : IObject
         {
             public static dom.History prototype { get; set; }
@@ -23576,7 +23084,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HkdfCtrParams : dom.Algorithm
         {
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> context { get; set; }
@@ -23588,7 +23095,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public class IDBArrayKey : es5.Array<Union<double, string, es5.Date, dom.IDBArrayKey>>
         {
@@ -23597,7 +23103,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBCursor : IObject
         {
             public static dom.IDBCursor prototype { get; set; }
@@ -23662,7 +23167,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBCursorWithValue : dom.IDBCursor
         {
             public static dom.IDBCursorWithValue prototype { get; set; }
@@ -23674,7 +23178,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBDatabaseEventMap : IObject
         {
             public dom.Event abort { get; set; }
@@ -23694,7 +23197,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBDatabase : dom.EventTarget
         {
             public static dom.IDBDatabase prototype { get; set; }
@@ -23855,7 +23357,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBFactory : IObject
         {
             public static dom.IDBFactory prototype { get; set; }
@@ -23872,7 +23373,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBIndex : IObject
         {
             public static dom.IDBIndex prototype { get; set; }
@@ -24010,7 +23510,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBKeyRange : IObject
         {
             public static dom.IDBKeyRange prototype { get; set; }
@@ -24047,7 +23546,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBObjectStore : IObject
         {
             public static dom.IDBObjectStore prototype { get; set; }
@@ -24197,7 +23695,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBOpenDBRequestEventMap : dom.IDBRequestEventMap
         {
             public dom.Event blocked { get; set; }
@@ -24217,7 +23714,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBOpenDBRequest : dom.IDBRequest
         {
             public static dom.IDBOpenDBRequest prototype { get; set; }
@@ -24291,7 +23787,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBRequestEventMap : IObject
         {
             public dom.Event error { get; set; }
@@ -24311,7 +23806,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBRequest : dom.EventTarget
         {
             public static dom.IDBRequest prototype { get; set; }
@@ -24431,7 +23925,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBTransactionEventMap : IObject
         {
             public dom.Event abort { get; set; }
@@ -24455,7 +23948,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBTransaction : dom.EventTarget
         {
             public static dom.IDBTransaction prototype { get; set; }
@@ -24591,7 +24083,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IDBVersionChangeEvent : dom.Event
         {
             public static dom.IDBVersionChangeEvent prototype { get; set; }
@@ -24604,7 +24095,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IIRFilterNode : dom.AudioNode
         {
             public static dom.IIRFilterNode prototype { get; set; }
@@ -24617,7 +24107,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class ImageBitmap : IObject
         {
@@ -24632,7 +24121,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ImageBitmapOptions : IObject
         {
             public dom.Literals.Options.colorSpaceConversion colorSpaceConversion { get; set; }
@@ -24651,7 +24139,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ImageData : IObject
         {
             public extern ImageData(double width, double height);
@@ -24670,7 +24157,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IntersectionObserver : IObject
         {
             public extern IntersectionObserver(dom.IntersectionObserverCallback callback);
@@ -24699,7 +24185,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class IntersectionObserverEntry : IObject
         {
             public extern IntersectionObserverEntry(
@@ -24725,7 +24210,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class KeyboardEvent : dom.UIEvent
         {
             public extern KeyboardEvent(string typeArg);
@@ -24822,7 +24306,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ListeningStateChangedEvent : dom.Event
         {
             public static dom.ListeningStateChangedEvent prototype { get; set; }
@@ -24835,7 +24318,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Location : IObject
         {
             public static dom.Location prototype { get; set; }
@@ -24872,7 +24354,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSAssertion : IObject
         {
             public static dom.MSAssertion prototype { get; set; }
@@ -24885,7 +24366,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSBlobBuilder : IObject
         {
             public static dom.MSBlobBuilder prototype { get; set; }
@@ -24902,7 +24382,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSCredentials : IObject
         {
             public static dom.MSCredentials prototype { get; set; }
@@ -24931,7 +24410,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSDCCEvent : dom.Event
         {
             public extern MSDCCEvent(string type, dom.MSDCCEventInit eventInitDict);
@@ -24946,7 +24424,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSDSHEvent : dom.Event
         {
             public extern MSDSHEvent(string type, dom.MSDSHEventInit eventInitDict);
@@ -24961,7 +24438,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSFIDOCredentialAssertion : dom.MSAssertion
         {
             public static dom.MSFIDOCredentialAssertion prototype { get; set; }
@@ -24978,7 +24454,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSFIDOSignature : IObject
         {
             public static dom.MSFIDOSignature prototype { get; set; }
@@ -24993,7 +24468,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSFIDOSignatureAssertion : dom.MSAssertion
         {
             public static dom.MSFIDOSignatureAssertion prototype { get; set; }
@@ -25003,7 +24477,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class MSFileSaver : dom.MSFileSaver.Interface, IObject
         {
@@ -25032,7 +24505,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSGesture : IObject
         {
             public static dom.MSGesture prototype { get; set; }
@@ -25047,7 +24519,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSGestureEvent : dom.UIEvent
         {
             public static dom.MSGestureEvent prototype { get; set; }
@@ -25138,7 +24609,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSGraphicsTrust : IObject
         {
             public static dom.MSGraphicsTrust prototype { get; set; }
@@ -25152,7 +24622,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSInputMethodContextEventMap : IObject
         {
             public dom.Event MSCandidateWindowHide { get; set; }
@@ -25176,7 +24645,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSInputMethodContext : dom.EventTarget
         {
             public static dom.MSInputMethodContext prototype { get; set; }
@@ -25301,7 +24769,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSMediaKeyError : IObject
         {
             public static dom.MSMediaKeyError prototype { get; set; }
@@ -25344,7 +24811,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSMediaKeyMessageEvent : dom.Event
         {
             public static dom.MSMediaKeyMessageEvent prototype { get; set; }
@@ -25357,7 +24823,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSMediaKeyNeededEvent : dom.Event
         {
             public static dom.MSMediaKeyNeededEvent prototype { get; set; }
@@ -25368,7 +24833,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSMediaKeySession : dom.EventTarget
         {
             public static dom.MSMediaKeySession prototype { get; set; }
@@ -25387,7 +24851,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSMediaKeys : IObject
         {
             public extern MSMediaKeys(string keySystem);
@@ -25416,7 +24879,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class MSNavigatorDoNotTrack : dom.MSNavigatorDoNotTrack.Interface, IObject
         {
@@ -25455,7 +24917,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSPointerEvent : dom.MouseEvent
         {
             public extern MSPointerEvent(string typeArg);
@@ -25525,7 +24986,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSStream : IObject
         {
             public static dom.MSStream prototype { get; set; }
@@ -25541,7 +25001,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSStreamReaderEventMap : IObject
         {
             public dom.UIEvent abort { get; set; }
@@ -25577,7 +25036,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MSStreamReader : dom.EventTarget
         {
             public static dom.MSStreamReader prototype { get; set; }
@@ -25748,7 +25206,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaDeviceInfo : IObject
         {
             public static dom.MediaDeviceInfo prototype { get; set; }
@@ -25766,7 +25223,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaDevicesEventMap : IObject
         {
             public dom.Event devicechange { get; set; }
@@ -25782,7 +25238,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaDevices : dom.EventTarget
         {
             public static dom.MediaDevices prototype { get; set; }
@@ -25896,7 +25351,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaElementAudioSourceNode : dom.AudioNode
         {
             public static dom.MediaElementAudioSourceNode prototype { get; set; }
@@ -25905,7 +25359,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaEncryptedEvent : dom.Event
         {
             public extern MediaEncryptedEvent(string type);
@@ -25922,7 +25375,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaError : IObject
         {
             public static dom.MediaError prototype { get; set; }
@@ -25962,7 +25414,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaKeyMessageEvent : dom.Event
         {
             public extern MediaKeyMessageEvent(string type);
@@ -25979,7 +25430,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaKeySession : dom.EventTarget
         {
             public static dom.MediaKeySession prototype { get; set; }
@@ -26090,7 +25540,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaKeyStatusMap : IObject
         {
             public static dom.MediaKeyStatusMap prototype { get; set; }
@@ -26167,7 +25616,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaKeySystemAccess : IObject
         {
             public static dom.MediaKeySystemAccess prototype { get; set; }
@@ -26182,7 +25630,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaKeys : IObject
         {
             public static dom.MediaKeys prototype { get; set; }
@@ -26234,7 +25681,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
             public static dom.MediaList prototype { get; set; }
@@ -26263,7 +25709,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaQueryList : IObject
         {
             public static dom.MediaQueryList prototype { get; set; }
@@ -26280,7 +25725,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaSource : dom.EventTarget
         {
             public static dom.MediaSource prototype { get; set; }
@@ -26308,7 +25752,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamEventMap : IObject
         {
             public dom.Event active { get; set; }
@@ -26336,7 +25779,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStream : dom.EventTarget
         {
             public extern MediaStream();
@@ -26478,7 +25920,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamAudioSourceNode : dom.AudioNode
         {
             public static dom.MediaStreamAudioSourceNode prototype { get; set; }
@@ -26487,7 +25928,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamError : IObject
         {
             public static dom.MediaStreamError prototype { get; set; }
@@ -26502,7 +25942,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamErrorEvent : dom.Event
         {
             public extern MediaStreamErrorEvent(string typeArg);
@@ -26519,7 +25958,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamEvent : dom.Event
         {
             public extern MediaStreamEvent(string type, dom.MediaStreamEventInit eventInitDict);
@@ -26533,7 +25971,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamTrackEventMap : IObject
         {
             public dom.MediaStreamErrorEvent ended { get; set; }
@@ -26561,7 +25998,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamTrack : dom.EventTarget
         {
             public static dom.MediaStreamTrack prototype { get; set; }
@@ -26707,7 +26143,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MediaStreamTrackEvent : dom.Event
         {
             public extern MediaStreamTrackEvent(string typeArg);
@@ -26724,7 +26159,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MessageChannel : IObject
         {
             public static dom.MessageChannel prototype { get; set; }
@@ -26737,7 +26171,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MessageEvent : dom.Event
         {
             public extern MessageEvent(string type);
@@ -26768,7 +26201,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MessagePortEventMap : IObject
         {
             public dom.MessageEvent message { get; set; }
@@ -26784,7 +26216,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MessagePort : dom.EventTarget
         {
             public static dom.MessagePort prototype { get; set; }
@@ -26901,7 +26332,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MimeType : IObject
         {
             public static dom.MimeType prototype { get; set; }
@@ -26918,7 +26348,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MimeTypeArray : IEnumerable<dom.MimeType>, IEnumerable, IH5Class, IObject
         {
             public static dom.MimeTypeArray prototype { get; set; }
@@ -26941,7 +26370,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MouseEvent : dom.UIEvent
         {
             public extern MouseEvent(string typeArg);
@@ -27021,7 +26449,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MutationEvent : dom.Event
         {
             public static dom.MutationEvent prototype { get; set; }
@@ -27065,7 +26492,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MutationObserver : IObject
         {
             public extern MutationObserver(dom.MutationCallback callback);
@@ -27082,7 +26508,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class MutationRecord : IObject
         {
             public static dom.MutationRecord prototype { get; set; }
@@ -27109,7 +26534,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class NamedNodeMap : IObject
         {
             public static dom.NamedNodeMap prototype { get; set; }
@@ -27136,7 +26560,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Navigator : dom.NavigatorID, dom.NavigatorOnLine.Interface, IObject, dom.NavigatorContentUtils.Interface, dom.NavigatorStorageUtils.Interface, dom.MSNavigatorDoNotTrack.Interface, dom.MSFileSaver.Interface, dom.NavigatorBeacon.Interface, dom.NavigatorConcurrentHardware.Interface, dom.NavigatorUserMedia.Interface, dom.NavigatorLanguage.Interface
         {
             public static dom.Navigator prototype { get; set; }
@@ -27275,7 +26698,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class NavigatorBeacon : dom.NavigatorBeacon.Interface, IObject
         {
@@ -27390,7 +26812,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class NavigatorID : IObject
         {
             public string appCodeName { get; }
@@ -27463,7 +26884,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class NavigatorUserMedia : dom.NavigatorUserMedia.Interface, IObject
         {
@@ -27765,7 +27185,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class NodeFilter : IObject
         {
@@ -27775,7 +27194,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class NodeIterator : IObject
         {
             public static dom.NodeIterator prototype { get; set; }
@@ -27798,7 +27216,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class NodeList : IEnumerable<dom.Node>, IEnumerable, IH5Class, IObject
         {
             public static dom.NodeList prototype { get; set; }
@@ -27819,7 +27236,6 @@ namespace HTML
         [IgnoreCast]
         [IgnoreGeneric(AllowInTypeScript = true)]
         [Virtual]
-        [External]
         [FormerInterface]
         [Where("TNode", typeof(dom.Node.Interface), EnableImplicitConversion = true)]
         public abstract class NodeListOf<TNode> : dom.NodeList, IEnumerable<TNode>, IEnumerable, IH5Class
@@ -27839,7 +27255,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class NodeSelector : IObject
         {
@@ -27868,7 +27283,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class NotificationEventMap : IObject
         {
             public dom.Event click { get; set; }
@@ -27896,7 +27310,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Notification : dom.EventTarget
         {
             public extern Notification(string title);
@@ -28036,7 +27449,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OES_element_index_uint : IObject
         {
             public static dom.OES_element_index_uint prototype { get; set; }
@@ -28045,7 +27457,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OES_standard_derivatives : IObject
         {
             public static dom.OES_standard_derivatives prototype { get; set; }
@@ -28059,7 +27470,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OES_texture_float : IObject
         {
             public static dom.OES_texture_float prototype { get; set; }
@@ -28068,7 +27478,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OES_texture_float_linear : IObject
         {
             public static dom.OES_texture_float_linear prototype { get; set; }
@@ -28077,7 +27486,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OES_texture_half_float : IObject
         {
             public static dom.OES_texture_half_float prototype { get; set; }
@@ -28091,7 +27499,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OES_texture_half_float_linear : IObject
         {
             public static dom.OES_texture_half_float_linear prototype { get; set; }
@@ -28099,7 +27506,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class OES_vertex_array_object : IObject
         {
@@ -28117,7 +27523,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OfflineAudioCompletionEvent : dom.Event
         {
             public static dom.OfflineAudioCompletionEvent prototype { get; set; }
@@ -28129,7 +27534,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OfflineAudioContextEventMap : dom.AudioContextEventMap
         {
             public dom.OfflineAudioCompletionEvent complete { get; set; }
@@ -28145,7 +27549,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OfflineAudioContext : dom.AudioContextBase
         {
             public extern OfflineAudioContext(double numberOfChannels, double length, double sampleRate);
@@ -28394,7 +27797,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OscillatorNodeEventMap : IObject
         {
             public dom.Event ended { get; set; }
@@ -28410,7 +27812,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OscillatorNode : dom.AudioNode
         {
             public static dom.OscillatorNode prototype { get; set; }
@@ -28622,7 +28023,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class OverflowEvent : dom.UIEvent
         {
             public static dom.OverflowEvent prototype { get; set; }
@@ -28652,7 +28052,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PageTransitionEvent : dom.Event
         {
             public static dom.PageTransitionEvent prototype { get; set; }
@@ -28663,7 +28062,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PannerNode : dom.AudioNode
         {
             public static dom.PannerNode prototype { get; set; }
@@ -28693,7 +28091,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class ParentNode : dom.ParentNode.Interface, IObject
         {
@@ -28762,7 +28159,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Path2D : dom.CanvasPathMethods
         {
             public extern Path2D();
@@ -28847,7 +28243,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentAddress : IObject
         {
             public static dom.PaymentAddress prototype { get; set; }
@@ -28881,7 +28276,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentRequestEventMap : IObject
         {
             public dom.Event shippingaddresschange { get; set; }
@@ -28901,7 +28295,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentRequest : dom.EventTarget
         {
             public extern PaymentRequest(
@@ -29033,7 +28426,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentRequestUpdateEvent : dom.Event
         {
             public extern PaymentRequestUpdateEvent(string type);
@@ -29051,7 +28443,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PaymentResponse : IObject
         {
             public static dom.PaymentResponse prototype { get; set; }
@@ -29083,7 +28474,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PerfWidgetExternal : IObject
         {
             public static dom.PerfWidgetExternal prototype { get; set; }
@@ -29142,7 +28532,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Performance : IObject
         {
             public static dom.Performance prototype { get; set; }
@@ -29200,7 +28589,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PerformanceEntry : IObject
         {
             public static dom.PerformanceEntry prototype { get; set; }
@@ -29219,7 +28607,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PerformanceMark : dom.PerformanceEntry
         {
             public static dom.PerformanceMark prototype { get; set; }
@@ -29228,7 +28615,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PerformanceMeasure : dom.PerformanceEntry
         {
             public static dom.PerformanceMeasure prototype { get; set; }
@@ -29237,7 +28623,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PerformanceNavigation : IObject
         {
             public static dom.PerformanceNavigation prototype { get; set; }
@@ -29272,7 +28657,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PerformanceNavigationTiming : dom.PerformanceEntry
         {
             public static dom.PerformanceNavigationTiming prototype { get; set; }
@@ -29327,7 +28711,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PerformanceResourceTiming : dom.PerformanceEntry
         {
             public static dom.PerformanceResourceTiming prototype { get; set; }
@@ -29360,7 +28743,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PerformanceTiming : IObject
         {
             public static dom.PerformanceTiming prototype { get; set; }
@@ -29415,7 +28797,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PeriodicWave : IObject
         {
             public static dom.PeriodicWave prototype { get; set; }
@@ -29424,7 +28805,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PermissionRequest : dom.DeferredPermissionRequest
         {
             public static dom.PermissionRequest prototype { get; set; }
@@ -29437,7 +28817,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PermissionRequestedEvent : dom.Event
         {
             public static dom.PermissionRequestedEvent prototype { get; set; }
@@ -29448,7 +28827,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Plugin : IObject
         {
             public static dom.Plugin prototype { get; set; }
@@ -29473,7 +28851,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PluginArray : IEnumerable<dom.Plugin>, IEnumerable, IH5Class, IObject
         {
             public static dom.PluginArray prototype { get; set; }
@@ -29500,7 +28877,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PointerEvent : dom.MouseEvent
         {
             public extern PointerEvent(string typeArg);
@@ -29570,7 +28946,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PopStateEvent : dom.Event
         {
             public extern PopStateEvent(string type);
@@ -29585,7 +28960,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Position : IObject
         {
             public static dom.Position prototype { get; set; }
@@ -29598,7 +28972,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PositionError : IObject
         {
             public static dom.PositionError prototype { get; set; }
@@ -29628,7 +29001,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ProcessingInstruction : dom.CharacterData
         {
             public static dom.ProcessingInstruction prototype { get; set; }
@@ -29639,7 +29011,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ProgressEvent : dom.Event
         {
             public extern ProgressEvent(string typeArg);
@@ -29665,7 +29036,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class PromiseRejectionEvent : dom.Event
         {
@@ -29680,7 +29050,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PromiseRejectionEventInit : dom.EventInit
         {
             public es5.PromiseLike<object> promise { get; set; }
@@ -29691,7 +29060,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PushManager : IObject
         {
             public static dom.PushManager prototype { get; set; }
@@ -29714,7 +29082,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PushSubscription : IObject
         {
             public static dom.PushSubscription prototype { get; set; }
@@ -29735,7 +29102,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class PushSubscriptionOptions : IObject
         {
             public static dom.PushSubscriptionOptions prototype { get; set; }
@@ -29748,7 +29114,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDTMFToneChangeEvent : dom.Event
         {
             public extern RTCDTMFToneChangeEvent(
@@ -29764,7 +29129,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDtlsTransportEventMap : IObject
         {
             public dom.RTCDtlsTransportStateChangedEvent dtlsstatechange { get; set; }
@@ -29784,7 +29148,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDtlsTransport : dom.RTCStatsProvider
         {
             public extern RTCDtlsTransport(dom.RTCIceTransport transport);
@@ -30001,7 +29364,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDtlsTransportStateChangedEvent : dom.Event
         {
             public static dom.RTCDtlsTransportStateChangedEvent prototype { get; set; }
@@ -30013,7 +29375,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDtmfSenderEventMap : IObject
         {
             public dom.RTCDTMFToneChangeEvent tonechange { get; set; }
@@ -30029,7 +29390,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCDtmfSender : dom.EventTarget
         {
             public extern RTCDtmfSender(dom.RTCRtpSender sender);
@@ -30154,7 +29514,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceCandidate : IObject
         {
             public extern RTCIceCandidate();
@@ -30175,7 +29534,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceCandidatePairChangedEvent : dom.Event
         {
             public static dom.RTCIceCandidatePairChangedEvent prototype { get; set; }
@@ -30187,7 +29545,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceGathererEventMap : IObject
         {
             public dom.Event error { get; set; }
@@ -30207,7 +29564,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceGatherer : dom.RTCStatsProvider
         {
             public extern RTCIceGatherer(dom.RTCIceGatherOptions options);
@@ -30418,7 +29774,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceGathererEvent : dom.Event
         {
             public static dom.RTCIceGathererEvent prototype { get; set; }
@@ -30430,7 +29785,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceTransportEventMap : IObject
         {
             public dom.RTCIceCandidatePairChangedEvent candidatepairchange { get; set; }
@@ -30450,7 +29804,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceTransport : dom.RTCStatsProvider
         {
             public static dom.RTCIceTransport prototype { get; set; }
@@ -30688,7 +30041,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCIceTransportStateChangedEvent : dom.Event
         {
             public static dom.RTCIceTransportStateChangedEvent prototype { get; set; }
@@ -30700,7 +30052,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCPeerConnectionEventMap : IObject
         {
             public dom.MediaStreamEvent addstream { get; set; }
@@ -30740,7 +30091,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCPeerConnection : dom.EventTarget
         {
             public extern RTCPeerConnection(dom.RTCConfiguration configuration);
@@ -30930,7 +30280,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCPeerConnectionIceEvent : dom.Event
         {
             public extern RTCPeerConnectionIceEvent(
@@ -30946,7 +30295,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpReceiverEventMap : IObject
         {
             public dom.Event error { get; set; }
@@ -30970,7 +30318,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpReceiver : dom.RTCStatsProvider
         {
             public extern RTCRtpReceiver(
@@ -31231,7 +30578,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpSenderEventMap : IObject
         {
             public dom.Event error { get; set; }
@@ -31251,7 +30597,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCRtpSender : dom.RTCStatsProvider
         {
             public extern RTCRtpSender(
@@ -31510,7 +30855,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCSessionDescription : IObject
         {
             public extern RTCSessionDescription();
@@ -31530,7 +30874,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCSrtpSdesTransportEventMap : IObject
         {
             public dom.Event error { get; set; }
@@ -31546,7 +30889,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCSrtpSdesTransport : dom.EventTarget
         {
             public extern RTCSrtpSdesTransport(
@@ -31662,7 +31004,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCSsrcConflictEvent : dom.Event
         {
             public static dom.RTCSsrcConflictEvent prototype { get; set; }
@@ -31673,7 +31014,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RTCStatsProvider : dom.EventTarget
         {
             public static dom.RTCStatsProvider prototype { get; set; }
@@ -31686,7 +31026,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class RandomSource : IObject
         {
             public static dom.RandomSource prototype { get; set; }
@@ -31704,7 +31043,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Range : IObject
         {
             public static dom.Range prototype { get; set; }
@@ -31793,7 +31131,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ReadableStream : IObject
         {
             public static dom.ReadableStream prototype { get; set; }
@@ -31808,7 +31145,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ReadableStreamReader : IObject
         {
             public static dom.ReadableStreamReader prototype { get; set; }
@@ -31823,7 +31159,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Request : dom.Body
         {
             public extern Request(Union<dom.Request, string> input);
@@ -31886,7 +31221,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Response : dom.Body
         {
             public extern Response();
@@ -32000,7 +31334,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"a\")")]
@@ -32070,7 +31403,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAngle : IObject
         {
             public static dom.SVGAngle prototype { get; set; }
@@ -32118,7 +31450,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedAngle : IObject
         {
             public static dom.SVGAnimatedAngle prototype { get; set; }
@@ -32131,7 +31462,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedBoolean : IObject
         {
             public static dom.SVGAnimatedBoolean prototype { get; set; }
@@ -32144,7 +31474,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedEnumeration : IObject
         {
             public static dom.SVGAnimatedEnumeration prototype { get; set; }
@@ -32157,7 +31486,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedInteger : IObject
         {
             public static dom.SVGAnimatedInteger prototype { get; set; }
@@ -32170,7 +31498,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedLength : IObject
         {
             public static dom.SVGAnimatedLength prototype { get; set; }
@@ -32183,7 +31510,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedLengthList : IObject
         {
             public static dom.SVGAnimatedLengthList prototype { get; set; }
@@ -32196,7 +31522,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedNumber : IObject
         {
             public static dom.SVGAnimatedNumber prototype { get; set; }
@@ -32209,7 +31534,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedNumberList : IObject
         {
             public static dom.SVGAnimatedNumberList prototype { get; set; }
@@ -32242,7 +31566,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedPreserveAspectRatio : IObject
         {
             public static dom.SVGAnimatedPreserveAspectRatio prototype { get; set; }
@@ -32255,7 +31578,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedRect : IObject
         {
             public static dom.SVGAnimatedRect prototype { get; set; }
@@ -32268,7 +31590,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedString : IObject
         {
             public static dom.SVGAnimatedString prototype { get; set; }
@@ -32281,7 +31602,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGAnimatedTransformList : IObject
         {
             public static dom.SVGAnimatedTransformList prototype { get; set; }
@@ -32294,7 +31614,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGCircleElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"circle\")")]
@@ -32366,7 +31685,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGClipPathElement : dom.SVGGraphicsElement, dom.SVGUnitTypes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"clipPath\")")]
@@ -32440,7 +31758,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGComponentTransferFunctionElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"componentTransferFunction\")")]
@@ -32550,7 +31867,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGDefsElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"defs\")")]
@@ -32616,7 +31932,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGDescElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"desc\")")]
@@ -32683,7 +31998,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGElementEventMap : dom.ElementEventMap
         {
             public dom.MouseEvent click { get; set; }
@@ -32735,7 +32049,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGElement : dom.Element, dom.ElementCSSInlineStyle.Interface, IObject
         {
             protected extern SVGElement();
@@ -32842,7 +32155,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGElementInstance : dom.EventTarget
         {
             public static dom.SVGElementInstance prototype { get; set; }
@@ -32867,7 +32179,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGElementInstanceList : IObject
         {
             public static dom.SVGElementInstanceList prototype { get; set; }
@@ -32880,7 +32191,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGEllipseElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"ellipse\")")]
@@ -32954,7 +32264,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEBlendElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feBlend\")")]
@@ -33121,7 +32430,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEColorMatrixElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feColorMatrix\")")]
@@ -33228,7 +32536,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEComponentTransferElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feComponentTransfer\")")]
@@ -33306,7 +32613,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFECompositeElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feComposite\")")]
@@ -33432,7 +32738,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEConvolveMatrixElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feConvolveMatrix\")")]
@@ -33552,7 +32857,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEDiffuseLightingElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feDiffuseLighting\")")]
@@ -33638,7 +32942,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEDisplacementMapElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feDisplacementMap\")")]
@@ -33749,7 +33052,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEDistantLightElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feDistantLight\")")]
@@ -33819,7 +33121,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEFloodElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFlood\")")]
@@ -33895,7 +33196,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEFuncAElement : dom.SVGComponentTransferFunctionElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncA\")")]
@@ -33961,7 +33261,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEFuncBElement : dom.SVGComponentTransferFunctionElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncB\")")]
@@ -34027,7 +33326,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEFuncGElement : dom.SVGComponentTransferFunctionElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncG\")")]
@@ -34093,7 +33391,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEFuncRElement : dom.SVGComponentTransferFunctionElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncR\")")]
@@ -34159,7 +33456,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEGaussianBlurElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feGaussianBlur\")")]
@@ -34243,7 +33539,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEImageElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject, dom.SVGURIReference.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feImage\")")]
@@ -34323,7 +33618,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEMergeElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feMerge\")")]
@@ -34399,7 +33693,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEMergeNodeElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feMergeNode\")")]
@@ -34467,7 +33760,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEMorphologyElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feMorphology\")")]
@@ -34567,7 +33859,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEOffsetElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feOffset\")")]
@@ -34649,7 +33940,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFEPointLightElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"fePointLight\")")]
@@ -34721,7 +34011,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFESpecularLightingElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feSpecularLighting\")")]
@@ -34809,7 +34098,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFESpotLightElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feSpotLight\")")]
@@ -34891,7 +34179,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFETileElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feTile\")")]
@@ -34969,7 +34256,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFETurbulenceElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feTurbulence\")")]
@@ -35087,7 +34373,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGFilterElement : dom.SVGElement, dom.SVGUnitTypes.Interface, IObject, dom.SVGURIReference.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"filter\")")]
@@ -35231,7 +34516,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGForeignObjectElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"foreignObject\")")]
@@ -35305,7 +34589,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGGElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"g\")")]
@@ -35371,7 +34654,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGGradientElement : dom.SVGElement, dom.SVGUnitTypes.Interface, IObject, dom.SVGURIReference.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"gradient\")")]
@@ -35471,7 +34753,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGGraphicsElement : dom.SVGElement, dom.SVGTests.Interface, IObject
         {
             public static dom.SVGGraphicsElement prototype { get; set; }
@@ -35556,7 +34837,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGImageElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"image\")")]
@@ -35634,7 +34914,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGLength : IObject
         {
             public static dom.SVGLength prototype { get; set; }
@@ -35712,7 +34991,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGLengthList : IEnumerable<dom.SVGLength>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGLengthList prototype { get; set; }
@@ -35743,7 +35021,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGLineElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"line\")")]
@@ -35817,7 +35094,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGLinearGradientElement : dom.SVGGradientElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"linearGradient\")")]
@@ -35891,7 +35167,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGMarkerElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"marker\")")]
@@ -36009,7 +35284,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGMaskElement : dom.SVGElement, dom.SVGTests.Interface, IObject, dom.SVGUnitTypes.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"mask\")")]
@@ -36101,7 +35375,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGMatrix : IObject
         {
             public static dom.SVGMatrix prototype { get; set; }
@@ -36146,7 +35419,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGMetadataElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"metadata\")")]
@@ -36212,7 +35484,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGNumber : IObject
         {
             public static dom.SVGNumber prototype { get; set; }
@@ -36223,7 +35494,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGNumberList : IEnumerable<dom.SVGNumber>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGNumberList prototype { get; set; }
@@ -36254,7 +35524,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"path\")")]
@@ -36416,7 +35685,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSeg : IObject
         {
             public static dom.SVGPathSeg prototype { get; set; }
@@ -36529,7 +35797,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegArcAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegArcAbs prototype { get; set; }
@@ -36552,7 +35819,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegArcRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegArcRel prototype { get; set; }
@@ -36575,7 +35841,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegClosePath : dom.SVGPathSeg
         {
             public static dom.SVGPathSegClosePath prototype { get; set; }
@@ -36584,7 +35849,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegCurvetoCubicAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoCubicAbs prototype { get; set; }
@@ -36605,7 +35869,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegCurvetoCubicRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoCubicRel prototype { get; set; }
@@ -36626,7 +35889,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegCurvetoCubicSmoothAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoCubicSmoothAbs prototype { get; set; }
@@ -36643,7 +35905,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegCurvetoCubicSmoothRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoCubicSmoothRel prototype { get; set; }
@@ -36660,7 +35921,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegCurvetoQuadraticAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoQuadraticAbs prototype { get; set; }
@@ -36677,7 +35937,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegCurvetoQuadraticRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoQuadraticRel prototype { get; set; }
@@ -36694,7 +35953,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegCurvetoQuadraticSmoothAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoQuadraticSmoothAbs prototype { get; set; }
@@ -36707,7 +35965,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegCurvetoQuadraticSmoothRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegCurvetoQuadraticSmoothRel prototype { get; set; }
@@ -36720,7 +35977,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegLinetoAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoAbs prototype { get; set; }
@@ -36733,7 +35989,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegLinetoHorizontalAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoHorizontalAbs prototype { get; set; }
@@ -36744,7 +35999,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegLinetoHorizontalRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoHorizontalRel prototype { get; set; }
@@ -36755,7 +36009,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegLinetoRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoRel prototype { get; set; }
@@ -36768,7 +36021,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegLinetoVerticalAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoVerticalAbs prototype { get; set; }
@@ -36779,7 +36031,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegLinetoVerticalRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegLinetoVerticalRel prototype { get; set; }
@@ -36790,7 +36041,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegList : IEnumerable<dom.SVGPathSeg>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGPathSegList prototype { get; set; }
@@ -36821,7 +36071,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegMovetoAbs : dom.SVGPathSeg
         {
             public static dom.SVGPathSegMovetoAbs prototype { get; set; }
@@ -36834,7 +36083,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPathSegMovetoRel : dom.SVGPathSeg
         {
             public static dom.SVGPathSegMovetoRel prototype { get; set; }
@@ -36847,7 +36095,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPatternElement : dom.SVGElement, dom.SVGTests.Interface, IObject, dom.SVGUnitTypes.Interface, dom.SVGFitToViewBox.Interface, dom.SVGURIReference.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"pattern\")")]
@@ -36947,7 +36194,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPoint : IObject
         {
             public static dom.SVGPoint prototype { get; set; }
@@ -36962,7 +36208,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPointList : IEnumerable<dom.SVGPoint>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGPointList prototype { get; set; }
@@ -36993,7 +36238,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPolygonElement : dom.SVGGraphicsElement, dom.SVGAnimatedPoints.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"polygon\")")]
@@ -37063,7 +36307,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPolylineElement : dom.SVGGraphicsElement, dom.SVGAnimatedPoints.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"polyline\")")]
@@ -37133,7 +36376,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGPreserveAspectRatio : IObject
         {
             public static dom.SVGPreserveAspectRatio prototype { get; set; }
@@ -37216,7 +36458,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGRadialGradientElement : dom.SVGGradientElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"radialGradient\")")]
@@ -37292,7 +36533,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGRect : IObject
         {
             public static dom.SVGRect prototype { get; set; }
@@ -37309,7 +36549,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGRectElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"rect\")")]
@@ -37388,7 +36627,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGSVGElementEventMap : dom.SVGElementEventMap
         {
             public dom.Event SVGAbort { get; set; }
@@ -37424,7 +36662,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGSVGElement : dom.SVGGraphicsElement, dom.DocumentEvent.Interface, IObject, dom.SVGFitToViewBox.Interface, dom.SVGZoomAndPan.Interface
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"svg\")")]
@@ -37797,7 +37034,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGScriptElement : dom.SVGElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"script\")")]
@@ -37867,7 +37103,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGStopElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"stop\")")]
@@ -37935,7 +37170,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGStringList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGStringList prototype { get; set; }
@@ -37966,7 +37200,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGStylable : IObject
         {
             public static dom.SVGStylable prototype { get; set; }
@@ -37977,7 +37210,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGStyleElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"style\")")]
@@ -38051,7 +37283,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGSwitchElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"switch\")")]
@@ -38117,7 +37348,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGSymbolElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"symbol\")")]
@@ -38187,7 +37417,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGTSpanElement : dom.SVGTextPositioningElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"tspan\")")]
@@ -38252,7 +37481,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class SVGTests : dom.SVGTests.Interface, IObject
         {
@@ -38281,7 +37509,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGTextContentElement : dom.SVGGraphicsElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"textContent\")")]
@@ -38384,7 +37611,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGTextElement : dom.SVGTextPositioningElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"text\")")]
@@ -38450,7 +37676,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGTextPathElement : dom.SVGTextContentElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"textPath\")")]
@@ -38554,7 +37779,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGTextPositioningElement : dom.SVGTextContentElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"textPositioning\")")]
@@ -38630,7 +37854,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGTitleElement : dom.SVGElement
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"title\")")]
@@ -38696,7 +37919,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGTransform : IObject
         {
             public static dom.SVGTransform prototype { get; set; }
@@ -38758,7 +37980,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGTransformList : IEnumerable<dom.SVGTransform>, IEnumerable, IH5Class, IObject
         {
             public static dom.SVGTransformList prototype { get; set; }
@@ -38835,7 +38056,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGUseElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
         {
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"use\")")]
@@ -38915,7 +38135,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGViewElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject, dom.SVGZoomAndPan.Interface
         {
             public static dom.SVGViewElement prototype { get; set; }
@@ -39002,7 +38221,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SVGZoomEvent : dom.UIEvent
         {
             public static dom.SVGZoomEvent prototype { get; set; }
@@ -39021,7 +38239,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScopedCredential : IObject
         {
             public static dom.ScopedCredential prototype { get; set; }
@@ -39034,7 +38251,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScopedCredentialInfo : IObject
         {
             public static dom.ScopedCredentialInfo prototype { get; set; }
@@ -39048,7 +38264,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScreenEventMap : IObject
         {
             public dom.Event MSOrientationChange { get; set; }
@@ -39064,7 +38279,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Screen : dom.EventTarget
         {
             public static dom.Screen prototype { get; set; }
@@ -39219,7 +38433,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScriptProcessorNodeEventMap : IObject
         {
             public dom.AudioProcessingEvent audioprocess { get; set; }
@@ -39235,7 +38448,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScriptProcessorNode : dom.AudioNode
         {
             public static dom.ScriptProcessorNode prototype { get; set; }
@@ -39434,7 +38646,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScrollIntoViewOptions : dom.ScrollOptions
         {
             public dom.ScrollLogicalPosition block { get; set; }
@@ -39446,7 +38657,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScrollOptions : IObject
         {
             public dom.ScrollBehavior behavior { get; set; }
@@ -39456,7 +38666,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ScrollToOptions : dom.ScrollOptions
         {
             public double? left { get; set; }
@@ -39467,7 +38676,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SecurityPolicyViolationEvent : dom.Event
         {
             public extern SecurityPolicyViolationEvent(string type);
@@ -39502,7 +38710,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Selection : IObject
         {
             public static dom.Selection prototype { get; set; }
@@ -39566,7 +38773,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class ServiceUIFrameContext : IObject
         {
@@ -39579,7 +38785,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ServiceWorkerEventMap : dom.AbstractWorkerEventMap
         {
             public dom.Event statechange { get; set; }
@@ -39595,7 +38800,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ServiceWorker : dom.EventTarget, dom.AbstractWorker.Interface, IObject
         {
             public static dom.ServiceWorker prototype { get; set; }
@@ -39759,7 +38963,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ServiceWorkerContainerEventMap : IObject
         {
             public dom.Event controllerchange { get; set; }
@@ -39783,7 +38986,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ServiceWorkerContainer : dom.EventTarget
         {
             public static dom.ServiceWorkerContainer prototype { get; set; }
@@ -39920,7 +39122,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ServiceWorkerMessageEvent : dom.Event
         {
             public extern ServiceWorkerMessageEvent(string type);
@@ -39946,7 +39147,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ServiceWorkerRegistrationEventMap : IObject
         {
             public dom.Event updatefound { get; set; }
@@ -39962,7 +39162,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ServiceWorkerRegistration : dom.EventTarget
         {
             public static dom.ServiceWorkerRegistration prototype { get; set; }
@@ -40095,7 +39294,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class ShadowRoot : dom.DocumentOrShadowRoot, dom.DocumentFragment.Interface, dom.Node.Interface, dom.EventTarget.Interface, IObject, dom.ParentNode.Interface
         {
@@ -40335,7 +39533,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ShadowRootInit : IObject
         {
             public bool? delegatesFocus { get; set; }
@@ -40346,7 +39543,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SourceBuffer : dom.EventTarget
         {
             public static dom.SourceBuffer prototype { get; set; }
@@ -40406,7 +39602,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SourceBufferList : dom.EventTarget
         {
             public static dom.SourceBufferList prototype { get; set; }
@@ -40422,7 +39617,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SpeechSynthesisEventMap : IObject
         {
             public dom.Event voiceschanged { get; set; }
@@ -40438,7 +39632,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SpeechSynthesis : dom.EventTarget
         {
             public static dom.SpeechSynthesis prototype { get; set; }
@@ -40561,7 +39754,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SpeechSynthesisEvent : dom.Event
         {
             public extern SpeechSynthesisEvent(string type);
@@ -40585,7 +39777,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SpeechSynthesisUtteranceEventMap : IObject
         {
             public dom.Event boundary { get; set; }
@@ -40625,7 +39816,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SpeechSynthesisUtterance : dom.EventTarget
         {
             public extern SpeechSynthesisUtterance();
@@ -40760,7 +39950,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SpeechSynthesisVoice : IObject
         {
             public static dom.SpeechSynthesisVoice prototype { get; set; }
@@ -40780,7 +39969,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StereoPannerNode : dom.AudioNode
         {
             public static dom.StereoPannerNode prototype { get; set; }
@@ -40791,7 +39979,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Storage : IObject
         {
             public static dom.Storage prototype { get; set; }
@@ -40812,7 +39999,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StorageEvent : dom.Event
         {
             public extern StorageEvent(string type);
@@ -40836,7 +40022,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StorageEventInit : dom.EventInit
         {
             public string key { get; set; }
@@ -40853,7 +40038,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StyleMedia : IObject
         {
             public static dom.StyleMedia prototype { get; set; }
@@ -40866,7 +40050,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StyleSheet : IObject
         {
             public static dom.StyleSheet prototype { get; set; }
@@ -40889,7 +40072,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class StyleSheetList : IEnumerable<dom.StyleSheet>, IEnumerable, IH5Class, IObject
         {
             public static dom.StyleSheetList prototype { get; set; }
@@ -40910,7 +40092,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SubtleCrypto : IObject
         {
             public static dom.SubtleCrypto prototype { get; set; }
@@ -42082,7 +41263,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class SyncManager : IObject
         {
             public static dom.SyncManager prototype { get; set; }
@@ -42095,7 +41275,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Text : dom.CharacterData
         {
             public extern Text();
@@ -42114,7 +41293,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextDecoder : IObject
         {
             public extern TextDecoder();
@@ -42194,7 +41372,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextEncoder : IObject
         {
             public static dom.TextEncoder prototype { get; set; }
@@ -42209,7 +41386,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextEvent : dom.UIEvent
         {
             public static dom.TextEvent prototype { get; set; }
@@ -42279,7 +41455,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextMetrics : IObject
         {
             public static dom.TextMetrics prototype { get; set; }
@@ -42291,7 +41466,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextTrackEventMap : IObject
         {
             public dom.Event cuechange { get; set; }
@@ -42315,7 +41489,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextTrack : dom.EventTarget
         {
             public static dom.TextTrack prototype { get; set; }
@@ -42482,7 +41655,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextTrackCueEventMap : IObject
         {
             public dom.Event enter { get; set; }
@@ -42502,7 +41674,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextTrackCue : dom.EventTarget
         {
             public extern TextTrackCue();
@@ -42628,7 +41799,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextTrackCueList : IEnumerable<dom.TextTrackCue>, IEnumerable, IH5Class, IObject
         {
             public static dom.TextTrackCueList prototype { get; set; }
@@ -42652,7 +41822,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextTrackListEventMap : IObject
         {
             public dom.TrackEvent addtrack { get; set; }
@@ -42668,7 +41837,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TextTrackList : dom.EventTarget, IEnumerable<dom.TextTrack>, IEnumerable, IH5Class
         {
             public static dom.TextTrackList prototype { get; set; }
@@ -42787,7 +41955,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TimeRanges : IObject
         {
             public static dom.TimeRanges prototype { get; set; }
@@ -42802,7 +41969,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Touch : IObject
         {
             public static dom.Touch prototype { get; set; }
@@ -42827,7 +41993,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TouchEvent : dom.UIEvent
         {
             public extern TouchEvent(string type);
@@ -42861,7 +42026,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TouchEventInit : dom.EventModifierInit
         {
             public dom.Touch[] changedTouches { get; set; }
@@ -42874,7 +42038,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TouchList : IEnumerable<dom.Touch>, IEnumerable, IH5Class, IObject
         {
             public static dom.TouchList prototype { get; set; }
@@ -42895,7 +42058,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TrackEvent : dom.Event
         {
             public extern TrackEvent(string typeArg);
@@ -42910,7 +42072,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TransitionEvent : dom.Event
         {
             public extern TransitionEvent(string typeArg);
@@ -42934,7 +42095,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class TreeWalker : IObject
         {
             public static dom.TreeWalker prototype { get; set; }
@@ -42967,7 +42127,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class UIEvent : dom.Event
         {
             public extern UIEvent();
@@ -42993,7 +42152,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class URL : IObject
         {
             public extern URL(string url);
@@ -43042,7 +42200,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class URLSearchParams : IObject
         {
             public extern URLSearchParams();
@@ -43071,7 +42228,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRDisplay : dom.EventTarget
         {
             public static dom.VRDisplay prototype { get; set; }
@@ -43119,7 +42275,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRDisplayCapabilities : IObject
         {
             public static dom.VRDisplayCapabilities prototype { get; set; }
@@ -43138,7 +42293,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRDisplayEvent : dom.Event
         {
             public extern VRDisplayEvent(string type, dom.VRDisplayEventInit eventInitDict);
@@ -43153,7 +42307,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VREyeParameters : IObject
         {
             public static dom.VREyeParameters prototype { get; set; }
@@ -43170,7 +42323,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRFieldOfView : IObject
         {
             public static dom.VRFieldOfView prototype { get; set; }
@@ -43187,7 +42339,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRFrameData : IObject
         {
             public static dom.VRFrameData prototype { get; set; }
@@ -43208,7 +42359,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VRPose : IObject
         {
             public static dom.VRPose prototype { get; set; }
@@ -43231,7 +42381,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ValidityState : IObject
         {
             public static dom.ValidityState prototype { get; set; }
@@ -43262,7 +42411,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VideoPlaybackQuality : IObject
         {
             public static dom.VideoPlaybackQuality prototype { get; set; }
@@ -43281,7 +42429,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VideoTrack : IObject
         {
             public static dom.VideoTrack prototype { get; set; }
@@ -43303,7 +42450,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VideoTrackListEventMap : IObject
         {
             public dom.TrackEvent addtrack { get; set; }
@@ -43327,7 +42473,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class VideoTrackList : dom.EventTarget
         {
             public static dom.VideoTrackList prototype { get; set; }
@@ -43452,7 +42597,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WEBGL_color_buffer_float : IObject
         {
             public double FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT { get; }
@@ -43466,7 +42610,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class WEBGL_compressed_texture_astc : IObject
         {
@@ -43532,7 +42675,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WEBGL_compressed_texture_s3tc : IObject
         {
             public static dom.WEBGL_compressed_texture_s3tc prototype { get; set; }
@@ -43562,7 +42704,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WEBGL_compressed_texture_s3tc_srgb : IObject
         {
             public double COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT { get; }
@@ -43577,7 +42718,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WEBGL_debug_renderer_info : IObject
         {
             public static dom.WEBGL_debug_renderer_info prototype { get; set; }
@@ -43595,7 +42735,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class WEBGL_debug_shaders : IObject
         {
@@ -43605,7 +42744,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WEBGL_depth_texture : IObject
         {
             public static dom.WEBGL_depth_texture prototype { get; set; }
@@ -43618,7 +42756,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class WEBGL_draw_buffers : IObject
         {
@@ -43695,7 +42832,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public abstract class WEBGL_lose_context : IObject
         {
@@ -43707,7 +42843,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WaveShaperNode : dom.AudioNode
         {
             public static dom.WaveShaperNode prototype { get; set; }
@@ -43720,7 +42855,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebAuthentication : IObject
         {
             public static dom.WebAuthentication prototype { get; set; }
@@ -43963,7 +43097,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebAuthnAssertion : IObject
         {
             public static dom.WebAuthnAssertion prototype { get; set; }
@@ -43980,7 +43113,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLActiveInfo : IObject
         {
             public static dom.WebGLActiveInfo prototype { get; set; }
@@ -43995,7 +43127,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLBuffer : dom.WebGLObject
         {
             public static dom.WebGLBuffer prototype { get; set; }
@@ -44004,7 +43135,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLContextEvent : dom.Event
         {
             public extern WebGLContextEvent(string typeArg);
@@ -44019,7 +43149,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLFramebuffer : dom.WebGLObject
         {
             public static dom.WebGLFramebuffer prototype { get; set; }
@@ -44028,7 +43157,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLObject : IObject
         {
             public static dom.WebGLObject prototype { get; set; }
@@ -44037,7 +43165,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLProgram : dom.WebGLObject
         {
             public static dom.WebGLProgram prototype { get; set; }
@@ -44046,7 +43173,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLRenderbuffer : dom.WebGLObject
         {
             public static dom.WebGLRenderbuffer prototype { get; set; }
@@ -44055,7 +43181,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLRenderingContext : IObject
         {
             public static dom.WebGLRenderingContext prototype { get; set; }
@@ -46625,7 +45750,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLShader : dom.WebGLObject
         {
             public static dom.WebGLShader prototype { get; set; }
@@ -46634,7 +45758,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLShaderPrecisionFormat : IObject
         {
             public static dom.WebGLShaderPrecisionFormat prototype { get; set; }
@@ -46649,7 +45772,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLTexture : dom.WebGLObject
         {
             public static dom.WebGLTexture prototype { get; set; }
@@ -46658,7 +45780,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLUniformLocation : IObject
         {
             public static dom.WebGLUniformLocation prototype { get; set; }
@@ -46668,7 +45789,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebGLVertexArrayObjectOES : IObject
         {
         }
@@ -46676,7 +45796,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebKitCSSMatrix : IObject
         {
             public extern WebKitCSSMatrix();
@@ -46773,7 +45892,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebKitDirectoryEntry : dom.WebKitEntry
         {
             public static dom.WebKitDirectoryEntry prototype { get; set; }
@@ -46784,7 +45902,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebKitDirectoryReader : IObject
         {
             public static dom.WebKitDirectoryReader prototype { get; set; }
@@ -46844,7 +45961,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebKitEntry : IObject
         {
             public static dom.WebKitEntry prototype { get; set; }
@@ -46863,7 +45979,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebKitFileEntry : dom.WebKitEntry
         {
             public static dom.WebKitFileEntry prototype { get; set; }
@@ -46923,7 +46038,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebKitFileSystem : IObject
         {
             public static dom.WebKitFileSystem prototype { get; set; }
@@ -46936,7 +46050,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebKitPoint : IObject
         {
             public extern WebKitPoint();
@@ -46956,7 +46069,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebSocketEventMap : IObject
         {
             public dom.CloseEvent close { get; set; }
@@ -46984,7 +46096,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WebSocket : dom.EventTarget
         {
             public extern WebSocket(string url);
@@ -47162,7 +46273,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WheelEvent : dom.MouseEvent
         {
             public extern WheelEvent(string typeArg);
@@ -47225,7 +46335,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WindowEventMap : dom.GlobalEventHandlersEventMap
         {
             public dom.UIEvent abort { get; set; }
@@ -47629,7 +46738,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Window : dom.EventTarget, dom.WindowTimers.Interface, dom.WindowTimersExtension.Interface, IObject, dom.WindowSessionStorage.Interface, dom.WindowLocalStorage.Interface, dom.WindowConsole.Interface, dom.GlobalEventHandlers.Interface, dom.IDBEnvironment.Interface, dom.WindowBase64.Interface, dom.GlobalFetch.Interface
         {
             public static dom.Window prototype { get; set; }
@@ -48539,7 +47647,6 @@ namespace HTML
 
             [Generated]
             [Virtual]
-        [External]
             public abstract class BlobStatics : IObject
             {
                 [Template("<self>new {this}()")]
@@ -48556,7 +47663,6 @@ namespace HTML
 
             [Generated]
             [Virtual]
-        [External]
             public abstract class URLStatics : IObject
             {
                 [Template("<self>new {this}({0})")]
@@ -48582,7 +47688,6 @@ namespace HTML
 
             [Generated]
             [Virtual]
-        [External]
             public abstract class URLSearchParamsStatics : IObject
             {
                 [Template("<self>new {this}()")]
@@ -48603,7 +47708,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class WindowBase64 : dom.WindowBase64.Interface, IObject
         {
@@ -48728,7 +47832,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class WindowEventHandlers : dom.WindowEventHandlers.Interface, IObject
         {
@@ -49170,7 +48273,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class WindowTimers : dom.WindowTimersExtension, dom.WindowTimers.Interface, dom.WindowTimersExtension.Interface, IObject
         {
@@ -49233,7 +48335,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class WindowTimersExtension : dom.WindowTimersExtension.Interface, IObject
         {
@@ -49265,7 +48366,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WorkerEventMap : dom.AbstractWorkerEventMap
         {
             public dom.MessageEvent message { get; set; }
@@ -49281,7 +48381,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class Worker : dom.EventTarget, dom.AbstractWorker.Interface, IObject
         {
             public extern Worker(string stringUrl);
@@ -49444,7 +48543,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WritableStream : IObject
         {
             public extern WritableStream();
@@ -49467,7 +48565,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WritableStreamDefaultController : IObject
         {
             public static dom.WritableStreamDefaultController prototype { get; set; }
@@ -49480,7 +48577,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class WritableStreamDefaultWriter : IObject
         {
             public static dom.WritableStreamDefaultWriter prototype { get; set; }
@@ -49507,7 +48603,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XMLDocument : dom.Document
         {
             public static dom.XMLDocument prototype { get; set; }
@@ -49571,7 +48666,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XMLHttpRequestEventMap : dom.XMLHttpRequestEventTargetEventMap
         {
             public dom.Event readystatechange { get; set; }
@@ -49587,7 +48681,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XMLHttpRequest : dom.EventTarget, dom.XMLHttpRequestEventTarget.Interface, IObject
         {
             public static dom.XMLHttpRequest prototype { get; set; }
@@ -49833,7 +48926,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XMLHttpRequestEventTargetEventMap : IObject
         {
             public dom.Event abort { get; set; }
@@ -49872,7 +48964,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [InterfaceWrapper]
         public abstract class XMLHttpRequestEventTarget : dom.XMLHttpRequestEventTarget.Interface, IObject
         {
@@ -50251,7 +49342,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XMLHttpRequestUpload : dom.EventTarget, dom.XMLHttpRequestEventTarget.Interface, IObject
         {
             public static dom.XMLHttpRequestUpload prototype { get; set; }
@@ -50413,7 +49503,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XMLSerializer : IObject
         {
             public static dom.XMLSerializer prototype { get; set; }
@@ -50424,7 +49513,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XPathEvaluator : IObject
         {
             public static dom.XPathEvaluator prototype { get; set; }
@@ -50448,7 +49536,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XPathExpression : IObject
         {
             public static dom.XPathExpression prototype { get; set; }
@@ -50462,7 +49549,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XPathNSResolver : IObject
         {
             public static dom.XPathNSResolver prototype { get; set; }
@@ -50473,7 +49559,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XPathResult : IObject
         {
             public static dom.XPathResult prototype { get; set; }
@@ -50550,7 +49635,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class XSLTProcessor : IObject
         {
             public static dom.XSLTProcessor prototype { get; set; }
@@ -50577,7 +49661,6 @@ namespace HTML
         [CombinedClass]
         [FormerInterface]
         [Virtual]
-        [External]
         public class webkitRTCPeerConnection : dom.RTCPeerConnection
         {
             public extern webkitRTCPeerConnection(dom.RTCConfiguration configuration);
@@ -50645,7 +49728,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         [FormerInterface]
         public class ErrorEventHandler : IObject
         {
@@ -50996,7 +50078,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class HTMLElementTagNameMap : IObject
         {
             public dom.HTMLAnchorElement a { get; set; }
@@ -51848,7 +50929,6 @@ namespace HTML
         [ObjectLiteral]
         [FormerInterface]
         [Virtual]
-        [External]
         public class ElementTagNameMap : dom.HTMLElementTagNameMap, dom.SVGElementTagNameMap.Interface, IObject
         {
             public dom.SVGCircleElement circle { get; set; }
@@ -51960,7 +51040,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class WebKitEntriesCallback : TypeAlias<Union<dom.WebKitEntriesCallback.WebKitEntriesCallbackFn, dom.WebKitEntriesCallback.WebKitEntriesCallbackConfig>>
         {
             public static extern implicit operator dom.WebKitEntriesCallback(
@@ -51990,7 +51069,6 @@ namespace HTML
             public delegate void WebKitEntriesCallbackFn(dom.WebKitEntry[] entries);
 
             [Virtual]
-        [External]
             public abstract class WebKitEntriesCallbackConfig : IObject
             {
                 public abstract void handleEvent(dom.WebKitEntry[] entries);
@@ -51999,7 +51077,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class WebKitErrorCallback : TypeAlias<Union<dom.WebKitErrorCallback.WebKitErrorCallbackFn, dom.WebKitErrorCallback.WebKitErrorCallbackConfig>>
         {
             public static extern implicit operator dom.WebKitErrorCallback(
@@ -52029,7 +51106,6 @@ namespace HTML
             public delegate void WebKitErrorCallbackFn(dom.DOMError err);
 
             [Virtual]
-        [External]
             public abstract class WebKitErrorCallbackConfig : IObject
             {
                 public abstract void handleEvent(dom.DOMError err);
@@ -52038,7 +51114,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class WebKitFileCallback : TypeAlias<Union<dom.WebKitFileCallback.WebKitFileCallbackFn, dom.WebKitFileCallback.WebKitFileCallbackConfig>>
         {
             public static extern implicit operator dom.WebKitFileCallback(
@@ -52068,7 +51143,6 @@ namespace HTML
             public delegate void WebKitFileCallbackFn(dom.File file);
 
             [Virtual]
-        [External]
             public abstract class WebKitFileCallbackConfig : IObject
             {
                 public abstract void handleEvent(dom.File file);
@@ -52077,7 +51151,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class EventListenerOrEventListenerObject : TypeAlias<Union<dom.EventListener, dom.EventListenerObject>>
         {
             public static extern implicit operator dom.EventListenerOrEventListenerObject(
@@ -52159,7 +51232,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class MouseWheelEvent : TypeAlias<dom.WheelEvent>
         {
             public static extern implicit operator dom.MouseWheelEvent(dom.WheelEvent value);
@@ -52184,7 +51256,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class FormDataEntryValue : TypeAlias<Union<string, dom.File>>
         {
             public static extern implicit operator dom.FormDataEntryValue(Union<string, dom.File> value);
@@ -52233,7 +51304,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class HeadersInit : TypeAlias<Union<dom.Headers, string[][], dom.HeadersInit.HeadersInitConfig>>
         {
             public static extern implicit operator dom.HeadersInit(
@@ -52318,7 +51388,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class IDBValidKey : TypeAlias<Union<double, string, es5.Date, dom.IDBArrayKey>>
         {
             public static extern implicit operator dom.IDBValidKey(
@@ -52355,7 +51424,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class AlgorithmIdentifier : TypeAlias<Union<string, dom.Algorithm>>
         {
             public static extern implicit operator dom.AlgorithmIdentifier(
@@ -52401,7 +51469,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class AAGUID : TypeAlias<string>
         {
             public static extern implicit operator dom.AAGUID(string value);
@@ -52409,14 +51476,12 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class BodyInit : TypeAlias<object>
         {
         }
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class ByteString : TypeAlias<string>
         {
             public static extern implicit operator dom.ByteString(string value);
@@ -52424,7 +51489,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class ConstrainBoolean : TypeAlias<Union<bool, dom.ConstrainBooleanParameters>>
         {
             public static extern implicit operator dom.ConstrainBoolean(
@@ -52449,7 +51513,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class ConstrainDOMString : TypeAlias<Union<string, string[], dom.ConstrainDOMStringParameters>>
         {
             public static extern implicit operator dom.ConstrainDOMString(
@@ -52481,7 +51544,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class ConstrainDouble : TypeAlias<Union<double, dom.ConstrainDoubleRange>>
         {
             public static extern implicit operator dom.ConstrainDouble(
@@ -52504,7 +51566,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class ConstrainLong : TypeAlias<Union<double, dom.ConstrainLongRange>>
         {
             public static extern implicit operator dom.ConstrainLong(
@@ -52527,7 +51588,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class CryptoOperationData : TypeAlias<es5.ArrayBufferView>
         {
             public static extern implicit operator dom.CryptoOperationData(es5.ArrayBufferView value);
@@ -52535,7 +51595,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLbitfield : TypeAlias<double>
         {
             public static extern implicit operator dom.GLbitfield(double value);
@@ -52543,7 +51602,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLboolean : TypeAlias<bool>
         {
             public static extern implicit operator dom.GLboolean(bool value);
@@ -52551,7 +51609,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLbyte : TypeAlias<double>
         {
             public static extern implicit operator dom.GLbyte(double value);
@@ -52559,7 +51616,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLclampf : TypeAlias<double>
         {
             public static extern implicit operator dom.GLclampf(double value);
@@ -52567,7 +51623,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLenum : TypeAlias<double>
         {
             public static extern implicit operator dom.GLenum(double value);
@@ -52575,7 +51630,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLfloat : TypeAlias<double>
         {
             public static extern implicit operator dom.GLfloat(double value);
@@ -52583,7 +51637,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLint : TypeAlias<double>
         {
             public static extern implicit operator dom.GLint(double value);
@@ -52591,7 +51644,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLintptr : TypeAlias<double>
         {
             public static extern implicit operator dom.GLintptr(double value);
@@ -52599,7 +51651,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLshort : TypeAlias<double>
         {
             public static extern implicit operator dom.GLshort(double value);
@@ -52607,7 +51658,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLsizei : TypeAlias<double>
         {
             public static extern implicit operator dom.GLsizei(double value);
@@ -52615,7 +51665,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLsizeiptr : TypeAlias<double>
         {
             public static extern implicit operator dom.GLsizeiptr(double value);
@@ -52623,7 +51672,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLubyte : TypeAlias<double>
         {
             public static extern implicit operator dom.GLubyte(double value);
@@ -52631,7 +51679,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLuint : TypeAlias<double>
         {
             public static extern implicit operator dom.GLuint(double value);
@@ -52639,7 +51686,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GLushort : TypeAlias<double>
         {
             public static extern implicit operator dom.GLushort(double value);
@@ -52647,7 +51693,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class IDBKeyPath : TypeAlias<string>
         {
             public static extern implicit operator dom.IDBKeyPath(string value);
@@ -52655,7 +51700,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class MSInboundPayload : TypeAlias<Union<dom.MSVideoRecvPayload, dom.MSAudioRecvPayload>>
         {
             public static extern implicit operator dom.MSInboundPayload(
@@ -52678,7 +51722,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class MSLocalClientEvent : TypeAlias<Union<dom.MSLocalClientEventBase, dom.MSAudioLocalClientEvent>>
         {
             public static extern implicit operator dom.MSLocalClientEvent(
@@ -52705,7 +51748,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class MSOutboundPayload : TypeAlias<Union<dom.MSVideoSendPayload, dom.MSAudioSendPayload>>
         {
             public static extern implicit operator dom.MSOutboundPayload(
@@ -52728,7 +51770,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class RTCIceGatherCandidate : TypeAlias<Union<dom.RTCIceCandidateDictionary, dom.RTCIceCandidateComplete>>
         {
             public static extern implicit operator dom.RTCIceGatherCandidate(
@@ -52755,7 +51796,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class RTCTransport : TypeAlias<Union<dom.RTCDtlsTransport, dom.RTCSrtpSdesTransport>>
         {
             public static extern implicit operator dom.RTCTransport(
@@ -52778,7 +51818,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class RequestInfo : TypeAlias<Union<dom.Request, string>>
         {
             public static extern implicit operator dom.RequestInfo(Union<dom.Request, string> value);
@@ -52800,7 +51839,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class USVString : TypeAlias<string>
         {
             public static extern implicit operator dom.USVString(string value);
@@ -52808,7 +51846,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class payloadtype : TypeAlias<double>
         {
             public static extern implicit operator dom.payloadtype(double value);
@@ -52816,7 +51853,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class BufferSource : TypeAlias<Union<es5.ArrayBuffer, es5.ArrayBufferView>>
         {
             public static extern implicit operator dom.BufferSource(
@@ -53183,7 +52219,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class GamepadHapticActuatorType : TypeAlias<dom.Literals.Types.vibration>
         {
             public static extern implicit operator dom.GamepadHapticActuatorType(
@@ -53430,7 +52465,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class MSCredentialType : TypeAlias<dom.Literals.Types.FIDO_2_0>
         {
             public static extern implicit operator dom.MSCredentialType(
@@ -54838,7 +53872,6 @@ namespace HTML
 
         [IgnoreCast]
         [Virtual]
-        [External]
         public abstract class ScopedCredentialType : TypeAlias<dom.Literals.Types.ScopedCred>
         {
             public static extern implicit operator dom.ScopedCredentialType(
@@ -55112,7 +54145,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ANGLE_instanced_arraysTypeConfig : IObject
         {
             public virtual dom.ANGLE_instanced_arrays prototype { get; set; }
@@ -55124,7 +54156,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AbortControllerTypeConfig : IObject
         {
             public virtual dom.AbortController prototype { get; set; }
@@ -55134,7 +54165,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AbortSignalTypeConfig : IObject
         {
             public virtual dom.AbortSignal prototype { get; set; }
@@ -55144,7 +54174,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AnalyserNodeTypeConfig : IObject
         {
             public virtual dom.AnalyserNode prototype { get; set; }
@@ -55154,7 +54183,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AnimationTypeConfig : IObject
         {
             public virtual dom.Animation prototype { get; set; }
@@ -55172,7 +54200,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AnimationEventTypeConfig : IObject
         {
             public virtual dom.AnimationEvent prototype { get; set; }
@@ -55187,7 +54214,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AnimationPlaybackEventTypeConfig : IObject
         {
             public virtual dom.AnimationPlaybackEvent prototype { get; set; }
@@ -55202,7 +54228,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ApplicationCacheTypeConfig : IObject
         {
             public virtual dom.ApplicationCache prototype { get; set; }
@@ -55224,7 +54249,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AttrTypeConfig : IObject
         {
             public virtual dom.Attr prototype { get; set; }
@@ -55234,7 +54258,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioBufferTypeConfig : IObject
         {
             public virtual dom.AudioBuffer prototype { get; set; }
@@ -55244,7 +54267,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioBufferSourceNodeTypeConfig : IObject
         {
             public virtual dom.AudioBufferSourceNode prototype { get; set; }
@@ -55254,7 +54276,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioContextTypeConfig : IObject
         {
             public virtual dom.AudioContext prototype { get; set; }
@@ -55264,7 +54285,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioDestinationNodeTypeConfig : IObject
         {
             public virtual dom.AudioDestinationNode prototype { get; set; }
@@ -55274,7 +54294,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioListenerTypeConfig : IObject
         {
             public virtual dom.AudioListener prototype { get; set; }
@@ -55284,7 +54303,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioNodeTypeConfig : IObject
         {
             public virtual dom.AudioNode prototype { get; set; }
@@ -55294,7 +54312,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioParamTypeConfig : IObject
         {
             public virtual dom.AudioParam prototype { get; set; }
@@ -55304,7 +54321,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioProcessingEventTypeConfig : IObject
         {
             public virtual dom.AudioProcessingEvent prototype { get; set; }
@@ -55314,7 +54330,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioTrackTypeConfig : IObject
         {
             public virtual dom.AudioTrack prototype { get; set; }
@@ -55324,7 +54339,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioTrackListTypeConfig : IObject
         {
             public virtual dom.AudioTrackList prototype { get; set; }
@@ -55334,7 +54348,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class BarPropTypeConfig : IObject
         {
             public virtual dom.BarProp prototype { get; set; }
@@ -55344,7 +54357,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class BeforeUnloadEventTypeConfig : IObject
         {
             public virtual dom.BeforeUnloadEvent prototype { get; set; }
@@ -55354,7 +54366,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class BhxBrowserTypeConfig : IObject
         {
             public virtual dom.BhxBrowser prototype { get; set; }
@@ -55364,7 +54375,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class BiquadFilterNodeTypeConfig : IObject
         {
             public virtual dom.BiquadFilterNode prototype { get; set; }
@@ -55374,7 +54384,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class BlobTypeConfig : IObject
         {
             public virtual dom.Blob prototype { get; set; }
@@ -55390,7 +54399,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class BroadcastChannelTypeConfig : IObject
         {
             public virtual dom.BroadcastChannel prototype { get; set; }
@@ -55400,7 +54408,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ByteLengthQueuingStrategyTypeConfig : IObject
         {
             public virtual dom.ByteLengthQueuingStrategy prototype { get; set; }
@@ -55410,7 +54417,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CDATASectionTypeConfig : IObject
         {
             public virtual dom.CDATASection prototype { get; set; }
@@ -55420,7 +54426,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSConditionRuleTypeConfig : IObject
         {
             public virtual dom.CSSConditionRule prototype { get; set; }
@@ -55430,7 +54435,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSFontFaceRuleTypeConfig : IObject
         {
             public virtual dom.CSSFontFaceRule prototype { get; set; }
@@ -55440,7 +54444,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSGroupingRuleTypeConfig : IObject
         {
             public virtual dom.CSSGroupingRule prototype { get; set; }
@@ -55450,7 +54453,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSImportRuleTypeConfig : IObject
         {
             public virtual dom.CSSImportRule prototype { get; set; }
@@ -55460,7 +54462,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSKeyframeRuleTypeConfig : IObject
         {
             public virtual dom.CSSKeyframeRule prototype { get; set; }
@@ -55470,7 +54471,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSKeyframesRuleTypeConfig : IObject
         {
             public virtual dom.CSSKeyframesRule prototype { get; set; }
@@ -55480,7 +54480,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSMediaRuleTypeConfig : IObject
         {
             public virtual dom.CSSMediaRule prototype { get; set; }
@@ -55490,7 +54489,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSNamespaceRuleTypeConfig : IObject
         {
             public virtual dom.CSSNamespaceRule prototype { get; set; }
@@ -55500,7 +54498,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSPageRuleTypeConfig : IObject
         {
             public virtual dom.CSSPageRule prototype { get; set; }
@@ -55510,7 +54507,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSRuleTypeConfig : IObject
         {
             public virtual dom.CSSRule prototype { get; set; }
@@ -55544,7 +54540,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSRuleListTypeConfig : IObject
         {
             public virtual dom.CSSRuleList prototype { get; set; }
@@ -55554,7 +54549,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSStyleDeclarationTypeConfig : IObject
         {
             public virtual dom.CSSStyleDeclaration prototype { get; set; }
@@ -55564,7 +54558,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSStyleRuleTypeConfig : IObject
         {
             public virtual dom.CSSStyleRule prototype { get; set; }
@@ -55574,7 +54567,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSStyleSheetTypeConfig : IObject
         {
             public virtual dom.CSSStyleSheet prototype { get; set; }
@@ -55584,7 +54576,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CSSSupportsRuleTypeConfig : IObject
         {
             public virtual dom.CSSSupportsRule prototype { get; set; }
@@ -55594,7 +54585,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CacheTypeConfig : IObject
         {
             public virtual dom.Cache prototype { get; set; }
@@ -55604,7 +54594,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CacheStorageTypeConfig : IObject
         {
             public virtual dom.CacheStorage prototype { get; set; }
@@ -55614,7 +54603,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CanvasGradientTypeConfig : IObject
         {
             public virtual dom.CanvasGradient prototype { get; set; }
@@ -55624,7 +54612,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CanvasPatternTypeConfig : IObject
         {
             public virtual dom.CanvasPattern prototype { get; set; }
@@ -55634,7 +54621,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CanvasRenderingContext2DTypeConfig : IObject
         {
             public virtual dom.CanvasRenderingContext2D prototype { get; set; }
@@ -55644,7 +54630,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ChannelMergerNodeTypeConfig : IObject
         {
             public virtual dom.ChannelMergerNode prototype { get; set; }
@@ -55654,7 +54639,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ChannelSplitterNodeTypeConfig : IObject
         {
             public virtual dom.ChannelSplitterNode prototype { get; set; }
@@ -55664,7 +54648,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CharacterDataTypeConfig : IObject
         {
             public virtual dom.CharacterData prototype { get; set; }
@@ -55674,7 +54657,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ClientRectTypeConfig : IObject
         {
             public virtual dom.ClientRect prototype { get; set; }
@@ -55684,7 +54666,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ClientRectListTypeConfig : IObject
         {
             public virtual dom.ClientRectList prototype { get; set; }
@@ -55694,7 +54675,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ClipboardEventTypeConfig : IObject
         {
             public virtual dom.ClipboardEvent prototype { get; set; }
@@ -55707,7 +54687,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CloseEventTypeConfig : IObject
         {
             public virtual dom.CloseEvent prototype { get; set; }
@@ -55720,7 +54699,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CommentTypeConfig : IObject
         {
             public virtual dom.Comment prototype { get; set; }
@@ -55733,7 +54711,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CompositionEventTypeConfig : IObject
         {
             public virtual dom.CompositionEvent prototype { get; set; }
@@ -55748,7 +54725,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ConsoleTypeConfig : IObject
         {
             public virtual dom.Console prototype { get; set; }
@@ -55758,7 +54734,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ContentScriptGlobalScopeTypeConfig : IObject
         {
             public virtual dom.ContentScriptGlobalScope prototype { get; set; }
@@ -55768,7 +54743,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ConvolverNodeTypeConfig : IObject
         {
             public virtual dom.ConvolverNode prototype { get; set; }
@@ -55778,7 +54752,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CoordinatesTypeConfig : IObject
         {
             public virtual dom.Coordinates prototype { get; set; }
@@ -55788,7 +54761,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CountQueuingStrategyTypeConfig : IObject
         {
             public virtual dom.CountQueuingStrategy prototype { get; set; }
@@ -55798,7 +54770,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CryptoTypeConfig : IObject
         {
             public virtual dom.Crypto prototype { get; set; }
@@ -55808,7 +54779,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CryptoKeyTypeConfig : IObject
         {
             public virtual dom.CryptoKey prototype { get; set; }
@@ -55818,7 +54788,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CryptoKeyPairTypeConfig : IObject
         {
             public virtual dom.CryptoKeyPair prototype { get; set; }
@@ -55828,7 +54797,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class CustomEvent2Config : IObject
         {
             public virtual dom.CustomEvent<object> prototype { get; set; }
@@ -55843,7 +54811,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMErrorTypeConfig : IObject
         {
             public virtual dom.DOMError prototype { get; set; }
@@ -55853,7 +54820,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMExceptionTypeConfig : IObject
         {
             public virtual dom.DOMException prototype { get; set; }
@@ -55923,7 +54889,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMImplementationTypeConfig : IObject
         {
             public virtual dom.DOMImplementation prototype { get; set; }
@@ -55933,7 +54898,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMParserTypeConfig : IObject
         {
             public virtual dom.DOMParser prototype { get; set; }
@@ -55943,7 +54907,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMRectTypeConfig : IObject
         {
             public virtual dom.DOMRect prototype { get; set; }
@@ -55969,7 +54932,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMRectReadOnlyTypeConfig : IObject
         {
             public virtual dom.DOMRectReadOnly prototype { get; set; }
@@ -55995,7 +54957,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMSettableTokenListTypeConfig : IObject
         {
             public virtual dom.DOMSettableTokenList prototype { get; set; }
@@ -56005,7 +54966,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMStringListTypeConfig : IObject
         {
             public virtual dom.DOMStringList prototype { get; set; }
@@ -56015,7 +54975,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMStringMapTypeConfig : IObject
         {
             public virtual dom.DOMStringMap prototype { get; set; }
@@ -56025,7 +54984,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DOMTokenListTypeConfig : IObject
         {
             public virtual dom.DOMTokenList prototype { get; set; }
@@ -56035,7 +54993,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DataCueTypeConfig : IObject
         {
             public virtual dom.DataCue prototype { get; set; }
@@ -56045,7 +55002,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DataTransferTypeConfig : IObject
         {
             public virtual dom.DataTransfer prototype { get; set; }
@@ -56055,7 +55011,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DataTransferItemTypeConfig : IObject
         {
             public virtual dom.DataTransferItem prototype { get; set; }
@@ -56065,7 +55020,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DataTransferItemListTypeConfig : IObject
         {
             public virtual dom.DataTransferItemList prototype { get; set; }
@@ -56075,7 +55029,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DeferredPermissionRequestTypeConfig : IObject
         {
             public virtual dom.DeferredPermissionRequest prototype { get; set; }
@@ -56085,7 +55038,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DelayNodeTypeConfig : IObject
         {
             public virtual dom.DelayNode prototype { get; set; }
@@ -56095,7 +55047,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DeviceAccelerationTypeConfig : IObject
         {
             public virtual dom.DeviceAcceleration prototype { get; set; }
@@ -56105,7 +55056,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DeviceLightEventTypeConfig : IObject
         {
             public virtual dom.DeviceLightEvent prototype { get; set; }
@@ -56120,7 +55070,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DeviceMotionEventTypeConfig : IObject
         {
             public virtual dom.DeviceMotionEvent prototype { get; set; }
@@ -56135,7 +55084,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DeviceOrientationEventTypeConfig : IObject
         {
             public virtual dom.DeviceOrientationEvent prototype { get; set; }
@@ -56150,7 +55098,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DeviceRotationRateTypeConfig : IObject
         {
             public virtual dom.DeviceRotationRate prototype { get; set; }
@@ -56160,7 +55107,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DocumentType2Config : IObject
         {
             public virtual dom.Document prototype { get; set; }
@@ -56170,7 +55116,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DocumentFragmentTypeConfig : IObject
         {
             public virtual dom.DocumentFragment prototype { get; set; }
@@ -56180,7 +55125,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DocumentTypeTypeConfig : IObject
         {
             public virtual dom.DocumentType prototype { get; set; }
@@ -56190,7 +55134,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DragEventTypeConfig : IObject
         {
             public virtual dom.DragEvent prototype { get; set; }
@@ -56211,7 +55154,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class DynamicsCompressorNodeTypeConfig : IObject
         {
             public virtual dom.DynamicsCompressorNode prototype { get; set; }
@@ -56221,7 +55163,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class EXT_texture_filter_anisotropicTypeConfig : IObject
         {
             public virtual dom.EXT_texture_filter_anisotropic prototype { get; set; }
@@ -56235,7 +55176,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ElementTypeConfig : IObject
         {
             public virtual dom.Element prototype { get; set; }
@@ -56245,7 +55185,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ErrorEventTypeConfig : IObject
         {
             public virtual dom.ErrorEvent prototype { get; set; }
@@ -56258,7 +55197,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class EventTypeConfig : IObject
         {
             public virtual dom.Event prototype { get; set; }
@@ -56279,7 +55217,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class EventSourceTypeConfig : IObject
         {
             public virtual dom.EventSource prototype { get; set; }
@@ -56292,7 +55229,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class EventTargetTypeConfig : IObject
         {
             public virtual dom.EventTarget prototype { get; set; }
@@ -56302,7 +55238,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ExtensionScriptApisTypeConfig : IObject
         {
             public virtual dom.ExtensionScriptApis prototype { get; set; }
@@ -56312,7 +55247,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ExternalTypeConfig : IObject
         {
             public virtual dom.External prototype { get; set; }
@@ -56322,7 +55256,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class FileTypeConfig : IObject
         {
             public virtual dom.File prototype { get; set; }
@@ -56376,7 +55309,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class FileListTypeConfig : IObject
         {
             public virtual dom.FileList prototype { get; set; }
@@ -56386,7 +55318,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class FileReaderTypeConfig : IObject
         {
             public virtual dom.FileReader prototype { get; set; }
@@ -56402,7 +55333,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class FocusEventTypeConfig : IObject
         {
             public virtual dom.FocusEvent prototype { get; set; }
@@ -56415,7 +55345,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class FocusNavigationEventTypeConfig : IObject
         {
             public virtual dom.FocusNavigationEvent prototype { get; set; }
@@ -56430,7 +55359,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class FormDataTypeConfig : IObject
         {
             public virtual dom.FormData prototype { get; set; }
@@ -56443,7 +55371,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class GainNodeTypeConfig : IObject
         {
             public virtual dom.GainNode prototype { get; set; }
@@ -56453,7 +55380,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class GamepadTypeConfig : IObject
         {
             public virtual dom.Gamepad prototype { get; set; }
@@ -56463,7 +55389,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class GamepadButtonTypeConfig : IObject
         {
             public virtual dom.GamepadButton prototype { get; set; }
@@ -56473,7 +55398,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class GamepadEventTypeConfig : IObject
         {
             public virtual dom.GamepadEvent prototype { get; set; }
@@ -56486,7 +55410,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class GamepadHapticActuatorType2Config : IObject
         {
             public virtual dom.GamepadHapticActuator prototype { get; set; }
@@ -56496,7 +55419,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class GamepadPoseTypeConfig : IObject
         {
             public virtual dom.GamepadPose prototype { get; set; }
@@ -56506,7 +55428,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class GeolocationTypeConfig : IObject
         {
             public virtual dom.Geolocation prototype { get; set; }
@@ -56516,7 +55437,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLAllCollectionTypeConfig : IObject
         {
             public virtual dom.HTMLAllCollection prototype { get; set; }
@@ -56526,7 +55446,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLAnchorElementTypeConfig : IObject
         {
             public virtual dom.HTMLAnchorElement prototype { get; set; }
@@ -56536,7 +55455,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLAppletElementTypeConfig : IObject
         {
             public virtual dom.HTMLAppletElement prototype { get; set; }
@@ -56546,7 +55464,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLAreaElementTypeConfig : IObject
         {
             public virtual dom.HTMLAreaElement prototype { get; set; }
@@ -56556,7 +55473,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLAreasCollectionTypeConfig : IObject
         {
             public virtual dom.HTMLAreasCollection prototype { get; set; }
@@ -56566,7 +55482,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLAudioElementTypeConfig : IObject
         {
             public virtual dom.HTMLAudioElement prototype { get; set; }
@@ -56576,7 +55491,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLBRElementTypeConfig : IObject
         {
             public virtual dom.HTMLBRElement prototype { get; set; }
@@ -56586,7 +55500,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLBaseElementTypeConfig : IObject
         {
             public virtual dom.HTMLBaseElement prototype { get; set; }
@@ -56596,7 +55509,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLBaseFontElementTypeConfig : IObject
         {
             public virtual dom.HTMLBaseFontElement prototype { get; set; }
@@ -56606,7 +55518,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLBodyElementTypeConfig : IObject
         {
             public virtual dom.HTMLBodyElement prototype { get; set; }
@@ -56616,7 +55527,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLButtonElementTypeConfig : IObject
         {
             public virtual dom.HTMLButtonElement prototype { get; set; }
@@ -56626,7 +55536,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLCanvasElementTypeConfig : IObject
         {
             public virtual dom.HTMLCanvasElement prototype { get; set; }
@@ -56636,7 +55545,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLCollectionTypeConfig : IObject
         {
             public virtual dom.HTMLCollection prototype { get; set; }
@@ -56646,7 +55554,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLDListElementTypeConfig : IObject
         {
             public virtual dom.HTMLDListElement prototype { get; set; }
@@ -56656,7 +55563,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLDataElementTypeConfig : IObject
         {
             public virtual dom.HTMLDataElement prototype { get; set; }
@@ -56666,7 +55572,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLDataListElementTypeConfig : IObject
         {
             public virtual dom.HTMLDataListElement prototype { get; set; }
@@ -56676,7 +55581,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLDetailsElementTypeConfig : IObject
         {
             public virtual dom.HTMLDetailsElement prototype { get; set; }
@@ -56686,7 +55590,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLDialogElementTypeConfig : IObject
         {
             public virtual dom.HTMLDialogElement prototype { get; set; }
@@ -56696,7 +55599,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLDirectoryElementTypeConfig : IObject
         {
             public virtual dom.HTMLDirectoryElement prototype { get; set; }
@@ -56706,7 +55608,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLDivElementTypeConfig : IObject
         {
             public virtual dom.HTMLDivElement prototype { get; set; }
@@ -56716,7 +55617,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLDocumentTypeConfig : IObject
         {
             public virtual dom.HTMLDocument prototype { get; set; }
@@ -56726,7 +55626,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLElementTypeConfig : IObject
         {
             public virtual dom.HTMLElement prototype { get; set; }
@@ -56736,7 +55635,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLEmbedElementTypeConfig : IObject
         {
             public virtual dom.HTMLEmbedElement prototype { get; set; }
@@ -56746,7 +55644,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLFieldSetElementTypeConfig : IObject
         {
             public virtual dom.HTMLFieldSetElement prototype { get; set; }
@@ -56756,7 +55653,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLFontElementTypeConfig : IObject
         {
             public virtual dom.HTMLFontElement prototype { get; set; }
@@ -56766,7 +55662,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLFormControlsCollectionTypeConfig : IObject
         {
             public virtual dom.HTMLFormControlsCollection prototype { get; set; }
@@ -56776,7 +55671,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLFormElementTypeConfig : IObject
         {
             public virtual dom.HTMLFormElement prototype { get; set; }
@@ -56786,7 +55680,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLFrameElementTypeConfig : IObject
         {
             public virtual dom.HTMLFrameElement prototype { get; set; }
@@ -56796,7 +55689,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLFrameSetElementTypeConfig : IObject
         {
             public virtual dom.HTMLFrameSetElement prototype { get; set; }
@@ -56806,7 +55698,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLHRElementTypeConfig : IObject
         {
             public virtual dom.HTMLHRElement prototype { get; set; }
@@ -56816,7 +55707,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLHeadElementTypeConfig : IObject
         {
             public virtual dom.HTMLHeadElement prototype { get; set; }
@@ -56826,7 +55716,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLHeadingElementTypeConfig : IObject
         {
             public virtual dom.HTMLHeadingElement prototype { get; set; }
@@ -56836,7 +55725,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLHtmlElementTypeConfig : IObject
         {
             public virtual dom.HTMLHtmlElement prototype { get; set; }
@@ -56846,7 +55734,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLIFrameElementTypeConfig : IObject
         {
             public virtual dom.HTMLIFrameElement prototype { get; set; }
@@ -56856,7 +55743,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLImageElementTypeConfig : IObject
         {
             public virtual dom.HTMLImageElement prototype { get; set; }
@@ -56866,7 +55752,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLInputElementTypeConfig : IObject
         {
             public virtual dom.HTMLInputElement prototype { get; set; }
@@ -56876,7 +55761,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLLIElementTypeConfig : IObject
         {
             public virtual dom.HTMLLIElement prototype { get; set; }
@@ -56886,7 +55770,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLLabelElementTypeConfig : IObject
         {
             public virtual dom.HTMLLabelElement prototype { get; set; }
@@ -56896,7 +55779,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLLegendElementTypeConfig : IObject
         {
             public virtual dom.HTMLLegendElement prototype { get; set; }
@@ -56906,7 +55788,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLLinkElementTypeConfig : IObject
         {
             public virtual dom.HTMLLinkElement prototype { get; set; }
@@ -56916,7 +55797,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLMainElementTypeConfig : IObject
         {
             public virtual dom.HTMLMainElement prototype { get; set; }
@@ -56926,7 +55806,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLMapElementTypeConfig : IObject
         {
             public virtual dom.HTMLMapElement prototype { get; set; }
@@ -56936,7 +55815,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLMarqueeElementTypeConfig : IObject
         {
             public virtual dom.HTMLMarqueeElement prototype { get; set; }
@@ -56946,7 +55824,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLMediaElementTypeConfig : IObject
         {
             public virtual dom.HTMLMediaElement prototype { get; set; }
@@ -56974,7 +55851,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLMenuElementTypeConfig : IObject
         {
             public virtual dom.HTMLMenuElement prototype { get; set; }
@@ -56984,7 +55860,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLMetaElementTypeConfig : IObject
         {
             public virtual dom.HTMLMetaElement prototype { get; set; }
@@ -56994,7 +55869,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLMeterElementTypeConfig : IObject
         {
             public virtual dom.HTMLMeterElement prototype { get; set; }
@@ -57004,7 +55878,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLModElementTypeConfig : IObject
         {
             public virtual dom.HTMLModElement prototype { get; set; }
@@ -57014,7 +55887,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLOListElementTypeConfig : IObject
         {
             public virtual dom.HTMLOListElement prototype { get; set; }
@@ -57024,7 +55896,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLObjectElementTypeConfig : IObject
         {
             public virtual dom.HTMLObjectElement prototype { get; set; }
@@ -57034,7 +55905,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLOptGroupElementTypeConfig : IObject
         {
             public virtual dom.HTMLOptGroupElement prototype { get; set; }
@@ -57044,7 +55914,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLOptionElementTypeConfig : IObject
         {
             public virtual dom.HTMLOptionElement prototype { get; set; }
@@ -57054,7 +55923,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLOptionsCollectionTypeConfig : IObject
         {
             public virtual dom.HTMLOptionsCollection prototype { get; set; }
@@ -57064,7 +55932,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLOutputElementTypeConfig : IObject
         {
             public virtual dom.HTMLOutputElement prototype { get; set; }
@@ -57074,7 +55941,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLParagraphElementTypeConfig : IObject
         {
             public virtual dom.HTMLParagraphElement prototype { get; set; }
@@ -57084,7 +55950,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLParamElementTypeConfig : IObject
         {
             public virtual dom.HTMLParamElement prototype { get; set; }
@@ -57094,7 +55959,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLPictureElementTypeConfig : IObject
         {
             public virtual dom.HTMLPictureElement prototype { get; set; }
@@ -57104,7 +55968,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLPreElementTypeConfig : IObject
         {
             public virtual dom.HTMLPreElement prototype { get; set; }
@@ -57114,7 +55977,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLProgressElementTypeConfig : IObject
         {
             public virtual dom.HTMLProgressElement prototype { get; set; }
@@ -57124,7 +55986,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLQuoteElementTypeConfig : IObject
         {
             public virtual dom.HTMLQuoteElement prototype { get; set; }
@@ -57134,7 +55995,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLScriptElementTypeConfig : IObject
         {
             public virtual dom.HTMLScriptElement prototype { get; set; }
@@ -57144,7 +56004,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLSelectElementTypeConfig : IObject
         {
             public virtual dom.HTMLSelectElement prototype { get; set; }
@@ -57154,7 +56013,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLSourceElementTypeConfig : IObject
         {
             public virtual dom.HTMLSourceElement prototype { get; set; }
@@ -57164,7 +56022,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLSpanElementTypeConfig : IObject
         {
             public virtual dom.HTMLSpanElement prototype { get; set; }
@@ -57174,7 +56031,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLStyleElementTypeConfig : IObject
         {
             public virtual dom.HTMLStyleElement prototype { get; set; }
@@ -57184,7 +56040,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLSummaryElementTypeConfig : IObject
         {
             public virtual dom.HTMLSummaryElement prototype { get; set; }
@@ -57194,7 +56049,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTableCaptionElementTypeConfig : IObject
         {
             public virtual dom.HTMLTableCaptionElement prototype { get; set; }
@@ -57204,7 +56058,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTableCellElementTypeConfig : IObject
         {
             public virtual dom.HTMLTableCellElement prototype { get; set; }
@@ -57214,7 +56067,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTableColElementTypeConfig : IObject
         {
             public virtual dom.HTMLTableColElement prototype { get; set; }
@@ -57224,7 +56076,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTableDataCellElementTypeConfig : IObject
         {
             public virtual dom.HTMLTableDataCellElement prototype { get; set; }
@@ -57234,7 +56085,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTableElementTypeConfig : IObject
         {
             public virtual dom.HTMLTableElement prototype { get; set; }
@@ -57244,7 +56094,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTableHeaderCellElementTypeConfig : IObject
         {
             public virtual dom.HTMLTableHeaderCellElement prototype { get; set; }
@@ -57254,7 +56103,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTableRowElementTypeConfig : IObject
         {
             public virtual dom.HTMLTableRowElement prototype { get; set; }
@@ -57264,7 +56112,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTableSectionElementTypeConfig : IObject
         {
             public virtual dom.HTMLTableSectionElement prototype { get; set; }
@@ -57274,7 +56121,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTemplateElementTypeConfig : IObject
         {
             public virtual dom.HTMLTemplateElement prototype { get; set; }
@@ -57284,7 +56130,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTextAreaElementTypeConfig : IObject
         {
             public virtual dom.HTMLTextAreaElement prototype { get; set; }
@@ -57294,7 +56139,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTimeElementTypeConfig : IObject
         {
             public virtual dom.HTMLTimeElement prototype { get; set; }
@@ -57304,7 +56148,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTitleElementTypeConfig : IObject
         {
             public virtual dom.HTMLTitleElement prototype { get; set; }
@@ -57314,7 +56157,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLTrackElementTypeConfig : IObject
         {
             public virtual dom.HTMLTrackElement prototype { get; set; }
@@ -57332,7 +56174,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLUListElementTypeConfig : IObject
         {
             public virtual dom.HTMLUListElement prototype { get; set; }
@@ -57342,7 +56183,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLUnknownElementTypeConfig : IObject
         {
             public virtual dom.HTMLUnknownElement prototype { get; set; }
@@ -57352,7 +56192,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLVideoElementTypeConfig : IObject
         {
             public virtual dom.HTMLVideoElement prototype { get; set; }
@@ -57362,7 +56201,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HTMLegendElementTypeConfig : IObject
         {
             public virtual dom.HTMLegendElement prototype { get; set; }
@@ -57372,7 +56210,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HashChangeEventTypeConfig : IObject
         {
             public virtual dom.HashChangeEvent prototype { get; set; }
@@ -57385,7 +56222,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HeadersTypeConfig : IObject
         {
             public virtual dom.Headers prototype { get; set; }
@@ -57411,7 +56247,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class HistoryTypeConfig : IObject
         {
             public virtual dom.History prototype { get; set; }
@@ -57421,7 +56256,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBCursorTypeConfig : IObject
         {
             public virtual dom.IDBCursor prototype { get; set; }
@@ -57439,7 +56273,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBCursorWithValueTypeConfig : IObject
         {
             public virtual dom.IDBCursorWithValue prototype { get; set; }
@@ -57449,7 +56282,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBDatabaseTypeConfig : IObject
         {
             public virtual dom.IDBDatabase prototype { get; set; }
@@ -57459,7 +56291,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBFactoryTypeConfig : IObject
         {
             public virtual dom.IDBFactory prototype { get; set; }
@@ -57469,7 +56300,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBIndexTypeConfig : IObject
         {
             public virtual dom.IDBIndex prototype { get; set; }
@@ -57479,7 +56309,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBKeyRangeTypeConfig : IObject
         {
             public virtual dom.IDBKeyRange prototype { get; set; }
@@ -57509,7 +56338,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBObjectStoreTypeConfig : IObject
         {
             public virtual dom.IDBObjectStore prototype { get; set; }
@@ -57519,7 +56347,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBOpenDBRequestTypeConfig : IObject
         {
             public virtual dom.IDBOpenDBRequest prototype { get; set; }
@@ -57529,7 +56356,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBRequestTypeConfig : IObject
         {
             public virtual dom.IDBRequest prototype { get; set; }
@@ -57539,7 +56365,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBTransactionTypeConfig : IObject
         {
             public virtual dom.IDBTransaction prototype { get; set; }
@@ -57555,7 +56380,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IDBVersionChangeEventTypeConfig : IObject
         {
             public virtual dom.IDBVersionChangeEvent prototype { get; set; }
@@ -57565,7 +56389,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IIRFilterNodeTypeConfig : IObject
         {
             public virtual dom.IIRFilterNode prototype { get; set; }
@@ -57575,7 +56398,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ImageDataTypeConfig : IObject
         {
             public virtual dom.ImageData prototype { get; set; }
@@ -57591,7 +56413,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IntersectionObserverTypeConfig : IObject
         {
             public virtual dom.IntersectionObserver prototype { get; set; }
@@ -57606,7 +56427,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class IntersectionObserverEntryTypeConfig : IObject
         {
             public virtual dom.IntersectionObserverEntry prototype { get; set; }
@@ -57617,7 +56437,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class KeyboardEventTypeConfig : IObject
         {
             public virtual dom.KeyboardEvent prototype { get; set; }
@@ -57642,7 +56461,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ListeningStateChangedEventTypeConfig : IObject
         {
             public virtual dom.ListeningStateChangedEvent prototype { get; set; }
@@ -57652,7 +56470,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class LocationTypeConfig : IObject
         {
             public virtual dom.Location prototype { get; set; }
@@ -57662,7 +56479,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSAssertionTypeConfig : IObject
         {
             public virtual dom.MSAssertion prototype { get; set; }
@@ -57672,7 +56488,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSBlobBuilderTypeConfig : IObject
         {
             public virtual dom.MSBlobBuilder prototype { get; set; }
@@ -57682,7 +56497,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSCredentialsTypeConfig : IObject
         {
             public virtual dom.MSCredentials prototype { get; set; }
@@ -57692,7 +56506,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSDCCEventTypeConfig : IObject
         {
             public virtual dom.MSDCCEvent prototype { get; set; }
@@ -57702,7 +56515,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSDSHEventTypeConfig : IObject
         {
             public virtual dom.MSDSHEvent prototype { get; set; }
@@ -57712,7 +56524,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSFIDOCredentialAssertionTypeConfig : IObject
         {
             public virtual dom.MSFIDOCredentialAssertion prototype { get; set; }
@@ -57722,7 +56533,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSFIDOSignatureTypeConfig : IObject
         {
             public virtual dom.MSFIDOSignature prototype { get; set; }
@@ -57732,7 +56542,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSFIDOSignatureAssertionTypeConfig : IObject
         {
             public virtual dom.MSFIDOSignatureAssertion prototype { get; set; }
@@ -57742,7 +56551,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSGestureTypeConfig : IObject
         {
             public virtual dom.MSGesture prototype { get; set; }
@@ -57752,7 +56560,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSGestureEventTypeConfig : IObject
         {
             public virtual dom.MSGestureEvent prototype { get; set; }
@@ -57772,7 +56579,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSGraphicsTrustTypeConfig : IObject
         {
             public virtual dom.MSGraphicsTrust prototype { get; set; }
@@ -57782,7 +56588,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSInputMethodContextTypeConfig : IObject
         {
             public virtual dom.MSInputMethodContext prototype { get; set; }
@@ -57792,7 +56597,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSMediaKeyErrorTypeConfig : IObject
         {
             public virtual dom.MSMediaKeyError prototype { get; set; }
@@ -57814,7 +56618,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSMediaKeyMessageEventTypeConfig : IObject
         {
             public virtual dom.MSMediaKeyMessageEvent prototype { get; set; }
@@ -57824,7 +56627,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSMediaKeyNeededEventTypeConfig : IObject
         {
             public virtual dom.MSMediaKeyNeededEvent prototype { get; set; }
@@ -57834,7 +56636,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSMediaKeySessionTypeConfig : IObject
         {
             public virtual dom.MSMediaKeySession prototype { get; set; }
@@ -57844,7 +56645,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSMediaKeysTypeConfig : IObject
         {
             public virtual dom.MSMediaKeys prototype { get; set; }
@@ -57862,7 +56662,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSPointerEventTypeConfig : IObject
         {
             public virtual dom.MSPointerEvent prototype { get; set; }
@@ -57875,7 +56674,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSStreamTypeConfig : IObject
         {
             public virtual dom.MSStream prototype { get; set; }
@@ -57885,7 +56683,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MSStreamReaderTypeConfig : IObject
         {
             public virtual dom.MSStreamReader prototype { get; set; }
@@ -57901,7 +56698,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaDeviceInfoTypeConfig : IObject
         {
             public virtual dom.MediaDeviceInfo prototype { get; set; }
@@ -57911,7 +56707,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaDevicesTypeConfig : IObject
         {
             public virtual dom.MediaDevices prototype { get; set; }
@@ -57921,7 +56716,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaElementAudioSourceNodeTypeConfig : IObject
         {
             public virtual dom.MediaElementAudioSourceNode prototype { get; set; }
@@ -57931,7 +56725,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaEncryptedEventTypeConfig : IObject
         {
             public virtual dom.MediaEncryptedEvent prototype { get; set; }
@@ -57946,7 +56739,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaErrorTypeConfig : IObject
         {
             public virtual dom.MediaError prototype { get; set; }
@@ -57966,7 +56758,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaKeyMessageEventTypeConfig : IObject
         {
             public virtual dom.MediaKeyMessageEvent prototype { get; set; }
@@ -57981,7 +56772,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaKeySessionType2Config : IObject
         {
             public virtual dom.MediaKeySession prototype { get; set; }
@@ -57991,7 +56781,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaKeyStatusMapTypeConfig : IObject
         {
             public virtual dom.MediaKeyStatusMap prototype { get; set; }
@@ -58001,7 +56790,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaKeySystemAccessTypeConfig : IObject
         {
             public virtual dom.MediaKeySystemAccess prototype { get; set; }
@@ -58011,7 +56799,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaKeysTypeConfig : IObject
         {
             public virtual dom.MediaKeys prototype { get; set; }
@@ -58021,7 +56808,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaListTypeConfig : IObject
         {
             public virtual dom.MediaList prototype { get; set; }
@@ -58031,7 +56817,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaQueryListTypeConfig : IObject
         {
             public virtual dom.MediaQueryList prototype { get; set; }
@@ -58041,7 +56826,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaSourceTypeConfig : IObject
         {
             public virtual dom.MediaSource prototype { get; set; }
@@ -58053,7 +56837,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaStreamTypeConfig : IObject
         {
             public virtual dom.MediaStream prototype { get; set; }
@@ -58069,7 +56852,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaStreamAudioSourceNodeTypeConfig : IObject
         {
             public virtual dom.MediaStreamAudioSourceNode prototype { get; set; }
@@ -58079,7 +56861,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaStreamErrorTypeConfig : IObject
         {
             public virtual dom.MediaStreamError prototype { get; set; }
@@ -58089,7 +56870,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaStreamErrorEventTypeConfig : IObject
         {
             public virtual dom.MediaStreamErrorEvent prototype { get; set; }
@@ -58104,7 +56884,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaStreamEventTypeConfig : IObject
         {
             public virtual dom.MediaStreamEvent prototype { get; set; }
@@ -58116,7 +56895,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaStreamTrackTypeConfig : IObject
         {
             public virtual dom.MediaStreamTrack prototype { get; set; }
@@ -58126,7 +56904,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MediaStreamTrackEventTypeConfig : IObject
         {
             public virtual dom.MediaStreamTrackEvent prototype { get; set; }
@@ -58141,7 +56918,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MessageChannelTypeConfig : IObject
         {
             public virtual dom.MessageChannel prototype { get; set; }
@@ -58151,7 +56927,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MessageEventTypeConfig : IObject
         {
             public virtual dom.MessageEvent prototype { get; set; }
@@ -58164,7 +56939,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MessagePortTypeConfig : IObject
         {
             public virtual dom.MessagePort prototype { get; set; }
@@ -58174,7 +56948,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MimeTypeTypeConfig : IObject
         {
             public virtual dom.MimeType prototype { get; set; }
@@ -58184,7 +56957,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MimeTypeArrayTypeConfig : IObject
         {
             public virtual dom.MimeTypeArray prototype { get; set; }
@@ -58194,7 +56966,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MouseEventTypeConfig : IObject
         {
             public virtual dom.MouseEvent prototype { get; set; }
@@ -58207,7 +56978,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MutationEventTypeConfig : IObject
         {
             public virtual dom.MutationEvent prototype { get; set; }
@@ -58223,7 +56993,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MutationObserverTypeConfig : IObject
         {
             public virtual dom.MutationObserver prototype { get; set; }
@@ -58233,7 +57002,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class MutationRecordType2Config : IObject
         {
             public virtual dom.MutationRecord prototype { get; set; }
@@ -58243,7 +57011,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class NamedNodeMapTypeConfig : IObject
         {
             public virtual dom.NamedNodeMap prototype { get; set; }
@@ -58253,7 +57020,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class NavigatorTypeConfig : IObject
         {
             public virtual dom.Navigator prototype { get; set; }
@@ -58263,7 +57029,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class NodeTypeConfig : IObject
         {
             public virtual dom.Node prototype { get; set; }
@@ -58309,7 +57074,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class NodeFilter2Config : IObject
         {
             public abstract ushort FILTER_ACCEPT  { get; }
@@ -58346,7 +57110,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class NodeIteratorTypeConfig : IObject
         {
             public virtual dom.NodeIterator prototype { get; set; }
@@ -58356,7 +57119,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class NodeListTypeConfig : IObject
         {
             public virtual dom.NodeList prototype { get; set; }
@@ -58366,7 +57128,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class NotificationTypeConfig : IObject
         {
             public virtual dom.Notification prototype { get; set; }
@@ -58384,7 +57145,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OES_element_index_uintTypeConfig : IObject
         {
             public virtual dom.OES_element_index_uint prototype { get; set; }
@@ -58394,7 +57154,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OES_standard_derivativesTypeConfig : IObject
         {
             public virtual dom.OES_standard_derivatives prototype { get; set; }
@@ -58406,7 +57165,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OES_texture_floatTypeConfig : IObject
         {
             public virtual dom.OES_texture_float prototype { get; set; }
@@ -58416,7 +57174,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OES_texture_float_linearTypeConfig : IObject
         {
             public virtual dom.OES_texture_float_linear prototype { get; set; }
@@ -58426,7 +57183,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OES_texture_half_floatTypeConfig : IObject
         {
             public virtual dom.OES_texture_half_float prototype { get; set; }
@@ -58438,7 +57194,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OES_texture_half_float_linearTypeConfig : IObject
         {
             public virtual dom.OES_texture_half_float_linear prototype { get; set; }
@@ -58448,7 +57203,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OfflineAudioCompletionEventTypeConfig : IObject
         {
             public virtual dom.OfflineAudioCompletionEvent prototype { get; set; }
@@ -58458,7 +57212,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OfflineAudioContextTypeConfig : IObject
         {
             public virtual dom.OfflineAudioContext prototype { get; set; }
@@ -58471,7 +57224,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OscillatorNodeTypeConfig : IObject
         {
             public virtual dom.OscillatorNode prototype { get; set; }
@@ -58481,7 +57233,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OverflowEventTypeConfig : IObject
         {
             public virtual dom.OverflowEvent prototype { get; set; }
@@ -58497,7 +57248,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PageTransitionEventTypeConfig : IObject
         {
             public virtual dom.PageTransitionEvent prototype { get; set; }
@@ -58507,7 +57257,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PannerNodeTypeConfig : IObject
         {
             public virtual dom.PannerNode prototype { get; set; }
@@ -58517,7 +57266,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class Path2DTypeConfig : IObject
         {
             public virtual dom.Path2D prototype { get; set; }
@@ -58536,7 +57284,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PaymentAddressTypeConfig : IObject
         {
             public virtual dom.PaymentAddress prototype { get; set; }
@@ -58546,7 +57293,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PaymentRequestTypeConfig : IObject
         {
             public virtual dom.PaymentRequest prototype { get; set; }
@@ -58564,7 +57310,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PaymentRequestUpdateEventTypeConfig : IObject
         {
             public virtual dom.PaymentRequestUpdateEvent prototype { get; set; }
@@ -58579,7 +57324,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PaymentResponseTypeConfig : IObject
         {
             public virtual dom.PaymentResponse prototype { get; set; }
@@ -58589,7 +57333,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerfWidgetExternalTypeConfig : IObject
         {
             public virtual dom.PerfWidgetExternal prototype { get; set; }
@@ -58599,7 +57342,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerformanceTypeConfig : IObject
         {
             public virtual dom.Performance prototype { get; set; }
@@ -58609,7 +57351,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerformanceEntryTypeConfig : IObject
         {
             public virtual dom.PerformanceEntry prototype { get; set; }
@@ -58619,7 +57360,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerformanceMarkTypeConfig : IObject
         {
             public virtual dom.PerformanceMark prototype { get; set; }
@@ -58629,7 +57369,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerformanceMeasureTypeConfig : IObject
         {
             public virtual dom.PerformanceMeasure prototype { get; set; }
@@ -58639,7 +57378,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerformanceNavigationTypeConfig : IObject
         {
             public virtual dom.PerformanceNavigation prototype { get; set; }
@@ -58657,7 +57395,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerformanceNavigationTimingTypeConfig : IObject
         {
             public virtual dom.PerformanceNavigationTiming prototype { get; set; }
@@ -58667,7 +57404,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerformanceResourceTimingTypeConfig : IObject
         {
             public virtual dom.PerformanceResourceTiming prototype { get; set; }
@@ -58677,7 +57413,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PerformanceTimingTypeConfig : IObject
         {
             public virtual dom.PerformanceTiming prototype { get; set; }
@@ -58687,7 +57422,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PeriodicWaveTypeConfig : IObject
         {
             public virtual dom.PeriodicWave prototype { get; set; }
@@ -58697,7 +57431,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PermissionRequestTypeConfig : IObject
         {
             public virtual dom.PermissionRequest prototype { get; set; }
@@ -58707,7 +57440,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PermissionRequestedEventTypeConfig : IObject
         {
             public virtual dom.PermissionRequestedEvent prototype { get; set; }
@@ -58717,7 +57449,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PluginTypeConfig : IObject
         {
             public virtual dom.Plugin prototype { get; set; }
@@ -58727,7 +57458,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PluginArrayTypeConfig : IObject
         {
             public virtual dom.PluginArray prototype { get; set; }
@@ -58737,7 +57467,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PointerEventTypeConfig : IObject
         {
             public virtual dom.PointerEvent prototype { get; set; }
@@ -58750,7 +57479,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PopStateEventTypeConfig : IObject
         {
             public virtual dom.PopStateEvent prototype { get; set; }
@@ -58763,7 +57491,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PositionTypeConfig : IObject
         {
             public virtual dom.Position prototype { get; set; }
@@ -58773,7 +57500,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PositionErrorTypeConfig : IObject
         {
             public virtual dom.PositionError prototype { get; set; }
@@ -58789,7 +57515,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ProcessingInstructionTypeConfig : IObject
         {
             public virtual dom.ProcessingInstruction prototype { get; set; }
@@ -58799,7 +57524,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ProgressEventTypeConfig : IObject
         {
             public virtual dom.ProgressEvent prototype { get; set; }
@@ -58812,7 +57536,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PushManagerTypeConfig : IObject
         {
             public virtual dom.PushManager prototype { get; set; }
@@ -58822,7 +57545,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PushSubscriptionTypeConfig : IObject
         {
             public virtual dom.PushSubscription prototype { get; set; }
@@ -58832,7 +57554,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class PushSubscriptionOptionsTypeConfig : IObject
         {
             public virtual dom.PushSubscriptionOptions prototype { get; set; }
@@ -58842,7 +57563,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCDTMFToneChangeEventTypeConfig : IObject
         {
             public virtual dom.RTCDTMFToneChangeEvent prototype { get; set; }
@@ -58854,7 +57574,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCDtlsTransportTypeConfig : IObject
         {
             public virtual dom.RTCDtlsTransport prototype { get; set; }
@@ -58864,7 +57583,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCDtlsTransportStateChangedEventTypeConfig : IObject
         {
             public virtual dom.RTCDtlsTransportStateChangedEvent prototype { get; set; }
@@ -58874,7 +57592,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCDtmfSenderTypeConfig : IObject
         {
             public virtual dom.RTCDtmfSender prototype { get; set; }
@@ -58884,7 +57601,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCIceCandidateType2Config : IObject
         {
             public virtual dom.RTCIceCandidate prototype { get; set; }
@@ -58897,7 +57613,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCIceCandidatePairChangedEventTypeConfig : IObject
         {
             public virtual dom.RTCIceCandidatePairChangedEvent prototype { get; set; }
@@ -58907,7 +57622,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCIceGathererTypeConfig : IObject
         {
             public virtual dom.RTCIceGatherer prototype { get; set; }
@@ -58917,7 +57631,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCIceGathererEventTypeConfig : IObject
         {
             public virtual dom.RTCIceGathererEvent prototype { get; set; }
@@ -58927,7 +57640,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCIceTransportTypeConfig : IObject
         {
             public virtual dom.RTCIceTransport prototype { get; set; }
@@ -58937,7 +57649,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCIceTransportStateChangedEventTypeConfig : IObject
         {
             public virtual dom.RTCIceTransportStateChangedEvent prototype { get; set; }
@@ -58947,7 +57658,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCPeerConnectionTypeConfig : IObject
         {
             public virtual dom.RTCPeerConnection prototype { get; set; }
@@ -58957,7 +57667,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCPeerConnectionIceEventTypeConfig : IObject
         {
             public virtual dom.RTCPeerConnectionIceEvent prototype { get; set; }
@@ -58969,7 +57678,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCRtpReceiverTypeConfig : IObject
         {
             public virtual dom.RTCRtpReceiver prototype { get; set; }
@@ -59009,7 +57717,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCRtpSenderTypeConfig : IObject
         {
             public virtual dom.RTCRtpSender prototype { get; set; }
@@ -59053,7 +57760,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCSessionDescriptionTypeConfig : IObject
         {
             public virtual dom.RTCSessionDescription prototype { get; set; }
@@ -59067,7 +57773,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCSrtpSdesTransportTypeConfig : IObject
         {
             public virtual dom.RTCSrtpSdesTransport prototype { get; set; }
@@ -59082,7 +57787,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCSsrcConflictEventTypeConfig : IObject
         {
             public virtual dom.RTCSsrcConflictEvent prototype { get; set; }
@@ -59092,7 +57796,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RTCStatsProviderTypeConfig : IObject
         {
             public virtual dom.RTCStatsProvider prototype { get; set; }
@@ -59102,7 +57805,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RandomSourceTypeConfig : IObject
         {
             public virtual dom.RandomSource prototype { get; set; }
@@ -59112,7 +57814,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RangeTypeConfig : IObject
         {
             public virtual dom.Range prototype { get; set; }
@@ -59130,7 +57831,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ReadableStreamTypeConfig : IObject
         {
             public virtual dom.ReadableStream prototype { get; set; }
@@ -59140,7 +57840,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ReadableStreamReaderTypeConfig : IObject
         {
             public virtual dom.ReadableStreamReader prototype { get; set; }
@@ -59150,7 +57849,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class RequestType2Config : IObject
         {
             public virtual dom.Request prototype { get; set; }
@@ -59175,7 +57873,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ResponseType2Config : IObject
         {
             public virtual dom.Response prototype { get; set; }
@@ -59290,7 +57987,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAElementTypeConfig : IObject
         {
             public virtual dom.SVGAElement prototype { get; set; }
@@ -59300,7 +57996,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAngleTypeConfig : IObject
         {
             public virtual dom.SVGAngle prototype { get; set; }
@@ -59320,7 +58015,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedAngleTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedAngle prototype { get; set; }
@@ -59330,7 +58024,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedBooleanTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedBoolean prototype { get; set; }
@@ -59340,7 +58033,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedEnumerationTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedEnumeration prototype { get; set; }
@@ -59350,7 +58042,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedIntegerTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedInteger prototype { get; set; }
@@ -59360,7 +58051,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedLengthTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedLength prototype { get; set; }
@@ -59370,7 +58060,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedLengthListTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedLengthList prototype { get; set; }
@@ -59380,7 +58069,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedNumberTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedNumber prototype { get; set; }
@@ -59390,7 +58078,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedNumberListTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedNumberList prototype { get; set; }
@@ -59400,7 +58087,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedPreserveAspectRatioTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedPreserveAspectRatio prototype { get; set; }
@@ -59410,7 +58096,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedRectTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedRect prototype { get; set; }
@@ -59420,7 +58105,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedStringTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedString prototype { get; set; }
@@ -59430,7 +58114,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGAnimatedTransformListTypeConfig : IObject
         {
             public virtual dom.SVGAnimatedTransformList prototype { get; set; }
@@ -59440,7 +58123,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGCircleElementTypeConfig : IObject
         {
             public virtual dom.SVGCircleElement prototype { get; set; }
@@ -59450,7 +58132,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGClipPathElementTypeConfig : IObject
         {
             public virtual dom.SVGClipPathElement prototype { get; set; }
@@ -59460,7 +58141,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGComponentTransferFunctionElementTypeConfig : IObject
         {
             public virtual dom.SVGComponentTransferFunctionElement prototype { get; set; }
@@ -59482,7 +58162,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGDefsElementTypeConfig : IObject
         {
             public virtual dom.SVGDefsElement prototype { get; set; }
@@ -59492,7 +58171,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGDescElementTypeConfig : IObject
         {
             public virtual dom.SVGDescElement prototype { get; set; }
@@ -59502,7 +58180,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGElementTypeConfig : IObject
         {
             public virtual dom.SVGElement prototype { get; set; }
@@ -59512,7 +58189,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGElementInstanceTypeConfig : IObject
         {
             public virtual dom.SVGElementInstance prototype { get; set; }
@@ -59522,7 +58198,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGElementInstanceListTypeConfig : IObject
         {
             public virtual dom.SVGElementInstanceList prototype { get; set; }
@@ -59532,7 +58207,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGEllipseElementTypeConfig : IObject
         {
             public virtual dom.SVGEllipseElement prototype { get; set; }
@@ -59542,7 +58216,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEBlendElementTypeConfig : IObject
         {
             public virtual dom.SVGFEBlendElement prototype { get; set; }
@@ -59586,7 +58259,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEColorMatrixElementTypeConfig : IObject
         {
             public virtual dom.SVGFEColorMatrixElement prototype { get; set; }
@@ -59606,7 +58278,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEComponentTransferElementTypeConfig : IObject
         {
             public virtual dom.SVGFEComponentTransferElement prototype { get; set; }
@@ -59616,7 +58287,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFECompositeElementTypeConfig : IObject
         {
             public virtual dom.SVGFECompositeElement prototype { get; set; }
@@ -59640,7 +58310,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEConvolveMatrixElementTypeConfig : IObject
         {
             public virtual dom.SVGFEConvolveMatrixElement prototype { get; set; }
@@ -59658,7 +58327,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEDiffuseLightingElementTypeConfig : IObject
         {
             public virtual dom.SVGFEDiffuseLightingElement prototype { get; set; }
@@ -59668,7 +58336,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEDisplacementMapElementTypeConfig : IObject
         {
             public virtual dom.SVGFEDisplacementMapElement prototype { get; set; }
@@ -59688,7 +58355,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEDistantLightElementTypeConfig : IObject
         {
             public virtual dom.SVGFEDistantLightElement prototype { get; set; }
@@ -59698,7 +58364,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEFloodElementTypeConfig : IObject
         {
             public virtual dom.SVGFEFloodElement prototype { get; set; }
@@ -59708,7 +58373,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEFuncAElementTypeConfig : IObject
         {
             public virtual dom.SVGFEFuncAElement prototype { get; set; }
@@ -59718,7 +58382,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEFuncBElementTypeConfig : IObject
         {
             public virtual dom.SVGFEFuncBElement prototype { get; set; }
@@ -59728,7 +58391,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEFuncGElementTypeConfig : IObject
         {
             public virtual dom.SVGFEFuncGElement prototype { get; set; }
@@ -59738,7 +58400,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEFuncRElementTypeConfig : IObject
         {
             public virtual dom.SVGFEFuncRElement prototype { get; set; }
@@ -59748,7 +58409,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEGaussianBlurElementTypeConfig : IObject
         {
             public virtual dom.SVGFEGaussianBlurElement prototype { get; set; }
@@ -59758,7 +58418,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEImageElementTypeConfig : IObject
         {
             public virtual dom.SVGFEImageElement prototype { get; set; }
@@ -59768,7 +58427,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEMergeElementTypeConfig : IObject
         {
             public virtual dom.SVGFEMergeElement prototype { get; set; }
@@ -59778,7 +58436,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEMergeNodeElementTypeConfig : IObject
         {
             public virtual dom.SVGFEMergeNodeElement prototype { get; set; }
@@ -59788,7 +58445,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEMorphologyElementTypeConfig : IObject
         {
             public virtual dom.SVGFEMorphologyElement prototype { get; set; }
@@ -59804,7 +58460,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEOffsetElementTypeConfig : IObject
         {
             public virtual dom.SVGFEOffsetElement prototype { get; set; }
@@ -59814,7 +58469,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFEPointLightElementTypeConfig : IObject
         {
             public virtual dom.SVGFEPointLightElement prototype { get; set; }
@@ -59824,7 +58478,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFESpecularLightingElementTypeConfig : IObject
         {
             public virtual dom.SVGFESpecularLightingElement prototype { get; set; }
@@ -59834,7 +58487,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFESpotLightElementTypeConfig : IObject
         {
             public virtual dom.SVGFESpotLightElement prototype { get; set; }
@@ -59844,7 +58496,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFETileElementTypeConfig : IObject
         {
             public virtual dom.SVGFETileElement prototype { get; set; }
@@ -59854,7 +58505,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFETurbulenceElementTypeConfig : IObject
         {
             public virtual dom.SVGFETurbulenceElement prototype { get; set; }
@@ -59876,7 +58526,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGFilterElementTypeConfig : IObject
         {
             public virtual dom.SVGFilterElement prototype { get; set; }
@@ -59886,7 +58535,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGForeignObjectElementTypeConfig : IObject
         {
             public virtual dom.SVGForeignObjectElement prototype { get; set; }
@@ -59896,7 +58544,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGGElementTypeConfig : IObject
         {
             public virtual dom.SVGGElement prototype { get; set; }
@@ -59906,7 +58553,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGGradientElementTypeConfig : IObject
         {
             public virtual dom.SVGGradientElement prototype { get; set; }
@@ -59924,7 +58570,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGGraphicsElementTypeConfig : IObject
         {
             public virtual dom.SVGGraphicsElement prototype { get; set; }
@@ -59934,7 +58579,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGImageElementTypeConfig : IObject
         {
             public virtual dom.SVGImageElement prototype { get; set; }
@@ -59944,7 +58588,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGLengthTypeConfig : IObject
         {
             public virtual dom.SVGLength prototype { get; set; }
@@ -59976,7 +58619,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGLengthListTypeConfig : IObject
         {
             public virtual dom.SVGLengthList prototype { get; set; }
@@ -59986,7 +58628,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGLineElementTypeConfig : IObject
         {
             public virtual dom.SVGLineElement prototype { get; set; }
@@ -59996,7 +58637,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGLinearGradientElementTypeConfig : IObject
         {
             public virtual dom.SVGLinearGradientElement prototype { get; set; }
@@ -60006,7 +58646,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGMarkerElementTypeConfig : IObject
         {
             public virtual dom.SVGMarkerElement prototype { get; set; }
@@ -60028,7 +58667,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGMaskElementTypeConfig : IObject
         {
             public virtual dom.SVGMaskElement prototype { get; set; }
@@ -60038,7 +58676,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGMatrixTypeConfig : IObject
         {
             public virtual dom.SVGMatrix prototype { get; set; }
@@ -60048,7 +58685,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGMetadataElementTypeConfig : IObject
         {
             public virtual dom.SVGMetadataElement prototype { get; set; }
@@ -60058,7 +58694,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGNumberTypeConfig : IObject
         {
             public virtual dom.SVGNumber prototype { get; set; }
@@ -60068,7 +58703,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGNumberListTypeConfig : IObject
         {
             public virtual dom.SVGNumberList prototype { get; set; }
@@ -60078,7 +58712,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathElementTypeConfig : IObject
         {
             public virtual dom.SVGPathElement prototype { get; set; }
@@ -60088,7 +58721,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegTypeConfig : IObject
         {
             public virtual dom.SVGPathSeg prototype { get; set; }
@@ -60138,7 +58770,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegArcAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegArcAbs prototype { get; set; }
@@ -60148,7 +58779,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegArcRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegArcRel prototype { get; set; }
@@ -60158,7 +58788,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegClosePathTypeConfig : IObject
         {
             public virtual dom.SVGPathSegClosePath prototype { get; set; }
@@ -60168,7 +58797,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegCurvetoCubicAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegCurvetoCubicAbs prototype { get; set; }
@@ -60178,7 +58806,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegCurvetoCubicRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegCurvetoCubicRel prototype { get; set; }
@@ -60188,7 +58815,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegCurvetoCubicSmoothAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegCurvetoCubicSmoothAbs prototype { get; set; }
@@ -60198,7 +58824,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegCurvetoCubicSmoothRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegCurvetoCubicSmoothRel prototype { get; set; }
@@ -60208,7 +58833,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegCurvetoQuadraticAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegCurvetoQuadraticAbs prototype { get; set; }
@@ -60218,7 +58842,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegCurvetoQuadraticRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegCurvetoQuadraticRel prototype { get; set; }
@@ -60228,7 +58851,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegCurvetoQuadraticSmoothAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegCurvetoQuadraticSmoothAbs prototype { get; set; }
@@ -60238,7 +58860,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegCurvetoQuadraticSmoothRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegCurvetoQuadraticSmoothRel prototype { get; set; }
@@ -60248,7 +58869,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegLinetoAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegLinetoAbs prototype { get; set; }
@@ -60258,7 +58878,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegLinetoHorizontalAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegLinetoHorizontalAbs prototype { get; set; }
@@ -60268,7 +58887,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegLinetoHorizontalRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegLinetoHorizontalRel prototype { get; set; }
@@ -60278,7 +58896,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegLinetoRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegLinetoRel prototype { get; set; }
@@ -60288,7 +58905,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegLinetoVerticalAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegLinetoVerticalAbs prototype { get; set; }
@@ -60298,7 +58914,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegLinetoVerticalRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegLinetoVerticalRel prototype { get; set; }
@@ -60308,7 +58923,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegListTypeConfig : IObject
         {
             public virtual dom.SVGPathSegList prototype { get; set; }
@@ -60318,7 +58932,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegMovetoAbsTypeConfig : IObject
         {
             public virtual dom.SVGPathSegMovetoAbs prototype { get; set; }
@@ -60328,7 +58941,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPathSegMovetoRelTypeConfig : IObject
         {
             public virtual dom.SVGPathSegMovetoRel prototype { get; set; }
@@ -60338,7 +58950,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPatternElementTypeConfig : IObject
         {
             public virtual dom.SVGPatternElement prototype { get; set; }
@@ -60348,7 +58959,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPointTypeConfig : IObject
         {
             public virtual dom.SVGPoint prototype { get; set; }
@@ -60358,7 +58968,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPointListTypeConfig : IObject
         {
             public virtual dom.SVGPointList prototype { get; set; }
@@ -60368,7 +58977,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPolygonElementTypeConfig : IObject
         {
             public virtual dom.SVGPolygonElement prototype { get; set; }
@@ -60378,7 +58986,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPolylineElementTypeConfig : IObject
         {
             public virtual dom.SVGPolylineElement prototype { get; set; }
@@ -60388,7 +58995,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGPreserveAspectRatioTypeConfig : IObject
         {
             public virtual dom.SVGPreserveAspectRatio prototype { get; set; }
@@ -60426,7 +59032,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGRadialGradientElementTypeConfig : IObject
         {
             public virtual dom.SVGRadialGradientElement prototype { get; set; }
@@ -60436,7 +59041,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGRectTypeConfig : IObject
         {
             public virtual dom.SVGRect prototype { get; set; }
@@ -60446,7 +59050,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGRectElementTypeConfig : IObject
         {
             public virtual dom.SVGRectElement prototype { get; set; }
@@ -60456,7 +59059,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGSVGElementTypeConfig : IObject
         {
             public virtual dom.SVGSVGElement prototype { get; set; }
@@ -60466,7 +59068,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGScriptElementTypeConfig : IObject
         {
             public virtual dom.SVGScriptElement prototype { get; set; }
@@ -60476,7 +59077,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGStopElementTypeConfig : IObject
         {
             public virtual dom.SVGStopElement prototype { get; set; }
@@ -60486,7 +59086,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGStringListTypeConfig : IObject
         {
             public virtual dom.SVGStringList prototype { get; set; }
@@ -60496,7 +59095,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGStylableTypeConfig : IObject
         {
             public virtual dom.SVGStylable prototype { get; set; }
@@ -60506,7 +59104,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGStyleElementTypeConfig : IObject
         {
             public virtual dom.SVGStyleElement prototype { get; set; }
@@ -60516,7 +59113,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGSwitchElementTypeConfig : IObject
         {
             public virtual dom.SVGSwitchElement prototype { get; set; }
@@ -60526,7 +59122,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGSymbolElementTypeConfig : IObject
         {
             public virtual dom.SVGSymbolElement prototype { get; set; }
@@ -60536,7 +59131,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGTSpanElementTypeConfig : IObject
         {
             public virtual dom.SVGTSpanElement prototype { get; set; }
@@ -60546,7 +59140,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGTextContentElementTypeConfig : IObject
         {
             public virtual dom.SVGTextContentElement prototype { get; set; }
@@ -60562,7 +59155,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGTextElementTypeConfig : IObject
         {
             public virtual dom.SVGTextElement prototype { get; set; }
@@ -60572,7 +59164,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGTextPathElementTypeConfig : IObject
         {
             public virtual dom.SVGTextPathElement prototype { get; set; }
@@ -60594,7 +59185,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGTextPositioningElementTypeConfig : IObject
         {
             public virtual dom.SVGTextPositioningElement prototype { get; set; }
@@ -60604,7 +59194,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGTitleElementTypeConfig : IObject
         {
             public virtual dom.SVGTitleElement prototype { get; set; }
@@ -60614,7 +59203,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGTransformTypeConfig : IObject
         {
             public virtual dom.SVGTransform prototype { get; set; }
@@ -60638,7 +59226,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGTransformListTypeConfig : IObject
         {
             public virtual dom.SVGTransformList prototype { get; set; }
@@ -60648,7 +59235,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGUseElementTypeConfig : IObject
         {
             public virtual dom.SVGUseElement prototype { get; set; }
@@ -60658,7 +59244,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGViewElementTypeConfig : IObject
         {
             public virtual dom.SVGViewElement prototype { get; set; }
@@ -60668,7 +59253,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGZoomAndPan2Config : IObject
         {
             public abstract ushort SVG_ZOOMANDPAN_DISABLE  { get; }
@@ -60679,7 +59263,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SVGZoomEventTypeConfig : IObject
         {
             public virtual dom.SVGZoomEvent prototype { get; set; }
@@ -60689,7 +59272,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ScopedCredentialType2Config : IObject
         {
             public virtual dom.ScopedCredential prototype { get; set; }
@@ -60699,7 +59281,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ScopedCredentialInfoTypeConfig : IObject
         {
             public virtual dom.ScopedCredentialInfo prototype { get; set; }
@@ -60709,7 +59290,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ScreenTypeConfig : IObject
         {
             public virtual dom.Screen prototype { get; set; }
@@ -60719,7 +59299,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ScriptProcessorNodeTypeConfig : IObject
         {
             public virtual dom.ScriptProcessorNode prototype { get; set; }
@@ -60729,7 +59308,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SecurityPolicyViolationEventTypeConfig : IObject
         {
             public virtual dom.SecurityPolicyViolationEvent prototype { get; set; }
@@ -60744,7 +59322,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SelectionTypeConfig : IObject
         {
             public virtual dom.Selection prototype { get; set; }
@@ -60754,7 +59331,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ServiceWorkerTypeConfig : IObject
         {
             public virtual dom.ServiceWorker prototype { get; set; }
@@ -60764,7 +59340,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ServiceWorkerContainerTypeConfig : IObject
         {
             public virtual dom.ServiceWorkerContainer prototype { get; set; }
@@ -60774,7 +59349,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ServiceWorkerMessageEventTypeConfig : IObject
         {
             public virtual dom.ServiceWorkerMessageEvent prototype { get; set; }
@@ -60789,7 +59363,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ServiceWorkerRegistrationTypeConfig : IObject
         {
             public virtual dom.ServiceWorkerRegistration prototype { get; set; }
@@ -60799,7 +59372,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SourceBufferTypeConfig : IObject
         {
             public virtual dom.SourceBuffer prototype { get; set; }
@@ -60809,7 +59381,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SourceBufferListTypeConfig : IObject
         {
             public virtual dom.SourceBufferList prototype { get; set; }
@@ -60819,7 +59390,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SpeechSynthesisTypeConfig : IObject
         {
             public virtual dom.SpeechSynthesis prototype { get; set; }
@@ -60829,7 +59399,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SpeechSynthesisEventTypeConfig : IObject
         {
             public virtual dom.SpeechSynthesisEvent prototype { get; set; }
@@ -60844,7 +59413,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SpeechSynthesisUtteranceTypeConfig : IObject
         {
             public virtual dom.SpeechSynthesisUtterance prototype { get; set; }
@@ -60857,7 +59425,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SpeechSynthesisVoiceTypeConfig : IObject
         {
             public virtual dom.SpeechSynthesisVoice prototype { get; set; }
@@ -60867,7 +59434,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class StereoPannerNodeTypeConfig : IObject
         {
             public virtual dom.StereoPannerNode prototype { get; set; }
@@ -60877,7 +59443,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class StorageTypeConfig : IObject
         {
             public virtual dom.Storage prototype { get; set; }
@@ -60887,7 +59452,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class StorageEventTypeConfig : IObject
         {
             public virtual dom.StorageEvent prototype { get; set; }
@@ -60900,7 +59464,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class StyleMediaTypeConfig : IObject
         {
             public virtual dom.StyleMedia prototype { get; set; }
@@ -60910,7 +59473,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class StyleSheetTypeConfig : IObject
         {
             public virtual dom.StyleSheet prototype { get; set; }
@@ -60920,7 +59482,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class StyleSheetListTypeConfig : IObject
         {
             public virtual dom.StyleSheetList prototype { get; set; }
@@ -60930,7 +59491,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SubtleCryptoTypeConfig : IObject
         {
             public virtual dom.SubtleCrypto prototype { get; set; }
@@ -60940,7 +59500,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class SyncManagerTypeConfig : IObject
         {
             public virtual dom.SyncManager prototype { get; set; }
@@ -60950,7 +59509,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextTypeConfig : IObject
         {
             public virtual dom.Text prototype { get; set; }
@@ -60963,7 +59521,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextDecoderTypeConfig : IObject
         {
             public virtual dom.TextDecoder prototype { get; set; }
@@ -60979,7 +59536,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextEncoderTypeConfig : IObject
         {
             public virtual dom.TextEncoder prototype { get; set; }
@@ -60989,7 +59545,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextEventTypeConfig : IObject
         {
             public virtual dom.TextEvent prototype { get; set; }
@@ -61019,7 +59574,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextMetricsTypeConfig : IObject
         {
             public virtual dom.TextMetrics prototype { get; set; }
@@ -61029,7 +59583,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextTrackTypeConfig : IObject
         {
             public virtual dom.TextTrack prototype { get; set; }
@@ -61053,7 +59606,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextTrackCueTypeConfig : IObject
         {
             public virtual dom.TextTrackCue prototype { get; set; }
@@ -61063,7 +59615,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextTrackCueListTypeConfig : IObject
         {
             public virtual dom.TextTrackCueList prototype { get; set; }
@@ -61073,7 +59624,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TextTrackListTypeConfig : IObject
         {
             public virtual dom.TextTrackList prototype { get; set; }
@@ -61083,7 +59633,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TimeRangesTypeConfig : IObject
         {
             public virtual dom.TimeRanges prototype { get; set; }
@@ -61093,7 +59642,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TouchTypeConfig : IObject
         {
             public virtual dom.Touch prototype { get; set; }
@@ -61103,7 +59651,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TouchEventTypeConfig : IObject
         {
             public virtual dom.TouchEvent prototype { get; set; }
@@ -61116,7 +59663,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TouchListTypeConfig : IObject
         {
             public virtual dom.TouchList prototype { get; set; }
@@ -61126,7 +59672,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TrackEventTypeConfig : IObject
         {
             public virtual dom.TrackEvent prototype { get; set; }
@@ -61139,7 +59684,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TransitionEventTypeConfig : IObject
         {
             public virtual dom.TransitionEvent prototype { get; set; }
@@ -61154,7 +59698,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class TreeWalkerTypeConfig : IObject
         {
             public virtual dom.TreeWalker prototype { get; set; }
@@ -61164,7 +59707,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class UIEventTypeConfig : IObject
         {
             public virtual dom.UIEvent prototype { get; set; }
@@ -61177,7 +59719,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class URLTypeConfig : IObject
         {
             public virtual dom.URL prototype { get; set; }
@@ -61202,7 +59743,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class URLSearchParamsTypeConfig : IObject
         {
             public virtual dom.URLSearchParams prototype { get; set; }
@@ -61221,7 +59761,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VRDisplayTypeConfig : IObject
         {
             public virtual dom.VRDisplay prototype { get; set; }
@@ -61231,7 +59770,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VRDisplayCapabilitiesTypeConfig : IObject
         {
             public virtual dom.VRDisplayCapabilities prototype { get; set; }
@@ -61241,7 +59779,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VRDisplayEventTypeConfig : IObject
         {
             public virtual dom.VRDisplayEvent prototype { get; set; }
@@ -61251,7 +59788,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VREyeParametersTypeConfig : IObject
         {
             public virtual dom.VREyeParameters prototype { get; set; }
@@ -61261,7 +59797,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VRFieldOfViewTypeConfig : IObject
         {
             public virtual dom.VRFieldOfView prototype { get; set; }
@@ -61271,7 +59806,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VRFrameDataTypeConfig : IObject
         {
             public virtual dom.VRFrameData prototype { get; set; }
@@ -61281,7 +59815,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VRPoseTypeConfig : IObject
         {
             public virtual dom.VRPose prototype { get; set; }
@@ -61291,7 +59824,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ValidityStateTypeConfig : IObject
         {
             public virtual dom.ValidityState prototype { get; set; }
@@ -61301,7 +59833,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VideoPlaybackQualityTypeConfig : IObject
         {
             public virtual dom.VideoPlaybackQuality prototype { get; set; }
@@ -61311,7 +59842,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VideoTrackTypeConfig : IObject
         {
             public virtual dom.VideoTrack prototype { get; set; }
@@ -61321,7 +59851,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class VideoTrackListTypeConfig : IObject
         {
             public virtual dom.VideoTrackList prototype { get; set; }
@@ -61331,7 +59860,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WEBGL_compressed_texture_s3tcTypeConfig : IObject
         {
             public virtual dom.WEBGL_compressed_texture_s3tc prototype { get; set; }
@@ -61349,7 +59877,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WEBGL_debug_renderer_infoTypeConfig : IObject
         {
             public virtual dom.WEBGL_debug_renderer_info prototype { get; set; }
@@ -61363,7 +59890,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WEBGL_depth_textureTypeConfig : IObject
         {
             public virtual dom.WEBGL_depth_texture prototype { get; set; }
@@ -61375,7 +59901,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WaveShaperNodeTypeConfig : IObject
         {
             public virtual dom.WaveShaperNode prototype { get; set; }
@@ -61385,7 +59910,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebAuthenticationTypeConfig : IObject
         {
             public virtual dom.WebAuthentication prototype { get; set; }
@@ -61395,7 +59919,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebAuthnAssertionTypeConfig : IObject
         {
             public virtual dom.WebAuthnAssertion prototype { get; set; }
@@ -61405,7 +59928,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLActiveInfoTypeConfig : IObject
         {
             public virtual dom.WebGLActiveInfo prototype { get; set; }
@@ -61415,7 +59937,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLBufferTypeConfig : IObject
         {
             public virtual dom.WebGLBuffer prototype { get; set; }
@@ -61425,7 +59946,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLContextEventTypeConfig : IObject
         {
             public virtual dom.WebGLContextEvent prototype { get; set; }
@@ -61440,7 +59960,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLFramebufferTypeConfig : IObject
         {
             public virtual dom.WebGLFramebuffer prototype { get; set; }
@@ -61450,7 +59969,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLObjectTypeConfig : IObject
         {
             public virtual dom.WebGLObject prototype { get; set; }
@@ -61460,7 +59978,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLProgramTypeConfig : IObject
         {
             public virtual dom.WebGLProgram prototype { get; set; }
@@ -61470,7 +59987,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLRenderbufferTypeConfig : IObject
         {
             public virtual dom.WebGLRenderbuffer prototype { get; set; }
@@ -61480,7 +59996,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLRenderingContextTypeConfig : IObject
         {
             public virtual dom.WebGLRenderingContext prototype { get; set; }
@@ -62084,7 +60599,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLShaderTypeConfig : IObject
         {
             public virtual dom.WebGLShader prototype { get; set; }
@@ -62094,7 +60608,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLShaderPrecisionFormatTypeConfig : IObject
         {
             public virtual dom.WebGLShaderPrecisionFormat prototype { get; set; }
@@ -62104,7 +60617,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLTextureTypeConfig : IObject
         {
             public virtual dom.WebGLTexture prototype { get; set; }
@@ -62114,7 +60626,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebGLUniformLocationTypeConfig : IObject
         {
             public virtual dom.WebGLUniformLocation prototype { get; set; }
@@ -62124,7 +60635,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebKitCSSMatrixTypeConfig : IObject
         {
             public virtual dom.WebKitCSSMatrix prototype { get; set; }
@@ -62137,7 +60647,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebKitDirectoryEntryTypeConfig : IObject
         {
             public virtual dom.WebKitDirectoryEntry prototype { get; set; }
@@ -62147,7 +60656,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebKitDirectoryReaderTypeConfig : IObject
         {
             public virtual dom.WebKitDirectoryReader prototype { get; set; }
@@ -62157,7 +60665,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebKitEntryTypeConfig : IObject
         {
             public virtual dom.WebKitEntry prototype { get; set; }
@@ -62167,7 +60674,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebKitFileEntryTypeConfig : IObject
         {
             public virtual dom.WebKitFileEntry prototype { get; set; }
@@ -62177,7 +60683,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebKitFileSystemTypeConfig : IObject
         {
             public virtual dom.WebKitFileSystem prototype { get; set; }
@@ -62187,7 +60692,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebKitPointTypeConfig : IObject
         {
             public virtual dom.WebKitPoint prototype { get; set; }
@@ -62203,7 +60707,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WebSocketTypeConfig : IObject
         {
             public virtual dom.WebSocket prototype { get; set; }
@@ -62230,7 +60733,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WheelEventTypeConfig : IObject
         {
             public virtual dom.WheelEvent prototype { get; set; }
@@ -62249,7 +60751,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WindowTypeConfig : IObject
         {
             public virtual dom.Window prototype { get; set; }
@@ -62259,7 +60760,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WorkerTypeConfig : IObject
         {
             public virtual dom.Worker prototype { get; set; }
@@ -62269,7 +60769,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WritableStreamTypeConfig : IObject
         {
             public virtual dom.WritableStream prototype { get; set; }
@@ -62287,7 +60786,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WritableStreamDefaultControllerTypeConfig : IObject
         {
             public virtual dom.WritableStreamDefaultController prototype { get; set; }
@@ -62297,7 +60795,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class WritableStreamDefaultWriterTypeConfig : IObject
         {
             public virtual dom.WritableStreamDefaultWriter prototype { get; set; }
@@ -62307,7 +60804,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XMLDocumentTypeConfig : IObject
         {
             public virtual dom.XMLDocument prototype { get; set; }
@@ -62317,7 +60813,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XMLHttpRequestTypeConfig : IObject
         {
             public virtual dom.XMLHttpRequest prototype { get; set; }
@@ -62337,7 +60832,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XMLHttpRequestUploadTypeConfig : IObject
         {
             public virtual dom.XMLHttpRequestUpload prototype { get; set; }
@@ -62347,7 +60841,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XMLSerializerTypeConfig : IObject
         {
             public virtual dom.XMLSerializer prototype { get; set; }
@@ -62357,7 +60850,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XPathEvaluatorTypeConfig : IObject
         {
             public virtual dom.XPathEvaluator prototype { get; set; }
@@ -62367,7 +60859,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XPathExpressionTypeConfig : IObject
         {
             public virtual dom.XPathExpression prototype { get; set; }
@@ -62377,7 +60868,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XPathNSResolverTypeConfig : IObject
         {
             public virtual dom.XPathNSResolver prototype { get; set; }
@@ -62387,7 +60877,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XPathResultTypeConfig : IObject
         {
             public virtual dom.XPathResult prototype { get; set; }
@@ -62417,7 +60906,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class XSLTProcessorTypeConfig : IObject
         {
             public virtual dom.XSLTProcessor prototype { get; set; }
@@ -62427,7 +60915,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class webkitRTCPeerConnectionTypeConfig : IObject
         {
             public virtual dom.webkitRTCPeerConnection prototype { get; set; }
@@ -62437,7 +60924,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class AudioConfig : IObject
         {
             [Template("new {this}()")]
@@ -62448,7 +60934,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class ImageConfig : IObject
         {
             [Template("new {this}()")]
@@ -62462,7 +60947,6 @@ namespace HTML
         }
 
         [Virtual]
-        [External]
         public abstract class OptionConfig : IObject
         {
             [Template("new {this}()")]
@@ -66678,7 +65162,6 @@ namespace HTML
 
         [Generated]
         [Virtual]
-        [External]
         public abstract class BlobStatics : IObject
         {
             [Template("<self>new {this}()")]
@@ -66695,7 +65178,6 @@ namespace HTML
 
         [Generated]
         [Virtual]
-        [External]
         public abstract class URLStatics : IObject
         {
             [Template("<self>new {this}({0})")]
@@ -66721,7 +65203,6 @@ namespace HTML
 
         [Generated]
         [Virtual]
-        [External]
         public abstract class URLSearchParamsStatics : IObject
         {
             [Template("<self>new {this}()")]

@@ -6063,7 +6063,7 @@ namespace H5.Core
                   es5.Intl.DateTimeFormatOptions options);
             }
         }
-        
+
         [Virtual]
         public abstract class ClassDecorator : IObject
         {

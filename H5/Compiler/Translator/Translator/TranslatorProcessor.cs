@@ -88,12 +88,14 @@ namespace H5.Translator
 
             var fileName = GetDefaultFileName(h5Options);
 
-            translator.Minify();
-            translator.Combine(fileName);
-            translator.Save(outputPath, fileName);
+            if (!h5Options.SkipEmbeddingResources)
+            {
+                translator.Minify();
+                translator.Combine(fileName);
+                translator.Save(outputPath, fileName);
 
-            translator.InjectResources(outputPath, projectPath);
-
+                translator.InjectResources(outputPath, projectPath);
+            }
             translator.RunAfterBuild();
 
             logger.Info("Run plugins AfterOutput...");

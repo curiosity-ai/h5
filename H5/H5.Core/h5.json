@@ -6,12 +6,17 @@
   },
   "report": true,
   "assembly": {
-    "disableInitAssembly": true
+    "disableInitAssembly": true,
+    "enableReservedNamespaces": true
   },
   "html": {
     "disabled": true
   },
   "rules": {
     "inlineComment": "Plain"
-  }
+  },
+  "resources": [
+    {
+        "inject":false
+    }],
 }

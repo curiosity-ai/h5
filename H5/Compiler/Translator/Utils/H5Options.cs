@@ -14,6 +14,9 @@ namespace H5.Translator
         public string ProjectLocation { get; set; }
         public string OutputLocation { get; set; }
         public string DefaultFileName { get; set; }
+        
+        internal bool SkipEmbeddingResources => ProjectLocation.Contains("H5.Core.csproj");
+
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
         public bool ExtractCore { get; set; }
@@ -24,7 +27,7 @@ namespace H5.Translator
         public bool Run { get; set; }
         public bool? NoTimeStamp { get; set; }
         public bool FromTask { get; set; }
-        public bool NoLoggerSetUp { get; set; }
+        public bool NoLoggerSetUp { get; set; } 
         public string Sources { get; set; }
         public string ReferencesPath { get; set; }
 

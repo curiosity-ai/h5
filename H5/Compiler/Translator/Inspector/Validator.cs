@@ -15,7 +15,6 @@ using System.Text.RegularExpressions;
 using Mono.Cecil.Rocks;
 using ICustomAttributeProvider = Mono.Cecil.ICustomAttributeProvider;
 using System.Text;
-using NuGet.Packaging.Signing;
 
 namespace H5.Translator
 {
@@ -241,8 +240,6 @@ namespace H5.Translator
 
         public virtual bool IsExternalType(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, bool ignoreLiteral = false)
         {
-            if (typeDefinition.FullName.StartsWith("H5.Core")) return true;
-
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
 
             var has = typeDefinition.Attributes.Any(attr => attr.Constructor != null && attr.Constructor.DeclaringType.FullName == externalAttr);
@@ -273,7 +270,9 @@ namespace H5.Translator
         public static bool IsVirtualTypeStatic(TypeDefinition typeDefinition)
         {
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
-            CustomAttribute attr = attr = typeDefinition.CustomAttributes.FirstOrDefault( a => a.AttributeType.FullName == virtualAttr);
+            CustomAttribute attr = attr =
+                    typeDefinition.CustomAttributes.FirstOrDefault(
+                        a => a.AttributeType.FullName == virtualAttr);
 
             if (attr == null && typeDefinition.DeclaringType != null)
             {
@@ -520,17 +519,7 @@ namespace H5.Translator
 
         public virtual bool IsObjectLiteral(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type)
         {
-            //if (type.FullName.StartsWith("H5.Core"))
-            //{
-            //    return true;
-            //}
-
-            var hasOL = this.HasAttribute(type.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
-            if (!hasOL)
-            {
-                hasOL = type.GetAllBaseTypeDefinitions().Where(bt => bt != type && bt.FullName != type.FullName).Any(bt => IsObjectLiteral(bt));
-            }
-            return hasOL;
+            return this.HasAttribute(type.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
         }
 
         private Stack<TypeDefinition> _stack = new Stack<TypeDefinition>();

@@ -430,7 +430,8 @@ namespace H5.Translator
                 }
             }
 
-            if(rewriten[index].Contains("()null"))
+            //RFO: Temp fix for invalid handling of A?.Method() being converted to A != null ? A.Method() : ()null
+            if (rewriten[index].Contains("()null"))
             {
                 rewriten[index] = rewriten[index].Replace("()null", "null");
             }

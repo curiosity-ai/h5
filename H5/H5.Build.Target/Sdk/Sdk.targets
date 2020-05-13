@@ -55,9 +55,9 @@
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
-  
-  <Target Name="RunH5Compiler" 
-          BeforeTargets="Build" 
+
+  <Target Name="RunH5Compiler"
+          BeforeTargets="Build"
           Inputs="$(MSBuildAllProjects);
                   @(Compile);
                   @(ReferencePath);
@@ -76,7 +76,7 @@
 
     <Message Importance="high" Text="H5 compilation begins now... " />
 
-    <Exec Command="h5 --rebuild -p &quot;$(ProjectPath)&quot; -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)"/>
+    <Exec Command="h5 -p &quot;$(ProjectPath)&quot; -cfg &quot;$(Configuration)&quot; --platform &quot;$(Platform)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)"/>
 
     <Message Importance="high" Text="... H5 compilation finished!" />
 

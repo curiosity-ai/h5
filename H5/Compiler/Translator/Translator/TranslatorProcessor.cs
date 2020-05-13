@@ -87,15 +87,14 @@ namespace H5.Translator
             }
 
             var fileName = GetDefaultFileName(h5Options);
-
             if (!h5Options.SkipEmbeddingResources)
             {
                 translator.Minify();
                 translator.Combine(fileName);
                 translator.Save(outputPath, fileName);
-
                 translator.InjectResources(outputPath, projectPath);
             }
+
             translator.RunAfterBuild();
 
             logger.Info("Run plugins AfterOutput...");
@@ -203,7 +202,7 @@ namespace H5.Translator
             var h5Options = this.H5Options;
             var assemblyConfig = this.TranslatorConfiguration;
 
-            if (h5Options.NoLoggerSetUp)    
+            if (h5Options.NoLoggerSetUp)
             {
                 return;
             }

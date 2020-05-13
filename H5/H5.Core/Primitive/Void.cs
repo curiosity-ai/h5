@@ -9,8 +9,8 @@ using H5;
 namespace H5.Core
 {
   [IgnoreCast]
-  [ExportedAs("void")]
   [Virtual]
+  [ExportedAs("void")]
   public class Void
   {
     private extern Void();

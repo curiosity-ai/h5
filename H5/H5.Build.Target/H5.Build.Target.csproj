@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.Build.NoTargets/1.0.40">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>Provides targets for h5-based projects that compile C# to Javascript</Description>
+    <Description>Provides targets for H5-based projects that compile C# to Javascript</Description>
     <PackageTags>MSBuild MSBuildSdk h5 javascript compiler</PackageTags>
     <ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
     <PackageType>MSBuildSdk</PackageType>
     <PackageId>h5.Target</PackageId>
     <Company>Rafael Oliveira</Company>
     <Authors>Rafael Oliveira</Authors>
-    <Copyright>(c) Copyright  2020, Rafael Oliveira. All rights reserved.</Copyright>
+    <Copyright>(c) Copyright  2020, Rafael Oliveira. All rights reserved.</Copyright>    
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>

@@ -10,6 +10,7 @@ namespace H5.Core
 {
   [IgnoreCast]
   [IgnoreGeneric(AllowInTypeScript = true)]
+  [Virtual]
   public abstract class TypeAlias<TOriginal>
   {
     [Template("{this}")]

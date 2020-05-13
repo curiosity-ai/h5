@@ -566,18 +566,10 @@ namespace H5.Contract
             if (!ignoreVirtual && !isAlias)
             {
                 var td = type.GetDefinition();
-                if (td != null && emitter.Validator.IsVirtualType(td)) 
+                if (td != null && emitter.Validator.IsVirtualType(td))
                 {
-                    //RFO: Possible hack to avoid emitting H5.Core classes that are always going to map to javascript objects and not to actual classes
-                    if (td.FullName.StartsWith("H5.Core"))
-                    {
-                        Console.WriteLine($"Avoiding a virtual call for type: {td.FullName}");
-                    }
-                    else
-                    {
-                        string fnName = td.Kind == TypeKind.Interface ? JS.Types.H5.GET_INTERFACE : JS.Types.H5.GET_CLASS;
-                        name = fnName + "(\"" + name + "\")";
-                    }
+                    string fnName = td.Kind == TypeKind.Interface ? JS.Types.H5.GET_INTERFACE : JS.Types.H5.GET_CLASS;
+                    name = fnName + "(\"" + name + "\")";
                 }
                 else if (!isAlias && itypeDef != null && itypeDef.Kind == TypeKind.Interface)
                 {
@@ -625,7 +617,7 @@ namespace H5.Contract
                 emitter,
                 astType.Parent is TypeOfExpression && symbol != null && symbol.SymbolKind == SymbolKind.TypeDefinition);
 
-            if (name != CS.NS.H5 && !(name.StartsWith(CS.H5.DOTNAME) && ! name.StartsWith("H5.Core")) && astType.ToString().StartsWith(CS.NS.GLOBAL))
+            if (name != CS.NS.H5 && !name.StartsWith(CS.H5.DOTNAME) && astType.ToString().StartsWith(CS.NS.GLOBAL))
             {
                 return JS.Types.H5.Global.DOTNAME + name;
             }

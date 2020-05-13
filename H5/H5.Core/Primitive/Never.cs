@@ -10,8 +10,8 @@ using System;
 namespace H5.Core
 {
   [IgnoreCast]
-  [ExportedAs("never")]
   [Virtual]
+  [ExportedAs("never")]
   public class Never
   {
     private extern Never();

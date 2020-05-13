@@ -10,8 +10,8 @@ using System;
 namespace H5.Core
 {
   [IgnoreCast]
-  [ExportedAs("null")]
   [Virtual]
+  [ExportedAs("null")]
   public class Null
   {
     [Template("null")]

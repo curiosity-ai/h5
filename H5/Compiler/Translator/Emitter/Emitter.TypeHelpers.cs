@@ -362,9 +362,6 @@ namespace H5.Translator
         public virtual TypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
         {
             var resolveResult = this.Resolver.ResolveNode(reference, this) as TypeResolveResult;
-            
-            if(resolveResult is null) { throw new EmitterException(reference); }
-
             var type = this.H5Types.Get(resolveResult.Type, safe);
             return type?.TypeDefinition;
         }

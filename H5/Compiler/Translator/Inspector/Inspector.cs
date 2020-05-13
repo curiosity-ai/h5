@@ -2,7 +2,6 @@ using H5.Contract;
 using H5.Contract.Constants;
 
 using ICSharpCode.NRefactory.CSharp;
-using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,25 +37,6 @@ namespace H5.Translator
                     if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (name + "Attribute"))
                     {
                         return true;
-                    }
-                }
-            }
-
-            if(type is TypeDeclaration typeDeclaration)
-            {
-                foreach(var baseType in typeDeclaration.BaseTypes)
-                {
-                    var typeResolveResult = this.Resolver.ResolveNode(baseType, null) as TypeResolveResult;
-
-                    if (typeResolveResult is object)
-                    {
-                        foreach(var j in typeResolveResult.Type.GetDefinition().Attributes)
-                        {
-                            if (j.AttributeType.FullName == (name + "Attribute"))
-                            {
-                                return true;
-                            }
-                        }
                     }
                 }
             }

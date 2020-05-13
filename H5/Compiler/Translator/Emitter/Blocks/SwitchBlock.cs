@@ -345,7 +345,7 @@ namespace H5.Translator
                 }
 
                 this.WriteDot();
-                this.Write(JS.Funcs.TOSTRING);
+                this.Write(JS.Funcs.TOSTIRNG);
                 this.WriteOpenCloseParentheses();
             }
 
@@ -408,7 +408,7 @@ namespace H5.Translator
                     {
                         caseLabel.Expression.AcceptVisitor(this.Emitter);
                         this.WriteDot();
-                        this.Write(JS.Funcs.TOSTRING);
+                        this.Write(JS.Funcs.TOSTIRNG);
                         this.WriteOpenCloseParentheses();
                     }
                 }

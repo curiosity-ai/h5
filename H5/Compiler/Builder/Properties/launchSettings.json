@@ -2,8 +2,8 @@
   "profiles": {
     "H5.Builder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\home\\curiosity-ai\\github\\plotly.sharp\\Plotly.H5\\Plotly.H5.csproj\" -cfg \"$(Configuration)\" --platform \"$(Platform)\"",
-      "workingDirectory": "C:\\home\\curiosity-ai\\github\\plotly.sharp\\Plotly.H5\\"
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -cfg \"$(Configuration)\" --platform \"$(Platform)\"",
+      "workingDirectory": "C:\\h5\\Tesserae\\Tesserae.Tests\\"
     }
   }
 }

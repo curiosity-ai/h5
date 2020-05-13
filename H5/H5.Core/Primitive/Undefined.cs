@@ -10,8 +10,8 @@ using System;
 namespace H5.Core
 {
   [IgnoreCast]
-  [ExportedAs("undefined")]
   [Virtual]
+  [ExportedAs("undefined")]
   public class Undefined
   {
     [Template("undefined")]

@@ -10,7 +10,6 @@ namespace HTML
 {
   [IgnoreCast]
   [IgnoreGeneric(AllowInTypeScript = true)]
-  [Virtual]
   public abstract class LiteralType<T> : TypeAlias<T>
   {
     [Template("{arg1} === {arg2}")]

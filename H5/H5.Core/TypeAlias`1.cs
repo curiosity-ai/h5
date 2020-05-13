@@ -10,7 +10,6 @@ namespace HTML
 {
   [IgnoreCast]
   [IgnoreGeneric(AllowInTypeScript = true)]
-  [Virtual]
   public abstract class TypeAlias<TOriginal>
   {
     [Template("{this}")]

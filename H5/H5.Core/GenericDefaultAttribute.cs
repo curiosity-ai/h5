@@ -10,7 +10,6 @@ using System;
 namespace HTML
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    [Virtual]
     public sealed class GenericDefaultAttribute : Attribute
     {
         public extern GenericDefaultAttribute(string typeParamName, Type defaultType);

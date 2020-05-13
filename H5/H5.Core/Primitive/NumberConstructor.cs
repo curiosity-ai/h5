@@ -10,7 +10,6 @@ namespace HTML
 {
     [IgnoreCast]
     [Namespace(false)]
-    [Virtual]
     public interface NumberConstructor : IObject
     {
         [Template("new {this}()")]

@@ -10,7 +10,6 @@ namespace HTML
 {
     [IgnoreCast]
     [ObjectLiteral]
-    [Virtual]
     [ExportedAs("object")]
     public interface IObject
     {

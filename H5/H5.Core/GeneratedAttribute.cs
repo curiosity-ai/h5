@@ -9,7 +9,6 @@ using System;
 
 namespace HTML
 {
-    [Virtual]
     public sealed class GeneratedAttribute : Attribute
     {
     }

@@ -9,7 +9,6 @@ using H5;
 namespace HTML
 {
     [Name("this")]
-    [Virtual]
     public static class This
     {
         [Template("this")]

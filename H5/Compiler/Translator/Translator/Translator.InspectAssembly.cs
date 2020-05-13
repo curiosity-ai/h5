@@ -430,6 +430,11 @@ namespace H5.Translator
                 }
             }
 
+            if(rewriten[index].Contains("()null"))
+            {
+                rewriten[index] = rewriten[index].Replace("()null", "null");
+            }
+
             var syntaxTree = parser.Parse(rewriten[index], fileName);
             syntaxTree.FileName = fileName;
             this.Log.Trace("\tParsing syntax tree done");

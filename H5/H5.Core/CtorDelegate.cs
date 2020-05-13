@@ -8,7 +8,6 @@ using H5;
 
 namespace HTML
 {
-    [Virtual]
     public abstract class CtorDelegate
     {
     }

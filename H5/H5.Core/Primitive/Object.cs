@@ -12,7 +12,6 @@ namespace HTML
     [CombinedClass]
     [StaticInterface("ObjectConstructor")]
     [Namespace(false)]
-    [Virtual]
     public class Object : Object.Interface, IObject
     {
         public extern Object();

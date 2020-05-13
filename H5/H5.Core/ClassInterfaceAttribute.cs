@@ -10,7 +10,6 @@ using System;
 namespace HTML
 {
     [AttributeUsage(AttributeTargets.Interface)]
-    [Virtual]
     public sealed class ClassInterfaceAttribute : Attribute
     {
     }

@@ -10,7 +10,6 @@ using System;
 namespace HTML
 {
     [AttributeUsage(AttributeTargets.Class)]
-    [Virtual]
     public sealed class StaticInterfaceAttribute : Attribute
     {
         public extern StaticInterfaceAttribute(string staticInterfaceName);

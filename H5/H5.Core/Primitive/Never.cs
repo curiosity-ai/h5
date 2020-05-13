@@ -10,7 +10,6 @@ using System;
 namespace HTML
 {
   [IgnoreCast]
-  [Virtual]
   [ExportedAs("never")]
   public class Never
   {

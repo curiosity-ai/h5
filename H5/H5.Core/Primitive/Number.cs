@@ -11,7 +11,6 @@ namespace HTML
     [CombinedClass]
     [StaticInterface("NumberConstructor")]
     [Namespace(false)]
-    [Virtual]
     public class Number : Object, Number.Interface, IObject
     {
         public extern Number();

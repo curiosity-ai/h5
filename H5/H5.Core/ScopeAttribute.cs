@@ -10,7 +10,6 @@ using System;
 namespace HTML
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    [Virtual]
     public sealed class ScopeAttribute : Attribute
     {
     }

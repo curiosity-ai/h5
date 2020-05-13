@@ -9,7 +9,6 @@ using H5;
 namespace HTML
 {
   [IgnoreCast]
-  [Virtual]
   [ExportedAs("void")]
   public class Void
   {

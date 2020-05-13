@@ -10,7 +10,6 @@ namespace HTML
 {
     [IgnoreCast]
     [Namespace(false)]
-    [Virtual]
     public interface StringConstructor : IObject
     {
         [Template("new {this}()")]

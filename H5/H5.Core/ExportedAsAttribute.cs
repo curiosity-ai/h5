@@ -10,7 +10,6 @@ using System;
 namespace HTML
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    [Virtual]
     public sealed class ExportedAsAttribute : Attribute
     {
         public bool IsExportAssign

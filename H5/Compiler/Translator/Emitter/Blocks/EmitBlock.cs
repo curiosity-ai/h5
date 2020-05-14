@@ -365,7 +365,7 @@ namespace H5.Translator
                     bool isGlobal = false;
                     if (typeDef != null)
                     {
-                        isGlobal = typeDef.Attributes.Any(a => a.AttributeType.FullName == "H5.GlobalMethodsAttribute" || a.AttributeType.FullName == "H5.MixinAttribute");
+                        isGlobal = IsGlobalType(typeDef);
                     }
 
                     if (typeDef.FullName != "System.Object")
@@ -606,6 +606,30 @@ namespace H5.Translator
             this.Emitter.Translator.Plugins.AfterTypesEmit(this.Emitter, this.Emitter.Types);
         }
 
+        private static bool IsGlobalType(ITypeDefinition typeDef)
+        {
+            var isGlobal = typeDef.Attributes.Any(a =>
+                            a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
+                            a.AttributeType.FullName == "H5.MixinAttribute");
+
+            if (!isGlobal && typeDef.DeclaringType is object)
+            {
+                var parent = typeDef.DeclaringType;
+                while (parent is object)
+                {
+                    isGlobal = parent.GetDefinition().Attributes.Any(a =>
+                        a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
+                        a.AttributeType.FullName == "H5.MixinAttribute");
+
+                    if (isGlobal) { break; }
+
+                    parent = parent.DeclaringType;
+                }
+            }
+
+            return isGlobal;
+        }
+
         protected virtual void EmitNamedBoxedFunctions()
         {
             if (this.Emitter.NamedBoxedFunctions.Count > 0)
@@ -665,6 +689,22 @@ namespace H5.Translator
                     a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
                     a.AttributeType.FullName == "H5.NonScriptableAttribute" ||
                     a.AttributeType.FullName == "H5.MixinAttribute");
+
+            if(!skip && typeDef.DeclaringType is object)
+            {
+                var parent = typeDef.DeclaringType;
+                while (parent is object)
+                {
+                    skip = parent.GetDefinition().Attributes.Any(a =>
+                        a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
+                        a.AttributeType.FullName == "H5.NonScriptableAttribute" ||
+                        a.AttributeType.FullName == "H5.MixinAttribute");
+
+                    if (skip) { break; }
+
+                    parent = parent.DeclaringType;
+                }
+            }
 
             if (!skip && typeDef.FullName != "System.Object")
             {

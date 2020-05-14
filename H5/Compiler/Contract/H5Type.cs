@@ -6,6 +6,7 @@ using Object.Net.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
 using ArrayType = ICSharpCode.NRefactory.TypeSystem.ArrayType;
@@ -566,12 +567,12 @@ namespace H5.Contract
             if (!ignoreVirtual && !isAlias)
             {
                 var td = type.GetDefinition();
-                if (td != null && emitter.Validator.IsVirtualType(td))
+                if (td != null && emitter.Validator.IsVirtualType(td) && !IsGlobalType(td))
                 {
                     string fnName = td.Kind == TypeKind.Interface ? JS.Types.H5.GET_INTERFACE : JS.Types.H5.GET_CLASS;
                     name = fnName + "(\"" + name + "\")";
                 }
-                else if (!isAlias && itypeDef != null && itypeDef.Kind == TypeKind.Interface)
+                else if (!isAlias && itypeDef != null && itypeDef.Kind == TypeKind.Interface && !IsGlobalType(itypeDef))
                 {
                     var externalInterface = emitter.Validator.IsExternalInterface(itypeDef);
                     if (externalInterface != null && externalInterface.IsVirtual)
@@ -583,6 +584,31 @@ namespace H5.Contract
 
             return name;
         }
+
+        private static bool IsGlobalType(ITypeDefinition typeDef)
+        {
+            var isGlobal = typeDef.Attributes.Any(a =>
+                            a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
+                            a.AttributeType.FullName == "H5.MixinAttribute");
+
+            if (!isGlobal && typeDef.DeclaringType is object)
+            {
+                var parent = typeDef.DeclaringType;
+                while (parent is object)
+                {
+                    isGlobal = parent.GetDefinition().Attributes.Any(a =>
+                        a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
+                        a.AttributeType.FullName == "H5.MixinAttribute");
+
+                    if (isGlobal) { break; }
+
+                    parent = parent.DeclaringType;
+                }
+            }
+
+            return isGlobal;
+        }
+
 
         public static string ToJsName(TypeDefinition type, IEmitter emitter, bool asDefinition = false, bool excludens = false, bool ignoreVirtual = false, bool nomodule = false)
         {

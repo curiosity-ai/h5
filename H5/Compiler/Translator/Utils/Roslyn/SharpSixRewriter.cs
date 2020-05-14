@@ -127,6 +127,11 @@ namespace H5.Translator
 
             modelUpdater(result);
 
+            if(result.ToString().Contains("(HTMLElement)"))
+            {
+                Console.WriteLine("here");
+            }
+
             return newTree.GetRoot().ToFullString();
         }
 

@@ -39,7 +39,9 @@ namespace H5.Contract
 
         System.Collections.Generic.HashSet<string> GetParentTypes(System.Collections.Generic.IDictionary<string, Mono.Cecil.TypeDefinition> allTypes);
 
-        bool HasAttribute(System.Collections.Generic.IEnumerable<ICSharpCode.NRefactory.TypeSystem.IAttribute> attributes, string name);
+        bool HasAttribute(ITypeDefinition typeDefinition, string name);
+
+        bool HasAttribute(System.Collections.Generic.IEnumerable<IAttribute> attributes, string name);
 
         bool HasAttribute(System.Collections.Generic.IEnumerable<Mono.Cecil.CustomAttribute> attributes, string name);
 

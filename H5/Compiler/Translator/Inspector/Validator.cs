@@ -325,6 +325,13 @@ namespace H5.Translator
                         a => a.AttributeType.FullName == virtualAttr);
             }
 
+            if (attr == null)
+            {
+                attr = typeDefinition.GetAllBaseTypeDefinitions()
+                                     .SelectMany(bt => bt.Attributes)
+                                     .FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
+            }
+
             if (attr == null && typeDefinition.DeclaringType != null)
             {
                 return Validator.IsVirtualTypeStatic(typeDefinition.DeclaringType.GetDefinition());
@@ -388,6 +395,7 @@ namespace H5.Translator
         public virtual IExternalInterface IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition)
         {
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalInterfaceAttribute";
+
             var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
 
             if (attr == null)
@@ -438,9 +446,34 @@ namespace H5.Translator
             return this.GetAttribute(attributes, name) != null;
         }
 
-        public virtual bool HasAttribute(IEnumerable<ICSharpCode.NRefactory.TypeSystem.IAttribute> attributes, string name)
+        public bool HasAttribute(System.Collections.Generic.IEnumerable<IAttribute> attributes, string name)
         {
             return this.GetAttribute(attributes, name) != null;
+        }
+
+        public virtual bool HasAttribute(ITypeDefinition typeDefinition, string name)
+        {
+            IAttribute attr = null;
+            if (typeDefinition.GetDefinition() != null)
+            {
+                attr =
+                    typeDefinition.GetDefinition().Attributes.FirstOrDefault(a => a.AttributeType.FullName == name);
+            }
+
+            if (attr == null)
+            {
+                attr = typeDefinition.GetAllBaseTypeDefinitions()
+                                     .SelectMany(bt => bt.Attributes)
+                                     .FirstOrDefault(a => a.AttributeType.FullName == name);
+            }
+
+            //RFO: not sure if need this one:
+            //if (attr == null && typeDefinition.DeclaringType != null)
+            //{
+            //    return HasAttribute(typeDefinition.DeclaringType.GetDefinition(), name);
+            //}
+
+            return attr != null;
         }
 
         public virtual CustomAttribute GetAttribute(IEnumerable<CustomAttribute> attributes, string name)
@@ -519,7 +552,7 @@ namespace H5.Translator
 
         public virtual bool IsObjectLiteral(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type)
         {
-            return this.HasAttribute(type.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
+            return this.HasAttribute(type, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
         }
 
         private Stack<TypeDefinition> _stack = new Stack<TypeDefinition>();

@@ -279,8 +279,8 @@ namespace H5.Contract
                 }
             }
 
-            return emitter.Validator.HasAttribute(typeDef.Attributes, "H5.IgnoreCastAttribute") ||
-                   emitter.Validator.HasAttribute(typeDef.Attributes, "H5.ObjectLiteralAttribute");
+            return emitter.Validator.HasAttribute(typeDef, "H5.IgnoreCastAttribute") ||
+                   emitter.Validator.HasAttribute(typeDef, "H5.ObjectLiteralAttribute");
         }
 
         public static bool IsIgnoreCast(ITypeDefinition typeDef, IEmitter emitter)
@@ -311,7 +311,7 @@ namespace H5.Contract
                 }
             }
 
-            return emitter.Validator.HasAttribute(typeDef.Attributes, "H5.IgnoreCastAttribute");
+            return emitter.Validator.HasAttribute(typeDef, "H5.IgnoreCastAttribute");
         }
 
         public static bool IsIntegerType(IType type, IMemberResolver resolver)

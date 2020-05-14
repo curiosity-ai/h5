@@ -178,8 +178,6 @@ namespace H5.Translator
 
         public virtual bool IsExternalType(TypeDefinition type, bool ignoreLiteral = false)
         {
-            if (IsTypeFromH5Core(type.FullName)) return true;
-
 
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
             string nonScriptableAttr = Translator.H5_ASSEMBLY + ".NonScriptableAttribute";
@@ -194,6 +192,8 @@ namespace H5.Translator
 
             if (!has)
             {
+                if (IsTypeFromH5Core(type.FullName)) return true;
+
                 has = this.HasAttribute(type.Module.Assembly.CustomAttributes, externalAttr);
             }
 
@@ -212,8 +212,6 @@ namespace H5.Translator
 
         public virtual bool IsExternalType(IEntity entity, bool ignoreLiteral = false)
         {
-            if (IsTypeFromH5Core(entity.FullName)) return true;
-
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
             string nonScriptableAttr = Translator.H5_ASSEMBLY + ".NonScriptableAttribute";
 
@@ -250,7 +248,6 @@ namespace H5.Translator
 
         public virtual bool IsExternalType(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, bool ignoreLiteral = false)
         {
-            if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
 
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
 
@@ -263,6 +260,8 @@ namespace H5.Translator
 
             if (!has)
             {
+                if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
+
                 has = typeDefinition.ParentAssembly.AssemblyAttributes.Any(attr => attr.Constructor != null && attr.Constructor.DeclaringType.FullName == externalAttr);
             }
 
@@ -281,23 +280,8 @@ namespace H5.Translator
 
         public static bool IsVirtualTypeStatic(TypeDefinition typeDefinition)
         {
-            if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
-
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             CustomAttribute attr = attr = typeDefinition.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
-
-            //RFO: This seems to be wrong
-            //if (attr == null)
-            //{
-            //    var baseType = typeDefinition.BaseType;
-            //    while(baseType is object && attr is null)
-            //    {
-            //        var baseTypeDef = baseType.Resolve();
-
-            //        attr = baseTypeDef.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
-            //        baseType = baseTypeDef.BaseType;
-            //    }
-            //}
 
             if (attr == null && typeDefinition.DeclaringType != null)
             {
@@ -306,6 +290,8 @@ namespace H5.Translator
 
             if (attr == null)
             {
+                if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
+
                 attr = typeDefinition.Module.Assembly.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
             }
 
@@ -341,8 +327,6 @@ namespace H5.Translator
 
         public static bool IsVirtualTypeStatic(ITypeDefinition typeDefinition)
         {
-            if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
-
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             IAttribute attr = null;
             if (typeDefinition.GetDefinition() != null)
@@ -352,14 +336,6 @@ namespace H5.Translator
                         a => a.AttributeType.FullName == virtualAttr);
             }
 
-            //RFO: This seems to be wrong
-            //if (attr == null)
-            //{
-            //    attr = typeDefinition.GetAllBaseTypeDefinitions()
-            //                         .SelectMany(bt => bt.Attributes)
-            //                         .FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
-            //}
-
             if (attr == null && typeDefinition.DeclaringType != null)
             {
                 return Validator.IsVirtualTypeStatic(typeDefinition.DeclaringType.GetDefinition());
@@ -367,6 +343,8 @@ namespace H5.Translator
 
             if (attr == null)
             {
+                if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
+
                 attr = typeDefinition.ParentAssembly.AssemblyAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
             }
 
@@ -402,17 +380,17 @@ namespace H5.Translator
 
         public virtual bool IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, out bool isNative)
         {
-            if (IsTypeFromH5Core(typeDefinition.FullName))
-            {
-                isNative = false; //RFO: TODO: Check this assumption
-                return true;
-            }
-
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalInterfaceAttribute";
             var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
 
             if (attr == null)
             {
+                if (IsTypeFromH5Core(typeDefinition.FullName))
+                {
+                    isNative = false; //RFO: TODO: Check this assumption
+                    return true;
+                }
+
                 attr = typeDefinition.ParentAssembly.AssemblyAttributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
             }
 
@@ -432,14 +410,14 @@ namespace H5.Translator
 
             var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
 
-            if (IsTypeFromH5Core(typeDefinition.FullName))
-            {
-                //RFO: TODO: Check this assumption
-                return new ExternalInterface() { IsNativeImplementation = true };
-            }
-
             if (attr == null)
             {
+                if (IsTypeFromH5Core(typeDefinition.FullName))
+                {
+                    //RFO: TODO: Check this assumption
+                    return new ExternalInterface() { IsNativeImplementation = false };
+                }
+
                 attr = typeDefinition.ParentAssembly.AssemblyAttributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
             }
 
@@ -481,17 +459,13 @@ namespace H5.Translator
             return this.HasAttribute(type.CustomAttributes, attrName);
         }
 
-        //public virtual bool HasAttribute(TypeDefinition type, string name)
-        //{
-        //    return this.GetAttribute(type, name) != null;
-        //}
-
+        
         public virtual bool HasAttribute(IEnumerable<CustomAttribute> attributes, string name)
         {
             return this.GetAttribute(attributes, name) != null;
         }
 
-        public bool HasAttribute(System.Collections.Generic.IEnumerable<IAttribute> attributes, string name)
+        public bool HasAttribute(IEnumerable<IAttribute> attributes, string name)
         {
             return this.GetAttribute(attributes, name) != null;
         }
@@ -505,14 +479,6 @@ namespace H5.Translator
                     typeDefinition.GetDefinition().Attributes.FirstOrDefault(a => a.AttributeType.FullName == name);
             }
 
-            //RFO: this seems to be actually wrong:
-            //if (attr == null)
-            //{
-            //    attr = typeDefinition.GetAllBaseTypeDefinitions()
-            //                         .SelectMany(bt => bt.Attributes)
-            //                         .FirstOrDefault(a => a.AttributeType.FullName == name);
-            //}
-
             //RFO: not sure if need this one:
             //if (attr == null && typeDefinition.DeclaringType != null)
             //{
@@ -521,25 +487,6 @@ namespace H5.Translator
 
             return attr != null;
         }
-
-        //public virtual CustomAttribute GetAttribute(TypeDefinition type, string name)
-        //{
-        //    var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == name);
-
-        //    if (attr == null)
-        //    {
-        //        var baseType = type.BaseType;
-        //        while (baseType is object && attr is null)
-        //        {
-        //            var baseTypeDef = baseType.Resolve();
-
-        //            attr = baseTypeDef.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == name);
-        //            baseType = baseTypeDef.BaseType;
-        //        }
-        //    }
-
-        //    return attr;
-        //}
 
         public virtual CustomAttribute GetAttribute(IEnumerable<CustomAttribute> attributes, string name)
         {

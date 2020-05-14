@@ -286,19 +286,18 @@ namespace H5.Translator
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             CustomAttribute attr = attr = typeDefinition.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
 
+            //RFO: This seems to be wrong
+            //if (attr == null)
+            //{
+            //    var baseType = typeDefinition.BaseType;
+            //    while(baseType is object && attr is null)
+            //    {
+            //        var baseTypeDef = baseType.Resolve();
 
-
-            if (attr == null)
-            {
-                var baseType = typeDefinition.BaseType;
-                while(baseType is object && attr is null)
-                {
-                    var baseTypeDef = baseType.Resolve();
-
-                    attr = baseTypeDef.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
-                    baseType = baseTypeDef.BaseType;
-                }
-            }
+            //        attr = baseTypeDef.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
+            //        baseType = baseTypeDef.BaseType;
+            //    }
+            //}
 
             if (attr == null && typeDefinition.DeclaringType != null)
             {
@@ -353,12 +352,13 @@ namespace H5.Translator
                         a => a.AttributeType.FullName == virtualAttr);
             }
 
-            if (attr == null)
-            {
-                attr = typeDefinition.GetAllBaseTypeDefinitions()
-                                     .SelectMany(bt => bt.Attributes)
-                                     .FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
-            }
+            //RFO: This seems to be wrong
+            //if (attr == null)
+            //{
+            //    attr = typeDefinition.GetAllBaseTypeDefinitions()
+            //                         .SelectMany(bt => bt.Attributes)
+            //                         .FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
+            //}
 
             if (attr == null && typeDefinition.DeclaringType != null)
             {
@@ -505,12 +505,13 @@ namespace H5.Translator
                     typeDefinition.GetDefinition().Attributes.FirstOrDefault(a => a.AttributeType.FullName == name);
             }
 
-            if (attr == null)
-            {
-                attr = typeDefinition.GetAllBaseTypeDefinitions()
-                                     .SelectMany(bt => bt.Attributes)
-                                     .FirstOrDefault(a => a.AttributeType.FullName == name);
-            }
+            //RFO: this seems to be actually wrong:
+            //if (attr == null)
+            //{
+            //    attr = typeDefinition.GetAllBaseTypeDefinitions()
+            //                         .SelectMany(bt => bt.Attributes)
+            //                         .FirstOrDefault(a => a.AttributeType.FullName == name);
+            //}
 
             //RFO: not sure if need this one:
             //if (attr == null && typeDefinition.DeclaringType != null)

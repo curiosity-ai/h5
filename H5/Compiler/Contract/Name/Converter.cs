@@ -450,14 +450,12 @@ namespace H5.Contract
 
                     if (!has)
                     {
-                        has =
+                        has = IsTypeFromH5Core(typeDef.FullName) ||
                             typeDef.ParentAssembly.AssemblyAttributes.Any(
                                 attr =>
                                     attr.Constructor != null &&
                                     attr.Constructor.DeclaringType.FullName == externalAttr);
                     }
-
-                    has |= IsTypeFromH5Core(typeDef.FullName);
 
                     acceptable = has;
 

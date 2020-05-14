@@ -85,9 +85,9 @@ namespace H5.Translator
 
                     using (var resourceBuffer = new MemoryStream(500 * 1024))
                     {
-                        this.GenerateResourseHeader(resourceBuffer, resource, projectPath);
+                        this.GenerateResourceHeader(resourceBuffer, resource, projectPath);
 
-                        var needSourceMap = this.ReadResourseFiles(projectPath, resourceBuffer, resource);
+                        var needSourceMap = this.ReadResourceFiles(projectPath, resourceBuffer, resource);
 
                         if (resourceBuffer.Length > 0)
                         {
@@ -655,7 +655,7 @@ namespace H5.Translator
             return s;
         }
 
-        private void GenerateResourseHeader(MemoryStream resourceBuffer, ResourceConfigItem resource, string basePath)
+        private void GenerateResourceHeader(MemoryStream resourceBuffer, ResourceConfigItem resource, string basePath)
         {
             if (resource.Header == null)
             {
@@ -825,7 +825,7 @@ namespace H5.Translator
         /// <param name="buffer"></param>
         /// <param name="item">Resource</param>
         /// <returns>Bool value indication whether it is a resource for SourceMap generation</returns>
-        private bool ReadResourseFiles(string outputPath, MemoryStream buffer, ResourceConfigItem item)
+        private bool ReadResourceFiles(string outputPath, MemoryStream buffer, ResourceConfigItem item)
         {
             this.Log.Trace("Reading resource with " + item.Files.Length + " items");
 
@@ -882,7 +882,7 @@ namespace H5.Translator
 
                         if (!directory.Exists)
                         {
-                            throw new InvalidOperationException("Could not find any folder: " + directory.FullName + " for resource " + item.Name + " and location " + fileName);
+                            throw new InvalidOperationException($"Missing resource from json config file, could not find folder: '{directory.FullName}' for resource '{item.Name}' with file name '{fileName}'");
                         }
 
                         this.Log.Trace("Searching files for resources in folder: " + directoryPath);
@@ -891,7 +891,7 @@ namespace H5.Translator
 
                         if (file == null)
                         {
-                            throw new InvalidOperationException("Could not find any file in folder: " + directory.FullName + " for resource " + item.Name + " and location " + fileName);
+                            throw new InvalidOperationException($"Missing resource from json config file, could not find in folder '{directory.FullName}' the required resource '{item.Name}' with file name '{fileName}'");
                         }
 
                         this.Log.Trace("Reading resource item at " + file.FullName);

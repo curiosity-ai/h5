@@ -34,6 +34,8 @@ namespace H5.Translator
             this.Translator = this.SetTranslatorProperties();
 
             this.SetLoggerConfigurationParameters();
+
+            Logger.Info($"Ready to build {this.H5Options.ProjectLocation}");
         }
 
         private void AdjustH5Options()
@@ -216,14 +218,13 @@ namespace H5.Translator
                 logger.Trace("Logger name: " + logger.Name);
             }
 
-            var loggerLevel = assemblyConfig.Logging.Level ?? LoggerLevel.None;
+            var loggerLevel = assemblyConfig.Logging.Level ?? LoggerLevel.Info;
 
             logger.Trace("Logger level: " + loggerLevel);
 
             if (loggerLevel <= LoggerLevel.None)
             {
-                logger.Info("    To enable detailed logging, configure \"logging\" in h5.json.");
-                logger.Info("    https://github.com/bridgedotnet/bridge/wiki/global-configuration#logging");
+                logger.Info("    To enable detailed logging, configure \"logging\" in h5.json: https://github.com/bridgedotnet/bridge/wiki/global-configuration#logging");
             }
 
             logger.LoggerLevel = loggerLevel;

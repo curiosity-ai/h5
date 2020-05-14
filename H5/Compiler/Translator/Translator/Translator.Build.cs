@@ -273,14 +273,13 @@ namespace H5.Translator
 
                 var outputFolder = Path.GetDirectoryName(this.AssemblyLocation);
 
-                foreach (var rp in referencedPackages)
+                foreach (var rp in referencedPackages.GroupBy(p => p.PackageIdentity).OrderByDescending(p => p.Key.Version).Select(g => g.First()))
                 {
                     var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
                     if (Directory.Exists(pp))
                     {
                         var p = Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName(), rp.PackageIdentity.Id + ".dll");
                         referencesFromPackages.Add(MetadataReference.CreateFromFile(p));
-
 
                         foreach (var file in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.dll", SearchOption.AllDirectories))
                         {
@@ -290,10 +289,7 @@ namespace H5.Translator
                         foreach (var source in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
                         {
                             var target = Path.Combine(outputFolder, Path.GetFileName(source));
-                            if (!File.Exists(target))
-                            {
-                                File.Copy(source, target, overwrite: false);
-                            }
+                            File.Copy(source, target, overwrite: true);
                         }
 
                         var contentFolder = Path.Combine(pp, "content");
@@ -302,10 +298,7 @@ namespace H5.Translator
                             foreach (var source in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
                             {
                                 var target = Path.Combine(outputFolder, Path.GetFileName(source));
-                                if (!File.Exists(target))
-                                {
-                                    File.Copy(source, target, overwrite: false);
-                                }
+                                File.Copy(source, target, overwrite: true);
                             }
                         }
 

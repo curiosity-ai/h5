@@ -199,14 +199,14 @@ namespace H5.Translator
                     s = emitter.ToJavaScript(value);
                 }
             }
-            else if (value is char)
+            else if (value is char ch)
             {
-                s = emitter.ToJavaScript((int)(char)value);
+                s = emitter.ToJavaScript((int)ch);
             }
-            else if (value is decimal d)
+            else if (value is decimal dec)
             {
-                var tmp = d.ToString(CultureInfo.InvariantCulture);
-                s = JS.Types.SYSTEM_DECIMAL + "(" + AbstractEmitterBlock.DecimalConstant(d, emitter);
+                var tmp = dec.ToString(CultureInfo.InvariantCulture);
+                s = JS.Types.SYSTEM_DECIMAL + "(" + AbstractEmitterBlock.DecimalConstant(dec, emitter);
 
                 int dot;
                 if ((dot = tmp.IndexOf(".")) >= 0)
@@ -216,13 +216,13 @@ namespace H5.Translator
 
                 s += ")";
             }
-            else if (value is long)
+            else if (value is long l)
             {
-                s = JS.Types.System.Int64.NAME + "(" + AbstractEmitterBlock.LongConstant((long)value, emitter) + ")";
+                s = JS.Types.System.Int64.NAME + "(" + AbstractEmitterBlock.LongConstant(l, emitter) + ")";
             }
-            else if (value is ulong)
+            else if (value is ulong ul)
             {
-                s = JS.Types.SYSTEM_UInt64 + "(" + AbstractEmitterBlock.ULongConstant((ulong)value, emitter) + ")";
+                s = JS.Types.SYSTEM_UInt64 + "(" + AbstractEmitterBlock.ULongConstant(ul, emitter) + ")";
             }
             else
             {

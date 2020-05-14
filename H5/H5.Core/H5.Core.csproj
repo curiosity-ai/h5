@@ -28,4 +28,11 @@
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="H5.ExternalAttribute"/>
+    <AssemblyAttribute Include="H5.ExternalInterfaceAttribute"/>
+    <AssemblyAttribute Include="H5.VirtualAttribute"/>
+  </ItemGroup>
+  
 </Project>

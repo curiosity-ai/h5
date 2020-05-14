@@ -2,8 +2,13 @@
   "profiles": {
     "H5.Builder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -cfg \"$(Configuration)\" --platform \"$(Platform)\"",
-      "workingDirectory": "C:\\h5\\Tesserae\\Tesserae.Tests\\"
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tesserae\\Tesserae\\Tesserae.csproj\" -cfg \"$(Configuration)\" --platform \"$(Platform)\"",
+      "workingDirectory": "C:\\h5\\Tesserae\\Tesserae\\"
+    },
+    "build H5.Core": {
+      "commandName": "Project",
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\H5\\H5.Core\\H5.Core.csproj\" -cfg \"$(Configuration)\" --platform \"$(Platform)\"",
+      "workingDirectory": "C:\\h5\\H5\\H5.Core\\"
     }
   }
 }

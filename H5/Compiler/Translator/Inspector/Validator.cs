@@ -272,6 +272,18 @@ namespace H5.Translator
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             CustomAttribute attr = attr = typeDefinition.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
 
+            if (attr == null)
+            {
+                var baseType = typeDefinition.BaseType;
+                while(baseType is object && attr is null)
+                {
+                    var baseTypeDef = baseType.Resolve();
+
+                    attr = baseTypeDef.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
+                    baseType = baseTypeDef.BaseType;
+                }
+            }
+
             if (attr == null && typeDefinition.DeclaringType != null)
             {
                 return Validator.IsVirtualTypeStatic(typeDefinition.DeclaringType);
@@ -439,6 +451,11 @@ namespace H5.Translator
             return this.HasAttribute(type.CustomAttributes, attrName);
         }
 
+        //public virtual bool HasAttribute(TypeDefinition type, string name)
+        //{
+        //    return this.GetAttribute(type, name) != null;
+        //}
+
         public virtual bool HasAttribute(IEnumerable<CustomAttribute> attributes, string name)
         {
             return this.GetAttribute(attributes, name) != null;
@@ -473,6 +490,25 @@ namespace H5.Translator
 
             return attr != null;
         }
+
+        //public virtual CustomAttribute GetAttribute(TypeDefinition type, string name)
+        //{
+        //    var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == name);
+
+        //    if (attr == null)
+        //    {
+        //        var baseType = type.BaseType;
+        //        while (baseType is object && attr is null)
+        //        {
+        //            var baseTypeDef = baseType.Resolve();
+
+        //            attr = baseTypeDef.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == name);
+        //            baseType = baseTypeDef.BaseType;
+        //        }
+        //    }
+
+        //    return attr;
+        //}
 
         public virtual CustomAttribute GetAttribute(IEnumerable<CustomAttribute> attributes, string name)
         {
@@ -570,9 +606,9 @@ namespace H5.Translator
             bool changeCase = false;
             if (nameAttr != null && nameAttr.ConstructorArguments.Count > 0)
             {
-                if (nameAttr.ConstructorArguments[0].Value is string)
+                if (nameAttr.ConstructorArguments[0].Value is string val)
                 {
-                    name = Helpers.ConvertNameTokens((string)nameAttr.ConstructorArguments[0].Value, type.Name);
+                    name = Helpers.ConvertNameTokens(val, type.Name);
                 }
                 else if (nameAttr.ConstructorArguments[0].Value is bool boolValue)
                 {
@@ -651,7 +687,7 @@ namespace H5.Translator
                     name = arg.Value.ToString();
                 }
 
-                if (arg.Value is bool && ((bool)arg.Value))
+                if (arg.Value is bool booVal && booVal)
                 {
                     return null;
                 }
@@ -839,17 +875,17 @@ namespace H5.Translator
             {
                 var obj = attr.ConstructorArguments[0].Value;
 
-                if (obj is bool)
+                if (obj is bool boolObj)
                 {
-                    module = new Module((bool)obj, null);
+                    module = new Module(boolObj, null);
                 }
                 else if (obj is string)
                 {
                     module = new Module(obj.ToString(), null);
                 }
-                else if (obj is int)
+                else if (obj is int intObj)
                 {
-                    module = new Module("", (ModuleType)(int)obj, null);
+                    module = new Module("", (ModuleType)intObj, null);
                 }
                 else
                 {

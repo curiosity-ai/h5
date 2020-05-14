@@ -6193,17 +6193,14 @@ namespace H5.Core
             [Generated]
             public delegate object ReturnTypeFn<T>(params object[] args);
 
-
-            //RFO: Removed as VS was complaining with error CS0556
-
-            //[IgnoreGeneric(AllowInTypeScript = true)]
-            //[IgnoreCast]
-            //[Virtual]
-            //public abstract class ReturnTypeFnAlias<T> : TypeAlias<es5.ReturnType<T>.ReturnTypeFn<T>>
-            //{
-            //  public static extern implicit operator es5.ReturnType<T>.ReturnTypeFnAlias<T>(
-            //    es5.ReturnType<T>.ReturnTypeFn<T> value);
-            //}
+            [IgnoreGeneric(AllowInTypeScript = true)]
+            [IgnoreCast]
+            [Virtual]
+            public abstract class ReturnTypeFnAlias<T> : TypeAlias<es5.ReturnType<T>.ReturnTypeFn<T>>
+            {
+                public static extern implicit operator es5.ReturnType<T>.ReturnTypeFnAlias<T>(
+                  es5.ReturnType<T>.ReturnTypeFn<T> value);
+            }
         }
 
         [IgnoreGeneric(AllowInTypeScript = true)]
@@ -6231,17 +6228,14 @@ namespace H5.Core
                 [Generated]
                 public delegate object InstanceTypeCtorFnDelegate(params object[] args);
             }
-
-
-            //RFO: Removed as VS was complaining with error CS0556
-            //[IgnoreGeneric(AllowInTypeScript = true)]
-            //[IgnoreCast]
-            //[Virtual]
-            //public abstract class InstanceTypeCtorFnAlias<T> : TypeAlias<es5.InstanceType<T>.InstanceTypeCtorFn<T>>
-            //{
-            //  public static extern implicit operator es5.InstanceType<T>.InstanceTypeCtorFnAlias<T>(
-            //    es5.InstanceType<T>.InstanceTypeCtorFn<T> value);
-            //}
+            [IgnoreGeneric(AllowInTypeScript = true)]
+            [IgnoreCast]
+            [Virtual]
+            public abstract class InstanceTypeCtorFnAlias<T> : TypeAlias<es5.InstanceType<T>.InstanceTypeCtorFn<T>>
+            {
+                public static extern implicit operator es5.InstanceType<T>.InstanceTypeCtorFnAlias<T>(
+                  es5.InstanceType<T>.InstanceTypeCtorFn<T> value);
+            }
         }
 
         [IgnoreCast]

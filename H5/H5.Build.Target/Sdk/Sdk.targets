@@ -54,6 +54,7 @@
     <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <AdditionalExplicitAssemblyReferences />
   </PropertyGroup>
 
   <Target Name="RunH5Compiler"

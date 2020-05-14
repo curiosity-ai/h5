@@ -5,6 +5,8 @@
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DefineConstants>CORE;TRACE</DefineConstants>
+    <NoWarn>1591, 0626, 0824, 0660, 0661</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>

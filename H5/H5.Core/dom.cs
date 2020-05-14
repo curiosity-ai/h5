@@ -5408,10 +5408,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public string displayName
             {
                 get;
@@ -5449,8 +5445,6 @@ namespace H5.Core
         public class AddEventListenerOptions : dom.EventListenerOptions
         {
 
-
-
             public bool? once
             {
                 get;
@@ -5469,8 +5463,6 @@ namespace H5.Core
         [FormerInterface]
         public class AesCbcParams : dom.Algorithm
         {
-
-
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> iv
             {
                 get;
@@ -5483,8 +5475,6 @@ namespace H5.Core
         [FormerInterface]
         public class AesCtrParams : dom.Algorithm
         {
-
-
 
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> counter
             {
@@ -5504,8 +5494,6 @@ namespace H5.Core
         [FormerInterface]
         public class AesDerivedKeyParams : dom.Algorithm
         {
-
-
             public double length
             {
                 get;
@@ -5518,8 +5506,6 @@ namespace H5.Core
         [FormerInterface]
         public class AesGcmParams : dom.Algorithm
         {
-
-
 
 
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> additionalData
@@ -5546,8 +5532,6 @@ namespace H5.Core
         [FormerInterface]
         public class AesKeyAlgorithm : dom.KeyAlgorithm
         {
-
-
             public double length
             {
                 get;
@@ -5560,8 +5544,6 @@ namespace H5.Core
         [FormerInterface]
         public class AesKeyGenParams : dom.Algorithm
         {
-
-
             public double length
             {
                 get;
@@ -5574,8 +5556,6 @@ namespace H5.Core
         [FormerInterface]
         public class Algorithm : IObject
         {
-
-
             public string name
             {
                 get;
@@ -5588,10 +5568,6 @@ namespace H5.Core
         [FormerInterface]
         public class AnalyserOptions : dom.AudioNodeOptions
         {
-
-
-
-
 
             public double? fftSize
             {
@@ -5624,8 +5600,6 @@ namespace H5.Core
         public class AnimationEventInit : dom.EventInit
         {
 
-
-
             public string animationName
             {
                 get;
@@ -5644,10 +5618,6 @@ namespace H5.Core
         [FormerInterface]
         public class AssertionOptions : IObject
         {
-
-
-
-
 
             public dom.ScopedCredentialDescriptor[] allowList
             {
@@ -5681,8 +5651,6 @@ namespace H5.Core
         {
 
 
-
-
             public double length
             {
                 get;
@@ -5707,10 +5675,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioBufferSourceOptions : IObject
         {
-
-
-
-
 
 
 
@@ -5757,8 +5721,6 @@ namespace H5.Core
         public class AudioContextInfo : IObject
         {
 
-
-
             public double? currentTime
             {
                 get;
@@ -5778,8 +5740,6 @@ namespace H5.Core
         public class AudioContextOptions : IObject
         {
 
-
-
             public Union<dom.AudioContextLatencyCategory, double> latencyHint
             {
                 get;
@@ -5798,8 +5758,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioNodeOptions : IObject
         {
-
-
 
 
             public double? channelCount
@@ -5826,10 +5784,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioParamDescriptor : IObject
         {
-
-
-
-
 
             public double? defaultValue
             {
@@ -5863,8 +5817,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.AudioBuffer inputBuffer
             {
                 get;
@@ -5890,8 +5842,6 @@ namespace H5.Core
         public class AudioTimestamp : IObject
         {
 
-
-
             public double? contextTime
             {
                 get;
@@ -5910,10 +5860,6 @@ namespace H5.Core
         [FormerInterface]
         public class BiquadFilterOptions : dom.AudioNodeOptions
         {
-
-
-
-
 
 
             public double? Q
@@ -5952,8 +5898,6 @@ namespace H5.Core
         [FormerInterface]
         public class ByteLengthChunk : IObject
         {
-
-
             public double? byteLength
             {
                 get;
@@ -5966,10 +5910,6 @@ namespace H5.Core
         [FormerInterface]
         public class CacheQueryOptions : IObject
         {
-
-
-
-
 
             public string cacheName
             {
@@ -6001,8 +5941,6 @@ namespace H5.Core
         [FormerInterface]
         public class ChannelMergerOptions : dom.AudioNodeOptions
         {
-
-
             public double? numberOfInputs
             {
                 get;
@@ -6015,8 +5953,6 @@ namespace H5.Core
         [FormerInterface]
         public class ChannelSplitterOptions : dom.AudioNodeOptions
         {
-
-
             public double? numberOfOutputs
             {
                 get;
@@ -6029,10 +5965,6 @@ namespace H5.Core
         [FormerInterface]
         public class ClientData : IObject
         {
-
-
-
-
 
 
 
@@ -6080,8 +6012,6 @@ namespace H5.Core
         {
 
 
-
-
             public bool? includeReserved
             {
                 get;
@@ -6108,8 +6038,6 @@ namespace H5.Core
         {
 
 
-
-
             public ushort? code
             {
                 get;
@@ -6134,8 +6062,6 @@ namespace H5.Core
         [FormerInterface]
         public class CompositionEventInit : dom.UIEventInit
         {
-
-
             public string data
             {
                 get;
@@ -6148,8 +6074,6 @@ namespace H5.Core
         [FormerInterface]
         public class ConfirmSiteSpecificExceptionsInformation : dom.ExceptionInformation
         {
-
-
             public string[] arrayOfDomainStrings
             {
                 get;
@@ -6162,8 +6086,6 @@ namespace H5.Core
         [FormerInterface]
         public class ConstantSourceOptions : IObject
         {
-
-
             public double? offset
             {
                 get;
@@ -6176,8 +6098,6 @@ namespace H5.Core
         [FormerInterface]
         public class ConstrainBooleanParameters : IObject
         {
-
-
 
             public bool? exact
             {
@@ -6198,8 +6118,6 @@ namespace H5.Core
         public class ConstrainDOMStringParameters : IObject
         {
 
-
-
             public Union<string, string[]> exact
             {
                 get;
@@ -6218,8 +6136,6 @@ namespace H5.Core
         [FormerInterface]
         public class ConstrainDoubleRange : dom.DoubleRange
         {
-
-
 
             public double? exact
             {
@@ -6240,8 +6156,6 @@ namespace H5.Core
         public class ConstrainLongRange : dom.LongRange
         {
 
-
-
             public double? exact
             {
                 get;
@@ -6261,8 +6175,6 @@ namespace H5.Core
         public class ConstrainVideoFacingModeParameters : IObject
         {
 
-
-
             public Union<dom.VideoFacingModeEnum, dom.VideoFacingModeEnum[]> exact
             {
                 get;
@@ -6281,8 +6193,6 @@ namespace H5.Core
         [FormerInterface]
         public class ConvolverOptions : dom.AudioNodeOptions
         {
-
-
 
             public dom.AudioBuffer buffer
             {
@@ -6304,8 +6214,6 @@ namespace H5.Core
         [FormerInterface]
         public class CustomEventInit<T> : dom.EventInit
         {
-
-
             public T detail
             {
                 get;
@@ -6318,10 +6226,6 @@ namespace H5.Core
         [FormerInterface]
         public class DOMRectInit : IObject
         {
-
-
-
-
 
             public double? height
             {
@@ -6354,8 +6258,6 @@ namespace H5.Core
         public class DelayOptions : dom.AudioNodeOptions
         {
 
-
-
             public double? delayTime
             {
                 get;
@@ -6374,8 +6276,6 @@ namespace H5.Core
         [FormerInterface]
         public class DeviceAccelerationDict : IObject
         {
-
-
 
 
             public double? x
@@ -6402,8 +6302,6 @@ namespace H5.Core
         [FormerInterface]
         public class DeviceLightEventInit : dom.EventInit
         {
-
-
             public double? value
             {
                 get;
@@ -6416,10 +6314,6 @@ namespace H5.Core
         [FormerInterface]
         public class DeviceMotionEventInit : dom.EventInit
         {
-
-
-
-
 
             public dom.DeviceAccelerationDict acceleration
             {
@@ -6451,10 +6345,6 @@ namespace H5.Core
         [FormerInterface]
         public class DeviceOrientationEventInit : dom.EventInit
         {
-
-
-
-
 
             public bool? absolute
             {
@@ -6488,8 +6378,6 @@ namespace H5.Core
         {
 
 
-
-
             public double? alpha
             {
                 get;
@@ -6515,8 +6403,6 @@ namespace H5.Core
         public class DoubleRange : IObject
         {
 
-
-
             public double? max
             {
                 get;
@@ -6535,10 +6421,6 @@ namespace H5.Core
         [FormerInterface]
         public class DynamicsCompressorOptions : dom.AudioNodeOptions
         {
-
-
-
-
 
 
             public double? attack
@@ -6577,8 +6459,6 @@ namespace H5.Core
         [FormerInterface]
         public class EcKeyAlgorithm : dom.KeyAlgorithm
         {
-
-
             public string namedCurve
             {
                 get;
@@ -6591,8 +6471,6 @@ namespace H5.Core
         [FormerInterface]
         public class EcKeyGenParams : dom.Algorithm
         {
-
-
             public string namedCurve
             {
                 get;
@@ -6605,8 +6483,6 @@ namespace H5.Core
         [FormerInterface]
         public class EcKeyImportParams : dom.Algorithm
         {
-
-
             public string namedCurve
             {
                 get;
@@ -6619,8 +6495,6 @@ namespace H5.Core
         [FormerInterface]
         public class EcdhKeyDeriveParams : dom.Algorithm
         {
-
-
             [Name("public")]
             public dom.CryptoKey @public
             {
@@ -6634,8 +6508,6 @@ namespace H5.Core
         [FormerInterface]
         public class EcdsaParams : dom.Algorithm
         {
-
-
             public Union<string, dom.Algorithm> hash
             {
                 get;
@@ -6648,10 +6520,6 @@ namespace H5.Core
         [FormerInterface]
         public class ErrorEventInit : dom.EventInit
         {
-
-
-
-
 
 
             public uint? colno
@@ -6692,8 +6560,6 @@ namespace H5.Core
         {
 
 
-
-
             public bool? bubbles
             {
                 get;
@@ -6718,8 +6584,6 @@ namespace H5.Core
         [FormerInterface]
         public class EventListenerOptions : IObject
         {
-
-
             public bool? capture
             {
                 get;
@@ -6732,16 +6596,6 @@ namespace H5.Core
         [FormerInterface]
         public class EventModifierInit : dom.UIEventInit
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -6844,8 +6698,6 @@ namespace H5.Core
         [FormerInterface]
         public class ExceptionInformation : IObject
         {
-
-
             public string domain
             {
                 get;
@@ -6865,10 +6717,6 @@ namespace H5.Core
         [FormerInterface]
         public class ExtendableMessageEventInit : dom.ExtendableEventInit
         {
-
-
-
-
 
 
             public object data
@@ -6908,10 +6756,6 @@ namespace H5.Core
         public class FetchEventInit : dom.ExtendableEventInit
         {
 
-
-
-
-
             public string clientId
             {
                 get;
@@ -6942,8 +6786,6 @@ namespace H5.Core
         [FormerInterface]
         public class FocusEventInit : dom.UIEventInit
         {
-
-
             public dom.EventTarget relatedTarget
             {
                 get;
@@ -6956,10 +6798,6 @@ namespace H5.Core
         [FormerInterface]
         public class FocusNavigationEventInit : dom.EventInit
         {
-
-
-
-
 
 
             public string navigationReason
@@ -6999,10 +6837,6 @@ namespace H5.Core
         public class FocusNavigationOrigin : IObject
         {
 
-
-
-
-
             public double? originHeight
             {
                 get;
@@ -7033,8 +6867,6 @@ namespace H5.Core
         [FormerInterface]
         public class GainOptions : dom.AudioNodeOptions
         {
-
-
             public double? gain
             {
                 get;
@@ -7047,8 +6879,6 @@ namespace H5.Core
         [FormerInterface]
         public class GamepadEventInit : dom.EventInit
         {
-
-
             public dom.Gamepad gamepad
             {
                 get;
@@ -7061,8 +6891,6 @@ namespace H5.Core
         [FormerInterface]
         public class GetNotificationOptions : IObject
         {
-
-
             public string tag
             {
                 get;
@@ -7075,8 +6903,6 @@ namespace H5.Core
         [FormerInterface]
         public class HashChangeEventInit : dom.EventInit
         {
-
-
 
             public string newURL
             {
@@ -7096,8 +6922,6 @@ namespace H5.Core
         [FormerInterface]
         public class HkdfParams : dom.Algorithm
         {
-
-
 
 
             public Union<string, dom.Algorithm> hash
@@ -7125,8 +6949,6 @@ namespace H5.Core
         public class HmacImportParams : dom.Algorithm
         {
 
-
-
             public Union<string, dom.Algorithm> hash
             {
                 get;
@@ -7145,8 +6967,6 @@ namespace H5.Core
         [FormerInterface]
         public class HmacKeyAlgorithm : dom.KeyAlgorithm
         {
-
-
 
             public dom.KeyAlgorithm hash
             {
@@ -7167,8 +6987,6 @@ namespace H5.Core
         public class HmacKeyGenParams : dom.Algorithm
         {
 
-
-
             public Union<string, dom.Algorithm> hash
             {
                 get;
@@ -7187,8 +7005,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBIndexParameters : IObject
         {
-
-
 
             public bool? multiEntry
             {
@@ -7209,8 +7025,6 @@ namespace H5.Core
         public class IDBObjectStoreParameters : IObject
         {
 
-
-
             public bool? autoIncrement
             {
                 get;
@@ -7230,8 +7044,6 @@ namespace H5.Core
         public class IIRFilterOptions : dom.AudioNodeOptions
         {
 
-
-
             public double[] feedback
             {
                 get;
@@ -7250,10 +7062,6 @@ namespace H5.Core
         [FormerInterface]
         public class IntersectionObserverEntryInit : IObject
         {
-
-
-
-
 
 
 
@@ -7301,8 +7109,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.Element root
             {
                 get;
@@ -7327,18 +7133,6 @@ namespace H5.Core
         [FormerInterface]
         public class JsonWebKey : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -7460,8 +7254,6 @@ namespace H5.Core
         [FormerInterface]
         public class KeyAlgorithm : IObject
         {
-
-
             public string name
             {
                 get;
@@ -7474,10 +7266,6 @@ namespace H5.Core
         [FormerInterface]
         public class KeyboardEventInit : dom.EventModifierInit
         {
-
-
-
-
 
             public string code
             {
@@ -7510,8 +7298,6 @@ namespace H5.Core
         public class LongRange : IObject
         {
 
-
-
             public double? max
             {
                 get;
@@ -7530,10 +7316,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSAccountInfo : IObject
         {
-
-
-
-
 
 
             public string accountImageUri
@@ -7572,18 +7354,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSAudioLocalClientEvent : dom.MSLocalClientEventBase
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -7691,20 +7461,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSAudioRecvPayload : dom.MSPayloadBase
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -7834,10 +7590,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public double? initialSignalLevelRMS
             {
                 get;
@@ -7881,10 +7633,6 @@ namespace H5.Core
         public class MSAudioSendPayload : dom.MSPayloadBase
         {
 
-
-
-
-
             public bool? audioFECUsed
             {
                 get;
@@ -7917,8 +7665,6 @@ namespace H5.Core
         {
 
 
-
-
             public double? noiseLevel
             {
                 get;
@@ -7945,8 +7691,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.MSIceType iceType
             {
                 get;
@@ -7971,8 +7715,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSCredentialFilter : IObject
         {
-
-
             public dom.MSCredentialSpec[] accept
             {
                 get;
@@ -7985,8 +7727,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSCredentialParameters : IObject
         {
-
-
             public dom.MSCredentialType type
             {
                 get;
@@ -7999,8 +7739,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSCredentialSpec : IObject
         {
-
-
 
             public string id
             {
@@ -8021,8 +7759,6 @@ namespace H5.Core
         public class MSDCCEventInit : dom.EventInit
         {
 
-
-
             public double? maxFr
             {
                 get;
@@ -8041,8 +7777,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSDSHEventInit : dom.EventInit
         {
-
-
 
             public double[] sources
             {
@@ -8063,8 +7797,6 @@ namespace H5.Core
         public class MSDelay : IObject
         {
 
-
-
             public double? roundTrip
             {
                 get;
@@ -8083,12 +7815,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSDescription : dom.RTCStats
         {
-
-
-
-
-
-
 
 
             public dom.MSConnectivity connectivity
@@ -8140,8 +7866,6 @@ namespace H5.Core
         public class MSFIDOCredentialParameters : dom.MSCredentialParameters
         {
 
-
-
             public Union<string, dom.Algorithm> algorithm
             {
                 get;
@@ -8160,8 +7884,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSIPAddressInfo : IObject
         {
-
-
 
 
             public string ipAddr
@@ -8188,22 +7910,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSIceWarningFlags : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -8351,8 +8057,6 @@ namespace H5.Core
         {
 
 
-
-
             public double? interArrival
             {
                 get;
@@ -8378,8 +8082,6 @@ namespace H5.Core
         public class MSLocalClientEventBase : dom.RTCStats
         {
 
-
-
             public double? networkBandwidthLowEventRatio
             {
                 get;
@@ -8398,10 +8100,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSNetwork : dom.RTCStats
         {
-
-
-
-
 
             public dom.MSDelay delay
             {
@@ -8435,8 +8133,6 @@ namespace H5.Core
         {
 
 
-
-
             public double? linkspeed
             {
                 get;
@@ -8461,10 +8157,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSNetworkInterfaceType : IObject
         {
-
-
-
-
 
 
             public bool? interfaceTypeEthernet
@@ -8503,8 +8195,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSOutboundNetwork : dom.MSNetwork
         {
-
-
             public double? appliedBandwidthLimit
             {
                 get;
@@ -8517,8 +8207,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSPacketLoss : IObject
         {
-
-
 
             public double? lossRate
             {
@@ -8538,8 +8226,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSPayloadBase : dom.RTCStats
         {
-
-
             public string payloadDescription
             {
                 get;
@@ -8552,8 +8238,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSPortRange : IObject
         {
-
-
 
             public double? max
             {
@@ -8574,8 +8258,6 @@ namespace H5.Core
         public class MSRelayAddress : IObject
         {
 
-
-
             public double? port
             {
                 get;
@@ -8594,8 +8276,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSSignatureParameters : IObject
         {
-
-
             public string userPrompt
             {
                 get;
@@ -8608,26 +8288,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSTransportDiagnosticsStats : dom.RTCStats
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -8814,10 +8474,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public double? bandwidthEstimation
             {
                 get;
@@ -8863,10 +8519,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public double? durationSeconds
             {
                 get;
@@ -8909,22 +8561,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSVideoRecvPayload : dom.MSVideoPayload
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -9073,10 +8709,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public double? cifQuality
             {
                 get;
@@ -9122,10 +8754,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public double? sendBitRateAverage
             {
                 get;
@@ -9168,8 +8796,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaElementAudioSourceOptions : IObject
         {
-
-
             public dom.HTMLMediaElement mediaElement
             {
                 get;
@@ -9182,8 +8808,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaEncryptedEventInit : dom.EventInit
         {
-
-
 
             public es5.ArrayBuffer initData
             {
@@ -9204,8 +8828,6 @@ namespace H5.Core
         public class MediaKeyMessageEventInit : dom.EventInit
         {
 
-
-
             public es5.ArrayBuffer message
             {
                 get;
@@ -9224,10 +8846,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaKeySystemConfiguration : IObject
         {
-
-
-
-
 
 
             public dom.MediaKeySystemMediaCapability[] audioCapabilities
@@ -9267,8 +8885,6 @@ namespace H5.Core
         public class MediaKeySystemMediaCapability : IObject
         {
 
-
-
             public string contentType
             {
                 get;
@@ -9288,8 +8904,6 @@ namespace H5.Core
         public class MediaStreamConstraints : IObject
         {
 
-
-
             public Union<bool, dom.MediaTrackConstraints> audio
             {
                 get;
@@ -9308,8 +8922,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaStreamErrorEventInit : dom.EventInit
         {
-
-
             public dom.MediaStreamError error
             {
                 get;
@@ -9322,8 +8934,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaStreamEventInit : dom.EventInit
         {
-
-
             public dom.MediaStream stream
             {
                 get;
@@ -9336,8 +8946,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaStreamTrackEventInit : dom.EventInit
         {
-
-
             public dom.MediaStreamTrack track
             {
                 get;
@@ -9350,14 +8958,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaTrackCapabilities : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -9434,16 +9034,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaTrackConstraintSet : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -9546,8 +9136,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaTrackConstraints : dom.MediaTrackConstraintSet
         {
-
-
             public dom.MediaTrackConstraintSet[] advanced
             {
                 get;
@@ -9560,14 +9148,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaTrackSettings : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -9648,14 +9228,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
             public bool? aspectRatio
             {
                 get;
@@ -9731,10 +9303,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public string channel
             {
                 get;
@@ -9777,12 +9345,6 @@ namespace H5.Core
         [FormerInterface]
         public class MouseEventInit : dom.EventModifierInit
         {
-
-
-
-
-
-
 
 
             public short? button
@@ -9836,10 +9398,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public string animate
             {
                 get;
@@ -9882,12 +9440,6 @@ namespace H5.Core
         [FormerInterface]
         public class MutationObserverInit : IObject
         {
-
-
-
-
-
-
 
 
             public string[] attributeFilter
@@ -9939,8 +9491,6 @@ namespace H5.Core
         public class NotificationEventInit : dom.ExtendableEventInit
         {
 
-
-
             public string action
             {
                 get;
@@ -9959,10 +9509,6 @@ namespace H5.Core
         [FormerInterface]
         public class NotificationOptions : IObject
         {
-
-
-
-
 
 
 
@@ -10008,8 +9554,6 @@ namespace H5.Core
         [FormerInterface]
         public class ObjectURLOptions : IObject
         {
-
-
             public bool? oneTimeOnly
             {
                 get;
@@ -10022,8 +9566,6 @@ namespace H5.Core
         [FormerInterface]
         public class OfflineAudioCompletionEventInit : dom.EventInit
         {
-
-
             public dom.AudioBuffer renderedBuffer
             {
                 get;
@@ -10036,10 +9578,6 @@ namespace H5.Core
         [FormerInterface]
         public class OscillatorOptions : dom.AudioNodeOptions
         {
-
-
-
-
 
             public double? detune
             {
@@ -10071,16 +9609,6 @@ namespace H5.Core
         [FormerInterface]
         public class PannerOptions : dom.AudioNodeOptions
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -10178,8 +9706,6 @@ namespace H5.Core
         {
 
 
-
-
             public string currency
             {
                 get;
@@ -10204,8 +9730,6 @@ namespace H5.Core
         [FormerInterface]
         public class PaymentDetailsBase : IObject
         {
-
-
 
 
             public dom.PaymentItem[] displayItems
@@ -10233,8 +9757,6 @@ namespace H5.Core
         public class PaymentDetailsInit : dom.PaymentDetailsBase
         {
 
-
-
             public string id
             {
                 get;
@@ -10253,10 +9775,6 @@ namespace H5.Core
         [FormerInterface]
         public class PaymentDetailsModifier : IObject
         {
-
-
-
-
 
             public dom.PaymentItem[] additionalDisplayItems
             {
@@ -10289,8 +9807,6 @@ namespace H5.Core
         public class PaymentDetailsUpdate : dom.PaymentDetailsBase
         {
 
-
-
             public string error
             {
                 get;
@@ -10309,8 +9825,6 @@ namespace H5.Core
         [FormerInterface]
         public class PaymentItem : IObject
         {
-
-
 
 
             public dom.PaymentCurrencyAmount amount
@@ -10338,8 +9852,6 @@ namespace H5.Core
         public class PaymentMethodData : IObject
         {
 
-
-
             public object data
             {
                 get;
@@ -10358,10 +9870,6 @@ namespace H5.Core
         [FormerInterface]
         public class PaymentOptions : IObject
         {
-
-
-
-
 
 
             public bool? requestPayerEmail
@@ -10408,10 +9916,6 @@ namespace H5.Core
         public class PaymentShippingOption : IObject
         {
 
-
-
-
-
             public dom.PaymentCurrencyAmount amount
             {
                 get;
@@ -10444,8 +9948,6 @@ namespace H5.Core
         {
 
 
-
-
             public Union<string, dom.Algorithm> hash
             {
                 get;
@@ -10470,8 +9972,6 @@ namespace H5.Core
         [FormerInterface]
         public class PeriodicWaveConstraints : IObject
         {
-
-
             public bool? disableNormalization
             {
                 get;
@@ -10484,8 +9984,6 @@ namespace H5.Core
         [FormerInterface]
         public class PeriodicWaveOptions : dom.PeriodicWaveConstraints
         {
-
-
 
             public double[] imag
             {
@@ -10505,12 +10003,6 @@ namespace H5.Core
         [FormerInterface]
         public class PointerEventInit : dom.MouseEventInit
         {
-
-
-
-
-
-
 
 
 
@@ -10568,8 +10060,6 @@ namespace H5.Core
         [FormerInterface]
         public class PopStateEventInit : dom.EventInit
         {
-
-
             public object state
             {
                 get;
@@ -10582,8 +10072,6 @@ namespace H5.Core
         [FormerInterface]
         public class PositionOptions : IObject
         {
-
-
 
 
             public bool? enableHighAccuracy
@@ -10612,8 +10100,6 @@ namespace H5.Core
         {
 
 
-
-
             public bool? lengthComputable
             {
                 get;
@@ -10638,8 +10124,6 @@ namespace H5.Core
         [FormerInterface]
         public class PushEventInit : dom.ExtendableEventInit
         {
-
-
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, string, Null> data
             {
                 get;
@@ -10652,8 +10136,6 @@ namespace H5.Core
         [FormerInterface]
         public class PushSubscriptionChangeInit : dom.ExtendableEventInit
         {
-
-
 
             public dom.PushSubscription newSubscription
             {
@@ -10674,8 +10156,6 @@ namespace H5.Core
         public class PushSubscriptionOptionsInit : IObject
         {
 
-
-
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, string, Null> applicationServerKey
             {
                 get;
@@ -10695,8 +10175,6 @@ namespace H5.Core
         public class QueuingStrategy : IObject
         {
 
-
-
             public double? highWaterMark
             {
                 get;
@@ -10715,10 +10193,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCConfiguration : IObject
         {
-
-
-
-
 
             public dom.RTCBundlePolicy bundlePolicy
             {
@@ -10750,8 +10224,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCDTMFToneChangeEventInit : dom.EventInit
         {
-
-
             public string tone
             {
                 get;
@@ -10764,8 +10236,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCDtlsFingerprint : IObject
         {
-
-
 
             public string algorithm
             {
@@ -10786,8 +10256,6 @@ namespace H5.Core
         public class RTCDtlsParameters : IObject
         {
 
-
-
             public dom.RTCDtlsFingerprint[] fingerprints
             {
                 get;
@@ -10806,10 +10274,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCIceCandidateAttributes : dom.RTCStats
         {
-
-
-
-
 
 
 
@@ -10862,14 +10326,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCIceCandidateDictionary : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -10941,8 +10397,6 @@ namespace H5.Core
         {
 
 
-
-
             public string candidate
             {
                 get;
@@ -10968,8 +10422,6 @@ namespace H5.Core
         public class RTCIceCandidatePair : IObject
         {
 
-
-
             public dom.RTCIceCandidateDictionary local
             {
                 get;
@@ -10988,16 +10440,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCIceCandidatePairStats : dom.RTCStats
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -11088,8 +10530,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.RTCIceGatherPolicy gatherPolicy
             {
                 get;
@@ -11114,8 +10554,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCIceParameters : IObject
         {
-
-
 
 
             public bool? iceLite
@@ -11144,8 +10582,6 @@ namespace H5.Core
         {
 
 
-
-
             public string credential
             {
                 get;
@@ -11170,10 +10606,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCInboundRTPStreamStats : dom.RTCRTPStreamStats
         {
-
-
-
-
 
 
             public double? bytesReceived
@@ -11212,16 +10644,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCMediaStreamTrackStats : dom.RTCStats
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -11318,10 +10740,6 @@ namespace H5.Core
         public class RTCOfferOptions : IObject
         {
 
-
-
-
-
             public bool? iceRestart
             {
                 get;
@@ -11353,10 +10771,6 @@ namespace H5.Core
         public class RTCOutboundRTPStreamStats : dom.RTCRTPStreamStats
         {
 
-
-
-
-
             public double? bytesSent
             {
                 get;
@@ -11387,8 +10801,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCPeerConnectionIceEventInit : dom.EventInit
         {
-
-
             public dom.RTCIceCandidate candidate
             {
                 get;
@@ -11401,14 +10813,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRTPStreamStats : dom.RTCStats
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -11486,8 +10890,6 @@ namespace H5.Core
         public class RTCRtcpFeedback : IObject
         {
 
-
-
             public string parameter
             {
                 get;
@@ -11506,10 +10908,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtcpParameters : IObject
         {
-
-
-
-
 
             public string cname
             {
@@ -11543,8 +10941,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.RTCRtpCodecCapability[] codecs
             {
                 get;
@@ -11569,16 +10965,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpCodecCapability : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -11670,12 +11056,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             public double? clockRate
             {
                 get;
@@ -11732,8 +11112,6 @@ namespace H5.Core
         {
 
 
-
-
             public double? audioLevel
             {
                 get;
@@ -11758,16 +11136,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpEncodingParameters : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -11864,8 +11232,6 @@ namespace H5.Core
         public class RTCRtpFecParameters : IObject
         {
 
-
-
             public string mechanism
             {
                 get;
@@ -11884,10 +11250,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpHeaderExtension : IObject
         {
-
-
-
-
 
             public string kind
             {
@@ -11921,8 +11283,6 @@ namespace H5.Core
         {
 
 
-
-
             public bool? encrypt
             {
                 get;
@@ -11947,10 +11307,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpParameters : IObject
         {
-
-
-
-
 
 
 
@@ -11996,8 +11352,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpRtxParameters : IObject
         {
-
-
             public double? ssrc
             {
                 get;
@@ -12010,8 +11364,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpUnhandled : IObject
         {
-
-
 
 
             public string muxId
@@ -12039,8 +11391,6 @@ namespace H5.Core
         public class RTCSessionDescriptionInit : IObject
         {
 
-
-
             public string sdp
             {
                 get;
@@ -12059,10 +11409,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCSrtpKeyParam : IObject
         {
-
-
-
-
 
 
             public string keyMethod
@@ -12102,10 +11448,6 @@ namespace H5.Core
         public class RTCSrtpSdesParameters : IObject
         {
 
-
-
-
-
             public string cryptoSuite
             {
                 get;
@@ -12137,8 +11479,6 @@ namespace H5.Core
         public class RTCSsrcRange : IObject
         {
 
-
-
             public double? max
             {
                 get;
@@ -12157,10 +11497,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCStats : IObject
         {
-
-
-
-
 
             public string id
             {
@@ -12199,12 +11535,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCTransportStats : dom.RTCStats
         {
-
-
-
-
-
-
 
 
             public bool? activeConnection
@@ -12255,8 +11585,6 @@ namespace H5.Core
         [FormerInterface]
         public class RegistrationOptions : IObject
         {
-
-
             public string scope
             {
                 get;
@@ -12269,16 +11597,6 @@ namespace H5.Core
         [FormerInterface]
         public class RequestInit : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -12369,8 +11687,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.HeadersInit headers
             {
                 get;
@@ -12395,8 +11711,6 @@ namespace H5.Core
         [FormerInterface]
         public class RsaHashedImportParams : dom.Algorithm
         {
-
-
             public Union<string, dom.Algorithm> hash
             {
                 get;
@@ -12409,8 +11723,6 @@ namespace H5.Core
         [FormerInterface]
         public class RsaHashedKeyAlgorithm : dom.RsaKeyAlgorithm
         {
-
-
             public dom.KeyAlgorithm hash
             {
                 get;
@@ -12423,8 +11735,6 @@ namespace H5.Core
         [FormerInterface]
         public class RsaHashedKeyGenParams : dom.RsaKeyGenParams
         {
-
-
             public Union<string, dom.Algorithm> hash
             {
                 get;
@@ -12437,8 +11747,6 @@ namespace H5.Core
         [FormerInterface]
         public class RsaKeyAlgorithm : dom.KeyAlgorithm
         {
-
-
 
             public double modulusLength
             {
@@ -12459,8 +11767,6 @@ namespace H5.Core
         public class RsaKeyGenParams : dom.Algorithm
         {
 
-
-
             public double modulusLength
             {
                 get;
@@ -12479,8 +11785,6 @@ namespace H5.Core
         [FormerInterface]
         public class RsaOaepParams : dom.Algorithm
         {
-
-
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> label
             {
                 get;
@@ -12493,8 +11797,6 @@ namespace H5.Core
         [FormerInterface]
         public class RsaOtherPrimesInfo : IObject
         {
-
-
 
 
             public string d
@@ -12521,8 +11823,6 @@ namespace H5.Core
         [FormerInterface]
         public class RsaPssParams : dom.Algorithm
         {
-
-
             public double saltLength
             {
                 get;
@@ -12535,8 +11835,6 @@ namespace H5.Core
         [FormerInterface]
         public class ScopedCredentialDescriptor : IObject
         {
-
-
 
 
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer, Null> id
@@ -12563,10 +11861,6 @@ namespace H5.Core
         [FormerInterface]
         public class ScopedCredentialOptions : IObject
         {
-
-
-
-
 
             public dom.ScopedCredentialDescriptor[] excludeList
             {
@@ -12599,8 +11893,6 @@ namespace H5.Core
         public class ScopedCredentialParameters : IObject
         {
 
-
-
             public Union<string, dom.Algorithm> algorithm
             {
                 get;
@@ -12619,14 +11911,6 @@ namespace H5.Core
         [FormerInterface]
         public class SecurityPolicyViolationEventInit : dom.EventInit
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -12698,10 +11982,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public object data
             {
                 get;
@@ -12740,10 +12020,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public double? charIndex
             {
                 get;
@@ -12780,8 +12056,6 @@ namespace H5.Core
         [FormerInterface]
         public class StereoPannerOptions : dom.AudioNodeOptions
         {
-
-
             public double? pan
             {
                 get;
@@ -12794,8 +12068,6 @@ namespace H5.Core
         [FormerInterface]
         public class StoreExceptionsInformation : dom.ExceptionInformation
         {
-
-
 
 
             public string detailURI
@@ -12822,8 +12094,6 @@ namespace H5.Core
         [FormerInterface]
         public class StoreSiteSpecificExceptionsInformation : dom.StoreExceptionsInformation
         {
-
-
             public string[] arrayOfDomainStrings
             {
                 get;
@@ -12836,8 +12106,6 @@ namespace H5.Core
         [FormerInterface]
         public class SyncEventInit : dom.ExtendableEventInit
         {
-
-
 
             public bool? lastChance
             {
@@ -12857,8 +12125,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextDecodeOptions : IObject
         {
-
-
             public bool? stream
             {
                 get;
@@ -12871,8 +12137,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextDecoderOptions : IObject
         {
-
-
 
             public bool? fatal
             {
@@ -12892,8 +12156,6 @@ namespace H5.Core
         [FormerInterface]
         public class TrackEventInit : dom.EventInit
         {
-
-
             public Union<dom.VideoTrack, dom.AudioTrack, dom.TextTrack, Null> track
             {
                 get;
@@ -12906,8 +12168,6 @@ namespace H5.Core
         [FormerInterface]
         public class TransitionEventInit : dom.EventInit
         {
-
-
 
             public double? elapsedTime
             {
@@ -12928,8 +12188,6 @@ namespace H5.Core
         public class UIEventInit : dom.EventInit
         {
 
-
-
             public int? detail
             {
                 get;
@@ -12948,10 +12206,6 @@ namespace H5.Core
         [FormerInterface]
         public class UnderlyingSink : IObject
         {
-
-
-
-
 
             public dom.WritableStreamErrorCallback abort
             {
@@ -12984,8 +12238,6 @@ namespace H5.Core
         public class VRDisplayEventInit : dom.EventInit
         {
 
-
-
             public dom.VRDisplay display
             {
                 get;
@@ -13004,8 +12256,6 @@ namespace H5.Core
         [FormerInterface]
         public class VRLayer : IObject
         {
-
-
 
 
             public double[] leftBounds
@@ -13034,8 +12284,6 @@ namespace H5.Core
         {
 
 
-
-
             public es5.Float32Array sittingToStandingTransform
             {
                 get;
@@ -13060,8 +12308,6 @@ namespace H5.Core
         [FormerInterface]
         public class WaveShaperOptions : dom.AudioNodeOptions
         {
-
-
 
             public double[] curve
             {
@@ -13088,12 +12334,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLContextAttributes : IObject
         {
-
-
-
-
-
-
 
 
             public bool? alpha
@@ -13144,8 +12384,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLContextEventInit : dom.EventInit
         {
-
-
             public string statusMessage
             {
                 get;
@@ -13158,10 +12396,6 @@ namespace H5.Core
         [FormerInterface]
         public class WheelEventInit : dom.MouseEventInit
         {
-
-
-
-
 
             public uint? deltaMode
             {
@@ -13194,8 +12428,6 @@ namespace H5.Core
         [FormerInterface]
         public class ANGLE_instanced_arrays : IObject
         {
-
-
 
 
             public static dom.ANGLE_instanced_arrays prototype
@@ -13236,8 +12468,6 @@ namespace H5.Core
         public class AbortController : IObject
         {
 
-
-
             public static dom.AbortController prototype
             {
                 get;
@@ -13257,8 +12487,6 @@ namespace H5.Core
         [FormerInterface]
         public class AbortSignalEventMap : IObject
         {
-
-
             public dom.ProgressEvent abort
             {
                 get;
@@ -13277,8 +12505,6 @@ namespace H5.Core
         [FormerInterface]
         public class AbortSignal : dom.EventTarget
         {
-
-
 
 
             public static dom.AbortSignal prototype
@@ -13400,8 +12626,6 @@ namespace H5.Core
         [FormerInterface]
         public class AbstractWorkerEventMap : IObject
         {
-
-
             public dom.ErrorEvent error
             {
                 get;
@@ -13421,8 +12645,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public abstract class AbstractWorker : dom.AbstractWorker.Interface, IObject
         {
-
-
             public virtual dom.AbstractWorker.onerrorFn onerror
             {
                 get;
@@ -13772,8 +12994,6 @@ namespace H5.Core
         [FormerInterface]
         public class AesCfbParams : dom.Algorithm
         {
-
-
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> iv
             {
                 get;
@@ -13786,8 +13006,6 @@ namespace H5.Core
         [FormerInterface]
         public class AesCmacParams : dom.Algorithm
         {
-
-
             public double length
             {
                 get;
@@ -13799,10 +13017,6 @@ namespace H5.Core
         [FormerInterface]
         public class AnalyserNode : dom.AudioNode
         {
-
-
-
-
 
 
 
@@ -13854,16 +13068,6 @@ namespace H5.Core
         [FormerInterface]
         public class Animation : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -13981,8 +13185,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern AnimationEvent(string typeArg);
 
             public extern AnimationEvent(string typeArg, dom.AnimationEventInit eventInitDict);
@@ -14010,8 +13212,6 @@ namespace H5.Core
         public class AnimationKeyFrame : IObject
         {
 
-
-
             public virtual Union<string, string[]> easing
             {
                 get;
@@ -14034,12 +13234,6 @@ namespace H5.Core
         [FormerInterface]
         public class AnimationOptions : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -14105,8 +13299,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern AnimationPlaybackEvent(string type);
 
             public extern AnimationPlaybackEvent(
@@ -14136,8 +13328,6 @@ namespace H5.Core
         public class AnimationPlaybackEventInit : dom.EventInit
         {
 
-
-
             public double? currentTime
             {
                 get;
@@ -14156,8 +13346,6 @@ namespace H5.Core
         [FormerInterface]
         public class AnimationTimeline : IObject
         {
-
-
             public double? currentTime
             {
                 get;
@@ -14169,12 +13357,6 @@ namespace H5.Core
         [FormerInterface]
         public class ApplicationCacheEventMap : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -14252,22 +13434,6 @@ namespace H5.Core
         [FormerInterface]
         public class ApplicationCache : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -14511,8 +13677,6 @@ namespace H5.Core
         [FormerInterface]
         public class AssignedNodesOptions : IObject
         {
-
-
             public bool? flatten
             {
                 get;
@@ -14524,10 +13688,6 @@ namespace H5.Core
         [FormerInterface]
         public class Attr : dom.Node
         {
-
-
-
-
 
 
 
@@ -14568,10 +13728,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioBuffer : IObject
         {
-
-
-
-
 
 
             public static dom.AudioBuffer prototype
@@ -14622,8 +13778,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioBufferSourceNodeEventMap : IObject
         {
-
-
             public dom.Event ended
             {
                 get;
@@ -14642,12 +13796,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioBufferSourceNode : dom.AudioNode
         {
-
-
-
-
-
-
 
 
 
@@ -14900,8 +14048,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioContextEventMap : IObject
         {
-
-
             public dom.Event statechange
             {
                 get;
@@ -14921,8 +14067,6 @@ namespace H5.Core
         [FormerInterface]
         public abstract class AudioContextBase : dom.EventTarget
         {
-
-
             public abstract double currentTime { get; }
 
             public abstract dom.AudioDestinationNode destination { get; }
@@ -15119,8 +14263,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioContext : dom.AudioContextBase
         {
-
-
             public static dom.AudioContext prototype
             {
                 get;
@@ -15307,8 +14449,6 @@ namespace H5.Core
         public class AudioDestinationNode : dom.AudioNode
         {
 
-
-
             public static dom.AudioDestinationNode prototype
             {
                 get;
@@ -15325,8 +14465,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioListener : IObject
         {
-
-
 
 
             public static dom.AudioListener prototype
@@ -15364,12 +14502,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioNode : dom.EventTarget
         {
-
-
-
-
-
-
 
 
             public static dom.AudioNode prototype
@@ -15445,8 +14577,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.AudioParam prototype
             {
                 get;
@@ -15490,10 +14620,6 @@ namespace H5.Core
         public class AudioProcessingEvent : dom.Event
         {
 
-
-
-
-
             public static dom.AudioProcessingEvent prototype
             {
                 get;
@@ -15520,12 +14646,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioTrack : IObject
         {
-
-
-
-
-
-
 
 
             public static dom.AudioTrack prototype
@@ -15575,8 +14695,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.TrackEvent addtrack
             {
                 get;
@@ -15611,10 +14729,6 @@ namespace H5.Core
         [FormerInterface]
         public class AudioTrackList : dom.EventTarget
         {
-
-
-
-
 
 
             public static dom.AudioTrackList prototype
@@ -15757,8 +14871,6 @@ namespace H5.Core
         public class BarProp : IObject
         {
 
-
-
             public static dom.BarProp prototype
             {
                 get;
@@ -15775,8 +14887,6 @@ namespace H5.Core
         [FormerInterface]
         public class BeforeUnloadEvent : dom.Event
         {
-
-
 
             public static dom.BeforeUnloadEvent prototype
             {
@@ -15795,8 +14905,6 @@ namespace H5.Core
         [FormerInterface]
         public class BhxBrowser : IObject
         {
-
-
 
             public static dom.BhxBrowser prototype
             {
@@ -15875,10 +14983,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public static dom.BiquadFilterNode prototype
             {
                 get;
@@ -15923,8 +15027,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern Blob();
 
             public extern Blob(object[] blobParts);
@@ -15966,8 +15068,6 @@ namespace H5.Core
         public class BlobPropertyBag : IObject
         {
 
-
-
             public string endings
             {
                 get;
@@ -16003,10 +15103,6 @@ namespace H5.Core
         [FormerInterface]
         public class BroadcastChannel : dom.EventTarget
         {
-
-
-
-
 
             public extern BroadcastChannel(string name);
 
@@ -16143,8 +15239,6 @@ namespace H5.Core
         public class BroadcastChannelEventMap : IObject
         {
 
-
-
             public dom.MessageEvent message
             {
                 get;
@@ -16172,8 +15266,6 @@ namespace H5.Core
         public class ByteLengthQueuingStrategy : IObject
         {
 
-
-
             public extern ByteLengthQueuingStrategy(dom.QueuingStrategy strategy);
 
             public static dom.ByteLengthQueuingStrategy prototype
@@ -16197,8 +15289,6 @@ namespace H5.Core
         [FormerInterface]
         public class CDATASection : dom.Text
         {
-
-
             public static dom.CDATASection prototype
             {
                 get;
@@ -16223,8 +15313,6 @@ namespace H5.Core
         public class CSSConditionRule : dom.CSSGroupingRule
         {
 
-
-
             public static dom.CSSConditionRule prototype
             {
                 get;
@@ -16243,8 +15331,6 @@ namespace H5.Core
         public class CSSFontFaceRule : dom.CSSRule
         {
 
-
-
             public static dom.CSSFontFaceRule prototype
             {
                 get;
@@ -16261,8 +15347,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSGroupingRule : dom.CSSRule
         {
-
-
 
             public static dom.CSSGroupingRule prototype
             {
@@ -16284,10 +15368,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSImportRule : dom.CSSRule
         {
-
-
-
-
 
             public static dom.CSSImportRule prototype
             {
@@ -16317,8 +15397,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.CSSKeyframeRule prototype
             {
                 get;
@@ -16341,8 +15419,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSKeyframesRule : dom.CSSRule
         {
-
-
 
 
             public static dom.CSSKeyframesRule prototype
@@ -16374,8 +15450,6 @@ namespace H5.Core
         public class CSSMediaRule : dom.CSSConditionRule
         {
 
-
-
             public static dom.CSSMediaRule prototype
             {
                 get;
@@ -16392,8 +15466,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSNamespaceRule : dom.CSSRule
         {
-
-
 
 
             public static dom.CSSNamespaceRule prototype
@@ -16417,10 +15489,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSPageRule : dom.CSSRule
         {
-
-
-
-
 
 
             public static dom.CSSPageRule prototype
@@ -16455,26 +15523,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSRule : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -16650,8 +15698,6 @@ namespace H5.Core
         public class CSSRuleList : IEnumerable<dom.CSSRule>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.CSSRuleList prototype
             {
                 get;
@@ -16678,256 +15724,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSStyleDeclaration : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -19323,8 +18119,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.CSSStyleRule prototype
             {
                 get;
@@ -19347,14 +18141,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSStyleSheet : dom.StyleSheet
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -19456,8 +18242,6 @@ namespace H5.Core
         [FormerInterface]
         public class CSSSupportsRule : dom.CSSConditionRule
         {
-
-
             public static dom.CSSSupportsRule prototype
             {
                 get;
@@ -19469,8 +18253,6 @@ namespace H5.Core
         [FormerInterface]
         public class Cache : IObject
         {
-
-
             public static dom.Cache prototype
             {
                 get;
@@ -19585,8 +18367,6 @@ namespace H5.Core
         [FormerInterface]
         public class CacheStorage : IObject
         {
-
-
             public static dom.CacheStorage prototype
             {
                 get;
@@ -19627,8 +18407,6 @@ namespace H5.Core
         {
 
 
-
-
             public virtual bool? alpha
             {
                 get;
@@ -19654,8 +18432,6 @@ namespace H5.Core
         [FormerInterface]
         public class CanvasGradient : IObject
         {
-
-
             public static dom.CanvasGradient prototype
             {
                 get;
@@ -19738,8 +18514,6 @@ namespace H5.Core
         [FormerInterface]
         public class CanvasPattern : IObject
         {
-
-
             public static dom.CanvasPattern prototype
             {
                 get;
@@ -19753,22 +18527,6 @@ namespace H5.Core
         [FormerInterface]
         public class CanvasRenderingContext2D : dom.CanvasPathMethods
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -20269,8 +19027,6 @@ namespace H5.Core
         [FormerInterface]
         public class ChannelMergerNode : dom.AudioNode
         {
-
-
             public static dom.ChannelMergerNode prototype
             {
                 get;
@@ -20282,8 +19038,6 @@ namespace H5.Core
         [FormerInterface]
         public class ChannelSplitterNode : dom.AudioNode
         {
-
-
             public static dom.ChannelSplitterNode prototype
             {
                 get;
@@ -20295,8 +19049,6 @@ namespace H5.Core
         [FormerInterface]
         public class CharacterData : dom.Node, dom.ChildNode.Interface, IObject
         {
-
-
 
 
             public static dom.CharacterData prototype
@@ -20350,12 +19102,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             public static dom.ClientRect prototype
             {
                 get;
@@ -20402,8 +19148,6 @@ namespace H5.Core
         public class ClientRectList : IObject
         {
 
-
-
             public static dom.ClientRectList prototype
             {
                 get;
@@ -20424,8 +19168,6 @@ namespace H5.Core
         [FormerInterface]
         public class ClipboardEvent : dom.Event
         {
-
-
 
             public extern ClipboardEvent(string type);
 
@@ -20449,8 +19191,6 @@ namespace H5.Core
         public class ClipboardEventInit : dom.EventInit
         {
 
-
-
             public string data
             {
                 get;
@@ -20468,10 +19208,6 @@ namespace H5.Core
         [FormerInterface]
         public class CloseEvent : dom.Event
         {
-
-
-
-
 
             public extern CloseEvent(string type);
 
@@ -20512,8 +19248,6 @@ namespace H5.Core
         public class Comment : dom.CharacterData
         {
 
-
-
             public extern Comment();
 
             public extern Comment(string data);
@@ -20535,8 +19269,6 @@ namespace H5.Core
         [FormerInterface]
         public class CompositionEvent : dom.UIEvent
         {
-
-
 
 
             public extern CompositionEvent(string typeArg);
@@ -20575,10 +19307,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public double activeDuration
             {
                 get;
@@ -20615,10 +19343,6 @@ namespace H5.Core
         [FormerInterface]
         public class ConcatParams : dom.Algorithm
         {
-
-
-
-
 
 
 
@@ -20663,8 +19387,6 @@ namespace H5.Core
         [FormerInterface]
         public class Console : IObject
         {
-
-
 
             public static dom.Console prototype
             {
@@ -20789,8 +19511,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.ContentScriptGlobalScope prototype
             {
                 get;
@@ -20812,8 +19532,6 @@ namespace H5.Core
         [FormerInterface]
         public class ConvolverNode : dom.AudioNode
         {
-
-
 
 
             public static dom.ConvolverNode prototype
@@ -20839,12 +19557,6 @@ namespace H5.Core
         [FormerInterface]
         public class Coordinates : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -20895,8 +19607,6 @@ namespace H5.Core
         public class CountQueuingStrategy : IObject
         {
 
-
-
             public extern CountQueuingStrategy(dom.QueuingStrategy strategy);
 
             public static dom.CountQueuingStrategy prototype
@@ -20918,8 +19628,6 @@ namespace H5.Core
         [FormerInterface]
         public class Crypto : IObject
         {
-
-
 
             public static dom.Crypto prototype
             {
@@ -20975,10 +19683,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.CryptoKey prototype
             {
                 get;
@@ -21010,8 +19714,6 @@ namespace H5.Core
         [FormerInterface]
         public class CryptoKeyPair : IObject
         {
-
-
 
 
             public static dom.CryptoKeyPair prototype
@@ -21087,8 +19789,6 @@ namespace H5.Core
         public class DOMError : IObject
         {
 
-
-
             public static dom.DOMError prototype
             {
                 get;
@@ -21107,46 +19807,6 @@ namespace H5.Core
         [FormerInterface]
         public class DOMException : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -21497,8 +20157,6 @@ namespace H5.Core
         [FormerInterface]
         public class DOMImplementation : IObject
         {
-
-
             public static dom.DOMImplementation prototype
             {
                 get;
@@ -21527,8 +20185,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class DOML2DeprecatedColorProperty : dom.DOML2DeprecatedColorProperty.Interface, IObject
         {
-
-
             public string color
             {
                 get;
@@ -21549,8 +20205,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class DOML2DeprecatedSizeProperty : dom.DOML2DeprecatedSizeProperty.Interface, IObject
         {
-
-
             public double size
             {
                 get;
@@ -21570,8 +20224,6 @@ namespace H5.Core
         [FormerInterface]
         public class DOMParser : IObject
         {
-
-
             public static dom.DOMParser prototype
             {
                 get;
@@ -21585,10 +20237,6 @@ namespace H5.Core
         [FormerInterface]
         public class DOMRect : dom.DOMRectReadOnly
         {
-
-
-
-
 
 
             public extern DOMRect();
@@ -21662,12 +20310,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             public extern DOMRectReadOnly();
 
             public extern DOMRectReadOnly(double x);
@@ -21734,8 +20376,6 @@ namespace H5.Core
         public class DOMSettableTokenList : dom.DOMTokenList
         {
 
-
-
             public static dom.DOMSettableTokenList prototype
             {
                 get;
@@ -21753,8 +20393,6 @@ namespace H5.Core
         [FormerInterface]
         public class DOMStringList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
-
-
 
             public static dom.DOMStringList prototype
             {
@@ -21784,8 +20422,6 @@ namespace H5.Core
         [FormerInterface]
         public class DOMStringMap : IObject
         {
-
-
             public static dom.DOMStringMap prototype
             {
                 get;
@@ -21799,8 +20435,6 @@ namespace H5.Core
         [FormerInterface]
         public class DOMTokenList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
-
-
 
             public static dom.DOMTokenList prototype
             {
@@ -21844,8 +20478,6 @@ namespace H5.Core
         [FormerInterface]
         public class DataCue : dom.TextTrackCue
         {
-
-
 
             public static dom.DataCue prototype
             {
@@ -21921,10 +20553,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public static dom.DataTransfer prototype
             {
                 get;
@@ -21975,8 +20603,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.DataTransferItem prototype
             {
                 get;
@@ -22004,8 +20630,6 @@ namespace H5.Core
         [FormerInterface]
         public class DataTransferItemList : IEnumerable<dom.DataTransferItem>, IEnumerable, IH5Class, IObject
         {
-
-
 
             public static dom.DataTransferItemList prototype
             {
@@ -22042,10 +20666,6 @@ namespace H5.Core
         public class DeferredPermissionRequest : IObject
         {
 
-
-
-
-
             public static dom.DeferredPermissionRequest prototype
             {
                 get;
@@ -22077,8 +20697,6 @@ namespace H5.Core
         public class DelayNode : dom.AudioNode
         {
 
-
-
             public static dom.DelayNode prototype
             {
                 get;
@@ -22095,10 +20713,6 @@ namespace H5.Core
         [FormerInterface]
         public class DeviceAcceleration : IObject
         {
-
-
-
-
 
             public static dom.DeviceAcceleration prototype
             {
@@ -22127,8 +20741,6 @@ namespace H5.Core
         public class DeviceLightEvent : dom.Event
         {
 
-
-
             public extern DeviceLightEvent(string typeArg);
 
             public extern DeviceLightEvent(string typeArg, dom.DeviceLightEventInit eventInitDict);
@@ -22149,10 +20761,6 @@ namespace H5.Core
         [FormerInterface]
         public class DeviceMotionEvent : dom.Event
         {
-
-
-
-
 
 
             public extern DeviceMotionEvent(string typeArg);
@@ -22199,10 +20807,6 @@ namespace H5.Core
         [FormerInterface]
         public class DeviceOrientationEvent : dom.Event
         {
-
-
-
-
 
 
             public extern DeviceOrientationEvent(string typeArg);
@@ -22252,10 +20856,6 @@ namespace H5.Core
         public class DeviceRotationRate : IObject
         {
 
-
-
-
-
             public static dom.DeviceRotationRate prototype
             {
                 get;
@@ -22284,8 +20884,6 @@ namespace H5.Core
         public class DhImportKeyParams : dom.Algorithm
         {
 
-
-
             public es5.Uint8Array generator
             {
                 get;
@@ -22305,8 +20903,6 @@ namespace H5.Core
         public class DhKeyAlgorithm : dom.KeyAlgorithm
         {
 
-
-
             public es5.Uint8Array generator
             {
                 get;
@@ -22325,8 +20921,6 @@ namespace H5.Core
         [FormerInterface]
         public class DhKeyDeriveParams : dom.Algorithm
         {
-
-
             [Name("public")]
             public dom.CryptoKey @public
             {
@@ -22340,8 +20934,6 @@ namespace H5.Core
         [FormerInterface]
         public class DhKeyGenParams : dom.Algorithm
         {
-
-
 
             public es5.Uint8Array generator
             {
@@ -22361,66 +20953,6 @@ namespace H5.Core
         [FormerInterface]
         public class DocumentEventMap : dom.GlobalEventHandlersEventMap
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -23164,112 +21696,6 @@ namespace H5.Core
         [FormerInterface]
         public class Document : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ParentNode.Interface, dom.DocumentEvent.Interface
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -25531,10 +23957,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.DocumentFragment prototype
             {
                 get;
@@ -25615,12 +24037,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             public static dom.DocumentType prototype
             {
                 get;
@@ -25665,8 +24081,6 @@ namespace H5.Core
         public class DragEvent : dom.MouseEvent
         {
 
-
-
             public extern DragEvent(dom.Literals.Options.type2 type);
 
             public extern DragEvent(dom.Literals.Options.type2 type, dom.DragEvent.Config dragEventInit);
@@ -25707,8 +24121,6 @@ namespace H5.Core
             [ObjectLiteral]
             public class Config : IObject
             {
-
-
                 public dom.DataTransfer dataTransfer
                 {
                     get;
@@ -25721,12 +24133,6 @@ namespace H5.Core
         [FormerInterface]
         public class DynamicsCompressorNode : dom.AudioNode
         {
-
-
-
-
-
-
 
 
             public static dom.DynamicsCompressorNode prototype
@@ -25772,8 +24178,6 @@ namespace H5.Core
         public class EXT_blend_minmax : IObject
         {
 
-
-
             public double MAX_EXT
             {
                 get;
@@ -25797,10 +24201,6 @@ namespace H5.Core
         [FormerInterface]
         public class EXT_sRGB : IObject
         {
-
-
-
-
 
             public double FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT
             {
@@ -25834,10 +24234,6 @@ namespace H5.Core
         [FormerInterface]
         public class EXT_texture_filter_anisotropic : IObject
         {
-
-
-
-
 
 
             public static dom.EXT_texture_filter_anisotropic prototype
@@ -25874,24 +24270,6 @@ namespace H5.Core
         [FormerInterface]
         public class ElementEventMap : dom.GlobalEventHandlersEventMap
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -26128,50 +24506,6 @@ namespace H5.Core
         [FormerInterface]
         public class Element : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ElementTraversal.Interface, dom.ParentNode.Interface, dom.ChildNode.Interface
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -26961,8 +25295,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class ElementCSSInlineStyle : dom.ElementCSSInlineStyle.Interface, IObject
         {
-
-
             public dom.CSSStyleDeclaration style
             {
                 get;
@@ -26982,8 +25314,6 @@ namespace H5.Core
         [FormerInterface]
         public class ElementCreationOptions : IObject
         {
-
-
             [Name("is")]
             public string @is
             {
@@ -26997,8 +25327,6 @@ namespace H5.Core
         [FormerInterface]
         public class ElementDefinitionOptions : IObject
         {
-
-
             public string extends
             {
                 get;
@@ -27011,10 +25339,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class ElementTraversal : dom.ElementTraversal.Interface, IObject
         {
-
-
-
-
 
 
             public double childElementCount
@@ -27066,10 +25390,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public extern ErrorEvent(string typeArg);
 
             public extern ErrorEvent(string typeArg, dom.ErrorEventInit eventInitDict);
@@ -27118,22 +25438,6 @@ namespace H5.Core
         [FormerInterface]
         public class Event : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -27294,14 +25598,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
             public extern EventSource(string url);
 
             public extern EventSource(string url, dom.EventSourceInit eventSourceInitDict);
@@ -27377,8 +25673,6 @@ namespace H5.Core
         [FormerInterface]
         public class EventSourceInit : IObject
         {
-
-
             public bool withCredentials
             {
                 get;
@@ -27388,8 +25682,6 @@ namespace H5.Core
         [CombinedClass]
         public class EventTarget : dom.EventTarget.Interface, IObject
         {
-
-
             public static dom.EventTarget prototype
             {
                 get;
@@ -27588,8 +25880,6 @@ namespace H5.Core
         [FormerInterface]
         public class ExtensionScriptApis : IObject
         {
-
-
             public static dom.ExtensionScriptApis prototype
             {
                 get;
@@ -27646,8 +25936,6 @@ namespace H5.Core
         [FormerInterface]
         public class External : IObject
         {
-
-
             public static dom.External prototype
             {
                 get;
@@ -27659,10 +25947,6 @@ namespace H5.Core
         [FormerInterface]
         public class File : dom.Blob
         {
-
-
-
-
 
 
             public extern File(
@@ -27725,8 +26009,6 @@ namespace H5.Core
         public class FileList : IEnumerable<dom.File>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.FileList prototype
             {
                 get;
@@ -27754,8 +26036,6 @@ namespace H5.Core
         [FormerInterface]
         public class FilePropertyBag : dom.BlobPropertyBag
         {
-
-
             public long? lastModified
             {
                 get;
@@ -27768,10 +26048,6 @@ namespace H5.Core
         [FormerInterface]
         public class FileReaderEventMap : IObject
         {
-
-
-
-
 
 
 
@@ -27833,18 +26109,6 @@ namespace H5.Core
         [FormerInterface]
         public class FileReader : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -28064,8 +26328,6 @@ namespace H5.Core
         public class FocusEvent : dom.UIEvent
         {
 
-
-
             public extern FocusEvent(string typeArg);
 
             public extern FocusEvent(string typeArg, dom.FocusEventInit eventInitDict);
@@ -28094,10 +26356,6 @@ namespace H5.Core
         [FormerInterface]
         public class FocusNavigationEvent : dom.Event
         {
-
-
-
-
 
 
 
@@ -28143,8 +26401,6 @@ namespace H5.Core
         [FormerInterface]
         public class FormData : IObject
         {
-
-
             public extern FormData();
 
             public extern FormData(dom.HTMLFormElement form);
@@ -28196,8 +26452,6 @@ namespace H5.Core
         public class GainNode : dom.AudioNode
         {
 
-
-
             public static dom.GainNode prototype
             {
                 get;
@@ -28214,14 +26468,6 @@ namespace H5.Core
         [FormerInterface]
         public class Gamepad : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -28294,10 +26540,6 @@ namespace H5.Core
         public class GamepadButton : IObject
         {
 
-
-
-
-
             public static dom.GamepadButton prototype
             {
                 get;
@@ -28325,8 +26567,6 @@ namespace H5.Core
         public class GamepadEvent : dom.Event
         {
 
-
-
             public extern GamepadEvent(string typeArg);
 
             public extern GamepadEvent(string typeArg, dom.GamepadEventInit eventInitDict);
@@ -28348,8 +26588,6 @@ namespace H5.Core
         public class GamepadHapticActuator : IObject
         {
 
-
-
             public static dom.GamepadHapticActuator prototype
             {
                 get;
@@ -28368,12 +26606,6 @@ namespace H5.Core
         [FormerInterface]
         public class GamepadPose : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -28429,8 +26661,6 @@ namespace H5.Core
         [FormerInterface]
         public class Geolocation : IObject
         {
-
-
             public static dom.Geolocation prototype
             {
                 get;
@@ -28482,12 +26712,6 @@ namespace H5.Core
         [FormerInterface]
         public class GlobalEventHandlersEventMap : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -28575,12 +26799,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public abstract class GlobalEventHandlers : dom.GlobalEventHandlers.Interface, IObject
         {
-
-
-
-
-
-
 
 
 
@@ -29046,8 +27264,6 @@ namespace H5.Core
         public class HTMLAllCollection : IObject
         {
 
-
-
             public static dom.HTMLAllCollection prototype
             {
                 get;
@@ -29074,24 +27290,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLAnchorElement : dom.HTMLElement, dom.HTMLHyperlinkElementUtils.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -29322,16 +27520,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
             [Template("document.createElement(\"applet\")")]
             public extern HTMLAppletElement();
 
@@ -29472,18 +27660,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLAreaElement : dom.HTMLElement, dom.HTMLHyperlinkElementUtils.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -29656,8 +27832,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLAreasCollection : dom.HTMLCollectionBase
         {
-
-
             public static dom.HTMLAreasCollection prototype
             {
                 get;
@@ -29673,8 +27847,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLAudioElement : dom.HTMLMediaElement
         {
-
-
             [Template("document.createElement(\"audio\")")]
             public extern HTMLAudioElement();
 
@@ -29743,8 +27915,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLBRElement : dom.HTMLElement
         {
-
-
 
             [Template("document.createElement(\"br\")")]
             public extern HTMLBRElement();
@@ -29820,8 +27990,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLBaseElement : dom.HTMLElement
         {
-
-
 
 
             [Template("document.createElement(\"base\")")]
@@ -29904,10 +28072,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLBaseFontElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject
         {
-
-
-
-
 
             [Template("document.createElement(\"basefont\")")]
             public extern HTMLBaseFontElement();
@@ -29996,16 +28160,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLBodyElementEventMap : dom.HTMLElementEventMap, dom.WindowEventHandlersEventMap.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -30133,22 +28287,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLBodyElement : dom.HTMLElement, dom.WindowEventHandlers.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -30414,18 +28552,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             [Template("document.createElement(\"button\")")]
             public extern HTMLButtonElement();
 
@@ -30586,8 +28712,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElement(\"canvas\")")]
             public extern HTMLCanvasElement();
 
@@ -30725,8 +28849,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLCollection : dom.HTMLCollectionBase
         {
-
-
             public static dom.HTMLCollection prototype
             {
                 get;
@@ -30761,8 +28883,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLDListElement : dom.HTMLElement
         {
-
-
 
             [Template("document.createElement(\"dl\")")]
             public extern HTMLDListElement();
@@ -30839,8 +28959,6 @@ namespace H5.Core
         public class HTMLDataElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"data\")")]
             public extern HTMLDataElement();
 
@@ -30916,8 +29034,6 @@ namespace H5.Core
         public class HTMLDataListElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"datalist\")")]
             public extern HTMLDataListElement();
 
@@ -30992,8 +29108,6 @@ namespace H5.Core
         public class HTMLDetailsElement : dom.HTMLElement
         {
 
-
-
             public static dom.HTMLDetailsElement prototype
             {
                 get;
@@ -31065,8 +29179,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLDialogElement : dom.HTMLElement
         {
-
-
 
 
             public static dom.HTMLDialogElement prototype
@@ -31155,8 +29267,6 @@ namespace H5.Core
         public class HTMLDirectoryElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"dir\")")]
             public extern HTMLDirectoryElement();
 
@@ -31231,8 +29341,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLDivElement : dom.HTMLElement
         {
-
-
 
 
             [Template("document.createElement(\"div\")")]
@@ -31315,8 +29423,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLDocument : dom.Document
         {
-
-
             public static dom.HTMLDocument prototype
             {
                 get;
@@ -31383,52 +29489,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLElementEventMap : dom.ElementEventMap
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -31997,66 +30057,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLElement : dom.Element, dom.ElementCSSInlineStyle.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -32738,16 +30738,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
             [Template("document.createElement(\"embed\")")]
             public extern HTMLEmbedElement();
 
@@ -32895,12 +30885,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             [Template("document.createElement(\"fieldset\")")]
             public extern HTMLFieldSetElement();
 
@@ -33012,10 +30996,6 @@ namespace H5.Core
         public class HTMLFontElement : dom.HTMLElement, dom.DOML2DeprecatedColorProperty.Interface, IObject, dom.DOML2DeprecatedSizeProperty.Interface
         {
 
-
-
-
-
             [Template("document.createElement(\"font\")")]
             public extern HTMLFontElement();
 
@@ -33102,8 +31082,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLFormControlsCollection : dom.HTMLCollectionBase
         {
-
-
             public static dom.HTMLFormControlsCollection prototype
             {
                 get;
@@ -33122,14 +31100,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLFormElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -33290,18 +31260,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLFrameElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -33471,16 +31429,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
             public dom.Event orientationchange
             {
                 get;
@@ -33603,18 +31551,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLFrameSetElement : dom.HTMLElement, dom.WindowEventHandlers.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -33847,10 +31783,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             [Template("document.createElement(\"hr\")")]
             public extern HTMLHRElement();
 
@@ -33950,8 +31882,6 @@ namespace H5.Core
         public class HTMLHeadElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"head\")")]
             public extern HTMLHeadElement();
 
@@ -34026,8 +31956,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLHeadingElement : dom.HTMLElement
         {
-
-
 
             [Template("document.createElement(\"h1\")")]
             public extern HTMLHeadingElement();
@@ -34104,8 +32032,6 @@ namespace H5.Core
         public class HTMLHtmlElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"html\")")]
             public extern HTMLHtmlElement();
 
@@ -34181,12 +32107,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public abstract class HTMLHyperlinkElementUtils : dom.HTMLHyperlinkElementUtils.Interface, IObject
         {
-
-
-
-
-
-
 
 
 
@@ -34284,18 +32204,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLIFrameElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -34465,26 +32373,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLImageElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -34719,38 +32607,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLInputElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -35122,8 +32978,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElement(\"li\")")]
             public extern HTMLLIElement();
 
@@ -35204,10 +33058,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLLabelElement : dom.HTMLElement
         {
-
-
-
-
 
             [Template("document.createElement(\"label\")")]
             public extern HTMLLabelElement();
@@ -35295,8 +33145,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElement(\"legend\")")]
             public extern HTMLLegendElement();
 
@@ -35376,16 +33224,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLLinkElement : dom.HTMLElement, dom.LinkStyle.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -35536,8 +33374,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLMainElement : dom.HTMLElement
         {
-
-
             public static dom.HTMLMainElement prototype
             {
                 get;
@@ -35603,8 +33439,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLMapElement : dom.HTMLElement
         {
-
-
 
 
             [Template("document.createElement(\"map\")")]
@@ -35689,8 +33523,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.Event bounce
             {
                 get;
@@ -35725,16 +33557,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLMarqueeElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -35902,8 +33724,6 @@ namespace H5.Core
         public class HTMLMediaElementEventMap : dom.HTMLElementEventMap
         {
 
-
-
             public dom.MediaEncryptedEvent encrypted
             {
                 get;
@@ -35930,46 +33750,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLMediaElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -36414,8 +34194,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElement(\"menu\")")]
             public extern HTMLMenuElement();
 
@@ -36496,12 +34274,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLMetaElement : dom.HTMLElement
         {
-
-
-
-
-
-
 
 
             [Template("document.createElement(\"meta\")")]
@@ -36610,12 +34382,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             [Template("document.createElement(\"meter\")")]
             public extern HTMLMeterElement();
 
@@ -36722,8 +34488,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElement(\"del\")")]
             public extern HTMLModElement();
 
@@ -36804,10 +34568,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLOListElement : dom.HTMLElement
         {
-
-
-
-
 
             [Template("document.createElement(\"ol\")")]
             public extern HTMLOListElement();
@@ -36895,26 +34655,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLObjectElement : dom.HTMLElement, dom.GetSVGDocument.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -37160,10 +34900,6 @@ namespace H5.Core
         public class HTMLOptGroupElement : dom.HTMLElement
         {
 
-
-
-
-
             [Template("document.createElement(\"optgroup\")")]
             public extern HTMLOptGroupElement();
 
@@ -37249,12 +34985,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLOptionElement : dom.HTMLElement
         {
-
-
-
-
-
-
 
 
 
@@ -37374,8 +35104,6 @@ namespace H5.Core
         public class HTMLOptionsCollection : dom.HTMLCollectionOf<dom.HTMLOptionElement>
         {
 
-
-
             public static dom.HTMLOptionsCollection prototype
             {
                 get;
@@ -37426,14 +35154,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLOutputElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -37561,8 +35281,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElement(\"p\")")]
             public extern HTMLParagraphElement();
 
@@ -37643,10 +35361,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLParamElement : dom.HTMLElement
         {
-
-
-
-
 
 
             [Template("document.createElement(\"param\")")]
@@ -37741,8 +35455,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLPictureElement : dom.HTMLElement
         {
-
-
             [Template("document.createElement(\"picture\")")]
             public extern HTMLPictureElement();
 
@@ -37811,8 +35523,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLPreElement : dom.HTMLElement
         {
-
-
 
             [Template("document.createElement(\"pre\")")]
             public extern HTMLPreElement();
@@ -37888,10 +35598,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLProgressElement : dom.HTMLElement
         {
-
-
-
-
 
 
             [Template("document.createElement(\"progress\")")]
@@ -37985,8 +35691,6 @@ namespace H5.Core
         public class HTMLQuoteElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"blockquote\")")]
             public extern HTMLQuoteElement();
 
@@ -38061,14 +35765,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLScriptElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -38209,18 +35905,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLSelectElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -38424,8 +36108,6 @@ namespace H5.Core
         [FormerInterface]
         public abstract class HTMLSlotElement : dom.HTMLElement
         {
-
-
             public virtual string name
             {
                 get;
@@ -38495,12 +36177,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLSourceElement : dom.HTMLElement
         {
-
-
-
-
-
-
 
 
             [Template("document.createElement(\"source\")")]
@@ -38607,8 +36283,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLSpanElement : dom.HTMLElement
         {
-
-
             [Template("document.createElement(\"span\")")]
             public extern HTMLSpanElement();
 
@@ -38677,10 +36351,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLStyleElement : dom.HTMLElement, dom.LinkStyle.Interface, IObject
         {
-
-
-
-
 
 
             [Template("document.createElement(\"style\")")]
@@ -38774,8 +36444,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLSummaryElement : dom.HTMLElement
         {
-
-
             public static dom.HTMLSummaryElement prototype
             {
                 get;
@@ -38841,8 +36509,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLTableCaptionElement : dom.HTMLElement
         {
-
-
 
             [Template("document.createElement(\"caption\")")]
             public extern HTMLTableCaptionElement();
@@ -38918,18 +36584,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLTableCellElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -39091,12 +36745,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             [Template("document.createElement(\"col\")")]
             public extern HTMLTableColElement();
 
@@ -39201,8 +36849,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLTableDataCellElement : dom.HTMLTableCellElement
         {
-
-
             [Template("document.createElement(\"td\")")]
             public extern HTMLTableDataCellElement();
 
@@ -39271,16 +36917,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLTableElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -39459,8 +37095,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLTableHeaderCellElement : dom.HTMLTableCellElement
         {
-
-
             [Template("document.createElement(\"th\")")]
             public extern HTMLTableHeaderCellElement();
 
@@ -39529,12 +37163,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLTableRowElement : dom.HTMLElement
         {
-
-
-
-
-
-
 
 
 
@@ -39663,10 +37291,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             [Template("document.createElement(\"tbody\")")]
             public extern HTMLTableSectionElement();
 
@@ -39773,8 +37397,6 @@ namespace H5.Core
         public class HTMLTemplateElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"template\")")]
             public extern HTMLTemplateElement();
 
@@ -39848,20 +37470,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLTextAreaElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -40067,8 +37675,6 @@ namespace H5.Core
         public class HTMLTimeElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"time\")")]
             public extern HTMLTimeElement();
 
@@ -40144,8 +37750,6 @@ namespace H5.Core
         public class HTMLTitleElement : dom.HTMLElement
         {
 
-
-
             [Template("document.createElement(\"title\")")]
             public extern HTMLTitleElement();
 
@@ -40220,18 +37824,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLTrackElement : dom.HTMLElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -40392,8 +37984,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElement(\"ul\")")]
             public extern HTMLUListElement();
 
@@ -40474,8 +38064,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLUnknownElement : dom.HTMLElement
         {
-
-
             [Template("document.createElement(\"isindex\")")]
             public extern HTMLUnknownElement();
 
@@ -40547,8 +38135,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.Event MSVideoFormatChanged
             {
                 get;
@@ -40583,18 +38169,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLVideoElement : dom.HTMLMediaElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -40788,8 +38362,6 @@ namespace H5.Core
         public class HTMLegendElement : IObject
         {
 
-
-
             public static dom.HTMLegendElement prototype
             {
                 get;
@@ -40806,8 +38378,6 @@ namespace H5.Core
         [FormerInterface]
         public class HashChangeEvent : dom.Event
         {
-
-
 
 
             public extern HashChangeEvent(string type);
@@ -40835,8 +38405,6 @@ namespace H5.Core
         [FormerInterface]
         public class Headers : IObject
         {
-
-
             public extern Headers();
 
             public extern Headers(dom.HeadersInit init);
@@ -40883,10 +38451,6 @@ namespace H5.Core
         [FormerInterface]
         public class History : IObject
         {
-
-
-
-
 
             public static dom.History prototype
             {
@@ -40942,8 +38506,6 @@ namespace H5.Core
         {
 
 
-
-
             public Union<es5.Int8Array, es5.Int16Array, es5.Int32Array, es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Uint8ClampedArray, es5.Float32Array, es5.Float64Array, es5.DataView, es5.ArrayBuffer> context
             {
                 get;
@@ -40974,16 +38536,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBCursor : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -41092,8 +38644,6 @@ namespace H5.Core
         public class IDBCursorWithValue : dom.IDBCursor
         {
 
-
-
             public static dom.IDBCursorWithValue prototype
             {
                 get;
@@ -41111,8 +38661,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBDatabaseEventMap : IObject
         {
-
-
 
             public dom.Event abort
             {
@@ -41140,12 +38688,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBDatabase : dom.EventTarget
         {
-
-
-
-
-
-
 
 
             public static dom.IDBDatabase prototype
@@ -41317,8 +38859,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class IDBEnvironment : dom.IDBEnvironment.Interface, IObject
         {
-
-
             public dom.IDBFactory indexedDB
             {
                 get;
@@ -41337,8 +38877,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBFactory : IObject
         {
-
-
             public static dom.IDBFactory prototype
             {
                 get;
@@ -41358,10 +38896,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBIndex : IObject
         {
-
-
-
-
 
 
 
@@ -41523,10 +39057,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.IDBKeyRange prototype
             {
                 get;
@@ -41578,10 +39108,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBObjectStore : IObject
         {
-
-
-
-
 
 
 
@@ -41754,8 +39280,6 @@ namespace H5.Core
         public class IDBOpenDBRequestEventMap : dom.IDBRequestEventMap
         {
 
-
-
             public dom.Event blocked
             {
                 get;
@@ -41782,8 +39306,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBOpenDBRequest : dom.IDBRequest
         {
-
-
 
 
             public static dom.IDBOpenDBRequest prototype
@@ -41871,8 +39393,6 @@ namespace H5.Core
         public class IDBRequestEventMap : IObject
         {
 
-
-
             public dom.Event error
             {
                 get;
@@ -41899,12 +39419,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBRequest : dom.EventTarget
         {
-
-
-
-
-
-
 
 
 
@@ -42055,8 +39569,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.Event abort
             {
                 get;
@@ -42091,16 +39603,6 @@ namespace H5.Core
         [FormerInterface]
         public class IDBTransaction : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -42284,8 +39786,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.IDBVersionChangeEvent prototype
             {
                 get;
@@ -42307,8 +39807,6 @@ namespace H5.Core
         [FormerInterface]
         public class IIRFilterNode : dom.AudioNode
         {
-
-
             public static dom.IIRFilterNode prototype
             {
                 get;
@@ -42338,10 +39836,6 @@ namespace H5.Core
         [FormerInterface]
         public class ImageBitmapOptions : IObject
         {
-
-
-
-
 
 
 
@@ -42387,10 +39881,6 @@ namespace H5.Core
         public class ImageData : IObject
         {
 
-
-
-
-
             public extern ImageData(double width, double height);
 
             public extern ImageData(es5.Uint8ClampedArray array, double width, double height);
@@ -42421,10 +39911,6 @@ namespace H5.Core
         [FormerInterface]
         public class IntersectionObserver : IObject
         {
-
-
-
-
 
             public extern IntersectionObserver(dom.IntersectionObserverCallback callback);
 
@@ -42466,12 +39952,6 @@ namespace H5.Core
         [FormerInterface]
         public class IntersectionObserverEntry : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -42524,24 +40004,6 @@ namespace H5.Core
         [FormerInterface]
         public class KeyboardEvent : dom.UIEvent
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -42707,8 +40169,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class LinkStyle : dom.LinkStyle.Interface, IObject
         {
-
-
             public dom.StyleSheet sheet
             {
                 get;
@@ -42727,8 +40187,6 @@ namespace H5.Core
         [FormerInterface]
         public class ListeningStateChangedEvent : dom.Event
         {
-
-
 
 
             public static dom.ListeningStateChangedEvent prototype
@@ -42752,14 +40210,6 @@ namespace H5.Core
         [FormerInterface]
         public class Location : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -42839,8 +40289,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.MSAssertion prototype
             {
                 get;
@@ -42862,8 +40310,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSBlobBuilder : IObject
         {
-
-
             public static dom.MSBlobBuilder prototype
             {
                 get;
@@ -42883,8 +40329,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSCredentials : IObject
         {
-
-
             public static dom.MSCredentials prototype
             {
                 get;
@@ -42918,8 +40362,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern MSDCCEvent(string type, dom.MSDCCEventInit eventInitDict);
 
             public static dom.MSDCCEvent prototype
@@ -42945,8 +40387,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern MSDSHEvent(string type, dom.MSDSHEventInit eventInitDict);
 
             public static dom.MSDSHEvent prototype
@@ -42970,10 +40410,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSFIDOCredentialAssertion : dom.MSAssertion
         {
-
-
-
-
 
 
             public static dom.MSFIDOCredentialAssertion prototype
@@ -43008,10 +40444,6 @@ namespace H5.Core
         public class MSFIDOSignature : IObject
         {
 
-
-
-
-
             public static dom.MSFIDOSignature prototype
             {
                 get;
@@ -43038,8 +40470,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSFIDOSignatureAssertion : dom.MSAssertion
         {
-
-
 
             public static dom.MSFIDOSignatureAssertion prototype
             {
@@ -43085,8 +40515,6 @@ namespace H5.Core
         public class MSGesture : IObject
         {
 
-
-
             public static dom.MSGesture prototype
             {
                 get;
@@ -43108,26 +40536,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSGestureEvent : dom.UIEvent
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -43313,8 +40721,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.MSGraphicsTrust prototype
             {
                 get;
@@ -43337,8 +40743,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSInputMethodContextEventMap : IObject
         {
-
-
 
 
             public dom.Event MSCandidateWindowHide
@@ -43375,12 +40779,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSInputMethodContext : dom.EventTarget
         {
-
-
-
-
-
-
 
 
             public static dom.MSInputMethodContext prototype
@@ -43537,16 +40935,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
             public static dom.MSMediaKeyError prototype
             {
                 get;
@@ -43636,8 +41024,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.MSMediaKeyMessageEvent prototype
             {
                 get;
@@ -43660,8 +41046,6 @@ namespace H5.Core
         public class MSMediaKeyNeededEvent : dom.Event
         {
 
-
-
             public static dom.MSMediaKeyNeededEvent prototype
             {
                 get;
@@ -43678,10 +41062,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSMediaKeySession : dom.EventTarget
         {
-
-
-
-
 
             public static dom.MSMediaKeySession prototype
             {
@@ -43713,8 +41093,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSMediaKeys : IObject
         {
-
-
 
             public extern MSMediaKeys(string keySystem);
 
@@ -43788,16 +41166,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSPointerEvent : dom.MouseEvent
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -43911,8 +41279,6 @@ namespace H5.Core
         public class MSStream : IObject
         {
 
-
-
             public static dom.MSStream prototype
             {
                 get;
@@ -43934,10 +41300,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSStreamReaderEventMap : IObject
         {
-
-
-
-
 
 
 
@@ -43999,18 +41361,6 @@ namespace H5.Core
         [FormerInterface]
         public class MSStreamReader : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -44242,10 +41592,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.MediaDeviceInfo prototype
             {
                 get;
@@ -44278,8 +41624,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaDevicesEventMap : IObject
         {
-
-
             public dom.Event devicechange
             {
                 get;
@@ -44298,8 +41642,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaDevices : dom.EventTarget
         {
-
-
 
             public static dom.MediaDevices prototype
             {
@@ -44421,8 +41763,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaElementAudioSourceNode : dom.AudioNode
         {
-
-
             public static dom.MediaElementAudioSourceNode prototype
             {
                 get;
@@ -44434,8 +41774,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaEncryptedEvent : dom.Event
         {
-
-
 
 
             public extern MediaEncryptedEvent(string type);
@@ -44463,16 +41801,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaError : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -44561,8 +41889,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern MediaKeyMessageEvent(string type);
 
             public extern MediaKeyMessageEvent(string type, dom.MediaKeyMessageEventInit eventInitDict);
@@ -44588,10 +41914,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaKeySession : dom.EventTarget
         {
-
-
-
-
 
 
             public static dom.MediaKeySession prototype
@@ -44720,8 +42042,6 @@ namespace H5.Core
         public class MediaKeyStatusMap : IObject
         {
 
-
-
             public static dom.MediaKeyStatusMap prototype
             {
                 get;
@@ -44805,8 +42125,6 @@ namespace H5.Core
         public class MediaKeySystemAccess : IObject
         {
 
-
-
             public static dom.MediaKeySystemAccess prototype
             {
                 get;
@@ -44827,8 +42145,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaKeys : IObject
         {
-
-
             public static dom.MediaKeys prototype
             {
                 get;
@@ -44885,8 +42201,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.MediaList prototype
             {
                 get;
@@ -44927,8 +42241,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.MediaQueryList prototype
             {
                 get;
@@ -44954,10 +42266,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaSource : dom.EventTarget
         {
-
-
-
-
 
 
             public static dom.MediaSource prototype
@@ -45004,10 +42312,6 @@ namespace H5.Core
         public class MediaStreamEventMap : IObject
         {
 
-
-
-
-
             public dom.Event active
             {
                 get;
@@ -45050,12 +42354,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaStream : dom.EventTarget
         {
-
-
-
-
-
-
 
 
             public extern MediaStream();
@@ -45224,8 +42522,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaStreamAudioSourceNode : dom.AudioNode
         {
-
-
             public static dom.MediaStreamAudioSourceNode prototype
             {
                 get;
@@ -45237,10 +42533,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaStreamError : IObject
         {
-
-
-
-
 
             public static dom.MediaStreamError prototype
             {
@@ -45269,8 +42561,6 @@ namespace H5.Core
         public class MediaStreamErrorEvent : dom.Event
         {
 
-
-
             public extern MediaStreamErrorEvent(string typeArg);
 
             public extern MediaStreamErrorEvent(
@@ -45294,8 +42584,6 @@ namespace H5.Core
         public class MediaStreamEvent : dom.Event
         {
 
-
-
             public extern MediaStreamEvent(string type, dom.MediaStreamEventInit eventInitDict);
 
             public static dom.MediaStreamEvent prototype
@@ -45315,10 +42603,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaStreamTrackEventMap : IObject
         {
-
-
-
-
 
             public dom.MediaStreamErrorEvent ended
             {
@@ -45362,16 +42646,6 @@ namespace H5.Core
         [FormerInterface]
         public class MediaStreamTrack : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -45566,8 +42840,6 @@ namespace H5.Core
         public class MediaStreamTrackEvent : dom.Event
         {
 
-
-
             public extern MediaStreamTrackEvent(string typeArg);
 
             public extern MediaStreamTrackEvent(
@@ -45592,8 +42864,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.MessageChannel prototype
             {
                 get;
@@ -45615,10 +42885,6 @@ namespace H5.Core
         [FormerInterface]
         public class MessageEvent : dom.Event
         {
-
-
-
-
 
 
             public extern MessageEvent(string type);
@@ -45666,8 +42932,6 @@ namespace H5.Core
         [FormerInterface]
         public class MessagePortEventMap : IObject
         {
-
-
             public dom.MessageEvent message
             {
                 get;
@@ -45686,8 +42950,6 @@ namespace H5.Core
         [FormerInterface]
         public class MessagePort : dom.EventTarget
         {
-
-
 
             public static dom.MessagePort prototype
             {
@@ -45814,10 +43076,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.MimeType prototype
             {
                 get;
@@ -45850,8 +43108,6 @@ namespace H5.Core
         public class MimeTypeArray : IEnumerable<dom.MimeType>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.MimeTypeArray prototype
             {
                 get;
@@ -45880,24 +43136,6 @@ namespace H5.Core
         [FormerInterface]
         public class MouseEvent : dom.UIEvent
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -46065,14 +43303,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
             public static dom.MutationEvent prototype
             {
                 get;
@@ -46152,8 +43382,6 @@ namespace H5.Core
         [FormerInterface]
         public class MutationObserver : IObject
         {
-
-
             public extern MutationObserver(dom.MutationCallback callback);
 
             public static dom.MutationObserver prototype
@@ -46173,14 +43401,6 @@ namespace H5.Core
         [FormerInterface]
         public class MutationRecord : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -46241,8 +43461,6 @@ namespace H5.Core
         public class NamedNodeMap : IObject
         {
 
-
-
             public static dom.NamedNodeMap prototype
             {
                 get;
@@ -46275,20 +43493,6 @@ namespace H5.Core
         [FormerInterface]
         public class Navigator : dom.NavigatorID, dom.NavigatorOnLine.Interface, IObject, dom.NavigatorContentUtils.Interface, dom.NavigatorStorageUtils.Interface, dom.MSNavigatorDoNotTrack.Interface, dom.MSFileSaver.Interface, dom.NavigatorBeacon.Interface, dom.NavigatorConcurrentHardware.Interface, dom.NavigatorUserMedia.Interface, dom.NavigatorLanguage.Interface
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -46584,8 +43788,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class NavigatorConcurrentHardware : dom.NavigatorConcurrentHardware.Interface, IObject
         {
-
-
             public ulong hardwareConcurrency
             {
                 get;
@@ -46618,12 +43820,6 @@ namespace H5.Core
         [FormerInterface]
         public class NavigatorID : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -46680,8 +43876,6 @@ namespace H5.Core
         public class NavigatorLanguage : dom.NavigatorLanguage.Interface, IObject
         {
 
-
-
             public string language
             {
                 get;
@@ -46708,8 +43902,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class NavigatorOnLine : dom.NavigatorOnLine.Interface, IObject
         {
-
-
             public bool onLine
             {
                 get;
@@ -46770,42 +43962,6 @@ namespace H5.Core
         [CombinedClass]
         public class Node : dom.EventTarget, dom.Node.Interface, dom.EventTarget.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -47268,10 +44424,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.NodeIterator prototype
             {
                 get;
@@ -47310,8 +44462,6 @@ namespace H5.Core
         public class NodeList : IEnumerable<dom.Node>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.NodeList prototype
             {
                 get;
@@ -47341,8 +44491,6 @@ namespace H5.Core
         [Where("TNode", typeof(dom.Node.Interface), EnableImplicitConversion = true)]
         public abstract class NodeListOf<TNode> : dom.NodeList, IEnumerable<TNode>, IEnumerable, IH5Class
         {
-
-
             public virtual double length
             {
                 get;
@@ -47392,10 +44540,6 @@ namespace H5.Core
         public class NotificationEventMap : IObject
         {
 
-
-
-
-
             public dom.Event click
             {
                 get;
@@ -47438,16 +44582,6 @@ namespace H5.Core
         [FormerInterface]
         public class Notification : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -47634,8 +44768,6 @@ namespace H5.Core
         [FormerInterface]
         public class OES_element_index_uint : IObject
         {
-
-
             public static dom.OES_element_index_uint prototype
             {
                 get;
@@ -47647,8 +44779,6 @@ namespace H5.Core
         [FormerInterface]
         public class OES_standard_derivatives : IObject
         {
-
-
 
 
             public static dom.OES_standard_derivatives prototype
@@ -47673,8 +44803,6 @@ namespace H5.Core
         [FormerInterface]
         public class OES_texture_float : IObject
         {
-
-
             public static dom.OES_texture_float prototype
             {
                 get;
@@ -47686,8 +44814,6 @@ namespace H5.Core
         [FormerInterface]
         public class OES_texture_float_linear : IObject
         {
-
-
             public static dom.OES_texture_float_linear prototype
             {
                 get;
@@ -47699,8 +44825,6 @@ namespace H5.Core
         [FormerInterface]
         public class OES_texture_half_float : IObject
         {
-
-
 
 
             public static dom.OES_texture_half_float prototype
@@ -47725,8 +44849,6 @@ namespace H5.Core
         [FormerInterface]
         public class OES_texture_half_float_linear : IObject
         {
-
-
             public static dom.OES_texture_half_float_linear prototype
             {
                 get;
@@ -47755,8 +44877,6 @@ namespace H5.Core
         public class OfflineAudioCompletionEvent : dom.Event
         {
 
-
-
             public static dom.OfflineAudioCompletionEvent prototype
             {
                 get;
@@ -47774,8 +44894,6 @@ namespace H5.Core
         [FormerInterface]
         public class OfflineAudioContextEventMap : dom.AudioContextEventMap
         {
-
-
             public dom.OfflineAudioCompletionEvent complete
             {
                 get;
@@ -47794,8 +44912,6 @@ namespace H5.Core
         [FormerInterface]
         public class OfflineAudioContext : dom.AudioContextBase
         {
-
-
 
 
             public extern OfflineAudioContext(double numberOfChannels, double length, double sampleRate);
@@ -48056,8 +45172,6 @@ namespace H5.Core
         [FormerInterface]
         public class OscillatorNodeEventMap : IObject
         {
-
-
             public dom.Event ended
             {
                 get;
@@ -48076,10 +45190,6 @@ namespace H5.Core
         [FormerInterface]
         public class OscillatorNode : dom.AudioNode
         {
-
-
-
-
 
 
             public static dom.OscillatorNode prototype
@@ -48313,14 +45423,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
             public static dom.OverflowEvent prototype
             {
                 get;
@@ -48381,8 +45483,6 @@ namespace H5.Core
         public class PageTransitionEvent : dom.Event
         {
 
-
-
             public static dom.PageTransitionEvent prototype
             {
                 get;
@@ -48399,12 +45499,6 @@ namespace H5.Core
         [FormerInterface]
         public class PannerNode : dom.AudioNode
         {
-
-
-
-
-
-
 
 
 
@@ -48541,8 +45635,6 @@ namespace H5.Core
         [FormerInterface]
         public class Path2D : dom.CanvasPathMethods
         {
-
-
             public extern Path2D();
 
             public extern Path2D(Union<dom.Path2D, string> d);
@@ -48635,14 +45727,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
             public static dom.PaymentAddress prototype
             {
                 get;
@@ -48713,8 +45797,6 @@ namespace H5.Core
         public class PaymentRequestEventMap : IObject
         {
 
-
-
             public dom.Event shippingaddresschange
             {
                 get;
@@ -48741,12 +45823,6 @@ namespace H5.Core
         [FormerInterface]
         public class PaymentRequest : dom.EventTarget
         {
-
-
-
-
-
-
 
 
             public extern PaymentRequest(
@@ -48903,8 +45979,6 @@ namespace H5.Core
         [FormerInterface]
         public class PaymentRequestUpdateEvent : dom.Event
         {
-
-
             public extern PaymentRequestUpdateEvent(string type);
 
             public extern PaymentRequestUpdateEvent(
@@ -48925,12 +45999,6 @@ namespace H5.Core
         [FormerInterface]
         public class PaymentResponse : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -48993,14 +46061,6 @@ namespace H5.Core
         [FormerInterface]
         public class PerfWidgetExternal : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -49101,10 +46161,6 @@ namespace H5.Core
         public class Performance : IObject
         {
 
-
-
-
-
             public static dom.Performance prototype
             {
                 get;
@@ -49176,10 +46232,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.PerformanceEntry prototype
             {
                 get;
@@ -49213,8 +46265,6 @@ namespace H5.Core
         [FormerInterface]
         public class PerformanceMark : dom.PerformanceEntry
         {
-
-
             public static dom.PerformanceMark prototype
             {
                 get;
@@ -49226,8 +46276,6 @@ namespace H5.Core
         [FormerInterface]
         public class PerformanceMeasure : dom.PerformanceEntry
         {
-
-
             public static dom.PerformanceMeasure prototype
             {
                 get;
@@ -49239,14 +46287,6 @@ namespace H5.Core
         [FormerInterface]
         public class PerformanceNavigation : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -49318,22 +46358,6 @@ namespace H5.Core
         [FormerInterface]
         public class PerformanceNavigationTiming : dom.PerformanceEntry
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -49473,16 +46497,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
             public static dom.PerformanceResourceTiming prototype
             {
                 get;
@@ -49554,22 +46568,6 @@ namespace H5.Core
         [FormerInterface]
         public class PerformanceTiming : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -49701,8 +46699,6 @@ namespace H5.Core
         [FormerInterface]
         public class PeriodicWave : IObject
         {
-
-
             public static dom.PeriodicWave prototype
             {
                 get;
@@ -49714,8 +46710,6 @@ namespace H5.Core
         [FormerInterface]
         public class PermissionRequest : dom.DeferredPermissionRequest
         {
-
-
 
             public static dom.PermissionRequest prototype
             {
@@ -49736,8 +46730,6 @@ namespace H5.Core
         public class PermissionRequestedEvent : dom.Event
         {
 
-
-
             public static dom.PermissionRequestedEvent prototype
             {
                 get;
@@ -49754,10 +46746,6 @@ namespace H5.Core
         [FormerInterface]
         public class Plugin : IObject
         {
-
-
-
-
 
 
 
@@ -49804,8 +46792,6 @@ namespace H5.Core
         public class PluginArray : IEnumerable<dom.Plugin>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.PluginArray prototype
             {
                 get;
@@ -49838,16 +46824,6 @@ namespace H5.Core
         [FormerInterface]
         public class PointerEvent : dom.MouseEvent
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -49961,8 +46937,6 @@ namespace H5.Core
         public class PopStateEvent : dom.Event
         {
 
-
-
             public extern PopStateEvent(string type);
 
             public extern PopStateEvent(string type, dom.PopStateEventInit eventInitDict);
@@ -49983,8 +46957,6 @@ namespace H5.Core
         [FormerInterface]
         public class Position : IObject
         {
-
-
 
 
             public static dom.Position prototype
@@ -50008,12 +46980,6 @@ namespace H5.Core
         [FormerInterface]
         public class PositionError : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -50075,8 +47041,6 @@ namespace H5.Core
         public class ProcessingInstruction : dom.CharacterData
         {
 
-
-
             public static dom.ProcessingInstruction prototype
             {
                 get;
@@ -50093,10 +47057,6 @@ namespace H5.Core
         [FormerInterface]
         public class ProgressEvent : dom.Event
         {
-
-
-
-
 
             public extern ProgressEvent(string typeArg);
 
@@ -50150,8 +47110,6 @@ namespace H5.Core
         public class PromiseRejectionEventInit : dom.EventInit
         {
 
-
-
             public es5.PromiseLike<object> promise
             {
                 get;
@@ -50169,8 +47127,6 @@ namespace H5.Core
         [FormerInterface]
         public class PushManager : IObject
         {
-
-
 
             public static dom.PushManager prototype
             {
@@ -50200,10 +47156,6 @@ namespace H5.Core
         [FormerInterface]
         public class PushSubscription : IObject
         {
-
-
-
-
 
             public static dom.PushSubscription prototype
             {
@@ -50239,8 +47191,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.PushSubscriptionOptions prototype
             {
                 get;
@@ -50263,8 +47213,6 @@ namespace H5.Core
         public class RTCDTMFToneChangeEvent : dom.Event
         {
 
-
-
             public extern RTCDTMFToneChangeEvent(
               string typeArg,
               dom.RTCDTMFToneChangeEventInit eventInitDict);
@@ -50286,8 +47234,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCDtlsTransportEventMap : IObject
         {
-
-
 
             public dom.RTCDtlsTransportStateChangedEvent dtlsstatechange
             {
@@ -50315,10 +47261,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCDtlsTransport : dom.RTCStatsProvider
         {
-
-
-
-
 
 
             public extern RTCDtlsTransport(dom.RTCIceTransport transport);
@@ -50555,8 +47497,6 @@ namespace H5.Core
         public class RTCDtlsTransportStateChangedEvent : dom.Event
         {
 
-
-
             public static dom.RTCDtlsTransportStateChangedEvent prototype
             {
                 get;
@@ -50574,8 +47514,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCDtmfSenderEventMap : IObject
         {
-
-
             public dom.RTCDTMFToneChangeEvent tonechange
             {
                 get;
@@ -50594,12 +47532,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCDtmfSender : dom.EventTarget
         {
-
-
-
-
-
-
 
 
             public extern RTCDtmfSender(dom.RTCRtpSender sender);
@@ -50749,10 +47681,6 @@ namespace H5.Core
         public class RTCIceCandidate : IObject
         {
 
-
-
-
-
             public extern RTCIceCandidate();
 
             public extern RTCIceCandidate(dom.RTCIceCandidateInit candidateInitDict);
@@ -50789,8 +47717,6 @@ namespace H5.Core
         public class RTCIceCandidatePairChangedEvent : dom.Event
         {
 
-
-
             public static dom.RTCIceCandidatePairChangedEvent prototype
             {
                 get;
@@ -50808,8 +47734,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCIceGathererEventMap : IObject
         {
-
-
 
             public dom.Event error
             {
@@ -50837,10 +47761,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCIceGatherer : dom.RTCStatsProvider
         {
-
-
-
-
 
             public extern RTCIceGatherer(dom.RTCIceGatherOptions options);
 
@@ -51067,8 +47987,6 @@ namespace H5.Core
         public class RTCIceGathererEvent : dom.Event
         {
 
-
-
             public static dom.RTCIceGathererEvent prototype
             {
                 get;
@@ -51086,8 +48004,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCIceTransportEventMap : IObject
         {
-
-
 
             public dom.RTCIceCandidatePairChangedEvent candidatepairchange
             {
@@ -51115,12 +48031,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCIceTransport : dom.RTCStatsProvider
         {
-
-
-
-
-
-
 
 
             public static dom.RTCIceTransport prototype
@@ -51384,8 +48294,6 @@ namespace H5.Core
         public class RTCIceTransportStateChangedEvent : dom.Event
         {
 
-
-
             public static dom.RTCIceTransportStateChangedEvent prototype
             {
                 get;
@@ -51403,12 +48311,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCPeerConnectionEventMap : IObject
         {
-
-
-
-
-
-
 
 
             public dom.MediaStreamEvent addstream
@@ -51477,16 +48379,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCPeerConnection : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -51731,8 +48623,6 @@ namespace H5.Core
         public class RTCPeerConnectionIceEvent : dom.Event
         {
 
-
-
             public extern RTCPeerConnectionIceEvent(
               string type,
               dom.RTCPeerConnectionIceEventInit eventInitDict);
@@ -51754,8 +48644,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpReceiverEventMap : IObject
         {
-
-
 
 
             public dom.Event error
@@ -51792,12 +48680,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpReceiver : dom.RTCStatsProvider
         {
-
-
-
-
-
-
 
 
             public extern RTCRtpReceiver(
@@ -52085,8 +48967,6 @@ namespace H5.Core
         public class RTCRtpSenderEventMap : IObject
         {
 
-
-
             public dom.Event error
             {
                 get;
@@ -52113,10 +48993,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCRtpSender : dom.RTCStatsProvider
         {
-
-
-
-
 
 
 
@@ -52400,8 +49276,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern RTCSessionDescription();
 
             public extern RTCSessionDescription(dom.RTCSessionDescriptionInit descriptionInitDict);
@@ -52432,8 +49306,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCSrtpSdesTransportEventMap : IObject
         {
-
-
             public dom.Event error
             {
                 get;
@@ -52452,8 +49324,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCSrtpSdesTransport : dom.EventTarget
         {
-
-
 
 
             public extern RTCSrtpSdesTransport(
@@ -52582,8 +49452,6 @@ namespace H5.Core
         public class RTCSsrcConflictEvent : dom.Event
         {
 
-
-
             public static dom.RTCSsrcConflictEvent prototype
             {
                 get;
@@ -52600,8 +49468,6 @@ namespace H5.Core
         [FormerInterface]
         public class RTCStatsProvider : dom.EventTarget
         {
-
-
             public static dom.RTCStatsProvider prototype
             {
                 get;
@@ -52617,8 +49483,6 @@ namespace H5.Core
         [FormerInterface]
         public class RandomSource : IObject
         {
-
-
             public static dom.RandomSource prototype
             {
                 get;
@@ -52639,16 +49503,6 @@ namespace H5.Core
         [FormerInterface]
         public class Range : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -52789,8 +49643,6 @@ namespace H5.Core
         public class ReadableStream : IObject
         {
 
-
-
             public static dom.ReadableStream prototype
             {
                 get;
@@ -52811,8 +49663,6 @@ namespace H5.Core
         [FormerInterface]
         public class ReadableStreamReader : IObject
         {
-
-
             public static dom.ReadableStreamReader prototype
             {
                 get;
@@ -52830,16 +49680,6 @@ namespace H5.Core
         [FormerInterface]
         public class Request : dom.Body
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -52953,12 +49793,6 @@ namespace H5.Core
         [FormerInterface]
         public class Response : dom.Body
         {
-
-
-
-
-
-
 
 
 
@@ -53105,8 +49939,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"a\")")]
             public extern SVGAElement();
 
@@ -53185,16 +50017,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGAngle : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -53298,8 +50120,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGAnimatedAngle prototype
             {
                 get;
@@ -53321,8 +50141,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGAnimatedBoolean : IObject
         {
-
-
 
 
             public static dom.SVGAnimatedBoolean prototype
@@ -53349,8 +50167,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGAnimatedEnumeration prototype
             {
                 get;
@@ -53373,8 +50189,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGAnimatedInteger : IObject
         {
-
-
 
 
             public static dom.SVGAnimatedInteger prototype
@@ -53401,8 +50215,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGAnimatedLength prototype
             {
                 get;
@@ -53426,8 +50238,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGAnimatedLengthList prototype
             {
                 get;
@@ -53449,8 +50259,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGAnimatedNumber : IObject
         {
-
-
 
 
             public static dom.SVGAnimatedNumber prototype
@@ -53477,8 +50285,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGAnimatedNumberList prototype
             {
                 get;
@@ -53501,8 +50307,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class SVGAnimatedPoints : dom.SVGAnimatedPoints.Interface, IObject
         {
-
-
 
             public dom.SVGPointList animatedPoints
             {
@@ -53531,8 +50335,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGAnimatedPreserveAspectRatio prototype
             {
                 get;
@@ -53556,8 +50358,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGAnimatedRect prototype
             {
                 get;
@@ -53579,8 +50379,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGAnimatedString : IObject
         {
-
-
 
 
             public static dom.SVGAnimatedString prototype
@@ -53607,8 +50405,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGAnimatedTransformList prototype
             {
                 get;
@@ -53630,10 +50426,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGCircleElement : dom.SVGGraphicsElement
         {
-
-
-
-
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"circle\")")]
             public extern SVGCircleElement();
@@ -53718,10 +50510,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGClipPathElement : dom.SVGGraphicsElement, dom.SVGUnitTypes.Interface, IObject
         {
-
-
-
-
 
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"clipPath\")")]
@@ -53812,20 +50600,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGComponentTransferFunctionElement : dom.SVGElement
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -54002,8 +50776,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGDefsElement : dom.SVGGraphicsElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"defs\")")]
             public extern SVGDefsElement();
 
@@ -54072,8 +50844,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGDescElement : dom.SVGElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"desc\")")]
             public extern SVGDescElement();
 
@@ -54143,14 +50913,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGElementEventMap : dom.ElementEventMap
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -54244,18 +51006,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGElement : dom.Element, dom.ElementCSSInlineStyle.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -54430,12 +51180,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             public static dom.SVGElementInstance prototype
             {
                 get;
@@ -54488,8 +51232,6 @@ namespace H5.Core
         public class SVGElementInstanceList : IObject
         {
 
-
-
             public static dom.SVGElementInstanceList prototype
             {
                 get;
@@ -54508,10 +51250,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGEllipseElement : dom.SVGGraphicsElement
         {
-
-
-
-
 
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"ellipse\")")]
@@ -54602,36 +51340,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEBlendElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -54947,20 +51655,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feColorMatrix\")")]
             public extern SVGFEColorMatrixElement();
 
@@ -55126,12 +51820,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feComponentTransfer\")")]
             public extern SVGFEComponentTransferElement();
 
@@ -55230,24 +51918,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFECompositeElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -55473,24 +52143,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feConvolveMatrix\")")]
             public extern SVGFEConvolveMatrixElement();
 
@@ -55692,14 +52344,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feDiffuseLighting\")")]
             public extern SVGFEDiffuseLightingElement();
 
@@ -55818,20 +52462,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEDisplacementMapElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -56015,8 +52645,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feDistantLight\")")]
             public extern SVGFEDistantLightElement();
 
@@ -56095,10 +52723,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEFloodElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
-
-
-
-
 
 
 
@@ -56195,8 +52819,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEFuncAElement : dom.SVGComponentTransferFunctionElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncA\")")]
             public extern SVGFEFuncAElement();
 
@@ -56265,8 +52887,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEFuncBElement : dom.SVGComponentTransferFunctionElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncB\")")]
             public extern SVGFEFuncBElement();
 
@@ -56335,8 +52955,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEFuncGElement : dom.SVGComponentTransferFunctionElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncG\")")]
             public extern SVGFEFuncGElement();
 
@@ -56405,8 +53023,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEFuncRElement : dom.SVGComponentTransferFunctionElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feFuncR\")")]
             public extern SVGFEFuncRElement();
 
@@ -56475,12 +53091,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEGaussianBlurElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
-
-
-
-
-
-
 
 
 
@@ -56598,12 +53208,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feImage\")")]
             public extern SVGFEImageElement();
 
@@ -56710,10 +53314,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feMerge\")")]
             public extern SVGFEMergeElement();
 
@@ -56808,8 +53408,6 @@ namespace H5.Core
         public class SVGFEMergeNodeElement : dom.SVGElement
         {
 
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feMergeNode\")")]
             public extern SVGFEMergeNodeElement();
 
@@ -56883,18 +53481,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFEMorphologyElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -57051,12 +53637,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feOffset\")")]
             public extern SVGFEOffsetElement();
 
@@ -57166,10 +53746,6 @@ namespace H5.Core
         public class SVGFEPointLightElement : dom.SVGElement
         {
 
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"fePointLight\")")]
             public extern SVGFEPointLightElement();
 
@@ -57253,14 +53829,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFESpecularLightingElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -57393,12 +53961,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feSpotLight\")")]
             public extern SVGFESpotLightElement();
 
@@ -57509,12 +54071,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"feTile\")")]
             public extern SVGFETileElement();
 
@@ -57613,22 +54169,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGFETurbulenceElement : dom.SVGElement, dom.SVGFilterPrimitiveStandardAttributes.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -57831,16 +54371,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"filter\")")]
             public extern SVGFilterElement();
 
@@ -57974,10 +54504,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public dom.SVGAnimatedLength height
             {
                 get;
@@ -58026,8 +54552,6 @@ namespace H5.Core
         public class SVGFitToViewBox : dom.SVGFitToViewBox.Interface, IObject
         {
 
-
-
             public dom.SVGAnimatedPreserveAspectRatio preserveAspectRatio
             {
                 get;
@@ -58053,10 +54577,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGForeignObjectElement : dom.SVGGraphicsElement
         {
-
-
-
-
 
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"foreignObject\")")]
@@ -58147,8 +54667,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGGElement : dom.SVGGraphicsElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"g\")")]
             public extern SVGGElement();
 
@@ -58217,18 +54735,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGGradientElement : dom.SVGElement, dom.SVGUnitTypes.Interface, IObject, dom.SVGURIReference.Interface
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -58383,12 +54889,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             public static dom.SVGGraphicsElement prototype
             {
                 get;
@@ -58496,12 +54996,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"image\")")]
             public extern SVGImageElement();
 
@@ -58600,24 +55094,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGLength : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -58790,8 +55266,6 @@ namespace H5.Core
         public class SVGLengthList : IEnumerable<dom.SVGLength>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.SVGLengthList prototype
             {
                 get;
@@ -58828,10 +55302,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGLineElement : dom.SVGGraphicsElement
         {
-
-
-
-
 
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"line\")")]
@@ -58924,10 +55394,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"linearGradient\")")]
             public extern SVGLinearGradientElement();
 
@@ -59016,22 +55482,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGMarkerElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -59226,16 +55676,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"mask\")")]
             public extern SVGMaskElement();
 
@@ -59368,12 +55808,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             public static dom.SVGMatrix prototype
             {
                 get;
@@ -59445,8 +55879,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGMetadataElement : dom.SVGElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"metadata\")")]
             public extern SVGMetadataElement();
 
@@ -59516,8 +55948,6 @@ namespace H5.Core
         public class SVGNumber : IObject
         {
 
-
-
             public static dom.SVGNumber prototype
             {
                 get;
@@ -59535,8 +55965,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGNumberList : IEnumerable<dom.SVGNumber>, IEnumerable, IH5Class, IObject
         {
-
-
 
             public static dom.SVGNumberList prototype
             {
@@ -59574,8 +56002,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathElement : dom.SVGGraphicsElement
         {
-
-
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"path\")")]
             public extern SVGPathElement();
@@ -59744,36 +56170,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathSeg : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -60032,12 +56428,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             public static dom.SVGPathSegArcAbs prototype
             {
                 get;
@@ -60094,12 +56484,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             public static dom.SVGPathSegArcRel prototype
             {
                 get;
@@ -60153,8 +56537,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathSegClosePath : dom.SVGPathSeg
         {
-
-
             public static dom.SVGPathSegClosePath prototype
             {
                 get;
@@ -60166,12 +56548,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathSegCurvetoCubicAbs : dom.SVGPathSeg
         {
-
-
-
-
-
-
 
 
             public static dom.SVGPathSegCurvetoCubicAbs prototype
@@ -60223,12 +56599,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             public static dom.SVGPathSegCurvetoCubicRel prototype
             {
                 get;
@@ -60278,10 +56648,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.SVGPathSegCurvetoCubicSmoothAbs prototype
             {
                 get;
@@ -60317,10 +56683,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathSegCurvetoCubicSmoothRel : dom.SVGPathSeg
         {
-
-
-
-
 
 
             public static dom.SVGPathSegCurvetoCubicSmoothRel prototype
@@ -60360,10 +56722,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.SVGPathSegCurvetoQuadraticAbs prototype
             {
                 get;
@@ -60399,10 +56757,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathSegCurvetoQuadraticRel : dom.SVGPathSeg
         {
-
-
-
-
 
 
             public static dom.SVGPathSegCurvetoQuadraticRel prototype
@@ -60442,8 +56796,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGPathSegCurvetoQuadraticSmoothAbs prototype
             {
                 get;
@@ -60467,8 +56819,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathSegCurvetoQuadraticSmoothRel : dom.SVGPathSeg
         {
-
-
 
 
             public static dom.SVGPathSegCurvetoQuadraticSmoothRel prototype
@@ -60496,8 +56846,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGPathSegLinetoAbs prototype
             {
                 get;
@@ -60522,8 +56870,6 @@ namespace H5.Core
         public class SVGPathSegLinetoHorizontalAbs : dom.SVGPathSeg
         {
 
-
-
             public static dom.SVGPathSegLinetoHorizontalAbs prototype
             {
                 get;
@@ -60542,8 +56888,6 @@ namespace H5.Core
         public class SVGPathSegLinetoHorizontalRel : dom.SVGPathSeg
         {
 
-
-
             public static dom.SVGPathSegLinetoHorizontalRel prototype
             {
                 get;
@@ -60561,8 +56905,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathSegLinetoRel : dom.SVGPathSeg
         {
-
-
 
 
             public static dom.SVGPathSegLinetoRel prototype
@@ -60589,8 +56931,6 @@ namespace H5.Core
         public class SVGPathSegLinetoVerticalAbs : dom.SVGPathSeg
         {
 
-
-
             public static dom.SVGPathSegLinetoVerticalAbs prototype
             {
                 get;
@@ -60609,8 +56949,6 @@ namespace H5.Core
         public class SVGPathSegLinetoVerticalRel : dom.SVGPathSeg
         {
 
-
-
             public static dom.SVGPathSegLinetoVerticalRel prototype
             {
                 get;
@@ -60628,8 +56966,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPathSegList : IEnumerable<dom.SVGPathSeg>, IEnumerable, IH5Class, IObject
         {
-
-
 
             public static dom.SVGPathSegList prototype
             {
@@ -60669,8 +57005,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGPathSegMovetoAbs prototype
             {
                 get;
@@ -60696,8 +57030,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGPathSegMovetoRel prototype
             {
                 get;
@@ -60721,18 +57053,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPatternElement : dom.SVGElement, dom.SVGTests.Interface, IObject, dom.SVGUnitTypes.Interface, dom.SVGFitToViewBox.Interface, dom.SVGURIReference.Interface
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -60891,8 +57211,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.SVGPoint prototype
             {
                 get;
@@ -60918,8 +57236,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPointList : IEnumerable<dom.SVGPoint>, IEnumerable, IH5Class, IObject
         {
-
-
 
             public static dom.SVGPointList prototype
             {
@@ -60957,8 +57273,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPolygonElement : dom.SVGGraphicsElement, dom.SVGAnimatedPoints.Interface, IObject
         {
-
-
 
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"polygon\")")]
@@ -61041,8 +57355,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"polyline\")")]
             public extern SVGPolylineElement();
 
@@ -61121,28 +57433,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGPreserveAspectRatio : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -61333,10 +57623,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"radialGradient\")")]
             public extern SVGRadialGradientElement();
 
@@ -61432,10 +57718,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.SVGRect prototype
             {
                 get;
@@ -61471,12 +57753,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGRectElement : dom.SVGGraphicsElement
         {
-
-
-
-
-
-
 
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"rect\")")]
@@ -61581,10 +57857,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public dom.Event SVGAbort
             {
                 get;
@@ -61643,22 +57915,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGSVGElement : dom.SVGGraphicsElement, dom.DocumentEvent.Interface, IObject, dom.SVGFitToViewBox.Interface, dom.SVGZoomAndPan.Interface
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -62119,8 +58375,6 @@ namespace H5.Core
         {
 
 
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"script\")")]
             public extern SVGScriptElement();
 
@@ -62201,8 +58455,6 @@ namespace H5.Core
         public class SVGStopElement : dom.SVGElement
         {
 
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"stop\")")]
             public extern SVGStopElement();
 
@@ -62277,8 +58529,6 @@ namespace H5.Core
         public class SVGStringList : IEnumerable<string>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.SVGStringList prototype
             {
                 get;
@@ -62316,8 +58566,6 @@ namespace H5.Core
         public class SVGStylable : IObject
         {
 
-
-
             public static dom.SVGStylable prototype
             {
                 get;
@@ -62335,10 +58583,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGStyleElement : dom.SVGElement
         {
-
-
-
-
 
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"style\")")]
@@ -62433,8 +58677,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGSwitchElement : dom.SVGGraphicsElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"switch\")")]
             public extern SVGSwitchElement();
 
@@ -62503,8 +58745,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGSymbolElement : dom.SVGElement, dom.SVGFitToViewBox.Interface, IObject
         {
-
-
 
 
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"symbol\")")]
@@ -62585,8 +58825,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGTSpanElement : dom.SVGTextPositioningElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"tspan\")")]
             public extern SVGTSpanElement();
 
@@ -62682,12 +58920,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGTextContentElement : dom.SVGGraphicsElement
         {
-
-
-
-
-
-
 
 
 
@@ -62821,8 +59053,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGTextElement : dom.SVGTextPositioningElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"text\")")]
             public extern SVGTextElement();
 
@@ -62891,18 +59121,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGTextPathElement : dom.SVGTextContentElement, dom.SVGURIReference.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -63066,10 +59284,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"textPositioning\")")]
             public extern SVGTextPositioningElement();
 
@@ -63163,8 +59377,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGTitleElement : dom.SVGElement
         {
-
-
             [Template("document.createElementNS(\"http://www.w3.org/2000/svg\", \"title\")")]
             public extern SVGTitleElement();
 
@@ -63233,18 +59445,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGTransform : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -63368,8 +59568,6 @@ namespace H5.Core
         public class SVGTransformList : IEnumerable<dom.SVGTransform>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.SVGTransformList prototype
             {
                 get;
@@ -63413,8 +59611,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class SVGURIReference : dom.SVGURIReference.Interface, IObject
         {
-
-
             public dom.SVGAnimatedString href
             {
                 get;
@@ -63434,8 +59630,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class SVGUnitTypes : dom.SVGUnitTypes.Interface, IObject
         {
-
-
 
 
             public ushort SVG_UNIT_TYPE_OBJECTBOUNDINGBOX
@@ -63470,12 +59664,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGUseElement : dom.SVGGraphicsElement, dom.SVGURIReference.Interface, IObject
         {
-
-
-
-
-
-
 
 
 
@@ -63584,10 +59772,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.SVGViewElement prototype
             {
                 get;
@@ -63674,8 +59858,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class SVGZoomAndPan : dom.SVGZoomAndPan.Interface, IObject
         {
-
-
             public ushort zoomAndPan
             {
                 get;
@@ -63694,10 +59876,6 @@ namespace H5.Core
         [FormerInterface]
         public class SVGZoomEvent : dom.UIEvent
         {
-
-
-
-
 
 
 
@@ -63739,8 +59917,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.ScopedCredential prototype
             {
                 get;
@@ -63762,8 +59938,6 @@ namespace H5.Core
         [FormerInterface]
         public class ScopedCredentialInfo : IObject
         {
-
-
 
 
             public static dom.ScopedCredentialInfo prototype
@@ -63788,8 +59962,6 @@ namespace H5.Core
         [FormerInterface]
         public class ScreenEventMap : IObject
         {
-
-
             public dom.Event MSOrientationChange
             {
                 get;
@@ -63808,18 +59980,6 @@ namespace H5.Core
         [FormerInterface]
         public class Screen : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -64033,8 +60193,6 @@ namespace H5.Core
         [FormerInterface]
         public class ScriptProcessorNodeEventMap : IObject
         {
-
-
             public dom.AudioProcessingEvent audioprocess
             {
                 get;
@@ -64053,8 +60211,6 @@ namespace H5.Core
         [FormerInterface]
         public class ScriptProcessorNode : dom.AudioNode
         {
-
-
 
 
             public static dom.ScriptProcessorNode prototype
@@ -64266,8 +60422,6 @@ namespace H5.Core
         public class ScrollIntoViewOptions : dom.ScrollOptions
         {
 
-
-
             public dom.ScrollLogicalPosition block
             {
                 get;
@@ -64286,8 +60440,6 @@ namespace H5.Core
         [FormerInterface]
         public class ScrollOptions : IObject
         {
-
-
             public dom.ScrollBehavior behavior
             {
                 get;
@@ -64300,8 +60452,6 @@ namespace H5.Core
         [FormerInterface]
         public class ScrollToOptions : dom.ScrollOptions
         {
-
-
 
             public double? left
             {
@@ -64320,14 +60470,6 @@ namespace H5.Core
         [FormerInterface]
         public class SecurityPolicyViolationEvent : dom.Event
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -64399,14 +60541,6 @@ namespace H5.Core
         [FormerInterface]
         public class Selection : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -64523,8 +60657,6 @@ namespace H5.Core
         [FormerInterface]
         public class ServiceWorkerEventMap : dom.AbstractWorkerEventMap
         {
-
-
             public dom.Event statechange
             {
                 get;
@@ -64543,10 +60675,6 @@ namespace H5.Core
         [FormerInterface]
         public class ServiceWorker : dom.EventTarget, dom.AbstractWorker.Interface, IObject
         {
-
-
-
-
 
 
             public static dom.ServiceWorker prototype
@@ -64731,8 +60859,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.Event controllerchange
             {
                 get;
@@ -64767,10 +60893,6 @@ namespace H5.Core
         [FormerInterface]
         public class ServiceWorkerContainer : dom.EventTarget
         {
-
-
-
-
 
 
 
@@ -64934,10 +61056,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public extern ServiceWorkerMessageEvent(string type);
 
             public extern ServiceWorkerMessageEvent(
@@ -64981,8 +61099,6 @@ namespace H5.Core
         [FormerInterface]
         public class ServiceWorkerRegistrationEventMap : IObject
         {
-
-
             public dom.Event updatefound
             {
                 get;
@@ -65001,12 +61117,6 @@ namespace H5.Core
         [FormerInterface]
         public class ServiceWorkerRegistration : dom.EventTarget
         {
-
-
-
-
-
-
 
 
 
@@ -65169,8 +61279,6 @@ namespace H5.Core
         [FormerInterface]
         public abstract class ShadowRoot : dom.DocumentOrShadowRoot, dom.DocumentFragment.Interface, dom.Node.Interface, dom.EventTarget.Interface, IObject, dom.ParentNode.Interface
         {
-
-
 
 
             public abstract dom.Element host { get; }
@@ -65423,8 +61531,6 @@ namespace H5.Core
         public class ShadowRootInit : IObject
         {
 
-
-
             public bool? delegatesFocus
             {
                 get;
@@ -65442,12 +61548,6 @@ namespace H5.Core
         [FormerInterface]
         public class SourceBuffer : dom.EventTarget
         {
-
-
-
-
-
-
 
 
 
@@ -65543,8 +61643,6 @@ namespace H5.Core
         public class SourceBufferList : dom.EventTarget
         {
 
-
-
             public static dom.SourceBufferList prototype
             {
                 get;
@@ -65566,8 +61664,6 @@ namespace H5.Core
         [FormerInterface]
         public class SpeechSynthesisEventMap : IObject
         {
-
-
             public dom.Event voiceschanged
             {
                 get;
@@ -65586,10 +61682,6 @@ namespace H5.Core
         [FormerInterface]
         public class SpeechSynthesis : dom.EventTarget
         {
-
-
-
-
 
 
             public static dom.SpeechSynthesis prototype
@@ -65733,10 +61825,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public extern SpeechSynthesisEvent(string type);
 
             public extern SpeechSynthesisEvent(string type, dom.SpeechSynthesisEventInit eventInitDict);
@@ -65778,12 +61866,6 @@ namespace H5.Core
         [FormerInterface]
         public class SpeechSynthesisUtteranceEventMap : IObject
         {
-
-
-
-
-
-
 
 
             public dom.Event boundary
@@ -65852,16 +61934,6 @@ namespace H5.Core
         [FormerInterface]
         public class SpeechSynthesisUtterance : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -66059,10 +62131,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public static dom.SpeechSynthesisVoice prototype
             {
                 get;
@@ -66101,8 +62169,6 @@ namespace H5.Core
         public class StereoPannerNode : dom.AudioNode
         {
 
-
-
             public static dom.StereoPannerNode prototype
             {
                 get;
@@ -66119,8 +62185,6 @@ namespace H5.Core
         [FormerInterface]
         public class Storage : IObject
         {
-
-
 
             public static dom.Storage prototype
             {
@@ -66148,10 +62212,6 @@ namespace H5.Core
         [FormerInterface]
         public class StorageEvent : dom.Event
         {
-
-
-
-
 
 
 
@@ -66198,10 +62258,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public string key
             {
                 get;
@@ -66238,8 +62294,6 @@ namespace H5.Core
         public class StyleMedia : IObject
         {
 
-
-
             public static dom.StyleMedia prototype
             {
                 get;
@@ -66258,12 +62312,6 @@ namespace H5.Core
         [FormerInterface]
         public class StyleSheet : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -66315,8 +62363,6 @@ namespace H5.Core
         public class StyleSheetList : IEnumerable<dom.StyleSheet>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.StyleSheetList prototype
             {
                 get;
@@ -66343,8 +62389,6 @@ namespace H5.Core
         [FormerInterface]
         public class SubtleCrypto : IObject
         {
-
-
             public static dom.SubtleCrypto prototype
             {
                 get;
@@ -67519,8 +63563,6 @@ namespace H5.Core
         [FormerInterface]
         public class SyncManager : IObject
         {
-
-
             public static dom.SyncManager prototype
             {
                 get;
@@ -67536,8 +63578,6 @@ namespace H5.Core
         [FormerInterface]
         public class Text : dom.CharacterData
         {
-
-
 
 
             public extern Text();
@@ -67567,10 +63607,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextDecoder : IObject
         {
-
-
-
-
 
             public extern TextDecoder();
 
@@ -67664,8 +63700,6 @@ namespace H5.Core
         public class TextEncoder : IObject
         {
 
-
-
             public static dom.TextEncoder prototype
             {
                 get;
@@ -67686,22 +63720,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextEvent : dom.UIEvent
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -67845,8 +63863,6 @@ namespace H5.Core
         public class TextMetrics : IObject
         {
 
-
-
             public static dom.TextMetrics prototype
             {
                 get;
@@ -67864,8 +63880,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextTrackEventMap : IObject
         {
-
-
 
 
             public dom.Event cuechange
@@ -67902,24 +63916,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextTrack : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -68178,8 +64174,6 @@ namespace H5.Core
         public class TextTrackCueEventMap : IObject
         {
 
-
-
             public dom.Event enter
             {
                 get;
@@ -68206,12 +64200,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextTrackCue : dom.EventTarget
         {
-
-
-
-
-
-
 
 
 
@@ -68376,8 +64364,6 @@ namespace H5.Core
         public class TextTrackCueList : IEnumerable<dom.TextTrackCue>, IEnumerable, IH5Class, IObject
         {
 
-
-
             public static dom.TextTrackCueList prototype
             {
                 get;
@@ -68407,8 +64393,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextTrackListEventMap : IObject
         {
-
-
             public dom.TrackEvent addtrack
             {
                 get;
@@ -68427,8 +64411,6 @@ namespace H5.Core
         [FormerInterface]
         public class TextTrackList : dom.EventTarget, IEnumerable<dom.TextTrack>, IEnumerable, IH5Class
         {
-
-
 
 
             public static dom.TextTrackList prototype
@@ -68560,8 +64542,6 @@ namespace H5.Core
         public class TimeRanges : IObject
         {
 
-
-
             public static dom.TimeRanges prototype
             {
                 get;
@@ -68582,12 +64562,6 @@ namespace H5.Core
         [FormerInterface]
         public class Touch : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -68643,14 +64617,6 @@ namespace H5.Core
         [FormerInterface]
         public class TouchEvent : dom.UIEvent
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -68723,8 +64689,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.Touch[] changedTouches
             {
                 get;
@@ -68748,8 +64712,6 @@ namespace H5.Core
         [FormerInterface]
         public class TouchList : IEnumerable<dom.Touch>, IEnumerable, IH5Class, IObject
         {
-
-
 
             public static dom.TouchList prototype
             {
@@ -68778,8 +64740,6 @@ namespace H5.Core
         public class TrackEvent : dom.Event
         {
 
-
-
             public extern TrackEvent(string typeArg);
 
             public extern TrackEvent(string typeArg, dom.TrackEventInit eventInitDict);
@@ -68800,8 +64760,6 @@ namespace H5.Core
         [FormerInterface]
         public class TransitionEvent : dom.Event
         {
-
-
 
 
             public extern TransitionEvent(string typeArg);
@@ -68836,10 +64794,6 @@ namespace H5.Core
         [FormerInterface]
         public class TreeWalker : IObject
         {
-
-
-
-
 
 
 
@@ -68896,8 +64850,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern UIEvent();
 
             public extern UIEvent(string typeArg);
@@ -68932,16 +64884,6 @@ namespace H5.Core
         [FormerInterface]
         public class URL : IObject
         {
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -69043,8 +64985,6 @@ namespace H5.Core
         [FormerInterface]
         public class URLSearchParams : IObject
         {
-
-
             public extern URLSearchParams();
 
             public extern URLSearchParams(Union<string, dom.URLSearchParams> init);
@@ -69076,12 +65016,6 @@ namespace H5.Core
         [FormerInterface]
         public class VRDisplay : dom.EventTarget
         {
-
-
-
-
-
-
 
 
 
@@ -69165,10 +65099,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public static dom.VRDisplayCapabilities prototype
             {
                 get;
@@ -69207,8 +65137,6 @@ namespace H5.Core
         {
 
 
-
-
             public extern VRDisplayEvent(string type, dom.VRDisplayEventInit eventInitDict);
 
             public static dom.VRDisplayEvent prototype
@@ -69232,10 +65160,6 @@ namespace H5.Core
         [FormerInterface]
         public class VREyeParameters : IObject
         {
-
-
-
-
 
 
             public static dom.VREyeParameters prototype
@@ -69271,10 +65195,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.VRFieldOfView prototype
             {
                 get;
@@ -69306,12 +65226,6 @@ namespace H5.Core
         [FormerInterface]
         public class VRFrameData : IObject
         {
-
-
-
-
-
-
 
 
             public static dom.VRFrameData prototype
@@ -69355,12 +65269,6 @@ namespace H5.Core
         [FormerInterface]
         public class VRPose : IObject
         {
-
-
-
-
-
-
 
 
 
@@ -69410,14 +65318,6 @@ namespace H5.Core
         [FormerInterface]
         public class ValidityState : IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -69492,10 +65392,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public static dom.VideoPlaybackQuality prototype
             {
                 get;
@@ -69532,12 +65428,6 @@ namespace H5.Core
         [FormerInterface]
         public class VideoTrack : IObject
         {
-
-
-
-
-
-
 
 
             public static dom.VideoTrack prototype
@@ -69587,8 +65477,6 @@ namespace H5.Core
         {
 
 
-
-
             public dom.TrackEvent addtrack
             {
                 get;
@@ -69623,10 +65511,6 @@ namespace H5.Core
         [FormerInterface]
         public class VideoTrackList : dom.EventTarget
         {
-
-
-
-
 
 
 
@@ -69776,10 +65660,6 @@ namespace H5.Core
         public class WEBGL_color_buffer_float : IObject
         {
 
-
-
-
-
             public double FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT
             {
                 get;
@@ -69873,12 +65753,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             public static dom.WEBGL_compressed_texture_s3tc prototype
             {
                 get;
@@ -69936,10 +65810,6 @@ namespace H5.Core
         public class WEBGL_compressed_texture_s3tc_srgb : IObject
         {
 
-
-
-
-
             public double COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT
             {
                 get;
@@ -69965,10 +65835,6 @@ namespace H5.Core
         [FormerInterface]
         public class WEBGL_debug_renderer_info : IObject
         {
-
-
-
-
 
 
             public static dom.WEBGL_debug_renderer_info prototype
@@ -70012,8 +65878,6 @@ namespace H5.Core
         [FormerInterface]
         public class WEBGL_depth_texture : IObject
         {
-
-
 
 
             public static dom.WEBGL_depth_texture prototype
@@ -70126,8 +65990,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.WaveShaperNode prototype
             {
                 get;
@@ -70151,8 +66013,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebAuthentication : IObject
         {
-
-
             public static dom.WebAuthentication prototype
             {
                 get;
@@ -70400,10 +66260,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
             public static dom.WebAuthnAssertion prototype
             {
                 get;
@@ -70436,10 +66292,6 @@ namespace H5.Core
         public class WebGLActiveInfo : IObject
         {
 
-
-
-
-
             public static dom.WebGLActiveInfo prototype
             {
                 get;
@@ -70466,8 +66318,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLBuffer : dom.WebGLObject
         {
-
-
             public static dom.WebGLBuffer prototype
             {
                 get;
@@ -70479,8 +66329,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLContextEvent : dom.Event
         {
-
-
 
             public extern WebGLContextEvent(string typeArg);
 
@@ -70502,8 +66350,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLFramebuffer : dom.WebGLObject
         {
-
-
             public static dom.WebGLFramebuffer prototype
             {
                 get;
@@ -70515,8 +66361,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLObject : IObject
         {
-
-
             public static dom.WebGLObject prototype
             {
                 get;
@@ -70528,8 +66372,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLProgram : dom.WebGLObject
         {
-
-
             public static dom.WebGLProgram prototype
             {
                 get;
@@ -70541,8 +66383,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLRenderbuffer : dom.WebGLObject
         {
-
-
             public static dom.WebGLRenderbuffer prototype
             {
                 get;
@@ -70554,406 +66394,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLRenderingContext : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -75516,8 +70956,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLShader : dom.WebGLObject
         {
-
-
             public static dom.WebGLShader prototype
             {
                 get;
@@ -75529,10 +70967,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLShaderPrecisionFormat : IObject
         {
-
-
-
-
 
             public static dom.WebGLShaderPrecisionFormat prototype
             {
@@ -75560,8 +70994,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLTexture : dom.WebGLObject
         {
-
-
             public static dom.WebGLTexture prototype
             {
                 get;
@@ -75573,8 +71005,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebGLUniformLocation : IObject
         {
-
-
             public static dom.WebGLUniformLocation prototype
             {
                 get;
@@ -75593,22 +71023,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebKitCSSMatrix : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -75804,8 +71218,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebKitDirectoryEntry : dom.WebKitEntry
         {
-
-
             public static dom.WebKitDirectoryEntry prototype
             {
                 get;
@@ -75819,8 +71231,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebKitDirectoryReader : IObject
         {
-
-
             public static dom.WebKitDirectoryReader prototype
             {
                 get;
@@ -75886,10 +71296,6 @@ namespace H5.Core
 
 
 
-
-
-
-
             public static dom.WebKitEntry prototype
             {
                 get;
@@ -75926,8 +71332,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebKitFileEntry : dom.WebKitEntry
         {
-
-
             public static dom.WebKitFileEntry prototype
             {
                 get;
@@ -75992,8 +71396,6 @@ namespace H5.Core
         {
 
 
-
-
             public static dom.WebKitFileSystem prototype
             {
                 get;
@@ -76015,8 +71417,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebKitPoint : IObject
         {
-
-
 
 
             public extern WebKitPoint();
@@ -76049,10 +71449,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebSocketEventMap : IObject
         {
-
-
-
-
 
             public dom.CloseEvent close
             {
@@ -76096,20 +71492,6 @@ namespace H5.Core
         [FormerInterface]
         public class WebSocket : dom.EventTarget
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -76360,16 +71742,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
             public extern WheelEvent(string typeArg);
 
             public extern WheelEvent(string typeArg, dom.WheelEventInit eventInitDict);
@@ -76474,72 +71846,6 @@ namespace H5.Core
         [FormerInterface]
         public class WindowEventMap : dom.GlobalEventHandlersEventMap
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -77367,118 +72673,6 @@ namespace H5.Core
         [FormerInterface]
         public class Window : dom.EventTarget, dom.WindowTimers.Interface, dom.WindowTimersExtension.Interface, IObject, dom.WindowSessionStorage.Interface, dom.WindowLocalStorage.Interface, dom.WindowConsole.Interface, dom.GlobalEventHandlers.Interface, dom.IDBEnvironment.Interface, dom.WindowBase64.Interface, dom.GlobalFetch.Interface
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -79064,8 +74258,6 @@ namespace H5.Core
             [Virtual]
             public abstract class BlobStatics : IObject
             {
-
-
                 [Template("<self>new {this}()")]
                 public abstract dom.Blob Create();
 
@@ -79086,8 +74278,6 @@ namespace H5.Core
             [Virtual]
             public abstract class URLStatics : IObject
             {
-
-
                 [Template("<self>new {this}({0})")]
                 public abstract dom.URL Create(string url);
 
@@ -79117,8 +74307,6 @@ namespace H5.Core
             [Virtual]
             public abstract class URLSearchParamsStatics : IObject
             {
-
-
                 [Template("<self>new {this}()")]
                 public abstract dom.URLSearchParams Create();
 
@@ -79163,8 +74351,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class WindowConsole : dom.WindowConsole.Interface, IObject
         {
-
-
             public dom.Console console
             {
                 get;
@@ -79184,14 +74370,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class WindowEventHandlersEventMap : dom.WindowEventHandlersEventMap.Interface, IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -79334,14 +74512,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public abstract class WindowEventHandlers : dom.WindowEventHandlers.Interface, IObject
         {
-
-
-
-
-
-
-
-
 
 
 
@@ -79804,8 +74974,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class WindowLocalStorage : dom.WindowLocalStorage.Interface, IObject
         {
-
-
             public dom.Storage localStorage
             {
                 get;
@@ -79825,8 +74993,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public class WindowSessionStorage : dom.WindowSessionStorage.Interface, IObject
         {
-
-
             public dom.Storage sessionStorage
             {
                 get;
@@ -79937,8 +75103,6 @@ namespace H5.Core
         [FormerInterface]
         public class WorkerEventMap : dom.AbstractWorkerEventMap
         {
-
-
             public dom.MessageEvent message
             {
                 get;
@@ -79957,8 +75121,6 @@ namespace H5.Core
         [FormerInterface]
         public class Worker : dom.EventTarget, dom.AbstractWorker.Interface, IObject
         {
-
-
 
 
             public extern Worker(string stringUrl);
@@ -80135,8 +75297,6 @@ namespace H5.Core
         public class WritableStream : IObject
         {
 
-
-
             public extern WritableStream();
 
             public extern WritableStream(dom.UnderlyingSink underlyingSink);
@@ -80165,8 +75325,6 @@ namespace H5.Core
         [FormerInterface]
         public class WritableStreamDefaultController : IObject
         {
-
-
             public static dom.WritableStreamDefaultController prototype
             {
                 get;
@@ -80182,10 +75340,6 @@ namespace H5.Core
         [FormerInterface]
         public class WritableStreamDefaultWriter : IObject
         {
-
-
-
-
 
             public static dom.WritableStreamDefaultWriter prototype
             {
@@ -80225,8 +75379,6 @@ namespace H5.Core
         [FormerInterface]
         public class XMLDocument : dom.Document
         {
-
-
             public static dom.XMLDocument prototype
             {
                 get;
@@ -80293,8 +75445,6 @@ namespace H5.Core
         [FormerInterface]
         public class XMLHttpRequestEventMap : dom.XMLHttpRequestEventTargetEventMap
         {
-
-
             public dom.Event readystatechange
             {
                 get;
@@ -80313,28 +75463,6 @@ namespace H5.Core
         [FormerInterface]
         public class XMLHttpRequest : dom.EventTarget, dom.XMLHttpRequestEventTarget.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -80697,12 +75825,6 @@ namespace H5.Core
         {
 
 
-
-
-
-
-
-
             public dom.Event abort
             {
                 get;
@@ -80770,12 +75892,6 @@ namespace H5.Core
         [InterfaceWrapper]
         public abstract class XMLHttpRequestEventTarget : dom.XMLHttpRequestEventTarget.Interface, IObject
         {
-
-
-
-
-
-
 
 
             public virtual dom.XMLHttpRequestEventTarget.onabortFn onabort
@@ -81185,12 +76301,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
             public static dom.XMLHttpRequestUpload prototype
             {
                 get;
@@ -81383,8 +76493,6 @@ namespace H5.Core
         [FormerInterface]
         public class XMLSerializer : IObject
         {
-
-
             public static dom.XMLSerializer prototype
             {
                 get;
@@ -81398,8 +76506,6 @@ namespace H5.Core
         [FormerInterface]
         public class XPathEvaluator : IObject
         {
-
-
             public static dom.XPathEvaluator prototype
             {
                 get;
@@ -81426,8 +76532,6 @@ namespace H5.Core
         [FormerInterface]
         public class XPathExpression : IObject
         {
-
-
             public static dom.XPathExpression prototype
             {
                 get;
@@ -81444,8 +76548,6 @@ namespace H5.Core
         [FormerInterface]
         public class XPathNSResolver : IObject
         {
-
-
             public static dom.XPathNSResolver prototype
             {
                 get;
@@ -81459,26 +76561,6 @@ namespace H5.Core
         [FormerInterface]
         public class XPathResult : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -81648,8 +76730,6 @@ namespace H5.Core
         [FormerInterface]
         public class XSLTProcessor : IObject
         {
-
-
             public static dom.XSLTProcessor prototype
             {
                 get;
@@ -81679,8 +76759,6 @@ namespace H5.Core
         [FormerInterface]
         public class webkitRTCPeerConnection : dom.RTCPeerConnection
         {
-
-
             public extern webkitRTCPeerConnection(dom.RTCConfiguration configuration);
 
             public static dom.webkitRTCPeerConnection prototype
@@ -82101,90 +77179,6 @@ namespace H5.Core
         [FormerInterface]
         public class HTMLElementTagNameMap : IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -83265,42 +78259,6 @@ namespace H5.Core
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             public dom.SVGCircleElement circle
             {
                 get;
@@ -83848,42 +78806,6 @@ namespace H5.Core
         [FormerInterface]
         public class ElementTagNameMap : dom.HTMLElementTagNameMap, dom.SVGElementTagNameMap.Interface, IObject
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -87330,8 +82252,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ANGLE_instanced_arraysTypeConfig : IObject
         {
-
-
             public virtual dom.ANGLE_instanced_arrays prototype
             {
                 get;
@@ -87347,8 +82267,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AbortControllerTypeConfig : IObject
         {
-
-
             public virtual dom.AbortController prototype
             {
                 get;
@@ -87362,8 +82280,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AbortSignalTypeConfig : IObject
         {
-
-
             public virtual dom.AbortSignal prototype
             {
                 get;
@@ -87377,8 +82293,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AnalyserNodeTypeConfig : IObject
         {
-
-
             public virtual dom.AnalyserNode prototype
             {
                 get;
@@ -87392,8 +82306,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AnimationTypeConfig : IObject
         {
-
-
             public virtual dom.Animation prototype
             {
                 get;
@@ -87415,8 +82327,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AnimationEventTypeConfig : IObject
         {
-
-
             public virtual dom.AnimationEvent prototype
             {
                 get;
@@ -87435,8 +82345,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AnimationPlaybackEventTypeConfig : IObject
         {
-
-
             public virtual dom.AnimationPlaybackEvent prototype
             {
                 get;
@@ -87455,8 +82363,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ApplicationCacheTypeConfig : IObject
         {
-
-
             public virtual dom.ApplicationCache prototype
             {
                 get;
@@ -87482,8 +82388,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AttrTypeConfig : IObject
         {
-
-
             public virtual dom.Attr prototype
             {
                 get;
@@ -87497,8 +82401,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioBufferTypeConfig : IObject
         {
-
-
             public virtual dom.AudioBuffer prototype
             {
                 get;
@@ -87512,8 +82414,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioBufferSourceNodeTypeConfig : IObject
         {
-
-
             public virtual dom.AudioBufferSourceNode prototype
             {
                 get;
@@ -87527,8 +82427,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioContextTypeConfig : IObject
         {
-
-
             public virtual dom.AudioContext prototype
             {
                 get;
@@ -87542,8 +82440,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioDestinationNodeTypeConfig : IObject
         {
-
-
             public virtual dom.AudioDestinationNode prototype
             {
                 get;
@@ -87557,8 +82453,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioListenerTypeConfig : IObject
         {
-
-
             public virtual dom.AudioListener prototype
             {
                 get;
@@ -87572,8 +82466,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioNodeTypeConfig : IObject
         {
-
-
             public virtual dom.AudioNode prototype
             {
                 get;
@@ -87587,8 +82479,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioParamTypeConfig : IObject
         {
-
-
             public virtual dom.AudioParam prototype
             {
                 get;
@@ -87602,8 +82492,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioProcessingEventTypeConfig : IObject
         {
-
-
             public virtual dom.AudioProcessingEvent prototype
             {
                 get;
@@ -87617,8 +82505,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioTrackTypeConfig : IObject
         {
-
-
             public virtual dom.AudioTrack prototype
             {
                 get;
@@ -87632,8 +82518,6 @@ namespace H5.Core
         [Virtual]
         public abstract class AudioTrackListTypeConfig : IObject
         {
-
-
             public virtual dom.AudioTrackList prototype
             {
                 get;
@@ -87647,8 +82531,6 @@ namespace H5.Core
         [Virtual]
         public abstract class BarPropTypeConfig : IObject
         {
-
-
             public virtual dom.BarProp prototype
             {
                 get;
@@ -87662,8 +82544,6 @@ namespace H5.Core
         [Virtual]
         public abstract class BeforeUnloadEventTypeConfig : IObject
         {
-
-
             public virtual dom.BeforeUnloadEvent prototype
             {
                 get;
@@ -87677,8 +82557,6 @@ namespace H5.Core
         [Virtual]
         public abstract class BhxBrowserTypeConfig : IObject
         {
-
-
             public virtual dom.BhxBrowser prototype
             {
                 get;
@@ -87692,8 +82570,6 @@ namespace H5.Core
         [Virtual]
         public abstract class BiquadFilterNodeTypeConfig : IObject
         {
-
-
             public virtual dom.BiquadFilterNode prototype
             {
                 get;
@@ -87707,8 +82583,6 @@ namespace H5.Core
         [Virtual]
         public abstract class BlobTypeConfig : IObject
         {
-
-
             public virtual dom.Blob prototype
             {
                 get;
@@ -87728,8 +82602,6 @@ namespace H5.Core
         [Virtual]
         public abstract class BroadcastChannelTypeConfig : IObject
         {
-
-
             public virtual dom.BroadcastChannel prototype
             {
                 get;
@@ -87743,8 +82615,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ByteLengthQueuingStrategyTypeConfig : IObject
         {
-
-
             public virtual dom.ByteLengthQueuingStrategy prototype
             {
                 get;
@@ -87758,8 +82628,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CDATASectionTypeConfig : IObject
         {
-
-
             public virtual dom.CDATASection prototype
             {
                 get;
@@ -87773,8 +82641,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSConditionRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSConditionRule prototype
             {
                 get;
@@ -87788,8 +82654,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSFontFaceRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSFontFaceRule prototype
             {
                 get;
@@ -87803,8 +82667,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSGroupingRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSGroupingRule prototype
             {
                 get;
@@ -87818,8 +82680,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSImportRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSImportRule prototype
             {
                 get;
@@ -87833,8 +82693,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSKeyframeRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSKeyframeRule prototype
             {
                 get;
@@ -87848,8 +82706,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSKeyframesRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSKeyframesRule prototype
             {
                 get;
@@ -87863,8 +82719,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSMediaRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSMediaRule prototype
             {
                 get;
@@ -87878,8 +82732,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSNamespaceRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSNamespaceRule prototype
             {
                 get;
@@ -87893,8 +82745,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSPageRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSPageRule prototype
             {
                 get;
@@ -87908,8 +82758,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSRule prototype
             {
                 get;
@@ -87947,8 +82795,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSRuleListTypeConfig : IObject
         {
-
-
             public virtual dom.CSSRuleList prototype
             {
                 get;
@@ -87962,8 +82808,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSStyleDeclarationTypeConfig : IObject
         {
-
-
             public virtual dom.CSSStyleDeclaration prototype
             {
                 get;
@@ -87977,8 +82821,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSStyleRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSStyleRule prototype
             {
                 get;
@@ -87992,8 +82834,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSStyleSheetTypeConfig : IObject
         {
-
-
             public virtual dom.CSSStyleSheet prototype
             {
                 get;
@@ -88007,8 +82847,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CSSSupportsRuleTypeConfig : IObject
         {
-
-
             public virtual dom.CSSSupportsRule prototype
             {
                 get;
@@ -88022,8 +82860,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CacheTypeConfig : IObject
         {
-
-
             public virtual dom.Cache prototype
             {
                 get;
@@ -88037,8 +82873,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CacheStorageTypeConfig : IObject
         {
-
-
             public virtual dom.CacheStorage prototype
             {
                 get;
@@ -88052,8 +82886,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CanvasGradientTypeConfig : IObject
         {
-
-
             public virtual dom.CanvasGradient prototype
             {
                 get;
@@ -88067,8 +82899,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CanvasPatternTypeConfig : IObject
         {
-
-
             public virtual dom.CanvasPattern prototype
             {
                 get;
@@ -88082,8 +82912,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CanvasRenderingContext2DTypeConfig : IObject
         {
-
-
             public virtual dom.CanvasRenderingContext2D prototype
             {
                 get;
@@ -88097,8 +82925,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ChannelMergerNodeTypeConfig : IObject
         {
-
-
             public virtual dom.ChannelMergerNode prototype
             {
                 get;
@@ -88112,8 +82938,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ChannelSplitterNodeTypeConfig : IObject
         {
-
-
             public virtual dom.ChannelSplitterNode prototype
             {
                 get;
@@ -88127,8 +82951,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CharacterDataTypeConfig : IObject
         {
-
-
             public virtual dom.CharacterData prototype
             {
                 get;
@@ -88142,8 +82964,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ClientRectTypeConfig : IObject
         {
-
-
             public virtual dom.ClientRect prototype
             {
                 get;
@@ -88157,8 +82977,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ClientRectListTypeConfig : IObject
         {
-
-
             public virtual dom.ClientRectList prototype
             {
                 get;
@@ -88172,8 +82990,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ClipboardEventTypeConfig : IObject
         {
-
-
             public virtual dom.ClipboardEvent prototype
             {
                 get;
@@ -88190,8 +83006,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CloseEventTypeConfig : IObject
         {
-
-
             public virtual dom.CloseEvent prototype
             {
                 get;
@@ -88208,8 +83022,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CommentTypeConfig : IObject
         {
-
-
             public virtual dom.Comment prototype
             {
                 get;
@@ -88226,8 +83038,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CompositionEventTypeConfig : IObject
         {
-
-
             public virtual dom.CompositionEvent prototype
             {
                 get;
@@ -88246,8 +83056,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ConsoleTypeConfig : IObject
         {
-
-
             public virtual dom.Console prototype
             {
                 get;
@@ -88261,8 +83069,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ContentScriptGlobalScopeTypeConfig : IObject
         {
-
-
             public virtual dom.ContentScriptGlobalScope prototype
             {
                 get;
@@ -88276,8 +83082,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ConvolverNodeTypeConfig : IObject
         {
-
-
             public virtual dom.ConvolverNode prototype
             {
                 get;
@@ -88291,8 +83095,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CoordinatesTypeConfig : IObject
         {
-
-
             public virtual dom.Coordinates prototype
             {
                 get;
@@ -88306,8 +83108,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CountQueuingStrategyTypeConfig : IObject
         {
-
-
             public virtual dom.CountQueuingStrategy prototype
             {
                 get;
@@ -88321,8 +83121,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CryptoTypeConfig : IObject
         {
-
-
             public virtual dom.Crypto prototype
             {
                 get;
@@ -88336,8 +83134,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CryptoKeyTypeConfig : IObject
         {
-
-
             public virtual dom.CryptoKey prototype
             {
                 get;
@@ -88351,8 +83147,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CryptoKeyPairTypeConfig : IObject
         {
-
-
             public virtual dom.CryptoKeyPair prototype
             {
                 get;
@@ -88366,8 +83160,6 @@ namespace H5.Core
         [Virtual]
         public abstract class CustomEvent2Config : IObject
         {
-
-
             public virtual dom.CustomEvent<object> prototype
             {
                 get;
@@ -88386,8 +83178,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMErrorTypeConfig : IObject
         {
-
-
             public virtual dom.DOMError prototype
             {
                 get;
@@ -88401,8 +83191,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMExceptionTypeConfig : IObject
         {
-
-
             public virtual dom.DOMException prototype
             {
                 get;
@@ -88476,8 +83264,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMImplementationTypeConfig : IObject
         {
-
-
             public virtual dom.DOMImplementation prototype
             {
                 get;
@@ -88491,8 +83277,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMParserTypeConfig : IObject
         {
-
-
             public virtual dom.DOMParser prototype
             {
                 get;
@@ -88506,8 +83290,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMRectTypeConfig : IObject
         {
-
-
             public virtual dom.DOMRect prototype
             {
                 get;
@@ -88537,8 +83319,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMRectReadOnlyTypeConfig : IObject
         {
-
-
             public virtual dom.DOMRectReadOnly prototype
             {
                 get;
@@ -88568,8 +83348,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMSettableTokenListTypeConfig : IObject
         {
-
-
             public virtual dom.DOMSettableTokenList prototype
             {
                 get;
@@ -88583,8 +83361,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMStringListTypeConfig : IObject
         {
-
-
             public virtual dom.DOMStringList prototype
             {
                 get;
@@ -88598,8 +83374,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMStringMapTypeConfig : IObject
         {
-
-
             public virtual dom.DOMStringMap prototype
             {
                 get;
@@ -88613,8 +83387,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DOMTokenListTypeConfig : IObject
         {
-
-
             public virtual dom.DOMTokenList prototype
             {
                 get;
@@ -88628,8 +83400,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DataCueTypeConfig : IObject
         {
-
-
             public virtual dom.DataCue prototype
             {
                 get;
@@ -88643,8 +83413,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DataTransferTypeConfig : IObject
         {
-
-
             public virtual dom.DataTransfer prototype
             {
                 get;
@@ -88658,8 +83426,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DataTransferItemTypeConfig : IObject
         {
-
-
             public virtual dom.DataTransferItem prototype
             {
                 get;
@@ -88673,8 +83439,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DataTransferItemListTypeConfig : IObject
         {
-
-
             public virtual dom.DataTransferItemList prototype
             {
                 get;
@@ -88688,8 +83452,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DeferredPermissionRequestTypeConfig : IObject
         {
-
-
             public virtual dom.DeferredPermissionRequest prototype
             {
                 get;
@@ -88703,8 +83465,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DelayNodeTypeConfig : IObject
         {
-
-
             public virtual dom.DelayNode prototype
             {
                 get;
@@ -88718,8 +83478,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DeviceAccelerationTypeConfig : IObject
         {
-
-
             public virtual dom.DeviceAcceleration prototype
             {
                 get;
@@ -88733,8 +83491,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DeviceLightEventTypeConfig : IObject
         {
-
-
             public virtual dom.DeviceLightEvent prototype
             {
                 get;
@@ -88753,8 +83509,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DeviceMotionEventTypeConfig : IObject
         {
-
-
             public virtual dom.DeviceMotionEvent prototype
             {
                 get;
@@ -88773,8 +83527,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DeviceOrientationEventTypeConfig : IObject
         {
-
-
             public virtual dom.DeviceOrientationEvent prototype
             {
                 get;
@@ -88793,8 +83545,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DeviceRotationRateTypeConfig : IObject
         {
-
-
             public virtual dom.DeviceRotationRate prototype
             {
                 get;
@@ -88808,8 +83558,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DocumentType2Config : IObject
         {
-
-
             public virtual dom.Document prototype
             {
                 get;
@@ -88823,8 +83571,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DocumentFragmentTypeConfig : IObject
         {
-
-
             public virtual dom.DocumentFragment prototype
             {
                 get;
@@ -88838,8 +83584,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DocumentTypeTypeConfig : IObject
         {
-
-
             public virtual dom.DocumentType prototype
             {
                 get;
@@ -88853,8 +83597,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DragEventTypeConfig : IObject
         {
-
-
             public virtual dom.DragEvent prototype
             {
                 get;
@@ -88872,8 +83614,6 @@ namespace H5.Core
             [ObjectLiteral]
             public class NewConfig : IObject
             {
-
-
                 public dom.DataTransfer dataTransfer
                 {
                     get;
@@ -88885,8 +83625,6 @@ namespace H5.Core
         [Virtual]
         public abstract class DynamicsCompressorNodeTypeConfig : IObject
         {
-
-
             public virtual dom.DynamicsCompressorNode prototype
             {
                 get;
@@ -88900,8 +83638,6 @@ namespace H5.Core
         [Virtual]
         public abstract class EXT_texture_filter_anisotropicTypeConfig : IObject
         {
-
-
             public virtual dom.EXT_texture_filter_anisotropic prototype
             {
                 get;
@@ -88919,8 +83655,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ElementTypeConfig : IObject
         {
-
-
             public virtual dom.Element prototype
             {
                 get;
@@ -88934,8 +83668,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ErrorEventTypeConfig : IObject
         {
-
-
             public virtual dom.ErrorEvent prototype
             {
                 get;
@@ -88952,8 +83684,6 @@ namespace H5.Core
         [Virtual]
         public abstract class EventTypeConfig : IObject
         {
-
-
             public virtual dom.Event prototype
             {
                 get;
@@ -88978,8 +83708,6 @@ namespace H5.Core
         [Virtual]
         public abstract class EventSourceTypeConfig : IObject
         {
-
-
             public virtual dom.EventSource prototype
             {
                 get;
@@ -88996,8 +83724,6 @@ namespace H5.Core
         [Virtual]
         public abstract class EventTargetTypeConfig : IObject
         {
-
-
             public virtual dom.EventTarget prototype
             {
                 get;
@@ -89011,8 +83737,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ExtensionScriptApisTypeConfig : IObject
         {
-
-
             public virtual dom.ExtensionScriptApis prototype
             {
                 get;
@@ -89026,8 +83750,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ExternalTypeConfig : IObject
         {
-
-
             public virtual dom.External prototype
             {
                 get;
@@ -89041,8 +83763,6 @@ namespace H5.Core
         [Virtual]
         public abstract class FileTypeConfig : IObject
         {
-
-
             public virtual dom.File prototype
             {
                 get;
@@ -89100,8 +83820,6 @@ namespace H5.Core
         [Virtual]
         public abstract class FileListTypeConfig : IObject
         {
-
-
             public virtual dom.FileList prototype
             {
                 get;
@@ -89115,8 +83833,6 @@ namespace H5.Core
         [Virtual]
         public abstract class FileReaderTypeConfig : IObject
         {
-
-
             public virtual dom.FileReader prototype
             {
                 get;
@@ -89136,8 +83852,6 @@ namespace H5.Core
         [Virtual]
         public abstract class FocusEventTypeConfig : IObject
         {
-
-
             public virtual dom.FocusEvent prototype
             {
                 get;
@@ -89154,8 +83868,6 @@ namespace H5.Core
         [Virtual]
         public abstract class FocusNavigationEventTypeConfig : IObject
         {
-
-
             public virtual dom.FocusNavigationEvent prototype
             {
                 get;
@@ -89174,8 +83886,6 @@ namespace H5.Core
         [Virtual]
         public abstract class FormDataTypeConfig : IObject
         {
-
-
             public virtual dom.FormData prototype
             {
                 get;
@@ -89192,8 +83902,6 @@ namespace H5.Core
         [Virtual]
         public abstract class GainNodeTypeConfig : IObject
         {
-
-
             public virtual dom.GainNode prototype
             {
                 get;
@@ -89207,8 +83915,6 @@ namespace H5.Core
         [Virtual]
         public abstract class GamepadTypeConfig : IObject
         {
-
-
             public virtual dom.Gamepad prototype
             {
                 get;
@@ -89222,8 +83928,6 @@ namespace H5.Core
         [Virtual]
         public abstract class GamepadButtonTypeConfig : IObject
         {
-
-
             public virtual dom.GamepadButton prototype
             {
                 get;
@@ -89237,8 +83941,6 @@ namespace H5.Core
         [Virtual]
         public abstract class GamepadEventTypeConfig : IObject
         {
-
-
             public virtual dom.GamepadEvent prototype
             {
                 get;
@@ -89255,8 +83957,6 @@ namespace H5.Core
         [Virtual]
         public abstract class GamepadHapticActuatorType2Config : IObject
         {
-
-
             public virtual dom.GamepadHapticActuator prototype
             {
                 get;
@@ -89270,8 +83970,6 @@ namespace H5.Core
         [Virtual]
         public abstract class GamepadPoseTypeConfig : IObject
         {
-
-
             public virtual dom.GamepadPose prototype
             {
                 get;
@@ -89285,8 +83983,6 @@ namespace H5.Core
         [Virtual]
         public abstract class GeolocationTypeConfig : IObject
         {
-
-
             public virtual dom.Geolocation prototype
             {
                 get;
@@ -89300,8 +83996,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLAllCollectionTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLAllCollection prototype
             {
                 get;
@@ -89315,8 +84009,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLAnchorElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLAnchorElement prototype
             {
                 get;
@@ -89330,8 +84022,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLAppletElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLAppletElement prototype
             {
                 get;
@@ -89345,8 +84035,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLAreaElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLAreaElement prototype
             {
                 get;
@@ -89360,8 +84048,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLAreasCollectionTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLAreasCollection prototype
             {
                 get;
@@ -89375,8 +84061,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLAudioElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLAudioElement prototype
             {
                 get;
@@ -89390,8 +84074,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLBRElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLBRElement prototype
             {
                 get;
@@ -89405,8 +84087,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLBaseElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLBaseElement prototype
             {
                 get;
@@ -89420,8 +84100,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLBaseFontElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLBaseFontElement prototype
             {
                 get;
@@ -89435,8 +84113,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLBodyElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLBodyElement prototype
             {
                 get;
@@ -89450,8 +84126,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLButtonElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLButtonElement prototype
             {
                 get;
@@ -89465,8 +84139,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLCanvasElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLCanvasElement prototype
             {
                 get;
@@ -89480,8 +84152,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLCollectionTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLCollection prototype
             {
                 get;
@@ -89495,8 +84165,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLDListElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLDListElement prototype
             {
                 get;
@@ -89510,8 +84178,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLDataElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLDataElement prototype
             {
                 get;
@@ -89525,8 +84191,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLDataListElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLDataListElement prototype
             {
                 get;
@@ -89540,8 +84204,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLDetailsElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLDetailsElement prototype
             {
                 get;
@@ -89555,8 +84217,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLDialogElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLDialogElement prototype
             {
                 get;
@@ -89570,8 +84230,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLDirectoryElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLDirectoryElement prototype
             {
                 get;
@@ -89585,8 +84243,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLDivElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLDivElement prototype
             {
                 get;
@@ -89600,8 +84256,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLDocumentTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLDocument prototype
             {
                 get;
@@ -89615,8 +84269,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLElement prototype
             {
                 get;
@@ -89630,8 +84282,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLEmbedElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLEmbedElement prototype
             {
                 get;
@@ -89645,8 +84295,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLFieldSetElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLFieldSetElement prototype
             {
                 get;
@@ -89660,8 +84308,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLFontElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLFontElement prototype
             {
                 get;
@@ -89675,8 +84321,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLFormControlsCollectionTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLFormControlsCollection prototype
             {
                 get;
@@ -89690,8 +84334,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLFormElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLFormElement prototype
             {
                 get;
@@ -89705,8 +84347,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLFrameElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLFrameElement prototype
             {
                 get;
@@ -89720,8 +84360,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLFrameSetElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLFrameSetElement prototype
             {
                 get;
@@ -89735,8 +84373,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLHRElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLHRElement prototype
             {
                 get;
@@ -89750,8 +84386,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLHeadElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLHeadElement prototype
             {
                 get;
@@ -89765,8 +84399,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLHeadingElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLHeadingElement prototype
             {
                 get;
@@ -89780,8 +84412,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLHtmlElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLHtmlElement prototype
             {
                 get;
@@ -89795,8 +84425,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLIFrameElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLIFrameElement prototype
             {
                 get;
@@ -89810,8 +84438,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLImageElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLImageElement prototype
             {
                 get;
@@ -89825,8 +84451,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLInputElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLInputElement prototype
             {
                 get;
@@ -89840,8 +84464,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLLIElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLLIElement prototype
             {
                 get;
@@ -89855,8 +84477,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLLabelElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLLabelElement prototype
             {
                 get;
@@ -89870,8 +84490,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLLegendElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLLegendElement prototype
             {
                 get;
@@ -89885,8 +84503,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLLinkElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLLinkElement prototype
             {
                 get;
@@ -89900,8 +84516,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLMainElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLMainElement prototype
             {
                 get;
@@ -89915,8 +84529,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLMapElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLMapElement prototype
             {
                 get;
@@ -89930,8 +84542,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLMarqueeElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLMarqueeElement prototype
             {
                 get;
@@ -89945,8 +84555,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLMediaElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLMediaElement prototype
             {
                 get;
@@ -89978,8 +84586,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLMenuElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLMenuElement prototype
             {
                 get;
@@ -89993,8 +84599,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLMetaElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLMetaElement prototype
             {
                 get;
@@ -90008,8 +84612,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLMeterElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLMeterElement prototype
             {
                 get;
@@ -90023,8 +84625,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLModElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLModElement prototype
             {
                 get;
@@ -90038,8 +84638,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLOListElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLOListElement prototype
             {
                 get;
@@ -90053,8 +84651,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLObjectElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLObjectElement prototype
             {
                 get;
@@ -90068,8 +84664,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLOptGroupElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLOptGroupElement prototype
             {
                 get;
@@ -90083,8 +84677,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLOptionElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLOptionElement prototype
             {
                 get;
@@ -90098,8 +84690,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLOptionsCollectionTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLOptionsCollection prototype
             {
                 get;
@@ -90113,8 +84703,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLOutputElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLOutputElement prototype
             {
                 get;
@@ -90128,8 +84716,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLParagraphElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLParagraphElement prototype
             {
                 get;
@@ -90143,8 +84729,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLParamElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLParamElement prototype
             {
                 get;
@@ -90158,8 +84742,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLPictureElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLPictureElement prototype
             {
                 get;
@@ -90173,8 +84755,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLPreElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLPreElement prototype
             {
                 get;
@@ -90188,8 +84768,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLProgressElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLProgressElement prototype
             {
                 get;
@@ -90203,8 +84781,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLQuoteElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLQuoteElement prototype
             {
                 get;
@@ -90218,8 +84794,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLScriptElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLScriptElement prototype
             {
                 get;
@@ -90233,8 +84807,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLSelectElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLSelectElement prototype
             {
                 get;
@@ -90248,8 +84820,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLSourceElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLSourceElement prototype
             {
                 get;
@@ -90263,8 +84833,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLSpanElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLSpanElement prototype
             {
                 get;
@@ -90278,8 +84846,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLStyleElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLStyleElement prototype
             {
                 get;
@@ -90293,8 +84859,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLSummaryElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLSummaryElement prototype
             {
                 get;
@@ -90308,8 +84872,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTableCaptionElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTableCaptionElement prototype
             {
                 get;
@@ -90323,8 +84885,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTableCellElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTableCellElement prototype
             {
                 get;
@@ -90338,8 +84898,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTableColElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTableColElement prototype
             {
                 get;
@@ -90353,8 +84911,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTableDataCellElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTableDataCellElement prototype
             {
                 get;
@@ -90368,8 +84924,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTableElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTableElement prototype
             {
                 get;
@@ -90383,8 +84937,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTableHeaderCellElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTableHeaderCellElement prototype
             {
                 get;
@@ -90398,8 +84950,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTableRowElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTableRowElement prototype
             {
                 get;
@@ -90413,8 +84963,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTableSectionElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTableSectionElement prototype
             {
                 get;
@@ -90428,8 +84976,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTemplateElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTemplateElement prototype
             {
                 get;
@@ -90443,8 +84989,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTextAreaElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTextAreaElement prototype
             {
                 get;
@@ -90458,8 +85002,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTimeElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTimeElement prototype
             {
                 get;
@@ -90473,8 +85015,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTitleElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTitleElement prototype
             {
                 get;
@@ -90488,8 +85028,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLTrackElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLTrackElement prototype
             {
                 get;
@@ -90511,8 +85049,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLUListElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLUListElement prototype
             {
                 get;
@@ -90526,8 +85062,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLUnknownElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLUnknownElement prototype
             {
                 get;
@@ -90541,8 +85075,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLVideoElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLVideoElement prototype
             {
                 get;
@@ -90556,8 +85088,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HTMLegendElementTypeConfig : IObject
         {
-
-
             public virtual dom.HTMLegendElement prototype
             {
                 get;
@@ -90571,8 +85101,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HashChangeEventTypeConfig : IObject
         {
-
-
             public virtual dom.HashChangeEvent prototype
             {
                 get;
@@ -90589,8 +85117,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HeadersTypeConfig : IObject
         {
-
-
             public virtual dom.Headers prototype
             {
                 get;
@@ -90620,8 +85146,6 @@ namespace H5.Core
         [Virtual]
         public abstract class HistoryTypeConfig : IObject
         {
-
-
             public virtual dom.History prototype
             {
                 get;
@@ -90635,8 +85159,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBCursorTypeConfig : IObject
         {
-
-
             public virtual dom.IDBCursor prototype
             {
                 get;
@@ -90658,8 +85180,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBCursorWithValueTypeConfig : IObject
         {
-
-
             public virtual dom.IDBCursorWithValue prototype
             {
                 get;
@@ -90673,8 +85193,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBDatabaseTypeConfig : IObject
         {
-
-
             public virtual dom.IDBDatabase prototype
             {
                 get;
@@ -90688,8 +85206,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBFactoryTypeConfig : IObject
         {
-
-
             public virtual dom.IDBFactory prototype
             {
                 get;
@@ -90703,8 +85219,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBIndexTypeConfig : IObject
         {
-
-
             public virtual dom.IDBIndex prototype
             {
                 get;
@@ -90718,8 +85232,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBKeyRangeTypeConfig : IObject
         {
-
-
             public virtual dom.IDBKeyRange prototype
             {
                 get;
@@ -90753,8 +85265,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBObjectStoreTypeConfig : IObject
         {
-
-
             public virtual dom.IDBObjectStore prototype
             {
                 get;
@@ -90768,8 +85278,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBOpenDBRequestTypeConfig : IObject
         {
-
-
             public virtual dom.IDBOpenDBRequest prototype
             {
                 get;
@@ -90783,8 +85291,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBRequestTypeConfig : IObject
         {
-
-
             public virtual dom.IDBRequest prototype
             {
                 get;
@@ -90798,8 +85304,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBTransactionTypeConfig : IObject
         {
-
-
             public virtual dom.IDBTransaction prototype
             {
                 get;
@@ -90819,8 +85323,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IDBVersionChangeEventTypeConfig : IObject
         {
-
-
             public virtual dom.IDBVersionChangeEvent prototype
             {
                 get;
@@ -90834,8 +85336,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IIRFilterNodeTypeConfig : IObject
         {
-
-
             public virtual dom.IIRFilterNode prototype
             {
                 get;
@@ -90849,8 +85349,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ImageDataTypeConfig : IObject
         {
-
-
             public virtual dom.ImageData prototype
             {
                 get;
@@ -90870,8 +85368,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IntersectionObserverTypeConfig : IObject
         {
-
-
             public virtual dom.IntersectionObserver prototype
             {
                 get;
@@ -90890,8 +85386,6 @@ namespace H5.Core
         [Virtual]
         public abstract class IntersectionObserverEntryTypeConfig : IObject
         {
-
-
             public virtual dom.IntersectionObserverEntry prototype
             {
                 get;
@@ -90906,8 +85400,6 @@ namespace H5.Core
         [Virtual]
         public abstract class KeyboardEventTypeConfig : IObject
         {
-
-
             public virtual dom.KeyboardEvent prototype
             {
                 get;
@@ -90936,8 +85428,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ListeningStateChangedEventTypeConfig : IObject
         {
-
-
             public virtual dom.ListeningStateChangedEvent prototype
             {
                 get;
@@ -90951,8 +85441,6 @@ namespace H5.Core
         [Virtual]
         public abstract class LocationTypeConfig : IObject
         {
-
-
             public virtual dom.Location prototype
             {
                 get;
@@ -90966,8 +85454,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSAssertionTypeConfig : IObject
         {
-
-
             public virtual dom.MSAssertion prototype
             {
                 get;
@@ -90981,8 +85467,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSBlobBuilderTypeConfig : IObject
         {
-
-
             public virtual dom.MSBlobBuilder prototype
             {
                 get;
@@ -90996,8 +85480,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSCredentialsTypeConfig : IObject
         {
-
-
             public virtual dom.MSCredentials prototype
             {
                 get;
@@ -91011,8 +85493,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSDCCEventTypeConfig : IObject
         {
-
-
             public virtual dom.MSDCCEvent prototype
             {
                 get;
@@ -91026,8 +85506,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSDSHEventTypeConfig : IObject
         {
-
-
             public virtual dom.MSDSHEvent prototype
             {
                 get;
@@ -91041,8 +85519,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSFIDOCredentialAssertionTypeConfig : IObject
         {
-
-
             public virtual dom.MSFIDOCredentialAssertion prototype
             {
                 get;
@@ -91056,8 +85532,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSFIDOSignatureTypeConfig : IObject
         {
-
-
             public virtual dom.MSFIDOSignature prototype
             {
                 get;
@@ -91071,8 +85545,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSFIDOSignatureAssertionTypeConfig : IObject
         {
-
-
             public virtual dom.MSFIDOSignatureAssertion prototype
             {
                 get;
@@ -91086,8 +85558,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSGestureTypeConfig : IObject
         {
-
-
             public virtual dom.MSGesture prototype
             {
                 get;
@@ -91101,8 +85571,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSGestureEventTypeConfig : IObject
         {
-
-
             public virtual dom.MSGestureEvent prototype
             {
                 get;
@@ -91126,8 +85594,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSGraphicsTrustTypeConfig : IObject
         {
-
-
             public virtual dom.MSGraphicsTrust prototype
             {
                 get;
@@ -91141,8 +85607,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSInputMethodContextTypeConfig : IObject
         {
-
-
             public virtual dom.MSInputMethodContext prototype
             {
                 get;
@@ -91156,8 +85620,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSMediaKeyErrorTypeConfig : IObject
         {
-
-
             public virtual dom.MSMediaKeyError prototype
             {
                 get;
@@ -91183,8 +85645,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSMediaKeyMessageEventTypeConfig : IObject
         {
-
-
             public virtual dom.MSMediaKeyMessageEvent prototype
             {
                 get;
@@ -91198,8 +85658,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSMediaKeyNeededEventTypeConfig : IObject
         {
-
-
             public virtual dom.MSMediaKeyNeededEvent prototype
             {
                 get;
@@ -91213,8 +85671,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSMediaKeySessionTypeConfig : IObject
         {
-
-
             public virtual dom.MSMediaKeySession prototype
             {
                 get;
@@ -91228,8 +85684,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSMediaKeysTypeConfig : IObject
         {
-
-
             public virtual dom.MSMediaKeys prototype
             {
                 get;
@@ -91251,8 +85705,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSPointerEventTypeConfig : IObject
         {
-
-
             public virtual dom.MSPointerEvent prototype
             {
                 get;
@@ -91269,8 +85721,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSStreamTypeConfig : IObject
         {
-
-
             public virtual dom.MSStream prototype
             {
                 get;
@@ -91284,8 +85734,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MSStreamReaderTypeConfig : IObject
         {
-
-
             public virtual dom.MSStreamReader prototype
             {
                 get;
@@ -91305,8 +85753,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaDeviceInfoTypeConfig : IObject
         {
-
-
             public virtual dom.MediaDeviceInfo prototype
             {
                 get;
@@ -91320,8 +85766,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaDevicesTypeConfig : IObject
         {
-
-
             public virtual dom.MediaDevices prototype
             {
                 get;
@@ -91335,8 +85779,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaElementAudioSourceNodeTypeConfig : IObject
         {
-
-
             public virtual dom.MediaElementAudioSourceNode prototype
             {
                 get;
@@ -91350,8 +85792,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaEncryptedEventTypeConfig : IObject
         {
-
-
             public virtual dom.MediaEncryptedEvent prototype
             {
                 get;
@@ -91370,8 +85810,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaErrorTypeConfig : IObject
         {
-
-
             public virtual dom.MediaError prototype
             {
                 get;
@@ -91395,8 +85833,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaKeyMessageEventTypeConfig : IObject
         {
-
-
             public virtual dom.MediaKeyMessageEvent prototype
             {
                 get;
@@ -91415,8 +85851,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaKeySessionType2Config : IObject
         {
-
-
             public virtual dom.MediaKeySession prototype
             {
                 get;
@@ -91430,8 +85864,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaKeyStatusMapTypeConfig : IObject
         {
-
-
             public virtual dom.MediaKeyStatusMap prototype
             {
                 get;
@@ -91445,8 +85877,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaKeySystemAccessTypeConfig : IObject
         {
-
-
             public virtual dom.MediaKeySystemAccess prototype
             {
                 get;
@@ -91460,8 +85890,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaKeysTypeConfig : IObject
         {
-
-
             public virtual dom.MediaKeys prototype
             {
                 get;
@@ -91475,8 +85903,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaListTypeConfig : IObject
         {
-
-
             public virtual dom.MediaList prototype
             {
                 get;
@@ -91490,8 +85916,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaQueryListTypeConfig : IObject
         {
-
-
             public virtual dom.MediaQueryList prototype
             {
                 get;
@@ -91505,8 +85929,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaSourceTypeConfig : IObject
         {
-
-
             public virtual dom.MediaSource prototype
             {
                 get;
@@ -91522,8 +85944,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaStreamTypeConfig : IObject
         {
-
-
             public virtual dom.MediaStream prototype
             {
                 get;
@@ -91543,8 +85963,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaStreamAudioSourceNodeTypeConfig : IObject
         {
-
-
             public virtual dom.MediaStreamAudioSourceNode prototype
             {
                 get;
@@ -91558,8 +85976,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaStreamErrorTypeConfig : IObject
         {
-
-
             public virtual dom.MediaStreamError prototype
             {
                 get;
@@ -91573,8 +85989,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaStreamErrorEventTypeConfig : IObject
         {
-
-
             public virtual dom.MediaStreamErrorEvent prototype
             {
                 get;
@@ -91593,8 +86007,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaStreamEventTypeConfig : IObject
         {
-
-
             public virtual dom.MediaStreamEvent prototype
             {
                 get;
@@ -91610,8 +86022,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaStreamTrackTypeConfig : IObject
         {
-
-
             public virtual dom.MediaStreamTrack prototype
             {
                 get;
@@ -91625,8 +86035,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MediaStreamTrackEventTypeConfig : IObject
         {
-
-
             public virtual dom.MediaStreamTrackEvent prototype
             {
                 get;
@@ -91645,8 +86053,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MessageChannelTypeConfig : IObject
         {
-
-
             public virtual dom.MessageChannel prototype
             {
                 get;
@@ -91660,8 +86066,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MessageEventTypeConfig : IObject
         {
-
-
             public virtual dom.MessageEvent prototype
             {
                 get;
@@ -91678,8 +86082,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MessagePortTypeConfig : IObject
         {
-
-
             public virtual dom.MessagePort prototype
             {
                 get;
@@ -91693,8 +86095,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MimeTypeTypeConfig : IObject
         {
-
-
             public virtual dom.MimeType prototype
             {
                 get;
@@ -91708,8 +86108,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MimeTypeArrayTypeConfig : IObject
         {
-
-
             public virtual dom.MimeTypeArray prototype
             {
                 get;
@@ -91723,8 +86121,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MouseEventTypeConfig : IObject
         {
-
-
             public virtual dom.MouseEvent prototype
             {
                 get;
@@ -91741,8 +86137,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MutationEventTypeConfig : IObject
         {
-
-
             public virtual dom.MutationEvent prototype
             {
                 get;
@@ -91762,8 +86156,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MutationObserverTypeConfig : IObject
         {
-
-
             public virtual dom.MutationObserver prototype
             {
                 get;
@@ -91777,8 +86169,6 @@ namespace H5.Core
         [Virtual]
         public abstract class MutationRecordType2Config : IObject
         {
-
-
             public virtual dom.MutationRecord prototype
             {
                 get;
@@ -91792,8 +86182,6 @@ namespace H5.Core
         [Virtual]
         public abstract class NamedNodeMapTypeConfig : IObject
         {
-
-
             public virtual dom.NamedNodeMap prototype
             {
                 get;
@@ -91807,8 +86195,6 @@ namespace H5.Core
         [Virtual]
         public abstract class NavigatorTypeConfig : IObject
         {
-
-
             public virtual dom.Navigator prototype
             {
                 get;
@@ -91822,8 +86208,6 @@ namespace H5.Core
         [Virtual]
         public abstract class NodeTypeConfig : IObject
         {
-
-
             public virtual dom.Node prototype
             {
                 get;
@@ -91909,8 +86293,6 @@ namespace H5.Core
         [Virtual]
         public abstract class NodeIteratorTypeConfig : IObject
         {
-
-
             public virtual dom.NodeIterator prototype
             {
                 get;
@@ -91924,8 +86306,6 @@ namespace H5.Core
         [Virtual]
         public abstract class NodeListTypeConfig : IObject
         {
-
-
             public virtual dom.NodeList prototype
             {
                 get;
@@ -91939,8 +86319,6 @@ namespace H5.Core
         [Virtual]
         public abstract class NotificationTypeConfig : IObject
         {
-
-
             public virtual dom.Notification prototype
             {
                 get;
@@ -91962,8 +86340,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OES_element_index_uintTypeConfig : IObject
         {
-
-
             public virtual dom.OES_element_index_uint prototype
             {
                 get;
@@ -91977,8 +86353,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OES_standard_derivativesTypeConfig : IObject
         {
-
-
             public virtual dom.OES_standard_derivatives prototype
             {
                 get;
@@ -91994,8 +86368,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OES_texture_floatTypeConfig : IObject
         {
-
-
             public virtual dom.OES_texture_float prototype
             {
                 get;
@@ -92009,8 +86381,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OES_texture_float_linearTypeConfig : IObject
         {
-
-
             public virtual dom.OES_texture_float_linear prototype
             {
                 get;
@@ -92024,8 +86394,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OES_texture_half_floatTypeConfig : IObject
         {
-
-
             public virtual dom.OES_texture_half_float prototype
             {
                 get;
@@ -92041,8 +86409,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OES_texture_half_float_linearTypeConfig : IObject
         {
-
-
             public virtual dom.OES_texture_half_float_linear prototype
             {
                 get;
@@ -92056,8 +86422,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OfflineAudioCompletionEventTypeConfig : IObject
         {
-
-
             public virtual dom.OfflineAudioCompletionEvent prototype
             {
                 get;
@@ -92071,8 +86435,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OfflineAudioContextTypeConfig : IObject
         {
-
-
             public virtual dom.OfflineAudioContext prototype
             {
                 get;
@@ -92089,8 +86451,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OscillatorNodeTypeConfig : IObject
         {
-
-
             public virtual dom.OscillatorNode prototype
             {
                 get;
@@ -92104,8 +86464,6 @@ namespace H5.Core
         [Virtual]
         public abstract class OverflowEventTypeConfig : IObject
         {
-
-
             public virtual dom.OverflowEvent prototype
             {
                 get;
@@ -92125,8 +86483,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PageTransitionEventTypeConfig : IObject
         {
-
-
             public virtual dom.PageTransitionEvent prototype
             {
                 get;
@@ -92140,8 +86496,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PannerNodeTypeConfig : IObject
         {
-
-
             public virtual dom.PannerNode prototype
             {
                 get;
@@ -92155,8 +86509,6 @@ namespace H5.Core
         [Virtual]
         public abstract class Path2DTypeConfig : IObject
         {
-
-
             public virtual dom.Path2D prototype
             {
                 get;
@@ -92179,8 +86531,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PaymentAddressTypeConfig : IObject
         {
-
-
             public virtual dom.PaymentAddress prototype
             {
                 get;
@@ -92194,8 +86544,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PaymentRequestTypeConfig : IObject
         {
-
-
             public virtual dom.PaymentRequest prototype
             {
                 get;
@@ -92217,8 +86565,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PaymentRequestUpdateEventTypeConfig : IObject
         {
-
-
             public virtual dom.PaymentRequestUpdateEvent prototype
             {
                 get;
@@ -92237,8 +86583,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PaymentResponseTypeConfig : IObject
         {
-
-
             public virtual dom.PaymentResponse prototype
             {
                 get;
@@ -92252,8 +86596,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerfWidgetExternalTypeConfig : IObject
         {
-
-
             public virtual dom.PerfWidgetExternal prototype
             {
                 get;
@@ -92267,8 +86609,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerformanceTypeConfig : IObject
         {
-
-
             public virtual dom.Performance prototype
             {
                 get;
@@ -92282,8 +86622,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerformanceEntryTypeConfig : IObject
         {
-
-
             public virtual dom.PerformanceEntry prototype
             {
                 get;
@@ -92297,8 +86635,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerformanceMarkTypeConfig : IObject
         {
-
-
             public virtual dom.PerformanceMark prototype
             {
                 get;
@@ -92312,8 +86648,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerformanceMeasureTypeConfig : IObject
         {
-
-
             public virtual dom.PerformanceMeasure prototype
             {
                 get;
@@ -92327,8 +86661,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerformanceNavigationTypeConfig : IObject
         {
-
-
             public virtual dom.PerformanceNavigation prototype
             {
                 get;
@@ -92350,8 +86682,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerformanceNavigationTimingTypeConfig : IObject
         {
-
-
             public virtual dom.PerformanceNavigationTiming prototype
             {
                 get;
@@ -92365,8 +86695,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerformanceResourceTimingTypeConfig : IObject
         {
-
-
             public virtual dom.PerformanceResourceTiming prototype
             {
                 get;
@@ -92380,8 +86708,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PerformanceTimingTypeConfig : IObject
         {
-
-
             public virtual dom.PerformanceTiming prototype
             {
                 get;
@@ -92395,8 +86721,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PeriodicWaveTypeConfig : IObject
         {
-
-
             public virtual dom.PeriodicWave prototype
             {
                 get;
@@ -92410,8 +86734,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PermissionRequestTypeConfig : IObject
         {
-
-
             public virtual dom.PermissionRequest prototype
             {
                 get;
@@ -92425,8 +86747,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PermissionRequestedEventTypeConfig : IObject
         {
-
-
             public virtual dom.PermissionRequestedEvent prototype
             {
                 get;
@@ -92440,8 +86760,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PluginTypeConfig : IObject
         {
-
-
             public virtual dom.Plugin prototype
             {
                 get;
@@ -92455,8 +86773,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PluginArrayTypeConfig : IObject
         {
-
-
             public virtual dom.PluginArray prototype
             {
                 get;
@@ -92470,8 +86786,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PointerEventTypeConfig : IObject
         {
-
-
             public virtual dom.PointerEvent prototype
             {
                 get;
@@ -92488,8 +86802,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PopStateEventTypeConfig : IObject
         {
-
-
             public virtual dom.PopStateEvent prototype
             {
                 get;
@@ -92506,8 +86818,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PositionTypeConfig : IObject
         {
-
-
             public virtual dom.Position prototype
             {
                 get;
@@ -92521,8 +86831,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PositionErrorTypeConfig : IObject
         {
-
-
             public virtual dom.PositionError prototype
             {
                 get;
@@ -92542,8 +86850,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ProcessingInstructionTypeConfig : IObject
         {
-
-
             public virtual dom.ProcessingInstruction prototype
             {
                 get;
@@ -92557,8 +86863,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ProgressEventTypeConfig : IObject
         {
-
-
             public virtual dom.ProgressEvent prototype
             {
                 get;
@@ -92575,8 +86879,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PushManagerTypeConfig : IObject
         {
-
-
             public virtual dom.PushManager prototype
             {
                 get;
@@ -92590,8 +86892,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PushSubscriptionTypeConfig : IObject
         {
-
-
             public virtual dom.PushSubscription prototype
             {
                 get;
@@ -92605,8 +86905,6 @@ namespace H5.Core
         [Virtual]
         public abstract class PushSubscriptionOptionsTypeConfig : IObject
         {
-
-
             public virtual dom.PushSubscriptionOptions prototype
             {
                 get;
@@ -92620,8 +86918,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCDTMFToneChangeEventTypeConfig : IObject
         {
-
-
             public virtual dom.RTCDTMFToneChangeEvent prototype
             {
                 get;
@@ -92637,8 +86933,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCDtlsTransportTypeConfig : IObject
         {
-
-
             public virtual dom.RTCDtlsTransport prototype
             {
                 get;
@@ -92652,8 +86946,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCDtlsTransportStateChangedEventTypeConfig : IObject
         {
-
-
             public virtual dom.RTCDtlsTransportStateChangedEvent prototype
             {
                 get;
@@ -92667,8 +86959,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCDtmfSenderTypeConfig : IObject
         {
-
-
             public virtual dom.RTCDtmfSender prototype
             {
                 get;
@@ -92682,8 +86972,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCIceCandidateType2Config : IObject
         {
-
-
             public virtual dom.RTCIceCandidate prototype
             {
                 get;
@@ -92700,8 +86988,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCIceCandidatePairChangedEventTypeConfig : IObject
         {
-
-
             public virtual dom.RTCIceCandidatePairChangedEvent prototype
             {
                 get;
@@ -92715,8 +87001,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCIceGathererTypeConfig : IObject
         {
-
-
             public virtual dom.RTCIceGatherer prototype
             {
                 get;
@@ -92730,8 +87014,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCIceGathererEventTypeConfig : IObject
         {
-
-
             public virtual dom.RTCIceGathererEvent prototype
             {
                 get;
@@ -92745,8 +87027,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCIceTransportTypeConfig : IObject
         {
-
-
             public virtual dom.RTCIceTransport prototype
             {
                 get;
@@ -92760,8 +87040,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCIceTransportStateChangedEventTypeConfig : IObject
         {
-
-
             public virtual dom.RTCIceTransportStateChangedEvent prototype
             {
                 get;
@@ -92775,8 +87053,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCPeerConnectionTypeConfig : IObject
         {
-
-
             public virtual dom.RTCPeerConnection prototype
             {
                 get;
@@ -92790,8 +87066,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCPeerConnectionIceEventTypeConfig : IObject
         {
-
-
             public virtual dom.RTCPeerConnectionIceEvent prototype
             {
                 get;
@@ -92807,8 +87081,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCRtpReceiverTypeConfig : IObject
         {
-
-
             public virtual dom.RTCRtpReceiver prototype
             {
                 get;
@@ -92852,8 +87124,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCRtpSenderTypeConfig : IObject
         {
-
-
             public virtual dom.RTCRtpSender prototype
             {
                 get;
@@ -92901,8 +87171,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCSessionDescriptionTypeConfig : IObject
         {
-
-
             public virtual dom.RTCSessionDescription prototype
             {
                 get;
@@ -92920,8 +87188,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCSrtpSdesTransportTypeConfig : IObject
         {
-
-
             public virtual dom.RTCSrtpSdesTransport prototype
             {
                 get;
@@ -92940,8 +87206,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCSsrcConflictEventTypeConfig : IObject
         {
-
-
             public virtual dom.RTCSsrcConflictEvent prototype
             {
                 get;
@@ -92955,8 +87219,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RTCStatsProviderTypeConfig : IObject
         {
-
-
             public virtual dom.RTCStatsProvider prototype
             {
                 get;
@@ -92970,8 +87232,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RandomSourceTypeConfig : IObject
         {
-
-
             public virtual dom.RandomSource prototype
             {
                 get;
@@ -92985,8 +87245,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RangeTypeConfig : IObject
         {
-
-
             public virtual dom.Range prototype
             {
                 get;
@@ -93008,8 +87266,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ReadableStreamTypeConfig : IObject
         {
-
-
             public virtual dom.ReadableStream prototype
             {
                 get;
@@ -93023,8 +87279,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ReadableStreamReaderTypeConfig : IObject
         {
-
-
             public virtual dom.ReadableStreamReader prototype
             {
                 get;
@@ -93038,8 +87292,6 @@ namespace H5.Core
         [Virtual]
         public abstract class RequestType2Config : IObject
         {
-
-
             public virtual dom.Request prototype
             {
                 get;
@@ -93068,8 +87320,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ResponseType2Config : IObject
         {
-
-
             public virtual dom.Response prototype
             {
                 get;
@@ -93188,8 +87438,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAElement prototype
             {
                 get;
@@ -93203,8 +87451,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAngleTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAngle prototype
             {
                 get;
@@ -93228,8 +87474,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedAngleTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedAngle prototype
             {
                 get;
@@ -93243,8 +87487,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedBooleanTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedBoolean prototype
             {
                 get;
@@ -93258,8 +87500,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedEnumerationTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedEnumeration prototype
             {
                 get;
@@ -93273,8 +87513,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedIntegerTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedInteger prototype
             {
                 get;
@@ -93288,8 +87526,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedLengthTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedLength prototype
             {
                 get;
@@ -93303,8 +87539,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedLengthListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedLengthList prototype
             {
                 get;
@@ -93318,8 +87552,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedNumberTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedNumber prototype
             {
                 get;
@@ -93333,8 +87565,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedNumberListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedNumberList prototype
             {
                 get;
@@ -93348,8 +87578,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedPreserveAspectRatioTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedPreserveAspectRatio prototype
             {
                 get;
@@ -93363,8 +87591,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedRectTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedRect prototype
             {
                 get;
@@ -93378,8 +87604,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedStringTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedString prototype
             {
                 get;
@@ -93393,8 +87617,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGAnimatedTransformListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGAnimatedTransformList prototype
             {
                 get;
@@ -93408,8 +87630,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGCircleElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGCircleElement prototype
             {
                 get;
@@ -93423,8 +87643,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGClipPathElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGClipPathElement prototype
             {
                 get;
@@ -93438,8 +87656,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGComponentTransferFunctionElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGComponentTransferFunctionElement prototype
             {
                 get;
@@ -93465,8 +87681,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGDefsElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGDefsElement prototype
             {
                 get;
@@ -93480,8 +87694,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGDescElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGDescElement prototype
             {
                 get;
@@ -93495,8 +87707,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGElement prototype
             {
                 get;
@@ -93510,8 +87720,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGElementInstanceTypeConfig : IObject
         {
-
-
             public virtual dom.SVGElementInstance prototype
             {
                 get;
@@ -93525,8 +87733,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGElementInstanceListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGElementInstanceList prototype
             {
                 get;
@@ -93540,8 +87746,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGEllipseElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGEllipseElement prototype
             {
                 get;
@@ -93555,8 +87759,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEBlendElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEBlendElement prototype
             {
                 get;
@@ -93604,8 +87806,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEColorMatrixElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEColorMatrixElement prototype
             {
                 get;
@@ -93629,8 +87829,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEComponentTransferElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEComponentTransferElement prototype
             {
                 get;
@@ -93644,8 +87842,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFECompositeElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFECompositeElement prototype
             {
                 get;
@@ -93673,8 +87869,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEConvolveMatrixElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEConvolveMatrixElement prototype
             {
                 get;
@@ -93696,8 +87890,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEDiffuseLightingElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEDiffuseLightingElement prototype
             {
                 get;
@@ -93711,8 +87903,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEDisplacementMapElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEDisplacementMapElement prototype
             {
                 get;
@@ -93736,8 +87926,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEDistantLightElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEDistantLightElement prototype
             {
                 get;
@@ -93751,8 +87939,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEFloodElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEFloodElement prototype
             {
                 get;
@@ -93766,8 +87952,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEFuncAElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEFuncAElement prototype
             {
                 get;
@@ -93781,8 +87965,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEFuncBElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEFuncBElement prototype
             {
                 get;
@@ -93796,8 +87978,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEFuncGElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEFuncGElement prototype
             {
                 get;
@@ -93811,8 +87991,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEFuncRElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEFuncRElement prototype
             {
                 get;
@@ -93826,8 +88004,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEGaussianBlurElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEGaussianBlurElement prototype
             {
                 get;
@@ -93841,8 +88017,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEImageElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEImageElement prototype
             {
                 get;
@@ -93856,8 +88030,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEMergeElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEMergeElement prototype
             {
                 get;
@@ -93871,8 +88043,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEMergeNodeElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEMergeNodeElement prototype
             {
                 get;
@@ -93886,8 +88056,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEMorphologyElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEMorphologyElement prototype
             {
                 get;
@@ -93907,8 +88075,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEOffsetElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEOffsetElement prototype
             {
                 get;
@@ -93922,8 +88088,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFEPointLightElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFEPointLightElement prototype
             {
                 get;
@@ -93937,8 +88101,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFESpecularLightingElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFESpecularLightingElement prototype
             {
                 get;
@@ -93952,8 +88114,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFESpotLightElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFESpotLightElement prototype
             {
                 get;
@@ -93967,8 +88127,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFETileElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFETileElement prototype
             {
                 get;
@@ -93982,8 +88140,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFETurbulenceElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFETurbulenceElement prototype
             {
                 get;
@@ -94009,8 +88165,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGFilterElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGFilterElement prototype
             {
                 get;
@@ -94024,8 +88178,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGForeignObjectElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGForeignObjectElement prototype
             {
                 get;
@@ -94039,8 +88191,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGGElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGGElement prototype
             {
                 get;
@@ -94054,8 +88204,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGGradientElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGGradientElement prototype
             {
                 get;
@@ -94077,8 +88225,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGGraphicsElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGGraphicsElement prototype
             {
                 get;
@@ -94092,8 +88238,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGImageElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGImageElement prototype
             {
                 get;
@@ -94107,8 +88251,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGLengthTypeConfig : IObject
         {
-
-
             public virtual dom.SVGLength prototype
             {
                 get;
@@ -94144,8 +88286,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGLengthListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGLengthList prototype
             {
                 get;
@@ -94159,8 +88299,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGLineElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGLineElement prototype
             {
                 get;
@@ -94174,8 +88312,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGLinearGradientElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGLinearGradientElement prototype
             {
                 get;
@@ -94189,8 +88325,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGMarkerElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGMarkerElement prototype
             {
                 get;
@@ -94216,8 +88350,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGMaskElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGMaskElement prototype
             {
                 get;
@@ -94231,8 +88363,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGMatrixTypeConfig : IObject
         {
-
-
             public virtual dom.SVGMatrix prototype
             {
                 get;
@@ -94246,8 +88376,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGMetadataElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGMetadataElement prototype
             {
                 get;
@@ -94261,8 +88389,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGNumberTypeConfig : IObject
         {
-
-
             public virtual dom.SVGNumber prototype
             {
                 get;
@@ -94276,8 +88402,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGNumberListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGNumberList prototype
             {
                 get;
@@ -94291,8 +88415,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathElement prototype
             {
                 get;
@@ -94306,8 +88428,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSeg prototype
             {
                 get;
@@ -94361,8 +88481,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegArcAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegArcAbs prototype
             {
                 get;
@@ -94376,8 +88494,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegArcRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegArcRel prototype
             {
                 get;
@@ -94391,8 +88507,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegClosePathTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegClosePath prototype
             {
                 get;
@@ -94406,8 +88520,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegCurvetoCubicAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegCurvetoCubicAbs prototype
             {
                 get;
@@ -94421,8 +88533,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegCurvetoCubicRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegCurvetoCubicRel prototype
             {
                 get;
@@ -94436,8 +88546,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegCurvetoCubicSmoothAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegCurvetoCubicSmoothAbs prototype
             {
                 get;
@@ -94451,8 +88559,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegCurvetoCubicSmoothRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegCurvetoCubicSmoothRel prototype
             {
                 get;
@@ -94466,8 +88572,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegCurvetoQuadraticAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegCurvetoQuadraticAbs prototype
             {
                 get;
@@ -94481,8 +88585,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegCurvetoQuadraticRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegCurvetoQuadraticRel prototype
             {
                 get;
@@ -94496,8 +88598,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegCurvetoQuadraticSmoothAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegCurvetoQuadraticSmoothAbs prototype
             {
                 get;
@@ -94511,8 +88611,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegCurvetoQuadraticSmoothRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegCurvetoQuadraticSmoothRel prototype
             {
                 get;
@@ -94526,8 +88624,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegLinetoAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegLinetoAbs prototype
             {
                 get;
@@ -94541,8 +88637,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegLinetoHorizontalAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegLinetoHorizontalAbs prototype
             {
                 get;
@@ -94556,8 +88650,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegLinetoHorizontalRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegLinetoHorizontalRel prototype
             {
                 get;
@@ -94571,8 +88663,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegLinetoRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegLinetoRel prototype
             {
                 get;
@@ -94586,8 +88676,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegLinetoVerticalAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegLinetoVerticalAbs prototype
             {
                 get;
@@ -94601,8 +88689,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegLinetoVerticalRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegLinetoVerticalRel prototype
             {
                 get;
@@ -94616,8 +88702,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegList prototype
             {
                 get;
@@ -94631,8 +88715,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegMovetoAbsTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegMovetoAbs prototype
             {
                 get;
@@ -94646,8 +88728,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPathSegMovetoRelTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPathSegMovetoRel prototype
             {
                 get;
@@ -94661,8 +88741,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPatternElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPatternElement prototype
             {
                 get;
@@ -94676,8 +88754,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPointTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPoint prototype
             {
                 get;
@@ -94691,8 +88767,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPointListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPointList prototype
             {
                 get;
@@ -94706,8 +88780,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPolygonElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPolygonElement prototype
             {
                 get;
@@ -94721,8 +88793,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPolylineElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPolylineElement prototype
             {
                 get;
@@ -94736,8 +88806,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGPreserveAspectRatioTypeConfig : IObject
         {
-
-
             public virtual dom.SVGPreserveAspectRatio prototype
             {
                 get;
@@ -94779,8 +88847,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGRadialGradientElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGRadialGradientElement prototype
             {
                 get;
@@ -94794,8 +88860,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGRectTypeConfig : IObject
         {
-
-
             public virtual dom.SVGRect prototype
             {
                 get;
@@ -94809,8 +88873,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGRectElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGRectElement prototype
             {
                 get;
@@ -94824,8 +88886,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGSVGElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGSVGElement prototype
             {
                 get;
@@ -94839,8 +88899,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGScriptElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGScriptElement prototype
             {
                 get;
@@ -94854,8 +88912,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGStopElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGStopElement prototype
             {
                 get;
@@ -94869,8 +88925,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGStringListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGStringList prototype
             {
                 get;
@@ -94884,8 +88938,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGStylableTypeConfig : IObject
         {
-
-
             public virtual dom.SVGStylable prototype
             {
                 get;
@@ -94899,8 +88951,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGStyleElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGStyleElement prototype
             {
                 get;
@@ -94914,8 +88964,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGSwitchElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGSwitchElement prototype
             {
                 get;
@@ -94929,8 +88977,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGSymbolElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGSymbolElement prototype
             {
                 get;
@@ -94944,8 +88990,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGTSpanElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGTSpanElement prototype
             {
                 get;
@@ -94959,8 +89003,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGTextContentElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGTextContentElement prototype
             {
                 get;
@@ -94980,8 +89022,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGTextElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGTextElement prototype
             {
                 get;
@@ -94995,8 +89035,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGTextPathElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGTextPathElement prototype
             {
                 get;
@@ -95022,8 +89060,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGTextPositioningElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGTextPositioningElement prototype
             {
                 get;
@@ -95037,8 +89073,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGTitleElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGTitleElement prototype
             {
                 get;
@@ -95052,8 +89086,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGTransformTypeConfig : IObject
         {
-
-
             public virtual dom.SVGTransform prototype
             {
                 get;
@@ -95081,8 +89113,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGTransformListTypeConfig : IObject
         {
-
-
             public virtual dom.SVGTransformList prototype
             {
                 get;
@@ -95096,8 +89126,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGUseElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGUseElement prototype
             {
                 get;
@@ -95111,8 +89139,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGViewElementTypeConfig : IObject
         {
-
-
             public virtual dom.SVGViewElement prototype
             {
                 get;
@@ -95136,8 +89162,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SVGZoomEventTypeConfig : IObject
         {
-
-
             public virtual dom.SVGZoomEvent prototype
             {
                 get;
@@ -95151,8 +89175,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ScopedCredentialType2Config : IObject
         {
-
-
             public virtual dom.ScopedCredential prototype
             {
                 get;
@@ -95166,8 +89188,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ScopedCredentialInfoTypeConfig : IObject
         {
-
-
             public virtual dom.ScopedCredentialInfo prototype
             {
                 get;
@@ -95181,8 +89201,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ScreenTypeConfig : IObject
         {
-
-
             public virtual dom.Screen prototype
             {
                 get;
@@ -95196,8 +89214,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ScriptProcessorNodeTypeConfig : IObject
         {
-
-
             public virtual dom.ScriptProcessorNode prototype
             {
                 get;
@@ -95211,8 +89227,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SecurityPolicyViolationEventTypeConfig : IObject
         {
-
-
             public virtual dom.SecurityPolicyViolationEvent prototype
             {
                 get;
@@ -95231,8 +89245,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SelectionTypeConfig : IObject
         {
-
-
             public virtual dom.Selection prototype
             {
                 get;
@@ -95246,8 +89258,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ServiceWorkerTypeConfig : IObject
         {
-
-
             public virtual dom.ServiceWorker prototype
             {
                 get;
@@ -95261,8 +89271,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ServiceWorkerContainerTypeConfig : IObject
         {
-
-
             public virtual dom.ServiceWorkerContainer prototype
             {
                 get;
@@ -95276,8 +89284,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ServiceWorkerMessageEventTypeConfig : IObject
         {
-
-
             public virtual dom.ServiceWorkerMessageEvent prototype
             {
                 get;
@@ -95296,8 +89302,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ServiceWorkerRegistrationTypeConfig : IObject
         {
-
-
             public virtual dom.ServiceWorkerRegistration prototype
             {
                 get;
@@ -95311,8 +89315,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SourceBufferTypeConfig : IObject
         {
-
-
             public virtual dom.SourceBuffer prototype
             {
                 get;
@@ -95326,8 +89328,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SourceBufferListTypeConfig : IObject
         {
-
-
             public virtual dom.SourceBufferList prototype
             {
                 get;
@@ -95341,8 +89341,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SpeechSynthesisTypeConfig : IObject
         {
-
-
             public virtual dom.SpeechSynthesis prototype
             {
                 get;
@@ -95356,8 +89354,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SpeechSynthesisEventTypeConfig : IObject
         {
-
-
             public virtual dom.SpeechSynthesisEvent prototype
             {
                 get;
@@ -95376,8 +89372,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SpeechSynthesisUtteranceTypeConfig : IObject
         {
-
-
             public virtual dom.SpeechSynthesisUtterance prototype
             {
                 get;
@@ -95394,8 +89388,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SpeechSynthesisVoiceTypeConfig : IObject
         {
-
-
             public virtual dom.SpeechSynthesisVoice prototype
             {
                 get;
@@ -95409,8 +89401,6 @@ namespace H5.Core
         [Virtual]
         public abstract class StereoPannerNodeTypeConfig : IObject
         {
-
-
             public virtual dom.StereoPannerNode prototype
             {
                 get;
@@ -95424,8 +89414,6 @@ namespace H5.Core
         [Virtual]
         public abstract class StorageTypeConfig : IObject
         {
-
-
             public virtual dom.Storage prototype
             {
                 get;
@@ -95439,8 +89427,6 @@ namespace H5.Core
         [Virtual]
         public abstract class StorageEventTypeConfig : IObject
         {
-
-
             public virtual dom.StorageEvent prototype
             {
                 get;
@@ -95457,8 +89443,6 @@ namespace H5.Core
         [Virtual]
         public abstract class StyleMediaTypeConfig : IObject
         {
-
-
             public virtual dom.StyleMedia prototype
             {
                 get;
@@ -95472,8 +89456,6 @@ namespace H5.Core
         [Virtual]
         public abstract class StyleSheetTypeConfig : IObject
         {
-
-
             public virtual dom.StyleSheet prototype
             {
                 get;
@@ -95487,8 +89469,6 @@ namespace H5.Core
         [Virtual]
         public abstract class StyleSheetListTypeConfig : IObject
         {
-
-
             public virtual dom.StyleSheetList prototype
             {
                 get;
@@ -95502,8 +89482,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SubtleCryptoTypeConfig : IObject
         {
-
-
             public virtual dom.SubtleCrypto prototype
             {
                 get;
@@ -95517,8 +89495,6 @@ namespace H5.Core
         [Virtual]
         public abstract class SyncManagerTypeConfig : IObject
         {
-
-
             public virtual dom.SyncManager prototype
             {
                 get;
@@ -95532,8 +89508,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextTypeConfig : IObject
         {
-
-
             public virtual dom.Text prototype
             {
                 get;
@@ -95550,8 +89524,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextDecoderTypeConfig : IObject
         {
-
-
             public virtual dom.TextDecoder prototype
             {
                 get;
@@ -95571,8 +89543,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextEncoderTypeConfig : IObject
         {
-
-
             public virtual dom.TextEncoder prototype
             {
                 get;
@@ -95586,8 +89556,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextEventTypeConfig : IObject
         {
-
-
             public virtual dom.TextEvent prototype
             {
                 get;
@@ -95621,8 +89589,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextMetricsTypeConfig : IObject
         {
-
-
             public virtual dom.TextMetrics prototype
             {
                 get;
@@ -95636,8 +89602,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextTrackTypeConfig : IObject
         {
-
-
             public virtual dom.TextTrack prototype
             {
                 get;
@@ -95665,8 +89629,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextTrackCueTypeConfig : IObject
         {
-
-
             public virtual dom.TextTrackCue prototype
             {
                 get;
@@ -95680,8 +89642,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextTrackCueListTypeConfig : IObject
         {
-
-
             public virtual dom.TextTrackCueList prototype
             {
                 get;
@@ -95695,8 +89655,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TextTrackListTypeConfig : IObject
         {
-
-
             public virtual dom.TextTrackList prototype
             {
                 get;
@@ -95710,8 +89668,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TimeRangesTypeConfig : IObject
         {
-
-
             public virtual dom.TimeRanges prototype
             {
                 get;
@@ -95725,8 +89681,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TouchTypeConfig : IObject
         {
-
-
             public virtual dom.Touch prototype
             {
                 get;
@@ -95740,8 +89694,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TouchEventTypeConfig : IObject
         {
-
-
             public virtual dom.TouchEvent prototype
             {
                 get;
@@ -95758,8 +89710,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TouchListTypeConfig : IObject
         {
-
-
             public virtual dom.TouchList prototype
             {
                 get;
@@ -95773,8 +89723,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TrackEventTypeConfig : IObject
         {
-
-
             public virtual dom.TrackEvent prototype
             {
                 get;
@@ -95791,8 +89739,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TransitionEventTypeConfig : IObject
         {
-
-
             public virtual dom.TransitionEvent prototype
             {
                 get;
@@ -95811,8 +89757,6 @@ namespace H5.Core
         [Virtual]
         public abstract class TreeWalkerTypeConfig : IObject
         {
-
-
             public virtual dom.TreeWalker prototype
             {
                 get;
@@ -95826,8 +89770,6 @@ namespace H5.Core
         [Virtual]
         public abstract class UIEventTypeConfig : IObject
         {
-
-
             public virtual dom.UIEvent prototype
             {
                 get;
@@ -95844,8 +89786,6 @@ namespace H5.Core
         [Virtual]
         public abstract class URLTypeConfig : IObject
         {
-
-
             public virtual dom.URL prototype
             {
                 get;
@@ -95874,8 +89814,6 @@ namespace H5.Core
         [Virtual]
         public abstract class URLSearchParamsTypeConfig : IObject
         {
-
-
             public virtual dom.URLSearchParams prototype
             {
                 get;
@@ -95898,8 +89836,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VRDisplayTypeConfig : IObject
         {
-
-
             public virtual dom.VRDisplay prototype
             {
                 get;
@@ -95913,8 +89849,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VRDisplayCapabilitiesTypeConfig : IObject
         {
-
-
             public virtual dom.VRDisplayCapabilities prototype
             {
                 get;
@@ -95928,8 +89862,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VRDisplayEventTypeConfig : IObject
         {
-
-
             public virtual dom.VRDisplayEvent prototype
             {
                 get;
@@ -95943,8 +89875,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VREyeParametersTypeConfig : IObject
         {
-
-
             public virtual dom.VREyeParameters prototype
             {
                 get;
@@ -95958,8 +89888,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VRFieldOfViewTypeConfig : IObject
         {
-
-
             public virtual dom.VRFieldOfView prototype
             {
                 get;
@@ -95973,8 +89901,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VRFrameDataTypeConfig : IObject
         {
-
-
             public virtual dom.VRFrameData prototype
             {
                 get;
@@ -95988,8 +89914,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VRPoseTypeConfig : IObject
         {
-
-
             public virtual dom.VRPose prototype
             {
                 get;
@@ -96003,8 +89927,6 @@ namespace H5.Core
         [Virtual]
         public abstract class ValidityStateTypeConfig : IObject
         {
-
-
             public virtual dom.ValidityState prototype
             {
                 get;
@@ -96018,8 +89940,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VideoPlaybackQualityTypeConfig : IObject
         {
-
-
             public virtual dom.VideoPlaybackQuality prototype
             {
                 get;
@@ -96033,8 +89953,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VideoTrackTypeConfig : IObject
         {
-
-
             public virtual dom.VideoTrack prototype
             {
                 get;
@@ -96048,8 +89966,6 @@ namespace H5.Core
         [Virtual]
         public abstract class VideoTrackListTypeConfig : IObject
         {
-
-
             public virtual dom.VideoTrackList prototype
             {
                 get;
@@ -96063,8 +89979,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WEBGL_compressed_texture_s3tcTypeConfig : IObject
         {
-
-
             public virtual dom.WEBGL_compressed_texture_s3tc prototype
             {
                 get;
@@ -96086,8 +90000,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WEBGL_debug_renderer_infoTypeConfig : IObject
         {
-
-
             public virtual dom.WEBGL_debug_renderer_info prototype
             {
                 get;
@@ -96105,8 +90017,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WEBGL_depth_textureTypeConfig : IObject
         {
-
-
             public virtual dom.WEBGL_depth_texture prototype
             {
                 get;
@@ -96122,8 +90032,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WaveShaperNodeTypeConfig : IObject
         {
-
-
             public virtual dom.WaveShaperNode prototype
             {
                 get;
@@ -96137,8 +90045,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebAuthenticationTypeConfig : IObject
         {
-
-
             public virtual dom.WebAuthentication prototype
             {
                 get;
@@ -96152,8 +90058,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebAuthnAssertionTypeConfig : IObject
         {
-
-
             public virtual dom.WebAuthnAssertion prototype
             {
                 get;
@@ -96167,8 +90071,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLActiveInfoTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLActiveInfo prototype
             {
                 get;
@@ -96182,8 +90084,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLBufferTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLBuffer prototype
             {
                 get;
@@ -96197,8 +90097,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLContextEventTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLContextEvent prototype
             {
                 get;
@@ -96217,8 +90115,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLFramebufferTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLFramebuffer prototype
             {
                 get;
@@ -96232,8 +90128,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLObjectTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLObject prototype
             {
                 get;
@@ -96247,8 +90141,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLProgramTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLProgram prototype
             {
                 get;
@@ -96262,8 +90154,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLRenderbufferTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLRenderbuffer prototype
             {
                 get;
@@ -96277,8 +90167,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLRenderingContextTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLRenderingContext prototype
             {
                 get;
@@ -96886,8 +90774,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLShaderTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLShader prototype
             {
                 get;
@@ -96901,8 +90787,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLShaderPrecisionFormatTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLShaderPrecisionFormat prototype
             {
                 get;
@@ -96916,8 +90800,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLTextureTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLTexture prototype
             {
                 get;
@@ -96931,8 +90813,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebGLUniformLocationTypeConfig : IObject
         {
-
-
             public virtual dom.WebGLUniformLocation prototype
             {
                 get;
@@ -96946,8 +90826,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebKitCSSMatrixTypeConfig : IObject
         {
-
-
             public virtual dom.WebKitCSSMatrix prototype
             {
                 get;
@@ -96964,8 +90842,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebKitDirectoryEntryTypeConfig : IObject
         {
-
-
             public virtual dom.WebKitDirectoryEntry prototype
             {
                 get;
@@ -96979,8 +90855,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebKitDirectoryReaderTypeConfig : IObject
         {
-
-
             public virtual dom.WebKitDirectoryReader prototype
             {
                 get;
@@ -96994,8 +90868,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebKitEntryTypeConfig : IObject
         {
-
-
             public virtual dom.WebKitEntry prototype
             {
                 get;
@@ -97009,8 +90881,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebKitFileEntryTypeConfig : IObject
         {
-
-
             public virtual dom.WebKitFileEntry prototype
             {
                 get;
@@ -97024,8 +90894,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebKitFileSystemTypeConfig : IObject
         {
-
-
             public virtual dom.WebKitFileSystem prototype
             {
                 get;
@@ -97039,8 +90907,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebKitPointTypeConfig : IObject
         {
-
-
             public virtual dom.WebKitPoint prototype
             {
                 get;
@@ -97060,8 +90926,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WebSocketTypeConfig : IObject
         {
-
-
             public virtual dom.WebSocket prototype
             {
                 get;
@@ -97092,8 +90956,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WheelEventTypeConfig : IObject
         {
-
-
             public virtual dom.WheelEvent prototype
             {
                 get;
@@ -97116,8 +90978,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WindowTypeConfig : IObject
         {
-
-
             public virtual dom.Window prototype
             {
                 get;
@@ -97131,8 +90991,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WorkerTypeConfig : IObject
         {
-
-
             public virtual dom.Worker prototype
             {
                 get;
@@ -97146,8 +91004,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WritableStreamTypeConfig : IObject
         {
-
-
             public virtual dom.WritableStream prototype
             {
                 get;
@@ -97169,8 +91025,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WritableStreamDefaultControllerTypeConfig : IObject
         {
-
-
             public virtual dom.WritableStreamDefaultController prototype
             {
                 get;
@@ -97184,8 +91038,6 @@ namespace H5.Core
         [Virtual]
         public abstract class WritableStreamDefaultWriterTypeConfig : IObject
         {
-
-
             public virtual dom.WritableStreamDefaultWriter prototype
             {
                 get;
@@ -97199,8 +91051,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XMLDocumentTypeConfig : IObject
         {
-
-
             public virtual dom.XMLDocument prototype
             {
                 get;
@@ -97214,8 +91064,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XMLHttpRequestTypeConfig : IObject
         {
-
-
             public virtual dom.XMLHttpRequest prototype
             {
                 get;
@@ -97239,8 +91087,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XMLHttpRequestUploadTypeConfig : IObject
         {
-
-
             public virtual dom.XMLHttpRequestUpload prototype
             {
                 get;
@@ -97254,8 +91100,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XMLSerializerTypeConfig : IObject
         {
-
-
             public virtual dom.XMLSerializer prototype
             {
                 get;
@@ -97269,8 +91113,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XPathEvaluatorTypeConfig : IObject
         {
-
-
             public virtual dom.XPathEvaluator prototype
             {
                 get;
@@ -97284,8 +91126,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XPathExpressionTypeConfig : IObject
         {
-
-
             public virtual dom.XPathExpression prototype
             {
                 get;
@@ -97299,8 +91139,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XPathNSResolverTypeConfig : IObject
         {
-
-
             public virtual dom.XPathNSResolver prototype
             {
                 get;
@@ -97314,8 +91152,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XPathResultTypeConfig : IObject
         {
-
-
             public virtual dom.XPathResult prototype
             {
                 get;
@@ -97349,8 +91185,6 @@ namespace H5.Core
         [Virtual]
         public abstract class XSLTProcessorTypeConfig : IObject
         {
-
-
             public virtual dom.XSLTProcessor prototype
             {
                 get;
@@ -97364,8 +91198,6 @@ namespace H5.Core
         [Virtual]
         public abstract class webkitRTCPeerConnectionTypeConfig : IObject
         {
-
-
             public virtual dom.webkitRTCPeerConnection prototype
             {
                 get;
@@ -101617,8 +95449,6 @@ namespace H5.Core
         [Virtual]
         public abstract class BlobStatics : IObject
         {
-
-
             [Template("<self>new {this}()")]
             public abstract dom.Blob Create();
 
@@ -101639,8 +95469,6 @@ namespace H5.Core
         [Virtual]
         public abstract class URLStatics : IObject
         {
-
-
             [Template("<self>new {this}({0})")]
             public abstract dom.URL Create(string url);
 
@@ -101670,8 +95498,6 @@ namespace H5.Core
         [Virtual]
         public abstract class URLSearchParamsStatics : IObject
         {
-
-
             [Template("<self>new {this}()")]
             public abstract dom.URLSearchParams Create();
 

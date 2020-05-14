@@ -34,5 +34,10 @@
     <AssemblyAttribute Include="H5.ExternalInterfaceAttribute"/>
     <AssemblyAttribute Include="H5.VirtualAttribute"/>
   </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Explicitly generate Assembly Info so the attributes above are included -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
   
 </Project>

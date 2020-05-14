@@ -164,7 +164,6 @@ namespace H5.Translator
 
             this.BuildSyntaxTree();
 
-
             var resolver = new MemberResolver(this.ParsedSourceFiles, Emitter.ToAssemblyReferences(references, logger), this.AssemblyDefinition);
             resolver = this.Preconvert(resolver, config);
 

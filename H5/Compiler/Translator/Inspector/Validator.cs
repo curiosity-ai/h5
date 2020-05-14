@@ -178,6 +178,9 @@ namespace H5.Translator
 
         public virtual bool IsExternalType(TypeDefinition type, bool ignoreLiteral = false)
         {
+            if (IsTypeFromH5Core(type.FullName)) return true;
+
+
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
             string nonScriptableAttr = Translator.H5_ASSEMBLY + ".NonScriptableAttribute";
 
@@ -202,8 +205,15 @@ namespace H5.Translator
             return has;
         }
 
+        private static bool IsTypeFromH5Core(string fullName)
+        {
+            return fullName.StartsWith("H5.Core.");
+        }
+
         public virtual bool IsExternalType(IEntity entity, bool ignoreLiteral = false)
         {
+            if (IsTypeFromH5Core(entity.FullName)) return true;
+
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
             string nonScriptableAttr = Translator.H5_ASSEMBLY + ".NonScriptableAttribute";
 
@@ -240,6 +250,8 @@ namespace H5.Translator
 
         public virtual bool IsExternalType(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, bool ignoreLiteral = false)
         {
+            if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
+
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
 
             var has = typeDefinition.Attributes.Any(attr => attr.Constructor != null && attr.Constructor.DeclaringType.FullName == externalAttr);
@@ -269,8 +281,12 @@ namespace H5.Translator
 
         public static bool IsVirtualTypeStatic(TypeDefinition typeDefinition)
         {
+            if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
+
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             CustomAttribute attr = attr = typeDefinition.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
+
+
 
             if (attr == null)
             {
@@ -326,6 +342,8 @@ namespace H5.Translator
 
         public static bool IsVirtualTypeStatic(ITypeDefinition typeDefinition)
         {
+            if (IsTypeFromH5Core(typeDefinition.FullName)) return true;
+
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             IAttribute attr = null;
             if (typeDefinition.GetDefinition() != null)
@@ -384,6 +402,12 @@ namespace H5.Translator
 
         public virtual bool IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, out bool isNative)
         {
+            if (IsTypeFromH5Core(typeDefinition.FullName))
+            {
+                isNative = false; //RFO: TODO: Check this assumption
+                return true;
+            }
+
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalInterfaceAttribute";
             var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
 
@@ -407,6 +431,12 @@ namespace H5.Translator
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalInterfaceAttribute";
 
             var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+
+            if (IsTypeFromH5Core(typeDefinition.FullName))
+            {
+                //RFO: TODO: Check this assumption
+                return new ExternalInterface() { IsNativeImplementation = true };
+            }
 
             if (attr == null)
             {

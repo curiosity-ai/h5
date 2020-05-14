@@ -336,6 +336,7 @@ namespace H5.Translator
             //    .ToList();
 
 
+            referencesPathes.AddRange(PackageReferencesDiscoveredPaths.Values);
 
             var arr = referencesPathes.ToArray();
             foreach (var refPath in arr)

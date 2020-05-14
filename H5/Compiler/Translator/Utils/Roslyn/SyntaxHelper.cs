@@ -991,6 +991,8 @@ namespace H5.Translator
 
             if (attr == null)
             {
+                if (Validator.IsTypeFromH5Core(symbol.ContainingAssembly.Name)) return true;
+
                 attr = symbol.ContainingAssembly.GetAttributes().FirstOrDefault(a => a.AttributeClass != null && a.AttributeClass.FullyQualifiedName() == virtualAttr);
             }
 

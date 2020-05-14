@@ -65,7 +65,8 @@ namespace H5.Translator
                 if (resolveResult != null && resolveResult.Type != null)
                 {
                     var def = resolveResult.Type.GetDefinition();
-                    external = def != null && def.ParentAssembly.AssemblyAttributes.Any(a => a.AttributeType.FullName == "H5.ExternalAttribute");
+
+                    external =  def != null && (Validator.IsTypeFromH5Core(def.FullName) || def.ParentAssembly.AssemblyAttributes.Any(a => a.AttributeType.FullName == "H5.ExternalAttribute"));
                 }
             }
 

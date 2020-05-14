@@ -400,6 +400,10 @@ namespace H5.Contract
             return (lValue & lFlag) != 0;
         }
 
+        private static bool IsTypeFromH5Core(string fullName)
+        {
+            return fullName.StartsWith("H5.Core.");
+        }
         private static bool IsAcceptableTarget(NameSemantic semantic, ConventionTarget target, ITypeDefinition typeDef)
         {
             bool acceptable = true;
@@ -428,6 +432,7 @@ namespace H5.Contract
                     break;
                 case ConventionTarget.External:
                     string externalAttr = "H5.ExternalAttribute";
+
                     var has =
                         typeDef.Attributes.Any(
                             attr =>
@@ -451,6 +456,9 @@ namespace H5.Contract
                                     attr.Constructor != null &&
                                     attr.Constructor.DeclaringType.FullName == externalAttr);
                     }
+
+                    has |= IsTypeFromH5Core(typeDef.FullName);
+
                     acceptable = has;
 
                     break;

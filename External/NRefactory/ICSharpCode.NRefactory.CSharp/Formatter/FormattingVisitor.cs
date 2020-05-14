@@ -185,8 +185,8 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public void EnsureMinimumNewLinesAfter(AstNode node, int blankLines)
         {
-            if (node is PreProcessorDirective) {
-                var directive = (PreProcessorDirective)node;
+            if (node is PreProcessorDirective directive)
+            {
                 if (directive.Type == PreProcessorDirectiveType.Pragma)
                     return;
             }

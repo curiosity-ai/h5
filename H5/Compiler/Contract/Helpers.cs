@@ -401,9 +401,8 @@ namespace H5.Contract
             if (resolveResult is InvocationResolveResult)
             {
                 bool ret = true;
-                if (expression.Parent is InvocationExpression)
+                if (expression.Parent is InvocationExpression invocationExpression)
                 {
-                    var invocationExpression = (InvocationExpression)expression.Parent;
                     if (invocationExpression.Arguments.Any(a => a == expression))
                     {
                         ret = false;

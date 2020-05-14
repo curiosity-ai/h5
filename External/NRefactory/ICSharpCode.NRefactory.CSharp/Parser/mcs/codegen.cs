@@ -927,11 +927,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (temporary_storage != null) {
                 object o;
                 if (temporary_storage.TryGetValue (t, out o)) {
-                    if (o is Stack<LocalBuilder>) {
-                        var s = (Stack<LocalBuilder>) o;
-                        o = s.Count == 0 ? null : s.Pop ();
-                    } else {
-                        temporary_storage.Remove (t);
+                    if (o is Stack<LocalBuilder> s)
+                    {
+                        o = s.Count == 0 ? null : s.Pop();
+                    }
+                    else
+                    {
+                        temporary_storage.Remove(t);
                     }
                 }
                 if (o != null)

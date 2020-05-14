@@ -460,9 +460,8 @@ namespace H5.Translator
 
                 string baseMethod;
                 bool isIgnoreGeneric = false;
-                if (resolveResult is MemberResolveResult)
+                if (resolveResult is MemberResolveResult memberResult)
                 {
-                    MemberResolveResult memberResult = (MemberResolveResult)resolveResult;
                     baseMethod = OverloadsCollection.Create(this.Emitter, memberResult.Member).GetOverloadName();
                     isIgnoreGeneric = Helpers.IsIgnoreGeneric(memberResult.Member, this.Emitter);
                 }

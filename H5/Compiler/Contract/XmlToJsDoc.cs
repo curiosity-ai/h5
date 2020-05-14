@@ -53,9 +53,8 @@ namespace H5.Contract
                     value = initializer.Value;
                 }
             }
-            else if (node is EventDeclaration)
+            else if (node is EventDeclaration eventDecl)
             {
-                var eventDecl = (EventDeclaration)node;
                 foreach (var evVar in eventDecl.Variables)
                 {
                     var ev_rr = block.Emitter.Resolver.ResolveNode(evVar, block.Emitter);
@@ -596,9 +595,8 @@ namespace H5.Contract
                 return XmlToJsDoc.ToJavascriptName(member.ReturnType, emitter);
             }
 
-            if (member is IParameterizedMember)
+            if (member is IParameterizedMember paramMember)
             {
-                var paramMember = (IParameterizedMember)member;
                 var param = paramMember.Parameters.FirstOrDefault(p => p.Name == name);
                 if (param != null)
                 {

@@ -166,8 +166,8 @@ namespace ICSharpCode.NRefactory.CSharp
             }
             if (expr.Parent is DirectionExpression) {
                 var parent = expr.Parent.Parent;
-                if (parent is InvocationExpression) {
-                    var invoke = (InvocationExpression)parent;
+                if (parent is InvocationExpression invoke)
+                {
                     return GetAllValidTypesFromInvocation(resolver, invoke, expr.Parent);
                 }
             }
@@ -189,36 +189,39 @@ namespace ICSharpCode.NRefactory.CSharp
                 return GetAllValidTypesFromObjectCreation(resolver, invoke, expr);
             }
 
-            if (expr.Parent is ArrayCreateExpression) {
-                var ace = (ArrayCreateExpression)expr.Parent;
-                if (!ace.Type.IsNull) {
-                    return new [] { resolver.Resolve(ace.Type).Type };
+            if (expr.Parent is ArrayCreateExpression ace)
+            {
+                if (!ace.Type.IsNull)
+                {
+                    return new[] { resolver.Resolve(ace.Type).Type };
                 }
             }
 
             if (expr.Parent is InvocationExpression) {
                 var parent = expr.Parent;
-                if (parent is InvocationExpression) {
-                    var invoke = (InvocationExpression)parent;
+                if (parent is InvocationExpression invoke)
+                {
                     return GetAllValidTypesFromInvocation(resolver, invoke, expr);
                 }
             }
 
-            if (expr.Parent is VariableInitializer) {
-                var initializer = (VariableInitializer)expr.Parent;
+            if (expr.Parent is VariableInitializer initializer)
+            {
                 var field = initializer.GetParent<FieldDeclaration>();
-                if (field != null) {
+                if (field != null)
+                {
                     var rr = resolver.Resolve(field.ReturnType);
                     if (!rr.IsError)
-                        return new [] { rr.Type };
+                        return new[] { rr.Type };
                 }
                 var varStmt = initializer.GetParent<VariableDeclarationStatement>();
-                if (varStmt != null) {
+                if (varStmt != null)
+                {
                     var rr = resolver.Resolve(varStmt.Type);
                     if (!rr.IsError)
-                        return new [] { rr.Type };
+                        return new[] { rr.Type };
                 }
-                return new [] { resolver.Resolve(initializer).Type };
+                return new[] { resolver.Resolve(initializer).Type };
             }
 
             if (expr.Parent is CastExpression) {
@@ -279,18 +282,19 @@ namespace ICSharpCode.NRefactory.CSharp
                 }
             }
 
-            if (expr.Parent is UnaryOperatorExpression) {
-                var uop = (UnaryOperatorExpression)expr.Parent;
-                switch (uop.Operator) {
+            if (expr.Parent is UnaryOperatorExpression uop)
+            {
+                switch (uop.Operator)
+                {
                     case UnaryOperatorType.Not:
-                        return new [] { resolver.Compilation.FindType(KnownTypeCode.Boolean) };
-                        case UnaryOperatorType.Minus:
-                        case UnaryOperatorType.Plus:
-                        case UnaryOperatorType.Increment:
-                        case UnaryOperatorType.Decrement:
-                        case UnaryOperatorType.PostIncrement:
-                        case UnaryOperatorType.PostDecrement:
-                        return new [] { resolver.Compilation.FindType(KnownTypeCode.Int32) };
+                        return new[] { resolver.Compilation.FindType(KnownTypeCode.Boolean) };
+                    case UnaryOperatorType.Minus:
+                    case UnaryOperatorType.Plus:
+                    case UnaryOperatorType.Increment:
+                    case UnaryOperatorType.Decrement:
+                    case UnaryOperatorType.PostIncrement:
+                    case UnaryOperatorType.PostDecrement:
+                        return new[] { resolver.Compilation.FindType(KnownTypeCode.Int32) };
                 }
             }
 

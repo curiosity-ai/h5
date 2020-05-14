@@ -163,9 +163,8 @@ namespace H5.Translator
 
                     if (block != null)
                     {
-                        if (pattern.Pattern is DeclarationPatternSyntax)
+                        if (pattern.Pattern is DeclarationPatternSyntax declarationPattern)
                         {
-                            var declarationPattern = (DeclarationPatternSyntax)pattern.Pattern;
                             var designation = declarationPattern.Designation as SingleVariableDesignationSyntax;
                             var beforeStatement = pattern.Ancestors().OfType<StatementSyntax>().FirstOrDefault(ss => ss.Parent == block);
 

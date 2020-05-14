@@ -338,16 +338,14 @@ namespace H5.Contract
 
         private OverloadsCollection(IEmitter emitter, IMember member, bool isSetter = false, bool includeInline = false, bool isField = false)
         {
-            if (member is IMethod)
+            if (member is IMethod method)
             {
-                var method = (IMethod)member;
                 this.Inherit = !method.IsConstructor && !method.IsStatic;
                 this.Static = method.IsStatic;
                 this.Constructor = method.IsConstructor;
             }
-            else if (member is IEntity)
+            else if (member is IEntity entity)
             {
-                var entity = (IEntity)member;
                 this.Inherit = !entity.IsStatic;
                 this.Static = entity.IsStatic;
             }

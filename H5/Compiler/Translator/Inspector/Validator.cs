@@ -270,9 +270,7 @@ namespace H5.Translator
         public static bool IsVirtualTypeStatic(TypeDefinition typeDefinition)
         {
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
-            CustomAttribute attr = attr =
-                    typeDefinition.CustomAttributes.FirstOrDefault(
-                        a => a.AttributeType.FullName == virtualAttr);
+            CustomAttribute attr = attr = typeDefinition.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
 
             if (attr == null && typeDefinition.DeclaringType != null)
             {
@@ -576,10 +574,8 @@ namespace H5.Translator
                 {
                     name = Helpers.ConvertNameTokens((string)nameAttr.ConstructorArguments[0].Value, type.Name);
                 }
-                else if (nameAttr.ConstructorArguments[0].Value is bool)
+                else if (nameAttr.ConstructorArguments[0].Value is bool boolValue)
                 {
-                    var boolValue = (bool)nameAttr.ConstructorArguments[0].Value;
-
                     if (boolValue)
                     {
                         if (hasNs)

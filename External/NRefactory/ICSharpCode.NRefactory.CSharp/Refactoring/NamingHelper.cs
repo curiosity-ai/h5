@@ -49,9 +49,10 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
 
         public static IEnumerable<string> GenerateNameProposals(AstType type)
         {
-            if (type is PrimitiveType) {
-                var pt = (PrimitiveType)type;
-                switch (pt.Keyword) {
+            if (type is PrimitiveType pt)
+            {
+                switch (pt.Keyword)
+                {
                     case "object":
                         yield return "o";
                         yield return "obj";

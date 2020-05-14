@@ -1060,9 +1060,8 @@ namespace H5.Translator
             {
                 var arg = attr.Arguments.Skip(index).Take(1).First();
 
-                if (arg is PrimitiveExpression)
+                if (arg is PrimitiveExpression primitive)
                 {
-                    var primitive = (PrimitiveExpression)arg;
                     nameObj = primitive.Value;
                 }
             }
@@ -1080,9 +1079,8 @@ namespace H5.Translator
             {
                 var arg = attr.Arguments.Skip(index).Take(1).First();
 
-                if (arg is PrimitiveExpression)
+                if (arg is PrimitiveExpression primitive)
                 {
-                    var primitive = (PrimitiveExpression)arg;
                     return this.Resolver.ResolveNode(primitive, null).Type;
                 }
             }

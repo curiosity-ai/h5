@@ -193,10 +193,8 @@ namespace H5.Translator
                 var expression = typeBuilder.ConvertConstantValue(rr) as ArrayCreateExpression;
                 new ArrayCreateBlock(block.Emitter, expression, (ArrayCreateResolveResult)rr).Emit();
             }
-            else if (rr is MemberResolveResult)
+            else if (rr is MemberResolveResult mrr)
             {
-                var mrr = (MemberResolveResult)rr;
-
                 if (mrr.IsCompileTimeConstant && mrr.Member.DeclaringType.Kind == TypeKind.Enum)
                 {
                     var typeDef = mrr.Member.DeclaringType as DefaultResolvedTypeDefinition;

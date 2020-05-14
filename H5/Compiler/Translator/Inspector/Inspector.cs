@@ -111,10 +111,8 @@ namespace H5.Translator
 
         public static object GetDefaultFieldValue(AstType type, IMemberResolver resolver)
         {
-            if (type is PrimitiveType)
+            if (type is PrimitiveType primitiveType)
             {
-                var primitiveType = (PrimitiveType)type;
-
                 switch (primitiveType.KnownTypeCode)
                 {
                     case KnownTypeCode.Decimal:

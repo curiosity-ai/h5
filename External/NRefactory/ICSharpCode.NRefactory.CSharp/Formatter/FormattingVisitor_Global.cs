@@ -41,8 +41,8 @@ namespace ICSharpCode.NRefactory.CSharp
 
             int newLines = 1;
             var nextSibling = child.GetNextSibling(NoWhitespacePredicate);
-            if (nextSibling is PreProcessorDirective) {
-                var directive = (PreProcessorDirective)nextSibling;
+            if (nextSibling is PreProcessorDirective directive)
+            {
                 if (directive.Type == PreProcessorDirectiveType.Endif)
                     return -1;
                 if (directive.Type == PreProcessorDirectiveType.Undef)

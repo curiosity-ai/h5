@@ -459,11 +459,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         bool CheckEqualAssign (Expression t)
         {
-            if (source is Assign) {
-                Assign a = (Assign) source;
-                if (t.Equals (a.Target))
+            if (source is Assign a)
+            {
+                if (t.Equals(a.Target))
                     return true;
-                return a is SimpleAssign && ((SimpleAssign) a).CheckEqualAssign (t);
+                return a is SimpleAssign && ((SimpleAssign)a).CheckEqualAssign(t);
             }
             return t.Equals (source);
         }
@@ -919,12 +919,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     b = ((ReducedExpression) source).OriginalExpression as Binary;
                 else if (source is ReducedExpression.ReducedConstantExpression) {
                     b = ((ReducedExpression.ReducedConstantExpression) source).OriginalExpression as Binary;
-                } else if (source is Nullable.LiftedBinaryOperator) {
-                    var po = ((Nullable.LiftedBinaryOperator) source);
+                } else if (source is Nullable.LiftedBinaryOperator po)
+                {
                     if (po.UserOperator == null)
                         b = po.Binary;
-                } else if (source is TypeCast) {
-                    b = ((TypeCast) source).Child as Binary;
+                }
+                else if (source is TypeCast)
+                {
+                    b = ((TypeCast)source).Child as Binary;
                 }
             }
 

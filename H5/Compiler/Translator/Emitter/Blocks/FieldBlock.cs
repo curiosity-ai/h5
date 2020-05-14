@@ -763,9 +763,8 @@ namespace H5.Translator
                     this.Emitter.Comma = true;
                 }
             }
-            else if (member is IEvent)
+            else if (member is IEvent ev)
             {
-                var ev = (IEvent)member;
                 if (ev.CanAdd)
                 {
                     nonEmpty = true;

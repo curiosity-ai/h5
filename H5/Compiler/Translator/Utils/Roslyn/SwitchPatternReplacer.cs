@@ -176,13 +176,11 @@ namespace H5.Translator
                             conditionList.Add(SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, expressionSyntax, label.Value));
                         }
                     }
-                    else if (item is CasePatternSwitchLabelSyntax)
+                    else if (item is CasePatternSwitchLabelSyntax label)
                     {
-                        var label = (CasePatternSwitchLabelSyntax)item;
                         string varName = null;
-                        if (label.Pattern is DeclarationPatternSyntax)
+                        if (label.Pattern is DeclarationPatternSyntax declarationPattern)
                         {
-                            var declarationPattern = (DeclarationPatternSyntax)label.Pattern;
                             var designation = declarationPattern.Designation as SingleVariableDesignationSyntax;
 
                             if (designation != null)
@@ -205,9 +203,8 @@ namespace H5.Translator
                                 conditionList.Add(SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expressionSyntax, declarationType));
                             }
                         }
-                        else if (label.Pattern is ConstantPatternSyntax)
+                        else if (label.Pattern is ConstantPatternSyntax constPattern)
                         {
-                            var constPattern = (ConstantPatternSyntax)label.Pattern;
                             conditionList.Add(SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, expressionSyntax, constPattern.Expression));
                         }
 

@@ -398,18 +398,22 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             if (invocation is CSharpInvocationResolveResult || invocation is DynamicInvocationResolveResult) {
                 int i = 0;
                 IList<ResolveResult> argumentsRR;
-                if (invocation is CSharpInvocationResolveResult) {
-                    var csi = (CSharpInvocationResolveResult)invocation;
-                    if (csi.IsExtensionMethodInvocation) {
+                if (invocation is CSharpInvocationResolveResult csi)
+                {
+                    if (csi.IsExtensionMethodInvocation)
+                    {
                         Debug.Assert(arguments.Count() + 1 == csi.Arguments.Count);
                         ProcessConversionResult(target, csi.Arguments[0] as ConversionResolveResult);
                         i = 1;
-                    } else {
+                    }
+                    else
+                    {
                         Debug.Assert(arguments.Count() == csi.Arguments.Count);
                     }
                     argumentsRR = csi.Arguments;
                 }
-                else {
+                else
+                {
                     argumentsRR = ((DynamicInvocationResolveResult)invocation).Arguments;
                 }
 
@@ -1138,8 +1142,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
         #region Visit AnonymousTypeCreateExpression
         static string GetAnonymousTypePropertyName(Expression expr, out Expression resolveExpr)
         {
-            if (expr is NamedExpression) {
-                var namedArgExpr = (NamedExpression)expr;
+            if (expr is NamedExpression namedArgExpr)
+            {
                 resolveExpr = namedArgExpr.Expression;
                 return namedArgExpr.Name;
             }
@@ -3726,23 +3730,28 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             InvocationResolveResult invocationRR = rr as InvocationResolveResult;
 
             IVariable groupVariable;
-            if (groupJoinLambda is ImplicitlyTypedLambda) {
-                var implicitlyTypedLambda = (ImplicitlyTypedLambda)groupJoinLambda;
-
-                if (invocationRR != null && invocationRR.Arguments.Count > 0) {
+            if (groupJoinLambda is ImplicitlyTypedLambda implicitlyTypedLambda)
+            {
+                if (invocationRR != null && invocationRR.Arguments.Count > 0)
+                {
                     ConversionResolveResult crr = invocationRR.Arguments[invocationRR.Arguments.Count - 1] as ConversionResolveResult;
                     if (crr != null)
                         ProcessConversion(null, crr.Input, crr.Conversion, crr.Type);
                 }
 
                 implicitlyTypedLambda.EnforceMerge(this);
-                if (implicitlyTypedLambda.Parameters.Count == 2) {
+                if (implicitlyTypedLambda.Parameters.Count == 2)
+                {
                     StoreCurrentState(queryJoinClause.IntoIdentifierToken);
                     groupVariable = implicitlyTypedLambda.Parameters[1];
-                } else {
+                }
+                else
+                {
                     groupVariable = null;
                 }
-            } else {
+            }
+            else
+            {
                 Debug.Assert(groupJoinLambda is QueryExpressionLambda);
 
                 // Add the variable if the query expression continues after the group join
@@ -3751,9 +3760,11 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
                 // Get the inferred type of the group variable:
                 IType[] inferredParameterTypes = null;
-                if (invocationRR != null && invocationRR.Arguments.Count > 0) {
+                if (invocationRR != null && invocationRR.Arguments.Count > 0)
+                {
                     ConversionResolveResult crr = invocationRR.Arguments[invocationRR.Arguments.Count - 1] as ConversionResolveResult;
-                    if (crr != null && crr.Conversion is QueryExpressionLambdaConversion) {
+                    if (crr != null && crr.Conversion is QueryExpressionLambdaConversion)
+                    {
                         inferredParameterTypes = ((QueryExpressionLambdaConversion)crr.Conversion).ParameterTypes;
                     }
                 }
@@ -4053,11 +4064,12 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                     } else {
                         return new TypeResolveResult(typeDef);
                     }
-                } else if (rr is MemberResolveResult) {
-                    var mrr = (MemberResolveResult)rr;
+                } else if (rr is MemberResolveResult mrr)
+                {
                     return new MemberResolveResult(null, mrr.Member.MemberDefinition);
-                } else if (rr is MethodGroupResolveResult) {
-                    var mgrr = (MethodGroupResolveResult)rr;
+                }
+                else if (rr is MethodGroupResolveResult mgrr)
+                {
                     var methods = mgrr.MethodsGroupedByDeclaringType.Reverse()
                         .SelectMany(ml => ml.Select(m => (IParameterizedMember)m.MemberDefinition));
                     return FindByParameters(methods, parameters);

@@ -213,8 +213,8 @@ namespace ICSharpCode.NRefactory
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (value is TextLocation) {
-                var loc = (TextLocation)value;
+            if (value is TextLocation loc)
+            {
                 return loc.Line + ";" + loc.Column;
             }
             return base.ConvertTo(context, culture, value, destinationType);

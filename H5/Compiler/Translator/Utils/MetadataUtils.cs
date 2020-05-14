@@ -579,9 +579,8 @@ namespace H5.Translator
                 properties.Add("is", true);
             }
 
-            if (m is IMethod)
+            if (m is IMethod method)
             {
-                var method = (IMethod)m;
                 var inline = emitter.GetInline(method);
 
                 if (string.IsNullOrEmpty(inline) && method.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute"))
@@ -679,10 +678,8 @@ namespace H5.Translator
 
                 MetadataUtils.AddBox(m, emitter, properties);
             }
-            else if (m is IField)
+            else if (m is IField field)
             {
-                var field = (IField)m;
-
                 properties.Add("t", (int)MemberTypes.Field);
                 properties.Add("rt", new JRaw(MetadataUtils.GetTypeName(field.ReturnType, emitter, isGenericSpecialization)));
                 properties.Add("sn", OverloadsCollection.Create(emitter, field).GetOverloadName());
@@ -777,10 +774,8 @@ namespace H5.Translator
                     properties.Add("fn", fieldName);
                 }
             }
-            else if (m is IEvent)
+            else if (m is IEvent evt)
             {
-                var evt = (IEvent)m;
-
                 properties.Add("t", (int)MemberTypes.Event);
                 properties.Add("ad", MetadataUtils.ConstructMemberInfo(evt.AddAccessor, emitter, includeDeclaringType, isGenericSpecialization, tree));
                 properties.Add("r", MetadataUtils.ConstructMemberInfo(evt.RemoveAccessor, emitter, includeDeclaringType, isGenericSpecialization, tree));

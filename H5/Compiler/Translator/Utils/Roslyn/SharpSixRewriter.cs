@@ -781,10 +781,8 @@ namespace H5.Translator
                 {
                     str += interpolatedStringTextSyntax.TextToken.ValueText;
                 }
-                else if (content is InterpolationSyntax)
+                else if (content is InterpolationSyntax interpolation)
                 {
-                    var interpolation = (InterpolationSyntax)content;
-
                     str += "{" + placeholder.ToString(CultureInfo.InvariantCulture);
 
                     if (interpolation.AlignmentClause != null)
@@ -1772,9 +1770,8 @@ namespace H5.Translator
                     if (be.Right is InitializerExpressionSyntax)
                     {
                         string name = null;
-                        if (be.Left is IdentifierNameSyntax)
+                        if (be.Left is IdentifierNameSyntax identifier)
                         {
-                            var identifier = (IdentifierNameSyntax)be.Left;
                             name = instance + "." + identifier.Identifier.ValueText;
                         }
                         else if (be.Left is ImplicitElementAccessSyntax)

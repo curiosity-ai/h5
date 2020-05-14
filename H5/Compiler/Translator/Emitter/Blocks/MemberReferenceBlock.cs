@@ -265,9 +265,8 @@ namespace H5.Translator
             }
 
             bool isDynamic = false;
-            if (resolveResult is DynamicInvocationResolveResult)
+            if (resolveResult is DynamicInvocationResolveResult dynamicResolveResult)
             {
-                var dynamicResolveResult = (DynamicInvocationResolveResult)resolveResult;
                 var group = dynamicResolveResult.Target as MethodGroupResolveResult;
 
                 if (group != null && group.Methods.Count() > 1)
@@ -303,9 +302,8 @@ namespace H5.Translator
                 }
             }
 
-            if (resolveResult is MethodGroupResolveResult)
+            if (resolveResult is MethodGroupResolveResult oldResult)
             {
-                var oldResult = (MethodGroupResolveResult)resolveResult;
                 resolveResult = this.Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, this.Emitter);
 
                 if (resolveResult is DynamicInvocationResolveResult)
@@ -361,9 +359,8 @@ namespace H5.Translator
                         {
                             assign = true;
                         }
-                        else if (memberExpression is InvocationExpression)
+                        else if (memberExpression is InvocationExpression targetInvocation)
                         {
-                            var targetInvocation = (InvocationExpression)memberExpression;
                             if (targetInvocation.Arguments.Any(a => a == targetExpression))
                             {
                                 assign = true;
@@ -684,9 +681,8 @@ namespace H5.Translator
                     }
                 }
 
-                if (resolveResult is TypeResolveResult)
+                if (resolveResult is TypeResolveResult typeResolveResult)
                 {
-                    TypeResolveResult typeResolveResult = (TypeResolveResult)resolveResult;
                     this.Write(H5Types.ToJsName(typeResolveResult.Type, this.Emitter));
                     return;
                 }
@@ -1020,9 +1016,8 @@ namespace H5.Translator
                         }
                     }
                 }
-                else if (resolveResult is InvocationResolveResult)
+                else if (resolveResult is InvocationResolveResult invocationResult)
                 {
-                    InvocationResolveResult invocationResult = (InvocationResolveResult)resolveResult;
                     CSharpInvocationResolveResult cInvocationResult = resolveResult as CSharpInvocationResolveResult;
                     var expresssionMember = expressionResolveResult as MemberResolveResult;
 

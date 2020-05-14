@@ -599,9 +599,8 @@ namespace H5.Translator
                 }
                 else if (isResolved)
                 {
-                    if (resolveResult is LocalResolveResult)
+                    if (resolveResult is LocalResolveResult localResolveResult)
                     {
-                        var localResolveResult = (LocalResolveResult)resolveResult;
                         this.Write(localResolveResult.Variable.Name);
                     }
                     else if (memberResult != null)

@@ -355,37 +355,47 @@ namespace ICSharpCode.NRefactory.TypeSystem
                             (type as Mono.Cecil.ArrayType).ElementType,
                             typeAttributes, ref typeIndex),
                         (type as Mono.Cecil.ArrayType).Rank));
-            } else if (type is GenericInstanceType) {
-                GenericInstanceType gType = (GenericInstanceType)type;
+            } else if (type is GenericInstanceType gType)
+            {
                 ITypeReference baseType = CreateType(gType.ElementType, typeAttributes, ref typeIndex);
                 ITypeReference[] para = new ITypeReference[gType.GenericArguments.Count];
-                for (int i = 0; i < para.Length; ++i) {
+                for (int i = 0; i < para.Length; ++i)
+                {
                     typeIndex++;
                     para[i] = CreateType(gType.GenericArguments[i], typeAttributes, ref typeIndex);
                 }
                 return interningProvider.Intern(new ParameterizedTypeReference(baseType, para));
-            } else if (type is GenericParameter) {
-                GenericParameter typeGP = (GenericParameter)type;
+            }
+            else if (type is GenericParameter typeGP)
+            {
                 return TypeParameterReference.Create(typeGP.Owner is MethodReference ? SymbolKind.Method : SymbolKind.TypeDefinition, typeGP.Position);
-            } else if (type.IsNested) {
+            }
+            else if (type.IsNested)
+            {
                 ITypeReference typeRef = CreateType(type.DeclaringType, typeAttributes, ref typeIndex);
                 int partTypeParameterCount;
                 string namepart = ReflectionHelper.SplitTypeParameterCountFromReflectionName(type.Name, out partTypeParameterCount);
                 namepart = interningProvider.Intern(namepart);
                 return interningProvider.Intern(new NestedTypeReference(typeRef, namepart, partTypeParameterCount));
-            } else {
+            }
+            else
+            {
                 string ns = interningProvider.Intern(type.Namespace ?? string.Empty);
                 string name = type.Name;
                 if (name == null)
                     throw new InvalidOperationException("type.Name returned null. Type: " + type.ToString());
 
-                if (name == "Object" && ns == "System" && HasDynamicAttribute(typeAttributes, typeIndex)) {
+                if (name == "Object" && ns == "System" && HasDynamicAttribute(typeAttributes, typeIndex))
+                {
                     return SpecialType.Dynamic;
-                } else {
+                }
+                else
+                {
                     int typeParameterCount;
                     name = ReflectionHelper.SplitTypeParameterCountFromReflectionName(name, out typeParameterCount);
                     name = interningProvider.Intern(name);
-                    if (currentAssembly != null) {
+                    if (currentAssembly != null)
+                    {
                         IUnresolvedTypeDefinition c = currentAssembly.GetTypeDefinition(ns, name, typeParameterCount);
                         if (c != null)
                             return c;

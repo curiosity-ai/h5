@@ -435,22 +435,25 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                 if (AddResolveResultAnnotations)
                     expr.AddAnnotation(rr);
                 return expr;
-            } else if (rr is ArrayCreateResolveResult) {
-                ArrayCreateResolveResult acrr = (ArrayCreateResolveResult)rr;
+            } else if (rr is ArrayCreateResolveResult acrr)
+            {
                 ArrayCreateExpression ace = new ArrayCreateExpression();
                 ace.Type = ConvertType(acrr.Type);
                 ComposedType composedType = ace.Type as ComposedType;
-                if (composedType != null) {
+                if (composedType != null)
+                {
                     composedType.ArraySpecifiers.MoveTo(ace.AdditionalArraySpecifiers);
                     if (!composedType.HasNullableSpecifier && composedType.PointerRank == 0)
                         ace.Type = composedType.BaseType;
                 }
 
-                if (acrr.SizeArguments != null && acrr.InitializerElements == null) {
+                if (acrr.SizeArguments != null && acrr.InitializerElements == null)
+                {
                     ace.AdditionalArraySpecifiers.FirstOrNullObject().Remove();
                     ace.Arguments.AddRange(acrr.SizeArguments.Select(ConvertConstantValue));
                 }
-                if (acrr.InitializerElements != null) {
+                if (acrr.InitializerElements != null)
+                {
                     ArrayInitializerExpression initializer = new ArrayInitializerExpression();
                     initializer.Elements.AddRange(acrr.InitializerElements.Select(ConvertConstantValue));
                     ace.Initializer = initializer;
@@ -458,9 +461,13 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                 if (AddResolveResultAnnotations)
                     ace.AddAnnotation(rr);
                 return ace;
-            } else if (rr.IsCompileTimeConstant) {
+            }
+            else if (rr.IsCompileTimeConstant)
+            {
                 return ConvertConstantValue(rr.Type, rr.ConstantValue);
-            } else {
+            }
+            else
+            {
                 return new ErrorExpression();
             }
         }

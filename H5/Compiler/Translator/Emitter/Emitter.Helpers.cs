@@ -585,10 +585,9 @@ namespace H5.Translator
             foreach (var arg in attr.Arguments)
             {
                 string value = "";
-                if (arg is PrimitiveExpression)
+                if (arg is PrimitiveExpression expr)
                 {
-                    PrimitiveExpression expr = (PrimitiveExpression) arg;
-                    value = (string) expr.Value;
+                    value = (string)expr.Value;
                 }
                 else
                 {

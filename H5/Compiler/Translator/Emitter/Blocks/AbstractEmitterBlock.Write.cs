@@ -161,9 +161,8 @@ namespace H5.Translator
         {
             string s = null;
 
-            if (value is double)
+            if (value is double d)
             {
-                double d = (double)value;
                 if (double.IsNaN(d))
                 {
                     s = JS.Types.Number.NaN;
@@ -181,9 +180,8 @@ namespace H5.Translator
                     s = emitter.ToJavaScript(value);
                 }
             }
-            else if (value is float)
+            else if (value is float f)
             {
-                float f = (float)value;
                 if (float.IsNaN(f))
                 {
                     s = JS.Types.Number.NaN;

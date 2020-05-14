@@ -153,17 +153,21 @@ namespace ICSharpCode.NRefactory.CSharp
                 float f = (float)value;
                 if (float.IsInfinity(f) || float.IsNaN(f)) return;
                 lastWritten = LastWritten.Other;
-            } else if (value is double) {
-                double f = (double)value;
+            } else if (value is double f)
+            {
                 if (double.IsInfinity(f) || double.IsNaN(f)) return;
                 // needs space if identifier follows number;
                 // this avoids mistaking the following identifier as type suffix
                 lastWritten = LastWritten.KeywordOrIdentifier;
-            } else if (value is IFormattable) {
+            }
+            else if (value is IFormattable)
+            {
                 // needs space if identifier follows number;
                 // this avoids mistaking the following identifier as type suffix
                 lastWritten = LastWritten.KeywordOrIdentifier;
-            } else {
+            }
+            else
+            {
                 lastWritten = LastWritten.Other;
             }
         }

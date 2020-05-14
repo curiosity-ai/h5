@@ -275,13 +275,17 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                     if (invoke == null) {
                         return null;
                     }
-                    if (invoke.Node is ConstructorInitializer) {
-                        var init = (ConstructorInitializer)invoke.Node;
-                        if (init.ConstructorInitializerType == ConstructorInitializerType.This) {
+                    if (invoke.Node is ConstructorInitializer init)
+                    {
+                        if (init.ConstructorInitializerType == ConstructorInitializerType.This)
+                        {
                             return factory.CreateConstructorProvider(document.GetOffset(invoke.Node.StartLocation), ctx.CurrentTypeDefinition, init);
-                        } else {
+                        }
+                        else
+                        {
                             var baseType = ctx.CurrentTypeDefinition.DirectBaseTypes.FirstOrDefault(bt => bt.Kind != TypeKind.Interface);
-                            if (baseType == null) {
+                            if (baseType == null)
+                            {
                                 return null;
                             }
                             return factory.CreateConstructorProvider(document.GetOffset(invoke.Node.StartLocation), baseType);

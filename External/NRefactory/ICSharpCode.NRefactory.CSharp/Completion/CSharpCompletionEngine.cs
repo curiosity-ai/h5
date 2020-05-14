@@ -197,9 +197,10 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
 
         IEnumerable<string> GenerateNameProposals(AstType type)
         {
-            if (type is PrimitiveType) {
-                var pt = (PrimitiveType)type;
-                switch (pt.Keyword) {
+            if (type is PrimitiveType pt)
+            {
+                switch (pt.Keyword)
+                {
                     case "object":
                         yield return "o";
                         yield return "obj";
@@ -256,9 +257,10 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 return null;
 
             // do not auto select <number>. (but <number>.<number>.) (0.ToString() is valid)
-            if (expr.Node is PrimitiveExpression) {
-                var pexpr = (PrimitiveExpression)expr.Node;
-                if (!(pexpr.Value is string || pexpr.Value is char) && !pexpr.LiteralValue.Contains('.')) {
+            if (expr.Node is PrimitiveExpression pexpr)
+            {
+                if (!(pexpr.Value is string || pexpr.Value is char) && !pexpr.LiteralValue.Contains('.'))
+                {
                     AutoSelect = false;
                 }
             }
@@ -319,12 +321,14 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 var initializerResult = ResolveExpression(p);
                 IType initializerType = null;
 
-                if (initializerResult.Result is DynamicInvocationResolveResult) {
-                    var dr = (DynamicInvocationResolveResult)initializerResult.Result;
+                if (initializerResult.Result is DynamicInvocationResolveResult dr)
+                {
                     var constructor = (dr.Target as MethodGroupResolveResult).Methods.FirstOrDefault();
                     if (constructor != null)
                         initializerType = constructor.DeclaringType;
-                } else {
+                }
+                else
+                {
                     initializerType = initializerResult != null ? initializerResult.Result.Type : null;
                 }
 
@@ -1698,9 +1702,10 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 }
             }
 
-            if (state.CurrentMember is IMethod) {
-                var method = (IMethod)state.CurrentMember;
-                foreach (var p in method.TypeParameters) {
+            if (state.CurrentMember is IMethod method)
+            {
+                foreach (var p in method.TypeParameters)
+                {
                     wrapper.AddTypeParameter(p);
                 }
             }
@@ -2846,11 +2851,14 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 ctx.CurrentTypeDefinition,
                 Compilation.MainAssembly
             );
-            if (resolveResult is NamespaceResolveResult) {
-                var nr = (NamespaceResolveResult)resolveResult;
-                if (!(resolvedNode.Parent is UsingDeclaration || resolvedNode.Parent != null && resolvedNode.Parent.Parent is UsingDeclaration)) {
-                    foreach (var cl in nr.Namespace.Types) {
-                        if (hintType != null && hintType.Kind != TypeKind.Array && cl.Kind == TypeKind.Interface) {
+            if (resolveResult is NamespaceResolveResult nr)
+            {
+                if (!(resolvedNode.Parent is UsingDeclaration || resolvedNode.Parent != null && resolvedNode.Parent.Parent is UsingDeclaration))
+                {
+                    foreach (var cl in nr.Namespace.Types)
+                    {
+                        if (hintType != null && hintType.Kind != TypeKind.Array && cl.Kind == TypeKind.Interface)
+                        {
                             continue;
                         }
                         if (!lookup.IsAccessible(cl, false))
@@ -2858,13 +2866,18 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                         result.AddType(cl, false, IsAttributeContext(resolvedNode));
                     }
                 }
-                foreach (var ns in nr.Namespace.ChildNamespaces) {
+                foreach (var ns in nr.Namespace.ChildNamespaces)
+                {
                     result.AddNamespace(lookup, ns);
                 }
-            } else if (resolveResult is TypeResolveResult) {
+            }
+            else if (resolveResult is TypeResolveResult)
+            {
                 var type = resolveResult.Type;
-                foreach (var nested in type.GetNestedTypes ()) {
-                    if (hintType != null && hintType.Kind != TypeKind.Array && nested.Kind == TypeKind.Interface) {
+                foreach (var nested in type.GetNestedTypes())
+                {
+                    if (hintType != null && hintType.Kind != TypeKind.Array && nested.Kind == TypeKind.Interface)
+                    {
                         continue;
                     }
                     var def = nested.GetDefinition();
@@ -2976,11 +2989,12 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 Compilation.MainAssembly
             );
 
-            if (resolveResult is NamespaceResolveResult) {
-                var nr = (NamespaceResolveResult)resolveResult;
+            if (resolveResult is NamespaceResolveResult nr)
+            {
                 var namespaceContents = new CompletionDataWrapper(this);
 
-                foreach (var cl in nr.Namespace.Types) {
+                foreach (var cl in nr.Namespace.Types)
+                {
                     if (!lookup.IsAccessible(cl, false))
                         continue;
                     IType addType = typePred != null ? typePred(cl) : cl;
@@ -2988,7 +3002,8 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                         namespaceContents.AddType(addType, false);
                 }
 
-                foreach (var ns in nr.Namespace.ChildNamespaces) {
+                foreach (var ns in nr.Namespace.ChildNamespaces)
+                {
                     namespaceContents.AddNamespace(lookup, ns);
                 }
                 return namespaceContents.Result;

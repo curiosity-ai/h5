@@ -492,9 +492,8 @@ namespace H5.Translator
 
                 foreach (var arg in arguments)
                 {
-                    if (arg is NamedArgumentExpression)
+                    if (arg is NamedArgumentExpression namedArg)
                     {
-                        NamedArgumentExpression namedArg = (NamedArgumentExpression)arg;
                         var namedParam = parameters.First(p => p.Name == namedArg.Name);
                         var index = parameters.IndexOf(namedParam);
 
@@ -625,9 +624,8 @@ namespace H5.Translator
 
                 foreach (var arg in arguments)
                 {
-                    if (arg is NamedArgumentExpression)
+                    if (arg is NamedArgumentExpression namedArg)
                     {
-                        NamedArgumentExpression namedArg = (NamedArgumentExpression)arg;
                         var namedParam = parameters.First(p => p.Name == namedArg.Name);
                         var index = parameters.IndexOf(namedParam) - shift;
 
@@ -729,9 +727,8 @@ namespace H5.Translator
                 int i = 0;
                 foreach (var arg in arguments)
                 {
-                    if (arg is NamedArgumentExpression)
+                    if (arg is NamedArgumentExpression namedArg)
                     {
-                        NamedArgumentExpression namedArg = (NamedArgumentExpression)arg;
                         var namedParam = parameters.First(p => p.Name == namedArg.Name);
                         var index = parameters.IndexOf(namedParam);
 

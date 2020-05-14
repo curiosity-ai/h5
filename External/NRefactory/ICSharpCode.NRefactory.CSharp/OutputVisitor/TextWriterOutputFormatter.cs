@@ -277,54 +277,68 @@ namespace ICSharpCode.NRefactory.CSharp
                 var str = f.ToString("R", NumberFormatInfo.InvariantInfo) + "f";
                 column += str.Length;
                 textWriter.Write(str);
-            } else if (value is double) {
-                double f = (double)value;
-                if (double.IsInfinity(f) || double.IsNaN(f)) {
+            } else if (value is double f)
+            {
+                if (double.IsInfinity(f) || double.IsNaN(f))
+                {
                     // Strictly speaking, these aren't PrimitiveExpressions;
                     // but we still support writing these to make life easier for code generators.
                     textWriter.Write("double");
                     column += 6;
                     WriteToken(Roles.Dot, ".");
-                    if (double.IsPositiveInfinity(f)) {
+                    if (double.IsPositiveInfinity(f))
+                    {
                         textWriter.Write("PositiveInfinity");
                         column += "PositiveInfinity".Length;
-                    } else if (double.IsNegativeInfinity(f)) {
+                    }
+                    else if (double.IsNegativeInfinity(f))
+                    {
                         textWriter.Write("NegativeInfinity");
                         column += "NegativeInfinity".Length;
-                    } else {
+                    }
+                    else
+                    {
                         textWriter.Write("NaN");
                         column += 3;
                     }
                     return;
                 }
-                if (f == 0 && 1 / f == double.NegativeInfinity) {
+                if (f == 0 && 1 / f == double.NegativeInfinity)
+                {
                     // negative zero is a special case
                     // (again, not a primitive expression, but it's better to handle
                     // the special case here than to do it in all code generators)
                     textWriter.Write("-");
                 }
                 string number = f.ToString("R", NumberFormatInfo.InvariantInfo);
-                if (number.IndexOf('.') < 0 && number.IndexOf('E') < 0) {
+                if (number.IndexOf('.') < 0 && number.IndexOf('E') < 0)
+                {
                     number += ".0";
                 }
                 textWriter.Write(number);
-            } else if (value is IFormattable) {
-                StringBuilder b = new StringBuilder ();
-//                if (primitiveExpression.LiteralFormat == LiteralFormat.HexadecimalNumber) {
-//                    b.Append("0x");
-//                    b.Append(((IFormattable)val).ToString("x", NumberFormatInfo.InvariantInfo));
-//                } else {
-                    b.Append(((IFormattable)value).ToString(null, NumberFormatInfo.InvariantInfo));
-//                }
-                if (value is uint || value is ulong) {
+            }
+            else if (value is IFormattable)
+            {
+                StringBuilder b = new StringBuilder();
+                //                if (primitiveExpression.LiteralFormat == LiteralFormat.HexadecimalNumber) {
+                //                    b.Append("0x");
+                //                    b.Append(((IFormattable)val).ToString("x", NumberFormatInfo.InvariantInfo));
+                //                } else {
+                b.Append(((IFormattable)value).ToString(null, NumberFormatInfo.InvariantInfo));
+                //                }
+                if (value is uint || value is ulong)
+                {
                     b.Append("u");
                 }
-                if (value is long || value is ulong) {
+                if (value is long || value is ulong)
+                {
                     b.Append("L");
                 }
                 textWriter.Write(b.ToString());
                 column += b.Length;
-            } else {
+            }
+            else
+            {
                 textWriter.Write(value.ToString());
                 column += value.ToString().Length;
             }

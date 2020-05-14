@@ -149,10 +149,12 @@ namespace ICSharpCode.NRefactory.CSharp
             if (type.Kind == TypeKind.Array) {
                 ArrayType a = (ArrayType)type;
                 return new CodeTypeReference(Convert(a.ElementType), a.Dimensions);
-            } else if (type is ParameterizedType) {
-                var pt = (ParameterizedType)type;
+            } else if (type is ParameterizedType pt)
+            {
                 return new CodeTypeReference(pt.GetDefinition().ReflectionName, pt.TypeArguments.Select(Convert).ToArray());
-            } else {
+            }
+            else
+            {
                 return new CodeTypeReference(type.ReflectionName);
             }
         }

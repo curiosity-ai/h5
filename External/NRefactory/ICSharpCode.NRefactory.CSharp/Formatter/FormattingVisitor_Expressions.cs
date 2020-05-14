@@ -214,8 +214,8 @@ namespace ICSharpCode.NRefactory.CSharp
                 lParToken = indexer.LBracketToken;
                 rParToken = indexer.RBracketToken;
                 arguments = indexer.Parameters.Cast<AstNode>().ToList();
-            } else if (node is OperatorDeclaration) {
-                var op = (OperatorDeclaration)node;
+            } else if (node is OperatorDeclaration op)
+            {
                 methodCallArgumentWrapping = policy.MethodDeclarationParameterWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodDeclarationOpenParentheses;
                 methodClosingParenthesesOnNewLine = policy.MethodDeclarationClosingParenthesesOnNewLine;
@@ -227,7 +227,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 lParToken = op.LParToken;
                 rParToken = op.RParToken;
                 arguments = op.Parameters.Cast<AstNode>().ToList();
-            } else if (node is MethodDeclaration) {
+            }
+            else if (node is MethodDeclaration)
+            {
                 var methodDeclaration = node as MethodDeclaration;
                 methodCallArgumentWrapping = policy.MethodDeclarationParameterWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodDeclarationOpenParentheses;
@@ -240,8 +242,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 lParToken = methodDeclaration.LParToken;
                 rParToken = methodDeclaration.RParToken;
                 arguments = methodDeclaration.Parameters.Cast<AstNode>().ToList();
-            } else if (node is IndexerExpression) {
-                var indexer = (IndexerExpression)node;
+            }
+            else if (node is IndexerExpression indexer)
+            {
                 methodCallArgumentWrapping = policy.IndexerArgumentWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferIndexerOpenBracket;
                 doAlignToFirstArgument = policy.AlignToFirstIndexerArgument;
@@ -253,7 +256,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 rParToken = indexer.RBracketToken;
                 lParToken = indexer.LBracketToken;
                 arguments = indexer.Arguments.Cast<AstNode>().ToList();
-            } else if (node is ObjectCreateExpression) {
+            }
+            else if (node is ObjectCreateExpression)
+            {
                 var oce = node as ObjectCreateExpression;
                 methodCallArgumentWrapping = policy.MethodCallArgumentWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodCallOpenParentheses;
@@ -267,7 +272,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 rParToken = oce.RParToken;
                 lParToken = oce.LParToken;
                 arguments = oce.Arguments.Cast<AstNode>().ToList();
-            } else if (node is Attribute) {
+            }
+            else if (node is Attribute)
+            {
                 var oce = node as Attribute;
                 methodCallArgumentWrapping = policy.MethodCallArgumentWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodCallOpenParentheses;
@@ -281,7 +288,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 rParToken = oce.RParToken;
                 lParToken = oce.LParToken;
                 arguments = oce.Arguments.Cast<AstNode>().ToList();
-            } else if (node is LambdaExpression) {
+            }
+            else if (node is LambdaExpression)
+            {
                 var methodDeclaration = node as LambdaExpression;
                 methodCallArgumentWrapping = policy.MethodDeclarationParameterWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodDeclarationOpenParentheses;
@@ -294,7 +303,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 lParToken = methodDeclaration.LParToken;
                 rParToken = methodDeclaration.RParToken;
                 arguments = methodDeclaration.Parameters.Cast<AstNode>().ToList();
-            } else if (node is AnonymousMethodExpression) {
+            }
+            else if (node is AnonymousMethodExpression)
+            {
                 var methodDeclaration = node as AnonymousMethodExpression;
                 methodCallArgumentWrapping = policy.MethodDeclarationParameterWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodDeclarationOpenParentheses;
@@ -307,7 +318,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 lParToken = methodDeclaration.LParToken;
                 rParToken = methodDeclaration.RParToken;
                 arguments = methodDeclaration.Parameters.Cast<AstNode>().ToList();
-            }  else if (node is ConstructorInitializer) {
+            }
+            else if (node is ConstructorInitializer)
+            {
                 var constructorInitializer = node as ConstructorInitializer;
                 methodCallArgumentWrapping = policy.MethodDeclarationParameterWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodDeclarationOpenParentheses;
@@ -320,7 +333,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 lParToken = constructorInitializer.LParToken;
                 rParToken = constructorInitializer.RParToken;
                 arguments = constructorInitializer.Arguments.Cast<AstNode>().ToList();
-            } else {
+            }
+            else
+            {
                 InvocationExpression invocationExpression = node as InvocationExpression;
                 methodCallArgumentWrapping = policy.MethodCallArgumentWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodCallOpenParentheses;
@@ -464,14 +479,18 @@ namespace ICSharpCode.NRefactory.CSharp
                 ForceSpacesBefore(invocationExpression.RParToken, policy.SpaceBetweenEmptyMethodCallParentheses);
             }
             bool popIndent = false;
-            if (invocationExpression.Target is MemberReferenceExpression) {
-                var mt = (MemberReferenceExpression)invocationExpression.Target;
-                if (mt.Target is InvocationExpression) {
-                    if (DoWrap(policy.ChainedMethodCallWrapping, mt.DotToken, 2)) {
+            if (invocationExpression.Target is MemberReferenceExpression mt)
+            {
+                if (mt.Target is InvocationExpression)
+                {
+                    if (DoWrap(policy.ChainedMethodCallWrapping, mt.DotToken, 2))
+                    {
                         curIndent.Push(IndentType.Block);
                         popIndent = true;
                         FixStatementIndentation(mt.DotToken.StartLocation);
-                    } else {
+                    }
+                    else
+                    {
                         if (policy.ChainedMethodCallWrapping == Wrapping.DoNotWrap)
                             ForceSpacesBeforeRemoveNewLines(mt.DotToken, false);
                     }

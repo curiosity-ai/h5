@@ -269,10 +269,8 @@ namespace H5.Translator
             {
                 this.WriteNamedExptession(((NamedArgumentExpression)item).Expression, tempVar, rr);
             }
-            else if (item is ArrayInitializerExpression)
+            else if (item is ArrayInitializerExpression arrayInitializer)
             {
-                var arrayInitializer = (ArrayInitializerExpression)item;
-
                 foreach (var el in arrayInitializer.Elements)
                 {
                     this.WriteInitializerExpression(el, tempVar + "." + this.Emitter.GetEntityName(rr.Member));
@@ -293,10 +291,8 @@ namespace H5.Translator
 
         private void WriteNamedExptession(Expression expression, string tempVar, MemberResolveResult rr)
         {
-            if (expression is ArrayInitializerExpression)
+            if (expression is ArrayInitializerExpression arrayInitializer)
             {
-                var arrayInitializer = (ArrayInitializerExpression)expression;
-
                 foreach (var el in arrayInitializer.Elements)
                 {
                     this.WriteInitializerExpression(el, tempVar + "." + OverloadsCollection.Create(this.Emitter, rr.Member).GetOverloadName());
@@ -316,14 +312,12 @@ namespace H5.Translator
         public static string GetInlineInit(Expression item, AbstractEmitterBlock block, string thisScope)
         {
             Expression expr = null;
-            if (item is NamedExpression)
+            if (item is NamedExpression namedExpression)
             {
-                var namedExpression = (NamedExpression)item;
                 expr = namedExpression.Expression;
             }
-            else if (item is NamedArgumentExpression)
+            else if (item is NamedArgumentExpression namedArgumentExpression)
             {
-                var namedArgumentExpression = (NamedArgumentExpression)item;
                 expr = namedArgumentExpression.Expression;
             }
 

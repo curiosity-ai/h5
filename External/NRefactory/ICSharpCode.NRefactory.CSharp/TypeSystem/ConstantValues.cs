@@ -73,18 +73,22 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem.ConstantValues
                 return new TypeOfResolveResult(
                     rr.Type.ToTypeReference().Resolve(newContext),
                     ((TypeOfResolveResult)rr).ReferencedType.ToTypeReference().Resolve(newContext));
-            } else if (rr is ArrayCreateResolveResult) {
-                ArrayCreateResolveResult acrr = (ArrayCreateResolveResult)rr;
+            } else if (rr is ArrayCreateResolveResult acrr)
+            {
                 return new ArrayCreateResolveResult(
                     acrr.Type.ToTypeReference().Resolve(newContext),
                     MapToNewContext(acrr.SizeArguments, newContext),
                     MapToNewContext(acrr.InitializerElements, newContext));
-            } else if (rr.IsCompileTimeConstant) {
+            }
+            else if (rr.IsCompileTimeConstant)
+            {
                 return new ConstantResolveResult(
                     rr.Type.ToTypeReference().Resolve(newContext),
                     rr.ConstantValue
                 );
-            } else {
+            }
+            else
+            {
                 return new ErrorResolveResult(rr.Type.ToTypeReference().Resolve(newContext));
             }
         }

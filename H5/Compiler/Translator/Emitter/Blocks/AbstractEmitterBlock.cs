@@ -161,9 +161,8 @@ namespace H5.Translator
                 return null;
             }
 
-            if (node is BinaryOperatorExpression)
+            if (node is BinaryOperatorExpression binaryOperatorExpression)
             {
-                var binaryOperatorExpression = (BinaryOperatorExpression)node;
                 if (binaryOperatorExpression.Operator == BinaryOperatorType.BitwiseAnd ||
                     binaryOperatorExpression.Operator == BinaryOperatorType.BitwiseOr ||
                     binaryOperatorExpression.Operator == BinaryOperatorType.ConditionalOr ||

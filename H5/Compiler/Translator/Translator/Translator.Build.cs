@@ -267,8 +267,6 @@ namespace H5.Translator
             {
                 PackageReferencesDiscoveredPaths = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-                //TODO: add support for linux & os-x
-
                 string packagePath = GetPackagesCacheFolder();
 
                 var outputFolder = Path.GetDirectoryName(this.AssemblyLocation);
@@ -278,6 +276,8 @@ namespace H5.Translator
                     var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
                     if (Directory.Exists(pp))
                     {
+                        Log.Info($"NuGet: Importing package {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
+
                         var foundLibs = new List<string>();
                         foreach (var file in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.dll", SearchOption.AllDirectories))
                         {
@@ -290,6 +290,7 @@ namespace H5.Translator
                         {
                             var target = Path.Combine(outputFolder, Path.GetFileName(source));
                             File.Copy(source, target, overwrite: true);
+                            Log.Info($"NuGet: Copying lib file '{source}' to '{target}'");
                         }
 
                         var contentFolder = Path.Combine(pp, "content");
@@ -299,6 +300,7 @@ namespace H5.Translator
                             {
                                 var target = Path.Combine(outputFolder, Path.GetFileName(source));
                                 File.Copy(source, target, overwrite: true);
+                                Log.Info($"NuGet: Copying content file '{source}' to '{target}'");
                             }
                         }
 
@@ -308,6 +310,11 @@ namespace H5.Translator
                         {
                             this.H5Location = foundLibs.Single(); //H5 should be the single dll in the file
                         }
+                    }
+                    else
+                    {
+                        Log.Warn($"NuGet package not found: {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
+                        throw new Exception($"NuGet package not found: {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
                     }
                 }
 
@@ -469,6 +476,8 @@ namespace H5.Translator
 
         private void AddNestedReferences(IList<string> referencesPathes, string refPath)
         {
+            Log.Info($"Loading references from assembly {refPath}");
+
             if (!File.Exists(refPath))
             {
                 var assemblyFileName = Path.GetFileName(refPath);

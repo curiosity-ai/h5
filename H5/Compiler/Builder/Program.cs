@@ -18,7 +18,7 @@ namespace H5.Builder
 
             var logger = new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter());
 
-            logger.Info("Executing H5.Builder.Console...");
+            logger.Info($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
 
             var h5Options = GetH5OptionsFromCommandLine(args, logger);
 

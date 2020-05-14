@@ -107,7 +107,7 @@ namespace H5.Translator
 
         public virtual void BuildAssembly()
         {
-            this.Log.Info("Building assembly...");
+            this.Log.Info($"Building assembly '{this.ProjectProperties?.AssemblyName}' for location '{this.Location}'");
 
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
 
@@ -278,12 +278,12 @@ namespace H5.Translator
                     var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
                     if (Directory.Exists(pp))
                     {
-                        var p = Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName(), rp.PackageIdentity.Id + ".dll");
-                        referencesFromPackages.Add(MetadataReference.CreateFromFile(p));
-
+                        var foundLibs = new List<string>();
                         foreach (var file in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.dll", SearchOption.AllDirectories))
                         {
+                            referencesFromPackages.Add(MetadataReference.CreateFromFile(file));
                             _packagedFiles[Path.GetFileName(file)] = file;
+                            foundLibs.Add(file);
                         }
 
                         foreach (var source in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
@@ -302,11 +302,11 @@ namespace H5.Translator
                             }
                         }
 
-                        PackageReferencesDiscoveredPaths[rp.PackageIdentity.Id] = p;
+                        PackageReferencesDiscoveredPaths[rp.PackageIdentity.Id] = foundLibs.First();
 
                         if (string.Equals(rp.PackageIdentity.Id, CS.NS.H5, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            this.H5Location = p;
+                            this.H5Location = foundLibs.Single(); //H5 should be the single dll in the file
                         }
                     }
                 }
@@ -416,7 +416,7 @@ namespace H5.Translator
                 throw new H5.Translator.TranslatorException(sb.ToString());
             }
 
-            this.Log.Info("Building assembly done");
+            this.Log.Info($"Finished building assembly '{this.ProjectProperties?.AssemblyName}' for location '{this.Location}'");
         }
 
         private static string GetPackagesCacheFolder()

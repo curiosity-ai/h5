@@ -387,7 +387,7 @@ namespace H5.Translator
             {
                 if (IsTypeFromH5Core(typeDefinition.FullName))
                 {
-                    isNative = false; //RFO: TODO: Check this assumption
+                    isNative = false; //RFO: Retyped.dom has ExternalInterfaceAttribute(false), which maps to isNative = false as bellow
                     return true;
                 }
 
@@ -414,8 +414,8 @@ namespace H5.Translator
             {
                 if (IsTypeFromH5Core(typeDefinition.FullName))
                 {
-                    //RFO: TODO: Check this assumption
-                    return new ExternalInterface() { IsNativeImplementation = false };
+                    //RFO: Retyped.dom has ExternalInterfaceAttribute(false), which maps to isNative = false bellow
+                    return new ExternalInterface() { IsNativeImplementation = false, IsSimpleImplementation = true };
                 }
 
                 attr = typeDefinition.ParentAssembly.AssemblyAttributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));

@@ -309,9 +309,9 @@ namespace H5.Translator
                 }
             }
 
-            if (interfaceType is TypeWithElementType)
+            if (interfaceType is TypeWithElementType typeWithEl)
             {
-                var type = ((TypeWithElementType) interfaceType).ElementType;
+                var type = typeWithEl.ElementType;
                 return type.IsKnownType(KnownTypeCode.Object) || ConversionBlock.IsUnpackGenericInterfaceObject(type);
             }
 
@@ -320,9 +320,9 @@ namespace H5.Translator
 
         private static bool IsUnpackArrayObject(IType type)
         {
-            if (type is TypeWithElementType)
+            if (type is TypeWithElementType typeWithEl)
             {
-                var elementType = ((TypeWithElementType)type).ElementType;
+                var elementType = typeWithEl.ElementType;
                 return elementType.IsKnownType(KnownTypeCode.Object);
             }
 
@@ -382,9 +382,9 @@ namespace H5.Translator
                     var inv_rr = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter);
                     var parent_rr = inv_rr as MemberResolveResult;
 
-                    if (parent_rr == null && inv_rr is OperatorResolveResult)
+                    if (parent_rr == null && inv_rr is OperatorResolveResult result)
                     {
-                        var orr = (OperatorResolveResult)inv_rr;
+                        var orr = result;
                         if (orr.Operands[0] is LocalResolveResult)
                         {
                             isArgument = false;
@@ -393,9 +393,9 @@ namespace H5.Translator
                         {
                             isArgument = false;
                         }
-                        else if (orr.Operands[0] is MemberResolveResult)
+                        else if (orr.Operands[0] is MemberResolveResult memberResolveResult)
                         {
-                            parent_rr = (MemberResolveResult)orr.Operands[0];
+                            parent_rr = memberResolveResult;
                         }
                     }
 
@@ -513,15 +513,14 @@ namespace H5.Translator
                 }
             }
 
-            if (expression is ParenthesizedExpression && ((ParenthesizedExpression)expression).Expression is CastExpression)
+            if (expression is ParenthesizedExpression parExpression && parExpression.Expression is CastExpression)
             {
                 return level;
             }
 
-            if (conversion.IsUserDefined && expression.Parent is CastExpression &&
-                ((CastExpression) expression.Parent).Expression == expression)
+            if (conversion.IsUserDefined && expression.Parent is CastExpression castExp && castExp.Expression == expression)
             {
-                var parentConversion = block.Emitter.Resolver.Resolver.GetConversion((CastExpression) expression.Parent);
+                var parentConversion = block.Emitter.Resolver.Resolver.GetConversion(castExp);
 
                 if (!parentConversion.IsUserDefined || parentConversion.Method.Equals(conversion.Method))
                 {
@@ -546,10 +545,9 @@ namespace H5.Translator
             {
                 if (expectedType != convrr.Type)
                 {
-                    if (expression.Parent is CastExpression &&
-                        ((CastExpression) expression.Parent).Expression == expression)
+                    if (expression.Parent is CastExpression castExp2 && castExp2.Expression == expression)
                     {
-                        var parentExpectedType = block.Emitter.Resolver.Resolver.GetExpectedType((CastExpression) expression.Parent);
+                        var parentExpectedType = block.Emitter.Resolver.Resolver.GetExpectedType(castExp2);
                         var parentrr = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter) as ConversionResolveResult;
 
                         if (parentrr != null && parentrr.Type != expectedType || parentrr == null && expectedType != parentExpectedType)
@@ -717,13 +715,13 @@ namespace H5.Translator
                 {
                     ConversionBlock.expressionIgnoreUserDefine.Add(expression);
 
-                    if (expression is InvocationExpression)
+                    if (expression is InvocationExpression invocExp)
                     {
-                        new InlineArgumentsBlock(block.Emitter, new ArgumentsInfo(block.Emitter, (InvocationExpression)expression, method), inline, method).Emit();
+                        new InlineArgumentsBlock(block.Emitter, new ArgumentsInfo(block.Emitter, invocExp, method), inline, method).Emit();
                     }
-                    else if (expression is ObjectCreateExpression)
+                    else if (expression is ObjectCreateExpression createExp)
                     {
-                        new InlineArgumentsBlock(block.Emitter, new ArgumentsInfo(block.Emitter, (ObjectCreateExpression)expression, method), inline).Emit();
+                        new InlineArgumentsBlock(block.Emitter, new ArgumentsInfo(block.Emitter, createExp, method), inline).Emit();
                     }
                     /*else if (expression is UnaryOperatorExpression)
                     {
@@ -777,8 +775,7 @@ namespace H5.Translator
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
-                    if (expression is CastExpression &&
-                    ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp && castExp.Expression is ParenthesizedExpression)
                     {
                         return level;
                     }
@@ -794,8 +791,7 @@ namespace H5.Translator
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
-                    if (expression is CastExpression &&
-                    ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp && castExp.Expression is ParenthesizedExpression)
                     {
                         return level;
                     }
@@ -820,9 +816,9 @@ namespace H5.Translator
                 }
             }
 
-            if (expression is CastExpression && !ignoreConversionResolveResult)
+            if (expression is CastExpression castExp && !ignoreConversionResolveResult)
             {
-                var nestedExpr = ((CastExpression)expression).Expression;
+                var nestedExpr = castExp.Expression;
                 var nested_rr = block.Emitter.Resolver.ResolveNode(nestedExpr, block.Emitter);
 
                 if (!(nested_rr is ConversionResolveResult))
@@ -858,8 +854,7 @@ namespace H5.Translator
                         {
                             block.Write("." + JS.Funcs.Math.LIFT);
                         }
-                        if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                        if (!ignoreConversionResolveResult && expression is CastExpression castExp2 && castExp2.Expression is ParenthesizedExpression)
                         {
                             return false;
                         }
@@ -890,8 +885,7 @@ namespace H5.Translator
                         {
                             block.Write("." + JS.Funcs.Math.LIFT);
                         }
-                        if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                        if (!ignoreConversionResolveResult && expression is CastExpression castExp3 && castExp3.Expression is ParenthesizedExpression)
                         {
                             return false;
                         }
@@ -917,8 +911,7 @@ namespace H5.Translator
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
-                    if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (!ignoreConversionResolveResult && expression is CastExpression castExp4 && castExp4.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -943,8 +936,7 @@ namespace H5.Translator
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
-                    if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (!ignoreConversionResolveResult && expression is CastExpression castExp5 && castExp5.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -970,8 +962,7 @@ namespace H5.Translator
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
-                    if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (!ignoreConversionResolveResult && expression is CastExpression castExp6 && castExp6.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -996,8 +987,7 @@ namespace H5.Translator
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
-                    if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (!ignoreConversionResolveResult && expression is CastExpression castExp7 && castExp7.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1022,8 +1012,7 @@ namespace H5.Translator
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
-                    if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (!ignoreConversionResolveResult && expression is CastExpression castExp8 && castExp8.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1058,8 +1047,7 @@ namespace H5.Translator
                             {
                                 block.Write("." + JS.Funcs.Math.LIFT);
                             }
-                            if (!ignoreConversionResolveResult && expression is CastExpression &&
-                                ((CastExpression)expression).Expression is ParenthesizedExpression)
+                            if (!ignoreConversionResolveResult && expression is CastExpression castExp9 && castExp9.Expression is ParenthesizedExpression)
                             {
                                 return false;
                             }
@@ -1072,23 +1060,16 @@ namespace H5.Translator
 
             if (expression.Parent is ArrayInitializerExpression arrayInit)
             {
-                while (arrayInit.Parent is ArrayInitializerExpression)
+                while (arrayInit.Parent is ArrayInitializerExpression arrayInitExp)
                 {
-                    arrayInit = (ArrayInitializerExpression)arrayInit.Parent;
+                    arrayInit = arrayInitExp;
                 }
 
                 IType elementType = null;
                 if (arrayInit.Parent is ArrayCreateExpression arrayCreate)
                 {
                     var rrArrayType = block.Emitter.Resolver.ResolveNode(arrayCreate, block.Emitter);
-                    if (rrArrayType.Type is TypeWithElementType)
-                    {
-                        elementType = ((TypeWithElementType)rrArrayType.Type).ElementType;
-                    }
-                    else
-                    {
-                        elementType = rrArrayType.Type;
-                    }
+                    elementType = rrArrayType.Type is TypeWithElementType typeWIthElement ? typeWIthElement.ElementType : rrArrayType.Type;
                 }
                 else
                 {
@@ -1141,8 +1122,7 @@ namespace H5.Translator
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
-                    if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (!ignoreConversionResolveResult && expression is CastExpression castExp2 && castExp2.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1155,8 +1135,7 @@ namespace H5.Translator
                          && isType(rr.Type, block.Emitter.Resolver))
                 {
                     block.Write(JS.Types.System.Int64.TONUMBER);
-                    if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (!ignoreConversionResolveResult && expression is CastExpression castExp3 && castExp3.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1187,8 +1166,7 @@ namespace H5.Translator
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
 
-                    if (!ignoreConversionResolveResult && expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (!ignoreConversionResolveResult && expression is CastExpression castExp2 && castExp2.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1227,7 +1205,7 @@ namespace H5.Translator
                             return false;
                         }
 
-                        if (expression is CastExpression && ((CastExpression)expression).Expression is ParenthesizedExpression)
+                        if (expression is CastExpression castExp && castExp.Expression is ParenthesizedExpression)
                         {
                             return false;
                         }
@@ -1252,8 +1230,7 @@ namespace H5.Translator
                             return false;
                         }
 
-                        if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                        if (expression is CastExpression castExp2 && castExp2.Expression is ParenthesizedExpression)
                         {
                             return false;
                         }
@@ -1273,8 +1250,7 @@ namespace H5.Translator
                         return false;
                     }
 
-                    if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp3 && castExp3.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1294,8 +1270,7 @@ namespace H5.Translator
                         return false;
                     }
 
-                    if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp4 && castExp4.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1314,8 +1289,7 @@ namespace H5.Translator
                         return false;
                     }
 
-                    if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp5 && castExp5.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1335,8 +1309,7 @@ namespace H5.Translator
                         return false;
                     }
 
-                    if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp6 && castExp6.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1356,8 +1329,7 @@ namespace H5.Translator
                         return false;
                     }
 
-                    if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp7 && castExp7.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1368,18 +1340,18 @@ namespace H5.Translator
 
             if (expression.Parent is ArrayInitializerExpression arrayInit)
             {
-                while (arrayInit.Parent is ArrayInitializerExpression)
+                while (arrayInit.Parent is ArrayInitializerExpression arrayInitExp)
                 {
-                    arrayInit = (ArrayInitializerExpression)arrayInit.Parent;
+                    arrayInit = arrayInitExp;
                 }
 
                 IType elementType = null;
                 if (arrayInit.Parent is ArrayCreateExpression arrayCreate)
                 {
                     var rrArrayType = block.Emitter.Resolver.ResolveNode(arrayCreate, block.Emitter);
-                    if (rrArrayType.Type is TypeWithElementType)
+                    if (rrArrayType.Type is TypeWithElementType typeWithElementType)
                     {
-                        elementType = ((TypeWithElementType)rrArrayType.Type).ElementType;
+                        elementType = typeWithElementType.ElementType;
                     }
                     else
                     {
@@ -1413,8 +1385,7 @@ namespace H5.Translator
                         return false;
                     }
 
-                    if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp8 && castExp8.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1426,8 +1397,7 @@ namespace H5.Translator
                          && !Helpers.IsDecimalType(elementType, block.Emitter.Resolver)
                          && isType(rr.Type, block.Emitter.Resolver))
                 {
-                    if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp9 && castExp9.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }
@@ -1451,8 +1421,7 @@ namespace H5.Translator
                         return false;
                     }
 
-                    if (expression is CastExpression &&
-                        ((CastExpression)expression).Expression is ParenthesizedExpression)
+                    if (expression is CastExpression castExp10 && castExp10.Expression is ParenthesizedExpression)
                     {
                         return false;
                     }

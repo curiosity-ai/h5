@@ -2,22 +2,22 @@
   "profiles": {
     "H5.Builder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tesserae\\Tesserae\\Tesserae.csproj\" -cfg \"$(Configuration)\"",
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tesserae\\Tesserae\\Tesserae.csproj\" -c \"$(Configuration)\"",
       "workingDirectory": "C:\\h5\\Tesserae\\Tesserae\\"
     },
     "build H5.Core": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\h5\\H5\\H5.Core\\H5.Core.csproj\" -cfg \"$(Configuration)\"",
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\H5\\H5.Core\\H5.Core.csproj\" -c \"$(Configuration)\"",
       "workingDirectory": "C:\\h5\\H5\\H5.Core\\"
     },
     "Test": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\work\\curiosity\\mosaik\\FrontEnd\\Mosaik.UI.Default\\Mosaik.UI.Default.csproj\" -cfg \"Debug\"",
+      "commandLineArgs": "--rebuild -p \"C:\\work\\curiosity\\mosaik\\FrontEnd\\Mosaik.UI.Default\\Mosaik.UI.Default.csproj\" -c \"Debug\"",
       "workingDirectory": "C:\\work\\curiosity\\mosaik\\FrontEnd\\Mosaik.UI.Default\\"
     },
     "Placeholder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tests\\Placeholder\\Placeholder.csproj\" -cfg \"$(Configuration)\"",
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tests\\Placeholder\\Placeholder.csproj\" -c \"$(Configuration)\"",
       "workingDirectory": "C:\\h5\\Tests\\Placeholder\\"
     }
   }

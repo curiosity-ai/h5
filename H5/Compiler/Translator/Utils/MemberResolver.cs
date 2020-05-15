@@ -189,7 +189,7 @@ namespace H5.Translator
 
                 if (result.IsError)
                 {
-                    log.LogWarning(string.Format("Node resolving has failed {0}: {1}", node.StartLocation, node.ToString()));
+                    log.LogMessage(string.Format("Node resolving has failed {0}: {1}", node.StartLocation, node.ToString()));
                 }
             }
 

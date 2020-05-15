@@ -5,13 +5,7 @@ VisualStudioVersion = 16.0.30001.183
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compiler", "Compiler", "{47D6D365-36CE-43C2-91D0-5A071928C62A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Build", "H5\Compiler\Build\H5.Build.csproj", "{28703D12-116A-4968-BD85-F26D7F7E7DA4}"
-	ProjectSection(ProjectDependencies) = postProject
-		{243BB709-3912-4C65-82D4-787A5E2201D7} = {243BB709-3912-4C65-82D4-787A5E2201D7}
-		{DE78B8B7-C0F5-415B-A70B-02194433F450} = {DE78B8B7-C0F5-415B-A70B-02194433F450}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Builder", "H5\Compiler\Builder\H5.Builder.csproj", "{243BB709-3912-4C65-82D4-787A5E2201D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Compiler", "H5\Compiler\Compiler\H5.Compiler.csproj", "{243BB709-3912-4C65-82D4-787A5E2201D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5", "H5\H5\H5.csproj", "{DE78B8B7-C0F5-415B-A70B-02194433F450}"
 EndProject
@@ -62,7 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Placeholder", "Tests\Placeholder\Placeholder.csproj", "{F2B03EAB-010A-43C8-AD62-36E61D915CAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Placeholder", "Tests\Placeholder\Placeholder.csproj", "{F2B03EAB-010A-43C8-AD62-36E61D915CAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,10 +64,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{28703D12-116A-4968-BD85-F26D7F7E7DA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28703D12-116A-4968-BD85-F26D7F7E7DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28703D12-116A-4968-BD85-F26D7F7E7DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28703D12-116A-4968-BD85-F26D7F7E7DA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{243BB709-3912-4C65-82D4-787A5E2201D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{243BB709-3912-4C65-82D4-787A5E2201D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{243BB709-3912-4C65-82D4-787A5E2201D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -135,7 +125,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{28703D12-116A-4968-BD85-F26D7F7E7DA4} = {47D6D365-36CE-43C2-91D0-5A071928C62A}
 		{243BB709-3912-4C65-82D4-787A5E2201D7} = {47D6D365-36CE-43C2-91D0-5A071928C62A}
 		{DE78B8B7-C0F5-415B-A70B-02194433F450} = {0153D929-0988-472C-B5E1-B9E34EAE51E0}
 		{52AE9E3E-6929-4720-AB7A-F9F22B9A8972} = {47D6D365-36CE-43C2-91D0-5A071928C62A}

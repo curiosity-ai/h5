@@ -127,7 +127,7 @@ namespace H5.Translator
             //  * @version 1.2.3.4
             //  * @author [AssemblyCompany]
             //  * @copyright [AssemblyCopyright]
-            //  * @compiler H5.NET 0.0.0
+            //  * @compiler H5 0.0.0
             //  */
 
             if (this.AssemblyJsDocWritten)
@@ -143,7 +143,7 @@ namespace H5.Translator
                                 : null;
             string author = versionContext.Assembly.CompanyName;
             string copyright = versionContext.Assembly.Copyright;
-            string compiler = "H5.NET " + versionContext.Compiler.Version;
+            string compiler = "H5 " + versionContext.Compiler.Version;
 
             WriteNewLine(tmp, "/**");
 

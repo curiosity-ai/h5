@@ -71,7 +71,7 @@ namespace H5.Translator
         }
 
         /// <summary>
-        /// Validates project and namespace names against conflicts with H5.NET namespaces.
+        /// Validates project and namespace names against conflicts with H5 namespaces.
         /// </summary>
         /// <param name="project">XDocument reference of the .csproj file.</param>
         private void ValidateProject(Project project)

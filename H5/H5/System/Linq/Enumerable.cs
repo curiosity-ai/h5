@@ -173,7 +173,7 @@ namespace System.Linq
         /// <returns>
         /// The input sequence typed as System.Collections.Generic.IEnumerable&lt;T&gt;.
         /// </returns>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}")]
         public static extern EnumerableInstance<TSource> AsEnumerable<TSource>(this EnumerableInstance<TSource> source);
 
@@ -189,7 +189,7 @@ namespace System.Linq
         /// <returns>
         /// The input sequence typed as System.Collections.Generic.IEnumerable&lt;T&gt;.
         /// </returns>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}")]
         public static extern IEnumerable<TSource> AsEnumerable<TSource>(this IEnumerable<TSource> source);
 
@@ -209,7 +209,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableAverage(System.Decimal.Zero)")]
         public static extern decimal? Average(this EnumerableInstance<decimal?> source);
 
@@ -229,7 +229,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableAverage(System.Decimal.Zero)")]
         public static extern decimal? Average(this IEnumerable<decimal?> source);
 
@@ -282,7 +282,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableAverage()")]
         public static extern double? Average(this EnumerableInstance<double?> source);
 
@@ -299,7 +299,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Double).nullableAverage()")]
         public static extern double? Average(this IEnumerable<double?> source);
 
@@ -352,7 +352,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableAverage()")]
         public static extern float? Average(this EnumerableInstance<float?> source);
 
@@ -369,7 +369,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Float).nullableAverage()")]
         public static extern float? Average(this IEnumerable<float?> source);
 
@@ -425,7 +425,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableAverage()")]
         public static extern double? Average(this EnumerableInstance<int?> source);
 
@@ -445,7 +445,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableAverage()")]
         public static extern double? Average(this IEnumerable<int?> source);
 
@@ -501,7 +501,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableAverage()")]
         public static extern double? Average(this EnumerableInstance<long?> source);
 
@@ -521,7 +521,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableAverage()")]
         public static extern double? Average(this IEnumerable<long?> source);
 
@@ -585,7 +585,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector}, System.Decimal.Zero)")]
         public static extern decimal? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector);
 
@@ -638,7 +638,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
         public static extern double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector);
 
@@ -688,7 +688,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
         public static extern float? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector);
 
@@ -740,7 +740,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum of the elements in the sequence is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
         public static extern double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector);
 
@@ -789,7 +789,7 @@ namespace System.Linq
         /// The average of the sequence of values, or null if the source sequence is
         /// empty or contains only values that are null.
         /// </returns>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableAverage({selector})")]
         public static extern double? Average<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector);
 
@@ -864,7 +864,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).concat({second})")]
         public static extern EnumerableInstance<TSource> Concat<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second);
 
@@ -1133,7 +1133,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).except({second})")]
         public static extern EnumerableInstance<TSource> Except<TSource>(this IEnumerable<TSource> first,
             IEnumerable<TSource> second);
@@ -1163,7 +1163,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// first or second is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({first}, {TSource}).except({second}, {comparer})")]
         public static extern EnumerableInstance<TSource> Except<TSource>(this IEnumerable<TSource> first,
             IEnumerable<TSource> second, IEqualityComparer<TSource> comparer);
@@ -1795,7 +1795,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The number of elements exceeds System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).count()")]
         public static extern long LongCount<TSource>(this IEnumerable<TSource> source);
 
@@ -1823,7 +1823,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The number of matching elements exceeds System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).count({predicate})")]
         public static extern long LongCount<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate);
 
@@ -1932,7 +1932,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMax()")]
         public static extern decimal? Max(this EnumerableInstance<decimal?> source);
 
@@ -1950,7 +1950,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableMax()")]
         public static extern decimal? Max(this IEnumerable<decimal?> source);
 
@@ -2004,7 +2004,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMax()")]
         public static extern double? Max(this EnumerableInstance<double?> source);
 
@@ -2022,7 +2022,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Double).nullableMax()")]
         public static extern double? Max(this IEnumerable<double?> source);
 
@@ -2076,7 +2076,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMax()")]
         public static extern float? Max(this EnumerableInstance<float?> source);
 
@@ -2094,7 +2094,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Float).nullableMax()")]
         public static extern float? Max(this IEnumerable<float?> source);
 
@@ -2148,7 +2148,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMax()")]
         public static extern int? Max(this EnumerableInstance<int?> source);
 
@@ -2166,7 +2166,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableMax()")]
         public static extern int? Max(this IEnumerable<int?> source);
 
@@ -2220,7 +2220,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMax()")]
         public static extern long? Max(this EnumerableInstance<long?> source);
 
@@ -2238,7 +2238,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableMax()")]
         public static extern long? Max(this IEnumerable<long?> source);
 
@@ -2298,7 +2298,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern decimal? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector);
 
@@ -2347,7 +2347,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern double? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector);
 
@@ -2396,7 +2396,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern float? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector);
 
@@ -2445,7 +2445,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern int? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector);
 
@@ -2494,7 +2494,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMax({selector})")]
         public static extern long? Max<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector);
 
@@ -2537,7 +2537,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMin()")]
         public static extern decimal? Min(this EnumerableInstance<decimal?> source);
 
@@ -2555,7 +2555,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableMin()")]
         public static extern decimal? Min(this IEnumerable<decimal?> source);
 
@@ -2708,7 +2708,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMin()")]
         public static extern double? Min(this EnumerableInstance<double?> source);
 
@@ -2726,7 +2726,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Double).nullableMin()")]
         public static extern double? Min(this IEnumerable<double?> source);
 
@@ -2780,7 +2780,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMin()")]
         public static extern float? Min(this EnumerableInstance<float?> source);
 
@@ -2798,7 +2798,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Float).nullableMin()")]
         public static extern float? Min(this IEnumerable<float?> source);
 
@@ -2852,7 +2852,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMin()")]
         public static extern int? Min(this EnumerableInstance<int?> source);
 
@@ -2870,7 +2870,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableMin()")]
         public static extern int? Min(this IEnumerable<int?> source);
 
@@ -2924,7 +2924,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableMin()")]
         public static extern long? Min(this EnumerableInstance<long?> source);
 
@@ -2942,7 +2942,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableMin()")]
         public static extern long? Min(this IEnumerable<long?> source);
 
@@ -3002,7 +3002,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern decimal? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector);
 
@@ -3051,7 +3051,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern double? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector);
 
@@ -3100,7 +3100,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern float? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector);
 
@@ -3149,7 +3149,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern int? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector);
 
@@ -3198,7 +3198,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableMin({selector})")]
         public static extern long? Min<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector);
 
@@ -3839,7 +3839,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableSum(System.Decimal.Zero)")]
         public static extern decimal? Sum(this EnumerableInstance<decimal?> source);
 
@@ -3858,7 +3858,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Decimal).nullableSum(System.Decimal.Zero)")]
         public static extern decimal? Sum(this IEnumerable<decimal?> source);
 
@@ -3910,7 +3910,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableSum()")]
         public static extern double? Sum(this EnumerableInstance<double?> source);
 
@@ -3926,7 +3926,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Double).nullableSum()")]
         public static extern double? Sum(this IEnumerable<double?> source);
 
@@ -3972,7 +3972,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableSum()")]
         public static extern float? Sum(this EnumerableInstance<float?> source);
 
@@ -3988,7 +3988,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Float).nullableSum()")]
         public static extern float? Sum(this IEnumerable<float?> source);
 
@@ -4037,7 +4037,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableSum()")]
         public static extern int? Sum(this EnumerableInstance<int?> source);
 
@@ -4056,7 +4056,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Int32).nullableSum()")]
         public static extern int? Sum(this IEnumerable<int?> source);
 
@@ -4111,7 +4111,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("{source}.nullableSum(System.Int64.Zero)")]
         public static extern long? Sum(this EnumerableInstance<long?> source);
 
@@ -4130,7 +4130,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, System.Int64).nullableSum(System.Int64.Zero)")]
         public static extern long? Sum(this IEnumerable<long?> source);
 
@@ -4192,7 +4192,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Decimal.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector}, System.Decimal.Zero)")]
         public static extern decimal? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, decimal?> selector);
 
@@ -4240,7 +4240,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
         public static extern double? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, double?> selector);
 
@@ -4285,7 +4285,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or selector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
         public static extern float? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, float?> selector);
 
@@ -4333,7 +4333,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int32.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector})")]
         public static extern int? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, int?> selector);
 
@@ -4384,7 +4384,7 @@ namespace System.Linq
         /// <exception cref="System.OverflowException">
         /// The sum is larger than System.Int64.MaxValue.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).nullableSum({selector}, System.Int64.Zero)")]
         public static extern long? Sum<TSource>(this IEnumerable<TSource> source, Func<TSource, long?> selector);
 
@@ -4506,7 +4506,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).thenBy({keySelector})")]
         public static extern IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector);
 
@@ -4536,7 +4536,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).thenBy({keySelector}, {comparer})")]
         public static extern IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer);
 
@@ -4563,7 +4563,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).thenByDescending({keySelector}, {comparer})")]
         public static extern IOrderedEnumerable<TSource> ThenByDescending<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector);
 
@@ -4593,7 +4593,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source or keySelector is null.
         /// </exception>
-        /// <remarks>H5.NET has no mapping for this in JavaScript.</remarks>
+        /// <remarks>H5 has no mapping for this in JavaScript.</remarks>
         [H5.Template("System.Linq.Enumerable.from({source}, {TSource}).thenByDescending({keySelector}, {comparer})")]
         public static extern IOrderedEnumerable<TSource> ThenByDescending<TSource, TKey>(this IOrderedEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer);
 

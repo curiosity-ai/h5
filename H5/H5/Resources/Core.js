@@ -644,7 +644,7 @@
 
         getHashCode: function (value, safe, deep) {
             // In CLR: mutable object should keep on returning same value
-            // H5.NET goals: make it deterministic (to make testing easier) without breaking CLR contracts
+            // H5 goals: make it deterministic (to make testing easier) without breaking CLR contracts
             //     for value types it returns deterministic values (f.e. for int 3 it returns 3)
             //     for reference types it returns random value
 

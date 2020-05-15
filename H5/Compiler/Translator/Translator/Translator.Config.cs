@@ -18,7 +18,7 @@ namespace H5.Translator
             if (!File.Exists(e))
             {
                 throw new TranslatorException("The specified file '" + e + "' couldn't be found." +
-                    "\nWarning: H5.NET translator working directory: " + Directory.GetCurrentDirectory());
+                    "\nWarning: H5 translator working directory: " + Directory.GetCurrentDirectory());
             }
 
             using (var p = Process.Start(info))

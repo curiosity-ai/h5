@@ -300,7 +300,7 @@ namespace H5.Translator
         }
 
         /// <summary>
-        /// Checks if the namespace name is likely to conflict with H5.NET namespace.
+        /// Checks if the namespace name is likely to conflict with H5 namespace.
         /// </summary>
         /// <param name="namespaceName"></param>
         /// <returns></returns>
@@ -310,7 +310,7 @@ namespace H5.Translator
         }
 
         /// <summary>
-        /// Validates the type's namespace attribute (if present) against conflicts with H5.NET's namespaces.
+        /// Validates the type's namespace attribute (if present) against conflicts with H5's namespaces.
         /// </summary>
         /// <param name="tpDecl">The TypeDefinition object of the validated item.</param>
         private void ValidateNamespace(TypeDeclaration tpDecl)
@@ -329,13 +329,13 @@ namespace H5.Translator
                     throw new EmitterException(nsAt, "Custom attribute '[" + nsAt.ToString() +
                         "]' uses reserved namespace name 'H5'."
                         + H5.Translator.Emitter.NEW_LINE
-                        + "This name is reserved for H5.NET core.");
+                        + "This name is reserved for H5 core.");
                 }
             }
         }
 
         /// <summary>
-        /// Validates the namespace name against conflicts with H5.NET's namespaces.
+        /// Validates the namespace name against conflicts with H5's namespaces.
         /// </summary>
         /// <param name="nsDecl">The NamespaceDefinition object of the validated item.</param>
         private void ValidateNamespace(NamespaceDeclaration nsDecl)
@@ -345,7 +345,7 @@ namespace H5.Translator
                 throw new EmitterException(nsDecl, "Namespace '" + nsDecl.FullName +
                     "' uses reserved name 'H5'."
                     + H5.Translator.Emitter.NEW_LINE
-                    + "This name is reserved for H5.NET core.");
+                    + "This name is reserved for H5 core.");
             }
         }
     }

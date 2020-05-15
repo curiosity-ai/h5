@@ -228,12 +228,6 @@ namespace H5.Builder
 
                         break;
 
-                    case "-f":
-                    case "-folder": // backwards compatibility
-                    case "--folder":
-                        h5Options.Folder = Path.Combine(Environment.CurrentDirectory, args[++i]);
-                        break;
-
                     case "-R":
                     case "-recursive": // backwards compatibility
                     case "--recursive":
@@ -314,7 +308,7 @@ namespace H5.Builder
 
             if (h5Options.ProjectLocation == null && h5Options.Lib == null)
             {
-                var folder = h5Options.Folder ?? Environment.CurrentDirectory;
+                var folder = Environment.CurrentDirectory;
 
                 var csprojs = new string[] { };
 
@@ -348,19 +342,10 @@ namespace H5.Builder
 
             if (string.IsNullOrEmpty(h5Options.OutputLocation))
             {
-                h5Options.OutputLocation = !string.IsNullOrWhiteSpace(h5Options.ProjectLocation)
-                    ? Path.GetFileNameWithoutExtension(h5Options.ProjectLocation) : h5Options.Folder;
+                h5Options.OutputLocation = Path.GetFileNameWithoutExtension(h5Options.ProjectLocation);
             }
 
-            if (h5Options.IsFolderMode)
-            {
-                h5Options.DefaultFileName = Path.GetFileNameWithoutExtension(h5Options.Lib);
-                h5Options.ProjectProperties.AssemblyName = h5Options.DefaultFileName;
-            }
-            else
-            {
-                h5Options.DefaultFileName = Path.GetFileName(h5Options.OutputLocation);
-            }
+            h5Options.DefaultFileName = Path.GetFileName(h5Options.OutputLocation);
 
             if (string.IsNullOrWhiteSpace(h5Options.DefaultFileName))
             {

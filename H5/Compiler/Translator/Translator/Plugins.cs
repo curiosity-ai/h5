@@ -25,11 +25,11 @@ namespace H5.Translator
 
             if (!string.IsNullOrWhiteSpace(config.PluginsPath))
             {
-                path = Path.Combine(translator.FolderMode ? translator.Location : Path.GetDirectoryName(translator.Location), config.PluginsPath);
+                path = Path.Combine(Path.GetDirectoryName(translator.Location), config.PluginsPath);
             }
             else
             {
-                path = Path.Combine(translator.FolderMode ? translator.Location : Path.GetDirectoryName(translator.Location), "H5" + Path.DirectorySeparatorChar + "plugins");
+                path = Path.Combine(Path.GetDirectoryName(translator.Location), "H5" + Path.DirectorySeparatorChar + "plugins");
             }
 
             return path;

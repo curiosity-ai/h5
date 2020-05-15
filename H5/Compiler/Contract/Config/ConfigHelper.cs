@@ -147,7 +147,7 @@ namespace H5.Contract
             this.Logger = logger;
         }
 
-        public virtual T ReadConfig(string configFileName, bool folderMode, string location, string configuration)
+        public virtual T ReadConfig(string configFileName, string location, string configuration)
         {
             string configPath = null;
             string mergePath = null;
@@ -156,8 +156,8 @@ namespace H5.Contract
 
             if (!string.IsNullOrWhiteSpace(configuration))
             {
-                configPath = GetConfigPath(configFileName.Insert(configFileName.LastIndexOf(".", StringComparison.Ordinal), "." + configuration), folderMode, location);
-                mergePath = GetConfigPath(configFileName, folderMode, location);
+                configPath = GetConfigPath(configFileName.Insert(configFileName.LastIndexOf(".", StringComparison.Ordinal), "." + configuration), location);
+                mergePath = GetConfigPath(configFileName, location);
 
                 if (configPath == null)
                 {
@@ -167,16 +167,16 @@ namespace H5.Contract
             }
             else
             {
-                configPath = GetConfigPath(configFileName, folderMode, location);
+                configPath = GetConfigPath(configFileName, location);
 
                 if (configPath == null)
                 {
-                    configPath = GetConfigPath(configFileName.Insert(configFileName.LastIndexOf(".", StringComparison.Ordinal), ".debug"), folderMode, location);
+                    configPath = GetConfigPath(configFileName.Insert(configFileName.LastIndexOf(".", StringComparison.Ordinal), ".debug"), location);
                 }
 
                 if (configPath == null)
                 {
-                    configPath = GetConfigPath(configFileName.Insert(configFileName.LastIndexOf(".", StringComparison.Ordinal), ".release"), folderMode, location);
+                    configPath = GetConfigPath(configFileName.Insert(configFileName.LastIndexOf(".", StringComparison.Ordinal), ".release"), location);
                 }
             }
 
@@ -221,11 +221,11 @@ namespace H5.Contract
             }
         }
 
-        public string GetConfigPath(string configFileName, bool folderMode, string location)
+        public string GetConfigPath(string configFileName, string location)
         {
             this.Logger.Trace("Getting configuration by file path " + (configFileName ?? "") + " at " + (location ?? "") + " ...");
 
-            var folder = folderMode ? location : Path.GetDirectoryName(location);
+            var folder = Path.GetDirectoryName(location);
             var path = folder + Path.DirectorySeparatorChar + "H5" + Path.DirectorySeparatorChar + configFileName;
 
             if (!File.Exists(path))

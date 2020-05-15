@@ -114,12 +114,6 @@ namespace H5.Contract
 
         EmitterException CreateExceptionFromLastNode();
 
-        bool FolderMode
-        {
-            get;
-            set;
-        }
-
         string Source
         {
             get;

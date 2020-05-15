@@ -19,9 +19,9 @@ namespace H5.Translator.Utils
             this.helper = new ConfigHelper<AssemblyInfo>(logger);
         }
 
-        public IAssemblyInfo ReadConfig(string configFileName, bool folderMode, string location, string configuration)
+        public IAssemblyInfo ReadConfig(string configFileName, string location, string configuration)
         {
-            var config = helper.ReadConfig(configFileName, folderMode, location, configuration);
+            var config = helper.ReadConfig(configFileName, location, configuration);
 
             if (config == null)
             {
@@ -34,9 +34,9 @@ namespace H5.Translator.Utils
             return config;
         }
 
-        public IAssemblyInfo ReadConfig(bool folderMode, string location, string configuration)
+        public IAssemblyInfo ReadConfig(string location, string configuration)
         {
-            return ReadConfig(CONFIG_FILE_NAME, folderMode, location, configuration);
+            return ReadConfig(CONFIG_FILE_NAME, location, configuration);
         }
 
         public string CreateConfig(IAssemblyInfo h5Config, string folder)

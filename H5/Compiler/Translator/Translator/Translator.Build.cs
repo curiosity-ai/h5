@@ -34,75 +34,71 @@ namespace H5.Translator
         {
             var baseDir = Path.GetDirectoryName(this.Location);
 
-            if (!this.FolderMode)
+            XDocument projDefinition = XDocument.Load(this.Location);
+            XNamespace rootNs = projDefinition.Root.Name.Namespace;
+            var helper = new ConfigHelper<AssemblyInfo>(this.Log);
+            var tokens = this.ProjectProperties.GetValues();
+
+            var referencesPathes = projDefinition
+                .Element(rootNs + "Project")
+                .Elements(rootNs + "ItemGroup")
+                .Elements(rootNs + "Reference")
+                .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+                .ToList();
+
+            var projectReferences = projDefinition
+                .Element(rootNs + "Project")
+                .Elements(rootNs + "ItemGroup")
+                .Elements(rootNs + "ProjectReference")
+                .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
+                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+                .ToArray();
+
+            if (projectReferences.Length > 0)
             {
-                XDocument projDefinition = XDocument.Load(this.Location);
-                XNamespace rootNs = projDefinition.Root.Name.Namespace;
-                var helper = new ConfigHelper<AssemblyInfo>(this.Log);
-                var tokens = this.ProjectProperties.GetValues();
-
-                var referencesPathes = projDefinition
-                    .Element(rootNs + "Project")
-                    .Elements(rootNs + "ItemGroup")
-                    .Elements(rootNs + "Reference")
-                    .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
-                    .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                    .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                    .ToList();
-
-                var projectReferences = projDefinition
-                    .Element(rootNs + "Project")
-                    .Elements(rootNs + "ItemGroup")
-                    .Elements(rootNs + "ProjectReference")
-                    .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
-                    .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                    .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                    .ToArray();
-
-                if (projectReferences.Length > 0)
+                if (this.ProjectProperties.BuildProjects == null)
                 {
-                    if (this.ProjectProperties.BuildProjects == null)
-                    {
-                        this.ProjectProperties.BuildProjects = new List<string>();
-                    }
-
-                    foreach (var projectRef in projectReferences)
-                    {
-                        var isBuilt = this.ProjectProperties.BuildProjects.Contains(projectRef);
-
-                        if (!isBuilt)
-                        {
-                            this.ProjectProperties.BuildProjects.Add(projectRef);
-                        }
-
-                        var processor = new TranslatorProcessor(new H5Options
-                        {
-                            Rebuild = this.Rebuild,
-                            ProjectLocation = projectRef,
-                            H5Location = this.H5Location,
-                            ProjectProperties = new Contract.ProjectProperties
-                            {
-                                BuildProjects = this.ProjectProperties.BuildProjects,
-                                Configuration = this.ProjectProperties.Configuration,
-                                Platform = this.ProjectProperties.Platform
-                            }
-                        }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
-
-                        processor.PreProcess();
-
-                        var projectAssembly = processor.Translator.AssemblyLocation;
-
-                        if (File.Exists(projectAssembly))
-                        {
-                            referencesPathes.Add(projectAssembly);
-                        }
-                    }
+                    this.ProjectProperties.BuildProjects = new List<string>();
                 }
 
-                return referencesPathes.ToArray();
+                foreach (var projectRef in projectReferences)
+                {
+                    var isBuilt = this.ProjectProperties.BuildProjects.Contains(projectRef);
+
+                    if (!isBuilt)
+                    {
+                        this.ProjectProperties.BuildProjects.Add(projectRef);
+                    }
+
+                    var processor = new TranslatorProcessor(new H5Options
+                    {
+                        Rebuild = this.Rebuild,
+                        ProjectLocation = projectRef,
+                        H5Location = this.H5Location,
+                        ProjectProperties = new Contract.ProjectProperties
+                        {
+                            BuildProjects = this.ProjectProperties.BuildProjects,
+                            Configuration = this.ProjectProperties.Configuration,
+                            Platform = this.ProjectProperties.Platform
+                        }
+                    }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
+
+                    processor.PreProcess();
+
+                    var projectAssembly = processor.Translator.AssemblyLocation;
+
+                    if (File.Exists(projectAssembly))
+                    {
+                        referencesPathes.Add(projectAssembly);
+                    }
+                }
             }
 
-            return new string[0];
+            return referencesPathes.ToArray();
+
         }
 
         public virtual void BuildAssembly()
@@ -118,148 +114,80 @@ namespace H5.Translator
             IList<PackageReference> referencedPackages = null;
             var baseDir = Path.GetDirectoryName(this.Location);
 
-            if (!this.FolderMode)
+            XDocument projDefinition = XDocument.Load(this.Location);
+            XNamespace rootNs = projDefinition.Root.Name.Namespace;
+            var helper = new ConfigHelper<AssemblyInfo>(this.Log);
+            var tokens = this.ProjectProperties.GetValues();
+
+            referencesPathes = projDefinition
+                .Element(rootNs + "Project")
+                .Elements(rootNs + "ItemGroup")
+                .Elements(rootNs + "Reference")
+                .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+                .ToList();
+
+            referencedPackages = projDefinition
+                .Element(rootNs + "Project")
+                .Elements(rootNs + "ItemGroup")
+                .Elements(rootNs + "PackageReference")
+                .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+                .Select(refElem => new PackageReference(new PackageIdentity(refElem.Attribute("Include").Value, new NuGetVersion(refElem.Attribute("Version").Value)), NuGetFramework.Parse("netstandard2.0")))
+                .ToList();
+
+            var projectReferences = projDefinition
+                .Element(rootNs + "Project")
+                .Elements(rootNs + "ItemGroup")
+                .Elements(rootNs + "ProjectReference")
+                .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
+                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+                .ToArray();
+
+            if (projectReferences.Length > 0)
             {
-                XDocument projDefinition = XDocument.Load(this.Location);
-                XNamespace rootNs = projDefinition.Root.Name.Namespace;
-                var helper = new ConfigHelper<AssemblyInfo>(this.Log);
-                var tokens = this.ProjectProperties.GetValues();
-
-                referencesPathes = projDefinition
-                    .Element(rootNs + "Project")
-                    .Elements(rootNs + "ItemGroup")
-                    .Elements(rootNs + "Reference")
-                    .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
-                    .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                    .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                    .ToList();
-
-                referencedPackages = projDefinition
-                    .Element(rootNs + "Project")
-                    .Elements(rootNs + "ItemGroup")
-                    .Elements(rootNs + "PackageReference")
-                    .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
-                    .Select(refElem => new PackageReference(new PackageIdentity(refElem.Attribute("Include").Value, new NuGetVersion(refElem.Attribute("Version").Value)), NuGetFramework.Parse("netstandard2.0")))
-                    .ToList();
-
-
-                var projectReferences = projDefinition
-                    .Element(rootNs + "Project")
-                    .Elements(rootNs + "ItemGroup")
-                    .Elements(rootNs + "ProjectReference")
-                    .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
-                    .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                    .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                    .ToArray();
-
-                if (projectReferences.Length > 0)
+                if (this.ProjectProperties.BuildProjects == null)
                 {
-                    if (this.ProjectProperties.BuildProjects == null)
+                    this.ProjectProperties.BuildProjects = new List<string>();
+                }
+
+                foreach (var projectRef in projectReferences)
+                {
+                    var isBuilt = this.ProjectProperties.BuildProjects.Contains(projectRef);
+
+                    if (!isBuilt)
                     {
-                        this.ProjectProperties.BuildProjects = new List<string>();
+                        this.ProjectProperties.BuildProjects.Add(projectRef);
                     }
 
-                    foreach (var projectRef in projectReferences)
+                    var processor = new TranslatorProcessor(new H5Options
                     {
-                        var isBuilt = this.ProjectProperties.BuildProjects.Contains(projectRef);
-
-                        if (!isBuilt)
+                        Rebuild = this.Rebuild,
+                        ProjectLocation = projectRef,
+                        H5Location = this.H5Location,
+                        ProjectProperties = new Contract.ProjectProperties
                         {
-                            this.ProjectProperties.BuildProjects.Add(projectRef);
+                            BuildProjects = this.ProjectProperties.BuildProjects,
+                            Configuration = this.ProjectProperties.Configuration,
+                            Platform = this.ProjectProperties.Platform
                         }
+                    }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
 
-                        var processor = new TranslatorProcessor(new H5Options
-                        {
-                            Rebuild = this.Rebuild,
-                            ProjectLocation = projectRef,
-                            H5Location = this.H5Location,
-                            ProjectProperties = new Contract.ProjectProperties
-                            {
-                                BuildProjects = this.ProjectProperties.BuildProjects,
-                                Configuration = this.ProjectProperties.Configuration,
-                                Platform = this.ProjectProperties.Platform
-                            }
-                        }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
+                    processor.PreProcess();
 
-                        processor.PreProcess();
+                    var projectAssembly = processor.Translator.AssemblyLocation;
 
-                        var projectAssembly = processor.Translator.AssemblyLocation;
-
-                        if (!File.Exists(projectAssembly) || this.Rebuild && !isBuilt)
-                        {
-                            processor.Process();
-                            processor.PostProcess();
-                        }
-
-                        referencesPathes.Add(projectAssembly);
+                    if (!File.Exists(projectAssembly) || this.Rebuild && !isBuilt)
+                    {
+                        processor.Process();
+                        processor.PostProcess();
                     }
+
+                    referencesPathes.Add(projectAssembly);
                 }
             }
-            else
-            {
-                var list = new List<string>();
-                referencesPathes = list;
-                if (!string.IsNullOrWhiteSpace(this.AssemblyInfo.ReferencesPath))
-                {
-                    var path = this.AssemblyInfo.ReferencesPath;
-                    path = Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(this.Location, path))).LocalPath);
-
-                    if (!Directory.Exists(path))
-                    {
-                        throw (TranslatorException)H5.Translator.TranslatorException.Create("ReferencesPath doesn't exist - {0}", path);
-                    }
-
-                    string[] allfiles = System.IO.Directory.GetFiles(path, "*.dll", SearchOption.TopDirectoryOnly);
-                    list.AddRange(allfiles);
-                }
-
-                if (this.AssemblyInfo.References != null && this.AssemblyInfo.References.Length > 0)
-                {
-                    foreach (var reference in this.AssemblyInfo.References)
-                    {
-                        var path = Path.IsPathRooted(reference) ? reference : Path.GetFullPath((new Uri(Path.Combine(this.Location, reference))).LocalPath);
-                        list.Add(path);
-                    }
-                }
-
-                var packagesPath = Path.GetFullPath((new Uri(Path.Combine(this.Location, "packages"))).LocalPath);
-                if (!Directory.Exists(packagesPath))
-                {
-                    packagesPath = Path.Combine(Directory.GetParent(this.Location).ToString(), "packages");
-                }
-
-                var packagesConfigPath = Path.Combine(this.Location, "packages.config");
-
-                if (File.Exists(packagesConfigPath))
-                {
-                    var doc = new System.Xml.XmlDocument();
-                    doc.LoadXml(File.ReadAllText(packagesConfigPath));
-                    var nodes = doc.DocumentElement.SelectNodes($"descendant::package");
-
-                    if (nodes.Count > 0)
-                    {
-                        foreach (System.Xml.XmlNode node in nodes)
-                        {
-                            string id = node.Attributes["id"].Value;
-                            string version = node.Attributes["version"].Value;
-
-                            string packageDir = Path.Combine(packagesPath, id + "." + version);
-
-                            AddPackageAssembly(list, packageDir);
-                        }
-                    }
-                }
-                else if (Directory.Exists(packagesPath))
-                {
-                    var packagesFolders = Directory.GetDirectories(packagesPath, "*", SearchOption.TopDirectoryOnly);
-                    foreach (var packageFolder in packagesFolders)
-                    {
-                        var packageLib = Path.Combine(packageFolder, "lib");
-                        AddPackageAssembly(list, packageLib);
-                    }
-                }
-            }
-
+   
             //RFO: need to do the package discover first so it populates the 
             var referencesFromPackages = new List<MetadataReference>();
 

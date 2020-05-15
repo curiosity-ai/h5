@@ -94,14 +94,6 @@ namespace H5.Translator
             this.Source = source;
         }
 
-        public Translator(string location, string source, bool recursive, string lib) : this(location, source, false)
-        {
-            this.Recursive = recursive;
-            this.AssemblyLocation = lib;
-            this.FolderMode = true;
-            this.Outputs = new TranslatorOutput();
-        }
-
         public void Translate()
         {
             var logger = this.Log;

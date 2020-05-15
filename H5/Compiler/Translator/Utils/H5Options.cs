@@ -20,7 +20,6 @@ namespace H5.Translator
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
         public bool ExtractCore { get; set; }
-        public string Folder { get; set; }
         public bool Recursive { get; set; }
         public string Lib { get; set; }
         public bool NoCompilation { get; set; }
@@ -31,12 +30,9 @@ namespace H5.Translator
         public string Sources { get; set; }
         public string ReferencesPath { get; set; }
 
-        public bool IsFolderMode { get { return string.IsNullOrWhiteSpace(this.ProjectLocation); } }
-
         public H5Options()
         {
             ExtractCore = true;
-            Folder = Environment.CurrentDirectory;
         }
 
         public override string ToString()
@@ -56,7 +52,6 @@ namespace H5.Translator
                 { WrapProperty("H5Location"), GetString(this.H5Location) },
                 { WrapProperty("Rebuild"), GetString(this.Rebuild) },
                 { WrapProperty("ExtractCore"), GetString(this.ExtractCore) },
-                { WrapProperty("Folder"), GetString(this.Folder) },
                 { WrapProperty("Recursive"), GetString(this.Recursive) },
                 { WrapProperty("Lib"), GetString(this.Lib) },
                 { WrapProperty("Help"), GetString(this.NoCompilation) },
@@ -78,7 +73,7 @@ namespace H5.Translator
 
         protected string GetString(string s)
         {
-            return s != null ? s : "";
+            return s ?? "";
         }
 
         protected string GetString(ProjectProperties p)

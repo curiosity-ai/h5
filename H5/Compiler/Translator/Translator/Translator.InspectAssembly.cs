@@ -44,13 +44,6 @@ namespace H5.Translator
                 return null;
             }
 
-            //public override AssemblyDefinition Resolve(string fullName)
-            //{
-            //    this.Logger.Trace("CecilAssemblyResolver: Resolve(string) " + (fullName ?? ""));
-
-            //    return base.Resolve(fullName);
-            //}
-
             public override AssemblyDefinition Resolve(AssemblyNameReference name)
             {
                 string fullName = name != null ? name.FullName : "";
@@ -59,18 +52,6 @@ namespace H5.Translator
 
                 return base.Resolve(name);
             }
-
-            //public override AssemblyDefinition Resolve(string fullName, ReaderParameters parameters)
-            //{
-            //    this.Logger.Trace(
-            //        "CecilAssemblyResolver: Resolve(string, ReaderParameters) "
-            //        + (fullName ?? "")
-            //        + ", "
-            //        + (parameters != null ? parameters.ReadingMode.ToString() : "")
-            //        );
-
-            //    return base.Resolve(fullName, parameters);
-            //}
 
             public override AssemblyDefinition Resolve(AssemblyNameReference name, ReaderParameters parameters)
             {
@@ -93,9 +74,7 @@ namespace H5.Translator
 
             foreach (var path in locations)
             {
-                //using (
-                var ms = LoadAssemblyInTempStream(path);
-                    //)
+                var ms = LoadAssemblyAsFileStream(path);
                 {
 
                     var reference = AssemblyDefinition.ReadAssembly(
@@ -129,9 +108,7 @@ namespace H5.Translator
 
             CurrentAssemblyLocationInspected.Push(location);
 
-            //using (
-            var ms = LoadAssemblyInTempStream(location);
-                //)
+            var ms = LoadAssemblyAsFileStream(location);
             {
                 var assemblyDefinition = AssemblyDefinition.ReadAssembly(
                         ms,
@@ -194,20 +171,10 @@ namespace H5.Translator
             }
         }
 
-        private static Stream LoadAssemblyInTempStream(string location)
+        private static Stream LoadAssemblyAsFileStream(string location)
         {
+            //Must be a FileStream, as it needs the path info attached
             return File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-
-            //return File.OpenRead(location);
-            //var ms = new MemoryStream();
-            //using (var file = File.OpenRead(location))
-            //{
-            //    file.CopyTo(ms);
-            //    file.Close();
-            //    ms.Seek(0, SeekOrigin.Begin);
-            //}
-
-            //return ms;
         }
 
         protected virtual void ReadTypes(AssemblyDefinition assembly)
@@ -332,14 +299,11 @@ namespace H5.Translator
                 this.ReadTypes(item);
             }
 
-            if (!this.FolderMode)
-            {
-                var prefix = Path.GetDirectoryName(this.Location);
+            var prefix = Path.GetDirectoryName(this.Location);
 
-                for (int i = 0; i < this.SourceFiles.Count; i++)
-                {
-                    this.SourceFiles[i] = Path.Combine(prefix, this.SourceFiles[i]);
-                }
+            for (int i = 0; i < this.SourceFiles.Count; i++)
+            {
+                this.SourceFiles[i] = Path.Combine(prefix, this.SourceFiles[i]);
             }
 
             this.Log.Info("Inspecting references done");

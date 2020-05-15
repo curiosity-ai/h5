@@ -158,12 +158,6 @@ namespace H5.Translator
             set;
         }
 
-        public bool FolderMode
-        {
-            get;
-            set;
-        }
-
         public string Source
         {
             get;

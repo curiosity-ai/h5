@@ -70,16 +70,6 @@ namespace H5.Translator
             this.Log.Trace("EnsureProjectProperties done");
         }
 
-        internal virtual void ReadFolderFiles()
-        {
-            this.Log.Trace("Reading folder files...");
-
-            this.SourceFiles = this.GetSourceFiles(this.Location);
-            this.ParsedSourceFiles = new ParsedSourceFile[this.SourceFiles.Count];
-
-            this.Log.Trace("Reading folder files done");
-        }
-
         /// <summary>
         /// Validates project and namespace names against conflicts with H5.NET namespaces.
         /// </summary>

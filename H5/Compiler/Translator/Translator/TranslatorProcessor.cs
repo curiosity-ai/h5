@@ -45,7 +45,6 @@ namespace H5.Translator
 
             h5Options.H5Location = pathHelper.ConvertPath(h5Options.H5Location);
             h5Options.DefaultFileName = pathHelper.ConvertPath(h5Options.DefaultFileName);
-            h5Options.Folder = pathHelper.ConvertPath(h5Options.Folder);
             h5Options.Lib = pathHelper.ConvertPath(h5Options.Lib);
             h5Options.OutputLocation = pathHelper.ConvertPath(h5Options.OutputLocation);
             h5Options.ProjectLocation = pathHelper.ConvertPath(h5Options.ProjectLocation);
@@ -151,7 +150,7 @@ namespace H5.Translator
         private string GetOutputFolder(bool basePathOnly = false, bool strict = false)
         {
             var h5Options = this.H5Options;
-            string basePath = h5Options.IsFolderMode ? h5Options.Folder : Path.GetDirectoryName(h5Options.ProjectLocation);
+            string basePath = Path.GetDirectoryName(h5Options.ProjectLocation);
 
             if (!basePathOnly)
             {
@@ -191,11 +190,11 @@ namespace H5.Translator
 
             var logger = this.Logger;
 
-            var location = h5Options.IsFolderMode ? h5Options.Folder : h5Options.ProjectLocation;
+            var location = h5Options.ProjectLocation;
 
             var configReader = new AssemblyConfigHelper(logger);
 
-            return configReader.ReadConfig(h5Options.IsFolderMode, location, h5Options.ProjectProperties.Configuration);
+            return configReader.ReadConfig(location, h5Options.ProjectProperties.Configuration);
         }
 
         private void SetLoggerConfigurationParameters()
@@ -287,20 +286,7 @@ namespace H5.Translator
             H5.Translator.Translator translator = null;
 
             // FIXME: detect by extension whether first argument is a project or DLL
-            if (!h5Options.IsFolderMode)
-            {
-                translator = new H5.Translator.Translator(h5Options.ProjectLocation, h5Options.Sources, h5Options.FromTask);
-            }
-            else
-            {
-                if (string.IsNullOrWhiteSpace(h5Options.Lib))
-                {
-                    throw new InvalidOperationException("Please define path to assembly using -lib option");
-                }
-
-                h5Options.Lib = Path.Combine(h5Options.Folder, h5Options.Lib);
-                translator = new H5.Translator.Translator(h5Options.Folder, h5Options.Sources, h5Options.Recursive, h5Options.Lib);
-            }
+            translator = new H5.Translator.Translator(h5Options.ProjectLocation, h5Options.Sources, h5Options.FromTask);
 
             translator.ProjectProperties = h5Options.ProjectProperties;
 
@@ -336,23 +322,8 @@ namespace H5.Translator
             translator.Log.Trace("\tRebuild:" + translator.Rebuild);
             translator.Log.Trace("\tProjectProperties:" + translator.ProjectProperties);
 
-            if (translator.FolderMode)
-            {
-                translator.ReadFolderFiles();
-
-                if (!string.IsNullOrEmpty(assemblyConfig.FileName))
-                {
-                    translator.DefaultNamespace = Path.GetFileNameWithoutExtension(assemblyConfig.FileName);
-                }
-                else
-                {
-                    translator.DefaultNamespace = h5Options.DefaultFileName;
-                }
-            }
-            else
-            {
-                translator.EnsureProjectProperties();
-            }
+            
+            translator.EnsureProjectProperties();
 
             translator.ApplyProjectPropertiesToConfig();
 

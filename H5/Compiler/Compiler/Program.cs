@@ -71,12 +71,13 @@ namespace H5.Builder
             string programName = Path.GetFileName(codeBase);
 
             logger.Warn(@"Usage: " + programName + @" [options] (<project-file>|<assembly-file>)
-       " + programName + @" [-h|--help]
+       " + programName + @"
+
+[-h|--help]
 
 -h --help                  This help message.
 -c --configuration <name>  Configuration name (Debug/Release etc)
                            [default: none].
--P --platform <name>       Platform name (AnyCPU etc) [default: none].
 -S --settings <name:value> Comma-delimited list of project settings
                            I.e -S name1:value1,name2:value2)
                            List of allowed settings:
@@ -86,23 +87,7 @@ namespace H5.Builder
                              Platform, RootNamespace
                            options -c, -P and -D have priority over -S
 -r --rebuild               Force assembly rebuilding.
---nocore                   Do not extract core javascript files.
--D --define <const-list>   Semicolon-delimited list of project constants.
--s --source <file>         Source files name/pattern [default: *.cs].
--f --folder <path>         Builder working directory relative to current WD
-                           [default: current wd].
--R --recursive             Recursively search for .cs source files inside
-                           current workind directory.
--notimestamp --notimestamp Do not show timestamp in log messages
-                           [default: shows timestamp]");
-
-#if DEBUG
-            // This code and logic is only compiled in when building H5 in Debug configuration
-            logger.Warn(@"-d --debug                 Attach the builder to a visual studio debugging
-                           session. Use this to attach the process to an
-                           open H5 solution. This option is equivalent
-                           to Build.dll's 'AttachDebugger'.");
-#endif
+-D --define <const-list>   Semicolon-delimited list of project constants.");
         }
 
         private static bool BindCmdArgumentToOption(string arg, H5Options h5Options, ILogger logger)
@@ -128,8 +113,6 @@ namespace H5.Builder
             // options -c, -P and -D have priority over -S
             string configuration = null;
             var hasPriorityConfiguration = false;
-            string platform = null;
-            var hasPriorityPlatform = false;
             string defineConstants = null;
             var hasPriorityDefineConstants = false;
 
@@ -160,13 +143,6 @@ namespace H5.Builder
                         configuration = args[++i];
                         hasPriorityConfiguration = true;
                         break;
-
-                    case "-P":
-                    case "--platform":
-                        platform = args[++i];
-                        hasPriorityPlatform = true;
-                        break;
-
                     case "-def": // backwards compatibility
                     case "-D":
                     case "-define": // backwards compatibility
@@ -230,11 +206,6 @@ namespace H5.Builder
             if (hasPriorityConfiguration)
             {
                 h5Options.ProjectProperties.Configuration = configuration;
-            }
-
-            if (hasPriorityPlatform)
-            {
-                h5Options.ProjectProperties.Platform = platform;
             }
 
             if (hasPriorityDefineConstants)

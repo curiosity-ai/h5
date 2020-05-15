@@ -81,8 +81,7 @@ namespace H5.Translator
                         ProjectProperties = new Contract.ProjectProperties
                         {
                             BuildProjects = this.ProjectProperties.BuildProjects,
-                            Configuration = this.ProjectProperties.Configuration,
-                            Platform = this.ProjectProperties.Platform
+                            Configuration = this.ProjectProperties.Configuration
                         }
                     }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
 
@@ -169,8 +168,7 @@ namespace H5.Translator
                         ProjectProperties = new Contract.ProjectProperties
                         {
                             BuildProjects = this.ProjectProperties.BuildProjects,
-                            Configuration = this.ProjectProperties.Configuration,
-                            Platform = this.ProjectProperties.Platform
+                            Configuration = this.ProjectProperties.Configuration
                         }
                     }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
 

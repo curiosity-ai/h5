@@ -41,11 +41,6 @@ namespace H5.Contract
             get; set;
         }
 
-        public string Platform
-        {
-            get; set;
-        }
-
         public string RootNamespace
         {
             get; set;
@@ -72,7 +67,6 @@ namespace H5.Contract
                { WrapProperty("OutDir"), GetString(this.OutDir) },
                { WrapProperty("OutputPath"), GetString(this.OutputPath) },
                { WrapProperty("OutputType"), GetString(this.OutputType) },
-               { WrapProperty("Platform"), GetString(this.Platform) },
                { WrapProperty("RootNamespace"), GetString(this.RootNamespace) },
             };
 
@@ -110,9 +104,6 @@ namespace H5.Contract
                         break;
                     case "outputtype":
                         this.OutputType = pair.Value;
-                        break;
-                    case "platform":
-                        this.Platform = pair.Value;
                         break;
                     case "rootnamespace":
                         this.RootNamespace = pair.Value;

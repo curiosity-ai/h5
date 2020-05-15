@@ -114,18 +114,6 @@ namespace H5.Contract
 
         EmitterException CreateExceptionFromLastNode();
 
-        string Source
-        {
-            get;
-            set;
-        }
-
-        bool Recursive
-        {
-            get;
-            set;
-        }
-
         List<string> DefineConstants
         {
             get;

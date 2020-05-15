@@ -194,12 +194,6 @@ namespace H5.Builder
                         h5Options.Rebuild = true;
                         break;
 
-                    case "-s":
-                    case "-src": // backwards compatibility
-                    case "--source":
-                        h5Options.Sources = args[++i];
-                        break;
-
                     case "-S":
                     case "--settings":
                         var error = ParseProjectProperties(h5Options, args[++i], logger);

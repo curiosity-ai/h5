@@ -47,8 +47,6 @@ namespace H5.Translator
             h5Options.DefaultFileName = pathHelper.ConvertPath(h5Options.DefaultFileName);
             h5Options.OutputLocation = pathHelper.ConvertPath(h5Options.OutputLocation);
             h5Options.ProjectLocation = pathHelper.ConvertPath(h5Options.ProjectLocation);
-            h5Options.Sources = pathHelper.ConvertPath(h5Options.Sources);
-
             h5Options.ProjectProperties.OutputPath = pathHelper.ConvertPath(h5Options.ProjectProperties.OutputPath);
             h5Options.ProjectProperties.OutDir = pathHelper.ConvertPath(h5Options.ProjectProperties.OutDir);
         }
@@ -265,7 +263,7 @@ namespace H5.Translator
             H5.Translator.Translator translator = null;
 
             // FIXME: detect by extension whether first argument is a project or DLL
-            translator = new H5.Translator.Translator(h5Options.ProjectLocation, h5Options.Sources, h5Options.FromTask);
+            translator = new H5.Translator.Translator(h5Options.ProjectLocation, h5Options.FromTask);
 
             translator.ProjectProperties = h5Options.ProjectProperties;
 

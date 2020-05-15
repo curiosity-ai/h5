@@ -287,24 +287,17 @@ namespace H5.Translator
 
             IList<string> sourceFiles = new List<string>();
 
-            if (this.Source == null)
+            foreach (var projectItem in project.AllEvaluatedItems.Where(i=>i.ItemType == "Compile"))
             {
-                foreach (var projectItem in project.AllEvaluatedItems.Where(i=>i.ItemType == "Compile"))
-                {
-                    sourceFiles.Add(configHelper.ConvertPath(projectItem.EvaluatedInclude));
-                }
+                sourceFiles.Add(configHelper.ConvertPath(projectItem.EvaluatedInclude));
+            }
 
-                if (!sourceFiles.Any())
-                {
-                    throw new H5.Translator.TranslatorException("Unable to get source file list from project file '" +
-                        this.Location + "'. In order to use h5, you have to have at least one source code file " +
-                        "with the 'compile' property set (usually .cs files have it by default in C# projects).");
-                };
-            }
-            else
+            if (!sourceFiles.Any())
             {
-                sourceFiles = GetSourceFiles(Path.GetDirectoryName(this.Location));
-            }
+                throw new H5.Translator.TranslatorException("Unable to get source file list from project file '" +
+                    this.Location + "'. In order to use h5, you have to have at least one source code file " +
+                    "with the 'compile' property set (usually .cs files have it by default in C# projects).");
+            };
 
             this.Log.Trace("Getting source files by xml done");
 
@@ -396,32 +389,9 @@ namespace H5.Translator
         protected virtual IList<string> GetSourceFiles(string location)
         {
             this.Log.Trace("Getting source files by location...");
-
-            var result = new List<string>();
-            if (string.IsNullOrWhiteSpace(this.Source))
-            {
-                this.Log.Trace("Source is not defined, will use *.cs mask");
-                this.Source = "*.cs";
-            }
-
-            string[] parts = this.Source.Split(';');
-            var searchOption = this.Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-
-            foreach (var part in parts)
-            {
-                int index = part.LastIndexOf(System.IO.Path.DirectorySeparatorChar);
-                string folder = index > -1 ? Path.Combine(location, part.Substring(0, index + 1)) : location;
-                string mask = index > -1 ? part.Substring(index + 1) : part;
-
-                string[] allfiles = System.IO.Directory.GetFiles(folder, mask, searchOption);
-                result.AddRange(allfiles);
-            }
-
-            result = result.Distinct().ToList();
-
-            this.Log.Trace("Getting source files by location done (found " + result.Count + " items)");
-
-            return result;
+            string[] allfiles = System.IO.Directory.GetFiles(location, "*.cs", SearchOption.TopDirectoryOnly);
+            this.Log.Trace("Getting source files by location done (found " + allfiles.Length + " items)");
+            return allfiles;
         }
     }
 }

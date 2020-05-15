@@ -158,18 +158,6 @@ namespace H5.Translator
             set;
         }
 
-        public string Source
-        {
-            get;
-            set;
-        }
-
-        public bool Recursive
-        {
-            get;
-            set;
-        }
-
         public List<string> DefineConstants
         {
             get;

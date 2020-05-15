@@ -88,10 +88,9 @@ namespace H5.Translator
             this.Outputs = new TranslatorOutput();
         }
 
-        public Translator(string location, string source, bool fromTask = false) : this(location)
+        public Translator(string location, bool fromTask = false) : this(location)
         {
             this.FromTask = fromTask;
-            this.Source = source;
         }
 
         public void Translate()

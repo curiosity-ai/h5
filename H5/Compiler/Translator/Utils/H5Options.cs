@@ -23,7 +23,6 @@ namespace H5.Translator
         public bool Run { get; set; }
         public bool FromTask { get; set; }
         public bool NoLoggerSetUp { get; set; }
-        public string Sources { get; set; }
         public string ReferencesPath { get; set; }
 
         public H5Options()
@@ -50,7 +49,6 @@ namespace H5.Translator
                 { WrapProperty("Run"), GetString(this.Run) },
                 { WrapProperty("FromTask"), GetString(this.FromTask) },
                 { WrapProperty("NoLoggerSetUp"), GetString(this.NoLoggerSetUp) },
-                { WrapProperty("Sources"), GetString(this.Sources) },
                 { WrapProperty("ReferencesPath"), GetString(this.ReferencesPath) }
             };
 

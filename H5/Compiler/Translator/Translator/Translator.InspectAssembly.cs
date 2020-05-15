@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Collections.Concurrent;
 
 namespace H5.Translator
 {
@@ -386,8 +388,26 @@ namespace H5.Translator
             }
             else
             {
-                Task.WaitAll(this.SourceFiles.Select((file, index) => Task.Run(() => result[index] = new SharpSixRewriter(rewriter).Rewrite(index))).ToArray());
+                var queue = new ConcurrentQueue<int>(Enumerable.Range(0, this.SourceFiles.Count));
+
+                var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
+                 {
+                     var t = new Thread(() =>
+                     {
+                         while(queue.TryDequeue(out var index))
+                         {
+                             result[index] = new SharpSixRewriter(rewriter).Rewrite(index);
+                         }
+                     });
+                     t.IsBackground = true;
+                     t.Start();
+                     return t;
+                 }).ToArray();
+
+                Array.ForEach(threads, t => t.Join());
             }
+
+            rewriter.CommitCache();
 
             return result;
         }

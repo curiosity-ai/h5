@@ -27,6 +27,8 @@
 		<PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
 		<PackageReference Include="System.Reflection.Metadata" Version="1.8.0" />
 		<PackageReference Include="System.Security.Permissions" Version="4.7.0" />
+		<PackageReference Include="MessagePack" Version="2.1.115" />
+		<PackageReference Include="Mosaik.Core" Version="0.0.6973" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />

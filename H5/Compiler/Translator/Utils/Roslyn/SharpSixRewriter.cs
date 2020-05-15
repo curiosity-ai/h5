@@ -1,20 +1,31 @@
 ﻿using H5.Contract;
 using H5.Contract.Constants;
+using MessagePack;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using UID;
 using LanguageVersion = Microsoft.CodeAnalysis.CSharp.LanguageVersion;
 
 namespace H5.Translator
 {
+
+    [MessagePackObject(keyAsPropertyName:true)]
+    public class SharpSixRewriterCachedOutput
+    {
+        public ConcurrentDictionary<string, (UID128 hash, string code)> CachedCompilation { get; set; } = new ConcurrentDictionary<string, (UID128 hash, string code)>();
+    }
+
+
     public class SharpSixRewriter : CSharpSyntaxRewriter
     {
         public const string AutoInitFieldPrefix = "__Property__Initializer__";
@@ -36,11 +47,16 @@ namespace H5.Translator
         private bool hasLocalFunctions;
         internal List<string> usingStaticNames;
 
+        private SharpSixRewriterCachedOutput _cachedRewrittenData;
+        private bool isParent;
+
         public SharpSixRewriter(ITranslator translator)
         {
             this.translator = translator;
             this.logger = translator.Log;
             this.compilation = this.CreateCompilation();
+            this.isParent = true;
+            _cachedRewrittenData = LoadCache();
         }
 
         public SharpSixRewriter(SharpSixRewriter rewriter)
@@ -48,10 +64,94 @@ namespace H5.Translator
             this.translator = rewriter.translator;
             this.logger = rewriter.logger;
             this.compilation = rewriter.compilation;
+            this._cachedRewrittenData = rewriter._cachedRewrittenData;
         }
+
+
+        private string GetCacheFile()
+        {
+            return this.translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".rewriter.cached";
+        }
+
+        public SharpSixRewriterCachedOutput LoadCache()
+        {
+            if (!this.isParent) throw new InvalidOperationException("Can only be called on parent Rewriter");
+
+            var cf = GetCacheFile();
+            
+            Directory.CreateDirectory(Path.GetDirectoryName(cf));
+
+            if (File.Exists(cf))
+            {
+                try
+                {
+                    using(var f = File.OpenRead(cf))
+                    {
+                        var cached =  MessagePackSerializer.Deserialize<SharpSixRewriterCachedOutput>(f);
+                        foreach(var key in cached.CachedCompilation.Keys.Except(translator.SourceFiles).ToArray())
+                        {
+                            cached.CachedCompilation.TryRemove(key, out _);
+                        }
+                        return cached;
+                    }
+                }
+                catch
+                {
+                    logger.Error($"Error reading cache file '{cf}', ignoring cache");
+                }
+            }
+
+            return new SharpSixRewriterCachedOutput();
+        }
+
+        public void CommitCache()
+        {
+            if (!this.isParent) throw new InvalidOperationException("Can only be called on parent Rewriter");
+            using(var f = File.OpenWrite(GetCacheFile()))
+            {
+                f.SetLength(0);
+                MessagePackSerializer.Serialize(f, _cachedRewrittenData);
+                f.Flush();
+                f.Close();
+            }
+        }
+
+        private bool TryGetFromCache(int index, out string cached)
+        {
+            var fileName = translator.SourceFiles[index];
+            var hashedSource = File.ReadAllText(fileName).Hash128();
+
+            if(_cachedRewrittenData.CachedCompilation.TryGetValue(fileName, out var cachedData) && cachedData.hash == hashedSource)
+            {
+                cached = cachedData.code;
+                return true;
+            }
+            else
+            {
+                cached = null;
+                return false;
+            }
+        }
+
+        private string AddToCache(int index, string rewritten)
+        {
+            //TODO: use https://www.nuget.org/packages/CSharpMinifier/
+            var fileName = translator.SourceFiles[index];
+            var hashedSource = File.ReadAllText(fileName).Hash128();
+
+            _cachedRewrittenData.CachedCompilation[fileName] = (hashedSource, rewritten);
+
+            return rewritten;
+        }
+
 
         public string Rewrite(int index)
         {
+            if(TryGetFromCache(index, out var cached))
+            {
+                return cached;
+            }
+
             this.currentType = new Stack<ITypeSymbol>();
             this.usingStaticNames = new List<string>();
 
@@ -127,7 +227,7 @@ namespace H5.Translator
 
             modelUpdater(result);
 
-            return newTree.GetRoot().ToFullString();
+            return AddToCache(index, newTree.GetRoot().ToFullString());
         }
 
         // FIXME: Same call made by H5.Translator.BuildAssembly

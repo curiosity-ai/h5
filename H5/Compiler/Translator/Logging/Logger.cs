@@ -11,7 +11,6 @@ namespace H5.Translator.Logging
         public bool AlwaysLogErrors { get { return false; } }
         public string Name { get; set; }
         public List<ILogger> LoggerWriters { get; private set; }
-        public bool UseTimeStamp { get; set; }
 
         private Stopwatch _stopwatch = Stopwatch.StartNew();
 
@@ -51,7 +50,6 @@ namespace H5.Translator.Logging
 
             this.LoggerWriters = loggerWriters.Where(x => x != null).ToList();
 
-            this.UseTimeStamp = useTimeStamp;
             this.LoggerLevel = loggerLevel;
             this.BufferedMode = bufferedMode;
         }
@@ -157,11 +155,6 @@ namespace H5.Translator.Logging
                 || string.IsNullOrEmpty(message))
             {
                 return null;
-            }
-
-            if (!this.UseTimeStamp)
-            {
-                return message;
             }
 
             var now = DateTime.Now;

@@ -232,19 +232,6 @@ namespace H5.Translator
 
             logger.BufferedMode = false;
 
-            if (h5Options.NoTimeStamp.HasValue)
-            {
-                logger.UseTimeStamp = !h5Options.NoTimeStamp.Value;
-            }
-            else if (assemblyConfig.Logging.TimeStamps.HasValue)
-            {
-                logger.UseTimeStamp = assemblyConfig.Logging.TimeStamps.Value;
-            }
-            else
-            {
-                logger.UseTimeStamp = true;
-            }
-
             var fileLoggerWriter = logger.GetFileLogger();
 
             if (fileLoggerWriter != null)

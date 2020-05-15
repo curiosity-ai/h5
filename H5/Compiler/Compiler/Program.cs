@@ -243,11 +243,6 @@ namespace H5.Builder
                         h5Options.NoCompilation = true;
                         return h5Options; // success. Asked for help. Help provided.
 
-                    case "-notimestamp":
-                    case "--notimestamp":
-                        h5Options.NoTimeStamp = true;
-                        break;
-
 #if DEBUG
                     case "-debug":
                     case "--debug":

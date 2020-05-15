@@ -23,7 +23,6 @@ namespace H5.Translator
         public string Lib { get; set; }
         public bool NoCompilation { get; set; }
         public bool Run { get; set; }
-        public bool? NoTimeStamp { get; set; }
         public bool FromTask { get; set; }
         public bool NoLoggerSetUp { get; set; }
         public string Sources { get; set; }
@@ -53,7 +52,6 @@ namespace H5.Translator
                 { WrapProperty("ExtractCore"), GetString(this.ExtractCore) },
                 { WrapProperty("Lib"), GetString(this.Lib) },
                 { WrapProperty("Help"), GetString(this.NoCompilation) },
-                { WrapProperty("NoTimeStamp"), GetString(this.NoTimeStamp) },
                 { WrapProperty("Run"), GetString(this.Run) },
                 { WrapProperty("FromTask"), GetString(this.FromTask) },
                 { WrapProperty("NoLoggerSetUp"), GetString(this.NoLoggerSetUp) },

@@ -28,14 +28,6 @@ namespace H5.Builder
                 return 1;
             }
 
-            if (h5Options.NoCompilation)
-            {
-                return 0;
-            }
-
-            logger.Trace("Command line arguments:");
-            logger.Trace("\t" + (string.Join(" ", args) ?? ""));
-
             var processor = new TranslatorProcessor(h5Options, logger);
 
             try
@@ -48,7 +40,7 @@ namespace H5.Builder
             }
             catch (EmitterException ex)
             {
-                logger.Error(string.Format("H5.NET Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
+                logger.Error(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
                 return 1;
             }
             catch (Exception ex)
@@ -57,11 +49,11 @@ namespace H5.Builder
 
                 if (ee != null)
                 {
-                    logger.Error(string.Format("H5.NET Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
+                    logger.Error(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
                 }
                 else
                 {
-                    logger.Error(string.Format("H5.NET Compiler error: {0}", ex.ToString()));
+                    logger.Error(string.Format("H5 Compiler error: {0}", ex.ToString()));
                 }
 
                 return 1;
@@ -149,26 +141,21 @@ namespace H5.Builder
                 {
                     // backwards compatibility -- now is non-switch argument to builder
                     case "-p":
-                    case "-project":
                     case "--project":
                         h5Options.ProjectLocation = args[++i];
                         break;
 
-                    case "-b":
-                    case "-h5": // backwards compatibility
                     case "--h5":
                         h5Options.H5Location = args[++i];
                         break;
 
                     case "-o":
-                    case "-output": // backwards compatibility
                     case "--output":
                         h5Options.OutputLocation = args[++i];
                         break;
 
                     case "-c":
                     case "-cfg": // backwards compatibility
-                    case "-configuration": // backwards compatibility
                     case "--configuration":
                         configuration = args[++i];
                         hasPriorityConfiguration = true;
@@ -206,11 +193,12 @@ namespace H5.Builder
                         }
 
                         break;
+
                     case "-h":
                     case "--help":
                         ShowHelp(logger);
-                        h5Options.NoCompilation = true;
-                        return h5Options; // success. Asked for help. Help provided.
+                        return null;
+
                     case "--": // stop reading commandline arguments
                         // Only non-hyphen commandline argument accepted is the file name of the project or
                         // assembly file, so if not provided already, when this option is specified, check if

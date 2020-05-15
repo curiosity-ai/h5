@@ -19,7 +19,6 @@ namespace H5.Translator
         public string DefaultFileName { get; set; }
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
-        public bool NoCompilation { get; set; }
         public bool Run { get; set; }
         public bool FromTask { get; set; }
         public bool NoLoggerSetUp { get; set; }
@@ -45,7 +44,6 @@ namespace H5.Translator
                 { WrapProperty("DefaultFileName"), GetString(this.DefaultFileName) },
                 { WrapProperty("H5Location"), GetString(this.H5Location) },
                 { WrapProperty("Rebuild"), GetString(this.Rebuild) },
-                { WrapProperty("Help"), GetString(this.NoCompilation) },
                 { WrapProperty("Run"), GetString(this.Run) },
                 { WrapProperty("FromTask"), GetString(this.FromTask) },
                 { WrapProperty("NoLoggerSetUp"), GetString(this.NoLoggerSetUp) },

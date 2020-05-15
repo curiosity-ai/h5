@@ -17,16 +17,16 @@ namespace H5.Builder
             Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
 
             var logger = new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter());
-
-            logger.Info($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
-
+            
             var h5Options = GetH5OptionsFromCommandLine(args, logger);
 
             if (h5Options == null)
             {
-                ShowHelp(logger);
+                ShowHelp();
                 return 1;
             }
+
+            logger.Info($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
 
             var processor = new TranslatorProcessor(h5Options, logger);
 
@@ -65,12 +65,12 @@ namespace H5.Builder
         /// <summary>
         /// Commandline arguments based on http://docopt.org/
         /// </summary>
-        private static void ShowHelp(ILogger logger)
+        private static void ShowHelp()
         {
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             string programName = Path.GetFileName(codeBase);
 
-            logger.Warn(@"Usage: " + programName + @" [options] (<project-file>|<assembly-file>)
+            Console.WriteLine(@"Usage: " + programName + @" [options] (<project-file>|<assembly-file>)
        " + programName + @"
 
 [-h|--help]                Show this help message.
@@ -169,7 +169,6 @@ namespace H5.Builder
 
                     case "-h":
                     case "--help":
-                        ShowHelp(logger);
                         return null;
 
                     case "--": // stop reading commandline arguments

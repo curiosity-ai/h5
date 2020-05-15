@@ -1,12 +1,18 @@
-#  h5
-
-## C# to JavaScript compiler, now on .NET Core 3.1 
-
-[![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5-compiler?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=38&branchName=master)
+#  h5 - C# to JavaScript compiler, now on .NET Core 3.1 🚀
 
 This repository contains an experimental fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler.
 
 The key goal with this fork is to bring it closer to the C# .NET Core 3.1 / .NET Standard world, and experiment with new ideas for supporting a more integrated development experience (such as the awesome new [C# Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/)).
+
+
+|  Package | NuGet           |  Azure DevOps   |
+| -------------: |:-------------:| :-----:|
+| Compiler | [![Nuget](https://img.shields.io/nuget/v/h5-compiler.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5-compiler/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5-compiler?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=38&branchName=master) |
+| Base Library | [![Nuget](https://img.shields.io/nuget/v/h5.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5/) | [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5-base-nuget?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=39&branchName=master) |
+| Core Library | [![Nuget](https://img.shields.io/nuget/v/h5.core.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.core/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.core?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=40&branchName=master) |
+| SDK Target | [![Nuget](https://img.shields.io/nuget/v/h5.target.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.target/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.target?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=43&branchName=master) |
+| Json Library | [![Nuget](https://img.shields.io/nuget/v/h5.Newtonsoft.Json.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.Newtonsoft.Json/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.json?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=41&branchName=master) |
+
 
 ##  Getting Started ⚡
 

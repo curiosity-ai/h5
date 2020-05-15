@@ -398,8 +398,8 @@ namespace ICSharpCode.NRefactory.Editor
             // First update all anchors, then fire the deleted events.
             List<int> deletedAnchors = new List<int>();
             for (int i = 0; i < anchors.Count; i++) {
-                var anchor = anchors[i].Target as SimpleAnchor;
-                if (anchor != null) {
+                if (anchors[i].Target is SimpleAnchor anchor)
+                {
                     anchor.Update(change);
                     if (anchor.IsDeleted)
                         deletedAnchors.Add(i);
@@ -407,8 +407,7 @@ namespace ICSharpCode.NRefactory.Editor
             }
             deletedAnchors.Reverse();
             foreach (var index in deletedAnchors) {
-                var anchor = anchors[index].Target as SimpleAnchor;
-                if (anchor != null)
+                if (anchors[index].Target is SimpleAnchor anchor)
                     anchor.RaiseDeletedEvent();
                 anchors.RemoveAt(index);
             }

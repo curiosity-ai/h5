@@ -56,25 +56,31 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                 yield break;
 
             int outerTypeParameterCount = outerTypeDef.TypeParameterCount;
-            ParameterizedType pt = outerType as ParameterizedType;
-            foreach (ITypeDefinition nestedType in outerTypeDef.NestedTypes) {
+            foreach (ITypeDefinition nestedType in outerTypeDef.NestedTypes)
+            {
                 int totalTypeParameterCount = nestedType.TypeParameterCount;
-                if (nestedTypeArguments != null) {
+                if (nestedTypeArguments != null)
+                {
                     if (totalTypeParameterCount - outerTypeParameterCount != nestedTypeArguments.Count)
                         continue;
                 }
                 if (!(filter == null || filter(nestedType)))
                     continue;
 
-                if (totalTypeParameterCount == 0 || (options & GetMemberOptions.ReturnMemberDefinitions) == GetMemberOptions.ReturnMemberDefinitions) {
+                if (totalTypeParameterCount == 0 || (options & GetMemberOptions.ReturnMemberDefinitions) == GetMemberOptions.ReturnMemberDefinitions)
+                {
                     yield return nestedType;
-                } else {
+                }
+                else
+                {
                     // We need to parameterize the nested type
                     IType[] newTypeArguments = new IType[totalTypeParameterCount];
-                    for (int i = 0; i < outerTypeParameterCount; i++) {
-                        newTypeArguments[i] = pt != null ? pt.GetTypeArgument(i) : outerTypeDef.TypeParameters[i];
+                    for (int i = 0; i < outerTypeParameterCount; i++)
+                    {
+                        newTypeArguments[i] = outerType is ParameterizedType pt ? pt.GetTypeArgument(i) : outerTypeDef.TypeParameters[i];
                     }
-                    for (int i = outerTypeParameterCount; i < totalTypeParameterCount; i++) {
+                    for (int i = outerTypeParameterCount; i < totalTypeParameterCount; i++)
+                    {
                         if (nestedTypeArguments != null)
                             newTypeArguments[i] = nestedTypeArguments[i - outerTypeParameterCount];
                         else
@@ -179,11 +185,13 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                 return declaredMembers;
             }
 
-            ParameterizedType pt = baseType as ParameterizedType;
-            if (pt != null) {
+            if (baseType is ParameterizedType pt)
+            {
                 var substitution = pt.GetSubstitution();
                 return declaredMembers.Select(m => new SpecializedMethod(m, substitution) { DeclaringType = pt });
-            } else {
+            }
+            else
+            {
                 return declaredMembers;
             }
         }
@@ -206,11 +214,13 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                 return declaredProperties;
             }
 
-            ParameterizedType pt = baseType as ParameterizedType;
-            if (pt != null) {
+            if (baseType is ParameterizedType pt)
+            {
                 var substitution = pt.GetSubstitution();
                 return declaredProperties.Select(m => new SpecializedProperty(m, substitution) { DeclaringType = pt });
-            } else {
+            }
+            else
+            {
                 return declaredProperties;
             }
         }
@@ -233,11 +243,13 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                 return declaredFields;
             }
 
-            ParameterizedType pt = baseType as ParameterizedType;
-            if (pt != null) {
+            if (baseType is ParameterizedType pt)
+            {
                 var substitution = pt.GetSubstitution();
                 return declaredFields.Select(m => new SpecializedField(m, substitution) { DeclaringType = pt });
-            } else {
+            }
+            else
+            {
                 return declaredFields;
             }
         }
@@ -260,11 +272,13 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                 return declaredEvents;
             }
 
-            ParameterizedType pt = baseType as ParameterizedType;
-            if (pt != null) {
+            if (baseType is ParameterizedType pt)
+            {
                 var substitution = pt.GetSubstitution();
                 return declaredEvents.Select(m => new SpecializedEvent(m, substitution) { DeclaringType = pt });
-            } else {
+            }
+            else
+            {
                 return declaredEvents;
             }
         }

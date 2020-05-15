@@ -78,16 +78,20 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
             }
             var resolvedParameterTypes = parameterTypes.Resolve(context);
             foreach (IMember member in members) {
-                IParameterizedMember parameterizedMember = member as IParameterizedMember;
-                if (parameterizedMember == null) {
+                if (!(member is IParameterizedMember parameterizedMember))
+                {
                     if (parameterTypes.Count == 0)
                         return member;
-                } else if (parameterTypes.Count == parameterizedMember.Parameters.Count) {
+                }
+                else if (parameterTypes.Count == parameterizedMember.Parameters.Count)
+                {
                     bool signatureMatches = true;
-                    for (int i = 0; i < parameterTypes.Count; i++) {
+                    for (int i = 0; i < parameterTypes.Count; i++)
+                    {
                         IType type1 = DummyTypeParameter.NormalizeAllTypeParameters(resolvedParameterTypes[i]);
                         IType type2 = DummyTypeParameter.NormalizeAllTypeParameters(parameterizedMember.Parameters[i].Type);
-                        if (!type1.Equals(type2)) {
+                        if (!type1.Equals(type2))
+                        {
                             signatureMatches = false;
                             break;
                         }
@@ -111,8 +115,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            DefaultMemberReference o = other as DefaultMemberReference;
-            return o != null && symbolKind == o.symbolKind && typeReference == o.typeReference && name == o.name && parameterTypes == o.parameterTypes;
+            return other is DefaultMemberReference o && symbolKind == o.symbolKind && typeReference == o.typeReference && name == o.name && parameterTypes == o.parameterTypes;
         }
     }
 }

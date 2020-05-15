@@ -229,9 +229,8 @@ namespace H5.Translator
                     : this.AssemblyInfo.CleanOutputFolderBeforeBuildPattern;
 
                 string logFileFullPath = null;
-                var l = this.Log as Logger;
 
-                if (l != null)
+                if (this.Log is Logger l)
                 {
                     var fileWriter = l.GetFileLogger();
 

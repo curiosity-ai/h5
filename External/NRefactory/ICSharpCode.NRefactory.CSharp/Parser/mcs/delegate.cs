@@ -538,13 +538,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (!AllowSpecialMethodsInvocation)
                 Invocation.IsSpecialMethodInvocation (ec, delegate_method, loc);
 
-            ExtensionMethodGroupExpr emg = method_group as ExtensionMethodGroupExpr;
-            if (emg != null) {
+            if (method_group is ExtensionMethodGroupExpr emg)
+            {
                 method_group.InstanceExpression = emg.ExtensionExpression;
                 TypeSpec e_type = emg.ExtensionExpression.Type;
-                if (TypeSpec.IsValueType (e_type)) {
-                    ec.Report.Error (1113, loc, "Extension method `{0}' of value type `{1}' cannot be used to create delegates",
-                        delegate_method.GetSignatureForError (), e_type.GetSignatureForError ());
+                if (TypeSpec.IsValueType(e_type))
+                {
+                    ec.Report.Error(1113, loc, "Extension method `{0}' of value type `{1}' cannot be used to create delegates",
+                        delegate_method.GetSignatureForError(), e_type.GetSignatureForError());
                 }
             }
 
@@ -559,13 +560,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (method_group.IsConditionallyExcluded) {
                 ec.Report.SymbolRelatedToPreviousError (delegate_method);
-                MethodOrOperator m = delegate_method.MemberDefinition as MethodOrOperator;
-                if (m != null && m.IsPartialDefinition) {
-                    ec.Report.Error (762, loc, "Cannot create delegate from partial method declaration `{0}'",
-                        delegate_method.GetSignatureForError ());
-                } else {
-                    ec.Report.Error (1618, loc, "Cannot create delegate with `{0}' because it has a Conditional attribute",
-                        TypeManager.CSharpSignature (delegate_method));
+                if (delegate_method.MemberDefinition is MethodOrOperator m && m.IsPartialDefinition)
+                {
+                    ec.Report.Error(762, loc, "Cannot create delegate from partial method declaration `{0}'",
+                        delegate_method.GetSignatureForError());
+                }
+                else
+                {
+                    ec.Report.Error(1618, loc, "Cannot create delegate with `{0}' because it has a Conditional attribute",
+                        TypeManager.CSharpSignature(delegate_method));
                 }
             }
 
@@ -699,13 +702,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         //
         public static bool ContainsMethodTypeParameter (TypeSpec type)
         {
-            var tps = type as TypeParameterSpec;
-            if (tps != null)
+            if (type is TypeParameterSpec tps)
                 return tps.IsMethodOwned;
 
-            var ec = type as ElementTypeSpec;
-            if (ec != null)
-                return ContainsMethodTypeParameter (ec.Element);
+            if (type is ElementTypeSpec ec)
+                return ContainsMethodTypeParameter(ec.Element);
 
             foreach (var t in type.TypeArguments) {
                 if (ContainsMethodTypeParameter (t)) {
@@ -823,13 +824,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             Expression e = a.Expr;
 
-            AnonymousMethodExpression ame = e as AnonymousMethodExpression;
-            if (ame != null && ec.Module.Compiler.Settings.Version != LanguageVersion.ISO_1) {
-                e = ame.Compatible (ec, type);
+            if (e is AnonymousMethodExpression ame && ec.Module.Compiler.Settings.Version != LanguageVersion.ISO_1)
+            {
+                e = ame.Compatible(ec, type);
                 if (e == null)
                     return null;
 
-                return e.Resolve (ec);
+                return e.Resolve(ec);
             }
 
             method_group = e as MethodGroupExpr;

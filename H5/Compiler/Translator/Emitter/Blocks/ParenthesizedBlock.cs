@@ -56,12 +56,9 @@ namespace H5.Translator
                 }
             }
 
-            var castExpr = expression as CastExpression;
-            if (castExpr != null)
+            if (expression is CastExpression castExpr)
             {
-                var orr = this.Emitter.Resolver.ResolveNode(castExpr.Expression, this.Emitter) as OperatorResolveResult;
-
-                if (orr != null)
+                if (this.Emitter.Resolver.ResolveNode(castExpr.Expression, this.Emitter) is OperatorResolveResult orr)
                 {
                     return false;
                 }
@@ -72,7 +69,7 @@ namespace H5.Translator
                     return false;
                 }
 
-                if(rr.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Unknown || rr.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Delegate)
+                if (rr.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Unknown || rr.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Delegate)
                 {
                     return false;
                 }

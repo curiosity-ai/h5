@@ -142,8 +142,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            BlockStatement o = other as BlockStatement;
-            return o != null && !o.IsNull && this.Statements.DoMatch(o.Statements, match);
+            return other is BlockStatement o && !o.IsNull && this.Statements.DoMatch(o.Statements, match);
         }
 
         public void Add(Statement statement)

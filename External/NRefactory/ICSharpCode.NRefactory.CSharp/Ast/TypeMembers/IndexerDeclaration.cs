@@ -111,8 +111,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            IndexerDeclaration o = other as IndexerDeclaration;
-            return o != null
+            return other is IndexerDeclaration o
                 && this.MatchAttributesAndModifiers(o, match) && this.ReturnType.DoMatch(o.ReturnType, match)
                 && this.PrivateImplementationType.DoMatch(o.PrivateImplementationType, match)
                 && this.Parameters.DoMatch(o.Parameters, match)

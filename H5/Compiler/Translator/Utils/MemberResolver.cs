@@ -147,9 +147,7 @@ namespace H5.Translator
 
                 if (parentInvocation != null && method == null)
                 {
-                    var typeDef = methodGroupResolveResult.TargetType as DefaultResolvedTypeDefinition;
-
-                    if (typeDef != null)
+                    if (methodGroupResolveResult.TargetType is DefaultResolvedTypeDefinition typeDef)
                     {
                         var methods = typeDef.Methods.Where(m => m.Name == methodGroupResolveResult.MethodName);
                         method = methods.FirstOrDefault();

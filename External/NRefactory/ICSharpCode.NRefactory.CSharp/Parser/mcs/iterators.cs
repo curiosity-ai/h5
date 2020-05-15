@@ -1233,8 +1233,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return true;
             }
 
-            InflatedTypeSpec inflated = ret as InflatedTypeSpec;
-            if (inflated == null)
+            if (!(ret is InflatedTypeSpec inflated))
                 return false;
 
             var member_definition = inflated.MemberDefinition;

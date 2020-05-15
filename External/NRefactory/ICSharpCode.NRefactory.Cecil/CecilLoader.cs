@@ -421,8 +421,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
                 TypeReference type = a.AttributeType;
                 if (type.Name == "DynamicAttribute" && type.Namespace == "System.Runtime.CompilerServices") {
                     if (a.ConstructorArguments.Count == 1) {
-                        CustomAttributeArgument[] values = a.ConstructorArguments[0].Value as CustomAttributeArgument[];
-                        if (values != null && typeIndex < values.Length && values[typeIndex].Value is bool)
+                        if (a.ConstructorArguments[0].Value is CustomAttributeArgument[] values && typeIndex < values.Length && values[typeIndex].Value is bool)
                             return (bool)values[typeIndex].Value;
                     }
                     return true;
@@ -748,18 +747,18 @@ namespace ICSharpCode.NRefactory.TypeSystem
             DefaultUnresolvedAttribute attr = new DefaultUnresolvedAttribute(marshalAsAttributeTypeRef, new[] { unmanagedTypeTypeRef });
             attr.PositionalArguments.Add(CreateSimpleConstantValue(unmanagedTypeTypeRef, (int)marshalInfo.NativeType));
 
-            FixedArrayMarshalInfo fami = marshalInfo as FixedArrayMarshalInfo;
-            if (fami != null) {
+            if (marshalInfo is FixedArrayMarshalInfo fami)
+            {
                 attr.AddNamedFieldArgument("SizeConst", CreateSimpleConstantValue(KnownTypeReference.Int32, (int)fami.Size));
                 if (fami.ElementType != NativeType.None)
                     attr.AddNamedFieldArgument("ArraySubType", CreateSimpleConstantValue(unmanagedTypeTypeRef, (int)fami.ElementType));
             }
-            SafeArrayMarshalInfo sami = marshalInfo as SafeArrayMarshalInfo;
-            if (sami != null && sami.ElementType != VariantType.None) {
+            if (marshalInfo is SafeArrayMarshalInfo sami && sami.ElementType != VariantType.None)
+            {
                 attr.AddNamedFieldArgument("SafeArraySubType", CreateSimpleConstantValue(typeof(VarEnum).ToTypeReference(), (int)sami.ElementType));
             }
-            ArrayMarshalInfo ami = marshalInfo as ArrayMarshalInfo;
-            if (ami != null) {
+            if (marshalInfo is ArrayMarshalInfo ami)
+            {
                 if (ami.ElementType != NativeType.Max)
                     attr.AddNamedFieldArgument("ArraySubType", CreateSimpleConstantValue(unmanagedTypeTypeRef, (int)ami.ElementType));
                 if (ami.Size >= 0)
@@ -767,15 +766,15 @@ namespace ICSharpCode.NRefactory.TypeSystem
                 if (ami.SizeParameterMultiplier != 0 && ami.SizeParameterIndex >= 0)
                     attr.AddNamedFieldArgument("SizeParamIndex", CreateSimpleConstantValue(KnownTypeReference.Int16, (short)ami.SizeParameterIndex));
             }
-            CustomMarshalInfo cmi = marshalInfo as CustomMarshalInfo;
-            if (cmi != null) {
+            if (marshalInfo is CustomMarshalInfo cmi)
+            {
                 if (cmi.ManagedType != null)
                     attr.AddNamedFieldArgument("MarshalType", CreateSimpleConstantValue(KnownTypeReference.String, cmi.ManagedType.FullName));
                 if (!string.IsNullOrEmpty(cmi.Cookie))
                     attr.AddNamedFieldArgument("MarshalCookie", CreateSimpleConstantValue(KnownTypeReference.String, cmi.Cookie));
             }
-            FixedSysStringMarshalInfo fssmi = marshalInfo as FixedSysStringMarshalInfo;
-            if (fssmi != null) {
+            if (marshalInfo is FixedSysStringMarshalInfo fssmi)
+            {
                 attr.AddNamedFieldArgument("SizeConst", CreateSimpleConstantValue(KnownTypeReference.Int32, (int)fssmi.Size));
             }
 
@@ -1100,8 +1099,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
             if (assembly == null)
                 throw new ArgumentNullException("assembly");
             foreach (var type in assembly.TopLevelTypeDefinitions) {
-                var lctd = type as LazyCecilTypeDefinition;
-                if (lctd != null)
+                if (type is LazyCecilTypeDefinition lctd)
                     lctd.InitAndReleaseReferences();
             }
         }
@@ -1559,8 +1557,8 @@ namespace ICSharpCode.NRefactory.TypeSystem
             }
             AddAttributes(field, f);
 
-            RequiredModifierType modreq = field.FieldType as RequiredModifierType;
-            if (modreq != null && modreq.ModifierType.FullName == typeof(IsVolatile).FullName) {
+            if (field.FieldType is RequiredModifierType modreq && modreq.ModifierType.FullName == typeof(IsVolatile).FullName)
+            {
                 f.IsVolatile = true;
             }
 

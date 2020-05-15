@@ -86,8 +86,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            UnaryOperatorExpression o = other as UnaryOperatorExpression;
-            return o != null && (this.Operator == UnaryOperatorType.Any || this.Operator == o.Operator)
+            return other is UnaryOperatorExpression o && (this.Operator == UnaryOperatorType.Any || this.Operator == o.Operator)
                 && this.Expression.DoMatch(o.Expression, match);
         }
 

@@ -72,8 +72,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            WhileStatement o = other as WhileStatement;
-            return o != null && this.Condition.DoMatch(o.Condition, match) && this.EmbeddedStatement.DoMatch(o.EmbeddedStatement, match);
+            return other is WhileStatement o && this.Condition.DoMatch(o.Condition, match) && this.EmbeddedStatement.DoMatch(o.EmbeddedStatement, match);
         }
 
         public WhileStatement()

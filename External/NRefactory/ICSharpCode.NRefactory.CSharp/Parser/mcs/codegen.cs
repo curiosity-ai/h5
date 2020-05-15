@@ -955,11 +955,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 temporary_storage.Add (t, b);
                 return;
             }
-            var s = o as Stack<LocalBuilder>;
-            if (s == null) {
-                s = new Stack<LocalBuilder> ();
-                s.Push ((LocalBuilder)o);
-                temporary_storage [t] = s;
+            if (!(o is Stack<LocalBuilder> s))
+            {
+                s = new Stack<LocalBuilder>();
+                s.Push((LocalBuilder)o);
+                temporary_storage[t] = s;
             }
             s.Push (b);
         }
@@ -1292,14 +1292,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 //
                 // If not we have to use some temporary storage for
                 // it.
-                var iml = instance as IMemoryLocation;
-                if (iml != null) {
-                    iml.AddressOf (ec, AddressOp.Load);
-                } else {
-                    LocalTemporary temp = new LocalTemporary (instance_type);
-                    instance.Emit (ec);
-                    temp.Store (ec);
-                    temp.AddressOf (ec, AddressOp.Load);
+                if (instance is IMemoryLocation iml)
+                {
+                    iml.AddressOf(ec, AddressOp.Load);
+                }
+                else
+                {
+                    LocalTemporary temp = new LocalTemporary(instance_type);
+                    instance.Emit(ec);
+                    temp.Store(ec);
+                    temp.AddressOf(ec, AddressOp.Load);
                 }
 
                 return;
@@ -1349,8 +1351,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (RequiresBoxing ())
                 return false;
 
-            var vr = instance as VariableReference;
-            if (vr != null) {
+            if (instance is VariableReference vr)
+            {
                 // Load from captured local would be racy without dup
                 return !vr.IsRef && !vr.IsHoisted;
             }
@@ -1358,8 +1360,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (instance is LocalTemporary)
                 return true;
 
-            var fe = instance as FieldExpr;
-            if (fe != null)
+            if (instance is FieldExpr fe)
                 return fe.IsStatic || fe.InstanceExpression is This;
 
             return false;

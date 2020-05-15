@@ -399,8 +399,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // TODO: It should check only references assemblies but there is
             // no working SRE API
             foreach (var entry in Importer.Assemblies) {
-                var a = entry as ImportedAssemblyDefinition;
-                if (a == null || a.IsMissing)
+                if (!(entry is ImportedAssemblyDefinition a) || a.IsMissing)
                     continue;
 
                 if (public_key != null && !a.HasStrongName) {
@@ -706,8 +705,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             Attribute a = module.ResolveAssemblyAttribute (module.PredefinedAttributes.RuntimeCompatibility);
             if (a != null) {
-                var val = a.GetNamedValue ("WrapNonExceptionThrows") as BoolConstant;
-                if (val != null)
+                if (a.GetNamedValue("WrapNonExceptionThrows") is BoolConstant val)
                     wrap_non_exception_throws = val.Value;
             }
         }

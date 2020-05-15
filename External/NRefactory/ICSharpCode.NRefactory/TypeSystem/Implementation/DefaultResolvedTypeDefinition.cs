@@ -302,26 +302,33 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                 ITypeResolveContext parentContextForPart = part.CreateResolveContext(parentContext);
                 ITypeResolveContext contextForPart = parentContextForPart.WithCurrentTypeDefinition(this);
                 foreach (var member in part.Members) {
-                    IUnresolvedMethod method = member as IUnresolvedMethod;
-                    if (method != null && method.IsPartial) {
+                    if (member is IUnresolvedMethod method && method.IsPartial)
+                    {
                         // Merge partial method declaration and implementation
                         if (partialMethodInfos == null)
                             partialMethodInfos = new List<PartialMethodInfo>();
                         PartialMethodInfo newInfo = new PartialMethodInfo(method, contextForPart);
                         PartialMethodInfo existingInfo = null;
-                        foreach (var info in partialMethodInfos) {
-                            if (newInfo.IsSameSignature(info, Compilation.NameComparer)) {
+                        foreach (var info in partialMethodInfos)
+                        {
+                            if (newInfo.IsSameSignature(info, Compilation.NameComparer))
+                            {
                                 existingInfo = info;
                                 break;
                             }
                         }
-                        if (existingInfo != null) {
+                        if (existingInfo != null)
+                        {
                             // Add the unresolved method to the PartialMethodInfo:
                             existingInfo.AddPart(method, contextForPart);
-                        } else {
+                        }
+                        else
+                        {
                             partialMethodInfos.Add(newInfo);
                         }
-                    } else {
+                    }
+                    else
+                    {
                         unresolvedMembers.Add(member);
                         contextPerMember.Add(contextForPart);
                     }
@@ -624,8 +631,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         public virtual DocumentationComment Documentation {
             get {
                 foreach (var part in parts) {
-                    var unresolvedProvider = part.UnresolvedFile as IUnresolvedDocumentationProvider;
-                    if (unresolvedProvider != null) {
+                    if (part.UnresolvedFile is IUnresolvedDocumentationProvider unresolvedProvider)
+                    {
                         var doc = unresolvedProvider.GetDocumentation(part, this);
                         if (doc != null)
                             return doc;
@@ -768,8 +775,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         {
             var members = GetMemberList();
             for (int i = 0; i < members.unresolvedMembers.Length; i++) {
-                IUnresolvedMethod unresolved = members.unresolvedMembers[i] as IUnresolvedMethod;
-                if (unresolved != null && (filter == null || filter(unresolved))) {
+                if (members.unresolvedMembers[i] is IUnresolvedMethod unresolved && (filter == null || filter(unresolved)))
+                {
                     yield return (IMethod)members[i];
                 }
             }
@@ -791,8 +798,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         {
             var members = GetMemberList();
             for (int i = 0; i < members.unresolvedMembers.Length; i++) {
-                TUnresolved unresolved = members.unresolvedMembers[i] as TUnresolved;
-                if (unresolved != null && (filter == null || filter(unresolved))) {
+                if (members.unresolvedMembers[i] is TUnresolved unresolved && (filter == null || filter(unresolved)))
+                {
                     yield return (TResolved)members[i];
                 }
             }
@@ -881,14 +888,15 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
             var members = GetMemberList();
             for (int i = 0; i < members.unresolvedMembers.Length; i++) {
                 IUnresolvedMember unresolved = members.unresolvedMembers[i];
-                var unresolvedProperty = unresolved as IUnresolvedProperty;
-                var unresolvedEvent = unresolved as IUnresolvedEvent;
-                if (unresolvedProperty != null) {
+                if (unresolved is IUnresolvedProperty unresolvedProperty)
+                {
                     if (unresolvedProperty.CanGet && (filter == null || filter(unresolvedProperty.Getter)))
                         yield return ((IProperty)members[i]).Getter;
                     if (unresolvedProperty.CanSet && (filter == null || filter(unresolvedProperty.Setter)))
                         yield return ((IProperty)members[i]).Setter;
-                } else if (unresolvedEvent != null) {
+                }
+                else if (unresolved is IUnresolvedEvent unresolvedEvent)
+                {
                     if (unresolvedEvent.CanAdd && (filter == null || filter(unresolvedEvent.AddAccessor)))
                         yield return ((IEvent)members[i]).AddAccessor;
                     if (unresolvedEvent.CanRemove && (filter == null || filter(unresolvedEvent.RemoveAccessor)))

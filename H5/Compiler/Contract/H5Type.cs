@@ -334,9 +334,7 @@ namespace H5.Contract
 
             if (type.Kind == TypeKind.Array)
             {
-                var arrayType = type as ArrayType;
-
-                if (arrayType != null && arrayType.ElementType != null)
+                if (type is ArrayType arrayType && arrayType.ElementType != null)
                 {
                     string typedArrayName;
                     if (emitter.AssemblyInfo.UseTypedArrays && (typedArrayName = Helpers.GetTypedArrayName(arrayType.ElementType)) != null)
@@ -389,8 +387,7 @@ namespace H5.Contract
 
             if (type.Kind == TypeKind.Anonymous)
             {
-                var at = type as AnonymousType;
-                if (at != null && emitter.AnonymousTypes.ContainsKey(at))
+                if (type is AnonymousType at && emitter.AnonymousTypes.ContainsKey(at))
                 {
                     return emitter.AnonymousTypes[at].Name;
                 }
@@ -400,8 +397,7 @@ namespace H5.Contract
                 }
             }
 
-            var typeParam = type as ITypeParameter;
-            if (typeParam != null)
+            if (type is ITypeParameter typeParam)
             {
                 if ((skipMethodTypeParam || excludeTypeOnly) && (typeParam.OwnerType == SymbolKind.Method) || Helpers.IsIgnoreGeneric(typeParam.Owner, emitter))
                 {
@@ -627,9 +623,7 @@ namespace H5.Contract
 
         public static string ToJsName(AstType astType, IEmitter emitter)
         {
-            var simpleType = astType as SimpleType;
-
-            if (simpleType != null && simpleType.Identifier == "dynamic")
+            if (astType is SimpleType simpleType && simpleType.Identifier == "dynamic")
             {
                 return JS.Types.System.Object.NAME;
             }
@@ -902,14 +896,12 @@ namespace H5.Contract
                 return name;
             }
 
-            var composedType = astType as ComposedType;
-            if (composedType != null && composedType.ArraySpecifiers != null && composedType.ArraySpecifiers.Count > 0)
+            if (astType is ComposedType composedType && composedType.ArraySpecifiers != null && composedType.ArraySpecifiers.Count > 0)
             {
                 return H5Types.ToTypeScriptName(composedType.BaseType, emitter) + string.Concat(Enumerable.Repeat("[]", composedType.ArraySpecifiers.Count));
             }
 
-            var simpleType = astType as SimpleType;
-            if (simpleType != null && simpleType.Identifier == "dynamic")
+            if (astType is SimpleType simpleType && simpleType.Identifier == "dynamic")
             {
                 return "any";
             }

@@ -137,13 +137,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         static Expression ExplicitTypeParameterConversionFromT (Expression source, TypeSpec source_type, TypeSpec target_type)
         {
-            var target_tp = target_type as TypeParameterSpec;
-            if (target_tp != null) {
+            if (target_type is TypeParameterSpec target_tp)
+            {
                 //
                 // From a type parameter U to T, provided T depends on U
                 //
-                if (target_tp.TypeArguments != null && target_tp.HasDependencyOn (source_type)) {
-                    return source == null ? EmptyExpression.Null : new ClassCast (source, target_type);
+                if (target_tp.TypeArguments != null && target_tp.HasDependencyOn(source_type))
+                {
+                    return source == null ? EmptyExpression.Null : new ClassCast(source, target_type);
                 }
             }
 
@@ -178,9 +179,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             //
             // from the null type to any reference-type.
             //
-            NullLiteral nl = expr as NullLiteral;
-            if (nl != null) {
-                return nl.ConvertImplicitly (target_type);
+            if (expr is NullLiteral nl)
+            {
+                return nl.ConvertImplicitly(target_type);
             }
 
             if (ImplicitReferenceConversionExists (expr_type, target_type)) {
@@ -261,31 +262,31 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 }
 
                 var expr_type_array = (ArrayContainer) expr_type;
-                var target_type_array = target_type as ArrayContainer;
-
-                //
-                // From an array-type S to an array-type of type T
-                //
-                if (target_type_array != null && expr_type_array.Rank == target_type_array.Rank) {
 
                     //
-                    // Both SE and TE are reference-types. TE check is defered
-                    // to ImplicitReferenceConversionExists
+                    // From an array-type S to an array-type of type T
                     //
-                    TypeSpec expr_element_type = expr_type_array.Element;
-                    if (!TypeSpec.IsReferenceType (expr_element_type))
-                        return false;
+                    if (target_type is ArrayContainer target_type_array && expr_type_array.Rank == target_type_array.Rank)
+                    {
+
+                        //
+                        // Both SE and TE are reference-types. TE check is defered
+                        // to ImplicitReferenceConversionExists
+                        //
+                        TypeSpec expr_element_type = expr_type_array.Element;
+                        if (!TypeSpec.IsReferenceType(expr_element_type))
+                            return false;
+
+                        //
+                        // An implicit reference conversion exists from SE to TE
+                        //
+                        return ImplicitReferenceConversionExists(expr_element_type, target_type_array.Element);
+                    }
 
                     //
-                    // An implicit reference conversion exists from SE to TE
+                    // From any array-type to the interfaces it implements
                     //
-                    return ImplicitReferenceConversionExists (expr_element_type, target_type_array.Element);
-                }
-
-                //
-                // From any array-type to the interfaces it implements
-                //
-                if (target_type.IsInterface) {
+                    if (target_type.IsInterface) {
                     if (expr_type.ImplementsInterface (target_type, false))
                         return true;
 
@@ -707,9 +708,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             if (expr.eclass == ExprClass.MethodGroup) {
                 if (target_type.IsDelegate && rc.Module.Compiler.Settings.Version != LanguageVersion.ISO_1) {
-                    MethodGroupExpr mg = expr as MethodGroupExpr;
-                    if (mg != null)
-                        return DelegateCreation.ImplicitStandardConversionExists (rc, mg, target_type);
+                    if (expr is MethodGroupExpr mg)
+                        return DelegateCreation.ImplicitStandardConversionExists(rc, mg, target_type);
                 }
 
                 return false;
@@ -1354,9 +1354,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // Only allow anonymous method conversions on post ISO_1
                 //
                 if (ec.Module.Compiler.Settings.Version != LanguageVersion.ISO_1){
-                    MethodGroupExpr mg = expr as MethodGroupExpr;
-                    if (mg != null)
-                        return new ImplicitDelegateCreation (target_type, mg, loc).Resolve (ec);
+                    if (expr is MethodGroupExpr mg)
+                        return new ImplicitDelegateCreation(target_type, mg, loc).Resolve(ec);
                 }
             }
 
@@ -1396,12 +1395,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             //
             // Attempt to do the implicit constant expression conversions
             //
-            Constant c = expr as Constant;
-            if (c != null) {
-                try {
-                    c = c.ConvertImplicitly (target_type);
-                } catch {
-                    throw new InternalErrorException ("Conversion error", loc);
+            if (expr is Constant c)
+            {
+                try
+                {
+                    c = c.ConvertImplicitly(target_type);
+                }
+                catch
+                {
+                    throw new InternalErrorException("Conversion error", loc);
                 }
                 if (c != null)
                     return c;
@@ -1434,9 +1436,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 }
             }
 
-            var target_pc = target_type as PointerContainer;
-            if (target_pc != null) {
-                if (expr_type.IsPointer) {
+            if (target_type is PointerContainer target_pc)
+            {
+                if (expr_type.IsPointer)
+                {
                     //
                     // Pointer types are same when they have same element types
                     //
@@ -1444,13 +1447,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         return expr;
 
                     if (target_pc.Element.Kind == MemberKind.Void)
-                        return EmptyCast.Create (expr, target_type);
+                        return EmptyCast.Create(expr, target_type);
 
-                        //return null;
+                    //return null;
                 }
 
                 if (expr_type == InternalType.NullLiteral)
-                    return new NullPointer (target_type, loc);
+                    return new NullPointer(target_type, loc);
             }
 
             if (expr_type == InternalType.AnonymousMethod){
@@ -1472,10 +1475,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (expr_type.IsStruct && TypeSpecComparer.IsEqual (expr_type, target_type))
                 return expr_type == target_type ? expr : EmptyCast.Create (expr, target_type);
 
-            var interpolated_string = expr as InterpolatedString;
-            if (interpolated_string != null) {
+            if (expr is InterpolatedString interpolated_string)
+            {
                 if (target_type == ec.Module.PredefinedTypes.IFormattable.TypeSpec || target_type == ec.Module.PredefinedTypes.FormattableString.TypeSpec)
-                    return interpolated_string.ConvertTo (ec, target_type);
+                    return interpolated_string.ConvertTo(ec, target_type);
             }
 
             return null;
@@ -1904,22 +1907,21 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // From System.Collections.Generic.IList<T> and its base interfaces to a one-dimensional
                 // array type S[], provided there is an implicit or explicit reference conversion from S to T.
                 //
-                var target_array = target_type as ArrayContainer;
-                if (target_array != null && IList_To_Array (source_type, target_array))
-                    return source == null ? EmptyExpression.Null : new ClassCast (source, target_type);
+                if (target_type is ArrayContainer target_array && IList_To_Array(source_type, target_array))
+                    return source == null ? EmptyExpression.Null : new ClassCast(source, target_type);
 
                 return null;
             }
 
-            var source_array = source_type as ArrayContainer;
-            if (source_array != null) {
-                var target_array = target_type as ArrayContainer;
-                if (target_array != null) {
+            if (source_type is ArrayContainer source_array)
+            {
+                if (target_type is ArrayContainer target_array)
+                {
                     //
                     // From System.Array to any array-type
                     //
                     if (source_type.BuiltinType == BuiltinTypeSpec.Type.Array)
-                        return source == null ? EmptyExpression.Null : new ClassCast (source, target_type);
+                        return source == null ? EmptyExpression.Null : new ClassCast(source, target_type);
 
                     //
                     // From an array type S with an element type Se to an array type T with an
@@ -1929,7 +1931,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     //     * Both Se and Te are reference types
                     //     * An explicit reference conversions exist from Se to Te
                     //
-                    if (source_array.Rank == target_array.Rank) {
+                    if (source_array.Rank == target_array.Rank)
+                    {
 
                         source_type = source_array.Element;
                         var target_element = target_array.Element;
@@ -1938,22 +1941,25 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         // LAMESPEC: Type parameters are special cased somehow but
                         // only when both source and target elements are type parameters
                         //
-                        if ((source_type.Kind & target_element.Kind & MemberKind.TypeParameter) == MemberKind.TypeParameter) {
+                        if ((source_type.Kind & target_element.Kind & MemberKind.TypeParameter) == MemberKind.TypeParameter)
+                        {
                             //
                             // Conversion is allowed unless source element type has struct constrain
                             //
-                            if (TypeSpec.IsValueType (source_type))
+                            if (TypeSpec.IsValueType(source_type))
                                 return null;
-                        } else {
-                            if (!TypeSpec.IsReferenceType (source_type))
+                        }
+                        else
+                        {
+                            if (!TypeSpec.IsReferenceType(source_type))
                                 return null;
                         }
 
-                        if (!TypeSpec.IsReferenceType (target_element))
+                        if (!TypeSpec.IsReferenceType(target_element))
                             return null;
 
-                        if (ExplicitReferenceConversionExists (source_type, target_element))
-                            return source == null ? EmptyExpression.Null : new ClassCast (source, target_type);
+                        if (ExplicitReferenceConversionExists(source_type, target_element))
+                            return source == null ? EmptyExpression.Null : new ClassCast(source, target_type);
 
                         return null;
                     }
@@ -1963,8 +1969,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // From a single-dimensional array type S[] to System.Collections.Generic.IList<T> and its base interfaces, 
                 // provided that there is an explicit reference conversion from S to T
                 //
-                if (ArrayToIList (source_array, target_type, true))
-                    return source == null ? EmptyExpression.Null : new ClassCast (source, target_type);
+                if (ArrayToIList(source_array, target_type, true))
+                    return source == null ? EmptyExpression.Null : new ClassCast(source, target_type);
 
                 return null;
             }
@@ -2023,9 +2029,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     return source == null ? EmptyExpression.Null : new ClassCast (source, target_type);
             }
 
-            var tps = target_type as TypeParameterSpec;
-            if (tps != null)
-                return ExplicitTypeParameterConversionToT (source, source_type, tps);
+            if (target_type is TypeParameterSpec tps)
+                return ExplicitTypeParameterConversionToT(source, source_type, tps);
 
             return null;
         }
@@ -2077,27 +2082,30 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (expr_type == real_target)
                     return EmptyCast.Create (expr, target_type);
 
-                Constant c = expr as Constant;
-                if (c != null) {
-                    c = c.TryReduce (ec, real_target);
+                if (expr is Constant c)
+                {
+                    c = c.TryReduce(ec, real_target);
                     if (c != null)
                         return c;
-                } else {
-                    ne = ImplicitNumericConversion (expr, real_target);
+                }
+                else
+                {
+                    ne = ImplicitNumericConversion(expr, real_target);
                     if (ne != null)
-                        return EmptyCast.Create (ne, target_type);
+                        return EmptyCast.Create(ne, target_type);
 
-                    ne = ExplicitNumericConversion (ec, expr, real_target);
+                    ne = ExplicitNumericConversion(ec, expr, real_target);
                     if (ne != null)
-                        return EmptyCast.Create (ne, target_type);
+                        return EmptyCast.Create(ne, target_type);
 
                     //
                     // LAMESPEC: IntPtr and UIntPtr conversion to any Enum is allowed
                     //
-                    if (expr_type.BuiltinType == BuiltinTypeSpec.Type.IntPtr || expr_type.BuiltinType == BuiltinTypeSpec.Type.UIntPtr) {
-                        ne = ExplicitUserConversion (ec, expr, real_target, loc);
+                    if (expr_type.BuiltinType == BuiltinTypeSpec.Type.IntPtr || expr_type.BuiltinType == BuiltinTypeSpec.Type.UIntPtr)
+                    {
+                        ne = ExplicitUserConversion(ec, expr, real_target, loc);
                         if (ne != null)
-                            return ExplicitConversionCore (ec, ne, target_type, loc);
+                            return ExplicitConversionCore(ec, ne, target_type, loc);
                     }
                 }
             } else {

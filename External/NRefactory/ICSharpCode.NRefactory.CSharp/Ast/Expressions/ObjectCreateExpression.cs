@@ -97,8 +97,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ObjectCreateExpression o = other as ObjectCreateExpression;
-            return o != null && this.Type.DoMatch(o.Type, match) && this.Arguments.DoMatch(o.Arguments, match) && this.Initializer.DoMatch(o.Initializer, match);
+            return other is ObjectCreateExpression o && this.Type.DoMatch(o.Type, match) && this.Arguments.DoMatch(o.Arguments, match) && this.Initializer.DoMatch(o.Initializer, match);
         }
     }
 }

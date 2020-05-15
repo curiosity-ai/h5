@@ -69,8 +69,7 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            AliasNamespaceReference anr = other as AliasNamespaceReference;
-            return anr != null && this.identifier == anr.identifier;
+            return other is AliasNamespaceReference anr && this.identifier == anr.identifier;
         }
     }
 }

@@ -208,8 +208,7 @@ namespace ICSharpCode.NRefactory.CSharp
         /// </summary>
         public ICSharpCode.NRefactory.TypeSystem.DomRegion GetRegion()
         {
-            var syntaxTree = (this.Ancestors.LastOrDefault() ?? this) as SyntaxTree;
-            string fileName = (syntaxTree != null ? syntaxTree.FileName : null);
+            string fileName = ((this.Ancestors.LastOrDefault() ?? this) is SyntaxTree syntaxTree ? syntaxTree.FileName : null);
             return new ICSharpCode.NRefactory.TypeSystem.DomRegion(fileName, this.StartLocation, this.EndLocation);
         }
 

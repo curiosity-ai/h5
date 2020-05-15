@@ -203,9 +203,7 @@ namespace H5.Translator
                         {
                             if (outVar.Expression is DeclarationExpressionSyntax de)
                             {
-                                var designation = de.Designation as SingleVariableDesignationSyntax;
-
-                                if (designation != null)
+                                if (de.Designation is SingleVariableDesignationSyntax designation)
                                 {
                                     var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
                                     var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, outVar.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
@@ -296,9 +294,7 @@ namespace H5.Translator
 
             root = root.ReplaceNodes(outVars, (n1, n2) =>
             {
-                var designation = ((DeclarationExpressionSyntax)n2.Expression).Designation as SingleVariableDesignationSyntax;
-
-                if (designation == null)
+                if (!(((DeclarationExpressionSyntax)n2.Expression).Designation is SingleVariableDesignationSyntax designation))
                 {
                     return n2;
                 }

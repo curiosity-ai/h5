@@ -384,8 +384,7 @@ namespace H5.Translator
 
         public override string VisitInvocationResolveResult(InvocationResolveResult rr, object data)
         {
-            var type = rr.Member.DeclaringType as AnonymousType;
-            if (type != null)
+            if (rr.Member.DeclaringType is AnonymousType type)
             {
                 if (!this._emitter.AnonymousTypes.ContainsKey(type))
                 {
@@ -406,8 +405,7 @@ namespace H5.Translator
                     var members = new List<JRaw>();
                     foreach (var init in rr.InitializerStatements)
                     {
-                        var assign = init as OperatorResolveResult;
-                        if (assign == null || assign.OperatorType != ExpressionType.Assign || !(assign.Operands[0] is MemberResolveResult) || !(((MemberResolveResult)assign.Operands[0]).Member is IProperty))
+                        if (!(init is OperatorResolveResult assign) || assign.OperatorType != ExpressionType.Assign || !(assign.Operands[0] is MemberResolveResult) || !(((MemberResolveResult)assign.Operands[0]).Member is IProperty))
                             throw new Exception("Invalid anonymous type initializer " + init);
                         args.Add(new JRaw(VisitResolveResult(assign.Operands[1], null)));
                         members.Add(new JRaw(this.GetMember(((MemberResolveResult)assign.Operands[0]).Member)));
@@ -424,8 +422,7 @@ namespace H5.Translator
                             var elements = new List<JRaw>();
                             foreach (var stmt in rr.InitializerStatements)
                             {
-                                var irr = stmt as InvocationResolveResult;
-                                if (irr == null)
+                                if (!(stmt is InvocationResolveResult irr))
                                     throw new Exception("Expected list initializer, was " + stmt);
                                 elements.Add(new JRaw(CompileFactoryCall("ElementInit", new[] { typeof(MethodInfo), typeof(Expression[]) }, new[] { this.GetMember(irr.Member), this._emitter.ToJavaScript(irr.Arguments.Select(i => new JRaw(VisitResolveResult(i, null)))) })));
                             }

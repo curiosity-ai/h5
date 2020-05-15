@@ -46,8 +46,8 @@ namespace ICSharpCode.NRefactory.Semantics
             var thisRR = targetResult as ThisResolveResult;
             this.isVirtualCall = member.IsOverridable && !(thisRR != null && thisRR.CausesNonVirtualInvocation);
 
-            IField field = member as IField;
-            if (field != null) {
+            if (member is IField field)
+            {
                 isConstant = field.IsConst;
                 if (isConstant)
                     constantValue = field.ConstantValue;
@@ -60,8 +60,8 @@ namespace ICSharpCode.NRefactory.Semantics
             this.targetResult = targetResult;
             this.member = member;
             this.isVirtualCall = isVirtualCall;
-            IField field = member as IField;
-            if (field != null) {
+            if (member is IField field)
+            {
                 isConstant = field.IsConst;
                 if (isConstant)
                     constantValue = field.ConstantValue;

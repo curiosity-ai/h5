@@ -954,8 +954,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (symbol.EnableOverloadChecks(mc))
                 return;
 
-            InterfaceMemberBase im = mc as InterfaceMemberBase;
-            if (im != null && im.IsExplicitImpl)
+            if (mc is InterfaceMemberBase im && im.IsExplicitImpl)
                 return;
 
             Report.SymbolRelatedToPreviousError(mc);
@@ -1058,8 +1057,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             {
                 foreach (var m in members)
                 {
-                    var c = m as Constructor;
-                    if (c == null)
+                    if (!(m is Constructor c))
                         continue;
 
                     if (c.IsPrimaryConstructor)
@@ -1318,8 +1316,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             TypeContainer ns = Parent;
             while (true)
             {
-                var sf = ns as CompilationSourceFile;
-                if (sf != null)
+                if (ns is CompilationSourceFile sf)
                     return sf;
 
                 ns = ns.Parent;
@@ -1444,8 +1441,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             for (int i = 0; i < members.Count; ++i)
             {
-                var o_a = members[i] as Operator;
-                if (o_a == null)
+                if (!(members[i] is Operator o_a))
                     continue;
 
                 var o_type = o_a.OperatorType;
@@ -1464,8 +1460,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 bool pair_found = false;
                 for (int ii = 0; ii < members.Count; ++ii)
                 {
-                    var o_b = members[ii] as Operator;
-                    if (o_b == null || o_b.OperatorType != matching_type)
+                    if (!(members[ii] is Operator o_b) || o_b.OperatorType != matching_type)
                         continue;
 
                     if (!TypeSpecComparer.IsEqual(o_a.ReturnType, o_b.ReturnType))
@@ -1959,8 +1954,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     if (iface == null)
                         continue;
 
-                    var td = iface.MemberDefinition as TypeDefinition;
-                    if (td != null)
+                    if (iface.MemberDefinition is TypeDefinition td)
                         td.DoExpandBaseInterfaces();
 
                     if (iface.Interfaces == null)
@@ -1981,8 +1975,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             //
             if (base_type != null)
             {
-                var td = base_type.MemberDefinition as TypeDefinition;
-                if (td != null)
+                if (base_type.MemberDefinition is TypeDefinition td)
                     td.DoExpandBaseInterfaces();
 
                 //
@@ -2011,15 +2004,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             foreach (var member in members)
             {
-                var pbm = member as PropertyBasedMember;
-                if (pbm != null)
+                if (member is PropertyBasedMember pbm)
                     pbm.PrepareEmit();
 
-                var pm = member as IParametersMember;
-                if (pm != null)
+                if (member is IParametersMember pm)
                 {
-                    var mc = member as MethodOrOperator;
-                    if (mc != null)
+                    if (member is MethodOrOperator mc)
                     {
                         mc.PrepareEmit();
                     }
@@ -2032,8 +2022,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     continue;
                 }
 
-                var c = member as Const;
-                if (c != null)
+                if (member is Const c)
                     c.DefineValue();
             }
 
@@ -2157,8 +2146,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (base_type != null)
             {
-                var ptc = base_type.MemberDefinition as TypeDefinition;
-                if (ptc != null && ptc.CheckRecursiveDefinition(this) != null)
+                if (base_type.MemberDefinition is TypeDefinition ptc && ptc.CheckRecursiveDefinition(this) != null)
                     return base_type;
             }
 
@@ -2169,8 +2157,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     // the interface might not have been resolved, prevents a crash, see #442144
                     if (iface == null)
                         continue;
-                    var ptc = iface.MemberDefinition as Interface;
-                    if (ptc != null && ptc.CheckRecursiveDefinition(this) != null)
+                    if (iface.MemberDefinition is Interface ptc && ptc.CheckRecursiveDefinition(this) != null)
                         return iface;
                 }
             }
@@ -2210,8 +2197,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         continue;
 
                     // Ensure the base is always setup
-                    var compiled_iface = iface_type.MemberDefinition as Interface;
-                    if (compiled_iface != null)
+                    if (iface_type.MemberDefinition is Interface compiled_iface)
                         compiled_iface.Define();
 
                     ObsoleteAttribute oa = iface_type.GetAttributeObsolete();
@@ -2277,8 +2263,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     }
                 }
 
-                var baseContainer = base_type.MemberDefinition as ClassOrStruct;
-                if (baseContainer != null)
+                if (base_type.MemberDefinition is ClassOrStruct baseContainer)
                 {
                     baseContainer.Define();
 
@@ -2298,8 +2283,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             var count = members.Count;
             for (int i = 0; i < count; ++i)
             {
-                var mc = members[i] as InterfaceMemberBase;
-                if (mc == null || !mc.IsExplicitImpl)
+                if (!(members[i] is InterfaceMemberBase mc) || !mc.IsExplicitImpl)
                     continue;
 
                 try
@@ -2314,8 +2298,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             for (int i = 0; i < count; ++i)
             {
-                var mc = members[i] as InterfaceMemberBase;
-                if (mc != null && mc.IsExplicitImpl)
+                if (members[i] is InterfaceMemberBase mc && mc.IsExplicitImpl)
                     continue;
 
                 if (members[i] is TypeContainer)
@@ -2341,8 +2324,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 requires_delayed_unmanagedtype_check = false;
                 foreach (var member in members)
                 {
-                    var f = member as Field;
-                    if (f != null && f.MemberType != null && f.MemberType.IsPointer)
+                    if (member is Field f && f.MemberType != null && f.MemberType.IsPointer)
                         TypeManager.VerifyUnmanaged(Module, f.MemberType, f.Location);
                 }
             }
@@ -2443,8 +2425,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         member.SetIsUsed();
                     }
 
-                    var f = member as Field;
-                    if (f == null)
+                    if (!(member is Field f))
                         continue;
 
                     if (!member.IsUsed)
@@ -2608,8 +2589,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             foreach (var m in members)
             {
-                var c = m as Constructor;
-                if (c == null)
+                if (!(m is Constructor c))
                     continue;
 
                 if (c.HasCompliantArgs)
@@ -2635,8 +2615,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // Close base type container first to avoid TypeLoadException
             if (spec.BaseType != null)
             {
-                var btype = spec.BaseType.MemberDefinition as TypeContainer;
-                if (btype != null)
+                if (spec.BaseType.MemberDefinition is TypeContainer btype)
                 {
                     btype.CloseContainer();
 
@@ -3030,8 +3009,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     return;
                 }
 
-                InterfaceMemberBase imb = symbol as InterfaceMemberBase;
-                if (imb == null || !imb.IsExplicitImpl)
+                if (!(symbol is InterfaceMemberBase imb) || !imb.IsExplicitImpl)
                 {
                     Report.SymbolRelatedToPreviousError(this);
                     Report.Error(542, symbol.Location, "`{0}': member names cannot be the same as their enclosing type",
@@ -3488,8 +3466,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                 for (int i = 0; i < Members.Count; ++i)
                 {
-                    FixedField ff = Members[i] as FixedField;
-                    if (ff == null)
+                    if (!(Members[i] is FixedField ff))
                         continue;
 
                     ff.CharSet = (CharSet)System.Enum.Parse(typeof(CharSet), value.GetValue().ToString());
@@ -3505,8 +3482,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             InTransit = true;
             foreach (var member in Members)
             {
-                var field = member as Field;
-                if (field == null)
+                if (!(member is Field field))
                     continue;
 
                 TypeSpec ftype = field.Spec.MemberType;
@@ -3548,8 +3524,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         static bool CheckFieldTypeCycle(TypeSpec ts)
         {
-            var fts = ts.MemberDefinition as Struct;
-            if (fts == null)
+            if (!(ts.MemberDefinition is Struct fts))
                 return true;
 
             return fts.CheckStructCycles();
@@ -3579,8 +3554,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             foreach (var m in PartialContainer.Members)
             {
-                var c = m as Constructor;
-                if (c == null)
+                if (!(m is Constructor c))
                     continue;
 
                 if (!c.IsStatic && c.ParameterInfo.IsEmpty)
@@ -3611,8 +3585,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                 foreach (var member in Members)
                 {
-                    var f = member as Field;
-                    if (f == null)
+                    if (!(member is Field f))
                         continue;
 
                     if (f.IsStatic)
@@ -4169,8 +4142,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // Two members can differ in their explicit interface
             // type parameter only
             //
-            InterfaceMemberBase imb = overload as InterfaceMemberBase;
-            if (imb != null && imb.IsExplicitImpl)
+            if (overload is InterfaceMemberBase imb && imb.IsExplicitImpl)
             {
                 if (IsExplicitImpl)
                 {

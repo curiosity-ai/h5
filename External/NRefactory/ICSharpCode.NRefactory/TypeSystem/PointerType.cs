@@ -49,8 +49,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public override bool Equals(IType other)
         {
-            PointerType a = other as PointerType;
-            return a != null && elementType.Equals(a.elementType);
+            return other is PointerType a && elementType.Equals(a.elementType);
         }
 
         public override IType AcceptVisitor(TypeVisitor visitor)
@@ -106,8 +105,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            PointerTypeReference o = other as PointerTypeReference;
-            return o != null && this.elementType == o.elementType;
+            return other is PointerTypeReference o && this.elementType == o.elementType;
         }
     }
 }

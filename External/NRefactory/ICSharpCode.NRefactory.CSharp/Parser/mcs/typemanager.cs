@@ -146,13 +146,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (found == null || found == p)
                     continue;
 
-                var tc = found.MemberDefinition as TypeDefinition;
-                if (tc != null) {
-                    var ns = module.GlobalRootNamespace.GetNamespace (p.Namespace, false);
-                    ns.SetBuiltinType (p);
+                if (found.MemberDefinition is TypeDefinition tc)
+                {
+                    var ns = module.GlobalRootNamespace.GetNamespace(p.Namespace, false);
+                    ns.SetBuiltinType(p);
 
-                    tc.SetPredefinedSpec (p);
-                    p.SetDefinition (found);
+                    tc.SetPredefinedSpec(p);
+                    p.SetDefinition(found);
                 }
             }
 

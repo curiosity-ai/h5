@@ -417,8 +417,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // a constant, field, property, local variable, or parameter with the same type as the meaning of E as a type-name
 
             if (left is MemberExpr || left is VariableReference) {
-                var identical_type = rc.LookupNamespaceOrType (name.Name, 0, LookupMode.Probing, loc) as TypeExpr;
-                if (identical_type != null && identical_type.Type == left.Type)
+                if (rc.LookupNamespaceOrType(name.Name, 0, LookupMode.Probing, loc) is TypeExpr identical_type && identical_type.Type == left.Type)
                     return identical_type;
             }
 
@@ -435,13 +434,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (expr is This || expr is New || expr is ArrayCreation || expr is DelegateCreation || expr is ConditionalMemberAccess)
                 return true;
 
-            var c = expr as Constant;
-            if (c != null)
+            if (expr is Constant c)
                 return !c.IsNull;
 
-            var tc = expr as TypeCast;
-            if (tc != null)
-                return IsNeverNull (tc.Child);
+            if (expr is TypeCast tc)
+                return IsNeverNull(tc.Child);
 
             return false;
         }
@@ -575,10 +572,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (expr == null)
                 return null;
 
-            Constant c = expr as Constant;
-            if (c == null) {
+            if (!(expr is Constant c))
+            {
                 if (expr.type != InternalType.ErrorType)
-                    rc.Report.Error (150, expr.StartLocation, "A constant value is expected");
+                    rc.Report.Error(150, expr.StartLocation, "A constant value is expected");
 
                 return null;
             }
@@ -895,9 +892,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         // step only has an effect if T is a type parameter and T has both an effective base 
                         // class other than object and a non-empty effective interface set
                         //
-                        var tps = queried_type as TypeParameterSpec;
-                        if (tps != null && tps.HasTypeConstraint)
-                            members = RemoveHiddenTypeParameterMethods (members);
+                        if (queried_type is TypeParameterSpec tps && tps.HasTypeConstraint)
+                            members = RemoveHiddenTypeParameterMethods(members);
 
                         return new MethodGroupExpr (members, queried_type, loc);
                     }
@@ -915,12 +911,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     //
                     // The spec has more complex rules but we simply remove all members declared in an interface declaration.
                     //
-                    var tps = queried_type as TypeParameterSpec;
-                    if (tps != null && tps.HasTypeConstraint) {
+                    if (queried_type is TypeParameterSpec tps && tps.HasTypeConstraint)
+                    {
                         if (non_method.DeclaringType.IsClass && member.DeclaringType.IsInterface)
                             continue;
 
-                        if (non_method.DeclaringType.IsInterface && member.DeclaringType.IsInterface) {
+                        if (non_method.DeclaringType.IsInterface && member.DeclaringType.IsInterface)
+                        {
                             non_method = member;
                             continue;
                         }
@@ -961,14 +958,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             bool copied = false;
             for (int i = 0; i < members.Count; ++i) {
-                var method = members[i] as MethodSpec;
-                if (method == null) {
-                    if (!copied) {
+                if (!(members[i] is MethodSpec method))
+                {
+                    if (!copied)
+                    {
                         copied = true;
-                        members = new List<MemberSpec> (members);
-                    } 
+                        members = new List<MemberSpec>(members);
+                    }
 
-                    members.RemoveAt (i--);
+                    members.RemoveAt(i--);
                     continue;
                 }
 
@@ -976,8 +974,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     continue;
 
                 for (int ii = 0; ii < members.Count; ++ii) {
-                    var candidate = members[ii] as MethodSpec;
-                    if (candidate == null || !candidate.DeclaringType.IsClass)
+                    if (!(members[ii] is MethodSpec candidate) || !candidate.DeclaringType.IsClass)
                         continue;
 
                     if (!TypeSpecComparer.Override.IsEqual (candidate.Parameters, method.Parameters))
@@ -1195,9 +1192,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             //
             // Only positive constants are allowed at compile time
             //
-            Constant c = converted as Constant;
-            if (c != null && c.IsNegative)
-                Error_NegativeArrayIndex (ec, source.loc);
+            if (converted is Constant c && c.IsNegative)
+                Error_NegativeArrayIndex(ec, source.loc);
 
             // No conversion needed to array index
             if (converted.Type.BuiltinType == BuiltinTypeSpec.Type.Int)
@@ -1328,8 +1324,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // Need to do full resolve because GetAwaiter can be extension method
                 // available only in this context
                 //
-                var mg = awaiter.Resolve (bc) as MethodGroupExpr;
-                if (mg == null)
+                if (!(awaiter.Resolve(bc) is MethodGroupExpr mg))
                     return;
 
                 var arguments = new Arguments (0);
@@ -1349,10 +1344,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return;
             }
 
-            var inv = e as Invocation;
-            if (inv != null && inv.MethodGroup != null && inv.MethodGroup.BestCandidate.IsAsync) {
+            if (e is Invocation inv && inv.MethodGroup != null && inv.MethodGroup.BestCandidate.IsAsync)
+            {
                 // The warning won't be reported for imported methods to maintain warning compatiblity with csc 
-                bc.Report.Warning (4014, 1, e.Location,
+                bc.Report.Warning(4014, 1, e.Location,
                     "The statement is not awaited and execution of current method continues before the call is completed. Consider using `await' operator or calling `Wait' method");
                 return;
             }
@@ -1466,25 +1461,24 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public static Expression Create (Expression child, TypeSpec type)
         {
-            Constant c = child as Constant;
-            if (c != null) {
-                var enum_constant = c as EnumConstant;
-                if (enum_constant != null)
+            if (child is Constant c)
+            {
+                if (c is EnumConstant enum_constant)
                     c = enum_constant.Child;
 
-                if (!(c is ReducedExpression.ReducedConstantExpression)) {
+                if (!(c is ReducedExpression.ReducedConstantExpression))
+                {
                     if (c.Type == type)
                         return c;
 
-                    var res = c.ConvertImplicitly (type);
+                    var res = c.ConvertImplicitly(type);
                     if (res != null)
                         return res;
                 }
             }
 
-            EmptyCast e = child as EmptyCast;
-            if (e != null)
-                return new EmptyCast (e.child, type);
+            if (child is EmptyCast e)
+                return new EmptyCast(e.child, type);
 
             return new EmptyCast (child, type);
         }
@@ -2336,14 +2330,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public static Expression Create (Expression expr, Expression original_expr, bool canBeConstant)
         {
             if (canBeConstant) {
-                Constant c = expr as Constant;
-                if (c != null)
-                    return Create (c, original_expr);
+                if (expr is Constant c)
+                    return Create(c, original_expr);
             }
 
-            ExpressionStatement s = expr as ExpressionStatement;
-            if (s != null)
-                return Create (s, original_expr);
+            if (expr is ExpressionStatement s)
+                return Create(s, original_expr);
 
             if (expr.eclass == ExprClass.Unresolved)
                 throw new ArgumentException ("Unresolved expression");
@@ -2569,9 +2561,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override bool Equals (object obj)
         {
-            ATypeNameExpression atne = obj as ATypeNameExpression;
-            return atne != null && atne.Name == Name &&
-                (targs == null || targs.Equals (atne.targs));
+            return obj is ATypeNameExpression atne && atne.Name == Name &&
+                (targs == null || targs.Equals(atne.targs));
         }
 
         public override int GetHashCode ()
@@ -2654,9 +2645,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected virtual void Error_TypeOrNamespaceNotFound (IMemberContext ctx)
         {
             if (ctx.CurrentType != null) {
-                var member = MemberLookup (ctx, false, ctx.CurrentType, Name, 0, MemberLookupRestrictions.ExactArity, loc) as MemberExpr;
-                if (member != null) {
-                    Error_UnexpectedKind (ctx, member, "type", member.KindName, loc);
+                if (MemberLookup(ctx, false, ctx.CurrentType, Name, 0, MemberLookupRestrictions.ExactArity, loc) is MemberExpr member)
+                {
+                    Error_UnexpectedKind(ctx, member, "type", member.KindName, loc);
                     return;
                 }
             }
@@ -2787,8 +2778,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     if (e == null)
                         continue;
 
-                    var me = e as MemberExpr;
-                    if (me == null) {
+                    if (!(e is MemberExpr me))
+                    {
                         // The name matches a type, defer to ResolveAsTypeStep
                         if (e is TypeExpr)
                             break;
@@ -2821,17 +2812,20 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         //
                         // MemberLookup does not check accessors availability, this is actually needed for properties only
                         //
-                        var pe = me as PropertyExpr;
-                        if (pe != null) {
+                        if (me is PropertyExpr pe)
+                        {
 
                             // Break as there is no other overload available anyway
-                            if ((restrictions & MemberLookupRestrictions.ReadAccess) != 0) {
-                                if (!pe.PropertyInfo.HasGet || !pe.PropertyInfo.Get.IsAccessible (rc))
+                            if ((restrictions & MemberLookupRestrictions.ReadAccess) != 0)
+                            {
+                                if (!pe.PropertyInfo.HasGet || !pe.PropertyInfo.Get.IsAccessible(rc))
                                     break;
 
                                 pe.Getter = pe.PropertyInfo.Get;
-                            } else {
-                                if (!pe.PropertyInfo.HasSet || !pe.PropertyInfo.Set.IsAccessible (rc))
+                            }
+                            else
+                            {
+                                if (!pe.PropertyInfo.HasSet || !pe.PropertyInfo.Set.IsAccessible(rc))
                                     break;
 
                                 pe.Setter = pe.PropertyInfo.Set;
@@ -2870,9 +2864,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     if (Arity > 0) {
                         targs.Resolve (rc, false);
 
-                        var me = expr as MemberExpr;
-                        if (me != null)
-                            me.SetTypeArguments (rc, targs);
+                        if (expr is MemberExpr me)
+                            me.SetTypeArguments(rc, targs);
                     }
                     return expr;
                 }
@@ -2916,9 +2909,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                                 return e;
                             }
                         } else {
-                            var me = MemberLookup (rc, false, rc.CurrentType, Name, Arity, restrictions & ~MemberLookupRestrictions.InvocableOnly, loc) as MemberExpr;
-                            if (me != null) {
-                                Error_UnexpectedKind (rc, me, "method group", me.KindName, loc);
+                            if (MemberLookup(rc, false, rc.CurrentType, Name, Arity, restrictions & ~MemberLookupRestrictions.InvocableOnly, loc) is MemberExpr me)
+                            {
+                                Error_UnexpectedKind(rc, me, "method group", me.KindName, loc);
                                 return ErrorExpression.Instance;
                             }
                         }
@@ -3019,9 +3012,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (fne == null)
                 return null;
 
-            TypeExpr te = fne as TypeExpr;
-            if (te == null) {
-                Error_UnexpectedKind (mc, fne, "type", fne.ExprClassName, loc);
+            if (!(fne is TypeExpr te))
+            {
+                Error_UnexpectedKind(mc, fne, "type", fne.ExprClassName, loc);
                 return null;
             }
 
@@ -3079,8 +3072,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override bool Equals (object obj)
         {
-            TypeExpr tobj = obj as TypeExpr;
-            if (tobj == null)
+            if (!(obj is TypeExpr tobj))
                 return false;
 
             return Type == tobj.Type;
@@ -3314,15 +3306,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     var parameters = method.Parameters;
                     if (method.Arity > 0) {
                         parameters = ((IParametersMember) method.MemberDefinition).Parameters;
-                        var inflated = method.DeclaringType as InflatedTypeSpec;
-                        if (inflated != null) {
-                            parameters = parameters.Inflate (inflated.CreateLocalInflator (rc));
+                        if (method.DeclaringType is InflatedTypeSpec inflated)
+                        {
+                            parameters = parameters.Inflate(inflated.CreateLocalInflator(rc));
                         }
                     }
 
                     var filter = new MemberFilter (method.Name, method.Arity, MemberKind.Method, parameters, null);
-                    var base_override = MemberCache.FindMember (InstanceExpression.Type, filter, BindingRestriction.InstanceOnly | BindingRestriction.OverrideOnly) as MethodSpec;
-                    if (base_override != null && base_override.DeclaringType != method.DeclaringType) {
+                    if (MemberCache.FindMember(InstanceExpression.Type, filter, BindingRestriction.InstanceOnly | BindingRestriction.OverrideOnly) is MethodSpec base_override && base_override.DeclaringType != method.DeclaringType)
+                    {
                         if (base_override.IsGeneric)
                             targs = method.TypeArguments;
 
@@ -3502,17 +3494,20 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // Check intermediate value modification which won't have any effect
             //
             if (rhs != null && TypeSpec.IsValueType (InstanceExpression.Type)) {
-                var fexpr = InstanceExpression as FieldExpr;
-                if (fexpr != null) {
-                    if (!fexpr.Spec.IsReadOnly || rc.HasAny (ResolveContext.Options.FieldInitializerScope | ResolveContext.Options.ConstructorScope))
+                if (InstanceExpression is FieldExpr fexpr)
+                {
+                    if (!fexpr.Spec.IsReadOnly || rc.HasAny(ResolveContext.Options.FieldInitializerScope | ResolveContext.Options.ConstructorScope))
                         return true;
 
-                    if (fexpr.IsStatic) {
-                        rc.Report.Error (1650, loc, "Fields of static readonly field `{0}' cannot be assigned to (except in a static constructor or a variable initializer)",
-                            fexpr.GetSignatureForError ());
-                    } else {
-                        rc.Report.Error (1648, loc, "Members of readonly field `{0}' cannot be modified (except in a constructor or a variable initializer)",
-                            fexpr.GetSignatureForError ());
+                    if (fexpr.IsStatic)
+                    {
+                        rc.Report.Error(1650, loc, "Fields of static readonly field `{0}' cannot be assigned to (except in a static constructor or a variable initializer)",
+                            fexpr.GetSignatureForError());
+                    }
+                    else
+                    {
+                        rc.Report.Error(1648, loc, "Members of readonly field `{0}' cannot be modified (except in a constructor or a variable initializer)",
+                            fexpr.GetSignatureForError());
                     }
 
                     return true;
@@ -3531,14 +3526,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     return true;
                 }
 
-                var lvr = InstanceExpression as LocalVariableReference;
-                if (lvr != null) {
+                if (InstanceExpression is LocalVariableReference lvr)
+                {
 
                     if (!lvr.local_info.IsReadonly)
                         return true;
 
-                    rc.Report.Error (1654, loc, "Cannot assign to members of `{0}' because it is a `{1}'",
-                        InstanceExpression.GetSignatureForError (), lvr.local_info.GetReadOnlyContext ());
+                    rc.Report.Error(1654, loc, "Cannot assign to members of `{0}' because it is a `{1}'",
+                        InstanceExpression.GetSignatureForError(), lvr.local_info.GetReadOnlyContext());
                 }
             }
 
@@ -3560,11 +3555,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             t = t.DeclaringType;
                         } while (t != null);
                     } else {
-                        var runtime_expr = InstanceExpression as RuntimeValueExpression;
-                        if (runtime_expr == null || !runtime_expr.IsSuggestionOnly) {
-                            rc.Report.Error (176, loc,
+                        if (!(InstanceExpression is RuntimeValueExpression runtime_expr) || !runtime_expr.IsSuggestionOnly)
+                        {
+                            rc.Report.Error(176, loc,
                                 "Static member `{0}' cannot be accessed with an instance reference, qualify it with a type name instead",
-                                GetSignatureForError ());
+                                GetSignatureForError());
                         }
                     }
 
@@ -3581,18 +3576,23 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             "A field initializer cannot reference the nonstatic field, method, or property `{0}'",
                             GetSignatureForError ());
                     } else {
-                        var fe = this as FieldExpr;
-                        if (fe != null && fe.Spec.MemberDefinition is PrimaryConstructorField) {
-                            if (rc.HasSet (ResolveContext.Options.BaseInitializer)) {
-                                rc.Report.Error (9005, loc, "Constructor initializer cannot access primary constructor parameters");
-                            } else  {
-                                rc.Report.Error (9006, loc, "An object reference is required to access primary constructor parameter `{0}'",
+                        if (this is FieldExpr fe && fe.Spec.MemberDefinition is PrimaryConstructorField)
+                        {
+                            if (rc.HasSet(ResolveContext.Options.BaseInitializer))
+                            {
+                                rc.Report.Error(9005, loc, "Constructor initializer cannot access primary constructor parameters");
+                            }
+                            else
+                            {
+                                rc.Report.Error(9006, loc, "An object reference is required to access primary constructor parameter `{0}'",
                                     fe.Name);
                             }
-                        } else {
-                            rc.Report.Error (120, loc,
+                        }
+                        else
+                        {
+                            rc.Report.Error(120, loc,
                                 "An object reference is required to access non-static member `{0}'",
-                                GetSignatureForError ());
+                                GetSignatureForError());
                         }
                     }
 
@@ -3610,16 +3610,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return false;
             }
 
-            var me = InstanceExpression as MemberExpr;
-            if (me != null) {
-                me.ResolveInstanceExpressionCore (rc, rhs);
+            if (InstanceExpression is MemberExpr me)
+            {
+                me.ResolveInstanceExpressionCore(rc, rhs);
 
-                var fe = me as FieldExpr;
-                if (fe != null && fe.IsMarshalByRefAccess (rc)) {
-                    rc.Report.SymbolRelatedToPreviousError (me.DeclaringType);
-                    rc.Report.Warning (1690, 1, loc,
+                if (me is FieldExpr fe && fe.IsMarshalByRefAccess(rc))
+                {
+                    rc.Report.SymbolRelatedToPreviousError(me.DeclaringType);
+                    rc.Report.Warning(1690, 1, loc,
                         "Cannot call methods, properties, or indexers on `{0}' because it is a value type member of a marshal-by-reference class",
-                        me.GetSignatureForError ());
+                        me.GetSignatureForError());
                 }
 
                 return true;
@@ -3812,12 +3812,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return null;
             }
 
-            var me = ExtensionExpression as MemberExpr;
-            if (me != null) {
-                me.ResolveInstanceExpression (ec, null);
-                var fe = me as FieldExpr;
-                if (fe != null)
-                    fe.Spec.MemberDefinition.SetIsUsed ();
+            if (ExtensionExpression is MemberExpr me)
+            {
+                me.ResolveInstanceExpression(ec, null);
+                if (me is FieldExpr fe)
+                    fe.Spec.MemberDefinition.SetIsUsed();
             }
 
             InstanceExpression = null;
@@ -4163,13 +4162,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override MemberExpr ResolveMemberAccess (ResolveContext ec, Expression left, SimpleName original)
         {
-            var fe = left as FieldExpr;
-            if (fe != null) {
+            if (left is FieldExpr fe)
+            {
                 //
                 // Using method-group on struct fields makes the struct assigned. I am not sure
                 // why but that's what .net does
                 //
-                fe.Spec.MemberDefinition.SetIsAssigned ();
+                fe.Spec.MemberDefinition.SetIsAssigned();
             }
 
             simple_name = original;
@@ -4629,28 +4628,32 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // When comparing named argument the parameter type index has to be looked up
                 // in original parameter set (override version for virtual members)
                 //
-                NamedArgument na = a as NamedArgument;
-                if (na != null) {
-                    int idx = cparam.GetParameterIndexByName (na.Name);
+                if (a is NamedArgument na)
+                {
+                    int idx = cparam.GetParameterIndexByName(na.Name);
                     ct = candidate_pd.Types[idx];
                     if (candidate_params && candidate_pd.FixedParameters[idx].ModFlags == Parameter.Modifier.PARAMS)
-                        ct = TypeManager.GetElementType (ct);
+                        ct = TypeManager.GetElementType(ct);
 
-                    idx = bparam.GetParameterIndexByName (na.Name);
+                    idx = bparam.GetParameterIndexByName(na.Name);
                     bt = best_pd.Types[idx];
                     if (best_params && best_pd.FixedParameters[idx].ModFlags == Parameter.Modifier.PARAMS)
-                        bt = TypeManager.GetElementType (bt);
-                } else {
+                        bt = TypeManager.GetElementType(bt);
+                }
+                else
+                {
                     ct = candidate_pd.Types[c_idx];
                     bt = best_pd.Types[b_idx];
 
-                    if (candidate_params && candidate_pd.FixedParameters[c_idx].ModFlags == Parameter.Modifier.PARAMS) {
-                        ct = TypeManager.GetElementType (ct);
+                    if (candidate_params && candidate_pd.FixedParameters[c_idx].ModFlags == Parameter.Modifier.PARAMS)
+                    {
+                        ct = TypeManager.GetElementType(ct);
                         --c_idx;
                     }
 
-                    if (best_params && best_pd.FixedParameters[b_idx].ModFlags == Parameter.Modifier.PARAMS) {
-                        bt = TypeManager.GetElementType (bt);
+                    if (best_params && best_pd.FixedParameters[b_idx].ModFlags == Parameter.Modifier.PARAMS)
+                    {
+                        bt = TypeManager.GetElementType(bt);
                         --b_idx;
                     }
                 }
@@ -4785,8 +4788,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             var mp = ms.Parameters.Types;
             for (int i = 0; i < mp.Length; ++i) {
-                var type = mp[i] as InflatedTypeSpec;
-                if (type == null)
+                if (!(mp[i] is InflatedTypeSpec type))
                     continue;
 
                 var targs = type.TypeArguments;
@@ -4903,8 +4905,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     for (int i = 0; i < arg_count; ++i) {
                         bool arg_moved = false;
                         while (true) {
-                            NamedArgument na = arguments[i] as NamedArgument;
-                            if (na == null)
+                            if (!(arguments[i] is NamedArgument na))
                                 break;
 
                             int index = pd.GetParameterIndexByName (na.Name);
@@ -4977,16 +4978,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // 1. Handle generic method using type arguments when specified or type inference
             //
             TypeSpec[] ptypes;
-            var ms = candidate as MethodSpec;
-            if (ms != null && ms.IsGeneric) {
-                if (type_arguments != null) {
+            if (candidate is MethodSpec ms && ms.IsGeneric)
+            {
+                if (type_arguments != null)
+                {
                     var g_args_count = ms.Arity;
                     if (g_args_count != type_arguments.Count)
-                        return TypeArgumentsMismatch - System.Math.Abs (type_arguments.Count - g_args_count);
+                        return TypeArgumentsMismatch - System.Math.Abs(type_arguments.Count - g_args_count);
 
                     if (type_arguments.Arguments != null)
-                        ms = ms.MakeGenericMethod (ec, type_arguments.Arguments);
-                } else {
+                        ms = ms.MakeGenericMethod(ec, type_arguments.Arguments);
+                }
+                else
+                {
                     //
                     // Deploy custom error reporting for infered anonymous expression or lambda methods. When
                     // probing lambda methods keep all errors reported in separate set and once we are done and no best
@@ -4994,24 +4998,26 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     // The general idea is to distinguish between code errors and errors caused by
                     // trial-and-error type inference
                     //
-                    if (lambda_conv_msgs == null) {
-                        for (int i = 0; i < arg_count; i++) {
+                    if (lambda_conv_msgs == null)
+                    {
+                        for (int i = 0; i < arg_count; i++)
+                        {
                             Argument a = arguments[i];
                             if (a == null)
                                 continue;
 
-                            var am = a.Expr as AnonymousMethodExpression;
-                            if (am != null) {
+                            if (a.Expr is AnonymousMethodExpression am)
+                            {
                                 if (lambda_conv_msgs == null)
-                                    lambda_conv_msgs = new SessionReportPrinter ();
+                                    lambda_conv_msgs = new SessionReportPrinter();
 
                                 am.TypeInferenceReportPrinter = lambda_conv_msgs;
                             }
                         }
                     }
 
-                    var ti = new TypeInference (arguments);
-                    TypeSpec[] i_args = ti.InferMethodArguments (ec, ms);
+                    var ti = new TypeInference(arguments);
+                    TypeSpec[] i_args = ti.InferMethodArguments(ec, ms);
 
                     if (i_args == null)
                         return TypeArgumentsMismatch - ti.InferenceScore;
@@ -5020,25 +5026,29 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     // Clear any error messages when the result was success
                     //
                     if (lambda_conv_msgs != null)
-                        lambda_conv_msgs.ClearSession ();
+                        lambda_conv_msgs.ClearSession();
 
-                    if (i_args.Length != 0) {
-                        if (!errorMode) {
-                            for (int i = 0; i < i_args.Length; ++i) {
-                                var ta = i_args [i];
-                                if (!ta.IsAccessible (ec))
+                    if (i_args.Length != 0)
+                    {
+                        if (!errorMode)
+                        {
+                            for (int i = 0; i < i_args.Length; ++i)
+                            {
+                                var ta = i_args[i];
+                                if (!ta.IsAccessible(ec))
                                     return TypeArgumentsMismatch - i;
                             }
                         }
 
-                        ms = ms.MakeGenericMethod (ec, i_args);
+                        ms = ms.MakeGenericMethod(ec, i_args);
                     }
                 }
 
                 //
                 // Type arguments constraints have to match for the method to be applicable
                 //
-                if (!CheckInflatedArguments (ms)) {
+                if (!CheckInflatedArguments(ms))
+                {
                     candidate = ms;
                     return InflatedTypesMismatch;
                 }
@@ -5050,18 +5060,23 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // 
                 // virtual Foo<T, object> with override Foo<T, dynamic>
                 //
-                if (candidate != pm) {
-                    MethodSpec override_ms = (MethodSpec) pm;
-                    var inflator = new TypeParameterInflator (ec, ms.DeclaringType, override_ms.GenericDefinition.TypeParameters, ms.TypeArguments);
-                    returnType = inflator.Inflate (returnType);
-                } else {
+                if (candidate != pm)
+                {
+                    MethodSpec override_ms = (MethodSpec)pm;
+                    var inflator = new TypeParameterInflator(ec, ms.DeclaringType, override_ms.GenericDefinition.TypeParameters, ms.TypeArguments);
+                    returnType = inflator.Inflate(returnType);
+                }
+                else
+                {
                     returnType = ms.ReturnType;
                 }
 
                 candidate = ms;
                 pd = ms.Parameters;
                 ptypes = pd.Types;
-            } else {
+            }
+            else
+            {
                 if (type_arguments != null)
                     return UnexpectedTypeArguments;
 
@@ -5269,26 +5284,28 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (!TypeManager.IsGenericParameter (p) && TypeManager.IsGenericParameter (q))
                 return p;
 
-            var ac_p = p as ArrayContainer;
-            if (ac_p != null) {
-                var ac_q = q as ArrayContainer;
-                if (ac_q == null)
+            if (p is ArrayContainer ac_p)
+            {
+                if (!(q is ArrayContainer ac_q))
                     return null;
 
-                TypeSpec specific = MoreSpecific (ac_p.Element, ac_q.Element);
+                TypeSpec specific = MoreSpecific(ac_p.Element, ac_q.Element);
                 if (specific == ac_p.Element)
                     return p;
                 if (specific == ac_q.Element)
                     return q;
-            } else if (p.IsGeneric && q.IsGeneric) {
-                var pargs = TypeManager.GetTypeArguments (p);
-                var qargs = TypeManager.GetTypeArguments (q);
+            }
+            else if (p.IsGeneric && q.IsGeneric)
+            {
+                var pargs = TypeManager.GetTypeArguments(p);
+                var qargs = TypeManager.GetTypeArguments(q);
 
                 bool p_specific_at_least_once = false;
                 bool q_specific_at_least_once = false;
 
-                for (int i = 0; i < pargs.Length; i++) {
-                    TypeSpec specific = MoreSpecific (pargs[i], qargs[i]);
+                for (int i = 0; i < pargs.Length; i++)
+                {
+                    TypeSpec specific = MoreSpecific(pargs[i], qargs[i]);
                     if (specific == pargs[i])
                         p_specific_at_least_once = true;
                     if (specific == qargs[i])
@@ -5353,12 +5370,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             }
                         }
 
-                        IParametersMember pm = member as IParametersMember;
-                        if (pm == null) {
+                        if (!(member is IParametersMember pm))
+                        {
                             //
                             // Will use it later to report ambiguity between best method and invocable member
                             //
-                            if (Invocation.IsMemberInvocable (member))
+                            if (Invocation.IsMemberInvocable(member))
                                 invocable_member = member;
 
                             continue;
@@ -5523,10 +5540,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // Check type constraints only when explicit type arguments are used
                 //
                 if (best_candidate.IsGeneric && type_arguments != null) {
-                    MethodSpec bc = best_candidate as MethodSpec;
-                    if (bc != null && TypeParameterSpec.HasAnyTypeParameterConstrained (bc.GenericDefinition)) {
-                        ConstraintChecker cc = new ConstraintChecker (rc);
-                        cc.CheckAll (bc.GetGenericMethodDefinition (), bc.TypeArguments, bc.Constraints, loc);
+                    if (best_candidate is MethodSpec bc && TypeParameterSpec.HasAnyTypeParameterConstrained(bc.GenericDefinition))
+                    {
+                        ConstraintChecker cc = new ConstraintChecker(rc);
+                        cc.CheckAll(bc.GetGenericMethodDefinition(), bc.TypeArguments, bc.Constraints, loc);
                     }
                 }
 
@@ -5697,20 +5714,22 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         return;
                     }
 
-                    var ms = best_candidate as MethodSpec;
-                    if (ms != null && ms.IsGeneric) {
+                    if (best_candidate is MethodSpec ms && ms.IsGeneric)
+                    {
                         bool constr_ok = true;
                         if (ms.TypeArguments != null)
-                            constr_ok = new ConstraintChecker (rc.MemberContext).CheckAll (ms.GetGenericMethodDefinition (), ms.TypeArguments, ms.Constraints, loc);
+                            constr_ok = new ConstraintChecker(rc.MemberContext).CheckAll(ms.GetGenericMethodDefinition(), ms.TypeArguments, ms.Constraints, loc);
 
-                        if (ta_count == 0 && ms.TypeArguments == null) {
-                            if (custom_errors != null && custom_errors.TypeInferenceFailed (rc, best_candidate))
+                        if (ta_count == 0 && ms.TypeArguments == null)
+                        {
+                            if (custom_errors != null && custom_errors.TypeInferenceFailed(rc, best_candidate))
                                 return;
 
-                            if (constr_ok) {
-                                rc.Report.Error (411, loc,
+                            if (constr_ok)
+                            {
+                                rc.Report.Error(411, loc,
                                     "The type arguments for method `{0}' cannot be inferred from the usage. Try specifying the type arguments explicitly",
-                                    ms.GetGenericMethodDefinition ().GetSignatureForError ());
+                                    ms.GetGenericMethodDefinition().GetSignatureForError());
                             }
 
                             return;
@@ -5763,8 +5782,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return false;
 
             foreach (var arg in args) {
-                var na = arg as NamedArgument;
-                if (na == null)
+                if (!(arg is NamedArgument na))
                     continue;
 
                 if (na.Name == name) {
@@ -5834,28 +5852,34 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         break;
                 }
 
-                NamedArgument na = a as NamedArgument;
-                if (na != null) {
-                    int name_index = pd.GetParameterIndexByName (na.Name);
-                    if (name_index < 0 || name_index >= pd.Count) {
-                        if (IsDelegateInvoke) {
-                            ec.Report.SymbolRelatedToPreviousError (DelegateType);
-                            ec.Report.Error (1746, na.Location,
-                                "The delegate `{0}' does not contain a parameter named `{1}'",
-                                DelegateType.GetSignatureForError (), na.Name);
-                        } else {
-                            ec.Report.SymbolRelatedToPreviousError (member);
-                            ec.Report.Error (1739, na.Location,
-                                "The best overloaded method match for `{0}' does not contain a parameter named `{1}'",
-                                TypeManager.CSharpSignature (member), na.Name);
-                        }
-                    } else if (args[name_index] != a && args[name_index] != null) {
+                if (a is NamedArgument na)
+                {
+                    int name_index = pd.GetParameterIndexByName(na.Name);
+                    if (name_index < 0 || name_index >= pd.Count)
+                    {
                         if (IsDelegateInvoke)
-                            ec.Report.SymbolRelatedToPreviousError (DelegateType);
+                        {
+                            ec.Report.SymbolRelatedToPreviousError(DelegateType);
+                            ec.Report.Error(1746, na.Location,
+                                "The delegate `{0}' does not contain a parameter named `{1}'",
+                                DelegateType.GetSignatureForError(), na.Name);
+                        }
                         else
-                            ec.Report.SymbolRelatedToPreviousError (member);
+                        {
+                            ec.Report.SymbolRelatedToPreviousError(member);
+                            ec.Report.Error(1739, na.Location,
+                                "The best overloaded method match for `{0}' does not contain a parameter named `{1}'",
+                                TypeManager.CSharpSignature(member), na.Name);
+                        }
+                    }
+                    else if (args[name_index] != a && args[name_index] != null)
+                    {
+                        if (IsDelegateInvoke)
+                            ec.Report.SymbolRelatedToPreviousError(DelegateType);
+                        else
+                            ec.Report.SymbolRelatedToPreviousError(member);
 
-                        ec.Report.Error (1744, na.Location,
+                        ec.Report.Error(1744, na.Location,
                             "Named argument `{0}' cannot be used for a parameter which has positional argument specified",
                             na.Name);
                     }
@@ -6073,8 +6097,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public bool IsHoisted {
             get {
-                IVariableReference hv = InstanceExpression as IVariableReference;
-                return hv != null && hv.IsHoisted;
+                return InstanceExpression is IVariableReference hv && hv.IsHoisted;
             }
         }
 
@@ -6129,9 +6152,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public void SetHasAddressTaken ()
         {
-            IVariableReference vr = InstanceExpression as IVariableReference;
-            if (vr != null) {
-                vr.SetHasAddressTaken ();
+            if (InstanceExpression is IVariableReference vr)
+            {
+                vr.SetHasAddressTaken();
             }
         }
 
@@ -6219,10 +6242,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     ec.With (ResolveContext.Options.ConditionalAccessReceiver, false);
             }
 
-            var fb = spec as FixedFieldSpec;
             IVariableReference var = InstanceExpression as IVariableReference;
 
-            if (fb != null) {
+            if (spec is FixedFieldSpec fb) {
                 IFixedExpression fe = InstanceExpression as IFixedExpression;
                 if (!ec.HasSet (ResolveContext.Options.FixedInitializerScope) && (fe == null || !fe.IsFixed)) {
                     ec.Report.Error (1666, loc, "You cannot use fixed size buffers contained in unfixed expressions. Try using the fixed statement");
@@ -6266,30 +6288,33 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             bool lvalue_instance = spec.DeclaringType.IsStruct;
             if (lvalue_instance) {
-                var var = InstanceExpression as IVariableReference;
-                if (var != null && var.VariableInfo != null) {
-                    fc.SetStructFieldAssigned (var.VariableInfo, Name);
+                if (InstanceExpression is IVariableReference var && var.VariableInfo != null)
+                {
+                    fc.SetStructFieldAssigned(var.VariableInfo, Name);
                 }
             }
 
-            var fe = InstanceExpression as FieldExpr;
-            if (fe != null) {
+            if (InstanceExpression is FieldExpr fe)
+            {
                 Expression instance;
 
-                do {
+                do
+                {
                     instance = fe.InstanceExpression;
                     var fe_instance = instance as FieldExpr;
-                    if ((fe_instance != null && !fe_instance.IsStatic) || instance is LocalVariableReference) {
-                        if (TypeSpec.IsReferenceType (fe.Type) && instance.Type.IsStruct) {
-                            var var = InstanceExpression as IVariableReference;
-                            if (var != null && var.VariableInfo == null) {
-                                var var_inst = instance as IVariableReference;
-                                if (var_inst == null || (var_inst.VariableInfo != null && !fc.IsDefinitelyAssigned (var_inst.VariableInfo)))
-                                    fc.Report.Warning (1060, 1, fe.loc, "Use of possibly unassigned field `{0}'", fe.Name);
+                    if ((fe_instance != null && !fe_instance.IsStatic) || instance is LocalVariableReference)
+                    {
+                        if (TypeSpec.IsReferenceType(fe.Type) && instance.Type.IsStruct)
+                        {
+                            if (InstanceExpression is IVariableReference var && var.VariableInfo == null)
+                            {
+                                if (!(instance is IVariableReference var_inst) || (var_inst.VariableInfo != null && !fc.IsDefinitelyAssigned(var_inst.VariableInfo)))
+                                    fc.Report.Warning(1060, 1, fe.loc, "Use of possibly unassigned field `{0}'", fe.Name);
                             }
                         }
 
-                        if (fe_instance != null) {
+                        if (fe_instance != null)
+                        {
                             fe = fe_instance;
                             continue;
                         }
@@ -6298,11 +6323,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     break;
                 } while (true);
 
-                if (instance != null && TypeSpec.IsReferenceType (instance.Type))
-                    instance.FlowAnalysis (fc);
-            } else {
-                if (TypeSpec.IsReferenceType (InstanceExpression.Type))
-                    InstanceExpression.FlowAnalysis (fc);
+                if (instance != null && TypeSpec.IsReferenceType(instance.Type))
+                    instance.FlowAnalysis(fc);
+            }
+            else
+            {
+                if (TypeSpec.IsReferenceType(InstanceExpression.Type))
+                    InstanceExpression.FlowAnalysis(fc);
             }
         }
 
@@ -6405,15 +6432,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override void FlowAnalysis (FlowAnalysisContext fc)
         {
-            var var = InstanceExpression as IVariableReference;
-            if (var != null) {
+            if (InstanceExpression is IVariableReference var)
+            {
                 var vi = var.VariableInfo;
-                if (vi != null && !fc.IsStructFieldDefinitelyAssigned (vi, Name)) {
-                    fc.Report.Error (170, loc, "Use of possibly unassigned field `{0}'", Name);
+                if (vi != null && !fc.IsStructFieldDefinitelyAssigned(vi, Name))
+                {
+                    fc.Report.Error(170, loc, "Use of possibly unassigned field `{0}'", Name);
                     return;
                 }
 
-                if (TypeSpec.IsValueType (InstanceExpression.Type) && InstanceExpression is VariableReference)
+                if (TypeSpec.IsValueType(InstanceExpression.Type) && InstanceExpression is VariableReference)
                     return;
             }
 
@@ -6433,19 +6461,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 //
                 // A variable of the form V.I is fixed when V is a fixed variable of a struct type
                 //
-                IVariableReference variable = InstanceExpression as IVariableReference;
-                if (variable != null)
+                if (InstanceExpression is IVariableReference variable)
                     return InstanceExpression.Type.IsStruct && variable.IsFixed;
 
-                IFixedExpression fe = InstanceExpression as IFixedExpression;
-                return fe != null && fe.IsFixed;
+                return InstanceExpression is IFixedExpression fe && fe.IsFixed;
             }
         }
 
         public override bool Equals (object obj)
         {
-            FieldExpr fe = obj as FieldExpr;
-            if (fe == null)
+            if (!(obj is FieldExpr fe))
                 return false;
 
             if (spec != fe.spec)
@@ -6478,15 +6503,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (type.IsStruct && type == ec.CurrentType && InstanceExpression.Type == type) {
                     ec.EmitLoadFromPtr (type);
                 } else {
-                    var ff = spec as FixedFieldSpec;
-                    if (ff != null) {
-                        ec.Emit (OpCodes.Ldflda, spec);
-                        ec.Emit (OpCodes.Ldflda, ff.Element);
-                    } else {
+                    if (spec is FixedFieldSpec ff)
+                    {
+                        ec.Emit(OpCodes.Ldflda, spec);
+                        ec.Emit(OpCodes.Ldflda, ff.Element);
+                    }
+                    else
+                    {
                         if (is_volatile)
-                            ec.Emit (OpCodes.Volatile);
+                            ec.Emit(OpCodes.Volatile);
 
-                        ec.Emit (OpCodes.Ldfld, spec);
+                        ec.Emit(OpCodes.Ldfld, spec);
                     }
                 }
 
@@ -6691,8 +6718,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public bool IsAutoPropertyAccess {
             get {
-                var prop = best_candidate.MemberDefinition as Property;
-                return prop != null && prop.BackingField != null;
+                return best_candidate.MemberDefinition is Property prop && prop.BackingField != null;
             }
         }
 
@@ -6806,8 +6832,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (best_candidate.DeclaringType.BuiltinType != BuiltinTypeSpec.Type.Array || !best_candidate.HasGet || Name != "Length")
                 return false;
 
-            ArrayContainer ac = InstanceExpression.Type as ArrayContainer;
-            return ac != null && ac.Rank == 1;
+            return InstanceExpression.Type is ArrayContainer ac && ac.Rank == 1;
         }
 
         public override void Emit (EmitContext ec, bool leave_copy)
@@ -6911,17 +6936,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override void FlowAnalysis (FlowAnalysisContext fc)
         {
-            var prop = best_candidate.MemberDefinition as Property;
-            if (prop != null && prop.BackingField != null) {
-                var var = InstanceExpression as IVariableReference;
-                if (var != null) {
+            if (best_candidate.MemberDefinition is Property prop && prop.BackingField != null)
+            {
+                if (InstanceExpression is IVariableReference var)
+                {
                     var vi = var.VariableInfo;
-                    if (vi != null && !fc.IsStructFieldDefinitelyAssigned (vi, prop.BackingField.Name)) {
-                        fc.Report.Error (8079, loc, "Use of possibly unassigned auto-implemented property `{0}'", Name);
+                    if (vi != null && !fc.IsStructFieldDefinitelyAssigned(vi, prop.BackingField.Name))
+                    {
+                        fc.Report.Error(8079, loc, "Use of possibly unassigned auto-implemented property `{0}'", Name);
                         return;
                     }
 
-                    if (TypeSpec.IsValueType (InstanceExpression.Type) && InstanceExpression is VariableReference)
+                    if (TypeSpec.IsValueType(InstanceExpression.Type) && InstanceExpression is VariableReference)
                         return;
                 }
             }
@@ -6944,8 +6970,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if ((best_candidate.Modifiers & (Modifiers.ABSTRACT | Modifiers.VIRTUAL)) != 0 && best_candidate.DeclaringType != InstanceExpression.Type) {
                 var filter = new MemberFilter (best_candidate.Name, 0, MemberKind.Property, null, null);
-                var p = MemberCache.FindMember (InstanceExpression.Type, filter, BindingRestriction.InstanceOnly | BindingRestriction.OverrideOnly) as PropertySpec;
-                if (p != null) {
+                if (MemberCache.FindMember(InstanceExpression.Type, filter, BindingRestriction.InstanceOnly | BindingRestriction.OverrideOnly) is PropertySpec p)
+                {
                     type = p.MemberType;
                 }
             }
@@ -6972,8 +6998,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected override bool ResolveAutopropertyAssignment (ResolveContext rc, Expression rhs)
         {
-            var prop = best_candidate.MemberDefinition as Property;
-            if (prop == null)
+            if (!(best_candidate.MemberDefinition is Property prop))
                 return false;
 
             if (!rc.HasSet (ResolveContext.Options.ConstructorScope))
@@ -7004,13 +7029,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (!IsAutoPropertyAccess)
                 return;
 
-            var prop = best_candidate.MemberDefinition as Property;
-            if (prop != null && prop.BackingField != null) {
+            if (best_candidate.MemberDefinition is Property prop && prop.BackingField != null)
+            {
                 bool lvalue_instance = best_candidate.DeclaringType.IsStruct;
-                if (lvalue_instance) {
-                    var var = InstanceExpression as IVariableReference;
-                    if (var != null && var.VariableInfo != null) {
-                        fc.SetStructFieldAssigned (var.VariableInfo, prop.BackingField.Name);
+                if (lvalue_instance)
+                {
+                    if (InstanceExpression is IVariableReference var && var.VariableInfo != null)
+                    {
+                        fc.SetStructFieldAssigned(var.VariableInfo, prop.BackingField.Name);
                     }
                 }
             }

@@ -170,8 +170,7 @@ namespace H5.Translator
         {
             if (type.Kind == TypeKind.TypeParameter && astType != null)
             {
-                var parameter = type as ITypeParameter;
-                if (parameter != null && (
+                if (type is ITypeParameter parameter && (
                     parameter.Owner.Attributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute") ||
                     parameter.Owner.DeclaringTypeDefinition != null && parameter.Owner.DeclaringTypeDefinition.Attributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute")))
                 {
@@ -262,9 +261,8 @@ namespace H5.Translator
                 return true;
             }
 
-            var arrayExpr = expr as ArrayCreateExpression;
 
-            if (arrayExpr == null)
+            if (!(expr is ArrayCreateExpression arrayExpr))
             {
                 return false;
             }

@@ -92,9 +92,7 @@ namespace H5.Translator
             var isInvoke = identifierExpression.Parent is InvocationExpression && (((InvocationExpression)(identifierExpression.Parent)).Target == identifierExpression);
             if (memberResult != null && memberResult.Member is IMethod && isInvoke)
             {
-                var i_rr = this.Emitter.Resolver.ResolveNode(identifierExpression.Parent, this.Emitter) as CSharpInvocationResolveResult;
-
-                if (i_rr != null && !i_rr.IsExpandedForm)
+                if (this.Emitter.Resolver.ResolveNode(identifierExpression.Parent, this.Emitter) is CSharpInvocationResolveResult i_rr && !i_rr.IsExpandedForm)
                 {
                     var tpl = this.Emitter.GetAttribute(memberResult.Member.Attributes, JS.NS.H5 + ".TemplateAttribute");
 
@@ -116,8 +114,7 @@ namespace H5.Translator
                     )
                 )
             {
-                var parentInvocation = identifierExpression.Parent as InvocationExpression;
-                if (parentInvocation == null || parentInvocation.Target != identifierExpression)
+                if (!(identifierExpression.Parent is InvocationExpression parentInvocation) || parentInvocation.Target != identifierExpression)
                 {
                     var method = (IMethod)memberResult.Member;
                     if (method.TypeArguments.Count > 0)
@@ -255,8 +252,7 @@ namespace H5.Translator
                         )
                 )
             {
-                var parentInvocation = identifierExpression.Parent as InvocationExpression;
-                if (parentInvocation == null || parentInvocation.Target != identifierExpression)
+                if (!(identifierExpression.Parent is InvocationExpression parentInvocation) || parentInvocation.Target != identifierExpression)
                 {
                     if (!string.IsNullOrEmpty(inlineCode))
                     {
@@ -533,8 +529,7 @@ namespace H5.Translator
 
                     bool isBool = memberResult != null && NullableType.IsNullable(memberResult.Member.ReturnType) ? NullableType.GetUnderlyingType(memberResult.Member.ReturnType).IsKnownType(KnownTypeCode.Boolean) : memberResult.Member.ReturnType.IsKnownType(KnownTypeCode.Boolean);
                     bool skipGet = false;
-                    var orr = this.Emitter.Resolver.ResolveNode(identifierExpression.Parent, this.Emitter) as OperatorResolveResult;
-                    bool special = orr != null && orr.IsLiftedOperator;
+                    bool special = this.Emitter.Resolver.ResolveNode(identifierExpression.Parent, this.Emitter) is OperatorResolveResult orr && orr.IsLiftedOperator;
 
                     if (!special && isBool &&
                         (this.Emitter.AssignmentType == AssignmentOperatorType.BitwiseAnd ||

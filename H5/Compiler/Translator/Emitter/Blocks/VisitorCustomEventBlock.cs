@@ -26,9 +26,8 @@ namespace H5.Translator
             base.BeginEmit();
             this.OldRules = this.Emitter.Rules;
 
-            var rr = this.Emitter.Resolver.ResolveNode(this.CustomEventDeclaration, this.Emitter) as MemberResolveResult;
 
-            if (rr != null)
+            if (this.Emitter.Resolver.ResolveNode(this.CustomEventDeclaration, this.Emitter) is MemberResolveResult rr)
             {
                 this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
             }

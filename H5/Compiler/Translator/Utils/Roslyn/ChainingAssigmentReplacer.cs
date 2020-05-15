@@ -21,8 +21,7 @@ namespace H5.Translator
             {
                 try
                 {
-                    var identifier = assignment.Left as IdentifierNameSyntax;
-                    if (identifier != null)
+                    if (assignment.Left is IdentifierNameSyntax identifier)
                     {
                         var local = assignment.GetParent<LocalDeclarationStatementSyntax>();
                         if (local != null && locals.Contains(local))

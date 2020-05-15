@@ -64,8 +64,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ThisReferenceExpression o = other as ThisReferenceExpression;
-            return o != null;
+            return other is ThisReferenceExpression o;
         }
     }
 }

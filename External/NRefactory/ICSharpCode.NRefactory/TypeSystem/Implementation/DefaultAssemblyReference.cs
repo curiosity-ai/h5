@@ -68,8 +68,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            DefaultAssemblyReference o = other as DefaultAssemblyReference;
-            return o != null && shortName == o.shortName;
+            return other is DefaultAssemblyReference o && shortName == o.shortName;
         }
 
         [Serializable]

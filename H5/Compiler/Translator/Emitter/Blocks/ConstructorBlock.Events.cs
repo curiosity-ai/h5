@@ -72,9 +72,7 @@ namespace H5.Translator
             {
                 foreach (var attr in attrSection.Attributes)
                 {
-                    var resolveResult = this.Emitter.Resolver.ResolveNode(attr, this.Emitter) as InvocationResolveResult;
-
-                    if (resolveResult != null)
+                    if (this.Emitter.Resolver.ResolveNode(attr, this.Emitter) is InvocationResolveResult resolveResult)
                     {
                         if (resolveResult.Type.FullName == CS.Attributes.READY_ATTRIBUTE_NAME)
                         {
@@ -149,21 +147,16 @@ namespace H5.Translator
                             if (isCommon)
                             {
                                 var eventArg = attr.Arguments.First();
-                                var primitiveArg = eventArg as ICSharpCode.NRefactory.CSharp.PrimitiveExpression;
 
-                                if (primitiveArg != null)
+                                if (eventArg is ICSharpCode.NRefactory.CSharp.PrimitiveExpression primitiveArg)
                                 {
                                     eventName = primitiveArg.Value.ToString();
                                 }
                                 else
                                 {
-                                    var memberArg = eventArg as MemberReferenceExpression;
-
-                                    if (memberArg != null)
+                                    if (eventArg is MemberReferenceExpression memberArg)
                                     {
-                                        var memberResolveResult = this.Emitter.Resolver.ResolveNode(memberArg, this.Emitter) as MemberResolveResult;
-
-                                        if (memberResolveResult != null)
+                                        if (this.Emitter.Resolver.ResolveNode(memberArg, this.Emitter) is MemberResolveResult memberResolveResult)
                                         {
                                             eventName = this.Emitter.GetEntityName(memberResolveResult.Member);
                                         }
@@ -190,9 +183,7 @@ namespace H5.Translator
 
                             if (attr.Arguments.Count > (selectorIndex + 1))
                             {
-                                var memberResolveResult = this.Emitter.Resolver.ResolveNode(attr.Arguments.ElementAt(selectorIndex + 1), this.Emitter) as MemberResolveResult;
-
-                                if (memberResolveResult != null && memberResolveResult.Member.Attributes.Count > 0)
+                                if (this.Emitter.Resolver.ResolveNode(attr.Arguments.ElementAt(selectorIndex + 1), this.Emitter) is MemberResolveResult memberResolveResult && memberResolveResult.Member.Attributes.Count > 0)
                                 {
                                     var template = this.Emitter.Validator.GetAttribute(memberResolveResult.Member.Attributes, "H5.TemplateAttribute");
 
@@ -213,16 +204,13 @@ namespace H5.Translator
 
                                     var fields = templateType.GetFields(f =>
                                     {
-                                        var field = f as DefaultResolvedField;
-
-                                        if (field != null && field.ConstantValue != null && Convert.ToInt32(field.ConstantValue.ToString()) == templateValue)
+                                        if (f is DefaultResolvedField field && field.ConstantValue != null && Convert.ToInt32(field.ConstantValue.ToString()) == templateValue)
                                         {
                                             return true;
                                         }
 
-                                        var field1 = f as DefaultUnresolvedField;
 
-                                        if (field1 != null && field1.ConstantValue != null && Convert.ToInt32(field1.ConstantValue.ToString()) == templateValue)
+                                        if (f is DefaultUnresolvedField field1 && field1.ConstantValue != null && Convert.ToInt32(field1.ConstantValue.ToString()) == templateValue)
                                         {
                                             return true;
                                         }

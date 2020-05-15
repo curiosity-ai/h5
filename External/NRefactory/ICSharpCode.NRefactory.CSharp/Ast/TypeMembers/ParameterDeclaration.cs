@@ -115,8 +115,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ParameterDeclaration o = other as ParameterDeclaration;
-            return o != null && this.Attributes.DoMatch(o.Attributes, match) && this.ParameterModifier == o.ParameterModifier
+            return other is ParameterDeclaration o && this.Attributes.DoMatch(o.Attributes, match) && this.ParameterModifier == o.ParameterModifier
                 && this.Type.DoMatch(o.Type, match) && MatchString(this.Name, o.Name)
                 && this.DefaultExpression.DoMatch(o.DefaultExpression, match);
         }

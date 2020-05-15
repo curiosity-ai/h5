@@ -153,10 +153,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (ms.DeclaringType != null)
                     ms = ms.DeclaringType;
 
-                var imported_type = ms.MemberDefinition as ImportedTypeDefinition;
-                if (imported_type != null) {
+                if (ms.MemberDefinition is ImportedTypeDefinition imported_type)
+                {
                     var iad = imported_type.DeclaringAssembly as ImportedAssemblyDefinition;
-                    SymbolRelatedToPreviousError (iad.Location);
+                    SymbolRelatedToPreviousError(iad.Location);
                 }
             }
         }
@@ -480,8 +480,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override bool Equals (object obj)
         {
-            AbstractMessage msg = obj as AbstractMessage;
-            if (msg == null)
+            if (!(obj is AbstractMessage msg))
                 return false;
 
             return code == msg.code && location.Equals (msg.location) && message == msg.message;

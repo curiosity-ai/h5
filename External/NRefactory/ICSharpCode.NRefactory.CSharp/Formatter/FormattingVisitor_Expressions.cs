@@ -188,8 +188,8 @@ namespace ICSharpCode.NRefactory.CSharp
             CSharpTokenNode rParToken, lParToken;
             List<AstNode> arguments;
 
-            var constructorDeclaration = node as ConstructorDeclaration;
-            if (constructorDeclaration != null) {
+            if (node is ConstructorDeclaration constructorDeclaration)
+            {
                 methodCallArgumentWrapping = policy.MethodDeclarationParameterWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodDeclarationOpenParentheses;
                 methodClosingParenthesesOnNewLine = policy.MethodDeclarationClosingParenthesesOnNewLine;
@@ -201,7 +201,9 @@ namespace ICSharpCode.NRefactory.CSharp
                 lParToken = constructorDeclaration.LParToken;
                 rParToken = constructorDeclaration.RParToken;
                 arguments = constructorDeclaration.Parameters.Cast<AstNode>().ToList();
-            } else if (node is IndexerDeclaration) {
+            }
+            else if (node is IndexerDeclaration)
+            {
                 var indexer = (IndexerDeclaration)node;
                 methodCallArgumentWrapping = policy.IndexerDeclarationParameterWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferIndexerDeclarationOpenBracket;
@@ -214,7 +216,8 @@ namespace ICSharpCode.NRefactory.CSharp
                 lParToken = indexer.LBracketToken;
                 rParToken = indexer.RBracketToken;
                 arguments = indexer.Parameters.Cast<AstNode>().ToList();
-            } else if (node is OperatorDeclaration op)
+            }
+            else if (node is OperatorDeclaration op)
             {
                 methodCallArgumentWrapping = policy.MethodDeclarationParameterWrapping;
                 newLineAferMethodCallOpenParentheses = policy.NewLineAferMethodDeclarationOpenParentheses;
@@ -675,15 +678,17 @@ namespace ICSharpCode.NRefactory.CSharp
             ForceSpacesBeforeRemoveNewLines(lambdaExpression.ArrowToken, true);
 
             if (!lambdaExpression.Body.IsNull) {
-                var body = lambdaExpression.Body as BlockStatement;
-                if (body != null) {
+                if (lambdaExpression.Body is BlockStatement body)
+                {
                     var old = curIndent;
-                    this.curIndent = curIndent.GetIndentWithoutSpace ();
+                    this.curIndent = curIndent.GetIndentWithoutSpace();
                     FixOpenBrace(policy.AnonymousMethodBraceStyle, body.LBraceToken);
                     VisitBlockWithoutFixingBraces(body, policy.IndentMethodBody);
                     FixClosingBrace(policy.AnonymousMethodBraceStyle, body.RBraceToken);
                     curIndent = old;
-                } else {
+                }
+                else
+                {
                     ForceSpacesAfter(lambdaExpression.ArrowToken, true);
                     lambdaExpression.Body.AcceptVisitor(this);
                 }

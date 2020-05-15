@@ -258,8 +258,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
                 throw new ArgumentNullException("compilation");
             if (type == null)
                 return null;
-            var compilationProvider = type as ICompilationProvider;
-            if (compilationProvider != null && compilationProvider.Compilation == compilation)
+            if (type is ICompilationProvider compilationProvider && compilationProvider.Compilation == compilation)
                 return type;
             IEntity typeParameterOwner = GetTypeParameterOwner(type);
             IEntity importedTypeParameterOwner = compilation.Import(typeParameterOwner);
@@ -724,29 +723,34 @@ namespace ICSharpCode.NRefactory.TypeSystem
                 }
                 yield break;
             }
-            ITypeDefinition typeDef = entity as ITypeDefinition;
-            if (typeDef != null) {
-                foreach (var baseType in typeDef.GetNonInterfaceBaseTypes().Reverse()) {
+            if (entity is ITypeDefinition typeDef)
+            {
+                foreach (var baseType in typeDef.GetNonInterfaceBaseTypes().Reverse())
+                {
                     ITypeDefinition baseTypeDef = baseType.GetDefinition();
                     if (baseTypeDef == null)
                         continue;
-                    foreach (var attr in baseTypeDef.Attributes) {
+                    foreach (var attr in baseTypeDef.Attributes)
+                    {
                         if (attributeTypePredicate(attr.AttributeType))
                             yield return attr;
                     }
                 }
                 yield break;
             }
-            IMember member = entity as IMember;
-            if (member != null) {
+            if (entity is IMember member)
+            {
                 HashSet<IMember> visitedMembers = new HashSet<IMember>();
-                do {
+                do
+                {
                     member = member.MemberDefinition; // it's sufficient to look at the definitions
-                    if (!visitedMembers.Add(member)) {
+                    if (!visitedMembers.Add(member))
+                    {
                         // abort if we seem to be in an infinite loop (cyclic inheritance)
                         break;
                     }
-                    foreach (var attr in member.Attributes) {
+                    foreach (var attr in member.Attributes)
+                    {
                         if (attributeTypePredicate(attr.AttributeType))
                             yield return attr;
                     }

@@ -679,9 +679,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             var m = Parent;
             do {
-                var ns = m as NamespaceContainer;
-                if (ns != null)
-                    return ns.LookupExtensionMethod (this, name, arity, 0);
+                if (m is NamespaceContainer ns)
+                    return ns.LookupExtensionMethod(this, name, arity, 0);
 
                 m = m.Parent;
             } while (m != null);
@@ -839,10 +838,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             if (DocComment == null) {
                 if (IsExposedFromAssembly ()) {
-                    Constructor c = this as Constructor;
-                    if (c == null || !c.IsDefault ())
-                        Report.Warning (1591, 4, Location,
-                            "Missing XML comment for publicly visible type or member `{0}'", GetSignatureForError ());
+                    if (!(this is Constructor c) || !c.IsDefault())
+                        Report.Warning(1591, 4, Location,
+                            "Missing XML comment for publicly visible type or member `{0}'", GetSignatureForError());
                 }
 
                 return;
@@ -1097,9 +1095,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             state &= ~StateFlags.MissingDependency_Undetected;
 
-            var imported = definition as ImportedDefinition;
             List<MissingTypeSpecReference> missing;
-            if (imported != null) {
+            if (definition is ImportedDefinition imported) {
                 missing = ResolveMissingDependencies (caller);
             } else if (this is ElementTypeSpec) {
                 missing = ((ElementTypeSpec) this).Element.GetMissingDependencies (caller);
@@ -1130,9 +1127,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public virtual string GetSignatureForError ()
         {
-            var bf = MemberDefinition as Property.BackingFieldDeclaration;
             string name;
-            if (bf == null) {
+            if (!(MemberDefinition is Property.BackingFieldDeclaration bf)) {
                 name = Name;
             } else {
                 name = bf.OriginalProperty.MemberName.Name;

@@ -197,8 +197,7 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
         {
             var blockStatement = context.GetNode<BlockStatement>();
             var resolverState = context.GetResolverStateAfter(blockStatement.RBraceToken.PrevSibling);
-            var simpleNameRR = resolverState.ResolveSimpleName(name, new List<IType>()) as LocalResolveResult;
-            if (simpleNameRR == null)
+            if (!(resolverState.ResolveSimpleName(name, new List<IType>()) is LocalResolveResult simpleNameRR))
                 return null;
             return simpleNameRR.Variable;
         }

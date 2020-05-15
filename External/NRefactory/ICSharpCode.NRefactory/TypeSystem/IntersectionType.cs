@@ -112,9 +112,10 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public override bool Equals(IType other)
         {
-            IntersectionType o = other as IntersectionType;
-            if (o != null && types.Count == o.types.Count) {
-                for (int i = 0; i < types.Count; i++) {
+            if (other is IntersectionType o && types.Count == o.types.Count)
+            {
+                for (int i = 0; i < types.Count; i++)
+                {
                     if (!types[i].Equals(o.types[i]))
                         return false;
                 }

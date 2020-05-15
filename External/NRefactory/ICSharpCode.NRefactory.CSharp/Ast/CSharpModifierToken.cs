@@ -54,8 +54,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            CSharpModifierToken o = other as CSharpModifierToken;
-            return o != null && this.modifier == o.modifier;
+            return other is CSharpModifierToken o && this.modifier == o.modifier;
         }
 
         // Not worth using a dictionary for such few elements.

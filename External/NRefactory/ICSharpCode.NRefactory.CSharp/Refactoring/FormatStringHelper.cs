@@ -68,8 +68,7 @@ namespace ICSharpCode.NRefactory.CSharp
                 if (i == 0 && parameter.Type.IsKnownType(KnownTypeCode.String) && parameterNames.Contains(parameter.Name)) {
                     formatArgument = argument;
                 } else if (formatArgument != null && parameter.IsParams && !invocationResolveResult.IsExpandedForm) {
-                    var ace = argument as ArrayCreateExpression;
-                    if (ace == null || ace.Initializer.IsNull)
+                    if (!(argument is ArrayCreateExpression ace) || ace.Initializer.IsNull)
                         return false;
                     foreach (var element in ace.Initializer.Elements) {
                         if (argumentFilter(parameter, element))

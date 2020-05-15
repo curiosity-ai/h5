@@ -154,13 +154,10 @@ namespace H5.Translator
 
             bool isAccessor = false;
 
-            var memberArgResolverResult = argResolverResult as MemberResolveResult;
 
-            if (memberArgResolverResult != null)
+            if (argResolverResult is MemberResolveResult memberArgResolverResult)
             {
-                var prop = memberArgResolverResult.Member as IProperty;
-
-                if (prop != null)
+                if (memberArgResolverResult.Member is IProperty prop)
                 {
                     var isIgnore = memberArgResolverResult.Member.DeclaringTypeDefinition != null && this.Emitter.Validator.IsExternalType(memberArgResolverResult.Member.DeclaringTypeDefinition);
                     var inlineAttr = prop.Getter != null ? this.Emitter.GetAttribute(prop.Getter.Attributes, Translator.H5_ASSEMBLY + ".TemplateAttribute") : null;
@@ -410,9 +407,8 @@ namespace H5.Translator
             var argResolverResult = this.Emitter.Resolver.ResolveNode(this.UnaryOperatorExpression.Expression, this.Emitter);
             bool nullable = NullableType.IsNullable(argResolverResult.Type);
             bool isAccessor = false;
-            var memberArgResolverResult = argResolverResult as MemberResolveResult;
 
-            if (memberArgResolverResult != null && memberArgResolverResult.Member is IProperty)
+            if (argResolverResult is MemberResolveResult memberArgResolverResult && memberArgResolverResult.Member is IProperty)
             {
                 var isIgnore = this.Emitter.Validator.IsExternalType(memberArgResolverResult.Member.DeclaringTypeDefinition);
                 var inlineAttr = this.Emitter.GetAttribute(memberArgResolverResult.Member.Attributes, Translator.H5_ASSEMBLY + ".TemplateAttribute");

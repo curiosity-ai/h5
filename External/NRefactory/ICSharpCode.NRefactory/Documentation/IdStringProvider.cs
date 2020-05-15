@@ -67,16 +67,17 @@ namespace ICSharpCode.NRefactory.Documentation
                 b.Append('#');
             }
             b.Append(member.Name.Replace('.', '#'));
-            IMethod method = member as IMethod;
-            if (method != null && method.TypeParameters.Count > 0) {
+            if (member is IMethod method && method.TypeParameters.Count > 0)
+            {
                 b.Append("``");
                 b.Append(method.TypeParameters.Count);
             }
-            IParameterizedMember parameterizedMember = member as IParameterizedMember;
-            if (parameterizedMember != null && parameterizedMember.Parameters.Count > 0) {
+            if (member is IParameterizedMember parameterizedMember && parameterizedMember.Parameters.Count > 0)
+            {
                 b.Append('(');
                 var parameters = parameterizedMember.Parameters;
-                for (int i = 0; i < parameters.Count; i++) {
+                for (int i = 0; i < parameters.Count; i++)
+                {
                     if (i > 0) b.Append(',');
                     AppendTypeName(b, parameters[i].Type, false);
                 }
@@ -161,17 +162,20 @@ namespace ICSharpCode.NRefactory.Documentation
         {
             int tpc = type.TypeParameterCount - outerTypeParameterCount;
             if (tpc > 0) {
-                ParameterizedType pt = type as ParameterizedType;
-                if (pt != null) {
+                if (type is ParameterizedType pt)
+                {
                     b.Append('{');
                     var ta = pt.TypeArguments;
-                    for (int i = outerTypeParameterCount; i < ta.Count; i++) {
+                    for (int i = outerTypeParameterCount; i < ta.Count; i++)
+                    {
                         if (i > outerTypeParameterCount)
                             b.Append(explicitInterfaceImpl ? '@' : ',');
                         AppendTypeName(b, ta[i], explicitInterfaceImpl);
                     }
                     b.Append('}');
-                } else {
+                }
+                else
+                {
                     b.Append('`');
                     b.Append(tpc);
                 }

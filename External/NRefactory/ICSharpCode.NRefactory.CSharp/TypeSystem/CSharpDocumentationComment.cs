@@ -41,9 +41,8 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
                 return base.ResolveCref(cref);
             }
             var documentationReference = new CSharpParser().ParseDocumentationReference(cref);
-            var csharpContext = context as CSharpTypeResolveContext;
             CSharpResolver resolver;
-            if (csharpContext != null) {
+            if (context is CSharpTypeResolveContext csharpContext) {
                 resolver = new CSharpResolver(csharpContext);
             } else {
                 resolver = new CSharpResolver(context.Compilation);
@@ -51,11 +50,9 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
             var astResolver = new CSharpAstResolver(resolver, documentationReference);
             var rr = astResolver.Resolve(documentationReference);
 
-            MemberResolveResult mrr = rr as MemberResolveResult;
-            if (mrr != null)
+            if (rr is MemberResolveResult mrr)
                 return mrr.Member;
-            TypeResolveResult trr = rr as TypeResolveResult;
-            if (trr != null)
+            if (rr is TypeResolveResult trr)
                 return trr.Type.GetDefinition();
             return null;
         }

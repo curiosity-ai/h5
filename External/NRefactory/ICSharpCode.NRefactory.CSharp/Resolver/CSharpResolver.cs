@@ -52,8 +52,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             this.conversions = CSharpConversions.Get(compilation);
             this.context = new CSharpTypeResolveContext(compilation.MainAssembly);
 
-            var pc = compilation.MainAssembly.UnresolvedAssembly as CSharpProjectContent;
-            if (pc != null) {
+            if (compilation.MainAssembly.UnresolvedAssembly is CSharpProjectContent pc)
+            {
                 this.checkForOverflow = pc.CompilerSettings.CheckForOverflow;
             }
         }
@@ -384,8 +384,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             if (overloadableOperatorName == null) {
                 switch (op) {
                     case UnaryOperatorType.Dereference:
-                        PointerType p = expression.Type as PointerType;
-                        if (p != null)
+                        if (expression.Type is PointerType p)
                             return UnaryOperatorResolveResult(p.ElementType, op, expression);
                         else
                             return ErrorResult;
@@ -398,18 +397,19 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                         var lookup = CreateMemberLookup();
                         IMethod getResultMethod;
                         IType awaitResultType;
-                        var getResultMethodGroup = lookup.Lookup(getAwaiterInvocation, "GetResult", EmptyList<IType>.Instance, true) as MethodGroupResolveResult;
-                        if (getResultMethodGroup != null) {
-                            var getResultOR = getResultMethodGroup.PerformOverloadResolution(compilation, new ResolveResult[0], allowExtensionMethods: false, conversions: conversions);
-                            getResultMethod = getResultOR.FoundApplicableCandidate ? getResultOR.GetBestCandidateWithSubstitutedTypeArguments() as IMethod : null;
-                            awaitResultType = getResultMethod != null ? getResultMethod.ReturnType : SpecialType.UnknownType;
-                        }
-                        else {
-                            getResultMethod = null;
-                            awaitResultType = SpecialType.UnknownType;
-                        }
+                            if (lookup.Lookup(getAwaiterInvocation, "GetResult", EmptyList<IType>.Instance, true) is MethodGroupResolveResult getResultMethodGroup)
+                            {
+                                var getResultOR = getResultMethodGroup.PerformOverloadResolution(compilation, new ResolveResult[0], allowExtensionMethods: false, conversions: conversions);
+                                getResultMethod = getResultOR.FoundApplicableCandidate ? getResultOR.GetBestCandidateWithSubstitutedTypeArguments() as IMethod : null;
+                                awaitResultType = getResultMethod != null ? getResultMethod.ReturnType : SpecialType.UnknownType;
+                            }
+                            else
+                            {
+                                getResultMethod = null;
+                                awaitResultType = SpecialType.UnknownType;
+                            }
 
-                        var isCompletedRR = lookup.Lookup(getAwaiterInvocation, "IsCompleted", EmptyList<IType>.Instance, false);
+                            var isCompletedRR = lookup.Lookup(getAwaiterInvocation, "IsCompleted", EmptyList<IType>.Instance, false);
                         var isCompletedProperty = (isCompletedRR is MemberResolveResult ? ((MemberResolveResult)isCompletedRR).Member as IProperty : null);
                         if (isCompletedProperty != null && (!isCompletedProperty.ReturnType.IsKnownType(KnownTypeCode.Boolean) || !isCompletedProperty.CanGet))
                             isCompletedProperty = null;
@@ -1278,8 +1278,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             public override bool Equals(object obj)
             {
-                LiftedUserDefinedOperator op = obj as LiftedUserDefinedOperator;
-                return op != null && this.nonLiftedOperator.Equals(op.nonLiftedOperator);
+                return obj is LiftedUserDefinedOperator op && this.nonLiftedOperator.Equals(op.nonLiftedOperator);
             }
 
             public override int GetHashCode()
@@ -1472,10 +1471,12 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                         }
                     }
                     // Look in parameters of current method
-                    IParameterizedMember parameterizedMember = this.CurrentMember as IParameterizedMember;
-                    if (parameterizedMember != null) {
-                        foreach (IParameter p in parameterizedMember.Parameters) {
-                            if (p.Name == identifier) {
+                    if (this.CurrentMember is IParameterizedMember parameterizedMember)
+                    {
+                        foreach (IParameter p in parameterizedMember.Parameters)
+                        {
+                            if (p.Name == identifier)
+                            {
                                 return new LocalResolveResult(p);
                             }
                         }
@@ -1483,9 +1484,10 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 }
 
                 // look in type parameters of current method
-                IMethod m = this.CurrentMember as IMethod;
-                if (m != null) {
-                    foreach (ITypeParameter tp in m.TypeParameters) {
+                if (this.CurrentMember is IMethod m)
+                {
+                    foreach (ITypeParameter tp in m.TypeParameters)
+                    {
                         if (tp.Name == identifier)
                             return new TypeResolveResult(tp);
                     }
@@ -1724,8 +1726,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             // C# 4.0 spec: §7.6.4
 
             bool parameterizeResultType = !(typeArguments.Count != 0 && typeArguments.All(t => t.Kind == TypeKind.UnboundTypeArgument));
-            NamespaceResolveResult nrr = target as NamespaceResolveResult;
-            if (nrr != null) {
+            if (target is NamespaceResolveResult nrr)
+            {
                 return ResolveMemberAccessOnNamespace(nrr, identifier, typeArguments, parameterizeResultType);
             }
 
@@ -1762,8 +1764,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                     };
                 }
             } else {
-                MethodGroupResolveResult mgrr = result as MethodGroupResolveResult;
-                if (mgrr != null) {
+                if (result is MethodGroupResolveResult mgrr)
+                {
                     Debug.Assert(mgrr.extensionMethods == null);
                     // set the values that are necessary to make MethodGroupResolveResult.GetExtensionMethods() work
                     mgrr.resolver = this;
@@ -2041,14 +2043,16 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             }
 
             bool isDynamic = arguments.Any(a => a.Type.Kind == TypeKind.Dynamic);
-            MethodGroupResolveResult mgrr = target as MethodGroupResolveResult;
-            if (mgrr != null) {
-                if (isDynamic) {
+            if (target is MethodGroupResolveResult mgrr)
+            {
+                if (isDynamic)
+                {
                     // If we have dynamic arguments, we need to represent the invocation as a dynamic invocation if there is more than one applicable method.
                     var or2 = CreateOverloadResolution(arguments, argumentNames, mgrr.TypeArguments.ToArray());
                     var applicableMethods = mgrr.MethodsGroupedByDeclaringType.SelectMany(m => m, (x, m) => new { x.DeclaringType, Method = m }).Where(x => OverloadResolution.IsApplicable(or2.AddCandidate(x.Method))).ToList();
 
-                    if (applicableMethods.Count > 1) {
+                    if (applicableMethods.Count > 1)
+                    {
                         ResolveResult actualTarget;
                         if (applicableMethods.All(x => x.Method.IsStatic) && !(mgrr.TargetResult is TypeResolveResult))
                             actualTarget = new TypeResolveResult(mgrr.TargetType);
@@ -2056,7 +2060,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                             actualTarget = mgrr.TargetResult;
 
                         var l = new List<MethodListWithDeclaringType>();
-                        foreach (var m in applicableMethods) {
+                        foreach (var m in applicableMethods)
+                        {
                             if (l.Count == 0 || l[l.Count - 1].DeclaringType != m.DeclaringType)
                                 l.Add(new MethodListWithDeclaringType(m.DeclaringType));
                             l[l.Count - 1].Add(m.Method);
@@ -2066,24 +2071,27 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 }
 
                 OverloadResolution or = mgrr.PerformOverloadResolution(compilation, arguments, argumentNames, checkForOverflow: checkForOverflow, conversions: conversions, allowOptionalParameters: allowOptionalParameters);
-                if (or.BestCandidate != null) {
+                if (or.BestCandidate != null)
+                {
                     if (or.BestCandidate.IsStatic && !or.IsExtensionMethodInvocation && !(mgrr.TargetResult is TypeResolveResult))
                         return or.CreateResolveResult(new TypeResolveResult(mgrr.TargetType), returnTypeOverride: isDynamic ? SpecialType.Dynamic : null);
                     else
                         return or.CreateResolveResult(mgrr.TargetResult, returnTypeOverride: isDynamic ? SpecialType.Dynamic : null);
-                } else {
+                }
+                else
+                {
                     // No candidate found at all (not even an inapplicable one).
                     // This can happen with empty method groups (as sometimes used with extension methods)
                     return new UnknownMethodResolveResult(
                         mgrr.TargetType, mgrr.MethodName, mgrr.TypeArguments, CreateParameters(arguments, argumentNames));
                 }
             }
-            UnknownMemberResolveResult umrr = target as UnknownMemberResolveResult;
-            if (umrr != null) {
+            if (target is UnknownMemberResolveResult umrr)
+            {
                 return new UnknownMethodResolveResult(umrr.TargetType, umrr.MemberName, umrr.TypeArguments, CreateParameters(arguments, argumentNames));
             }
-            UnknownIdentifierResolveResult uirr = target as UnknownIdentifierResolveResult;
-            if (uirr != null && CurrentTypeDefinition != null) {
+            if (target is UnknownIdentifierResolveResult uirr && CurrentTypeDefinition != null)
+            {
                 return new UnknownMethodResolveResult(CurrentTypeDefinition, uirr.Identifier, EmptyList<IType>.Instance, CreateParameters(arguments, argumentNames));
             }
             IMethod invokeMethod = target.Type.GetDelegateInvokeMethod();
@@ -2146,15 +2154,20 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 }
 
                 // create the parameter:
-                ByReferenceResolveResult brrr = arguments[i] as ByReferenceResolveResult;
-                if (brrr != null) {
+                if (arguments[i] is ByReferenceResolveResult brrr)
+                {
                     list.Add(new DefaultParameter(arguments[i].Type, argumentNames[i], isRef: brrr.IsRef, isOut: brrr.IsOut));
-                } else {
+                }
+                else
+                {
                     // argument might be a lambda or delegate type, so we have to try to guess the delegate type
                     IType type = arguments[i].Type;
-                    if (type.Kind == TypeKind.Null || type.Kind == TypeKind.Unknown) {
+                    if (type.Kind == TypeKind.Null || type.Kind == TypeKind.Unknown)
+                    {
                         list.Add(new DefaultParameter(compilation.FindType(KnownTypeCode.Object), argumentNames[i]));
-                    } else {
+                    }
+                    else
+                    {
                         list.Add(new DefaultParameter(type, argumentNames[i]));
                     }
                 }
@@ -2164,20 +2177,16 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
         static string GuessParameterName(ResolveResult rr)
         {
-            MemberResolveResult mrr = rr as MemberResolveResult;
-            if (mrr != null)
+            if (rr is MemberResolveResult mrr)
                 return mrr.Member.Name;
 
-            UnknownMemberResolveResult umrr = rr as UnknownMemberResolveResult;
-            if (umrr != null)
+            if (rr is UnknownMemberResolveResult umrr)
                 return umrr.MemberName;
 
-            MethodGroupResolveResult mgrr = rr as MethodGroupResolveResult;
-            if (mgrr != null)
+            if (rr is MethodGroupResolveResult mgrr)
                 return mgrr.MethodName;
 
-            LocalResolveResult vrr = rr as LocalResolveResult;
-            if (vrr != null)
+            if (rr is LocalResolveResult vrr)
                 return MakeParameterName(vrr.Variable.Name);
 
             if (rr.Type.Kind != TypeKind.Unknown && !string.IsNullOrEmpty(rr.Type.Name)) {
@@ -2657,8 +2666,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 return new OperatorResolveResult(lhs.Type, linqOp, lhs, this.Convert(rhs, lhs.Type));
             }
             ResolveResult bopResult = ResolveBinaryOperator(bop.Value, lhs, rhs);
-            OperatorResolveResult opResult = bopResult as OperatorResolveResult;
-            if (opResult == null || opResult.Operands.Count != 2)
+            if (!(bopResult is OperatorResolveResult opResult) || opResult.Operands.Count != 2)
                 return bopResult;
             return new OperatorResolveResult(lhs.Type, linqOp, opResult.UserDefinedOperatorMethod, opResult.IsLiftedOperator,
                                              new [] { lhs, opResult.Operands[1] });

@@ -75,8 +75,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            var o = other as ErrorNode;
-            return o != null;
+            return other is ErrorNode o;
         }
 
         public override string ToString(CSharpFormattingOptions formattingOptions)

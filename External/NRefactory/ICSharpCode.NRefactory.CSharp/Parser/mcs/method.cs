@@ -951,8 +951,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (parameters.Count > 1)
                 return false;
 
-            var ac = parameters.Types [0] as ArrayContainer;
-            return ac != null && ac.Rank == 1 && ac.Element.BuiltinType == BuiltinTypeSpec.Type.String &&
+            return parameters.Types[0] is ArrayContainer ac && ac.Rank == 1 && ac.Element.BuiltinType == BuiltinTypeSpec.Type.String &&
                     (parameters[0].ModFlags & Parameter.Modifier.RefOutMask) == 0;
         }
 
@@ -2028,12 +2027,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                                     "Accessor `{0}' cannot implement interface member `{1}' for type `{2}'. Use an explicit interface implementation",
                                     method.GetSignatureForError (), TypeManager.CSharpSignature (implementing), container.GetSignatureForError ());
                             } else {
-                                PropertyBase.PropertyMethod pm = method as PropertyBase.PropertyMethod;
-                                if (pm != null && pm.HasCustomAccessModifier && (pm.ModFlags & Modifiers.PUBLIC) == 0) {
-                                    container.Compiler.Report.SymbolRelatedToPreviousError (implementing);
-                                    container.Compiler.Report.Error (277, method.Location,
+                                if (method is PropertyBase.PropertyMethod pm && pm.HasCustomAccessModifier && (pm.ModFlags & Modifiers.PUBLIC) == 0)
+                                {
+                                    container.Compiler.Report.SymbolRelatedToPreviousError(implementing);
+                                    container.Compiler.Report.Error(277, method.Location,
                                         "Accessor `{0}' must be declared public to implement interface member `{1}'",
-                                        method.GetSignatureForError (), implementing.GetSignatureForError ());
+                                        method.GetSignatureForError(), implementing.GetSignatureForError());
                                 }
                             }
                         }
@@ -2274,11 +2273,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             var base_type = Parent.PartialContainer.BaseType;
             if (base_type != null && Block != null) {
-                var base_dtor = MemberCache.FindMember (base_type,
-                    new MemberFilter (MetadataName, 0, MemberKind.Destructor, null, null), BindingRestriction.InstanceOnly) as MethodSpec;
-
-                if (base_dtor == null)
-                    throw new NotImplementedException ();
+                if (!(MemberCache.FindMember(base_type,
+                    new MemberFilter(MetadataName, 0, MemberKind.Destructor, null, null), BindingRestriction.InstanceOnly) is MethodSpec base_dtor))
+                    throw new NotImplementedException();
 
                 MethodGroupExpr method_expr = MethodGroupExpr.CreatePredefined (base_dtor, base_type, Location);
                 method_expr.InstanceExpression = new BaseThis (base_type, Location);

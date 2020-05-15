@@ -62,9 +62,8 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch (AstNode other, PatternMatching.Match match)
         {
-            var o = other as FixedFieldDeclaration;
-            return o != null && this.MatchAttributesAndModifiers (o, match)
-                && this.ReturnType.DoMatch (o.ReturnType, match) && this.Variables.DoMatch (o.Variables, match);
+            return other is FixedFieldDeclaration o && this.MatchAttributesAndModifiers(o, match)
+                && this.ReturnType.DoMatch(o.ReturnType, match) && this.Variables.DoMatch(o.Variables, match);
         }
     }
 }

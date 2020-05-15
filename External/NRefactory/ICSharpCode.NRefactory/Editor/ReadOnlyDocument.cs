@@ -103,8 +103,7 @@ namespace ICSharpCode.NRefactory.Editor
 
             public override bool Equals(object obj)
             {
-                ReadOnlyDocumentLine other = obj as ReadOnlyDocumentLine;
-                return other != null && doc == other.doc && lineNumber == other.lineNumber;
+                return obj is ReadOnlyDocumentLine other && doc == other.doc && lineNumber == other.lineNumber;
             }
 
             public int Offset {

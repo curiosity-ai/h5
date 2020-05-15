@@ -133,8 +133,7 @@ namespace System.Collections.ObjectModel
                 throw new System.ArgumentException();
             }
 
-            T[] items = array as T[];
-            if (items != null)
+            if (array is T[] items)
             {
                 list.CopyTo(items, index);
             }
@@ -157,8 +156,7 @@ namespace System.Collections.ObjectModel
                 // We can't cast array of value type to object[], so we don't support
                 // widening of primitive types here.
                 //
-                object[] objects = array as object[];
-                if (objects == null)
+                if (!(array is object[] objects))
                 {
                     throw new System.ArgumentException();
                 }

@@ -375,9 +375,7 @@ namespace H5.Translator
             {
                 if (ca.AttributeType.Name == "NameAttribute" && ca.ConstructorArguments.Count > 0)
                 {
-                    var constructorArgumentValue = ca.ConstructorArguments[0].Value as string;
-
-                    if (constructorArgumentValue != null)
+                    if (ca.ConstructorArguments[0].Value is string constructorArgumentValue)
                     {
                         name = constructorArgumentValue.Contains(".") ? constructorArgumentValue.Substring(0, constructorArgumentValue.LastIndexOf(".")) : null;
 

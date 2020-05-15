@@ -148,8 +148,8 @@ namespace ICSharpCode.NRefactory.CSharp
 
             public override bool Equals(object obj)
             {
-                TextReplaceAction other = obj as TextReplaceAction;
-                if (other == null) {
+                if (!(obj is TextReplaceAction other))
+                {
                     return false;
                 }
                 return this.Offset == other.Offset && this.RemovalLength == other.RemovalLength && this.NewText == other.NewText;

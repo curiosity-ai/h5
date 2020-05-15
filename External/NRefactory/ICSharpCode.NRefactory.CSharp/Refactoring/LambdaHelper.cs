@@ -35,8 +35,7 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
     {
         public static IType GetLambdaReturnType(RefactoringContext context, LambdaExpression lambda)
         {
-            LambdaResolveResult rr = context.Resolve(lambda) as LambdaResolveResult;
-            if (rr == null)
+            if (!(context.Resolve(lambda) is LambdaResolveResult rr))
                 return SpecialType.UnknownType;
             if (rr.IsAsync) {
                 // Unpack Task<T>

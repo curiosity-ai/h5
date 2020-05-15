@@ -82,8 +82,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            LambdaExpression o = other as LambdaExpression;
-            return o != null && this.IsAsync == o.IsAsync && this.Parameters.DoMatch(o.Parameters, match) && this.Body.DoMatch(o.Body, match);
+            return other is LambdaExpression o && this.IsAsync == o.IsAsync && this.Parameters.DoMatch(o.Parameters, match) && this.Body.DoMatch(o.Body, match);
         }
     }
 }

@@ -232,14 +232,13 @@ namespace H5.Translator
             this.WriteNewLine();
             this.Write("continue;");
 
-            BlockStatement block = foreachStatement.EmbeddedStatement as BlockStatement;
 
             var writer = this.SaveWriter();
             this.Emitter.AsyncBlock.AddAsyncStep();
             this.Emitter.IgnoreBlock = foreachStatement.EmbeddedStatement;
             var startCount = this.Emitter.AsyncBlock.Steps.Count;
 
-            if (block != null)
+            if (foreachStatement.EmbeddedStatement is BlockStatement block)
             {
                 block.AcceptChildren(this.Emitter);
             }
@@ -436,14 +435,13 @@ namespace H5.Translator
             };
             this.Emitter.BeforeBlock = ac;
 
-            BlockStatement block = foreachStatement.EmbeddedStatement as BlockStatement;
 
             if (replaceAwaiterByVar.HasValue)
             {
                 this.Emitter.ReplaceAwaiterByVar = replaceAwaiterByVar.Value;
             }
 
-            if (block != null)
+            if (foreachStatement.EmbeddedStatement is BlockStatement block)
             {
                 this.Emitter.NoBraceBlock = block;
             }

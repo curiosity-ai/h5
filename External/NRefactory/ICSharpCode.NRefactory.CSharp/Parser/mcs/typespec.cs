@@ -106,9 +106,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     // base types has been imported to avoid problems where
                     // interface references type before its base was imported
                     //
-                    var imported = MemberDefinition as ImportedTypeDefinition;
-                    if (imported != null && Kind != MemberKind.MissingType)
-                        imported.DefineInterfaces (this);
+                    if (MemberDefinition is ImportedTypeDefinition imported && Kind != MemberKind.MissingType)
+                        imported.DefineInterfaces(this);
 
                 }
 
@@ -320,9 +319,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (IsPointer)
                     return ((ElementTypeSpec) this).Element.IsUnmanaged;
 
-                var ds = MemberDefinition as TypeDefinition;
-                if (ds != null)
-                    return ds.IsUnmanagedType ();
+                if (MemberDefinition is TypeDefinition ds)
+                    return ds.IsUnmanagedType();
 
                 if (Kind == MemberKind.Void)
                     return true;
@@ -1070,16 +1068,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 // we need to do a signature based comparision and consider them equal.
                 //
 
-                var tp_a = a as TypeParameterSpec;
-                if (tp_a != null) {
-                    var tp_b = b as TypeParameterSpec;
-                    return tp_b != null && tp_a.IsMethodOwned == tp_b.IsMethodOwned && tp_a.DeclaredPosition == tp_b.DeclaredPosition;
+                if (a is TypeParameterSpec tp_a)
+                {
+                    return b is TypeParameterSpec tp_b && tp_a.IsMethodOwned == tp_b.IsMethodOwned && tp_a.DeclaredPosition == tp_b.DeclaredPosition;
                 }
 
-                var ac_a = a as ArrayContainer;
-                if (ac_a != null) {
-                    var ac_b = b as ArrayContainer;
-                    return ac_b != null && ac_a.Rank == ac_b.Rank && IsEqual (ac_a.Element, ac_b.Element);
+                if (a is ArrayContainer ac_a)
+                {
+                    return b is ArrayContainer ac_b && ac_a.Rank == ac_b.Rank && IsEqual(ac_a.Element, ac_b.Element);
                 }
 
                 if (a.BuiltinType == BuiltinTypeSpec.Type.Dynamic || b.BuiltinType == BuiltinTypeSpec.Type.Dynamic)
@@ -1314,13 +1310,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 //
                 // If both of them are arrays.
                 //
-                var a_ac = a as ArrayContainer;
-                if (a_ac != null) {
-                    var b_ac = b as ArrayContainer;
-                    if (b_ac == null || a_ac.Rank != b_ac.Rank)
+                if (a is ArrayContainer a_ac)
+                {
+                    if (!(b is ArrayContainer b_ac) || a_ac.Rank != b_ac.Rank)
                         return false;
 
-                    return MayBecomeEqualGenericTypes (a_ac.Element, b_ac.Element);
+                    return MayBecomeEqualGenericTypes(a_ac.Element, b_ac.Element);
                 }
 
                 //
@@ -1363,8 +1358,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (a.IsArray) {
                 var a_a = (ArrayContainer) a;
-                var b_a = b as ArrayContainer;
-                if (b_a == null)
+                if (!(b is ArrayContainer b_a))
                     return false;
 
                 return a_a.Rank == b_a.Rank && IsEqual (a_a.Element, b_a.Element);
@@ -1881,11 +1875,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         void GetElementSignatureForDocumentation (StringBuilder sb, bool explicitName)
         {
-            var ac = Element as ArrayContainer;
-            if (ac == null)
-                sb.Append (Element.GetSignatureForDocumentation (explicitName));
+            if (!(Element is ArrayContainer ac))
+                sb.Append(Element.GetSignatureForDocumentation(explicitName));
             else
-                ac.GetElementSignatureForDocumentation (sb, explicitName);
+                ac.GetElementSignatureForDocumentation(sb, explicitName);
 
             if (explicitName) {
                 sb.Append (GetPostfixSignature (rank));

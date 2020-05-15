@@ -41,8 +41,7 @@ namespace ICSharpCode.NRefactory.Semantics
                 throw new ArgumentNullException("variable");
             IType type = variable.Type;
             if (type.Kind == TypeKind.ByReference) {
-                IParameter p = variable as IParameter;
-                if (p != null && (p.IsRef || p.IsOut))
+                if (variable is IParameter p && (p.IsRef || p.IsOut))
                     return ((ByReferenceType)type).ElementType;
             }
             return type;

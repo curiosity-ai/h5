@@ -147,17 +147,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public void FlowAnalysis (FlowAnalysisContext fc)
         {
             if (ArgType == AType.Out) {
-                var vr = Expr as VariableReference;
-                if (vr != null) {
+                if (Expr is VariableReference vr)
+                {
                     if (vr.VariableInfo != null)
-                        fc.SetVariableAssigned (vr.VariableInfo);
+                        fc.SetVariableAssigned(vr.VariableInfo);
 
                     return;
                 }
 
-                var fe = Expr as FieldExpr;
-                if (fe != null) {
-                    fe.SetFieldAssigned (fc);
+                if (Expr is FieldExpr fe)
+                {
+                    fe.SetFieldAssigned(fc);
                     return;
                 }
 
@@ -177,9 +177,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public bool ResolveMethodGroup (ResolveContext ec)
         {
-            SimpleName sn = Expr as SimpleName;
-            if (sn != null)
-                Expr = sn.GetMethodGroup ();
+            if (Expr is SimpleName sn)
+                Expr = sn.GetMethodGroup();
 
             // FIXME: csc doesn't report any error if you try to use `ref' or
             //        `out' in a delegate creation expression.
@@ -384,18 +383,22 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 var arg_type = a.Expr.Type;
 
                 if (arg_type.BuiltinType != BuiltinTypeSpec.Type.Dynamic && arg_type != InternalType.NullLiteral) {
-                    MethodGroupExpr mg = a.Expr as MethodGroupExpr;
-                    if (mg != null) {
-                        rc.Report.Error (1976, a.Expr.Location,
+                    if (a.Expr is MethodGroupExpr mg)
+                    {
+                        rc.Report.Error(1976, a.Expr.Location,
                             "The method group `{0}' cannot be used as an argument of dynamic operation. Consider using parentheses to invoke the method",
                             mg.Name);
-                    } else if (arg_type == InternalType.AnonymousMethod) {
-                        rc.Report.Error (1977, a.Expr.Location,
+                    }
+                    else if (arg_type == InternalType.AnonymousMethod)
+                    {
+                        rc.Report.Error(1977, a.Expr.Location,
                             "An anonymous method or lambda expression cannot be used as an argument of dynamic operation. Consider using a cast");
-                    } else if (arg_type.Kind == MemberKind.Void || arg_type == InternalType.Arglist || arg_type.IsPointer) {
-                        rc.Report.Error (1978, a.Expr.Location,
+                    }
+                    else if (arg_type.Kind == MemberKind.Void || arg_type == InternalType.Arglist || arg_type.IsPointer)
+                    {
+                        rc.Report.Error(1978, a.Expr.Location,
                             "An expression of type `{0}' cannot be used as an argument of dynamic operation",
-                            arg_type.GetSignatureForError ());
+                            arg_type.GetSignatureForError());
                     }
 
                     info_flags = new Binary (Binary.Operator.BitwiseOr, info_flags,
@@ -403,13 +406,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
 
                 string named_value;
-                NamedArgument na = a as NamedArgument;
-                if (na != null) {
-                    info_flags = new Binary (Binary.Operator.BitwiseOr, info_flags,
-                        new MemberAccess (new MemberAccess (binder, info_flags_enum, loc), "NamedArgument", loc));
+                if (a is NamedArgument na)
+                {
+                    info_flags = new Binary(Binary.Operator.BitwiseOr, info_flags,
+                        new MemberAccess(new MemberAccess(binder, info_flags_enum, loc), "NamedArgument", loc));
 
                     named_value = na.Name;
-                } else {
+                }
+                else
+                {
                     named_value = null;
                 }
 
@@ -538,9 +543,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     continue;
                 }
 
-                var ma = arg as MovableArgument;
-                if (ma != null && !movable.Contains (ma))
-                    arg.FlowAnalysis (fc);
+                if (arg is MovableArgument ma && !movable.Contains(ma))
+                    arg.FlowAnalysis(fc);
             }
 
             if (!has_out)
@@ -619,12 +623,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (a.Expr.IsSideEffectFree)
                 return this;
 
-            ArgumentsOrdered ra = this as ArgumentsOrdered;
-            if (ra == null) {
-                ra = new ArgumentsOrdered (this);
+            if (!(this is ArgumentsOrdered ra))
+            {
+                ra = new ArgumentsOrdered(this);
 
-                for (int i = 0; i < args.Count; ++i) {
-                    var la = args [i];
+                for (int i = 0; i < args.Count; ++i)
+                {
+                    var la = args[i];
                     if (la == a)
                         break;
 
@@ -634,13 +639,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     if (la == null)
                         continue;
 
-                    var ma = la as MovableArgument;
-                    if (ma == null) {
-                        ma = new MovableArgument (la);
+                    if (!(la is MovableArgument ma))
+                    {
+                        ma = new MovableArgument(la);
                         ra.args[i] = ma;
                     }
 
-                    ra.AddOrdered (ma);
+                    ra.AddOrdered(ma);
                 }
             }
 

@@ -114,8 +114,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                     if (IsExpandedForm && mappedTo == results.Length - 1) {
                         paramsArguments.Add(Arguments[i]);
                     } else {
-                        var narr = Arguments[i] as NamedArgumentResolveResult;
-                        if (narr != null)
+                        if (Arguments[i] is NamedArgumentResolveResult narr)
                             results[mappedTo] = narr.Argument;
                         else
                             results[mappedTo] = Arguments[i];

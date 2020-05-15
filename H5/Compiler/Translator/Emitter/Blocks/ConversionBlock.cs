@@ -282,9 +282,7 @@ namespace H5.Translator
             {
                 if (m.Name == name && !m.IsStatic && m.ReturnType.Equals(returnType) && m.IsOverride)
                 {
-                    var method = m as IMethod;
-
-                    if (method != null && method.Parameters.Count == 0 && method.TypeParameters.Count == 0)
+                    if (m is IMethod method && method.Parameters.Count == 0 && method.TypeParameters.Count == 0)
                     {
                         return true;
                     }
@@ -301,8 +299,7 @@ namespace H5.Translator
 
         private static bool IsUnpackGenericArrayInterfaceObject(IType interfaceType)
         {
-            ParameterizedType pt = interfaceType as ParameterizedType;
-            if (pt != null)
+            if (interfaceType is ParameterizedType pt)
             {
                 KnownTypeCode tc = pt.GetDefinition().KnownTypeCode;
                 if (tc == KnownTypeCode.IListOfT || tc == KnownTypeCode.ICollectionOfT || tc == KnownTypeCode.IEnumerableOfT || tc == KnownTypeCode.IReadOnlyListOfT)
@@ -339,9 +336,7 @@ namespace H5.Translator
             bool isBoxing = conversion.IsBoxingConversion;
             if (expression.Parent is MemberReferenceExpression && expression.Parent.Parent is InvocationExpression)
             {
-                var inv_rr = block.Emitter.Resolver.ResolveNode(expression.Parent.Parent, block.Emitter) as CSharpInvocationResolveResult;
-
-                if (inv_rr != null && inv_rr.IsExtensionMethodInvocation)
+                if (block.Emitter.Resolver.ResolveNode(expression.Parent.Parent, block.Emitter) is CSharpInvocationResolveResult inv_rr && inv_rr.IsExtensionMethodInvocation)
                 {
                     conversion = block.Emitter.Resolver.Resolver.GetConversion((Expression)expression.Parent);
                     isExtensionMethodArgument = true;
@@ -369,20 +364,17 @@ namespace H5.Translator
 
                 if (!isArgument)
                 {
-                    var inv = expression.Parent as InvocationExpression;
-                    isArgument = inv != null && inv.Arguments.Contains(expression);
+                    isArgument = expression.Parent is InvocationExpression inv && inv.Arguments.Contains(expression);
                 }
 
                 if (!isArgument)
                 {
-                    var idx = expression.Parent as IndexerExpression;
-                    isArgument = idx != null && idx.Arguments.Contains(expression);
+                    isArgument = expression.Parent is IndexerExpression idx && idx.Arguments.Contains(expression);
                 }
 
                 if (!isArgument)
                 {
-                    var ae = expression.Parent as AssignmentExpression;
-                    isArgument = ae != null && ae.Right == expression;
+                    isArgument = expression.Parent is AssignmentExpression ae && ae.Right == expression;
                 }
 
                 if (isArgument)
@@ -433,8 +425,7 @@ namespace H5.Translator
 
                 var nobox = block.Emitter.TemplateModifier == "nobox";
                 var isStringConcat = false;
-                var binaryOperatorExpression = expression.Parent as BinaryOperatorExpression;
-                if (binaryOperatorExpression != null)
+                if (expression.Parent is BinaryOperatorExpression binaryOperatorExpression)
                 {
                     var resolveOperator = block.Emitter.Resolver.ResolveNode(binaryOperatorExpression, block.Emitter);
                     var expectedParentType = block.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression);
@@ -840,14 +831,12 @@ namespace H5.Translator
                 }
             }
 
-            var invocationExpression = expression.Parent as InvocationExpression;
-            if (invocationExpression != null && invocationExpression.Arguments.Any(a => a == expression))
+            if (expression.Parent is InvocationExpression invocationExpression && invocationExpression.Arguments.Any(a => a == expression))
             {
                 var index = invocationExpression.Arguments.ToList().IndexOf(expression);
                 var methodResolveResult = block.Emitter.Resolver.ResolveNode(invocationExpression, block.Emitter) as MemberResolveResult;
-                var invocationResolveResult = methodResolveResult as CSharpInvocationResolveResult;
 
-                if (invocationResolveResult != null && invocationResolveResult.IsExtensionMethodInvocation)
+                if (methodResolveResult is CSharpInvocationResolveResult invocationResolveResult && invocationResolveResult.IsExtensionMethodInvocation)
                 {
                     index++;
                 }
@@ -880,13 +869,11 @@ namespace H5.Translator
                 }
             }
 
-            var objectCreateExpression = expression.Parent as ObjectCreateExpression;
-            if (objectCreateExpression != null && objectCreateExpression.Arguments.Any(a => a == expression))
+            if (expression.Parent is ObjectCreateExpression objectCreateExpression && objectCreateExpression.Arguments.Any(a => a == expression))
             {
                 var index = objectCreateExpression.Arguments.ToList().IndexOf(expression);
-                var methodResolveResult = block.Emitter.Resolver.ResolveNode(objectCreateExpression, block.Emitter) as MemberResolveResult;
 
-                if (methodResolveResult != null)
+                if (block.Emitter.Resolver.ResolveNode(objectCreateExpression, block.Emitter) is MemberResolveResult methodResolveResult)
                 {
                     var m = methodResolveResult.Member as IMethod;
                     var arg = m.Parameters[index < m.Parameters.Count ? index : (m.Parameters.Count - 1)];
@@ -914,8 +901,7 @@ namespace H5.Translator
                 }
             }
 
-            var namedArgExpression = expression.Parent as NamedArgumentExpression;
-            if (namedArgExpression != null)
+            if (expression.Parent is NamedArgumentExpression namedArgExpression)
             {
                 var namedArgResolveResult = block.Emitter.Resolver.ResolveNode(namedArgExpression, block.Emitter) as NamedArgumentResolveResult;
 
@@ -941,8 +927,7 @@ namespace H5.Translator
                 }
             }
 
-            var namedExpression = expression.Parent as NamedExpression;
-            if (namedExpression != null)
+            if (expression.Parent is NamedExpression namedExpression)
             {
                 var namedResolveResult = block.Emitter.Resolver.ResolveNode(namedExpression, block.Emitter);
 
@@ -968,13 +953,11 @@ namespace H5.Translator
                 }
             }
 
-            var binaryOpExpr = expression.Parent as BinaryOperatorExpression;
-            if (binaryOpExpr != null)
+            if (expression.Parent is BinaryOperatorExpression binaryOpExpr)
             {
                 var idx = binaryOpExpr.Left == expression ? 0 : 1;
-                var binaryOpRr = block.Emitter.Resolver.ResolveNode(binaryOpExpr, block.Emitter) as OperatorResolveResult;
 
-                if (binaryOpRr != null && isType(binaryOpRr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
+                if (block.Emitter.Resolver.ResolveNode(binaryOpExpr, block.Emitter) is OperatorResolveResult binaryOpRr && isType(binaryOpRr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
                     var isNullable = NullableType.IsNullable(binaryOpRr.Operands[idx].Type);
                     if (expression.IsNull)
@@ -997,13 +980,11 @@ namespace H5.Translator
                 }
             }
 
-            var conditionalExpr = expression.Parent as ConditionalExpression;
-            if (conditionalExpr != null && conditionalExpr.Condition != expression)
+            if (expression.Parent is ConditionalExpression conditionalExpr && conditionalExpr.Condition != expression)
             {
                 var idx = conditionalExpr.TrueExpression == expression ? 1 : 2;
-                var conditionalrr = block.Emitter.Resolver.ResolveNode(conditionalExpr, block.Emitter) as OperatorResolveResult;
 
-                if (conditionalrr != null && isType(conditionalrr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
+                if (block.Emitter.Resolver.ResolveNode(conditionalExpr, block.Emitter) is OperatorResolveResult conditionalrr && isType(conditionalrr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
                     if (expression.IsNull)
                     {
@@ -1025,8 +1006,7 @@ namespace H5.Translator
                 }
             }
 
-            var assignmentExpr = expression.Parent as AssignmentExpression;
-            if (assignmentExpr != null)
+            if (expression.Parent is AssignmentExpression assignmentExpr)
             {
                 var assigmentRr = block.Emitter.Resolver.ResolveNode(assignmentExpr, block.Emitter) as OperatorResolveResult;
 
@@ -1052,15 +1032,13 @@ namespace H5.Translator
                 }
             }
 
-            var indexerExpr = expression.Parent as IndexerExpression;
-            if (indexerExpr != null)
+            if (expression.Parent is IndexerExpression indexerExpr)
             {
                 var index = indexerExpr.Arguments.ToList().IndexOf(expression);
 
                 if (index >= 0)
                 {
-                    var invocationrr = block.Emitter.Resolver.ResolveNode(indexerExpr, block.Emitter) as InvocationResolveResult;
-                    if (invocationrr != null)
+                    if (block.Emitter.Resolver.ResolveNode(indexerExpr, block.Emitter) is InvocationResolveResult invocationrr)
                     {
                         var parameters = invocationrr.Member.Parameters;
                         if (parameters.Count <= index)
@@ -1092,8 +1070,7 @@ namespace H5.Translator
                 }
             }
 
-            var arrayInit = expression.Parent as ArrayInitializerExpression;
-            if (arrayInit != null)
+            if (expression.Parent is ArrayInitializerExpression arrayInit)
             {
                 while (arrayInit.Parent is ArrayInitializerExpression)
                 {
@@ -1101,8 +1078,7 @@ namespace H5.Translator
                 }
 
                 IType elementType = null;
-                var arrayCreate = arrayInit.Parent as ArrayCreateExpression;
-                if (arrayCreate != null)
+                if (arrayInit.Parent is ArrayCreateExpression arrayCreate)
                 {
                     var rrArrayType = block.Emitter.Resolver.ResolveNode(arrayCreate, block.Emitter);
                     if (rrArrayType.Type is TypeWithElementType)
@@ -1117,8 +1093,7 @@ namespace H5.Translator
                 else
                 {
                     var rrElemenet = block.Emitter.Resolver.ResolveNode(arrayInit.Parent, block.Emitter);
-                    var pt = rrElemenet.Type as ParameterizedType;
-                    if (pt != null && pt.TypeArguments.Count > 0)
+                    if (rrElemenet.Type is ParameterizedType pt && pt.TypeArguments.Count > 0)
                     {
                         if (pt.TypeArguments.Count == 1)
                         {
@@ -1143,8 +1118,7 @@ namespace H5.Translator
                     }
                     else
                     {
-                        var arrayType = rrElemenet.Type as TypeWithElementType;
-                        if (arrayType != null)
+                        if (rrElemenet.Type is TypeWithElementType arrayType)
                         {
                             elementType = arrayType.ElementType;
                         }
@@ -1193,9 +1167,8 @@ namespace H5.Translator
 
             if (isType(expectedType, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver) && !(conversion.IsExplicit && conversion.IsNumericConversion))
             {
-                var castExpr = expression.Parent as CastExpression;
                 ResolveResult castTypeRr = null;
-                if (castExpr != null)
+                if (expression.Parent is CastExpression castExpr)
                 {
                     castTypeRr = block.Emitter.Resolver.ResolveNode(castExpr.Type, block.Emitter);
                 }
@@ -1238,13 +1211,11 @@ namespace H5.Translator
                 }
             }
 
-            var invocationExpression = expression.Parent as InvocationExpression;
-            if (invocationExpression != null && invocationExpression.Arguments.Any(a => a == expression))
+            if (expression.Parent is InvocationExpression invocationExpression && invocationExpression.Arguments.Any(a => a == expression))
             {
                 var index = invocationExpression.Arguments.ToList().IndexOf(expression);
-                var methodResolveResult = block.Emitter.Resolver.ResolveNode(invocationExpression, block.Emitter) as MemberResolveResult;
 
-                if (methodResolveResult != null)
+                if (block.Emitter.Resolver.ResolveNode(invocationExpression, block.Emitter) is MemberResolveResult methodResolveResult)
                 {
                     var m = methodResolveResult.Member as IMethod;
                     var arg = m.Parameters[index < m.Parameters.Count ? index : (m.Parameters.Count - 1)];
@@ -1265,13 +1236,11 @@ namespace H5.Translator
                 }
             }
 
-            var objectCreateExpression = expression.Parent as ObjectCreateExpression;
-            if (objectCreateExpression != null && objectCreateExpression.Arguments.Any(a => a == expression))
+            if (expression.Parent is ObjectCreateExpression objectCreateExpression && objectCreateExpression.Arguments.Any(a => a == expression))
             {
                 var index = objectCreateExpression.Arguments.ToList().IndexOf(expression);
-                var methodResolveResult = block.Emitter.Resolver.ResolveNode(objectCreateExpression, block.Emitter) as MemberResolveResult;
 
-                if (methodResolveResult != null)
+                if (block.Emitter.Resolver.ResolveNode(objectCreateExpression, block.Emitter) is MemberResolveResult methodResolveResult)
                 {
                     var m = methodResolveResult.Member as IMethod;
                     var arg = m.Parameters[index < m.Parameters.Count ? index : (m.Parameters.Count - 1)];
@@ -1293,8 +1262,7 @@ namespace H5.Translator
                 }
             }
 
-            var namedArgExpression = expression.Parent as NamedArgumentExpression;
-            if (namedArgExpression != null)
+            if (expression.Parent is NamedArgumentExpression namedArgExpression)
             {
                 var namedArgResolveResult = block.Emitter.Resolver.ResolveNode(namedArgExpression, block.Emitter) as NamedArgumentResolveResult;
 
@@ -1315,8 +1283,7 @@ namespace H5.Translator
                 }
             }
 
-            var namedExpression = expression.Parent as NamedExpression;
-            if (namedExpression != null)
+            if (expression.Parent is NamedExpression namedExpression)
             {
                 var namedResolveResult = block.Emitter.Resolver.ResolveNode(namedExpression, block.Emitter);
 
@@ -1336,13 +1303,11 @@ namespace H5.Translator
                 }
             }
 
-            var binaryOpExpr = expression.Parent as BinaryOperatorExpression;
-            if (binaryOpExpr != null)
+            if (expression.Parent is BinaryOperatorExpression binaryOpExpr)
             {
                 var idx = binaryOpExpr.Left == expression ? 0 : 1;
-                var binaryOpRr = block.Emitter.Resolver.ResolveNode(binaryOpExpr, block.Emitter) as OperatorResolveResult;
 
-                if (binaryOpRr != null && isType(binaryOpRr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
+                if (block.Emitter.Resolver.ResolveNode(binaryOpExpr, block.Emitter) is OperatorResolveResult binaryOpRr && isType(binaryOpRr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
                     if (expression.IsNull)
                     {
@@ -1359,13 +1324,11 @@ namespace H5.Translator
                 }
             }
 
-            var conditionalExpr = expression.Parent as ConditionalExpression;
-            if (conditionalExpr != null && conditionalExpr.Condition != expression)
+            if (expression.Parent is ConditionalExpression conditionalExpr && conditionalExpr.Condition != expression)
             {
                 var idx = conditionalExpr.TrueExpression == expression ? 0 : 1;
-                var conditionalrr = block.Emitter.Resolver.ResolveNode(conditionalExpr, block.Emitter) as OperatorResolveResult;
 
-                if (conditionalrr != null && isType(conditionalrr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
+                if (block.Emitter.Resolver.ResolveNode(conditionalExpr, block.Emitter) is OperatorResolveResult conditionalrr && isType(conditionalrr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
                     if (expression.IsNull)
                     {
@@ -1382,8 +1345,7 @@ namespace H5.Translator
                 }
             }
 
-            var assignmentExpr = expression.Parent as AssignmentExpression;
-            if (assignmentExpr != null)
+            if (expression.Parent is AssignmentExpression assignmentExpr)
             {
                 var assigmentRr = block.Emitter.Resolver.ResolveNode(assignmentExpr, block.Emitter) as OperatorResolveResult;
 
@@ -1404,8 +1366,7 @@ namespace H5.Translator
                 }
             }
 
-            var arrayInit = expression.Parent as ArrayInitializerExpression;
-            if (arrayInit != null)
+            if (expression.Parent is ArrayInitializerExpression arrayInit)
             {
                 while (arrayInit.Parent is ArrayInitializerExpression)
                 {
@@ -1413,8 +1374,7 @@ namespace H5.Translator
                 }
 
                 IType elementType = null;
-                var arrayCreate = arrayInit.Parent as ArrayCreateExpression;
-                if (arrayCreate != null)
+                if (arrayInit.Parent is ArrayCreateExpression arrayCreate)
                 {
                     var rrArrayType = block.Emitter.Resolver.ResolveNode(arrayCreate, block.Emitter);
                     if (rrArrayType.Type is TypeWithElementType)
@@ -1429,15 +1389,13 @@ namespace H5.Translator
                 else
                 {
                     var rrElemenet = block.Emitter.Resolver.ResolveNode(arrayInit.Parent, block.Emitter);
-                    var pt = rrElemenet.Type as ParameterizedType;
-                    if (pt != null)
+                    if (rrElemenet.Type is ParameterizedType pt)
                     {
                         elementType = pt.TypeArguments.Count > 0 ? pt.TypeArguments.First() : null;
                     }
                     else
                     {
-                        var arrayType = rrElemenet.Type as TypeWithElementType;
-                        if (arrayType != null)
+                        if (rrElemenet.Type is TypeWithElementType arrayType)
                         {
                             elementType = arrayType.ElementType;
                         }
@@ -1479,9 +1437,8 @@ namespace H5.Translator
 
             if (isType(expectedType, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver) && !(conversion.IsExplicit && conversion.IsNumericConversion))
             {
-                var castExpr = expression.Parent as CastExpression;
                 ResolveResult castTypeRr = null;
-                if (castExpr != null)
+                if (expression.Parent is CastExpression castExpr)
                 {
                     castTypeRr = block.Emitter.Resolver.ResolveNode(castExpr.Type, block.Emitter);
                 }

@@ -57,8 +57,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
             for (int i = 0; i < this.typeArguments.Length; i++) {
                 if (this.typeArguments[i] == null)
                     throw new ArgumentNullException("typeArguments[" + i + "]");
-                ICompilationProvider p = this.typeArguments[i] as ICompilationProvider;
-                if (p != null && p.Compilation != genericType.Compilation)
+                if (this.typeArguments[i] is ICompilationProvider p && p.Compilation != genericType.Compilation)
                     throw new InvalidOperationException("Cannot parameterize a type with type arguments from a different compilation.");
             }
         }
@@ -284,8 +283,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public bool Equals(IType other)
         {
-            ParameterizedType c = other as ParameterizedType;
-            if (c == null || !genericType.Equals(c.genericType) || typeArguments.Length != c.typeArguments.Length)
+            if (!(other is ParameterizedType c) || !genericType.Equals(c.genericType) || typeArguments.Length != c.typeArguments.Length)
                 return false;
             for (int i = 0; i < typeArguments.Length; i++) {
                 if (!typeArguments[i].Equals(c.typeArguments[i]))
@@ -314,8 +312,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         public IType VisitChildren(TypeVisitor visitor)
         {
             IType g = genericType.AcceptVisitor(visitor);
-            ITypeDefinition def = g as ITypeDefinition;
-            if (def == null)
+            if (!(g is ITypeDefinition def))
                 return g;
             // Keep ta == null as long as no elements changed, allocate the array only if necessary.
             IType[] ta = (g != genericType) ? new IType[typeArguments.Length] : null;
@@ -422,9 +419,10 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            ParameterizedTypeReference o = other as ParameterizedTypeReference;
-            if (o != null && genericType == o.genericType && typeArguments.Length == o.typeArguments.Length) {
-                for (int i = 0; i < typeArguments.Length; i++) {
+            if (other is ParameterizedTypeReference o && genericType == o.genericType && typeArguments.Length == o.typeArguments.Length)
+            {
+                for (int i = 0; i < typeArguments.Length; i++)
+                {
                     if (typeArguments[i] != o.typeArguments[i])
                         return false;
                 }

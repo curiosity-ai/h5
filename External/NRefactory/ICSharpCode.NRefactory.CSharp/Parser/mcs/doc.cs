@@ -127,37 +127,38 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             XmlNode n = GetDocCommentNode (mc, name);
 
-            XmlElement el = n as XmlElement;
-            if (el != null) {
-                var pm = mc as IParametersMember;
-                if (pm != null) {
-                    CheckParametersComments (mc, pm, el);
+            if (n is XmlElement el)
+            {
+                if (mc is IParametersMember pm)
+                {
+                    CheckParametersComments(mc, pm, el);
                 }
 
                 // FIXME: it could be done with XmlReader
-                XmlNodeList nl = n.SelectNodes (".//include");
-                if (nl.Count > 0) {
+                XmlNodeList nl = n.SelectNodes(".//include");
+                if (nl.Count > 0)
+                {
                     // It could result in current node removal, so prepare another list to iterate.
-                    var al = new List<XmlNode> (nl.Count);
+                    var al = new List<XmlNode>(nl.Count);
                     foreach (XmlNode inc in nl)
-                        al.Add (inc);
+                        al.Add(inc);
                     foreach (XmlElement inc in al)
-                        if (!HandleInclude (mc, inc))
-                            inc.ParentNode.RemoveChild (inc);
+                        if (!HandleInclude(mc, inc))
+                            inc.ParentNode.RemoveChild(inc);
                 }
 
                 // FIXME: it could be done with XmlReader
 
-                foreach (XmlElement see in n.SelectNodes (".//see"))
-                    HandleSee (mc, see);
-                foreach (XmlElement seealso in n.SelectNodes (".//seealso"))
-                    HandleSeeAlso (mc, seealso);
-                foreach (XmlElement see in n.SelectNodes (".//exception"))
-                    HandleException (mc, see);
-                foreach (XmlElement node in n.SelectNodes (".//typeparam"))
-                    HandleTypeParam (mc, node);
-                foreach (XmlElement node in n.SelectNodes (".//typeparamref"))
-                    HandleTypeParamRef (mc, node);
+                foreach (XmlElement see in n.SelectNodes(".//see"))
+                    HandleSee(mc, see);
+                foreach (XmlElement seealso in n.SelectNodes(".//seealso"))
+                    HandleSeeAlso(mc, seealso);
+                foreach (XmlElement see in n.SelectNodes(".//exception"))
+                    HandleException(mc, see);
+                foreach (XmlElement node in n.SelectNodes(".//typeparam"))
+                    HandleTypeParam(mc, node);
+                foreach (XmlElement node in n.SelectNodes(".//typeparamref"))
+                    HandleTypeParamRef(mc, node);
             }
 
             n.WriteTo (XmlCommentOutput);
@@ -297,15 +298,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return context.LookupNamespaceOrType (mn.Name, mn.Arity, LookupMode.Probing, Location.Null);
 
             var left = ResolveMemberName (context, mn.Left);
-            var ns = left as NamespaceExpression;
-            if (ns != null)
-                return ns.LookupTypeOrNamespace (context, mn.Name, mn.Arity, LookupMode.Probing, Location.Null);
+            if (left is NamespaceExpression ns)
+                return ns.LookupTypeOrNamespace(context, mn.Name, mn.Arity, LookupMode.Probing, Location.Null);
 
-            TypeExpr texpr = left as TypeExpr;
-            if (texpr != null) {
-                var found = MemberCache.FindNestedType (texpr.Type, mn.Name, mn.Arity);
+            if (left is TypeExpr texpr)
+            {
+                var found = MemberCache.FindNestedType(texpr.Type, mn.Name, mn.Arity);
                 if (found != null)
-                    return new TypeExpression (found, Location.Null);
+                    return new TypeExpression(found, Location.Null);
 
                 return null;
             }
@@ -383,13 +383,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     } else if (ParsedName.Left != null) {
                         fne = ResolveMemberName (mc, ParsedName.Left);
                         if (fne != null) {
-                            var ns = fne as NamespaceExpression;
-                            if (ns != null) {
-                                fne = ns.LookupTypeOrNamespace (mc, ParsedName.Name, ParsedName.Arity, LookupMode.Probing, Location.Null);
-                                if (fne != null) {
+                            if (fne is NamespaceExpression ns)
+                            {
+                                fne = ns.LookupTypeOrNamespace(mc, ParsedName.Name, ParsedName.Arity, LookupMode.Probing, Location.Null);
+                                if (fne != null)
+                                {
                                     member = fne.Type;
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 type = fne.Type;
                             }
                         }
@@ -445,8 +448,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                                     continue;
 
                                 if (ParsedParameters != null) {
-                                    IParametersMember pm = m as IParametersMember;
-                                    if (pm == null)
+                                    if (!(m is IParametersMember pm))
                                         continue;
 
                                     if (m.Kind == MemberKind.Operator && !ParsedOperator.HasValue)

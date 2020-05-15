@@ -264,9 +264,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         // with the TypeBuilder defined types when compiling corlib.
         static object ChangeType (object value, TypeSpec targetType, out bool error)
         {
-            IConvertible convert_value = value as IConvertible;
-
-            if (convert_value == null) {
+            if (!(value is IConvertible convert_value))
+            {
                 error = true;
                 return null;
             }
@@ -2162,57 +2161,63 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         bool ResolveArgumentExpression (ResolveContext rc, Expression expr)
         {
-            var sn = expr as SimpleName;
-            if (sn != null) {
+            if (expr is SimpleName sn)
+            {
                 Value = sn.Name;
 
                 if (rc.Module.Compiler.Settings.Version < LanguageVersion.V_6)
-                    rc.Report.FeatureIsNotAvailable (rc.Module.Compiler, Location, "nameof operator");
+                    rc.Report.FeatureIsNotAvailable(rc.Module.Compiler, Location, "nameof operator");
 
-                var res = sn.LookupNameExpression (rc, MemberLookupRestrictions.IgnoreAmbiguity | MemberLookupRestrictions.NameOfExcluded);
-                if (sn.HasTypeArguments && res is MethodGroupExpr) {
-                    Error_MethodGroupWithTypeArguments (rc, expr.Location);
+                var res = sn.LookupNameExpression(rc, MemberLookupRestrictions.IgnoreAmbiguity | MemberLookupRestrictions.NameOfExcluded);
+                if (sn.HasTypeArguments && res is MethodGroupExpr)
+                {
+                    Error_MethodGroupWithTypeArguments(rc, expr.Location);
                 }
 
                 return true;
             }
 
-            var ma = expr as MemberAccess;
-            if (ma != null) {
+            if (expr is MemberAccess ma)
+            {
                 var lexpr = ma.LeftExpression;
 
-                var res = ma.LookupNameExpression (rc, MemberLookupRestrictions.IgnoreAmbiguity);
+                var res = ma.LookupNameExpression(rc, MemberLookupRestrictions.IgnoreAmbiguity);
 
-                if (res == null) {
+                if (res == null)
+                {
                     return false;
                 }
 
                 if (rc.Module.Compiler.Settings.Version < LanguageVersion.V_6)
-                    rc.Report.FeatureIsNotAvailable (rc.Module.Compiler, Location, "nameof operator");
+                    rc.Report.FeatureIsNotAvailable(rc.Module.Compiler, Location, "nameof operator");
 
-                if (ma is QualifiedAliasMember) {
-                    rc.Report.Error (8083, loc, "An alias-qualified name is not an expression");
+                if (ma is QualifiedAliasMember)
+                {
+                    rc.Report.Error(8083, loc, "An alias-qualified name is not an expression");
                     return false;
                 }
 
-                if (!IsLeftExpressionValid (lexpr)) {
-                    rc.Report.Error (8082, lexpr.Location, "An argument to nameof operator cannot include sub-expression");
+                if (!IsLeftExpressionValid(lexpr))
+                {
+                    rc.Report.Error(8082, lexpr.Location, "An argument to nameof operator cannot include sub-expression");
                     return false;
                 }
 
-                var mg = res as MethodGroupExpr;
-                if (mg != null) {
-                    var emg = res as ExtensionMethodGroupExpr;
-                    if (emg != null && !emg.ResolveNameOf (rc, ma)) {
+                if (res is MethodGroupExpr mg)
+                {
+                    if (res is ExtensionMethodGroupExpr emg && !emg.ResolveNameOf(rc, ma))
+                    {
                         return true;
                     }
 
-                    if (!mg.HasAccessibleCandidate (rc)) {
-                        ErrorIsInaccesible (rc, ma.GetSignatureForError (), loc);
+                    if (!mg.HasAccessibleCandidate(rc))
+                    {
+                        ErrorIsInaccesible(rc, ma.GetSignatureForError(), loc);
                     }
 
-                    if (ma.HasTypeArguments) {
-                        Error_MethodGroupWithTypeArguments (rc, ma.Location);
+                    if (ma.HasTypeArguments)
+                    {
+                        Error_MethodGroupWithTypeArguments(rc, ma.Location);
                     }
                 }
 
@@ -2238,10 +2243,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (expr is TypeExpr)
                 return true;
 
-            var ma = expr as MemberAccess;
-            if (ma != null) {
+            if (expr is MemberAccess ma)
+            {
                 // TODO: Will conditional access be allowed?
-                return IsLeftExpressionValid (ma.LeftExpression);
+                return IsLeftExpressionValid(ma.LeftExpression);
             }
 
             return false;
@@ -2302,13 +2307,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 enc.Encode (byte.MaxValue);
                 return;
             default:
-                var ac = targetType as ArrayContainer;
-                if (ac != null && ac.Rank == 1 && !ac.Element.IsArray) {
-                    enc.Encode (uint.MaxValue);
-                    return;
-                }
+                    if (targetType is ArrayContainer ac && ac.Rank == 1 && !ac.Element.IsArray)
+                    {
+                        enc.Encode(uint.MaxValue);
+                        return;
+                    }
 
-                break;
+                    break;
             }
 
             base.EncodeAttributeValue (rc, enc, targetType, parameterType);

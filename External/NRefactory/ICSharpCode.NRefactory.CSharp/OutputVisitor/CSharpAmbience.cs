@@ -64,8 +64,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
             TypeSystemAstBuilder astBuilder = CreateAstBuilder();
             AstNode node = astBuilder.ConvertSymbol(symbol);
-            EntityDeclaration entityDecl = node as EntityDeclaration;
-            if (entityDecl != null)
+            if (node is EntityDeclaration entityDecl)
                 PrintModifiers(entityDecl.Modifiers, writer);
 
             if ((ConversionFlags & ConversionFlags.ShowDefinitionKeyword) == ConversionFlags.ShowDefinitionKeyword) {
@@ -130,23 +129,27 @@ namespace ICSharpCode.NRefactory.CSharp
             }
 
             if ((ConversionFlags & ConversionFlags.ShowBody) == ConversionFlags.ShowBody && !(node is TypeDeclaration)) {
-                IProperty property = symbol as IProperty;
-                if (property != null) {
+                if (symbol is IProperty property)
+                {
                     writer.Space();
                     writer.WriteToken(Roles.LBrace, "{");
                     writer.Space();
-                    if (property.CanGet) {
+                    if (property.CanGet)
+                    {
                         writer.WriteKeyword(PropertyDeclaration.GetKeywordRole, "get");
                         writer.WriteToken(Roles.Semicolon, ";");
                         writer.Space();
                     }
-                    if (property.CanSet) {
+                    if (property.CanSet)
+                    {
                         writer.WriteKeyword(PropertyDeclaration.SetKeywordRole, "set");
                         writer.WriteToken(Roles.Semicolon, ";");
                         writer.Space();
                     }
                     writer.WriteToken(Roles.RBrace, "}");
-                } else {
+                }
+                else
+                {
                     writer.WriteToken(Roles.Semicolon, ";");
                 }
             }

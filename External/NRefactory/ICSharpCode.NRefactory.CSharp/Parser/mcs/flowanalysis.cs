@@ -139,14 +139,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 var field = struct_info.Fields[i];
 
                 if (!fc.IsStructFieldDefinitelyAssigned (vi, field.Name)) {
-                    var bf = field.MemberDefinition as Property.BackingFieldDeclaration;
-                    if (bf != null) {
+                    if (field.MemberDefinition is Property.BackingFieldDeclaration bf)
+                    {
                         if (bf.Initializer != null)
                             continue;
 
-                        fc.Report.Error (843, loc,
+                        fc.Report.Error(843, loc,
                             "An automatically implemented property `{0}' must be fully assigned before control leaves the constructor. Consider calling the default struct contructor from a constructor initializer",
-                            field.GetSignatureForError ());
+                            field.GetSignatureForError());
 
                         ok = false;
                         continue;

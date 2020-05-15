@@ -76,8 +76,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            DefaultValueExpression o = other as DefaultValueExpression;
-            return o != null && this.Type.DoMatch(o.Type, match);
+            return other is DefaultValueExpression o && this.Type.DoMatch(o.Type, match);
         }
     }
 }

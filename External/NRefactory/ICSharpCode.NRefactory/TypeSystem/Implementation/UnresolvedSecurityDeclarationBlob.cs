@@ -145,8 +145,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            UnresolvedSecurityAttribute attr = other as UnresolvedSecurityAttribute;
-            return attr != null && index == attr.index && secDecl == attr.secDecl;
+            return other is UnresolvedSecurityAttribute attr && index == attr.index && secDecl == attr.secDecl;
         }
     }
 }

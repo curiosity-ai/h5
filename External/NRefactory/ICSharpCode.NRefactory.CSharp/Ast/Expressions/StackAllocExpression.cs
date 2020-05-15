@@ -72,8 +72,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            StackAllocExpression o = other as StackAllocExpression;
-            return o != null && this.Type.DoMatch(o.Type, match) && this.CountExpression.DoMatch(o.CountExpression, match);
+            return other is StackAllocExpression o && this.Type.DoMatch(o.Type, match) && this.CountExpression.DoMatch(o.CountExpression, match);
         }
     }
 }

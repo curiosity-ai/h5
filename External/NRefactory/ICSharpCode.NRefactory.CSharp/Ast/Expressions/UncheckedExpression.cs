@@ -76,8 +76,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            UncheckedExpression o = other as UncheckedExpression;
-            return o != null && this.Expression.DoMatch(o.Expression, match);
+            return other is UncheckedExpression o && this.Expression.DoMatch(o.Expression, match);
         }
     }
 }

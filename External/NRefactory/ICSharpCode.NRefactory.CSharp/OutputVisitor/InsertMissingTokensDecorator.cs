@@ -62,10 +62,10 @@ namespace ICSharpCode.NRefactory.CSharp
         {
             CSharpTokenNode t = new CSharpTokenNode(locationProvider.Location, (TokenRole)role);
             t.Role = role;
-            EmptyStatement node = nodes.Peek().LastOrDefault() as EmptyStatement;
-            if (node == null)
+            if (!(nodes.Peek().LastOrDefault() is EmptyStatement node))
                 currentList.Add(t);
-            else {
+            else
+            {
                 node.Location = locationProvider.Location;
             }
             base.WriteToken(role, token);
@@ -80,12 +80,10 @@ namespace ICSharpCode.NRefactory.CSharp
             else if (role == EntityDeclaration.ModifierRole)
                 t = new CSharpModifierToken(start, CSharpModifierToken.GetModifierValue(keyword));
             else if (keyword == "this") {
-                ThisReferenceExpression node = nodes.Peek().LastOrDefault() as ThisReferenceExpression;
-                if (node != null)
+                if (nodes.Peek().LastOrDefault() is ThisReferenceExpression node)
                     node.Location = start;
             } else if (keyword == "base") {
-                BaseReferenceExpression node = nodes.Peek().LastOrDefault() as BaseReferenceExpression;
-                if (node != null)
+                if (nodes.Peek().LastOrDefault() is BaseReferenceExpression node)
                     node.Location = start;
             }
             if (t != null) currentList.Add(t);
@@ -114,8 +112,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public override void WritePrimitiveType(string type)
         {
-            PrimitiveType node = nodes.Peek().LastOrDefault() as PrimitiveType;
-            if (node != null)
+            if (nodes.Peek().LastOrDefault() is PrimitiveType node)
                 node.SetStartLocation(locationProvider.Location);
             base.WritePrimitiveType(type);
         }

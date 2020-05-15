@@ -53,36 +53,42 @@ namespace ICSharpCode.NRefactory.CSharp
             if (index < 0)
                 yield break;
 
-            var targetResult = resolver.Resolve(invoke.Target) as MethodGroupResolveResult;
-            if (targetResult != null) {
-                foreach (var method in targetResult.Methods) {
-                    if (index < method.Parameters.Count) {
-                        if (method.Parameters [index].IsParams) {
-                            var arrayType = method.Parameters [index].Type as ArrayType;
-                            if (arrayType != null)
+            if (resolver.Resolve(invoke.Target) is MethodGroupResolveResult targetResult)
+            {
+                foreach (var method in targetResult.Methods)
+                {
+                    if (index < method.Parameters.Count)
+                    {
+                        if (method.Parameters[index].IsParams)
+                        {
+                            if (method.Parameters[index].Type is ArrayType arrayType)
                                 yield return arrayType.ElementType;
                         }
 
-                        yield return method.Parameters [index].Type;
+                        yield return method.Parameters[index].Type;
                     }
                 }
-                foreach (var extMethods in targetResult.GetExtensionMethods ()) {
-                    foreach (var extMethod in extMethods) {
+                foreach (var extMethods in targetResult.GetExtensionMethods())
+                {
+                    foreach (var extMethod in extMethods)
+                    {
                         IType[] inferredTypes;
                         var m = extMethod;
-                        if (CSharpResolver.IsEligibleExtensionMethod(targetResult.TargetType, extMethod, true, out inferredTypes)) {
+                        if (CSharpResolver.IsEligibleExtensionMethod(targetResult.TargetType, extMethod, true, out inferredTypes))
+                        {
                             if (inferredTypes != null)
                                 m = extMethod.Specialize(new TypeParameterSubstitution(null, inferredTypes));
                         }
 
                         int correctedIndex = index + 1;
-                        if (correctedIndex < m.Parameters.Count) {
-                            if (m.Parameters [correctedIndex].IsParams) {
-                                var arrayType = m.Parameters [correctedIndex].Type as ArrayType;
-                                if (arrayType != null)
+                        if (correctedIndex < m.Parameters.Count)
+                        {
+                            if (m.Parameters[correctedIndex].IsParams)
+                            {
+                                if (m.Parameters[correctedIndex].Type is ArrayType arrayType)
                                     yield return arrayType.ElementType;
                             }
-                            yield return m.Parameters [correctedIndex].Type;
+                            yield return m.Parameters[correctedIndex].Type;
                         }
                     }
                 }
@@ -153,12 +159,12 @@ namespace ICSharpCode.NRefactory.CSharp
                 return new [] { resolver.Compilation.FindType (KnownTypeCode.Boolean) };
             }
 
-            var mref = expr as MemberReferenceExpression;
-            if (mref != null) {
+            if (expr is MemberReferenceExpression mref)
+            {
                 // case: guess enum when trying to access not existent enum member
                 var rr = resolver.Resolve(mref.Target);
                 if (!rr.IsError && rr.Type.Kind == TypeKind.Enum)
-                    return new [] { rr.Type };
+                    return new[] { rr.Type };
             }
 
             if (expr.Parent is ParenthesizedExpression || expr.Parent is NamedArgumentExpression) {
@@ -253,11 +259,11 @@ namespace ICSharpCode.NRefactory.CSharp
                     if (!rr.IsError)
                         return new [] { rr.Type };
                 }
-                var e = parent as EntityDeclaration;
-                if (e != null) {
+                if (parent is EntityDeclaration e)
+                {
                     var rt = resolver.Resolve(e.ReturnType);
                     if (!rt.IsError)
-                        return new [] { rt.Type };
+                        return new[] { rt.Type };
                 }
             }
 
@@ -269,8 +275,8 @@ namespace ICSharpCode.NRefactory.CSharp
                     if (!rr.IsError)
                         pt = rr.Type as ParameterizedType;
                 }
-                var e = parent as EntityDeclaration;
-                if (e != null) {
+                if (parent is EntityDeclaration e)
+                {
                     var rt = resolver.Resolve(e.ReturnType);
                     if (!rt.IsError)
                         pt = rt.Type as ParameterizedType;
@@ -329,15 +335,14 @@ namespace ICSharpCode.NRefactory.CSharp
                     var rr = context.Resolve (expr.Parent);
                     var argumentNumber = expr.Parent.GetChildrenByRole (Roles.TypeArgument).TakeWhile (c => c != expr).Count ();
 
-                    var mgrr = rr as MethodGroupResolveResult;
-                    if (mgrr != null && mgrr.Methods.Any () && mgrr.Methods.First ().TypeArguments.Count > argumentNumber)
-                        return mgrr.Methods.First ().TypeParameters[argumentNumber]; 
+                    if (rr is MethodGroupResolveResult mgrr && mgrr.Methods.Any() && mgrr.Methods.First().TypeArguments.Count > argumentNumber)
+                        return mgrr.Methods.First().TypeParameters[argumentNumber];
                 } else if (expr.Parent is MemberType || expr.Parent is SimpleType) {
                     var rr = context.Resolve (expr.Parent);
                     var argumentNumber = expr.Parent.GetChildrenByRole (Roles.TypeArgument).TakeWhile (c => c != expr).Count ();
-                    var mgrr = rr as TypeResolveResult;
-                    if (mgrr != null &&  mgrr.Type.TypeParameterCount > argumentNumber) {
-                        return mgrr.Type.GetDefinition ().TypeParameters[argumentNumber]; 
+                    if (rr is TypeResolveResult mgrr && mgrr.Type.TypeParameterCount > argumentNumber)
+                    {
+                        return mgrr.Type.GetDefinition().TypeParameters[argumentNumber];
                     }
                 }
             }

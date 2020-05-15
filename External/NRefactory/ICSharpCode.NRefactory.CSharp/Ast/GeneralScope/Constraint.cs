@@ -77,8 +77,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            Constraint o = other as Constraint;
-            return o != null && this.TypeParameter.DoMatch (o.TypeParameter, match) && this.BaseTypes.DoMatch(o.BaseTypes, match);
+            return other is Constraint o && this.TypeParameter.DoMatch(o.TypeParameter, match) && this.BaseTypes.DoMatch(o.BaseTypes, match);
         }
     }
 }

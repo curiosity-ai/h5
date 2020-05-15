@@ -152,9 +152,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (base.Resolve (ec, index) == null)
                 return null;
 
-            var ac = parameter_type as ArrayContainer;
-            if (ac == null || ac.Rank != 1) {
-                ec.Module.Compiler.Report.Error (225, Location, "The params parameter must be a single dimensional array");
+            if (!(parameter_type is ArrayContainer ac) || ac.Rank != 1)
+            {
+                ec.Module.Compiler.Report.Error(225, Location, "The params parameter must be a single dimensional array");
                 return null;
             }
 
@@ -267,8 +267,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         Expression IParameterData.DefaultValue {
             get {
-                var expr = default_expr as DefaultParameterValueExpression;
-                return expr == null ? default_expr : expr.Child;
+                return !(default_expr is DefaultParameterValueExpression expr) ? default_expr : expr.Child;
             }
         }
 
@@ -373,8 +372,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         bool IsValidCallerContext (MemberCore memberContext)
         {
-            var m = memberContext as Method;
-            if (m != null)
+            if (memberContext is Method m)
                 return !m.IsPartialImplementation;
 
             return true;
@@ -545,16 +543,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (default_expr is BoxedCast)
                     default_expr = ((BoxedCast) default_expr).Child;
 
-                Constant c = default_expr as Constant;
-                if (c == null) {
-                    if (parameter_type.BuiltinType == BuiltinTypeSpec.Type.Object) {
-                        rc.Report.Error (1910, default_expr.Location,
+                if (!(default_expr is Constant c))
+                {
+                    if (parameter_type.BuiltinType == BuiltinTypeSpec.Type.Object)
+                    {
+                        rc.Report.Error(1910, default_expr.Location,
                             "Argument of type `{0}' is not applicable for the DefaultParameterValue attribute",
-                            default_expr.Type.GetSignatureForError ());
-                    } else {
-                        rc.Report.Error (1909, default_expr.Location,
+                            default_expr.Type.GetSignatureForError());
+                    }
+                    else
+                    {
+                        rc.Report.Error(1909, default_expr.Location,
                             "The DefaultParameterValue attribute is not applicable on parameters of type `{0}'",
-                            default_expr.Type.GetSignatureForError ());
+                            default_expr.Type.GetSignatureForError());
                     }
 
                     default_expr = null;
@@ -1030,18 +1031,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     if (inflated_types[i] == expr.Type)
                         continue;
 
-                    var c = expr as Constant;
-                    if (c != null) {
+                    if (expr is Constant c)
+                    {
                         //
                         // It may fail we are inflating before type validation is done
                         //
-                        c = Constant.ExtractConstantFromValue (inflated_types[i], c.GetValue (), expr.Location);
+                        c = Constant.ExtractConstantFromValue(inflated_types[i], c.GetValue(), expr.Location);
                         if (c == null)
-                            expr = new DefaultValueExpression (new TypeExpression (inflated_types[i], expr.Location), expr.Location);
+                            expr = new DefaultValueExpression(new TypeExpression(inflated_types[i], expr.Location), expr.Location);
                         else
                             expr = c;
-                    } else if (expr is DefaultValueExpression)
-                        expr = new DefaultValueExpression (new TypeExpression (inflated_types[i], expr.Location), expr.Location);
+                    }
+                    else if (expr is DefaultValueExpression)
+                        expr = new DefaultValueExpression(new TypeExpression(inflated_types[i], expr.Location), expr.Location);
 
                     clone.FixedParameters[i] = new ParameterData (fp.Name, fp.ModFlags, expr);
                 }
@@ -1209,12 +1211,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     continue;
                 }
 
-                var ac_a = a_type as ArrayContainer;
-                if (ac_a == null)
+                if (!(a_type is ArrayContainer ac_a))
                     return 0;
 
-                var ac_b = b_type as ArrayContainer;
-                if (ac_b == null)
+                if (!(b_type is ArrayContainer ac_b))
                     return 0;
 
                 if (ac_a.Element is ArrayContainer || ac_b.Element is ArrayContainer) {

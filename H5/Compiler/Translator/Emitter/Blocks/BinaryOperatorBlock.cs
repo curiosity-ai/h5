@@ -174,8 +174,7 @@ namespace H5.Translator
                     {
                         var orElse = orr.OperatorType == ExpressionType.OrElse;
                         var left = orr.Operands[0];
-                        var memberTargetrr = left as MemberResolveResult;
-                        bool isField = memberTargetrr != null && memberTargetrr.Member is IField &&
+                        bool isField = left is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                                        (memberTargetrr.TargetResult is ThisResolveResult ||
                                         memberTargetrr.TargetResult is LocalResolveResult);
 
@@ -379,8 +378,7 @@ namespace H5.Translator
             {
                 for (int i = 0; i < orr.Operands.Count; i++)
                 {
-                    var crr = orr.Operands[i] as ConversionResolveResult;
-                    if (crr != null && crr.Input.Type.IsKnownType(KnownTypeCode.Char))
+                    if (orr.Operands[i] is ConversionResolveResult crr && crr.Input.Type.IsKnownType(KnownTypeCode.Char))
                     {
                         charToString = i;
                     }
@@ -1059,9 +1057,7 @@ namespace H5.Translator
                 {
                     if (m.Name == CS.Methods.TOSTRING && !m.IsStatic && m.ReturnType.IsKnownType(KnownTypeCode.String) && m.IsOverride)
                     {
-                        var method = m as IMethod;
-
-                        if (method != null && method.Parameters.Count == 0 && method.TypeParameters.Count == 0)
+                        if (m is IMethod method && method.Parameters.Count == 0 && method.TypeParameters.Count == 0)
                         {
                             return true;
                         }

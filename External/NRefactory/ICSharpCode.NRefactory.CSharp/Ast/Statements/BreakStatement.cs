@@ -58,8 +58,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            BreakStatement o = other as BreakStatement;
-            return o != null;
+            return other is BreakStatement o;
         }
     }
 }

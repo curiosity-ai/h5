@@ -131,8 +131,7 @@ namespace ICSharpCode.NRefactory.CSharp
         /// </summary>
         public bool IsVar()
         {
-            SimpleType st = this as SimpleType;
-            return st != null && st.Identifier == "var" && st.TypeArguments.Count == 0;
+            return this is SimpleType st && st.Identifier == "var" && st.TypeArguments.Count == 0;
         }
 
         /// <summary>

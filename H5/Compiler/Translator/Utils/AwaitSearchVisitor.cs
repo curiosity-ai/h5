@@ -69,8 +69,7 @@ namespace H5.Translator
         {
             if (this.Emitter != null && binaryOperatorExpression.GetParent<SyntaxTree>() != null)
             {
-                var rr = this.Emitter.Resolver.ResolveNode(binaryOperatorExpression, this.Emitter) as OperatorResolveResult;
-                if (rr != null && rr.Type.IsKnownType(KnownTypeCode.Boolean))
+                if (this.Emitter.Resolver.ResolveNode(binaryOperatorExpression, this.Emitter) is OperatorResolveResult rr && rr.Type.IsKnownType(KnownTypeCode.Boolean))
                 {
                     var count = this.AwaitExpressions.Count;
                     var idx = this.InsertPosition;
@@ -103,9 +102,8 @@ namespace H5.Translator
 
         public override void VisitInvocationExpression(InvocationExpression invocationExpression)
         {
-            var uo = invocationExpression.Parent as UnaryOperatorExpression;
             int oldPos = -2;
-            if (uo != null && uo.Operator == UnaryOperatorType.Await)
+            if (invocationExpression.Parent is UnaryOperatorExpression uo && uo.Operator == UnaryOperatorType.Await)
             {
                 oldPos = this.InsertPosition;
                 this.InsertPosition = Math.Max(this.InsertPosition - 1, 0);

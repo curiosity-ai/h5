@@ -78,8 +78,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             public bool IsGenericMethod {
                 get {
-                    IMethod method = Member as IMethod;
-                    return method != null && method.TypeParameters.Count > 0;
+                    return Member is IMethod method && method.TypeParameters.Count > 0;
                 }
             }
 
@@ -106,8 +105,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 // (without any type parameter substitution, not even class type parameters)
                 // We'll re-substitute them as part of RunTypeInference().
                 this.Parameters = memberDefinition.Parameters;
-                IMethod methodDefinition = memberDefinition as IMethod;
-                if (methodDefinition != null && methodDefinition.TypeParameters.Count > 0) {
+                if (memberDefinition is IMethod methodDefinition && methodDefinition.TypeParameters.Count > 0)
+                {
                     this.TypeParameters = methodDefinition.TypeParameters;
                 }
                 this.ParameterTypes = new IType[this.Parameters.Count];
@@ -271,8 +270,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                     type = candidate.Parameters[i].Type;
                 }
                 if (candidate.IsExpandedForm && i == candidate.Parameters.Count - 1) {
-                    ArrayType arrayType = type as ArrayType;
-                    if (arrayType != null && arrayType.Dimensions == 1)
+                    if (type is ArrayType arrayType && arrayType.Dimensions == 1)
                         type = arrayType.ElementType;
                     else
                         return false; // error: cannot unpack params-array. abort considering the expanded form for this candidate
@@ -387,9 +385,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 ResolveParameterTypes(candidate, true);
                 return;
             }
-            ParameterizedType parameterizedDeclaringType = candidate.Member.DeclaringType as ParameterizedType;
             IList<IType> classTypeArguments;
-            if (parameterizedDeclaringType != null) {
+            if (candidate.Member.DeclaringType is ParameterizedType parameterizedDeclaringType) {
                 classTypeArguments = parameterizedDeclaringType.TypeArguments;
             } else {
                 classTypeArguments = null;
@@ -441,13 +438,15 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 IType newType = base.VisitParameterizedType(type);
                 if (newType != type && ConstraintsValid) {
                     // something was changed, so we need to validate the constraints
-                    ParameterizedType newParameterizedType = newType as ParameterizedType;
-                    if (newParameterizedType != null) {
+                    if (newType is ParameterizedType newParameterizedType)
+                    {
                         // C# 4.0 spec: §4.4.4 Satisfying constraints
                         var typeParameters = newParameterizedType.GetDefinition().TypeParameters;
                         var substitution = newParameterizedType.GetSubstitution();
-                        for (int i = 0; i < typeParameters.Count; i++) {
-                            if (!ValidateConstraints(typeParameters[i], newParameterizedType.GetTypeArgument(i), substitution, conversions)) {
+                        for (int i = 0; i < typeParameters.Count; i++)
+                        {
+                            if (!ValidateConstraints(typeParameters[i], newParameterizedType.GetTypeArgument(i), substitution, conversions))
+                            {
                                 ConstraintsValid = false;
                                 break;
                             }
@@ -575,11 +574,13 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                     continue;
                 }
 
-                ByReferenceResolveResult brrr = arguments[i] as ByReferenceResolveResult;
-                if (brrr != null) {
+                if (arguments[i] is ByReferenceResolveResult brrr)
+                {
                     if ((brrr.IsOut && !candidate.Parameters[parameterIndex].IsOut) || (brrr.IsRef && !candidate.Parameters[parameterIndex].IsRef))
                         candidate.AddError(OverloadResolutionErrors.ParameterPassingModeMismatch);
-                } else {
+                }
+                else
+                {
                     if (candidate.Parameters[parameterIndex].IsOut || candidate.Parameters[parameterIndex].IsRef)
                         candidate.AddError(OverloadResolutionErrors.ParameterPassingModeMismatch);
                 }
@@ -728,17 +729,14 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 return 2;
             if ((t2 is ITypeParameter) && !(t1 is ITypeParameter))
                 return 1;
-
-            ParameterizedType p1 = t1 as ParameterizedType;
-            ParameterizedType p2 = t2 as ParameterizedType;
-            if (p1 != null && p2 != null && p1.TypeParameterCount == p2.TypeParameterCount) {
+            if (t1 is ParameterizedType p1 && t2 is ParameterizedType p2 && p1.TypeParameterCount == p2.TypeParameterCount)
+            {
                 int r = MoreSpecificFormalParameters(p1.TypeArguments, p2.TypeArguments);
                 if (r > 0)
                     return r;
             }
-            TypeWithElementType tew1 = t1 as TypeWithElementType;
-            TypeWithElementType tew2 = t2 as TypeWithElementType;
-            if (tew1 != null && tew2 != null) {
+            if (t1 is TypeWithElementType tew1 && t2 is TypeWithElementType tew2)
+            {
                 return MoreSpecificFormalParameter(tew1.ElementType, tew2.ElementType);
             }
             return 0;
@@ -910,10 +908,12 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
         {
             if (bestCandidate == null)
                 return null;
-            IMethod method = bestCandidate.Member as IMethod;
-            if (method != null && method.TypeParameters.Count > 0) {
+            if (bestCandidate.Member is IMethod method && method.TypeParameters.Count > 0)
+            {
                 return ((IMethod)method.MemberDefinition).Specialize(GetSubstitution(bestCandidate));
-            } else {
+            }
+            else
+            {
                 return bestCandidate.Member;
             }
         }

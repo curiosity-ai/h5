@@ -441,17 +441,18 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             if (!(fromType.IsReferenceType == true && toType.IsReferenceType != false))
                 return false;
 
-            ArrayType fromArray = fromType as ArrayType;
-            if (fromArray != null) {
-                ArrayType toArray = toType as ArrayType;
-                if (toArray != null) {
+            if (fromType is ArrayType fromArray)
+            {
+                if (toType is ArrayType toArray)
+                {
                     // array covariance (the broken kind)
                     return fromArray.Dimensions == toArray.Dimensions
                         && ImplicitReferenceConversion(fromArray.ElementType, toArray.ElementType, subtypeCheckNestingDepth);
                 }
                 // conversion from single-dimensional array S[] to IList<T>:
                 IType toTypeArgument = UnpackGenericArrayInterface(toType);
-                if (fromArray.Dimensions == 1 && toTypeArgument != null) {
+                if (fromArray.Dimensions == 1 && toTypeArgument != null)
+                {
                     // array covariance plays a part here as well (string[] is IList<object>)
                     return IdentityConversion(fromArray.ElementType, toTypeArgument)
                         || ImplicitReferenceConversion(fromArray.ElementType, toTypeArgument, subtypeCheckNestingDepth);
@@ -471,10 +472,11 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
         /// </summary>
         IType UnpackGenericArrayInterface(IType interfaceType)
         {
-            ParameterizedType pt = interfaceType as ParameterizedType;
-            if (pt != null) {
+            if (interfaceType is ParameterizedType pt)
+            {
                 KnownTypeCode tc = pt.GetDefinition().KnownTypeCode;
-                if (tc == KnownTypeCode.IListOfT || tc == KnownTypeCode.ICollectionOfT || tc == KnownTypeCode.IEnumerableOfT || tc == KnownTypeCode.IReadOnlyListOfT) {
+                if (tc == KnownTypeCode.IListOfT || tc == KnownTypeCode.ICollectionOfT || tc == KnownTypeCode.IEnumerableOfT || tc == KnownTypeCode.IReadOnlyListOfT)
+                {
                     return pt.GetTypeArgument(0);
                 }
             }
@@ -976,8 +978,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
         Conversion AnonymousFunctionConversion(ResolveResult resolveResult, IType toType)
         {
             // C# 5.0 spec §6.5 Anonymous function conversions
-            LambdaResolveResult f = resolveResult as LambdaResolveResult;
-            if (f == null)
+            if (!(resolveResult is LambdaResolveResult f))
                 return Conversion.None;
             if (!f.IsAnonymousMethod) {
                 // It's a lambda, so conversions to expression trees exist
@@ -1031,10 +1032,12 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
         static IType UnpackExpressionTreeType(IType type)
         {
-            ParameterizedType pt = type as ParameterizedType;
-            if (pt != null && pt.TypeParameterCount == 1 && pt.Name == "Expression" && pt.Namespace == "System.Linq.Expressions") {
+            if (type is ParameterizedType pt && pt.TypeParameterCount == 1 && pt.Name == "Expression" && pt.Namespace == "System.Linq.Expressions")
+            {
                 return pt.GetTypeArgument(0);
-            } else {
+            }
+            else
+            {
                 return type;
             }
         }
@@ -1044,8 +1047,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
         Conversion MethodGroupConversion(ResolveResult resolveResult, IType toType)
         {
             // C# 4.0 spec §6.6 Method group conversions
-            MethodGroupResolveResult rr = resolveResult as MethodGroupResolveResult;
-            if (rr == null)
+            if (!(resolveResult is MethodGroupResolveResult rr))
                 return Conversion.None;
             IMethod invoke = toType.GetDelegateInvokeMethod();
             if (invoke == null)
@@ -1142,9 +1144,10 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
         /// <returns>0 = neither is better; 1 = t1 is better; 2 = t2 is better</returns>
         public int BetterConversion(ResolveResult resolveResult, IType t1, IType t2)
         {
-            LambdaResolveResult lambda = resolveResult as LambdaResolveResult;
-            if (lambda != null) {
-                if (!lambda.IsAnonymousMethod) {
+            if (resolveResult is LambdaResolveResult lambda)
+            {
+                if (!lambda.IsAnonymousMethod)
+                {
                     t1 = UnpackExpressionTreeType(t1);
                     t2 = UnpackExpressionTreeType(t2);
                 }
@@ -1155,7 +1158,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 if (m1.Parameters.Count != m2.Parameters.Count)
                     return 0;
                 IType[] parameterTypes = new IType[m1.Parameters.Count];
-                for (int i = 0; i < parameterTypes.Length; i++) {
+                for (int i = 0; i < parameterTypes.Length; i++)
+                {
                     parameterTypes[i] = m1.Parameters[i].Type;
                     if (!parameterTypes[i].Equals(m2.Parameters[i].Type))
                         return 0;
@@ -1172,7 +1176,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
                 IType inferredRet = lambda.GetInferredReturnType(parameterTypes);
                 int r = BetterConversion(inferredRet, ret1, ret2);
-                if (r == 0 && lambda.IsAsync) {
+                if (r == 0 && lambda.IsAsync)
+                {
                     ret1 = UnpackTask(ret1);
                     ret2 = UnpackTask(ret2);
                     inferredRet = UnpackTask(inferredRet);
@@ -1180,7 +1185,9 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                         r = BetterConversion(inferredRet, ret1, ret2);
                 }
                 return r;
-            } else {
+            }
+            else
+            {
                 return BetterConversion(resolveResult.Type, t1, t2);
             }
         }
@@ -1190,8 +1197,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
         /// </summary>
         static IType UnpackTask(IType type)
         {
-            ParameterizedType pt = type as ParameterizedType;
-            if (pt != null && pt.TypeParameterCount == 1 && pt.Name == "Task" && pt.Namespace == "System.Threading.Tasks") {
+            if (type is ParameterizedType pt && pt.TypeParameterCount == 1 && pt.Name == "Task" && pt.Namespace == "System.Threading.Tasks")
+            {
                 return pt.GetTypeArgument(0);
             }
             return null;

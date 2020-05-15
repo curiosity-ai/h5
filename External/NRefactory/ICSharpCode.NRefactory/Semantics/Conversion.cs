@@ -168,8 +168,7 @@ namespace ICSharpCode.NRefactory.Semantics
 
             public override bool Equals(Conversion other)
             {
-                NumericOrEnumerationConversion o = other as NumericOrEnumerationConversion;
-                return o != null && isImplicit == o.isImplicit && isLifted == o.isLifted && isEnumeration == o.isEnumeration;
+                return other is NumericOrEnumerationConversion o && isImplicit == o.isImplicit && isLifted == o.isLifted && isEnumeration == o.isEnumeration;
             }
 
             public override int GetHashCode()
@@ -324,8 +323,7 @@ namespace ICSharpCode.NRefactory.Semantics
 
             public override bool Equals(Conversion other)
             {
-                UserDefinedConv o = other as UserDefinedConv;
-                return o != null && isLifted == o.isLifted && isImplicit == o.isImplicit && isValid == o.isValid && method.Equals(o.method);
+                return other is UserDefinedConv o && isLifted == o.isLifted && isImplicit == o.isImplicit && isValid == o.isValid && method.Equals(o.method);
             }
 
             public override int GetHashCode()
@@ -383,8 +381,7 @@ namespace ICSharpCode.NRefactory.Semantics
 
             public override bool Equals(Conversion other)
             {
-                MethodGroupConv o = other as MethodGroupConv;
-                return o != null && method.Equals(o.method);
+                return other is MethodGroupConv o && method.Equals(o.method);
             }
 
             public override int GetHashCode()

@@ -153,8 +153,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            GetClassTypeReference o = other as GetClassTypeReference;
-            return o != null && assembly == o.assembly && fullTypeName == o.fullTypeName;
+            return other is GetClassTypeReference o && assembly == o.assembly && fullTypeName == o.fullTypeName;
         }
     }
 }

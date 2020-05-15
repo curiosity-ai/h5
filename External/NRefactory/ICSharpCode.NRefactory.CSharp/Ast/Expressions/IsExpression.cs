@@ -76,8 +76,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            IsExpression o = other as IsExpression;
-            return o != null && this.Expression.DoMatch(o.Expression, match) && this.Type.DoMatch(o.Type, match);
+            return other is IsExpression o && this.Expression.DoMatch(o.Expression, match) && this.Type.DoMatch(o.Type, match);
         }
 
         #region Builder methods

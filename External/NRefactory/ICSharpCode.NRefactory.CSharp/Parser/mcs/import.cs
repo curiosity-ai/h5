@@ -81,9 +81,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (mi != null)
                     return CustomAttributeData.GetCustomAttributes (mi);
 
-                var pi = provider as ParameterInfo;
-                if (pi != null)
-                    return CustomAttributeData.GetCustomAttributes (pi);
+                if (provider is ParameterInfo pi)
+                    return CustomAttributeData.GetCustomAttributes(pi);
 
                 provider = null;
                 return null;
@@ -916,9 +915,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 // which point into just compiled assembly.
                 //
                 spec = pt;
-                BuiltinTypeSpec bts = pt as BuiltinTypeSpec;
-                if (bts != null)
-                    bts.SetDefinition (definition, type, mod);
+                if (pt is BuiltinTypeSpec bts)
+                    bts.SetDefinition(definition, type, mod);
             }
 
             if (spec == null)
@@ -1701,8 +1699,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     if (dt.Namespace != MetadataImporter.CompilerServicesNamespace)
                         continue;
 
-                    string s = a.ConstructorArguments[0].Value as string;
-                    if (s == null)
+                    if (!(a.ConstructorArguments[0].Value is string s))
                         continue;
 
                     var an = new AssemblyName (s);

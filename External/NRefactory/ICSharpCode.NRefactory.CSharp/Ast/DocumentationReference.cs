@@ -112,8 +112,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, ICSharpCode.NRefactory.PatternMatching.Match match)
         {
-            DocumentationReference o = other as DocumentationReference;
-            if (!(o != null && this.SymbolKind == o.SymbolKind && this.HasParameterList == o.HasParameterList))
+            if (!(other is DocumentationReference o && this.SymbolKind == o.SymbolKind && this.HasParameterList == o.HasParameterList))
                 return false;
             if (this.SymbolKind == SymbolKind.Operator) {
                 if (this.OperatorType != o.OperatorType)

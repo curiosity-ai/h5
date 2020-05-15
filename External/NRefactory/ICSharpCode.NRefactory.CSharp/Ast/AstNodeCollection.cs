@@ -189,8 +189,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public override bool Equals(object obj)
         {
-            AstNodeCollection<T> other = obj as AstNodeCollection<T>;
-            if (other == null)
+            if (!(obj is AstNodeCollection<T> other))
                 return false;
             return this.node == other.node && this.role == other.role;
         }

@@ -115,10 +115,11 @@ namespace ICSharpCode.NRefactory.Analysis
                         return;
                     continue;
                 }
-                var om = member as IMethod;
-                if (om != null) {
-                    for (int i = 0; i < om.TypeParameters.Count; i++) {
-                        CheckContstraints (om, om.TypeParameters[i], ((IMethod)equalMember).TypeParameters[i], ref compatibility);
+                if (member is IMethod om)
+                {
+                    for (int i = 0; i < om.TypeParameters.Count; i++)
+                    {
+                        CheckContstraints(om, om.TypeParameters[i], ((IMethod)equalMember).TypeParameters[i], ref compatibility);
                         if (compatibility == AbiCompatibility.Incompatible && StopOnIncompatibility)
                             return;
                     }

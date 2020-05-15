@@ -563,8 +563,7 @@ namespace H5.Translator
 
         public override SyntaxNode VisitAssignmentExpression(AssignmentExpressionSyntax node)
         {
-            var identifier = node.Left as IdentifierNameSyntax;
-            if (identifier != null)
+            if (node.Left is IdentifierNameSyntax identifier)
             {
                 var local = node.GetParent<LocalDeclarationStatementSyntax>();
                 var name = identifier.Identifier.ValueText;
@@ -627,10 +626,7 @@ namespace H5.Translator
 
             if (type != null)
             {
-                var list = node.Parent as ArgumentListSyntax;
-                var invocation = node.Parent.Parent as InvocationExpressionSyntax;
-
-                if (list != null && invocation != null)
+                if (node.Parent is ArgumentListSyntax list && node.Parent.Parent is InvocationExpressionSyntax invocation)
                 {
                     method = this.semanticModel.GetSymbolInfo(invocation).Symbol as IMethodSymbol;
 
@@ -784,8 +780,7 @@ namespace H5.Translator
             var pos = node.GetLocation().SourceSpan.Start;
 
             node = (InvocationExpressionSyntax)base.VisitInvocationExpression(node);
-            if (node.Expression is IdentifierNameSyntax &&
-                ((IdentifierNameSyntax)node.Expression).Identifier.Text == "nameof")
+            if (node.Expression is IdentifierNameSyntax syntax && syntax.Identifier.Text == "nameof")
             {
                 string name = SyntaxHelper.GetSymbolName(node, si, costValue, semanticModel);
                 return SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(name));
@@ -795,7 +790,6 @@ namespace H5.Translator
                 if (method != null && method.IsGenericMethod && !method.TypeArguments.Any(ta => SyntaxHelper.IsAnonymous(ta) || ta.Kind == SymbolKind.TypeParameter && SymbolEqualityComparer.Default.Equals((ta as ITypeParameterSymbol)?.ContainingSymbol, method)))
                 {
                     var expr = node.Expression;
-                    var ma = expr as MemberAccessExpressionSyntax;
 
                     if (expr is IdentifierNameSyntax)
                     {
@@ -805,7 +799,7 @@ namespace H5.Translator
                         genericName = genericName.WithLeadingTrivia(name.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(name.GetTrailingTrivia().ExcludeDirectivies());
                         node = node.WithExpression(genericName);
                     }
-                    else if (ma != null && ma.Name is IdentifierNameSyntax)
+                    else if (expr is MemberAccessExpressionSyntax ma && ma.Name is IdentifierNameSyntax)
                     {
                         expr = ma.Name;
                         var name = (IdentifierNameSyntax)expr;
@@ -876,8 +870,7 @@ namespace H5.Translator
             foreach (var content in node.Contents)
             {
                 idx++;
-                var interpolatedStringTextSyntax = content as InterpolatedStringTextSyntax;
-                if (interpolatedStringTextSyntax != null)
+                if (content is InterpolatedStringTextSyntax interpolatedStringTextSyntax)
                 {
                     str += interpolatedStringTextSyntax.TextToken.ValueText;
                 }
@@ -889,9 +882,9 @@ namespace H5.Translator
                     {
                         object value = null;
 
-                        if (interpolation.AlignmentClause.Value is LiteralExpressionSyntax)
+                        if (interpolation.AlignmentClause.Value is LiteralExpressionSyntax syntax)
                         {
-                            value = ((LiteralExpressionSyntax)interpolation.AlignmentClause.Value).Token.Value;
+                            value = syntax.Token.Value;
                         }
                         else
                         {
@@ -964,8 +957,7 @@ namespace H5.Translator
                               (!thisType.InheritsFromOrEquals(symbol.ContainingType) || node.Parent != null && node.Parent.Parent is GenericNameSyntax) &&
                               !SymbolEqualityComparer.Default.Equals(thisType, symbol);
 
-            var qns = nodeParent as QualifiedNameSyntax;
-            if (qns != null && needHandle)
+            if (nodeParent is QualifiedNameSyntax qns && needHandle)
             {
                 SyntaxNode n = node;
                 do
@@ -985,8 +977,7 @@ namespace H5.Translator
 
             if (needHandle && !(nodeParent is MemberAccessExpressionSyntax))
             {
-                INamedTypeSymbol namedType = symbol as INamedTypeSymbol;
-                if (namedType != null && namedType.IsGenericType && namedType.TypeArguments.Length > 0 && !namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous))
+                if (symbol is INamedTypeSymbol namedType && namedType.IsGenericType && namedType.TypeArguments.Length > 0 && !namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
                     return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false), node.GetTrailingTrivia()), namedType.TypeArguments, semanticModel, spanStart, this);
                 }
@@ -1082,17 +1073,17 @@ namespace H5.Translator
                             literal = SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal((dynamic)value.Value));
                         }
                     }
-                    else if (value.Value is bool)
+                    else if (value.Value is bool boolean)
                     {
-                        literal = SyntaxFactory.LiteralExpression((bool)value.Value ? SyntaxKind.TrueLiteralExpression : SyntaxKind.FalseLiteralExpression);
+                        literal = SyntaxFactory.LiteralExpression(boolean ? SyntaxKind.TrueLiteralExpression : SyntaxKind.FalseLiteralExpression);
                     }
-                    else if (value.Value is string)
+                    else if (value.Value is string stringVal)
                     {
-                        literal = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal((string)value.Value));
+                        literal = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(stringVal));
                     }
-                    else if (value.Value is char)
+                    else if (value.Value is char charVal)
                     {
-                        literal = SyntaxFactory.LiteralExpression(SyntaxKind.CharacterLiteralExpression, SyntaxFactory.Literal((char)value.Value));
+                        literal = SyntaxFactory.LiteralExpression(SyntaxKind.CharacterLiteralExpression, SyntaxFactory.Literal(charVal));
                     }
                     else
                     {
@@ -1139,8 +1130,7 @@ namespace H5.Translator
                               (!thisType.InheritsFromOrEquals(symbol.ContainingType) || node.Parent != null && node.Parent.Parent is GenericNameSyntax) &&
                               !SymbolEqualityComparer.Default.Equals(thisType, symbol);
 
-            var qns = node.Parent as QualifiedNameSyntax;
-            if (qns != null && needHandle)
+            if (node.Parent is QualifiedNameSyntax qns && needHandle)
             {
                 SyntaxNode n = node;
                 do
@@ -1160,8 +1150,7 @@ namespace H5.Translator
 
             if (needHandle && !(node.Parent is MemberAccessExpressionSyntax))
             {
-                INamedTypeSymbol namedType = symbol as INamedTypeSymbol;
-                if (namedType != null && namedType.IsGenericType && namedType.TypeArguments.Length > 0 && !namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous))
+                if (symbol is INamedTypeSymbol namedType && namedType.IsGenericType && namedType.TypeArguments.Length > 0 && !namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
                     var genericName = SyntaxHelper.GenerateGenericName(node.Identifier, namedType.TypeArguments, semanticModel, spanStart, this);
                     return genericName.WithLeadingTrivia(node.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(node.GetTrailingTrivia().ExcludeDirectivies());
@@ -1867,30 +1856,28 @@ namespace H5.Translator
                 {
                     var be = (AssignmentExpressionSyntax)init;
 
-                    if (be.Right is InitializerExpressionSyntax)
+                    if (be.Right is InitializerExpressionSyntax syntax)
                     {
                         string name = null;
                         if (be.Left is IdentifierNameSyntax identifier)
                         {
                             name = instance + "." + identifier.Identifier.ValueText;
                         }
-                        else if (be.Left is ImplicitElementAccessSyntax)
+                        else if (be.Left is ImplicitElementAccessSyntax implicitSyntax)
                         {
                             name = SyntaxFactory.ElementAccessExpression(SyntaxFactory.IdentifierName(instance),
-                                    ((ImplicitElementAccessSyntax)be.Left).ArgumentList.WithoutTrivia()).ToString();
+                                    implicitSyntax.ArgumentList.WithoutTrivia()).ToString();
                         }
                         else
                         {
                             name = instance;
                         }
 
-                        SharpSixRewriter.ConvertInitializers(((InitializerExpressionSyntax)be.Right).Expressions, name, statements, info.nested);
+                        SharpSixRewriter.ConvertInitializers(syntax.Expressions, name, statements, info.nested);
                     }
                     else
                     {
-                        var indexerKeys = be.Left as ImplicitElementAccessSyntax;
-
-                        if (indexerKeys != null)
+                        if (be.Left is ImplicitElementAccessSyntax indexerKeys)
                         {
                             be = be.WithLeft(SyntaxFactory.ElementAccessExpression(SyntaxFactory.IdentifierName(instance),
                                     indexerKeys.ArgumentList.WithoutTrivia()));

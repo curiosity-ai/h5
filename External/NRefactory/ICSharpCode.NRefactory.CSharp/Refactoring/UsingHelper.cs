@@ -113,8 +113,7 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                 return true;
             if (node is NewLineNode)
                 return true;
-            Comment c = node as Comment;
-            if (c != null)
+            if (node is Comment c)
                 return !c.IsDocumentation;
             return false;
         }
@@ -164,20 +163,17 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                     rr = resolver.Resolve(importAndAlias.Item1);
                 }
 
-                var nrr = rr as NamespaceResolveResult;
-                HasTypesFromOtherAssemblies = nrr != null && nrr.Namespace.ContributingAssemblies.Any(a => !a.IsMainAssembly);
+                HasTypesFromOtherAssemblies = rr is NamespaceResolveResult nrr && nrr.Namespace.ContributingAssemblies.Any(a => !a.IsMainAssembly);
 
                 IsSystem = HasTypesFromOtherAssemblies && (Name == "System" || Name.StartsWith("System.", StringComparison.Ordinal));
             }
 
             private static Tuple<AstType, string> GetImportAndAlias(AstNode node)
             {
-                var plainUsing = node as UsingDeclaration;
-                if (plainUsing != null)
+                if (node is UsingDeclaration plainUsing)
                     return Tuple.Create(plainUsing.Import, (string)null);
 
-                var aliasUsing = node as UsingAliasDeclaration;
-                if (aliasUsing != null)
+                if (node is UsingAliasDeclaration aliasUsing)
                     return Tuple.Create(aliasUsing.Import, aliasUsing.Alias);
 
                 throw new InvalidOperationException(string.Format("Invalid using node: {0}", node));

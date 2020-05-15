@@ -104,15 +104,16 @@ namespace ICSharpCode.NRefactory.CSharp
             int extraSpaces = options.IndentSize;
             curIndent.ExtraSpaces += extraSpaces;
             foreach (var child in clause.Children) {
-                var expression = child as Expression;
-                if (expression != null) {
+                if (child is Expression expression)
+                {
                     FixIndentation(child);
                     child.AcceptVisitor(this);
                 }
 
-                var tokenNode = child as CSharpTokenNode;
-                if (tokenNode != null) {
-                    if (tokenNode.GetNextSibling(NoWhitespacePredicate).StartLocation.Line != tokenNode.EndLocation.Line) {
+                if (child is CSharpTokenNode tokenNode)
+                {
+                    if (tokenNode.GetNextSibling(NoWhitespacePredicate).StartLocation.Line != tokenNode.EndLocation.Line)
+                    {
                         ForceSpacesAfter(tokenNode, false);
                     }
                 }

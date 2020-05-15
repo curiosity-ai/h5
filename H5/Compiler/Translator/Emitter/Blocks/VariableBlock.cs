@@ -56,9 +56,8 @@ namespace H5.Translator
                 }
 
                 bool isReferenceLocal = false;
-                var lrr = this.Emitter.Resolver.ResolveNode(variable, this.Emitter) as LocalResolveResult;
 
-                if (this.Emitter.LocalsMap != null && lrr != null && this.Emitter.LocalsMap.ContainsKey(lrr.Variable))
+                if (this.Emitter.LocalsMap != null && this.Emitter.Resolver.ResolveNode(variable, this.Emitter) is LocalResolveResult lrr && this.Emitter.LocalsMap.ContainsKey(lrr.Variable))
                 {
                     isReferenceLocal = this.Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
                 }

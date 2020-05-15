@@ -100,8 +100,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            UsingAliasDeclaration o = other as UsingAliasDeclaration;
-            return o != null && MatchString(this.Alias, o.Alias) && this.Import.DoMatch(o.Import, match);
+            return other is UsingAliasDeclaration o && MatchString(this.Alias, o.Alias) && this.Import.DoMatch(o.Import, match);
         }
     }
 }

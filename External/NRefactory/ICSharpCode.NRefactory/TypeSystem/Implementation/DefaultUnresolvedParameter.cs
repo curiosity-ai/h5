@@ -167,8 +167,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
             // compare everything except for the IsFrozen flag
-            DefaultUnresolvedParameter p = other as DefaultUnresolvedParameter;
-            return p != null && type == p.type && name == p.name &&
+            return other is DefaultUnresolvedParameter p && type == p.type && name == p.name &&
                 defaultValue == p.defaultValue && region == p.region && (flags & ~1) == (p.flags & ~1) && ListEquals(attributes, p.attributes);
         }
 

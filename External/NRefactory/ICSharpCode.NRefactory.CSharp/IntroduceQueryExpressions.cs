@@ -137,8 +137,7 @@ namespace ICSharpCode.NRefactory.CSharp
         {
             if (invocation == null)
                 return null;
-            MemberReferenceExpression mre = invocation.Target as MemberReferenceExpression;
-            if (mre == null)
+            if (!(invocation.Target is MemberReferenceExpression mre))
                 return null;
 
             switch (mre.MemberName) {
@@ -209,8 +208,8 @@ namespace ICSharpCode.NRefactory.CSharp
                         Expression collectionSelector;
                         if (!MatchSimpleLambda(invocation.Arguments.ElementAt(0), out parameterName, out collectionSelector))
                             return null;
-                        LambdaExpression lambda = invocation.Arguments.ElementAt(1) as LambdaExpression;
-                        if (lambda != null && lambda.Parameters.Count == 2 && lambda.Body is Expression) {
+                        if (invocation.Arguments.ElementAt(1) is LambdaExpression lambda && lambda.Parameters.Count == 2 && lambda.Body is Expression)
+                        {
                             ParameterDeclaration p1 = lambda.Parameters.ElementAt(0);
                             ParameterDeclaration p2 = lambda.Parameters.ElementAt(1);
                             QueryExpression query = new QueryExpression();
@@ -288,8 +287,8 @@ namespace ICSharpCode.NRefactory.CSharp
                             return null;
                         if (!MatchSimpleLambda(invocation.Arguments.ElementAt(2), out elementName2, out key2))
                             return null;
-                        LambdaExpression lambda = invocation.Arguments.ElementAt(3) as LambdaExpression;
-                        if (lambda != null && lambda.Parameters.Count == 2 && lambda.Body is Expression) {
+                        if (invocation.Arguments.ElementAt(3) is LambdaExpression lambda && lambda.Parameters.Count == 2 && lambda.Body is Expression)
+                        {
                             ParameterDeclaration p1 = lambda.Parameters.ElementAt(0);
                             ParameterDeclaration p2 = lambda.Parameters.ElementAt(1);
                             QueryExpression query = new QueryExpression();
@@ -300,7 +299,8 @@ namespace ICSharpCode.NRefactory.CSharp
                             joinClause.InExpression = source2.Detach();  // in source2
 
                             Match castMatch = castPattern.Match(source2);
-                            if (castMatch.Success) {
+                            if (castMatch.Success)
+                            {
                                 Expression target = castMatch.Get<Expression>("inExpr").Single().Detach();
                                 joinClause.Type = castMatch.Get<AstType>("targetType").Single().Detach();
                                 joinClause.InExpression = target;
@@ -308,18 +308,21 @@ namespace ICSharpCode.NRefactory.CSharp
 
                             joinClause.OnExpression = key1.Detach();     // on key1
                             joinClause.EqualsExpression = key2.Detach(); // equals key2
-                            if (mre.MemberName == "GroupJoin") {
+                            if (mre.MemberName == "GroupJoin")
+                            {
                                 joinClause.IntoIdentifier = p2.Name; // into p2.Name
                             }
                             query.Clauses.Add(joinClause);
                             Expression resultExpr = ((Expression)lambda.Body).Detach();
-                            if (p1.Name != elementName1) {
+                            if (p1.Name != elementName1)
+                            {
                                 foreach (var identifier in resultExpr.Descendants.OfType<Identifier>().Where(id => id.Name == p1.Name))
                                 {
                                     identifier.Name = elementName1;
                                 }
                             }
-                            if (p2.Name != elementName2 && mre.MemberName != "GroupJoin") {
+                            if (p2.Name != elementName2 && mre.MemberName != "GroupJoin")
+                            {
                                 foreach (var identifier in resultExpr.Descendants.OfType<Identifier>().Where(id => id.Name == p2.Name))
                                 {
                                     identifier.Name = elementName2;
@@ -348,8 +351,7 @@ namespace ICSharpCode.NRefactory.CSharp
         {
             if (invocation == null || invocation.Arguments.Count != 1)
                 return false;
-            MemberReferenceExpression mre = invocation.Target as MemberReferenceExpression;
-            if (mre == null)
+            if (!(invocation.Target is MemberReferenceExpression mre))
                 return false;
             string parameterName;
             Expression body;
@@ -369,10 +371,11 @@ namespace ICSharpCode.NRefactory.CSharp
         /// <summary>Matches simple lambdas of the form "a => b"</summary>
         bool MatchSimpleLambda(Expression expr, out string parameterName, out Expression body)
         {
-            LambdaExpression lambda = expr as LambdaExpression;
-            if (lambda != null && lambda.Parameters.Count == 1 && lambda.Body is Expression) {
+            if (expr is LambdaExpression lambda && lambda.Parameters.Count == 1 && lambda.Body is Expression)
+            {
                 ParameterDeclaration p = lambda.Parameters.Single();
-                if (p.ParameterModifier == ParameterModifier.None) {
+                if (p.ParameterModifier == ParameterModifier.None)
+                {
                     parameterName = p.Name;
                     body = (Expression)lambda.Body;
                     return true;

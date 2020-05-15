@@ -32,18 +32,15 @@ namespace System
             if (x == null) return -1;
             if (y == null) return 1;
 
-            String sa = x as String;
-            if (sa != null)
+            if (x is String sa)
             {
-                String sb = y as String;
-                if (sb != null)
+                if (y is String sb)
                 {
                     return Compare(sa, sb);
                 }
             }
 
-            IComparable ia = x as IComparable;
-            if (ia != null)
+            if (x is IComparable ia)
             {
                 return ia.CompareTo(y);
             }
@@ -57,11 +54,9 @@ namespace System
             if (x == y) return true;
             if (x == null || y == null) return false;
 
-            String sa = x as String;
-            if (sa != null)
+            if (x is String sa)
             {
-                String sb = y as String;
-                if (sb != null)
+                if (y is String sb)
                 {
                     return Equals(sa, sb);
                 }
@@ -76,8 +71,7 @@ namespace System
                 throw new ArgumentNullException("obj");
             }
 
-            string s = obj as string;
-            if (s != null)
+            if (obj is string s)
             {
                 return GetHashCode(s);
             }
@@ -147,8 +141,7 @@ namespace System
         // Equals method for the comparer itself.
         public override bool Equals(Object obj)
         {
-            OrdinalComparer comparer = obj as OrdinalComparer;
-            if (comparer == null)
+            if (!(obj is OrdinalComparer comparer))
             {
                 return false;
             }

@@ -197,9 +197,7 @@ namespace H5.Translator
             {
                 if (mrr.IsCompileTimeConstant && mrr.Member.DeclaringType.Kind == TypeKind.Enum)
                 {
-                    var typeDef = mrr.Member.DeclaringType as DefaultResolvedTypeDefinition;
-
-                    if (typeDef != null)
+                    if (mrr.Member.DeclaringType is DefaultResolvedTypeDefinition typeDef)
                     {
                         var enumMode = Helpers.EnumEmitMode(typeDef);
 
@@ -397,12 +395,11 @@ namespace H5.Translator
                 {
                     return inlineInit;
                 }
-                var itype = tinfo.Type as ITypeDefinition;
 
                 var mode = 0;
                 if (attr.Constructor != null)
                 {
-                    if (itype != null)
+                    if (tinfo.Type is ITypeDefinition itype)
                     {
                         var oattr = this.Emitter.Validator.GetAttribute(itype.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
                         if (oattr.PositionalArguments.Count > 0)
@@ -446,9 +443,8 @@ namespace H5.Translator
 
                             this.Write(name, ": ");
 
-                            var primitiveExpr = member.Initializer as PrimitiveExpression;
 
-                            if (primitiveExpr != null && primitiveExpr.Value is AstType)
+                            if (member.Initializer is PrimitiveExpression primitiveExpr && primitiveExpr.Value is AstType)
                             {
                                 this.Write(Inspector.GetStructDefaultValue((AstType)primitiveExpr.Value, this.Emitter));
                             }

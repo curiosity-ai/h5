@@ -311,8 +311,7 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
             while (p != null && !(p is ObjectCreateExpression)) {
                 p = p.Parent;
             }
-            var parent = n.Parent as ArrayInitializerExpression;
-            if (parent == null)
+            if (!(n.Parent is ArrayInitializerExpression parent))
                 return null;
             if (parent.IsSingleElement)
                 parent = (ArrayInitializerExpression)parent.Parent;
@@ -359,8 +358,7 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                         ctx.CurrentTypeDefinition.IsDerivedFrom(initializerType.GetDefinition()) : 
                         false;
                     foreach (var m in initializerType.GetMembers (m => m.SymbolKind == SymbolKind.Field)) {
-                        var f = m as IField;
-                        if (f != null && (f.IsReadOnly || f.IsConst))
+                        if (m is IField f && (f.IsReadOnly || f.IsConst))
                             continue;
                         if (lookup.IsAccessible(m, isProtectedAllowed)) {
                             var data = contextList.AddMember(m);
@@ -529,12 +527,14 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
 
             if (invoke != null) {
                 var resolveResult = ResolveExpression(new ExpressionResult(invoke, unit));
-                var invokeResult = resolveResult.Result as InvocationResolveResult;
-                if (invokeResult != null) {
+                if (resolveResult.Result is InvocationResolveResult invokeResult)
+                {
                     var arg = formatArgument + 1; // First argument is the format string
-                    if (arg < invoke.Arguments.Count) {
+                    if (arg < invoke.Arguments.Count)
+                    {
                         var invokeArgument = ResolveExpression(new ExpressionResult(invoke.Arguments.ElementAt(arg), unit));
-                        if (invokeArgument != null) {
+                        if (invokeArgument != null)
+                        {
                             var provider = GetFormatCompletionData(invokeArgument.Result.Type);
                             if (provider != null)
                                 return provider;
@@ -557,8 +557,7 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 return Enumerable.Empty<ICompletionData>();
 
             var resolveResult = ResolveExpression(new ExpressionResult(invoke, unit));
-            var invokeResult = resolveResult.Result as CSharpInvocationResolveResult;
-            if (invokeResult == null)
+            if (!(resolveResult.Result is CSharpInvocationResolveResult invokeResult))
                 return Enumerable.Empty<ICompletionData>();
 
             Expression fmtArgumets;
@@ -613,8 +612,7 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 return Enumerable.Empty<ICompletionData>();
 
             var resolveResult = ResolveExpression(new ExpressionResult(invoke, unit));
-            var invokeResult = resolveResult.Result as InvocationResolveResult;
-            if (invokeResult == null)
+            if (!(resolveResult.Result is InvocationResolveResult invokeResult))
                 return Enumerable.Empty<ICompletionData>();
             if (invokeResult.Member.Name == "ToString")
                 return GetFormatCompletionData(invokeResult.Member.DeclaringType ?? SpecialType.UnknownType) ?? Enumerable.Empty<ICompletionData>();
@@ -700,8 +698,8 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                     if (invocationResult == null) {
                         return null;
                     }
-                    var methodGroup = invocationResult.Result as MethodGroupResolveResult;
-                    if (methodGroup != null) {
+                    if (invocationResult.Result is MethodGroupResolveResult methodGroup)
+                    {
                         return CreateParameterCompletion(
                             methodGroup,
                             invocationResult.Resolver,
@@ -865,28 +863,33 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                             }
 
 
-                            var mrr = resolveResult.Result as MemberResolveResult;
-                            if (mrr != null) {
-                                var evt = mrr.Member as IEvent;
-                                if (evt == null) {
+                            if (resolveResult.Result is MemberResolveResult mrr)
+                            {
+                                if (!(mrr.Member is IEvent evt))
+                                {
                                     return null;
                                 }
                                 var delegateType = evt.ReturnType;
-                                if (delegateType.Kind != TypeKind.Delegate) {
+                                if (delegateType.Kind != TypeKind.Delegate)
+                                {
                                     return null;
                                 }
 
                                 var wrapper = new CompletionDataWrapper(this);
-                                if (currentType != null) {
+                                if (currentType != null)
+                                {
                                     //                            bool includeProtected = DomType.IncludeProtected (dom, typeFromDatabase, resolver.CallingType);
-                                    foreach (var method in ctx.CurrentTypeDefinition.Methods) {
-                                        if (MatchDelegate(delegateType, method) /*                                        && method.IsAccessibleFrom (dom, resolver.CallingType, resolver.CallingMember, includeProtected) &&*/) {
+                                    foreach (var method in ctx.CurrentTypeDefinition.Methods)
+                                    {
+                                        if (MatchDelegate(delegateType, method) /*                                        && method.IsAccessibleFrom (dom, resolver.CallingType, resolver.CallingMember, includeProtected) &&*/)
+                                        {
                                             wrapper.AddMember(method);
                                             //                                    data.SetText (data.CompletionText + ";");
                                         }
                                     }
                                 }
-                                if (token == "+=") {
+                                if (token == "+=")
+                                {
                                     string parameterDefinition = AddDelegateHandlers(
                                         wrapper,
                                         delegateType,
@@ -1017,8 +1020,8 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                             return HandleCatchClauseType(identifierStart);
                         }
 
-                        var pDecl = identifierStart.Node as ParameterDeclaration;
-                        if (pDecl != null && pDecl.Parent is LambdaExpression) {
+                        if (identifierStart.Node is ParameterDeclaration pDecl && pDecl.Parent is LambdaExpression)
+                        {
                             return null;
                         }
                     }
@@ -1144,10 +1147,9 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                     }
 
                     if (n is IdentifierExpression) {
-                        var bop = n.Parent as BinaryOperatorExpression;
                         Expression evaluationExpr = null;
 
-                        if (bop != null && bop.Right == n && (bop.Operator == BinaryOperatorType.Equality || bop.Operator == BinaryOperatorType.InEquality)) {
+                        if (n.Parent is BinaryOperatorExpression bop && bop.Right == n && (bop.Operator == BinaryOperatorType.Equality || bop.Operator == BinaryOperatorType.InEquality)) {
                             evaluationExpr = bop.Left;
                         }
                         // check for compare to enum case 
@@ -1176,8 +1178,8 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
 
                     if (n is ArrayInitializerExpression) {
                         // check for new [] {...} expression -> no need to resolve the type there
-                        var parent = n.Parent as ArrayCreateExpression;
-                        if (parent != null && parent.Type.IsNull) {
+                        if (n.Parent is ArrayCreateExpression parent && parent.Type.IsNull)
+                        {
                             return DefaultControlSpaceItems(ref isComplete);
                         }
 
@@ -1548,8 +1550,8 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
             if (!ifvisitor.IsValid)
                 return null;
             // namespace name case
-            var ns = node as NamespaceDeclaration;
-            if (ns != null) {
+            if (node is NamespaceDeclaration ns)
+            {
                 var last = ns.NamespaceName;
                 if (last != null && location < last.EndLocation)
                     return null;
@@ -1573,10 +1575,12 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                     return null;
                 }
                 // Try Parameter name case 
-                var param = node.Parent as ParameterDeclaration;
-                if (param != null) {
-                    foreach (var possibleName in GenerateNameProposals (param.Type)) {
-                        if (possibleName.Length > 0) {
+                if (node.Parent is ParameterDeclaration param)
+                {
+                    foreach (var possibleName in GenerateNameProposals(param.Type))
+                    {
+                        if (possibleName.Length > 0)
+                        {
                             wrapper.Result.Add(factory.CreateLiteralCompletionData(possibleName.ToString()));
                         }
                     }
@@ -1586,8 +1590,8 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                     return wrapper.Result;
                 }
             }
-            var pDecl = node as ParameterDeclaration;
-            if (pDecl != null && pDecl.Parent is LambdaExpression) {
+            if (node is ParameterDeclaration pDecl && pDecl.Parent is LambdaExpression)
+            {
                 return null;
             }
             /*                        if (Unit != null && (node == null || node is TypeDeclaration)) {
@@ -1744,10 +1748,10 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                     if (!isInGlobalDelegate && !(node is Attribute))
                         AddKeywords(wrapper, globalLevelKeywords);
                 }
-                var prop = currentMember as IUnresolvedProperty;
-                if (prop != null && prop.Setter != null && prop.Setter.Region.IsInside(location)) {
+                if (currentMember is IUnresolvedProperty prop && prop.Setter != null && prop.Setter.Region.IsInside(location))
+                {
                     wrapper.AddCustom("value");
-                } 
+                }
                 if (currentMember is IUnresolvedEvent) {
                     wrapper.AddCustom("value");
                 } 
@@ -2130,15 +2134,19 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                         if (parent is VariableInitializer) {
                             parent = parent.Parent;
                         }
-                        var varDecl = parent as VariableDeclarationStatement;
-                        if (varDecl != null) {
+                        if (parent is VariableDeclarationStatement varDecl)
+                        {
                             ExpressionResolveResult resolved;
-                            if (varDecl.Type.IsVar()) {
+                            if (varDecl.Type.IsVar())
+                            {
                                 resolved = null;
-                            } else {
+                            }
+                            else
+                            {
                                 resolved = ResolveExpression(parent);
                             }
-                            if (resolved != null) {
+                            if (resolved != null)
+                            {
                                 isAsType = resolved.Result.Type;
                             }
                         }
@@ -3124,8 +3132,8 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                         continue;
                     }
 
-                    var field = member as IField;
-                    if (field != null) {
+                    if (member is IField field)
+                    {
                         memberIsStatic |= field.IsConst;
                     }
                     if (!memberIsStatic && skipNonStaticMembers) {

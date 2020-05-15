@@ -79,8 +79,7 @@ namespace H5.Translator
 
             if (paramArg != null && this.InvocationExpression != null && !this.IgnoreExpandParams)
             {
-                var rr = this.Emitter.Resolver.ResolveNode(this.InvocationExpression, this.Emitter) as CSharpInvocationResolveResult;
-                if (rr != null)
+                if (this.Emitter.Resolver.ResolveNode(this.InvocationExpression, this.Emitter) is CSharpInvocationResolveResult rr)
                 {
                     expandParams = rr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                     wrapByBrackets = rr.IsExpandedForm && !expandParams;
@@ -108,9 +107,7 @@ namespace H5.Translator
 
                         if (this.InvocationExpression != null)
                         {
-                            var rr = this.Emitter.Resolver.ResolveNode(this.InvocationExpression, this.Emitter) as MemberResolveResult;
-
-                            if (rr != null && !rr.Member.IsStatic && this.InvocationExpression is InvocationExpression)
+                            if (this.Emitter.Resolver.ResolveNode(this.InvocationExpression, this.Emitter) is MemberResolveResult rr && !rr.Member.IsStatic && this.InvocationExpression is InvocationExpression)
                             {
                                 var oldWriter = this.SaveWriter();
                                 var sb = this.NewWriter();
@@ -174,13 +171,11 @@ namespace H5.Translator
 
                 needComma = true;
 
-                var directExpr = expr as DirectionExpression;
-                if (directExpr != null)
+                if (expr is DirectionExpression directExpr)
                 {
                     var resolveResult = this.Emitter.Resolver.ResolveNode(expr, this.Emitter);
-                    var byReferenceResolveResult = resolveResult as ByReferenceResolveResult;
 
-                    if (byReferenceResolveResult != null && !(byReferenceResolveResult.ElementResult is LocalResolveResult))
+                    if (resolveResult is ByReferenceResolveResult byReferenceResolveResult && !(byReferenceResolveResult.ElementResult is LocalResolveResult))
                     {
                         if (byReferenceResolveResult.ElementResult is MemberResolveResult mr && mr.Member.FullName == "H5.Ref.Value" && directExpr.Expression is MemberReferenceExpression mre)
                         {

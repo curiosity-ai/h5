@@ -100,8 +100,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ForeachStatement o = other as ForeachStatement;
-            return o != null && this.VariableType.DoMatch(o.VariableType, match) && MatchString(this.VariableName, o.VariableName)
+            return other is ForeachStatement o && this.VariableType.DoMatch(o.VariableType, match) && MatchString(this.VariableName, o.VariableName)
                 && this.InExpression.DoMatch(o.InExpression, match) && this.EmbeddedStatement.DoMatch(o.EmbeddedStatement, match);
         }
     }

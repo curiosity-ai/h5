@@ -208,15 +208,15 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
             if (accessorOwner != null) {
                 var owner = accessorOwner.Resolve(context);
                 if (owner != null) {
-                    IProperty p = owner as IProperty;
-                    if (p != null) {
+                    if (owner is IProperty p)
+                    {
                         if (p.CanGet && p.Getter.Name == this.Name)
                             return p.Getter;
                         if (p.CanSet && p.Setter.Name == this.Name)
                             return p.Setter;
                     }
-                    IEvent e = owner as IEvent;
-                    if (e != null) {
+                    if (owner is IEvent e)
+                    {
                         if (e.CanAdd && e.AddAccessor.Name == this.Name)
                             return e.AddAccessor;
                         if (e.CanRemove && e.RemoveAccessor.Name == this.Name)

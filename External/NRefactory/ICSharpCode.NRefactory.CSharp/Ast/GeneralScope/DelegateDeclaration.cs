@@ -82,8 +82,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            DelegateDeclaration o = other as DelegateDeclaration;
-            return o != null && MatchString(this.Name, o.Name) 
+            return other is DelegateDeclaration o && MatchString(this.Name, o.Name)
                 && this.MatchAttributesAndModifiers(o, match) && this.ReturnType.DoMatch(o.ReturnType, match)
                 && this.TypeParameters.DoMatch(o.TypeParameters, match) && this.Parameters.DoMatch(o.Parameters, match)
                 && this.Constraints.DoMatch(o.Constraints, match);

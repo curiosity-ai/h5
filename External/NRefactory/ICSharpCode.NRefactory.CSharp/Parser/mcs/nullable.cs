@@ -125,8 +125,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             //
             // Avoid unwraping and wraping of same type
             //
-            Wrap wrap = expr as Wrap;
-            if (wrap != null)
+            if (expr is Wrap wrap)
                 return wrap.Child;
 
             return Create (expr, false);
@@ -137,8 +136,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             //
             // Avoid unwraping and wraping of same type
             //
-            Wrap wrap = expr as Wrap;
-            if (wrap != null)
+            if (expr is Wrap wrap)
                 return wrap.Child;
 
             return Create (expr, true);
@@ -208,8 +206,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
 
         public override bool Equals (object obj)
         {
-            Unwrap uw = obj as Unwrap;
-            return uw != null && expr.Equals (uw.expr);
+            return obj is Unwrap uw && expr.Equals(uw.expr);
         }
 
         public override void FlowAnalysis (FlowAnalysisContext fc)
@@ -333,16 +330,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            TypeCast child_cast = child as TypeCast;
-            if (child_cast != null) {
+            if (child is TypeCast child_cast)
+            {
                 child.Type = type;
-                return child_cast.CreateExpressionTree (ec);
+                return child_cast.CreateExpressionTree(ec);
             }
 
-            var user_cast = child as UserCast;
-            if (user_cast != null) {
+            if (child is UserCast user_cast)
+            {
                 child.Type = type;
-                return user_cast.CreateExpressionTree (ec);
+                return user_cast.CreateExpressionTree(ec);
             }
 
             return base.CreateExpressionTree (ec);
@@ -353,8 +350,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             //
             // Avoid unwraping and wraping of the same type
             //
-            Unwrap unwrap = expr as Unwrap;
-            if (unwrap != null && expr.Type == NullableInfo.GetUnderlyingType (type))
+            if (expr is Unwrap unwrap && expr.Type == NullableInfo.GetUnderlyingType(type))
                 return unwrap.Original;
 
             return new Wrap (expr, type);
@@ -843,33 +839,37 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
                 // Optimizes remaining (false & bool?), (true | bool?) which are not easy to handle
                 // in binary expression reduction
                 //
-                var c = Left as BoolConstant;
-                if (c != null) {
+                if (Left is BoolConstant c)
+                {
                     // Keep evaluation order
-                    UnwrapRight.Store (ec);
+                    UnwrapRight.Store(ec);
 
-                    ec.EmitInt (or ? 1 : 0);
-                    ec.Emit (OpCodes.Newobj, NullableInfo.GetConstructor (type));
-                } else if (Left.IsNull) {
-                    UnwrapRight.Emit (ec);
-                    ec.Emit (or ? OpCodes.Brfalse_S : OpCodes.Brtrue_S, is_null_label);
+                    ec.EmitInt(or ? 1 : 0);
+                    ec.Emit(OpCodes.Newobj, NullableInfo.GetConstructor(type));
+                }
+                else if (Left.IsNull)
+                {
+                    UnwrapRight.Emit(ec);
+                    ec.Emit(or ? OpCodes.Brfalse_S : OpCodes.Brtrue_S, is_null_label);
 
-                    UnwrapRight.Load (ec);
-                    ec.Emit (OpCodes.Br_S, end_label);
+                    UnwrapRight.Load(ec);
+                    ec.Emit(OpCodes.Br_S, end_label);
 
-                    ec.MarkLabel (is_null_label);
-                    LiftedNull.Create (type, loc).Emit (ec);
-                } else {
-                    Left.Emit (ec);
-                    ec.Emit (or ? OpCodes.Brfalse_S : OpCodes.Brtrue_S, load_right);
+                    ec.MarkLabel(is_null_label);
+                    LiftedNull.Create(type, loc).Emit(ec);
+                }
+                else
+                {
+                    Left.Emit(ec);
+                    ec.Emit(or ? OpCodes.Brfalse_S : OpCodes.Brtrue_S, load_right);
 
-                    ec.EmitInt (or ? 1 : 0);
-                    ec.Emit (OpCodes.Newobj, NullableInfo.GetConstructor (type));
+                    ec.EmitInt(or ? 1 : 0);
+                    ec.Emit(OpCodes.Newobj, NullableInfo.GetConstructor(type));
 
-                    ec.Emit (OpCodes.Br_S, end_label);
+                    ec.Emit(OpCodes.Br_S, end_label);
 
-                    ec.MarkLabel (load_right);
-                    UnwrapRight.Original.Emit (ec);
+                    ec.MarkLabel(load_right);
+                    UnwrapRight.Original.Emit(ec);
                 }
             } else {
                 //
@@ -882,31 +882,35 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
                 // Optimizes remaining (bool? & false), (bool? | true) which are not easy to handle
                 // in binary expression reduction
                 //
-                var c = Right as BoolConstant;
-                if (c != null) {
-                    ec.EmitInt (or ? 1 : 0);
-                    ec.Emit (OpCodes.Newobj, NullableInfo.GetConstructor (type));
-                } else if (Right.IsNull) {
-                    UnwrapLeft.Emit (ec);
-                    ec.Emit (or ? OpCodes.Brfalse_S : OpCodes.Brtrue_S, is_null_label);
+                if (Right is BoolConstant c)
+                {
+                    ec.EmitInt(or ? 1 : 0);
+                    ec.Emit(OpCodes.Newobj, NullableInfo.GetConstructor(type));
+                }
+                else if (Right.IsNull)
+                {
+                    UnwrapLeft.Emit(ec);
+                    ec.Emit(or ? OpCodes.Brfalse_S : OpCodes.Brtrue_S, is_null_label);
 
-                    UnwrapLeft.Load (ec);
-                    ec.Emit (OpCodes.Br_S, end_label);
+                    UnwrapLeft.Load(ec);
+                    ec.Emit(OpCodes.Br_S, end_label);
 
-                    ec.MarkLabel (is_null_label);
-                    LiftedNull.Create (type, loc).Emit (ec);
-                } else {
-                    Right.Emit (ec);
-                    ec.Emit (or ? OpCodes.Brfalse_S : OpCodes.Brtrue_S, load_right);
+                    ec.MarkLabel(is_null_label);
+                    LiftedNull.Create(type, loc).Emit(ec);
+                }
+                else
+                {
+                    Right.Emit(ec);
+                    ec.Emit(or ? OpCodes.Brfalse_S : OpCodes.Brtrue_S, load_right);
 
-                    ec.EmitInt (or ? 1 : 0);
-                    ec.Emit (OpCodes.Newobj, NullableInfo.GetConstructor (type));
+                    ec.EmitInt(or ? 1 : 0);
+                    ec.Emit(OpCodes.Newobj, NullableInfo.GetConstructor(type));
 
-                    ec.Emit (OpCodes.Br_S, end_label);
+                    ec.Emit(OpCodes.Br_S, end_label);
 
-                    ec.MarkLabel (load_right);
+                    ec.MarkLabel(load_right);
 
-                    UnwrapLeft.Load (ec);
+                    UnwrapLeft.Load(ec);
                 }
             }
 
@@ -1098,9 +1102,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             if (left is NullLiteral)
                 ec.Report.Error (845, loc, "An expression tree cannot contain a coalescing operator with null left side");
 
-            UserCast uc = left as UserCast;
             Expression conversion = null;
-            if (uc != null) {
+            if (left is UserCast uc) {
                 left = uc.Source;
 
                 Arguments c_args = new Arguments (2);
@@ -1285,44 +1288,49 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             // we can end up in situation when use operator does the null handling which is
             // not what the operator is supposed to do
             //
-            var op_expr = left as UserCast;
-            if (op_expr != null) {
-                op_expr.Source.Emit (ec);
+            if (left is UserCast op_expr)
+            {
+                op_expr.Source.Emit(ec);
                 LocalTemporary temp;
 
                 // TODO: More load kinds can be special cased
-                if (!(op_expr.Source is VariableReference)) {
-                    temp = new LocalTemporary (op_expr.Source.Type);
-                    temp.Store (ec);
-                    temp.Emit (ec);
+                if (!(op_expr.Source is VariableReference))
+                {
+                    temp = new LocalTemporary(op_expr.Source.Type);
+                    temp.Store(ec);
+                    temp.Emit(ec);
                     op_expr.Source = temp;
-                } else {
+                }
+                else
+                {
                     temp = null;
                 }
 
-                var right_label = ec.DefineLabel ();
-                ec.Emit (OpCodes.Brfalse_S, right_label);
-                left.Emit (ec);
-                ec.Emit (OpCodes.Br, end_label);
-                ec.MarkLabel (right_label);
+                var right_label = ec.DefineLabel();
+                ec.Emit(OpCodes.Brfalse_S, right_label);
+                left.Emit(ec);
+                ec.Emit(OpCodes.Br, end_label);
+                ec.MarkLabel(right_label);
 
                 if (temp != null)
-                    temp.Release (ec);
-            } else {
+                    temp.Release(ec);
+            }
+            else
+            {
                 //
                 // Common case where expression is not modified before null check and
                 // we generate better/smaller code
                 //
-                left.Emit (ec);
-                ec.Emit (OpCodes.Dup);
+                left.Emit(ec);
+                ec.Emit(OpCodes.Dup);
 
                 // Only to make verifier happy
                 if (left.Type.IsGenericParameter)
-                    ec.Emit (OpCodes.Box, left.Type);
+                    ec.Emit(OpCodes.Box, left.Type);
 
-                ec.Emit (OpCodes.Brtrue, end_label);
+                ec.Emit(OpCodes.Brtrue, end_label);
 
-                ec.Emit (OpCodes.Pop);
+                ec.Emit(OpCodes.Pop);
             }
 
             right.Emit (ec);

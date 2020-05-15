@@ -70,8 +70,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            UnresolvedAttributeBlob o = other as UnresolvedAttributeBlob;
-            return o != null && attributeType == o.attributeType && ctorParameterTypes == o.ctorParameterTypes
+            return other is UnresolvedAttributeBlob o && attributeType == o.attributeType && ctorParameterTypes == o.ctorParameterTypes
                 && BlobReader.BlobEquals(blob, o.blob);
         }
     }

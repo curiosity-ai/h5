@@ -57,8 +57,7 @@ namespace System.Collections.Generic
             if (collection == null)
                 throw new System.ArgumentNullException("collection");
 
-            ICollection<T> c = collection as ICollection<T>;
-            if (c != null)
+            if (collection is ICollection<T> c)
             {
                 int count = c.Count;
                 if (count == 0)
@@ -940,8 +939,7 @@ namespace System.Collections.Generic
                 throw new System.ArgumentOutOfRangeException("index");
             }
 
-            ICollection<T> c = collection as ICollection<T>;
-            if (c != null)
+            if (collection is ICollection<T> c)
             {    // if collection is ICollection<T>
                 int count = c.Count;
                 if (count > 0)

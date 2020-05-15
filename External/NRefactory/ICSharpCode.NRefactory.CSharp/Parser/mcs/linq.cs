@@ -192,9 +192,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
             if (next != null) {
                 parameter = CreateChildrenParameters (parameter);
 
-                Select s = next as Select;
-                if (s == null || s.IsRequired (parameter))
-                    return next.BuildQueryClause (ec, lSide, parameter);
+                if (!(next is Select s) || s.IsRequired(parameter))
+                    return next.BuildQueryClause(ec, lSide, parameter);
 
                 // Skip transparent select clause if any clause follows
                 if (next.next != null)
@@ -646,8 +645,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
         //
         public bool IsRequired (Parameter parameter)
         {
-            SimpleName sn = expr as SimpleName;
-            if (sn == null)
+            if (!(expr is SimpleName sn))
                 return true;
 
             return sn.Name != parameter.Name;

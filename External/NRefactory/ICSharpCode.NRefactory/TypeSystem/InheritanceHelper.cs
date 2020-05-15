@@ -111,11 +111,14 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
             baseMember = baseMember.MemberDefinition;
             bool includeInterfaces = baseMember.DeclaringTypeDefinition.Kind == TypeKind.Interface;
-            IMethod method = baseMember as IMethod;
-            if (method != null) {
-                foreach (IMethod derivedMethod in derivedType.Methods) {
-                    if (derivedMethod.Name == method.Name && derivedMethod.Parameters.Count == method.Parameters.Count) {
-                        if (derivedMethod.TypeParameters.Count == method.TypeParameters.Count) {
+            if (baseMember is IMethod method)
+            {
+                foreach (IMethod derivedMethod in derivedType.Methods)
+                {
+                    if (derivedMethod.Name == method.Name && derivedMethod.Parameters.Count == method.Parameters.Count)
+                    {
+                        if (derivedMethod.TypeParameters.Count == method.TypeParameters.Count)
+                        {
                             // The method could override the base method:
                             if (GetBaseMembers(derivedMethod, includeInterfaces).Any(m => m.MemberDefinition == baseMember))
                                 return derivedMethod;
@@ -123,10 +126,12 @@ namespace ICSharpCode.NRefactory.TypeSystem
                     }
                 }
             }
-            IProperty property = baseMember as IProperty;
-            if (property != null) {
-                foreach (IProperty derivedProperty in derivedType.Properties) {
-                    if (derivedProperty.Name == property.Name && derivedProperty.Parameters.Count == property.Parameters.Count) {
+            if (baseMember is IProperty property)
+            {
+                foreach (IProperty derivedProperty in derivedType.Properties)
+                {
+                    if (derivedProperty.Name == property.Name && derivedProperty.Parameters.Count == property.Parameters.Count)
+                    {
                         // The property could override the base property:
                         if (GetBaseMembers(derivedProperty, includeInterfaces).Any(m => m.MemberDefinition == baseMember))
                             return derivedProperty;

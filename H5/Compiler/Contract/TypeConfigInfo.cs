@@ -70,9 +70,7 @@ namespace H5.Contract
             {
                 if (this.Entity != null)
                 {
-                    var rr = emitter.Resolver.ResolveNode(this.Entity, emitter) as MemberResolveResult;
-
-                    if (rr != null)
+                    if (emitter.Resolver.ResolveNode(this.Entity, emitter) is MemberResolveResult rr)
                     {
                         fieldName = OverloadsCollection.Create(emitter, rr.Member).GetOverloadName(false, null, withoutTypeParams);
                     }

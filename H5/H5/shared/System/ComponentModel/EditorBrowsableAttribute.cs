@@ -29,9 +29,8 @@ namespace System.ComponentModel
                 return true;
             }
 
-            EditorBrowsableAttribute other = obj as EditorBrowsableAttribute;
 
-            return (other != null) && other.browsableState == browsableState;
+            return (obj is EditorBrowsableAttribute other) && other.browsableState == browsableState;
         }
 
         public override int GetHashCode()

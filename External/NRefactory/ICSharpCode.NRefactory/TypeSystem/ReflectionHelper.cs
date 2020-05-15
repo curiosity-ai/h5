@@ -178,8 +178,8 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// </summary>
         public static TypeCode GetTypeCode(IType type)
         {
-            ITypeDefinition def = type as ITypeDefinition;
-            if (def != null) {
+            if (type is ITypeDefinition def)
+            {
                 KnownTypeCode typeCode = def.KnownTypeCode;
                 if (typeCode <= KnownTypeCode.String && typeCode != KnownTypeCode.Void)
                     return (TypeCode)typeCode;

@@ -42,8 +42,7 @@ namespace H5.Translator.TypeScript
                 {
                     if (field.Entity.HasModifier(Modifiers.Public) || this.TypeInfo.IsEnum)
                     {
-                        var fieldDecl = field.Entity as FieldDeclaration;
-                        if (fieldDecl != null)
+                        if (field.Entity is FieldDeclaration fieldDecl)
                         {
                             foreach (var variableInitializer in fieldDecl.Variables)
                             {
@@ -64,14 +63,12 @@ namespace H5.Translator.TypeScript
                 {
                     if (ev.Entity.HasModifier(Modifiers.Public) || this.TypeInfo.Type.Kind == TypeKind.Interface)
                     {
-                        var memberResult = this.Emitter.Resolver.ResolveNode(ev.VarInitializer, this.Emitter) as MemberResolveResult;
-
-                        if (memberResult != null)
+                        if (this.Emitter.Resolver.ResolveNode(ev.VarInitializer, this.Emitter) is MemberResolveResult memberResult)
                         {
                             var ignoreInterface = memberResult.Member.DeclaringType.Kind == TypeKind.Interface &&
                                       memberResult.Member.DeclaringType.TypeParameterCount > 0;
 
-                            this.WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, this.Emitter, false, ignoreInterface:ignoreInterface), true);
+                            this.WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, this.Emitter, false, ignoreInterface: ignoreInterface), true);
                             this.WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, this.Emitter, true, ignoreInterface: ignoreInterface), false);
 
                             if (!ignoreInterface && this.TypeInfo.Type.Kind == TypeKind.Interface)

@@ -203,34 +203,44 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
 
         AstType ConvertTypeHelper(IType type)
         {
-            TypeWithElementType typeWithElementType = type as TypeWithElementType;
-            if (typeWithElementType != null) {
-                if (typeWithElementType is PointerType) {
+            if (type is TypeWithElementType typeWithElementType)
+            {
+                if (typeWithElementType is PointerType)
+                {
                     return ConvertType(typeWithElementType.ElementType).MakePointerType();
-                } else if (typeWithElementType is ArrayType) {
+                }
+                else if (typeWithElementType is ArrayType)
+                {
                     return ConvertType(typeWithElementType.ElementType).MakeArrayType(((ArrayType)type).Dimensions);
-                } else {
+                }
+                else
+                {
                     // e.g. ByReferenceType; not supported as type in C#
                     return ConvertType(typeWithElementType.ElementType);
                 }
             }
-            ParameterizedType pt = type as ParameterizedType;
-            if (pt != null) {
-                if (pt.Name == "Nullable" && pt.Namespace == "System" && pt.TypeParameterCount == 1) {
+            if (type is ParameterizedType pt)
+            {
+                if (pt.Name == "Nullable" && pt.Namespace == "System" && pt.TypeParameterCount == 1)
+                {
                     return ConvertType(pt.TypeArguments[0]).MakeNullableType();
                 }
                 return ConvertTypeHelper(pt.GetDefinition(), pt.TypeArguments);
             }
-            ITypeDefinition typeDef = type as ITypeDefinition;
-            if (typeDef != null) {
-                if (typeDef.TypeParameterCount > 0) {
+            if (type is ITypeDefinition typeDef)
+            {
+                if (typeDef.TypeParameterCount > 0)
+                {
                     // Unbound type
                     IType[] typeArguments = new IType[typeDef.TypeParameterCount];
-                    for (int i = 0; i < typeArguments.Length; i++) {
+                    for (int i = 0; i < typeArguments.Length; i++)
+                    {
                         typeArguments[i] = SpecialType.UnboundTypeArgument;
                     }
                     return ConvertTypeHelper(typeDef, typeArguments);
-                } else {
+                }
+                else
+                {
                     return ConvertTypeHelper(typeDef, EmptyList<IType>.Instance);
                 }
             }
@@ -319,8 +329,8 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
             } else {
                 if (!typeDef.Equals(type.GetDefinition()))
                     return false;
-                ParameterizedType pt = type as ParameterizedType;
-                if (pt == null) {
+                if (!(type is ParameterizedType pt))
+                {
                     return typeArguments.All(t => t.Kind == TypeKind.UnboundTypeArgument);
                 }
                 var ta = pt.TypeArguments;
@@ -359,8 +369,7 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                 if (UseAliases) {
                     for (ResolvedUsingScope usingScope = resolver.CurrentUsingScope; usingScope != null; usingScope = usingScope.Parent) {
                         foreach (var pair in usingScope.UsingAliases) {
-                            NamespaceResolveResult nrr = pair.Value as NamespaceResolveResult;
-                            if (nrr != null && nrr.NamespaceName == namespaceName)
+                            if (pair.Value is NamespaceResolveResult nrr && nrr.NamespaceName == namespaceName)
                                 return new SimpleType(pair.Key);
                         }
                     }
@@ -392,8 +401,7 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
         {
             if (resolver == null)
                 return true; // just assume namespaces are valid if we don't have a resolver
-            NamespaceResolveResult nrr = resolver.ResolveSimpleName(firstNamespacePart, EmptyList<IType>.Instance) as NamespaceResolveResult;
-            return nrr != null && !nrr.IsError && nrr.NamespaceName == firstNamespacePart;
+            return resolver.ResolveSimpleName(firstNamespacePart, EmptyList<IType>.Instance) is NamespaceResolveResult nrr && !nrr.IsError && nrr.NamespaceName == firstNamespacePart;
         }
         #endregion
 
@@ -402,11 +410,12 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
         {
             Attribute attr = new Attribute();
             attr.Type = ConvertType(attribute.AttributeType);
-            SimpleType st = attr.Type as SimpleType;
-            MemberType mt = attr.Type as MemberType;
-            if (st != null && st.Identifier.EndsWith("Attribute", StringComparison.Ordinal)) {
+            if (attr.Type is SimpleType st && st.Identifier.EndsWith("Attribute", StringComparison.Ordinal))
+            {
                 st.Identifier = st.Identifier.Substring(0, st.Identifier.Length - 9);
-            } else if (mt != null && mt.MemberName.EndsWith("Attribute", StringComparison.Ordinal)) {
+            }
+            else if (attr.Type is MemberType mt && mt.MemberName.EndsWith("Attribute", StringComparison.Ordinal))
+            {
                 mt.MemberName = mt.MemberName.Substring(0, mt.MemberName.Length - 9);
             }
             foreach (ResolveResult arg in attribute.PositionalArguments) {
@@ -439,8 +448,7 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
             {
                 ArrayCreateExpression ace = new ArrayCreateExpression();
                 ace.Type = ConvertType(acrr.Type);
-                ComposedType composedType = ace.Type as ComposedType;
-                if (composedType != null)
+                if (ace.Type is ComposedType composedType)
                 {
                     composedType.ArraySpecifiers.MoveTo(ace.AdditionalArraySpecifiers);
                     if (!composedType.HasNullableSpecifier && composedType.PointerRank == 0)
@@ -609,8 +617,7 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                 case SymbolKind.TypeParameter:
                     return ConvertTypeParameter((ITypeParameter)symbol);
                 default:
-                    IEntity entity = symbol as IEntity;
-                    if (entity != null)
+                    if (symbol is IEntity entity)
                         return ConvertEntity(entity);
                     throw new ArgumentException("Invalid value for SymbolKind: " + symbol.SymbolKind);
             }

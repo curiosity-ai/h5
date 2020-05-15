@@ -76,8 +76,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            NullReferenceExpression o = other as NullReferenceExpression;
-            return o != null;
+            return other is NullReferenceExpression o;
         }
     }
 }

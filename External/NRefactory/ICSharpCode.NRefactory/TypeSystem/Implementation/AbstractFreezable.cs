@@ -55,8 +55,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public static void Freeze(object item)
         {
-            IFreezable f = item as IFreezable;
-            if (f != null)
+            if (item is IFreezable f)
                 f.Freeze();
         }
 

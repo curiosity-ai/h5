@@ -50,9 +50,7 @@ namespace H5.Translator
 
                         if (beforeStatement != null)
                         {
-                            var designation = declarationPattern.Designation as SingleVariableDesignationSyntax;
-
-                            if (designation != null)
+                            if (declarationPattern.Designation is SingleVariableDesignationSyntax designation)
                             {
                                 if (!typesInfo.Keys.Contains(declarationPattern.Type.ToString()))
                                 {
@@ -165,10 +163,9 @@ namespace H5.Translator
                     {
                         if (pattern.Pattern is DeclarationPatternSyntax declarationPattern)
                         {
-                            var designation = declarationPattern.Designation as SingleVariableDesignationSyntax;
                             var beforeStatement = pattern.Ancestors().OfType<StatementSyntax>().FirstOrDefault(ss => ss.Parent == block);
 
-                            if (designation != null)
+                            if (declarationPattern.Designation is SingleVariableDesignationSyntax designation)
                             {
                                 var key = declarationPattern.Type.ToString();
                                 BinaryExpressionSyntax newExpr;

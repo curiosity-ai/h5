@@ -46,9 +46,8 @@ namespace H5.Translator
             if (target.HasChildren)
             {
                 var first = target.Children.ElementAt(0);
-                var expression = first as Expression;
 
-                if (expression != null)
+                if (first is Expression expression)
                 {
                     expression.AcceptVisitor(this.Emitter);
                 }
@@ -73,8 +72,7 @@ namespace H5.Translator
                 {
                     if (a.PositionalArguments.Count > 0)
                     {
-                        var symbol = a.PositionalArguments[0].ConstantValue as string;
-                        if (symbol != null)
+                        if (a.PositionalArguments[0].ConstantValue is string symbol)
                         {
                             result.Add(symbol);
                         }
@@ -154,9 +152,8 @@ namespace H5.Translator
                     if (invocationExpression.Arguments.Count > 0)
                     {
                         var code = invocationExpression.Arguments.First();
-                        var inlineExpression = code as PrimitiveExpression;
 
-                        if (inlineExpression == null)
+                        if (!(code is PrimitiveExpression inlineExpression))
                         {
                             throw new EmitterException(invocationExpression, "Only primitive expression can be inlined");
                         }
@@ -189,8 +186,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    MemberReferenceExpression targetMemberRef = invocationExpression.Target as MemberReferenceExpression;
-                    bool isBase = targetMemberRef != null && targetMemberRef.Target is BaseReferenceExpression;
+                    bool isBase = invocationExpression.Target is MemberReferenceExpression targetMemberRef && targetMemberRef.Target is BaseReferenceExpression;
 
                     if (!String.IsNullOrEmpty(inlineScript) && (isBase || invocationExpression.Target is IdentifierExpression))
                     {
@@ -242,8 +238,7 @@ namespace H5.Translator
                         {
                             invocationResult = csharpInvocation;
                             isExtensionMethodInvocation = true;
-                            var resolvedMethod = invocationResult.Member as IMethod;
-                            if (resolvedMethod != null && resolvedMethod.IsExtensionMethod)
+                            if (invocationResult.Member is IMethod resolvedMethod && resolvedMethod.IsExtensionMethod)
                             {
                                 string inline = this.Emitter.GetInline(resolvedMethod);
                                 bool isNative = this.IsNativeMethod(resolvedMethod);
@@ -289,9 +284,7 @@ namespace H5.Translator
 
                     if (invocationResult != null)
                     {
-                        var resolvedMethod = invocationResult.Member as IMethod;
-
-                        if (resolvedMethod != null && (resolvedMethod.IsExtensionMethod || isObjectLiteral))
+                        if (invocationResult.Member is IMethod resolvedMethod && (resolvedMethod.IsExtensionMethod || isObjectLiteral))
                         {
                             string inline = this.Emitter.GetInline(resolvedMethod);
                             bool isNative = this.IsNativeMethod(resolvedMethod);
@@ -414,9 +407,7 @@ namespace H5.Translator
             var proto = false;
             if (targetMember != null && targetMember.Target is BaseReferenceExpression)
             {
-                var rr = this.Emitter.Resolver.ResolveNode(targetMember, this.Emitter) as MemberResolveResult;
-
-                if (rr != null)
+                if (this.Emitter.Resolver.ResolveNode(targetMember, this.Emitter) is MemberResolveResult rr)
                 {
                     proto = rr.IsVirtualCall;
 
@@ -506,14 +497,11 @@ namespace H5.Translator
             }
             else
             {
-                var dynamicResolveResult = this.Emitter.Resolver.ResolveNode(invocationExpression, this.Emitter) as DynamicInvocationResolveResult;
                 IMethod method = null;
 
-                if (dynamicResolveResult != null)
+                if (this.Emitter.Resolver.ResolveNode(invocationExpression, this.Emitter) is DynamicInvocationResolveResult dynamicResolveResult)
                 {
-                    var group = dynamicResolveResult.Target as MethodGroupResolveResult;
-
-                    if (group != null && group.Methods.Count() > 1)
+                    if (dynamicResolveResult.Target is MethodGroupResolveResult group && group.Methods.Count() > 1)
                     {
                         method = group.Methods.FirstOrDefault(m =>
                         {
@@ -549,9 +537,8 @@ namespace H5.Translator
                 else
                 {
                     var targetResolveResult = this.Emitter.Resolver.ResolveNode(invocationExpression.Target, this.Emitter);
-                    var invocationResolveResult = targetResolveResult as MemberResolveResult;
 
-                    if (invocationResolveResult != null)
+                    if (targetResolveResult is MemberResolveResult invocationResolveResult)
                     {
                         method = invocationResolveResult.Member as IMethod;
                     }
@@ -628,9 +615,8 @@ namespace H5.Translator
                     this.WriteOpenParentheses();
 
                     bool isIgnoreGeneric = false;
-                    var invocationResult = targetResolve as InvocationResolveResult;
 
-                    if (invocationResult != null)
+                    if (targetResolve is InvocationResolveResult invocationResult)
                     {
                         isIgnoreGeneric = Helpers.IsIgnoreGeneric(invocationResult.Member, this.Emitter);
                     }
@@ -711,8 +697,7 @@ namespace H5.Translator
                 }
             }
 
-            var irr = targetResolve as InvocationResolveResult;
-            if (irr != null && irr.Member.MemberDefinition != null && irr.Member.MemberDefinition.ReturnType.Kind == TypeKind.TypeParameter)
+            if (targetResolve is InvocationResolveResult irr && irr.Member.MemberDefinition != null && irr.Member.MemberDefinition.ReturnType.Kind == TypeKind.TypeParameter)
             {
                 Helpers.CheckValueTypeClone(this.Emitter.Resolver.ResolveNode(invocationExpression, this.Emitter), invocationExpression, this, pos);
             }

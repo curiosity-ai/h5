@@ -101,8 +101,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         #region Equals and GetHashCode implementation
         public override bool Equals(object obj)
         {
-            TypeParameterSubstitution other = obj as TypeParameterSubstitution;
-            if (other == null)
+            if (!(obj is TypeParameterSubstitution other))
                 return false;
             return TypeListEquals(classTypeArguments, other.classTypeArguments)
                 && TypeListEquals(methodTypeArguments, other.methodTypeArguments);

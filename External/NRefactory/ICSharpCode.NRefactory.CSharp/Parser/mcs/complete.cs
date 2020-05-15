@@ -111,10 +111,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected override Expression DoResolve (ResolveContext rc)
         {
-            var sn = expr as SimpleName;
             const ResolveFlags flags = ResolveFlags.VariableOrValue | ResolveFlags.Type;
 
-            if (sn != null) {
+            if (expr is SimpleName sn) {
                 expr = sn.LookupNameExpression (rc, MemberLookupRestrictions.ReadAccess | MemberLookupRestrictions.ExactArity);
 
                 //
@@ -147,8 +146,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
 
             var results = new List<string> ();
-            var nexpr = expr as NamespaceExpression;
-            if (nexpr != null) {
+            if (expr is NamespaceExpression nexpr)
+            {
                 string namespaced_partial;
 
                 if (partial_name == null)
@@ -156,12 +155,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 else
                     namespaced_partial = nexpr.Namespace.Name + "." + partial_name;
 
-                rc.CurrentMemberDefinition.GetCompletionStartingWith (namespaced_partial, results);
+                rc.CurrentMemberDefinition.GetCompletionStartingWith(namespaced_partial, results);
                 if (partial_name != null)
-                    results = results.Select (l => l.Substring (partial_name.Length)).ToList ();
-            } else {
-                var r = MemberCache.GetCompletitionMembers (rc, expr_type, partial_name).Select (l => l.Name);
-                AppendResults (results, partial_name, r);
+                    results = results.Select(l => l.Substring(partial_name.Length)).ToList();
+            }
+            else
+            {
+                var r = MemberCache.GetCompletitionMembers(rc, expr_type, partial_name).Select(l => l.Name);
+                AppendResults(results, partial_name, r);
             }
 
             throw new CompletionResult (partial_name == null ? "" : partial_name, results.Distinct ().ToArray ());

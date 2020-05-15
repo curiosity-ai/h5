@@ -62,8 +62,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            SimpleConstantValue scv = other as SimpleConstantValue;
-            return scv != null && type == scv.type && value == scv.value;
+            return other is SimpleConstantValue scv && type == scv.type && value == scv.value;
         }
     }
 }

@@ -470,9 +470,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // base type resolved to scan full hierarchy correctly
                 // Similarly MemberCacheTypes will inflate BaseType and Interfaces
                 // based on type definition
-                var tc = container.MemberDefinition as TypeContainer;
-                if (tc != null)
-                    tc.DefineContainer ();
+                if (container.MemberDefinition is TypeContainer tc)
+                    tc.DefineContainer();
 #endif
 
                 if (container.MemberCacheTypes.member_hash.TryGetValue (name, out applicable)) {
@@ -817,8 +816,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         if ((name_entry.Modifiers & Modifiers.ABSTRACT) == 0)
                             continue;
 
-                        var ms = name_entry as MethodSpec;
-                        if (ms == null)
+                        if (!(name_entry is MethodSpec ms))
                             continue;
 
                         abstract_methods.Add (ms);
@@ -1119,8 +1117,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (accessor_members != null) {
                 foreach (var member in accessor_members) {
-                    var prop = member as PropertySpec;
-                    if (prop != null) {
+                    if (member is PropertySpec prop)
+                    {
                         if (prop.Get != null)
                             prop.Get = accessor_relation[prop.Get];
                         if (prop.Set != null)
@@ -1225,8 +1223,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             //
                             for (int ii = i + 1; ii < entry.Value.Count; ++ii) {
                                 var checked_entry = entry.Value[ii];
-                                IParametersMember p_b = checked_entry as IParametersMember;
-                                if (p_b == null)
+                                if (!(checked_entry is IParametersMember p_b))
                                     continue;
 
                                 if (p_a_pd.Count != p_b.Parameters.Count)
@@ -1257,8 +1254,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         foreach (var f in found) {
                             if (f.Name == name_entry.Name) {
                                 if (p_a != null) {
-                                    IParametersMember p_b = f as IParametersMember;
-                                    if (p_b == null)
+                                    if (!(f is IParametersMember p_b))
                                         continue;
 
                                     if (p_a.Parameters.Count != p_b.Parameters.Count)
@@ -1305,9 +1301,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         //
         static MemberCore GetLaterDefinedMember (MemberSpec a, MemberSpec b)
         {
-            var mc_a = a.MemberDefinition as MemberCore;
             var mc_b = b.MemberDefinition as MemberCore;
-            if (mc_a == null)
+            if (!(a.MemberDefinition is MemberCore mc_a))
                 return mc_b;
 
             if (mc_b == null)
@@ -1347,9 +1342,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public bool CheckExistingMembersOverloads (MemberCore member, AParametersCollection parameters)
         {
             var name = GetLookupName (member);
-            var imb = member as InterfaceMemberBase;
-            if (imb != null && imb.IsExplicitImpl) {
-                name = imb.GetFullName (name);
+            if (member is InterfaceMemberBase imb && imb.IsExplicitImpl)
+            {
+                name = imb.GetFullName(name);
             }
 
             return CheckExistingMembersOverloads (member, name, parameters);
@@ -1366,8 +1361,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             int method_param_count = parameters.Count;
             for (int i = entries.Count - 1; i >= 0; --i) {
                 var ce = entries[i];
-                var pm = ce as IParametersMember;
-                var pd = pm == null ? ParametersCompiled.EmptyReadOnlyParameters : pm.Parameters;
+                var pd = !(ce is IParametersMember pm) ? ParametersCompiled.EmptyReadOnlyParameters : pm.Parameters;
                 if (pd.Count != method_param_count)
                     continue;
 
@@ -1439,49 +1433,56 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 }
 
                 if ((ce.Kind & MemberKind.Method) != 0) {
-                    Method method_a = member as Method;
-                    Method method_b = ce.MemberDefinition as Method;
-                    if (method_a != null && method_b != null && (method_a.ModFlags & method_b.ModFlags & Modifiers.PARTIAL) != 0) {
+                    if (member is Method method_a && ce.MemberDefinition is Method method_b && (method_a.ModFlags & method_b.ModFlags & Modifiers.PARTIAL) != 0)
+                    {
                         const Modifiers partial_modifiers = Modifiers.STATIC | Modifiers.UNSAFE;
-                        if (method_a.IsPartialDefinition == method_b.IsPartialImplementation) {
+                        if (method_a.IsPartialDefinition == method_b.IsPartialImplementation)
+                        {
                             if ((method_a.ModFlags & partial_modifiers) == (method_b.ModFlags & partial_modifiers) ||
-                                method_a.Parent.IsUnsafe && method_b.Parent.IsUnsafe) {
-                                if (method_a.IsPartialImplementation) {
-                                    method_a.SetPartialDefinition (method_b);
+                                method_a.Parent.IsUnsafe && method_b.Parent.IsUnsafe)
+                            {
+                                if (method_a.IsPartialImplementation)
+                                {
+                                    method_a.SetPartialDefinition(method_b);
                                     if (entries.Count == 1)
-                                        member_hash.Remove (name);
+                                        member_hash.Remove(name);
                                     else
-                                        entries.RemoveAt (i);
-                                } else {
-                                    method_b.SetPartialDefinition (method_a);
+                                        entries.RemoveAt(i);
+                                }
+                                else
+                                {
+                                    method_b.SetPartialDefinition(method_a);
                                     method_a.caching_flags |= MemberCore.Flags.PartialDefinitionExists;
                                 }
                                 continue;
                             }
 
-                            if (method_a.IsStatic != method_b.IsStatic) {
-                                Report.SymbolRelatedToPreviousError (ce);
-                                Report.Error (763, member.Location,
+                            if (method_a.IsStatic != method_b.IsStatic)
+                            {
+                                Report.SymbolRelatedToPreviousError(ce);
+                                Report.Error(763, member.Location,
                                     "A partial method declaration and partial method implementation must be both `static' or neither");
                             }
 
-                            if ((method_a.ModFlags & Modifiers.UNSAFE) != (method_b.ModFlags & Modifiers.UNSAFE)) {
-                                Report.SymbolRelatedToPreviousError (ce);
-                                Report.Error (764, member.Location,
+                            if ((method_a.ModFlags & Modifiers.UNSAFE) != (method_b.ModFlags & Modifiers.UNSAFE))
+                            {
+                                Report.SymbolRelatedToPreviousError(ce);
+                                Report.Error(764, member.Location,
                                     "A partial method declaration and partial method implementation must be both `unsafe' or neither");
                             }
 
                             return false;
                         }
 
-                        Report.SymbolRelatedToPreviousError (ce);
-                        if (method_a.IsPartialDefinition) {
-                            Report.Error (756, member.Location, "A partial method `{0}' declaration is already defined",
-                                member.GetSignatureForError ());
+                        Report.SymbolRelatedToPreviousError(ce);
+                        if (method_a.IsPartialDefinition)
+                        {
+                            Report.Error(756, member.Location, "A partial method `{0}' declaration is already defined",
+                                member.GetSignatureForError());
                         }
 
-                        Report.Error (757, member.Location, "A partial method `{0}' implementation is already defined",
-                            member.GetSignatureForError ());
+                        Report.Error(757, member.Location, "A partial method `{0}' implementation is already defined",
+                            member.GetSignatureForError());
                         return false;
                     }
 

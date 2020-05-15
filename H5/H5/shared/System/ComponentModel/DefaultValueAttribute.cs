@@ -204,9 +204,8 @@ namespace System.ComponentModel
                 return true;
             }
 
-            DefaultValueAttribute other = obj as DefaultValueAttribute;
 
-            if (other != null)
+            if (obj is DefaultValueAttribute other)
             {
                 if (Value != null)
                 {

@@ -74,8 +74,7 @@ namespace H5.Translator
 
         public bool Equals(IVariable other)
         {
-            var typeVariable = other as TypeVariable;
-            if (typeVariable != null)
+            if (other is TypeVariable typeVariable)
             {
                 return this.Equals(typeVariable);
             }
@@ -293,8 +292,7 @@ namespace H5.Translator
                 }
             }
 
-            var localResolveResult = rr as LocalResolveResult;
-            if (localResolveResult != null)
+            if (rr is LocalResolveResult localResolveResult)
             {
                 if (!_variables.Contains(localResolveResult.Variable.Name) && !_usedVariables.Contains(localResolveResult.Variable))
                 {
@@ -388,8 +386,7 @@ namespace H5.Translator
         {
             this.CheckExpression(binaryOperatorExpression);
 
-            var rr = this.emitter.Resolver.ResolveNode(binaryOperatorExpression, this.emitter) as OperatorResolveResult;
-            if (rr != null && rr.UserDefinedOperatorMethod != null)
+            if (this.emitter.Resolver.ResolveNode(binaryOperatorExpression, this.emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {
@@ -410,8 +407,7 @@ namespace H5.Translator
         {
             this.CheckExpression(unaryOperatorExpression);
 
-            var rr = this.emitter.Resolver.ResolveNode(unaryOperatorExpression, this.emitter) as OperatorResolveResult;
-            if (rr != null && rr.UserDefinedOperatorMethod != null)
+            if (this.emitter.Resolver.ResolveNode(unaryOperatorExpression, this.emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {
@@ -431,8 +427,7 @@ namespace H5.Translator
 
         public override void VisitAssignmentExpression(AssignmentExpression assignmentExpression)
         {
-            var rr = this.emitter.Resolver.ResolveNode(assignmentExpression, this.emitter) as OperatorResolveResult;
-            if (rr != null && rr.UserDefinedOperatorMethod != null)
+            if (this.emitter.Resolver.ResolveNode(assignmentExpression, this.emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {
@@ -454,9 +449,8 @@ namespace H5.Translator
         {
             this.CheckExpression(invocationExpression);
 
-            var rr = this.emitter.Resolver.ResolveNode(invocationExpression, this.emitter) as InvocationResolveResult;
 
-            if (rr != null)
+            if (this.emitter.Resolver.ResolveNode(invocationExpression, this.emitter) is InvocationResolveResult rr)
             {
                 foreach (var argument in rr.Arguments)
                 {

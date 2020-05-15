@@ -72,16 +72,16 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             if (ParenthesizedExpression.ActsAsParenthesizedExpression(node))
                 return;
 
-            MemberResolveResult mrr = result as MemberResolveResult;
-            if (mrr != null) {
+            if (result is MemberResolveResult mrr)
+            {
                 memberReferenceFound(node, mrr.Member);
             }
-            TypeResolveResult trr = result as TypeResolveResult;
-            if (trr != null) {
+            if (result is TypeResolveResult trr)
+            {
                 typeReferenceFound(node, trr.Type);
             }
-            ForEachResolveResult ferr = result as ForEachResolveResult;
-            if (ferr != null) {
+            if (result is ForEachResolveResult ferr)
+            {
                 Resolved(node, ferr.GetEnumeratorCall);
                 if (ferr.CurrentProperty != null)
                     memberReferenceFound(node, ferr.CurrentProperty);

@@ -68,8 +68,7 @@ namespace H5.Translator
             if (type != null && type.BaseType != null && type.BaseType.FullName == "System.MulticastDelegate")
             {
                 bool wrap = false;
-                var parent = objectCreateExpression.Parent as InvocationExpression;
-                if (parent != null && parent.Target == objectCreateExpression)
+                if (objectCreateExpression.Parent is InvocationExpression parent && parent.Target == objectCreateExpression)
                 {
                     wrap = true;
                 }
@@ -464,8 +463,7 @@ namespace H5.Translator
                     NamedArgumentExpression namedArgumentExpression = item as NamedArgumentExpression;
                     string name = namedExression != null ? namedExression.Name : namedArgumentExpression.Name;
 
-                    var itemrr = this.Emitter.Resolver.ResolveNode(item, this.Emitter) as MemberResolveResult;
-                    if (itemrr != null)
+                    if (this.Emitter.Resolver.ResolveNode(item, this.Emitter) is MemberResolveResult itemrr)
                     {
                         var oc = OverloadsCollection.Create(this.Emitter, itemrr.Member);
                         bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.Attributes.Any(attr => attr.AttributeType.FullName == "H5.NameAttribute") && !this.Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
@@ -596,7 +594,6 @@ namespace H5.Translator
 
                             this.WriteIdentifier(name, true, true);
                             this.Write(": ");
-                            var primitiveExpr = member.Initializer as PrimitiveExpression;
 
                             if (mode == 2 && (member.Initializer == null || member.Initializer.IsNull) && !(member.VarInitializer == null || member.VarInitializer.Initializer.IsNull))
                             {
@@ -613,7 +610,7 @@ namespace H5.Translator
                             }
                             else
                             {
-                                if (primitiveExpr != null && primitiveExpr.Value is AstType)
+                                if (member.Initializer is PrimitiveExpression primitiveExpr && primitiveExpr.Value is AstType)
                                 {
                                     this.Write(Inspector.GetStructDefaultValue((AstType)primitiveExpr.Value, this.Emitter));
                                 }

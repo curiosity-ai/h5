@@ -53,8 +53,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
                 return SpecialType.UnknownType;
             var coClassAttribute = typeDefinition.Attributes.FirstOrDefault(a => IsComAttribute(a, "CoClassAttribute"));
             if (coClassAttribute != null && coClassAttribute.PositionalArguments.Count == 1) {
-                var rr = coClassAttribute.PositionalArguments[0] as TypeOfResolveResult;
-                if (rr != null)
+                if (coClassAttribute.PositionalArguments[0] is TypeOfResolveResult rr)
                     return rr.ReferencedType;
             }
             return SpecialType.UnknownType;

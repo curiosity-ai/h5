@@ -156,9 +156,8 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
 
             public override IEnumerable<Expression> VisitUsingStatement (UsingStatement usingStatement)
             {
-                var expr = usingStatement.ResourceAcquisition as Expression;
-                if (expr != null)
-                    return new [] { expr };
+                if (usingStatement.ResourceAcquisition is Expression expr)
+                    return new[] { expr };
 
                 return usingStatement.ResourceAcquisition.AcceptVisitor (this);
             }
@@ -429,9 +428,9 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                 invocationExpression.Target.AcceptVisitor (this);
                 var outArguments = new List<Expression> ();
                 foreach (var arg in invocationExpression.Arguments) {
-                    var directionExpr = arg as DirectionExpression;
-                    if (directionExpr != null && directionExpr.FieldDirection == FieldDirection.Out) {
-                        outArguments.Add (directionExpr);
+                    if (arg is DirectionExpression directionExpr && directionExpr.FieldDirection == FieldDirection.Out)
+                    {
+                        outArguments.Add(directionExpr);
                         continue;
                     }
                     arg.AcceptVisitor (this);

@@ -27,9 +27,8 @@ namespace H5.Translator
             base.BeginEmit();
             this.OldRules = this.Emitter.Rules;
 
-            var rr = this.Emitter.Resolver.ResolveNode(this.IndexerDeclaration, this.Emitter) as MemberResolveResult;
 
-            if (rr != null)
+            if (this.Emitter.Resolver.ResolveNode(this.IndexerDeclaration, this.Emitter) is MemberResolveResult rr)
             {
                 this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
             }
@@ -43,9 +42,8 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            var rr = this.Emitter.Resolver.ResolveNode(this.IndexerDeclaration, this.Emitter) as MemberResolveResult;
             IProperty prop = null;
-            if (rr != null)
+            if (this.Emitter.Resolver.ResolveNode(this.IndexerDeclaration, this.Emitter) is MemberResolveResult rr)
             {
                 prop = rr.Member as IProperty;
 

@@ -277,14 +277,12 @@ namespace H5.Translator
                         return result;
                     });
 
-                    var cls = t1 as ClassDeclarationSyntax;
-                    if (cls != null)
+                    if (t1 is ClassDeclarationSyntax cls)
                     {
                         return cls.AddMembers(members);
                     }
 
-                    var structDecl = t2 as StructDeclarationSyntax;
-                    if (structDecl != null)
+                    if (t2 is StructDeclarationSyntax structDecl)
                     {
                         return structDecl.AddMembers(members);
                     }

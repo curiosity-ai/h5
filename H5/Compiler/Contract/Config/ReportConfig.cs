@@ -28,9 +28,7 @@ namespace H5.Contract
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var config = value as ReportConfig;
-
-            if (config == null)
+            if (!(value is ReportConfig config))
             {
                 return;
             }

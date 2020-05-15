@@ -217,8 +217,7 @@ namespace H5.Translator
             }
 
             string[] skipPluginAssemblies = null;
-            var translatorInstance = translator as Translator;
-            if (translatorInstance != null)
+            if (translator is Translator translatorInstance)
             {
                 skipPluginAssemblies = translatorInstance.SkipPluginAssemblies;
             }

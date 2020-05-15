@@ -121,8 +121,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ArrayInitializerExpression o = other as ArrayInitializerExpression;
-            return o != null && this.Elements.DoMatch(o.Elements, match);
+            return other is ArrayInitializerExpression o && this.Elements.DoMatch(o.Elements, match);
         }
 
         public static ArrayInitializerExpression CreateSingleElementInitializer ()

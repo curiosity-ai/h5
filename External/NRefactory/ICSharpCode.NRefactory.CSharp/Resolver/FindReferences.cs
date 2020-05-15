@@ -342,8 +342,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 throw new ArgumentNullException("searchScope");
             if (compilation == null)
                 throw new ArgumentNullException("compilation");
-            var pc = compilation.MainAssembly.UnresolvedAssembly as IProjectContent;
-            if (pc == null)
+            if (!(compilation.MainAssembly.UnresolvedAssembly is IProjectContent pc))
                 throw new ArgumentException("Main assembly is not a project content");
             if (searchScope.TopLevelTypeDefinition != null) {
                 ITypeDefinition topLevelTypeDef = compilation.Import(searchScope.TopLevelTypeDefinition);
@@ -484,8 +483,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             CSharpAstResolver resolver = new CSharpAstResolver(compilation, syntaxTree, unresolvedFile);
             resolver.ApplyNavigator(combinedNavigator, cancellationToken);
             foreach (var n in navigators) {
-                var frn = n as FindReferenceNavigator;
-                if (frn != null)
+                if (n is FindReferenceNavigator frn)
                     frn.NavigatorDone(resolver, cancellationToken);
             }
         }
@@ -608,31 +606,25 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool CanMatch(AstNode node)
             {
-                IdentifierExpression ident = node as IdentifierExpression;
-                if (ident != null)
+                if (node is IdentifierExpression ident)
                     return searchTerm == null || ident.Identifier == searchTerm;
 
-                MemberReferenceExpression mre = node as MemberReferenceExpression;
-                if (mre != null)
+                if (node is MemberReferenceExpression mre)
                     return searchTerm == null || mre.MemberName == searchTerm;
 
-                SimpleType st = node as SimpleType;
-                if (st != null)
+                if (node is SimpleType st)
                     return searchTerm == null || st.Identifier == searchTerm;
 
-                MemberType mt = node as MemberType;
-                if (mt != null)
+                if (node is MemberType mt)
                     return searchTerm == null || mt.MemberName == searchTerm;
 
                 if (searchTerm == null && node is PrimitiveType)
                     return true;
 
-                TypeDeclaration typeDecl = node as TypeDeclaration;
-                if (typeDecl != null)
+                if (node is TypeDeclaration typeDecl)
                     return searchTerm == null || typeDecl.Name == searchTerm;
 
-                DelegateDeclaration delegateDecl = node as DelegateDeclaration;
-                if (delegateDecl != null)
+                if (node is DelegateDeclaration delegateDecl)
                     return searchTerm == null || delegateDecl.Name == searchTerm;
 
                 return false;
@@ -640,8 +632,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                TypeResolveResult trr = rr as TypeResolveResult;
-                return trr != null && typeDefinition.Equals(trr.Type.GetDefinition());
+                return rr is TypeResolveResult trr && typeDefinition.Equals(trr.Type.GetDefinition());
             }
         }
         #endregion
@@ -671,20 +662,16 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool CanMatch(AstNode node)
             {
-                IdentifierExpression ident = node as IdentifierExpression;
-                if (ident != null)
+                if (node is IdentifierExpression ident)
                     return ident.Identifier == searchTerm;
 
-                MemberReferenceExpression mre = node as MemberReferenceExpression;
-                if (mre != null)
+                if (node is MemberReferenceExpression mre)
                     return mre.MemberName == searchTerm;
 
-                PointerReferenceExpression pre = node as PointerReferenceExpression;
-                if (pre != null)
+                if (node is PointerReferenceExpression pre)
                     return pre.MemberName == searchTerm;
 
-                NamedExpression ne = node as NamedExpression;
-                if (ne != null)
+                if (node is NamedExpression ne)
                     return ne.Name == searchTerm;
 
                 return false;
@@ -692,8 +679,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                MemberResolveResult mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(member, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(member, mrr.Member, mrr.IsVirtualCall);
             }
         }
 
@@ -845,8 +831,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                ForEachResolveResult ferr = rr as ForEachResolveResult;
-                return ferr != null && ferr.CurrentProperty != null && findReferences.IsMemberMatch(property, ferr.CurrentProperty, true);
+                return rr is ForEachResolveResult ferr && ferr.CurrentProperty != null && findReferences.IsMemberMatch(property, ferr.CurrentProperty, true);
             }
         }
 
@@ -866,8 +851,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                AwaitResolveResult arr = rr as AwaitResolveResult;
-                return arr != null && arr.IsCompletedProperty != null && findReferences.IsMemberMatch(property, arr.IsCompletedProperty, true);
+                return rr is AwaitResolveResult arr && arr.IsCompletedProperty != null && findReferences.IsMemberMatch(property, arr.IsCompletedProperty, true);
             }
         }
         #endregion
@@ -952,26 +936,24 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 if (specialNodeType != null && node.GetType() == specialNodeType)
                     return true;
 
-                Expression expr = node as Expression;
-                if (expr == null)
+                if (!(node is Expression expr))
                     return node is MethodDeclaration;
 
-                InvocationExpression ie = node as InvocationExpression;
-                if (ie != null) {
+                if (node is InvocationExpression ie)
+                {
                     Expression target = ParenthesizedExpression.UnpackParenthesizedExpression(ie.Target);
 
-                    IdentifierExpression ident = target as IdentifierExpression;
-                    if (ident != null)
+                    if (target is IdentifierExpression ident)
                         return ident.Identifier == method.Name;
 
-                    MemberReferenceExpression mre = target as MemberReferenceExpression;
-                    if (mre != null)
+                    if (target is MemberReferenceExpression mre)
                         return mre.MemberName == method.Name;
 
-                    PointerReferenceExpression pre = target as PointerReferenceExpression;
-                    if (pre != null)
+                    if (target is PointerReferenceExpression pre)
                         return pre.MemberName == method.Name;
-                } else if (expr.Role != Roles.TargetExpression) {
+                }
+                else if (expr.Role != Roles.TargetExpression)
+                {
                     // MemberReferences & Identifiers that aren't used in an invocation can still match the method
                     // as delegate name.
                     if (expr.GetChildByRole(Roles.Identifier).Name == method.Name)
@@ -983,20 +965,19 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             internal override bool IsMatch(ResolveResult rr)
             {
                 if (specialNodeType != null) {
-                    var ferr = rr as ForEachResolveResult;
-                    if (ferr != null) {
+                    if (rr is ForEachResolveResult ferr)
+                    {
                         return IsMatch(ferr.GetEnumeratorCall)
                             || (ferr.MoveNextMethod != null && findReferences.IsMemberMatch(method, ferr.MoveNextMethod, true));
                     }
-                    var arr = rr as AwaitResolveResult;
-                    if (arr != null) {
+                    if (rr is AwaitResolveResult arr)
+                    {
                         return IsMatch(arr.GetAwaiterInvocation)
                             || (arr.GetResultMethod != null && findReferences.IsMemberMatch(method, arr.GetResultMethod, true))
                             || (arr.OnCompletedMethod != null && findReferences.IsMemberMatch(method, arr.OnCompletedMethod, true));
                     }
                 }
-                var mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(method, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(method, mrr.Member, mrr.IsVirtualCall);
             }
 
             internal override void NavigatorDone(CSharpAstResolver resolver, CancellationToken cancellationToken)
@@ -1043,8 +1024,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                MemberResolveResult mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(indexer, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(indexer, mrr.Member, mrr.IsVirtualCall);
             }
         }
         #endregion
@@ -1142,8 +1122,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool CanMatch(AstNode node)
             {
-                UnaryOperatorExpression uoe = node as UnaryOperatorExpression;
-                if (uoe != null) {
+                if (node is UnaryOperatorExpression uoe)
+                {
                     if (operatorType == UnaryOperatorType.Increment)
                         return uoe.Operator == UnaryOperatorType.Increment || uoe.Operator == UnaryOperatorType.PostIncrement;
                     else if (operatorType == UnaryOperatorType.Decrement)
@@ -1156,8 +1136,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                MemberResolveResult mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(op, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(op, mrr.Member, mrr.IsVirtualCall);
             }
         }
 
@@ -1179,8 +1158,8 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool CanMatch(AstNode node)
             {
-                BinaryOperatorExpression boe = node as BinaryOperatorExpression;
-                if (boe != null) {
+                if (node is BinaryOperatorExpression boe)
+                {
                     return boe.Operator == operatorType;
                 }
                 return node is OperatorDeclaration;
@@ -1188,8 +1167,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                MemberResolveResult mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(op, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(op, mrr.Member, mrr.IsVirtualCall);
             }
         }
 
@@ -1209,8 +1187,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                MemberResolveResult mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(op, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(op, mrr.Member, mrr.IsVirtualCall);
             }
 
             public override void ProcessConversion(Expression expression, ResolveResult result, Conversion conversion, IType targetType)
@@ -1237,8 +1214,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                ConversionResolveResult crr = rr as ConversionResolveResult;
-                return crr != null && crr.Conversion.IsUserDefined
+                return rr is ConversionResolveResult crr && crr.Conversion.IsUserDefined
                     && findReferences.IsMemberMatch(op, crr.Conversion.Method, crr.Conversion.IsVirtualMethodLookup);
             }
         }
@@ -1283,8 +1259,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                MemberResolveResult mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(ctor, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(ctor, mrr.Member, mrr.IsVirtualCall);
             }
         }
 
@@ -1322,8 +1297,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                MemberResolveResult mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(ctor, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(ctor, mrr.Member, mrr.IsVirtualCall);
             }
         }
         #endregion
@@ -1360,8 +1334,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                MemberResolveResult mrr = rr as MemberResolveResult;
-                return mrr != null && findReferences.IsMemberMatch(dtor, mrr.Member, mrr.IsVirtualCall);
+                return rr is MemberResolveResult mrr && findReferences.IsMemberMatch(dtor, mrr.Member, mrr.IsVirtualCall);
             }
         }
         #endregion
@@ -1408,25 +1381,20 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool CanMatch(AstNode node)
             {
-                var expr = node as IdentifierExpression;
-                if (expr != null)
+                if (node is IdentifierExpression expr)
                     return expr.TypeArguments.Count == 0 && variable.Name == expr.Identifier;
-                var vi = node as VariableInitializer;
-                if (vi != null)
+                if (node is VariableInitializer vi)
                     return vi.Name == variable.Name;
-                var pd = node as ParameterDeclaration;
-                if (pd != null)
+                if (node is ParameterDeclaration pd)
                     return pd.Name == variable.Name;
-                var id = node as Identifier;
-                if (id != null)
+                if (node is Identifier id)
                     return id.Name == variable.Name;
                 return false;
             }
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                var lrr = rr as LocalResolveResult;
-                return lrr != null && lrr.Variable.Name == variable.Name && lrr.Variable.Region == variable.Region;
+                return rr is LocalResolveResult lrr && lrr.Variable.Name == variable.Name && lrr.Variable.Region == variable.Region;
             }
         }
         #endregion
@@ -1458,8 +1426,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
         SearchScope GetSearchScopeForTypeParameter(ITypeParameter tp)
         {
             var searchScope = new SearchScope(c => new FindTypeParameterReferencesNavigator(tp));
-            var compilationProvider = tp as ICompilationProvider;
-            if (compilationProvider != null)
+            if (tp is ICompilationProvider compilationProvider)
                 searchScope.declarationCompilation = compilationProvider.Compilation;
             searchScope.topLevelTypeDefinition = GetTopLevelTypeDefinition(tp.Owner);
             searchScope.accessibility = Accessibility.Private;
@@ -1477,19 +1444,16 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool CanMatch(AstNode node)
             {
-                var type = node as SimpleType;
-                if (type != null)
+                if (node is SimpleType type)
                     return type.Identifier == typeParameter.Name;
-                var declaration = node as TypeParameterDeclaration;
-                if (declaration != null)
+                if (node is TypeParameterDeclaration declaration)
                     return declaration.Name == typeParameter.Name;
                 return false;
             }
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                var lrr = rr as TypeResolveResult;
-                return lrr != null && lrr.Type.Kind == TypeKind.TypeParameter && ((ITypeParameter)lrr.Type).Region == typeParameter.Region;
+                return rr is TypeResolveResult lrr && lrr.Type.Kind == TypeKind.TypeParameter && ((ITypeParameter)lrr.Type).Region == typeParameter.Region;
             }
         }
         #endregion
@@ -1516,28 +1480,22 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool CanMatch(AstNode node)
             {
-                var nsd = node as NamespaceDeclaration;
-                if (nsd != null && nsd.FullName.StartsWith(ns.FullName, StringComparison.Ordinal))
+                if (node is NamespaceDeclaration nsd && nsd.FullName.StartsWith(ns.FullName, StringComparison.Ordinal))
                     return true;
 
-                var ud = node as UsingDeclaration;
-                if (ud != null && ud.Namespace == ns.FullName)
+                if (node is UsingDeclaration ud && ud.Namespace == ns.FullName)
                     return true;
 
-                var st = node as SimpleType;
-                if (st != null && st.Identifier == ns.Name)
-                    return !st.AncestorsAndSelf.TakeWhile (n => n is AstType).Any (m => m.Role == NamespaceDeclaration.NamespaceNameRole);
+                if (node is SimpleType st && st.Identifier == ns.Name)
+                    return !st.AncestorsAndSelf.TakeWhile(n => n is AstType).Any(m => m.Role == NamespaceDeclaration.NamespaceNameRole);
 
-                var mt = node as MemberType;
-                if (mt != null && mt.MemberName == ns.Name)
-                    return !mt.AncestorsAndSelf.TakeWhile (n => n is AstType).Any (m => m.Role == NamespaceDeclaration.NamespaceNameRole);
+                if (node is MemberType mt && mt.MemberName == ns.Name)
+                    return !mt.AncestorsAndSelf.TakeWhile(n => n is AstType).Any(m => m.Role == NamespaceDeclaration.NamespaceNameRole);
 
-                var identifer = node as IdentifierExpression;
-                if (identifer != null && identifer.Identifier == ns.Name)
+                if (node is IdentifierExpression identifer && identifer.Identifier == ns.Name)
                     return true;
 
-                var mrr = node as MemberReferenceExpression;
-                if (mrr != null && mrr.MemberName == ns.Name)
+                if (node is MemberReferenceExpression mrr && mrr.MemberName == ns.Name)
                     return true;
 
 
@@ -1546,8 +1504,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                var nsrr = rr as NamespaceResolveResult;
-                return nsrr != null && nsrr.NamespaceName.StartsWith(ns.FullName, StringComparison.Ordinal);
+                return rr is NamespaceResolveResult nsrr && nsrr.NamespaceName.StartsWith(ns.FullName, StringComparison.Ordinal);
             }
         }
         #endregion
@@ -1578,32 +1535,25 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
             internal override bool CanMatch(AstNode node)
             {
-                var expr = node as IdentifierExpression;
-                if (expr != null)
+                if (node is IdentifierExpression expr)
                     return expr.TypeArguments.Count == 0 && parameter.Name == expr.Identifier;
-                var vi = node as VariableInitializer;
-                if (vi != null)
+                if (node is VariableInitializer vi)
                     return vi.Name == parameter.Name;
-                var pd = node as ParameterDeclaration;
-                if (pd != null)
+                if (node is ParameterDeclaration pd)
                     return pd.Name == parameter.Name;
-                var id = node as Identifier;
-                if (id != null)
+                if (node is Identifier id)
                     return id.Name == parameter.Name;
-                var nae = node as NamedArgumentExpression;
-                if (nae != null)
+                if (node is NamedArgumentExpression nae)
                     return nae.Name == parameter.Name;
                 return false;
             }
 
             internal override bool IsMatch(ResolveResult rr)
             {
-                var lrr = rr as LocalResolveResult;
-                if (lrr != null)
+                if (rr is LocalResolveResult lrr)
                     return lrr.Variable.Name == parameter.Name && lrr.Variable.Region == parameter.Region;
 
-                var nar = rr as NamedArgumentResolveResult;
-                return nar != null && nar.Parameter.Name == parameter.Name && nar.Parameter.Region == parameter.Region;
+                return rr is NamedArgumentResolveResult nar && nar.Parameter.Name == parameter.Name && nar.Parameter.Region == parameter.Region;
             }
         }
         #endregion

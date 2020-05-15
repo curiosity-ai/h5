@@ -1183,8 +1183,7 @@ namespace H5.Contract
                 return prefix != null ? prefix + name : name;
             }
 
-            var iDefinition = definition as IMethod;
-            var isCtor = iDefinition != null && iDefinition.IsConstructor;
+            var isCtor = definition is IMethod iDefinition && iDefinition.IsConstructor;
 
             if (isCtor)
             {
@@ -1211,9 +1210,7 @@ namespace H5.Contract
 
         protected virtual IMember FindMember(EntityDeclaration entity)
         {
-            var rr = this.Emitter.Resolver.ResolveNode(entity, this.Emitter) as MemberResolveResult;
-
-            if (rr != null)
+            if (this.Emitter.Resolver.ResolveNode(entity, this.Emitter) is MemberResolveResult rr)
             {
                 return rr.Member;
             }

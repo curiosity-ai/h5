@@ -445,8 +445,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
             }
 
-            KeyValuePair<TKey, TValue>[] keyValuePairArray = array as KeyValuePair<TKey, TValue>[];
-            if (keyValuePairArray != null)
+            if (array is KeyValuePair<TKey, TValue>[] keyValuePairArray)
             {
                 for (int i = 0; i < Count; i++)
                 {

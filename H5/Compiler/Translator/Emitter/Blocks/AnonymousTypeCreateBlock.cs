@@ -42,8 +42,7 @@ namespace H5.Translator
 
                 if (member_rr == null)
                 {
-                    var o_rr = rr as OperatorResolveResult;
-                    if (o_rr != null)
+                    if (rr is OperatorResolveResult o_rr)
                     {
                         member_rr = o_rr.Operands[0] as MemberResolveResult;
                     }

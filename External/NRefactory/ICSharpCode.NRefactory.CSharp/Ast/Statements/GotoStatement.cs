@@ -79,8 +79,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            GotoStatement o = other as GotoStatement;
-            return o != null && MatchString(this.Label, o.Label);
+            return other is GotoStatement o && MatchString(this.Label, o.Label);
         }
     }
 
@@ -129,8 +128,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            GotoCaseStatement o = other as GotoCaseStatement;
-            return o != null && this.LabelExpression.DoMatch(o.LabelExpression, match);
+            return other is GotoCaseStatement o && this.LabelExpression.DoMatch(o.LabelExpression, match);
         }
     }
 
@@ -171,8 +169,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            GotoDefaultStatement o = other as GotoDefaultStatement;
-            return o != null;
+            return other is GotoDefaultStatement o;
         }
     }
 }

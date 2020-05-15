@@ -101,8 +101,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ComposedType o = other as ComposedType;
-            return o != null && this.HasNullableSpecifier == o.HasNullableSpecifier && this.PointerRank == o.PointerRank
+            return other is ComposedType o && this.HasNullableSpecifier == o.HasNullableSpecifier && this.PointerRank == o.PointerRank
                 && this.BaseType.DoMatch(o.BaseType, match)
                 && this.ArraySpecifiers.DoMatch(o.ArraySpecifiers, match);
         }
@@ -217,8 +216,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ArraySpecifier o = other as ArraySpecifier;
-            return o != null && this.Dimensions == o.Dimensions;
+            return other is ArraySpecifier o && this.Dimensions == o.Dimensions;
         }
 
         public override string ToString(CSharpFormattingOptions formattingOptions)

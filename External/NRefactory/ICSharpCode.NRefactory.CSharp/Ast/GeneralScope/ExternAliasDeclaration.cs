@@ -84,8 +84,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch (AstNode other, PatternMatching.Match match)
         {
-            var o = other as ExternAliasDeclaration;
-            return o != null && MatchString (this.Name, o.Name);
+            return other is ExternAliasDeclaration o && MatchString(this.Name, o.Name);
         }
     }
 }

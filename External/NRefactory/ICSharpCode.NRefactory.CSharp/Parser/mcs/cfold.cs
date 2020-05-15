@@ -894,12 +894,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     return (Constant) new Binary (oper, lifted_int, right).ResolveOperator (ec);
                 }
 
-                IntConstant ic = right.ConvertImplicitly (ec.BuiltinTypes.Int) as IntConstant;
-                if (ic == null){
-                    return null;
-                }
+                    if (!(right.ConvertImplicitly(ec.BuiltinTypes.Int) is IntConstant ic))
+                    {
+                        return null;
+                    }
 
-                int lshift_val = ic.Value;
+                    int lshift_val = ic.Value;
                 switch (left.Type.BuiltinType) {
                 case BuiltinTypeSpec.Type.ULong:
                     return new ULongConstant (ec.BuiltinTypes, ((ULongConstant) left).Value << lshift_val, left.Location);
@@ -929,11 +929,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     return (Constant) new Binary (oper, lifted_int, right).ResolveOperator (ec);
                 }
 
-                IntConstant sic = right.ConvertImplicitly (ec.BuiltinTypes.Int) as IntConstant;
-                if (sic == null){
-                    return null;
-                }
-                int rshift_val = sic.Value;
+                    if (!(right.ConvertImplicitly(ec.BuiltinTypes.Int) is IntConstant sic))
+                    {
+                        return null;
+                    }
+                    int rshift_val = sic.Value;
                 switch (left.Type.BuiltinType) {
                 case BuiltinTypeSpec.Type.ULong:
                     return new ULongConstant (ec.BuiltinTypes, ((ULongConstant) left).Value >> rshift_val, left.Location);

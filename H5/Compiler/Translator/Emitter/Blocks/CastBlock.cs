@@ -179,8 +179,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var conv_rr = cast_rr as ConversionResolveResult;
-                    if (conv_rr != null && conv_rr.Input is ConstantResolveResult && !conv_rr.Conversion.IsUserDefined)
+                    if (cast_rr is ConversionResolveResult conv_rr && conv_rr.Input is ConstantResolveResult && !conv_rr.Conversion.IsUserDefined)
                     {
                         var expectedType = this.Emitter.Resolver.Resolver.GetExpectedType(this.CastExpression);
                         var value = ((ConstantResolveResult)conv_rr.Input).ConstantValue;
@@ -244,10 +243,9 @@ namespace H5.Translator
                 return;
             }
 
-            var simpleType = type as SimpleType;
             bool hasValue = false;
 
-            if (simpleType != null && simpleType.Identifier == "dynamic")
+            if (type is SimpleType simpleType && simpleType.Identifier == "dynamic")
             {
                 if (method == CS.Ops.CAST || method == CS.Ops.AS)
                 {
@@ -408,10 +406,9 @@ namespace H5.Translator
 
         protected virtual string GetCastCode(Expression expression, AstType astType, string op, out bool isCastAttr)
         {
-            var resolveResult = this.Emitter.Resolver.ResolveNode(astType, this.Emitter) as TypeResolveResult;
             isCastAttr = false;
 
-            if (resolveResult == null)
+            if (!(this.Emitter.Resolver.ResolveNode(astType, this.Emitter) is TypeResolveResult resolveResult))
             {
                 return null;
             }
@@ -443,9 +440,7 @@ namespace H5.Translator
             }
             else
             {
-                ParameterizedType paramType = resolveResult.Type as ParameterizedType;
-
-                if (paramType != null)
+                if (resolveResult.Type is ParameterizedType paramType)
                 {
                     attributes = paramType.GetDefinition().Attributes;
                 }
@@ -499,8 +494,7 @@ namespace H5.Translator
 
             string tempVar = null;
             string expressionStr;
-            var memberTargetrr = expressionrr as MemberResolveResult;
-            bool isField = memberTargetrr != null && memberTargetrr.Member is IField &&
+            bool isField = expressionrr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                             memberTargetrr.TargetResult is LocalResolveResult);
 

@@ -243,27 +243,32 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                 return false;
             if (member.Name != name)
                 return false;
-            IMethod method = member as IMethod;
-            if (method != null && method.TypeParameters.Count > 0)
+            if (member is IMethod method && method.TypeParameters.Count > 0)
                 return false;
             return IsParameterTypeMatch(member, parameterTypes);
         }
 
         static bool IsParameterTypeMatch(IMember member, IList<IType> parameterTypes)
         {
-            IParameterizedMember parameterizedMember = member as IParameterizedMember;
-            if (parameterizedMember == null) {
+            if (!(member is IParameterizedMember parameterizedMember))
+            {
                 return parameterTypes.Count == 0;
-            } else if (parameterTypes.Count == parameterizedMember.Parameters.Count) {
-                for (int i = 0; i < parameterTypes.Count; i++) {
+            }
+            else if (parameterTypes.Count == parameterizedMember.Parameters.Count)
+            {
+                for (int i = 0; i < parameterTypes.Count; i++)
+                {
                     IType type1 = parameterTypes[i];
                     IType type2 = parameterizedMember.Parameters[i].Type;
-                    if (!type1.Equals(type2)) {
+                    if (!type1.Equals(type2))
+                    {
                         return false;
                     }
                 }
                 return true;
-            } else {
+            }
+            else
+            {
                 return false;
             }
         }

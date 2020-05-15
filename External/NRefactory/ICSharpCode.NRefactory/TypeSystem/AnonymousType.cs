@@ -61,8 +61,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
             public override bool Equals(object obj)
             {
-                AnonymousTypeProperty p = obj as AnonymousTypeProperty;
-                return p != null && this.Name == p.Name && declaringType.Equals(p.declaringType);
+                return obj is AnonymousTypeProperty p && this.Name == p.Name && declaringType.Equals(p.declaringType);
             }
 
             public override int GetHashCode()
@@ -96,8 +95,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
             public override bool Equals(object obj)
             {
-                AnonymousTypeAccessor p = obj as AnonymousTypeAccessor;
-                return p != null && this.Name == p.Name && owner.DeclaringType.Equals(p.owner.DeclaringType);
+                return obj is AnonymousTypeAccessor p && this.Name == p.Name && owner.DeclaringType.Equals(p.owner.DeclaringType);
             }
 
             public override int GetHashCode()
@@ -185,8 +183,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public override bool Equals(IType other)
         {
-            AnonymousType o = other as AnonymousType;
-            if (o == null || resolvedProperties.Count != o.resolvedProperties.Count)
+            if (!(other is AnonymousType o) || resolvedProperties.Count != o.resolvedProperties.Count)
                 return false;
             for (int i = 0; i < resolvedProperties.Count; i++) {
                 IProperty p1 = resolvedProperties[i];

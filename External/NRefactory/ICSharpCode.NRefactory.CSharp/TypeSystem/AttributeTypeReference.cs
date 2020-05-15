@@ -84,8 +84,7 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            AttributeTypeReference atr = other as AttributeTypeReference;
-            return atr != null && this.withoutSuffix == atr.withoutSuffix && this.withSuffix == atr.withSuffix;
+            return other is AttributeTypeReference atr && this.withoutSuffix == atr.withoutSuffix && this.withSuffix == atr.withSuffix;
         }
     }
 }

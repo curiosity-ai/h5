@@ -280,16 +280,11 @@ namespace H5.Translator
                 return true;
             }
 
-            var unaryExpr = expression.Parent as UnaryOperatorExpression;
-            if (unaryExpr != null && unaryExpr.Operator == UnaryOperatorType.Await)
+            if (expression.Parent is UnaryOperatorExpression unaryExpr && unaryExpr.Operator == UnaryOperatorType.Await)
             {
-                var rr = this.Emitter.Resolver.ResolveNode(unaryExpr, this.Emitter) as AwaitResolveResult;
-
-                if (rr != null)
+                if (this.Emitter.Resolver.ResolveNode(unaryExpr, this.Emitter) is AwaitResolveResult rr)
                 {
-                    var awaiterMethod = rr.GetAwaiterInvocation as InvocationResolveResult;
-
-                    if (awaiterMethod != null)
+                    if (rr.GetAwaiterInvocation is InvocationResolveResult awaiterMethod)
                     {
                         type = awaiterMethod.Type;
 

@@ -145,15 +145,13 @@ namespace H5.Translator
                 return true;
             }
 
-            var loop = parent as DoWhileStatement;
 
-            if (loop != null)
+            if (parent is DoWhileStatement loop)
             {
                 return true;
             }
 
-            var ifStatement = parent as IfElseStatement;
-            if (ifStatement != null && ifStatement.FalseStatement != null && !ifStatement.FalseStatement.IsNull && ifStatement.FalseStatement != block)
+            if (parent is IfElseStatement ifStatement && ifStatement.FalseStatement != null && !ifStatement.FalseStatement.IsNull && ifStatement.FalseStatement != block)
             {
                 return true;
             }
@@ -262,8 +260,7 @@ namespace H5.Translator
             var ra = ReachabilityAnalysis.Create(this.BlockStatement, this.Emitter.Resolver.Resolver);
             this.BlockStatement.Children.ToList().ForEach(child =>
             {
-                var statement = child as Statement;
-                if (statement != null && !ra.IsReachable(statement))
+                if (child is Statement statement && !ra.IsReachable(statement))
                 {
                     return;
                 }

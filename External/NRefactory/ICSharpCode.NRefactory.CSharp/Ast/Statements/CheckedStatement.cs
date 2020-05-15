@@ -68,8 +68,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            CheckedStatement o = other as CheckedStatement;
-            return o != null && this.Body.DoMatch(o.Body, match);
+            return other is CheckedStatement o && this.Body.DoMatch(o.Body, match);
         }
     }
 }

@@ -47,9 +47,8 @@ namespace H5.Translator
                 string name = null;
                 Expression expression;
 
-                var rr = this.Emitter.Resolver.ResolveNode(item, this.Emitter) as MemberResolveResult;
 
-                if (rr != null)
+                if (this.Emitter.Resolver.ResolveNode(item, this.Emitter) is MemberResolveResult rr)
                 {
                     name = this.Emitter.GetEntityName(rr.Member);
                     changeCase = false;

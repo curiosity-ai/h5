@@ -32,8 +32,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         {
             if (type == null)
                 throw new ArgumentNullException("type");
-            ParameterizedType pt = type as ParameterizedType;
-            return pt != null && pt.TypeParameterCount == 1 && pt.GetDefinition().KnownTypeCode == KnownTypeCode.NullableOfT;
+            return type is ParameterizedType pt && pt.TypeParameterCount == 1 && pt.GetDefinition().KnownTypeCode == KnownTypeCode.NullableOfT;
         }
 
         public static bool IsNonNullableValueType(IType type)
@@ -49,8 +48,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         {
             if (type == null)
                 throw new ArgumentNullException("type");
-            ParameterizedType pt = type as ParameterizedType;
-            if (pt != null && pt.TypeParameterCount == 1 && pt.FullName == "System.Nullable")
+            if (type is ParameterizedType pt && pt.TypeParameterCount == 1 && pt.FullName == "System.Nullable")
                 return pt.GetTypeArgument(0);
             else
                 return type;

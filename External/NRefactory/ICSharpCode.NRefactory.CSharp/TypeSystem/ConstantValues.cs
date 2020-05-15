@@ -41,10 +41,11 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem.ConstantValues
             var csContext = (CSharpTypeResolveContext)context;
             if (context.CurrentAssembly != context.Compilation.MainAssembly) {
                 // The constant needs to be resolved in a different compilation.
-                IProjectContent pc = context.CurrentAssembly as IProjectContent;
-                if (pc != null) {
+                if (context.CurrentAssembly is IProjectContent pc)
+                {
                     ICompilation nestedCompilation = context.Compilation.SolutionSnapshot.GetCompilation(pc);
-                    if (nestedCompilation != null) {
+                    if (nestedCompilation != null)
+                    {
                         var nestedContext = MapToNestedCompilation(csContext, nestedCompilation);
                         ResolveResult rr = Resolve(new CSharpResolver(nestedContext));
                         return MapToNewContext(rr, context);
@@ -139,11 +140,13 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem.ConstantValues
         {
             if (baseValue == null)
                 throw new ArgumentNullException("baseValue");
-            IncrementConstantValue icv = baseValue as IncrementConstantValue;
-            if (icv != null) {
+            if (baseValue is IncrementConstantValue icv)
+            {
                 this.baseValue = icv.baseValue;
                 this.incrementAmount = icv.incrementAmount + incrementAmount;
-            } else {
+            }
+            else
+            {
                 this.baseValue = baseValue;
                 this.incrementAmount = incrementAmount;
             }
@@ -173,8 +176,7 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem.ConstantValues
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            IncrementConstantValue o = other as IncrementConstantValue;
-            return o != null && baseValue == o.baseValue && incrementAmount == o.incrementAmount;
+            return other is IncrementConstantValue o && baseValue == o.baseValue && incrementAmount == o.incrementAmount;
         }
     }
 
@@ -215,8 +217,7 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem.ConstantValues
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            PrimitiveConstantExpression scv = other as PrimitiveConstantExpression;
-            return scv != null && type == scv.type && value == scv.value;
+            return other is PrimitiveConstantExpression scv && type == scv.type && value == scv.value;
         }
     }
 
@@ -279,8 +280,7 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem.ConstantValues
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            ConstantCast cast = other as ConstantCast;
-            return cast != null
+            return other is ConstantCast cast
                 && this.targetType == cast.targetType && this.expression == cast.expression && this.allowNullableConstants == cast.allowNullableConstants;
         }
     }
@@ -390,8 +390,7 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem.ConstantValues
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            ConstantDefaultValue o = other as ConstantDefaultValue;
-            return o != null && this.type == o.type;
+            return other is ConstantDefaultValue o && this.type == o.type;
         }
     }
 

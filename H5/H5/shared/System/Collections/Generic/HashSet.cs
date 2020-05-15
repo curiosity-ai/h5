@@ -48,8 +48,7 @@ namespace System.Collections.Generic
                 throw new ArgumentNullException("collection");
             }
             int suggestedCapacity = 0;
-            ICollection<T> coll = collection as ICollection<T>;
-            if (coll != null)
+            if (collection is ICollection<T> coll)
             {
                 suggestedCapacity = coll.Count;
             }
@@ -220,16 +219,14 @@ namespace System.Collections.Generic
             {
                 return;
             }
-            ICollection<T> otherAsCollection = other as ICollection<T>;
-            if (otherAsCollection != null)
+            if (other is ICollection<T> otherAsCollection)
             {
                 if (otherAsCollection.Count == 0)
                 {
                     Clear();
                     return;
                 }
-                HashSet<T> otherAsSet = other as HashSet<T>;
-                if (otherAsSet != null && AreEqualityComparersEqual(this, otherAsSet))
+                if (other is HashSet<T> otherAsSet && AreEqualityComparersEqual(this, otherAsSet))
                 {
                     IntersectWithHashSetWithSameEC(otherAsSet);
                     return;
@@ -275,8 +272,7 @@ namespace System.Collections.Generic
                 Clear();
                 return;
             }
-            HashSet<T> otherAsSet = other as HashSet<T>;
-            if (otherAsSet != null && AreEqualityComparersEqual(this, otherAsSet))
+            if (other is HashSet<T> otherAsSet && AreEqualityComparersEqual(this, otherAsSet))
             {
                 SymmetricExceptWithUniqueHashSet(otherAsSet);
             }
@@ -296,8 +292,7 @@ namespace System.Collections.Generic
             {
                 return true;
             }
-            HashSet<T> otherAsSet = other as HashSet<T>;
-            if (otherAsSet != null && AreEqualityComparersEqual(this, otherAsSet))
+            if (other is HashSet<T> otherAsSet && AreEqualityComparersEqual(this, otherAsSet))
             {
                 if (_count > otherAsSet.Count)
                 {
@@ -318,15 +313,13 @@ namespace System.Collections.Generic
             {
                 throw new ArgumentNullException("other");
             }
-            ICollection<T> otherAsCollection = other as ICollection<T>;
-            if (otherAsCollection != null)
+            if (other is ICollection<T> otherAsCollection)
             {
                 if (_count == 0)
                 {
                     return otherAsCollection.Count > 0;
                 }
-                HashSet<T> otherAsSet = other as HashSet<T>;
-                if (otherAsSet != null && AreEqualityComparersEqual(this, otherAsSet))
+                if (other is HashSet<T> otherAsSet && AreEqualityComparersEqual(this, otherAsSet))
                 {
                     if (_count >= otherAsSet.Count)
                     {
@@ -345,15 +338,13 @@ namespace System.Collections.Generic
             {
                 throw new ArgumentNullException("other");
             }
-            ICollection<T> otherAsCollection = other as ICollection<T>;
-            if (otherAsCollection != null)
+            if (other is ICollection<T> otherAsCollection)
             {
                 if (otherAsCollection.Count == 0)
                 {
                     return true;
                 }
-                HashSet<T> otherAsSet = other as HashSet<T>;
-                if (otherAsSet != null && AreEqualityComparersEqual(this, otherAsSet))
+                if (other is HashSet<T> otherAsSet && AreEqualityComparersEqual(this, otherAsSet))
                 {
                     if (otherAsSet.Count > _count)
                     {
@@ -374,15 +365,13 @@ namespace System.Collections.Generic
             {
                 return false;
             }
-            ICollection<T> otherAsCollection = other as ICollection<T>;
-            if (otherAsCollection != null)
+            if (other is ICollection<T> otherAsCollection)
             {
                 if (otherAsCollection.Count == 0)
                 {
                     return true;
                 }
-                HashSet<T> otherAsSet = other as HashSet<T>;
-                if (otherAsSet != null && AreEqualityComparersEqual(this, otherAsSet))
+                if (other is HashSet<T> otherAsSet && AreEqualityComparersEqual(this, otherAsSet))
                 {
                     if (otherAsSet.Count >= _count)
                     {
@@ -421,8 +410,7 @@ namespace System.Collections.Generic
             {
                 throw new ArgumentNullException("other");
             }
-            HashSet<T> otherAsSet = other as HashSet<T>;
-            if (otherAsSet != null && AreEqualityComparersEqual(this, otherAsSet))
+            if (other is HashSet<T> otherAsSet && AreEqualityComparersEqual(this, otherAsSet))
             {
                 if (_count != otherAsSet.Count)
                 {
@@ -432,8 +420,7 @@ namespace System.Collections.Generic
             }
             else
             {
-                ICollection<T> otherAsCollection = other as ICollection<T>;
-                if (otherAsCollection != null)
+                if (other is ICollection<T> otherAsCollection)
                 {
                     if (_count == 0 && otherAsCollection.Count > 0)
                     {

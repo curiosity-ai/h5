@@ -64,8 +64,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         public IType Resolve(ITypeResolveContext context)
         {
             if (ownerType == SymbolKind.Method) {
-                IMethod method = context.CurrentMember as IMethod;
-                if (method != null && index < method.TypeParameters.Count) {
+                if (context.CurrentMember is IMethod method && index < method.TypeParameters.Count)
+                {
                     return method.TypeParameters[index];
                 }
                 return DummyTypeParameter.GetMethodTypeParameter(index);

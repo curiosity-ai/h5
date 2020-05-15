@@ -65,8 +65,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            EmptyStatement o = other as EmptyStatement;
-            return o != null;
+            return other is EmptyStatement o;
         }
     }
 }

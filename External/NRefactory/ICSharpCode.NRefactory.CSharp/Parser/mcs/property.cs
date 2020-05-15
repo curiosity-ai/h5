@@ -494,9 +494,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 else
                     filter = new MemberFilter (MemberName.Name, 0, kind, null, null);
 
-                var implementing = MemberCache.FindMember (InterfaceType, filter, BindingRestriction.DeclaredOnly) as PropertySpec;
 
-                if (implementing == null)
+                if (!(MemberCache.FindMember(InterfaceType, filter, BindingRestriction.DeclaredOnly) is PropertySpec implementing))
                     return;
 
                 var accessor = get ? implementing.Get : implementing.Set;
@@ -1679,9 +1678,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (OptAttributes != null) {
                 Attribute indexer_attr = OptAttributes.Search (Module.PredefinedAttributes.IndexerName);
                 if (indexer_attr != null) {
-                    var compiling = indexer_attr.Type.MemberDefinition as TypeContainer;
-                    if (compiling != null)
-                        compiling.Define ();
+                    if (indexer_attr.Type.MemberDefinition is TypeContainer compiling)
+                        compiling.Define();
 
                     if (IsExplicitImpl) {
                         Report.Error (415, indexer_attr.Location,

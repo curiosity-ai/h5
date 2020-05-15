@@ -103,8 +103,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public override bool Equals(IType other)
         {
-            UnknownType o = other as UnknownType;
-            if (o == null)
+            if (!(other is UnknownType o))
                 return false;
             return this.namespaceKnown == o.namespaceKnown && this.fullTypeName == o.fullTypeName;
         }

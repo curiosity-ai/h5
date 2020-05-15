@@ -81,16 +81,14 @@ namespace ICSharpCode.NRefactory.Editor
 
             public bool BelongsToSameDocumentAs(ITextSourceVersion other)
             {
-                Version o = other as Version;
-                return o != null && provider == o.provider;
+                return other is Version o && provider == o.provider;
             }
 
             public int CompareAge(ITextSourceVersion other)
             {
                 if (other == null)
                     throw new ArgumentNullException("other");
-                Version o = other as Version;
-                if (o == null || provider != o.provider)
+                if (!(other is Version o) || provider != o.provider)
                     throw new ArgumentException("Versions do not belong to the same document.");
                 // We will allow overflows, but assume that the maximum distance between checkpoints is 2^31-1.
                 // This is guaranteed on x86 because so many checkpoints don't fit into memory.

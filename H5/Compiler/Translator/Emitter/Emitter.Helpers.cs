@@ -151,9 +151,8 @@ namespace H5.Translator
 
         public virtual Tuple<bool, bool, string> GetInlineCode(InvocationExpression node)
         {
-            var target = node.Target as MemberReferenceExpression;
             IMember member = null;
-            if (target != null)
+            if (node.Target is MemberReferenceExpression target)
             {
                 member = LiftNullableMember(target);
             }
@@ -167,9 +166,8 @@ namespace H5.Translator
             if (member == null)
             {
                 var resolveResult = this.Resolver.ResolveNode(node, this);
-                var memberResolveResult = resolveResult as MemberResolveResult;
 
-                if (memberResolveResult == null)
+                if (!(resolveResult is MemberResolveResult memberResolveResult))
                 {
                     return new Tuple<bool, bool, string>(false, false, null);
                 }
@@ -239,8 +237,7 @@ namespace H5.Translator
                 {
                     if (target.Parent is InvocationExpression)
                     {
-                        var rr = this.Resolver.ResolveNode(target.Parent, this) as InvocationResolveResult;
-                        if (rr != null)
+                        if (this.Resolver.ResolveNode(target.Parent, this) is InvocationResolveResult rr)
                         {
                             typeArg = rr.Arguments.First().Type;
                         }
@@ -276,9 +273,8 @@ namespace H5.Translator
         public virtual bool IsForbiddenInvocation(InvocationExpression node)
         {
             var resolveResult = this.Resolver.ResolveNode(node, this);
-            var memberResolveResult = resolveResult as MemberResolveResult;
 
-            if (memberResolveResult == null)
+            if (!(resolveResult is MemberResolveResult memberResolveResult))
             {
                 return false;
             }
@@ -324,15 +320,13 @@ namespace H5.Translator
 
         public virtual string GetEntityNameFromAttr(IEntity member, bool setter = false)
         {
-            var prop = member as IProperty;
-            if (prop != null)
+            if (member is IProperty prop)
             {
                 member = setter ? prop.Setter : prop.Getter;
             }
             else
             {
-                var e = member as IEvent;
-                if (e != null)
+                if (member is IEvent e)
                 {
                     member = setter ? e.AddAccessor : e.RemoveAccessor;
                 }
@@ -402,9 +396,7 @@ namespace H5.Translator
 
         public virtual string GetEntityName(EntityDeclaration entity)
         {
-            var rr = this.Resolver.ResolveNode(entity, this) as MemberResolveResult;
-
-            if (rr != null)
+            if (this.Resolver.ResolveNode(entity, this) is MemberResolveResult rr)
             {
                 return this.GetEntityName(rr.Member);
             }
@@ -418,12 +410,9 @@ namespace H5.Translator
 
             if (entity.Parent != null && entity.GetParent<SyntaxTree>() != null)
             {
-                var rr = this.Resolver.ResolveNode(entity, this) as LocalResolveResult;
-                if (rr != null)
+                if (this.Resolver.ResolveNode(entity, this) is LocalResolveResult rr)
                 {
-                    var iparam = rr.Variable as IParameter;
-
-                    if (iparam != null && iparam.Attributes != null)
+                    if (rr.Variable is IParameter iparam && iparam.Attributes != null)
                     {
                         var attr = iparam.Attributes.FirstOrDefault(a => a.AttributeType.FullName == H5.Translator.Translator.H5_ASSEMBLY + ".NameAttribute");
 
@@ -486,9 +475,7 @@ namespace H5.Translator
 
         public virtual string GetInline(EntityDeclaration method)
         {
-            var mrr = this.Resolver.ResolveNode(method, this) as MemberResolveResult;
-
-            if (mrr != null)
+            if (this.Resolver.ResolveNode(method, this) is MemberResolveResult mrr)
             {
                 return this.GetInline(mrr.Member);
             }
@@ -591,8 +578,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var rr = this.Resolver.ResolveNode(arg, this) as ConstantResolveResult;
-                    if (rr != null && rr.ConstantValue != null)
+                    if (this.Resolver.ResolveNode(arg, this) is ConstantResolveResult rr && rr.ConstantValue != null)
                     {
                         value = rr.ConstantValue.ToString();
                     }
@@ -611,8 +597,7 @@ namespace H5.Translator
 
         public virtual bool IsMemberConst(IMember member)
         {
-            var field = member as IField;
-            if (field != null)
+            if (member is IField field)
             {
                 return field.IsConst && member.DeclaringType.Kind != TypeKind.Enum;
             }

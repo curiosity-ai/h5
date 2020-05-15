@@ -150,13 +150,13 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
             // Ignore any statements, as those have their own ControlFlowNode and get handled separately
             if (node is Statement)
                 return;
-            AnonymousMethodExpression ame = node as AnonymousMethodExpression;
-            if (ame != null) {
+            if (node is AnonymousMethodExpression ame)
+            {
                 allNodes.InsertRange(insertPos, cfgBuilder.BuildControlFlowGraph(ame.Body, resolver, cancellationToken).Cast<DefiniteAssignmentNode>());
                 return;
             }
-            LambdaExpression lambda = node as LambdaExpression;
-            if (lambda != null && lambda.Body is Statement) {
+            if (node is LambdaExpression lambda && lambda.Body is Statement)
+            {
                 allNodes.InsertRange(insertPos, cfgBuilder.BuildControlFlowGraph((Statement)lambda.Body, resolver, cancellationToken).Cast<DefiniteAssignmentNode>());
                 return;
             }
@@ -342,25 +342,33 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
                 }
                 break;
             case ControlFlowNodeType.LoopCondition:
-                ForeachStatement foreachStmt = node.NextStatement as ForeachStatement;
-                if (foreachStmt != null) {
-                    outputStatus = CleanSpecialValues (foreachStmt.InExpression.AcceptVisitor (visitor, inputStatus));
-                    if (foreachStmt.VariableName == this.variableName)
-                        outputStatus = DefiniteAssignmentStatus.DefinitelyAssigned;
-                    break;
-                } else {
-                    Debug.Assert (node.NextStatement is IfElseStatement || node.NextStatement is WhileStatement || node.NextStatement is ForStatement || node.NextStatement is DoWhileStatement);
-                    Expression condition = node.NextStatement.GetChildByRole (Roles.Condition);
+                    if (node.NextStatement is ForeachStatement foreachStmt)
+                    {
+                        outputStatus = CleanSpecialValues(foreachStmt.InExpression.AcceptVisitor(visitor, inputStatus));
+                        if (foreachStmt.VariableName == this.variableName)
+                            outputStatus = DefiniteAssignmentStatus.DefinitelyAssigned;
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Assert(node.NextStatement is IfElseStatement || node.NextStatement is WhileStatement || node.NextStatement is ForStatement || node.NextStatement is DoWhileStatement);
+                        Expression condition = node.NextStatement.GetChildByRole(Roles.Condition);
                         if (condition.IsNull)
                             outputStatus = inputStatus;
                         else
                             outputStatus = condition.AcceptVisitor(visitor, inputStatus);
-                        foreach (ControlFlowEdge edge in node.Outgoing) {
-                            if (edge.Type == ControlFlowEdgeType.ConditionTrue && outputStatus == DefiniteAssignmentStatus.AssignedAfterTrueExpression) {
+                        foreach (ControlFlowEdge edge in node.Outgoing)
+                        {
+                            if (edge.Type == ControlFlowEdgeType.ConditionTrue && outputStatus == DefiniteAssignmentStatus.AssignedAfterTrueExpression)
+                            {
                                 ChangeEdgeStatus(edge, DefiniteAssignmentStatus.DefinitelyAssigned);
-                            } else if (edge.Type == ControlFlowEdgeType.ConditionFalse && outputStatus == DefiniteAssignmentStatus.AssignedAfterFalseExpression) {
+                            }
+                            else if (edge.Type == ControlFlowEdgeType.ConditionFalse && outputStatus == DefiniteAssignmentStatus.AssignedAfterFalseExpression)
+                            {
                                 ChangeEdgeStatus(edge, DefiniteAssignmentStatus.DefinitelyAssigned);
-                            } else {
+                            }
+                            else
+                            {
                                 ChangeEdgeStatus(edge, CleanSpecialValues(outputStatus));
                             }
                         }
@@ -581,13 +589,15 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
 
             DefiniteAssignmentStatus HandleAssignment(Expression left, Expression right, DefiniteAssignmentStatus initialStatus)
             {
-                IdentifierExpression ident = left as IdentifierExpression;
-                if (ident != null && ident.Identifier == analysis.variableName) {
+                if (left is IdentifierExpression ident && ident.Identifier == analysis.variableName)
+                {
                     // right==null is special case when handling 'out' expressions
                     if (right != null)
                         right.AcceptVisitor(this, initialStatus);
                     return DefiniteAssignmentStatus.DefinitelyAssigned;
-                } else {
+                }
+                else
+                {
                     DefiniteAssignmentStatus status = left.AcceptVisitor(this, initialStatus);
                     if (right != null)
                         status = right.AcceptVisitor(this, CleanSpecialValues(status));
@@ -735,10 +745,12 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
 
             public override DefiniteAssignmentStatus VisitLambdaExpression(LambdaExpression lambdaExpression, DefiniteAssignmentStatus data)
             {
-                Statement body = lambdaExpression.Body as Statement;
-                if (body != null) {
+                if (lambdaExpression.Body is Statement body)
+                {
                     analysis.ChangeNodeStatus(analysis.beginNodeDict[body], data);
-                } else {
+                }
+                else
+                {
                     lambdaExpression.Body.AcceptVisitor(this, data);
                 }
                 return data;

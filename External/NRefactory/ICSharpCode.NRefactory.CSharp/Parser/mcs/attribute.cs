@@ -698,8 +698,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             AttributeUsageAttribute usage_attribute = new AttributeUsageAttribute ((AttributeTargets) ((Constant) pos_args[0].Expr).GetValue ());
 
-            var field = GetNamedValue ("AllowMultiple") as BoolConstant;
-            if (field != null)
+            if (GetNamedValue("AllowMultiple") is BoolConstant field)
                 usage_attribute.AllowMultiple = field.Value;
 
             field = GetNamedValue ("Inherited") as BoolConstant;
@@ -748,9 +747,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             if (!arg_resolved) {
                 // corlib only case when obsolete is used before is resolved
-                var c = Type.MemberDefinition as Class;
-                if (c != null && !c.HasMembersDefined)
-                    c.Define ();
+                if (Type.MemberDefinition is Class c && !c.HasMembersDefined)
+                    c.Define();
 
                 // TODO: It is not neccessary to call whole Resolve (ApplyAttribute does it now) we need only ctor args.
                 // But because a lot of attribute class code must be rewritten will be better to wait...
@@ -1020,8 +1018,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override bool Equals (object obj)
         {
-            Attribute a = obj as Attribute;
-            if (a == null)
+            if (!(obj is Attribute a))
                 return false;
 
             return Type == a.Type && Target == a.Target;
@@ -1196,8 +1193,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public TypeSpec GetArgumentType ()
         {
-            TypeOf e = GetValue () as TypeOf;
-            if (e == null)
+            if (!(GetValue() is TypeOf e))
                 return null;
             return e.TypeArgument;
         }
@@ -2110,15 +2106,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         static bool[] GetTransformationFlags (TypeSpec t)
         {
             bool[] element;
-            var ac = t as ArrayContainer;
-            if (ac != null) {
-                element = GetTransformationFlags (ac.Element);
+            if (t is ArrayContainer ac)
+            {
+                element = GetTransformationFlags(ac.Element);
                 if (element == null)
                     return new bool[] { false, false };
 
                 bool[] res = new bool[element.Length + 1];
                 res[0] = false;
-                Array.Copy (element, 0, res, 1, element.Length);
+                Array.Copy(element, 0, res, 1, element.Length);
                 return res;
             }
 

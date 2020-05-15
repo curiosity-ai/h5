@@ -47,8 +47,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public override bool Equals(object obj)
         {
-            var other = obj as ReducedExtensionMethod;
-            if (other == null)
+            if (!(obj is ReducedExtensionMethod other))
                 return false;
             return baseMethod.Equals(other.baseMethod);
         }

@@ -87,9 +87,8 @@ namespace H5.Translator
         public virtual void EmitBlockOrIndentedLine(AstNode node)
         {
             bool block = node is BlockStatement;
-            var ifStatement = node.Parent as IfElseStatement;
 
-            if (!block && node is IfElseStatement && ifStatement != null && ifStatement.FalseStatement == node)
+            if (!block && node is IfElseStatement && node.Parent is IfElseStatement ifStatement && ifStatement.FalseStatement == node)
             {
                 block = true;
             }
@@ -155,9 +154,9 @@ namespace H5.Translator
         {
             var index = System.Array.IndexOf(this.Emitter.AsyncBlock.AwaitExpressions, node) + 1;
 
-            if (node is ConditionalExpression)
+            if (node is ConditionalExpression expression)
             {
-                new ConditionalBlock(this.Emitter, (ConditionalExpression)node).WriteAsyncConditionalExpression(index);
+                new ConditionalBlock(this.Emitter, expression).WriteAsyncConditionalExpression(index);
                 return null;
             }
 
@@ -185,16 +184,11 @@ namespace H5.Translator
             var oldValue = this.Emitter.ReplaceAwaiterByVar;
             this.Emitter.ReplaceAwaiterByVar = true;
 
-            var unaryExpr = node.Parent as UnaryOperatorExpression;
-            if (unaryExpr != null && unaryExpr.Operator == UnaryOperatorType.Await)
+            if (node.Parent is UnaryOperatorExpression unaryExpr && unaryExpr.Operator == UnaryOperatorType.Await)
             {
-                var rr = this.Emitter.Resolver.ResolveNode(unaryExpr, this.Emitter) as AwaitResolveResult;
-
-                if (rr != null)
+                if (this.Emitter.Resolver.ResolveNode(unaryExpr, this.Emitter) is AwaitResolveResult rr)
                 {
-                    var awaiterMethod = rr.GetAwaiterInvocation as InvocationResolveResult;
-
-                    if (awaiterMethod != null && awaiterMethod.Member.FullName != "System.Threading.Tasks.Task.GetAwaiter")
+                    if (rr.GetAwaiterInvocation is InvocationResolveResult awaiterMethod && awaiterMethod.Member.FullName != "System.Threading.Tasks.Task.GetAwaiter")
                     {
                         this.WriteCustomAwaiter(node, awaiterMethod);
                         customAwaiter = true;
@@ -315,7 +309,7 @@ namespace H5.Translator
                     return true;
                 }
 
-                if (n is TryCatchStatement && !((TryCatchStatement)n).FinallyBlock.IsNull)
+                if (n is TryCatchStatement statement && !statement.FinallyBlock.IsNull)
                 {
                     insideTryFinally = true;
                     return true;

@@ -49,9 +49,7 @@ namespace H5.Translator
                         {
                             if (arg.Expression is DeclarationExpressionSyntax de)
                             {
-                                var designation = de.Designation as SingleVariableDesignationSyntax;
-
-                                if (designation != null)
+                                if (de.Designation is SingleVariableDesignationSyntax designation)
                                 {
                                     var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
                                     var typeInfo = model.GetTypeInfo(de).Type;
@@ -105,9 +103,7 @@ namespace H5.Translator
                         int idx = 0;
                         foreach (var v in p.Variables)
                         {
-                            var designation = v as SingleVariableDesignationSyntax;
-
-                            if (designation != null)
+                            if (v is SingleVariableDesignationSyntax designation)
                             {
                                 var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
 

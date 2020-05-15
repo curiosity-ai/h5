@@ -477,8 +477,7 @@ namespace ICSharpCode.NRefactory.Completion
                 if (AddToTable (packageName, fullAssemblyName, typeLookup, typeCheck, id, type.Namespace)) {
                     if (type.IsSealed || type.IsStatic) {
                         foreach (var method in type.Methods) {
-                            var m = method as DefaultUnresolvedMethod;
-                            if (m == null || !m.IsExtensionMethod)
+                            if (!(method is DefaultUnresolvedMethod m) || !m.IsExtensionMethod)
                                 continue;
                             AddToTable (packageName, fullAssemblyName, extensionMethodLookup, methodCheck, method.Name, method.DeclaringTypeDefinition.Namespace);
                         }

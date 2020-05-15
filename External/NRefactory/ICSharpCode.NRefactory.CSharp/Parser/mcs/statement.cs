@@ -228,14 +228,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // If we're a boolean constant, Resolve() already
             // eliminated dead code for us.
             //
-            Constant c = expr as Constant;
-            if (c != null){
-                c.EmitSideEffect (ec);
+            if (expr is Constant c)
+            {
+                c.EmitSideEffect(ec);
 
                 if (!c.IsDefaultValue)
-                    TrueStatement.Emit (ec);
+                    TrueStatement.Emit(ec);
                 else if (FalseStatement != null)
-                    FalseStatement.Emit (ec);
+                    FalseStatement.Emit(ec);
 
                 return;
             }
@@ -274,8 +274,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             var res = TrueStatement.FlowAnalysis (fc);
 
             if (FalseStatement == null) {
-                var c = expr as Constant;
-                if (c != null && !c.IsDefaultValue)
+                if (expr is Constant c && !c.IsDefaultValue)
                     return true_returns;
 
                 if (true_returns)
@@ -313,14 +312,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             base.MarkReachable (rc);
 
-            var c = expr as Constant;
-            if (c != null) {
+            if (expr is Constant c)
+            {
                 bool take = !c.IsDefaultValue;
-                if (take) {
-                    rc = TrueStatement.MarkReachable (rc);
-                } else {
+                if (take)
+                {
+                    rc = TrueStatement.MarkReachable(rc);
+                }
+                else
+                {
                     if (FalseStatement != null)
-                        rc = FalseStatement.MarkReachable (rc);
+                        rc = FalseStatement.MarkReachable(rc);
                 }
 
                 return rc;
@@ -427,8 +429,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return !end_reachable;
 
             if (!end_reachable) {
-                var c = expr as Constant;
-                if (c != null && !c.IsDefaultValue)
+                if (expr is Constant c && !c.IsDefaultValue)
                     return true;
             }
 
@@ -447,9 +448,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
 
             if (!end_reachable) {
-                var c = expr as Constant;
-                if (c != null && !c.IsDefaultValue)
-                    return Reachability.CreateUnreachable ();
+                if (expr is Constant c && !c.IsDefaultValue)
+                    return Reachability.CreateUnreachable();
             }
 
             return rc;
@@ -500,8 +500,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (expr == null)
                 ok = false;
 
-            var c = expr as Constant;
-            if (c != null) {
+            if (expr is Constant c)
+            {
                 empty = c.IsDefaultValue;
                 infinite = !empty;
             }
@@ -672,11 +672,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (Condition != null) {
                 Condition = Condition.Resolve (bc);
-                var condition_constant = Condition as Constant;
-                if (condition_constant != null) {
-                    if (condition_constant.IsDefaultValue) {
+                if (Condition is Constant condition_constant)
+                {
+                    if (condition_constant.IsDefaultValue)
+                    {
                         empty = true;
-                    } else {
+                    }
+                    else
+                    {
                         infinite = true;
                     }
                 }
@@ -1184,37 +1187,44 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     return false;
                 }
 
-                var async_block = am as AsyncInitializer;
-                if (async_block != null) {
-                    if (expr != null) {
-                        var storey = (AsyncTaskStorey) am.Storey;
+                if (am is AsyncInitializer async_block)
+                {
+                    if (expr != null)
+                    {
+                        var storey = (AsyncTaskStorey)am.Storey;
                         var async_type = storey.ReturnType;
 
-                        if (async_type == null && async_block.ReturnTypeInference != null) {
+                        if (async_type == null && async_block.ReturnTypeInference != null)
+                        {
                             if (expr.Type.Kind == MemberKind.Void && !(this is ContextualReturn))
-                                ec.Report.Error (4029, loc, "Cannot return an expression of type `void'");
+                                ec.Report.Error(4029, loc, "Cannot return an expression of type `void'");
                             else
-                                async_block.ReturnTypeInference.AddCommonTypeBoundAsync (expr.Type);
+                                async_block.ReturnTypeInference.AddCommonTypeBoundAsync(expr.Type);
                             return true;
                         }
 
-                        if (async_type.Kind == MemberKind.Void) {
-                            ec.Report.Error (8030, loc,
+                        if (async_type.Kind == MemberKind.Void)
+                        {
+                            ec.Report.Error(8030, loc,
                                 "Anonymous function or lambda expression converted to a void returning delegate cannot return a value");
                             return false;
                         }
 
-                        if (!async_type.IsGenericTask) {
+                        if (!async_type.IsGenericTask)
+                        {
                             if (this is ContextualReturn)
                                 return true;
 
-                            if (async_block.DelegateType != null) {
-                                ec.Report.Error (8031, loc,
+                            if (async_block.DelegateType != null)
+                            {
+                                ec.Report.Error(8031, loc,
                                     "Async lambda expression or anonymous method converted to a `Task' cannot return a value. Consider returning `Task<T>'");
-                            } else {
-                                ec.Report.Error (1997, loc,
+                            }
+                            else
+                            {
+                                ec.Report.Error(1997, loc,
                                     "`{0}': A return keyword must not be followed by an expression when async method returns `Task'. Consider using `Task<T>' return type",
-                                    ec.GetSignatureForError ());
+                                    ec.GetSignatureForError());
                             }
                             return false;
                         }
@@ -1222,25 +1232,32 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         //
                         // The return type is actually Task<T> type argument
                         //
-                        if (expr.Type == async_type) {
-                            ec.Report.Error (4016, loc,
+                        if (expr.Type == async_type)
+                        {
+                            ec.Report.Error(4016, loc,
                                 "`{0}': The return expression type of async method must be `{1}' rather than `Task<{1}>'",
-                                ec.GetSignatureForError (), async_type.TypeArguments[0].GetSignatureForError ());
-                        } else {
+                                ec.GetSignatureForError(), async_type.TypeArguments[0].GetSignatureForError());
+                        }
+                        else
+                        {
                             block_return_type = async_type.TypeArguments[0];
                         }
                     }
-                } else {
-                    if (block_return_type.Kind == MemberKind.Void) {
-                        ec.Report.Error (8030, loc,
+                }
+                else
+                {
+                    if (block_return_type.Kind == MemberKind.Void)
+                    {
+                        ec.Report.Error(8030, loc,
                             "Anonymous function or lambda expression converted to a void returning delegate cannot return a value");
                         return false;
                     }
 
-                    var l = am as AnonymousMethodBody;
-                    if (l != null && expr != null) {
-                        if (l.ReturnTypeInference != null) {
-                            l.ReturnTypeInference.AddCommonTypeBound (expr.Type);
+                    if (am is AnonymousMethodBody l && expr != null)
+                    {
+                        if (l.ReturnTypeInference != null)
+                        {
+                            l.ReturnTypeInference.AddCommonTypeBound(expr.Type);
                             return true;
                         }
 
@@ -1248,8 +1265,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         // Try to optimize simple lambda. Only when optimizations are enabled not to cause
                         // unexpected debugging experience
                         //
-                        if (this is ContextualReturn && !ec.IsInProbingMode && ec.Module.Compiler.Settings.Optimize) {
-                            l.DirectMethodGroupConversion = expr.CanReduceLambda (l);
+                        if (this is ContextualReturn && !ec.IsInProbingMode && ec.Module.Compiler.Settings.Optimize)
+                        {
+                            l.DirectMethodGroupConversion = expr.CanReduceLambda(l);
                         }
                     }
                 }
@@ -1277,38 +1295,42 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected override void DoEmit (EmitContext ec)
         {
             if (expr != null) {
-
-                var async_body = ec.CurrentAnonymousMethod as AsyncInitializer;
-                if (async_body != null) {
+                if (ec.CurrentAnonymousMethod is AsyncInitializer async_body)
+                {
                     var storey = (AsyncTaskStorey)async_body.Storey;
                     Label exit_label = async_body.BodyEnd;
 
                     //
                     // It's null for await without async
                     //
-                    if (storey.HoistedReturnValue != null) {
+                    if (storey.HoistedReturnValue != null)
+                    {
                         //
                         // Special case hoisted return value (happens in try/finally scenario)
                         //
-                        if (ec.TryFinallyUnwind != null) {
-                            if (storey.HoistedReturnValue is VariableReference) {
-                                storey.HoistedReturnValue = ec.GetTemporaryField (storey.HoistedReturnValue.Type);
+                        if (ec.TryFinallyUnwind != null)
+                        {
+                            if (storey.HoistedReturnValue is VariableReference)
+                            {
+                                storey.HoistedReturnValue = ec.GetTemporaryField(storey.HoistedReturnValue.Type);
                             }
 
-                            exit_label = TryFinally.EmitRedirectedReturn (ec, async_body);
+                            exit_label = TryFinally.EmitRedirectedReturn(ec, async_body);
                         }
 
                         var async_return = (IAssignMethod)storey.HoistedReturnValue;
-                        async_return.EmitAssign (ec, expr, false, false);
-                        ec.EmitEpilogue ();
-                    } else {
-                        expr.Emit (ec);
+                        async_return.EmitAssign(ec, expr, false, false);
+                        ec.EmitEpilogue();
+                    }
+                    else
+                    {
+                        expr.Emit(ec);
 
                         if (ec.TryFinallyUnwind != null)
-                            exit_label = TryFinally.EmitRedirectedReturn (ec, async_body);
+                            exit_label = TryFinally.EmitRedirectedReturn(ec, async_body);
                     }
 
-                    ec.Emit (OpCodes.Leave, exit_label);
+                    ec.Emit(OpCodes.Leave, exit_label);
                     return;
                 }
 
@@ -1969,11 +1991,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return false;
             }
 
-            var block = enclosing_loop.Statement as Block;
 
             // Don't need to do extra checks for simple statements loops
-            if (block != null) {
-                CheckExitBoundaries (bc, block);
+            if (enclosing_loop.Statement is Block block)
+            {
+                CheckExitBoundaries(bc, block);
             }
 
             return true;
@@ -2123,41 +2145,47 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public bool Resolve (BlockContext bc, bool resolveDeclaratorInitializers)
         {
             if (type == null && !li.IsCompilerGenerated) {
-                var vexpr = type_expr as VarExpr;
-
                 //
                 // C# 3.0 introduced contextual keywords (var) which behaves like a type if type with
                 // same name exists or as a keyword when no type was found
                 //
-                if (vexpr != null && !vexpr.IsPossibleTypeOrNamespace (bc)) {
+                if (type_expr is VarExpr vexpr && !vexpr.IsPossibleTypeOrNamespace(bc))
+                {
                     if (bc.Module.Compiler.Settings.Version < LanguageVersion.V_3)
-                        bc.Report.FeatureIsNotAvailable (bc.Module.Compiler, loc, "implicitly typed local variable");
+                        bc.Report.FeatureIsNotAvailable(bc.Module.Compiler, loc, "implicitly typed local variable");
 
-                    if (li.IsFixed) {
-                        bc.Report.Error (821, loc, "A fixed statement cannot use an implicitly typed local variable");
+                    if (li.IsFixed)
+                    {
+                        bc.Report.Error(821, loc, "A fixed statement cannot use an implicitly typed local variable");
                         return false;
                     }
 
-                    if (li.IsConstant) {
-                        bc.Report.Error (822, loc, "An implicitly typed local variable cannot be a constant");
+                    if (li.IsConstant)
+                    {
+                        bc.Report.Error(822, loc, "An implicitly typed local variable cannot be a constant");
                         return false;
                     }
 
-                    if (Initializer == null) {
-                        bc.Report.Error (818, loc, "An implicitly typed local variable declarator must include an initializer");
+                    if (Initializer == null)
+                    {
+                        bc.Report.Error(818, loc, "An implicitly typed local variable declarator must include an initializer");
                         return false;
                     }
 
-                    if (declarators != null) {
-                        bc.Report.Error (819, loc, "An implicitly typed local variable declaration cannot include multiple declarators");
+                    if (declarators != null)
+                    {
+                        bc.Report.Error(819, loc, "An implicitly typed local variable declaration cannot include multiple declarators");
                         declarators = null;
                     }
 
-                    Initializer = Initializer.Resolve (bc);
-                    if (Initializer != null) {
-                        ((VarExpr) type_expr).InferType (bc, Initializer);
+                    Initializer = Initializer.Resolve(bc);
+                    if (Initializer != null)
+                    {
+                        ((VarExpr)type_expr).InferType(bc, Initializer);
                         type = type_expr.Type;
-                    } else {
+                    }
+                    else
+                    {
                         // Set error type to indicate the var was placed correctly but could
                         // not be infered
                         //
@@ -2255,9 +2283,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Reachability MarkReachable (Reachability rc)
         {
-            var init = initializer as ExpressionStatement;
-            if (init != null)
-                init.MarkReachable (rc);
+            if (initializer is ExpressionStatement init)
+                init.MarkReachable(rc);
 
             return base.MarkReachable (rc);
         }
@@ -2303,9 +2330,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (initializer == null)
                 return null;
 
-            var c = initializer as Constant;
-            if (c == null) {
-                initializer.Error_ExpressionMustBeConstant (bc, initializer.Location, li.Name);
+            if (!(initializer is Constant c))
+            {
+                initializer.Error_ExpressionMustBeConstant(bc, initializer.Location, li.Name);
                 return null;
             }
 
@@ -2802,11 +2829,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public virtual void Error_AlreadyDeclared (string name, INamedBlockVariable variable)
         {
-            var pi = variable as ParametersBlock.ParameterInfo;
-            if (pi != null) {
-                pi.Parameter.Error_DuplicateName (ParametersBlock.TopBlock.Report);
-            } else {
-                ParametersBlock.TopBlock.Report.Error (128, variable.Location,
+            if (variable is ParametersBlock.ParameterInfo pi)
+            {
+                pi.Parameter.Error_DuplicateName(ParametersBlock.TopBlock.Report);
+            }
+            else
+            {
+                ParametersBlock.TopBlock.Report.Error(128, variable.Location,
                     "A local variable named `{0}' is already defined in this scope", name);
             }
         }
@@ -3012,8 +3041,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     continue;
                 }
 
-                var lb = s as LabeledStatement;
-                if (lb != null && fc.AddReachedLabel (lb))
+                if (s is LabeledStatement lb && fc.AddReachedLabel(lb))
                     break;
             }
 
@@ -3390,12 +3418,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             b = b.ParametersBlock;
                         }
 
-                        var pb = b as ParametersBlock;
-                        if (pb != null && pb.StateMachine != null) {
+                        if (b is ParametersBlock pb && pb.StateMachine != null)
+                        {
                             if (pb.StateMachine == storey)
                                 break;
 
-                            pb.StateMachine.AddParentStoreyReference (ec, storey);
+                            pb.StateMachine.AddParentStoreyReference(ec, storey);
                         }
 
                         b.HasCapturedVariable = true;
@@ -3731,18 +3759,20 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     target.labels = new Dictionary<string, object> ();
 
                     foreach (var entry in pb.labels) {
-                        var list = entry.Value as List<LabeledStatement>;
-
-                        if (list != null) {
-                            var list_clone = new List<LabeledStatement> ();
-                            foreach (var lentry in list) {
-                                list_clone.Add (RemapLabeledStatement (lentry, lentry.Block, clonectx.RemapBlockCopy (lentry.Block)));
+                        if (entry.Value is List<LabeledStatement> list)
+                        {
+                            var list_clone = new List<LabeledStatement>();
+                            foreach (var lentry in list)
+                            {
+                                list_clone.Add(RemapLabeledStatement(lentry, lentry.Block, clonectx.RemapBlockCopy(lentry.Block)));
                             }
 
-                            target.labels.Add (entry.Key, list_clone);
-                        } else {
-                            var labeled = (LabeledStatement) entry.Value;
-                            target.labels.Add (entry.Key, RemapLabeledStatement (labeled, labeled.Block, clonectx.RemapBlockCopy (labeled.Block)));
+                            target.labels.Add(entry.Key, list_clone);
+                        }
+                        else
+                        {
+                            var labeled = (LabeledStatement)entry.Value;
+                            target.labels.Add(entry.Key, RemapLabeledStatement(labeled, labeled.Block, clonectx.RemapBlockCopy(labeled.Block)));
                         }
                     }
 
@@ -3816,9 +3846,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return null;
             }
 
-            var label = value as LabeledStatement;
             Block b = block;
-            if (label != null) {
+            if (value is LabeledStatement label) {
                 if (IsLabelVisible (label, b))
                     return label;
 
@@ -3929,8 +3958,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // statement block where no return statements have expressions, the inferred return type is Task
             //
             if (IsAsync) {
-                var am = bc.CurrentAnonymousMethod as AnonymousMethodBody;
-                if (am != null && am.ReturnTypeInference != null && !am.ReturnTypeInference.HasBounds (0)) {
+                if (bc.CurrentAnonymousMethod is AnonymousMethodBody am && am.ReturnTypeInference != null && !am.ReturnTypeInference.HasBounds(0))
+                {
                     am.ReturnTypeInference = null;
                     am.ReturnType = bc.Module.PredefinedTypes.Task.TypeSpec;
                     return true;
@@ -4103,9 +4132,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return;
             }
 
-            INamedBlockVariable existing = value as INamedBlockVariable;
             List<INamedBlockVariable> existing_list;
-            if (existing != null) {
+            if (value is INamedBlockVariable existing) {
                 existing_list = new List<INamedBlockVariable> ();
                 existing_list.Add (existing);
                 names[name] = existing_list;
@@ -4163,9 +4191,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return;
             }
 
-            LabeledStatement existing = value as LabeledStatement;
             List<LabeledStatement> existing_list;
-            if (existing != null) {
+            if (value is LabeledStatement existing) {
                 existing_list = new List<LabeledStatement> ();
                 existing_list.Add (existing);
                 labels[name] = existing_list;
@@ -4321,10 +4348,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             if (block.names != null) {
                 foreach (var n in block.names) {
-                    var variable = n.Value as INamedBlockVariable;
-                    if (variable != null) {
+                    if (n.Value is INamedBlockVariable variable)
+                    {
                         if (variable.Block.ParametersBlock == pb)
-                            AddLocalName (n.Key, variable, false);
+                            AddLocalName(n.Key, variable, false);
                         continue;
                     }
 
@@ -4806,7 +4833,6 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             //
             Expression converted = null;
             foreach (TypeSpec tt in rc.Module.PredefinedTypes.SwitchUserTypes) {
-
                 if (!unwrapExpr && tt.IsNullableType && expr.Type.IsNullableType)
                     break;
 
@@ -4824,8 +4850,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // Ignore over-worked ImplicitUserConversions that do
                 // an implicit conversion in addition to the user conversion.
                 // 
-                var uc = e as UserCast;
-                if (uc == null)
+                if (!(e is UserCast uc))
                     continue;
 
                 if (converted != null){
@@ -4887,11 +4912,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             try {
                 if (string_labels != null) {
-                    string string_value = sl.Converted.GetValue () as string;
-                    if (string_value == null)
+                    if (!(sl.Converted.GetValue() is string string_value))
                         case_null = sl;
                     else
-                        string_labels.Add (string_value, sl);
+                        string_labels.Add(string_value, sl);
                 } else {
                     if (sl.Converted.IsNull) {
                         case_null = sl;
@@ -5040,14 +5064,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             SwitchLabel sl = null;
 
             if (string_labels != null) {
-                string s = value.GetValue () as string;
-                if (s == null) {
+                if (!(value.GetValue() is string s))
+                {
                     if (case_null != null)
                         sl = case_null;
                     else if (case_default != null)
                         sl = case_default;
-                } else {
-                    string_labels.TryGetValue (s, out sl);
+                }
+                else
+                {
+                    string_labels.TryGetValue(s, out sl);
                 }
             } else {
                 if (value is NullLiteral) {
@@ -5230,9 +5256,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         bool HasOnlyDefaultSection ()
         {
             for (int i = 0; i < block.Statements.Count; ++i) {
-                var s = block.Statements[i] as SwitchLabel;
-
-                if (s == null || s.IsDefault)
+                if (!(block.Statements[i] is SwitchLabel s) || s.IsDefault)
                     continue;
 
                 return false;
@@ -5254,12 +5278,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return rc;
 
             SwitchLabel constant_label = null;
-            var constant = new_expr as Constant;
 
-            if (constant != null) {
-                constant_label = FindLabel (constant) ?? case_default;
-                if (constant_label == null) {
-                    block.Statements.RemoveAt (0);
+            if (new_expr is Constant constant)
+            {
+                constant_label = FindLabel(constant) ?? case_default;
+                if (constant_label == null)
+                {
+                    block.Statements.RemoveAt(0);
                     return rc;
                 }
             }
@@ -5269,27 +5294,32 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             for (int i = 0; i < block.Statements.Count; ++i) {
                 var s = block.Statements[i];
-                var sl = s as SwitchLabel;
 
-                if (sl != null && sl.SectionStart) {
+                if (s is SwitchLabel sl && sl.SectionStart)
+                {
                     //
                     // Section is marked already via goto case
                     //
-                    if (!sl.IsUnreachable) {
-                        section_rc = new Reachability ();
+                    if (!sl.IsUnreachable)
+                    {
+                        section_rc = new Reachability();
                         continue;
                     }
 
                     if (constant_label != null && constant_label != sl)
-                        section_rc = Reachability.CreateUnreachable ();
-                    else if (section_rc.IsUnreachable) {
-                        section_rc = new Reachability ();
-                    } else {
-                        if (prev_label != null) {
+                        section_rc = Reachability.CreateUnreachable();
+                    else if (section_rc.IsUnreachable)
+                    {
+                        section_rc = new Reachability();
+                    }
+                    else
+                    {
+                        if (prev_label != null)
+                        {
                             sl.SectionStart = false;
-                            s = new MissingBreak (prev_label);
-                            s.MarkReachable (rc);
-                            block.Statements.Insert (i - 1, s);
+                            s = new MissingBreak(prev_label);
+                            s.MarkReachable(rc);
+                            block.Statements.Insert(i - 1, s);
                             ++i;
                         }
                     }
@@ -5815,9 +5845,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // original block then simply calls the newly generated method.
             //
             if (bc.CurrentIterator != null && !bc.IsInProbingMode) {
-                var b = stmt as Block;
-                if (b != null && b.Explicit.HasYield) {
-                    finally_host = bc.CurrentIterator.CreateFinallyHost (this);
+                if (stmt is Block b && b.Explicit.HasYield)
+                {
+                    finally_host = bc.CurrentIterator.CreateFinallyHost(this);
                 }
             }
 
@@ -5871,8 +5901,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             if (parent != null) {
                 // TODO: MOVE to virtual TryCatch
-                var tc = this as TryCatch;
-                var s = tc != null && tc.IsTryCatchFinally ? stmt : this;
+                var s = this is TryCatch tc && tc.IsTryCatchFinally ? stmt : this;
 
                 pc = parent.AddResumePoint (s, pc, stateMachine);
             } else {
@@ -5932,9 +5961,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 expr = Convert.ImplicitTypeParameterConversion (expr, (TypeParameterSpec)expr.Type, ec.BuiltinTypes.Object);
             }
 
-            VariableReference lv = expr as VariableReference;
             bool locked;
-            if (lv != null) {
+            if (expr is VariableReference lv) {
                 locked = lv.IsLockedByStatement;
                 lv.IsLockedByStatement = true;
             } else {
@@ -6382,10 +6410,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // Case 4: & object.
                 //
                 bool already_fixed = true;
-                Unary u = initializer as Unary;
-                if (u != null && u.Oper == Unary.Operator.AddressOf) {
-                    IVariableReference vr = u.Expr as IVariableReference;
-                    if (vr == null || !vr.IsFixed) {
+                if (initializer is Unary u && u.Oper == Unary.Operator.AddressOf)
+                {
+                    if (!(u.Expr is IVariableReference vr) || !vr.IsFixed)
+                    {
                         already_fixed = false;
                     }
                 }
@@ -6580,9 +6608,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         bc.Report.Error (7094, ctch.Filter.Location, "The `await' operator cannot be used in the filter expression of a catch clause");
                     }
 
-                    var c = ctch.Filter as Constant;
-                    if (c != null && !c.IsDefaultValue) {
-                        bc.Report.Warning (7095, 1, ctch.Filter.Location, "Exception filter expression is a constant");
+                    if (ctch.Filter is Constant c && !c.IsDefaultValue)
+                    {
+                        bc.Report.Warning(7095, 1, ctch.Filter.Location, "Exception filter expression is a constant");
                     }
                 }
 
@@ -6773,9 +6801,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             base.MarkReachable (rc);
 
-            var c = Filter as Constant;
-            if (c != null && c.IsDefaultValue)
-                return Reachability.CreateUnreachable ();
+            if (Filter is Constant c && c.IsDefaultValue)
+                return Reachability.CreateUnreachable();
 
             return block.MarkReachable (rc);
         }
@@ -7401,9 +7428,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             static bool CanConvertToIDisposable (BlockContext bc, TypeSpec type)
             {
                 var target = bc.BuiltinTypes.IDisposable;
-                var tp = type as TypeParameterSpec;
-                if (tp != null)
-                    return Convert.ImplicitTypeParameterConversion (null, tp, target) != null;
+                if (type is TypeParameterSpec tp)
+                    return Convert.ImplicitTypeParameterConversion(null, tp, target) != null;
 
                 return type.ImplementsInterface (target, false);
             }
@@ -7814,17 +7840,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 var mexpr = Expression.MemberLookup (rc, false, expr.Type,
                     "GetEnumerator", 0, Expression.MemberLookupRestrictions.ExactArity, loc);        // TODO: What if CS0229 ?
 
-                var mg = mexpr as MethodGroupExpr;
-                if (mg != null) {
+                if (mexpr is MethodGroupExpr mg)
+                {
                     mg.InstanceExpression = expr;
-                    Arguments args = new Arguments (0);
-                    mg = mg.OverloadResolve (rc, ref args, this, OverloadResolver.Restrictions.ProbingOnly | OverloadResolver.Restrictions.GetEnumeratorLookup);
+                    Arguments args = new Arguments(0);
+                    mg = mg.OverloadResolve(rc, ref args, this, OverloadResolver.Restrictions.ProbingOnly | OverloadResolver.Restrictions.GetEnumeratorLookup);
 
                     // For ambiguous GetEnumerator name warning CS0278 was reported, but Option 2 could still apply
                     if (ambiguous_getenumerator_name)
                         mg = null;
 
-                    if (mg != null && !mg.BestCandidate.IsStatic && mg.BestCandidate.IsPublic) {
+                    if (mg != null && !mg.BestCandidate.IsStatic && mg.BestCandidate.IsPublic)
+                    {
                         return mg;
                     }
                 }
@@ -7886,12 +7913,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             MethodGroupExpr ResolveMoveNext (ResolveContext rc, MethodSpec enumerator)
             {
-                var ms = MemberCache.FindMember (enumerator.ReturnType,
-                    MemberFilter.Method ("MoveNext", 0, ParametersCompiled.EmptyReadOnlyParameters, rc.BuiltinTypes.Bool),
-                    BindingRestriction.InstanceOnly) as MethodSpec;
-
-                if (ms == null || !ms.IsPublic) {
-                    Error_WrongEnumerator (rc, enumerator);
+                if (!(MemberCache.FindMember(enumerator.ReturnType,
+                    MemberFilter.Method("MoveNext", 0, ParametersCompiled.EmptyReadOnlyParameters, rc.BuiltinTypes.Bool),
+                    BindingRestriction.InstanceOnly) is MethodSpec ms) || !ms.IsPublic)
+                {
+                    Error_WrongEnumerator(rc, enumerator);
                     return null;
                 }
 
@@ -7900,12 +7926,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             PropertySpec ResolveCurrent (ResolveContext rc, MethodSpec enumerator)
             {
-                var ps = MemberCache.FindMember (enumerator.ReturnType,
-                    MemberFilter.Property ("Current", null),
-                    BindingRestriction.InstanceOnly) as PropertySpec;
-
-                if (ps == null || !ps.IsPublic) {
-                    Error_WrongEnumerator (rc, enumerator);
+                if (!(MemberCache.FindMember(enumerator.ReturnType,
+                    MemberFilter.Property("Current", null),
+                    BindingRestriction.InstanceOnly) is PropertySpec ps) || !ps.IsPublic)
+                {
+                    Error_WrongEnumerator(rc, enumerator);
                     return null;
                 }
 
@@ -7949,28 +7974,34 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (current_pe == null)
                     return false;
 
-                VarExpr ve = for_each.type as VarExpr;
 
-                if (ve != null) {
-                    if (is_dynamic) {
+                if (for_each.type is VarExpr ve)
+                {
+                    if (is_dynamic)
+                    {
                         // Source type is dynamic, set element type to dynamic too
                         variable.Type = ec.BuiltinTypes.Dynamic;
-                    } else {
+                    }
+                    else
+                    {
                         // Infer implicitly typed local variable from foreach enumerable type
                         variable.Type = current_pe.Type;
                     }
-                } else {
-                    if (is_dynamic) {
+                }
+                else
+                {
+                    if (is_dynamic)
+                    {
                         // Explicit cast of dynamic collection elements has to be done at runtime
-                        current_pe = EmptyCast.Create (current_pe, ec.BuiltinTypes.Dynamic);
+                        current_pe = EmptyCast.Create(current_pe, ec.BuiltinTypes.Dynamic);
                     }
 
-                    variable.Type = for_each.type.ResolveAsType (ec);
+                    variable.Type = for_each.type.ResolveAsType(ec);
 
                     if (variable.Type == null)
                         return false;
 
-                    current_pe = Convert.ExplicitConversion (ec, current_pe, variable.Type, loc);
+                    current_pe = Convert.ExplicitConversion(ec, current_pe, variable.Type, loc);
                     if (current_pe == null)
                         return false;
                 }

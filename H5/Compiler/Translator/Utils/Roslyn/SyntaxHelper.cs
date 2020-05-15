@@ -613,9 +613,7 @@ namespace H5.Translator
 
         public static string FullyQualifiedName(this ISymbol symbol, bool appenTypeArgs = true)
         {
-            var at = symbol as IArrayTypeSymbol;
-
-            if (at != null)
+            if (symbol is IArrayTypeSymbol at)
             {
                 string result = at.ElementType.FullyQualifiedName() + "[";
 
@@ -685,8 +683,7 @@ namespace H5.Translator
                 return true;
             }
 
-            var namedType = type as INamedTypeSymbol;
-            if (namedType != null && namedType.IsGenericType)
+            if (type is INamedTypeSymbol namedType && namedType.IsGenericType)
             {
                 return namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous);
             }
@@ -800,8 +797,7 @@ namespace H5.Translator
         public static MethodDeclarationSyntax ToStatementBody(MethodDeclarationSyntax method)
         {
             var isVoid = false;
-            var predefined = method.ReturnType as PredefinedTypeSyntax;
-            if (predefined != null && predefined.Keyword.Kind() == SyntaxKind.VoidKeyword)
+            if (method.ReturnType is PredefinedTypeSyntax predefined && predefined.Keyword.Kind() == SyntaxKind.VoidKeyword)
             {
                 isVoid = true;
             }
@@ -849,8 +845,7 @@ namespace H5.Translator
         public static OperatorDeclarationSyntax ToStatementBody(OperatorDeclarationSyntax method)
         {
             var isVoid = false;
-            var predefined = method.ReturnType as PredefinedTypeSyntax;
-            if (predefined != null && predefined.Keyword.Kind() == SyntaxKind.VoidKeyword)
+            if (method.ReturnType is PredefinedTypeSyntax predefined && predefined.Keyword.Kind() == SyntaxKind.VoidKeyword)
             {
                 isVoid = true;
             }
@@ -1042,14 +1037,12 @@ namespace H5.Translator
                 }
             }
 
-            var method = symbol as IMethodSymbol;
-            if (method != null && method.OverriddenMethod != null)
+            if (symbol is IMethodSymbol method && method.OverriddenMethod != null)
             {
                 return SyntaxHelper.GetInheritedAttribute(method.OverriddenMethod, attrName);
             }
 
-            var property = symbol as IPropertySymbol;
-            if (property != null && property.OverriddenProperty != null)
+            if (symbol is IPropertySymbol property && property.OverriddenProperty != null)
             {
                 return SyntaxHelper.GetInheritedAttribute(property.OverriddenProperty, attrName);
             }

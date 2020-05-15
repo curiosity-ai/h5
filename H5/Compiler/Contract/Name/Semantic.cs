@@ -80,8 +80,7 @@ namespace H5.Contract
             get
             {
                 var name = Entity.Name;
-                var typeDef = Entity as ITypeDefinition;
-                if (typeDef != null)
+                if (Entity is ITypeDefinition typeDef)
                 {
                     if (TypeDefinition != null)
                     {

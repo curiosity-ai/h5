@@ -132,9 +132,7 @@ namespace H5.Translator
 
             if (needReturnValue && assignmentExpression.Parent is LambdaExpression)
             {
-                var lambdarr = this.Emitter.Resolver.ResolveNode(assignmentExpression.Parent, this.Emitter) as LambdaResolveResult;
-
-                if (lambdarr != null && lambdarr.ReturnType.Kind == TypeKind.Void)
+                if (this.Emitter.Resolver.ResolveNode(assignmentExpression.Parent, this.Emitter) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
                 {
                     needReturnValue = false;
                 }
@@ -187,8 +185,7 @@ namespace H5.Translator
             {
                 for (int i = 0; i < orr.Operands.Count; i++)
                 {
-                    var crr = orr.Operands[i] as ConversionResolveResult;
-                    if (crr != null && crr.Input.Type.IsKnownType(KnownTypeCode.Char))
+                    if (orr.Operands[i] is ConversionResolveResult crr && crr.Input.Type.IsKnownType(KnownTypeCode.Char))
                     {
                         charToString = i;
                     }
@@ -383,9 +380,8 @@ namespace H5.Translator
                 if (this.Emitter.Validator.IsDelegateOrLambda(leftResolverResult))
                 {
                     delegateAssigment = true;
-                    var leftMemberResolveResult = leftResolverResult as MemberResolveResult;
 
-                    if (leftMemberResolveResult != null)
+                    if (leftResolverResult is MemberResolveResult leftMemberResolveResult)
                     {
                         isEvent = leftMemberResolveResult.Member is IEvent;
                         this.Emitter.IsAssignment = true;
@@ -802,8 +798,7 @@ namespace H5.Translator
 
         private void AcceptLeftExpression(Expression left, ResolveResult rr)
         {
-            var mrr = rr as MemberResolveResult;
-            if (!this.Emitter.InConstructor || mrr == null || !(mrr.Member is IProperty) || mrr.Member.IsStatic || mrr.Member.DeclaringTypeDefinition == null || !mrr.Member.DeclaringTypeDefinition.Equals(this.Emitter.TypeInfo.Type))
+            if (!this.Emitter.InConstructor || !(rr is MemberResolveResult mrr) || !(mrr.Member is IProperty) || mrr.Member.IsStatic || mrr.Member.DeclaringTypeDefinition == null || !mrr.Member.DeclaringTypeDefinition.Equals(this.Emitter.TypeInfo.Type))
             {
                 left.AcceptVisitor(this.Emitter);
             }

@@ -81,8 +81,7 @@ namespace H5.Contract
         {
             foreach (var interfaceReference in thisTypeDefinition.Interfaces)
             {
-                var gBaseType = interfaceReference.InterfaceType as GenericInstanceType;
-                if (gBaseType != null && Helpers.HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
+                if (interfaceReference.InterfaceType is GenericInstanceType gBaseType && Helpers.HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
                 {
                     return true;
                 }
@@ -92,8 +91,7 @@ namespace H5.Contract
             {
                 TypeDefinition baseTypeDefinition = null;
 
-                var gBaseType = thisTypeDefinition.BaseType as GenericInstanceType;
-                if (gBaseType != null && Helpers.HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
+                if (thisTypeDefinition.BaseType is GenericInstanceType gBaseType && Helpers.HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
                 {
                     return true;
                 }
@@ -240,8 +238,7 @@ namespace H5.Contract
 
         public static bool IsIgnoreGeneric(MethodDeclaration method, IEmitter emitter)
         {
-            MemberResolveResult resolveResult = emitter.Resolver.ResolveNode(method, emitter) as MemberResolveResult;
-            if (resolveResult != null && resolveResult.Member != null)
+            if (emitter.Resolver.ResolveNode(method, emitter) is MemberResolveResult resolveResult && resolveResult.Member != null)
             {
                 return Helpers.IsIgnoreGeneric(resolveResult.Member, emitter);
             }
@@ -418,9 +415,7 @@ namespace H5.Contract
                 }
                 else
                 {
-                    var prop = (resolveResult as MemberResolveResult)?.Member as IProperty;
-
-                    if (prop != null && prop.IsIndexer)
+                    if ((resolveResult as MemberResolveResult)?.Member is IProperty prop && prop.IsIndexer)
                     {
                         ret = false;
                         writeClone = true;
@@ -436,8 +431,7 @@ namespace H5.Contract
             var rrtype = resolveResult.Type;
             var nullable = rrtype.IsKnownType(KnownTypeCode.NullableOfT);
 
-            var forEachResolveResult = resolveResult as ForEachResolveResult;
-            if (forEachResolveResult != null)
+            if (resolveResult is ForEachResolveResult forEachResolveResult)
             {
                 rrtype = forEachResolveResult.ElementType;
             }
@@ -456,9 +450,8 @@ namespace H5.Contract
                     return;
                 }
 
-                var memberResult = resolveResult as MemberResolveResult;
 
-                var field = memberResult != null ? memberResult.Member as DefaultResolvedField : null;
+                var field = resolveResult is MemberResolveResult memberResult ? memberResult.Member as DefaultResolvedField : null;
 
                 if (field != null && field.IsReadOnly)
                 {
@@ -470,9 +463,7 @@ namespace H5.Contract
                 if (expression != null &&
                     (expression.Parent is BinaryOperatorExpression || expression.Parent is UnaryOperatorExpression))
                 {
-                    var orr = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter) as OperatorResolveResult;
-
-                    isOperator = orr != null && orr.UserDefinedOperatorMethod != null;
+                    isOperator = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter) is OperatorResolveResult orr && orr.UserDefinedOperatorMethod != null;
                 }
 
                 if (expression == null || isOperator ||
@@ -595,8 +586,7 @@ namespace H5.Contract
 
         public static string GetEventRef(CustomEventDeclaration property, IEmitter emitter, bool remove = false, bool noOverload = false, bool ignoreInterface = false, bool withoutTypeParams = false)
         {
-            MemberResolveResult resolveResult = emitter.Resolver.ResolveNode(property, emitter) as MemberResolveResult;
-            if (resolveResult != null && resolveResult.Member != null)
+            if (emitter.Resolver.ResolveNode(property, emitter) is MemberResolveResult resolveResult && resolveResult.Member != null)
             {
                 return Helpers.GetEventRef(resolveResult.Member, emitter, remove, noOverload, ignoreInterface, withoutTypeParams);
             }
@@ -1061,8 +1051,7 @@ namespace H5.Contract
                 }
             }
 
-            var methodDefinition = member as MethodDefinition;
-            if (methodDefinition != null)
+            if (member is MethodDefinition methodDefinition)
             {
                 var isOverride = methodDefinition.IsVirtual && methodDefinition.IsReuseSlot;
 
@@ -1143,8 +1132,7 @@ namespace H5.Contract
 
         public static bool IsEntryPointMethod(IEmitter emitter, MethodDeclaration methodDeclaration)
         {
-            var member_rr = emitter.Resolver.ResolveNode(methodDeclaration, emitter) as MemberResolveResult;
-            IMethod method = member_rr != null ? member_rr.Member as IMethod : null;
+            IMethod method = emitter.Resolver.ResolveNode(methodDeclaration, emitter) is MemberResolveResult member_rr ? member_rr.Member as IMethod : null;
 
             return Helpers.IsEntryPointMethod(method);
         }
@@ -1182,9 +1170,8 @@ namespace H5.Contract
                 return false;
             }
 
-            var m_rr = emitter.Resolver.ResolveNode(methodDeclaration, emitter) as MemberResolveResult;
 
-            if (m_rr == null || !(m_rr.Member is IMethod))
+            if (!(emitter.Resolver.ResolveNode(methodDeclaration, emitter) is MemberResolveResult m_rr) || !(m_rr.Member is IMethod))
             {
                 return false;
             }
@@ -1210,8 +1197,7 @@ namespace H5.Contract
             if (m.Parameters[0].IsRef || m.Parameters[0].IsOut) // The single parameter must not be ref or out.
                 return false;
 
-            var at = m.Parameters[0].Type as ArrayType;
-            return at != null && at.Dimensions == 1 && at.ElementType.IsKnownType(KnownTypeCode.String);
+            return m.Parameters[0].Type is ArrayType at && at.Dimensions == 1 && at.ElementType.IsKnownType(KnownTypeCode.String);
             // The single parameter must be a one-dimensional array of strings.
         }
 

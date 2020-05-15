@@ -141,9 +141,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             while (parent.parent != null)
                 parent = parent.parent;
 
-            var root = parent as RootNamespace;
-            if (root == null)
-                throw new InternalErrorException ("Root namespaces must be created using RootNamespace");
+            if (!(parent is RootNamespace root))
+                throw new InternalErrorException("Root namespaces must be created using RootNamespace");
 
             root.RegisterNamespace (this);
         }
@@ -794,10 +793,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 clauses = new List<UsingClause> ();
             } else {
                 foreach (var entry in clauses) {
-                    var a = entry as UsingAliasNamespace;
-                    if (a != null && a.Alias.Value == un.Alias.Value) {
-                        Compiler.Report.SymbolRelatedToPreviousError (a.Location, "");
-                        Compiler.Report.Error (1537, un.Location,
+                    if (entry is UsingAliasNamespace a && a.Alias.Value == un.Alias.Value)
+                    {
+                        Compiler.Report.SymbolRelatedToPreviousError(a.Location, "");
+                        Compiler.Report.Error(1537, un.Location,
                             "The using alias `{0}' appeared previously in this namespace", un.Alias.Value);
                     }
                 }
@@ -1164,9 +1163,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public static Expression LookupStaticUsings (IMemberContext mc, string name, int arity, Location loc)
         {
             for (var m = mc.CurrentMemberDefinition; m != null; m = m.Parent) {
-
-                var nc = m as NamespaceContainer;
-                if (nc == null)
+                if (!(m is NamespaceContainer nc))
                     continue;
 
                 List<MemberSpec> candidates = null;
@@ -1260,30 +1257,38 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         continue;
                     }
 
-                    var using_ns = entry.ResolvedExpression as NamespaceExpression;
-                    if (using_ns == null) {
+                    if (!(entry.ResolvedExpression is NamespaceExpression using_ns))
+                    {
 
                         var type = entry.ResolvedExpression.Type;
 
                         if (types == null)
-                            types = new List<TypeSpec> ();
+                            types = new List<TypeSpec>();
 
-                        if (types.Contains (type)) {
-                            Warning_DuplicateEntry (entry);
-                        } else {
-                            types.Add (type);
+                        if (types.Contains(type))
+                        {
+                            Warning_DuplicateEntry(entry);
                         }
-                    } else {
+                        else
+                        {
+                            types.Add(type);
+                        }
+                    }
+                    else
+                    {
                         if (namespaces == null)
-                            namespaces = new List<Namespace> ();
+                            namespaces = new List<Namespace>();
 
-                        if (namespaces.Contains (using_ns.Namespace)) {
+                        if (namespaces.Contains(using_ns.Namespace))
+                        {
                             // Ensure we don't report the warning multiple times in repl
-                            clauses.RemoveAt (i--);
+                            clauses.RemoveAt(i--);
 
-                            Warning_DuplicateEntry (entry);
-                        } else {
-                            namespaces.Add (using_ns.Namespace);
+                            Warning_DuplicateEntry(entry);
+                        }
+                        else
+                        {
+                            namespaces.Add(using_ns.Namespace);
                         }
                     }
                 }
@@ -1371,8 +1376,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             base.Define (ctx);
 
-            var ns = resolved as NamespaceExpression;
-            if (ns != null)
+            if (resolved is NamespaceExpression ns)
                 return;
 
             if (resolved != null) {
@@ -1401,12 +1405,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (resolved == null)
                 return;
 
-            var ns = resolved as NamespaceExpression;
-            if (ns != null) {
+            if (resolved is NamespaceExpression ns)
+            {
                 var compiler = ctx.Module.Compiler;
-                compiler.Report.Error (7007, Location,
+                compiler.Report.Error(7007, Location,
                     "A 'using static' directive can only be applied to types but `{0}' denotes a namespace. Consider using a `using' directive instead",
-                    ns.GetSignatureForError ());
+                    ns.GetSignatureForError());
                 return;
             }
 

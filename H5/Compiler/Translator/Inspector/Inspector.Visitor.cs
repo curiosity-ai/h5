@@ -626,9 +626,9 @@ namespace H5.Translator
                             name = value.ToString();
                             name = Helpers.ConvertNameTokens(name, enumStringName);
                         }
-                        else if (value is bool)
+                        else if (value is bool boolean)
                         {
-                            name = (bool)value ? Object.Net.Utilities.StringUtils.ToLowerCamelCase(member.Member.Name) : member.Member.Name;
+                            name = boolean ? Object.Net.Utilities.StringUtils.ToLowerCamelCase(member.Member.Name) : member.Member.Name;
                         }
 
                         if (member.Member.IsStatic && Helpers.IsReservedStaticName(name, false))
@@ -685,8 +685,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var rr = this.Resolver.ResolveNode(enumMemberDeclaration.Initializer, null) as ConstantResolveResult;
-                    if (rr != null)
+                    if (this.Resolver.ResolveNode(enumMemberDeclaration.Initializer, null) is ConstantResolveResult rr)
                     {
                         if (member != null && member.Member.DeclaringTypeDefinition.EnumUnderlyingType.IsKnownType(KnownTypeCode.Int64))
                         {
@@ -796,9 +795,9 @@ namespace H5.Translator
                     {
                         object v = this.GetAttributeArgumentValue(attr, resolveResult, 0);
 
-                        if (v is bool)
+                        if (v is bool boolean)
                         {
-                            config.Disabled = !(bool)v;
+                            config.Disabled = !boolean;
                         }
                         else if (v is string)
                         {
@@ -811,22 +810,22 @@ namespace H5.Translator
                                 config.Filter += ";" + v.ToString();
                             }
                         }
-                        else if (v is int)
+                        else if (v is int intVal)
                         {
                             IType t = this.GetAttributeArgumentType(attr, resolveResult, 0);
 
                             if (t.FullName == "H5.TypeAccessibility")
                             {
-                                config.TypeAccessibility = (TypeAccessibility)(int)v;
+                                config.TypeAccessibility = (TypeAccessibility)intVal;
                             }
                             else
                             {
-                                config.MemberAccessibility = new[] { (MemberAccessibility)(int)v };
+                                config.MemberAccessibility = new[] { (MemberAccessibility)intVal };
                             }
                         }
-                        else if (v is int[])
+                        else if (v is int[] intArray)
                         {
-                            config.MemberAccessibility = ((int[])v).Cast<MemberAccessibility>().ToArray();
+                            config.MemberAccessibility = intArray.Cast<MemberAccessibility>().ToArray();
                         }
                     }
                 }
@@ -859,17 +858,17 @@ namespace H5.Translator
                 {
                     var obj = args[0];
 
-                    if (obj is bool)
+                    if (obj is bool boolean)
                     {
-                        module = new Module((bool)obj, null);
+                        module = new Module(boolean, null);
                     }
                     else if (obj is string)
                     {
                         module = new Module(obj.ToString(), null);
                     }
-                    else if (obj is int)
+                    else if (obj is int intVal)
                     {
-                        module = new Module("", (ModuleType)(int)obj, null);
+                        module = new Module("", (ModuleType)intVal, null);
                     }
                     else
                     {
@@ -1001,9 +1000,9 @@ namespace H5.Translator
                     {
                         nameObj = this.GetAttributeArgumentValue(attr, resolveResult, 1);
 
-                        if (nameObj is int)
+                        if (nameObj is int intVal)
                         {
-                            this.AssemblyInfo.StartIndexInName = (int)nameObj;
+                            this.AssemblyInfo.StartIndexInName = intVal;
                         }
                     }
                 }
@@ -1053,9 +1052,9 @@ namespace H5.Translator
         {
             object nameObj = null;
 
-            if (!(resolveResult is ErrorResolveResult) && (resolveResult is InvocationResolveResult))
+            if (!(resolveResult is ErrorResolveResult) && (resolveResult is InvocationResolveResult result))
             {
-                nameObj = ((InvocationResolveResult)resolveResult).Arguments.Skip(index).Take(1).First().ConstantValue;
+                nameObj = result.Arguments.Skip(index).Take(1).First().ConstantValue;
             }
             else
             {
@@ -1071,9 +1070,9 @@ namespace H5.Translator
 
         protected virtual IType GetAttributeArgumentType(ICSharpCode.NRefactory.CSharp.Attribute attr, ResolveResult resolveResult, int index)
         {
-            if (!(resolveResult is ErrorResolveResult) && (resolveResult is InvocationResolveResult))
+            if (!(resolveResult is ErrorResolveResult) && (resolveResult is InvocationResolveResult result))
             {
-                var arg = ((InvocationResolveResult)resolveResult).Arguments.Skip(index).Take(1).First();
+                var arg = result.Arguments.Skip(index).Take(1).First();
                 return arg.Type;
             }
             else

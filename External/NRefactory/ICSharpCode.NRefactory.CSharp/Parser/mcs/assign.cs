@@ -426,9 +426,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return;
             }
 
-            var pe = target as PropertyExpr;
-            if (pe != null && !pe.IsAutoPropertyAccess)
-                target.FlowAnalysis (fc);
+            if (target is PropertyExpr pe && !pe.IsAutoPropertyAccess)
+                target.FlowAnalysis(fc);
         }
 
         protected override void CloneTo (CloneContext clonectx, Expression t)
@@ -489,32 +488,31 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             base.FlowAnalysis (fc);
 
-            var vr = target as VariableReference;
-            if (vr != null) {
+            if (target is VariableReference vr)
+            {
                 if (vr.VariableInfo != null)
-                    fc.SetVariableAssigned (vr.VariableInfo);
+                    fc.SetVariableAssigned(vr.VariableInfo);
 
                 return;
             }
 
-            var fe = target as FieldExpr;
-            if (fe != null) {
-                fe.SetFieldAssigned (fc);
+            if (target is FieldExpr fe)
+            {
+                fe.SetFieldAssigned(fc);
                 return;
             }
 
-            var pe = target as PropertyExpr;
-            if (pe != null) {
-                pe.SetBackingFieldAssigned (fc);
+            if (target is PropertyExpr pe)
+            {
+                pe.SetBackingFieldAssigned(fc);
                 return;
             }
         }
 
         public override void MarkReachable (Reachability rc)
         {
-            var es = source as ExpressionStatement;
-            if (es != null)
-                es.MarkReachable (rc);
+            if (source is ExpressionStatement es)
+                es.MarkReachable(rc);
         }
     }
 
@@ -549,8 +547,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected override Expression DoResolve (ResolveContext ec)
         {
             var expr = base.DoResolve (ec);
-            var vr = target as VariableReference;
-            if (vr != null && vr.VariableInfo != null)
+            if (target is VariableReference vr && vr.VariableInfo != null)
                 vr.VariableInfo.IsEverAssigned = false;
 
             return expr;
@@ -667,8 +664,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public bool IsDefaultInitializer {
             get {
-                Constant c = source as Constant;
-                if (c == null)
+                if (!(source is Constant c))
                     return false;
 
                 FieldExpr fe = (FieldExpr)target;
@@ -805,9 +801,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return null;
             }
 
-            var event_expr = target as EventExpr;
-            if (event_expr != null) {
-                source = Convert.ImplicitConversionRequired (ec, right, target.Type, loc);
+            if (target is EventExpr event_expr)
+            {
+                source = Convert.ImplicitConversionRequired(ec, right, target.Type, loc);
                 if (source == null)
                     return null;
 
@@ -819,7 +815,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 else
                     rside = null;
 
-                target = target.ResolveLValue (ec, rside);
+                target = target.ResolveLValue(ec, rside);
                 if (target == null)
                     return null;
 

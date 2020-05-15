@@ -85,8 +85,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            IndexerExpression o = other as IndexerExpression;
-            return o != null && this.Target.DoMatch(o.Target, match) && this.Arguments.DoMatch(o.Arguments, match);
+            return other is IndexerExpression o && this.Target.DoMatch(o.Target, match) && this.Arguments.DoMatch(o.Arguments, match);
         }
     }
 }

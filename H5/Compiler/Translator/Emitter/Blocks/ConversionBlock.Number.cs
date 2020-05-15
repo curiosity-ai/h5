@@ -46,20 +46,18 @@ namespace H5.Translator
             if (Helpers.Is64Type(toType, block.Emitter.Resolver) && expression.Parent is IndexerExpression &&
                 ((IndexerExpression)expression.Parent).Arguments.Contains(expression))
             {
-                var memberResolveResult = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter) as MemberResolveResult;
                 var isIgnore = true;
                 var isAccessorsIndexer = false;
                 IProperty member = null;
                 IndexerAccessor current = null;
 
-                if (memberResolveResult != null)
+                if (block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter) is MemberResolveResult memberResolveResult)
                 {
                     var resolvedMember = memberResolveResult.Member;
                     isIgnore = block.Emitter.Validator.IsExternalType(resolvedMember.DeclaringTypeDefinition);
                     isAccessorsIndexer = block.Emitter.Validator.IsAccessorsIndexer(resolvedMember);
 
-                    var property = resolvedMember as IProperty;
-                    if (property != null)
+                    if (resolvedMember is IProperty property)
                     {
                         member = property;
                         current = IndexerBlock.GetIndexerAccessor(block.Emitter, member, block.Emitter.IsAssignment);
@@ -81,9 +79,7 @@ namespace H5.Translator
                      Helpers.IsFloatType(toType, block.Emitter.Resolver) &&
                      !Helpers.IsDecimalType(toType, block.Emitter.Resolver))
                 {
-                    var be = expression.Parent as BinaryOperatorExpression;
-
-                    if (be == null || be.Operator != BinaryOperatorType.Divide || be.Left != expression)
+                    if (!(expression.Parent is BinaryOperatorExpression be) || be.Operator != BinaryOperatorType.Divide || be.Left != expression)
                     {
                         block.Write(JS.Types.System.Int64.TONUMBER);
                         block.Write("(");
@@ -124,9 +120,7 @@ namespace H5.Translator
                      Helpers.IsFloatType(toType, block.Emitter.Resolver) &&
                      !Helpers.IsDecimalType(toType, block.Emitter.Resolver))
             {
-                var be = expression.Parent as BinaryOperatorExpression;
-
-                if (be == null || be.Operator != BinaryOperatorType.Divide || be.Left != expression)
+                if (!(expression.Parent is BinaryOperatorExpression be) || be.Operator != BinaryOperatorType.Divide || be.Left != expression)
                 {
                     block.Write(JS.Types.System.Int64.TONUMBER);
                     block.Write("(");
@@ -163,9 +157,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var ue = expression as UnaryOperatorExpression;
-
-                    if (ue != null && (ue.Operator == UnaryOperatorType.Minus ||
+                    if (expression is UnaryOperatorExpression ue && (ue.Operator == UnaryOperatorType.Minus ||
                                        ue.Operator == UnaryOperatorType.Increment ||
                                        ue.Operator == UnaryOperatorType.Decrement ||
                                        ue.Operator == UnaryOperatorType.PostIncrement ||
@@ -249,8 +241,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var ue = expression as UnaryOperatorExpression;
-                    if (ue != null && !(ue.Expression is PrimitiveExpression) && (ue.Operator == UnaryOperatorType.Minus ||
+                    if (expression is UnaryOperatorExpression ue && !(ue.Expression is PrimitiveExpression) && (ue.Operator == UnaryOperatorType.Minus ||
                                        ue.Operator == UnaryOperatorType.Increment ||
                                        ue.Operator == UnaryOperatorType.Decrement ||
                                        ue.Operator == UnaryOperatorType.PostIncrement ||
@@ -400,8 +391,7 @@ namespace H5.Translator
                 return;
             }
 
-            var binaryOperatorExpression = expression as BinaryOperatorExpression;
-            if (binaryOperatorExpression != null)
+            if (expression is BinaryOperatorExpression binaryOperatorExpression)
             {
                 var rr = block.Emitter.Resolver.ResolveNode(expression, block.Emitter);
                 var leftResolverResult = block.Emitter.Resolver.ResolveNode(binaryOperatorExpression.Left, block.Emitter);
@@ -425,8 +415,7 @@ namespace H5.Translator
                 }
             }
 
-            var assignmentExpression = expression as AssignmentExpression;
-            if (assignmentExpression != null)
+            if (expression is AssignmentExpression assignmentExpression)
             {
                 var leftResolverResult = block.Emitter.Resolver.ResolveNode(assignmentExpression.Left, block.Emitter);
                 var rightResolverResult = block.Emitter.Resolver.ResolveNode(assignmentExpression.Right, block.Emitter);
@@ -538,8 +527,7 @@ namespace H5.Translator
                     bool skipInnerWrap = false;
 
                     var rr = block.Emitter.Resolver.ResolveNode(expression is CastExpression ? ((CastExpression)expression).Expression : expression, block.Emitter);
-                    var memberTargetrr = rr as MemberResolveResult;
-                    bool isField = memberTargetrr != null && memberTargetrr.Member is IField &&
+                    bool isField = rr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                                (memberTargetrr.TargetResult is ThisResolveResult ||
                                 memberTargetrr.TargetResult is LocalResolveResult);
 

@@ -166,8 +166,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            Identifier o = other as Identifier;
-            return o != null && !o.IsNull && MatchString(this.Name, o.Name);
+            return other is Identifier o && !o.IsNull && MatchString(this.Name, o.Name);
         }
     }
 }

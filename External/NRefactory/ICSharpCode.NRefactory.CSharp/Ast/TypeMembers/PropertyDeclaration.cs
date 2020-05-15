@@ -82,8 +82,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            PropertyDeclaration o = other as PropertyDeclaration;
-            return o != null && MatchString(this.Name, o.Name)
+            return other is PropertyDeclaration o && MatchString(this.Name, o.Name)
                 && this.MatchAttributesAndModifiers(o, match) && this.ReturnType.DoMatch(o.ReturnType, match)
                 && this.PrivateImplementationType.DoMatch(o.PrivateImplementationType, match)
                 && this.Getter.DoMatch(o.Getter, match) && this.Setter.DoMatch(o.Setter, match);

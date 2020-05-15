@@ -79,8 +79,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryExpression o = other as QueryExpression;
-            return o != null && !o.IsNull && this.Clauses.DoMatch(o.Clauses, match);
+            return other is QueryExpression o && !o.IsNull && this.Clauses.DoMatch(o.Clauses, match);
         }
 
         #region Builder methods
@@ -219,8 +218,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryContinuationClause o = other as QueryContinuationClause;
-            return o != null && MatchString(this.Identifier, o.Identifier) && this.PrecedingQuery.DoMatch(o.PrecedingQuery, match);
+            return other is QueryContinuationClause o && MatchString(this.Identifier, o.Identifier) && this.PrecedingQuery.DoMatch(o.PrecedingQuery, match);
         }
     }
 
@@ -277,8 +275,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryFromClause o = other as QueryFromClause;
-            return o != null && this.Type.DoMatch(o.Type, match) && MatchString(this.Identifier, o.Identifier)
+            return other is QueryFromClause o && this.Type.DoMatch(o.Type, match) && MatchString(this.Identifier, o.Identifier)
                 && this.Expression.DoMatch(o.Expression, match);
         }
     }
@@ -330,8 +327,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryLetClause o = other as QueryLetClause;
-            return o != null && MatchString(this.Identifier, o.Identifier) && this.Expression.DoMatch(o.Expression, match);
+            return other is QueryLetClause o && MatchString(this.Identifier, o.Identifier) && this.Expression.DoMatch(o.Expression, match);
         }
     }
 
@@ -366,8 +362,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryWhereClause o = other as QueryWhereClause;
-            return o != null && this.Condition.DoMatch(o.Condition, match);
+            return other is QueryWhereClause o && this.Condition.DoMatch(o.Condition, match);
         }
     }
 
@@ -475,8 +470,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryJoinClause o = other as QueryJoinClause;
-            return o != null && this.IsGroupJoin == o.IsGroupJoin
+            return other is QueryJoinClause o && this.IsGroupJoin == o.IsGroupJoin
                 && this.Type.DoMatch(o.Type, match) && MatchString(this.JoinIdentifier, o.JoinIdentifier)
                 && this.InExpression.DoMatch(o.InExpression, match) && this.OnExpression.DoMatch(o.OnExpression, match)
                 && this.EqualsExpression.DoMatch(o.EqualsExpression, match)
@@ -514,8 +508,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryOrderClause o = other as QueryOrderClause;
-            return o != null && this.Orderings.DoMatch(o.Orderings, match);
+            return other is QueryOrderClause o && this.Orderings.DoMatch(o.Orderings, match);
         }
     }
 
@@ -559,8 +552,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryOrdering o = other as QueryOrdering;
-            return o != null && this.Direction == o.Direction && this.Expression.DoMatch(o.Expression, match);
+            return other is QueryOrdering o && this.Direction == o.Direction && this.Expression.DoMatch(o.Expression, match);
         }
     }
 
@@ -601,8 +593,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QuerySelectClause o = other as QuerySelectClause;
-            return o != null && this.Expression.DoMatch(o.Expression, match);
+            return other is QuerySelectClause o && this.Expression.DoMatch(o.Expression, match);
         }
     }
 
@@ -648,8 +639,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            QueryGroupClause o = other as QueryGroupClause;
-            return o != null && this.Projection.DoMatch(o.Projection, match) && this.Key.DoMatch(o.Key, match);
+            return other is QueryGroupClause o && this.Projection.DoMatch(o.Projection, match) && this.Key.DoMatch(o.Key, match);
         }
     }
 }

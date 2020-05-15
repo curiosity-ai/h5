@@ -876,8 +876,7 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 var curState = GetState();
                 // current member needs to be in the setter because of the 'value' parameter
                 if (root is Accessor) {
-                    var prop = curState.CurrentMember as IProperty;
-                    if (prop != null && prop.CanSet && (root.Role == IndexerDeclaration.SetterRole || root.Role == PropertyDeclaration.SetterRole))
+                    if (curState.CurrentMember is IProperty prop && prop.CanSet && (root.Role == IndexerDeclaration.SetterRole || root.Role == PropertyDeclaration.SetterRole))
                         curState = curState.WithCurrentMember(prop.Setter);
                 }
 

@@ -86,8 +86,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            var o = other as TextNode;
-            return o != null && o.Text == Text;
+            return other is TextNode o && o.Text == Text;
         }
     }
 }

@@ -74,10 +74,7 @@ namespace H5.Translator
             foreach (var expr in visitor.DirectionExpression)
             {
                 var rr = this.Emitter.Resolver.ResolveNode(expr, this.Emitter);
-
-                IdentifierExpression identifierExpression;
-                var lrr = rr as LocalResolveResult;
-                if (lrr != null && ((identifierExpression = expr as IdentifierExpression) != null))
+                if (rr is LocalResolveResult lrr && (expr is IdentifierExpression identifierExpression))
                 {
                     var name = identifierExpression.Identifier;
                     if (Helpers.IsReservedWord(this.Emitter, name))
@@ -243,13 +240,9 @@ namespace H5.Translator
                 var p = declarations.First().Parent;
                 if (p != null)
                 {
-                    var rr = this.Emitter.Resolver.ResolveNode(p, this.Emitter) as MemberResolveResult;
-
-                    if (rr != null)
+                    if (this.Emitter.Resolver.ResolveNode(p, this.Emitter) is MemberResolveResult rr)
                     {
-                        var method = rr.Member as DefaultResolvedMethod;
-
-                        if (method != null)
+                        if (rr.Member is DefaultResolvedMethod method)
                         {
                             var expandParams = method.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                             foreach (var prm in method.Parameters)

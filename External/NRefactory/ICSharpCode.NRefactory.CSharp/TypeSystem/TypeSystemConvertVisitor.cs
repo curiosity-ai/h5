@@ -148,8 +148,8 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
 
         public override IUnresolvedEntity VisitUsingDeclaration(UsingDeclaration usingDeclaration)
         {
-            var u = ConvertTypeReference(usingDeclaration.Import, NameLookupMode.TypeInUsingDeclaration) as TypeOrNamespaceReference;
-            if (u != null) {
+            if (ConvertTypeReference(usingDeclaration.Import, NameLookupMode.TypeInUsingDeclaration) is TypeOrNamespaceReference u)
+            {
                 usingScope.Usings.Add(u);
             }
             return null;
@@ -157,8 +157,8 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
 
         public override IUnresolvedEntity VisitUsingAliasDeclaration(UsingAliasDeclaration usingDeclaration)
         {
-            TypeOrNamespaceReference u = ConvertTypeReference(usingDeclaration.Import, NameLookupMode.TypeInUsingDeclaration) as TypeOrNamespaceReference;
-            if (u != null) {
+            if (ConvertTypeReference(usingDeclaration.Import, NameLookupMode.TypeInUsingDeclaration) is TypeOrNamespaceReference u)
+            {
                 usingScope.UsingAliases.Add(new KeyValuePair<string, TypeOrNamespaceReference>(usingDeclaration.Alias, u));
             }
             return null;
@@ -420,10 +420,12 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
             if (!enumMemberDeclaration.Initializer.IsNull) {
                 field.ConstantValue = ConvertConstantValue(field.ReturnType, enumMemberDeclaration.Initializer);
             } else {
-                DefaultUnresolvedField prevField = currentTypeDefinition.Members.LastOrDefault() as DefaultUnresolvedField;
-                if (prevField == null || prevField.ConstantValue == null) {
+                if (!(currentTypeDefinition.Members.LastOrDefault() is DefaultUnresolvedField prevField) || prevField.ConstantValue == null)
+                {
                     field.ConstantValue = ConvertConstantValue(field.ReturnType, new PrimitiveExpression(0));
-                } else {
+                }
+                else
+                {
                     field.ConstantValue = interningProvider.Intern(new IncrementConstantValue(prevField.ConstantValue));
                 }
             }
@@ -524,15 +526,20 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
                 foreach (var tp in list) {
                     if (tp.Name == c.TypeParameter.Identifier) {
                         foreach (AstType type in c.BaseTypes) {
-                            PrimitiveType primType = type as PrimitiveType;
-                            if (primType != null) {
-                                if (primType.Keyword == "new") {
+                            if (type is PrimitiveType primType)
+                            {
+                                if (primType.Keyword == "new")
+                                {
                                     tp.HasDefaultConstructorConstraint = true;
                                     continue;
-                                } else if (primType.Keyword == "class") {
+                                }
+                                else if (primType.Keyword == "class")
+                                {
                                     tp.HasReferenceTypeConstraint = true;
                                     continue;
-                                } else if (primType.Keyword == "struct") {
+                                }
+                                else if (primType.Keyword == "struct")
+                                {
                                     tp.HasValueTypeConstraint = true;
                                     continue;
                                 }
@@ -897,13 +904,9 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
         {
             ITypeReference tr = type.ToTypeReference(NameLookupMode.Type, interningProvider);
             if (!type.GetChildByRole(Roles.Identifier).IsVerbatim) {
-                // Try to add "Attribute" suffix, but only if the identifier
-                // (=last identifier in fully qualified name) isn't a verbatim identifier.
-                SimpleTypeOrNamespaceReference st = tr as SimpleTypeOrNamespaceReference;
-                MemberTypeOrNamespaceReference mt = tr as MemberTypeOrNamespaceReference;
-                if (st != null)
+                if (tr is SimpleTypeOrNamespaceReference st)
                     return interningProvider.Intern(new AttributeTypeReference(st, interningProvider.Intern(st.AddSuffix("Attribute"))));
-                else if (mt != null)
+                else if (tr is MemberTypeOrNamespaceReference mt)
                     return interningProvider.Intern(new AttributeTypeReference(mt, interningProvider.Intern(mt.AddSuffix("Attribute"))));
             }
             return tr;
@@ -917,20 +920,24 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
             List<KeyValuePair<string, IConstantValue>> namedCtorArguments = null;
             List<KeyValuePair<string, IConstantValue>> namedArguments = null;
             foreach (Expression expr in attr.Arguments) {
-                NamedArgumentExpression nae = expr as NamedArgumentExpression;
-                if (nae != null) {
+                if (expr is NamedArgumentExpression nae)
+                {
                     string name = interningProvider.Intern(nae.Name);
                     if (namedCtorArguments == null)
                         namedCtorArguments = new List<KeyValuePair<string, IConstantValue>>();
                     namedCtorArguments.Add(new KeyValuePair<string, IConstantValue>(name, ConvertAttributeArgument(nae.Expression)));
-                } else {
-                    NamedExpression namedExpression = expr as NamedExpression;
-                    if (namedExpression != null) {
+                }
+                else
+                {
+                    if (expr is NamedExpression namedExpression)
+                    {
                         string name = interningProvider.Intern(namedExpression.Name);
                         if (namedArguments == null)
                             namedArguments = new List<KeyValuePair<string, IConstantValue>>();
                         namedArguments.Add(new KeyValuePair<string, IConstantValue>(name, ConvertAttributeArgument(namedExpression.Expression)));
-                    } else {
+                    }
+                    else
+                    {
                         if (positionalArguments == null)
                             positionalArguments = new List<IConstantValue>();
                         positionalArguments.Add(ConvertAttributeArgument(expr));
@@ -963,8 +970,8 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
             ConstantExpression c = expression.AcceptVisitor(b);
             if (c == null)
                 return new ErrorConstantValue(targetType);
-            PrimitiveConstantExpression pc = c as PrimitiveConstantExpression;
-            if (pc != null && pc.Type == targetType) {
+            if (c is PrimitiveConstantExpression pc && pc.Type == targetType)
+            {
                 // Save memory by directly using a SimpleConstantValue.
                 return interningProvider.Intern(new SimpleConstantValue(targetType, pc.Value));
             }
@@ -1039,8 +1046,8 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
             public override ConstantExpression VisitMemberReferenceExpression(MemberReferenceExpression memberReferenceExpression)
             {
                 string memberName = interningProvider.Intern(memberReferenceExpression.MemberName);
-                TypeReferenceExpression tre = memberReferenceExpression.Target as TypeReferenceExpression;
-                if (tre != null) {
+                if (memberReferenceExpression.Target is TypeReferenceExpression tre)
+                {
                     // handle "int.MaxValue"
                     return new ConstantMemberReference(
                         ConvertTypeReference(tre.Type),
@@ -1255,13 +1262,16 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
             StringBuilder documentation = null;
             // traverse children until the first non-whitespace node
             for (AstNode node = entityDeclaration.FirstChild; node != null && node.NodeType == NodeType.Whitespace; node = node.NextSibling) {
-                Comment c = node as Comment;
-                if (c != null && c.IsDocumentation) {
+                if (node is Comment c && c.IsDocumentation)
+                {
                     if (documentation == null)
                         documentation = new StringBuilder();
-                    if (c.CommentType == CommentType.MultiLineDocumentation) {
+                    if (c.CommentType == CommentType.MultiLineDocumentation)
+                    {
                         PrepareMultilineDocumentation(c.Content, documentation);
-                    } else {
+                    }
+                    else
+                    {
                         if (documentation.Length > 0)
                             documentation.AppendLine();
                         if (c.Content.Length > 0 && c.Content[0] == ' ')

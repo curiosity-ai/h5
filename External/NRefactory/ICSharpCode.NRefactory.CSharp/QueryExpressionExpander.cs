@@ -224,9 +224,10 @@ namespace ICSharpCode.NRefactory.CSharp {
 
             static bool NeedsToBeParenthesized(Expression expr)
             {
-                UnaryOperatorExpression unary = expr as UnaryOperatorExpression;
-                if (unary != null) {
-                    if (unary.Operator == UnaryOperatorType.PostIncrement || unary.Operator == UnaryOperatorType.PostDecrement) {
+                if (expr is UnaryOperatorExpression unary)
+                {
+                    if (unary.Operator == UnaryOperatorType.PostIncrement || unary.Operator == UnaryOperatorType.PostDecrement)
+                    {
                         return false;
                     }
                     return true;
@@ -267,12 +268,13 @@ namespace ICSharpCode.NRefactory.CSharp {
                     var resultParam = CreateParameterForCurrentRangeVariable();
                     Expression body;
                     // Second from clause - SelectMany
-                    var select = GetNextQueryClause(queryFromClause) as QuerySelectClause;
-                    if (select != null) {
+                    if (GetNextQueryClause(queryFromClause) is QuerySelectClause select)
+                    {
                         body = VisitNested(select.Expression, resultParam);
                         eatSelect = true;
                     }
-                    else {
+                    else
+                    {
                         body = AddMemberToCurrentTransparentType(resultParam, queryFromClause.IdentifierToken, new IdentifierExpression(queryFromClause.Identifier), false);
                     }
 
@@ -310,8 +312,8 @@ namespace ICSharpCode.NRefactory.CSharp {
 
                 var resultSelectorFirstParam = CreateParameterForCurrentRangeVariable();
 
-                var select = GetNextQueryClause(queryJoinClause) as QuerySelectClause;
-                if (select != null) {
+                if (GetNextQueryClause(queryJoinClause) is QuerySelectClause select)
+                {
                     resultSelectorBody = VisitNested(select.Expression, resultSelectorFirstParam);
                     eatSelect = true;
                 }

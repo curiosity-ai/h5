@@ -225,15 +225,16 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
             if (existingData != null) {
                 if (member.SymbolKind == SymbolKind.Field || member.SymbolKind == SymbolKind.Property || member.SymbolKind == SymbolKind.Event)
                     return null;
-                var a = member as IEntity;
-                foreach (var d in existingData) {
+                foreach (var d in existingData)
+                {
                     if (!(d is IEntityCompletionData))
                         continue;
                     var b = ((IEntityCompletionData)d).Entity;
-                    if (a == null || b == null || a.SymbolKind == b.SymbolKind) {
-                        d.AddOverload (newData);
+                    if (!(member is IEntity a) || b == null || a.SymbolKind == b.SymbolKind)
+                    {
+                        d.AddOverload(newData);
                         return d;
-                    } 
+                    }
                 }
                 if (newData != null) {
                     result.Add (newData);
@@ -271,8 +272,7 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
 
             public override int CompareTo (CompletionCategory other)
             {
-                var compareCategory = other as TypeCompletionCategory;
-                if (compareCategory == null)
+                if (!(other is TypeCompletionCategory compareCategory))
                     return -1;
                 int result;
                 if (Type.ReflectionName == compareCategory.Type.ReflectionName) {

@@ -48,31 +48,35 @@ namespace ICSharpCode.NRefactory.CSharp
                 rootQuery = node;
             }
 
-            QueryExpression query = node as QueryExpression;
-            if (query != null) {
+            if (node is QueryExpression query)
+            {
                 string continuationIdentifier = null;
 
-                foreach (var clause in query.Clauses) {
-                    var continuation = clause as QueryContinuationClause;
-                    if (continuation != null) {
+                foreach (var clause in query.Clauses)
+                {
+                    if (clause is QueryContinuationClause continuation)
+                    {
                         CombineQuery(continuation.PrecedingQuery);
                     }
 
-                    var from = clause as QueryFromClause;
-                    if (from != null) {
+                    if (clause is QueryFromClause from)
+                    {
                         continuationIdentifier = CombineQuery(from.Expression, rootQuery);
                     }
                 }
 
                 QueryFromClause fromClause = (QueryFromClause)query.Clauses.First();
-                QueryExpression innerQuery = fromClause.Expression as QueryExpression;
-                if (innerQuery != null) {
+                if (fromClause.Expression is QueryExpression innerQuery)
+                {
                     continuationIdentifier = continuationIdentifier ?? ((QueryFromClause)innerQuery.Clauses.First()).Identifier;
 
                     string transparentIdentifier;
-                    if (TryRemoveTransparentIdentifier(query, fromClause, innerQuery, continuationIdentifier, out transparentIdentifier)) {
+                    if (TryRemoveTransparentIdentifier(query, fromClause, innerQuery, continuationIdentifier, out transparentIdentifier))
+                    {
                         RemoveTransparentIdentifierReferences(rootQuery, transparentIdentifier);
-                    } else if (fromClause.Type.IsNull) {
+                    }
+                    else if (fromClause.Type.IsNull)
+                    {
                         QueryContinuationClause continuation = new QueryContinuationClause();
                         continuation.PrecedingQuery = innerQuery.Detach();
                         continuation.Identifier = fromClause.Identifier;
@@ -80,9 +84,12 @@ namespace ICSharpCode.NRefactory.CSharp
                     }
 
                     return transparentIdentifier;
-                } else {
+                }
+                else
+                {
                     Match m = castPattern.Match(fromClause.Expression);
-                    if (m.Success) {
+                    if (m.Success)
+                    {
                         fromClause.Type = m.Get<AstType>("targetType").Single().Detach();
                         fromClause.Expression = m.Get<Expression>("inExpr").Single().Detach();
                     }
@@ -120,9 +127,8 @@ namespace ICSharpCode.NRefactory.CSharp
                 return false;
 
             bool introduceLetClause = true;
-            var nae1Identifier = nae1 as IdentifierExpression;
-            var nae2Identifier = nae2 as IdentifierExpression;
-            if (nae1Identifier != null && nae2Identifier != null && nae1Identifier.Identifier == nae1Name && nae2Identifier.Identifier == nae2Name) {
+            if (nae1 is IdentifierExpression nae1Identifier && nae2 is IdentifierExpression nae2Identifier && nae1Identifier.Identifier == nae1Name && nae2Identifier.Identifier == nae2Name)
+            {
                 introduceLetClause = false;
             }
 
@@ -172,17 +178,19 @@ namespace ICSharpCode.NRefactory.CSharp
             foreach (AstNode child in node.Children) {
                 RemoveTransparentIdentifierReferences(child, transparentIdentifier);
             }
-            MemberReferenceExpression mre = node as MemberReferenceExpression;
-            if (mre != null) {
-                IdentifierExpression ident = mre.Target as IdentifierExpression;
-                if (ident != null && ident.Identifier == transparentIdentifier) {
+            if (node is MemberReferenceExpression mre)
+            {
+                if (mre.Target is IdentifierExpression ident && ident.Identifier == transparentIdentifier)
+                {
                     IdentifierExpression newIdent = new IdentifierExpression(mre.MemberName);
                     mre.TypeArguments.MoveTo(newIdent.TypeArguments);
                     newIdent.CopyAnnotationsFrom(mre);
                     newIdent.RemoveAnnotations<PropertyDeclaration>(); // remove the reference to the property of the anonymous type
                     mre.ReplaceWith(newIdent);
                     return;
-                } else if (mre.MemberName == transparentIdentifier) {
+                }
+                else if (mre.MemberName == transparentIdentifier)
+                {
                     var newVar = mre.Target.Detach();
                     newVar.CopyAnnotationsFrom(mre);
                     newVar.RemoveAnnotations<PropertyDeclaration>(); // remove the reference to the property of the anonymous type
@@ -194,19 +202,19 @@ namespace ICSharpCode.NRefactory.CSharp
 
         string ExtractExpressionName(ref Expression expr)
         {
-            NamedExpression namedExpr = expr as NamedExpression;
-            if (namedExpr != null) {
+            if (expr is NamedExpression namedExpr)
+            {
                 expr = namedExpr.Expression;
                 return namedExpr.Name;
             }
 
-            IdentifierExpression identifier = expr as IdentifierExpression;
-            if (identifier != null) {
+            if (expr is IdentifierExpression identifier)
+            {
                 return identifier.Identifier;
             }
 
-            MemberReferenceExpression memberRef = expr as MemberReferenceExpression;
-            if (memberRef != null) {
+            if (expr is MemberReferenceExpression memberRef)
+            {
                 return memberRef.MemberName;
             }
 

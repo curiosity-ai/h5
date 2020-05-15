@@ -629,8 +629,7 @@ if (checkpoints.Length <= CheckpointIndex) throw new Exception (String.Format ("
         {
             if (Suppress)
                 return null;
-            var pragmaDirective = Specials [Specials.Count - 1] as PragmaPreProcessorDirective;
-            if (pragmaDirective == null)
+            if (!(Specials[Specials.Count - 1] is PragmaPreProcessorDirective pragmaDirective))
                 return null;
             pragmaDirective.Disalbe = disable;
             return pragmaDirective;
@@ -671,8 +670,7 @@ if (checkpoints.Length <= CheckpointIndex) throw new Exception (String.Format ("
         public void SkipIf ()
         {
             if (Specials.Count > 0) {
-                var directive = Specials[Specials.Count - 1] as PreProcessorDirective;
-                if (directive != null)
+                if (Specials[Specials.Count - 1] is PreProcessorDirective directive)
                     directive.Take = false;
             }
         }

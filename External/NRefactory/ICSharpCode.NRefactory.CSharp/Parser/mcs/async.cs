@@ -161,12 +161,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (ProbingMode)
                     return;
 
-                var invocation = LeftExpression as Invocation;
-                if (invocation != null && invocation.MethodGroup != null && (invocation.MethodGroup.BestCandidate.Modifiers & Modifiers.ASYNC) != 0) {
-                    rc.Report.Error (4008, loc, "Cannot await void method `{0}'. Consider changing method return type to `Task'",
-                        invocation.GetSignatureForError ());
-                } else if (type != InternalType.ErrorType) {
-                    rc.Report.Error (4001, loc, "Cannot await `{0}' expression", type.GetSignatureForError ());
+                if (LeftExpression is Invocation invocation && invocation.MethodGroup != null && (invocation.MethodGroup.BestCandidate.Modifiers & Modifiers.ASYNC) != 0)
+                {
+                    rc.Report.Error(4008, loc, "Cannot await void method `{0}'. Consider changing method return type to `Task'",
+                        invocation.GetSignatureForError());
+                }
+                else if (type != InternalType.ErrorType)
+                {
+                    rc.Report.Error(4001, loc, "Cannot await `{0}' expression", type.GetSignatureForError());
                 }
             }
         }
@@ -466,8 +468,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         protected override BlockContext CreateBlockContext (BlockContext bc)
         {
             var ctx = base.CreateBlockContext (bc);
-            var am = bc.CurrentAnonymousMethod as AnonymousMethodBody;
-            if (am != null)
+            if (bc.CurrentAnonymousMethod is AnonymousMethodBody am)
                 return_inference = am.ReturnTypeInference;
 
             ctx.Set (ResolveContext.Options.TryScope);

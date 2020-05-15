@@ -136,15 +136,14 @@ namespace ICSharpCode.NRefactory.TypeSystem
                 return true;
             if (x == null || y == null || x.SymbolKind != y.SymbolKind || !nameComparer.Equals(x.Name, y.Name))
                 return false;
-            IParameterizedMember px = x as IParameterizedMember;
-            IParameterizedMember py = y as IParameterizedMember;
-            if (px != null && py != null) {
-                IMethod mx = x as IMethod;
-                IMethod my = y as IMethod;
-                if (mx != null && my != null && mx.TypeParameters.Count != my.TypeParameters.Count)
+            if (x is IParameterizedMember px && y is IParameterizedMember py)
+            {
+                if (x is IMethod mx && y is IMethod my && mx.TypeParameters.Count != my.TypeParameters.Count)
                     return false;
                 return ParameterListComparer.Instance.Equals(px.Parameters, py.Parameters);
-            } else {
+            }
+            else
+            {
                 return true;
             }
         }
@@ -153,12 +152,11 @@ namespace ICSharpCode.NRefactory.TypeSystem
         {
             unchecked {
                 int hash = (int)obj.SymbolKind * 33 + nameComparer.GetHashCode(obj.Name);
-                IParameterizedMember pm = obj as IParameterizedMember;
-                if (pm != null) {
+                if (obj is IParameterizedMember pm)
+                {
                     hash *= 27;
                     hash += ParameterListComparer.Instance.GetHashCode(pm.Parameters);
-                    IMethod m = pm as IMethod;
-                    if (m != null)
+                    if (pm is IMethod m)
                         hash += m.TypeParameters.Count;
                 }
                 return hash;

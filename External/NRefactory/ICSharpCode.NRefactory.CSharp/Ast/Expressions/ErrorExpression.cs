@@ -121,8 +121,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch (AstNode other, PatternMatching.Match match)
         {
-            var o = other as ErrorExpression;
-            return o != null;
+            return other is ErrorExpression o;
         }
     }
 }

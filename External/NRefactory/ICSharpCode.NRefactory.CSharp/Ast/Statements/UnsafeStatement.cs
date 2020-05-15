@@ -59,8 +59,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            UnsafeStatement o = other as UnsafeStatement;
-            return o != null && this.Body.DoMatch(o.Body, match);
+            return other is UnsafeStatement o && this.Body.DoMatch(o.Body, match);
         }
     }
 }

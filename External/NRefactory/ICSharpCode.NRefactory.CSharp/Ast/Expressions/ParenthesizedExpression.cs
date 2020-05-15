@@ -70,8 +70,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ParenthesizedExpression o = other as ParenthesizedExpression;
-            return o != null && this.Expression.DoMatch(o.Expression, match);
+            return other is ParenthesizedExpression o && this.Expression.DoMatch(o.Expression, match);
         }
 
         /// <summary>

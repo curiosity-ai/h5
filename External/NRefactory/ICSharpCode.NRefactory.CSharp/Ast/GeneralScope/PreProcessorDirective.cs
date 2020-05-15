@@ -197,8 +197,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            PreProcessorDirective o = other as PreProcessorDirective;
-            return o != null && Type == o.Type && MatchString(Argument, o.Argument);
+            return other is PreProcessorDirective o && Type == o.Type && MatchString(Argument, o.Argument);
         }
     }
 }

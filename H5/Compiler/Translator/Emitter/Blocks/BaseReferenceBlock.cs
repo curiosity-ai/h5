@@ -34,9 +34,7 @@ namespace H5.Translator
             IMember member = null;
             if (this.BaseReferenceExpression.Parent != null)
             {
-                var rr = this.Emitter.Resolver.ResolveNode(this.BaseReferenceExpression.Parent, this.Emitter) as MemberResolveResult;
-
-                if (rr != null)
+                if (this.Emitter.Resolver.ResolveNode(this.BaseReferenceExpression.Parent, this.Emitter) is MemberResolveResult rr)
                 {
                     if (rr.IsVirtualCall)
                     {
@@ -44,24 +42,20 @@ namespace H5.Translator
                     }
                     else
                     {
-                        var method = rr.Member as IMethod;
-                        if (method != null && (method.IsVirtual || method.IsOverride))
+                        if (rr.Member is IMethod method && (method.IsVirtual || method.IsOverride))
                         {
                             proto = true;
                         }
                         else
                         {
-                            var prop = rr.Member as IProperty;
-
-                            if (prop != null && (prop.IsVirtual || prop.IsOverride))
+                            if (rr.Member is IProperty prop && (prop.IsVirtual || prop.IsOverride))
                             {
                                 proto = true;
                             }
                         }
                     }
 
-                    var iproperty = rr.Member as IProperty;
-                    if (iproperty != null && !iproperty.IsIndexer)
+                    if (rr.Member is IProperty iproperty && !iproperty.IsIndexer)
                     {
                         isProperty = true;
                         member = rr.Member;

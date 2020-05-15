@@ -4814,9 +4814,8 @@ void case_55()
 void case_56()
 #line 699 "cs-parser.jay"
 {
-        Attributes attrs = yyVals[-1+yyTop] as Attributes;
-        var sect = (List<Attribute>) yyVals[0+yyTop];
-        if (attrs == null)
+            var sect = (List<Attribute>)yyVals[0 + yyTop];
+            if (!(yyVals[-1+yyTop] is Attributes attrs))
             attrs = new Attributes (sect);
         else if (sect != null)
             attrs.AddAttributes (sect);
@@ -5067,16 +5066,19 @@ void case_108()
 #line 1005 "cs-parser.jay"
 {
         current_local_parameters = null;
-        var t = current_type as ClassOrStruct;
-        if (t != null) {
-            var b = (ToplevelBlock) yyVals[0+yyTop];
-            if (t.PrimaryConstructorBlock != null) {
-                report.Error (8041, b.StartLocation, "Primary constructor already has a body");
-            } else {
-                t.PrimaryConstructorBlock = b;
+            if (current_type is ClassOrStruct t)
+            {
+                var b = (ToplevelBlock)yyVals[0 + yyTop];
+                if (t.PrimaryConstructorBlock != null)
+                {
+                    report.Error(8041, b.StartLocation, "Primary constructor already has a body");
+                }
+                else
+                {
+                    t.PrimaryConstructorBlock = b;
+                }
             }
         }
-      }
 
 void case_110()
 #line 1027 "cs-parser.jay"
@@ -7016,12 +7018,11 @@ void case_400()
         if (yyVals[0+yyTop] != null) {
             yyVal = new ComposedCast ((ATypeNameExpression) yyVals[-1+yyTop], (ComposedTypeSpecifier) yyVals[0+yyTop]);
         } else {
-            var sn = yyVals[-1+yyTop] as SimpleName;
-            if (sn != null && sn.Name == "var")
-                yyVal = new VarExpr (sn.Location);
-            else
-                yyVal = yyVals[-1+yyTop];
-        }
+                if (yyVals[-1 + yyTop] is SimpleName sn && sn.Name == "var")
+                    yyVal = new VarExpr(sn.Location);
+                else
+                    yyVal = yyVals[-1 + yyTop];
+            }
       }
 
 void case_403()
@@ -7295,12 +7296,11 @@ void case_496()
 void case_498()
 #line 3681 "cs-parser.jay"
 {
-        CompletionSimpleName csn = yyVals[-1+yyTop] as CompletionSimpleName;
-        if (csn == null)
-            yyVal = new CollectionElementInitializer ((Expression)yyVals[-1+yyTop]);
-        else
-            yyVal = new CompletionElementInitializer (csn.Prefix, csn.Location);
-      }
+            if (!(yyVals[-1 + yyTop] is CompletionSimpleName csn))
+                yyVal = new CollectionElementInitializer((Expression)yyVals[-1 + yyTop]);
+            else
+                yyVal = new CompletionElementInitializer(csn.Prefix, csn.Location);
+        }
 
 void case_499()
 #line 3689 "cs-parser.jay"
@@ -7358,11 +7358,10 @@ void case_508()
         Arguments list = (Arguments) yyVals[-2+yyTop];
         NamedArgument a = (NamedArgument) yyVals[0+yyTop];
         for (int i = 0; i < list.Count; ++i) {
-            NamedArgument na = list [i] as NamedArgument;
-            if (na != null && na.Name == a.Name)
-                report.Error (1740, na.Location, "Named argument `{0}' specified multiple times",
-                    na.Name);
-        }
+                if (list[i] is NamedArgument na && na.Name == a.Name)
+                    report.Error(1740, na.Location, "Named argument `{0}' specified multiple times",
+                        na.Name);
+            }
 
         list.Add (a);
         lbag.AddLocation (list, GetLocation (yyVals[-1+yyTop]));
@@ -8970,12 +8969,12 @@ void case_797()
 #line 5515 "cs-parser.jay"
 {
         var constraints = (List<FullNamedExpression>) yyVals[-2+yyTop];
-        var prev = constraints [constraints.Count - 1] as SpecialContraintExpr;
-        if (prev != null && (prev.Constraint & SpecialConstraint.Constructor) != 0) {
-            report.Error (401, GetLocation (yyVals[-1+yyTop]), "The `new()' constraint must be the last constraint specified");
-        }
+            if (constraints[constraints.Count - 1] is SpecialContraintExpr prev && (prev.Constraint & SpecialConstraint.Constructor) != 0)
+            {
+                report.Error(401, GetLocation(yyVals[-1 + yyTop]), "The `new()' constraint must be the last constraint specified");
+            }
 
-        prev = yyVals[0+yyTop] as SpecialContraintExpr;
+            prev = yyVals[0+yyTop] as SpecialContraintExpr;
         if (prev != null) {
             if ((prev.Constraint & (SpecialConstraint.Class | SpecialConstraint.Struct)) != 0) {
                 report.Error (449, prev.Location, "The `class' or `struct' constraint must be the first constraint specified");
@@ -9344,14 +9343,16 @@ void case_902()
 void case_905()
 #line 6049 "cs-parser.jay"
 {
-        ExpressionStatement s = yyVals[0+yyTop] as ExpressionStatement;
-        if (s == null) {
-            var expr = yyVals[0+yyTop] as Expression;
-            yyVal = new StatementErrorExpression (expr);
-        } else {
-            yyVal = new StatementExpression (s);
+            if (!(yyVals[0 + yyTop] is ExpressionStatement s))
+            {
+                var expr = yyVals[0 + yyTop] as Expression;
+                yyVal = new StatementErrorExpression(expr);
+            }
+            else
+            {
+                yyVal = new StatementExpression(s);
+            }
         }
-      }
 
 void case_906()
 #line 6062 "cs-parser.jay"
@@ -9572,17 +9573,19 @@ void case_949()
 void case_957()
 #line 6359 "cs-parser.jay"
 {
-          var sl = yyVals[-2+yyTop] as StatementList;
-          if (sl == null) {
-              sl = new StatementList ((Statement) yyVals[-2+yyTop], (Statement) yyVals[0+yyTop]);
-            lbag.AddStatement (sl, GetLocation (yyVals[-1+yyTop]));
-          } else {
-              sl.Add ((Statement) yyVals[0+yyTop]);
-              lbag.AddLocation (sl, GetLocation (yyVals[-1+yyTop]));
+            if (!(yyVals[-2 + yyTop] is StatementList sl))
+            {
+                sl = new StatementList((Statement)yyVals[-2 + yyTop], (Statement)yyVals[0 + yyTop]);
+                lbag.AddStatement(sl, GetLocation(yyVals[-1 + yyTop]));
+            }
+            else
+            {
+                sl.Add((Statement)yyVals[0 + yyTop]);
+                lbag.AddLocation(sl, GetLocation(yyVals[-1 + yyTop]));
 
-          }
+            }
 
-        yyVal = sl;
+            yyVal = sl;
       }
 
 void case_958()
@@ -9649,10 +9652,9 @@ void case_962()
 {
         start_block (GetLocation (yyVals[-3+yyTop]));
         current_block.IsCompilerGenerated = true;
-        var lt = yyVals[-1+yyTop] as LocatedToken;
-        var li = lt != null ? new LocalVariable (current_block, lt.Value, LocalVariable.Flags.ForeachVariable | LocalVariable.Flags.Used, lt.Location) : null;
+            var li = yyVals[-1 + yyTop] is LocatedToken lt ? new LocalVariable(current_block, lt.Value, LocalVariable.Flags.ForeachVariable | LocalVariable.Flags.Used, lt.Location) : null;
 
-        Foreach f = new Foreach ((Expression) yyVals[-2+yyTop], li, null, null, null, GetLocation (yyVals[-4+yyTop]));
+            Foreach f = new Foreach ((Expression) yyVals[-2+yyTop], li, null, null, null, GetLocation (yyVals[-4+yyTop]));
         current_block.AddStatement (f);
 
         lbag.AddStatement (f, GetLocation (yyVals[-3+yyTop]));
@@ -15904,19 +15906,16 @@ void FeatureIsNotAvailable (Location loc, string feature)
 
 Location GetLocation (object obj)
 {
-    var lt = obj as LocatedToken;
-    if (lt != null)
-        return lt.Location;
+            if (obj is LocatedToken lt)
+                return lt.Location;
 
-    var mn = obj as MemberName;
-    if (mn != null)
-        return mn.Location;
+            if (obj is MemberName mn)
+                return mn.Location;
 
-    var expr = obj as Expression;
-    if (expr != null)
-        return expr.Location;
+            if (obj is Expression expr)
+                return expr.Location;
 
-    return lexer.Location;
+            return lexer.Location;
 }
 
 void start_block (Location loc)

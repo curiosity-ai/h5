@@ -314,9 +314,8 @@ namespace H5.Translator
             if (isSimpleLambda)
             {
                 this.ConvertParamsToReferences(parameters);
-                var lrr = rr as LambdaResolveResult;
 
-                if (lrr == null || lrr.ReturnType.Kind != TypeKind.Void)
+                if (!(rr is LambdaResolveResult lrr) || lrr.ReturnType.Kind != TypeKind.Void)
                 {
                     this.WriteReturn(true);
                 }

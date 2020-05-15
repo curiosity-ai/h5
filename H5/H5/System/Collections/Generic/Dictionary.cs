@@ -562,8 +562,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
             }
 
-            KeyValuePair<TKey, TValue>[] pairs = array as KeyValuePair<TKey, TValue>[];
-            if (pairs != null)
+            if (array is KeyValuePair<TKey, TValue>[] pairs)
             {
                 CopyTo(pairs, index);
             }
@@ -983,8 +982,7 @@ namespace System.Collections.Generic
                     ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
 
-                TKey[] keys = array as TKey[];
-                if (keys != null)
+                if (array is TKey[] keys)
                 {
                     CopyTo(keys, index);
                 }
@@ -1209,8 +1207,7 @@ namespace System.Collections.Generic
                 if (array.Length - index < dictionary.Count)
                     ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
 
-                TValue[] values = array as TValue[];
-                if (values != null)
+                if (array is TValue[] values)
                 {
                     CopyTo(values, index);
                 }

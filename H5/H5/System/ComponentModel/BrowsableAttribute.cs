@@ -53,9 +53,8 @@ namespace System.ComponentModel
                 return true;
             }
 
-            BrowsableAttribute other = obj as BrowsableAttribute;
 
-            return (other != null) && other.Browsable == browsable;
+            return (obj is BrowsableAttribute other) && other.Browsable == browsable;
         }
 
         public override int GetHashCode()

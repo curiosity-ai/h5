@@ -179,10 +179,12 @@ namespace ICSharpCode.NRefactory.CSharp
 
         CodeStatement[] ConvertEmbeddedStatement(Statement embeddedStatement)
         {
-            BlockStatement block = embeddedStatement as BlockStatement;
-            if (block != null) {
+            if (embeddedStatement is BlockStatement block)
+            {
                 return ConvertBlock(block);
-            } else if (embeddedStatement is EmptyStatement) {
+            }
+            else if (embeddedStatement is EmptyStatement)
+            {
                 return new CodeStatement[0];
             }
             CodeStatement s = Convert(embeddedStatement);
@@ -326,16 +328,21 @@ namespace ICSharpCode.NRefactory.CSharp
                     break;
                 case BinaryOperatorType.Equality:
                 case BinaryOperatorType.InEquality:
-                    OperatorResolveResult rr = Resolve(binaryOperatorExpression) as OperatorResolveResult;
-                    if (rr != null && rr.GetChildResults().Any(cr => cr.Type.IsReferenceType == true)) {
+                    if (Resolve(binaryOperatorExpression) is OperatorResolveResult rr && rr.GetChildResults().Any(cr => cr.Type.IsReferenceType == true))
+                    {
                         if (binaryOperatorExpression.Operator == BinaryOperatorType.Equality)
                             op = CodeBinaryOperatorType.IdentityEquality;
                         else
                             op = CodeBinaryOperatorType.IdentityInequality;
-                    } else {
-                        if (binaryOperatorExpression.Operator == BinaryOperatorType.Equality) {
+                    }
+                    else
+                    {
+                        if (binaryOperatorExpression.Operator == BinaryOperatorType.Equality)
+                        {
                             op = CodeBinaryOperatorType.ValueEquality;
-                        } else {
+                        }
+                        else
+                        {
                             // CodeDom is retarded and does not support ValueInequality, so we'll simulate it using
                             // ValueEquality and Not... but CodeDom doesn't have Not either, so we use
                             // '(a == b) == false'
@@ -392,24 +399,30 @@ namespace ICSharpCode.NRefactory.CSharp
         CodeObject IAstVisitor<CodeObject>.VisitIdentifierExpression(IdentifierExpression identifierExpression)
         {
             ResolveResult rr = Resolve(identifierExpression);
-            LocalResolveResult lrr = rr as LocalResolveResult;
-            if (lrr != null && lrr.IsParameter) {
-                if (lrr.Variable.Name == "value" && identifierExpression.Ancestors.Any(a => a is Accessor)) {
+            if (rr is LocalResolveResult lrr && lrr.IsParameter)
+            {
+                if (lrr.Variable.Name == "value" && identifierExpression.Ancestors.Any(a => a is Accessor))
+                {
                     return new CodePropertySetValueReferenceExpression();
-                } else {
+                }
+                else
+                {
                     return new CodeArgumentReferenceExpression(lrr.Variable.Name);
                 }
             }
-            MemberResolveResult mrr = rr as MemberResolveResult;
-            if (mrr != null) {
+            if (rr is MemberResolveResult mrr)
+            {
                 return HandleMemberReference(null, identifierExpression.Identifier, identifierExpression.TypeArguments, mrr);
             }
-            TypeResolveResult trr = rr as TypeResolveResult;
-            if (trr != null) {
+            if (rr is TypeResolveResult trr)
+            {
                 CodeTypeReference typeRef;
-                if (UseFullyQualifiedTypeNames) {
+                if (UseFullyQualifiedTypeNames)
+                {
                     typeRef = Convert(trr.Type);
-                } else {
+                }
+                else
+                {
                     typeRef = new CodeTypeReference(identifierExpression.Identifier);
                     typeRef.TypeArguments.AddRange(Convert(identifierExpression.TypeArguments));
                 }
@@ -433,8 +446,8 @@ namespace ICSharpCode.NRefactory.CSharp
         CodeObject IAstVisitor<CodeObject>.VisitInvocationExpression(InvocationExpression invocationExpression)
         {
             MemberResolveResult rr = Resolve(invocationExpression) as MemberResolveResult;
-            CSharpInvocationResolveResult csRR = rr as CSharpInvocationResolveResult;
-            if (csRR != null && csRR.IsDelegateInvocation) {
+            if (rr is CSharpInvocationResolveResult csRR && csRR.IsDelegateInvocation)
+            {
                 return new CodeDelegateInvokeExpression(Convert(invocationExpression.Target), Convert(invocationExpression.Arguments));
             }
 
@@ -442,12 +455,12 @@ namespace ICSharpCode.NRefactory.CSharp
             while (methodExpr is ParenthesizedExpression)
                 methodExpr = ((ParenthesizedExpression)methodExpr).Expression;
             CodeMethodReferenceExpression mr = null;
-            MemberReferenceExpression mre = methodExpr as MemberReferenceExpression;
-            if (mre != null) {
+            if (methodExpr is MemberReferenceExpression mre)
+            {
                 mr = new CodeMethodReferenceExpression(Convert(mre.Target), mre.MemberName, Convert(mre.TypeArguments));
             }
-            IdentifierExpression id = methodExpr as IdentifierExpression;
-            if (id != null) {
+            if (methodExpr is IdentifierExpression id)
+            {
                 CodeExpression target;
                 if (rr != null && rr.Member.IsStatic)
                     target = new CodeTypeReferenceExpression(Convert(rr.Member.DeclaringType ?? SpecialType.UnknownType));
@@ -476,16 +489,22 @@ namespace ICSharpCode.NRefactory.CSharp
         {
             CodeExpression target = Convert(memberReferenceExpression.Target);
             ResolveResult rr = Resolve(memberReferenceExpression);
-            MemberResolveResult mrr = rr as MemberResolveResult;
-            TypeResolveResult trr = rr as TypeResolveResult;
-            if (mrr != null) {
+            if (rr is MemberResolveResult mrr)
+            {
                 return HandleMemberReference(target, memberReferenceExpression.MemberName, memberReferenceExpression.TypeArguments, mrr);
-            } else if (trr != null) {
+            }
+            else if (rr is TypeResolveResult trr)
+            {
                 return new CodeTypeReferenceExpression(Convert(trr.Type));
-            } else {
-                if (memberReferenceExpression.TypeArguments.Any() || rr is MethodGroupResolveResult) {
+            }
+            else
+            {
+                if (memberReferenceExpression.TypeArguments.Any() || rr is MethodGroupResolveResult)
+                {
                     return new CodeMethodReferenceExpression(target, memberReferenceExpression.MemberName, Convert(memberReferenceExpression.TypeArguments));
-                } else {
+                }
+                else
+                {
                     return new CodePropertyReferenceExpression(target, memberReferenceExpression.MemberName);
                 }
             }
@@ -667,8 +686,7 @@ namespace ICSharpCode.NRefactory.CSharp
         {
             var attr = new CodeAttributeDeclaration(Convert(attribute.Type));
             foreach (Expression expr in attribute.Arguments) {
-                NamedExpression ne = expr as NamedExpression;
-                if (ne != null)
+                if (expr is NamedExpression ne)
                     attr.Arguments.Add(new CodeAttributeArgument(ne.Name, Convert(ne.Expression)));
                 else
                     attr.Arguments.Add(new CodeAttributeArgument(Convert(expr)));
@@ -738,12 +756,10 @@ namespace ICSharpCode.NRefactory.CSharp
             foreach (AstNode node in namespaceDeclaration.Members) {
                 CodeObject r = node.AcceptVisitor(this);
 
-                CodeNamespaceImport import = r as CodeNamespaceImport;
-                if (import != null)
+                if (r is CodeNamespaceImport import)
                     ns.Imports.Add(import);
 
-                CodeTypeDeclaration typeDecl = r as CodeTypeDeclaration;
-                if (typeDecl != null)
+                if (r is CodeTypeDeclaration typeDecl)
                     ns.Types.Add(typeDecl);
             }
             return ns;
@@ -779,8 +795,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
             typeStack.Push(typeDecl);
             foreach (var member in typeDeclaration.Members) {
-                CodeTypeMember m = member.AcceptVisitor(this) as CodeTypeMember;
-                if (m != null)
+                if (member.AcceptVisitor(this) is CodeTypeMember m)
                     typeDecl.Members.Add(m);
             }
             typeStack.Pop();
@@ -888,13 +903,16 @@ namespace ICSharpCode.NRefactory.CSharp
                 var cboe = new CodeBinaryOperatorExpression(Convert(assignment.Left), op, Convert(assignment.Right));
                 return new CodeAssignStatement(Convert(assignment.Left), cboe);
             }
-            UnaryOperatorExpression unary = expressionStatement.Expression as UnaryOperatorExpression;
-            if (unary != null && CanBeDuplicatedForCompoundAssignment(unary.Expression)) {
+            if (expressionStatement.Expression is UnaryOperatorExpression unary && CanBeDuplicatedForCompoundAssignment(unary.Expression))
+            {
                 var op = unary.Operator;
-                if (op == UnaryOperatorType.Increment || op == UnaryOperatorType.PostIncrement) {
+                if (op == UnaryOperatorType.Increment || op == UnaryOperatorType.PostIncrement)
+                {
                     var cboe = new CodeBinaryOperatorExpression(Convert(unary.Expression), CodeBinaryOperatorType.Add, new CodePrimitiveExpression(1));
                     return new CodeAssignStatement(Convert(unary.Expression), cboe);
-                } else if (op == UnaryOperatorType.Decrement || op == UnaryOperatorType.PostDecrement) {
+                }
+                else if (op == UnaryOperatorType.Decrement || op == UnaryOperatorType.PostDecrement)
+                {
                     var cboe = new CodeBinaryOperatorExpression(Convert(unary.Expression), CodeBinaryOperatorType.Subtract, new CodePrimitiveExpression(1));
                     return new CodeAssignStatement(Convert(unary.Expression), cboe);
                 }
@@ -1040,10 +1058,12 @@ namespace ICSharpCode.NRefactory.CSharp
 
         CodeExpression ConvertVariableInitializer(Expression expr, AstType type)
         {
-            ArrayInitializerExpression aie = expr as ArrayInitializerExpression;
-            if (aie != null) {
+            if (expr is ArrayInitializerExpression aie)
+            {
                 return new CodeArrayCreateExpression(Convert(type), Convert(aie.Elements));
-            } else {
+            }
+            else
+            {
                 return Convert(expr);
             }
         }
@@ -1096,8 +1116,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         CodeObject IAstVisitor<CodeObject>.VisitEnumMemberDeclaration(EnumMemberDeclaration enumMemberDeclaration)
         {
-            TypeDeclaration td = enumMemberDeclaration.Parent as TypeDeclaration;
-            CodeMemberField f = new CodeMemberField(td != null ? td.Name : "Enum", enumMemberDeclaration.Name);
+            CodeMemberField f = new CodeMemberField(enumMemberDeclaration.Parent is TypeDeclaration td ? td.Name : "Enum", enumMemberDeclaration.Name);
             f.Attributes = MemberAttributes.Public | MemberAttributes.Static;
             f.CustomAttributes.AddRange(Convert(enumMemberDeclaration.Attributes));
             f.InitExpression = Convert(enumMemberDeclaration.Initializer);
@@ -1213,8 +1232,7 @@ namespace ICSharpCode.NRefactory.CSharp
         {
             List<CodeParameterDeclarationExpression> result = new List<CodeParameterDeclarationExpression>();
             foreach (ParameterDeclaration pd in parameters) {
-                CodeParameterDeclarationExpression pde = pd.AcceptVisitor(this) as CodeParameterDeclarationExpression;
-                if (pde != null)
+                if (pd.AcceptVisitor(this) is CodeParameterDeclarationExpression pde)
                     result.Add(pde);
             }
             return result.ToArray();
@@ -1262,18 +1280,17 @@ namespace ICSharpCode.NRefactory.CSharp
             foreach (AstNode node in syntaxTree.Children) {
                 CodeObject o = node.AcceptVisitor(this);
 
-                CodeNamespace ns = o as CodeNamespace;
-                if (ns != null) {
+                if (o is CodeNamespace ns)
+                {
                     cu.Namespaces.Add(ns);
                 }
-                CodeTypeDeclaration td = o as CodeTypeDeclaration;
-                if (td != null) {
+                if (o is CodeTypeDeclaration td)
+                {
                     cu.Namespaces.Add(new CodeNamespace() { Types = { td } });
                 }
 
-                var import = o as CodeNamespaceImport;
-                if (import != null)
-                    globalImports.Add (import);
+                if (o is CodeNamespaceImport import)
+                    globalImports.Add(import);
             }
             foreach (var gi in globalImports) {
                 for (int j = 0; j < cu.Namespaces.Count; j++) {

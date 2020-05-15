@@ -826,7 +826,7 @@ namespace H5.Translator
                         {
                             var value = attr.PositionalArguments.First().ConstantValue;
 
-                            if ((!(value is bool) || (bool)value) && thisAssembly)
+                            if ((!(value is bool boolean) || boolean) && thisAssembly)
                             {
                                 reflectTypes.Add(type);
                             }

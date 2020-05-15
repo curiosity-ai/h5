@@ -220,9 +220,7 @@ namespace H5.Contract
 
         private static CompilerRule[] GetVirtualMemberRules(IEmitter emitter, IEntity entity)
         {
-            var member = entity as IMember;
-
-            if (member != null)
+            if (entity is IMember member)
             {
                 if (member.IsOverride)
                 {

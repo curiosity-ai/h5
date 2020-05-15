@@ -144,8 +144,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            SimpleType o = other as SimpleType;
-            return o != null && MatchString(this.Identifier, o.Identifier) && this.TypeArguments.DoMatch(o.TypeArguments, match);
+            return other is SimpleType o && MatchString(this.Identifier, o.Identifier) && this.TypeArguments.DoMatch(o.TypeArguments, match);
         }
 
         public override ITypeReference ToTypeReference(NameLookupMode lookupMode, InterningProvider interningProvider = null)

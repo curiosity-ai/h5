@@ -176,9 +176,7 @@ namespace H5.Translator
             var fields = this.TypeInfo.InstanceConfig.Fields;
             var props = this.TypeInfo.InstanceConfig.Properties.Where(ent =>
             {
-                var p = ent.Entity as PropertyDeclaration;
-
-                return p != null && p.Getter != null && p.Getter.Body.IsNull && p.Setter != null && p.Setter.Body.IsNull;
+                return ent.Entity is PropertyDeclaration p && p.Getter != null && p.Getter.Body.IsNull && p.Setter != null && p.Setter.Body.IsNull;
             });
 
             var list = fields.ToList();

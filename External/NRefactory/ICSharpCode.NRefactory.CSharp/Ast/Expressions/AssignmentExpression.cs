@@ -104,8 +104,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            AssignmentExpression o = other as AssignmentExpression;
-            return o != null && (this.Operator == AssignmentOperatorType.Any || this.Operator == o.Operator)
+            return other is AssignmentExpression o && (this.Operator == AssignmentOperatorType.Any || this.Operator == o.Operator)
                 && this.Left.DoMatch(o.Left, match) && this.Right.DoMatch(o.Right, match);
         }
 

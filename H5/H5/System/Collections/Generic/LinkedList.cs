@@ -422,8 +422,7 @@ namespace System.Collections.Generic
                 throw new ArgumentException();
             }
 
-            T[] tArray = array as T[];
-            if (tArray != null)
+            if (array is T[] tArray)
             {
                 CopyTo(tArray, index);
             }
@@ -442,8 +441,7 @@ namespace System.Collections.Generic
                     throw new ArgumentException();
                 }
 
-                object[] objects = array as object[];
-                if (objects == null)
+                if (!(array is object[] objects))
                 {
                     throw new ArgumentException();
                 }

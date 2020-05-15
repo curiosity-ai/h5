@@ -122,14 +122,19 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                 if (result != null)
                     return result;
                 IType definitionDeclaringType = baseMember.DeclaringType;
-                ITypeDefinition definitionDeclaringTypeDef = definitionDeclaringType as ITypeDefinition;
-                if (definitionDeclaringTypeDef != null && definitionDeclaringType.TypeParameterCount > 0) {
-                    if (substitution.ClassTypeArguments != null && substitution.ClassTypeArguments.Count == definitionDeclaringType.TypeParameterCount) {
+                if (definitionDeclaringType is ITypeDefinition definitionDeclaringTypeDef && definitionDeclaringType.TypeParameterCount > 0)
+                {
+                    if (substitution.ClassTypeArguments != null && substitution.ClassTypeArguments.Count == definitionDeclaringType.TypeParameterCount)
+                    {
                         result = new ParameterizedType(definitionDeclaringTypeDef, substitution.ClassTypeArguments);
-                    } else {
+                    }
+                    else
+                    {
                         result = new ParameterizedType(definitionDeclaringTypeDef, definitionDeclaringTypeDef.TypeParameters).AcceptVisitor(substitution);
                     }
-                } else if (definitionDeclaringType != null) {
+                }
+                else if (definitionDeclaringType != null)
+                {
                     result = definitionDeclaringType.AcceptVisitor(substitution);
                 }
                 return LazyInit.GetOrSet(ref this.declaringType, result);
@@ -312,8 +317,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public override bool Equals(object obj)
         {
-            SpecializedMember other = obj as SpecializedMember;
-            if (other == null)
+            if (!(obj is SpecializedMember other))
                 return false;
             return this.baseMember.Equals(other.baseMember) && this.substitution.Equals(other.substitution);
         }

@@ -326,8 +326,7 @@ namespace H5.Contract
 
             if (rule.Member != ConventionMember.All)
             {
-                var field = entity as IField;
-                if (field != null)
+                if (entity is IField field)
                 {
                     if (!(rule.Member.HasFlag(ConventionMember.Field) && !field.IsConst ||
                           rule.Member.HasFlag(ConventionMember.EnumItem) && field.IsConst && semantic.Entity.DeclaringTypeDefinition.Kind == TypeKind.Enum ||
@@ -565,8 +564,7 @@ namespace H5.Contract
             }
             else
             {
-                var method = semantic.Entity as IMethod;
-                if (method != null && method.IsConstructor)
+                if (semantic.Entity is IMethod method && method.IsConstructor)
                 {
                     semantic.IsCustomName = true;
                     rules.Add(NameConvertor.ConstructorRule);
@@ -707,9 +705,7 @@ namespace H5.Contract
 
         private static NameRule[] GetVirtualMemberRules(NameSemantic semantic)
         {
-            var member = semantic.Entity as IMember;
-
-            if (member != null)
+            if (semantic.Entity is IMember member)
             {
                 if (member.IsOverride)
                 {

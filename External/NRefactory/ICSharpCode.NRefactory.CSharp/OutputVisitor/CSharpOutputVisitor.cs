@@ -430,10 +430,12 @@ namespace ICSharpCode.NRefactory.CSharp
                 NewLine();
                 return;
             }
-            BlockStatement block = embeddedStatement as BlockStatement;
-            if (block != null) {
+            if (embeddedStatement is BlockStatement block)
+            {
                 VisitBlockStatement(block);
-            } else {
+            }
+            else
+            {
                 NewLine();
                 writer.Indent();
                 embeddedStatement.AcceptVisitor(this);
@@ -547,8 +549,7 @@ namespace ICSharpCode.NRefactory.CSharp
         {
             // "int a; new List<int> { a = 1 };" is an object initalizers and invalid, but
             // "int a; new List<int> { { a = 1 } };" is a valid collection initializer.
-            AssignmentExpression ae = expr as AssignmentExpression;
-            return ae != null && ae.Operator == AssignmentOperatorType.Assign;
+            return expr is AssignmentExpression ae && ae.Operator == AssignmentOperatorType.Assign;
         }
 
         protected bool IsObjectOrCollectionInitializer(AstNode node)
@@ -1797,8 +1798,7 @@ namespace ICSharpCode.NRefactory.CSharp
             StartNode(constructorDeclaration);
             WriteAttributes(constructorDeclaration.Attributes);
             WriteModifiers(constructorDeclaration.ModifierTokens);
-            TypeDeclaration type = constructorDeclaration.Parent as TypeDeclaration;
-            if (type != null && type.Name != constructorDeclaration.Name)
+            if (constructorDeclaration.Parent is TypeDeclaration type && type.Name != constructorDeclaration.Name)
                 WriteIdentifier((Identifier)type.NameToken.Clone());
             else
                 WriteIdentifier(constructorDeclaration.NameToken);
@@ -1833,8 +1833,7 @@ namespace ICSharpCode.NRefactory.CSharp
             WriteAttributes(destructorDeclaration.Attributes);
             WriteModifiers(destructorDeclaration.ModifierTokens);
             WriteToken(DestructorDeclaration.TildeRole);
-            TypeDeclaration type = destructorDeclaration.Parent as TypeDeclaration;
-            if (type != null && type.Name != destructorDeclaration.Name)
+            if (destructorDeclaration.Parent is TypeDeclaration type && type.Name != destructorDeclaration.Name)
                 WriteIdentifier((Identifier)type.NameToken.Clone());
             else
                 WriteIdentifier(destructorDeclaration.NameToken);
@@ -2217,13 +2216,15 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public virtual void VisitCSharpTokenNode(CSharpTokenNode cSharpTokenNode)
         {
-            CSharpModifierToken mod = cSharpTokenNode as CSharpModifierToken;
-            if (mod != null) {
+            if (cSharpTokenNode is CSharpModifierToken mod)
+            {
                 // ITokenWriter assumes that each node processed between a
                 // StartNode(parentNode)-EndNode(parentNode)-pair is a child of parentNode.
                 WriteKeyword(CSharpModifierToken.GetModifierName(mod.Modifier), cSharpTokenNode.Role);
-            } else {
-                throw new NotSupportedException ("Should never visit individual tokens");
+            }
+            else
+            {
+                throw new NotSupportedException("Should never visit individual tokens");
             }
         }
 

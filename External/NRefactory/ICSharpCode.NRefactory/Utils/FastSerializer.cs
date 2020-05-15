@@ -132,12 +132,11 @@ namespace ICSharpCode.NRefactory.Utils
                 // Also, do not scan any of the 'fixed instances'.
                 for (int i = 1 + fixedInstanceCount; i < instances.Count; i++) {
                     object instance = instances[i];
-                    ISerializable serializable = instance as ISerializable;
                     Type type = instance.GetType();
                     Log("Scan #{0}: {1}", i, type.Name);
                     SerializationType sType = MarkType(type);
                     objectTypes.Add(sType);
-                    if (serializable != null) {
+                    if (instance is ISerializable serializable) {
                         SerializationInfo info = new SerializationInfo(type, fastSerializer.formatterConverter);
                         serializable.GetObjectData(info, fastSerializer.streamingContext);
                         instances[i] = info;
@@ -949,21 +948,25 @@ namespace ICSharpCode.NRefactory.Utils
                 object instance = context.Objects[i];
                 int typeID = typeIDByObjectID[i];
                 Log("0x{2:x6} Read #{0}: {1}", i, context.Types[typeID].Name, reader.BaseStream.Position);
-                ISerializable serializable = instance as ISerializable;
-                if (serializable != null) {
+                if (instance is ISerializable serializable)
+                {
                     Type type = context.Types[typeID];
                     SerializationInfo info = new SerializationInfo(type, formatterConverter);
                     int count = reader.ReadInt32();
-                    for (int j = 0; j < count; j++) {
+                    for (int j = 0; j < count; j++)
+                    {
                         string name = reader.ReadString();
                         object val = context.ReadObject();
                         info.AddValue(name, val);
                     }
                     CustomDeserializationAction action = GetCustomDeserializationAction(type);
                     customDeserializatons.Add(new CustomDeserialization(instance, info, action));
-                } else {
+                }
+                else
+                {
                     ObjectReader objectReader = objectReaders[typeID];
-                    if (objectReader == null) {
+                    if (objectReader == null)
+                    {
                         objectReader = GetReader(context.Types[typeID]);
                         objectReaders[typeID] = objectReader;
                     }
@@ -975,8 +978,7 @@ namespace ICSharpCode.NRefactory.Utils
                 customDeserializaton.Run(streamingContext);
             }
             for (int i = 1 + fixedInstanceCount; i < context.Objects.Length; i++) {
-                IDeserializationCallback dc = context.Objects[i] as IDeserializationCallback;
-                if (dc != null)
+                if (context.Objects[i] is IDeserializationCallback dc)
                     dc.OnDeserialization(null);
             }
 

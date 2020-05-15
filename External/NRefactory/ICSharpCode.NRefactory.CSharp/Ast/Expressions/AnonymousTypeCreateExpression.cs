@@ -83,8 +83,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            var o = other as AnonymousTypeCreateExpression;
-            return o != null && this.Initializers.DoMatch(o.Initializers, match);
+            return other is AnonymousTypeCreateExpression o && this.Initializers.DoMatch(o.Initializers, match);
         }
     }
 }

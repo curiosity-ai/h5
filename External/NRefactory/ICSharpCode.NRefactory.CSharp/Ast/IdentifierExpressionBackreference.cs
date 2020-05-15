@@ -42,8 +42,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public override bool DoMatch(INode other, Match match)
         {
-            CSharp.IdentifierExpression ident = other as CSharp.IdentifierExpression;
-            if (ident == null || ident.TypeArguments.Any())
+            if (!(other is CSharp.IdentifierExpression ident) || ident.TypeArguments.Any())
                 return false;
             CSharp.AstNode referenced = (CSharp.AstNode)match.Get(referencedGroupName).Last();
             if (referenced == null)

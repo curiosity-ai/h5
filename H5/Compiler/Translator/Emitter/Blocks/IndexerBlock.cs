@@ -73,9 +73,8 @@ namespace H5.Translator
             var resolveResult = this.Emitter.Resolver.ResolveNode(indexerExpression, this.Emitter);
             var memberResolveResult = resolveResult as MemberResolveResult;
 
-            var arrayAccess = resolveResult as ArrayAccessResolveResult;
 
-            if (arrayAccess != null && arrayAccess.Indexes.Count > 1)
+            if (resolveResult is ArrayAccessResolveResult arrayAccess && arrayAccess.Indexes.Count > 1)
             {
                 this.EmitMultiDimArrayAccess(indexerExpression);
                 Helpers.CheckValueTypeClone(resolveResult, indexerExpression, this, pos);
@@ -95,8 +94,7 @@ namespace H5.Translator
                 isIgnore = this.Emitter.Validator.IsExternalType(resolvedMember.DeclaringTypeDefinition);
                 isAccessorsIndexer = this.Emitter.Validator.IsAccessorsIndexer(resolvedMember);
 
-                var property = resolvedMember as IProperty;
-                if (property != null)
+                if (resolvedMember is IProperty property)
                 {
                     member = property;
                     current = IndexerBlock.GetIndexerAccessor(this.Emitter, member, this.Emitter.IsAssignment);
@@ -375,8 +373,7 @@ namespace H5.Translator
             }
 
             var targetrr = this.Emitter.Resolver.ResolveNode(indexerExpression.Target, this.Emitter);
-            var memberTargetrr = targetrr as MemberResolveResult;
-            bool isField = memberTargetrr != null && memberTargetrr.Member is IField &&
+            bool isField = targetrr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                            memberTargetrr.TargetResult is TypeResolveResult ||
                             memberTargetrr.TargetResult is LocalResolveResult);
@@ -915,8 +912,7 @@ namespace H5.Translator
             if (writeTargetVar)
             {
                 var targetrr = this.Emitter.Resolver.ResolveNode(indexerExpression.Target, this.Emitter);
-                var memberTargetrr = targetrr as MemberResolveResult;
-                bool isField = memberTargetrr != null && memberTargetrr.Member is IField && (memberTargetrr.TargetResult is ThisResolveResult || memberTargetrr.TargetResult is LocalResolveResult);
+                bool isField = targetrr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField && (memberTargetrr.TargetResult is ThisResolveResult || memberTargetrr.TargetResult is LocalResolveResult);
 
                 if (!(targetrr is ThisResolveResult || targetrr is LocalResolveResult || isField))
                 {
@@ -1331,8 +1327,7 @@ namespace H5.Translator
             this.Emitter.IsUnaryAccessor = false;
 
             var targetrr = this.Emitter.Resolver.ResolveNode(indexerExpression.Target, this.Emitter);
-            var memberTargetrr = targetrr as MemberResolveResult;
-            bool isField = memberTargetrr != null && memberTargetrr.Member is IField &&
+            bool isField = targetrr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                             memberTargetrr.TargetResult is TypeResolveResult ||
                             memberTargetrr.TargetResult is LocalResolveResult);
@@ -1349,9 +1344,8 @@ namespace H5.Translator
                 this.Write(" = ");
             }
 
-            var rr = this.Emitter.Resolver.ResolveNode(indexerExpression, this.Emitter) as MemberResolveResult;
 
-            if (indexerExpression.Target is BaseReferenceExpression && rr != null && this.Emitter.Validator.IsExternalType(rr.Member.DeclaringTypeDefinition) && !this.Emitter.Validator.IsH5Class(rr.Member.DeclaringTypeDefinition))
+            if (indexerExpression.Target is BaseReferenceExpression && this.Emitter.Resolver.ResolveNode(indexerExpression, this.Emitter) is MemberResolveResult rr && this.Emitter.Validator.IsExternalType(rr.Member.DeclaringTypeDefinition) && !this.Emitter.Validator.IsH5Class(rr.Member.DeclaringTypeDefinition))
             {
                 this.Write("this");
             }
@@ -1375,9 +1369,8 @@ namespace H5.Translator
 
             var index = indexerExpression.Arguments.First();
 
-            var primitive = index as PrimitiveExpression;
 
-            if (!isArray && primitive != null && primitive.Value != null &&
+            if (!isArray && index is PrimitiveExpression primitive && primitive.Value != null &&
                 Regex.Match(primitive.Value.ToString(), "^[_$a-z][_$a-z0-9]*$", RegexOptions.IgnoreCase).Success)
             {
                 if (this.isRefArg)

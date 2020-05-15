@@ -245,8 +245,7 @@ namespace H5.Translator
                 {
                     if (a.PositionalArguments.Count > 0)
                     {
-                        var symbol = a.PositionalArguments[0].ConstantValue as string;
-                        if (symbol != null)
+                        if (a.PositionalArguments[0].ConstantValue is string symbol)
                         {
                             result.Add(symbol);
                         }
@@ -513,8 +512,7 @@ namespace H5.Translator
 
             if (p.IsOptional)
             {
-                var typeParam = p.Type as ITypeParameter;
-                if (typeParam != null && p.ConstantValue == null)
+                if (p.Type is ITypeParameter typeParam && p.ConstantValue == null)
                 {
                     result.Add("dv",
                         typeParam.OwnerType == SymbolKind.Method
@@ -1015,8 +1013,7 @@ namespace H5.Translator
 
         internal static string GetTypeName(IType type, IEmitter emitter, bool isGenericSpecialization, bool asDefinition = false, bool cache = true)
         {
-            var typeParam = type as ITypeParameter;
-            if (typeParam != null && (typeParam.OwnerType == SymbolKind.Method || Helpers.IsIgnoreGeneric(typeParam.Owner, emitter)))
+            if (type is ITypeParameter typeParam && (typeParam.OwnerType == SymbolKind.Method || Helpers.IsIgnoreGeneric(typeParam.Owner, emitter)))
             {
                 return JS.Types.System.Object.NAME;
             }

@@ -27,8 +27,7 @@ namespace H5.Translator
             IEnumerable<AstNode> inner = null;
 
             var res = this.UsingStatement.ResourceAcquisition;
-            var varStat = res as VariableDeclarationStatement;
-            if (varStat != null)
+            if (res is VariableDeclarationStatement varStat)
             {
                 this.VariableDeclarationStatement = varStat;
                 inner = varStat.Variables.Skip(1);
@@ -51,8 +50,7 @@ namespace H5.Translator
 
             this.PushLocals();
 
-            var varInit = expression as VariableInitializer;
-            if (varInit != null)
+            if (expression is VariableInitializer varInit)
             {
                 var block = new VariableBlock(this.Emitter, this.VariableDeclarationStatement);
                 block.Emit();

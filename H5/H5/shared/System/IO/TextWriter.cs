@@ -264,8 +264,7 @@ namespace System.IO
         {
             if (value != null)
             {
-                IFormattable f = value as IFormattable;
-                if (f != null)
+                if (value is IFormattable f)
                     Write(f.ToString(null, FormatProvider));
                 else
                     Write(value.ToString());
@@ -466,8 +465,7 @@ namespace System.IO
             {
                 // Call WriteLine(value.ToString), not Write(Object), WriteLine().
                 // This makes calls to WriteLine(Object) atomic.
-                IFormattable f = value as IFormattable;
-                if (f != null)
+                if (value is IFormattable f)
                     WriteLine(f.ToString(null, FormatProvider));
                 else
                     WriteLine(value.ToString());

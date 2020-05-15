@@ -69,8 +69,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            DestructorDeclaration o = other as DestructorDeclaration;
-            return o != null && this.MatchAttributesAndModifiers(o, match) && this.Body.DoMatch(o.Body, match);
+            return other is DestructorDeclaration o && this.MatchAttributesAndModifiers(o, match) && this.Body.DoMatch(o.Body, match);
         }
     }
 }

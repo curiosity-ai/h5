@@ -158,8 +158,7 @@ namespace H5.Translator
                 var beginPosition = this.Emitter.Output.Length;
 
                 var oldRules = this.Emitter.Rules;
-                var rr = this.Emitter.Resolver.ResolveNode(ctor, this.Emitter) as MemberResolveResult;
-                if (rr != null)
+                if (this.Emitter.Resolver.ResolveNode(ctor, this.Emitter) is MemberResolveResult rr)
                 {
                     this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
                 }
@@ -321,8 +320,7 @@ namespace H5.Translator
 
                 if (ctor.Body.HasChildren)
                 {
-                    var rr = this.Emitter.Resolver.ResolveNode(ctor, this.Emitter) as MemberResolveResult;
-                    if (rr != null)
+                    if (this.Emitter.Resolver.ResolveNode(ctor, this.Emitter) is MemberResolveResult rr)
                     {
                         this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
                     }
@@ -437,8 +435,7 @@ namespace H5.Translator
 
                             foreach (var prop in props)
                             {
-                                var p = prop as PropertyDeclaration;
-                                if (p != null)
+                                if (prop is PropertyDeclaration p)
                                 {
                                     if (p.Getter.Body.IsNull && p.Setter.Body.IsNull)
                                     {

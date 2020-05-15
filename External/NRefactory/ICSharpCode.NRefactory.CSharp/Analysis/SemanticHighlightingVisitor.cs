@@ -114,10 +114,11 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
                 }
                 return;
             }
-            var mrr = rr as MemberResolveResult;
-            if (mrr != null) {
+            if (rr is MemberResolveResult mrr)
+            {
                 TColor color;
-                if (TryGetMemberColor (mrr.Member, out color)) {
+                if (TryGetMemberColor(mrr.Member, out color))
+                {
                     Colorize(identifier, color);
                     return;
                 }
@@ -128,12 +129,15 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
                 return;
             }
 
-            var localResult = rr as LocalResolveResult;
-            if (localResult != null) {
-                if (localResult.Variable is IParameter) {
-                    Colorize (identifier, parameterAccessColor);
-                } else {
-                    Colorize (identifier, variableAccessColor);
+            if (rr is LocalResolveResult localResult)
+            {
+                if (localResult.Variable is IParameter)
+                {
+                    Colorize(identifier, parameterAccessColor);
+                }
+                else
+                {
+                    Colorize(identifier, variableAccessColor);
                 }
             }
 
@@ -220,8 +224,7 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
                     break;
                 case "global":
                     // Reset color of 'global' keyword to default unless its used as part of 'global::'.
-                    MemberType parentMemberType = identifier.Parent as MemberType;
-                    if (parentMemberType == null || !parentMemberType.IsDoubleColon)
+                    if (!(identifier.Parent is MemberType parentMemberType) || !parentMemberType.IsDoubleColon)
                         Colorize(identifier, defaultTextColor);
                     break;
             }
@@ -316,8 +319,7 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
                     Expression fmtArgumets;
                     IList<Expression> args;
                     if (invocationRR.Arguments.Count > 1 && FormatStringHelper.TryGetFormattingParameters(invocationRR, invocationExpression, out fmtArgumets, out args, null)) {
-                        var expr = invocationExpression.Arguments.First() as PrimitiveExpression; 
-                        if (expr != null)
+                        if (invocationExpression.Arguments.First() is PrimitiveExpression expr)
                             HighlightStringFormatItems(expr);
                     }
                 }
@@ -365,11 +367,11 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
             bool hasConditionalAttribute = false;
             foreach (var attr in attributes) {
                 if (attr.AttributeType.Name == "ConditionalAttribute" && attr.AttributeType.Namespace == "System.Diagnostics" && attr.PositionalArguments.Count == 1) {
-                    string symbol = attr.PositionalArguments[0].ConstantValue as string;
-                    if (symbol != null) {
+                    if (attr.PositionalArguments[0].ConstantValue is string symbol)
+                    {
                         hasConditionalAttribute = true;
-                        var cu = this.resolver.RootNode as SyntaxTree;
-                        if (cu != null) {
+                        if (this.resolver.RootNode is SyntaxTree cu)
+                        {
                             if (cu.ConditionalSymbols.Contains(symbol))
                                 return false; // conditional is active
                         }
@@ -401,8 +403,7 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
 
         bool CheckInterfaceImplementation (EntityDeclaration entityDeclaration)
         {
-            var result = resolver.Resolve (entityDeclaration, cancellationToken) as MemberResolveResult;
-            if (result == null)
+            if (!(resolver.Resolve(entityDeclaration, cancellationToken) is MemberResolveResult result))
                 return false;
             if (result.Member.ImplementedInterfaceMembers.Count == 0) {
                 Colorize (entityDeclaration.NameToken, syntaxErrorColor);
@@ -663,14 +664,16 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
         public override void VisitArrayInitializerExpression (ArrayInitializerExpression arrayInitializerExpression)
         {
             foreach (var a in arrayInitializerExpression.Elements) {
-                var namedElement = a as NamedExpression;
-                if (namedElement != null) {
-                    var result = resolver.Resolve (namedElement, cancellationToken);
+                if (a is NamedExpression namedElement)
+                {
+                    var result = resolver.Resolve(namedElement, cancellationToken);
                     if (result.IsError)
-                        Colorize (namedElement.NameToken, syntaxErrorColor);
-                    namedElement.Expression.AcceptVisitor (this);
-                } else {
-                    a.AcceptVisitor (this);
+                        Colorize(namedElement.NameToken, syntaxErrorColor);
+                    namedElement.Expression.AcceptVisitor(this);
+                }
+                else
+                {
+                    a.AcceptVisitor(this);
                 }
             }
         }

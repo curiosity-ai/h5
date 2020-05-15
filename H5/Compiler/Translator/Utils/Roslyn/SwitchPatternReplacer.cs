@@ -181,9 +181,7 @@ namespace H5.Translator
                         string varName = null;
                         if (label.Pattern is DeclarationPatternSyntax declarationPattern)
                         {
-                            var designation = declarationPattern.Designation as SingleVariableDesignationSyntax;
-
-                            if (designation != null)
+                            if (declarationPattern.Designation is SingleVariableDesignationSyntax designation)
                             {
                                 var declarationType = declarationPattern.Type;
 
@@ -238,9 +236,7 @@ namespace H5.Translator
                 var cond = conditionList[i];
                 try
                 {
-                    var be = cond as BinaryExpressionSyntax;
-
-                    if (be != null)
+                    if (cond is BinaryExpressionSyntax be)
                     {
                         if (NeedsParentheses(be.Right))
                         {
@@ -284,8 +280,7 @@ namespace H5.Translator
                 return true;
             }
 
-            var bOp = expr as BinaryExpressionSyntax;
-            return bOp != null && NeedsParentheses(bOp.Right);
+            return expr is BinaryExpressionSyntax bOp && NeedsParentheses(bOp.Right);
         }
     }
 }

@@ -461,8 +461,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override void Emit()
         {
             ResolveContext rc = new ResolveContext (this);
-            IntConstant buffer_size_const = initializer.Resolve (rc) as IntConstant;
-            if (buffer_size_const == null)
+            if (!(initializer.Resolve(rc) is IntConstant buffer_size_const))
                 return;
 
             int buffer_size = buffer_size_const.Value;

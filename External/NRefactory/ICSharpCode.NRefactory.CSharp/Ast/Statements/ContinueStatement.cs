@@ -58,8 +58,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            ContinueStatement o = other as ContinueStatement;
-            return o != null;
+            return other is ContinueStatement o;
         }
     }
 }

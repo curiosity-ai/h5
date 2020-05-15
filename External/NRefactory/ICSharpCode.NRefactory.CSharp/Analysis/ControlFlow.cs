@@ -235,8 +235,8 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
                     continue;
                 HashSet<TryCatchStatement> targetParentTryCatch = new HashSet<TryCatchStatement>(targetStatement.Ancestors.OfType<TryCatchStatement>());
                 for (AstNode node = gotoStatement.Parent; node != null; node = node.Parent) {
-                    TryCatchStatement leftTryCatch = node as TryCatchStatement;
-                    if (leftTryCatch != null) {
+                    if (node is TryCatchStatement leftTryCatch)
+                    {
                         if (targetParentTryCatch.Contains(leftTryCatch))
                             break;
                         if (!leftTryCatch.FinallyBlock.IsNull)

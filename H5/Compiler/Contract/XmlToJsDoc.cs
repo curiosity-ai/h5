@@ -46,9 +46,7 @@ namespace H5.Contract
 
             if (node is FieldDeclaration)
             {
-                var initializer = varInitializer.Initializer as PrimitiveExpression;
-
-                if (initializer != null)
+                if (varInitializer.Initializer is PrimitiveExpression initializer)
                 {
                     value = initializer.Value;
                 }
@@ -85,8 +83,7 @@ namespace H5.Contract
                 return;
             }
 
-            var prop = node as PropertyDeclaration;
-            if (prop != null)
+            if (node is PropertyDeclaration prop)
             {
                 var memberResolveResult = rr as MemberResolveResult;
                 var rProp = memberResolveResult.Member as IProperty;
@@ -99,8 +96,7 @@ namespace H5.Contract
                 return;
             }
 
-            var indexer = node as IndexerDeclaration;
-            if (indexer != null)
+            if (node is IndexerDeclaration indexer)
             {
                 var memberResolveResult = rr as MemberResolveResult;
                 var rProp = memberResolveResult.Member as IProperty;
@@ -436,16 +432,14 @@ namespace H5.Contract
             comment.Class = XmlToJsDoc.ToJavascriptName(type, emitter);
             comment.Augments = XmlToJsDoc.GetTypeHierarchy(type, emitter);
 
-            var access = type as IHasAccessibility;
-            if (access != null)
+            if (type is IHasAccessibility access)
             {
                 comment.IsPublic = access.IsPublic;
                 comment.IsPrivate = access.IsPrivate;
                 comment.IsProtected = access.IsProtected;
             }
 
-            var typeDef = type as ICSharpCode.NRefactory.TypeSystem.Implementation.DefaultResolvedTypeDefinition;
-            if (typeDef != null)
+            if (type is ICSharpCode.NRefactory.TypeSystem.Implementation.DefaultResolvedTypeDefinition typeDef)
             {
                 comment.IsAbstract = typeDef.IsAbstract;
                 comment.IsStatic = typeDef.IsStatic;
@@ -461,8 +455,7 @@ namespace H5.Contract
         {
             if (member != null)
             {
-                var method = member as IMethod;
-                if (method != null)
+                if (member is IMethod method)
                 {
                     comment.This = XmlToJsDoc.ToJavascriptName(member.DeclaringType, emitter);
                     if (method.IsConstructor)
@@ -502,8 +495,7 @@ namespace H5.Contract
                     }
                 }
 
-                var variable = member as IVariable;
-                if (variable != null)
+                if (member is IVariable variable)
                 {
                     comment.MemberType = XmlToJsDoc.ToJavascriptName(variable.Type, emitter);
                 }
@@ -515,8 +507,7 @@ namespace H5.Contract
                     });
                 }
 
-                var field = member as IField;
-                if (field != null)
+                if (member is IField field)
                 {
                     comment.ReadOnly = field.IsReadOnly;
                     comment.Const = field.IsConst;
@@ -524,16 +515,14 @@ namespace H5.Contract
                     comment.MemberType = XmlToJsDoc.ToJavascriptName(field.Type, emitter);
                 }
 
-                var property = member as IProperty;
-                if (property != null)
+                if (member is IProperty property)
                 {
                     comment.ReadOnly = !property.CanSet;
                     comment.Default = value;
                     comment.MemberType = XmlToJsDoc.ToJavascriptName(property.ReturnType, emitter);
                 }
 
-                var ev = member as IEvent;
-                if (ev != null)
+                if (member is IEvent ev)
                 {
                     comment.Event = XmlToJsDoc.ToJavascriptName(member.DeclaringType, emitter) + "#" + member.Name;
                 }
@@ -543,8 +532,7 @@ namespace H5.Contract
                 comment.IsPrivate = member.IsPrivate;
                 comment.IsProtected = member.IsProtected;
 
-                var entity = member as ICSharpCode.NRefactory.TypeSystem.Implementation.AbstractResolvedEntity;
-                if (entity != null)
+                if (member is ICSharpCode.NRefactory.TypeSystem.Implementation.AbstractResolvedEntity entity)
                 {
                     comment.IsAbstract = entity.IsAbstract;
                     comment.IsStatic = entity.IsStatic;
@@ -651,14 +639,12 @@ namespace H5.Contract
                 return name;
             }
 
-            var composedType = astType as ComposedType;
-            if (composedType != null && composedType.ArraySpecifiers != null && composedType.ArraySpecifiers.Count > 0)
+            if (astType is ComposedType composedType && composedType.ArraySpecifiers != null && composedType.ArraySpecifiers.Count > 0)
             {
                 return JS.Types.ARRAY + ".<" + H5Types.ToTypeScriptName(composedType.BaseType, emitter) + ">";
             }
 
-            var simpleType = astType as SimpleType;
-            if (simpleType != null && simpleType.Identifier == "dynamic")
+            if (astType is SimpleType simpleType && simpleType.Identifier == "dynamic")
             {
                 return "object";
             }

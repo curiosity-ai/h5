@@ -42,9 +42,8 @@ namespace H5.Contract
                         return this.Node.GetParent<SyntaxTree>().FileName;
                     }
 
-                    var tree = Node as ICSharpCode.NRefactory.CSharp.SyntaxTree;
 
-                    if (tree != null)
+                    if (Node is ICSharpCode.NRefactory.CSharp.SyntaxTree tree)
                     {
                         return tree.FileName;
                     }

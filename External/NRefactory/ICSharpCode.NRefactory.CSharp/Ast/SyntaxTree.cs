@@ -131,8 +131,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            SyntaxTree o = other as SyntaxTree;
-            return o != null && this.Members.DoMatch(o.Members, match);
+            return other is SyntaxTree o && this.Members.DoMatch(o.Members, match);
         }
 
         public override void AcceptVisitor (IAstVisitor visitor)

@@ -41,8 +41,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public IMember Resolve(ITypeResolveContext context)
         {
-            IMethod method = accessorReference.Resolve(context) as IMethod;
-            if (method != null)
+            if (accessorReference.Resolve(context) is IMethod method)
                 return method.AccessorOwner;
             else
                 return null;

@@ -84,7 +84,6 @@ namespace System.Collections.Generic
         public SortedSet(IEnumerable<T> collection, IComparer<T> comparer)
             : this(comparer)
         {
-
             if (collection == null)
             {
                 throw new ArgumentNullException("collection");
@@ -92,9 +91,8 @@ namespace System.Collections.Generic
 
             // these are explicit type checks in the mould of HashSet. It would have worked better
             // with something like an ISorted<T> (we could make this work for SortedList.Keys etc)
-            SortedSet<T> baseSortedSet = collection as SortedSet<T>;
             SortedSet<T> baseTreeSubSet = collection as TreeSubSet;
-            if (baseSortedSet != null && baseTreeSubSet == null && AreComparersEqual(this, baseSortedSet))
+            if (collection is SortedSet<T> baseSortedSet && baseTreeSubSet == null && AreComparersEqual(this, baseSortedSet))
             {
                 //breadth first traversal to recreate nodes
                 if (baseSortedSet.Count == 0)
@@ -698,8 +696,7 @@ namespace System.Collections.Generic
                 ThrowHelper.ThrowArgumentException(ExceptionResource.Arg_ArrayPlusOffTooSmall);
             }
 
-            T[] tarray = array as T[];
-            if (tarray != null)
+            if (array is T[] tarray)
             {
                 CopyTo(tarray, index);
             }
@@ -1303,12 +1300,11 @@ namespace System.Collections.Generic
             //HashSet<T> optimizations can't be done until equality comparers and comparers are related
 
             //Technically, this would work as well with an ISorted<T>
-            SortedSet<T> s = other as SortedSet<T>;
             TreeSubSet t = this as TreeSubSet;
             if (t != null)
                 VersionCheck();
             //only let this happen if i am also a SortedSet, not a SubSet
-            if (s != null && t == null && AreComparersEqual(this, s))
+            if (other is SortedSet<T> s && t == null && AreComparersEqual(this, s))
             {
 
 
@@ -1397,9 +1393,8 @@ namespace System.Collections.Generic
                 return;
             }
 
-            SortedSet<T> asSorted = other as SortedSet<T>;
 
-            if (asSorted != null && AreComparersEqual(this, asSorted))
+            if (other is SortedSet<T> asSorted && AreComparersEqual(this, asSorted))
             {
                 //outside range, no point doing anything
                 if (!(comparer.Compare(asSorted.Max, this.Min) < 0 || comparer.Compare(asSorted.Min, this.Max) > 0))
@@ -1449,16 +1444,13 @@ namespace System.Collections.Generic
                 return;
             }
 
-
-            SortedSet<T> asSorted = other as SortedSet<T>;
-            HashSet<T> asHash = other as HashSet<T>;
-
-            if (asSorted != null && AreComparersEqual(this, asSorted))
+            if (other is SortedSet<T> asSorted && AreComparersEqual(this, asSorted))
             {
                 SymmetricExceptWithSameEC(asSorted);
             }
 
- else if (asHash != null && this.comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default)) {
+            else if (other is HashSet<T> asHash && this.comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default))
+            {
                 SymmetricExceptWithSameEC(asHash);
             }
 
@@ -1534,8 +1526,7 @@ namespace System.Collections.Generic
                 return true;
 
 
-            SortedSet<T> asSorted = other as SortedSet<T>;
-            if (asSorted != null && AreComparersEqual(this, asSorted))
+            if (other is SortedSet<T> asSorted && AreComparersEqual(this, asSorted))
             {
                 if (this.Count > asSorted.Count)
                     return false;
@@ -1586,14 +1577,13 @@ namespace System.Collections.Generic
 
 
             //do it one way for HashSets
-            HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default)) {
+            if (other is HashSet<T> asHash && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default))
+            {
                 return asHash.IsProperSupersetOf(this);
             }
 
             //another for sorted sets with the same comparer
-            SortedSet<T> asSorted = other as SortedSet<T>;
-            if (asSorted != null && AreComparersEqual(this, asSorted))
+            if (other is SortedSet<T> asSorted && AreComparersEqual(this, asSorted))
             {
                 if (this.Count >= asSorted.Count)
                     return false;
@@ -1625,14 +1615,13 @@ namespace System.Collections.Generic
 
             //do it one way for HashSets
 
-            HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default)) {
+            if (other is HashSet<T> asHash && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default))
+            {
                 return asHash.IsSubsetOf(this);
             }
 
             //another for sorted sets with the same comparer
-            SortedSet<T> asSorted = other as SortedSet<T>;
-            if (asSorted != null && AreComparersEqual(this, asSorted))
+            if (other is SortedSet<T> asSorted && AreComparersEqual(this, asSorted))
             {
                 if (this.Count < asSorted.Count)
                     return false;
@@ -1669,14 +1658,13 @@ namespace System.Collections.Generic
 
             //do it one way for HashSets
 
-            HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default)) {
+            if (other is HashSet<T> asHash && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default))
+            {
                 return asHash.IsProperSubsetOf(this);
             }
 
             //another way for sorted sets
-            SortedSet<T> asSorted = other as SortedSet<T>;
-            if (asSorted != null && AreComparersEqual(asSorted, this))
+            if (other is SortedSet<T> asSorted && AreComparersEqual(asSorted, this))
             {
                 if (asSorted.Count >= this.Count)
                     return false;
@@ -1712,13 +1700,12 @@ namespace System.Collections.Generic
                 throw new ArgumentNullException("other");
             }
 
-            HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default)) {
+            if (other is HashSet<T> asHash && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default))
+            {
                 return asHash.SetEquals(this);
             }
 
-            SortedSet<T> asSorted = other as SortedSet<T>;
-            if (asSorted != null && AreComparersEqual(this, asSorted))
+            if (other is SortedSet<T> asSorted && AreComparersEqual(this, asSorted))
             {
                 IEnumerator<T> mine = this.GetEnumerator();
                 IEnumerator<T> theirs = asSorted.GetEnumerator();
@@ -1762,14 +1749,13 @@ namespace System.Collections.Generic
             if ((other as ICollection<T> != null) && (other as ICollection<T>).Count == 0)
                 return false;
 
-            SortedSet<T> asSorted = other as SortedSet<T>;
-            if (asSorted != null && AreComparersEqual(this, asSorted) && (comparer.Compare(Min, asSorted.Max) > 0 || comparer.Compare(Max, asSorted.Min) < 0))
+            if (other is SortedSet<T> asSorted && AreComparersEqual(this, asSorted) && (comparer.Compare(Min, asSorted.Max) > 0 || comparer.Compare(Max, asSorted.Min) < 0))
             {
                 return false;
             }
 
-            HashSet<T> asHash = other as HashSet<T>;
-            if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default)) {
+            if (other is HashSet<T> asHash && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default))
+            {
                 return asHash.Overlaps(this);
             }
 
@@ -2562,8 +2548,7 @@ namespace System.Collections.Generic
         // Equals method for the comparer itself.
         public override bool Equals(Object obj)
         {
-            SortedSetEqualityComparer<T> comparer = obj as SortedSetEqualityComparer<T>;
-            if (comparer == null)
+            if (!(obj is SortedSetEqualityComparer<T> comparer))
             {
                 return false;
             }

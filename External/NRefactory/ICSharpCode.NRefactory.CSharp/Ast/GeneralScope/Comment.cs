@@ -132,8 +132,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            Comment o = other as Comment;
-            return o != null && this.CommentType == o.CommentType && MatchString(this.Content, o.Content);
+            return other is Comment o && this.CommentType == o.CommentType && MatchString(this.Content, o.Content);
         }
     }
 }

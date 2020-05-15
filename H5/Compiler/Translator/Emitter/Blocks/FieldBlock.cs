@@ -164,11 +164,10 @@ namespace H5.Translator
             {
                 object constValue = null;
                 bool isPrimitive = false;
-                var primitiveExpr = member.Initializer as PrimitiveExpression;
                 bool write = false;
                 bool writeScript = false;
 
-                if (primitiveExpr != null)
+                if (member.Initializer is PrimitiveExpression primitiveExpr)
                 {
                     //isPrimitive = true;
                     constValue = primitiveExpr.Value;
@@ -399,8 +398,7 @@ namespace H5.Translator
                         }
                         else
                         {
-                            var rr = this.Emitter.Resolver.ResolveNode(member.Initializer, this.Emitter) as CSharpInvocationResolveResult;
-                            bool isDefaultInstance = rr != null &&
+                            bool isDefaultInstance = this.Emitter.Resolver.ResolveNode(member.Initializer, this.Emitter) is CSharpInvocationResolveResult rr &&
                                                      rr.Member.SymbolKind == SymbolKind.Constructor &&
                                                      rr.Arguments.Count == 0 &&
                                                      rr.InitializerStatements.Count == 0 &&
@@ -558,8 +556,7 @@ namespace H5.Translator
             {
                 object constValue = null;
                 bool isPrimitive = false;
-                var primitiveExpr = member.Initializer as PrimitiveExpression;
-                if (primitiveExpr != null)
+                if (member.Initializer is PrimitiveExpression primitiveExpr)
                 {
                     isPrimitive = true;
                     constValue = primitiveExpr.Value;
@@ -569,8 +566,7 @@ namespace H5.Translator
 
                 if (!isNull && !isPrimitive)
                 {
-                    var constrr = this.Emitter.Resolver.ResolveNode(member.Initializer, this.Emitter) as ConstantResolveResult;
-                    if (constrr != null)
+                    if (this.Emitter.Resolver.ResolveNode(member.Initializer, this.Emitter) is ConstantResolveResult constrr)
                     {
                         isPrimitive = true;
                         constValue = constrr.ConstantValue;

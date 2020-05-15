@@ -28,9 +28,7 @@ namespace H5.Translator
 
             if (argsInfo.Expression != null)
             {
-                var rr = emitter.Resolver.ResolveNode(argsInfo.Expression, emitter) as MemberResolveResult;
-
-                if (rr != null)
+                if (emitter.Resolver.ResolveNode(argsInfo.Expression, emitter) is MemberResolveResult rr)
                 {
                     H5Type h5Type = emitter.H5Types.Get(rr.Member.DeclaringType, true);
 
@@ -249,8 +247,7 @@ namespace H5.Translator
             IMember member = this.Method ?? argsInfo.Method ?? argsInfo.ResolveResult?.Member;
             if (member == null && argsInfo.Expression != null && argsInfo.Expression.Parent != null)
             {
-                var rre = this.Emitter.Resolver.ResolveNode(argsInfo.Expression, this.Emitter) as MemberResolveResult;
-                if (rre != null)
+                if (this.Emitter.Resolver.ResolveNode(argsInfo.Expression, this.Emitter) is MemberResolveResult rre)
                 {
                     member = rre.Member;
                 }
@@ -457,9 +454,7 @@ namespace H5.Translator
                         var cjs = new List<string>();
                         foreach (var expr in exprs)
                         {
-                            var rr = this.Emitter.Resolver.ResolveNode(expr, this.Emitter) as TypeOfResolveResult;
-
-                            if (rr == null)
+                            if (!(this.Emitter.Resolver.ResolveNode(expr, this.Emitter) is TypeOfResolveResult rr))
                             {
                                 throw new EmitterException(expr, "Module.Load supports typeof expression only");
                             }
@@ -628,8 +623,7 @@ namespace H5.Translator
                         {
                             var rr = this.Emitter.Resolver.ResolveNode(node, this.Emitter);
                             var type = rr.Type;
-                            var mrr = rr as MemberResolveResult;
-                            if (mrr != null && mrr.Member.ReturnType.Kind != TypeKind.Enum && mrr.TargetResult != null)
+                            if (rr is MemberResolveResult mrr && mrr.Member.ReturnType.Kind != TypeKind.Enum && mrr.TargetResult != null)
                             {
                                 type = mrr.TargetResult.Type;
                             }
@@ -657,8 +651,7 @@ namespace H5.Translator
                         {
                             var rr = this.Emitter.Resolver.ResolveNode(node, this.Emitter);
                             type = rr.Type;
-                            var mrr = rr as MemberResolveResult;
-                            if (mrr != null && mrr.Member.ReturnType.Kind != TypeKind.Enum && mrr.TargetResult != null)
+                            if (rr is MemberResolveResult mrr && mrr.Member.ReturnType.Kind != TypeKind.Enum && mrr.TargetResult != null)
                             {
                                 type = mrr.TargetResult.Type;
                             }
@@ -674,8 +667,7 @@ namespace H5.Translator
                             var argExpr = argsInfo.ArgumentsExpressions != null && argsInfo.ArgumentsExpressions.Length > 0 ? argsInfo.ArgumentsExpressions[0] : null;
                             if (argExpr == null)
                             {
-                                var expr = argsInfo.Expression as InvocationExpression;
-                                if (expr != null && expr.Target is MemberReferenceExpression)
+                                if (argsInfo.Expression is InvocationExpression expr && expr.Target is MemberReferenceExpression)
                                 {
                                     argExpr = ((MemberReferenceExpression)expr.Target).Target;
                                 }
@@ -780,9 +772,8 @@ namespace H5.Translator
                         else if (modifier == "tmp")
                         {
                             string tmpVarName = null;
-                            var nameExpr = exprs[0] as PrimitiveExpression;
 
-                            if (nameExpr == null)
+                            if (!(exprs[0] is PrimitiveExpression nameExpr))
                             {
                                 throw new EmitterException(exprs[0], "Primitive expression is required");
                             }
@@ -808,8 +799,7 @@ namespace H5.Translator
                             var versionType = 0;
                             if (versionTypeExp != null)
                             {
-                                var versionTypePrimitiveExp = versionTypeExp as PrimitiveExpression;
-                                if (versionTypePrimitiveExp != null && versionTypePrimitiveExp.Value is int)
+                                if (versionTypeExp is PrimitiveExpression versionTypePrimitiveExp && versionTypePrimitiveExp.Value is int)
                                 {
                                     versionType = (int)versionTypePrimitiveExp.Value;
                                 }
@@ -841,9 +831,7 @@ namespace H5.Translator
                         }
                         else if (modifier == "gettmp")
                         {
-                            var nameExpr = exprs[0] as PrimitiveExpression;
-
-                            if (nameExpr == null)
+                            if (!(exprs[0] is PrimitiveExpression nameExpr))
                             {
                                 throw new EmitterException(exprs[0], "Primitive expression is required");
                             }
@@ -861,9 +849,7 @@ namespace H5.Translator
                         }
                         else if (modifier == "body")
                         {
-                            var lambdaExpr = exprs[0] as LambdaExpression;
-
-                            if (lambdaExpr == null)
+                            if (!(exprs[0] is LambdaExpression lambdaExpr))
                             {
                                 throw new EmitterException(exprs[0], "Lambda expression is required");
                             }
@@ -912,12 +898,9 @@ namespace H5.Translator
                                 var writer = this.SaveWriter();
                                 this.NewWriter();
 
-                                var directExpr = exprs[0] as DirectionExpression;
-                                if (directExpr != null)
+                                if (exprs[0] is DirectionExpression directExpr)
                                 {
-                                    var rr = this.Emitter.Resolver.ResolveNode(exprs[0], this.Emitter) as ByReferenceResolveResult;
-
-                                    if (rr != null && !(rr.ElementResult is LocalResolveResult))
+                                    if (this.Emitter.Resolver.ResolveNode(exprs[0], this.Emitter) is ByReferenceResolveResult rr && !(rr.ElementResult is LocalResolveResult))
                                     {
                                         this.Write(JS.Funcs.H5_REF + "(");
 
@@ -940,8 +923,7 @@ namespace H5.Translator
                                 }
                                 else if (modifier == "plain")
                                 {
-                                    var an = exprs[0] as AnonymousTypeCreateExpression;
-                                    if (an == null)
+                                    if (!(exprs[0] is AnonymousTypeCreateExpression an))
                                     {
                                         this.Write(JS.Funcs.H5_TOPLAIN);
                                         this.WriteOpenParentheses();
@@ -1449,8 +1431,7 @@ namespace H5.Translator
 
         private bool IsSimpleResolveResult(ResolveResult rr)
         {
-            var memberTargetrr = rr as MemberResolveResult;
-            bool isField = memberTargetrr != null && memberTargetrr.Member is IField &&
+            bool isField = rr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                             memberTargetrr.TargetResult is LocalResolveResult);
 

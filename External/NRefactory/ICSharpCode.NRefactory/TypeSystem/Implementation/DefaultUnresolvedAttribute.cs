@@ -147,8 +147,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         bool ISupportsInterning.EqualsForInterning(ISupportsInterning other)
         {
-            DefaultUnresolvedAttribute o = other as DefaultUnresolvedAttribute;
-            return o != null && attributeType == o.attributeType
+            return other is DefaultUnresolvedAttribute o && attributeType == o.attributeType
                 && ListEquals(constructorParameterTypes, o.constructorParameterTypes)
                 && ListEquals(positionalArguments, o.positionalArguments)
                 && ListEquals(namedArguments ?? EmptyList<KeyValuePair<IMemberReference, IConstantValue>>.Instance,

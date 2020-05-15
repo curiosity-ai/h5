@@ -72,8 +72,8 @@ namespace ICSharpCode.NRefactory.CSharp
             {
                 bool first = true;
                 foreach (var container in mc.Containers) {
-                    var nspace = container as NamespaceContainer;
-                    if (nspace == null) {
+                    if (!(container is NamespaceContainer nspace))
+                    {
                         container.Accept(this);
                         continue;
                     }
@@ -136,15 +136,16 @@ namespace ICSharpCode.NRefactory.CSharp
 
             void AddTypeArguments(ATypeNameExpression texpr, AstType result)
             {
-                var unbound = texpr.TypeArguments as UnboundTypeArguments;
-                if (unbound != null) {
-                    TextLocation ll = Convert (texpr.Location);
+                if (texpr.TypeArguments is UnboundTypeArguments unbound)
+                {
+                    TextLocation ll = Convert(texpr.Location);
                     result.AddChild(new CSharpTokenNode(ll, Roles.LChevron), Roles.LChevron);
-                    ll = new TextLocation (ll.Line, ll.Column + 1);
-                    for (int j = 0; j < unbound.Count; j++) {
-                        result.AddChild (new SimpleType (), Roles.TypeArgument);
+                    ll = new TextLocation(ll.Line, ll.Column + 1);
+                    for (int j = 0; j < unbound.Count; j++)
+                    {
+                        result.AddChild(new SimpleType(), Roles.TypeArgument);
                         result.AddChild(new CSharpTokenNode(ll, Roles.LChevron), Roles.Comma);
-                        ll = new TextLocation (ll.Line, ll.Column + 1);
+                        ll = new TextLocation(ll.Line, ll.Column + 1);
                     }
                     result.AddChild(new CSharpTokenNode(ll, Roles.RChevron), Roles.RChevron);
                     /*
@@ -220,33 +221,33 @@ namespace ICSharpCode.NRefactory.CSharp
                 if (typeName == null) // may happen in typeof(Generic<,,,,>)
                     return new SimpleType();
 
-                var typeExpr = typeName as TypeExpression;
-                if (typeExpr != null) {
+                if (typeName is TypeExpression typeExpr)
+                {
                     return new PrimitiveType(typeExpr.GetSignatureForError(), Convert(typeExpr.Location));
                 }
 
-                var qam = typeName as QualifiedAliasMember;
-                if (qam != null) {
+                if (typeName is QualifiedAliasMember qam)
+                {
                     var loc = LocationsBag.GetLocations(typeName);
                     var memberType = new MemberType();
                     memberType.Target = new SimpleType(qam.alias, Convert(qam.Location));
                     memberType.IsDoubleColon = true;
 
                     if (loc != null && loc.Count > 0)
-                        memberType.AddChild(new CSharpTokenNode(Convert(loc [0]), Roles.DoubleColon), Roles.DoubleColon);
+                        memberType.AddChild(new CSharpTokenNode(Convert(loc[0]), Roles.DoubleColon), Roles.DoubleColon);
 
-                    memberType.MemberNameToken = Identifier.Create(qam.Name, loc != null ? Convert(loc [1]) : TextLocation.Empty);
+                    memberType.MemberNameToken = Identifier.Create(qam.Name, loc != null ? Convert(loc[1]) : TextLocation.Empty);
                     AddTypeArguments(qam, memberType);
                     return memberType;
                 }
 
-                var ma = typeName as MemberAccess;
-                if (ma != null) {
+                if (typeName is MemberAccess ma)
+                {
                     var memberType = new MemberType();
                     memberType.AddChild(ConvertToType(ma.LeftExpression), MemberType.TargetRole);
                     var loc = LocationsBag.GetLocations(ma);
                     if (loc != null)
-                        memberType.AddChild(new CSharpTokenNode(Convert(loc [0]), Roles.Dot), Roles.Dot);
+                        memberType.AddChild(new CSharpTokenNode(Convert(loc[0]), Roles.Dot), Roles.Dot);
 
                     memberType.MemberNameToken = Identifier.Create(ma.Name, Convert(ma.Location));
 
@@ -254,29 +255,35 @@ namespace ICSharpCode.NRefactory.CSharp
                     return memberType;
                 }
 
-                var sn = typeName as SimpleName;
-                if (sn != null) {
+                if (typeName is SimpleName sn)
+                {
                     var result = new SimpleType(sn.Name, Convert(sn.Location));
                     AddTypeArguments(sn, result);
                     return result;
                 }
 
-                var cc = typeName as ComposedCast;
-                if (cc != null) {
+                if (typeName is ComposedCast cc)
+                {
                     var baseType = ConvertToType(cc.Left);
                     var result = new ComposedType { BaseType = baseType };
                     var ccSpec = cc.Spec;
-                    while (ccSpec != null) {
-                        if (ccSpec.IsNullable) {
+                    while (ccSpec != null)
+                    {
+                        if (ccSpec.IsNullable)
+                        {
                             result.AddChild(new CSharpTokenNode(Convert(ccSpec.Location), ComposedType.NullableRole), ComposedType.NullableRole);
-                        } else if (ccSpec.IsPointer) {
+                        }
+                        else if (ccSpec.IsPointer)
+                        {
                             result.AddChild(new CSharpTokenNode(Convert(ccSpec.Location), ComposedType.PointerRole), ComposedType.PointerRole);
-                        } else {
+                        }
+                        else
+                        {
                             var location = LocationsBag.GetLocations(ccSpec);
                             var spec = new ArraySpecifier { Dimensions = ccSpec.Dimension };
                             spec.AddChild(new CSharpTokenNode(Convert(ccSpec.Location), Roles.LBracket), Roles.LBracket);
                             if (location != null)
-                                spec.AddChild(new CSharpTokenNode(Convert(location [0]), Roles.RBracket), Roles.RBracket);
+                                spec.AddChild(new CSharpTokenNode(Convert(location[0]), Roles.RBracket), Roles.RBracket);
 
                             result.ArraySpecifiers.Add(spec);
                         }
@@ -285,9 +292,10 @@ namespace ICSharpCode.NRefactory.CSharp
                     return result;
                 }
 
-                var sce = typeName as SpecialContraintExpr;
-                if (sce != null) {
-                    switch (sce.Constraint) {
+                if (typeName is SpecialContraintExpr sce)
+                {
+                    switch (sce.Constraint)
+                    {
                         case SpecialConstraint.Class:
                             return new PrimitiveType("class", Convert(sce.Location));
                         case SpecialConstraint.Struct:
@@ -316,18 +324,20 @@ namespace ICSharpCode.NRefactory.CSharp
                         foreach (var arg in attr.PositionalArguments) {
                             if (arg == null)
                                 continue;
-                            var na = arg as NamedArgument;
-                            if (na != null) {
+                            if (arg is NamedArgument na)
+                            {
                                 var newArg = new NamedArgumentExpression();
                                 newArg.AddChild(Identifier.Create(na.Name, Convert(na.Location)), Roles.Identifier);
 
                                 var argLoc = LocationsBag.GetLocations(na);
                                 if (argLoc != null)
-                                    newArg.AddChild(new CSharpTokenNode(Convert(argLoc [0]), Roles.Colon), Roles.Colon);
+                                    newArg.AddChild(new CSharpTokenNode(Convert(argLoc[0]), Roles.Colon), Roles.Colon);
                                 if (na.Expr != null)
                                     newArg.AddChild((Expression)na.Expr.Accept(this), Roles.Expression);
                                 result.AddChild(newArg, Roles.Argument);
-                            } else {
+                            }
+                            else
+                            {
                                 if (arg.Expr != null)
                                     result.AddChild((Expression)arg.Expr.Accept(this), Roles.Argument);
                             }
@@ -751,8 +761,8 @@ namespace ICSharpCode.NRefactory.CSharp
                 typeStack.Push(newType);
 
                 foreach (var m in e.Members) {
-                    var member = m as EnumMember;
-                    if (member == null) {
+                    if (!(m is EnumMember member))
+                    {
                         Console.WriteLine("WARNING - ENUM MEMBER: " + m);
                         continue;
                     }
@@ -967,8 +977,7 @@ namespace ICSharpCode.NRefactory.CSharp
                     newOperator.AddChild(new CSharpTokenNode(Convert(location [3]), Roles.RPar), Roles.RPar);
 
                 if (o.Block != null) {
-                    var blockStatement = o.Block.Accept(this) as BlockStatement;
-                    if (blockStatement != null)
+                    if (o.Block.Accept(this) is BlockStatement blockStatement)
                         newOperator.AddChild(blockStatement, Roles.Body);
                 } else {
                     if (location != null && location.Count >= 5)
@@ -1028,8 +1037,7 @@ namespace ICSharpCode.NRefactory.CSharp
                     if (getLocation != null)
                         getAccessor.AddChild(new CSharpTokenNode(Convert(i.Get.Location), PropertyDeclaration.GetKeywordRole), PropertyDeclaration.GetKeywordRole);
                     if (i.Get.Block != null) {
-                        var convBlock = i.Get.Block.Accept(this) as BlockStatement;
-                        if (convBlock != null)
+                        if (i.Get.Block.Accept(this) is BlockStatement convBlock)
                             getAccessor.AddChild(convBlock, Roles.Body);
                     } else {
                         if (getLocation != null && getLocation.Count > 0)
@@ -1047,8 +1055,7 @@ namespace ICSharpCode.NRefactory.CSharp
                         setAccessor.AddChild(new CSharpTokenNode(Convert(i.Set.Location), PropertyDeclaration.SetKeywordRole), PropertyDeclaration.SetKeywordRole);
 
                     if (i.Set.Block != null) {
-                        var convBlock = i.Set.Block.Accept(this) as BlockStatement;
-                        if (convBlock != null)
+                        if (i.Set.Block.Accept(this) is BlockStatement convBlock)
                             setAccessor.AddChild(convBlock, Roles.Body);
                     } else {
                         if (setLocation != null && setLocation.Count > 0)
@@ -1089,13 +1096,12 @@ namespace ICSharpCode.NRefactory.CSharp
                 AddConstraints(newMethod, m.CurrentTypeParameters);
 
                 if (m.Block != null) {
-                    var bodyBlock = m.Block.Accept(this) as BlockStatement;
-//                    if (m.Block is ToplevelBlock) {
-//                        newMethod.AddChild (bodyBlock.FirstChild.NextSibling, Roles.Body);
-//                    } else {
-                    if (bodyBlock != null)
+                    //                    if (m.Block is ToplevelBlock) {
+                    //                        newMethod.AddChild (bodyBlock.FirstChild.NextSibling, Roles.Body);
+                    //                    } else {
+                    if (m.Block.Accept(this) is BlockStatement bodyBlock)
                         newMethod.AddChild(bodyBlock, Roles.Body);
-//                    }
+                    //                    }
                 } else if (location != null) {
                     if (location.Count < 3) {
                         // parser error, set end node to max value.
@@ -1187,8 +1193,7 @@ namespace ICSharpCode.NRefactory.CSharp
                     getAccessor.AddChild(new CSharpTokenNode(Convert(p.Get.Location), PropertyDeclaration.GetKeywordRole), PropertyDeclaration.GetKeywordRole);
 
                     if (p.Get.Block != null) {
-                        var convBlock = p.Get.Block.Accept(this) as BlockStatement;
-                        if (convBlock != null)
+                        if (p.Get.Block.Accept(this) is BlockStatement convBlock)
                             getAccessor.AddChild(convBlock, Roles.Body);
                     } else {
                         if (getLocation != null && getLocation.Count > 0)
@@ -1205,8 +1210,7 @@ namespace ICSharpCode.NRefactory.CSharp
                     setAccessor.AddChild(new CSharpTokenNode(Convert(p.Set.Location), PropertyDeclaration.SetKeywordRole), PropertyDeclaration.SetKeywordRole);
 
                     if (p.Set.Block != null) {
-                        var convBlock = p.Set.Block.Accept(this) as BlockStatement;
-                        if (convBlock != null)
+                        if (p.Set.Block.Accept(this) is BlockStatement convBlock)
                             setAccessor.AddChild(convBlock, Roles.Body);
                     } else {
                         if (setLocation != null && setLocation.Count > 0)
@@ -1272,8 +1276,7 @@ namespace ICSharpCode.NRefactory.CSharp
                 }
 
                 if (c.Block != null) {
-                    var blockStatement = c.Block.Accept(this) as BlockStatement;
-                    if (blockStatement != null)
+                    if (c.Block.Accept(this) is BlockStatement blockStatement)
                         newConstructor.AddChild(blockStatement, Roles.Body);
                 }
                 typeStack.Peek().AddChild(newConstructor, Roles.TypeMemberRole);
@@ -1297,8 +1300,7 @@ namespace ICSharpCode.NRefactory.CSharp
                 }
 
                 if (d.Block != null) {
-                    var blockStatement = d.Block.Accept(this) as BlockStatement;
-                    if (blockStatement != null)
+                    if (d.Block.Accept(this) is BlockStatement blockStatement)
                         newDestructor.AddChild(blockStatement, Roles.Body);
                 }
                 typeStack.Peek().AddChild(newDestructor, Roles.TypeMemberRole);
@@ -1385,8 +1387,7 @@ namespace ICSharpCode.NRefactory.CSharp
                     AddModifiers(addAccessor, addLocation);
                     addAccessor.AddChild(new CSharpTokenNode(Convert(ep.Add.Location), CustomEventDeclaration.AddKeywordRole), CustomEventDeclaration.AddKeywordRole);
                     if (ep.Add.Block != null) {
-                        var convBlock = ep.Add.Block.Accept(this) as BlockStatement;
-                        if (convBlock != null)
+                        if (ep.Add.Block.Accept(this) is BlockStatement convBlock)
                             addAccessor.AddChild(convBlock, Roles.Body);
                     }
                     newEvent.AddChild(addAccessor, CustomEventDeclaration.AddAccessorRole);
@@ -1400,8 +1401,7 @@ namespace ICSharpCode.NRefactory.CSharp
                     removeAccessor.AddChild(new CSharpTokenNode(Convert(ep.Remove.Location), CustomEventDeclaration.RemoveKeywordRole), CustomEventDeclaration.RemoveKeywordRole);
 
                     if (ep.Remove.Block != null) {
-                        var convBlock = ep.Remove.Block.Accept(this) as BlockStatement;
-                        if (convBlock != null)
+                        if (ep.Remove.Block.Accept(this) is BlockStatement convBlock)
                             removeAccessor.AddChild(convBlock, Roles.Body);
                     }
                     newEvent.AddChild(removeAccessor, CustomEventDeclaration.RemoveAccessorRole);
@@ -1596,14 +1596,19 @@ namespace ICSharpCode.NRefactory.CSharp
             {
                 if (init == null)
                     return;
-                var stmtList = init as StatementList;
-                if (stmtList != null) {
-                    foreach (var stmt in stmtList.Statements) {
+                if (init is StatementList stmtList)
+                {
+                    foreach (var stmt in stmtList.Statements)
+                    {
                         forStatement.AddChild((Statement)stmt.Accept(this), role);
                     }
-                } else if (init is ICSharpCode.NRefactory.MonoCSharp.EmptyStatement) {
+                }
+                else if (init is ICSharpCode.NRefactory.MonoCSharp.EmptyStatement)
+                {
 
-                } else {
+                }
+                else
+                {
                     forStatement.AddChild((Statement)init.Accept(this), role);
                 }
             }
@@ -1641,8 +1646,7 @@ namespace ICSharpCode.NRefactory.CSharp
             public override object Visit(StatementExpression statementExpression)
             {
                 var result = new ExpressionStatement();
-                var expr = statementExpression.Expr.Accept(this) as Expression;
-                if (expr != null)
+                if (statementExpression.Expr.Accept(this) is Expression expr)
                     result.AddChild(expr, Roles.Expression);
                 var location = LocationsBag.GetLocations(statementExpression);
                 if (location != null)
@@ -1653,8 +1657,7 @@ namespace ICSharpCode.NRefactory.CSharp
             public override object Visit(StatementErrorExpression errorStatement)
             {
                 var result = new ExpressionStatement();
-                var expr = errorStatement.Expr.Accept(this) as Expression;
-                if (expr != null)
+                if (errorStatement.Expr.Accept(this) is Expression expr)
                     result.AddChild(expr, Roles.Expression);
                 var location = LocationsBag.GetLocations(errorStatement);
                 if (location != null)
@@ -1667,8 +1670,7 @@ namespace ICSharpCode.NRefactory.CSharp
                 var result = new ExpressionStatement();
                 if (invalidStatementExpression.Expression == null)
                     return result;
-                var expr = invalidStatementExpression.Expression.Accept(this) as Expression;
-                if (expr != null)
+                if (invalidStatementExpression.Expression.Accept(this) is Expression expr)
                     result.AddChild(expr, Roles.Expression);
                 var location = LocationsBag.GetLocations(invalidStatementExpression);
                 if (location != null)
@@ -1786,37 +1788,43 @@ namespace ICSharpCode.NRefactory.CSharp
             {
                 var usingResult = new UsingStatement();
                 ICSharpCode.NRefactory.MonoCSharp.Statement cur = blockStatement.Statements [0];
-                var u = cur as Using;
-                if (u != null) {
+                if (cur is Using u)
+                {
                     usingResult.AddChild(new CSharpTokenNode(Convert(u.loc), UsingStatement.UsingKeywordRole), UsingStatement.UsingKeywordRole);
                     usingResult.AddChild(new CSharpTokenNode(Convert(blockStatement.StartLocation), Roles.LPar), Roles.LPar);
-                    if (u.Variables != null) {
-                        var initializer = new VariableInitializer {
+                    if (u.Variables != null)
+                    {
+                        var initializer = new VariableInitializer
+                        {
                             NameToken = Identifier.Create(u.Variables.Variable.Name, Convert(u.Variables.Variable.Location)),
                         };
 
                         var loc = LocationsBag.GetLocations(u.Variables);
                         if (loc != null)
-                            initializer.AddChild(new CSharpTokenNode(Convert(loc [0]), Roles.Assign), Roles.Assign);
+                            initializer.AddChild(new CSharpTokenNode(Convert(loc[0]), Roles.Assign), Roles.Assign);
                         if (u.Variables.Initializer != null)
                             initializer.Initializer = u.Variables.Initializer.Accept(this) as Expression;
 
 
-                        var varDec = new VariableDeclarationStatement {
+                        var varDec = new VariableDeclarationStatement
+                        {
                             Type = ConvertToType(u.Variables.TypeExpression),
                             Variables = { initializer }
                         };
 
-                        if (u.Variables.Declarators != null) {
-                            foreach (var decl in u.Variables.Declarators) {
+                        if (u.Variables.Declarators != null)
+                        {
+                            foreach (var decl in u.Variables.Declarators)
+                            {
                                 var declLoc = LocationsBag.GetLocations(decl);
                                 var init = new VariableInitializer();
                                 if (declLoc != null && declLoc.Count > 0)
-                                    varDec.AddChild(new CSharpTokenNode(Convert(declLoc [0]), Roles.Comma), Roles.Comma);
+                                    varDec.AddChild(new CSharpTokenNode(Convert(declLoc[0]), Roles.Comma), Roles.Comma);
                                 init.AddChild(Identifier.Create(decl.Variable.Name, Convert(decl.Variable.Location)), Roles.Identifier);
-                                if (decl.Initializer != null) {
+                                if (decl.Initializer != null)
+                                {
                                     if (declLoc != null && declLoc.Count > 1)
-                                        init.AddChild(new CSharpTokenNode(Convert(declLoc [1]), Roles.Assign), Roles.Assign);
+                                        init.AddChild(new CSharpTokenNode(Convert(declLoc[1]), Roles.Assign), Roles.Assign);
                                     init.AddChild((Expression)decl.Initializer.Accept(this), Roles.Expression);
                                 }
                                 varDec.AddChild(init, Roles.Variable);
@@ -1887,16 +1895,20 @@ namespace ICSharpCode.NRefactory.CSharp
                 if (switchStatement.Block != null) {
                     foreach (var child in switchStatement.Block.Statements) {
                         var statement = child.Accept(this);
-                        var caseLabel = statement as CaseLabel;
-                        if (caseLabel != null) {
-                            if (!lastWasCase) {
+                        if (statement is CaseLabel caseLabel)
+                        {
+                            if (!lastWasCase)
+                            {
                                 newSection = new SwitchSection();
                                 added = false;
                             }
                             newSection.AddChild(caseLabel, SwitchSection.CaseLabelRole);
                             lastWasCase = true;
-                        } else {
-                            if (lastWasCase) {
+                        }
+                        else
+                        {
+                            if (lastWasCase)
+                            {
                                 result.AddChild(newSection, SwitchStatement.SwitchSectionRole);
                                 lastWasCase = false;
                                 added = true;
@@ -1959,8 +1971,7 @@ namespace ICSharpCode.NRefactory.CSharp
                 var result = new UncheckedStatement();
                 result.AddChild(new CSharpTokenNode(Convert(uncheckedStatement.loc), UncheckedStatement.UncheckedKeywordRole), UncheckedStatement.UncheckedKeywordRole);
                 if (uncheckedStatement.Block != null) {
-                    var convBlock = uncheckedStatement.Block.Accept(this) as BlockStatement;
-                    if (convBlock != null)
+                    if (uncheckedStatement.Block.Accept(this) is BlockStatement convBlock)
                         result.AddChild(convBlock, Roles.Body);
                 }
                 return result;
@@ -1971,8 +1982,7 @@ namespace ICSharpCode.NRefactory.CSharp
                 var result = new CheckedStatement();
                 result.AddChild(new CSharpTokenNode(Convert(checkedStatement.loc), CheckedStatement.CheckedKeywordRole), CheckedStatement.CheckedKeywordRole);
                 if (checkedStatement.Block != null) {
-                    var convBlock = checkedStatement.Block.Accept(this) as BlockStatement;
-                    if (convBlock != null)
+                    if (checkedStatement.Block.Accept(this) is BlockStatement convBlock)
                         result.AddChild(convBlock, Roles.Body);
                 }
                 return result;
@@ -1983,8 +1993,7 @@ namespace ICSharpCode.NRefactory.CSharp
                 var result = new UnsafeStatement();
                 result.AddChild(new CSharpTokenNode(Convert(unsafeStatement.loc), UnsafeStatement.UnsafeKeywordRole), UnsafeStatement.UnsafeKeywordRole);
                 if (unsafeStatement.Block != null) {
-                    var convBlock = unsafeStatement.Block.Accept(this) as BlockStatement;
-                    if (convBlock != null)
+                    if (unsafeStatement.Block.Accept(this) is BlockStatement convBlock)
                         result.AddChild(convBlock, Roles.Body);
                 }
                 return result;
@@ -2207,21 +2216,25 @@ namespace ICSharpCode.NRefactory.CSharp
             public override object Visit(MemberAccess memberAccess)
             {
                 Expression result;
-                var ind = memberAccess.LeftExpression as Indirection;
-                if (ind != null) {
+                if (memberAccess.LeftExpression is Indirection ind)
+                {
                     result = new PointerReferenceExpression();
                     result.AddChild((Expression)ind.Expr.Accept(this), Roles.TargetExpression);
                     result.AddChild(new CSharpTokenNode(Convert(ind.Location), PointerReferenceExpression.ArrowRole), PointerReferenceExpression.ArrowRole);
-                } else {
+                }
+                else
+                {
                     result = new MemberReferenceExpression();
-                    if (memberAccess.LeftExpression != null) {
+                    if (memberAccess.LeftExpression != null)
+                    {
                         var leftExpr = memberAccess.LeftExpression.Accept(this);
                         result.AddChild((Expression)leftExpr, Roles.TargetExpression);
                     }
                     var loc = LocationsBag.GetLocations(memberAccess);
 
-                    if (loc != null) {
-                        result.AddChild(new CSharpTokenNode(Convert(loc [0]), Roles.Dot), Roles.Dot);
+                    if (loc != null)
+                    {
+                        result.AddChild(new CSharpTokenNode(Convert(loc[0]), Roles.Dot), Roles.Dot);
                     }
                 }
 
@@ -2250,8 +2263,7 @@ namespace ICSharpCode.NRefactory.CSharp
                 if (constant.GetValue() == null)
                     return new NullReferenceExpression(Convert(constant.Location));
                 string literalValue;
-                var literalConstant = constant as ILiteralConstant;
-                literalValue = literalConstant != null ? new string(literalConstant.ParsedValue) : constant.GetValueAsLiteral();
+                literalValue = constant is ILiteralConstant literalConstant ? new string(literalConstant.ParsedValue) : constant.GetValueAsLiteral();
                 object val = constant.GetValue();
                 if (val is bool)
                     literalValue = (bool)val ? "true" : "false";
@@ -2707,18 +2719,20 @@ namespace ICSharpCode.NRefactory.CSharp
                     if (c.ConstraintExpressions != null) {
                         foreach (var expr in c.ConstraintExpressions) {
                             constraint.AddChild(ConvertToType(expr), Roles.BaseType);
-                            var sce = expr as SpecialContraintExpr;
-                            if (sce != null) {
-                                switch (sce.Constraint) {
+                            if (expr is SpecialContraintExpr sce)
+                            {
+                                switch (sce.Constraint)
+                                {
                                     case SpecialConstraint.Class:
                                         break;
                                     case SpecialConstraint.Struct:
                                         break;
                                     case SpecialConstraint.Constructor:
                                         var bl = LocationsBag.GetLocations(expr);
-                                        if (bl != null) {
-                                            constraint.AddChild(new CSharpTokenNode(Convert(bl [0]), Roles.LPar), Roles.LPar);
-                                            constraint.AddChild(new CSharpTokenNode(Convert(bl [1]), Roles.RPar), Roles.RPar);
+                                        if (bl != null)
+                                        {
+                                            constraint.AddChild(new CSharpTokenNode(Convert(bl[0]), Roles.LPar), Roles.LPar);
+                                            constraint.AddChild(new CSharpTokenNode(Convert(bl[1]), Roles.RPar), Roles.RPar);
                                         }
                                         break;
                                 }
@@ -2739,26 +2753,30 @@ namespace ICSharpCode.NRefactory.CSharp
 
             Expression ConvertArgument(Argument arg)
             {
-                var na = arg as NamedArgument;
-                if (na != null) {
+                if (arg is NamedArgument na)
+                {
                     var newArg = new NamedArgumentExpression();
                     newArg.AddChild(Identifier.Create(na.Name, Convert(na.Location)), Roles.Identifier);
 
                     var loc = LocationsBag.GetLocations(na);
                     if (loc != null)
-                        newArg.AddChild(new CSharpTokenNode(Convert(loc [0]), Roles.Colon), Roles.Colon);
+                        newArg.AddChild(new CSharpTokenNode(Convert(loc[0]), Roles.Colon), Roles.Colon);
 
-                    if (arg.ArgType == Argument.AType.Out || arg.ArgType == Argument.AType.Ref) {
+                    if (arg.ArgType == Argument.AType.Out || arg.ArgType == Argument.AType.Ref)
+                    {
                         var direction = new DirectionExpression();
                         direction.FieldDirection = arg.ArgType == Argument.AType.Out ? FieldDirection.Out : FieldDirection.Ref;
                         var argLocation = LocationsBag.GetLocations(arg);
-                        if (argLocation != null) {
+                        if (argLocation != null)
+                        {
                             var r = arg.ArgType == Argument.AType.Out ? DirectionExpression.OutKeywordRole : DirectionExpression.RefKeywordRole;
-                            direction.AddChild(new CSharpTokenNode(Convert(argLocation [0]), r), r);
+                            direction.AddChild(new CSharpTokenNode(Convert(argLocation[0]), r), r);
                         }
                         direction.AddChild((Expression)arg.Expr.Accept(this), Roles.Expression);
                         newArg.AddChild(direction, Roles.Expression);
-                    } else {
+                    }
+                    else
+                    {
                         newArg.AddChild(na.Expr != null ? (Expression)na.Expr.Accept(this) : new ErrorExpression("Named argument expression parse error"), Roles.Expression);
                     }
                     return newArg;
@@ -2875,23 +2893,27 @@ namespace ICSharpCode.NRefactory.CSharp
                 int curComma = 0;
                 init.AddChild(new CSharpTokenNode(Convert(minit.Location), Roles.LBrace), Roles.LBrace);
                 foreach (var expr in minit.Initializers) {
-                    var collectionInit = expr as CollectionElementInitializer;
-                    if (collectionInit != null) {
+                    if (expr is CollectionElementInitializer collectionInit)
+                    {
                         AstNode parent;
                         // For ease of use purposes in the resolver the ast representation
                         // of { a, b, c }  is { {a}, {b}, {c} } - but the generated ArrayInitializerExpression
                         // can be identified by expr.IsSingleElement.
-                        if (!collectionInit.IsSingle) {
+                        if (!collectionInit.IsSingle)
+                        {
                             parent = new ArrayInitializerExpression();
                             parent.AddChild(new CSharpTokenNode(Convert(collectionInit.Location), Roles.LBrace), Roles.LBrace);
-                        } else {
+                        }
+                        else
+                        {
                             parent = ArrayInitializerExpression.CreateSingleElementInitializer();
                         }
 
-                        if (collectionInit.Arguments != null) {
-                            for (int i = 0; i < collectionInit.Arguments.Count; i++) {
-                                var arg = collectionInit.Arguments [i] as CollectionElementInitializer.ElementInitializerArgument;
-                                if (arg == null || arg.Expr == null)
+                        if (collectionInit.Arguments != null)
+                        {
+                            for (int i = 0; i < collectionInit.Arguments.Count; i++)
+                            {
+                                if (!(collectionInit.Arguments[i] is CollectionElementInitializer.ElementInitializerArgument arg) || arg.Expr == null)
                                     continue;
                                 parent.AddChild(
                                     (Expression)arg.Expr.Accept(this),
@@ -2900,15 +2922,18 @@ namespace ICSharpCode.NRefactory.CSharp
                             }
                         }
 
-                        if (!collectionInit.IsSingle) {
+                        if (!collectionInit.IsSingle)
+                        {
                             var braceLocs = LocationsBag.GetLocations(expr);
                             if (braceLocs != null)
-                                parent.AddChild(new CSharpTokenNode(Convert(braceLocs [0]), Roles.RBrace), Roles.RBrace);
+                                parent.AddChild(new CSharpTokenNode(Convert(braceLocs[0]), Roles.RBrace), Roles.RBrace);
                         }
                         init.AddChild((ArrayInitializerExpression)parent, Roles.Expression);
-                    } else {
-                        var eleInit = expr as ElementInitializer;
-                        if (eleInit != null) {
+                    }
+                    else
+                    {
+                        if (expr is ElementInitializer eleInit)
+                        {
                             var nexpr = new NamedExpression();
                             nexpr.AddChild(
                                 Identifier.Create(eleInit.Name, Convert(eleInit.Location)),
@@ -2916,17 +2941,20 @@ namespace ICSharpCode.NRefactory.CSharp
                             );
                             var assignLoc = LocationsBag.GetLocations(eleInit);
                             if (assignLoc != null)
-                                nexpr.AddChild(new CSharpTokenNode(Convert(assignLoc [0]), Roles.Assign), Roles.Assign);
-                            if (eleInit.Source != null) {
-                                var colInit = eleInit.Source as CollectionOrObjectInitializers;
-                                if (colInit != null) {
+                                nexpr.AddChild(new CSharpTokenNode(Convert(assignLoc[0]), Roles.Assign), Roles.Assign);
+                            if (eleInit.Source != null)
+                            {
+                                if (eleInit.Source is CollectionOrObjectInitializers colInit)
+                                {
                                     var arrInit = new ArrayInitializerExpression();
                                     AddConvertCollectionOrObjectInitializers(
                                         arrInit,
                                         colInit
                                     );
                                     nexpr.AddChild(arrInit, Roles.Expression);
-                                } else {
+                                }
+                                else
+                                {
                                     nexpr.AddChild((Expression)eleInit.Source.Accept(this), Roles.Expression);
                                 }
                             }
@@ -3297,8 +3325,7 @@ namespace ICSharpCode.NRefactory.CSharp
                     }
                 }
                 if (anonymousMethodExpression.Block != null) {
-                    var blockStatement = anonymousMethodExpression.Block.Accept(this) as BlockStatement;
-                    if (blockStatement != null)
+                    if (anonymousMethodExpression.Block.Accept(this) is BlockStatement blockStatement)
                         result.AddChild(blockStatement, Roles.Body);
                 }
                 return result;
@@ -3520,15 +3547,13 @@ namespace ICSharpCode.NRefactory.CSharp
                 if (location != null && location.Count > 1)
                     result.AddChild(new CSharpTokenNode(Convert(location [1]), QueryJoinClause.OnKeywordRole), QueryJoinClause.OnKeywordRole);
 
-                var outer = join.OuterSelector.Statements.FirstOrDefault() as ContextualReturn;
-                if (outer != null)
+                if (join.OuterSelector.Statements.FirstOrDefault() is ContextualReturn outer)
                     result.AddChild((Expression)outer.Expr.Accept(this), QueryJoinClause.OnExpressionRole);
 
                 if (location != null && location.Count > 2)
                     result.AddChild(new CSharpTokenNode(Convert(location [2]), QueryJoinClause.EqualsKeywordRole), QueryJoinClause.EqualsKeywordRole);
 
-                var inner = join.InnerSelector.Statements.FirstOrDefault() as ContextualReturn;
-                if (inner != null)
+                if (join.InnerSelector.Statements.FirstOrDefault() is ContextualReturn inner)
                     result.AddChild((Expression)inner.Expr.Accept(this), QueryJoinClause.EqualsExpressionRole);
 
                 return result;
@@ -3552,15 +3577,13 @@ namespace ICSharpCode.NRefactory.CSharp
                 if (location != null && location.Count > 1)
                     result.AddChild(new CSharpTokenNode(Convert(location [1]), QueryJoinClause.OnKeywordRole), QueryJoinClause.OnKeywordRole);
 
-                var outer = groupJoin.OuterSelector.Statements.FirstOrDefault() as ContextualReturn;
-                if (outer != null)
+                if (groupJoin.OuterSelector.Statements.FirstOrDefault() is ContextualReturn outer)
                     result.AddChild((Expression)outer.Expr.Accept(this), QueryJoinClause.OnExpressionRole);
 
 
                 if (location != null && location.Count > 2)
                     result.AddChild(new CSharpTokenNode(Convert(location [2]), QueryJoinClause.EqualsKeywordRole), QueryJoinClause.EqualsKeywordRole);
-                var inner = groupJoin.InnerSelector.Statements.FirstOrDefault() as ContextualReturn;
-                if (inner != null)
+                if (groupJoin.InnerSelector.Statements.FirstOrDefault() is ContextualReturn inner)
                     result.AddChild((Expression)inner.Expr.Accept(this), QueryJoinClause.EqualsExpressionRole);
 
                 if (location != null && location.Count > 3)
@@ -3732,8 +3755,8 @@ namespace ICSharpCode.NRefactory.CSharp
                 AstNode newLeaf = null;
                 Role role = null;
                 bool isDocumentationComment = false;
-                var comment = special as SpecialsBag.Comment;
-                if (comment != null) {
+                if (special is SpecialsBag.Comment comment)
+                {
                     // HACK: multiline documentation comment detection; better move this logic into the mcs tokenizer
                     bool isMultilineDocumentationComment = (comment.CommentType == SpecialsBag.CommentType.Multi && comment.Content.StartsWith("*", StringComparison.Ordinal) && !comment.Content.StartsWith("**", StringComparison.Ordinal));
                     isDocumentationComment = comment.CommentType == SpecialsBag.CommentType.Documentation || isMultilineDocumentationComment;
@@ -3742,28 +3765,32 @@ namespace ICSharpCode.NRefactory.CSharp
                     var type = isMultilineDocumentationComment ? CommentType.MultiLineDocumentation : (CommentType)comment.CommentType;
                     var start = new TextLocation(comment.Line, comment.Col);
                     var end = new TextLocation(comment.EndLine, comment.EndCol);
-                    newLeaf = new Comment(type, start, end) {
+                    newLeaf = new Comment(type, start, end)
+                    {
                         StartsLine = comment.StartsLine,
                         Content = isMultilineDocumentationComment ? comment.Content.Substring(1) : comment.Content
                     };
                     role = Roles.Comment;
-                } else if (!GenerateTypeSystemMode) {
-                    var pragmaDirective = special as SpecialsBag.PragmaPreProcessorDirective;
-                    if (pragmaDirective != null) {
+                }
+                else if (!GenerateTypeSystemMode)
+                {
+                    if (special is SpecialsBag.PragmaPreProcessorDirective pragmaDirective)
+                    {
                         var pragma = new PragmaWarningPreprocessorDirective(new TextLocation(pragmaDirective.Line, pragmaDirective.Col), new TextLocation(pragmaDirective.EndLine, pragmaDirective.EndCol));
                         pragma.AddChild(new CSharpTokenNode(new TextLocation(pragmaDirective.Line, pragmaDirective.Col), PragmaWarningPreprocessorDirective.PragmaKeywordRole), PragmaWarningPreprocessorDirective.PragmaKeywordRole);
                         pragma.AddChild(new CSharpTokenNode(new TextLocation(pragmaDirective.Line, pragmaDirective.WarningColumn), PragmaWarningPreprocessorDirective.WarningKeywordRole), PragmaWarningPreprocessorDirective.WarningKeywordRole);
                         var pragmaRole = pragmaDirective.Disalbe ? PragmaWarningPreprocessorDirective.DisableKeywordRole : PragmaWarningPreprocessorDirective.RestoreKeywordRole;
                         pragma.AddChild(new CSharpTokenNode(new TextLocation(pragmaDirective.Line, pragmaDirective.DisableRestoreColumn), pragmaRole), pragmaRole);
-                        foreach (var code in pragmaDirective.Codes) {
+                        foreach (var code in pragmaDirective.Codes)
+                        {
                             pragma.AddChild((PrimitiveExpression)conversionVisitor.Visit(code), PragmaWarningPreprocessorDirective.WarningRole);
                         }
                         newLeaf = pragma;
                         role = Roles.PreProcessorDirective;
                         goto end;
                     }
-                    var lineDirective = special as SpecialsBag.LineProcessorDirective;
-                    if (lineDirective != null) {
+                    if (special is SpecialsBag.LineProcessorDirective lineDirective)
+                    {
                         var pragma = new LinePreprocessorDirective(new TextLocation(lineDirective.Line, lineDirective.Col), new TextLocation(lineDirective.EndLine, lineDirective.EndCol));
                         pragma.LineNumber = lineDirective.LineNumber;
                         pragma.FileName = lineDirective.FileName;
@@ -3771,9 +3798,10 @@ namespace ICSharpCode.NRefactory.CSharp
                         role = Roles.PreProcessorDirective;
                         goto end;
                     }
-                    var directive = special as SpecialsBag.PreProcessorDirective;
-                    if (directive != null) {
-                        newLeaf = new PreProcessorDirective((PreProcessorDirectiveType)((int)directive.Cmd & 0xF), new TextLocation(directive.Line, directive.Col), new TextLocation(directive.EndLine, directive.EndCol)) {
+                    if (special is SpecialsBag.PreProcessorDirective directive)
+                    {
+                        newLeaf = new PreProcessorDirective((PreProcessorDirectiveType)((int)directive.Cmd & 0xF), new TextLocation(directive.Line, directive.Col), new TextLocation(directive.EndLine, directive.EndCol))
+                        {
                             Argument = directive.Arg,
                             Take = directive.Take
                         };
@@ -3791,8 +3819,8 @@ namespace ICSharpCode.NRefactory.CSharp
                 // because they are not correctly ordered in the specials bag
                 insertionPoint = conversionVisitor.Unit.FirstChild;
                 for (int i = 0; i < top.SpecialsBag.Specials.Count; i++) {
-                    var newLine = top.SpecialsBag.Specials [i] as SpecialsBag.NewLineToken;
-                    if (newLine != null) {
+                    if (top.SpecialsBag.Specials[i] is SpecialsBag.NewLineToken newLine)
+                    {
                         var newLeaf = new NewLineNode(new TextLocation(newLine.Line, newLine.Col + 1));
                         newLeaf.NewLineType = newLine.NewLine == SpecialsBag.NewLine.Unix ? UnicodeNewline.LF : UnicodeNewline.CRLF;
                         InsertComment(ref insertionPoint, newLeaf, Roles.NewLine, false, conversionVisitor.Unit);
@@ -3918,8 +3946,7 @@ namespace ICSharpCode.NRefactory.CSharp
             if (CompilationUnitCallback != null) {
                 CompilationUnitCallback(top);
             }
-            var expr = top.LastYYValue as ICSharpCode.NRefactory.MonoCSharp.Expression;
-            if (expr != null)
+            if (top.LastYYValue is ICSharpCode.NRefactory.MonoCSharp.Expression expr)
                 conversionVisitor.Unit.TopExpression = expr.Accept(conversionVisitor) as AstNode;
 
             conversionVisitor.Unit.FileName = fileName;
@@ -4044,8 +4071,8 @@ namespace ICSharpCode.NRefactory.CSharp
             var syntaxTree = Parse(new StringTextSource(prefix + code + "}"), "parsed.cs", initialLine, initialColumn - prefix.Length);
             if (syntaxTree == null)
                 return Enumerable.Empty<EntityDeclaration>();
-            var td = syntaxTree.FirstChild as TypeDeclaration;
-            if (td != null) {
+            if (syntaxTree.FirstChild is TypeDeclaration td)
+            {
                 var members = td.Members.ToArray();
                 // detach members from parent
                 foreach (var m in members)
@@ -4065,8 +4092,8 @@ namespace ICSharpCode.NRefactory.CSharp
             // the dummy method is async so that 'await' expressions are parsed as expected
             const string prefix = "async void M() { ";
             var members = ParseTypeMembers(prefix + code + "}", initialLine, initialColumn - prefix.Length);
-            var method = members.FirstOrDefault() as MethodDeclaration;
-            if (method != null && method.Body != null) {
+            if (members.FirstOrDefault() is MethodDeclaration method && method.Body != null)
+            {
                 var statements = method.Body.Statements.ToArray();
                 // detach statements from parent
                 foreach (var st in statements)
@@ -4079,8 +4106,8 @@ namespace ICSharpCode.NRefactory.CSharp
         public AstType ParseTypeReference(string code)
         {
             var members = ParseTypeMembers(code + " a;");
-            var field = members.FirstOrDefault() as FieldDeclaration;
-            if (field != null) {
+            if (members.FirstOrDefault() is FieldDeclaration field)
+            {
                 AstType type = field.ReturnType;
                 type.Remove();
                 return type;
@@ -4092,10 +4119,10 @@ namespace ICSharpCode.NRefactory.CSharp
         {
             const string prefix = "tmp = ";
             var statements = ParseStatements(prefix + code + ";", initialLocation.Line, initialLocation.Column - prefix.Length);
-            var es = statements.FirstOrDefault() as ExpressionStatement;
-            if (es != null) {
-                var ae = es.Expression as AssignmentExpression;
-                if (ae != null) {
+            if (statements.FirstOrDefault() is ExpressionStatement es)
+            {
+                if (es.Expression is AssignmentExpression ae)
+                {
                     Expression expr = ae.Right;
                     expr.Remove();
                     return expr;

@@ -513,8 +513,7 @@ namespace ICSharpCode.NRefactory.CSharp
             NextLineIndent = Parent.NextLineIndent.Clone();
 
             // OPTION: IDocumentIndentEngine.EnableCustomIndentLevels
-            var parent = Parent as BracesBodyState;
-            if (parent == null || parent.LastBlockIndent == null || !Engine.EnableCustomIndentLevels)
+            if (!(Parent is BracesBodyState parent) || parent.LastBlockIndent == null || !Engine.EnableCustomIndentLevels)
             {
                 NextLineIndent.RemoveAlignment();
                 NextLineIndent.PopIf(IndentType.Continuation);

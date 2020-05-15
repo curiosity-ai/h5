@@ -149,9 +149,8 @@ namespace H5.Translator
             var arguments = invocationExpression.Arguments.ToList();
             var rr = emitter.Resolver.ResolveNode(invocationExpression, emitter);
             this.ResolveResult = rr as InvocationResolveResult;
-            var drr = rr as DynamicInvocationResolveResult;
 
-            if (this.ResolveResult == null && drr != null)
+            if (this.ResolveResult == null && rr is DynamicInvocationResolveResult drr)
             {
                 this.BuildDynamicArgumentsList(drr, arguments);
             }
@@ -253,12 +252,9 @@ namespace H5.Translator
 
             var arguments = objectCreateExpression.Arguments.ToList();
             var rr = emitter.Resolver.ResolveNode(objectCreateExpression, emitter);
-            var drr = rr as DynamicInvocationResolveResult;
-            if (drr != null)
+            if (rr is DynamicInvocationResolveResult drr)
             {
-                var group = drr.Target as MethodGroupResolveResult;
-
-                if (group != null && group.Methods.Count() > 1)
+                if (drr.Target is MethodGroupResolveResult group && group.Methods.Count() > 1)
                 {
                     throw new EmitterException(objectCreateExpression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
                 }
@@ -322,9 +318,7 @@ namespace H5.Translator
 
         private void BuildTypedArguments(AstType type)
         {
-            var simpleType = type as SimpleType;
-
-            if (simpleType != null)
+            if (type is SimpleType simpleType)
             {
                 AstNodeCollection<AstType> typedArguments = simpleType.TypeArguments;
                 IList<ITypeParameter> typeParams = null;
@@ -365,23 +359,20 @@ namespace H5.Translator
         {
             AstNodeCollection<AstType> typedArguments = null;
 
-            var identifierExpression = expression as IdentifierExpression;
-            if (identifierExpression != null)
+            if (expression is IdentifierExpression identifierExpression)
             {
                 typedArguments = identifierExpression.TypeArguments;
             }
             else
             {
-                var memberRefExpression = expression as MemberReferenceExpression;
-                if (memberRefExpression != null)
+                if (expression is MemberReferenceExpression memberRefExpression)
                 {
                     typedArguments = memberRefExpression.TypeArguments;
                 }
             }
 
-            var method = this.ResolveResult.Member as IMethod;
 
-            if (method != null)
+            if (this.ResolveResult.Member is IMethod method)
             {
                 this.TypeArguments = new TypeParamExpression[method.TypeParameters.Count];
 
@@ -435,9 +426,8 @@ namespace H5.Translator
             Expression paramsArg = null;
             string paramArgName = null;
             IMethod method = null;
-            var group = drr.Target as MethodGroupResolveResult;
 
-            if (group != null && group.Methods.Count() > 1)
+            if (drr.Target is MethodGroupResolveResult group && group.Methods.Count() > 1)
             {
                 method = group.Methods.FirstOrDefault(m =>
                 {
@@ -592,12 +582,10 @@ namespace H5.Translator
             if (resolveResult != null)
             {
                 var parameters = resolveResult.Member.Parameters;
-                var resolvedMethod = resolveResult.Member as IMethod;
-                var invocationResult = resolveResult as CSharpInvocationResolveResult;
                 var isDelegate = resolveResult.Member.DeclaringType.Kind == TypeKind.Delegate;
                 int shift = 0;
 
-                if (resolvedMethod != null && invocationResult != null &&
+                if (resolveResult.Member is IMethod resolvedMethod && resolveResult is CSharpInvocationResolveResult invocationResult &&
                     resolvedMethod.IsExtensionMethod && invocationResult.IsExtensionMethodInvocation)
                 {
                     shift = 1;

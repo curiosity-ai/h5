@@ -101,8 +101,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            PrimitiveType o = other as PrimitiveType;
-            return o != null && MatchString(this.Keyword, o.Keyword);
+            return other is PrimitiveType o && MatchString(this.Keyword, o.Keyword);
         }
 
         public override string ToString(CSharpFormattingOptions formattingOptions)

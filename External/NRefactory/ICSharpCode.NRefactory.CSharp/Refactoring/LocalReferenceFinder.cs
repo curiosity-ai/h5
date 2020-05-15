@@ -129,15 +129,17 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
             {
                 if (referenceFinder.visitedRoots.Contains(node))
                     return;
-                var localResolveResult = resolver.Resolve(node) as LocalResolveResult;
-                if (localResolveResult != null && !processedVariables.Contains(localResolveResult.Variable)) {
+                if (resolver.Resolve(node) is LocalResolveResult localResolveResult && !processedVariables.Contains(localResolveResult.Variable))
+                {
                     referenceFinder.references.Add(localResolveResult.Variable, new ReferenceResult(node, localResolveResult));
 
                     processedVariables.Add(localResolveResult.Variable);
                     base.VisitChildren(node);
                     Debug.Assert(processedVariables.Contains(localResolveResult.Variable), "Variable should still be in the list of processed variables.");
                     processedVariables.Remove(localResolveResult.Variable);
-                } else {
+                }
+                else
+                {
                     base.VisitChildren(node);
                 }
             }

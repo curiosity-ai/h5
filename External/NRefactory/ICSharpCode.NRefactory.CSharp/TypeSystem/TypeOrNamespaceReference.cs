@@ -44,8 +44,7 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
         /// </summary>
         public INamespace ResolveNamespace(CSharpResolver resolver)
         {
-            NamespaceResolveResult nrr = Resolve(resolver) as NamespaceResolveResult;
-            return nrr != null ? nrr.Namespace : null;
+            return Resolve(resolver) is NamespaceResolveResult nrr ? nrr.Namespace : null;
         }
 
         IType ITypeReference.Resolve(ITypeResolveContext context)
@@ -54,8 +53,8 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
             // to what we're doing with ConstantExpression.
             // However, in almost all cases this will work correctly - if the resulting type is only available in the
             // nested compilation and not in this, we wouldn't be able to map it anyways.
-            var ctx = context as CSharpTypeResolveContext;
-            if (ctx == null) {
+            if (!(context is CSharpTypeResolveContext ctx))
+            {
                 ctx = new CSharpTypeResolveContext(context.CurrentAssembly ?? context.Compilation.MainAssembly, null, context.CurrentTypeDefinition, context.CurrentMember);
             }
             return ResolveType(new CSharpResolver(ctx));

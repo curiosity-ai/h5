@@ -184,8 +184,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public override bool Equals(object obj)
         {
-            SpecializedMethod other = obj as SpecializedMethod;
-            if (other == null)
+            if (!(obj is SpecializedMethod other))
                 return false;
             return this.baseMember.Equals(other.baseMember) && this.substitutionWithoutSpecializedTypeParameters.Equals(other.substitutionWithoutSpecializedTypeParameters);
         }
@@ -260,8 +259,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
             public override bool Equals(IType other)
             {
                 // Compare the owner, not the substitution, because the substitution may contain this specialized type parameter recursively
-                SpecializedTypeParameter o = other as SpecializedTypeParameter;
-                return o != null && baseTp.Equals(o.baseTp) && this.Owner.Equals(o.Owner);
+                return other is SpecializedTypeParameter o && baseTp.Equals(o.baseTp) && this.Owner.Equals(o.Owner);
             }
 
             public override bool HasValueTypeConstraint {

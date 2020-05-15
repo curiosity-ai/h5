@@ -47,9 +47,7 @@ namespace H5.Translator.TypeScript
 
             public override bool Equals(object obj)
             {
-                var other = obj as OutputKey;
-
-                return other == null ? false : this.Key == other.Key && (this.Module == null && other.Module == null || this.Module != null && this.Module.Equals(other.Module));
+                return !(obj is OutputKey other) ? false : this.Key == other.Key && (this.Module == null && other.Module == null || this.Module != null && this.Module.Equals(other.Module));
             }
         }
 

@@ -83,8 +83,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            SwitchStatement o = other as SwitchStatement;
-            return o != null && this.Expression.DoMatch(o.Expression, match) && this.SwitchSections.DoMatch(o.SwitchSections, match);
+            return other is SwitchStatement o && this.Expression.DoMatch(o.Expression, match) && this.SwitchSections.DoMatch(o.SwitchSections, match);
         }
     }
 
@@ -169,8 +168,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            SwitchSection o = other as SwitchSection;
-            return o != null && this.CaseLabels.DoMatch(o.CaseLabels, match) && this.Statements.DoMatch(o.Statements, match);
+            return other is SwitchSection o && this.CaseLabels.DoMatch(o.CaseLabels, match) && this.Statements.DoMatch(o.Statements, match);
         }
     }
 
@@ -223,8 +221,7 @@ namespace ICSharpCode.NRefactory.CSharp
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
         {
-            CaseLabel o = other as CaseLabel;
-            return o != null && this.Expression.DoMatch(o.Expression, match);
+            return other is CaseLabel o && this.Expression.DoMatch(o.Expression, match);
         }
     }
 }

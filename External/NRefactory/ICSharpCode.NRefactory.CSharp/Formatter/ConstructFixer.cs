@@ -248,11 +248,11 @@ namespace ICSharpCode.NRefactory.CSharp
 
                     var text = ")";
                     newOffset++;
-                    var expressionStatement = invocationExpression.Parent as ExpressionStatement;
-                    if (expressionStatement != null) {
+                    if (invocationExpression.Parent is ExpressionStatement expressionStatement)
+                    {
                         if (expressionStatement.SemicolonToken.IsNull)
                             text = ");";
-                        newOffset ++;
+                        newOffset++;
                     }
                     document.Insert(insertionOffset, text);
 

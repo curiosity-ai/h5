@@ -63,3 +63,6 @@ The currently available NuGet packages are:
 - [H5.Newtonsoft.Json](https://www.nuget.org/packages/h5.Newtonsoft.Json/) (replaces [Bridge.Newtonsoft.Json](https://www.nuget.org/packages/Bridge.Newtonsoft.Json/))
 
 Other packages might be added in the future as we experiment with this fork, but we do not aim on providing any kind of Retyped replacement here.
+
+
+

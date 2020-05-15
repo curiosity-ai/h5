@@ -118,17 +118,17 @@ namespace H5.Translator
 
             var result = this.resolver.Resolve(node);
 
-            if (result is MethodGroupResolveResult && node.Parent != null)
+            if (result is MethodGroupResolveResult resolveResult && node.Parent != null)
             {
-                var methodGroupResolveResult = (MethodGroupResolveResult)result;
+                var methodGroupResolveResult = resolveResult;
                 var parentResolveResult = this.ResolveNode(node.Parent, log);
                 var parentInvocation = parentResolveResult as InvocationResolveResult;
                 IParameterizedMember method = methodGroupResolveResult.Methods.LastOrDefault();
-                bool isInvocation = node.Parent is InvocationExpression && (((InvocationExpression)(node.Parent)).Target == node);
+                bool isInvocation = node.Parent is InvocationExpression invocationExp && (invocationExp.Target == node);
 
-                if (node is Expression)
+                if (node is Expression expression)
                 {
-                    var conversion = this.Resolver.GetConversion((Expression)node);
+                    var conversion = this.Resolver.GetConversion(expression);
                     if (conversion != null && conversion.IsMethodGroupConversion)
                     {
                         return new MemberResolveResult(new TypeResolveResult(conversion.Method.DeclaringType), conversion.Method);

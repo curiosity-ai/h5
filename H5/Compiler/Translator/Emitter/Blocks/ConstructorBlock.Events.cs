@@ -100,7 +100,7 @@ namespace H5.Translator
                             {
                                 var staticValue = staticFlagField.First().ConstantValue;
 
-                                if (staticValue is bool && ((bool)staticValue) && !method.HasModifier(Modifiers.Static))
+                                if (staticValue is bool boolean && boolean && !method.HasModifier(Modifiers.Static))
                                 {
                                     throw new EmitterException(attr, resolveResult.Type.FullName + " can be applied for static methods only");
                                 }
@@ -239,21 +239,8 @@ namespace H5.Translator
 
         private void LogWarning(string message)
         {
-            var logger = this.Emitter.Log as H5.Translator.Logging.Logger;
-            bool? wrappingValue = null;
-
-            if (logger != null && logger.UseTimeStamp)
-            {
-                wrappingValue = logger.UseTimeStamp;
-                logger.UseTimeStamp = false;
-            }
-
+            var logger = this.Emitter.Log as Logging.Logger;
             this.Emitter.Log.Warn(message);
-
-            if (wrappingValue.HasValue)
-            {
-                logger.UseTimeStamp = wrappingValue.Value;
-            }
         }
 
         private void LogAutoStartupWarning(MethodDeclaration method)

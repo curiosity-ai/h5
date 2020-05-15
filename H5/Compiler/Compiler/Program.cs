@@ -242,16 +242,6 @@ namespace H5.Builder
                         ShowHelp(logger);
                         h5Options.NoCompilation = true;
                         return h5Options; // success. Asked for help. Help provided.
-
-#if DEBUG
-                    case "-debug":
-                    case "--debug":
-                    case "-attachdebugger":
-                    case "--attachdebugger":
-                    case "-d":
-                        System.Diagnostics.Debugger.Launch();
-                        break;
-#endif
                     case "--": // stop reading commandline arguments
                         // Only non-hyphen commandline argument accepted is the file name of the project or
                         // assembly file, so if not provided already, when this option is specified, check if

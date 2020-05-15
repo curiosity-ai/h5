@@ -119,7 +119,6 @@ namespace H5.Builder
             {
                 switch (args[i])
                 {
-                    // backwards compatibility -- now is non-switch argument to builder
                     case "-p":
                     case "--project":
                         h5Options.ProjectLocation = args[++i];
@@ -135,20 +134,17 @@ namespace H5.Builder
                         break;
 
                     case "-c":
-                    case "-cfg": // backwards compatibility
                     case "--configuration":
                         configuration = args[++i];
                         hasPriorityConfiguration = true;
                         break;
-                    case "-def": // backwards compatibility
+
                     case "-D":
-                    case "-define": // backwards compatibility
                     case "--define":
                         defineConstants = args[++i];
                         hasPriorityDefineConstants = true;
                         break;
 
-                    case "-rebuild": // backwards compatibility
                     case "--rebuild":
                     case "-r":
                         h5Options.Rebuild = true;

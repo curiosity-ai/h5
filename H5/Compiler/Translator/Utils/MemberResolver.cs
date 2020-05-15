@@ -182,12 +182,15 @@ namespace H5.Translator
 
             if ((result == null || result.IsError) && log != null)
             {
-                if (result is CSharpInvocationResolveResult && ((CSharpInvocationResolveResult)result).OverloadResolutionErrors != OverloadResolutionErrors.None)
+                if (result is CSharpInvocationResolveResult invocationResult && invocationResult.OverloadResolutionErrors != OverloadResolutionErrors.None)
                 {
                     return result;
                 }
 
-                log.LogWarning(string.Format("Node resolving has failed {0}: {1}", node.StartLocation, node.ToString()));
+                if (result.IsError)
+                {
+                    log.LogWarning(string.Format("Node resolving has failed {0}: {1}", node.StartLocation, node.ToString()));
+                }
             }
 
             return result;

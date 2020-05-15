@@ -6198,7 +6198,7 @@ namespace H5.Core
             [Virtual]
             public abstract class ReturnTypeFnAlias<T> : TypeAlias<es5.ReturnType<T>.ReturnTypeFn<T>>
             {
-                public static extern implicit operator es5.ReturnType<T>.ReturnTypeFnAlias<T>(
+                public static extern implicit operator ReturnTypeFnAlias<T>(
                   es5.ReturnType<T>.ReturnTypeFn<T> value);
             }
         }
@@ -6233,7 +6233,7 @@ namespace H5.Core
             [Virtual]
             public abstract class InstanceTypeCtorFnAlias<T> : TypeAlias<es5.InstanceType<T>.InstanceTypeCtorFn<T>>
             {
-                public static extern implicit operator es5.InstanceType<T>.InstanceTypeCtorFnAlias<T>(
+                public static extern implicit operator InstanceTypeCtorFnAlias<T>(
                   es5.InstanceType<T>.InstanceTypeCtorFn<T> value);
             }
         }

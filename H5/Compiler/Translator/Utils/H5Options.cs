@@ -20,7 +20,6 @@ namespace H5.Translator
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
         public bool ExtractCore { get; set; }
-        public bool Recursive { get; set; }
         public string Lib { get; set; }
         public bool NoCompilation { get; set; }
         public bool Run { get; set; }
@@ -52,7 +51,6 @@ namespace H5.Translator
                 { WrapProperty("H5Location"), GetString(this.H5Location) },
                 { WrapProperty("Rebuild"), GetString(this.Rebuild) },
                 { WrapProperty("ExtractCore"), GetString(this.ExtractCore) },
-                { WrapProperty("Recursive"), GetString(this.Recursive) },
                 { WrapProperty("Lib"), GetString(this.Lib) },
                 { WrapProperty("Help"), GetString(this.NoCompilation) },
                 { WrapProperty("NoTimeStamp"), GetString(this.NoTimeStamp) },

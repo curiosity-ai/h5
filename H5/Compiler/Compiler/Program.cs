@@ -228,12 +228,6 @@ namespace H5.Builder
 
                         break;
 
-                    case "-R":
-                    case "-recursive": // backwards compatibility
-                    case "--recursive":
-                        h5Options.Recursive = true;
-                        break;
-
                     case "-lib": // backwards compatibility -- now is non-switch argument to builder
                         if (h5Options.ProjectLocation != null)
                         {

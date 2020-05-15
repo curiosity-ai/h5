@@ -52,7 +52,7 @@ namespace H5.Contract
         {
         }
 
-        public virtual void AfterOutput(ITranslator translator, string outputPath, bool nocore)
+        public virtual void AfterOutput(ITranslator translator, string outputPath)
         {
         }
     }

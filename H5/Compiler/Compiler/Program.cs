@@ -194,11 +194,6 @@ namespace H5.Builder
                         h5Options.Rebuild = true;
                         break;
 
-                    case "-nocore": // backwards compatibility
-                    case "--nocore":
-                        h5Options.ExtractCore = false;
-                        break;
-
                     case "-s":
                     case "-src": // backwards compatibility
                     case "--source":

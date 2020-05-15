@@ -20,7 +20,7 @@ namespace H5.Contract
 
         void AfterEmit(IEmitter emitter, ITranslator translator);
 
-        void AfterOutput(ITranslator translator, string outputPath, bool nocore);
+        void AfterOutput(ITranslator translator, string outputPath);
 
         void BeforeTypesEmit(IEmitter emitter, IList<ITypeInfo> types);
 

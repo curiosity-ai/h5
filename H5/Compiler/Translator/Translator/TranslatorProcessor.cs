@@ -77,14 +77,7 @@ namespace H5.Translator
             var projectPath = Path.GetDirectoryName(translator.Location);
             logger.Info("projectPath is " + projectPath);
 
-            if (h5Options.ExtractCore)
-            {
-                translator.ExtractCore(outputPath, projectPath);
-            }
-            else
-            {
-                logger.Info("No extracting core scripts option enabled");
-            }
+            translator.ExtractCore(outputPath, projectPath);
 
             var fileName = GetDefaultFileName(h5Options);
             if (!h5Options.SkipEmbeddingResources)
@@ -98,7 +91,7 @@ namespace H5.Translator
             translator.RunAfterBuild();
 
             logger.Info("Run plugins AfterOutput...");
-            translator.Plugins.AfterOutput(translator, outputPath, !h5Options.ExtractCore);
+            translator.Plugins.AfterOutput(translator, outputPath);
             logger.Info("Done plugins AfterOutput");
 
             this.GenerateHtml(outputPath);

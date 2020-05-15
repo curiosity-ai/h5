@@ -585,11 +585,11 @@ namespace H5.Translator
             }
         }
 
-        public void AfterOutput(ITranslator translator, string outputPath, bool nocore)
+        public void AfterOutput(ITranslator translator, string outputPath)
         {
             foreach (var plugin in this.Parts)
             {
-                plugin.AfterOutput(translator, outputPath, nocore);
+                plugin.AfterOutput(translator, outputPath);
             }
         }
 

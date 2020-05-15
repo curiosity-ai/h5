@@ -33,6 +33,6 @@ namespace H5.Contract
 
         void AfterTypeEmit(IEmitter emitter, ITypeInfo type);
 
-        void AfterOutput(H5.Contract.ITranslator translator, string outputPath, bool nocore);
+        void AfterOutput(H5.Contract.ITranslator translator, string outputPath);
     }
 }

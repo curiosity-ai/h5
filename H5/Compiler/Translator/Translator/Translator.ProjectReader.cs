@@ -260,10 +260,7 @@ namespace H5.Translator
                 properties.Add(ProjectPropertyNames.CONFIGURATION_PROP, this.ProjectProperties.Configuration);
             }
 
-            if (this.ProjectProperties.Platform != null)
-            {
-                properties.Add(ProjectPropertyNames.PLATFORM_PROP, this.ProjectProperties.Platform);
-            }
+            properties.Add(ProjectPropertyNames.PLATFORM_PROP, "AnyCPU");
 
             return properties;
         }

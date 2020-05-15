@@ -73,20 +73,17 @@ namespace H5.Builder
             logger.Warn(@"Usage: " + programName + @" [options] (<project-file>|<assembly-file>)
        " + programName + @"
 
-[-h|--help]
-
--h --help                  This help message.
--c --configuration <name>  Configuration name (Debug/Release etc)
-                           [default: none].
+[-h|--help]                Show this help message.
+-r --rebuild               Force assembly rebuilding.
+-c --configuration <name>  Configuration name (Debug/Release etc)   [default: none].
 -S --settings <name:value> Comma-delimited list of project settings
                            I.e -S name1:value1,name2:value2)
                            List of allowed settings:
                              AssemblyName, CheckForOverflowUnderflow,
                              Configuration, DefineConstants,
                              OutputPath, OutDir, OutputType,
-                             Platform, RootNamespace
-                           options -c, -P and -D have priority over -S
--r --rebuild               Force assembly rebuilding.
+                             RootNamespace
+                           options -c, -D have priority over -S
 -D --define <const-list>   Semicolon-delimited list of project constants.");
         }
 

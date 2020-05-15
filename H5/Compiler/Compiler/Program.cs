@@ -115,16 +115,11 @@ namespace H5.Builder
 
         private static bool BindCmdArgumentToOption(string arg, H5Options h5Options, ILogger logger)
         {
-            if (h5Options.ProjectLocation == null && h5Options.Lib == null)
+            if (h5Options.ProjectLocation == null)
             {
                 if (arg.ToLower().EndsWith(".csproj"))
                 {
                     h5Options.ProjectLocation = arg;
-                    return true;
-                }
-                else if (arg.ToLower().EndsWith(".dll"))
-                {
-                    h5Options.Lib = arg;
                     return true;
                 }
             }
@@ -156,11 +151,6 @@ namespace H5.Builder
                     case "-p":
                     case "-project":
                     case "--project":
-                        if (h5Options.Lib != null)
-                        {
-                            logger.Error("Error: Project and assembly file specification is mutually exclusive.");
-                            return null;
-                        };
                         h5Options.ProjectLocation = args[++i];
                         break;
 
@@ -227,16 +217,6 @@ namespace H5.Builder
                         }
 
                         break;
-
-                    case "-lib": // backwards compatibility -- now is non-switch argument to builder
-                        if (h5Options.ProjectLocation != null)
-                        {
-                            logger.Error("Error: Project and assembly file specification is mutually exclusive.");
-                            return null;
-                        }
-                        h5Options.Lib = args[++i];
-                        break;
-
                     case "-h":
                     case "--help":
                         ShowHelp(logger);
@@ -285,7 +265,7 @@ namespace H5.Builder
                 h5Options.ProjectProperties.DefineConstants = defineConstants;
             }
 
-            if (h5Options.ProjectLocation == null && h5Options.Lib == null)
+            if (h5Options.ProjectLocation == null)
             {
                 var folder = Environment.CurrentDirectory;
 

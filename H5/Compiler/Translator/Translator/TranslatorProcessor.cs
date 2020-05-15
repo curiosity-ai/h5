@@ -45,7 +45,6 @@ namespace H5.Translator
 
             h5Options.H5Location = pathHelper.ConvertPath(h5Options.H5Location);
             h5Options.DefaultFileName = pathHelper.ConvertPath(h5Options.DefaultFileName);
-            h5Options.Lib = pathHelper.ConvertPath(h5Options.Lib);
             h5Options.OutputLocation = pathHelper.ConvertPath(h5Options.OutputLocation);
             h5Options.ProjectLocation = pathHelper.ConvertPath(h5Options.ProjectLocation);
             h5Options.Sources = pathHelper.ConvertPath(h5Options.Sources);

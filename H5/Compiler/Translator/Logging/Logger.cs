@@ -1,6 +1,7 @@
 ﻿using H5.Contract;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace H5.Translator.Logging
@@ -11,6 +12,8 @@ namespace H5.Translator.Logging
         public string Name { get; set; }
         public List<ILogger> LoggerWriters { get; private set; }
         public bool UseTimeStamp { get; set; }
+
+        private Stopwatch _stopwatch = Stopwatch.StartNew();
 
         private bool bufferedMode;
 
@@ -161,16 +164,31 @@ namespace H5.Translator.Logging
                 return message;
             }
 
-            var d = DateTime.Now.ToString("s") + ":" + DateTime.Now.Millisecond.ToString("D3") + " ";
+            var now = DateTime.Now;
 
-            string wrappedMessage = string.Format(
-                "{0}\t{1}\t{2}\t{3}",
-                d,
-                logLevel,
-                this.Name,
-                message);
+            long elapsedMs;
 
-            return wrappedMessage;
+            lock (_stopwatch)
+            {
+                elapsedMs = _stopwatch.ElapsedMilliseconds;
+                _stopwatch.Restart();
+            }
+
+            return $"{now:hh:mm:ss} +{elapsedMs:n0}ms\t[{ToLogChar(logLevel)}] {this.Name} {message}";
+        }
+
+        private string ToLogChar(LoggerLevel logLevel)
+        {
+            switch (logLevel)
+            {
+                case LoggerLevel.None:       return " ";
+                case LoggerLevel.Error:      return "E";
+                case LoggerLevel.Warning:    return "W";
+                case LoggerLevel.Info:       return "I";
+                case LoggerLevel.Trace:      return "T";
+            }
+
+            return logLevel.ToString().Substring(0, 1);
         }
     }
 }

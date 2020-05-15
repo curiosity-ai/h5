@@ -383,12 +383,14 @@ namespace H5.Translator
 
             Microsoft.CodeAnalysis.Emit.EmitResult emitResult;
 
+            Log.Info($"Begin compiling {this.AssemblyLocation}");
             using (var outputStream = new FileStream(this.AssemblyLocation, FileMode.Create))
             {
                 emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true));
                 outputStream.Flush();
                 outputStream.Close();
             }
+            Log.Info($"Finished compiling {this.AssemblyLocation}");
 
             if (!emitResult.Success)
             {

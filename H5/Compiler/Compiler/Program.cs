@@ -23,7 +23,7 @@ namespace H5.Builder
             if (h5Options == null)
             {
                 ShowHelp();
-                return 1;
+                return 0;
             }
 
             logger.Info($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");

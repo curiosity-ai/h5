@@ -1,0 +1,17 @@
+<Project Sdk="h5.Target/0.0.7793">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DefineConstants>H5</DefineConstants>
+    <AssemblyName>Placeholder</AssemblyName>
+    <RootNamespace>Placeholder</RootNamespace>
+    <LangVersion>7.2</LangVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <DebugType>None</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="h5" Version="0.0.8001" />
+    <PackageReference Include="h5.core" Version="0.0.8007" />
+  </ItemGroup>
+</Project>

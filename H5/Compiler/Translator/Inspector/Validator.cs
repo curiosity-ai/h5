@@ -207,7 +207,15 @@ namespace H5.Translator
 
         public static bool IsTypeFromH5Core(string fullName)
         {
-            return fullName.StartsWith("H5.Core.") || fullName=="H5.Core"; //For when passing the namespace name
+            return fullName.StartsWith("H5.Core.") || fullName == "H5.Core"; //For when passing the namespace name
+        }
+
+        public static bool IsTypeFromH5ButNotFromH5Core(string fullName)
+        {
+            if (fullName == "H5") return true;
+            if (fullName == "H5.Core") return false;
+
+            return fullName.StartsWith("H5.") && !fullName.StartsWith("H5.Core.");
         }
 
         public virtual bool IsExternalType(IEntity entity, bool ignoreLiteral = false)

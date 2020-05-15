@@ -643,12 +643,25 @@ namespace H5.Contract
                 emitter,
                 astType.Parent is TypeOfExpression && symbol != null && symbol.SymbolKind == SymbolKind.TypeDefinition);
 
-            if (name != CS.NS.H5 && !name.StartsWith(CS.H5.DOTNAME) && astType.ToString().StartsWith(CS.NS.GLOBAL))
+            if (name != CS.NS.H5 && !IsTypeFromH5ButNotFromH5Core(name) && astType.ToString().StartsWith(CS.NS.GLOBAL))
             {
                 return JS.Types.H5.Global.DOTNAME + name;
             }
 
             return name;
+        }
+
+        public static bool IsTypeFromH5Core(string fullName)
+        {
+            return fullName.StartsWith("H5.Core.") || fullName == "H5.Core"; //For when passing the namespace name
+        }
+
+        public static bool IsTypeFromH5ButNotFromH5Core(string fullName)
+        {
+            if (fullName == "H5") return true;
+            if (fullName == "H5.Core") return false;
+
+            return fullName.StartsWith("H5.") && !fullName.StartsWith("H5.Core.");
         }
 
         public static void EnsureModule(H5Type type)

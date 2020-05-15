@@ -400,10 +400,6 @@ namespace H5.Contract
             return (lValue & lFlag) != 0;
         }
 
-        private static bool IsTypeFromH5Core(string fullName)
-        {
-            return fullName.StartsWith("H5.Core.");
-        }
         private static bool IsAcceptableTarget(NameSemantic semantic, ConventionTarget target, ITypeDefinition typeDef)
         {
             bool acceptable = true;
@@ -450,7 +446,7 @@ namespace H5.Contract
 
                     if (!has)
                     {
-                        has = IsTypeFromH5Core(typeDef.FullName) ||
+                        has = H5Types.IsTypeFromH5Core(typeDef.FullName) ||
                             typeDef.ParentAssembly.AssemblyAttributes.Any(
                                 attr =>
                                     attr.Constructor != null &&

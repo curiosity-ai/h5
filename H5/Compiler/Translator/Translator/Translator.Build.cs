@@ -265,8 +265,6 @@ namespace H5.Translator
 
             if (referencedPackages is object && referencedPackages.Any())
             {
-                PackageReferencesDiscoveredPaths = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-
                 string packagePath = GetPackagesCacheFolder();
 
                 var outputFolder = Path.GetDirectoryName(this.AssemblyLocation);

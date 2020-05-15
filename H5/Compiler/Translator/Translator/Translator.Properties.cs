@@ -1,6 +1,7 @@
 using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using Mono.Cecil;
+using System;
 using System.Collections.Generic;
 
 namespace H5.Translator
@@ -37,7 +38,7 @@ namespace H5.Translator
             set;
         }
 
-        public Dictionary<string, string> PackageReferencesDiscoveredPaths { get; set; }
+        public Dictionary<string, string> PackageReferencesDiscoveredPaths { get; set; } = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
         public string Location
         {

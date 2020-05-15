@@ -13,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="h5" Version="0.0.7862" />
     <PackageReference Include="h5.core" Version="0.0.7970" />
-    <PackageReference Include="h5.Newtonsoft.Json" Version="0.0.7971" />
+    <PackageReference Include="h5.Newtonsoft.Json" Version="0.0.7982" />
   </ItemGroup>
 
   <PropertyGroup>

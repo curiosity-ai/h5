@@ -37,9 +37,10 @@ We'll very soon add a `dotnet new` template supporting h5.
 ##  Breaking Changes 💥
 
 This experimental fork introduces a series of breaking changes as part of the modernization effort:
-- Projects must target ``netstandard2.0``.
-- Drop support to the legacy *.csproj* format.
-- Compiler will be distributed be instaled as a ``dotnet global`` tool and have it's own versioning.
+- Projects must explicitly target ``netstandard2.0``.
+- Drop support to the legacy *.csproj* format (only SDK-style projects)
+- Drop support for legacy (and unused) command line arguments (check h5 -h for the current supported arguments)
+- Compiler is now distributed as a ``dotnet global`` tool and have it's own versioning and auto-update on build (this can be disable by setting `<UpdateH5>false<UpdateH5/>` on your project file.
 - **Retyped packages are not supported** (as those are maintained by the Bridge authors, and cannot be built separately or consumed without Bridge).
 
 Other breaking changes will probably be introduced with the goal of supporting:

@@ -130,7 +130,7 @@ namespace H5.Contract
 
         protected string GetString(string s)
         {
-            return s != null ? s : "";
+            return s ?? "";
         }
 
         protected string GetString(bool? b)

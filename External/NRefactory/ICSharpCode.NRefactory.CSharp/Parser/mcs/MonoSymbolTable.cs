@@ -1404,7 +1404,7 @@ namespace Mono.CompilerServices.SymbolWriter
             this.Name = name;
             this.Index = index;
             this.Parent = parent;
-            this.UsingClauses = using_clauses != null ? using_clauses : new string [0];
+            this.UsingClauses = using_clauses ?? (new string[0]);
         }
 
         internal NamespaceEntry (MonoSymbolFile file, MyBinaryReader reader)

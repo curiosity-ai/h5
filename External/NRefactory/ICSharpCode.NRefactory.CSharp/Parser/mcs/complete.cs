@@ -165,7 +165,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 AppendResults(results, partial_name, r);
             }
 
-            throw new CompletionResult (partial_name == null ? "" : partial_name, results.Distinct ().ToArray ());
+            throw new CompletionResult (partial_name ?? "", results.Distinct ().ToArray ());
         }
 
         protected override void CloneTo (CloneContext clonectx, Expression t)
@@ -203,7 +203,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 results = temp;
             }
 
-            throw new CompletionResult (partial_name == null ? "" : partial_name, results.Distinct ().ToArray ());
+            throw new CompletionResult (partial_name ?? "", results.Distinct ().ToArray ());
         }
 
         protected override void CloneTo (CloneContext clonectx, Expression t)

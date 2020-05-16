@@ -92,8 +92,6 @@ namespace H5.Contract
 
         ConsoleConfig Console{ get; set; }
 
-        ReportConfig Report{ get; set; }
-
         CompilerRule Rules{ get; set; }
 
         string ReferencesPath { get; set; }

@@ -132,12 +132,6 @@ namespace H5.Translator.Utils
                 config.Html.Name = helper.ApplyTokens(tokens, config.Html.Name);
             }
 
-            if (config.Report != null)
-            {
-                config.Report.FileName = helper.ApplyPathTokens(tokens, config.Report.FileName);
-                config.Report.Path = helper.ApplyPathTokens(tokens, config.Report.Path);
-            }
-
             Logger.LogTrace("ApplyTokens done");
         }
 
@@ -152,11 +146,6 @@ namespace H5.Translator.Utils
             if (assemblyInfo.Html != null)
             {
                 assemblyInfo.Html.Name = helper.ConvertPath(assemblyInfo.Html.Name);
-            }
-
-            if (assemblyInfo.Report != null)
-            {
-                assemblyInfo.Report.Path = helper.ConvertPath(assemblyInfo.Report.Path);
             }
 
             if (assemblyInfo.Resources != null)

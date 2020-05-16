@@ -21,7 +21,6 @@ namespace H5.Translator
             SourceMap = new SourceMapConfig();
             Html = new HtmlConfig();
             Console = new ConsoleConfig();
-            Report = new ReportConfig();
             Rules = new CompilerRule();
             IgnoreDuplicateTypes = false;
         }
@@ -209,9 +208,6 @@ namespace H5.Translator
 
         [Newtonsoft.Json.JsonConverter(typeof(ConsoleConfigConverter))]
         public ConsoleConfig Console { get; set; }
-
-        [Newtonsoft.Json.JsonConverter(typeof(ReportConfigConverter))]
-        public ReportConfig Report { get; set; }
 
         public CompilerRule Rules { get; set; }
 

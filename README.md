@@ -48,7 +48,7 @@ This experimental fork introduces a series of breaking changes as part of the mo
 - Drop support for legacy (and unused) command line arguments (check h5 -h for the current supported arguments)
 - Compiler is now distributed as a ``dotnet global`` tool and have it's own versioning and auto-update on build (this can be disable by setting `<UpdateH5>false<UpdateH5/>` on your project file.
 - **Retyped packages are not supported** (as those are maintained by the Bridge authors, and cannot be built separately or consumed without Bridge).
-- Logging options have been removed from the h5.json config file, and will be available as a Project file option in the future
+- Logging and Report options have been removed from the h5.json config file. Logging settings will be available only as a command line argument (and exposed as a Project file option in the future)
 
 Other breaking changes will probably be introduced with the goal of supporting:
 - Full multiplatform (Windows, Linux & MacOS) compilation without any need for Mono.

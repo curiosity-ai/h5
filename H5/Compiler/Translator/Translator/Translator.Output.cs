@@ -17,122 +17,98 @@ namespace H5.Translator
     {
         public virtual void Save(string projectOutputPath, string defaultFileName)
         {
-            Logger.LogInformation("Starts Save with projectOutputPath = " + projectOutputPath);
-            var outputs = Outputs.GetOutputs().ToList();
-            var dtsReferences = new List<string>();
-            bool addNoLibReference = false;
-
-            foreach (var item in outputs)
+            using (new Measure(Logger, $"Saving results to output folder '{projectOutputPath}'"))
             {
-                if (item.OutputType == TranslatorOutputType.TypeScript && item.OutputKind == TranslatorOutputKind.Reference)
+
+                var outputs = Outputs.GetOutputs().ToList();
+                var dtsReferences = new List<string>();
+                bool addNoLibReference = false;
+
+                foreach (var item in outputs)
                 {
+                    if (item.OutputType == TranslatorOutputType.TypeScript && item.OutputKind == TranslatorOutputKind.Reference)
+                    {
+                        string filePath = DefineOutputItemFullPath(item, projectOutputPath, defaultFileName);
+                        string path = "./" + FileHelper.GetRelativePath(filePath, projectOutputPath).Replace(Path.DirectorySeparatorChar, '/');
+
+                        if (!dtsReferences.Contains(path))
+                        {
+                            dtsReferences.Add(path);
+                        }
+
+                        if (!addNoLibReference && H5.Translator.Validator.IsTypeFromH5Core(item.Assembly))
+                        {
+                            addNoLibReference = true;
+                        }
+                    }
+                }
+
+                foreach (var item in outputs)
+                {
+                    Logger.ZLogTrace("Output {0}", item.Name);
+
                     string filePath = DefineOutputItemFullPath(item, projectOutputPath, defaultFileName);
-                    string path = "./" + FileHelper.GetRelativePath(filePath, projectOutputPath).Replace(Path.DirectorySeparatorChar, '/');
 
-                    if (!dtsReferences.Contains(path))
+                    if (item.IsEmpty && (item.MinifiedVersion == null || item.MinifiedVersion.IsEmpty))
                     {
-                        dtsReferences.Add(path);
+                        Logger.LogTrace("Output {0} is empty", filePath);
+                        continue;
                     }
 
-                    if (!addNoLibReference &&  H5.Translator.Validator.IsTypeFromH5Core(item.Assembly))
+                    var file = FileHelper.CreateFileDirectory(filePath);
+                    Logger.LogTrace("Output full name {0}", file.FullName);
+
+                    byte[] buffer = null;
+                    string content;
+
+                    if (item.OutputType == TranslatorOutputType.TypeScript && item.OutputKind == TranslatorOutputKind.ProjectOutput)
                     {
-                        addNoLibReference = true;
+                        content = item.Content.GetContentAsString();
+                        StringBuilder sb = new StringBuilder();
+                        var nl = Emitter.NEW_LINE;
+
+                        if (addNoLibReference)
+                        {
+                            sb.Append("/// <reference no-default-lib=\"true\"/>" + nl);
+                        }
+
+                        foreach (var reference in dtsReferences)
+                        {
+                            sb.Append($"/// <reference path=\"{reference}\" />" + nl);
+                        }
+
+                        if (sb.Length > 0 && !content.StartsWith("/// <reference path="))
+                        {
+                            sb.Append(nl);
+                        }
+
+                        SaveToFile(file.FullName, sb.ToString() + content);
                     }
-                }
-            }
-
-            foreach (var item in outputs)
-            {
-                Logger.ZLogTrace("Output {0}", item.Name);
-
-                string filePath = DefineOutputItemFullPath(item, projectOutputPath, defaultFileName);
-
-                if (item.IsEmpty && (item.MinifiedVersion == null || item.MinifiedVersion.IsEmpty))
-                {
-                    Logger.LogTrace("Output {0} is empty", filePath);
-                    continue;
-                }
-
-                var file = FileHelper.CreateFileDirectory(filePath);
-                Logger.LogTrace("Output full name {0}", file.FullName);
-
-                byte[] buffer = null;
-                string content;
-
-                if (item.OutputType == TranslatorOutputType.TypeScript && item.OutputKind == TranslatorOutputKind.ProjectOutput)
-                {
-                    content = item.Content.GetContentAsString();
-                    StringBuilder sb = new StringBuilder();
-                    var nl = Emitter.NEW_LINE;
-
-                    if (addNoLibReference)
+                    else if (CheckIfRequiresSourceMap(item))
                     {
-                        sb.Append("/// <reference no-default-lib=\"true\"/>" + nl);
-                    }
+                        content = item.Content.GetContentAsString();
+                        content = GenerateSourceMap(file.FullName, content);
 
-                    foreach (var reference in dtsReferences)
-                    {
-                        sb.Append($"/// <reference path=\"{reference}\" />" + nl);
-                    }
+                        item.HasGeneratedSourceMap = true;
 
-                    if (sb.Length > 0 && !content.StartsWith("/// <reference path="))
-                    {
-                        sb.Append(nl);
-                    }
-
-                    SaveToFile(file.FullName, sb.ToString() + content);
-                }
-                else if (CheckIfRequiresSourceMap(item))
-                {
-                    content = item.Content.GetContentAsString();
-                    content = GenerateSourceMap(file.FullName, content);
-
-                    item.HasGeneratedSourceMap = true;
-
-                    SaveToFile(file.FullName, content);
-                }
-                else
-                {
-                    buffer = item.Content.Buffer;
-
-                    if (buffer != null)
-                    {
-                        SaveToFile(file.FullName, null, buffer);
+                        SaveToFile(file.FullName, content);
                     }
                     else
                     {
-                        content = item.Content.GetContentAsString();
-                        SaveToFile(file.FullName, content);
+                        buffer = item.Content.Buffer;
+
+                        if (buffer != null)
+                        {
+                            SaveToFile(file.FullName, null, buffer);
+                        }
+                        else
+                        {
+                            content = item.Content.GetContentAsString();
+                            SaveToFile(file.FullName, content);
+                        }
                     }
                 }
             }
-
-            Logger.LogInformation("Done Save path = " + projectOutputPath);
-        }
-
-        public void Report(string projectOutputPath)
-        {
-            Logger.LogTrace("Report...");
-
-            var config = AssemblyInfo;
-
-            if (!config.Report.Enabled)
-            {
-                Logger.LogTrace("Report skipped as disabled in config.");
-                return;
-            }
-
-            var reportContent = Outputs.Report.Content.Builder;
-
-            string filePath = DefineOutputItemFullPath(Outputs.Report, projectOutputPath, null);
-
-            var file = FileHelper.CreateFileDirectory(filePath);
-            Logger.ZLogTrace("Report file full name: {0}", file.FullName);
-
-            SaveToFile(file.FullName, reportContent.ToString());
-
-            Logger.LogTrace("Report done");
-
         }
 
         private string DefineOutputItemFullPath(TranslatorOutputItem item, string projectOutputPath, string defaultFileName)
@@ -542,7 +518,14 @@ namespace H5.Translator
 
                             if (resourceExtractItems.Extract != true)
                             {
-                                Logger.ZLogInformation("Skipping resource " + resName + " as it has setting resources.extract != true");
+                                if(resName != "h5.console.js")
+                                {
+                                    Logger.ZLogInformation("Skipping resource {0} as it has setting resources.extract != true", resName);
+                                }
+                                else
+                                {
+                                    Logger.ZLogTrace("Skipping resource {0} as it has setting resources.extract != true", resName);
+                                }
                                 continue;
                             }
 

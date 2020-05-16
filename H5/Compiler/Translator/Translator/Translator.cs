@@ -105,23 +105,14 @@ namespace H5.Translator
 
                 if (Rebuild)
                 {
-                    Logger.LogInformation("Building assembly as Rebuild option is enabled");
+                    Logger.ZLogInformation("Rebuilding assembly on path {0}", AssemblyLocation);
                     BuildAssembly();
                 }
                 else if (!File.Exists(AssemblyLocation))
                 {
-                    Logger.LogInformation("Building assembly as it is not found at " + AssemblyLocation);
+                    Logger.ZLogInformation("Building assembly on path {0}", AssemblyLocation);
                     BuildAssembly();
                 }
-
-                Outputs.Report = new TranslatorOutputItem
-                {
-                    Content = new StringBuilder(),
-                    OutputKind = TranslatorOutputKind.Report,
-                    OutputType = TranslatorOutputType.None,
-                    Name = AssemblyInfo.Report.FileName ?? "h5.report.log",
-                    Location = AssemblyInfo.Report.Path
-                };
 
                 var references = InspectReferences();
                 References = references;

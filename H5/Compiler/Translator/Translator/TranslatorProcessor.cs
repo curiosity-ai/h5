@@ -89,8 +89,6 @@ namespace H5.Translator
 
                 GenerateHtml(outputPath);
 
-                translator.Report(outputPath);
-
                 return outputPath;
             }
         }

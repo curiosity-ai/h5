@@ -38,8 +38,6 @@ namespace H5.Contract
             get; private set;
         }
 
-        public TranslatorOutputItem Report { get; set; }
-
         public IEnumerable<TranslatorOutputItem> GetOutputs(bool projectOutputOnly = false)
         {
             if (Combined != null)
@@ -117,7 +115,6 @@ namespace H5.Contract
             References = new List<TranslatorOutputItem>();
             Locales = new List<TranslatorOutputItem>();
             Resources = new List<TranslatorOutputItem>();
-            Report = new TranslatorOutputItem();
         }
     }
 

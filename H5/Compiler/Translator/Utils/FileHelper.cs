@@ -198,7 +198,7 @@ namespace H5.Translator
 
         public FileInfo CreateFileDirectory(string path)
         {
-            var file = new System.IO.FileInfo(path);
+            var file = new FileInfo(path);
 
             if (!file.Directory.Exists)
             {

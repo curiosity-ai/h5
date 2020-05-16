@@ -151,7 +151,7 @@ namespace H5.Translator
                                         SyntaxFactory.Identifier(FUNC_IDENTIFIER))
                                     .WithTypeArgumentList(
                                         SyntaxFactory.TypeArgumentList(
-                                            SyntaxFactory.SingletonSeparatedList<TypeSyntax>(
+                                            SyntaxFactory.SingletonSeparatedList(
                                                 SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(semanticModel, node.GetLocation().SourceSpan.Start))
                                                 ))
                                         .WithLessThanToken(

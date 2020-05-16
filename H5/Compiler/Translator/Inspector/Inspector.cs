@@ -320,7 +320,7 @@ namespace H5.Translator
                 return;
             }
 
-            ICSharpCode.NRefactory.CSharp.Attribute nsAt;
+            NRAttribute nsAt;
             if (TryGetAttribute(tpDecl, "Namespace", out nsAt))
             {
                 var nsName = nsAt.Arguments.FirstOrNullObject().ToString().Trim('"');

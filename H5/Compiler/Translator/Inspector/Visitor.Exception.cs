@@ -39,7 +39,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(accessor);
+                throw (Exception)CreateException(accessor);
             }
         }
 
@@ -47,7 +47,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(anonymousMethodExpression);
+                throw (Exception)CreateException(anonymousMethodExpression);
             }
         }
 
@@ -55,7 +55,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(anonymousTypeCreateExpression);
+                throw (Exception)CreateException(anonymousTypeCreateExpression);
             }
         }
 
@@ -63,7 +63,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(arrayCreateExpression);
+                throw (Exception)CreateException(arrayCreateExpression);
             }
         }
 
@@ -71,7 +71,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(arrayInitializerExpression);
+                throw (Exception)CreateException(arrayInitializerExpression);
             }
         }
 
@@ -79,7 +79,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(arraySpecifier);
+                throw (Exception)CreateException(arraySpecifier);
             }
         }
 
@@ -87,7 +87,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(asExpression);
+                throw (Exception)CreateException(asExpression);
             }
         }
 
@@ -95,7 +95,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(assignmentExpression);
+                throw (Exception)CreateException(assignmentExpression);
             }
         }
 
@@ -108,7 +108,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(baseReferenceExpression);
+                throw (Exception)CreateException(baseReferenceExpression);
             }
         }
 
@@ -116,7 +116,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(binaryOperatorExpression);
+                throw (Exception)CreateException(binaryOperatorExpression);
             }
         }
 
@@ -124,7 +124,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(blockStatement);
+                throw (Exception)CreateException(blockStatement);
             }
         }
 
@@ -132,7 +132,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(breakStatement);
+                throw (Exception)CreateException(breakStatement);
             }
         }
 
@@ -140,7 +140,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(caseLabel);
+                throw (Exception)CreateException(caseLabel);
             }
         }
 
@@ -148,7 +148,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(castExpression);
+                throw (Exception)CreateException(castExpression);
             }
         }
 
@@ -156,7 +156,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(catchClause);
+                throw (Exception)CreateException(catchClause);
             }
         }
 
@@ -164,7 +164,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(checkedExpression);
+                throw (Exception)CreateException(checkedExpression);
             }
         }
 
@@ -172,7 +172,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(checkedStatement);
+                throw (Exception)CreateException(checkedStatement);
             }
         }
 
@@ -180,7 +180,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(composedType);
+                throw (Exception)CreateException(composedType);
             }
         }
 
@@ -188,7 +188,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(conditionalExpression);
+                throw (Exception)CreateException(conditionalExpression);
             }
         }
 
@@ -196,7 +196,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(constructorDeclaration);
+                throw (Exception)CreateException(constructorDeclaration);
             }
         }
 
@@ -204,7 +204,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(constructorInitializer);
+                throw (Exception)CreateException(constructorInitializer);
             }
         }
 
@@ -212,7 +212,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(continueStatement);
+                throw (Exception)CreateException(continueStatement);
             }
         }
 
@@ -220,7 +220,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(customEventDeclaration);
+                throw (Exception)CreateException(customEventDeclaration);
             }
         }
 
@@ -228,7 +228,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(delegateDeclaration);
+                throw (Exception)CreateException(delegateDeclaration);
             }
         }
 
@@ -236,7 +236,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(destructorDeclaration);
+                throw (Exception)CreateException(destructorDeclaration);
             }
         }
 
@@ -244,7 +244,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(directionExpression);
+                throw (Exception)CreateException(directionExpression);
             }
         }
 
@@ -252,7 +252,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(doWhileStatement);
+                throw (Exception)CreateException(doWhileStatement);
             }
         }
 
@@ -260,7 +260,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(documentationReference);
+                throw (Exception)CreateException(documentationReference);
             }
         }
 
@@ -268,7 +268,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(emptyStatement);
+                throw (Exception)CreateException(emptyStatement);
             }
         }
 
@@ -276,7 +276,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(enumMemberDeclaration);
+                throw (Exception)CreateException(enumMemberDeclaration);
             }
         }
 
@@ -284,7 +284,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(eventDeclaration);
+                throw (Exception)CreateException(eventDeclaration);
             }
         }
 
@@ -292,7 +292,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(expressionStatement);
+                throw (Exception)CreateException(expressionStatement);
             }
         }
 
@@ -300,7 +300,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(externAliasDeclaration);
+                throw (Exception)CreateException(externAliasDeclaration);
             }
         }
 
@@ -308,7 +308,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(fieldDeclaration);
+                throw (Exception)CreateException(fieldDeclaration);
             }
         }
 
@@ -316,7 +316,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(fixedFieldDeclaration);
+                throw (Exception)CreateException(fixedFieldDeclaration);
             }
         }
 
@@ -324,7 +324,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(fixedStatement);
+                throw (Exception)CreateException(fixedStatement);
             }
         }
 
@@ -332,7 +332,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(fixedVariableInitializer);
+                throw (Exception)CreateException(fixedVariableInitializer);
             }
         }
 
@@ -340,7 +340,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(forStatement);
+                throw (Exception)CreateException(forStatement);
             }
         }
 
@@ -348,7 +348,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(foreachStatement);
+                throw (Exception)CreateException(foreachStatement);
             }
         }
 
@@ -356,7 +356,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(gotoCaseStatement);
+                throw (Exception)CreateException(gotoCaseStatement);
             }
         }
 
@@ -364,7 +364,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(gotoDefaultStatement);
+                throw (Exception)CreateException(gotoDefaultStatement);
             }
         }
 
@@ -372,7 +372,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(gotoStatement);
+                throw (Exception)CreateException(gotoStatement);
             }
         }
 
@@ -380,7 +380,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(identifierExpression);
+                throw (Exception)CreateException(identifierExpression);
             }
         }
 
@@ -388,7 +388,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(ifElseStatement);
+                throw (Exception)CreateException(ifElseStatement);
             }
         }
 
@@ -396,7 +396,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(indexerDeclaration);
+                throw (Exception)CreateException(indexerDeclaration);
             }
         }
 
@@ -404,7 +404,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(indexerExpression);
+                throw (Exception)CreateException(indexerExpression);
             }
         }
 
@@ -412,7 +412,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(invocationExpression);
+                throw (Exception)CreateException(invocationExpression);
             }
         }
 
@@ -420,7 +420,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(isExpression);
+                throw (Exception)CreateException(isExpression);
             }
         }
 
@@ -428,7 +428,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(labelStatement);
+                throw (Exception)CreateException(labelStatement);
             }
         }
 
@@ -436,7 +436,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(lambdaExpression);
+                throw (Exception)CreateException(lambdaExpression);
             }
         }
 
@@ -444,7 +444,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(lockStatement);
+                throw (Exception)CreateException(lockStatement);
             }
         }
 
@@ -452,7 +452,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(memberReferenceExpression);
+                throw (Exception)CreateException(memberReferenceExpression);
             }
         }
 
@@ -460,7 +460,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(methodDeclaration);
+                throw (Exception)CreateException(methodDeclaration);
             }
         }
 
@@ -468,7 +468,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(namedArgumentExpression);
+                throw (Exception)CreateException(namedArgumentExpression);
             }
         }
 
@@ -476,7 +476,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(namedExpression);
+                throw (Exception)CreateException(namedExpression);
             }
         }
 
@@ -484,7 +484,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(namespaceDeclaration);
+                throw (Exception)CreateException(namespaceDeclaration);
             }
         }
 
@@ -492,7 +492,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(objectCreateExpression);
+                throw (Exception)CreateException(objectCreateExpression);
             }
         }
 
@@ -500,7 +500,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(parameterDeclaration);
+                throw (Exception)CreateException(parameterDeclaration);
             }
         }
 
@@ -508,7 +508,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(parenthesizedExpression);
+                throw (Exception)CreateException(parenthesizedExpression);
             }
         }
 
@@ -521,7 +521,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(pointerReferenceExpression);
+                throw (Exception)CreateException(pointerReferenceExpression);
             }
         }
 
@@ -529,7 +529,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(primitiveExpression);
+                throw (Exception)CreateException(primitiveExpression);
             }
         }
 
@@ -537,7 +537,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(propertyDeclaration);
+                throw (Exception)CreateException(propertyDeclaration);
             }
         }
 
@@ -545,7 +545,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryContinuationClause);
+                throw (Exception)CreateException(queryContinuationClause);
             }
         }
 
@@ -553,7 +553,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryExpression);
+                throw (Exception)CreateException(queryExpression);
             }
         }
 
@@ -561,7 +561,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryFromClause);
+                throw (Exception)CreateException(queryFromClause);
             }
         }
 
@@ -569,7 +569,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryGroupClause);
+                throw (Exception)CreateException(queryGroupClause);
             }
         }
 
@@ -577,7 +577,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryJoinClause);
+                throw (Exception)CreateException(queryJoinClause);
             }
         }
 
@@ -585,7 +585,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryLetClause);
+                throw (Exception)CreateException(queryLetClause);
             }
         }
 
@@ -593,7 +593,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryOrderClause);
+                throw (Exception)CreateException(queryOrderClause);
             }
         }
 
@@ -601,7 +601,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryOrdering);
+                throw (Exception)CreateException(queryOrdering);
             }
         }
 
@@ -609,7 +609,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(querySelectClause);
+                throw (Exception)CreateException(querySelectClause);
             }
         }
 
@@ -617,7 +617,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(queryWhereClause);
+                throw (Exception)CreateException(queryWhereClause);
             }
         }
 
@@ -625,7 +625,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(returnStatement);
+                throw (Exception)CreateException(returnStatement);
             }
         }
 
@@ -633,7 +633,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(sizeOfExpression);
+                throw (Exception)CreateException(sizeOfExpression);
             }
         }
 
@@ -641,7 +641,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(stackAllocExpression);
+                throw (Exception)CreateException(stackAllocExpression);
             }
         }
 
@@ -649,7 +649,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(switchSection);
+                throw (Exception)CreateException(switchSection);
             }
         }
 
@@ -657,7 +657,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(switchStatement);
+                throw (Exception)CreateException(switchStatement);
             }
         }
 
@@ -665,7 +665,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(syntaxTree);
+                throw (Exception)CreateException(syntaxTree);
             }
         }
 
@@ -673,7 +673,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(textNode);
+                throw (Exception)CreateException(textNode);
             }
         }
 
@@ -681,7 +681,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(thisReferenceExpression);
+                throw (Exception)CreateException(thisReferenceExpression);
             }
         }
 
@@ -689,7 +689,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(throwStatement);
+                throw (Exception)CreateException(throwStatement);
             }
         }
 
@@ -697,7 +697,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(tryCatchStatement);
+                throw (Exception)CreateException(tryCatchStatement);
             }
         }
 
@@ -705,7 +705,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(typeDeclaration);
+                throw (Exception)CreateException(typeDeclaration);
             }
         }
 
@@ -713,7 +713,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(typeOfExpression);
+                throw (Exception)CreateException(typeOfExpression);
             }
         }
 
@@ -721,7 +721,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(typeReferenceExpression);
+                throw (Exception)CreateException(typeReferenceExpression);
             }
         }
 
@@ -729,7 +729,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(unaryOperatorExpression);
+                throw (Exception)CreateException(unaryOperatorExpression);
             }
         }
 
@@ -737,7 +737,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(uncheckedExpression);
+                throw (Exception)CreateException(uncheckedExpression);
             }
         }
 
@@ -745,7 +745,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(uncheckedStatement);
+                throw (Exception)CreateException(uncheckedStatement);
             }
         }
 
@@ -753,7 +753,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(undocumentedExpression);
+                throw (Exception)CreateException(undocumentedExpression);
             }
         }
 
@@ -761,7 +761,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(unsafeStatement);
+                throw (Exception)CreateException(unsafeStatement);
             }
         }
 
@@ -769,7 +769,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(usingDeclaration);
+                throw (Exception)CreateException(usingDeclaration);
             }
         }
 
@@ -777,7 +777,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(usingStatement);
+                throw (Exception)CreateException(usingStatement);
             }
         }
 
@@ -785,7 +785,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(variableDeclarationStatement);
+                throw (Exception)CreateException(variableDeclarationStatement);
             }
         }
 
@@ -793,7 +793,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(variableInitializer);
+                throw (Exception)CreateException(variableInitializer);
             }
         }
 
@@ -801,7 +801,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(whileStatement);
+                throw (Exception)CreateException(whileStatement);
             }
         }
 
@@ -809,7 +809,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(whitespaceNode);
+                throw (Exception)CreateException(whitespaceNode);
             }
         }
 
@@ -817,7 +817,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(yieldBreakStatement);
+                throw (Exception)CreateException(yieldBreakStatement);
             }
         }
 
@@ -825,7 +825,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(yieldReturnStatement);
+                throw (Exception)CreateException(yieldReturnStatement);
             }
         }
 
@@ -833,7 +833,7 @@ namespace H5.Translator
         {
             if (ThrowException)
             {
-                throw (System.Exception)CreateException(errorNode);
+                throw (Exception)CreateException(errorNode);
             }
         }
     }

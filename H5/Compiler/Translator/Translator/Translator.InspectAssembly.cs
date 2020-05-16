@@ -270,59 +270,58 @@ namespace H5.Translator
 
         protected virtual List<AssemblyDefinition> InspectReferences()
         {
-            Logger.LogInformation("Inspecting references...");
-
-            TypeInfoDefinitions = new Dictionary<string, ITypeInfo>();
-
-            var references = new List<AssemblyDefinition>();
-            var assembly = LoadAssembly(AssemblyLocation, references);
-            LoadReferenceAssemblies(references);
-            TypeDefinitions = new Dictionary<string, TypeDefinition>();
-            H5Types = new H5Types();
-            AssemblyDefinition = assembly;
-
-            if (assembly.Name.Name != Translator.H5_ASSEMBLY || AssemblyInfo.Assembly != null && AssemblyInfo.Assembly.EnableReservedNamespaces)
+            using (new Measure(Logger, "Inspecting references"))
             {
-                ReadTypes(assembly);
+                TypeInfoDefinitions = new Dictionary<string, ITypeInfo>();
+
+                var references = new List<AssemblyDefinition>();
+                var assembly = LoadAssembly(AssemblyLocation, references);
+                LoadReferenceAssemblies(references);
+                TypeDefinitions = new Dictionary<string, TypeDefinition>();
+                H5Types = new H5Types();
+                AssemblyDefinition = assembly;
+
+                if (assembly.Name.Name != Translator.H5_ASSEMBLY || AssemblyInfo.Assembly != null && AssemblyInfo.Assembly.EnableReservedNamespaces)
+                {
+                    ReadTypes(assembly);
+                }
+
+                foreach (var item in references)
+                {
+                    ReadTypes(item);
+                }
+
+                var prefix = Path.GetDirectoryName(Location);
+
+                for (int i = 0; i < SourceFiles.Count; i++)
+                {
+                    SourceFiles[i] = Path.Combine(prefix, SourceFiles[i]);
+                }
+
+
+                return references;
             }
-
-            foreach (var item in references)
-            {
-                ReadTypes(item);
-            }
-
-            var prefix = Path.GetDirectoryName(Location);
-
-            for (int i = 0; i < SourceFiles.Count; i++)
-            {
-                SourceFiles[i] = Path.Combine(prefix, SourceFiles[i]);
-            }
-
-            Logger.LogInformation("Inspecting references done");
-
-            return references;
         }
 
         protected virtual void InspectTypes(MemberResolver resolver, IAssemblyInfo config)
         {
-            Logger.LogInformation("Inspecting types...");
-
-            Inspector inspector = CreateInspector(config);
-            inspector.AssemblyInfo = config;
-            inspector.Resolver = resolver;
-
-            for (int i = 0; i < ParsedSourceFiles.Length; i++)
+            using (new Measure(Logger, "Inspecting types"))
             {
-                var sourceFile = ParsedSourceFiles[i];
-                Logger.ZLogTrace("Visiting syntax tree {0}", (sourceFile != null && sourceFile.ParsedFile != null && sourceFile.ParsedFile.FileName != null ? sourceFile.ParsedFile.FileName : ""));
+                var inspector = CreateInspector(config);
+                inspector.AssemblyInfo = config;
+                inspector.Resolver = resolver;
 
-                inspector.VisitSyntaxTree(sourceFile.SyntaxTree);
+                for (int i = 0; i < ParsedSourceFiles.Length; i++)
+                {
+                    var sourceFile = ParsedSourceFiles[i];
+                    Logger.ZLogTrace("Visiting syntax tree {0}", (sourceFile != null && sourceFile.ParsedFile != null && sourceFile.ParsedFile.FileName != null ? sourceFile.ParsedFile.FileName : ""));
+
+                    inspector.VisitSyntaxTree(sourceFile.SyntaxTree);
+                }
+
+                AssemblyInfo = inspector.AssemblyInfo;
+                Types = inspector.Types;
             }
-
-            AssemblyInfo = inspector.AssemblyInfo;
-            Types = inspector.Types;
-
-            Logger.LogInformation("Inspecting types done");
         }
 
         protected virtual Inspector CreateInspector(IAssemblyInfo config = null)
@@ -421,7 +420,7 @@ namespace H5.Translator
 
             Logger.ZLogTrace("Building syntax tree for file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
             
-            sw = new ValueStopwatch(); //Reset the stopwatch
+            sw = ValueStopwatch.StartNew(); //Reset the stopwatch
 
             if (parser.HasErrors)
             {
@@ -438,7 +437,7 @@ namespace H5.Translator
             
             Logger.ZLogTrace("Expanding query expressions for file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
 
-            sw = new ValueStopwatch(); //Reset the stopwatch
+            sw = ValueStopwatch.StartNew(); //Reset the stopwatch
 
             syntaxTree = (expandResult != null ? (SyntaxTree)expandResult.AstNode : syntaxTree);
 
@@ -446,7 +445,7 @@ namespace H5.Translator
             syntaxTree.AcceptVisitor(emptyLambdaDetecter);
 
             Logger.ZLogTrace("Empty lambda detector on file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
-            sw = new ValueStopwatch(); //Reset the stopwatch
+            sw = ValueStopwatch.StartNew(); //Reset the stopwatch
 
 
             if (emptyLambdaDetecter.Found)
@@ -454,7 +453,7 @@ namespace H5.Translator
                 var fixer = new EmptyLambdaFixer();
                 var astNode = syntaxTree.AcceptVisitor(fixer);
                 Logger.ZLogTrace("Empty lambda fixer on file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
-                sw = new ValueStopwatch(); //Reset the stopwatch
+                sw = ValueStopwatch.StartNew(); //Reset the stopwatch
                 syntaxTree = (astNode != null ? (SyntaxTree)astNode : syntaxTree);
                 syntaxTree.FileName = fileName;
             }

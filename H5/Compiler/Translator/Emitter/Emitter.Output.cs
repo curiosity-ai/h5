@@ -172,7 +172,7 @@ namespace H5.Translator
             AssemblyJsDocWritten = true;
         }
 
-        private void OutputTop(Contract.IEmitterOutput output, StringBuilder tmp)
+        private void OutputTop(IEmitterOutput output, StringBuilder tmp)
         {
             if (output.TopOutput.Length > 0)
             {
@@ -181,7 +181,7 @@ namespace H5.Translator
             }
         }
 
-        private bool OutputNonModule(bool disableAsm, string fileName, Contract.IEmitterOutput output, bool isJs, StringBuilder tmp)
+        private bool OutputNonModule(bool disableAsm, string fileName, IEmitterOutput output, bool isJs, StringBuilder tmp)
         {
             bool metaDataWritten = false;
 
@@ -266,7 +266,7 @@ namespace H5.Translator
             return metaDataWritten;
         }
 
-        private int AddDependencies(int level, Contract.IEmitterOutput output, StringBuilder tmp, StringBuilder endOutput)
+        private int AddDependencies(int level, IEmitterOutput output, StringBuilder tmp, StringBuilder endOutput)
         {
             var loader = AssemblyInfo.Loader;
             var dependencies = output.NonModuleDependencies;
@@ -360,7 +360,7 @@ namespace H5.Translator
             return level;
         }
 
-        private void OutputBottom(Contract.IEmitterOutput output, StringBuilder tmp)
+        private void OutputBottom(IEmitterOutput output, StringBuilder tmp)
         {
             if (output.BottomOutput.Length > 0)
             {

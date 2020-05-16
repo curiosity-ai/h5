@@ -190,7 +190,7 @@ namespace H5.Translator
                                     declarationType = keyType;
                                 }
 
-                                var varDecl = SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName("var")).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                var varDecl = SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName("var")).WithVariables(SyntaxFactory.SingletonSeparatedList(
                                     SyntaxFactory.VariableDeclarator(
                                         SyntaxFactory.Identifier(designation.Identifier.ValueText)
                                     ).WithInitializer(SyntaxFactory.EqualsValueClause(patternsCount > 1 ? (ExpressionSyntax)SyntaxFactory.BinaryExpression(SyntaxKind.AsExpression, expressionSyntax, declarationType) : SyntaxFactory.CastExpression(declarationType, expressionSyntax)))

@@ -29,7 +29,7 @@ namespace H5.Translator
             _compilation = compilation;
             _emitter = emitter;
             _syntaxTree = syntaxTree;
-            _expression = (ITypeDefinition)ReflectionHelper.ParseReflectionName(typeof(System.Linq.Expressions.Expression).FullName).Resolve(compilation);
+            _expression = (ITypeDefinition)ReflectionHelper.ParseReflectionName(typeof(Expression).FullName).Resolve(compilation);
             _allParameters = new Dictionary<IVariable, string>();
             _block = block;
         }

@@ -77,7 +77,7 @@ namespace H5.Translator
 
             if (updatedBlocks.Count > 0)
             {
-                root = root.ReplaceNodes(updatedBlocks.Keys, (b1, b2) => b1.WithStatements(SyntaxFactory.List<StatementSyntax>(updatedBlocks[b1])));
+                root = root.ReplaceNodes(updatedBlocks.Keys, (b1, b2) => b1.WithStatements(SyntaxFactory.List(updatedBlocks[b1])));
             }
 
             return root;

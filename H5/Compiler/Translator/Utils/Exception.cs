@@ -3,7 +3,7 @@ using System;
 
 namespace H5.Translator
 {
-    public class TranslatorException : System.Exception, IVisitorException
+    public class TranslatorException : Exception, IVisitorException
     {
         public TranslatorException()
         {
@@ -21,7 +21,7 @@ namespace H5.Translator
 
         public static IVisitorException Create(string format, params object[] args)
         {
-            return new H5.Translator.TranslatorException(String.Format(format, args));
+            return new TranslatorException(String.Format(format, args));
         }
 
         public static void Throw(string format, params object[] args)

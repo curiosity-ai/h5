@@ -80,7 +80,7 @@ namespace H5.Translator
                         Rebuild = Rebuild,
                         ProjectLocation = projectRef,
                         H5Location = H5Location,
-                        ProjectProperties = new Contract.ProjectProperties
+                        ProjectProperties = new ProjectProperties
                         {
                             BuildProjects = ProjectProperties.BuildProjects,
                             Configuration = ProjectProperties.Configuration
@@ -167,7 +167,7 @@ namespace H5.Translator
                             Rebuild = Rebuild,
                             ProjectLocation = projectRef,
                             H5Location = H5Location,
-                            ProjectProperties = new Contract.ProjectProperties
+                            ProjectProperties = new ProjectProperties
                             {
                                 BuildProjects = ProjectProperties.BuildProjects,
                                 Configuration = ProjectProperties.Configuration
@@ -349,7 +349,7 @@ namespace H5.Translator
                         }
                     }
 
-                    throw new H5.Translator.TranslatorException(sb.ToString());
+                    throw new TranslatorException(sb.ToString());
                 }
             }
         }

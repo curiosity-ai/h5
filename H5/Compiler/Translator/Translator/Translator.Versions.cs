@@ -77,7 +77,7 @@ namespace H5.Translator
             {
                 fileVerionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(path);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Logger.ZLogError(ex, "Could not load {0} to get the assembly info", path);
             }

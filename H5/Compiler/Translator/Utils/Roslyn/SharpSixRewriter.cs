@@ -354,7 +354,7 @@ namespace H5.Translator
                                     SyntaxKind.SimpleMemberAccessExpression,
                                     node.Left,
                                     SyntaxFactory.IdentifierName("Equals")), SyntaxFactory.ArgumentList(
-                                    SyntaxFactory.SingletonSeparatedList<ArgumentSyntax>(
+                                    SyntaxFactory.SingletonSeparatedList(
                                         SyntaxFactory.Argument(
                                             node.Right)))).NormalizeWhitespace().WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
             }
@@ -389,7 +389,7 @@ namespace H5.Translator
         {
             node = (RefTypeSyntax)base.VisitRefType(node);
 
-            return SyntaxFactory.GenericName(SyntaxFactory.Identifier("H5.Ref"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(new[] { node.Type }))).NormalizeWhitespace().WithTrailingTrivia(node.GetTrailingTrivia()).WithLeadingTrivia(node.GetLeadingTrivia());
+            return SyntaxFactory.GenericName(SyntaxFactory.Identifier("H5.Ref"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(new[] { node.Type }))).NormalizeWhitespace().WithTrailingTrivia(node.GetTrailingTrivia()).WithLeadingTrivia(node.GetLeadingTrivia());
         }
 
         public override SyntaxNode VisitRefExpression(RefExpressionSyntax node)
@@ -406,7 +406,7 @@ namespace H5.Translator
                 return node.Expression.NormalizeWhitespace().WithTrailingTrivia(node.GetTrailingTrivia()).WithLeadingTrivia(node.GetLeadingTrivia());
             }
 
-            var createExpression = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(SyntaxFactory.Identifier("H5.Ref"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(new []{
+            var createExpression = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(SyntaxFactory.Identifier("H5.Ref"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(new []{
                 SyntaxHelper.GenerateTypeSyntax(type, semanticModel, pos, this)
             })))).WithArgumentList(SyntaxFactory.ArgumentList(
                 SyntaxFactory.SeparatedList<ArgumentSyntax>(
@@ -433,7 +433,7 @@ namespace H5.Translator
                                     SyntaxFactory.Token(SyntaxKind.EqualsToken)))
                             .WithParameterList(
                                 SyntaxFactory.ParameterList(
-                                    SyntaxFactory.SingletonSeparatedList<ParameterSyntax>(
+                                    SyntaxFactory.SingletonSeparatedList(
                                         SyntaxFactory.Parameter(
                                             SyntaxFactory.Identifier("_v_"))))
                                 .WithOpenParenToken(
@@ -522,7 +522,7 @@ namespace H5.Translator
 
             if (type.IsTupleType)
             {
-                var createExpression = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types))));
+                var createExpression = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types))));
                 var argExpressions = new List<ArgumentSyntax>();
 
                 foreach (var arg in node.Arguments)
@@ -530,7 +530,7 @@ namespace H5.Translator
                     argExpressions.Add(arg.WithNameColon(null));
                 }
 
-                createExpression = createExpression.WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(argExpressions))).NormalizeWhitespace();
+                createExpression = createExpression.WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(argExpressions))).NormalizeWhitespace();
                 return createExpression.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
             }
 
@@ -547,7 +547,7 @@ namespace H5.Translator
                 types.Add(el.Type);
             }
 
-            var newType = SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
+            var newType = SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
 
             return newType.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia()); ;
         }
@@ -1443,7 +1443,7 @@ namespace H5.Translator
             if (c != null && isReadOnly)
             {
                 c = c.WithModifiers(c.Modifiers.RemoveAt(c.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
-                c = c.WithAttributeLists(c.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList<AttributeSyntax>(new AttributeSyntax[1] { SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("H5.Immutable")) })).WithTrailingTrivia(SyntaxFactory.Whitespace("\n"))));
+                c = c.WithAttributeLists(c.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList(new AttributeSyntax[1] { SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("H5.Immutable")) })).WithTrailingTrivia(SyntaxFactory.Whitespace("\n"))));
             }
 
             if (c != null && isRef)
@@ -1921,7 +1921,7 @@ namespace H5.Translator
                                         SyntaxFactory.Identifier(FUNC_IDENTIFIER))
                                     .WithTypeArgumentList(
                                         SyntaxFactory.TypeArgumentList(
-                                            SyntaxFactory.SingletonSeparatedList<TypeSyntax>(
+                                            SyntaxFactory.SingletonSeparatedList(
                                                 SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(semanticModel, pos))
                                                 ))
                                         .WithLessThanToken(
@@ -2038,7 +2038,7 @@ namespace H5.Translator
             if (catchItem.Declaration.Identifier.Kind() != SyntaxKind.None)
             {
                 var variableStatement = SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(catchItem.Declaration.Type,
-                    SyntaxFactory.SeparatedList<VariableDeclaratorSyntax>(new[] { SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(catchItem.Declaration.Identifier.Text)).WithInitializer(
+                    SyntaxFactory.SeparatedList(new[] { SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(catchItem.Declaration.Identifier.Text)).WithInitializer(
                         SyntaxFactory.EqualsValueClause(SyntaxFactory.CastExpression(catchItem.Declaration.Type, SyntaxFactory.IdentifierName(varName)))
                     ) })));
 

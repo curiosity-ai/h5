@@ -61,7 +61,7 @@ namespace H5.Translator
 
                                 var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
 
-                                var varDecl = SyntaxFactory.VariableDeclaration(declarationPattern.Type).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                var varDecl = SyntaxFactory.VariableDeclaration(declarationPattern.Type).WithVariables(SyntaxFactory.SingletonSeparatedList(
                                     SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
                                 ));
 
@@ -184,10 +184,10 @@ namespace H5.Translator
                                                         SyntaxFactory.Identifier("Write"))
                                                     .WithTypeArgumentList(
                                                         SyntaxFactory.TypeArgumentList(
-                                                            SyntaxFactory.SingletonSeparatedList<TypeSyntax>(declarationPattern.Type)))))
+                                                            SyntaxFactory.SingletonSeparatedList(declarationPattern.Type)))))
                                             .WithArgumentList(
                                                 SyntaxFactory.ArgumentList(
-                                                    SyntaxFactory.SingletonSeparatedList<ArgumentSyntax>(
+                                                    SyntaxFactory.SingletonSeparatedList(
                                                         SyntaxFactory.Argument(
                                                             SyntaxFactory.LiteralExpression(
                                                                 SyntaxKind.StringLiteralExpression,
@@ -221,7 +221,7 @@ namespace H5.Translator
                                        SyntaxKind.SimpleMemberAccessExpression,
                                        pattern.Expression,
                                        SyntaxFactory.IdentifierName("Equals")), SyntaxFactory.ArgumentList(
-                                       SyntaxFactory.SingletonSeparatedList<ArgumentSyntax>(
+                                       SyntaxFactory.SingletonSeparatedList(
                                            SyntaxFactory.Argument(
                                                cps.Expression))));
                             }

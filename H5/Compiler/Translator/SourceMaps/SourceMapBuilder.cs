@@ -76,7 +76,7 @@ namespace H5.Translator
             _entries.Add(new SourceMapEntry(sourceLocation, scriptLine, scriptColumn));
         }
 
-        public string Build(string[] sourcesContent, H5.Contract.UnicodeNewline? forceEol = null)
+        public string Build(string[] sourcesContent, Contract.UnicodeNewline? forceEol = null)
         {
             ResetPreviousSourceLocation();
 
@@ -219,7 +219,7 @@ namespace H5.Translator
             Uri folderUri = new Uri(folder);
 
             var path = folderUri.MakeRelativeUri(pathUri).ToString();
-            path = new H5.Contract.ConfigHelper().ConvertPath(path, '/');
+            path = new Contract.ConfigHelper().ConvertPath(path, '/');
 
             return Uri.UnescapeDataString(path);
         }

@@ -32,7 +32,7 @@ namespace H5.Translator
 
         public Dictionary<string, List<IPluginDependency>> ModuleDependencies { get; set; }
 
-        public System.Collections.Generic.List<IPluginDependency> NonModuleDependencies { get; set; }
+        public List<IPluginDependency> NonModuleDependencies { get; set; }
 
         public bool IsDefaultOutput
         {

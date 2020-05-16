@@ -311,6 +311,8 @@ namespace H5.Translator
             return plugins;
         }
 
+        public bool HasAny() => Parts.Any();
+
         public static string TrimResourceAssemblyName(Resource resource, string resourceNamePrefix)
         {
             var trimmedName = resource.Name;

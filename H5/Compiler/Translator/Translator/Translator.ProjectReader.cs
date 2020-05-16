@@ -106,7 +106,7 @@ namespace H5.Translator
                                          tag.UnevaluatedValue + "</" + tag.Xml.Name + ">\n";
                 }
 
-                throw new H5.Translator.TranslatorException("'H5' name is reserved and may not " +
+                throw new TranslatorException("'H5' name is reserved and may not " +
                     "be used as project names or root namespaces.\n" +
                     "Please verify your project settings and rename where it applies.\n" +
                     "Project file: " + Location + "\n" +

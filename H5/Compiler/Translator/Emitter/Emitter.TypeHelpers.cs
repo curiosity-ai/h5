@@ -230,7 +230,7 @@ namespace H5.Translator
             using (new Measure(Logger, "Topological Sorting", logLevel: LogLevel.Trace))
             {
 
-                var graph = new TopologicalSorting.DependencyGraph();
+                var graph = new DependencyGraph();
 
                 Logger.ZLogTrace("\tTopological sorting first iteration...");
 
@@ -245,7 +245,7 @@ namespace H5.Translator
                     if (tProcess == null)
                     {
                         hitCounters[1]++;
-                        tProcess = new TopologicalSorting.OrderedProcess(graph, reflectionName);
+                        tProcess = new OrderedProcess(graph, reflectionName);
                     }
 
                     for (int i = parents.Count - 1; i > -1; i--)
@@ -261,7 +261,7 @@ namespace H5.Translator
                             if (dProcess == null)
                             {
                                 hitCounters[4]++;
-                                dProcess = new TopologicalSorting.OrderedProcess(graph, reflectionName);
+                                dProcess = new OrderedProcess(graph, reflectionName);
                             }
 
                             if (tProcess != dProcess && dProcess.Predecessors.All(p => p.Name != tProcess.Name))

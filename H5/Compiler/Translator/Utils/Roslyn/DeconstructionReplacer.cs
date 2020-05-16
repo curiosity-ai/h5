@@ -53,7 +53,7 @@ namespace H5.Translator
                                 {
                                     var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
                                     var typeInfo = model.GetTypeInfo(de).Type;
-                                    var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo, model, arg.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                    var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo, model, arg.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList(
                                         SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
                                     ));
 
@@ -107,7 +107,7 @@ namespace H5.Translator
                             {
                                 var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
 
-                                var varDecl = SyntaxFactory.VariableDeclaration(types[idx++]).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                var varDecl = SyntaxFactory.VariableDeclaration(types[idx++]).WithVariables(SyntaxFactory.SingletonSeparatedList(
                                     SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
                                 ));
 

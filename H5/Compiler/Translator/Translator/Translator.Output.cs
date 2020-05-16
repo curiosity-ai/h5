@@ -1249,7 +1249,7 @@ namespace H5.Translator
 
                 Logger.ZLogInformation("Cleaning output folder done");
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Logger.ZLogError(ex.ToString());
             }

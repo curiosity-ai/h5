@@ -109,7 +109,7 @@ namespace H5.Translator
                             if (!noLocal)
                             {
                                 var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
-                                var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, discard.Parent.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, discard.Parent.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList(
                                     SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(instance))
                                 ));
 
@@ -167,7 +167,7 @@ namespace H5.Translator
                             }
 
                             var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
-                            var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, discardVar.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                            var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, discardVar.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList(
                                 SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(instance))
                             ));
 
@@ -206,7 +206,7 @@ namespace H5.Translator
                                 if (de.Designation is SingleVariableDesignationSyntax designation)
                                 {
                                     var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
-                                    var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, outVar.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                    var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, outVar.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList(
                                         SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
                                     ));
 

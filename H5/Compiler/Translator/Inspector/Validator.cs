@@ -254,7 +254,7 @@ namespace H5.Translator
             return false;
         }
 
-        public virtual bool IsExternalType(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, bool ignoreLiteral = false)
+        public virtual bool IsExternalType(ITypeDefinition typeDefinition, bool ignoreLiteral = false)
         {
 
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
@@ -386,7 +386,7 @@ namespace H5.Translator
             return isVirtual;
         }
 
-        public virtual bool IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, out bool isNative)
+        public virtual bool IsExternalInterface(ITypeDefinition typeDefinition, out bool isNative)
         {
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalInterfaceAttribute";
             var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
@@ -412,7 +412,7 @@ namespace H5.Translator
             return attr != null;
         }
 
-        public virtual IExternalInterface IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition)
+        public virtual IExternalInterface IsExternalInterface(ITypeDefinition typeDefinition)
         {
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalInterfaceAttribute";
 
@@ -503,9 +503,9 @@ namespace H5.Translator
             return a;
         }
 
-        public virtual ICSharpCode.NRefactory.TypeSystem.IAttribute GetAttribute(IEnumerable<ICSharpCode.NRefactory.TypeSystem.IAttribute> attributes, string name)
+        public virtual IAttribute GetAttribute(IEnumerable<IAttribute> attributes, string name)
         {
-            ICSharpCode.NRefactory.TypeSystem.IAttribute a = attributes
+            IAttribute a = attributes
                 .FirstOrDefault(attr => attr.AttributeType.FullName == name);
             return a;
         }
@@ -570,7 +570,7 @@ namespace H5.Translator
             return 0;
         }
 
-        public virtual bool IsObjectLiteral(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type)
+        public virtual bool IsObjectLiteral(ITypeDefinition type)
         {
             return HasAttribute(type, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
         }

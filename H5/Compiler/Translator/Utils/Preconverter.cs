@@ -94,7 +94,7 @@ namespace H5.Translator
                     Found = true;
                 }
 
-                if (Found && !isInt && assignmentExpression.Parent is ICSharpCode.NRefactory.CSharp.LambdaExpression)
+                if (Found && !isInt && assignmentExpression.Parent is LambdaExpression)
                 {
                     if (Resolver.ResolveNode(assignmentExpression.Parent) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
                     {

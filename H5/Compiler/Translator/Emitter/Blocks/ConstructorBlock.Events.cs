@@ -153,7 +153,7 @@ namespace H5.Translator
                             {
                                 var eventArg = attr.Arguments.First();
 
-                                if (eventArg is ICSharpCode.NRefactory.CSharp.PrimitiveExpression primitiveArg)
+                                if (eventArg is PrimitiveExpression primitiveArg)
                                 {
                                     eventName = primitiveArg.Value.ToString();
                                 }
@@ -174,7 +174,7 @@ namespace H5.Translator
 
                             if (attr.Arguments.Count > selectorIndex)
                             {
-                                selector = ((ICSharpCode.NRefactory.CSharp.PrimitiveExpression)(attr.Arguments.ElementAt(selectorIndex))).Value.ToString();
+                                selector = ((PrimitiveExpression)(attr.Arguments.ElementAt(selectorIndex))).Value.ToString();
                             }
                             else
                             {

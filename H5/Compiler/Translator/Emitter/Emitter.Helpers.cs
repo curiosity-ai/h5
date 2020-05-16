@@ -387,7 +387,7 @@ namespace H5.Translator
             return semantic.Name;
         }
 
-        public string GetLiteralEntityName(ICSharpCode.NRefactory.TypeSystem.IEntity member)
+        public string GetLiteralEntityName(IEntity member)
         {
             var semantic = NameSemantic.Create(member, this);
             semantic.IsObjectLiteral = true;

@@ -98,112 +98,118 @@ namespace H5.Translator
 
         public void Translate()
         {
-            Logger.LogInformation("Translating...");
-
-            var config = AssemblyInfo;
-
-            if (Rebuild)
+            using (new Measure(Logger, "Translating assembly"))
             {
-                //if(File.Exists(this.AssemblyLocation))
-                //{
-                //    File.Delete(this.AssemblyLocation);
-                //}
-                Logger.LogInformation("Building assembly as Rebuild option is enabled");
-                BuildAssembly();
-            }
-            else if (!File.Exists(AssemblyLocation))
-            {
-                Logger.LogInformation("Building assembly as it is not found at " + AssemblyLocation);
-                BuildAssembly();
-            }
 
-            Outputs.Report = new TranslatorOutputItem
-            {
-                Content = new StringBuilder(),
-                OutputKind = TranslatorOutputKind.Report,
-                OutputType = TranslatorOutputType.None,
-                Name = AssemblyInfo.Report.FileName ?? "h5.report.log",
-                Location = AssemblyInfo.Report.Path
-            };
+                var config = AssemblyInfo;
 
-            var references = InspectReferences();
-            References = references;
-
-            LogProductInfo();
-
-            Plugins = H5.Translator.Plugins.GetPlugins(this, config);
-
-            Logger.LogInformation("Reading plugin configs...");
-            Plugins.OnConfigRead(config);
-            Logger.LogInformation("Reading plugin configs done");
-
-            if (!string.IsNullOrWhiteSpace(config.BeforeBuild))
-            {
-                try
+                if (Rebuild)
                 {
-                    Logger.LogInformation("Running BeforeBuild event " + config.BeforeBuild + " ...");
-                    RunEvent(config.BeforeBuild);
-                    Logger.LogInformation("Running BeforeBuild event done");
+                    Logger.LogInformation("Building assembly as Rebuild option is enabled");
+                    BuildAssembly();
                 }
-                catch (System.Exception exc)
+                else if (!File.Exists(AssemblyLocation))
                 {
-                    var message = "Error: Unable to run beforeBuild event command: " + exc.Message + "\nStack trace:\n" + exc.StackTrace;
-
-                    Logger.LogError("Exception occurred. Message: " + message);
-
-                    throw new H5.Translator.TranslatorException(message);
+                    Logger.LogInformation("Building assembly as it is not found at " + AssemblyLocation);
+                    BuildAssembly();
                 }
-            }
 
-            BuildSyntaxTree();
-
-            var resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references), AssemblyDefinition);
-            resolver = Preconvert(resolver, config);
-
-            InspectTypes(resolver, config);
-
-            resolver.CanFreeze = true;
-            var emitter = CreateEmitter(resolver);
-
-            if (!AssemblyInfo.OverflowMode.HasValue)
-            {
-                AssemblyInfo.OverflowMode = OverflowMode;
-            }
-
-            emitter.Translator = this;
-            emitter.AssemblyInfo = AssemblyInfo;
-            emitter.References = references;
-            emitter.SourceFiles = SourceFiles;
-            emitter.Plugins = Plugins;
-            emitter.InitialLevel = 1;
-
-            if (AssemblyInfo.Module != null)
-            {
-                AssemblyInfo.Module.Emitter = emitter;
-            }
-
-            foreach(var td in TypeInfoDefinitions)
-            {
-                if (td.Value.Module != null)
+                Outputs.Report = new TranslatorOutputItem
                 {
-                    td.Value.Module.Emitter = emitter;
+                    Content = new StringBuilder(),
+                    OutputKind = TranslatorOutputKind.Report,
+                    OutputType = TranslatorOutputType.None,
+                    Name = AssemblyInfo.Report.FileName ?? "h5.report.log",
+                    Location = AssemblyInfo.Report.Path
+                };
+
+                var references = InspectReferences();
+                References = references;
+
+                LogProductInfo();
+
+                Plugins = H5.Translator.Plugins.GetPlugins(this, config);
+
+                if (Plugins.HasAny())
+                {
+                    using (new Measure(Logger, "Reading plugin configuration"))
+                    {
+                        Plugins.OnConfigRead(config);
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(config.BeforeBuild))
+                {
+                    try
+                    {
+                        using (new Measure(Logger, $"Running BeforeBuild event {config.BeforeBuild}"))
+                        {
+                            RunEvent(config.BeforeBuild);
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        Logger.ZLogError(exc, "Error running BeforeBuild event {0}", config.BeforeBuild);
+                        throw new TranslatorException($"Error: Unable to run beforeBuild event command: {exc.Message}\nStack trace:\n{exc.StackTrace}");
+                    }
+                }
+
+                BuildSyntaxTree();
+
+                var resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references), AssemblyDefinition);
+                resolver = Preconvert(resolver, config);
+
+                InspectTypes(resolver, config);
+
+                resolver.CanFreeze = true;
+                var emitter = CreateEmitter(resolver);
+
+                if (!AssemblyInfo.OverflowMode.HasValue)
+                {
+                    AssemblyInfo.OverflowMode = OverflowMode;
+                }
+
+                emitter.Translator = this;
+                emitter.AssemblyInfo = AssemblyInfo;
+                emitter.References = references;
+                emitter.SourceFiles = SourceFiles;
+                emitter.Plugins = Plugins;
+                emitter.InitialLevel = 1;
+
+                if (AssemblyInfo.Module != null)
+                {
+                    AssemblyInfo.Module.Emitter = emitter;
+                }
+
+                foreach (var td in TypeInfoDefinitions)
+                {
+                    if (td.Value.Module != null)
+                    {
+                        td.Value.Module.Emitter = emitter;
+                    }
+                }
+
+                SortReferences();
+
+                if (Plugins.HasAny())
+                {
+                    using (new Measure(Logger, "Running plugins BeforeEmit event"))
+                    {
+                        Plugins.BeforeEmit(emitter, this);
+                    }
+                }
+
+                AddMainOutputs(emitter.Emit());
+                EmitterOutputs = emitter.Outputs;
+
+                if (Plugins.HasAny())
+                {
+                    using (new Measure(Logger, "Running plugins AfterEmit event"))
+                    {
+                        Plugins.AfterEmit(emitter, this);
+                    }
                 }
             }
-
-            SortReferences();
-
-            Logger.LogInformation("Before emitting...");
-            Plugins.BeforeEmit(emitter, this);
-            Logger.LogInformation("Before emitting done");
-
-            AddMainOutputs(emitter.Emit());
-            EmitterOutputs = emitter.Outputs;
-
-            Logger.LogInformation("After emitting...");
-            Plugins.AfterEmit(emitter, this);
-            Logger.LogInformation("After emitting done");
-
-            Logger.LogInformation("Translating done");
         }
 
         protected virtual MemberResolver Preconvert(MemberResolver resolver, IAssemblyInfo config)
@@ -237,7 +243,7 @@ namespace H5.Translator
 
         protected virtual void SortReferences()
         {
-            var graph = new TopologicalSorting.DependencyGraph();
+            var graph = new DependencyGraph();
 
             foreach (var t in References)
             {
@@ -245,7 +251,7 @@ namespace H5.Translator
 
                 if (tProcess == null)
                 {
-                    tProcess = new TopologicalSorting.OrderedProcess(graph, t.Name.Name);
+                    tProcess = new OrderedProcess(graph, t.Name.Name);
                 }
 
                 foreach (var xref in t.MainModule.AssemblyReferences)
@@ -254,7 +260,7 @@ namespace H5.Translator
 
                     if (dProcess == null)
                     {
-                        dProcess = new TopologicalSorting.OrderedProcess(graph, xref.Name);
+                        dProcess = new OrderedProcess(graph, xref.Name);
                     }
 
                     tProcess.After(dProcess);
@@ -313,7 +319,7 @@ namespace H5.Translator
                         Logger.ZLogTrace("\t" + list[i].Name);
                     }
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     Logger.ZLogWarning("Topological sort failed {0} with error {1}", asmDef != null ? "at reference " + asmDef.FullName : string.Empty, ex);
                 }
@@ -444,12 +450,12 @@ namespace H5.Translator
                         Logger.ZLogTrace("Run AfterBuild event");
                         RunEvent(AssemblyInfo.AfterBuild);
                     }
-                    catch (System.Exception ex)
+                    catch (Exception ex)
                     {
                         var message = "Error: Unable to run afterBuild event command: " + ex.ToString();
 
                         Logger.ZLogError(message);
-                        throw new H5.Translator.TranslatorException(message);
+                        throw new TranslatorException(message);
                     }
                 }
                 else

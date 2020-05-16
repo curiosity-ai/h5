@@ -227,7 +227,7 @@ namespace H5.Translator
             var methodDeclaration = SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(returnTypeName ?? "void"), methodName)
                 .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword)).Add(SyntaxFactory.Token(SyntaxKind.StaticKeyword)))
                 .WithParameterList(
-                    SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList<ParameterSyntax>(parameters))
+                    SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(parameters))
                 );
 
             if (attributes != null)
@@ -290,8 +290,8 @@ namespace H5.Translator
             }
 
             return SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(namespaceName))
-                .WithUsings(SyntaxFactory.List<UsingDirectiveSyntax>(builtinUsings.Distinct().Where(u => namespaceName != u).Select(u => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(u))).ToArray()))
-                .WithMembers(SyntaxFactory.List<MemberDeclarationSyntax>(members));
+                .WithUsings(SyntaxFactory.List(builtinUsings.Distinct().Where(u => namespaceName != u).Select(u => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(u))).ToArray()))
+                .WithMembers(SyntaxFactory.List(members));
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace H5.Translator
                     types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type));
                 }
 
-                return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
+                return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
             }
 
             if (type.OriginalDefinition != null && type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T)
@@ -338,7 +338,7 @@ namespace H5.Translator
                     types.Add(SyntaxHelper.GenerateTypeSyntax(el));
                 }
 
-                return SyntaxFactory.GenericName(SyntaxFactory.Identifier(type.ToDisplayString(new SymbolDisplayFormat(genericsOptions: SymbolDisplayGenericsOptions.None))), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
+                return SyntaxFactory.GenericName(SyntaxFactory.Identifier(type.ToDisplayString(new SymbolDisplayFormat(genericsOptions: SymbolDisplayGenericsOptions.None))), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
             }
 
             return SyntaxFactory.IdentifierName(type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithoutTrivia();
@@ -355,7 +355,7 @@ namespace H5.Translator
                     types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type, model, pos, rewriter));
                 }
 
-                return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
+                return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
             }
 
             var typeName = type.FullyQualifiedName(false);
@@ -416,7 +416,7 @@ namespace H5.Translator
                     return SyntaxFactory.GenericName(
                         SyntaxFactory.Identifier(gtypeName),
                         SyntaxFactory.TypeArgumentList(
-                            SyntaxFactory.SeparatedList<TypeSyntax>(types)
+                            SyntaxFactory.SeparatedList(types)
                         )
                     );
                 }

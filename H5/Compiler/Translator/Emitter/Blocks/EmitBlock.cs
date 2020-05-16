@@ -16,10 +16,7 @@ namespace H5.Translator
 {
     public class EmitBlock : AbstractEmitterBlock
     {
-        protected FileHelper FileHelper
-        {
-            get; set;
-        }
+        protected FileHelper FileHelper { get; set; }
 
         public EmitBlock(IEmitter emitter)
             : base(emitter, null)

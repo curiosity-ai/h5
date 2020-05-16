@@ -33,7 +33,7 @@ namespace H5.Translator
             }
             else
             {
-                var rr = Emitter.Resolver.ResolveNode(AnonymousTypeCreateExpression.Parent, Emitter);
+                var rr = Emitter.Resolver.ResolveNode(AnonymousTypeCreateExpression.Parent);
                 var member_rr = rr as MemberResolveResult;
 
                 if (member_rr == null)
@@ -79,7 +79,7 @@ namespace H5.Translator
         protected void VisitAnonymousTypeCreateExpression()
         {
             AnonymousTypeCreateExpression anonymousTypeCreateExpression = AnonymousTypeCreateExpression;
-            var invocationrr = Emitter.Resolver.ResolveNode(anonymousTypeCreateExpression, Emitter) as InvocationResolveResult;
+            var invocationrr = Emitter.Resolver.ResolveNode(anonymousTypeCreateExpression) as InvocationResolveResult;
             var type = invocationrr.Type as AnonymousType;
             IAnonymousTypeConfig config = null;
 

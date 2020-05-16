@@ -133,8 +133,8 @@ namespace H5.Translator
                 return;
             }
 
-            var expressionrr = Emitter.Resolver.ResolveNode(expression, Emitter);
-            var typerr = Emitter.Resolver.ResolveNode(type, Emitter);
+            var expressionrr = Emitter.Resolver.ResolveNode(expression);
+            var typerr = Emitter.Resolver.ResolveNode(type);
 
             if (expressionrr.Type.Kind == TypeKind.Enum)
             {
@@ -147,7 +147,7 @@ namespace H5.Translator
 
             if (method == CS.Ops.CAST && expressionrr.Type.Kind != TypeKind.Enum)
             {
-                var cast_rr = Emitter.Resolver.ResolveNode(CastExpression, Emitter);
+                var cast_rr = Emitter.Resolver.ResolveNode(CastExpression);
 
                 if (cast_rr is ConstantResolveResult)
                 {
@@ -340,7 +340,7 @@ namespace H5.Translator
 
         protected virtual void EmitCastType(AstType astType)
         {
-            var resolveResult = Emitter.Resolver.ResolveNode(astType, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(astType);
 
             if (NullableType.IsNullable(resolveResult.Type))
             {
@@ -388,12 +388,12 @@ namespace H5.Translator
         {
             isCastAttr = false;
 
-            if (!(Emitter.Resolver.ResolveNode(astType, Emitter) is TypeResolveResult resolveResult))
+            if (!(Emitter.Resolver.ResolveNode(astType) is TypeResolveResult resolveResult))
             {
                 return null;
             }
 
-            var exprResolveResult = Emitter.Resolver.ResolveNode(expression, Emitter);
+            var exprResolveResult = Emitter.Resolver.ResolveNode(expression);
             string inline = null;
             bool isOp = op == CS.Ops.IS;
 

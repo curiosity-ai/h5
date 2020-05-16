@@ -407,7 +407,7 @@ namespace H5.Translator
         {
             CheckExpression(unaryOperatorExpression);
 
-            if (emitter.Resolver.ResolveNode(unaryOperatorExpression, emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
+            if (emitter.Resolver.ResolveNode(unaryOperatorExpression) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {
@@ -427,7 +427,7 @@ namespace H5.Translator
 
         public override void VisitAssignmentExpression(AssignmentExpression assignmentExpression)
         {
-            if (emitter.Resolver.ResolveNode(assignmentExpression, emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
+            if (emitter.Resolver.ResolveNode(assignmentExpression) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {

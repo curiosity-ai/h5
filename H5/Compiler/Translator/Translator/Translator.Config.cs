@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.IO;
-
+using ZLogger;
 using H5.Translator.Utils;
 
 namespace H5.Translator
@@ -17,8 +17,7 @@ namespace H5.Translator
 
             if (!File.Exists(e))
             {
-                throw new TranslatorException("The specified file '" + e + "' couldn't be found." +
-                    "\nWarning: H5 translator working directory: " + Directory.GetCurrentDirectory());
+                throw new TranslatorException($"The specified file '{e}' couldn't be found.\nWarning: Running H5 translator from directory: {Directory.GetCurrentDirectory()}");
             }
 
             using (var p = Process.Start(info))
@@ -27,19 +26,19 @@ namespace H5.Translator
 
                 if (p.ExitCode != 0)
                 {
-                    throw new TranslatorException("Error: The command '" + e + "' returned with exit code: " + p.ExitCode);
+                    throw new TranslatorException($"Error: The command '{e}' returned with exit code: {p.ExitCode}");
                 }
             }
         }
 
         internal virtual void ApplyProjectPropertiesToConfig()
         {
-            this.Log.Trace("ApplyProjectPropertiesToConfig...");
+            Logger.ZLogTrace("ApplyProjectPropertiesToConfig...");
 
-            var configReader = new AssemblyConfigHelper(this.Log);
+            var configReader = new AssemblyConfigHelper();
             configReader.ApplyTokens(AssemblyInfo, ProjectProperties);
 
-            this.Log.Trace("ApplyProjectPropertiesToConfig done");
+            Logger.ZLogTrace("ApplyProjectPropertiesToConfig done");
         }
     }
 }

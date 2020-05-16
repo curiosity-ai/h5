@@ -1,10 +1,13 @@
 using H5.Contract;
+using Microsoft.Extensions.Logging;
 using Mono.Cecil;
+using Mosaik.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -37,32 +40,28 @@ namespace H5.Translator
 
         public virtual void InjectResources(string outputPath, string projectPath)
         {
-            this.Log.Info("Injecting resources...");
-
-            var resourcesConfig = AssemblyInfo.Resources;
-
-            if (resourcesConfig.Default != null
-                && resourcesConfig.Default.Inject != true
-                && !resourcesConfig.HasEmbedResources())
+            using (new Measure(Logger, $"Injecting resources from project '{projectPath}' into output '{outputPath}'"))
             {
-                this.Log.Info("Resource config option to inject resources `inject` is switched off. Skipping embedding resources");
-                return;
+                var resourcesConfig = AssemblyInfo.Resources;
+
+                if (resourcesConfig.Default != null && resourcesConfig.Default.Inject != true && !resourcesConfig.HasEmbedResources())
+                {
+                    Logger.ZLogInformation("Resource config option to inject resources `inject` is switched off. Skipping embedding resources");
+                    return;
+                }
+
+                var outputs = Outputs;
+
+                if (outputs.Main.Count <= 0 && !resourcesConfig.HasEmbedResources())
+                {
+                    Logger.ZLogInformation("No files nor resources to inject");
+                    return;
+                }
+
+                var resourcesToEmbed = PrepareAndExtractResources(outputPath, projectPath);
+
+                EmbedResources(PrepareResourcesForEmbedding(resourcesToEmbed));
             }
-
-            var outputs = Outputs;
-
-            if (outputs.Main.Count <= 0
-                && !resourcesConfig.HasEmbedResources())
-            {
-                this.Log.Info("No files nor resources to inject");
-                return;
-            }
-
-            var resourcesToEmbed = PrepareAndExtractResources(outputPath, projectPath);
-
-            EmbedResources(PrepareResourcesForEmbedding(resourcesToEmbed));
-
-            this.Log.Info("Done injecting resources");
         }
 
         private IEnumerable<Tuple<H5ResourceInfo, byte[]>> PrepareAndExtractResources(string outputPath, string projectPath)
@@ -71,15 +70,15 @@ namespace H5.Translator
             {
                 // There are resources defined in the config so let's grab files
                 // Find all items and put in the order
-                this.Log.Trace("Preparing resources specified in config...");
+                Logger.ZLogTrace("Preparing resources specified in config...");
 
                 foreach (var resource in AssemblyInfo.Resources.EmbedItems)
                 {
-                    this.Log.Trace("Preparing resource " + resource.Name);
+                    Logger.ZLogTrace("Preparing resource {0}", resource.Name);
 
                     if (resource.Inject != true && resource.Extract != true)
                     {
-                        this.Log.Trace("Skipping the resource as it has inject != true and extract != true");
+                        Logger.ZLogTrace("Skipping the resource as it has inject != true and extract != true");
                         continue;
                     }
 
@@ -91,7 +90,7 @@ namespace H5.Translator
 
                         if (resourceBuffer.Length > 0)
                         {
-                            this.Log.Trace("Prepared file items for resource " + resource.Name);
+                            Logger.ZLogTrace("Prepared file items for resource {0}", resource.Name);
 
                             var resourcePath = GetFullPathForResource(outputPath, resource);
 
@@ -121,19 +120,19 @@ namespace H5.Translator
                         }
                         else
                         {
-                            this.Log.Error("No files found for resource " + resource.Name);
+                            Logger.ZLogError("No files found for resource {0}",  resource.Name);
                         }
                     }
 
-                    this.Log.Trace("Done preparing resource " + resource.Name);
+                    Logger.ZLogTrace("Done preparing resource {0}", resource.Name);
                 }
 
-                this.Log.Trace("Done preparing resources specified in config...");
+                Logger.ZLogTrace("Done preparing resources specified in config...");
             }
             else
             {
                 // There are no resources defined in the config so let's just grab files
-                this.Log.Trace("Preparing outputs for resources");
+                Logger.ZLogTrace("Preparing outputs for resources");
 
                 var nonMinifiedCombinedPartsDone = false;
                 var minifiedCombinedPartsDone = false;
@@ -142,24 +141,24 @@ namespace H5.Translator
                 {
                     H5ResourceInfoPart[] parts = null;
 
-                    this.Log.Trace("Getting output " + outputItem.FullPath.LocalPath);
+                    Logger.ZLogTrace("Getting output " + outputItem.FullPath.LocalPath);
 
                     var isCombined = outputItem.OutputKind.HasFlag(TranslatorOutputKind.Combined) && Outputs.Combined != null;
                     var isMinified = outputItem.OutputKind.HasFlag(TranslatorOutputKind.Minified);
 
                     if (isCombined)
                     {
-                        this.Log.Trace("The resource item is combined. Setting up its parts.");
+                        Logger.ZLogTrace("The resource item is combined. Setting up its parts.");
 
                         if (!isMinified)
                         {
-                            this.Log.Trace("Choosing non-minified parts.");
+                            Logger.ZLogTrace("Choosing non-minified parts.");
                             parts = Outputs.CombinedResourcePartsNonMinified.Select(x => x.Key).ToArray();
                         }
 
                         if (isMinified)
                         {
-                            this.Log.Trace("Choosing minified parts.");
+                            Logger.ZLogTrace("Choosing minified parts.");
                             parts = Outputs.CombinedResourcePartsMinified.Select(x => x.Key).ToArray();
                         }
                     }
@@ -176,15 +175,15 @@ namespace H5.Translator
 
                     if (!outputItem.HasGeneratedSourceMap)
                     {
-                        this.Log.Trace("The output item does not have HasGeneratedSourceMap so we use it right from the Outputs");
+                        Logger.ZLogTrace("The output item does not have HasGeneratedSourceMap so we use it right from the Outputs");
                         content = outputItem.Content.GetContentAsBytes();
-                        this.Log.Trace("The output is of content " + content.Length + " length");
+                        Logger.ZLogTrace("The output is of content " + content.Length + " length");
                     }
                     else
                     {
-                        this.Log.Trace("Reading content file as the output has HasGeneratedSourceMap");
+                        Logger.ZLogTrace("Reading content file as the output has HasGeneratedSourceMap");
                         content = File.ReadAllBytes(outputItem.FullPath.LocalPath);
-                        this.Log.Trace("Read " + content.Length + " bytes for " + info.Name);
+                        Logger.ZLogTrace("Read " + content.Length + " bytes for " + info.Name);
                     }
 
                     yield return Tuple.Create(info, content);
@@ -195,14 +194,14 @@ namespace H5.Translator
 
                         if (!isMinified && !nonMinifiedCombinedPartsDone)
                         {
-                            this.Log.Trace("Preparing non-minified combined resource parts");
+                            Logger.ZLogTrace("Preparing non-minified combined resource parts");
 
                             partSource = Outputs.CombinedResourcePartsNonMinified;
                         }
 
                         if (isMinified && !minifiedCombinedPartsDone)
                         {
-                            this.Log.Trace("Preparing minified combined resource parts");
+                            Logger.ZLogTrace("Preparing minified combined resource parts");
 
                             partSource = Outputs.CombinedResourcePartsMinified;
                         }
@@ -213,13 +212,13 @@ namespace H5.Translator
                             {
                                 //if (part.Key.Assembly != null)
                                 //{
-                                //    this.Log.Trace("Resource part " + part.Key.ResourceName + " is not embedded into resources as it is from another assembly " + part.Key.Assembly);
+                                //    Logger.ZLogTrace("Resource part " + part.Key.ResourceName + " is not embedded into resources as it is from another assembly " + part.Key.Assembly);
                                 //    continue;
                                 //}
 
                                 if (part.Value == null)
                                 {
-                                    this.Log.Trace("Resource part " + part.Key.ResourceName + " from " + part.Key.Assembly + " is not embedded into resources as it is empty");
+                                    Logger.ZLogTrace("Resource part " + part.Key.ResourceName + " from " + part.Key.Assembly + " is not embedded into resources as it is empty");
                                     continue;
                                 }
 
@@ -262,19 +261,19 @@ namespace H5.Translator
                     }
                 }
 
-                this.Log.Trace("Done preparing output files for resources");
+                Logger.ZLogTrace("Done preparing output files for resources");
             }
         }
 
         private string ReadEmbeddedResourceList(AssemblyDefinition assemblyDefinition, string listName)
         {
-            this.Log.Trace("Checking if reference " + assemblyDefinition.FullName + " contains H5 Resources List " + listName);
+            Logger.ZLogTrace("Checking if reference " + assemblyDefinition.FullName + " contains H5 Resources List " + listName);
 
             var listRes = assemblyDefinition.MainModule.Resources.FirstOrDefault(x => x.Name == listName);
 
             if (listRes == null)
             {
-                this.Log.Trace("Reference " + assemblyDefinition.FullName + " does not contain H5 Resources List");
+                Logger.ZLogTrace("Reference " + assemblyDefinition.FullName + " does not contain H5 Resources List");
 
                 return null;
             }
@@ -284,9 +283,9 @@ namespace H5.Translator
             {
                 using (StreamReader reader = new StreamReader(resourcesStream))
                 {
-                    this.Log.Trace("Reading H5 Resources List");
+                    Logger.ZLogTrace("Reading H5 Resources List");
                     resourcesStr = reader.ReadToEnd();
-                    this.Log.Trace("Read H5 Resources List: " + resourcesStr);
+                    Logger.ZLogTrace("Read H5 Resources List: " + resourcesStr);
                 }
             }
 
@@ -346,7 +345,7 @@ namespace H5.Translator
 
         private List<H5ResourceInfo> PrepareResourcesForEmbedding(IEnumerable<Tuple<H5ResourceInfo, byte[]>> resourcesToEmbed)
         {
-            this.Log.Trace("PrepareResourcesForEmbedding...");
+            Logger.ZLogTrace("PrepareResourcesForEmbedding...");
 
             var assemblyDef = AssemblyDefinition;
             var resources = assemblyDef.MainModule.Resources;
@@ -362,7 +361,7 @@ namespace H5.Translator
                 var name = r.Name;
                 var fileName = r.FileName;
 
-                this.Log.Trace("Embedding resource " + name + " (fileName: " + fileName + ")");
+                Logger.ZLogTrace("Embedding resource " + name + " (fileName: " + fileName + ")");
 
                 // Normalize resourse output path to always have '/' as a directory separator
                 r.Path = configHelper.ConvertPath(r.Path, '/');
@@ -373,7 +372,7 @@ namespace H5.Translator
 
                 if (existingResource != null)
                 {
-                    this.Log.Trace("Removing already existed resource with the same name");
+                    Logger.ZLogTrace("Removing already existed resource with the same name");
                     resources.Remove(existingResource);
                 }
 
@@ -398,12 +397,12 @@ namespace H5.Translator
 
                 reportResources.Add(Tuple.Create(name ?? fileName, resourceLocation, sizeInBytes));
 
-                this.Log.Trace("Added resource " + name + " (fileName: " + fileName + ")");
+                Logger.ZLogTrace("Added resource " + name + " (fileName: " + fileName + ")");
             }
 
             BuildReportForResources(reportResources);
 
-            this.Log.Trace("PrepareResourcesForEmbedding done");
+            Logger.ZLogTrace("PrepareResourcesForEmbedding done");
 
             return resourceList;
         }
@@ -444,7 +443,7 @@ namespace H5.Translator
 
         private void EmbedResources(List<H5ResourceInfo> resourcesToEmbed)
         {
-            this.Log.Trace("Embedding resources...");
+            Logger.ZLogTrace("Embedding resources...");
 
             var assemblyDef = AssemblyDefinition;
             var resources = assemblyDef.MainModule.Resources;
@@ -461,20 +460,20 @@ namespace H5.Translator
             var listResources = new EmbeddedResource(resourceListName, ManifestResourceAttributes.Private, Translator.OutputEncoding.GetBytes(listContent));
 
             resources.Add(listResources);
-            this.Log.Trace("Added resource list " + resourceListName);
-            this.Log.Trace(listContent);
+            Logger.ZLogTrace("Added resource list " + resourceListName);
+            Logger.ZLogTrace(listContent);
 
             // Checking if mscorlib reference added and removing if added
             var mscorlib = assemblyDef.MainModule.AssemblyReferences.FirstOrDefault(r => r.Name == SystemAssemblyName);
             if (mscorlib != null)
             {
-                this.Log.Trace("Removing mscorlib reference");
+                Logger.ZLogTrace("Removing mscorlib reference");
                 assemblyDef.MainModule.AssemblyReferences.Remove(mscorlib);
             }
 
             var assemblyLocation = AssemblyLocation;
 
-            this.Log.Trace("Writing resources into " + assemblyLocation);
+            Logger.ZLogTrace("Writing resources into " + assemblyLocation);
             Console.WriteLine("Writing resources into " + assemblyLocation);
             using (var s = File.Open(assemblyLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
@@ -482,9 +481,9 @@ namespace H5.Translator
                 s.Flush();
                 s.Close();
             }
-            this.Log.Trace("Wrote resources into " + assemblyLocation);
+            Logger.ZLogTrace("Wrote resources into " + assemblyLocation);
 
-            this.Log.Trace("Done embedding resources");
+            Logger.ZLogTrace("Done embedding resources");
         } 
 
         private void CheckIfResourceExistsAndRemove(Mono.Collections.Generic.Collection<Resource> resources, string resourceName)
@@ -492,18 +491,18 @@ namespace H5.Translator
             var existingList = resources.FirstOrDefault(r => r.Name == resourceName);
             if (existingList != null)
             {
-                this.Log.Trace("Removing already existed resource " + resourceName);
+                Logger.ZLogTrace("Removing already existed resource " + resourceName);
                 resources.Remove(existingList);
             }
         }
 
         private void ExtractResource(string path, string fileName, ResourceConfigItem resource, byte[] code)
         {
-            this.Log.Trace("Extracting resource " + resource.Name);
+            Logger.ZLogTrace("Extracting resource {0}", resource.Name);
 
             if (!resource.Extract.HasValue || !resource.Extract.Value)
             {
-                this.Log.Trace("Skipping extracting resource as no extract option enabled for this resource");
+                Logger.ZLogTrace("Skipping extracting resource as no extract option enabled for this resource");
                 return;
             }
 
@@ -511,7 +510,7 @@ namespace H5.Translator
             {
                 var fullPath = Path.GetFullPath(Path.Combine(path, fileName));
 
-                this.Log.Trace("Writing resource " + resource.Name + " into " + fullPath);
+                Logger.ZLogTrace("Writing resource {0}", resource.Name + " into " + fullPath);
 
                 EnsureDirectoryExists(path);
 
@@ -519,11 +518,11 @@ namespace H5.Translator
 
                 AddExtractedResourceOutput(resource, code);
 
-                this.Log.Trace("Done writing resource into file");
+                Logger.ZLogTrace("Done writing resource into file");
             }
             catch (Exception ex)
             {
-                this.Log.Error(ex.ToString());
+                Logger.ZLogError(ex, "Error extracting resource {0}", resource.Name);
                 throw;
             }
         }
@@ -541,13 +540,13 @@ namespace H5.Translator
             if (resourceOutputDirName == null)
             {
                 resourceOutputDirName = outputPath;
-                this.Log.Trace("Using project output path " + resourceOutputDirName);
+                Logger.ZLogTrace("Using project output path " + resourceOutputDirName);
             }
 
             if (string.IsNullOrWhiteSpace(resourceOutputFileName))
             {
                 resourceOutputFileName = resource.Name;
-                this.Log.Trace("Using resource name as file name " + resourceOutputFileName);
+                Logger.ZLogTrace("Using resource name as file name " + resourceOutputFileName);
             }
 
             return Tuple.Create(resourceOutputDirName, resourceOutputFileName);
@@ -557,60 +556,59 @@ namespace H5.Translator
         {
             if (!Directory.Exists(path))
             {
-                this.Log.Trace("The resource path does not exist. Creating...");
+                Logger.ZLogTrace("The resource path does not exist. Creating...");
                 Directory.CreateDirectory(path);
-                this.Log.Trace("Created directory for the resource path");
+                Logger.ZLogTrace("Created directory for the resource path");
             }
         }
 
         public void GetResourceOutputPath(string basePath, string output, string name, bool? silent, ref string resourceOutputFileName, ref string resourceOutputDirName)
         {
-            this.Log.Trace("Checking output path setting " + output);
+            Logger.ZLogTrace("Checking output path setting " + output);
 
             try
             {
                 var pathParts = FileHelper.GetDirectoryAndFilenamePathComponents(output);
 
                 resourceOutputDirName = pathParts[0];
-                this.Log.Trace("Resource output setting directory relative to base path is " + resourceOutputDirName);
+                Logger.ZLogTrace("Resource output setting directory relative to base path is " + resourceOutputDirName);
 
                 resourceOutputFileName = pathParts[1];
-                this.Log.Trace("Resource output setting file name is " + resourceOutputFileName);
+                Logger.ZLogTrace("Resource output setting file name is " + resourceOutputFileName);
 
                 if (resourceOutputDirName != null)
                 {
-                    this.Log.Trace("Checking resource output directory on invalid characters");
+                    Logger.ZLogTrace("Checking resource output directory on invalid characters");
                     resourceOutputDirName = CheckInvalidCharacters(name, silent, resourceOutputDirName, InvalidPathChars);
                 }
 
                 if (resourceOutputDirName != null)
                 {
-                    this.Log.Trace("Getting absolute resource output directory");
+                    Logger.ZLogTrace("Getting absolute resource output directory");
                     resourceOutputDirName = Path.Combine(basePath, resourceOutputDirName);
-                    this.Log.Trace("Resource output directory is " + resourceOutputDirName);
+                    Logger.ZLogTrace("Resource output directory is " + resourceOutputDirName);
 
                     if (resourceOutputFileName != null)
                     {
-                        this.Log.Trace("Checking resource output file name on invalid characters");
+                        Logger.ZLogTrace("Checking resource output file name on invalid characters");
                         resourceOutputFileName = CheckInvalidCharacters(name, silent, resourceOutputFileName, Path.GetInvalidFileNameChars());
 
                         if (resourceOutputFileName == null)
                         {
-                            this.Log.Trace("Setting resource output directory to null as file name part contains invalid characters");
+                            Logger.ZLogTrace("Setting resource output directory to null as file name part contains invalid characters");
                             resourceOutputDirName = null;
                         }
                     }
                 }
                 else
                 {
-                    this.Log.Trace("Setting resource output file name to null as directory part contains invalid characters");
+                    Logger.ZLogTrace("Setting resource output file name to null as directory part contains invalid characters");
                     resourceOutputFileName = null;
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException || ex is PathTooLongException)
             {
-                this.Log.Trace("Could not extract directory name from resource output setting");
-                this.Log.Error(ex.ToString());
+                Logger.ZLogError(ex, "Could not extract directory name from resource output setting");
 
                 if (silent != true)
                 {
@@ -647,7 +645,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    this.Log.Trace(message);
+                    Logger.ZLogTrace(message);
                     s = null;
                 }
             }
@@ -659,11 +657,11 @@ namespace H5.Translator
         {
             if (resource.Header == null)
             {
-                this.Log.Trace("Resource header is not specified.");
+                Logger.ZLogTrace("Resource header is not specified.");
                 return;
             }
 
-            this.Log.Trace("Writing header for resource config item " + resource.Name);
+            Logger.ZLogTrace("Writing header for resource config item {0}", resource.Name);
 
             var headerInfo = ResourceHeaderInfo;
 
@@ -678,14 +676,14 @@ namespace H5.Translator
 
                 NewLine(resourceBuffer);
 
-                this.Log.Trace("Wrote " + headerContent.Length + " symbols as a resource header");
+                Logger.ZLogTrace("Wrote " + headerContent.Length + " symbols as a resource header");
             }
             else
             {
-                this.Log.Trace("No header content written as it was empty");
+                Logger.ZLogTrace("No header content written as it was empty");
             }
 
-            this.Log.Trace("Done writing header for resource config item " + resource.Name);
+            Logger.ZLogTrace("Done writing header for resource config item {0}", resource.Name);
         }
 
         private Dictionary<string, string> PrepareResourseHeaderInfo()
@@ -702,7 +700,7 @@ namespace H5.Translator
 
             if (assemblyInfo == null)
             {
-                this.Log.Error("Could not get assembly version to generate resource header info");
+                Logger.ZLogError("Could not get assembly version to generate resource header info");
             }
             else
             {
@@ -734,7 +732,7 @@ namespace H5.Translator
 
         private void ApplyTokens(StringBuilder sb, Dictionary<string, string> info)
         {
-            this.Log.Trace("Applying tokens...");
+            Logger.ZLogTrace("Applying tokens...");
 
             if (sb == null)
             {
@@ -748,16 +746,16 @@ namespace H5.Translator
 
             foreach (var item in info)
             {
-                this.Log.Trace(string.Format("Applying {{{0}}}: {1}", item.Key, item.Value));
+                Logger.ZLogTrace(string.Format("Applying {{{0}}}: {1}", item.Key, item.Value));
                 sb.Replace("{" + item.Key + "}", item.Value);
             }
 
-            this.Log.Trace("Applying tokens done");
+            Logger.ZLogTrace("Applying tokens done");
         }
 
         private StringBuilder GetHeaderContent(ResourceConfigItem resource, string basePath)
         {
-            this.Log.Trace("Getting header content...");
+            Logger.ZLogTrace("Getting header content...");
 
             var isFileName = false;
             string convertedHeaderPath = null;
@@ -766,54 +764,49 @@ namespace H5.Translator
 
             try
             {
-                this.Log.Trace("Checking if resource header setting is a file path...");
+                Logger.ZLogTrace("Checking if resource header setting is a file path...");
 
-                this.Log.Trace("Converting slashes in resource header setting...");
+                Logger.ZLogTrace("Converting slashes in resource header setting...");
                 var configHelper = new ConfigHelper();
                 convertedHeaderPath = configHelper.ConvertPath(resourceHeader);
 
-                this.Log.Trace("Checking if " + convertedHeaderPath + " contains file name...");
+                Logger.ZLogTrace("Checking if " + convertedHeaderPath + " contains file name...");
                 var headerFileName = Path.GetFileName(convertedHeaderPath);
                 isFileName = !string.IsNullOrEmpty(headerFileName);
             }
             catch (ArgumentException ex)
             {
-                this.Log.Trace(ex.ToString());
+                Logger.ZLogTrace(ex.ToString());
             }
 
             if (isFileName)
             {
-                this.Log.Trace("Checking if header content file exists");
+                Logger.ZLogTrace("Checking if header content file exists");
                 var fullHeaderPath = Path.Combine(basePath, convertedHeaderPath);
 
                 if (File.Exists(fullHeaderPath))
                 {
-                    this.Log.Trace("Reading header content file at " + fullHeaderPath);
+                    Logger.ZLogTrace("Reading header content file at " + fullHeaderPath);
 
-                    using (var m = new StreamReader(fullHeaderPath, Translator.OutputEncoding, true))
+                    using (var m = new StreamReader(fullHeaderPath, OutputEncoding, true))
                     {
                         var sb = new StringBuilder(m.ReadToEnd());
 
                         if (m.CurrentEncoding != OutputEncoding)
                         {
-                            this.Log.Info("Converting resource header file "
-                                           + fullHeaderPath
-                                           + " from encoding "
-                                           + m.CurrentEncoding.EncodingName
-                                           + " into default encoding"
-                                           + Translator.OutputEncoding.EncodingName);
+                            Logger.ZLogTrace("Converting resource header file {0} from encoding {1} to encoding {2}", fullHeaderPath, m.CurrentEncoding.EncodingName, OutputEncoding.EncodingName);
                         }
 
-                        this.Log.Trace("Read " + sb.Length + " symbols from the header file " + fullHeaderPath);
+                        Logger.ZLogTrace("Read {0} symbols from the header file {1}", sb.Length , fullHeaderPath);
 
                         return sb;
                     }
                 }
 
-                this.Log.Warn("Could not find header content file at " + fullHeaderPath + "for resource " + resource.Name);
+                Logger.ZLogWarning("Could not find header content file at {0} for resource {1}", fullHeaderPath, resource.Name);
             }
 
-            this.Log.Trace("Considered resource header setting to be a header content");
+            Logger.ZLogTrace("Considered resource header setting to be a header content");
 
             return new StringBuilder(resourceHeader);
         }
@@ -827,7 +820,7 @@ namespace H5.Translator
         /// <returns>Bool value indication whether it is a resource for SourceMap generation</returns>
         private bool ReadResourceFiles(string outputPath, MemoryStream buffer, ResourceConfigItem item)
         {
-            this.Log.Trace("Reading resource with " + item.Files.Length + " items");
+            Logger.ZLogTrace("Reading resource with " + item.Files.Length + " items");
 
             var needSourceMap = false;
 
@@ -835,7 +828,7 @@ namespace H5.Translator
 
             foreach (var fileName in item.Files)
             {
-                this.Log.Trace("Reading resource item(s) in location " + fileName);
+                Logger.ZLogTrace("Reading resource item(s) in location " + fileName);
 
                 try
                 {
@@ -849,7 +842,7 @@ namespace H5.Translator
                     if (!string.IsNullOrEmpty(dirPathInFileName))
                     {
                         directoryPath = Path.Combine(directoryPath, dirPathInFileName);
-                        this.Log.Trace("Cleaned folder path part: " + dirPathInFileName + " from location: " + fileName + " and added to the directory path: " + directoryPath);
+                        Logger.ZLogTrace("Cleaned folder path part: " + dirPathInFileName + " from location: " + fileName + " and added to the directory path: " + directoryPath);
 
                         filePathCleaned = Path.GetFileName(filePathCleaned);
                     }
@@ -864,11 +857,11 @@ namespace H5.Translator
 
                     if (outputItem != null)
                     {
-                        this.Log.Trace("Found required file for resources in Outputs " + fullFileName);
+                        Logger.ZLogTrace("Found required file for resources in Outputs " + fullFileName);
 
                         if (outputItem.HasGeneratedSourceMap)
                         {
-                            this.Log.Trace("The output item HasGeneratedSourceMap so that the resource requires SourceMap also");
+                            Logger.ZLogTrace("The output item HasGeneratedSourceMap so that the resource requires SourceMap also");
                             needSourceMap = true;
                         }
 
@@ -885,7 +878,7 @@ namespace H5.Translator
                             throw new InvalidOperationException($"Missing resource from json config file, could not find folder: '{directory.FullName}' for resource '{item.Name}' with file name '{fileName}'");
                         }
 
-                        this.Log.Trace("Searching files for resources in folder: " + directoryPath);
+                        Logger.ZLogTrace("Searching files for resources in folder: " + directoryPath);
 
                         var file = directory.GetFiles(filePathCleaned, SearchOption.TopDirectoryOnly).FirstOrDefault();
 
@@ -894,7 +887,7 @@ namespace H5.Translator
                             throw new InvalidOperationException($"Missing resource from json config file, could not find in folder '{directory.FullName}' the required resource '{item.Name}' with file name '{fileName}'");
                         }
 
-                        this.Log.Trace("Reading resource item at " + file.FullName);
+                        Logger.ZLogTrace("Reading resource item at " + file.FullName);
 
                         var resourceAsOneFile = item.Header == null
                                                 && item.Remark == null
@@ -902,12 +895,12 @@ namespace H5.Translator
 
                         var content = CheckResourceOnBomAndAddToBuffer(buffer, item, file, resourceAsOneFile);
 
-                        this.Log.Trace("Read " + content.Length + " bytes");
+                        Logger.ZLogTrace("Read " + content.Length + " bytes");
                     }
                 }
                 catch (Exception ex)
                 {
-                    this.Log.Error(ex.ToString());
+                    Logger.ZLogError(ex, "Error reading resources files for item {0}", item);
                     throw;
                 }
             }
@@ -925,7 +918,7 @@ namespace H5.Translator
             }
             catch (Exception ex)
             {
-                this.Log.Warn("Could not get assembly name: " + ex.ToString());
+                Logger.ZLogWarning(ex, "Could not get assembly name: {0}", assemblyName);
             }
 
             return name;
@@ -933,7 +926,6 @@ namespace H5.Translator
 
         private string GetAssemblyNameForResource(AssemblyDefinition assembly)
         {
-            //return assembly.Name.Name + " v." + assembly.Name.Version.ToString(3);
             return assembly.FullName;
         }
 
@@ -955,12 +947,12 @@ namespace H5.Translator
 
             if (oneFileResource)
             {
-                this.Log.Trace("Reading resource file " + file.FullName + " as one-file-resource");
+                Logger.ZLogTrace("Reading resource file " + file.FullName + " as one-file-resource");
                 content = File.ReadAllBytes(file.FullName);
             }
             else
             {
-                this.Log.Trace("Reading resource file " + file.FullName + " via StreamReader with byte order mark detection option");
+                Logger.ZLogTrace("Reading resource file " + file.FullName + " via StreamReader with byte order mark detection option");
 
                 using (var m = new StreamReader(file.FullName, Translator.OutputEncoding, true))
                 {
@@ -968,7 +960,7 @@ namespace H5.Translator
 
                     if (m.CurrentEncoding != OutputEncoding)
                     {
-                        this.Log.Info("Converting resource file "
+                        Logger.ZLogInformation("Converting resource file "
                                        + file.FullName
                                        + " from encoding "
                                        + m.CurrentEncoding.EncodingName
@@ -989,7 +981,7 @@ namespace H5.Translator
 
                 if (bomLength > 0)
                 {
-                    this.Log.Trace("Found BOM symbols (" + bomLength + " byte length)");
+                    Logger.ZLogTrace("Found BOM symbols (" + bomLength + " byte length)");
                 }
 
                 if (bomLength < content.Length)
@@ -998,7 +990,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    this.Log.Trace("Skipped resource as it contains only BOM");
+                    Logger.ZLogTrace("Skipped resource as it contains only BOM");
                 }
 
             }
@@ -1054,7 +1046,7 @@ namespace H5.Translator
         {
             if (item.Remark != null)
             {
-                this.Log.Trace("Inserting resource file remark");
+                Logger.ZLogTrace("Inserting resource file remark");
 
                 var filePath = MakeStandardPath(Path.Combine(dirPathInFileName, fileName));
 
@@ -1079,7 +1071,7 @@ namespace H5.Translator
 
         public void PrepareResourcesConfig()
         {
-            this.Log.Trace("Preparing resources config...");
+            Logger.ZLogTrace("Preparing resources config...");
 
             var config = AssemblyInfo.Resources;
 
@@ -1108,14 +1100,14 @@ namespace H5.Translator
 
                 if (defaultResources.Count() > 1)
                 {
-                    this.Log.Error("There are more than one default resource in the configuration setting file (resources section). Will use the first occurrence as a default resource settings");
+                    Logger.ZLogError("There are more than one default resource in the configuration setting file (resources section). Will use the first occurrence as a default resource settings");
                 }
 
                 defaultSetting = defaultResources.FirstOrDefault();
 
                 if (defaultSetting != null)
                 {
-                    this.Log.Trace("The resources config section has a default settings");
+                    Logger.ZLogTrace("The resources config section has a default settings");
 
                     defaultSetting.SetDefaulValues();
 
@@ -1136,7 +1128,7 @@ namespace H5.Translator
                     resources.AddRange(rawResources);
                 }
 
-                this.Log.Trace("The resources config section has " + resources.Count + " non-default settings");
+                Logger.ZLogTrace("The resources config section has {0} non-default settings", resources.Count);
             }
 
             CheckConsoleConfigSetting(resources, defaultSetting);
@@ -1145,14 +1137,14 @@ namespace H5.Translator
             var toExtract = resources.Where(x => x.Files == null || x.Files.Count() <= 0).ToArray();
 
             config.Prepare(defaultSetting, toEmbed, toExtract);
-            this.Log.Trace("Done preparing resources config");
+            Logger.ZLogTrace("Done preparing resources config");
 
             return;
         }
 
         private void CheckConsoleConfigSetting(List<ResourceConfigItem> resources, ResourceConfigItem @default)
         {
-            this.Log.Trace("CheckConsoleConfigSetting...");
+            Logger.ZLogTrace("CheckConsoleConfigSetting...");
 
             var consoleResourceName = H5ConsoleName;
             var consoleResourceMinifiedName = FileHelper.GetMinifiedJSFileName(consoleResourceName);
@@ -1162,7 +1154,7 @@ namespace H5.Translator
 
             if (AssemblyInfo.Console.Enabled != true)
             {
-                this.Log.Trace("Switching off H5 Console...");
+                Logger.ZLogTrace("Switching off H5 Console...");
 
                 if (consoleFormatted == null)
                 {
@@ -1171,18 +1163,18 @@ namespace H5.Translator
                         Name = consoleResourceName
                     };
 
-                    this.Log.Trace("Adding resource setting for " + consoleResourceName);
+                    Logger.ZLogTrace("Adding resource setting for {0}",  consoleResourceName);
                     resources.Add(consoleFormatted);
                 }
                 else
                 {
                     if (AssemblyInfo.Console.Enabled.HasValue)
                     {
-                        this.Log.Trace("Overriding resource setting for " + consoleResourceName + " as h5.json has console option explicitly");
+                        Logger.ZLogTrace("Overriding resource setting for {0} as h5.json has console option explicitly", consoleResourceName);
                     }
                     else
                     {
-                        this.Log.Trace("Not overriding resource setting for " + consoleResourceName + " as h5.json does NOT have console option explicitly");
+                        Logger.ZLogTrace("Not overriding resource setting for {0} as h5.json does NOT have console option explicitly", consoleResourceName);
                         consoleFormatted = null;
                     }
                 }
@@ -1202,18 +1194,18 @@ namespace H5.Translator
                         Name = consoleResourceMinifiedName
                     };
 
-                    this.Log.Trace("Adding resource setting for " + consoleResourceMinifiedName);
+                    Logger.ZLogTrace("Adding resource setting for " + consoleResourceMinifiedName);
                     resources.Add(consoleMinified);
                 }
                 else
                 {
                     if (AssemblyInfo.Console.Enabled.HasValue)
                     {
-                        this.Log.Trace("Overriding resource setting for " + consoleResourceMinifiedName + " as h5.json has console option explicitly");
+                        Logger.ZLogTrace("Overriding resource setting for " + consoleResourceMinifiedName + " as h5.json has console option explicitly");
                     }
                     else
                     {
-                        this.Log.Trace("Not overriding resource setting for " + consoleResourceMinifiedName + " as h5.json does NOT have console option explicitly");
+                        Logger.ZLogTrace("Not overriding resource setting for " + consoleResourceMinifiedName + " as h5.json does NOT have console option explicitly");
                         consoleMinified = null;
                     }
                 }
@@ -1226,7 +1218,7 @@ namespace H5.Translator
                     consoleMinified.Files = new string[0];
                 }
 
-                this.Log.Trace("Switching off H5 Console done");
+                Logger.ZLogTrace("Switching off H5 Console done");
             }
             else
             {
@@ -1235,7 +1227,7 @@ namespace H5.Translator
                     if (consoleFormatted.Extract != true)
                     {
                         consoleFormatted.Extract = true;
-                        this.Log.Trace("Setting resources.extract = true for " + consoleResourceName + " as h5.json has console option has true explicitly");
+                        Logger.ZLogTrace("Setting resources.extract = true for " + consoleResourceName + " as h5.json has console option has true explicitly");
                     }
                 }
                 else
@@ -1249,7 +1241,7 @@ namespace H5.Translator
                             Inject = false
                         };
 
-                        this.Log.Trace("Adding resource setting for " + consoleResourceName + " as default resource has extract != true");
+                        Logger.ZLogTrace("Adding resource setting for " + consoleResourceName + " as default resource has extract != true");
                         resources.Add(consoleFormatted);
                     }
                 }
@@ -1259,7 +1251,7 @@ namespace H5.Translator
                     if (consoleMinified.Extract != true)
                     {
                         consoleMinified.Extract = true;
-                        this.Log.Trace("Setting resources.extract = true for " + consoleResourceMinifiedName + " as h5.json has console option has true explicitly");
+                        Logger.ZLogTrace("Setting resources.extract = true for " + consoleResourceMinifiedName + " as h5.json has console option has true explicitly");
                     }
                 }
                 else
@@ -1273,12 +1265,12 @@ namespace H5.Translator
                             Inject = false
                         };
 
-                        this.Log.Trace("Adding resource setting for " + consoleResourceMinifiedName + " as default resource has extract != true");
+                        Logger.ZLogTrace("Adding resource setting for " + consoleResourceMinifiedName + " as default resource has extract != true");
                         resources.Add(consoleMinified);
                     }
                 }
             }
-            this.Log.Trace("CheckConsoleConfigSetting done");
+            Logger.ZLogTrace("CheckConsoleConfigSetting done");
 
         }
 
@@ -1302,12 +1294,7 @@ namespace H5.Translator
 
                 if (!string.IsNullOrEmpty(defaultOutputFileName))
                 {
-                    this.Log.Error("The resource config setting has a default output setting "
-                        + defaultSetting.Output
-                        + " containing file part "
-                        + defaultOutputFileName +
-                        " .However, there are several resources with no output setting defined and active extract option."
-                        + " It means the resources will be overwritten by each other.");
+                    Logger.ZLogError("The resource config setting has a default output setting {0} containing file part {1}.However, there are several resources with no output setting defined and active extract option. It means the resources will be overwritten by each other.", defaultSetting.Output, defaultOutputFileName);
                 }
             }
         }

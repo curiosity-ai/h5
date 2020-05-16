@@ -3,11 +3,14 @@ using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
+using Microsoft.Extensions.Logging;
 using Mono.Cecil;
+using Mosaik.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TopologicalSorting;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -124,26 +127,25 @@ namespace H5.Translator
 
         public virtual void SortTypesByInheritance()
         {
-            this.Log.Trace("Sorting types by inheritance...");
-
-            if (Types.Count > 0)
+            using (new Measure(Logger, "Sorting types by inheritance", logLevel: LogLevel.Trace))
             {
-                TopologicalSort();
+                if (Types.Count > 0)
+                {
+                    TopologicalSort();
 
-                //this.Types.Sort has strange effects for items with 0 priority
+                    //this.Types.Sort has strange effects for items with 0 priority
 
-                this.Log.Trace("Priority sorting...");
+                    Logger.ZLogTrace("Priority sorting...");
 
-                Types = SortByPriority(Types);
+                    Types = SortByPriority(Types);
 
-                this.Log.Trace("Priority sorting done");
+                    Logger.ZLogTrace("Priority sorting done");
+                }
+                else
+                {
+                    Logger.ZLogTrace("No types to sort");
+                }
             }
-            else
-            {
-                this.Log.Trace("No types to sort");
-            }
-
-            this.Log.Trace("Sorting types by inheritance done");
         }
 
         private Stack<IType> activeTypes;
@@ -225,128 +227,129 @@ namespace H5.Translator
         private Dictionary<IType, string> nameCache = new Dictionary<IType, string>();
         public virtual void TopologicalSort()
         {
-            this.Log.Trace("Topological sorting...");
-
-            var graph = new TopologicalSorting.DependencyGraph();
-
-            this.Log.Trace("\tTopological sorting first iteration...");
-
-            var hitCounters = new long[7];
-
-            foreach (var t in Types)
+            using (new Measure(Logger, "Topological Sorting", logLevel: LogLevel.Trace))
             {
-                hitCounters[0]++;
-                var parents = GetParents(t.Type);
-                var reflectionName = GetReflectionName(t.Type);
-                var tProcess = graph.Processes.FirstOrDefault(p => p.Name == reflectionName);
-                if (tProcess == null)
-                {
-                    hitCounters[1]++;
-                    tProcess = new TopologicalSorting.OrderedProcess(graph, reflectionName);
-                }
 
-                for (int i = parents.Count - 1; i > -1; i--)
+                var graph = new TopologicalSorting.DependencyGraph();
+
+                Logger.ZLogTrace("\tTopological sorting first iteration...");
+
+                var hitCounters = new long[7];
+
+                foreach (var t in Types)
                 {
-                    hitCounters[2]++;
-                    var x = parents[i];
-                    reflectionName = GetReflectionName(x.Type);
-                    if (tProcess.Predecessors.All(p => p.Name != reflectionName))
+                    hitCounters[0]++;
+                    var parents = GetParents(t.Type);
+                    var reflectionName = GetReflectionName(t.Type);
+                    var tProcess = graph.Processes.FirstOrDefault(p => p.Name == reflectionName);
+                    if (tProcess == null)
                     {
-                        hitCounters[3]++;
-
-                        var dProcess = graph.Processes.FirstOrDefault(p => p.Name == reflectionName);
-                        if (dProcess == null)
-                        {
-                            hitCounters[4]++;
-                            dProcess = new TopologicalSorting.OrderedProcess(graph, reflectionName);
-                        }
-
-                        if (tProcess != dProcess && dProcess.Predecessors.All(p => p.Name != tProcess.Name))
-                        {
-                            hitCounters[4]++;
-                            tProcess.After(dProcess);
-                        }
+                        hitCounters[1]++;
+                        tProcess = new TopologicalSorting.OrderedProcess(graph, reflectionName);
                     }
-                }
-            }
 
-            for (int i = 0; i < hitCounters.Length; i++)
-            {
-                this.Log.Trace("\t\tHitCounter" + i + " = " + hitCounters[i]);
-            }
-
-            this.Log.Trace("\tTopological sorting first iteration done");
-
-            if (graph.ProcessCount > 0)
-            {
-                ITypeInfo tInfo = null;
-                OrderedProcess handlingProcess = null;
-                try
-                {
-                    this.Log.Trace("\tTopological sorting third iteration...");
-
-                    System.Array.Clear(hitCounters, 0, hitCounters.Length);
-
-                    this.Log.Trace("\t\tCalculate sorting...");
-                    TopologicalSort sorted = graph.CalculateSort();
-                    this.Log.Trace("\t\tCalculate sorting done");
-
-                    this.Log.Trace("\t\tGetting Reflection names for " + Types.Count + " types...");
-
-                    var list = new List<ITypeInfo>(Types.Count);
-                    // The fix required for Mono 5.0.0.94
-                    // It does not "understand" TopologicalSort's Enumerator in foreach
-                    // foreach (var processes in sorted)
-                    // The code is modified to get it "directly" and "typed"
-                    var sortedISetEnumerable = sorted as IEnumerable<ISet<OrderedProcess>>;
-                    this.Log.Trace("\t\tGot Enumerable<ISet<OrderedProcess>>");
-
-                    var sortedISetEnumerator = sortedISetEnumerable.GetEnumerator();
-                    this.Log.Trace("\t\tGot Enumerator<ISet<OrderedProcess>>");
-
-                    while (sortedISetEnumerator.MoveNext())
+                    for (int i = parents.Count - 1; i > -1; i--)
                     {
-                        var processes = sortedISetEnumerator.Current;
-
-                        hitCounters[0]++;
-
-                        foreach (var process in processes)
+                        hitCounters[2]++;
+                        var x = parents[i];
+                        reflectionName = GetReflectionName(x.Type);
+                        if (tProcess.Predecessors.All(p => p.Name != reflectionName))
                         {
-                            handlingProcess = process;
-                            hitCounters[1]++;
+                            hitCounters[3]++;
 
-                            tInfo = Types.First(ti => GetReflectionName(ti.Type) == process.Name);
-
-                            var reflectionName = GetReflectionName(tInfo.Type);
-
-                            if (list.All(t => GetReflectionName(t.Type) != reflectionName))
+                            var dProcess = graph.Processes.FirstOrDefault(p => p.Name == reflectionName);
+                            if (dProcess == null)
                             {
-                                hitCounters[2]++;
-                                list.Add(tInfo);
+                                hitCounters[4]++;
+                                dProcess = new TopologicalSorting.OrderedProcess(graph, reflectionName);
+                            }
+
+                            if (tProcess != dProcess && dProcess.Predecessors.All(p => p.Name != tProcess.Name))
+                            {
+                                hitCounters[4]++;
+                                tProcess.After(dProcess);
                             }
                         }
                     }
-
-                    this.Log.Trace("\t\tGetting Reflection names done");
-
-                    Types.Clear();
-                    Types.AddRange(list);
-
-                    for (int i = 0; i < hitCounters.Length; i++)
-                    {
-                        this.Log.Trace("\t\tHitCounter" + i + " = " + hitCounters[i]);
-                    }
-
-                    this.Log.Trace("\tTopological sorting third iteration done");
                 }
-                catch (System.Exception ex)
+
+                for (int i = 0; i < hitCounters.Length; i++)
                 {
-                    this.LogWarning($"Topological sort failed {(tInfo != null || handlingProcess != null ? "at type " + (tInfo != null ? tInfo.Type.ReflectionName : handlingProcess.Name) : string.Empty)} with error {ex}");
+                    Logger.ZLogTrace("\t\tHitCounter" + i + " = " + hitCounters[i]);
                 }
+
+                Logger.ZLogTrace("\tTopological sorting first iteration done");
+
+                if (graph.ProcessCount > 0)
+                {
+                    ITypeInfo tInfo = null;
+                    OrderedProcess handlingProcess = null;
+                    try
+                    {
+                        Logger.ZLogTrace("\tTopological sorting third iteration...");
+
+                        System.Array.Clear(hitCounters, 0, hitCounters.Length);
+
+                        Logger.ZLogTrace("\t\tCalculate sorting...");
+                        TopologicalSort sorted = graph.CalculateSort();
+                        Logger.ZLogTrace("\t\tCalculate sorting done");
+
+                        Logger.ZLogTrace("\t\tGetting Reflection names for " + Types.Count + " types...");
+
+                        var list = new List<ITypeInfo>(Types.Count);
+                        // The fix required for Mono 5.0.0.94
+                        // It does not "understand" TopologicalSort's Enumerator in foreach
+                        // foreach (var processes in sorted)
+                        // The code is modified to get it "directly" and "typed"
+                        var sortedISetEnumerable = sorted as IEnumerable<ISet<OrderedProcess>>;
+                        Logger.ZLogTrace("\t\tGot Enumerable<ISet<OrderedProcess>>");
+
+                        var sortedISetEnumerator = sortedISetEnumerable.GetEnumerator();
+                        Logger.ZLogTrace("\t\tGot Enumerator<ISet<OrderedProcess>>");
+
+                        while (sortedISetEnumerator.MoveNext())
+                        {
+                            var processes = sortedISetEnumerator.Current;
+
+                            hitCounters[0]++;
+
+                            foreach (var process in processes)
+                            {
+                                handlingProcess = process;
+                                hitCounters[1]++;
+
+                                tInfo = Types.First(ti => GetReflectionName(ti.Type) == process.Name);
+
+                                var reflectionName = GetReflectionName(tInfo.Type);
+
+                                if (list.All(t => GetReflectionName(t.Type) != reflectionName))
+                                {
+                                    hitCounters[2]++;
+                                    list.Add(tInfo);
+                                }
+                            }
+                        }
+
+                        Logger.ZLogTrace("\t\tGetting Reflection names done");
+
+                        Types.Clear();
+                        Types.AddRange(list);
+
+                        for (int i = 0; i < hitCounters.Length; i++)
+                        {
+                            Logger.ZLogTrace("\t\tHitCounter" + i + " = " + hitCounters[i]);
+                        }
+
+                        Logger.ZLogTrace("\tTopological sorting third iteration done");
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Logger.LogWarning($"Topological sort failed {(tInfo != null || handlingProcess != null ? "at type " + (tInfo != null ? tInfo.Type.ReflectionName : handlingProcess.Name) : string.Empty)} with error {ex}");
+                    }
+                }
+                cacheParents = null;
+                activeTypes = null;
             }
-            cacheParents = null;
-            activeTypes = null;
-            this.Log.Trace("Topological sorting done");
         }
 
         public virtual TypeDefinition GetTypeDefinition()
@@ -361,7 +364,7 @@ namespace H5.Translator
 
         public virtual TypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
         {
-            var resolveResult = Resolver.ResolveNode(reference, this) as TypeResolveResult;
+            var resolveResult = Resolver.ResolveNode(reference) as TypeResolveResult;
             var type = H5Types.Get(resolveResult.Type, safe);
             return type?.TypeDefinition;
         }

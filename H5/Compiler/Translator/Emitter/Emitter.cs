@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Mono.Cecil;
 using Mosaik.Core;
 using System.Collections.Generic;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -21,10 +22,11 @@ namespace H5.Translator
 
             H5Types.InitItems(this);
 
-            Logger.LogTrace("Sorting types infos by name...");
-            Types.Sort(CompareTypeInfosByName);
-            Logger.LogTrace("Sorting types infos by name done");
-
+            using (new Measure(Logger, "Sorting types by name", logOnlyDuration: true))
+            {
+                Types.Sort(CompareTypeInfosByName);
+            }
+            
             SortTypesByInheritance();
 
             Validator = validator;
@@ -42,39 +44,39 @@ namespace H5.Translator
 
         public virtual List<TranslatorOutputItem> Emit()
         {
-            Logger.LogInformation("Emitting...");
-
-            var blocks = GetBlocks();
-            foreach (var block in blocks)
+            using (new Measure(Logger, "Emitting JavaScript code"))
             {
-                JsDoc.Init();
+                var blocks = GetBlocks();
+                foreach (var block in blocks)
+                {
+                    JsDoc.Init();
 
-                Logger.LogTrace("Emitting block " + block.GetType());
+                    Logger.ZLogTrace("Emitting block {0}", block.GetType());
 
-                block.Emit();
+                    block.Emit();
+                }
+
+                if (AutoStartupMethods.Count > 1)
+                {
+                    var autoMethods = string.Join(", ", AutoStartupMethods);
+
+                    Logger.LogError("Program has more than one entry point defined - {0}", autoMethods);
+
+                    throw (TranslatorException)TranslatorException.Create("Program has more than one entry point defined - {0}", autoMethods);
+                }
+
+                return TransformOutputs();
             }
 
-            if (AutoStartupMethods.Count > 1)
-            {
-                var autoMethods = string.Join(", ", AutoStartupMethods);
-
-                throw (TranslatorException)H5.Translator.TranslatorException.Create("Program has more than one entry point defined - {0}", autoMethods);
-            }
-
-            var output = TransformOutputs();
-
-            Logger.LogInformation("Emitting done");
-
-            return output;
         }
 
         private IEnumerable<IAbstractEmitterBlock> GetBlocks()
         {
-            yield return new H5.Translator.EmitBlock(this);
+            yield return new EmitBlock(this);
 
             if (AssemblyInfo.GenerateTypeScript)
             {
-                yield return new H5.Translator.TypeScript.EmitBlock(this);
+                yield return new TypeScript.EmitBlock(this);
             }
         }
     }

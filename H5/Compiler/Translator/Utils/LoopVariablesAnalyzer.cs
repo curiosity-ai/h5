@@ -15,10 +15,7 @@ namespace H5.Translator
 
         public List<IVariable> Variables { get; } = new List<IVariable>();
 
-        public IEmitter Emitter
-        {
-            get; set;
-        }
+        public IEmitter Emitter { get; set; }
 
         public LoopVariablesAnalyzer(IEmitter emitter, bool excludeReadOnly)
         {
@@ -26,10 +23,7 @@ namespace H5.Translator
             ExcludeReadOnly = excludeReadOnly;
         }
 
-        public bool ExcludeReadOnly
-        {
-            get; set;
-        }
+        public bool ExcludeReadOnly { get; set; }
 
         public void Analyze(AstNode node)
         {

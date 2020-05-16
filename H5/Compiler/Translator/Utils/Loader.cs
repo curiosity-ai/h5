@@ -7,30 +7,15 @@ namespace H5.Translator
 {
     public class ModuleLoader : IModuleLoader
     {
-        public ModuleLoaderType Type
-        {
-            get; set;
-        }
+        public ModuleLoaderType Type { get; set; }
 
-        public string FunctionName
-        {
-            get; set;
-        }
+        public string FunctionName { get; set; }
 
-        public bool ManualLoading
-        {
-            get; set;
-        }
+        public bool ManualLoading { get; set; }
 
-        public string ManualLoadingMask
-        {
-            get; set;
-        }
+        public string ManualLoadingMask { get; set; }
 
-        public bool SkipManualVariables
-        {
-            get; set;
-        }
+        public bool SkipManualVariables { get; set; }
 
         public bool IsManual(string name)
         {

@@ -41,7 +41,7 @@ namespace H5.Translator
         protected void VisitArrayCreateExpression()
         {
             ArrayCreateExpression arrayCreateExpression = ArrayCreateExpression;
-            var rr = ArrayCreateResolveResult ?? (Emitter.Resolver.ResolveNode(arrayCreateExpression, Emitter) as ArrayCreateResolveResult);
+            var rr = ArrayCreateResolveResult ?? (Emitter.Resolver.ResolveNode(arrayCreateExpression) as ArrayCreateResolveResult);
             var at = (ArrayType)rr.Type;
             var rank = arrayCreateExpression.Arguments.Count;
 

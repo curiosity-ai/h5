@@ -114,7 +114,7 @@ namespace H5.Translator
             var argsExpressions = argsInfo.ArgumentsExpressions;
             var paramsArg = argsInfo.ParamsExpression;
 
-            var targetResolve = Emitter.Resolver.ResolveNode(invocationExpression, Emitter);
+            var targetResolve = Emitter.Resolver.ResolveNode(invocationExpression);
             var csharpInvocation = targetResolve as CSharpInvocationResolveResult;
             MemberReferenceExpression targetMember = invocationExpression.Target as MemberReferenceExpression;
             bool isObjectLiteral = csharpInvocation != null && csharpInvocation.Member.DeclaringTypeDefinition != null ? Emitter.Validator.IsObjectLiteral(csharpInvocation.Member.DeclaringTypeDefinition) : false;

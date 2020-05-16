@@ -12,6 +12,9 @@ using System.Text;
 using ICSharpCode.NRefactory.Utils;
 using TopologicalSorting;
 using AssemblyDefinition = Mono.Cecil.AssemblyDefinition;
+using Microsoft.Extensions.Logging;
+using ZLogger;
+using Mosaik.Core;
 
 namespace H5.Translator
 {
@@ -95,7 +98,6 @@ namespace H5.Translator
 
         public void Translate()
         {
-            var logger = this.Log;
             Logger.LogInformation("Translating...");
 
             var config = AssemblyInfo;
@@ -129,7 +131,7 @@ namespace H5.Translator
 
             LogProductInfo();
 
-            Plugins = H5.Translator.Plugins.GetPlugins(this, config, logger);
+            Plugins = H5.Translator.Plugins.GetPlugins(this, config);
 
             Logger.LogInformation("Reading plugin configs...");
             Plugins.OnConfigRead(config);
@@ -147,7 +149,7 @@ namespace H5.Translator
                 {
                     var message = "Error: Unable to run beforeBuild event command: " + exc.Message + "\nStack trace:\n" + exc.StackTrace;
 
-                    logger.Error("Exception occurred. Message: " + message);
+                    Logger.LogError("Exception occurred. Message: " + message);
 
                     throw new H5.Translator.TranslatorException(message);
                 }
@@ -155,7 +157,7 @@ namespace H5.Translator
 
             BuildSyntaxTree();
 
-            var resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references, logger), AssemblyDefinition);
+            var resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references), AssemblyDefinition);
             resolver = Preconvert(resolver, config);
 
             InspectTypes(resolver, config);
@@ -172,7 +174,6 @@ namespace H5.Translator
             emitter.AssemblyInfo = AssemblyInfo;
             emitter.References = references;
             emitter.SourceFiles = SourceFiles;
-            emitter.Log = this.Log;
             emitter.Plugins = Plugins;
             emitter.InitialLevel = 1;
 
@@ -210,7 +211,7 @@ namespace H5.Translator
             bool needRecompile = false;
             foreach (var sourceFile in ParsedSourceFiles)
             {
-                this.Log.Trace("Preconvert " + sourceFile.ParsedFile.FileName);
+                Logger.ZLogTrace("Preconvert {0}", sourceFile.ParsedFile.FileName);
                 var syntaxTree = sourceFile.SyntaxTree;
                 var tempEmitter = new TempEmitter { AssemblyInfo = config };
                 var detecter = new PreconverterDetecter(resolver, tempEmitter);
@@ -218,7 +219,7 @@ namespace H5.Translator
 
                 if (detecter.Found)
                 {
-                    var fixer = new PreconverterFixer(resolver, tempEmitter, this.Log);
+                    var fixer = new PreconverterFixer(resolver, tempEmitter);
                     var astNode = syntaxTree.AcceptVisitor(fixer);
                     syntaxTree = astNode != null ? (SyntaxTree)astNode : syntaxTree;
                     sourceFile.SyntaxTree = syntaxTree;
@@ -268,22 +269,22 @@ namespace H5.Translator
                 {
                     var list = new List<AssemblyDefinition>(References.Count());
 
-                    this.Log.Trace("Sorting references...");
+                    Logger.ZLogTrace("Sorting references...");
 
-                    this.Log.Trace("\t\tCalculate sorting references...");
+                    Logger.ZLogTrace("\t\tCalculate sorting references...");
                     //IEnumerable<IEnumerable<OrderedProcess>> sorted = graph.CalculateSort();
                     TopologicalSort sorted = graph.CalculateSort();
-                    this.Log.Trace("\t\tCalculate sorting references done");
+                    Logger.ZLogTrace("\t\tCalculate sorting references done");
 
                     // The fix required for Mono 5.0.0.94
                     // It does not "understand" TopologicalSort's Enumerator in foreach
                     // foreach (var processes in sorted)
                     // The code is modified to get it "directly" and "typed"
                     var sortedISetEnumerable = sorted as IEnumerable<ISet<OrderedProcess>>;
-                    this.Log.Trace("\t\tGot Enumerable<ISet<OrderedProcess>>");
+                    Logger.ZLogTrace("\t\tGot Enumerable<ISet<OrderedProcess>>");
 
                     var sortedISetEnumerator = sortedISetEnumerable.GetEnumerator();
-                    this.Log.Trace("\t\tGot Enumerator<ISet<OrderedProcess>>");
+                    Logger.ZLogTrace("\t\tGot Enumerator<ISet<OrderedProcess>>");
 
                     //foreach (var processes in sorted)
                     while (sortedISetEnumerator.MoveNext())
@@ -292,7 +293,7 @@ namespace H5.Translator
 
                         foreach (var process in processes)
                         {
-                            this.Log.Trace("\tHandling " + process.Name);
+                            Logger.ZLogTrace("\tHandling " + process.Name);
 
                             asmDef = References.FirstOrDefault(r => r.Name.Name == process.Name);
 
@@ -305,16 +306,16 @@ namespace H5.Translator
 
                     References = list;
 
-                    this.Log.Trace("Sorting references done:");
+                    Logger.ZLogTrace("Sorting references done:");
 
                     for (int i = 0; i < list.Count; i++)
                     {
-                        this.Log.Trace("\t" + list[i].Name);
+                        Logger.ZLogTrace("\t" + list[i].Name);
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    this.Log.Warn(string.Format("Topological sort failed {0} with error {1}", asmDef != null ? "at reference " + asmDef.FullName : string.Empty, ex));
+                    Logger.ZLogWarning("Topological sort failed {0} with error {1}", asmDef != null ? "at reference " + asmDef.FullName : string.Empty, ex);
                 }
             }
         }
@@ -408,7 +409,7 @@ namespace H5.Translator
                         }
 
                     },
-                    new string[0], SourceFiles, AssemblyInfo.SourceMap.Eol, this.Log
+                    new string[0], SourceFiles, AssemblyInfo.SourceMap.Eol
                 );
             }
 
@@ -434,40 +435,36 @@ namespace H5.Translator
 
         public void RunAfterBuild()
         {
-            this.Log.Info("Checking AfterBuild event...");
-
-            if (!string.IsNullOrWhiteSpace(AssemblyInfo.AfterBuild))
+            using (new Measure(Logger, "Running after build"))
             {
-                try
+                if (!string.IsNullOrWhiteSpace(AssemblyInfo.AfterBuild))
                 {
-                    this.Log.Trace("Run AfterBuild event");
-                    RunEvent(AssemblyInfo.AfterBuild);
-                }
-                catch (System.Exception ex)
-                {
-                    var message = "Error: Unable to run afterBuild event command: " + ex.ToString();
+                    try
+                    {
+                        Logger.ZLogTrace("Run AfterBuild event");
+                        RunEvent(AssemblyInfo.AfterBuild);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        var message = "Error: Unable to run afterBuild event command: " + ex.ToString();
 
-                    this.Log.Error(message);
-                    throw new H5.Translator.TranslatorException(message);
+                        Logger.ZLogError(message);
+                        throw new H5.Translator.TranslatorException(message);
+                    }
+                }
+                else
+                {
+                    Logger.ZLogTrace("No AfterBuild event specified");
                 }
             }
-            else
-            {
-                this.Log.Trace("No AfterBuild event specified");
-            }
-
-            this.Log.Info("Done checking AfterBuild event...");
         }
 
         protected virtual Emitter CreateEmitter(IMemberResolver resolver)
         {
-            this.Log.Info("Creating emitter...");
-
-            var emitter = new Emitter(TypeDefinitions, H5Types, Types, Validator, resolver, TypeInfoDefinitions, this.Log);
-
-            this.Log.Info("Creating emitter done");
-
-            return emitter;
+            using (new Measure(Logger, "Creating Emitter"))
+            {
+                return new Emitter(TypeDefinitions, H5Types, Types, Validator, resolver, TypeInfoDefinitions);
+            }
         }
 
         protected virtual Validator CreateValidator()

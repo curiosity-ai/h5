@@ -30,7 +30,7 @@ namespace H5.Translator
             IMember member = null;
             if (BaseReferenceExpression.Parent != null)
             {
-                if (Emitter.Resolver.ResolveNode(BaseReferenceExpression.Parent, Emitter) is MemberResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(BaseReferenceExpression.Parent) is MemberResolveResult rr)
                 {
                     if (rr.IsVirtualCall)
                     {

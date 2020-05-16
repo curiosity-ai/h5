@@ -1,7 +1,9 @@
 using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
+using Microsoft.Extensions.Logging;
 using Mono.Cecil;
+using Mosaik.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -10,11 +12,15 @@ using System.ComponentModel.Composition.Primitives;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using ZLogger;
 
 namespace H5.Translator
 {
     public class Plugins : IPlugins
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<Plugins>();
+
         private const string PLUGIN_RESOURCE_NAME_PREFIX = "H5.Plugins.";
 
         public static bool IsLoaded { get; set; }
@@ -50,56 +56,54 @@ namespace H5.Translator
 
         protected class AssemblyResolver
         {
-            public ILogger Logger { get; set; }
+            private static ILogger Logger = ApplicationLogging.CreateLogger<AssemblyResolver>();
 
             public void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
             {
-                Logger.LogTrace("Loaded assembly: " + (args.LoadedAssembly != null ? args.LoadedAssembly.FullName : "none"));
+                Logger.ZLogTrace("Loaded assembly: {0}",  (args.LoadedAssembly is object ? args.LoadedAssembly.FullName : "none"));
             }
 
             public Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
             {
                 var domain = sender as AppDomain;
 
-                Logger.LogTrace("Domain " + domain.FriendlyName
-                    + " resolving assembly " + args.Name
-                    + " requested by " + (args.RequestingAssembly != null ? args.RequestingAssembly.FullName : "none")
-                    + " ...");
+                Logger.ZLogTrace("Domain {0} resolving assembly {1} requested by {2} ...", domain.FriendlyName, args.Name, (args.RequestingAssembly is object ? args.RequestingAssembly.FullName : "none"));
 
                 AssemblyName askedAssembly = new AssemblyName(args.Name);
-                Assembly assemblyLoaded = null;
-                if (Plugins.assemblyBindings.ContainsKey(askedAssembly.Name))
+                Assembly assemblyLoaded;
+
+                if (assemblyBindings.ContainsKey(askedAssembly.Name))
                 {
-                    assemblyLoaded = AssemblyResolver.CheckIfFullAssemblyLoaded(Plugins.assemblyBindings[askedAssembly.Name], domain);
+                    assemblyLoaded = CheckIfFullAssemblyLoaded(assemblyBindings[askedAssembly.Name], domain);
                 }
                 else
                 {
-                    assemblyLoaded = AssemblyResolver.CheckIfAssemblyLoaded(askedAssembly.Name, domain);
+                    assemblyLoaded = CheckIfAssemblyLoaded(askedAssembly.Name, domain);
                 }
 
-                if (assemblyLoaded != null)
+                if (assemblyLoaded is object)
                 {
-                    Logger.LogTrace("Resolved for " + assemblyLoaded.FullName + " in the loaded domain assemblies");
+                    Logger.ZLogTrace("Resolved for {0} in the loaded domain assemblies", assemblyLoaded.FullName);
                     return assemblyLoaded;
                 }
 
-                Logger.LogTrace("Did not find the assembly " + args.Name + " in the loaded domain assemblies");
+                Logger.ZLogTrace("Did not find the assembly {0} in the loaded domain assemblies", args.Name);
 
-                if (args.RequestingAssembly != null)
+                if (args.RequestingAssembly is object)
                 {
-                    assemblyLoaded = Plugins.LoadAssemblyFromResources(Logger, args.RequestingAssembly, askedAssembly);
+                    assemblyLoaded = LoadAssemblyFromResources(Logger, args.RequestingAssembly, askedAssembly);
 
-                    if (assemblyLoaded != null)
+                    if (assemblyLoaded is object)
                     {
-                        Logger.LogTrace("Resolved for " + assemblyLoaded.FullName + " in " + args.RequestingAssembly.FullName + " resources");
+                        Logger.ZLogTrace("Resolved for {0} in {1} resources", assemblyLoaded.FullName, args.RequestingAssembly.FullName);
                         return assemblyLoaded;
                     }
 
                     assemblyLoaded = CheckAssemblyBinding(askedAssembly.Name);
 
-                    if (assemblyLoaded != null)
+                    if (assemblyLoaded is object)
                     {
-                        Logger.LogTrace("Resolved for " + assemblyLoaded.FullName);
+                        Logger.ZLogTrace("Resolved for {0}", assemblyLoaded.FullName);
                         return assemblyLoaded;
                     }
 
@@ -109,13 +113,13 @@ namespace H5.Translator
                 {
                     assemblyLoaded = CheckAssemblyBinding(askedAssembly.Name);
 
-                    if (assemblyLoaded != null)
+                    if (assemblyLoaded is object)
                     {
-                        Logger.LogTrace("Resolved for " + assemblyLoaded.FullName);
+                        Logger.ZLogTrace("Resolved for {0}", assemblyLoaded.FullName);
                         return assemblyLoaded;
                     }
 
-                    Logger.LogTrace("Did not resolve assembly " + args.Name + ". Requesting assembly is null. Will not try to load the asked assembly in resources");
+                    Logger.ZLogTrace("Did not resolve assembly {0}. Requesting assembly is null. Will not try to load the asked assembly in resources", args.Name);
                 }
 
                 return null;
@@ -129,10 +133,10 @@ namespace H5.Translator
                     return null;
                 }
 
-                if (Plugins.assemblyBindings.ContainsKey(fullAssemblyName))
+                if (assemblyBindings.ContainsKey(fullAssemblyName))
                 {
                     loadedStack.Push(fullAssemblyName);
-                    var asm = Assembly.Load(Plugins.assemblyBindings[fullAssemblyName]);
+                    var asm = Assembly.Load(assemblyBindings[fullAssemblyName]);
                     loadedStack.Pop();
                     return asm;
                 }
@@ -170,39 +174,35 @@ namespace H5.Translator
             }
         }
 
-        public static IPlugins GetPlugins(ITranslator translator, IAssemblyInfo config, ILogger logger)
+        public static IPlugins GetPlugins(ITranslator translator, IAssemblyInfo config)
         {
             Logger.LogInformation("Discovering plugins...");
 
-            if (!Plugins.IsLoaded)
+            if (!IsLoaded)
             {
-                var resolver = new AssemblyResolver() { Logger = logger };
+                var resolver = new AssemblyResolver();
 
                 AppDomain.CurrentDomain.AssemblyResolve += resolver.CurrentDomain_AssemblyResolve;
 
                 AppDomain.CurrentDomain.AssemblyLoad += resolver.CurrentDomain_AssemblyLoad;
 
-                Plugins.IsLoaded = true;
+                IsLoaded = true;
 
-                Logger.LogTrace("Set assembly Resolve and Load events for domain " + AppDomain.CurrentDomain.FriendlyName);
+                Logger.ZLogTrace("Set assembly Resolve and Load events for domain {0}.", AppDomain.CurrentDomain.FriendlyName);
             }
 
-            Logger.LogTrace("Current domain " + AppDomain.CurrentDomain.FriendlyName);
+            Logger.ZLogTrace("Current domain {0}",  AppDomain.CurrentDomain.FriendlyName);
 
-#if NETSTANDARD2_0
-#else
-            Logger.LogTrace("Application base: " + AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
-#endif
+            Logger.ZLogTrace("Loaded assemblies:");
 
-            Logger.LogTrace("Loaded assemblies:");
             foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
             {
                 var location = a.IsDynamic ? "dynamic" : a.Location;
-                Logger.LogTrace(string.Format("\t{0} {1} {2}", a.FullName, location, a.GlobalAssemblyCache));
+                Logger.ZLogTrace("\t{0} {1} {2}", a.FullName, location, a.GlobalAssemblyCache);
             }
 
             var path = GetPluginPath(translator, config);
-            Logger.LogInformation("Will use the following plugin path \"" + path + "\"");
+            Logger.ZLogInformation("Will use the following plugin path '{0}'", path);
 
             var catalogs = new List<ComposablePartCatalog>();
 
@@ -222,31 +222,31 @@ namespace H5.Translator
                 skipPluginAssemblies = translatorInstance.SkipPluginAssemblies;
             }
 
-            Logger.LogTrace("Will search all translator references to find resource(s) with names starting from \"" + PLUGIN_RESOURCE_NAME_PREFIX + "\" ...");
+            Logger.ZLogTrace("Will search all translator references to find resource(s) with names starting from '{0}' ...", PLUGIN_RESOURCE_NAME_PREFIX);
 
             foreach (var reference in translator.References)
             {
-                Logger.LogTrace("Searching plugins in reference " + reference.FullName + " ...");
+                Logger.ZLogTrace("Searching plugins in reference {0} ...", reference.FullName);
 
-                if (skipPluginAssemblies != null && skipPluginAssemblies.FirstOrDefault(x => reference.Name.FullName.Contains(x)) != null)
+                if (skipPluginAssemblies is object && skipPluginAssemblies.FirstOrDefault(x => reference.Name.FullName.Contains(x)) is object)
                 {
-                    Logger.LogTrace("Skipping the reference " + reference.Name.FullName + " as it is in skipPluginAssemblies");
+                    Logger.ZLogTrace("Skipping the reference {0} as it is in skipPluginAssemblies", reference.Name.FullName);
                     continue;
                 }
                 else
                 {
-                    Logger.LogTrace("skipPluginAssemblies is not set");
+                    Logger.ZLogTrace("skipPluginAssemblies is not set");
                 }
 
-                var assemblies = reference.MainModule.Resources.Where(res => res.Name.StartsWith(PLUGIN_RESOURCE_NAME_PREFIX));
+                var assemblies = reference.MainModule.Resources.Where(res => res.Name.StartsWith(PLUGIN_RESOURCE_NAME_PREFIX)).ToArray();
 
-                Logger.LogTrace("The reference contains " + assemblies.Count() + " resource(s) needed");
+                Logger.ZLogTrace("The reference contains {0} resource(s) needed", assemblies.Length);
 
                 if (assemblies.Any())
                 {
                     foreach (var res_assembly in assemblies)
                     {
-                        Logger.LogTrace("Searching plugins in resource " + res_assembly.Name + " ...");
+                        Logger.ZLogTrace("Searching plugins in resource {0} ...", res_assembly.Name);
 
                         try
                         {
@@ -255,23 +255,23 @@ namespace H5.Translator
                                 var ba = new byte[(int)resourcesStream.Length];
                                 resourcesStream.Read(ba, 0, (int)resourcesStream.Length);
 
-                                Logger.LogTrace("Read the assembly resource stream of " + resourcesStream.Length + " bytes length");
+                                Logger.ZLogTrace("Read the assembly resource stream of {0} bytes length", resourcesStream.Length);
 
-                                var trimmedName = Plugins.TrimResourceAssemblyName(res_assembly, PLUGIN_RESOURCE_NAME_PREFIX);
+                                var trimmedName = TrimResourceAssemblyName(res_assembly, PLUGIN_RESOURCE_NAME_PREFIX);
 
-                                var assembly = CheckIfAssemblyLoaded(logger, ba, null, trimmedName);
+                                var assembly = CheckIfAssemblyLoaded(ba, null, trimmedName);
 
                                 catalogs.Add(new AssemblyCatalog(assembly));
-                                Logger.LogTrace("The assembly " + assembly.FullName + " added to the catalogs");
+                                Logger.ZLogTrace("The assembly {0} was added to the catalogs", assembly.FullName);
                             }
                         }
                         catch (ReflectionTypeLoadException ex)
                         {
-                            LogAssemblyLoaderException("Could not load assembly from resources", ex, logger);
+                            LogAssemblyLoaderException("Could not load assembly from resources", ex);
                         }
-                        catch (System.Exception ex)
+                        catch (Exception ex)
                         {
-                            logger.Error("Could not load assembly from resources: " + ex.ToString());
+                            Logger.ZLogError(ex, "Could not load assembly from resources");
                         }
                     }
                 }
@@ -279,7 +279,7 @@ namespace H5.Translator
 
             if (catalogs.Count == 0)
             {
-                Logger.LogInformation("No AssemblyCatalogs found");
+                Logger.ZLogInformation("No AssemblyCatalogs found");
                 return new Plugins() { plugins = new IPlugin[0] };
             }
 
@@ -288,7 +288,7 @@ namespace H5.Translator
             CompositionContainer container = new CompositionContainer(catalog);
             var plugins = new Plugins();
 
-            Logger.LogInformation("ComposingParts to discover plugins...");
+            Logger.ZLogInformation("ComposingParts to discover plugins...");
 
             try
             {
@@ -296,21 +296,16 @@ namespace H5.Translator
             }
             catch (ReflectionTypeLoadException ex)
             {
-                LogAssemblyLoaderException("Could not compose Plugin parts", ex, logger);
+                LogAssemblyLoaderException("Could not compose Plugin parts", ex);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                logger.Error("Could not compose Plugin parts: " + ex.ToString());
+                Logger.ZLogError(ex, "Could not compose Plugin parts.");
             }
 
-            if (plugins.Parts != null)
+            if (plugins.Parts is object)
             {
-                foreach (var plugin in plugins.Parts)
-                {
-                    plugin.Logger = translator.Log;
-                }
-
-                Logger.LogInformation("Discovered " + plugins.Parts.Count() + " plugin(s)");
+                Logger.ZLogInformation("Discovered {0} plugin(s)", plugins.Parts.Count());
             }
 
             return plugins;
@@ -368,7 +363,7 @@ namespace H5.Translator
 
             foreach (var resourceName in resourceNames)
             {
-                var trimmedResourceName = Plugins.TrimAssemblyName(resourceName);
+                var trimmedResourceName = TrimAssemblyName(resourceName);
 
                 Logger.LogTrace("Scanning resource " + resourceName + ". Trimmed resource name " + trimmedResourceName + " ...");
 
@@ -383,7 +378,7 @@ namespace H5.Translator
 
                         Logger.LogTrace("Read the assembly resource stream of " + resourcesStream.Length + " bytes length");
 
-                        return CheckIfAssemblyLoaded(logger, ba, null, resourceName);
+                        return CheckIfAssemblyLoaded(ba, null, resourceName);
                     }
                 }
             }
@@ -391,20 +386,20 @@ namespace H5.Translator
             return null;
         }
 
-        public static Assembly CheckIfAssemblyLoaded(ILogger logger, byte[] ba, AssemblyName assemblyName, string trimmedName)
+        public static Assembly CheckIfAssemblyLoaded(byte[] ba, AssemblyName assemblyName, string trimmedName)
         {
-            Logger.LogTrace("Check if assembly " + trimmedName + " already loaded");
+            Logger.ZLogTrace("Check if assembly {0} is already loaded", trimmedName);
 
             Assembly assembly = AssemblyResolver.CheckIfAssemblyLoaded(trimmedName, AppDomain.CurrentDomain);
-            if (assembly != null)
+            if (assembly is object)
             {
-                Logger.LogTrace("The assembly " + trimmedName + " is already loaded");
+                Logger.ZLogTrace("The assembly {0} is already loaded", trimmedName);
             }
             else
             {
-                Logger.LogTrace("Loading the assembly into domain " + AppDomain.CurrentDomain.FriendlyName + " ...");
+                Logger.ZLogTrace("Loading the assembly into domain {0} ...", AppDomain.CurrentDomain.FriendlyName);
 
-                if (ba != null)
+                if (ba is object)
                 {
                     assembly = Assembly.Load(ba);
                 }
@@ -413,19 +408,19 @@ namespace H5.Translator
                     assembly = Assembly.Load(assemblyName);
                 }
 
-                Logger.LogTrace("Assembly " + assembly.FullName + " is loaded into domain " + AppDomain.CurrentDomain.FriendlyName);
+                Logger.ZLogTrace("Assembly {0} is loaded into domain {1}", assembly.FullName, AppDomain.CurrentDomain.FriendlyName);
             }
 
             return assembly;
         }
 
-        private static void LogAssemblyLoaderException(string reason, ReflectionTypeLoadException ex, ILogger logger)
+        private static void LogAssemblyLoaderException(string reason, ReflectionTypeLoadException ex)
         {
-            var sb = new System.Text.StringBuilder(reason + ": ");
+            var sb = new StringBuilder(reason + ": ");
 
             sb.AppendLine(ex.ToString());
 
-            if (ex.LoaderExceptions != null)
+            if (ex.LoaderExceptions is object)
             {
                 sb.AppendFormat("LoaderExceptions ({0} items): ", ex.LoaderExceptions.Length);
 
@@ -437,16 +432,7 @@ namespace H5.Translator
 
             var message = sb.ToString();
 
-            if (logger != null)
-            {
-                logger.Error(message);
-            }
-            else
-            {
-                Console.WriteLine(message);
-            }
-
-            sb.Clear();
+            Logger.LogError(message);
         }
 
         [ImportMany]
@@ -479,7 +465,7 @@ namespace H5.Translator
             foreach (var plugin in Parts)
             {
                 var answer = plugin.GetConstructorInjectors(constructorBlock);
-                if (answer != null)
+                if (answer is object)
                 {
                     result = result.Concat(answer);
                 }

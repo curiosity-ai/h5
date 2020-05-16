@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using H5.Contract;
+using Mosaik.Core;
+using Microsoft.Extensions.Logging;
 
 namespace H5.Translator
 {
@@ -65,59 +67,55 @@ namespace H5.Translator
 
         protected virtual List<TranslatorOutputItem> TransformOutputs()
         {
-            this.Log.Info("Transforming outputs...");
-
-            WrapToModules();
-
-            var outputs = CombineOutputs();
-
-            this.Log.Info("Transforming outputs done");
-
-            return outputs;
+            using(new Measure(Logger, "Transforming outputs", logLevel: LogLevel.Trace))
+            {
+                WrapToModules();
+                var outputs = CombineOutputs();
+                return outputs;
+            }
         }
 
         protected virtual List<TranslatorOutputItem> CombineOutputs()
         {
-            this.Log.Trace("Combining outputs...");
-
-            var result = new List<TranslatorOutputItem>();
-
-            var disableAsm = AssemblyInfo.Assembly.DisableInitAssembly;
-
-            AssemblyJsDocWritten = false;
-
-            var fileHelper = new FileHelper();
-
-            foreach (var outputPair in Outputs)
+            using (var m = new Measure(Logger, "Combining outputs", logLevel: LogLevel.Trace))
             {
-                var fileName = outputPair.Key;
-                var output = outputPair.Value;
+                var result = new List<TranslatorOutputItem>();
 
-                this.Log.Trace("File name " + (fileName ?? ""));
+                var disableAsm = AssemblyInfo.Assembly.DisableInitAssembly;
 
-                bool isJs = fileHelper.IsJS(fileName);
+                AssemblyJsDocWritten = false;
 
-                var tmp = new StringBuilder(output.TopOutput.Length + output.BottomOutput.Length + output.NonModuletOutput.Length + 1000);
-
-                OutputTop(output, tmp);
-
-                OutputNonModule(disableAsm, fileName, output, isJs, tmp);
-
-                OutputBottom(output, tmp);
-
-                var outputKind = TranslatorOutputKind.ProjectOutput;
-
-                if (output.IsMetadata)
+                var fileHelper = new FileHelper();
+                int k = 0;
+                foreach (var outputPair in Outputs)
                 {
-                    outputKind = outputKind | TranslatorOutputKind.Metadata;
+                    var fileName = outputPair.Key;
+                    var output = outputPair.Value;
+
+                    m.SetOperations(++k).EmitPartial($"Processing file '{(fileName ?? "")}'");
+
+                    bool isJs = fileHelper.IsJS(fileName);
+
+                    var tmp = new StringBuilder(output.TopOutput.Length + output.BottomOutput.Length + output.NonModuletOutput.Length + 1000);
+
+                    OutputTop(output, tmp);
+
+                    OutputNonModule(disableAsm, fileName, output, isJs, tmp);
+
+                    OutputBottom(output, tmp);
+
+                    var outputKind = TranslatorOutputKind.ProjectOutput;
+
+                    if (output.IsMetadata)
+                    {
+                        outputKind = outputKind | TranslatorOutputKind.Metadata;
+                    }
+
+                    AddOutputItem(result, fileName, tmp, outputKind, location: null);
                 }
 
-                Emitter.AddOutputItem(result, fileName, tmp, outputKind, location: null);
+                return result;
             }
-
-            this.Log.Trace("Combining outputs done");
-
-            return result;
         }
 
         private void OutputAssemblyComment(StringBuilder tmp)

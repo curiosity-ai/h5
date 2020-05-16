@@ -296,8 +296,8 @@ namespace H5.Translator
 
         public static bool IsOperatorSimple(BinaryOperatorExpression binaryOperatorExpression, IEmitter emitter)
         {
-            var leftResolverResult = emitter.Resolver.ResolveNode(binaryOperatorExpression.Left, emitter);
-            var rightResolverResult = emitter.Resolver.ResolveNode(binaryOperatorExpression.Right, emitter);
+            var leftResolverResult = emitter.Resolver.ResolveNode(binaryOperatorExpression.Left);
+            var rightResolverResult = emitter.Resolver.ResolveNode(binaryOperatorExpression.Right);
             bool leftIsSimple = binaryOperatorExpression.Left is PrimitiveExpression || leftResolverResult.Type.IsKnownType(KnownTypeCode.String) ||
                                  leftResolverResult.Type.IsReferenceType != null && !leftResolverResult.Type.IsReferenceType.Value;
 
@@ -344,15 +344,15 @@ namespace H5.Translator
                 return;
             }
 
-            var resolveOperator = Emitter.Resolver.ResolveNode(binaryOperatorExpression, Emitter);
+            var resolveOperator = Emitter.Resolver.ResolveNode(binaryOperatorExpression);
             var expectedType = Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression);
             bool isDecimalExpected = Helpers.IsDecimalType(expectedType, Emitter.Resolver);
             bool isDecimal = Helpers.IsDecimalType(resolveOperator.Type, Emitter.Resolver);
             bool isLongExpected = Helpers.Is64Type(expectedType, Emitter.Resolver);
             bool isLong = Helpers.Is64Type(resolveOperator.Type, Emitter.Resolver);
             OperatorResolveResult orr = resolveOperator as OperatorResolveResult;
-            var leftResolverResult = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Left, Emitter);
-            var rightResolverResult = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Right, Emitter);
+            var leftResolverResult = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Left);
+            var rightResolverResult = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Right);
             var charToString = -1;
             string variable = null;
             bool leftIsNull = BinaryOperatorExpression.Left is NullReferenceExpression;
@@ -393,7 +393,7 @@ namespace H5.Translator
 
             if (parentIsString)
             {
-                var parentResolveOperator = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Parent, Emitter) as OperatorResolveResult;
+                var parentResolveOperator = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Parent) as OperatorResolveResult;
 
                 if (parentResolveOperator != null && parentResolveOperator.UserDefinedOperatorMethod != null || BinaryOperatorBlock.IsOperatorSimple(parentBinary, Emitter))
                 {

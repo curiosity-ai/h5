@@ -42,10 +42,7 @@ namespace H5.Translator
             }
         }
 
-        public List<string> Names
-        {
-            get; set;
-        }
+        public List<string> Names { get; set; }
     }
 
     public class EmitterOutputs : Dictionary<string, IEmitterOutput>, IEmitterOutputs

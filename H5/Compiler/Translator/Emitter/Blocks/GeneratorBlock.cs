@@ -224,19 +224,19 @@ namespace H5.Translator
         {
             if (MethodDeclaration != null)
             {
-                ReturnType = Emitter.Resolver.ResolveNode(MethodDeclaration.ReturnType, Emitter).Type;
+                ReturnType = Emitter.Resolver.ResolveNode(MethodDeclaration.ReturnType).Type;
             }
             else if (LambdaExpression != null)
             {
-                ReturnType = ((LambdaResolveResult)Emitter.Resolver.ResolveNode(LambdaExpression, Emitter)).ReturnType;
+                ReturnType = ((LambdaResolveResult)Emitter.Resolver.ResolveNode(LambdaExpression)).ReturnType;
             }
             else if (AnonymousMethodExpression != null)
             {
-                ReturnType = ((LambdaResolveResult)Emitter.Resolver.ResolveNode(AnonymousMethodExpression, Emitter)).ReturnType;
+                ReturnType = ((LambdaResolveResult)Emitter.Resolver.ResolveNode(AnonymousMethodExpression)).ReturnType;
             }
             else if (Accessor != null)
             {
-                ReturnType = Emitter.Resolver.ResolveNode(((EntityDeclaration)Accessor.Parent).ReturnType, Emitter).Type;
+                ReturnType = Emitter.Resolver.ResolveNode(((EntityDeclaration)Accessor.Parent).ReturnType).Type;
             }
 
             IsEnumeratorReturn = ReturnType.Name == "IEnumerator";
@@ -774,10 +774,7 @@ namespace H5.Translator
 
         public StringBuilder Output { get; set; }
 
-        public object Label
-        {
-            get; set;
-        }
+        public object Label { get; set; }
     }
 
     public class GeneratorJumpLabel : IAsyncJumpLabel

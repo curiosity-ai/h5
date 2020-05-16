@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -38,10 +39,9 @@ namespace H5.Translator
                     var compilerAssembly = System.Reflection.Assembly.GetExecutingAssembly();
                     compilerVersionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(compilerAssembly.Location);
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    this.Log.Error("Could not load executing assembly to get assembly info");
-                    this.Log.Error(ex.ToString());
+                    Logger.ZLogError(ex, "Could not load executing assembly to get assembly info");
                 }
             }
 
@@ -79,8 +79,7 @@ namespace H5.Translator
             }
             catch (System.Exception ex)
             {
-                this.Log.Error("Could not load " + path + " to get the assembly info");
-                this.Log.Error(ex.ToString());
+                Logger.ZLogError(ex, "Could not load {0} to get the assembly info", path);
             }
 
             return fileVerionInfo;
@@ -164,24 +163,24 @@ namespace H5.Translator
 
             var h5Info = GetH5AssemblyVersion();
 
-            this.Log.Info("Product info:");
+            Logger.ZLogInformation("Product info:");
             if (compilerInfo != null)
             {
-                this.Log.Info(string.Format("\t{0} version {1}", compilerInfo.ProductName, compilerInfo.ProductVersion));
+                Logger.ZLogInformation("\t{0} version {1}", compilerInfo.ProductName, compilerInfo.ProductVersion);
             }
             else
             {
-                this.Log.Info("Not found");
+                Logger.ZLogInformation("Not found");
             }
 
             if (h5Info != null)
             {
-                this.Log.Info(string.Format("\t[{0} Framework, version {1}]", h5Info.ProductName, h5Info.ProductVersion));
+                Logger.ZLogInformation("\t[{0} Framework, version {1}]", h5Info.ProductName, h5Info.ProductVersion);
             }
 
             if (compilerInfo != null)
             {
-                this.Log.Info("\t" + compilerInfo.LegalCopyright);
+                Logger.ZLogInformation("\t" + compilerInfo.LegalCopyright);
             }
         }
     }

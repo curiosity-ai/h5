@@ -10,36 +10,32 @@ using System;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Concurrent;
+using Mosaik.Core;
+using Microsoft.Extensions.Logging;
+using ZLogger;
 
 namespace H5.Translator
 {
     public partial class Translator
     {
-        public Stack<string> CurrentAssemblyLocationInspected
-        {
-            get; set;
-        } = new Stack<string>();
+        private static ILogger Logger = ApplicationLogging.CreateLogger<Translator>();
+        
+        public Stack<string> CurrentAssemblyLocationInspected { get; set; } = new Stack<string>();
 
         private class CecilAssemblyResolver : DefaultAssemblyResolver
         {
-            public ILogger Logger
-            {
-                get; set;
-            }
+            private static ILogger Logger = ApplicationLogging.CreateLogger<CecilAssemblyResolver>();
 
-            public CecilAssemblyResolver(ILogger logger, string location)
+            public CecilAssemblyResolver(string location)
             {
-                Logger = logger;
-
                 ResolveFailure += CecilAssemblyResolver_ResolveFailure;
-
                 AddSearchDirectory(Path.GetDirectoryName(location));
             }
 
             private AssemblyDefinition CecilAssemblyResolver_ResolveFailure(object sender, AssemblyNameReference reference)
             {
                 string fullName = reference != null ? reference.FullName : "";
-                Logger.LogTrace("CecilAssemblyResolver: ResolveFailure " + (fullName ?? ""));
+                Logger.ZLogTrace("CecilAssemblyResolver: ResolveFailure {0}", (fullName ?? ""));
 
                 return null;
             }
@@ -48,7 +44,7 @@ namespace H5.Translator
             {
                 string fullName = name != null ? name.FullName : "";
 
-                Logger.LogTrace("CecilAssemblyResolver: Resolve(AssemblyNameReference) " + (fullName ?? ""));
+                Logger.ZLogTrace("CecilAssemblyResolver: Resolve(AssemblyNameReference) {0}", (fullName ?? ""));
 
                 return base.Resolve(name);
             }
@@ -57,12 +53,7 @@ namespace H5.Translator
             {
                 string fullName = name != null ? name.FullName : "";
 
-                Logger.LogTrace(
-                    "CecilAssemblyResolver: Resolve(AssemblyNameReference, ReaderParameters) "
-                    + (fullName ?? "")
-                    + ", "
-                    + (parameters != null ? parameters.ReadingMode.ToString() : "")
-                    );
+                Logger.ZLogTrace("CecilAssemblyResolver: Resolve(AssemblyNameReference, ReaderParameters) {0}, {1}", (fullName ?? ""), (parameters != null ? parameters.ReadingMode.ToString() : ""));
 
                 return base.Resolve(name, parameters);
             }
@@ -82,7 +73,7 @@ namespace H5.Translator
                         new ReaderParameters()
                         {
                             ReadingMode = ReadingMode.Deferred,
-                            AssemblyResolver = new CecilAssemblyResolver(this.Log, AssemblyLocation)
+                            AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
                         }
                     );
 
@@ -96,14 +87,13 @@ namespace H5.Translator
 
         protected virtual AssemblyDefinition LoadAssembly(string location, List<AssemblyDefinition> references)
         {
-            this.Log.Trace("Assembly definition loading " + (location ?? "") + " ...");
+            Logger.ZLogTrace("Assembly definition loading {0} ...", (location ?? ""));
 
             if (CurrentAssemblyLocationInspected.Contains(location))
             {
                 var message = string.Format("There is a circular reference found for assembly location {0}. To avoid the error, rename your project's assembly to be different from that location.", location);
-
-                this.Log.Error(message);
-                throw new System.InvalidOperationException(message);
+                Logger.ZLogError(message);
+                throw new InvalidOperationException(message);
             }
 
             CurrentAssemblyLocationInspected.Push(location);
@@ -115,7 +105,7 @@ namespace H5.Translator
                         new ReaderParameters()
                         {
                             ReadingMode = ReadingMode.Deferred,
-                            AssemblyResolver = new CecilAssemblyResolver(this.Log, AssemblyLocation)
+                            AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
                         }
                     );
 
@@ -158,13 +148,13 @@ namespace H5.Translator
                     }
                 }
 
-                this.Log.Trace("Assembly definition loading " + (location ?? "") + " done");
+                Logger.ZLogTrace("Assembly definition loading {0} done", (location ?? ""));
 
                 var cl = CurrentAssemblyLocationInspected.Pop();
 
                 if (cl != location)
                 {
-                    throw new System.InvalidOperationException(string.Format("Current location {0} is not the current location in stack {1}", location, cl));
+                    throw new InvalidOperationException(string.Format("Current location {0} is not the current location in stack {1}", location, cl));
                 }
 
                 return assemblyDefinition;
@@ -179,11 +169,12 @@ namespace H5.Translator
 
         protected virtual void ReadTypes(AssemblyDefinition assembly)
         {
-            this.Log.Trace("Reading types for assembly " + (assembly != null && assembly.Name != null && assembly.Name.Name != null ? assembly.Name.Name : "") + " ...");
+            var name = (assembly != null && assembly.Name != null && assembly.Name.Name != null ? assembly.Name.Name : "");
+            Logger.ZLogTrace("Reading types for assembly {0} ...", name);
 
             AddNestedTypes(assembly.MainModule.Types);
 
-            this.Log.Trace("Reading types for assembly done");
+            Logger.ZLogTrace("Reading types for assembly {0} done", name);
         }
 
         protected virtual void AddNestedTypes(IEnumerable<TypeDefinition> types)
@@ -217,11 +208,12 @@ namespace H5.Translator
 
                     if (!AssemblyInfo.IgnoreDuplicateTypes)
                     {
-                        this.Log.Error(message);
-                        throw new System.InvalidOperationException(message);
-                    } else
+                        Logger.LogError(message);
+                        throw new InvalidOperationException(message);
+                    } 
+                    else
                     {
-                        this.Log.Warn(message);
+                        Logger.LogWarning(message);
                     }
                     skip_key = true;
                 }
@@ -237,7 +229,7 @@ namespace H5.Translator
 
                     if (type.HasNestedTypes)
                     {
-                        Translator.InheritAttributes(type);
+                        InheritAttributes(type);
                         AddNestedTypes(type.NestedTypes);
                     }
                 }
@@ -278,7 +270,7 @@ namespace H5.Translator
 
         protected virtual List<AssemblyDefinition> InspectReferences()
         {
-            this.Log.Info("Inspecting references...");
+            Logger.LogInformation("Inspecting references...");
 
             TypeInfoDefinitions = new Dictionary<string, ITypeInfo>();
 
@@ -306,14 +298,14 @@ namespace H5.Translator
                 SourceFiles[i] = Path.Combine(prefix, SourceFiles[i]);
             }
 
-            this.Log.Info("Inspecting references done");
+            Logger.LogInformation("Inspecting references done");
 
             return references;
         }
 
         protected virtual void InspectTypes(MemberResolver resolver, IAssemblyInfo config)
         {
-            this.Log.Info("Inspecting types...");
+            Logger.LogInformation("Inspecting types...");
 
             Inspector inspector = CreateInspector(config);
             inspector.AssemblyInfo = config;
@@ -322,7 +314,7 @@ namespace H5.Translator
             for (int i = 0; i < ParsedSourceFiles.Length; i++)
             {
                 var sourceFile = ParsedSourceFiles[i];
-                this.Log.Trace("Visiting syntax tree " + (sourceFile != null && sourceFile.ParsedFile != null && sourceFile.ParsedFile.FileName != null ? sourceFile.ParsedFile.FileName : ""));
+                Logger.ZLogTrace("Visiting syntax tree {0}", (sourceFile != null && sourceFile.ParsedFile != null && sourceFile.ParsedFile.FileName != null ? sourceFile.ParsedFile.FileName : ""));
 
                 inspector.VisitSyntaxTree(sourceFile.SyntaxTree);
             }
@@ -330,7 +322,7 @@ namespace H5.Translator
             AssemblyInfo = inspector.AssemblyInfo;
             Types = inspector.Types;
 
-            this.Log.Info("Inspecting types done");
+            Logger.LogInformation("Inspecting types done");
         }
 
         protected virtual Inspector CreateInspector(IAssemblyInfo config = null)
@@ -340,71 +332,75 @@ namespace H5.Translator
 
         private string[] Rewrite()
         {
-            var rewriter = new SharpSixRewriter(this);
-            var result = new string[SourceFiles.Count];
+            using (var m = new Measure(Logger, "Rewritting code"))
+            {
+                var rewriter = new SharpSixRewriter(this);
+                var result = new string[SourceFiles.Count];
 
-            // Run in parallel only and only if logger level is not trace.
-            if (this.Log.LoggerLevel == LoggerLevel.Trace)
-            {
-                this.Log.Trace("Rewriting/replacing code from files one after the other (not parallel) due to logger level being 'trace'.");
-                SourceFiles.Select((file, index) => new { file, index }).ToList()
-                    .ForEach(entry => result[entry.index] = new SharpSixRewriter(rewriter).Rewrite(entry.index));
-            }
-            else
-            {
                 var queue = new ConcurrentQueue<int>(Enumerable.Range(0, SourceFiles.Count));
 
                 var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
-                 {
-                     var t = new Thread(() =>
-                     {
-                         while(queue.TryDequeue(out var index))
-                         {
-                             result[index] = new SharpSixRewriter(rewriter).Rewrite(index);
-                         }
-                     });
-                     t.IsBackground = true;
-                     t.Start();
-                     return t;
-                 }).ToArray();
+                    {
+                        var t = new Thread(() =>
+                        {
+                            while (queue.TryDequeue(out var index))
+                            {
+                                result[index] = rewriter.Clone().Rewrite(index);
+                            }
+                        });
+                        t.IsBackground = true;
+                        t.Start();
+                        return t;
+                    }).ToArray();
 
                 Array.ForEach(threads, t => t.Join());
+
+                rewriter.CommitCache();
+
+                m.SetOperations(result.Length);
+
+                return result;
             }
-
-            rewriter.CommitCache();
-
-            return result;
         }
 
         protected void BuildSyntaxTree()
         {
-            this.Log.Info("Building syntax tree...");
-
             var rewriten = Rewrite();
 
-            // Run in parallel only and only if logger level is not trace.
-            if (this.Log.LoggerLevel == LoggerLevel.Trace)
+            using (var m = new Measure(Logger, "Building syntax tree"))
             {
-                this.Log.Trace("Building syntax tree..." + Environment.NewLine + "Parsing files one after the other (not parallel) due to logger level being 'trace'.");
-                for (var index = 0; index < SourceFiles.Count; index++)
-                {
-                    BuildSyntaxTreeForFile(index, ref rewriten);
-                }
-            }
-            else
-            {
-                Task.WaitAll(SourceFiles.Select((fileName, index) => Task.Run(() => BuildSyntaxTreeForFile(index, ref rewriten))).ToArray());
-            }
+                var queue = new ConcurrentQueue<int>(Enumerable.Range(0, rewriten.Length));
 
-            this.Log.Info("Building syntax tree done");
+                var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
+                {
+                    var t = new Thread(() =>
+                    {
+                        while (queue.TryDequeue(out var index))
+                        {
+                            BuildSyntaxTreeForFile(index, ref rewriten);
+                        }
+                    });
+                    t.IsBackground = true;
+                    t.Start();
+                    return t;
+                }).ToArray();
+
+                Array.ForEach(threads, t => t.Join());
+
+                m.SetOperations(rewriten.Length);
+            }
         }
 
         private void BuildSyntaxTreeForFile(int index, ref string[] rewriten)
         {
             var fileName = SourceFiles[index];
-            this.Log.Trace("Source file " + (fileName ?? string.Empty) + " ...");
 
-            var parser = new ICSharpCode.NRefactory.CSharp.CSharpParser();
+            var swAll = ValueStopwatch.StartNew();
+            var sw = ValueStopwatch.StartNew();
+
+            Logger.ZLogTrace("Building syntax tree for file '{0}' ...", (fileName ?? ""));
+
+            var parser = new CSharpParser();
 
             if (DefineConstants != null && DefineConstants.Count > 0)
             {
@@ -422,7 +418,10 @@ namespace H5.Translator
 
             var syntaxTree = parser.Parse(rewriten[index], fileName);
             syntaxTree.FileName = fileName;
-            this.Log.Trace("\tParsing syntax tree done");
+
+            Logger.ZLogTrace("Building syntax tree for file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
+            
+            sw = new ValueStopwatch(); //Reset the stopwatch
 
             if (parser.HasErrors)
             {
@@ -436,34 +435,41 @@ namespace H5.Translator
             }
 
             var expandResult = new QueryExpressionExpander().ExpandQueryExpressions(syntaxTree);
-            this.Log.Trace("\tExpanding query expressions done");
+            
+            Logger.ZLogTrace("Expanding query expressions for file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
+
+            sw = new ValueStopwatch(); //Reset the stopwatch
 
             syntaxTree = (expandResult != null ? (SyntaxTree)expandResult.AstNode : syntaxTree);
 
             var emptyLambdaDetecter = new EmptyLambdaDetecter();
             syntaxTree.AcceptVisitor(emptyLambdaDetecter);
-            this.Log.Trace("\tAccepting lambda detector visitor done");
+
+            Logger.ZLogTrace("Empty lambda detector on file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
+            sw = new ValueStopwatch(); //Reset the stopwatch
+
 
             if (emptyLambdaDetecter.Found)
             {
                 var fixer = new EmptyLambdaFixer();
                 var astNode = syntaxTree.AcceptVisitor(fixer);
-                this.Log.Trace("\tAccepting lambda fixer visitor done");
+                Logger.ZLogTrace("Empty lambda fixer on file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
+                sw = new ValueStopwatch(); //Reset the stopwatch
                 syntaxTree = (astNode != null ? (SyntaxTree)astNode : syntaxTree);
                 syntaxTree.FileName = fileName;
             }
 
-            var f = new ParsedSourceFile(syntaxTree, new CSharpUnresolvedFile
-            {
-                FileName = fileName
-            });
+            var f = new ParsedSourceFile(syntaxTree, new CSharpUnresolvedFile { FileName = fileName });
+            
             ParsedSourceFiles[index] = f;
 
             var tcv = new TypeSystemConvertVisitor(f.ParsedFile);
-            f.SyntaxTree.AcceptVisitor(tcv);
-            this.Log.Trace("\tAccepting type system convert visitor done");
 
-            this.Log.Trace("Source file " + (fileName ?? string.Empty) + " done");
+            f.SyntaxTree.AcceptVisitor(tcv);
+
+            Logger.ZLogTrace("Type system converter on file '{0}' finished in {1:n1} ms", (fileName ?? ""), sw.GetElapsedTime().TotalMilliseconds);
+            
+            Logger.ZLogTrace("Processing syntax tree for file '{0}' finished in {1:n1} ms", (fileName ?? ""), swAll.GetElapsedTime().TotalMilliseconds);
         }
     }
 }

@@ -52,7 +52,7 @@ namespace H5.Translator
 
             declarations.ToList().ForEach(item =>
             {
-                var rr = item.Parent != null ? (LocalResolveResult)Emitter.Resolver.ResolveNode(item, Emitter) : null;
+                var rr = item.Parent != null ? (LocalResolveResult)Emitter.Resolver.ResolveNode(item) : null;
                 var name = Emitter.GetParameterName(item);
                 var vName = AddLocal(item.Name, item, item.Type, name);
 
@@ -73,7 +73,7 @@ namespace H5.Translator
 
             foreach (var expr in visitor.DirectionExpression)
             {
-                var rr = Emitter.Resolver.ResolveNode(expr, Emitter);
+                var rr = Emitter.Resolver.ResolveNode(expr);
                 if (rr is LocalResolveResult lrr && (expr is IdentifierExpression identifierExpression))
                 {
                     var name = identifierExpression.Identifier;
@@ -131,7 +131,7 @@ namespace H5.Translator
             }
 
             var result = Emitter.LocalsNamesMap[name];
-            var lrr = node != null && node.Parent != null ? Emitter.Resolver.ResolveNode(node, Emitter) as LocalResolveResult : null;
+            var lrr = node != null && node.Parent != null ? Emitter.Resolver.ResolveNode(node) as LocalResolveResult : null;
 
             if (Emitter.LocalsMap != null && lrr != null && Emitter.LocalsMap.ContainsKey(lrr.Variable))
             {
@@ -240,7 +240,7 @@ namespace H5.Translator
                 var p = declarations.First().Parent;
                 if (p != null)
                 {
-                    if (Emitter.Resolver.ResolveNode(p, Emitter) is MemberResolveResult rr)
+                    if (Emitter.Resolver.ResolveNode(p) is MemberResolveResult rr)
                     {
                         if (rr.Member is DefaultResolvedMethod method)
                         {
@@ -323,7 +323,7 @@ namespace H5.Translator
 
             declarations.ToList().ForEach(item =>
             {
-                var lrr = item.Parent != null ? (LocalResolveResult)Emitter.Resolver.ResolveNode(item, Emitter) : null;
+                var lrr = item.Parent != null ? (LocalResolveResult)Emitter.Resolver.ResolveNode(item) : null;
                 var isReferenceLocal = lrr != null && Emitter.LocalsMap.ContainsKey(lrr.Variable) && Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
 
                 if (item.Parent == null && item.Name == "value")

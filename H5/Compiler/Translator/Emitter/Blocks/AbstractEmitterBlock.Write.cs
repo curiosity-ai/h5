@@ -1015,9 +1015,6 @@ namespace H5.Translator
 
         public string ThisArg { get; set; }
 
-        public int[] IgnoreRange
-        {
-            get; set;
-        }
+        public int[] IgnoreRange { get; set; }
     }
 }

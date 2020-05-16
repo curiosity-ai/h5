@@ -28,7 +28,7 @@ namespace H5.Translator
 
             if (argsInfo.Expression != null)
             {
-                if (emitter.Resolver.ResolveNode(argsInfo.Expression, emitter) is MemberResolveResult rr)
+                if (emitter.Resolver.ResolveNode(argsInfo.Expression) is MemberResolveResult rr)
                 {
                     H5Type h5Type = emitter.H5Types.Get(rr.Member.DeclaringType, true);
 
@@ -41,20 +41,11 @@ namespace H5.Translator
             }
         }
 
-        public int[] IgnoreRange
-        {
-            get; set;
-        }
+        public int[] IgnoreRange { get; set; }
 
-        public IMethod Method
-        {
-            get; set;
-        }
+        public IMethod Method { get; set; }
 
-        public ResolveResult TargetResolveResult
-        {
-            get; set;
-        }
+        public ResolveResult TargetResolveResult { get; set; }
 
         public ArgumentsInfo ArgumentsInfo { get; set; }
 
@@ -239,7 +230,7 @@ namespace H5.Translator
             IMember member = Method ?? argsInfo.Method ?? argsInfo.ResolveResult?.Member;
             if (member == null && argsInfo.Expression != null && argsInfo.Expression.Parent != null)
             {
-                if (Emitter.Resolver.ResolveNode(argsInfo.Expression, Emitter) is MemberResolveResult rre)
+                if (Emitter.Resolver.ResolveNode(argsInfo.Expression) is MemberResolveResult rre)
                 {
                     member = rre.Member;
                 }
@@ -343,7 +334,7 @@ namespace H5.Translator
 
                     if (exprs.Count == 1 && exprs[0] != null && exprs[0].Parent != null)
                     {
-                        var exprrr = Emitter.Resolver.ResolveNode(exprs[0], Emitter);
+                        var exprrr = Emitter.Resolver.ResolveNode(exprs[0]);
                         if (exprrr.Type.Kind == TypeKind.Array)
                         {
                             var match = _inlineMethod.Match(inline);
@@ -446,7 +437,7 @@ namespace H5.Translator
                         var cjs = new List<string>();
                         foreach (var expr in exprs)
                         {
-                            if (!(Emitter.Resolver.ResolveNode(expr, Emitter) is TypeOfResolveResult rr))
+                            if (!(Emitter.Resolver.ResolveNode(expr) is TypeOfResolveResult rr))
                             {
                                 throw new EmitterException(expr, "Module.Load supports typeof expression only");
                             }
@@ -613,7 +604,7 @@ namespace H5.Translator
 
                         if (node != null)
                         {
-                            var rr = Emitter.Resolver.ResolveNode(node, Emitter);
+                            var rr = Emitter.Resolver.ResolveNode(node);
                             var type = rr.Type;
                             if (rr is MemberResolveResult mrr && mrr.Member.ReturnType.Kind != TypeKind.Enum && mrr.TargetResult != null)
                             {
@@ -641,7 +632,7 @@ namespace H5.Translator
                         IType type = null;
                         if (node != null)
                         {
-                            var rr = Emitter.Resolver.ResolveNode(node, Emitter);
+                            var rr = Emitter.Resolver.ResolveNode(node);
                             type = rr.Type;
                             if (rr is MemberResolveResult mrr && mrr.Member.ReturnType.Kind != TypeKind.Enum && mrr.TargetResult != null)
                             {
@@ -735,7 +726,7 @@ namespace H5.Translator
                             }
                             else
                             {
-                                var rr = Emitter.Resolver.ResolveNode(exprs[0], Emitter);
+                                var rr = Emitter.Resolver.ResolveNode(exprs[0]);
                                 type = rr.Type;
                             }
 
@@ -753,7 +744,7 @@ namespace H5.Translator
                             }
                             else
                             {
-                                var rr = Emitter.Resolver.ResolveNode(exprs[0], Emitter);
+                                var rr = Emitter.Resolver.ResolveNode(exprs[0]);
                                 type = rr.Type;
                             }
 
@@ -797,7 +788,7 @@ namespace H5.Translator
                                 }
                                 else
                                 {
-                                    var rr = Emitter.Resolver.ResolveNode(versionTypeExp, Emitter);
+                                    var rr = Emitter.Resolver.ResolveNode(versionTypeExp);
 
                                     if (rr != null && rr.ConstantValue != null && rr.ConstantValue is int)
                                     {
@@ -892,7 +883,7 @@ namespace H5.Translator
 
                                 if (exprs[0] is DirectionExpression directExpr)
                                 {
-                                    if (Emitter.Resolver.ResolveNode(exprs[0], Emitter) is ByReferenceResolveResult rr && !(rr.ElementResult is LocalResolveResult))
+                                    if (Emitter.Resolver.ResolveNode(exprs[0]) is ByReferenceResolveResult rr && !(rr.ElementResult is LocalResolveResult))
                                     {
                                         Write(JS.Funcs.H5_REF + "(");
 
@@ -1417,7 +1408,7 @@ namespace H5.Translator
                 return true;
             }
 
-            var rr = Emitter.Resolver.ResolveNode(expression, Emitter);
+            var rr = Emitter.Resolver.ResolveNode(expression);
             return IsSimpleResolveResult(rr);
         }
 

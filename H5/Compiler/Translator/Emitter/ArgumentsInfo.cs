@@ -42,15 +42,9 @@ namespace H5.Translator
 
         public IAttribute Attribute { get; set; }
 
-        public string[] StringArguments
-        {
-            get; set;
-        }
+        public string[] StringArguments { get; set; }
 
-        public IType ThisType
-        {
-            get; set;
-        }
+        public IType ThisType { get; set; }
 
         public ArgumentsInfo(IEmitter emitter, IMethod method)
         {
@@ -80,7 +74,7 @@ namespace H5.Translator
             Expression = null;
 
             var arguments = initializer.Arguments.ToList();
-            ResolveResult = emitter.Resolver.ResolveNode(initializer, emitter) as InvocationResolveResult;
+            ResolveResult = emitter.Resolver.ResolveNode(initializer) as InvocationResolveResult;
 
             BuildArgumentsList(arguments);
             if (ResolveResult != null)
@@ -95,7 +89,7 @@ namespace H5.Translator
             Expression = invocationExpression;
 
             var arguments = invocationExpression.Arguments.ToList();
-            var rr = emitter.Resolver.ResolveNode(invocationExpression, emitter);
+            var rr = emitter.Resolver.ResolveNode(invocationExpression);
             ResolveResult = rr as InvocationResolveResult;
 
             if (ResolveResult == null && rr is DynamicInvocationResolveResult drr)
@@ -141,7 +135,7 @@ namespace H5.Translator
             Expression = invocationExpression;
 
             var arguments = invocationExpression.Arguments.ToList();
-            ResolveResult = rr ?? emitter.Resolver.ResolveNode(invocationExpression, emitter) as InvocationResolveResult;
+            ResolveResult = rr ?? emitter.Resolver.ResolveNode(invocationExpression) as InvocationResolveResult;
 
             BuildArgumentsList(arguments);
             if (ResolveResult != null)
@@ -199,7 +193,7 @@ namespace H5.Translator
             Expression = objectCreateExpression;
 
             var arguments = objectCreateExpression.Arguments.ToList();
-            var rr = emitter.Resolver.ResolveNode(objectCreateExpression, emitter);
+            var rr = emitter.Resolver.ResolveNode(objectCreateExpression);
             if (rr is DynamicInvocationResolveResult drr)
             {
                 if (drr.Target is MethodGroupResolveResult group && group.Methods.Count() > 1)

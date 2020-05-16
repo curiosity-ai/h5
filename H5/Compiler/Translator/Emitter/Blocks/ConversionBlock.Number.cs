@@ -51,7 +51,7 @@ namespace H5.Translator
                 IProperty member = null;
                 IndexerAccessor current = null;
 
-                if (block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter) is MemberResolveResult memberResolveResult)
+                if (block.Emitter.Resolver.ResolveNode(expression.Parent) is MemberResolveResult memberResolveResult)
                 {
                     var resolvedMember = memberResolveResult.Member;
                     isIgnore = block.Emitter.Validator.IsExternalType(resolvedMember.DeclaringTypeDefinition);
@@ -393,9 +393,9 @@ namespace H5.Translator
 
             if (expression is BinaryOperatorExpression binaryOperatorExpression)
             {
-                var rr = block.Emitter.Resolver.ResolveNode(expression, block.Emitter);
-                var leftResolverResult = block.Emitter.Resolver.ResolveNode(binaryOperatorExpression.Left, block.Emitter);
-                var rightResolverResult = block.Emitter.Resolver.ResolveNode(binaryOperatorExpression.Right, block.Emitter);
+                var rr = block.Emitter.Resolver.ResolveNode(expression);
+                var leftResolverResult = block.Emitter.Resolver.ResolveNode(binaryOperatorExpression.Left);
+                var rightResolverResult = block.Emitter.Resolver.ResolveNode(binaryOperatorExpression.Right);
                 if (rr != null)
                 {
                     if (binaryOperatorExpression.Operator == BinaryOperatorType.Multiply &&
@@ -417,9 +417,9 @@ namespace H5.Translator
 
             if (expression is AssignmentExpression assignmentExpression)
             {
-                var leftResolverResult = block.Emitter.Resolver.ResolveNode(assignmentExpression.Left, block.Emitter);
-                var rightResolverResult = block.Emitter.Resolver.ResolveNode(assignmentExpression.Right, block.Emitter);
-                var rr = block.Emitter.Resolver.ResolveNode(assignmentExpression, block.Emitter);
+                var leftResolverResult = block.Emitter.Resolver.ResolveNode(assignmentExpression.Left);
+                var rightResolverResult = block.Emitter.Resolver.ResolveNode(assignmentExpression.Right);
+                var rr = block.Emitter.Resolver.ResolveNode(assignmentExpression);
 
                 if (assignmentExpression.Operator == AssignmentOperatorType.Multiply &&
                     !(block.Emitter.IsJavaScriptOverflowMode ||
@@ -526,7 +526,7 @@ namespace H5.Translator
 
                     bool skipInnerWrap = false;
 
-                    var rr = block.Emitter.Resolver.ResolveNode(expression is CastExpression ? ((CastExpression)expression).Expression : expression, block.Emitter);
+                    var rr = block.Emitter.Resolver.ResolveNode(expression is CastExpression ? ((CastExpression)expression).Expression : expression);
                     bool isField = rr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                                (memberTargetrr.TargetResult is ThisResolveResult ||
                                 memberTargetrr.TargetResult is LocalResolveResult);

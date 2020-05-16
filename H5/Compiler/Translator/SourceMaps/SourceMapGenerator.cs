@@ -4,15 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using H5.Contract;
+using Microsoft.Extensions.Logging;
+using Mosaik.Core;
+using ZLogger;
 
 namespace H5.Translator
 {
     public class SourceMapGenerator : ISourceMapRecorder
     {
-        public UnicodeNewline? ForceEols
-        {
-            get; set;
-        }
+        private static ILogger Logger = ApplicationLogging.CreateLogger<SourceMapGenerator>();
+
+        public UnicodeNewline? ForceEols { get; set; }
 
         public SourceMapBuilder SourceMapBuilder { get; }
 
@@ -45,7 +47,7 @@ namespace H5.Translator
 
         internal static Regex tokenRegex = new Regex(@"/\*##\|(.+?),(\d+?),(\d+?)\|##\*/", RegexOptions.Compiled);
 
-        public static void Generate(string scriptFileName, string basePath, ref string content, Action<SourceMapBuilder> beforeGenerate, Func<string, string> sourceContent, string[] names, IList<string> sourceFiles, UnicodeNewline? forceEols, ILogger logger)
+        public static void Generate(string scriptFileName, string basePath, ref string content, Action<SourceMapBuilder> beforeGenerate, Func<string, string> sourceContent, string[] names, IList<string> sourceFiles, UnicodeNewline? forceEols)
         {
             var fileName = Path.GetFileName(scriptFileName);
             var generator = new SourceMapGenerator(fileName, "", basePath, forceEols);
@@ -60,8 +62,6 @@ namespace H5.Translator
                 var sourceLine = int.Parse(match.Groups[2].Value);
                 var sourceCol = int.Parse(match.Groups[3].Value);
                 var sourcePath = sourceFiles[int.Parse(match.Groups[1].Value)];
-                //sourcePath = sourcePath.Substring(basePath.Length + 1);
-
                 generator.RecordLocation(location.Line, location.Column, sourcePath, sourceLine, sourceCol);
                 return "";
             });
@@ -81,20 +81,9 @@ namespace H5.Translator
 
             var map = generator.GetSourceMap(contents.ToArray());
 
-            if (logger != null)
-            {
-                Logger.LogTrace("SourceMap for " + scriptFileName);
-                Logger.LogTrace(map);
-            }
+            Logger.ZLogTrace("Generated source map for {0}", scriptFileName);
 
-            var encoded = "//# sourceMappingURL=data:application/json;base64,"
-                + Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(map));
-
-            if (logger != null)
-            {
-                Logger.LogTrace("Base64 SourceMap for " + scriptFileName);
-                Logger.LogTrace(encoded);
-            }
+            var encoded = "//# sourceMappingURL=data:application/json;base64," + Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(map));
 
             content = content + Emitter.NEW_LINE + encoded + Emitter.NEW_LINE;
         }
@@ -128,22 +117,10 @@ namespace H5.Translator
                 Position = position;
             }
 
-            public int Line
-            {
-                get; set;
-            }
-            public int Column
-            {
-                get; set;
-            }
-            public int StartLinePosition
-            {
-                get; set;
-            }
-            public int Position
-            {
-                get; set;
-            }
+            public int Line { get; set; }
+            public int Column { get; set; }
+            public int StartLinePosition { get; set; }
+            public int Position { get; set; }
         }
     }
 }

@@ -26,10 +26,7 @@ namespace H5.Translator
 
         public bool StaticBlock { get; set; }
 
-        public bool HasEntryPoint
-        {
-            get; set;
-        }
+        public bool HasEntryPoint { get; set; }
 
         protected override void DoEmit()
         {
@@ -150,7 +147,7 @@ namespace H5.Translator
                 var beginPosition = Emitter.Output.Length;
 
                 var oldRules = Emitter.Rules;
-                if (Emitter.Resolver.ResolveNode(ctor, Emitter) is MemberResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(ctor) is MemberResolveResult rr)
                 {
                     Emitter.Rules = Rules.Get(Emitter, rr.Member);
                 }
@@ -312,7 +309,7 @@ namespace H5.Translator
 
                 if (ctor.Body.HasChildren)
                 {
-                    if (Emitter.Resolver.ResolveNode(ctor, Emitter) is MemberResolveResult rr)
+                    if (Emitter.Resolver.ResolveNode(ctor) is MemberResolveResult rr)
                     {
                         Emitter.Rules = Rules.Get(Emitter, rr.Member);
                     }
@@ -441,7 +438,7 @@ namespace H5.Translator
                                     WriteComma();
                                     Emitter.Comma = false;
                                     BeginBlock();
-                                    var memberResult = Emitter.Resolver.ResolveNode(p, Emitter) as MemberResolveResult;
+                                    var memberResult = Emitter.Resolver.ResolveNode(p) as MemberResolveResult;
                                     var block = new VisitorPropertyBlock(Emitter, p);
                                     block.EmitPropertyMethod(p, p.Getter, ((IProperty)memberResult.Member).Getter, false, true);
                                     block.EmitPropertyMethod(p, p.Setter, ((IProperty)memberResult.Member).Setter, true, true);
@@ -564,7 +561,7 @@ namespace H5.Translator
 
             if (hasInitializer)
             {
-                member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(ctor.Initializer, Emitter)).Member;
+                member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(ctor.Initializer)).Member;
             }
 
             if (member != null)
@@ -719,7 +716,7 @@ namespace H5.Translator
 
                 if (ctor.Initializer != null && !ctor.Initializer.IsNull)
                 {
-                    var member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(ctor.Initializer, Emitter)).Member;
+                    var member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(ctor.Initializer)).Member;
                     var overloads = OverloadsCollection.Create(Emitter, member);
                     if (overloads.HasOverloads)
                     {
@@ -789,7 +786,7 @@ namespace H5.Translator
                 WriteDot();
 
                 var baseName = JS.Funcs.CONSTRUCTOR;
-                var member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(ctor.Initializer, Emitter)).Member;
+                var member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(ctor.Initializer)).Member;
                 var overloads = OverloadsCollection.Create(Emitter, member);
                 if (overloads.HasOverloads)
                 {

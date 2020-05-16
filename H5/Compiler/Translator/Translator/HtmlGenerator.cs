@@ -16,20 +16,11 @@ namespace H5.Translator
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<HtmlGenerator>();
 
-        public IAssemblyInfo Config
-        {
-            get; set;
-        }
+        public IAssemblyInfo Config { get; set; }
 
-        public TranslatorOutput Outputs
-        {
-            get; set;
-        }
+        public TranslatorOutput Outputs { get; set; }
 
-        public string AssemblyTitle
-        {
-            get; set;
-        }
+        public string AssemblyTitle { get; set; }
 
         public HtmlGenerator(IAssemblyInfo config, TranslatorOutput outputs, string assemblyTitle)
         {

@@ -24,7 +24,7 @@ namespace H5.Translator
             var first = elements.Count > 0 ? elements.First() : null;
 
             var isObjectInitializer = first is NamedExpression || first is NamedArgumentExpression;
-            var rr = Emitter.Resolver.ResolveNode(ArrayInitializerExpression, Emitter) as ArrayCreateResolveResult;
+            var rr = Emitter.Resolver.ResolveNode(ArrayInitializerExpression) as ArrayCreateResolveResult;
             var at = rr != null ? (ArrayType)rr.Type : null;
             var create = at != null && at.Dimensions > 1;
 

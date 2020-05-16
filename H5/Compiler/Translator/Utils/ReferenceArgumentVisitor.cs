@@ -14,10 +14,7 @@ namespace H5.Translator
             Emitter = emitter;
         }
 
-        public IEmitter Emitter
-        {
-            get; set;
-        }
+        public IEmitter Emitter { get; set; }
 
         public List<Expression> DirectionExpression { get; set; }
 

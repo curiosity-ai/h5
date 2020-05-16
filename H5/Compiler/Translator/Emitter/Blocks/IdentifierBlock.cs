@@ -40,7 +40,7 @@ namespace H5.Translator
             isRefArg = Emitter.IsRefArg;
             Emitter.IsRefArg = false;
 
-            resolveResult = Emitter.Resolver.ResolveNode(identifierExpression, Emitter);
+            resolveResult = Emitter.Resolver.ResolveNode(identifierExpression);
 
             var id = identifierExpression.Identifier;
 
@@ -88,7 +88,7 @@ namespace H5.Translator
             var isInvoke = identifierExpression.Parent is InvocationExpression && (((InvocationExpression)(identifierExpression.Parent)).Target == identifierExpression);
             if (memberResult != null && memberResult.Member is IMethod && isInvoke)
             {
-                if (Emitter.Resolver.ResolveNode(identifierExpression.Parent, Emitter) is CSharpInvocationResolveResult i_rr && !i_rr.IsExpandedForm)
+                if (Emitter.Resolver.ResolveNode(identifierExpression.Parent) is CSharpInvocationResolveResult i_rr && !i_rr.IsExpandedForm)
                 {
                     var tpl = Emitter.GetAttribute(memberResult.Member.Attributes, JS.NS.H5 + ".TemplateAttribute");
 
@@ -525,7 +525,7 @@ namespace H5.Translator
 
                     bool isBool = memberResult != null && NullableType.IsNullable(memberResult.Member.ReturnType) ? NullableType.GetUnderlyingType(memberResult.Member.ReturnType).IsKnownType(KnownTypeCode.Boolean) : memberResult.Member.ReturnType.IsKnownType(KnownTypeCode.Boolean);
                     bool skipGet = false;
-                    bool special = Emitter.Resolver.ResolveNode(identifierExpression.Parent, Emitter) is OperatorResolveResult orr && orr.IsLiftedOperator;
+                    bool special = Emitter.Resolver.ResolveNode(identifierExpression.Parent) is OperatorResolveResult orr && orr.IsLiftedOperator;
 
                     if (!special && isBool &&
                         (Emitter.AssignmentType == AssignmentOperatorType.BitwiseAnd ||

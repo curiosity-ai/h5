@@ -150,7 +150,7 @@ namespace H5.Translator
                 var methodDeclaration = (MethodDeclaration)BlockStatement.Parent;
                 if (!methodDeclaration.ReturnType.IsNull)
                 {
-                    var rr = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, Emitter);
+                    var rr = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType);
                     ReturnType = rr.Type;
                 }
                 ConvertParamsToReferences(methodDeclaration.Parameters);
@@ -158,14 +158,14 @@ namespace H5.Translator
             else if (BlockStatement.Parent is AnonymousMethodExpression)
             {
                 var methodDeclaration = (AnonymousMethodExpression)BlockStatement.Parent;
-                var rr = Emitter.Resolver.ResolveNode(methodDeclaration, Emitter);
+                var rr = Emitter.Resolver.ResolveNode(methodDeclaration);
                 ReturnType = rr.Type;
                 ConvertParamsToReferences(methodDeclaration.Parameters);
             }
             else if (BlockStatement.Parent is LambdaExpression)
             {
                 var methodDeclaration = (LambdaExpression)BlockStatement.Parent;
-                var rr = Emitter.Resolver.ResolveNode(methodDeclaration, Emitter);
+                var rr = Emitter.Resolver.ResolveNode(methodDeclaration);
                 ReturnType = rr.Type;
                 ConvertParamsToReferences(methodDeclaration.Parameters);
             }
@@ -190,7 +190,7 @@ namespace H5.Translator
                     var methodDeclaration = (Accessor)BlockStatement.Parent;
                     if (!methodDeclaration.ReturnType.IsNull)
                     {
-                        var rr = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, Emitter);
+                        var rr = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType);
                         ReturnType = rr.Type;
                     }
                 }

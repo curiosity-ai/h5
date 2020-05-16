@@ -128,7 +128,7 @@ namespace H5.Translator
 
             if (needReturnValue && assignmentExpression.Parent is LambdaExpression)
             {
-                if (Emitter.Resolver.ResolveNode(assignmentExpression.Parent, Emitter) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
+                if (Emitter.Resolver.ResolveNode(assignmentExpression.Parent) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
                 {
                     needReturnValue = false;
                 }
@@ -143,9 +143,9 @@ namespace H5.Translator
             WriteAwaiters(assignmentExpression.Left);
             WriteAwaiters(assignmentExpression.Right);
 
-            var leftResolverResult = Emitter.Resolver.ResolveNode(assignmentExpression.Left, Emitter);
-            var rightResolverResult = Emitter.Resolver.ResolveNode(assignmentExpression.Right, Emitter);
-            var rr = Emitter.Resolver.ResolveNode(assignmentExpression, Emitter);
+            var leftResolverResult = Emitter.Resolver.ResolveNode(assignmentExpression.Left);
+            var rightResolverResult = Emitter.Resolver.ResolveNode(assignmentExpression.Right);
+            var rr = Emitter.Resolver.ResolveNode(assignmentExpression);
             var orr = rr as OperatorResolveResult;
             bool isDecimal = Helpers.IsDecimalType(rr.Type, Emitter.Resolver);
             bool isLong = Helpers.Is64Type(rr.Type, Emitter.Resolver);

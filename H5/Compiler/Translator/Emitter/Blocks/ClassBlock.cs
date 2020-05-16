@@ -551,7 +551,7 @@ namespace H5.Translator
                     {
                         foreach (var attr in attrSection.Attributes)
                         {
-                            var rr = Emitter.Resolver.ResolveNode(attr.Type, Emitter);
+                            var rr = Emitter.Resolver.ResolveNode(attr.Type);
                             if (rr.Type.FullName == attrName)
                             {
                                 throw new EmitterException(attr, "Instance method cannot be Init method");
@@ -574,7 +574,7 @@ namespace H5.Translator
                     {
                         foreach (var attr in attrSection.Attributes)
                         {
-                            var rr = Emitter.Resolver.ResolveNode(attr.Type, Emitter);
+                            var rr = Emitter.Resolver.ResolveNode(attr.Type);
                             if (rr.Type.FullName == attrName)
                             {
                                 InitPosition? initPosition = null;
@@ -583,7 +583,7 @@ namespace H5.Translator
                                     if (attr.Arguments.Count > 0)
                                     {
                                         var argExpr = attr.Arguments.First();
-                                        var argrr = Emitter.Resolver.ResolveNode(argExpr, Emitter);
+                                        var argrr = Emitter.Resolver.ResolveNode(argExpr);
                                         if (argrr.ConstantValue is int)
                                         {
                                             initPosition = (InitPosition)argrr.ConstantValue;
@@ -603,7 +603,7 @@ namespace H5.Translator
                                 {
                                     if (rrMember == null)
                                     {
-                                        rrMember = Emitter.Resolver.ResolveNode(method, Emitter) as MemberResolveResult;
+                                        rrMember = Emitter.Resolver.ResolveNode(method) as MemberResolveResult;
                                         rrMethod = rrMember != null ? rrMember.Member as IMethod : null;
                                     }
 

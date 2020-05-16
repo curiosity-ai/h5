@@ -48,7 +48,7 @@ namespace H5.Translator
                 Expression expression;
 
 
-                if (Emitter.Resolver.ResolveNode(item, Emitter) is MemberResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(item) is MemberResolveResult rr)
                 {
                     name = Emitter.GetEntityName(rr.Member);
                     changeCase = false;

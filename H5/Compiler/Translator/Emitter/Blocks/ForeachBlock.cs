@@ -21,10 +21,7 @@ namespace H5.Translator
 
         public ForeachStatement ForeachStatement { get; set; }
 
-        public IMethod CastMethod
-        {
-            get; set;
-        }
+        public IMethod CastMethod { get; set; }
 
         protected override void DoEmit()
         {
@@ -85,9 +82,9 @@ namespace H5.Translator
 
             var iteratorName = AddLocal(GetTempVarName(), null, AstType.Null);
 
-            var for_rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement, Emitter);
+            var for_rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement);
             var get_rr = for_rr.GetEnumeratorCall as InvocationResolveResult;
-            var in_rr = Emitter.Resolver.ResolveNode(foreachStatement.InExpression, Emitter);
+            var in_rr = Emitter.Resolver.ResolveNode(foreachStatement.InExpression);
             var inline = get_rr != null ? Emitter.GetInline(get_rr.Member) : null;
             var checkEnum = in_rr.Type.Kind != TypeKind.Array && !in_rr.Type.IsKnownType(KnownTypeCode.String) &&
                            !in_rr.Type.IsKnownType(KnownTypeCode.Array);
@@ -163,7 +160,7 @@ namespace H5.Translator
             WriteVar();
             Write(varName + " = ");
 
-            var rr = Emitter.Resolver.ResolveNode(foreachStatement, Emitter) as ForEachResolveResult;
+            var rr = Emitter.Resolver.ResolveNode(foreachStatement) as ForEachResolveResult;
 
             bool isReferenceLocal = false;
 
@@ -297,9 +294,9 @@ namespace H5.Translator
             var iteratorVar = GetTempVarName();
             var iteratorName = AddLocal(iteratorVar, null, AstType.Null);
 
-            var rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement, Emitter);
+            var rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement);
             var get_rr = rr.GetEnumeratorCall as InvocationResolveResult;
-            var in_rr = Emitter.Resolver.ResolveNode(foreachStatement.InExpression, Emitter);
+            var in_rr = Emitter.Resolver.ResolveNode(foreachStatement.InExpression);
             var inline = get_rr != null ? Emitter.GetInline(get_rr.Member) : null;
             var checkEnum = in_rr.Type.Kind != TypeKind.Array && !in_rr.Type.IsKnownType(KnownTypeCode.String) &&
                            !in_rr.Type.IsKnownType(KnownTypeCode.Array);

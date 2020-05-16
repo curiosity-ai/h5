@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using H5.Contract.Constants;
 using H5.Translator.Utils;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -27,10 +28,7 @@ namespace H5.Translator
             public const string PLATFORM_PROP = "Platform";
         }
 
-        private bool ShouldReadProjectFile
-        {
-            get; set;
-        }
+        private bool ShouldReadProjectFile { get; set; }
 
         internal static Project OpenProject(string location, IDictionary<string,string> globalProperties)
         {
@@ -44,7 +42,7 @@ namespace H5.Translator
 
         internal virtual void EnsureProjectProperties()
         {
-            this.Log.Trace("EnsureProjectProperties at " + (Location ?? "") + " ...");
+            Logger.ZLogTrace("EnsureProjectProperties at " + (Location ?? "") + " ...");
 
             ShouldReadProjectFile = !FromTask;
 
@@ -67,7 +65,7 @@ namespace H5.Translator
 
             Translator.CloseProject(project);
 
-            this.Log.Trace("EnsureProjectProperties done");
+            Logger.ZLogTrace("EnsureProjectProperties done");
         }
 
         /// <summary>
@@ -165,27 +163,27 @@ namespace H5.Translator
 
         protected virtual void EnsureAssemblyLocation(Project project)
         {
-            this.Log.Trace("BuildAssemblyLocation...");
+            Logger.ZLogTrace("BuildAssemblyLocation...");
 
             if (string.IsNullOrEmpty(AssemblyLocation))
             {
                 var fullOutputPath = GetOutputPaths(project);
 
-                this.Log.Trace("    FullOutputPath:" + fullOutputPath);
+                Logger.ZLogTrace("    FullOutputPath: {0}", fullOutputPath);
 
                 AssemblyLocation = Path.Combine(fullOutputPath, ProjectProperties.AssemblyName + ".dll");
             }
 
-            this.Log.Trace("    OutDir:" + ProjectProperties.OutDir);
-            this.Log.Trace("    OutputPath:" + ProjectProperties.OutputPath);
-            this.Log.Trace("    AssemblyLocation:" + AssemblyLocation);
+            Logger.ZLogTrace("    OutDir: {0}", ProjectProperties.OutDir);
+            Logger.ZLogTrace("    OutputPath: {0}", ProjectProperties.OutputPath);
+            Logger.ZLogTrace("    AssemblyLocation: {0}", AssemblyLocation);
 
-            this.Log.Trace("BuildAssemblyLocation done");
+            Logger.ZLogTrace("BuildAssemblyLocation done");
         }
 
         protected virtual string GetOutputPaths(Project project)
         {
-            var configHelper = new H5.Contract.ConfigHelper();
+            var configHelper = new Contract.ConfigHelper();
 
             var outputPath = ProjectProperties.OutputPath;
 
@@ -196,16 +194,13 @@ namespace H5.Translator
                 outputPath = ReadProperty(project, ProjectPropertyNames.OUTPUT_PATH_PROP, false, configHelper);
             }
 
-            if (outputPath == null)
-            {
-                outputPath = string.Empty;
-            }
+            outputPath = outputPath  ?? "";
 
             ProjectProperties.OutputPath = outputPath;
 
             var outDir = ProjectProperties.OutDir;
 
-            if (outDir == null && ShouldReadProjectFile)
+            if (outDir is null && ShouldReadProjectFile)
             {
                 // Read OutDir if not defined already
                 outDir = ReadProperty(project, ProjectPropertyNames.OUT_DIR_PROP, true, configHelper);
@@ -232,17 +227,11 @@ namespace H5.Translator
                         where string.Compare(n.Name, name, true) == 0
                         select n).LastOrDefault();
 
-            if (node == null)
+            if (node is null)
             {
-                if (safe)
-                {
-                    return null;
-                }
+                if (safe) { return null; }
 
-                H5.Translator.TranslatorException.Throw(
-                    "Unable to determine "
-                    + name
-                    + " in the project file with conditions " + EvaluationConditionsAsString());
+                H5.Translator.TranslatorException.Throw("Unable to determine " + name + " in the project file with conditions " + EvaluationConditionsAsString());
             }
 
             var value = node.EvaluatedValue;
@@ -279,7 +268,7 @@ namespace H5.Translator
 
         protected virtual IList<string> GetSourceFiles(Project project)
         {
-            this.Log.Trace("Getting source files by xml...");
+            Logger.ZLogTrace("Getting source files by xml...");
             var configHelper = new Contract.ConfigHelper();
 
             IList<string> sourceFiles = new List<string>();
@@ -291,19 +280,17 @@ namespace H5.Translator
 
             if (!sourceFiles.Any())
             {
-                throw new H5.Translator.TranslatorException("Unable to get source file list from project file '" +
-                    Location + "'. In order to use h5, you have to have at least one source code file " +
-                    "with the 'compile' property set (usually .cs files have it by default in C# projects).");
+                throw new TranslatorException("Unable to get source file list from project file '" + Location + "'. In order to use h5, you have to have at least one source code file " + "with the 'compile' property set (usually .cs files have it by default in C# projects).");
             };
 
-            this.Log.Trace("Getting source files by xml done");
+            Logger.ZLogTrace("Getting source files by xml done");
 
             return sourceFiles;
         }
 
         protected virtual void EnsureDefineConstants(Project project)
         {
-            this.Log.Trace("EnsureDefineConstants...");
+            Logger.ZLogTrace("EnsureDefineConstants...");
 
             if (DefineConstants == null)
             {
@@ -312,7 +299,7 @@ namespace H5.Translator
 
             if (ProjectProperties.DefineConstants == null && ShouldReadProjectFile)
             {
-                this.Log.Trace("Reading define constants...");
+                Logger.ZLogTrace("Reading define constants...");
 
                 var constantList = project.AllEvaluatedProperties
                     .Where(p => p.Name == ProjectPropertyNames.DEFINE_CONSTANTS_PROP)
@@ -324,19 +311,18 @@ namespace H5.Translator
                 }
                 else
                 {
-                    ProjectProperties.DefineConstants = String.Join(";", constantList);
+                    ProjectProperties.DefineConstants = string.Join(";", constantList);
                 }
             }
 
             if (!string.IsNullOrWhiteSpace(ProjectProperties.DefineConstants))
             {
-                DefineConstants.AddRange(
-                    ProjectProperties.DefineConstants.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
+                DefineConstants.AddRange(ProjectProperties.DefineConstants.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
             }
 
             DefineConstants = DefineConstants.Distinct().ToList();
 
-            this.Log.Trace("EnsureDefineConstants done");
+            Logger.ZLogTrace("EnsureDefineConstants done");
         }
 
         protected virtual void EnsureAssemblyName(Project project)
@@ -355,7 +341,7 @@ namespace H5.Translator
 
             if (string.IsNullOrWhiteSpace(ProjectProperties.AssemblyName))
             {
-                H5.Translator.TranslatorException.Throw("Unable to determine assembly name");
+                TranslatorException.Throw("Unable to determine assembly name");
             }
         }
 
@@ -380,14 +366,14 @@ namespace H5.Translator
                 DefaultNamespace = Translator.DefaultRootNamespace;
             }
 
-            this.Log.Trace("DefaultNamespace:" + DefaultNamespace);
+            Logger.ZLogTrace("DefaultNamespace:" + DefaultNamespace);
         }
 
         protected virtual IList<string> GetSourceFiles(string location)
         {
-            this.Log.Trace("Getting source files by location...");
+            Logger.ZLogTrace("Getting source files by location...");
             string[] allfiles = System.IO.Directory.GetFiles(location, "*.cs", SearchOption.TopDirectoryOnly);
-            this.Log.Trace("Getting source files by location done (found " + allfiles.Length + " items)");
+            Logger.ZLogTrace("Getting source files by location done (found {0} items)", allfiles.Length);
             return allfiles;
         }
     }

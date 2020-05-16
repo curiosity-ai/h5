@@ -100,10 +100,7 @@ namespace H5.Translator
             Write(target);
         }
 
-        public bool NoTarget
-        {
-            get; set;
-        }
+        public bool NoTarget { get; set; }
 
         private void WriteInterfaceMember(string interfaceTempVar, MemberResolveResult resolveResult, bool isSetter, string prefix = null)
         {

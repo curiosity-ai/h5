@@ -12,7 +12,6 @@ namespace H5.Translator
         {
             Dependencies = new List<IPluginDependency>();
             DefineConstants = new List<string>();
-            Logging = new LoggingOptions();
             Reflection = new ReflectionConfig();
             ReflectionInternal = new ReflectionConfig();
             Assembly = new AssemblyConfig();
@@ -32,19 +31,13 @@ namespace H5.Translator
         /// Example: "MyH5NetLibrary.js"
         /// Tip. You can decorate a class with a [FileName('MyClass.js')] attribute. A class script will be generated to the defined file. It supersedes a global h5.json fileName.
         /// </summary>
-        public string FileName
-        {
-            get; set;
-        }
+        public string FileName { get; set; }
 
         /// <summary>
         /// The output folder path for generated JavaScript. A non-absolute path is concatenated with a project's root.
         /// Examples: "H5\\output\\", "..\\H5\\output\\", "c:\\H5\\output\\"
         /// </summary>
-        public string Output
-        {
-            get; set;
-        }
+        public string Output { get; set; }
 
         private OutputBy outputBy = OutputBy.Project;
 
@@ -109,60 +102,36 @@ namespace H5.Translator
         /// Substrings the file name starting with the defined index.
         /// For example, it might be useful to get rid of the first namespace in the chain if use ByFullName or ByNamespace FilesHierarchy.
         /// </summary>
-        public int StartIndexInName
-        {
-            get; set;
-        }
+        public int StartIndexInName { get; set; }
 
         /// <summary>
         /// The global Module setting. The entire project is considered as one Module.
         /// Though, you are still able to define a Module attribute on the class level.
         /// </summary>
-        public Module Module
-        {
-            get; set;
-        }
+        public Module Module { get; set; }
 
         /// <summary>
         /// The list of module dependencies.
         /// </summary>
-        public List<IPluginDependency> Dependencies
-        {
-            get; set;
-        }
+        public List<IPluginDependency> Dependencies { get; set; }
 
         /// <summary>
         /// The executable file to be launched before building. The path will be concatenated with the project's root.
         /// For example, it might be used for cleaning up the output directory - "H5\\builder\\clean.bat".
         /// </summary>
-        public string BeforeBuild
-        {
-            get; set;
-        }
+        public string BeforeBuild { get; set; }
 
         /// <summary>
         /// The executable file to be launched after building. The path will be concatenated with the project's root.
         /// For example, it might be used for copying the generated JavaScript files to a Web application - "H5\\builder\\copy.bat"
         /// </summary>
-        public string AfterBuild
-        {
-            get; set;
-        }
+        public string AfterBuild { get; set; }
 
-        public bool AutoPropertyToField
-        {
-            get; set;
-        }
+        public bool AutoPropertyToField { get; set; }
 
-        public string PluginsPath
-        {
-            get; set;
-        }
+        public string PluginsPath { get; set; }
 
-        public bool GenerateTypeScript
-        {
-            get; set;
-        }
+        public bool GenerateTypeScript { get; set; }
 
         private H5.Contract.DocumentationMode generateDocumentation = H5.Contract.DocumentationMode.Basic;
 
@@ -182,149 +151,69 @@ namespace H5.Translator
         /// The BuildArguments will be added to the command line that build project files. It is useful for debugging, logging etc.
         /// For example, "/fileLogger /fileLoggerParameters:Append;"
         /// </summary>
-        public string BuildArguments
-        {
-            get; set;
-        }
+        public string BuildArguments { get; set; }
 
         /// <summary>
         /// Deletes files from output directory using pattern "*.js|*.d.ts" before build (before extracting scripts after translation).
         /// It is useful to replace BeforeBuild event if it just contain commands to clean the output folder.
         /// Default value is null. It can be used either as string or bool value. True means "*.js|*.d.ts"
         /// </summary>
-        public string CleanOutputFolderBeforeBuild
-        {
-            get; set;
-        }
+        public string CleanOutputFolderBeforeBuild { get; set; }
 
         /// <summary>
         /// Sets pattern for cleaning output directory.
         /// </summary>
-        public string CleanOutputFolderBeforeBuildPattern
-        {
-            get; set;
-        }
+        public string CleanOutputFolderBeforeBuildPattern { get; set; }
 
-        public string Configuration
-        {
-            get; set;
-        }
+        public string Configuration { get; set; }
 
-        public List<string> DefineConstants
-        {
-            get; set;
-        }
+        public List<string> DefineConstants { get; set; }
 
-        public string Locales
-        {
-            get; set;
-        }
+        public string Locales { get; set; }
 
-        public string LocalesOutput
-        {
-            get; set;
-        }
+        public string LocalesOutput { get; set; }
 
-        public string LocalesFileName
-        {
-            get; set;
-        }
+        public string LocalesFileName { get; set; }
 
-        public bool CombineLocales
-        {
-            get; set;
-        }
+        public bool CombineLocales { get; set; }
 
-        public bool CombineScripts
-        {
-            get; set;
-        }
+        public bool CombineScripts { get; set; }
 
-        public bool UseTypedArrays
-        {
-            get; set;
-        }
+        public bool UseTypedArrays { get; set; }
 
-        public bool IgnoreCast
-        {
-            get; set;
-        }
+        public bool IgnoreCast { get; set; }
 
-        public LoggingOptions Logging
-        {
-            get; set;
-        }
+        public OverflowMode? OverflowMode { get; set; }
 
-        public OverflowMode? OverflowMode
-        {
-            get; set;
-        }
+        public bool? NoLoggerTimeStamps { get; set; }
 
-        public bool? NoLoggerTimeStamps
-        {
-            get; set;
-        }
+        public bool StrictNullChecks { get; set; }
 
-        public bool StrictNullChecks
-        {
-            get; set;
-        }
+        public IReflectionConfig Reflection { get; set; }
 
-        public IReflectionConfig Reflection
-        {
-            get; set;
-        }
+        internal IReflectionConfig ReflectionInternal { get; set; }
 
-        internal IReflectionConfig ReflectionInternal
-        {
-            get; set;
-        }
+        public AssemblyConfig Assembly { get; set; }
 
-        public AssemblyConfig Assembly
-        {
-            get; set;
-        }
+        public ResourceConfig Resources { get; set; }
 
-        public ResourceConfig Resources
-        {
-            get; set;
-        }
-
-        public IModuleLoader Loader
-        {
-            get; set;
-        }
+        public IModuleLoader Loader { get; set; }
 
         public NamedFunctionMode NamedFunctions { get; set; }
 
         [Newtonsoft.Json.JsonConverter(typeof(SourceMapConfigConverter))]
-        public SourceMapConfig SourceMap
-        {
-            get; set;
-        }
+        public SourceMapConfig SourceMap { get; set; }
 
         [Newtonsoft.Json.JsonConverter(typeof(HtmlConfigConverter))]
-        public HtmlConfig Html
-        {
-            get; set;
-        }
+        public HtmlConfig Html { get; set; }
 
         [Newtonsoft.Json.JsonConverter(typeof(ConsoleConfigConverter))]
-        public ConsoleConfig Console
-        {
-            get; set;
-        }
+        public ConsoleConfig Console { get; set; }
 
         [Newtonsoft.Json.JsonConverter(typeof(ReportConfigConverter))]
-        public ReportConfig Report
-        {
-            get; set;
-        }
+        public ReportConfig Report { get; set; }
 
-        public CompilerRule Rules
-        {
-            get; set;
-        }
+        public CompilerRule Rules { get; set; }
 
         public string ReferencesPath { get; set; }
 

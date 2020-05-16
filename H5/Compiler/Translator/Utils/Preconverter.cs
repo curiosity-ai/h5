@@ -16,6 +16,9 @@ using ICSharpCode.NRefactory.PatternMatching;
 using Mono.Cecil;
 using System.Text;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
+using Mosaik.Core;
+using Microsoft.Extensions.Logging;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -52,7 +55,7 @@ namespace H5.Translator
                 unaryOperatorExpression.Operator == UnaryOperatorType.Decrement ||
                 unaryOperatorExpression.Operator == UnaryOperatorType.PostDecrement))
             {
-                var rr = Resolver.ResolveNode(unaryOperatorExpression, null);
+                var rr = Resolver.ResolveNode(unaryOperatorExpression);
 
                 if (rr is ErrorResolveResult)
                 {
@@ -79,7 +82,7 @@ namespace H5.Translator
 
             if (assignmentExpression.Operator != AssignmentOperatorType.Any && assignmentExpression.Operator != AssignmentOperatorType.Assign)
             {
-                var rr = Resolver.ResolveNode(assignmentExpression, null);
+                var rr = Resolver.ResolveNode(assignmentExpression);
                 var isInt = Helpers.IsIntegerType(rr.Type, Resolver);
                 if (Rules.Integer == IntegerRule.Managed && isInt || !(assignmentExpression.Parent is ExpressionStatement))
                 {
@@ -93,7 +96,7 @@ namespace H5.Translator
 
                 if (Found && !isInt && assignmentExpression.Parent is ICSharpCode.NRefactory.CSharp.LambdaExpression)
                 {
-                    if (Resolver.ResolveNode(assignmentExpression.Parent, null) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
+                    if (Resolver.ResolveNode(assignmentExpression.Parent) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
                     {
                         Found = false;
                     }
@@ -110,7 +113,7 @@ namespace H5.Translator
                 return;
             }
 
-            if (Resolver.ResolveNode(methodDeclaration, null) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(methodDeclaration) is MemberResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Member);
             }
@@ -129,7 +132,7 @@ namespace H5.Translator
                 return;
             }
 
-            if (Resolver.ResolveNode(propertyDeclaration, null) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(propertyDeclaration) is MemberResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Member);
             }
@@ -148,7 +151,7 @@ namespace H5.Translator
                 return;
             }
 
-            if (Resolver.ResolveNode(indexerDeclaration, null) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(indexerDeclaration) is MemberResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Member);
             }
@@ -167,7 +170,7 @@ namespace H5.Translator
                 return;
             }
 
-            if (Resolver.ResolveNode(eventDeclaration, null) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(eventDeclaration) is MemberResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Member);
             }
@@ -186,7 +189,7 @@ namespace H5.Translator
                 return;
             }
 
-            if (Resolver.ResolveNode(typeDeclaration, null) is TypeResolveResult rr)
+            if (Resolver.ResolveNode(typeDeclaration) is TypeResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Type.GetDefinition());
             }
@@ -206,7 +209,7 @@ namespace H5.Translator
             }
 
 
-            if (Resolver.ResolveNode(invocationExpression, null) is InvocationResolveResult rr && rr.IsError)
+            if (Resolver.ResolveNode(invocationExpression) is InvocationResolveResult rr && rr.IsError)
             {
                 Found = true;
             }
@@ -237,15 +240,12 @@ namespace H5.Translator
 
     public class PreconverterFixer : DepthFirstAstVisitor<AstNode>
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<PreconverterFixer>();
+
         public PreconverterFixer(MemberResolver resolver, IEmitter emitter)
         {
             Resolver = resolver;
             Emitter = emitter;
-        }
-
-        public PreconverterFixer(MemberResolver resolver, IEmitter emitter, ILogger log) : this(resolver, emitter)
-        {
-            this.log = log;
         }
 
         public MemberResolver Resolver { get; set; }
@@ -259,11 +259,9 @@ namespace H5.Translator
             get; private set;
         }
 
-        private ILogger log;
-
         public override AstNode VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
-            if (Resolver.ResolveNode(methodDeclaration, null) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(methodDeclaration) is MemberResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Member);
             }
@@ -277,7 +275,7 @@ namespace H5.Translator
 
         public override AstNode VisitPropertyDeclaration(PropertyDeclaration propertyDeclaration)
         {
-            if (Resolver.ResolveNode(propertyDeclaration, null) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(propertyDeclaration) is MemberResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Member);
             }
@@ -291,7 +289,7 @@ namespace H5.Translator
 
         public override AstNode VisitIndexerDeclaration(IndexerDeclaration indexerDeclaration)
         {
-            if (Resolver.ResolveNode(indexerDeclaration, null) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(indexerDeclaration) is MemberResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Member);
             }
@@ -305,7 +303,7 @@ namespace H5.Translator
 
         public override AstNode VisitCustomEventDeclaration(CustomEventDeclaration eventDeclaration)
         {
-            if (Resolver.ResolveNode(eventDeclaration, null) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(eventDeclaration) is MemberResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Member);
             }
@@ -319,7 +317,7 @@ namespace H5.Translator
 
         public override AstNode VisitTypeDeclaration(TypeDeclaration typeDeclaration)
         {
-            if (Resolver.ResolveNode(typeDeclaration, null) is TypeResolveResult rr)
+            if (Resolver.ResolveNode(typeDeclaration) is TypeResolveResult rr)
             {
                 Rules = Contract.Rules.Get(Emitter, rr.Type.GetDefinition());
             }
@@ -468,7 +466,7 @@ namespace H5.Translator
         {
             try
             {
-                if (Resolver.ResolveNode(invocationExpression, null) is CSharpInvocationResolveResult rr && rr.IsError)
+                if (Resolver.ResolveNode(invocationExpression) is CSharpInvocationResolveResult rr && rr.IsError)
                 {
                     InvocationExpression clonInvocationExpression = (InvocationExpression)base.VisitInvocationExpression(invocationExpression);
                     if (clonInvocationExpression == null)
@@ -513,7 +511,7 @@ namespace H5.Translator
             {
                 var fileName = invocationExpression.GetParent<SyntaxTree>()?.FileName;
 
-                log.Warn(string.Format("VisitInvocationExpression fails in {0} ({1}): {2}", fileName, invocationExpression.StartLocation.ToString(), e.Message));
+                Logger.ZLogWarning("VisitInvocationExpression fails in {0} ({1}): {2}", fileName, invocationExpression.StartLocation.ToString(), e.Message);
             }
 
             return base.VisitInvocationExpression(invocationExpression);
@@ -526,8 +524,8 @@ namespace H5.Translator
                 unaryOperatorExpression.Operator == UnaryOperatorType.Decrement ||
                 unaryOperatorExpression.Operator == UnaryOperatorType.PostDecrement))
             {
-                var rr = Resolver.ResolveNode(unaryOperatorExpression, null);
-                var expression_rr = Resolver.ResolveNode(unaryOperatorExpression.Expression, null);
+                var rr = Resolver.ResolveNode(unaryOperatorExpression);
+                var expression_rr = Resolver.ResolveNode(unaryOperatorExpression.Expression);
 
                 if (rr is ErrorResolveResult)
                 {
@@ -776,7 +774,7 @@ namespace H5.Translator
 
         public override AstNode VisitAssignmentExpression(AssignmentExpression assignmentExpression)
         {
-            var rr = Resolver.ResolveNode(assignmentExpression, null);
+            var rr = Resolver.ResolveNode(assignmentExpression);
             var orr = rr as OperatorResolveResult;
             var simpleIndex = true;
 
@@ -807,9 +805,9 @@ namespace H5.Translator
                 found = true;
             }
 
-            if (found && !isInt && assignmentExpression.Parent is ICSharpCode.NRefactory.CSharp.LambdaExpression)
+            if (found && !isInt && assignmentExpression.Parent is LambdaExpression)
             {
-                if (Resolver.ResolveNode(assignmentExpression.Parent, null) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
+                if (Resolver.ResolveNode(assignmentExpression.Parent) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
                 {
                     found = false;
                 }

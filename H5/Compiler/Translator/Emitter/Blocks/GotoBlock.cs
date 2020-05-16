@@ -25,20 +25,11 @@ namespace H5.Translator
             GotoStatement = gotoStatement;
         }
 
-        public GotoCaseStatement GotoCaseStatement
-        {
-            get; set;
-        }
+        public GotoCaseStatement GotoCaseStatement { get; set; }
 
-        public GotoDefaultStatement GotoDefaultStatement
-        {
-            get; set;
-        }
+        public GotoDefaultStatement GotoDefaultStatement { get; set; }
 
-        public GotoStatement GotoStatement
-        {
-            get; set;
-        }
+        public GotoStatement GotoStatement { get; set; }
 
         protected override void DoEmit()
         {
@@ -50,7 +41,7 @@ namespace H5.Translator
             else if (GotoCaseStatement != null)
             {
                 var switchStatement = GotoCaseStatement.GetParent<SwitchStatement>();
-                var rr = Emitter.Resolver.ResolveNode(GotoCaseStatement.LabelExpression, Emitter);
+                var rr = Emitter.Resolver.ResolveNode(GotoCaseStatement.LabelExpression);
 
                 node = switchStatement.SwitchSections.First(ss => ss.CaseLabels.Any(cl =>
                 {
@@ -59,7 +50,7 @@ namespace H5.Translator
                         return false;
                     }
 
-                    var caseLabel_rr = Emitter.Resolver.ResolveNode(cl.Expression, Emitter);
+                    var caseLabel_rr = Emitter.Resolver.ResolveNode(cl.Expression);
 
                     if (caseLabel_rr.ConstantValue is string)
                     {

@@ -18,15 +18,9 @@ namespace H5.Translator
 
         }
 
-        public string TemplateModifier
-        {
-            get; set;
-        }
+        public string TemplateModifier { get; set; }
 
-        public bool HasModules
-        {
-            get; set;
-        }
+        public bool HasModules { get; set; }
 
         public Dictionary<AnonymousType, IAnonymousTypeConfig> AnonymousTypes
         {
@@ -537,19 +531,6 @@ namespace H5.Translator
             }
         }
 
-        public ILogger Log
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public string MetaDataOutputName
         {
             get
@@ -706,7 +687,7 @@ namespace H5.Translator
             }
         }
 
-        public IEnumerable<AssemblyDefinition> References
+        public IReadOnlyList<AssemblyDefinition> References
         {
             get
             {

@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using H5.Contract;
+using Mosaik.Core;
+using Microsoft.Extensions.Logging;
 
 namespace H5.Translator
 {
@@ -16,43 +18,40 @@ namespace H5.Translator
     {
         protected virtual void WrapToModules()
         {
-            this.Log.Trace("Wrapping to modules...");
-
-            foreach (var outputPair in Outputs)
+            using (var m = new Measure(Logger, "Wrapping to modules", logLevel: LogLevel.Trace))
             {
-                var output = outputPair.Value;
-
-                foreach (var moduleOutputPair in output.ModuleOutput)
+                foreach (var outputPair in Outputs)
                 {
-                    var module = moduleOutputPair.Key;
-                    var moduleOutput = moduleOutputPair.Value;
-
-                    this.Log.Trace("Module " + module.Name + " ...");
-
-                    AbstractEmitterBlock.RemovePenultimateEmptyLines(moduleOutput, true);
-
-                    switch (module.Type)
+                    var output = outputPair.Value;
+                    int k = 0;
+                    foreach (var moduleOutputPair in output.ModuleOutput)
                     {
-                        case ModuleType.CommonJS:
-                            WrapToCommonJS(moduleOutput, module, output);
-                            break;
-                        case ModuleType.UMD:
-                            WrapToUMD(moduleOutput, module, output);
-                            break;
-                        case ModuleType.ES6:
-                            WrapToES6(moduleOutput, module, output);
-                            break;
-                        case ModuleType.AMD:
-                        default:
-                            WrapToAMD(moduleOutput, module, output);
-                            break;
+                        var module = moduleOutputPair.Key;
+                        var moduleOutput = moduleOutputPair.Value;
+
+                        m.SetOperations(++k).EmitPartial($"Processing Module '{module.Name}");
+
+                        AbstractEmitterBlock.RemovePenultimateEmptyLines(moduleOutput, true);
+
+                        switch (module.Type)
+                        {
+                            case ModuleType.CommonJS:
+                                WrapToCommonJS(moduleOutput, module, output);
+                                break;
+                            case ModuleType.UMD:
+                                WrapToUMD(moduleOutput, module, output);
+                                break;
+                            case ModuleType.ES6:
+                                WrapToES6(moduleOutput, module, output);
+                                break;
+                            case ModuleType.AMD:
+                            default:
+                                WrapToAMD(moduleOutput, module, output);
+                                break;
+                        }
                     }
-
-
                 }
             }
-
-            this.Log.Trace("Wrapping to modules done");
         }
 
         protected virtual void WrapToAMD(StringBuilder moduleOutput, Module module, IEmitterOutput output)

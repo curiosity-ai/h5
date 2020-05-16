@@ -33,10 +33,7 @@ namespace H5.Translator
             EmitUsing(res, inner);
         }
 
-        public VariableDeclarationStatement VariableDeclarationStatement
-        {
-            get; set;
-        }
+        public VariableDeclarationStatement VariableDeclarationStatement { get; set; }
 
         protected virtual void EmitUsing(AstNode expression, IEnumerable<AstNode> inner)
         {

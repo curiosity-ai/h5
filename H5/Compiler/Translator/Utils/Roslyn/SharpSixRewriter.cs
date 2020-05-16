@@ -5,6 +5,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Extensions.Logging;
+using Mosaik.Core;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UID;
+using ZLogger;
 using LanguageVersion = Microsoft.CodeAnalysis.CSharp.LanguageVersion;
 
 namespace H5.Translator
@@ -28,12 +31,13 @@ namespace H5.Translator
 
     public class SharpSixRewriter : CSharpSyntaxRewriter
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<SharpSixRewriter>();
+
         public const string AutoInitFieldPrefix = "__Property__Initializer__";
         private const string SYSTEM_IDENTIFIER = "System";
         private const string FUNC_IDENTIFIER = "Func";
 
         public readonly string envnl = Environment.NewLine;
-        private readonly ILogger logger;
         private readonly ITranslator translator;
         private CSharpCompilation compilation;
         private SemanticModel semanticModel;
@@ -53,16 +57,19 @@ namespace H5.Translator
         public SharpSixRewriter(ITranslator translator)
         {
             this.translator = translator;
-            logger = translator.Log;
             compilation = CreateCompilation();
             isParent = true;
             _cachedRewrittenData = LoadCache();
         }
 
-        public SharpSixRewriter(SharpSixRewriter rewriter)
+        public SharpSixRewriter Clone()
+        {
+            return new SharpSixRewriter(this);
+        }
+
+        private SharpSixRewriter(SharpSixRewriter rewriter)
         {
             translator = rewriter.translator;
-            logger = rewriter.logger;
             compilation = rewriter.compilation;
             _cachedRewrittenData = rewriter._cachedRewrittenData;
         }
@@ -97,7 +104,7 @@ namespace H5.Translator
                 }
                 catch
                 {
-                    logger.Error($"Error reading cache file '{cf}', ignoring cache");
+                    Logger.ZLogError("Error reading cache file '{0}', ignoring cache", cf);
                 }
             }
 
@@ -216,11 +223,7 @@ namespace H5.Translator
                 }
                 catch (Exception e)
                 {
-                    logger.Error("Error trying to rewrite syntax block while parsing source file." + envnl +
-                        "Replacer: " + replacer.ToString() + envnl +
-                        "File: " + translator.SourceFiles[index] + envnl +
-                        "Inner exception: " + e.Message);
-
+                    Logger.ZLogError("Error trying to rewrite syntax block while parsing source file.\n Replacer: {0}\nFile:{1}\nException: {2}", replacer.ToString(), translator.SourceFiles[index] + e.Message);
                     throw new TranslatorException("Error applying replacer '" + replacer.ToString() + "' on file '" + translator.SourceFiles[index] + "'. Inner exception: " + e.Message, e);
                 }
             }
@@ -275,7 +278,7 @@ namespace H5.Translator
         {
             if (!File.Exists(path))
             {
-                logger.Error(string.Format("Source file `{0}' could not be found", path));
+                Logger.ZLogError("Source file '{0}' could not be found", path);
             }
 
             try
@@ -287,7 +290,7 @@ namespace H5.Translator
             }
             catch (IOException ex)
             {
-                logger.Error(string.Format("Error reading source file `{0}': {1}", path, ex.Message));
+                Logger.ZLogError("Error reading source file `{0}': {1}", path, ex.Message);
                 return null;
             }
         }
@@ -893,7 +896,7 @@ namespace H5.Translator
 
                         if (value == null)
                         {
-                            logger.Error("Non-constant alignment");
+                            Logger.ZLogError("Non-constant alignment");
                             return null;
                         }
 
@@ -911,7 +914,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    logger.Error("Unknown content in interpolated string: " + content);
+                    Logger.ZLogError("Unknown content in interpolated string: {0}", content);
                     return null;
                 }
             }
@@ -1646,10 +1649,7 @@ namespace H5.Translator
             return newNode;
         }
 
-        public bool IsExpressionOfT
-        {
-            get; set;
-        }
+        public bool IsExpressionOfT { get; set; }
 
         private int IndexInstance { get; set; }
 

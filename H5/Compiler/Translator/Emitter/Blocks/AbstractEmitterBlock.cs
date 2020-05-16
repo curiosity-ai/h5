@@ -182,7 +182,7 @@ namespace H5.Translator
 
             if (node.Parent is UnaryOperatorExpression unaryExpr && unaryExpr.Operator == UnaryOperatorType.Await)
             {
-                if (Emitter.Resolver.ResolveNode(unaryExpr, Emitter) is AwaitResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(unaryExpr) is AwaitResolveResult rr)
                 {
                     if (rr.GetAwaiterInvocation is InvocationResolveResult awaiterMethod && awaiterMethod.Member.FullName != "System.Threading.Tasks.Task.GetAwaiter")
                     {

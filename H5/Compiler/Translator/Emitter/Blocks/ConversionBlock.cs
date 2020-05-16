@@ -118,7 +118,7 @@ namespace H5.Translator
             try
             {
                 // The resolveNode call required to get GetConversion not fail
-                block.Emitter.Resolver.ResolveNode(expression, null);
+                block.Emitter.Resolver.ResolveNode(expression);
                 conversion = block.Emitter.Resolver.Resolver.GetConversion(expression);
 
                 if (conversion == null)
@@ -139,14 +139,14 @@ namespace H5.Translator
         {
             try
             {
-                var rr = block.Emitter.Resolver.ResolveNode(expression, block.Emitter);
+                var rr = block.Emitter.Resolver.ResolveNode(expression);
                 var conversion = block.Emitter.Resolver.Resolver.GetConversion(expression);
                 var expectedType = block.Emitter.Resolver.Resolver.GetExpectedType(expression);
                 int level = 0;
 
                 if (expression.Parent is ConstructorInitializer ci && expectedType.Equals(rr.Type))
                 {
-                    var prr = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter);
+                    var prr = block.Emitter.Resolver.ResolveNode(expression.Parent);
 
                     if (prr is InvocationResolveResult irr)
                     {
@@ -169,7 +169,7 @@ namespace H5.Translator
                 }
                 else if (expression.Parent is ParenthesizedExpression && expression.Parent.Parent is CastExpression)
                 {
-                    var prr = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter);
+                    var prr = block.Emitter.Resolver.ResolveNode(expression.Parent);
                     var pconversion = block.Emitter.Resolver.Resolver.GetConversion((Expression)expression.Parent);
                     var pexpectedType = block.Emitter.Resolver.Resolver.GetExpectedType((Expression)expression.Parent);
 
@@ -324,7 +324,7 @@ namespace H5.Translator
             bool isBoxing = conversion.IsBoxingConversion;
             if (expression.Parent is MemberReferenceExpression && expression.Parent.Parent is InvocationExpression)
             {
-                if (block.Emitter.Resolver.ResolveNode(expression.Parent.Parent, block.Emitter) is CSharpInvocationResolveResult inv_rr && inv_rr.IsExtensionMethodInvocation)
+                if (block.Emitter.Resolver.ResolveNode(expression.Parent.Parent) is CSharpInvocationResolveResult inv_rr && inv_rr.IsExtensionMethodInvocation)
                 {
                     conversion = block.Emitter.Resolver.Resolver.GetConversion((Expression)expression.Parent);
                     isExtensionMethodArgument = true;
@@ -367,7 +367,7 @@ namespace H5.Translator
 
                 if (isArgument)
                 {
-                    var inv_rr = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter);
+                    var inv_rr = block.Emitter.Resolver.ResolveNode(expression.Parent);
                     var parent_rr = inv_rr as MemberResolveResult;
 
                     if (parent_rr == null && inv_rr is OperatorResolveResult result)
@@ -415,7 +415,7 @@ namespace H5.Translator
                 var isStringConcat = false;
                 if (expression.Parent is BinaryOperatorExpression binaryOperatorExpression)
                 {
-                    var resolveOperator = block.Emitter.Resolver.ResolveNode(binaryOperatorExpression, block.Emitter);
+                    var resolveOperator = block.Emitter.Resolver.ResolveNode(binaryOperatorExpression);
                     var expectedParentType = block.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression);
                     var resultIsString = expectedParentType.IsKnownType(KnownTypeCode.String) || resolveOperator.Type.IsKnownType(KnownTypeCode.String);
                     isStringConcat = resultIsString && binaryOperatorExpression.Operator == BinaryOperatorType.Add;
@@ -536,7 +536,7 @@ namespace H5.Translator
                     if (expression.Parent is CastExpression castExp2 && castExp2.Expression == expression)
                     {
                         var parentExpectedType = block.Emitter.Resolver.Resolver.GetExpectedType(castExp2);
-                        var parentrr = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter) as ConversionResolveResult;
+                        var parentrr = block.Emitter.Resolver.ResolveNode(expression.Parent) as ConversionResolveResult;
 
                         if (parentrr != null && parentrr.Type != expectedType || parentrr == null && expectedType != parentExpectedType)
                         {
@@ -807,7 +807,7 @@ namespace H5.Translator
             if (expression is CastExpression castExp && !ignoreConversionResolveResult)
             {
                 var nestedExpr = castExp.Expression;
-                var nested_rr = block.Emitter.Resolver.ResolveNode(nestedExpr, block.Emitter);
+                var nested_rr = block.Emitter.Resolver.ResolveNode(nestedExpr);
 
                 if (!(nested_rr is ConversionResolveResult))
                 {
@@ -818,7 +818,7 @@ namespace H5.Translator
             if (expression.Parent is InvocationExpression invocationExpression && invocationExpression.Arguments.Any(a => a == expression))
             {
                 var index = invocationExpression.Arguments.ToList().IndexOf(expression);
-                var methodResolveResult = block.Emitter.Resolver.ResolveNode(invocationExpression, block.Emitter) as MemberResolveResult;
+                var methodResolveResult = block.Emitter.Resolver.ResolveNode(invocationExpression) as MemberResolveResult;
 
                 if (methodResolveResult is CSharpInvocationResolveResult invocationResolveResult && invocationResolveResult.IsExtensionMethodInvocation)
                 {
@@ -856,7 +856,7 @@ namespace H5.Translator
             {
                 var index = objectCreateExpression.Arguments.ToList().IndexOf(expression);
 
-                if (block.Emitter.Resolver.ResolveNode(objectCreateExpression, block.Emitter) is MemberResolveResult methodResolveResult)
+                if (block.Emitter.Resolver.ResolveNode(objectCreateExpression) is MemberResolveResult methodResolveResult)
                 {
                     var m = methodResolveResult.Member as IMethod;
                     var arg = m.Parameters[index < m.Parameters.Count ? index : (m.Parameters.Count - 1)];
@@ -885,7 +885,7 @@ namespace H5.Translator
 
             if (expression.Parent is NamedArgumentExpression namedArgExpression)
             {
-                var namedArgResolveResult = block.Emitter.Resolver.ResolveNode(namedArgExpression, block.Emitter) as NamedArgumentResolveResult;
+                var namedArgResolveResult = block.Emitter.Resolver.ResolveNode(namedArgExpression) as NamedArgumentResolveResult;
 
                 if (isType(namedArgResolveResult.Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
@@ -910,7 +910,7 @@ namespace H5.Translator
 
             if (expression.Parent is NamedExpression namedExpression)
             {
-                var namedResolveResult = block.Emitter.Resolver.ResolveNode(namedExpression, block.Emitter);
+                var namedResolveResult = block.Emitter.Resolver.ResolveNode(namedExpression);
 
                 if (isType(namedResolveResult.Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
@@ -937,7 +937,7 @@ namespace H5.Translator
             {
                 var idx = binaryOpExpr.Left == expression ? 0 : 1;
 
-                if (block.Emitter.Resolver.ResolveNode(binaryOpExpr, block.Emitter) is OperatorResolveResult binaryOpRr && isType(binaryOpRr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
+                if (block.Emitter.Resolver.ResolveNode(binaryOpExpr) is OperatorResolveResult binaryOpRr && isType(binaryOpRr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
                     var isNullable = NullableType.IsNullable(binaryOpRr.Operands[idx].Type);
                     if (expression.IsNull)
@@ -963,7 +963,7 @@ namespace H5.Translator
             {
                 var idx = conditionalExpr.TrueExpression == expression ? 1 : 2;
 
-                if (block.Emitter.Resolver.ResolveNode(conditionalExpr, block.Emitter) is OperatorResolveResult conditionalrr && isType(conditionalrr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
+                if (block.Emitter.Resolver.ResolveNode(conditionalExpr) is OperatorResolveResult conditionalrr && isType(conditionalrr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
                     if (expression.IsNull)
                     {
@@ -986,7 +986,7 @@ namespace H5.Translator
 
             if (expression.Parent is AssignmentExpression assignmentExpr)
             {
-                var assigmentRr = block.Emitter.Resolver.ResolveNode(assignmentExpr, block.Emitter) as OperatorResolveResult;
+                var assigmentRr = block.Emitter.Resolver.ResolveNode(assignmentExpr) as OperatorResolveResult;
 
                 if (isType(assigmentRr.Operands[1].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
@@ -1015,7 +1015,7 @@ namespace H5.Translator
 
                 if (index >= 0)
                 {
-                    if (block.Emitter.Resolver.ResolveNode(indexerExpr, block.Emitter) is InvocationResolveResult invocationrr)
+                    if (block.Emitter.Resolver.ResolveNode(indexerExpr) is InvocationResolveResult invocationrr)
                     {
                         var parameters = invocationrr.Member.Parameters;
                         if (parameters.Count <= index)
@@ -1056,12 +1056,12 @@ namespace H5.Translator
                 IType elementType = null;
                 if (arrayInit.Parent is ArrayCreateExpression arrayCreate)
                 {
-                    var rrArrayType = block.Emitter.Resolver.ResolveNode(arrayCreate, block.Emitter);
+                    var rrArrayType = block.Emitter.Resolver.ResolveNode(arrayCreate);
                     elementType = rrArrayType.Type is TypeWithElementType typeWIthElement ? typeWIthElement.ElementType : rrArrayType.Type;
                 }
                 else
                 {
-                    var rrElemenet = block.Emitter.Resolver.ResolveNode(arrayInit.Parent, block.Emitter);
+                    var rrElemenet = block.Emitter.Resolver.ResolveNode(arrayInit.Parent);
                     if (rrElemenet.Type is ParameterizedType pt && pt.TypeArguments.Count > 0)
                     {
                         if (pt.TypeArguments.Count == 1)
@@ -1137,7 +1137,7 @@ namespace H5.Translator
                 ResolveResult castTypeRr = null;
                 if (expression.Parent is CastExpression castExpr)
                 {
-                    castTypeRr = block.Emitter.Resolver.ResolveNode(castExpr.Type, block.Emitter);
+                    castTypeRr = block.Emitter.Resolver.ResolveNode(castExpr.Type);
                 }
 
                 /*if (castTypeRr == null || !isType(castTypeRr.Type, block.Emitter.Resolver))*/
@@ -1181,7 +1181,7 @@ namespace H5.Translator
             {
                 var index = invocationExpression.Arguments.ToList().IndexOf(expression);
 
-                if (block.Emitter.Resolver.ResolveNode(invocationExpression, block.Emitter) is MemberResolveResult methodResolveResult)
+                if (block.Emitter.Resolver.ResolveNode(invocationExpression) is MemberResolveResult methodResolveResult)
                 {
                     var m = methodResolveResult.Member as IMethod;
                     var arg = m.Parameters[index < m.Parameters.Count ? index : (m.Parameters.Count - 1)];
@@ -1206,7 +1206,7 @@ namespace H5.Translator
             {
                 var index = objectCreateExpression.Arguments.ToList().IndexOf(expression);
 
-                if (block.Emitter.Resolver.ResolveNode(objectCreateExpression, block.Emitter) is MemberResolveResult methodResolveResult)
+                if (block.Emitter.Resolver.ResolveNode(objectCreateExpression) is MemberResolveResult methodResolveResult)
                 {
                     var m = methodResolveResult.Member as IMethod;
                     var arg = m.Parameters[index < m.Parameters.Count ? index : (m.Parameters.Count - 1)];
@@ -1229,7 +1229,7 @@ namespace H5.Translator
 
             if (expression.Parent is NamedArgumentExpression namedArgExpression)
             {
-                var namedArgResolveResult = block.Emitter.Resolver.ResolveNode(namedArgExpression, block.Emitter) as NamedArgumentResolveResult;
+                var namedArgResolveResult = block.Emitter.Resolver.ResolveNode(namedArgExpression) as NamedArgumentResolveResult;
 
                 if (isType(namedArgResolveResult.Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
@@ -1249,7 +1249,7 @@ namespace H5.Translator
 
             if (expression.Parent is NamedExpression namedExpression)
             {
-                var namedResolveResult = block.Emitter.Resolver.ResolveNode(namedExpression, block.Emitter);
+                var namedResolveResult = block.Emitter.Resolver.ResolveNode(namedExpression);
 
                 if (isType(namedResolveResult.Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
@@ -1270,7 +1270,7 @@ namespace H5.Translator
             {
                 var idx = binaryOpExpr.Left == expression ? 0 : 1;
 
-                if (block.Emitter.Resolver.ResolveNode(binaryOpExpr, block.Emitter) is OperatorResolveResult binaryOpRr && isType(binaryOpRr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
+                if (block.Emitter.Resolver.ResolveNode(binaryOpExpr) is OperatorResolveResult binaryOpRr && isType(binaryOpRr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
                     if (expression.IsNull)
                     {
@@ -1290,7 +1290,7 @@ namespace H5.Translator
             {
                 var idx = conditionalExpr.TrueExpression == expression ? 0 : 1;
 
-                if (block.Emitter.Resolver.ResolveNode(conditionalExpr, block.Emitter) is OperatorResolveResult conditionalrr && isType(conditionalrr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
+                if (block.Emitter.Resolver.ResolveNode(conditionalExpr) is OperatorResolveResult conditionalrr && isType(conditionalrr.Operands[idx].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
                     if (expression.IsNull)
                     {
@@ -1308,7 +1308,7 @@ namespace H5.Translator
 
             if (expression.Parent is AssignmentExpression assignmentExpr)
             {
-                var assigmentRr = block.Emitter.Resolver.ResolveNode(assignmentExpr, block.Emitter) as OperatorResolveResult;
+                var assigmentRr = block.Emitter.Resolver.ResolveNode(assignmentExpr) as OperatorResolveResult;
 
                 if (isType(assigmentRr.Operands[1].Type, block.Emitter.Resolver) && !isType(rr.Type, block.Emitter.Resolver))
                 {
@@ -1336,7 +1336,7 @@ namespace H5.Translator
                 IType elementType = null;
                 if (arrayInit.Parent is ArrayCreateExpression arrayCreate)
                 {
-                    var rrArrayType = block.Emitter.Resolver.ResolveNode(arrayCreate, block.Emitter);
+                    var rrArrayType = block.Emitter.Resolver.ResolveNode(arrayCreate);
                     if (rrArrayType.Type is TypeWithElementType typeWithElementType)
                     {
                         elementType = typeWithElementType.ElementType;
@@ -1348,7 +1348,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var rrElemenet = block.Emitter.Resolver.ResolveNode(arrayInit.Parent, block.Emitter);
+                    var rrElemenet = block.Emitter.Resolver.ResolveNode(arrayInit.Parent);
                     if (rrElemenet.Type is ParameterizedType pt)
                     {
                         elementType = pt.TypeArguments.Count > 0 ? pt.TypeArguments.First() : null;
@@ -1398,7 +1398,7 @@ namespace H5.Translator
                 ResolveResult castTypeRr = null;
                 if (expression.Parent is CastExpression castExpr)
                 {
-                    castTypeRr = block.Emitter.Resolver.ResolveNode(castExpr.Type, block.Emitter);
+                    castTypeRr = block.Emitter.Resolver.ResolveNode(castExpr.Type);
                 }
 
                 /*if (castTypeRr == null || !isType(castTypeRr.Type, block.Emitter.Resolver))*/

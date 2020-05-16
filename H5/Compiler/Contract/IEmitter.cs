@@ -144,7 +144,7 @@ namespace H5.Contract
 
         IEmitterOutput EmitterOutput { get; set; }
 
-        IEnumerable<AssemblyDefinition> References { get; set; }
+        IReadOnlyList<AssemblyDefinition> References { get; set; }
 
         bool ReplaceAwaiterByVar { get; set; }
 

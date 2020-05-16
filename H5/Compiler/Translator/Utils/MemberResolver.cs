@@ -61,10 +61,7 @@ namespace H5.Translator
             AddOrUpdateFiles();
         }
 
-        public AssemblyDefinition MainAssembly
-        {
-            get; set;
-        }
+        public AssemblyDefinition MainAssembly { get; set; }
 
         private void AddOrUpdateFiles()
         {

@@ -156,7 +156,7 @@ namespace H5.Translator
                 node = LambdaExpression;
             }
 
-            var resolveResult = Emitter.Resolver.ResolveNode(node, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(node);
 
             if (resolveResult is LambdaResolveResult)
             {
@@ -190,7 +190,7 @@ namespace H5.Translator
 
         protected bool IsTaskResult(Expression expression)
         {
-            var resolveResult = Emitter.Resolver.ResolveNode(expression, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(expression);
 
             IType type;
 
@@ -214,7 +214,7 @@ namespace H5.Translator
 
             if (expression.Parent is UnaryOperatorExpression unaryExpr && unaryExpr.Operator == UnaryOperatorType.Await)
             {
-                if (Emitter.Resolver.ResolveNode(unaryExpr, Emitter) is AwaitResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(unaryExpr) is AwaitResolveResult rr)
                 {
                     if (rr.GetAwaiterInvocation is InvocationResolveResult awaiterMethod)
                     {
@@ -733,10 +733,7 @@ namespace H5.Translator
 
         public StringBuilder Output { get; set; }
 
-        public object Label
-        {
-            get; set;
-        }
+        public object Label { get; set; }
     }
 
     public class AsyncJumpLabel : IAsyncJumpLabel

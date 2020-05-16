@@ -4,14 +4,19 @@ using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
+using Microsoft.Extensions.Logging;
+using Mosaik.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ZLogger;
 
 namespace H5.Translator
 {
     public partial class ConstructorBlock
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<ConstructorBlock>();
+
         protected virtual IEnumerable<string> GetEventsAndAutoStartupMethods()
         {
             var methods = StaticBlock ? TypeInfo.StaticMethods : TypeInfo.InstanceMethods;
@@ -72,7 +77,7 @@ namespace H5.Translator
             {
                 foreach (var attr in attrSection.Attributes)
                 {
-                    if (Emitter.Resolver.ResolveNode(attr, Emitter) is InvocationResolveResult resolveResult)
+                    if (Emitter.Resolver.ResolveNode(attr) is InvocationResolveResult resolveResult)
                     {
                         if (resolveResult.Type.FullName == CS.Attributes.READY_ATTRIBUTE_NAME)
                         {
@@ -156,7 +161,7 @@ namespace H5.Translator
                                 {
                                     if (eventArg is MemberReferenceExpression memberArg)
                                     {
-                                        if (Emitter.Resolver.ResolveNode(memberArg, Emitter) is MemberResolveResult memberResolveResult)
+                                        if (Emitter.Resolver.ResolveNode(memberArg) is MemberResolveResult memberResolveResult)
                                         {
                                             eventName = Emitter.GetEntityName(memberResolveResult.Member);
                                         }
@@ -183,7 +188,7 @@ namespace H5.Translator
 
                             if (attr.Arguments.Count > (selectorIndex + 1))
                             {
-                                if (Emitter.Resolver.ResolveNode(attr.Arguments.ElementAt(selectorIndex + 1), Emitter) is MemberResolveResult memberResolveResult && memberResolveResult.Member.Attributes.Count > 0)
+                                if (Emitter.Resolver.ResolveNode(attr.Arguments.ElementAt(selectorIndex + 1)) is MemberResolveResult memberResolveResult && memberResolveResult.Member.Attributes.Count > 0)
                                 {
                                     var template = Emitter.Validator.GetAttribute(memberResolveResult.Member.Attributes, "H5.TemplateAttribute");
 
@@ -237,15 +242,9 @@ namespace H5.Translator
             }
         }
 
-        private void LogWarning(string message)
-        {
-            var logger = Emitter.Log as Logging.Logger;
-            Emitter.Log.Warn(message);
-        }
-
         private void LogAutoStartupWarning(MethodDeclaration method)
         {
-            LogWarning(string.Format("'{0}.{1}': an entry point cannot be generic or in a generic type", TypeInfo.Type.ReflectionName, method.Name));
+            Logger.ZLogWarning("'{0}.{1}': an entry point cannot be generic or in a generic type", TypeInfo.Type.ReflectionName, method.Name);
         }
     }
 }

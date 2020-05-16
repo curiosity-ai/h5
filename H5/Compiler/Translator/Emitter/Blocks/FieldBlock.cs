@@ -7,13 +7,17 @@ using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 using System.Linq;
 using ICSharpCode.NRefactory.CSharp.Resolver;
+using Mosaik.Core;
+using Microsoft.Extensions.Logging;
+using ZLogger;
 
 namespace H5.Translator
 {
     public class FieldBlock : AbstractEmitterBlock
     {
-        public FieldBlock(IEmitter emitter, ITypeInfo typeInfo, bool staticBlock, bool fieldsOnly, bool isObjectLiteral = false)
-            : base(emitter, typeInfo.TypeDeclaration)
+        private static ILogger Logger = ApplicationLogging.CreateLogger<FieldBlock>();
+
+        public FieldBlock(IEmitter emitter, ITypeInfo typeInfo, bool staticBlock, bool fieldsOnly, bool isObjectLiteral = false) : base(emitter, typeInfo.TypeDeclaration)
         {
             Emitter = emitter;
             TypeInfo = typeInfo;
@@ -38,10 +42,7 @@ namespace H5.Translator
 
         public bool WasEmitted { get; private set; }
 
-        public bool ClearTempVariables
-        {
-            get; set;
-        }
+        public bool ClearTempVariables { get; set; }
 
         protected override void DoEmit()
         {
@@ -147,11 +148,11 @@ namespace H5.Translator
                     ResolveResult rr = null;
                     if (member.VarInitializer != null)
                     {
-                        rr = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter);
+                        rr = Emitter.Resolver.ResolveNode(member.VarInitializer);
                     }
                     else
                     {
-                        rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter);
+                        rr = Emitter.Resolver.ResolveNode(member.Entity);
                     }
 
                     if (rr != null && rr.Type.Kind == TypeKind.Enum)
@@ -172,7 +173,7 @@ namespace H5.Translator
 
                 if (!isNull && !isPrimitive)
                 {
-                    var constrr = Emitter.Resolver.ResolveNode(member.Initializer, Emitter);
+                    var constrr = Emitter.Resolver.ResolveNode(member.Initializer);
                     if (constrr != null && constrr.IsCompileTimeConstant)
                     {
                         //isPrimitive = true;
@@ -187,7 +188,7 @@ namespace H5.Translator
                             }
                             catch (Exception)
                             {
-                                Emitter.Log.Warn($"FieldBlock: Convert.ChangeType is failed. Value type: {constrr.Type.FullName}, Target type: {expectedType.FullName}");
+                                Logger.ZLogWarning("FieldBlock: Convert.ChangeType is failed. Value type: {0}, Target type: {1}", constrr.Type.FullName, expectedType.FullName);
                             }
                         }
 
@@ -204,7 +205,7 @@ namespace H5.Translator
 
                 if (isPrimitive && constValue is AstType)
                 {
-                    var itype = Emitter.Resolver.ResolveNode((AstType)constValue, Emitter);
+                    var itype = Emitter.Resolver.ResolveNode((AstType)constValue);
 
                     if (NullableType.IsNullable(itype.Type))
                     {
@@ -217,7 +218,7 @@ namespace H5.Translator
                 MemberResolveResult init_rr = null;
                 if (isField && member.VarInitializer != null)
                 {
-                    init_rr = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter) as MemberResolveResult;
+                    init_rr = Emitter.Resolver.ResolveNode(member.VarInitializer) as MemberResolveResult;
                     tpl = init_rr != null ? Emitter.GetInline(init_rr.Member) : null;
 
                     if (tpl != null)
@@ -230,7 +231,7 @@ namespace H5.Translator
 
                 if (isProperty)
                 {
-                    var member_rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter) as MemberResolveResult;
+                    var member_rr = Emitter.Resolver.ResolveNode(member.Entity) as MemberResolveResult;
                     var property = (IProperty)member_rr.Member;
                     isAutoProperty = Helpers.IsAutoProperty(property);
                 }
@@ -253,12 +254,12 @@ namespace H5.Translator
                         AstType astType = null;
                         if (member.VarInitializer != null)
                         {
-                            rr = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter);
+                            rr = Emitter.Resolver.ResolveNode(member.VarInitializer);
                         }
                         else
                         {
                             astType = member.Entity.ReturnType;
-                            rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter);
+                            rr = Emitter.Resolver.ResolveNode(member.Entity);
                         }
 
                         constValue = Inspector.GetDefaultFieldValue(rr.Type, astType);
@@ -370,7 +371,7 @@ namespace H5.Translator
                         }
                         else
                         {
-                            bool isDefaultInstance = Emitter.Resolver.ResolveNode(member.Initializer, Emitter) is CSharpInvocationResolveResult rr &&
+                            bool isDefaultInstance = Emitter.Resolver.ResolveNode(member.Initializer) is CSharpInvocationResolveResult rr &&
                                                      rr.Member.SymbolKind == SymbolKind.Constructor &&
                                                      rr.Arguments.Count == 0 &&
                                                      rr.InitializerStatements.Count == 0 &&
@@ -401,7 +402,7 @@ namespace H5.Translator
                 MemberResolveResult m_rr = null;
                 if (member.Entity != null)
                 {
-                    m_rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter) as MemberResolveResult;
+                    m_rr = Emitter.Resolver.ResolveNode(member.Entity) as MemberResolveResult;
                     if (m_rr != null)
                     {
                         withoutTypeParams = OverloadsCollection.ExcludeTypeParameterForDefinition(m_rr);
@@ -538,7 +539,7 @@ namespace H5.Translator
 
                 if (!isNull && !isPrimitive)
                 {
-                    if (Emitter.Resolver.ResolveNode(member.Initializer, Emitter) is ConstantResolveResult constrr)
+                    if (Emitter.Resolver.ResolveNode(member.Initializer) is ConstantResolveResult constrr)
                     {
                         isPrimitive = true;
                         constValue = constrr.ConstantValue;
@@ -601,11 +602,11 @@ namespace H5.Translator
                     continue;
                 }
 
-                var rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter) as MemberResolveResult;
+                var rr = Emitter.Resolver.ResolveNode(member.Entity) as MemberResolveResult;
 
                 if (rr == null && member.VarInitializer != null)
                 {
-                    rr = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter) as MemberResolveResult;
+                    rr = Emitter.Resolver.ResolveNode(member.VarInitializer) as MemberResolveResult;
                 }
 
                 if (rr != null)

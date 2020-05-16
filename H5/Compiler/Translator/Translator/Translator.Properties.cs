@@ -115,9 +115,6 @@ namespace H5.Translator
 
         public OverflowMode? OverflowMode { get; set; }
 
-        public HashSet<string> ExtractedScripts
-        {
-            get; set;
-        } = new HashSet<string>();
+        public HashSet<string> ExtractedScripts { get; set; } = new HashSet<string>();
     }
 }

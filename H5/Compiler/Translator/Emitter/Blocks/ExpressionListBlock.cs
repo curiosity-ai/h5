@@ -55,7 +55,7 @@ namespace H5.Translator
 
             if (paramArg != null && InvocationExpression != null && !IgnoreExpandParams)
             {
-                if (Emitter.Resolver.ResolveNode(InvocationExpression, Emitter) is CSharpInvocationResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(InvocationExpression) is CSharpInvocationResolveResult rr)
                 {
                     expandParams = rr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                     wrapByBrackets = rr.IsExpandedForm && !expandParams;
@@ -64,7 +64,7 @@ namespace H5.Translator
 
             if (paramArg != null && expandParams)
             {
-                var resolveResult = Emitter.Resolver.ResolveNode(paramArg, Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(paramArg);
 
                 if (resolveResult.Type.Kind == TypeKind.Array && !(paramArg is ArrayCreateExpression) && expressions.Last() == paramArg)
                 {
@@ -83,7 +83,7 @@ namespace H5.Translator
 
                         if (InvocationExpression != null)
                         {
-                            if (Emitter.Resolver.ResolveNode(InvocationExpression, Emitter) is MemberResolveResult rr && !rr.Member.IsStatic && InvocationExpression is InvocationExpression)
+                            if (Emitter.Resolver.ResolveNode(InvocationExpression) is MemberResolveResult rr && !rr.Member.IsStatic && InvocationExpression is InvocationExpression)
                             {
                                 var oldWriter = SaveWriter();
                                 var sb = NewWriter();
@@ -149,7 +149,7 @@ namespace H5.Translator
 
                 if (expr is DirectionExpression directExpr)
                 {
-                    var resolveResult = Emitter.Resolver.ResolveNode(expr, Emitter);
+                    var resolveResult = Emitter.Resolver.ResolveNode(expr);
 
                     if (resolveResult is ByReferenceResolveResult byReferenceResolveResult && !(byReferenceResolveResult.ElementResult is LocalResolveResult))
                     {
@@ -214,7 +214,7 @@ namespace H5.Translator
 
                 if (expr is AssignmentExpression)
                 {
-                    Helpers.CheckValueTypeClone(Emitter.Resolver.ResolveNode(expr, Emitter), expr, this, pos);
+                    Helpers.CheckValueTypeClone(Emitter.Resolver.ResolveNode(expr), expr, this, pos);
                 }
             }
 

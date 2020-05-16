@@ -1,10 +1,14 @@
 using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
+using Microsoft.Extensions.Logging;
 using Mono.Cecil;
+using Mosaik.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -110,13 +114,13 @@ namespace H5.Translator
             }
         }
 
-        public virtual IEnumerable<AssemblyDefinition> References { get; set; }
+        public virtual IReadOnlyList<AssemblyDefinition> References { get; set; }
 
         public virtual IList<string> SourceFiles { get; set; }
 
         private List<IAssemblyReference> list;
 
-        protected virtual IEnumerable<IAssemblyReference> AssemblyReferences
+        protected virtual IReadOnlyList<IAssemblyReference> AssemblyReferences
         {
             get
             {
@@ -125,36 +129,33 @@ namespace H5.Translator
                     return list;
                 }
 
-                list = Emitter.ToAssemblyReferences(References, this.Log);
+                list = ToAssemblyReferences(References);
 
                 return list;
             }
         }
 
-        internal static List<IAssemblyReference> ToAssemblyReferences(IEnumerable<AssemblyDefinition> references, ILogger logger)
+        internal static List<IAssemblyReference> ToAssemblyReferences(IReadOnlyList<AssemblyDefinition> references)
         {
-            Logger.LogInformation("Assembly definition to references...");
-
             var list = new List<IAssemblyReference>();
 
-            if (references == null)
+            if (references is object)
             {
-                return list;
+                using (new Measure(Logger, "Loading assembly definitions", references.Count))
+                {
+                    foreach (var reference in references)
+                    {
+                        Logger.ZLogTrace("\tLoading AssemblyDefinition {0} ...", (reference != null && reference.Name != null && reference.Name.Name != null ? reference.Name.Name : ""));
+
+                        var loader = new CecilLoader();
+                        loader.IncludeInternalMembers = true;
+
+                        list.Add(loader.LoadAssembly(reference));
+
+                        Logger.ZLogTrace("\tLoading AssemblyDefinition done");
+                    }
+                }
             }
-
-            foreach (var reference in references)
-            {
-                Logger.LogTrace("\tLoading AssemblyDefinition " + (reference != null && reference.Name != null && reference.Name.Name != null ? reference.Name.Name : "") + " ...");
-
-                var loader = new CecilLoader();
-                loader.IncludeInternalMembers = true;
-
-                list.Add(loader.LoadAssembly(reference));
-
-                Logger.LogTrace("\tLoading AssemblyDefinition done");
-            }
-
-            Logger.LogInformation("Assembly definition to references done");
 
             return list;
         }
@@ -241,40 +242,19 @@ namespace H5.Translator
 
         public List<string> AutoStartupMethods { get; set; }
 
-        public bool IsAnonymousReflectable
-        {
-            get; set;
-        }
+        public bool IsAnonymousReflectable { get; set; }
 
-        public string MetaDataOutputName
-        {
-            get; set;
-        }
+        public string MetaDataOutputName { get; set; }
 
-        public IType[] ReflectableTypes
-        {
-            get; set;
-        }
+        public IType[] ReflectableTypes { get; set; }
 
-        public Dictionary<string, int> NamespacesCache
-        {
-            get; set;
-        }
+        public Dictionary<string, int> NamespacesCache { get; set; }
 
-        private bool AssemblyJsDocWritten
-        {
-            get; set;
-        }
+        private bool AssemblyJsDocWritten { get; set; }
 
-        public bool ForbidLifting
-        {
-            get; set;
-        }
+        public bool ForbidLifting { get; set; }
 
-        public bool DisableDependencyTracking
-        {
-            get; set;
-        }
+        public bool DisableDependencyTracking { get; set; }
 
         public Dictionary<IAssembly, NameRule[]> AssemblyNameRuleCache { get; }
 
@@ -290,29 +270,14 @@ namespace H5.Translator
 
         public string LastSequencePoint { get; set; }
 
-        public bool InConstructor
-        {
-            get; set;
-        }
+        public bool InConstructor { get; set; }
 
-        public CompilerRule Rules
-        {
-            get; set;
-        }
+        public CompilerRule Rules { get; set; }
 
-        public bool HasModules
-        {
-            get; set;
-        }
+        public bool HasModules { get; set; }
 
-        public string TemplateModifier
-        {
-            get; set;
-        }
+        public string TemplateModifier { get; set; }
 
-        public int WrapRestCounter
-        {
-            get; set;
-        }
+        public int WrapRestCounter { get; set; }
     }
 }

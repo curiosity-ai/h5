@@ -50,7 +50,7 @@ namespace H5.Translator
 
             IndexerExpression indexerExpression = IndexerExpression;
             int pos = Emitter.Output.Length;
-            var resolveResult = Emitter.Resolver.ResolveNode(indexerExpression, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(indexerExpression);
             var memberResolveResult = resolveResult as MemberResolveResult;
 
 
@@ -197,7 +197,7 @@ namespace H5.Translator
             var oldIsAssignment = Emitter.IsAssignment;
             var oldUnary = Emitter.IsUnaryAccessor;
             var inlineCode = current.InlineCode;
-            var rr = Emitter.Resolver.ResolveNode(indexerExpression, Emitter) as MemberResolveResult;
+            var rr = Emitter.Resolver.ResolveNode(indexerExpression) as MemberResolveResult;
             if (rr != null)
             {
                 inlineCode = Helpers.ConvertTokens(Emitter, inlineCode, rr.Member);
@@ -352,7 +352,7 @@ namespace H5.Translator
                 }
             }
 
-            var targetrr = Emitter.Resolver.ResolveNode(indexerExpression.Target, Emitter);
+            var targetrr = Emitter.Resolver.ResolveNode(indexerExpression.Target);
             bool isField = targetrr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                            memberTargetrr.TargetResult is TypeResolveResult ||
@@ -866,7 +866,7 @@ namespace H5.Translator
             bool writeTargetVar = false;
             bool isStatement = false;
             string valueVar = null;
-            var resolveResult = Emitter.Resolver.ResolveNode(indexerExpression, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(indexerExpression);
 
             if (Emitter.IsAssignment && Emitter.AssignmentType != AssignmentOperatorType.Assign)
             {
@@ -891,7 +891,7 @@ namespace H5.Translator
 
             if (writeTargetVar)
             {
-                var targetrr = Emitter.Resolver.ResolveNode(indexerExpression.Target, Emitter);
+                var targetrr = Emitter.Resolver.ResolveNode(indexerExpression.Target);
                 bool isField = targetrr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField && (memberTargetrr.TargetResult is ThisResolveResult || memberTargetrr.TargetResult is LocalResolveResult);
 
                 if (!(targetrr is ThisResolveResult || targetrr is LocalResolveResult || isField))
@@ -1306,7 +1306,7 @@ namespace H5.Translator
             Emitter.IsAssignment = false;
             Emitter.IsUnaryAccessor = false;
 
-            var targetrr = Emitter.Resolver.ResolveNode(indexerExpression.Target, Emitter);
+            var targetrr = Emitter.Resolver.ResolveNode(indexerExpression.Target);
             bool isField = targetrr is MemberResolveResult memberTargetrr && memberTargetrr.Member is IField &&
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                             memberTargetrr.TargetResult is TypeResolveResult ||
@@ -1325,7 +1325,7 @@ namespace H5.Translator
             }
 
 
-            if (indexerExpression.Target is BaseReferenceExpression && Emitter.Resolver.ResolveNode(indexerExpression, Emitter) is MemberResolveResult rr && Emitter.Validator.IsExternalType(rr.Member.DeclaringTypeDefinition) && !Emitter.Validator.IsH5Class(rr.Member.DeclaringTypeDefinition))
+            if (indexerExpression.Target is BaseReferenceExpression && Emitter.Resolver.ResolveNode(indexerExpression) is MemberResolveResult rr && Emitter.Validator.IsExternalType(rr.Member.DeclaringTypeDefinition) && !Emitter.Validator.IsH5Class(rr.Member.DeclaringTypeDefinition))
             {
                 Write("this");
             }

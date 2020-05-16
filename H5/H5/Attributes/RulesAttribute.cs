@@ -11,11 +11,6 @@ namespace H5
     /// </summary>
 #if H5_COMPILER
     public class CompilerRule
-#else
-    [NonScriptable]
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor | AttributeTargets.Interface | AttributeTargets.Assembly, AllowMultiple = false)]
-    public class RulesAttribute : Attribute
-#endif
     {
         public static CompilerRule DefaultIfNotH5()
         {
@@ -32,6 +27,12 @@ namespace H5
             };
         }
 
+#else
+    [NonScriptable]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor | AttributeTargets.Interface | AttributeTargets.Assembly, AllowMultiple = false)]
+    public class RulesAttribute : Attribute
+    {
+#endif
         public
 #if  H5_COMPILER
             LambdaRule?

@@ -113,11 +113,7 @@ namespace H5.Compiler
                                   RootNamespace
                                 options -c, -D have priority over -S
 -D --define <const-list>        Semicolon-delimited list of project constants.
---skip-resource-extraction      Do not extract resources from referenced projects and packages
-                                  (will result in an incomplete output content, but useful 
-                                   if you're building intermediate packages/projects)
---skip-embedding-resources      Do not embedd resources in the final DLL
-                                   (Careful, this will break building projects that depend on other projects!)");
+");
         }
 
         private static bool BindCmdArgumentToOption(string arg, H5Options h5Options)
@@ -180,14 +176,6 @@ namespace H5.Compiler
                     case "--rebuild":
                     case "-r":
                         h5Options.Rebuild = true;
-                        break;
-
-                    case "--skip-resource-extraction":
-                        h5Options.SkipResourcesExtraction = true;
-                        break;
-
-                    case "--skip-embedding-resources":
-                        h5Options.SkipEmbeddingResources = true;
                         break;
 
                     case "-S":

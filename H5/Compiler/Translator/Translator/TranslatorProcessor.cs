@@ -67,7 +67,7 @@ namespace H5.Translator
                 translator.CleanOutputFolderIfRequired(outputPath);
                 translator.PrepareResourcesConfig();
 
-                if (!h5Options.SkipResourcesExtraction)
+                if (!translator.SkipResourcesExtraction)
                 {
                     translator.ExtractCore(outputPath, projectPath);
                 }
@@ -77,7 +77,7 @@ namespace H5.Translator
                 }
 
                 var fileName = GetDefaultFileName(h5Options);
-                if (!h5Options.SkipEmbeddingResourcesIfBuildingH5Core && !h5Options.SkipResourcesExtraction)
+                if (!h5Options.SkipEmbeddingResourcesIfBuildingH5Core && !translator.SkipResourcesExtraction)
                 {
                     translator.Minify();
                     translator.Combine(fileName);

@@ -10,11 +10,7 @@ namespace H5.Translator
         {
             private SemanticModel _semanticModel;
 
-            public bool IsComplex
-            {
-                get;
-                private set;
-            }
+            public bool IsComplex { get; private set; }
 
             public Analyzer(SemanticModel semanticModel)
             {

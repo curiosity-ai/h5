@@ -13,11 +13,7 @@ namespace H5.Translator
             this.ParenthesizedExpression = parenthesizedExpression;
         }
 
-        public ParenthesizedExpression ParenthesizedExpression
-        {
-            get;
-            set;
-        }
+        public ParenthesizedExpression ParenthesizedExpression { get; set; }
 
         protected override Expression GetExpression()
         {

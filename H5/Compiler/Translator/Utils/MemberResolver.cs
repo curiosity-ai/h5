@@ -22,11 +22,7 @@ namespace H5.Translator
         private IProjectContent project;
         private readonly ConcurrentDictionary<SyntaxTree, CSharpUnresolvedFile> typeSystemCache;
 
-        public bool CanFreeze
-        {
-            get;
-            set;
-        }
+        public bool CanFreeze { get; set; }
 
         public CSharpAstResolver Resolver
         {
@@ -44,11 +40,7 @@ namespace H5.Translator
             }
         }
 
-        public IEnumerable<IAssemblyReference> Assemblies
-        {
-            get;
-            private set;
-        }
+        public IEnumerable<IAssemblyReference> Assemblies { get; private set; }
 
         public MemberResolver(IList<ParsedSourceFile> sourceFiles, IEnumerable<IAssemblyReference> assemblies, AssemblyDefinition assemblyDefinition)
         {

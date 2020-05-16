@@ -11,16 +11,8 @@ namespace H5.Translator
             ParsedFile = parsedFile;
         }
 
-        public SyntaxTree SyntaxTree
-        {
-            get;
-            set;
-        }
+        public SyntaxTree SyntaxTree { get; set; }
 
-        public CSharpUnresolvedFile ParsedFile
-        {
-            get;
-            private set;
-        }
+        public CSharpUnresolvedFile ParsedFile { get; private set; }
     }
 }

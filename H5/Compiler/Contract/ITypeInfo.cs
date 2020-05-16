@@ -6,170 +6,63 @@ namespace H5.Contract
 {
     public interface ITypeInfo
     {
-        string Key
-        {
-            get;
-            set;
-        }
+        string Key { get; set; }
 
-        TypeDeclaration TypeDeclaration
-        {
-            get;
-            set;
-        }
+        TypeDeclaration TypeDeclaration { get; set; }
 
-        Dictionary<string, EventDeclaration> EventsDeclarations
-        {
-            get;
-        }
+        Dictionary<string, EventDeclaration> EventsDeclarations { get; }
 
-        bool IsStatic
-        {
-            get;
-            set;
-        }
+        bool IsStatic { get; set; }
 
-        ClassType ClassType
-        {
-            get;
-            set;
-        }
+        ClassType ClassType { get; set; }
 
-        string Namespace
-        {
-            get;
-            set;
-        }
+        string Namespace { get; set; }
 
-        string Name
-        {
-            get;
-            set;
-        }
+        string Name { get; set; }
 
-        List<ConstructorDeclaration> Ctors
-        {
-            get;
-            set;
-        }
+        List<ConstructorDeclaration> Ctors { get; set; }
 
-        ConstructorDeclaration StaticCtor
-        {
-            get;
-            set;
-        }
+        ConstructorDeclaration StaticCtor { get; set; }
 
-        Dictionary<string, FieldDeclaration> FieldsDeclarations
-        {
-            get;
-        }
+        Dictionary<string, FieldDeclaration> FieldsDeclarations { get; }
 
-        Dictionary<OperatorType, List<OperatorDeclaration>> Operators
-        {
-            get;
-        }
+        Dictionary<OperatorType, List<OperatorDeclaration>> Operators { get; }
 
-        Dictionary<string, List<MethodDeclaration>> StaticMethods
-        {
-            get;
-        }
+        Dictionary<string, List<MethodDeclaration>> StaticMethods { get; }
 
-        Dictionary<string, List<MethodDeclaration>> InstanceMethods
-        {
-            get;
-        }
+        Dictionary<string, List<MethodDeclaration>> InstanceMethods { get; }
 
-        Dictionary<string, List<EntityDeclaration>> StaticProperties
-        {
-            get;
-        }
+        Dictionary<string, List<EntityDeclaration>> StaticProperties { get; }
 
-        Dictionary<string, List<EntityDeclaration>> InstanceProperties
-        {
-            get;
-        }
+        Dictionary<string, List<EntityDeclaration>> InstanceProperties { get; }
 
-        bool HasStatic
-        {
-            get;
-        }
+        bool HasStatic { get; }
 
-        bool HasInstantiable
-        {
-            get;
-        }
+        bool HasInstantiable { get; }
 
-        object LastEnumValue
-        {
-            get;
-            set;
-        }
+        object LastEnumValue { get; set; }
 
-        bool IsEnum
-        {
-            get;
-            set;
-        }
+        bool IsEnum { get; set; }
 
-        string FileName
-        {
-            get;
-            set;
-        }
+        string FileName { get; set; }
 
-        string JsName
-        {
-            get;
-            set;
-        }
+        string JsName { get; set; }
 
-        Module Module
-        {
-            get;
-            set;
-        }
+        Module Module { get; set; }
 
-        List<IPluginDependency> Dependencies
-        {
-            get;
-            set;
-        }
+        List<IPluginDependency> Dependencies { get; set; }
 
-        ITypeInfo ParentType
-        {
-            get;
-            set;
-        }
+        ITypeInfo ParentType { get; set; }
 
-        TypeConfigInfo StaticConfig
-        {
-            get;
-            set;
-        }
+        TypeConfigInfo StaticConfig { get; set; }
 
-        TypeConfigInfo InstanceConfig
-        {
-            get;
-            set;
-        }
+        TypeConfigInfo InstanceConfig { get; set; }
 
-        bool IsObjectLiteral
-        {
-            get;
-            set;
-        }
+        bool IsObjectLiteral { get; set; }
 
-        IType Type
-        {
-            get;
-            set;
-        }
+        IType Type { get; set; }
 
-        List<TypeDeclaration> PartialTypeDeclarations
-        {
-            get;
-            set;
-        }
+        List<TypeDeclaration> PartialTypeDeclarations { get; set; }
 
         bool HasRealStatic(IEmitter emitter);
         bool HasRealInstantiable(IEmitter emitter);

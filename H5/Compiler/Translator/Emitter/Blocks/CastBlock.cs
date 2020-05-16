@@ -46,35 +46,15 @@ namespace H5.Translator
             this.AstType = astType;
         }
 
-        public CastExpression CastExpression
-        {
-            get;
-            set;
-        }
+        public CastExpression CastExpression { get; set; }
 
-        public AsExpression AsExpression
-        {
-            get;
-            set;
-        }
+        public AsExpression AsExpression { get; set; }
 
-        public IsExpression IsExpression
-        {
-            get;
-            set;
-        }
+        public IsExpression IsExpression { get; set; }
 
-        public IType IType
-        {
-            get;
-            set;
-        }
+        public IType IType { get; set; }
 
-        public AstType AstType
-        {
-            get;
-            set;
-        }
+        public AstType AstType { get; set; }
 
         protected override Expression GetExpression()
         {
@@ -608,10 +588,6 @@ namespace H5.Translator
             return method;
         }
 
-        public IMethod InlineMethod
-        {
-            get;
-            set;
-        }
+        public IMethod InlineMethod { get; set; }
     }
 }

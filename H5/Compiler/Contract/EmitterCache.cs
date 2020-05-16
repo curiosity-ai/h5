@@ -13,17 +13,9 @@ namespace H5.Contract
             this.Nodes = new Dictionary<Tuple<AstNode, bool>, OverloadsCollection>();
         }
 
-        private Dictionary<Tuple<AstNode, bool>, OverloadsCollection> Nodes
-        {
-            get;
-            set;
-        }
+        private Dictionary<Tuple<AstNode, bool>, OverloadsCollection> Nodes { get; set; }
 
-        private Dictionary<Tuple<IMember, bool, bool>, OverloadsCollection> Members
-        {
-            get;
-            set;
-        }
+        private Dictionary<Tuple<IMember, bool, bool>, OverloadsCollection> Members { get; set; }
 
         public void AddNode(AstNode astNode, bool isSetter, OverloadsCollection overloads)
         {

@@ -24,17 +24,9 @@ namespace H5.Translator
             this.ArrayCreateResolveResult = arrayCreateResolveResult;
         }
 
-        public ArrayCreateExpression ArrayCreateExpression
-        {
-            get;
-            set;
-        }
+        public ArrayCreateExpression ArrayCreateExpression { get; set; }
 
-        public ArrayCreateResolveResult ArrayCreateResolveResult
-        {
-            get;
-            set;
-        }
+        public ArrayCreateResolveResult ArrayCreateResolveResult { get; set; }
 
         protected override Expression GetExpression()
         {

@@ -17,11 +17,7 @@ namespace H5.Translator
             this.WhileStatement = whileStatement;
         }
 
-        public WhileStatement WhileStatement
-        {
-            get;
-            set;
-        }
+        public WhileStatement WhileStatement { get; set; }
 
         protected override void DoEmit()
         {

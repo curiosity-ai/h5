@@ -5,61 +5,27 @@ namespace H5.Contract
 {
     public interface IInvocationInterceptor
     {
-        IAbstractEmitterBlock Block
-        {
-            get;
-        }
+        IAbstractEmitterBlock Block { get; }
 
-        InvocationExpression Expression
-        {
-            get;
-        }
+        InvocationExpression Expression { get; }
 
-        InvocationResolveResult ResolveResult
-        {
-            get;
-        }
+        InvocationResolveResult ResolveResult { get; }
 
-        string Replacement
-        {
-            get;
-            set;
-        }
+        string Replacement { get; set; }
 
-        bool Cancel
-        {
-            get;
-            set;
-        }
+        bool Cancel { get; set; }
     }
 
     public interface IReferenceInterceptor
     {
-        IAbstractEmitterBlock Block
-        {
-            get;
-        }
+        IAbstractEmitterBlock Block { get; }
 
-        MemberReferenceExpression Expression
-        {
-            get;
-        }
+        MemberReferenceExpression Expression { get; }
 
-        MemberResolveResult ResolveResult
-        {
-            get;
-        }
+        MemberResolveResult ResolveResult { get; }
 
-        string Replacement
-        {
-            get;
-            set;
-        }
+        string Replacement { get; set; }
 
-        bool Cancel
-        {
-            get;
-            set;
-        }
+        bool Cancel { get; set; }
     }
 }

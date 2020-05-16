@@ -14,10 +14,7 @@ namespace H5.Translator
             get; set;
         }
 
-        public SourceMapBuilder SourceMapBuilder
-        {
-            get;
-        }
+        public SourceMapBuilder SourceMapBuilder { get; }
 
         public SourceMapGenerator(string scriptPath, string sourceRoot, string basePath, UnicodeNewline? forceEols = null)
         {

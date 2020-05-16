@@ -14,11 +14,7 @@ namespace H5.Translator.TypeScript
             this.CustomEventDeclaration = customEventDeclaration;
         }
 
-        public CustomEventDeclaration CustomEventDeclaration
-        {
-            get;
-            set;
-        }
+        public CustomEventDeclaration CustomEventDeclaration { get; set; }
 
         protected override void DoEmit()
         {

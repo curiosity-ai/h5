@@ -15,17 +15,9 @@ namespace H5.Translator.TypeScript
             this.Namespace = ns;
         }
 
-        public ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
-        public string Namespace
-        {
-            get;
-            set;
-        }
+        public string Namespace { get; set; }
 
         protected override void DoEmit()
         {

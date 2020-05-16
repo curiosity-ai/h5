@@ -21,17 +21,9 @@ namespace H5.Translator
             this.YieldBreakStatement = breakStatement;
         }
 
-        public BreakStatement BreakStatement
-        {
-            get;
-            set;
-        }
+        public BreakStatement BreakStatement { get; set; }
 
-        public YieldBreakStatement YieldBreakStatement
-        {
-            get;
-            set;
-        }
+        public YieldBreakStatement YieldBreakStatement { get; set; }
 
         protected override void DoEmit()
         {

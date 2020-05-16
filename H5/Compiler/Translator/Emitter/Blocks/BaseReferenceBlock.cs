@@ -16,11 +16,7 @@ namespace H5.Translator
             this.BaseReferenceExpression = baseReferenceExpression;
         }
 
-        public BaseReferenceExpression BaseReferenceExpression
-        {
-            get;
-            set;
-        }
+        public BaseReferenceExpression BaseReferenceExpression { get; set; }
 
         protected override Expression GetExpression()
         {

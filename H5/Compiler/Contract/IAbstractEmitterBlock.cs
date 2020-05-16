@@ -24,16 +24,9 @@ namespace H5.Contract
 
         void EmitBlockOrIndentedLine(ICSharpCode.NRefactory.CSharp.AstNode node);
 
-        H5.Contract.IEmitter Emitter
-        {
-            get;
-            set;
-        }
+        H5.Contract.IEmitter Emitter { get; set; }
 
-        int Level
-        {
-            get;
-        }
+        int Level { get; }
 
         void EndBlock();
 

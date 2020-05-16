@@ -11,15 +11,9 @@ namespace H5.Translator
 {
     public class LoopVariablesAnalyzer : DepthFirstAstVisitor
     {
-        public List<string> VariableNames
-        {
-            get;
-        } = new List<string>();
+        public List<string> VariableNames { get; } = new List<string>();
 
-        public List<IVariable> Variables
-        {
-            get;
-        } = new List<IVariable>();
+        public List<IVariable> Variables { get; } = new List<IVariable>();
 
         public IEmitter Emitter
         {

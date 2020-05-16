@@ -30,71 +30,27 @@ namespace H5.Translator
             }
         }
 
-        public BlockStatement BlockStatement
-        {
-            get;
-            set;
-        }
+        public BlockStatement BlockStatement { get; set; }
 
-        protected bool AddEndBlock
-        {
-            get;
-            set;
-        }
+        protected bool AddEndBlock { get; set; }
 
-        public bool AsyncNoBraces
-        {
-            get;
-            set;
-        }
+        public bool AsyncNoBraces { get; set; }
 
-        public bool NoBraces
-        {
-            get;
-            set;
-        }
+        public bool NoBraces { get; set; }
 
-        public int BeginPosition
-        {
-            get;
-            set;
-        }
+        public int BeginPosition { get; set; }
 
-        public int SignaturePosition
-        {
-            get;
-            set;
-        }
+        public int SignaturePosition { get; set; }
 
-        public bool IsYield
-        {
-            get;
-            set;
-        }
+        public bool IsYield { get; set; }
 
-        public IType ReturnType
-        {
-            get;
-            set;
-        }
+        public IType ReturnType { get; set; }
 
-        private IType OldReturnType
-        {
-            get;
-            set;
-        }
+        private IType OldReturnType { get; set; }
 
-        public string LoopVar
-        {
-            get;
-            set;
-        }
+        public string LoopVar { get; set; }
 
-        public bool? OldReplaceJump
-        {
-            get;
-            set;
-        }
+        public bool? OldReplaceJump { get; set; }
 
         protected override void DoEmit()
         {

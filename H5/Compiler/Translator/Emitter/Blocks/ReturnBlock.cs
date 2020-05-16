@@ -21,17 +21,9 @@ namespace H5.Translator
             this.Expression = expression;
         }
 
-        public Expression Expression
-        {
-            get;
-            set;
-        }
+        public Expression Expression { get; set; }
 
-        public ReturnStatement ReturnStatement
-        {
-            get;
-            set;
-        }
+        public ReturnStatement ReturnStatement { get; set; }
 
         protected override void DoEmit()
         {

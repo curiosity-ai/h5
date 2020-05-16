@@ -17,17 +17,9 @@ namespace H5.Translator
             this.IfElseStatement = ifElseStatement;
         }
 
-        public IfElseStatement IfElseStatement
-        {
-            get;
-            set;
-        }
+        public IfElseStatement IfElseStatement { get; set; }
 
-        public List<IAsyncStep> EmittedAsyncSteps
-        {
-            get;
-            set;
-        }
+        public List<IAsyncStep> EmittedAsyncSteps { get; set; }
 
         protected override void DoEmit()
         {

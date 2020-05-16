@@ -12,83 +12,31 @@ namespace H5.Translator
 {
     public class ArgumentsInfo
     {
-        public IEmitter Emitter
-        {
-            get;
-            private set;
-        }
+        public IEmitter Emitter { get; private set; }
 
-        public Expression Expression
-        {
-            get;
-            private set;
-        }
+        public Expression Expression { get; private set; }
 
-        public InvocationResolveResult ResolveResult
-        {
-            get;
-            private set;
-        }
+        public InvocationResolveResult ResolveResult { get; private set; }
 
-        public OperatorResolveResult OperatorResolveResult
-        {
-            get;
-            private set;
-        }
+        public OperatorResolveResult OperatorResolveResult { get; private set; }
 
-        public Expression[] ArgumentsExpressions
-        {
-            get;
-            set;
-        }
+        public Expression[] ArgumentsExpressions { get; set; }
 
-        public string[] ArgumentsNames
-        {
-            get;
-            set;
-        }
+        public string[] ArgumentsNames { get; set; }
 
-        public Expression ParamsExpression
-        {
-            get;
-            private set;
-        }
+        public Expression ParamsExpression { get; private set; }
 
-        public NamedParamExpression[] NamedExpressions
-        {
-            get;
-            set;
-        }
+        public NamedParamExpression[] NamedExpressions { get; set; }
 
-        public TypeParamExpression[] TypeArguments
-        {
-            get;
-            private set;
-        }
+        public TypeParamExpression[] TypeArguments { get; private set; }
 
-        public object ThisArgument
-        {
-            get;
-            set;
-        }
+        public object ThisArgument { get; set; }
 
-        public string ThisName
-        {
-            get;
-            set;
-        }
+        public string ThisName { get; set; }
 
-        public bool IsExtensionMethod
-        {
-            get;
-            set;
-        }
+        public bool IsExtensionMethod { get; set; }
 
-        public bool HasTypeArguments
-        {
-            get;
-            set;
-        }
+        public bool HasTypeArguments { get; set; }
 
         public IMethod Method { get; private set; }
 
@@ -842,17 +790,9 @@ namespace H5.Translator
             this.Expression = expression;
         }
 
-        public string Name
-        {
-            get;
-            private set;
-        }
+        public string Name { get; private set; }
 
-        public Expression Expression
-        {
-            get;
-            private set;
-        }
+        public Expression Expression { get; private set; }
     }
 
     public class TypeParamExpression
@@ -865,28 +805,12 @@ namespace H5.Translator
             this.Inherited = inherited;
         }
 
-        public string Name
-        {
-            get;
-            private set;
-        }
+        public string Name { get; private set; }
 
-        public AstType AstType
-        {
-            get;
-            private set;
-        }
+        public AstType AstType { get; private set; }
 
-        public IType IType
-        {
-            get;
-            private set;
-        }
+        public IType IType { get; private set; }
 
-        public bool Inherited
-        {
-            get;
-            private set;
-        }
+        public bool Inherited { get; private set; }
     }
 }

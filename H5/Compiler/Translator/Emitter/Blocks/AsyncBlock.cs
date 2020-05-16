@@ -57,29 +57,13 @@ namespace H5.Translator
             }
         }
 
-        public MethodDeclaration MethodDeclaration
-        {
-            get;
-            set;
-        }
+        public MethodDeclaration MethodDeclaration { get; set; }
 
-        public LambdaExpression LambdaExpression
-        {
-            get;
-            set;
-        }
+        public LambdaExpression LambdaExpression { get; set; }
 
-        public AnonymousMethodExpression AnonymousMethodExpression
-        {
-            get;
-            set;
-        }
+        public AnonymousMethodExpression AnonymousMethodExpression { get; set; }
 
-        public List<IAsyncJumpLabel> JumpLabels
-        {
-            get;
-            set;
-        }
+        public List<IAsyncJumpLabel> JumpLabels { get; set; }
 
         public AstNode Body
         {
@@ -104,83 +88,31 @@ namespace H5.Translator
             }
         }
 
-        protected bool PreviousIsAync
-        {
-            get;
-            set;
-        }
+        protected bool PreviousIsAync { get; set; }
 
-        protected List<string> PreviousAsyncVariables
-        {
-            get;
-            set;
-        }
+        protected List<string> PreviousAsyncVariables { get; set; }
 
-        protected IAsyncBlock PreviousAsyncBlock
-        {
-            get;
-            set;
-        }
+        protected IAsyncBlock PreviousAsyncBlock { get; set; }
 
-        public AstNode[] AwaitExpressions
-        {
-            get;
-            set;
-        }
+        public AstNode[] AwaitExpressions { get; set; }
 
-        public List<AstNode> WrittenAwaitExpressions
-        {
-            get;
-            set;
-        }
+        public List<AstNode> WrittenAwaitExpressions { get; set; }
 
-        public IType ReturnType
-        {
-            get;
-            set;
-        }
+        public IType ReturnType { get; set; }
 
-        public bool IsTaskReturn
-        {
-            get;
-            set;
-        }
+        public bool IsTaskReturn { get; set; }
 
-        public bool IsEnumeratorReturn
-        {
-            get;
-            set;
-        }
+        public bool IsEnumeratorReturn { get; set; }
 
-        public int Step
-        {
-            get;
-            set;
-        }
+        public int Step { get; set; }
 
-        public List<IAsyncStep> Steps
-        {
-            get;
-            set;
-        }
+        public List<IAsyncStep> Steps { get; set; }
 
-        public List<IAsyncStep> EmittedAsyncSteps
-        {
-            get;
-            set;
-        }
+        public List<IAsyncStep> EmittedAsyncSteps { get; set; }
 
-        public bool ReplaceAwaiterByVar
-        {
-            get;
-            set;
-        }
+        public bool ReplaceAwaiterByVar { get; set; }
 
-        public List<IAsyncTryInfo> TryInfos
-        {
-            get;
-            set;
-        }
+        public List<IAsyncTryInfo> TryInfos { get; set; }
 
         public void InitAsyncBlock()
         {
@@ -787,47 +719,19 @@ namespace H5.Translator
             this.FromTaskNumber = fromTaskNumber;
         }
 
-        public int FromTaskNumber
-        {
-            get;
-            set;
-        }
+        public int FromTaskNumber { get; set; }
 
-        public int JumpToStep
-        {
-            get;
-            set;
-        }
+        public int JumpToStep { get; set; }
 
-        public AstNode JumpToNode
-        {
-            get;
-            set;
-        }
+        public AstNode JumpToNode { get; set; }
 
-        public AstNode Node
-        {
-            get;
-            set;
-        }
+        public AstNode Node { get; set; }
 
-        public int Step
-        {
-            get;
-            set;
-        }
+        public int Step { get; set; }
 
-        protected IEmitter Emitter
-        {
-            get;
-            set;
-        }
+        protected IEmitter Emitter { get; set; }
 
-        public StringBuilder Output
-        {
-            get;
-            set;
-        }
+        public StringBuilder Output { get; set; }
 
         public object Label
         {
@@ -837,16 +741,8 @@ namespace H5.Translator
 
     public class AsyncJumpLabel : IAsyncJumpLabel
     {
-        public StringBuilder Output
-        {
-            get;
-            set;
-        }
+        public StringBuilder Output { get; set; }
 
-        public AstNode Node
-        {
-            get;
-            set;
-        }
+        public AstNode Node { get; set; }
     }
 }

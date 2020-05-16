@@ -16,11 +16,7 @@ namespace H5.Translator
             this.DefaultValueExpression = defaultValueExpression;
         }
 
-        public DefaultValueExpression DefaultValueExpression
-        {
-            get;
-            set;
-        }
+        public DefaultValueExpression DefaultValueExpression { get; set; }
 
         protected override void DoEmit()
         {

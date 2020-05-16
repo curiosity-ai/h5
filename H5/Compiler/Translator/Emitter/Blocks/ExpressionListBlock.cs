@@ -22,41 +22,17 @@ namespace H5.Translator
             this.NewLine = newLine;
         }
 
-        public bool NewLine
-        {
-            get;
-            set;
-        }
+        public bool NewLine { get; set; }
 
-        public int OpenBracketPosition
-        {
-            get;
-            set;
-        }
+        public int OpenBracketPosition { get; set; }
 
-        public IEnumerable<Expression> Expressions
-        {
-            get;
-            set;
-        }
+        public IEnumerable<Expression> Expressions { get; set; }
 
-        public Expression ParamExpression
-        {
-            get;
-            set;
-        }
+        public Expression ParamExpression { get; set; }
 
-        public AstNode InvocationExpression
-        {
-            get;
-            set;
-        }
+        public AstNode InvocationExpression { get; set; }
 
-        public bool IgnoreExpandParams
-        {
-            get;
-            set;
-        }
+        public bool IgnoreExpandParams { get; set; }
 
         protected override void DoEmit()
         {

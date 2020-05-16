@@ -11,29 +11,13 @@ namespace H5.Translator
 {
     public class IndexerAccessor
     {
-        public IAttribute InlineAttr
-        {
-            get;
-            set;
-        }
+        public IAttribute InlineAttr { get; set; }
 
-        public string InlineCode
-        {
-            get;
-            set;
-        }
+        public string InlineCode { get; set; }
 
-        public IMethod Method
-        {
-            get;
-            set;
-        }
+        public IMethod Method { get; set; }
 
-        public bool IgnoreAccessor
-        {
-            get;
-            set;
-        }
+        public bool IgnoreAccessor { get; set; }
     }
 
     public class IndexerBlock : ConversionBlock
@@ -47,11 +31,7 @@ namespace H5.Translator
             this.IndexerExpression = indexerExpression;
         }
 
-        public IndexerExpression IndexerExpression
-        {
-            get;
-            set;
-        }
+        public IndexerExpression IndexerExpression { get; set; }
 
         protected override Expression GetExpression()
         {

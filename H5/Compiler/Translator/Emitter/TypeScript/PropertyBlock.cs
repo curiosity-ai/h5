@@ -15,11 +15,7 @@ namespace H5.Translator.TypeScript
             this.PropertyDeclaration = propertyDeclaration;
         }
 
-        public PropertyDeclaration PropertyDeclaration
-        {
-            get;
-            set;
-        }
+        public PropertyDeclaration PropertyDeclaration { get; set; }
 
         protected override void DoEmit()
         {

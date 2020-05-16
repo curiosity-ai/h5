@@ -16,11 +16,7 @@ namespace H5.Translator
             this.ArrayInitializerExpression = arrayInitializerExpression;
         }
 
-        public ArrayInitializerExpression ArrayInitializerExpression
-        {
-            get;
-            set;
-        }
+        public ArrayInitializerExpression ArrayInitializerExpression { get; set; }
 
         protected override void DoEmit()
         {

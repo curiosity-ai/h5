@@ -21,16 +21,10 @@ namespace H5.Translator
         private readonly List<SourceMapEntry> _entries;
 
         private readonly Dictionary<string, int> _sourceUrlMap;
-        public List<string> SourceUrlList
-        {
-            get;
-        }
+        public List<string> SourceUrlList { get; }
 
         private readonly Dictionary<string, int> _sourceNameMap;
-        public List<string> SourceNameList
-        {
-            get;
-        }
+        public List<string> SourceNameList { get; }
 
         private int _previousTargetLine;
         private int _previousTargetColumn;

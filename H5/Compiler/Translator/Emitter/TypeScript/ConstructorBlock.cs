@@ -17,11 +17,7 @@ namespace H5.Translator.TypeScript
             this.TypeInfo = typeInfo;
         }
 
-        public ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
         protected override void DoEmit()
         {

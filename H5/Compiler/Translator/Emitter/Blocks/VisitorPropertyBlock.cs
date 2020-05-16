@@ -16,11 +16,7 @@ namespace H5.Translator
             this.PropertyDeclaration = propertyDeclaration;
         }
 
-        public PropertyDeclaration PropertyDeclaration
-        {
-            get;
-            set;
-        }
+        public PropertyDeclaration PropertyDeclaration { get; set; }
         public CompilerRule OldRules { get; private set; }
 
         protected override void BeginEmit()

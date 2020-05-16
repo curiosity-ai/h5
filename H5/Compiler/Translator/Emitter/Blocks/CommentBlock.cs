@@ -18,11 +18,7 @@ namespace H5.Translator
             this.Comment = comment;
         }
 
-        public Comment Comment
-        {
-            get;
-            set;
-        }
+        public Comment Comment { get; set; }
 
         protected override void DoEmit()
         {

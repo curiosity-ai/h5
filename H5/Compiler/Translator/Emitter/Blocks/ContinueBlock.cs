@@ -14,11 +14,7 @@ namespace H5.Translator
             this.ContinueStatement = continueStatement;
         }
 
-        public ContinueStatement ContinueStatement
-        {
-            get;
-            set;
-        }
+        public ContinueStatement ContinueStatement { get; set; }
 
         protected override void DoEmit()
         {

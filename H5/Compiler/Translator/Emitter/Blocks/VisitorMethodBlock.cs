@@ -18,11 +18,7 @@ namespace H5.Translator
             this.MethodDeclaration = methodDeclaration;
         }
 
-        public MethodDeclaration MethodDeclaration
-        {
-            get;
-            set;
-        }
+        public MethodDeclaration MethodDeclaration { get; set; }
         public CompilerRule OldRules { get; private set; }
 
         protected override void BeginEmit()

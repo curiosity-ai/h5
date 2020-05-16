@@ -4,11 +4,7 @@ namespace H5.Translator
 {
     public partial class Emitter : ILog
     {
-        public ILogger Log
-        {
-            get;
-            set;
-        }
+        public ILogger Log { get; set; }
 
         public virtual void LogWarning(string message)
         {

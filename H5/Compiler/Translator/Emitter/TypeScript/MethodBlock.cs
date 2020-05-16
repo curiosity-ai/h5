@@ -16,11 +16,7 @@ namespace H5.Translator.TypeScript
             this.MethodDeclaration = methodDeclaration;
         }
 
-        public MethodDeclaration MethodDeclaration
-        {
-            get;
-            set;
-        }
+        public MethodDeclaration MethodDeclaration { get; set; }
 
         protected override void DoEmit()
         {

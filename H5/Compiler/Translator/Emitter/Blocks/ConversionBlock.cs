@@ -96,27 +96,15 @@ namespace H5.Translator
             }
         }
 
-        protected virtual string AfterOutput
-        {
-            get;
-            set;
-        }
+        protected virtual string AfterOutput { get; set; }
 
-        protected virtual string AfterOutput2
-        {
-            get;
-            set;
-        }
+        protected virtual string AfterOutput2 { get; set; }
 
         internal static List<Expression> expressionInWork = new List<Expression>();
         internal static List<Expression> expressionIgnoreUserDefine = new List<Expression>();
         internal static Dictionary<Expression, string> expressionMap = new Dictionary<Expression, string>();
 
-        protected virtual bool DisableEmitConversionExpression
-        {
-            get;
-            set;
-        }
+        protected virtual bool DisableEmitConversionExpression { get; set; }
 
         protected virtual int CheckConversion(Expression expression)
         {

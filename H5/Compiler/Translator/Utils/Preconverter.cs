@@ -27,17 +27,9 @@ namespace H5.Translator
             this.Emitter = emitter;
         }
 
-        public bool Found
-        {
-            get;
-            set;
-        }
+        public bool Found { get; set; }
 
-        public MemberResolver Resolver
-        {
-            get;
-            set;
-        }
+        public MemberResolver Resolver { get; set; }
 
         internal IEmitter Emitter
         {
@@ -256,11 +248,7 @@ namespace H5.Translator
             this.log = log;
         }
 
-        public MemberResolver Resolver
-        {
-            get;
-            set;
-        }
+        public MemberResolver Resolver { get; set; }
 
         internal IEmitter Emitter
         {

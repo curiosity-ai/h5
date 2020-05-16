@@ -16,10 +16,7 @@ namespace H5.Contract
 
         bool HasConstructorInjectors(H5.Contract.IConstructorBlock constructorBlock);
 
-        System.Collections.Generic.IEnumerable<H5.Contract.IPlugin> Parts
-        {
-            get;
-        }
+        System.Collections.Generic.IEnumerable<H5.Contract.IPlugin> Parts { get; }
 
         void BeforeEmit(H5.Contract.IEmitter emitter, H5.Contract.ITranslator translator);
 

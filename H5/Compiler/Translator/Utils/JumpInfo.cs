@@ -12,22 +12,10 @@ namespace H5.Translator
             this.Break = @break;
         }
 
-        public StringBuilder Output
-        {
-            get;
-            set;
-        }
+        public StringBuilder Output { get; set; }
 
-        public int Position
-        {
-            get;
-            set;
-        }
+        public int Position { get; set; }
 
-        public bool Break
-        {
-            get;
-            set;
-        }
+        public bool Break { get; set; }
     }
 }

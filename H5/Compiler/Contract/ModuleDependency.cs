@@ -5,11 +5,7 @@ namespace H5.Contract
 {
     public class ModuleDependency : IPluginDependency
     {
-        public string DependencyName
-        {
-            get;
-            set;
-        }
+        public string DependencyName { get; set; }
 
         private string variableName;
 
@@ -114,11 +110,7 @@ namespace H5.Contract
             private set;
         }
 
-        public ModuleType Type
-        {
-            get;
-            set;
-        }
+        public ModuleType Type { get; set; }
 
         public bool PreventModuleName
         {

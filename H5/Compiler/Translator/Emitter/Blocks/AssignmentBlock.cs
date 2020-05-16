@@ -19,11 +19,7 @@ namespace H5.Translator
             this.AssignmentExpression = assignmentExpression;
         }
 
-        public AssignmentExpression AssignmentExpression
-        {
-            get;
-            set;
-        }
+        public AssignmentExpression AssignmentExpression { get; set; }
 
         protected override Expression GetExpression()
         {

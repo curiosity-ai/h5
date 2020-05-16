@@ -30,53 +30,21 @@ namespace H5.Translator
             this.IsAsync = isAsync;
         }
 
-        public bool IsAsync
-        {
-            get;
-            set;
-        }
+        public bool IsAsync { get; set; }
 
-        public IEnumerable<ParameterDeclaration> Parameters
-        {
-            get;
-            set;
-        }
+        public IEnumerable<ParameterDeclaration> Parameters { get; set; }
 
-        public AstNode Body
-        {
-            get;
-            set;
-        }
+        public AstNode Body { get; set; }
 
-        public AstNode Context
-        {
-            get;
-            set;
-        }
+        public AstNode Context { get; set; }
 
-        protected bool PreviousIsAync
-        {
-            get;
-            set;
-        }
+        protected bool PreviousIsAync { get; set; }
 
-        protected List<string> PreviousAsyncVariables
-        {
-            get;
-            set;
-        }
+        protected List<string> PreviousAsyncVariables { get; set; }
 
-        protected IAsyncBlock PreviousAsyncBlock
-        {
-            get;
-            set;
-        }
+        protected IAsyncBlock PreviousAsyncBlock { get; set; }
 
-        public bool ReplaceAwaiterByVar
-        {
-            get;
-            set;
-        }
+        public bool ReplaceAwaiterByVar { get; set; }
 
         protected override void DoEmit()
         {

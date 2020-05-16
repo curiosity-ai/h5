@@ -22,17 +22,9 @@ namespace H5.Translator
             this.StaticBlock = staticBlock;
         }
 
-        public ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
-        public bool StaticBlock
-        {
-            get;
-            set;
-        }
+        public bool StaticBlock { get; set; }
 
         public bool HasEntryPoint
         {

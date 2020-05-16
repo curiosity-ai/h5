@@ -110,22 +110,10 @@ namespace H5.Translator
             }
         }
 
-        public IEmitter Emitter
-        {
-            get;
-            set;
-        }
+        public IEmitter Emitter { get; set; }
 
-        public List<ITypeInfo> Dependencies
-        {
-            get;
-            set;
-        }
+        public List<ITypeInfo> Dependencies { get; set; }
 
-        public ITypeInfo Type
-        {
-            get;
-            set;
-        }
+        public ITypeInfo Type { get; set; }
     }
 }

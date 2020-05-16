@@ -18,11 +18,7 @@ namespace H5.Translator
             this.ThrowStatement = throwStatement;
         }
 
-        public ThrowStatement ThrowStatement
-        {
-            get;
-            set;
-        }
+        public ThrowStatement ThrowStatement { get; set; }
 
         protected override void DoEmit()
         {

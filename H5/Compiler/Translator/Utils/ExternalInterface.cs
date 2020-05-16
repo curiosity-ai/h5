@@ -5,23 +5,11 @@ namespace H5.Translator
 {
     public class ExternalInterface : IExternalInterface
     {
-        public bool IsVirtual
-        {
-            get;
-            set;
-        }
+        public bool IsVirtual { get; set; }
 
-        public bool IsNativeImplementation
-        {
-            get;
-            set;
-        }
+        public bool IsNativeImplementation { get; set; }
 
-        public bool IsSimpleImplementation
-        {
-            get;
-            set;
-        }
+        public bool IsSimpleImplementation { get; set; }
 
         public bool IsDualImplementation
         {

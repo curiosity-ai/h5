@@ -184,23 +184,11 @@ namespace H5.Translator
 
     public class LocalUsageData
     {
-        public bool DirectlyOrIndirectlyUsesThis
-        {
-            get;
-            private set;
-        }
+        public bool DirectlyOrIndirectlyUsesThis { get; private set; }
 
-        public ISet<ISymbol> DirectlyOrIndirectlyUsedLocals
-        {
-            get;
-            private set;
-        }
+        public ISet<ISymbol> DirectlyOrIndirectlyUsedLocals { get; private set; }
 
-        public IList<string> Names
-        {
-            get;
-            private set;
-        }
+        public IList<string> Names { get; private set; }
 
         public LocalUsageData(bool directlyOrIndirectlyUsesThis, ISet<ISymbol> directlyOrIndirectlyUsedVariables, IList<string> names)
         {

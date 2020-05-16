@@ -20,11 +20,7 @@ namespace H5.Translator
             this.ObjectCreateExpression = objectCreateExpression;
         }
 
-        public ObjectCreateExpression ObjectCreateExpression
-        {
-            get;
-            set;
-        }
+        public ObjectCreateExpression ObjectCreateExpression { get; set; }
 
         protected override Expression GetExpression()
         {

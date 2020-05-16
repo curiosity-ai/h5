@@ -17,11 +17,7 @@ namespace H5.Translator
             this.UnaryOperatorExpression = unaryOperatorExpression;
         }
 
-        public UnaryOperatorExpression UnaryOperatorExpression
-        {
-            get;
-            set;
-        }
+        public UnaryOperatorExpression UnaryOperatorExpression { get; set; }
 
         protected override Expression GetExpression()
         {

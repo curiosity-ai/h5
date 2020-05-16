@@ -7,29 +7,13 @@ namespace H5.Translator
 {
     public partial class Inspector : Visitor
     {
-        protected string Namespace
-        {
-            get;
-            set;
-        }
+        protected string Namespace { get; set; }
 
-        public IAssemblyInfo AssemblyInfo
-        {
-            get;
-            set;
-        }
+        public IAssemblyInfo AssemblyInfo { get; set; }
 
-        protected ITypeInfo CurrentType
-        {
-            get;
-            set;
-        }
+        protected ITypeInfo CurrentType { get; set; }
 
-        protected ITypeInfo ParentType
-        {
-            get;
-            set;
-        }
+        protected ITypeInfo ParentType { get; set; }
 
         public List<ITypeInfo> Types
         {
@@ -43,16 +27,8 @@ namespace H5.Translator
             protected set;
         }
 
-        public IMemberResolver Resolver
-        {
-            get;
-            set;
-        }
+        public IMemberResolver Resolver { get; set; }
 
-        public List<Tuple<TypeDeclaration, ITypeInfo>> NestedTypes
-        {
-            get;
-            set;
-        }
+        public List<Tuple<TypeDeclaration, ITypeInfo>> NestedTypes { get; set; }
     }
 }

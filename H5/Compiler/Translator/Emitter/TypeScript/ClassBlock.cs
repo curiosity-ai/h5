@@ -24,41 +24,17 @@ namespace H5.Translator.TypeScript
             this.Namespace = ns;
         }
 
-        public ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
-        public bool IsGeneric
-        {
-            get;
-            set;
-        }
+        public bool IsGeneric { get; set; }
 
-        public string JsName
-        {
-            get;
-            set;
-        }
+        public string JsName { get; set; }
 
-        public string Namespace
-        {
-            get;
-            set;
-        }
+        public string Namespace { get; set; }
 
-        public IEnumerable<ITypeInfo> NestedTypes
-        {
-            get;
-            private set;
-        }
+        public IEnumerable<ITypeInfo> NestedTypes { get; private set; }
 
-        public IEnumerable<ITypeInfo> AllTypes
-        {
-            get;
-            private set;
-        }
+        public IEnumerable<ITypeInfo> AllTypes { get; private set; }
 
         public int Position;
 

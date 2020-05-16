@@ -26,23 +26,11 @@ namespace H5.Translator
 
         public bool? IsSet { get; set; }
 
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; }
 
-        public Expression Expression
-        {
-            get;
-            set;
-        }
+        public Expression Expression { get; set; }
 
-        public Expression NamedExpression
-        {
-            get;
-            set;
-        }
+        public Expression NamedExpression { get; set; }
 
         protected override void DoEmit()
         {

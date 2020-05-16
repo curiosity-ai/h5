@@ -13,11 +13,7 @@ namespace H5.Translator.TypeScript
             this.OperatorDeclaration = operatorDeclaration;
         }
 
-        public OperatorDeclaration OperatorDeclaration
-        {
-            get;
-            set;
-        }
+        public OperatorDeclaration OperatorDeclaration { get; set; }
 
         protected override void DoEmit()
         {

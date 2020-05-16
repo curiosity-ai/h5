@@ -24,47 +24,19 @@ namespace H5.Translator
             this.ClearTempVariables = true;
         }
 
-        public bool IsObjectLiteral
-        {
-            get;
-            set;
-        }
+        public bool IsObjectLiteral { get; set; }
 
-        public ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
-        public bool StaticBlock
-        {
-            get;
-            set;
-        }
+        public bool StaticBlock { get; set; }
 
-        public bool FieldsOnly
-        {
-            get;
-            set;
-        }
+        public bool FieldsOnly { get; set; }
 
-        public List<string> Injectors
-        {
-            get;
-            private set;
-        }
+        public List<string> Injectors { get; private set; }
 
-        public int BeginCounter
-        {
-            get;
-            private set;
-        }
+        public int BeginCounter { get; private set; }
 
-        public bool WasEmitted
-        {
-            get;
-            private set;
-        }
+        public bool WasEmitted { get; private set; }
 
         public bool ClearTempVariables
         {

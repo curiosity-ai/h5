@@ -12,11 +12,7 @@ namespace H5.Translator
             this.EmptyStatement = emptyStatement;
         }
 
-        public EmptyStatement EmptyStatement
-        {
-            get;
-            set;
-        }
+        public EmptyStatement EmptyStatement { get; set; }
 
         protected override void DoEmit()
         {

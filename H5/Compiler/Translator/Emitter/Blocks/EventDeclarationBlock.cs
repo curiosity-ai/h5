@@ -12,11 +12,7 @@ namespace H5.Translator
             this.EventDeclaration = eventDeclaration;
         }
 
-        public EventDeclaration EventDeclaration
-        {
-            get;
-            set;
-        }
+        public EventDeclaration EventDeclaration { get; set; }
 
         protected override void DoEmit()
         {

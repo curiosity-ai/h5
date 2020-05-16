@@ -20,11 +20,7 @@ namespace H5.Translator
             this.IdentifierExpression = identifierExpression;
         }
 
-        public IdentifierExpression IdentifierExpression
-        {
-            get;
-            set;
-        }
+        public IdentifierExpression IdentifierExpression { get; set; }
 
         protected override Expression GetExpression()
         {

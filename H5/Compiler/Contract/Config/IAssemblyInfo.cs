@@ -180,11 +180,7 @@ namespace H5.Contract
             get; set;
         }
 
-        NamedFunctionMode NamedFunctions
-        {
-            get;
-            set;
-        }
+        NamedFunctionMode NamedFunctions { get; set; }
 
         SourceMapConfig SourceMap
         {
@@ -211,22 +207,10 @@ namespace H5.Contract
             get; set;
         }
 
-        string ReferencesPath
-        {
-            get;
-            set;
-        }
+        string ReferencesPath { get; set; }
 
-        string[] References
-        {
-            get;
-            set;
-        }
+        string[] References { get; set; }
 
-        bool IgnoreDuplicateTypes
-        {
-            get;
-            set;
-        }
+        bool IgnoreDuplicateTypes { get; set; }
     }
  }

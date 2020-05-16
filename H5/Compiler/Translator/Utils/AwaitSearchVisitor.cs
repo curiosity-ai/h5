@@ -17,28 +17,16 @@ namespace H5.Translator
             this.Emitter = emitter;
         }
 
-        public IEmitter Emitter
-        {
-            get;
-            set;
-        }
+        public IEmitter Emitter { get; set; }
 
-        private List<AstNode> AwaitExpressions
-        {
-            get;
-            set;
-        }
+        private List<AstNode> AwaitExpressions { get; set; }
 
         public List<AstNode> GetAwaitExpressions()
         {
             return this.AwaitExpressions.ToList();
         }
 
-        private int InsertPosition
-        {
-            get;
-            set;
-        }
+        private int InsertPosition { get; set; }
 
         private void Add(AstNode node)
         {
@@ -172,11 +160,7 @@ namespace H5.Translator
         {
         }
 
-        public bool Found
-        {
-            get;
-            set;
-        }
+        public bool Found { get; set; }
 
         public override void VisitLambdaExpression(LambdaExpression lambdaExpression)
         {

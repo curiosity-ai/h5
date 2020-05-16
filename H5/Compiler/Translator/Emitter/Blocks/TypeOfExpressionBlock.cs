@@ -12,11 +12,7 @@ namespace H5.Translator
             this.TypeOfExpression = typeOfExpression;
         }
 
-        public TypeOfExpression TypeOfExpression
-        {
-            get;
-            set;
-        }
+        public TypeOfExpression TypeOfExpression { get; set; }
 
         protected override Expression GetExpression()
         {

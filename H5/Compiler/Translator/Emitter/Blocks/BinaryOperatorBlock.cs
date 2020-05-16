@@ -21,17 +21,9 @@ namespace H5.Translator
             this.BinaryOperatorExpression = binaryOperatorExpression;
         }
 
-        public BinaryOperatorExpression BinaryOperatorExpression
-        {
-            get;
-            set;
-        }
+        public BinaryOperatorExpression BinaryOperatorExpression { get; set; }
 
-        public List<IAsyncStep> EmittedAsyncSteps
-        {
-            get;
-            set;
-        }
+        public List<IAsyncStep> EmittedAsyncSteps { get; set; }
         public bool NullStringCheck
         {
             get; private set;

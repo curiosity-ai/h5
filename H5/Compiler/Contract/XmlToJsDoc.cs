@@ -839,167 +839,59 @@ namespace H5.Contract
             this.SeeAlso = new List<string>();
         }
 
-        public List<string> SeeAlso
-        {
-            get;
-            set;
-        }
+        public List<string> SeeAlso { get; set; }
 
-        public List<string> Descriptions
-        {
-            get;
-            set;
-        }
+        public List<string> Descriptions { get; set; }
 
-        public List<string> Remarks
-        {
-            get;
-            set;
-        }
+        public List<string> Remarks { get; set; }
 
-        public string[] Augments
-        {
-            get;
-            set;
-        }
+        public string[] Augments { get; set; }
 
-        public List<JsDocParam> Parameters
-        {
-            get;
-            set;
-        }
+        public List<JsDocParam> Parameters { get; set; }
 
-        public List<JsDocParam> Returns
-        {
-            get;
-            set;
-        }
+        public List<JsDocParam> Returns { get; set; }
 
-        public bool IsPrivate
-        {
-            get;
-            set;
-        }
+        public bool IsPrivate { get; set; }
 
-        public bool IsPublic
-        {
-            get;
-            set;
-        }
+        public bool IsPublic { get; set; }
 
-        public bool IsProtected
-        {
-            get;
-            set;
-        }
+        public bool IsProtected { get; set; }
 
-        public string This
-        {
-            get;
-            set;
-        }
+        public string This { get; set; }
 
-        public string MemberOf
-        {
-            get;
-            set;
-        }
+        public string MemberOf { get; set; }
 
-        public string Class
-        {
-            get;
-            set;
-        }
+        public string Class { get; set; }
 
-        public string Namespace
-        {
-            get;
-            set;
-        }
+        public string Namespace { get; set; }
 
-        public bool IsAbstract
-        {
-            get;
-            set;
-        }
+        public bool IsAbstract { get; set; }
 
-        public bool IsStatic
-        {
-            get;
-            set;
-        }
+        public bool IsStatic { get; set; }
 
-        public string MemberType
-        {
-            get;
-            set;
-        }
+        public string MemberType { get; set; }
 
-        public string Function
-        {
-            get;
-            set;
-        }
+        public string Function { get; set; }
 
-        public bool Const
-        {
-            get;
-            set;
-        }
+        public bool Const { get; set; }
 
-        public object Default
-        {
-            get;
-            set;
-        }
+        public object Default { get; set; }
 
-        public string Callback
-        {
-            get;
-            set;
-        }
+        public string Callback { get; set; }
 
-        public string Constructs
-        {
-            get;
-            set;
-        }
+        public string Constructs { get; set; }
 
-        public bool Enum
-        {
-            get;
-            set;
-        }
+        public bool Enum { get; set; }
 
-        public bool Override
-        {
-            get;
-            set;
-        }
+        public bool Override { get; set; }
 
-        public string Event
-        {
-            get;
-            set;
-        }
+        public string Event { get; set; }
 
-        public bool ReadOnly
-        {
-            get;
-            set;
-        }
+        public bool ReadOnly { get; set; }
 
-        public List<Tuple<string, string>> Examples
-        {
-            get;
-            set;
-        }
+        public List<Tuple<string, string>> Examples { get; set; }
 
-        public List<Tuple<string, string>> Throws
-        {
-            get;
-            set;
-        }
+        public List<Tuple<string, string>> Throws { get; set; }
 
         public override string ToString()
         {
@@ -1239,22 +1131,10 @@ namespace H5.Contract
 
     public class JsDocParam
     {
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; }
 
-        public string Type
-        {
-            get;
-            set;
-        }
+        public string Type { get; set; }
 
-        public string Desc
-        {
-            get;
-            set;
-        }
+        public string Desc { get; set; }
     }
 }

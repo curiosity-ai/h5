@@ -15,11 +15,7 @@ namespace H5.Translator.TypeScript
             this.IndexerDeclaration = indexerDeclaration;
         }
 
-        public IndexerDeclaration IndexerDeclaration
-        {
-            get;
-            set;
-        }
+        public IndexerDeclaration IndexerDeclaration { get; set; }
 
         protected override void DoEmit()
         {

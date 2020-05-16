@@ -13,11 +13,7 @@ namespace H5.Translator
             this.PrimitiveExpression = primitiveExpression;
         }
 
-        public PrimitiveExpression PrimitiveExpression
-        {
-            get;
-            set;
-        }
+        public PrimitiveExpression PrimitiveExpression { get; set; }
 
         protected override Expression GetExpression()
         {

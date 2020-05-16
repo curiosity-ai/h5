@@ -2,11 +2,7 @@
 {
     public class RawValue
     {
-        public string Value
-        {
-            get;
-            private set;
-        }
+        public string Value { get; private set; }
 
         public RawValue(string value)
         {

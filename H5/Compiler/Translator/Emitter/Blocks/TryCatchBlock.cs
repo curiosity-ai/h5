@@ -18,11 +18,7 @@ namespace H5.Translator
             this.TryCatchStatement = tryCatchStatement;
         }
 
-        public TryCatchStatement TryCatchStatement
-        {
-            get;
-            set;
-        }
+        public TryCatchStatement TryCatchStatement { get; set; }
 
         protected override void DoEmit()
         {
@@ -427,23 +423,11 @@ namespace H5.Translator
 
     public class AsyncTryInfo : IAsyncTryInfo
     {
-        public int StartStep
-        {
-            get;
-            set;
-        }
+        public int StartStep { get; set; }
 
-        public int EndStep
-        {
-            get;
-            set;
-        }
+        public int EndStep { get; set; }
 
-        public int FinallyStep
-        {
-            get;
-            set;
-        }
+        public int FinallyStep { get; set; }
 
         private List<Tuple<string, string, int, int>> catchBlocks;
 

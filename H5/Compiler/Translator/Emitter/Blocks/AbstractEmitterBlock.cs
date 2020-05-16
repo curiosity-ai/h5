@@ -28,11 +28,7 @@ namespace H5.Translator
             }
         }
 
-        public IEmitter Emitter
-        {
-            get;
-            set;
-        }
+        public IEmitter Emitter { get; set; }
 
         public virtual void Emit()
         {

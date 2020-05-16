@@ -6,11 +6,7 @@ namespace H5.Translator
 {
     public class EmptyLambdaDetecter : DepthFirstAstVisitor
     {
-        public bool Found
-        {
-            get;
-            set;
-        }
+        public bool Found { get; set; }
 
         public override void VisitIfElseStatement(IfElseStatement ifElseStatement)
         {

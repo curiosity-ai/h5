@@ -994,62 +994,26 @@ namespace H5.Translator
 
     public class WriterInfo : IWriterInfo
     {
-        public StringBuilder Output
-        {
-            get;
-            set;
-        }
+        public StringBuilder Output { get; set; }
 
-        public bool IsNewLine
-        {
-            get;
-            set;
-        }
+        public bool IsNewLine { get; set; }
 
-        public int Level
-        {
-            get;
-            set;
-        }
+        public int Level { get; set; }
 
-        public bool Comma
-        {
-            get;
-            set;
-        }
+        public bool Comma { get; set; }
     }
 
     public class Writer : IWriter
     {
-        public StringBuilder Output
-        {
-            get;
-            set;
-        }
+        public StringBuilder Output { get; set; }
 
-        public bool IsNewLine
-        {
-            get;
-            set;
-        }
+        public bool IsNewLine { get; set; }
 
-        public string InlineCode
-        {
-            get;
-            set;
-        }
+        public string InlineCode { get; set; }
 
-        public Action Callback
-        {
-            get;
-            set;
-        }
+        public Action Callback { get; set; }
 
-        public string ThisArg
-        {
-            get;
-            set;
-        }
+        public string ThisArg { get; set; }
 
         public int[] IgnoreRange
         {

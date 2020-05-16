@@ -10,11 +10,7 @@ namespace H5.Translator
         internal string lastVarName;
         internal bool lastIsReferenceLocal;
 
-        public VariableDeclarationStatement VariableDeclarationStatement
-        {
-            get;
-            set;
-        }
+        public VariableDeclarationStatement VariableDeclarationStatement { get; set; }
 
         public VariableBlock(IEmitter emitter, VariableDeclarationStatement variableDeclarationStatement)
             : base(emitter, variableDeclarationStatement)

@@ -20,11 +20,7 @@ namespace H5.Translator
             this.InvocationExpression = invocationExpression;
         }
 
-        public InvocationExpression InvocationExpression
-        {
-            get;
-            set;
-        }
+        public InvocationExpression InvocationExpression { get; set; }
 
         protected override Expression GetExpression()
         {

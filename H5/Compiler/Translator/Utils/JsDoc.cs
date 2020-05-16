@@ -10,11 +10,7 @@ namespace H5.Translator
             this.Init();
         }
 
-        public List<string> Namespaces
-        {
-            get;
-            set;
-        }
+        public List<string> Namespaces { get; set; }
 
         public void Init()
         {
@@ -22,10 +18,6 @@ namespace H5.Translator
             this.Callbacks = new List<string>();
         }
 
-        public List<string> Callbacks
-        {
-            get;
-            set;
-        }
+        public List<string> Callbacks { get; set; }
     }
 }

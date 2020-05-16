@@ -12,11 +12,7 @@ namespace H5.Translator
             this.NullNode = nullNode;
         }
 
-        public AstNode NullNode
-        {
-            get;
-            set;
-        }
+        public AstNode NullNode { get; set; }
 
         protected override Expression GetExpression()
         {

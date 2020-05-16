@@ -12,11 +12,7 @@ namespace H5.Translator
             this.OperatorDeclaration = operatorDeclaration;
         }
 
-        public OperatorDeclaration OperatorDeclaration
-        {
-            get;
-            set;
-        }
+        public OperatorDeclaration OperatorDeclaration { get; set; }
 
         protected override void DoEmit()
         {

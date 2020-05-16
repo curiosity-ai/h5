@@ -15,17 +15,9 @@ namespace H5.Translator
             this.ConditionalExpression = conditionalExpression;
         }
 
-        public ConditionalExpression ConditionalExpression
-        {
-            get;
-            set;
-        }
+        public ConditionalExpression ConditionalExpression { get; set; }
 
-        public List<IAsyncStep> EmittedAsyncSteps
-        {
-            get;
-            set;
-        }
+        public List<IAsyncStep> EmittedAsyncSteps { get; set; }
 
         protected override Expression GetExpression()
         {

@@ -12,11 +12,7 @@ namespace H5.Translator
             this.ThisReferenceExpression = thisReferenceExpression;
         }
 
-        public ThisReferenceExpression ThisReferenceExpression
-        {
-            get;
-            set;
-        }
+        public ThisReferenceExpression ThisReferenceExpression { get; set; }
 
         protected override Expression GetExpression()
         {

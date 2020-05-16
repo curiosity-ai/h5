@@ -23,11 +23,7 @@ namespace H5.Translator
             this.Attribute = attribute;
         }
 
-        public IAttribute Attribute
-        {
-            get;
-            set;
-        }
+        public IAttribute Attribute { get; set; }
 
         protected override void DoEmit()
         {

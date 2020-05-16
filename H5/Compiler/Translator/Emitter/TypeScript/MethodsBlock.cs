@@ -17,17 +17,9 @@ namespace H5.Translator.TypeScript
             this.StaticBlock = staticBlock;
         }
 
-        public ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
-        public bool StaticBlock
-        {
-            get;
-            set;
-        }
+        public bool StaticBlock { get; set; }
 
         protected override void DoEmit()
         {

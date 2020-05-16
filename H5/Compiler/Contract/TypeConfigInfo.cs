@@ -8,35 +8,15 @@ namespace H5.Contract
 {
     public class TypeConfigItem
     {
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; }
 
-        public EntityDeclaration Entity
-        {
-            get;
-            set;
-        }
+        public EntityDeclaration Entity { get; set; }
 
-        public Expression Initializer
-        {
-            get;
-            set;
-        }
+        public Expression Initializer { get; set; }
 
-        public VariableInitializer VarInitializer
-        {
-            get;
-            set;
-        }
+        public VariableInitializer VarInitializer { get; set; }
 
-        public bool IsConst
-        {
-            get;
-            set;
-        }
+        public bool IsConst { get; set; }
 
         public IMember InterfaceMember
         {
@@ -107,34 +87,14 @@ namespace H5.Contract
             }
         }
 
-        public List<TypeConfigItem> Fields
-        {
-            get;
-            set;
-        }
+        public List<TypeConfigItem> Fields { get; set; }
 
-        public List<TypeConfigItem> Events
-        {
-            get;
-            set;
-        }
+        public List<TypeConfigItem> Events { get; set; }
 
-        public List<TypeConfigItem> Properties
-        {
-            get;
-            set;
-        }
+        public List<TypeConfigItem> Properties { get; set; }
 
-        public List<TypeConfigItem> Alias
-        {
-            get;
-            set;
-        }
+        public List<TypeConfigItem> Alias { get; set; }
 
-        public List<TypeConfigItem> AutoPropertyInitializers
-        {
-            get;
-            set;
-        }
+        public List<TypeConfigItem> AutoPropertyInitializers { get; set; }
     }
 }

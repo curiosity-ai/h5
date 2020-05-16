@@ -9,14 +9,8 @@ namespace H5.Contract
     {
         ResolveResult ResolveNode(AstNode node, ILog log);
 
-        CSharpAstResolver Resolver
-        {
-            get;
-        }
+        CSharpAstResolver Resolver { get; }
 
-        ICompilation Compilation
-        {
-            get;
-        }
+        ICompilation Compilation { get; }
     }
 }

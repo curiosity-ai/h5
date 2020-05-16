@@ -41,17 +41,9 @@ namespace H5.Translator
             }
         }
 
-        public Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache
-        {
-            get;
-            set;
-        }
+        public Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache { get; set; }
 
-        public IAssemblyInfo AssemblyInfo
-        {
-            get;
-            set;
-        }
+        public IAssemblyInfo AssemblyInfo { get; set; }
 
         public Dictionary<IAssembly, NameRule[]> AssemblyNameRuleCache
         {
@@ -186,11 +178,7 @@ namespace H5.Translator
             }
         }
 
-        public Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache
-        {
-            get;
-            set;
-        }
+        public Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache { get; set; }
 
         public Dictionary<ITypeDefinition, NameRule[]> ClassNameRuleCache
         {

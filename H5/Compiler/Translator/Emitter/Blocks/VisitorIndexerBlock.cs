@@ -14,11 +14,7 @@ namespace H5.Translator
             this.IndexerDeclaration = indexerDeclaration;
         }
 
-        public IndexerDeclaration IndexerDeclaration
-        {
-            get;
-            set;
-        }
+        public IndexerDeclaration IndexerDeclaration { get; set; }
 
         public CompilerRule OldRules { get; private set; }
 

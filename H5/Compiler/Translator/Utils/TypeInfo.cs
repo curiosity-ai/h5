@@ -24,23 +24,11 @@ namespace H5.Translator
             this.PartialTypeDeclarations = new List<TypeDeclaration>();
         }
 
-        public string Key
-        {
-            get;
-            set;
-        }
+        public string Key { get; set; }
 
-        public TypeConfigInfo StaticConfig
-        {
-            get;
-            set;
-        }
+        public TypeConfigInfo StaticConfig { get; set; }
 
-        public TypeConfigInfo InstanceConfig
-        {
-            get;
-            set;
-        }
+        public TypeConfigInfo InstanceConfig { get; set; }
 
         public Dictionary<OperatorType, List<OperatorDeclaration>> Operators
         {
@@ -48,59 +36,23 @@ namespace H5.Translator
             protected set;
         }
 
-        public Dictionary<string, EventDeclaration> EventsDeclarations
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, EventDeclaration> EventsDeclarations { get; set; }
 
-        public TypeDeclaration TypeDeclaration
-        {
-            get;
-            set;
-        }
+        public TypeDeclaration TypeDeclaration { get; set; }
 
-        public List<TypeDeclaration> PartialTypeDeclarations
-        {
-            get;
-            set;
-        }
+        public List<TypeDeclaration> PartialTypeDeclarations { get; set; }
 
-        public bool IsStatic
-        {
-            get;
-            set;
-        }
+        public bool IsStatic { get; set; }
 
-        public ClassType ClassType
-        {
-            get;
-            set;
-        }
+        public ClassType ClassType { get; set; }
 
-        public string Namespace
-        {
-            get;
-            set;
-        }
+        public string Namespace { get; set; }
 
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; }
 
-        public List<ConstructorDeclaration> Ctors
-        {
-            get;
-            set;
-        }
+        public List<ConstructorDeclaration> Ctors { get; set; }
 
-        public ConstructorDeclaration StaticCtor
-        {
-            get;
-            set;
-        }
+        public ConstructorDeclaration StaticCtor { get; set; }
 
         public Dictionary<string, FieldDeclaration> FieldsDeclarations
         {
@@ -263,53 +215,21 @@ namespace H5.Translator
             }
         }
 
-        public bool IsEnum
-        {
-            get;
-            set;
-        }
+        public bool IsEnum { get; set; }
 
-        public Module Module
-        {
-            get;
-            set;
-        }
+        public Module Module { get; set; }
 
-        public List<IPluginDependency> Dependencies
-        {
-            get;
-            set;
-        }
+        public List<IPluginDependency> Dependencies { get; set; }
 
-        public ITypeInfo ParentType
-        {
-            get;
-            set;
-        }
+        public ITypeInfo ParentType { get; set; }
 
-        public bool IsObjectLiteral
-        {
-            get;
-            set;
-        }
+        public bool IsObjectLiteral { get; set; }
 
-        public string FileName
-        {
-            get;
-            set;
-        }
+        public string FileName { get; set; }
 
-        public IType Type
-        {
-            get;
-            set;
-        }
+        public IType Type { get; set; }
 
-        public string JsName
-        {
-            get;
-            set;
-        }
+        public string JsName { get; set; }
 
         public AstType GetBaseClass(IEmitter emitter)
         {

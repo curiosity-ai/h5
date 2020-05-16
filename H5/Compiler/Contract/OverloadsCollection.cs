@@ -381,11 +381,7 @@ namespace H5.Contract
             this.Emitter.Cache.AddMember(member, isSetter, includeInline, this);
         }
 
-        public bool IsField
-        {
-            get;
-            set;
-        }
+        public bool IsField { get; set; }
 
         public List<IMethod> Methods
         {

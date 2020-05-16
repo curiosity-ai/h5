@@ -20,17 +20,9 @@ namespace H5.Translator
             this.Types = types;
         }
 
-        public IEnumerable<TypeParamExpression> Expressions
-        {
-            get;
-            set;
-        }
+        public IEnumerable<TypeParamExpression> Expressions { get; set; }
 
-        public IEnumerable<AstType> Types
-        {
-            get;
-            set;
-        }
+        public IEnumerable<AstType> Types { get; set; }
 
         protected override void DoEmit()
         {

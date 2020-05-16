@@ -13,11 +13,7 @@ namespace H5.Translator
             this.ExpressionStatement = expressionStatement;
         }
 
-        public ExpressionStatement ExpressionStatement
-        {
-            get;
-            set;
-        }
+        public ExpressionStatement ExpressionStatement { get; set; }
 
         protected override void DoEmit()
         {

@@ -19,11 +19,7 @@ namespace H5.Translator
             this.ForeachStatement = foreachStatement;
         }
 
-        public ForeachStatement ForeachStatement
-        {
-            get;
-            set;
-        }
+        public ForeachStatement ForeachStatement { get; set; }
 
         public IMethod CastMethod
         {

@@ -20,29 +20,13 @@ namespace H5.Translator
             this.TypeInfo = typeInfo;
         }
 
-        public ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
-        public bool IsGeneric
-        {
-            get;
-            set;
-        }
+        public bool IsGeneric { get; set; }
 
-        public int StartPosition
-        {
-            get;
-            set;
-        }
+        public int StartPosition { get; set; }
 
-        public bool HasEntryPoint
-        {
-            get;
-            set;
-        }
+        public bool HasEntryPoint { get; set; }
 
         protected override void DoEmit()
         {

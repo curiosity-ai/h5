@@ -21,11 +21,7 @@ namespace H5.Contract
             this.Key = key;
         }
 
-        public virtual IEmitter Emitter
-        {
-            get;
-            set;
-        }
+        public virtual IEmitter Emitter { get; set; }
 
         public virtual string Key
         {
@@ -33,29 +29,13 @@ namespace H5.Contract
             private set;
         }
 
-        public virtual TypeDefinition TypeDefinition
-        {
-            get;
-            set;
-        }
+        public virtual TypeDefinition TypeDefinition { get; set; }
 
-        public virtual IType Type
-        {
-            get;
-            set;
-        }
+        public virtual IType Type { get; set; }
 
-        public virtual ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public virtual ITypeInfo TypeInfo { get; set; }
 
-        public Module Module
-        {
-            get;
-            set;
-        }
+        public Module Module { get; set; }
     }
 
     public class H5Types : Dictionary<string, H5Type>
@@ -92,11 +72,7 @@ namespace H5.Contract
             logger.Trace("Initializing items for H5 types done");
         }
 
-        public IEmitter Emitter
-        {
-            get;
-            set;
-        }
+        public IEmitter Emitter { get; set; }
 
         public H5Type Get(string key)
         {

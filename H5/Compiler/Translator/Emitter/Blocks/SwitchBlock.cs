@@ -34,29 +34,13 @@ namespace H5.Translator
             this.CaseLabel = caseLabel;
         }
 
-        public SwitchStatement SwitchStatement
-        {
-            get;
-            set;
-        }
+        public SwitchStatement SwitchStatement { get; set; }
 
-        public SwitchSection SwitchSection
-        {
-            get;
-            set;
-        }
+        public SwitchSection SwitchSection { get; set; }
 
-        public CaseLabel CaseLabel
-        {
-            get;
-            set;
-        }
+        public CaseLabel CaseLabel { get; set; }
 
-        public SwitchStatement ParentAsyncSwitch
-        {
-            get;
-            set;
-        }
+        public SwitchStatement ParentAsyncSwitch { get; set; }
 
         protected override void DoEmit()
         {

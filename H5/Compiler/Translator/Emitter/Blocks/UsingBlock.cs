@@ -16,11 +16,7 @@ namespace H5.Translator
             this.UsingStatement = usingStatement;
         }
 
-        public UsingStatement UsingStatement
-        {
-            get;
-            set;
-        }
+        public UsingStatement UsingStatement { get; set; }
 
         protected override void DoEmit()
         {

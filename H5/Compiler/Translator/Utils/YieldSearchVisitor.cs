@@ -8,11 +8,7 @@ namespace H5.Translator
         {
         }
 
-        public bool Found
-        {
-            get;
-            set;
-        }
+        public bool Found { get; set; }
 
         public override void VisitLambdaExpression(LambdaExpression lambdaExpression)
         {

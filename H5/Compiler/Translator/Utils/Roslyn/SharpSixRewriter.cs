@@ -1651,11 +1651,7 @@ namespace H5.Translator
             get; set;
         }
 
-        private int IndexInstance
-        {
-            get;
-            set;
-        }
+        private int IndexInstance { get; set; }
 
         private class InitializerInfo
         {

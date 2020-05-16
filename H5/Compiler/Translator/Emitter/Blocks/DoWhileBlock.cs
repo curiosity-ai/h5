@@ -17,11 +17,7 @@ namespace H5.Translator
             this.DoWhileStatement = doWhileStatement;
         }
 
-        public DoWhileStatement DoWhileStatement
-        {
-            get;
-            set;
-        }
+        public DoWhileStatement DoWhileStatement { get; set; }
 
         protected override void DoEmit()
         {

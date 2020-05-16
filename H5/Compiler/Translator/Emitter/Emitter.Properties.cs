@@ -10,83 +10,31 @@ namespace H5.Translator
 {
     public partial class Emitter : Visitor
     {
-        public string Tag
-        {
-            get;
-            set;
-        }
+        public string Tag { get; set; }
 
-        public EmitterCache Cache
-        {
-            get;
-            private set;
-        }
+        public EmitterCache Cache { get; private set; }
 
-        public IValidator Validator
-        {
-            get;
-            private set;
-        }
+        public IValidator Validator { get; private set; }
 
-        public List<ITypeInfo> Types
-        {
-            get;
-            set;
-        }
+        public List<ITypeInfo> Types { get; set; }
 
-        public bool IsAssignment
-        {
-            get;
-            set;
-        }
+        public bool IsAssignment { get; set; }
 
-        public AssignmentOperatorType AssignmentType
-        {
-            get;
-            set;
-        }
+        public AssignmentOperatorType AssignmentType { get; set; }
 
-        public UnaryOperatorType UnaryOperatorType
-        {
-            get;
-            set;
-        }
+        public UnaryOperatorType UnaryOperatorType { get; set; }
 
-        public bool IsUnaryAccessor
-        {
-            get;
-            set;
-        }
+        public bool IsUnaryAccessor { get; set; }
 
-        public Dictionary<string, AstType> Locals
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, AstType> Locals { get; set; }
 
-        public Dictionary<IVariable, string> LocalsMap
-        {
-            get;
-            set;
-        }
+        public Dictionary<IVariable, string> LocalsMap { get; set; }
 
-        public Dictionary<string, string> LocalsNamesMap
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, string> LocalsNamesMap { get; set; }
 
-        public Stack<Dictionary<string, AstType>> LocalsStack
-        {
-            get;
-            set;
-        }
+        public Stack<Dictionary<string, AstType>> LocalsStack { get; set; }
 
-        public int Level
-        {
-            get;
-            set;
-        }
+        public int Level { get; set; }
 
         public int initialLevel;
         public int InitialLevel
@@ -124,35 +72,15 @@ namespace H5.Translator
             return this.Level;
         }
 
-        public InitPosition? InitPosition
-        {
-            get;
-            set;
-        }
+        public InitPosition? InitPosition { get; set; }
 
-        public bool IsNewLine
-        {
-            get;
-            set;
-        }
+        public bool IsNewLine { get; set; }
 
-        public bool EnableSemicolon
-        {
-            get;
-            set;
-        }
+        public bool EnableSemicolon { get; set; }
 
-        public int IteratorCount
-        {
-            get;
-            set;
-        }
+        public int IteratorCount { get; set; }
 
-        public int ThisRefCounter
-        {
-            get;
-            set;
-        }
+        public int ThisRefCounter { get; set; }
 
         public IDictionary<string, TypeDefinition> TypeDefinitions
         {
@@ -160,29 +88,13 @@ namespace H5.Translator
             protected set;
         }
 
-        public ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        public ITypeInfo TypeInfo { get; set; }
 
-        public StringBuilder Output
-        {
-            get;
-            set;
-        }
+        public StringBuilder Output { get; set; }
 
-        public Stack<IWriter> Writers
-        {
-            get;
-            set;
-        }
+        public Stack<IWriter> Writers { get; set; }
 
-        public bool Comma
-        {
-            get;
-            set;
-        }
+        public bool Comma { get; set; }
 
         private HashSet<string> namespaces;
 
@@ -198,17 +110,9 @@ namespace H5.Translator
             }
         }
 
-        public virtual IEnumerable<AssemblyDefinition> References
-        {
-            get;
-            set;
-        }
+        public virtual IEnumerable<AssemblyDefinition> References { get; set; }
 
-        public virtual IList<string> SourceFiles
-        {
-            get;
-            set;
-        }
+        public virtual IList<string> SourceFiles { get; set; }
 
         private List<IAssemblyReference> list;
 
@@ -255,209 +159,73 @@ namespace H5.Translator
             return list;
         }
 
-        public IMemberResolver Resolver
-        {
-            get;
-            set;
-        }
+        public IMemberResolver Resolver { get; set; }
 
-        public IAssemblyInfo AssemblyInfo
-        {
-            get;
-            set;
-        }
+        public IAssemblyInfo AssemblyInfo { get; set; }
 
-        public Dictionary<string, ITypeInfo> TypeInfoDefinitions
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, ITypeInfo> TypeInfoDefinitions { get; set; }
 
-        public List<IPluginDependency> CurrentDependencies
-        {
-            get;
-            set;
-        }
+        public List<IPluginDependency> CurrentDependencies { get; set; }
 
-        public IEmitterOutputs Outputs
-        {
-            get;
-            set;
-        }
+        public IEmitterOutputs Outputs { get; set; }
 
-        public IEmitterOutput EmitterOutput
-        {
-            get;
-            set;
-        }
+        public IEmitterOutput EmitterOutput { get; set; }
 
-        public bool SkipSemiColon
-        {
-            get;
-            set;
-        }
+        public bool SkipSemiColon { get; set; }
 
-        public IEnumerable<MethodDefinition> MethodsGroup
-        {
-            get;
-            set;
-        }
+        public IEnumerable<MethodDefinition> MethodsGroup { get; set; }
 
-        public Dictionary<int, StringBuilder> MethodsGroupBuilder
-        {
-            get;
-            set;
-        }
+        public Dictionary<int, StringBuilder> MethodsGroupBuilder { get; set; }
 
-        public bool IsAsync
-        {
-            get;
-            set;
-        }
+        public bool IsAsync { get; set; }
 
-        public bool IsYield
-        {
-            get;
-            set;
-        }
+        public bool IsYield { get; set; }
 
-        public List<string> AsyncVariables
-        {
-            get;
-            set;
-        }
+        public List<string> AsyncVariables { get; set; }
 
-        public IAsyncBlock AsyncBlock
-        {
-            get;
-            set;
-        }
+        public IAsyncBlock AsyncBlock { get; set; }
 
-        public bool ReplaceAwaiterByVar
-        {
-            get;
-            set;
-        }
+        public bool ReplaceAwaiterByVar { get; set; }
 
-        public bool AsyncExpressionHandling
-        {
-            get;
-            set;
-        }
+        public bool AsyncExpressionHandling { get; set; }
 
-        public AstNode IgnoreBlock
-        {
-            get;
-            set;
-        }
+        public AstNode IgnoreBlock { get; set; }
 
-        public AstNode NoBraceBlock
-        {
-            get;
-            set;
-        }
+        public AstNode NoBraceBlock { get; set; }
 
-        public Action BeforeBlock
-        {
-            get;
-            set;
-        }
+        public Action BeforeBlock { get; set; }
 
-        public IWriterInfo LastSavedWriter
-        {
-            get;
-            set;
-        }
+        public IWriterInfo LastSavedWriter { get; set; }
 
-        public List<IJumpInfo> JumpStatements
-        {
-            get;
-            set;
-        }
+        public List<IJumpInfo> JumpStatements { get; set; }
 
-        public SwitchStatement AsyncSwitch
-        {
-            get;
-            set;
-        }
+        public SwitchStatement AsyncSwitch { get; set; }
 
-        public IPlugins Plugins
-        {
-            get;
-            set;
-        }
+        public IPlugins Plugins { get; set; }
 
-        public Dictionary<string, bool> TempVariables
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, bool> TempVariables { get; set; }
 
-        public Dictionary<string, string> NamedTempVariables
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, string> NamedTempVariables { get; set; }
 
-        public Dictionary<string, bool> ParentTempVariables
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, bool> ParentTempVariables { get; set; }
 
-        public H5Types H5Types
-        {
-            get;
-            set;
-        }
+        public H5Types H5Types { get; set; }
 
-        public ITranslator Translator
-        {
-            get;
-            set;
-        }
+        public ITranslator Translator { get; set; }
 
-        public IJsDoc JsDoc
-        {
-            get;
-            set;
-        }
+        public IJsDoc JsDoc { get; set; }
 
-        public IType ReturnType
-        {
-            get;
-            set;
-        }
+        public IType ReturnType { get; set; }
 
-        public bool ReplaceJump
-        {
-            get;
-            set;
-        }
+        public bool ReplaceJump { get; set; }
 
-        public string CatchBlockVariable
-        {
-            get;
-            set;
-        }
+        public string CatchBlockVariable { get; set; }
 
-        public bool StaticBlock
-        {
-            get;
-            set;
-        }
+        public bool StaticBlock { get; set; }
 
-        public Dictionary<string, string> NamedFunctions
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, string> NamedFunctions { get; set; }
 
-        public Dictionary<IType, Dictionary<string, string>> NamedBoxedFunctions
-        {
-            get;
-            set;
-        }
+        public Dictionary<IType, Dictionary<string, string>> NamedBoxedFunctions { get; set; }
 
         public bool IsJavaScriptOverflowMode
         {
@@ -467,23 +235,11 @@ namespace H5.Translator
             }
         }
 
-        public bool IsRefArg
-        {
-            get;
-            set;
-        }
+        public bool IsRefArg { get; set; }
 
-        public Dictionary<AnonymousType, IAnonymousTypeConfig> AnonymousTypes
-        {
-            get;
-            set;
-        }
+        public Dictionary<AnonymousType, IAnonymousTypeConfig> AnonymousTypes { get; set; }
 
-        public List<string> AutoStartupMethods
-        {
-            get;
-            set;
-        }
+        public List<string> AutoStartupMethods { get; set; }
 
         public bool IsAnonymousReflectable
         {
@@ -520,43 +276,19 @@ namespace H5.Translator
             get; set;
         }
 
-        public Dictionary<IAssembly, NameRule[]> AssemblyNameRuleCache
-        {
-            get;
-        }
+        public Dictionary<IAssembly, NameRule[]> AssemblyNameRuleCache { get; }
 
-        public Dictionary<ITypeDefinition, NameRule[]> ClassNameRuleCache
-        {
-            get;
-        }
+        public Dictionary<ITypeDefinition, NameRule[]> ClassNameRuleCache { get; }
 
-        public Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache
-        {
-            get;
-        }
+        public Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache { get; }
 
-        public Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache
-        {
-            get;
-        }
+        public Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache { get; }
 
-        public string SourceFileName
-        {
-            get;
-            set;
-        }
+        public string SourceFileName { get; set; }
 
-        public int SourceFileNameIndex
-        {
-            get;
-            set;
-        }
+        public int SourceFileNameIndex { get; set; }
 
-        public string LastSequencePoint
-        {
-            get;
-            set;
-        }
+        public string LastSequencePoint { get; set; }
 
         public bool InConstructor
         {

@@ -24,17 +24,9 @@ namespace H5.Translator
             internal set;
         }
 
-        public string Replacement
-        {
-            get;
-            set;
-        }
+        public string Replacement { get; set; }
 
-        public bool Cancel
-        {
-            get;
-            set;
-        }
+        public bool Cancel { get; set; }
     }
 
     public class ReferenceInterceptor : IReferenceInterceptor
@@ -57,16 +49,8 @@ namespace H5.Translator
             internal set;
         }
 
-        public string Replacement
-        {
-            get;
-            set;
-        }
+        public string Replacement { get; set; }
 
-        public bool Cancel
-        {
-            get;
-            set;
-        }
+        public bool Cancel { get; set; }
     }
 }

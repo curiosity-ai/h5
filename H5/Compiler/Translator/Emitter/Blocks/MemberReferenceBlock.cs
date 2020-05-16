@@ -22,11 +22,7 @@ namespace H5.Translator
             this.MemberReferenceExpression = memberReferenceExpression;
         }
 
-        public MemberReferenceExpression MemberReferenceExpression
-        {
-            get;
-            set;
-        }
+        public MemberReferenceExpression MemberReferenceExpression { get; set; }
 
         protected override Expression GetExpression()
         {

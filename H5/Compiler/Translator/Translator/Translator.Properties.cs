@@ -8,29 +8,13 @@ namespace H5.Translator
 {
     public partial class Translator
     {
-        public IAssemblyInfo AssemblyInfo
-        {
-            get;
-            set;
-        }
+        public IAssemblyInfo AssemblyInfo { get; set; }
 
-        public AssemblyDefinition AssemblyDefinition
-        {
-            get;
-            set;
-        }
+        public AssemblyDefinition AssemblyDefinition { get; set; }
 
-        public IValidator Validator
-        {
-            get;
-            private set;
-        }
+        public IValidator Validator { get; private set; }
 
-        public string H5Location
-        {
-            get;
-            set;
-        }
+        public string H5Location { get; set; }
 
         public Dictionary<string, string> PackageReferencesDiscoveredPaths { get; set; } = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -46,23 +30,11 @@ namespace H5.Translator
             protected set;
         }
 
-        public ProjectProperties ProjectProperties
-        {
-            get;
-            set;
-        }
+        public ProjectProperties ProjectProperties { get; set; }
 
-        public string DefaultNamespace
-        {
-            get;
-            set;
-        }
+        public string DefaultNamespace { get; set; }
 
-        public string BuildArguments
-        {
-            get;
-            set;
-        }
+        public string BuildArguments { get; set; }
 
         private string msbuildVersion = "4.0.30319";
 
@@ -104,17 +76,9 @@ namespace H5.Translator
             }
         }
 
-        protected Dictionary<string, TypeDefinition> TypeDefinitions
-        {
-            get;
-            set;
-        }
+        protected Dictionary<string, TypeDefinition> TypeDefinitions { get; set; }
 
-        public Dictionary<string, ITypeInfo> TypeInfoDefinitions
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, ITypeInfo> TypeInfoDefinitions { get; set; }
 
         public List<ITypeInfo> Types
         {
@@ -128,68 +92,28 @@ namespace H5.Translator
             protected set;
         }
 
-        public IEmitterOutputs EmitterOutputs
-        {
-            get;
-            set;
-        }
+        public IEmitterOutputs EmitterOutputs { get; set; }
 
-        public IPlugins Plugins
-        {
-            get;
-            set;
-        }
+        public IPlugins Plugins { get; set; }
 
-        public H5Types H5Types
-        {
-            get;
-            set;
-        }
+        public H5Types H5Types { get; set; }
 
-        public AstNode EmitNode
-        {
-            get;
-            set;
-        }
+        public AstNode EmitNode { get; set; }
 
-        public List<string> DefineConstants
-        {
-            get;
-            set;
-        }
+        public List<string> DefineConstants { get; set; }
 
-        public bool FromTask
-        {
-            get;
-            set;
-        }
+        public bool FromTask { get; set; }
 
-        public virtual IEnumerable<AssemblyDefinition> References
-        {
-            get;
-            set;
-        }
+        public virtual IEnumerable<AssemblyDefinition> References { get; set; }
 
         /// <summary>
         /// Indicates whether strict mode will be added to generated script files
         /// </summary>
-        public bool NoStrictMode
-        {
-            get;
-            set;
-        }
+        public bool NoStrictMode { get; set; }
 
-        public string[] SkipPluginAssemblies
-        {
-            get;
-            set;
-        }
+        public string[] SkipPluginAssemblies { get; set; }
 
-        public OverflowMode? OverflowMode
-        {
-            get;
-            set;
-        }
+        public OverflowMode? OverflowMode { get; set; }
 
         public HashSet<string> ExtractedScripts
         {

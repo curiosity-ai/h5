@@ -13,11 +13,7 @@ namespace H5.Translator
             this.Events = events;
         }
 
-        public IEnumerable<EventDeclaration> Events
-        {
-            get;
-            set;
-        }
+        public IEnumerable<EventDeclaration> Events { get; set; }
 
         protected override void DoEmit()
         {

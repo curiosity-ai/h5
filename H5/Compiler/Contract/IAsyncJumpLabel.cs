@@ -5,16 +5,8 @@ namespace H5.Contract
 {
     public interface IAsyncJumpLabel
     {
-        StringBuilder Output
-        {
-            get;
-            set;
-        }
+        StringBuilder Output { get; set; }
 
-        AstNode Node
-        {
-            get;
-            set;
-        }
+        AstNode Node { get; set; }
     }
 }

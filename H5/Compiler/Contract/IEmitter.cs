@@ -8,65 +8,25 @@ namespace H5.Contract
 {
     public interface IEmitter : IAstVisitor
     {
-        string Tag
-        {
-            get;
-            set;
-        }
+        string Tag { get; set; }
 
-        IAssemblyInfo AssemblyInfo
-        {
-            get;
-            set;
-        }
+        IAssemblyInfo AssemblyInfo { get; set; }
 
-        AssignmentOperatorType AssignmentType
-        {
-            get;
-            set;
-        }
+        AssignmentOperatorType AssignmentType { get; set; }
 
-        UnaryOperatorType UnaryOperatorType
-        {
-            get;
-            set;
-        }
+        UnaryOperatorType UnaryOperatorType { get; set; }
 
-        bool IsUnaryAccessor
-        {
-            get;
-            set;
-        }
+        bool IsUnaryAccessor { get; set; }
 
-        IAsyncBlock AsyncBlock
-        {
-            get;
-            set;
-        }
+        IAsyncBlock AsyncBlock { get; set; }
 
-        bool AsyncExpressionHandling
-        {
-            get;
-            set;
-        }
+        bool AsyncExpressionHandling { get; set; }
 
-        SwitchStatement AsyncSwitch
-        {
-            get;
-            set;
-        }
+        SwitchStatement AsyncSwitch { get; set; }
 
-        List<string> AsyncVariables
-        {
-            get;
-            set;
-        }
+        List<string> AsyncVariables { get; set; }
 
-        bool Comma
-        {
-            get;
-            set;
-        }
+        bool Comma { get; set; }
 
         int CompareTypeInfosByName(ITypeInfo x, ITypeInfo y);
 
@@ -76,19 +36,11 @@ namespace H5.Contract
 
         void SortTypesByInheritance();
 
-        List<IPluginDependency> CurrentDependencies
-        {
-            get;
-            set;
-        }
+        List<IPluginDependency> CurrentDependencies { get; set; }
 
         List<TranslatorOutputItem> Emit();
 
-        bool EnableSemicolon
-        {
-            get;
-            set;
-        }
+        bool EnableSemicolon { get; set; }
 
         IAttribute GetAttribute(IEnumerable<IAttribute> attributes, string name);
 
@@ -134,29 +86,13 @@ namespace H5.Contract
 
         string GetTypeHierarchy();
 
-        AstNode IgnoreBlock
-        {
-            get;
-            set;
-        }
+        AstNode IgnoreBlock { get; set; }
 
-        bool IsAssignment
-        {
-            get;
-            set;
-        }
+        bool IsAssignment { get; set; }
 
-        bool IsAsync
-        {
-            get;
-            set;
-        }
+        bool IsAsync { get; set; }
 
-        bool IsYield
-        {
-            get;
-            set;
-        }
+        bool IsYield { get; set; }
 
         bool IsInlineConst(IMember member);
 
@@ -164,282 +100,111 @@ namespace H5.Contract
 
         bool IsNativeMember(string fullName);
 
-        bool IsNewLine
-        {
-            get;
-            set;
-        }
+        bool IsNewLine { get; set; }
 
-        int IteratorCount
-        {
-            get;
-            set;
-        }
+        int IteratorCount { get; set; }
 
-        List<IJumpInfo> JumpStatements
-        {
-            get;
-            set;
-        }
+        List<IJumpInfo> JumpStatements { get; set; }
 
-        IWriterInfo LastSavedWriter
-        {
-            get;
-            set;
-        }
+        IWriterInfo LastSavedWriter { get; set; }
 
-        int Level
-        {
-            get;
-        }
+        int Level { get; }
 
-        int InitialLevel
-        {
-            get;
-        }
+        int InitialLevel { get; }
 
         int ResetLevel(int? level = null);
 
-        InitPosition? InitPosition
-        {
-            get;
-            set;
-        }
+        InitPosition? InitPosition { get; set; }
 
-        Dictionary<string, AstType> Locals
-        {
-            get;
-            set;
-        }
+        Dictionary<string, AstType> Locals { get; set; }
 
-        Dictionary<IVariable, string> LocalsMap
-        {
-            get;
-            set;
-        }
+        Dictionary<IVariable, string> LocalsMap { get; set; }
 
-        Dictionary<string, string> LocalsNamesMap
-        {
-            get;
-            set;
-        }
+        Dictionary<string, string> LocalsNamesMap { get; set; }
 
-        Stack<Dictionary<string, AstType>> LocalsStack
-        {
-            get;
-            set;
-        }
+        Stack<Dictionary<string, AstType>> LocalsStack { get; set; }
 
-        IEnumerable<MethodDefinition> MethodsGroup
-        {
-            get;
-            set;
-        }
+        IEnumerable<MethodDefinition> MethodsGroup { get; set; }
 
-        Dictionary<int, System.Text.StringBuilder> MethodsGroupBuilder
-        {
-            get;
-            set;
-        }
+        Dictionary<int, System.Text.StringBuilder> MethodsGroupBuilder { get; set; }
 
-        AstNode NoBraceBlock
-        {
-            get;
-            set;
-        }
+        AstNode NoBraceBlock { get; set; }
 
-        Action BeforeBlock
-        {
-            get;
-            set;
-        }
+        Action BeforeBlock { get; set; }
 
-        System.Text.StringBuilder Output
-        {
-            get;
-            set;
-        }
+        System.Text.StringBuilder Output { get; set; }
 
-        string SourceFileName
-        {
-            get;
-            set;
-        }
+        string SourceFileName { get; set; }
 
-        int SourceFileNameIndex
-        {
-            get;
-            set;
-        }
+        int SourceFileNameIndex { get; set; }
 
-        string LastSequencePoint
-        {
-            get;
-            set;
-        }
+        string LastSequencePoint { get; set; }
 
-        IEmitterOutputs Outputs
-        {
-            get;
-            set;
-        }
+        IEmitterOutputs Outputs { get; set; }
 
-        IEmitterOutput EmitterOutput
-        {
-            get;
-            set;
-        }
+        IEmitterOutput EmitterOutput { get; set; }
 
-        IEnumerable<AssemblyDefinition> References
-        {
-            get;
-            set;
-        }
+        IEnumerable<AssemblyDefinition> References { get; set; }
 
-        bool ReplaceAwaiterByVar
-        {
-            get;
-            set;
-        }
+        bool ReplaceAwaiterByVar { get; set; }
 
-        IMemberResolver Resolver
-        {
-            get;
-            set;
-        }
+        IMemberResolver Resolver { get; set; }
 
-        bool SkipSemiColon
-        {
-            get;
-            set;
-        }
+        bool SkipSemiColon { get; set; }
 
-        IList<string> SourceFiles
-        {
-            get;
-            set;
-        }
+        IList<string> SourceFiles { get; set; }
 
-        int ThisRefCounter
-        {
-            get;
-            set;
-        }
+        int ThisRefCounter { get; set; }
 
         string ToJavaScript(object value);
 
-        IDictionary<string, TypeDefinition> TypeDefinitions
-        {
-            get;
-        }
+        IDictionary<string, TypeDefinition> TypeDefinitions { get; }
 
-        ITypeInfo TypeInfo
-        {
-            get;
-            set;
-        }
+        ITypeInfo TypeInfo { get; set; }
 
-        Dictionary<string, ITypeInfo> TypeInfoDefinitions
-        {
-            get;
-            set;
-        }
+        Dictionary<string, ITypeInfo> TypeInfoDefinitions { get; set; }
 
-        List<ITypeInfo> Types
-        {
-            get;
-            set;
-        }
+        List<ITypeInfo> Types { get; set; }
 
-        IValidator Validator
-        {
-            get;
-        }
+        IValidator Validator { get; }
 
-        Stack<IWriter> Writers
-        {
-            get;
-            set;
-        }
+        Stack<IWriter> Writers { get; set; }
 
         IVisitorException CreateException(AstNode node);
 
         IVisitorException CreateException(AstNode node, string message);
 
-        IPlugins Plugins
-        {
-            get;
-            set;
-        }
+        IPlugins Plugins { get; set; }
 
-        EmitterCache Cache
-        {
-            get;
-        }
+        EmitterCache Cache { get; }
 
         string GetFieldName(FieldDeclaration field);
 
         string GetEventName(EventDeclaration evt);
 
-        Dictionary<string, bool> TempVariables
-        {
-            get;
-            set;
-        }
+        Dictionary<string, bool> TempVariables { get; set; }
 
-        Dictionary<string, string> NamedTempVariables
-        {
-            get;
-            set;
-        }
+        Dictionary<string, string> NamedTempVariables { get; set; }
 
-        Dictionary<string, bool> ParentTempVariables
-        {
-            get;
-            set;
-        }
+        Dictionary<string, bool> ParentTempVariables { get; set; }
 
         Tuple<bool, string> IsGlobalTarget(IMember member);
 
-        H5Types H5Types
-        {
-            get;
-            set;
-        }
+        H5Types H5Types { get; set; }
 
-        ITranslator Translator
-        {
-            get;
-            set;
-        }
+        ITranslator Translator { get; set; }
 
         void InitEmitter();
 
-        IJsDoc JsDoc
-        {
-            get;
-            set;
-        }
+        IJsDoc JsDoc { get; set; }
 
-        IType ReturnType
-        {
-            get;
-            set;
-        }
+        IType ReturnType { get; set; }
 
         string GetEntityNameFromAttr(IEntity member, bool setter = false);
 
-        bool ReplaceJump
-        {
-            get;
-            set;
-        }
+        bool ReplaceJump { get; set; }
 
-        string CatchBlockVariable
-        {
-            get;
-            set;
-        }
+        string CatchBlockVariable { get; set; }
 
         Dictionary<string, string> NamedFunctions
         {
@@ -451,33 +216,18 @@ namespace H5.Contract
             get; set;
         }
 
-        bool StaticBlock
-        {
-            get;
-            set;
-        }
+        bool StaticBlock { get; set; }
 
-        bool IsJavaScriptOverflowMode
-        {
-            get;
-        }
+        bool IsJavaScriptOverflowMode { get; }
 
-        bool IsRefArg
-        {
-            get;
-            set;
-        }
+        bool IsRefArg { get; set; }
 
         Dictionary<AnonymousType, IAnonymousTypeConfig> AnonymousTypes
         {
             get; set;
         }
 
-        List<string> AutoStartupMethods
-        {
-            get;
-            set;
-        }
+        List<string> AutoStartupMethods { get; set; }
 
         bool IsAnonymousReflectable
         {
@@ -505,25 +255,13 @@ namespace H5.Contract
         string GetReflectionName(IType type);
         bool ForbidLifting { get; set; }
 
-        Dictionary<IAssembly, NameRule[]> AssemblyNameRuleCache
-        {
-            get;
-        }
+        Dictionary<IAssembly, NameRule[]> AssemblyNameRuleCache { get; }
 
-        Dictionary<ITypeDefinition, NameRule[]> ClassNameRuleCache
-        {
-            get;
-        }
+        Dictionary<ITypeDefinition, NameRule[]> ClassNameRuleCache { get; }
 
-        Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache
-        {
-            get;
-        }
+        Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache { get; }
 
-        Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache
-        {
-            get;
-        }
+        Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache { get; }
 
         bool InConstructor { get; set; }
         CompilerRule Rules { get; set; }

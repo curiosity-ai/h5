@@ -15,17 +15,9 @@ namespace H5.Translator
             this.ForStatement = forStatement;
         }
 
-        public ForStatement ForStatement
-        {
-            get;
-            set;
-        }
+        public ForStatement ForStatement { get; set; }
 
-        public List<IAsyncStep> EmittedAsyncSteps
-        {
-            get;
-            set;
-        }
+        public List<IAsyncStep> EmittedAsyncSteps { get; set; }
 
         protected override void DoEmit()
         {

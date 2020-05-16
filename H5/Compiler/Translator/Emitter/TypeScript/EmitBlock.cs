@@ -19,23 +19,11 @@ namespace H5.Translator.TypeScript
                 this.Namespace = ns;
             }
 
-            public string Key
-            {
-                get;
-                set;
-            }
+            public string Key { get; set; }
 
-            public Module Module
-            {
-                get;
-                set;
-            }
+            public Module Module { get; set; }
 
-            public string Namespace
-            {
-                get;
-                set;
-            }
+            public string Namespace { get; set; }
 
             public override int GetHashCode()
             {
@@ -54,11 +42,7 @@ namespace H5.Translator.TypeScript
         // This ensures a constant line separator throughout the application
         private const char newLine = H5.Contract.XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
 
-        private Dictionary<OutputKey, StringBuilder> Outputs
-        {
-            get;
-            set;
-        }
+        private Dictionary<OutputKey, StringBuilder> Outputs { get; set; }
 
         private string ns = null;
         private OutputKey outputKey = null;

@@ -18,11 +18,7 @@ namespace H5.Translator
             this.Plain = plain;
         }
 
-        public AnonymousTypeCreateExpression AnonymousTypeCreateExpression
-        {
-            get;
-            set;
-        }
+        public AnonymousTypeCreateExpression AnonymousTypeCreateExpression { get; set; }
 
         public bool Plain
         {

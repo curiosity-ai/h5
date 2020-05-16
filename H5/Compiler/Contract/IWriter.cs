@@ -4,40 +4,16 @@ namespace H5.Contract
 {
     public interface IWriter
     {
-        string InlineCode
-        {
-            get;
-            set;
-        }
+        string InlineCode { get; set; }
 
-        System.Text.StringBuilder Output
-        {
-            get;
-            set;
-        }
+        System.Text.StringBuilder Output { get; set; }
 
-        bool IsNewLine
-        {
-            get;
-            set;
-        }
+        bool IsNewLine { get; set; }
 
-        Action Callback
-        {
-            get;
-            set;
-        }
+        Action Callback { get; set; }
 
-        string ThisArg
-        {
-            get;
-            set;
-        }
+        string ThisArg { get; set; }
 
-        int[] IgnoreRange
-        {
-            get;
-            set;
-        }
+        int[] IgnoreRange { get; set; }
     }
 }

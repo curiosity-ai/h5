@@ -18,53 +18,21 @@ namespace H5.Translator
             this.Names = new List<string>();
         }
 
-        public bool IsMetadata
-        {
-            get;
-            set;
-        }
+        public bool IsMetadata { get; set; }
 
-        public string FileName
-        {
-            get;
-            set;
-        }
+        public string FileName { get; set; }
 
-        public StringBuilder TopOutput
-        {
-            get;
-            set;
-        }
+        public StringBuilder TopOutput { get; set; }
 
-        public StringBuilder BottomOutput
-        {
-            get;
-            set;
-        }
+        public StringBuilder BottomOutput { get; set; }
 
-        public StringBuilder NonModuletOutput
-        {
-            get;
-            set;
-        }
+        public StringBuilder NonModuletOutput { get; set; }
 
-        public Dictionary<Module, StringBuilder> ModuleOutput
-        {
-            get;
-            set;
-        }
+        public Dictionary<Module, StringBuilder> ModuleOutput { get; set; }
 
-        public Dictionary<string, List<IPluginDependency>> ModuleDependencies
-        {
-            get;
-            set;
-        }
+        public Dictionary<string, List<IPluginDependency>> ModuleDependencies { get; set; }
 
-        public System.Collections.Generic.List<IPluginDependency> NonModuleDependencies
-        {
-            get;
-            set;
-        }
+        public System.Collections.Generic.List<IPluginDependency> NonModuleDependencies { get; set; }
 
         public bool IsDefaultOutput
         {

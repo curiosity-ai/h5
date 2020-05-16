@@ -23,23 +23,11 @@ namespace H5.Translator
             this.YieldReturnStatement = yieldReturnStatement;
         }
 
-        public YieldBreakStatement YieldBreakStatement
-        {
-            get;
-            set;
-        }
+        public YieldBreakStatement YieldBreakStatement { get; set; }
 
-        public YieldReturnStatement YieldReturnStatement
-        {
-            get;
-            set;
-        }
+        public YieldReturnStatement YieldReturnStatement { get; set; }
 
-        public List<IAsyncStep> EmittedAsyncSteps
-        {
-            get;
-            set;
-        }
+        public List<IAsyncStep> EmittedAsyncSteps { get; set; }
 
         protected override void DoEmit()
         {

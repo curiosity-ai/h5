@@ -19,17 +19,9 @@ namespace H5.Translator
             get; set;
         }
 
-        public List<Expression> DirectionExpression
-        {
-            get;
-            set;
-        }
+        public List<Expression> DirectionExpression { get; set; }
 
-        public List<IVariable> DirectionVariables
-        {
-            get;
-            set;
-        }
+        public List<IVariable> DirectionVariables { get; set; }
 
         public override void VisitDirectionExpression(DirectionExpression directionExpression)
         {

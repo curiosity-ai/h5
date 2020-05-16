@@ -56,17 +56,9 @@ namespace H5.Translator
             get; set;
         }
 
-        public ArgumentsInfo ArgumentsInfo
-        {
-            get;
-            set;
-        }
+        public ArgumentsInfo ArgumentsInfo { get; set; }
 
-        public string InlineCode
-        {
-            get;
-            set;
-        }
+        public string InlineCode { get; set; }
 
         protected override void DoEmit()
         {

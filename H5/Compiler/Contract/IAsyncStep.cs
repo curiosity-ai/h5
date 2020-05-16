@@ -5,41 +5,17 @@ namespace H5.Contract
 {
     public interface IAsyncStep
     {
-        int FromTaskNumber
-        {
-            get;
-            set;
-        }
+        int FromTaskNumber { get; set; }
 
-        int JumpToStep
-        {
-            get;
-            set;
-        }
+        int JumpToStep { get; set; }
 
-        AstNode JumpToNode
-        {
-            get;
-            set;
-        }
+        AstNode JumpToNode { get; set; }
 
-        StringBuilder Output
-        {
-            get;
-            set;
-        }
+        StringBuilder Output { get; set; }
 
-        int Step
-        {
-            get;
-            set;
-        }
+        int Step { get; set; }
 
-        AstNode Node
-        {
-            get;
-            set;
-        }
+        AstNode Node { get; set; }
 
         object Label
         {

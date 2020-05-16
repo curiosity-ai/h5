@@ -13,11 +13,7 @@ namespace H5.Translator
             this.CustomEventDeclaration = customEventDeclaration;
         }
 
-        public CustomEventDeclaration CustomEventDeclaration
-        {
-            get;
-            set;
-        }
+        public CustomEventDeclaration CustomEventDeclaration { get; set; }
 
         public CompilerRule OldRules { get; private set; }
 

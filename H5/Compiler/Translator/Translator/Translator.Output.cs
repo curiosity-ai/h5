@@ -469,7 +469,6 @@ namespace H5.Translator
         {
             using (new Measure(Logger, "Extracting resources"))
             {
-
                 foreach (var reference in References)
                 {
                     var resources = GetEmbeddedResourceList(reference);

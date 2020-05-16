@@ -13,7 +13,6 @@ using ZLogger;
 
 namespace H5.Compiler
 {
-
     public class Program
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<Program>();
@@ -102,18 +101,21 @@ namespace H5.Compiler
             Console.WriteLine(@"Usage: " + programName + @" [options] (<project-file>|<assembly-file>)
        " + programName + @"
 
-[-h|--help]                Show this help message.
--r --rebuild               Force assembly rebuilding.
--c --configuration <name>  Configuration name (Debug/Release etc)   [default: none].
--S --settings <name:value> Comma-delimited list of project settings
-                           I.e -S name1:value1,name2:value2)
-                           List of allowed settings:
-                             AssemblyName, CheckForOverflowUnderflow,
-                             Configuration, DefineConstants,
-                             OutputPath, OutDir, OutputType,
-                             RootNamespace
-                           options -c, -D have priority over -S
--D --define <const-list>   Semicolon-delimited list of project constants.");
+[-h|--help]                     Show this help message.
+-r --rebuild                    Force assembly rebuilding.
+-c --configuration <name>       Configuration name (Debug/Release etc)   [default: none].
+-S --settings <name:value>      Comma-delimited list of project settings
+                                I.e -S name1:value1,name2:value2)
+                                List of allowed settings:
+                                  AssemblyName, CheckForOverflowUnderflow,
+                                  Configuration, DefineConstants,
+                                  OutputPath, OutDir, OutputType,
+                                  RootNamespace
+                                options -c, -D have priority over -S
+-D --define <const-list>        Semicolon-delimited list of project constants.
+--skip-resource-extraction      Do not extract resources from referenced projects and packages
+                                  (will result in an incomplete output content, but useful 
+                                   if you're building intermediate packages/projects)");
         }
 
         private static bool BindCmdArgumentToOption(string arg, H5Options h5Options)
@@ -176,6 +178,10 @@ namespace H5.Compiler
                     case "--rebuild":
                     case "-r":
                         h5Options.Rebuild = true;
+                        break;
+
+                    case "--skip-resource-extraction":
+                        h5Options.SkipResourcesExtraction = true;
                         break;
 
                     case "-S":

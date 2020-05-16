@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Mosaik.Core;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -66,7 +67,14 @@ namespace H5.Translator
                 translator.CleanOutputFolderIfRequired(outputPath);
                 translator.PrepareResourcesConfig();
 
-                translator.ExtractCore(outputPath, projectPath);
+                if (!h5Options.SkipResourcesExtraction)
+                {
+                    translator.ExtractCore(outputPath, projectPath);
+                }
+                else
+                {
+                    Logger.ZLogInformation("Skipping extracting resources from referenced projects & packages");
+                }
 
                 var fileName = GetDefaultFileName(h5Options);
                 if (!h5Options.SkipEmbeddingResources)

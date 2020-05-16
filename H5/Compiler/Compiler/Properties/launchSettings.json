@@ -2,8 +2,8 @@
   "profiles": {
     "H5.Builder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tesserae\\Tesserae\\Tesserae.csproj\" -c \"$(Configuration)\"",
-      "workingDirectory": "C:\\h5\\Tesserae\\Tesserae\\"
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -c \"$(Configuration)\"",
+      "workingDirectory": "C:\\h5\\Tesserae\\Tesserae.Tests\\"
     },
     "build H5.Core": {
       "commandName": "Project",

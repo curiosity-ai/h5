@@ -169,6 +169,7 @@ namespace H5.Translator
                             Rebuild = Rebuild,
                             ProjectLocation = projectRef,
                             H5Location = H5Location,
+                            SkipResourcesExtraction = true,
                             ProjectProperties = new ProjectProperties
                             {
                                 BuildProjects = ProjectProperties.BuildProjects,

@@ -1,6 +1,7 @@
 using H5.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Mono.Cecil;
 using Mosaik.Core;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ZLogger;
+using System.Collections.Concurrent;
 
 namespace H5.Translator
 {
@@ -137,27 +139,29 @@ namespace H5.Translator
 
         internal static List<IAssemblyReference> ToAssemblyReferences(IReadOnlyList<AssemblyDefinition> references)
         {
-            var list = new List<IAssemblyReference>();
+            var stack = new ConcurrentStack<IAssemblyReference>();
 
             if (references is object)
             {
                 using (new Measure(Logger, "Loading assembly definitions", references.Count))
                 {
-                    foreach (var reference in references)
+                    Task.WaitAll(references.Select(reference => Task.Run(() =>
                     {
                         Logger.ZLogTrace("\tLoading AssemblyDefinition {0} ...", (reference != null && reference.Name != null && reference.Name.Name != null ? reference.Name.Name : ""));
 
                         var loader = new CecilLoader();
                         loader.IncludeInternalMembers = true;
 
-                        list.Add(loader.LoadAssembly(reference));
+
+                        var asm = loader.LoadAssembly(reference);
+                        stack.Push(asm);
 
                         Logger.ZLogTrace("\tLoading AssemblyDefinition done");
-                    }
+                    })).ToArray());
                 }
             }
 
-            return list;
+            return stack.ToList();
         }
 
         public IMemberResolver Resolver { get; set; }

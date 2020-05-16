@@ -438,7 +438,7 @@ namespace H5.Translator
             var assemblyLocation = AssemblyLocation;
 
             Logger.ZLogTrace("Writing resources into " + assemblyLocation);
-            Console.WriteLine("Writing resources into " + assemblyLocation);
+
             using (var s = File.Open(assemblyLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
                 assemblyDef.Write(s);

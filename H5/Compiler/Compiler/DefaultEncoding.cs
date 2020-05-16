@@ -2,7 +2,7 @@
 using System.Text;
 using System.Threading;
 
-namespace H5.Builder
+namespace H5.Compiler
 {
     public static class DefaultEncoding
     {

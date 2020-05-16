@@ -14,8 +14,7 @@ namespace H5.Translator
 {
     public class ClassBlock : AbstractEmitterBlock
     {
-        public ClassBlock(IEmitter emitter, ITypeInfo typeInfo)
-            : base(emitter, typeInfo.TypeDeclaration)
+        public ClassBlock(IEmitter emitter, ITypeInfo typeInfo) : base(emitter, typeInfo.TypeDeclaration)
         {
             TypeInfo = typeInfo;
         }

@@ -17,9 +17,6 @@ namespace H5.Translator
         public string DefaultFileName { get; set; }
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
-        public bool Run { get; set; }
-        public bool FromTask { get; set; }
-        public bool NoLoggerSetUp { get; set; }
         public string ReferencesPath { get; set; }
 
         public H5Options()
@@ -41,9 +38,6 @@ namespace H5.Translator
                 { WrapProperty("DefaultFileName"), GetString(DefaultFileName) },
                 { WrapProperty("H5Location"), GetString(H5Location) },
                 { WrapProperty("Rebuild"), GetString(Rebuild) },
-                { WrapProperty("Run"), GetString(Run) },
-                { WrapProperty("FromTask"), GetString(FromTask) },
-                { WrapProperty("NoLoggerSetUp"), GetString(NoLoggerSetUp) },
                 { WrapProperty("ReferencesPath"), GetString(ReferencesPath) }
             };
 

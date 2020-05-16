@@ -102,8 +102,6 @@ namespace H5.Translator
 
         public List<string> DefineConstants { get; set; }
 
-        public bool FromTask { get; set; }
-
         public virtual IEnumerable<AssemblyDefinition> References { get; set; }
 
         /// <summary>

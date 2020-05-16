@@ -23,6 +23,8 @@ using System.Runtime.InteropServices;
 using System.Collections.Concurrent;
 using Mosaik.Core;
 using ZLogger;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace H5.Translator
 {
@@ -111,7 +113,7 @@ namespace H5.Translator
                 var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants);
 
                 var files = SourceFiles;
-                IList<string> referencesPathes = null;
+                List<string> referencesPathes = null;
                 IList<PackageReference> referencedPackages = null;
                 var baseDir = Path.GetDirectoryName(Location);
 
@@ -197,6 +199,8 @@ namespace H5.Translator
 
                     var outputFolder = Path.GetDirectoryName(AssemblyLocation);
 
+                    var filesToCopy = new List<(string source, string destination)>();
+
                     foreach (var rp in referencedPackages.GroupBy(p => p.PackageIdentity).OrderByDescending(p => p.Key.Version).Select(g => g.First()))
                     {
                         var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
@@ -215,8 +219,7 @@ namespace H5.Translator
                             foreach (var source in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
                             {
                                 var target = Path.Combine(outputFolder, Path.GetFileName(source));
-                                File.Copy(source, target, overwrite: true);
-                                Logger.ZLogInformation($"NuGet: Copying lib file '{source}' to '{target}'");
+                                filesToCopy.Add((source, target));
                             }
 
                             var contentFolder = Path.Combine(pp, "content");
@@ -225,8 +228,7 @@ namespace H5.Translator
                                 foreach (var source in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
                                 {
                                     var target = Path.Combine(outputFolder, Path.GetFileName(source));
-                                    File.Copy(source, target, overwrite: true);
-                                    Logger.ZLogInformation($"NuGet: Copying content file '{source}' to '{target}'");
+                                    filesToCopy.Add((source, target));
                                 }
                             }
 
@@ -244,6 +246,14 @@ namespace H5.Translator
                         }
                     }
 
+                    if (filesToCopy.Any())
+                    {
+                        Task.WaitAll(filesToCopy.Select(async (copy) =>
+                        {
+                            Logger.ZLogInformation($"NuGet: Copying lib file '{copy.source}' to '{copy.destination}'");
+                            await CopyFileAsync(copy.source, copy.destination).ConfigureAwait(false);
+                        }).ToArray());
+                    }
                     //var resolver = new NuGet.Resolver.PackageResolver();
                     //var packages = resolver.Resolve(new NuGet.Resolver.PackageResolverContext(NuGet.Resolver.DependencyBehavior.Highest,
                     //                                    referencedPackages.Select(p => p.PackageIdentity.Id), 
@@ -403,7 +413,7 @@ namespace H5.Translator
             }
         }
 
-        private void AddNestedReferences(IList<string> referencesPathes, string refPath)
+        private void AddNestedReferences(List<string> referencesPathes, string refPath)
         {
             Logger.ZLogInformation($"Loading references from assembly {refPath}");
 
@@ -446,6 +456,19 @@ namespace H5.Translator
                 referencesPathes.Add(path);
 
                 AddNestedReferences(referencesPathes, path);
+            }
+        }
+
+        private static async Task CopyFileAsync(string sourceFile, string destinationFile)
+        {
+            var fileOptions = FileOptions.Asynchronous | FileOptions.SequentialScan;
+            var bufferSize = 4096;
+            using (var sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, fileOptions))
+            using (var destinationStream = new FileStream(destinationFile, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, bufferSize, fileOptions))
+            {
+                destinationStream.SetLength(0);
+                await sourceStream.CopyToAsync(destinationStream, bufferSize).ConfigureAwait(false);
+                await destinationStream.FlushAsync().ConfigureAwait(false);
             }
         }
     }

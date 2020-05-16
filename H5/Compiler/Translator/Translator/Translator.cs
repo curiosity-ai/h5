@@ -81,7 +81,7 @@ namespace H5.Translator
             AlwaysEscapeNonAscii = true
         };
 
-        protected Translator(string location)
+        public Translator(string location)
         {
             Location = location;
             Validator = CreateValidator();
@@ -89,11 +89,6 @@ namespace H5.Translator
             ProjectProperties = new ProjectProperties();
             FileHelper = new FileHelper();
             Outputs = new TranslatorOutput();
-        }
-
-        public Translator(string location, bool fromTask = false) : this(location)
-        {
-            FromTask = fromTask;
         }
 
         public void Translate()

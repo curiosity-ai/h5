@@ -11,7 +11,7 @@ using System.Linq;
 using System.Reflection;
 using ZLogger;
 
-namespace H5.Builder
+namespace H5.Compiler
 {
 
     public class Program
@@ -42,11 +42,12 @@ namespace H5.Builder
 
             try
             {
-                processor.PreProcess();
-
-                processor.Process();
-
-                processor.PostProcess();
+                using (new Measure(Logger, "H5 Compilation"))
+                {
+                    processor.PreProcess();
+                    processor.Process();
+                    processor.PostProcess();
+                }
             }
             catch (EmitterException ex)
             {

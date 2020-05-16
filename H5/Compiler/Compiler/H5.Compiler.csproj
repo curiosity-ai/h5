@@ -5,12 +5,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
     <DefineConstants>H5_COMPILER</DefineConstants>
-    <StartupObject>H5.Builder.Program</StartupObject>
+    <StartupObject>H5.Compiler.Program</StartupObject>
     <AssemblyName>h5</AssemblyName>
   </PropertyGroup>
 
   <!-- There is an annoying bug with PackAsTool that throws an error (https://github.com/NuGet/Home/issues/7001), so for debugging we disable this -->
-  <PropertyGroup Condition=" '$(BuildingInsideVisualStudio)' != 'true' " >
+  <PropertyGroup Condition=" '$(BuildingInsideVisualStudio)' != 'true' ">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -22,7 +22,7 @@
     <LangVersion>latest</LangVersion>
     <PackageId>h5-compiler</PackageId>
     <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
-    <Company/>
+    <Company />
     <Description>The .NET Core C# to JavaScript compiler 🚀</Description>
     <Copyright>(c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

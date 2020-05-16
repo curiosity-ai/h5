@@ -2,20 +2,109 @@ using H5.Contract;
 using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
+using MessagePack;
+using MessagePack.Formatters;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.Extensions.Logging;
 using Mosaik.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Object.Net.Utilities;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using UID;
+using ZLogger;
 
 namespace H5.Translator
 {
+    [MessagePackObject(keyAsPropertyName: true)]
+    public class EmitBlockCachedOutput
+    {
+        public UID128 ConfigHash { get; set; }
+        public Dictionary<string, (UID128 hash, long size, DateTimeOffset timestamp)> FileInfo { get; set; } = new Dictionary<string, (UID128 hash, long size, DateTimeOffset timestamp)>();
+        public Dictionary<string, Dictionary<string, string>> CachedEmittedTypesPerFile { get; set; } = new Dictionary<string, Dictionary<string, string>>();
+
+        [IgnoreMember] private Dictionary<string, bool> _alreadyCheckedFiles = new Dictionary<string, bool>();
+
+        public void ClearIfConfigHashChanged(UID128 previousConfigHash, bool force = false)
+        {
+            if(ConfigHash != previousConfigHash || force)
+            {
+                ConfigHash = previousConfigHash;
+                FileInfo.Clear();
+                CachedEmittedTypesPerFile.Clear();
+            }
+        }
+
+        //This method is not thread safe (order is important for caching)
+        public bool TryGetCached(string fileName, string typeName, out string previousEmitCodeForType)
+        {
+            previousEmitCodeForType = null;
+
+            if (_alreadyCheckedFiles.TryGetValue(fileName, out var fileChanged))
+            {
+                return !fileChanged && CachedEmittedTypesPerFile.TryGetValue(fileName, out var previousEmitCodeForFile) && previousEmitCodeForFile.TryGetValue(typeName, out previousEmitCodeForType);
+            }
+            else
+            {
+                var fileInfo = new FileInfo(fileName);
+                var hash = File.ReadAllText(fileName).Hash128();
+
+                if (FileInfo.TryGetValue(fileName, out var previousInfo))
+                {
+                    if (!fileInfo.Exists) throw new Exception($"File {fileName} was deleted since compilation started");
+
+                    if(previousInfo.timestamp == fileInfo.LastWriteTimeUtc && previousInfo.size == fileInfo.Length && hash == previousInfo.hash)
+                    {
+                        _alreadyCheckedFiles[fileName] = false; //did not change
+                        return CachedEmittedTypesPerFile.TryGetValue(fileName, out var previousEmitCodeForFile) && previousEmitCodeForFile.TryGetValue(typeName, out previousEmitCodeForType);
+                    }
+                    else
+                    {
+                        FileInfo[fileName] = (hash, fileInfo.Length, (DateTimeOffset)fileInfo.LastWriteTimeUtc);
+                        CachedEmittedTypesPerFile.Remove(fileName);
+                        _alreadyCheckedFiles[fileName] = true; //Changed since last time
+                        return false;
+                    }
+                }
+                else
+                {
+                    FileInfo[fileName] = (hash, fileInfo.Length, (DateTimeOffset)fileInfo.LastWriteTimeUtc);
+                    CachedEmittedTypesPerFile.Remove(fileName);
+                    _alreadyCheckedFiles[fileName] = true; //Changed since last time
+                    return false;
+                }
+            }
+        }
+
+        public void AddToCache(string fileName, string typeName, string emittedCode)
+        {
+            if(!CachedEmittedTypesPerFile.TryGetValue(fileName, out var codePerFile))
+            {
+                codePerFile = new Dictionary<string, string>();
+                CachedEmittedTypesPerFile[fileName] = codePerFile;
+            }
+            codePerFile[typeName] = emittedCode;
+        }
+
+        public void TrimDeletedFiles()
+        {
+            foreach(var fn in CachedEmittedTypesPerFile.Keys.ToArray())
+            {
+                if (!File.Exists(fn))
+                {
+                    CachedEmittedTypesPerFile.Remove(fn);
+                }
+            }
+        }
+    }
+
+
     public class EmitBlock : AbstractEmitterBlock
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<EmitBlock>();
@@ -26,6 +115,46 @@ namespace H5.Translator
         {
             Emitter = emitter;
             FileHelper = new FileHelper();
+        }
+
+        private string GetCacheFile()
+        {
+            return Emitter.Translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".emitted.js.cached";
+        }
+
+        public EmitBlockCachedOutput LoadCache()
+        {
+            var cf = GetCacheFile();
+
+            Directory.CreateDirectory(Path.GetDirectoryName(cf));
+
+            if (File.Exists(cf))
+            {
+                try
+                {
+                    using (var f = File.OpenRead(cf))
+                    {
+                        return MessagePackSerializer.Deserialize<EmitBlockCachedOutput>(f);
+                    }
+                }
+                catch
+                {
+                    Logger.ZLogError("Error reading cache file '{0}', ignoring cache", cf);
+                }
+            }
+
+            return new EmitBlockCachedOutput();
+        }
+
+        public void CommitCache(EmitBlockCachedOutput cachedEmittedData)
+        {
+            using (var f = File.OpenWrite(GetCacheFile()))
+            {
+                f.SetLength(0);
+                MessagePackSerializer.Serialize(f, cachedEmittedData);
+                f.Flush();
+                f.Close();
+            }
         }
 
         protected virtual StringBuilder GetOutputForType(ITypeInfo typeInfo, string name, bool isMeta = false)
@@ -234,8 +363,7 @@ namespace H5.Translator
             // This should never happen but, just to be sure...
             if (curIterations >= maxIterations)
             {
-                throw new EmitterException(typeInfo.TypeDeclaration, "Iteration count for class '" + typeInfo.Type.FullName + "' exceeded " +
-                    maxIterations + " depth iterations until root class!");
+                throw new EmitterException(typeInfo.TypeDeclaration, $"Iteration count for class '{typeInfo.Type.FullName}' exceeded {maxIterations} depth iterations until root class!");
             }
 
             return fullClassName;
@@ -256,6 +384,44 @@ namespace H5.Translator
         protected override void DoEmit()
         {
             bool mustEmitInFull = Emitter.Translator.Plugins.HasAny();
+
+            EmitBlockCachedOutput cachedEmittedData = null;
+            
+            if (false) //RFO: Disabled for now till we figure out the possible bug bellow
+            {
+                cachedEmittedData = LoadCache();
+
+                //BUG !!!
+                //RFO: It's an assumption that only the config affects the end-result. Need to test what else could possibly affect it, and ignore if anything changed.
+                //     THERE IS ALSO A POSSIBLE PROBLEMATIC ISSUE WITH THE ORDER THAT TYPES METHODS ARE EMITTED.
+                //     Example: ctor vs. ctor$1, which will break this assumption and lead to bad-code being emitted when reusing cached code
+
+                var configHash = JsonConvert.SerializeObject(Emitter.Translator.AssemblyInfo).Hash128();
+
+                foreach (var reference in Emitter.Translator.References.OrderBy(r => r.MainModule.FileName))
+                {
+                    var fi = new FileInfo(reference.MainModule.FileName);
+                    configHash = Hashes.Combine(configHash, reference.FullName.Hash128(), $"{fi.Length}/{fi.LastWriteTime}".Hash128());
+                }
+
+                foreach (var f in Emitter.SourceFiles) //Change in order could be problematic due to whatever SourceFileNameIndex is used for - TBD, but for now we check here
+                {
+                    configHash = Hashes.Combine(configHash, f.Hash128());
+                }
+
+                var context = Emitter.Translator.GetVersionContext();
+
+                configHash = Hashes.Combine(configHash, $"{context.Compiler.Version}/{context.H5.Version}".Hash128());
+
+                cachedEmittedData.ClearIfConfigHashChanged(configHash);
+
+                if (Emitter.Translator.Plugins.HasAny())
+                {
+                    //As plugins can affect the result, we ignore the cache here
+                    cachedEmittedData.ClearIfConfigHashChanged(default, force: true);
+                } 
+            }
+
 
             Emitter.Tag = "JS";
             Emitter.Writers = new Stack<IWriter>();
@@ -345,27 +511,42 @@ namespace H5.Translator
 
                     //Switch the current output of the emitter with the temporary one
                     tmpBuffer.Clear();
+
                     var currentOutput = Emitter.Output; Emitter.Output = tmpBuffer;
 
-                    if (Emitter.TypeInfo.Module is object)
+                    if (!Emitter.Translator.Plugins.HasAny() && cachedEmittedData is object && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.JsName, out var cachedCode))
                     {
-                        Indent();
+                        tmpBuffer.Append(cachedCode);
+                    }
+                    else
+                    {
+                        if (Emitter.TypeInfo.Module is object)
+                        {
+                            Indent();
+                        }
+
+                        var name = H5Types.ToJsName(type.Type, Emitter, true, true, true);
+                        if (type.Type.DeclaringType != null && JS.Reserved.StaticNames.Any(n => String.Equals(name, n, StringComparison.InvariantCulture)))
+                        {
+                            throw new EmitterException(type.TypeDeclaration, $"Invalid nested class name: {name}. Please rename it.");
+                        }
+
+                        new ClassBlock(Emitter, Emitter.TypeInfo).Emit();
+
+                        if (Emitter.Translator.Plugins.HasAny())
+                        {
+                            Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
+                        }
                     }
 
-                    var name = H5Types.ToJsName(type.Type, Emitter, true, true, true);
-                    if (type.Type.DeclaringType != null && JS.Reserved.StaticNames.Any(n => String.Equals(name, n, StringComparison.InvariantCulture)))
+                    var finalCode = tmpBuffer.ToString();
+                    
+                    if (!Emitter.Translator.Plugins.HasAny())
                     {
-                        throw new EmitterException(type.TypeDeclaration, "Nested class cannot have such name: " + name + ". Please rename it.");
+                        cachedEmittedData.AddToCache(Emitter.SourceFileName, type.JsName, finalCode);
                     }
 
-                    new ClassBlock(Emitter, Emitter.TypeInfo).Emit();
-
-                    if (Emitter.Translator.Plugins.HasAny())
-                    {
-                        Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
-                    }
-
-                    currentOutput.Append(tmpBuffer.ToString());
+                    currentOutput.Append(finalCode);
 
                     //Switch back the emitter output to the previous StringBuilder
                     Emitter.Output = currentOutput;
@@ -627,6 +808,11 @@ namespace H5.Translator
             if (Emitter.Translator.Plugins.HasAny())
             {
                 Emitter.Translator.Plugins.AfterTypesEmit(Emitter, Emitter.Types);
+            }
+
+            if (cachedEmittedData is object)
+            {
+                CommitCache(cachedEmittedData); 
             }
         }
 

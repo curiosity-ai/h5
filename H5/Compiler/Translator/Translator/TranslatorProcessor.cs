@@ -180,7 +180,7 @@ namespace H5.Translator
             Translator translator = null;
 
             // FIXME: detect by extension whether first argument is a project or DLL
-            translator = new Translator(h5Options.ProjectLocation, h5Options.FromTask);
+            translator = new Translator(h5Options.ProjectLocation);
 
             translator.ProjectProperties = h5Options.ProjectProperties;
 

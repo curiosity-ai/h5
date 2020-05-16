@@ -27,8 +27,8 @@ namespace H5.Translator
             public const string CONFIGURATION_PROP = "Configuration";
             public const string PLATFORM_PROP = "Platform";
         }
-
-        private bool ShouldReadProjectFile { get; set; }
+        
+        private bool _shouldReadProjectFile = true; //RFO: Might use this in the future for running as a service, so leave here for now
 
         internal static Project OpenProject(string location, IDictionary<string,string> globalProperties)
         {
@@ -43,9 +43,7 @@ namespace H5.Translator
         internal virtual void EnsureProjectProperties()
         {
             Logger.ZLogTrace("EnsureProjectProperties at " + (Location ?? "") + " ...");
-
-            ShouldReadProjectFile = !FromTask;
-
+            
             var project = OpenProject(Location, GetEvaluationConditions());
 
             ValidateProject(project);
@@ -116,7 +114,7 @@ namespace H5.Translator
 
             var outputType = ProjectProperties.OutputType;
 
-            if (outputType == null && ShouldReadProjectFile)
+            if (outputType == null && _shouldReadProjectFile)
             {
                 var projectType = (from n in project.AllEvaluatedProperties
                                    where n.Name == ProjectPropertyNames.OUTPUT_TYPE_PROP
@@ -136,7 +134,7 @@ namespace H5.Translator
 
         private void EnsureOverflowMode(Project project)
         {
-            if (!ShouldReadProjectFile)
+            if (!_shouldReadProjectFile)
             {
                 return;
             }
@@ -187,7 +185,7 @@ namespace H5.Translator
 
             var outputPath = ProjectProperties.OutputPath;
 
-            if (outputPath == null && ShouldReadProjectFile)
+            if (outputPath == null && _shouldReadProjectFile)
             {
                 // Read OutputPath if not defined already
                 // Throw exception if not found
@@ -200,7 +198,7 @@ namespace H5.Translator
 
             var outDir = ProjectProperties.OutDir;
 
-            if (outDir is null && ShouldReadProjectFile)
+            if (outDir is null && _shouldReadProjectFile)
             {
                 // Read OutDir if not defined already
                 outDir = ReadProperty(project, ProjectPropertyNames.OUT_DIR_PROP, true, configHelper);
@@ -297,7 +295,7 @@ namespace H5.Translator
                 DefineConstants = new List<string>();
             }
 
-            if (ProjectProperties.DefineConstants == null && ShouldReadProjectFile)
+            if (ProjectProperties.DefineConstants == null && _shouldReadProjectFile)
             {
                 Logger.ZLogTrace("Reading define constants...");
 
@@ -327,7 +325,7 @@ namespace H5.Translator
 
         protected virtual void EnsureAssemblyName(Project project)
         {
-            if (ProjectProperties.AssemblyName == null && ShouldReadProjectFile)
+            if (ProjectProperties.AssemblyName == null && _shouldReadProjectFile)
             {
                 var property = (from n in project.AllEvaluatedProperties
                             where n.Name == ProjectPropertyNames.ASSEMBLY_NAME_PROP
@@ -347,7 +345,7 @@ namespace H5.Translator
 
         protected virtual void EnsureDefaultNamespace(Project project)
         {
-            if (ProjectProperties.RootNamespace == null && ShouldReadProjectFile)
+            if (ProjectProperties.RootNamespace == null && _shouldReadProjectFile)
             {
                 var property = (from n in project.AllEvaluatedProperties
                             where n.Name == ProjectPropertyNames.ROOT_NAMESPACE_PROP

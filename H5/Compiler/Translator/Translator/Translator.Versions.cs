@@ -1,6 +1,7 @@
 using H5.Contract;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,12 @@ namespace H5.Translator
 {
     public partial class Translator
     {
-        private string GetProductVersionFromVersionInfo(System.Diagnostics.FileVersionInfo versionInfo)
+        private FileVersionInfo _compilerVersionInfo;
+        private FileVersionInfo _assemblyVersionInfo;
+        private FileVersionInfo _h5VersionInfo;
+        private VersionContext _versionContext;
+
+        private string GetProductVersionFromVersionInfo(FileVersionInfo versionInfo)
         {
             string version = null;
 
@@ -29,15 +35,14 @@ namespace H5.Translator
             return version;
         }
 
-        System.Diagnostics.FileVersionInfo compilerVersionInfo;
-        private System.Diagnostics.FileVersionInfo GetCompilerVersion()
+        private FileVersionInfo GetCompilerVersion()
         {
-            if (compilerVersionInfo == null)
+            if (_compilerVersionInfo == null)
             {
                 try
                 {
                     var compilerAssembly = System.Reflection.Assembly.GetExecutingAssembly();
-                    compilerVersionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(compilerAssembly.Location);
+                    _compilerVersionInfo = FileVersionInfo.GetVersionInfo(compilerAssembly.Location);
                 }
                 catch (Exception ex)
                 {
@@ -45,37 +50,35 @@ namespace H5.Translator
                 }
             }
 
-            return compilerVersionInfo;
+            return _compilerVersionInfo;
         }
-
-        System.Diagnostics.FileVersionInfo assemblyVersionInfo;
-        private System.Diagnostics.FileVersionInfo GetAssemblyVersion()
+        
+        private FileVersionInfo GetAssemblyVersion()
         {
-            if (assemblyVersionInfo == null)
+            if (_assemblyVersionInfo == null)
             {
-                assemblyVersionInfo = GetAssemblyVersionByPath(AssemblyLocation);
+                _assemblyVersionInfo = GetAssemblyVersionByPath(AssemblyLocation);
             }
 
-            return assemblyVersionInfo;
+            return _assemblyVersionInfo;
         }
 
-        System.Diagnostics.FileVersionInfo h5VersionInfo;
-        private System.Diagnostics.FileVersionInfo GetH5AssemblyVersion()
+        private FileVersionInfo GetH5AssemblyVersion()
         {
-            if (h5VersionInfo == null)
+            if (_h5VersionInfo == null)
             {
-                h5VersionInfo = GetAssemblyVersionByPath(H5Location);
+                _h5VersionInfo = GetAssemblyVersionByPath(H5Location);
             }
 
-            return h5VersionInfo;
+            return _h5VersionInfo;
         }
 
-        private System.Diagnostics.FileVersionInfo GetAssemblyVersionByPath(string path)
+        private FileVersionInfo GetAssemblyVersionByPath(string path)
         {
-            System.Diagnostics.FileVersionInfo fileVerionInfo = null;
+            FileVersionInfo fileVerionInfo = null;
             try
             {
-                fileVerionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(path);
+                fileVerionInfo = FileVersionInfo.GetVersionInfo(path);
             }
             catch (Exception ex)
             {
@@ -85,26 +88,24 @@ namespace H5.Translator
             return fileVerionInfo;
         }
 
-        private VersionContext versionContext;
-
         public VersionContext GetVersionContext()
         {
-            if (versionContext == null)
+            if (_versionContext == null)
             {
-                versionContext = new VersionContext();
+                _versionContext = new VersionContext();
 
-                versionContext.Assembly = GetVersionFromFileVersionInfo(GetAssemblyVersion());
-                versionContext.Assembly.Description = GetAssemblyDescription();
+                _versionContext.Assembly = GetVersionFromFileVersionInfo(GetAssemblyVersion());
+                _versionContext.Assembly.Description = GetAssemblyDescription();
 
-                versionContext.H5 = GetVersionFromFileVersionInfo(GetH5AssemblyVersion());
+                _versionContext.H5 = GetVersionFromFileVersionInfo(GetH5AssemblyVersion());
 
-                versionContext.Compiler = GetVersionFromFileVersionInfo(GetCompilerVersion());
+                _versionContext.Compiler = GetVersionFromFileVersionInfo(GetCompilerVersion());
             }
 
-            return versionContext;
+            return _versionContext;
         }
 
-        private VersionContext.AssemblyVersion GetVersionFromFileVersionInfo(System.Diagnostics.FileVersionInfo versionInfo)
+        private VersionContext.AssemblyVersion GetVersionFromFileVersionInfo(FileVersionInfo versionInfo)
         {
             return versionInfo == null
                     ? new VersionContext.AssemblyVersion()

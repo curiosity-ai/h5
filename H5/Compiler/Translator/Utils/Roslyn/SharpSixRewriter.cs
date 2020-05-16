@@ -28,7 +28,6 @@ namespace H5.Translator
         public ConcurrentDictionary<string, (UID128 hash, string code)> CachedCompilation { get; set; } = new ConcurrentDictionary<string, (UID128 hash, string code)>();
     }
 
-
     public class SharpSixRewriter : CSharpSyntaxRewriter
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<SharpSixRewriter>();

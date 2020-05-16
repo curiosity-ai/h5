@@ -29,17 +29,17 @@ namespace H5.Translator
 
             public CecilAssemblyResolver(ILogger logger, string location)
             {
-                this.Logger = logger;
+                Logger = logger;
 
-                this.ResolveFailure += CecilAssemblyResolver_ResolveFailure;
+                ResolveFailure += CecilAssemblyResolver_ResolveFailure;
 
-                this.AddSearchDirectory(Path.GetDirectoryName(location));
+                AddSearchDirectory(Path.GetDirectoryName(location));
             }
 
             private AssemblyDefinition CecilAssemblyResolver_ResolveFailure(object sender, AssemblyNameReference reference)
             {
                 string fullName = reference != null ? reference.FullName : "";
-                this.Logger.LogTrace("CecilAssemblyResolver: ResolveFailure " + (fullName ?? ""));
+                Logger.LogTrace("CecilAssemblyResolver: ResolveFailure " + (fullName ?? ""));
 
                 return null;
             }
@@ -48,7 +48,7 @@ namespace H5.Translator
             {
                 string fullName = name != null ? name.FullName : "";
 
-                this.Logger.LogTrace("CecilAssemblyResolver: Resolve(AssemblyNameReference) " + (fullName ?? ""));
+                Logger.LogTrace("CecilAssemblyResolver: Resolve(AssemblyNameReference) " + (fullName ?? ""));
 
                 return base.Resolve(name);
             }
@@ -57,7 +57,7 @@ namespace H5.Translator
             {
                 string fullName = name != null ? name.FullName : "";
 
-                this.Logger.LogTrace(
+                Logger.LogTrace(
                     "CecilAssemblyResolver: Resolve(AssemblyNameReference, ReaderParameters) "
                     + (fullName ?? "")
                     + ", "
@@ -70,7 +70,7 @@ namespace H5.Translator
 
         protected virtual void LoadReferenceAssemblies(List<AssemblyDefinition> references)
         {
-            var locations = this.GetProjectReferenceAssemblies().Distinct();
+            var locations = GetProjectReferenceAssemblies().Distinct();
 
             foreach (var path in locations)
             {
@@ -82,7 +82,7 @@ namespace H5.Translator
                         new ReaderParameters()
                         {
                             ReadingMode = ReadingMode.Deferred,
-                            AssemblyResolver = new CecilAssemblyResolver(this.Log, this.AssemblyLocation)
+                            AssemblyResolver = new CecilAssemblyResolver(this.Log, AssemblyLocation)
                         }
                     );
 
@@ -115,7 +115,7 @@ namespace H5.Translator
                         new ReaderParameters()
                         {
                             ReadingMode = ReadingMode.Deferred,
-                            AssemblyResolver = new CecilAssemblyResolver(this.Log, this.AssemblyLocation)
+                            AssemblyResolver = new CecilAssemblyResolver(this.Log, AssemblyLocation)
                         }
                     );
 
@@ -143,14 +143,14 @@ namespace H5.Translator
                         path = discoveredPath;
                     }
 
-                    var updateH5Location = name.ToLowerInvariant() == "h5" && (string.IsNullOrWhiteSpace(this.H5Location) || !File.Exists(this.H5Location));
+                    var updateH5Location = name.ToLowerInvariant() == "h5" && (string.IsNullOrWhiteSpace(H5Location) || !File.Exists(H5Location));
 
                     if (updateH5Location)
                     {
-                        this.H5Location = path;
+                        H5Location = path;
                     }
 
-                    var reference = this.LoadAssembly(path, references);
+                    var reference = LoadAssembly(path, references);
 
                     if (reference != null && !references.Any(a => a.Name.FullName == reference.Name.FullName))
                     {
@@ -181,7 +181,7 @@ namespace H5.Translator
         {
             this.Log.Trace("Reading types for assembly " + (assembly != null && assembly.Name != null && assembly.Name.Name != null ? assembly.Name.Name : "") + " ...");
 
-            this.AddNestedTypes(assembly.MainModule.Types);
+            AddNestedTypes(assembly.MainModule.Types);
 
             this.Log.Trace("Reading types for assembly done");
         }
@@ -197,14 +197,14 @@ namespace H5.Translator
                     continue;
                 }
 
-                this.Validator.CheckType(type, this);
+                Validator.CheckType(type, this);
 
                 string key = H5Types.GetTypeDefinitionKey(type);
 
                 H5Type duplicateH5Type = null;
 
                 skip_key = false;
-                if (this.H5Types.TryGetValue(key, out duplicateH5Type))
+                if (H5Types.TryGetValue(key, out duplicateH5Type))
                 {
                     var duplicate = duplicateH5Type.TypeDefinition;
 
@@ -215,7 +215,7 @@ namespace H5.Translator
                         duplicate.Module.Assembly.FullName,
                         duplicate.FullName);
 
-                    if (!this.AssemblyInfo.IgnoreDuplicateTypes)
+                    if (!AssemblyInfo.IgnoreDuplicateTypes)
                     {
                         this.Log.Error(message);
                         throw new System.InvalidOperationException(message);
@@ -228,9 +228,9 @@ namespace H5.Translator
 
                 if (!skip_key)
                 {
-                    this.TypeDefinitions.Add(key, type);
+                    TypeDefinitions.Add(key, type);
 
-                    this.H5Types.Add(key, new H5Type(key)
+                    H5Types.Add(key, new H5Type(key)
                     {
                         TypeDefinition = type
                     });
@@ -238,7 +238,7 @@ namespace H5.Translator
                     if (type.HasNestedTypes)
                     {
                         Translator.InheritAttributes(type);
-                        this.AddNestedTypes(type.NestedTypes);
+                        AddNestedTypes(type.NestedTypes);
                     }
                 }
             }
@@ -280,30 +280,30 @@ namespace H5.Translator
         {
             this.Log.Info("Inspecting references...");
 
-            this.TypeInfoDefinitions = new Dictionary<string, ITypeInfo>();
+            TypeInfoDefinitions = new Dictionary<string, ITypeInfo>();
 
             var references = new List<AssemblyDefinition>();
-            var assembly = this.LoadAssembly(this.AssemblyLocation, references);
-            this.LoadReferenceAssemblies(references);
-            this.TypeDefinitions = new Dictionary<string, TypeDefinition>();
-            this.H5Types = new H5Types();
-            this.AssemblyDefinition = assembly;
+            var assembly = LoadAssembly(AssemblyLocation, references);
+            LoadReferenceAssemblies(references);
+            TypeDefinitions = new Dictionary<string, TypeDefinition>();
+            H5Types = new H5Types();
+            AssemblyDefinition = assembly;
 
-            if (assembly.Name.Name != Translator.H5_ASSEMBLY || this.AssemblyInfo.Assembly != null && this.AssemblyInfo.Assembly.EnableReservedNamespaces)
+            if (assembly.Name.Name != Translator.H5_ASSEMBLY || AssemblyInfo.Assembly != null && AssemblyInfo.Assembly.EnableReservedNamespaces)
             {
-                this.ReadTypes(assembly);
+                ReadTypes(assembly);
             }
 
             foreach (var item in references)
             {
-                this.ReadTypes(item);
+                ReadTypes(item);
             }
 
-            var prefix = Path.GetDirectoryName(this.Location);
+            var prefix = Path.GetDirectoryName(Location);
 
-            for (int i = 0; i < this.SourceFiles.Count; i++)
+            for (int i = 0; i < SourceFiles.Count; i++)
             {
-                this.SourceFiles[i] = Path.Combine(prefix, this.SourceFiles[i]);
+                SourceFiles[i] = Path.Combine(prefix, SourceFiles[i]);
             }
 
             this.Log.Info("Inspecting references done");
@@ -315,20 +315,20 @@ namespace H5.Translator
         {
             this.Log.Info("Inspecting types...");
 
-            Inspector inspector = this.CreateInspector(config);
+            Inspector inspector = CreateInspector(config);
             inspector.AssemblyInfo = config;
             inspector.Resolver = resolver;
 
-            for (int i = 0; i < this.ParsedSourceFiles.Length; i++)
+            for (int i = 0; i < ParsedSourceFiles.Length; i++)
             {
-                var sourceFile = this.ParsedSourceFiles[i];
+                var sourceFile = ParsedSourceFiles[i];
                 this.Log.Trace("Visiting syntax tree " + (sourceFile != null && sourceFile.ParsedFile != null && sourceFile.ParsedFile.FileName != null ? sourceFile.ParsedFile.FileName : ""));
 
                 inspector.VisitSyntaxTree(sourceFile.SyntaxTree);
             }
 
-            this.AssemblyInfo = inspector.AssemblyInfo;
-            this.Types = inspector.Types;
+            AssemblyInfo = inspector.AssemblyInfo;
+            Types = inspector.Types;
 
             this.Log.Info("Inspecting types done");
         }
@@ -341,18 +341,18 @@ namespace H5.Translator
         private string[] Rewrite()
         {
             var rewriter = new SharpSixRewriter(this);
-            var result = new string[this.SourceFiles.Count];
+            var result = new string[SourceFiles.Count];
 
             // Run in parallel only and only if logger level is not trace.
             if (this.Log.LoggerLevel == LoggerLevel.Trace)
             {
                 this.Log.Trace("Rewriting/replacing code from files one after the other (not parallel) due to logger level being 'trace'.");
-                this.SourceFiles.Select((file, index) => new { file, index }).ToList()
+                SourceFiles.Select((file, index) => new { file, index }).ToList()
                     .ForEach(entry => result[entry.index] = new SharpSixRewriter(rewriter).Rewrite(entry.index));
             }
             else
             {
-                var queue = new ConcurrentQueue<int>(Enumerable.Range(0, this.SourceFiles.Count));
+                var queue = new ConcurrentQueue<int>(Enumerable.Range(0, SourceFiles.Count));
 
                 var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
                  {
@@ -386,14 +386,14 @@ namespace H5.Translator
             if (this.Log.LoggerLevel == LoggerLevel.Trace)
             {
                 this.Log.Trace("Building syntax tree..." + Environment.NewLine + "Parsing files one after the other (not parallel) due to logger level being 'trace'.");
-                for (var index = 0; index < this.SourceFiles.Count; index++)
+                for (var index = 0; index < SourceFiles.Count; index++)
                 {
                     BuildSyntaxTreeForFile(index, ref rewriten);
                 }
             }
             else
             {
-                Task.WaitAll(this.SourceFiles.Select((fileName, index) => Task.Run(() => BuildSyntaxTreeForFile(index, ref rewriten))).ToArray());
+                Task.WaitAll(SourceFiles.Select((fileName, index) => Task.Run(() => BuildSyntaxTreeForFile(index, ref rewriten))).ToArray());
             }
 
             this.Log.Info("Building syntax tree done");
@@ -401,14 +401,14 @@ namespace H5.Translator
 
         private void BuildSyntaxTreeForFile(int index, ref string[] rewriten)
         {
-            var fileName = this.SourceFiles[index];
+            var fileName = SourceFiles[index];
             this.Log.Trace("Source file " + (fileName ?? string.Empty) + " ...");
 
             var parser = new ICSharpCode.NRefactory.CSharp.CSharpParser();
 
-            if (this.DefineConstants != null && this.DefineConstants.Count > 0)
+            if (DefineConstants != null && DefineConstants.Count > 0)
             {
-                foreach (var defineConstant in this.DefineConstants)
+                foreach (var defineConstant in DefineConstants)
                 {
                     parser.CompilerSettings.ConditionalSymbols.Add(defineConstant);
                 }
@@ -457,7 +457,7 @@ namespace H5.Translator
             {
                 FileName = fileName
             });
-            this.ParsedSourceFiles[index] = f;
+            ParsedSourceFiles[index] = f;
 
             var tcv = new TypeSystemConvertVisitor(f.ParsedFile);
             f.SyntaxTree.AcceptVisitor(tcv);

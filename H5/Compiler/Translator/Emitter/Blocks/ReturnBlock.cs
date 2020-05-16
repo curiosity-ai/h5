@@ -10,15 +10,15 @@ namespace H5.Translator
         public ReturnBlock(IEmitter emitter, ReturnStatement returnStatement)
             : base(emitter, returnStatement)
         {
-            this.Emitter = emitter;
-            this.ReturnStatement = returnStatement;
+            Emitter = emitter;
+            ReturnStatement = returnStatement;
         }
 
         public ReturnBlock(IEmitter emitter, Expression expression)
             : base(emitter, expression)
         {
-            this.Emitter = emitter;
-            this.Expression = expression;
+            Emitter = emitter;
+            Expression = expression;
         }
 
         public Expression Expression { get; set; }
@@ -27,52 +27,52 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            this.VisitReturnStatement();
+            VisitReturnStatement();
         }
 
         protected void VisitReturnStatement()
         {
-            ReturnStatement returnStatement = this.ReturnStatement;
-            Expression expression = this.Expression;
+            ReturnStatement returnStatement = ReturnStatement;
+            Expression expression = Expression;
 
-            if (this.Emitter.IsAsync && (this.Emitter.AsyncBlock.MethodDeclaration == null || this.Emitter.AsyncBlock.MethodDeclaration.HasModifier(Modifiers.Async)))
+            if (Emitter.IsAsync && (Emitter.AsyncBlock.MethodDeclaration == null || Emitter.AsyncBlock.MethodDeclaration.HasModifier(Modifiers.Async)))
             {
-                var finallyNode = this.GetParentFinallyBlock(returnStatement ?? (AstNode)expression, false);
-                var catchNode = this.GetParentCatchBlock(returnStatement ?? (AstNode)expression, false);
+                var finallyNode = GetParentFinallyBlock(returnStatement ?? (AstNode)expression, false);
+                var catchNode = GetParentCatchBlock(returnStatement ?? (AstNode)expression, false);
                 expression = returnStatement != null ? returnStatement.Expression : expression;
 
-                if (this.Emitter.AsyncBlock != null && this.Emitter.AsyncBlock.IsTaskReturn)
+                if (Emitter.AsyncBlock != null && Emitter.AsyncBlock.IsTaskReturn)
                 {
-                    this.WriteAwaiters(expression);
+                    WriteAwaiters(expression);
 
                     if (finallyNode != null)
                     {
-                        this.Write(JS.Vars.ASYNC_RETURN_VALUE + " = ");
+                        Write(JS.Vars.ASYNC_RETURN_VALUE + " = ");
                     }
                     else
                     {
-                        this.Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_RESULT + "(");
+                        Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_RESULT + "(");
                     }
 
                     if (!expression.IsNull)
                     {
-                        var oldValue = this.Emitter.ReplaceAwaiterByVar;
-                        this.Emitter.ReplaceAwaiterByVar = true;
-                        expression.AcceptVisitor(this.Emitter);
-                        this.Emitter.ReplaceAwaiterByVar = oldValue;
+                        var oldValue = Emitter.ReplaceAwaiterByVar;
+                        Emitter.ReplaceAwaiterByVar = true;
+                        expression.AcceptVisitor(Emitter);
+                        Emitter.ReplaceAwaiterByVar = oldValue;
                     }
                     else
                     {
-                        this.Write("null");
+                        Write("null");
                     }
 
-                    this.Write(finallyNode != null ? ";" : ");");
-                    this.WriteNewLine();
+                    Write(finallyNode != null ? ";" : ");");
+                    WriteNewLine();
                 }
 
                 if (finallyNode != null)
                 {
-                    if (catchNode == null || !catchNode.Body.Statements.Last().Equals(this.ReturnStatement))
+                    if (catchNode == null || !catchNode.Body.Statements.Last().Equals(ReturnStatement))
                     {
                         if (catchNode != null)
                         {
@@ -80,50 +80,50 @@ namespace H5.Translator
                         }
 
                         var hashcode = finallyNode.GetHashCode();
-                        this.Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
+                        Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
                         {
                             Node = finallyNode,
-                            Output = this.Emitter.Output
+                            Output = Emitter.Output
                         });
-                        this.Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
-                        this.WriteNewLine();
-                        this.Write("continue;");
-                        this.WriteNewLine();
+                        Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
+                        WriteNewLine();
+                        Write("continue;");
+                        WriteNewLine();
                     }
                 }
                 else
                 {
-                    this.WriteReturn(false);
-                    this.WriteSemiColon();
-                    this.WriteNewLine();
+                    WriteReturn(false);
+                    WriteSemiColon();
+                    WriteNewLine();
                 }
             }
             else
             {
-                this.WriteReturn(false);
+                WriteReturn(false);
                 expression = returnStatement != null ? returnStatement.Expression : expression;
 
-                if (this.Emitter.ReplaceJump && this.Emitter.JumpStatements == null)
+                if (Emitter.ReplaceJump && Emitter.JumpStatements == null)
                 {
-                    this.WriteSpace();
-                    this.Write("{jump: 3");
+                    WriteSpace();
+                    Write("{jump: 3");
 
                     if (!expression.IsNull)
                     {
-                        this.Write(", v: ");
-                        expression.AcceptVisitor(this.Emitter);
+                        Write(", v: ");
+                        expression.AcceptVisitor(Emitter);
                     }
 
-                    this.Write("}");
+                    Write("}");
                 }
                 else if (!expression.IsNull)
                 {
-                    this.WriteSpace();
-                    expression.AcceptVisitor(this.Emitter);
+                    WriteSpace();
+                    expression.AcceptVisitor(Emitter);
                 }
 
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                WriteSemiColon();
+                WriteNewLine();
             }
         }
     }

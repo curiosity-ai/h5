@@ -15,7 +15,7 @@ namespace H5.Translator
 
         public TypeVariable(IType type)
         {
-            this.typeVar = type;
+            typeVar = type;
         }
 
         public ISymbolReference ToReference()
@@ -35,7 +35,7 @@ namespace H5.Translator
         {
             get
             {
-                return this.typeVar.Name;
+                return typeVar.Name;
             }
         }
 
@@ -46,7 +46,7 @@ namespace H5.Translator
 
         public IType Type
         {
-            get { return this.typeVar; }
+            get { return typeVar; }
         }
 
         public bool IsConst
@@ -63,20 +63,20 @@ namespace H5.Translator
         {
             get
             {
-                return this.typeVar.Name;
+                return typeVar.Name;
             }
         }
 
         public bool Equals(TypeVariable other)
         {
-            return this.typeVar.Equals(other.typeVar);
+            return typeVar.Equals(other.typeVar);
         }
 
         public bool Equals(IVariable other)
         {
             if (other is TypeVariable typeVariable)
             {
-                return this.Equals(typeVariable);
+                return Equals(typeVariable);
             }
 
             return false;
@@ -84,7 +84,7 @@ namespace H5.Translator
 
         public override int GetHashCode()
         {
-            return this.typeVar.GetHashCode();
+            return typeVar.GetHashCode();
         }
     }
 
@@ -117,10 +117,10 @@ namespace H5.Translator
                 {
                     foreach (var attr in attrSection.Attributes)
                     {
-                        var rr = this.emitter.Resolver.ResolveNode(attr.Type, this.emitter);
+                        var rr = emitter.Resolver.ResolveNode(attr.Type, emitter);
                         if (rr.Type.FullName == "H5.InitAttribute")
                         {
-                            this._usedVariables.Add(null);
+                            _usedVariables.Add(null);
                             return;
                         }
                     }
@@ -140,37 +140,37 @@ namespace H5.Translator
 
         public override void VisitTypeReferenceExpression(TypeReferenceExpression typeReferenceExpression)
         {
-            this.CheckType(typeReferenceExpression.Type);
+            CheckType(typeReferenceExpression.Type);
             base.VisitTypeReferenceExpression(typeReferenceExpression);
         }
 
         public override void VisitComposedType(ComposedType composedType)
         {
-            this.CheckType(composedType);
+            CheckType(composedType);
             base.VisitComposedType(composedType);
         }
 
         public override void VisitPrimitiveType(PrimitiveType primitiveType)
         {
-            this.CheckType(primitiveType);
+            CheckType(primitiveType);
             base.VisitPrimitiveType(primitiveType);
         }
 
         public override void VisitSimpleType(SimpleType simpleType)
         {
-            this.CheckType(simpleType);
+            CheckType(simpleType);
             base.VisitSimpleType(simpleType);
         }
 
         public override void VisitMemberType(MemberType memberType)
         {
-            this.CheckType(memberType);
+            CheckType(memberType);
             base.VisitMemberType(memberType);
         }
 
         public void CheckType(AstType type)
         {
-            var rr = this.emitter.Resolver.ResolveNode(type, this.emitter);
+            var rr = emitter.Resolver.ResolveNode(type, emitter);
 
             if (Helpers.HasTypeParameters(rr.Type))
             {
@@ -184,11 +184,11 @@ namespace H5.Translator
 
         public override void VisitIndexerExpression(IndexerExpression indexerExpression)
         {
-            this.CheckExpression(indexerExpression);
+            CheckExpression(indexerExpression);
 
-            if (this._usedVariables.Count == 0)
+            if (_usedVariables.Count == 0)
             {
-                var rr = this.emitter.Resolver.ResolveNode(indexerExpression, this.emitter);
+                var rr = emitter.Resolver.ResolveNode(indexerExpression, emitter);
                 var member = rr as MemberResolveResult;
 
                 bool isInterface = member != null && member.Member.DeclaringTypeDefinition != null && member.Member.DeclaringTypeDefinition.Kind == TypeKind.Interface;
@@ -220,10 +220,10 @@ namespace H5.Translator
 
         private void CheckExpression(Expression expression)
         {
-            if (this._usedVariables.Count == 0)
+            if (_usedVariables.Count == 0)
             {
-                var rr = this.emitter.Resolver.ResolveNode(expression, this.emitter);
-                var conversion = this.emitter.Resolver.Resolver.GetConversion(expression);
+                var rr = emitter.Resolver.ResolveNode(expression, emitter);
+                var conversion = emitter.Resolver.Resolver.GetConversion(expression);
                 if (conversion != null && conversion.Method != null)
                 {
                     CheckMember(conversion.Method);
@@ -233,11 +233,11 @@ namespace H5.Translator
 
         public override void VisitMemberReferenceExpression(MemberReferenceExpression memberReferenceExpression)
         {
-            this.CheckExpression(memberReferenceExpression);
+            CheckExpression(memberReferenceExpression);
 
-            if (this._usedVariables.Count == 0)
+            if (_usedVariables.Count == 0)
             {
-                var rr = this.emitter.Resolver.ResolveNode(memberReferenceExpression, this.emitter);
+                var rr = emitter.Resolver.ResolveNode(memberReferenceExpression, emitter);
 
                 var member = rr as MemberResolveResult;
 
@@ -263,14 +263,14 @@ namespace H5.Translator
 
         public override void VisitIdentifierExpression(IdentifierExpression identifierExpression)
         {
-            var rr = this.emitter.Resolver.ResolveNode(identifierExpression, this.emitter);
-            this.CheckExpression(identifierExpression);
+            var rr = emitter.Resolver.ResolveNode(identifierExpression, emitter);
+            CheckExpression(identifierExpression);
 
-            if (this._usedVariables.Count == 0)
+            if (_usedVariables.Count == 0)
             {
                 var member = rr as MemberResolveResult;
 
-                if (member != null && member.Member.IsStatic && member.Member.DeclaringTypeDefinition.TypeParameterCount > 0 && member.Member.DeclaringTypeDefinition.Equals(this.emitter.TypeInfo.Type.GetDefinition()) && !Helpers.IsIgnoreGeneric(member.Member.DeclaringTypeDefinition))
+                if (member != null && member.Member.IsStatic && member.Member.DeclaringTypeDefinition.TypeParameterCount > 0 && member.Member.DeclaringTypeDefinition.Equals(emitter.TypeInfo.Type.GetDefinition()) && !Helpers.IsIgnoreGeneric(member.Member.DeclaringTypeDefinition))
                 {
                     var ivar = new TypeVariable(member.Member.DeclaringType);
                     if (!_usedVariables.Contains(ivar))
@@ -318,9 +318,9 @@ namespace H5.Translator
 
         public override void VisitLambdaExpression(LambdaExpression lambdaExpression)
         {
-            this.CheckExpression(lambdaExpression);
+            CheckExpression(lambdaExpression);
 
-            var analyzer = new CaptureAnalyzer(this.emitter);
+            var analyzer = new CaptureAnalyzer(emitter);
             analyzer.Analyze(lambdaExpression.Body, lambdaExpression.Parameters.Select(p => p.Name));
 
             foreach (var usedVariable in analyzer.UsedVariables)
@@ -333,7 +333,7 @@ namespace H5.Translator
 
             if (analyzer.UsesThis)
             {
-                this._usesThis = true;
+                _usesThis = true;
             }
 
             //base.VisitLambdaExpression(lambdaExpression);
@@ -341,9 +341,9 @@ namespace H5.Translator
 
         public override void VisitAnonymousMethodExpression(AnonymousMethodExpression anonymousMethodExpression)
         {
-            this.CheckExpression(anonymousMethodExpression);
+            CheckExpression(anonymousMethodExpression);
 
-            var analyzer = new CaptureAnalyzer(this.emitter);
+            var analyzer = new CaptureAnalyzer(emitter);
             analyzer.Analyze(anonymousMethodExpression.Body, anonymousMethodExpression.Parameters.Select(p => p.Name));
 
             foreach (var usedVariable in analyzer.UsedVariables)
@@ -356,7 +356,7 @@ namespace H5.Translator
 
             if (analyzer.UsesThis)
             {
-                this._usesThis = true;
+                _usesThis = true;
             }
 
             //base.VisitAnonymousMethodExpression(anonymousMethodExpression);
@@ -364,7 +364,7 @@ namespace H5.Translator
 
         public override void VisitCastExpression(CastExpression castExpression)
         {
-            var conversion = this.emitter.Resolver.Resolver.GetConversion(castExpression.Expression);
+            var conversion = emitter.Resolver.Resolver.GetConversion(castExpression.Expression);
             if (conversion.IsUserDefined && conversion.Method.DeclaringType.TypeArguments.Count > 0)
             {
                 foreach (var typeArgument in conversion.Method.DeclaringType.TypeArguments)
@@ -384,9 +384,9 @@ namespace H5.Translator
 
         public override void VisitBinaryOperatorExpression(BinaryOperatorExpression binaryOperatorExpression)
         {
-            this.CheckExpression(binaryOperatorExpression);
+            CheckExpression(binaryOperatorExpression);
 
-            if (this.emitter.Resolver.ResolveNode(binaryOperatorExpression, this.emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
+            if (emitter.Resolver.ResolveNode(binaryOperatorExpression, emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {
@@ -405,9 +405,9 @@ namespace H5.Translator
 
         public override void VisitUnaryOperatorExpression(UnaryOperatorExpression unaryOperatorExpression)
         {
-            this.CheckExpression(unaryOperatorExpression);
+            CheckExpression(unaryOperatorExpression);
 
-            if (this.emitter.Resolver.ResolveNode(unaryOperatorExpression, this.emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
+            if (emitter.Resolver.ResolveNode(unaryOperatorExpression, emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {
@@ -427,7 +427,7 @@ namespace H5.Translator
 
         public override void VisitAssignmentExpression(AssignmentExpression assignmentExpression)
         {
-            if (this.emitter.Resolver.ResolveNode(assignmentExpression, this.emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
+            if (emitter.Resolver.ResolveNode(assignmentExpression, emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {
@@ -447,10 +447,10 @@ namespace H5.Translator
 
         public override void VisitInvocationExpression(InvocationExpression invocationExpression)
         {
-            this.CheckExpression(invocationExpression);
+            CheckExpression(invocationExpression);
 
 
-            if (this.emitter.Resolver.ResolveNode(invocationExpression, this.emitter) is InvocationResolveResult rr)
+            if (emitter.Resolver.ResolveNode(invocationExpression, emitter) is InvocationResolveResult rr)
             {
                 foreach (var argument in rr.Arguments)
                 {

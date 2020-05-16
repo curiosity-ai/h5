@@ -10,15 +10,15 @@ namespace H5.Translator
         public BreakBlock(IEmitter emitter, BreakStatement breakStatement)
             : base(emitter, breakStatement)
         {
-            this.Emitter = emitter;
-            this.BreakStatement = breakStatement;
+            Emitter = emitter;
+            BreakStatement = breakStatement;
         }
 
         public BreakBlock(IEmitter emitter, YieldBreakStatement breakStatement)
             : base(emitter, breakStatement)
         {
-            this.Emitter = emitter;
-            this.YieldBreakStatement = breakStatement;
+            Emitter = emitter;
+            YieldBreakStatement = breakStatement;
         }
 
         public BreakStatement BreakStatement { get; set; }
@@ -27,42 +27,42 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            if (this.Emitter.JumpStatements != null)
+            if (Emitter.JumpStatements != null)
             {
-                var finallyNode = this.GetParentFinallyBlock(this.BreakStatement ?? (AstNode)this.YieldBreakStatement, true);
+                var finallyNode = GetParentFinallyBlock(BreakStatement ?? (AstNode)YieldBreakStatement, true);
 
                 if (finallyNode != null)
                 {
                     var hashcode = finallyNode.GetHashCode();
-                    this.Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
+                    Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
                     {
                         Node = finallyNode,
-                        Output = this.Emitter.Output
+                        Output = Emitter.Output
                     });
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
-                    this.WriteNewLine();
-                    this.Write(JS.Vars.ASYNC_JUMP + " = ");
-                    this.Emitter.JumpStatements.Add(new JumpInfo(this.Emitter.Output, this.Emitter.Output.Length, true));
-                    this.WriteSemiColon();
-                    this.WriteNewLine();
+                    Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
+                    WriteNewLine();
+                    Write(JS.Vars.ASYNC_JUMP + " = ");
+                    Emitter.JumpStatements.Add(new JumpInfo(Emitter.Output, Emitter.Output.Length, true));
+                    WriteSemiColon();
+                    WriteNewLine();
                 }
                 else
                 {
-                    this.Write(JS.Vars.ASYNC_STEP + " = ");
-                    this.Emitter.JumpStatements.Add(new JumpInfo(this.Emitter.Output, this.Emitter.Output.Length, true));
+                    Write(JS.Vars.ASYNC_STEP + " = ");
+                    Emitter.JumpStatements.Add(new JumpInfo(Emitter.Output, Emitter.Output.Length, true));
 
-                    this.WriteSemiColon();
-                    this.WriteNewLine();
+                    WriteSemiColon();
+                    WriteNewLine();
                 }
 
-                this.Write("continue");
+                Write("continue");
             }
             else
             {
-                if (this.Emitter.ReplaceJump)
+                if (Emitter.ReplaceJump)
                 {
                     var found = false;
-                    this.BreakStatement.GetParent(n =>
+                    BreakStatement.GetParent(n =>
                     {
                         if (n is SwitchStatement)
                         {
@@ -81,21 +81,21 @@ namespace H5.Translator
 
                     if (!found)
                     {
-                        this.Write("return {jump:2}");
+                        Write("return {jump:2}");
                     }
                     else
                     {
-                        this.Write("break");
+                        Write("break");
                     }
                 }
                 else
                 {
-                    this.Write("break");
+                    Write("break");
                 }
             }
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
         }
     }
 }

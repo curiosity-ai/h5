@@ -9,34 +9,34 @@ namespace H5.Translator
         public PrimitiveExpressionBlock(IEmitter emitter, PrimitiveExpression primitiveExpression)
             : base(emitter, primitiveExpression)
         {
-            this.Emitter = emitter;
-            this.PrimitiveExpression = primitiveExpression;
+            Emitter = emitter;
+            PrimitiveExpression = primitiveExpression;
         }
 
         public PrimitiveExpression PrimitiveExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.PrimitiveExpression;
+            return PrimitiveExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            if (this.PrimitiveExpression.IsNull)
+            if (PrimitiveExpression.IsNull)
             {
                 return;
             }
 
-            var isTplRaw = this.Emitter.TemplateModifier == "raw";
-            if (this.PrimitiveExpression.Value is RawValue || isTplRaw)
+            var isTplRaw = Emitter.TemplateModifier == "raw";
+            if (PrimitiveExpression.Value is RawValue || isTplRaw)
             {
-                this.Write(AbstractEmitterBlock.UpdateIndentsInString(this.PrimitiveExpression.Value.ToString(), 0));
+                Write(AbstractEmitterBlock.UpdateIndentsInString(PrimitiveExpression.Value.ToString(), 0));
             }
             else
             {
-                object value = this.PrimitiveExpression.Value;
+                object value = PrimitiveExpression.Value;
 
-                this.WriteScript(H5.Translator.Emitter.ConvertConstant(value, this.PrimitiveExpression, this.Emitter));
+                WriteScript(H5.Translator.Emitter.ConvertConstant(value, PrimitiveExpression, Emitter));
             }
         }
     }

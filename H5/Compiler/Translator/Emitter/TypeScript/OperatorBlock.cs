@@ -9,65 +9,65 @@ namespace H5.Translator.TypeScript
         public OperatorBlock(IEmitter emitter, OperatorDeclaration operatorDeclaration)
             : base(emitter, operatorDeclaration)
         {
-            this.Emitter = emitter;
-            this.OperatorDeclaration = operatorDeclaration;
+            Emitter = emitter;
+            OperatorDeclaration = operatorDeclaration;
         }
 
         public OperatorDeclaration OperatorDeclaration { get; set; }
 
         protected override void DoEmit()
         {
-            this.EmitOperatorDeclaration(this.OperatorDeclaration);
+            EmitOperatorDeclaration(OperatorDeclaration);
         }
 
         protected void EmitOperatorDeclaration(OperatorDeclaration operatorDeclaration)
         {
             XmlToJsDoc.EmitComment(this, operatorDeclaration);
-            var overloads = OverloadsCollection.Create(this.Emitter, operatorDeclaration);
+            var overloads = OverloadsCollection.Create(Emitter, operatorDeclaration);
 
             if (overloads.HasOverloads)
             {
                 string name = overloads.GetOverloadName();
-                this.Write(name);
+                Write(name);
             }
             else
             {
-                this.Write(this.Emitter.GetEntityName(operatorDeclaration));
+                Write(Emitter.GetEntityName(operatorDeclaration));
             }
 
-            this.EmitMethodParameters(operatorDeclaration.Parameters, operatorDeclaration);
+            EmitMethodParameters(operatorDeclaration.Parameters, operatorDeclaration);
 
-            this.WriteColon();
+            WriteColon();
 
-            var retType = H5Types.ToTypeScriptName(operatorDeclaration.ReturnType, this.Emitter);
-            this.Write(retType);
+            var retType = H5Types.ToTypeScriptName(operatorDeclaration.ReturnType, Emitter);
+            Write(retType);
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
         }
 
         protected virtual void EmitMethodParameters(IEnumerable<ParameterDeclaration> declarations, AstNode context)
         {
-            this.WriteOpenParentheses();
+            WriteOpenParentheses();
             bool needComma = false;
 
             foreach (var p in declarations)
             {
-                var name = this.Emitter.GetParameterName(p);
+                var name = Emitter.GetParameterName(p);
 
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
-                this.Write(name);
-                this.WriteColon();
-                name = H5Types.ToTypeScriptName(p.Type, this.Emitter);
-                this.Write(name);
+                Write(name);
+                WriteColon();
+                name = H5Types.ToTypeScriptName(p.Type, Emitter);
+                Write(name);
             }
 
-            this.WriteCloseParentheses();
+            WriteCloseParentheses();
         }
     }
 }

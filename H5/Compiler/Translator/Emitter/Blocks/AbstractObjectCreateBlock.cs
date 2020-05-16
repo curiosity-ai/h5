@@ -40,7 +40,7 @@ namespace H5.Translator
 
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
@@ -48,9 +48,9 @@ namespace H5.Translator
                 Expression expression;
 
 
-                if (this.Emitter.Resolver.ResolveNode(item, this.Emitter) is MemberResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(item, Emitter) is MemberResolveResult rr)
                 {
-                    name = this.Emitter.GetEntityName(rr.Member);
+                    name = Emitter.GetEntityName(rr.Member);
                     changeCase = false;
                 }
 
@@ -82,10 +82,10 @@ namespace H5.Translator
 
                 if (!valuesOnly)
                 {
-                    this.Write(name, ": ");
+                    Write(name, ": ");
                 }
 
-                expression.AcceptVisitor(this.Emitter);
+                expression.AcceptVisitor(Emitter);
             }
         }
     }

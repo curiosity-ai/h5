@@ -12,29 +12,29 @@ namespace H5.Translator.TypeScript
         public MethodBlock(IEmitter emitter, MethodDeclaration methodDeclaration)
             : base(emitter, methodDeclaration)
         {
-            this.Emitter = emitter;
-            this.MethodDeclaration = methodDeclaration;
+            Emitter = emitter;
+            MethodDeclaration = methodDeclaration;
         }
 
         public MethodDeclaration MethodDeclaration { get; set; }
 
         protected override void DoEmit()
         {
-            this.VisitMethodDeclaration(this.MethodDeclaration);
+            VisitMethodDeclaration(MethodDeclaration);
         }
 
         protected void VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
-            XmlToJsDoc.EmitComment(this, this.MethodDeclaration);
-            var overloads = OverloadsCollection.Create(this.Emitter, methodDeclaration);
-            var memberResult = this.Emitter.Resolver.ResolveNode(methodDeclaration, this.Emitter) as MemberResolveResult;
+            XmlToJsDoc.EmitComment(this, MethodDeclaration);
+            var overloads = OverloadsCollection.Create(Emitter, methodDeclaration);
+            var memberResult = Emitter.Resolver.ResolveNode(methodDeclaration, Emitter) as MemberResolveResult;
             var isInterface = memberResult.Member.DeclaringType.Kind == TypeKind.Interface;
             var ignoreInterface = isInterface &&
                                       memberResult.Member.DeclaringType.TypeParameterCount > 0;
-            this.WriteSignature(methodDeclaration, overloads, ignoreInterface, isInterface);
+            WriteSignature(methodDeclaration, overloads, ignoreInterface, isInterface);
             if (!ignoreInterface && isInterface)
             {
-                this.WriteSignature(methodDeclaration, overloads, true, isInterface);
+                WriteSignature(methodDeclaration, overloads, true, isInterface);
             }
         }
 
@@ -46,72 +46,72 @@ namespace H5.Translator.TypeScript
             }
 
             string name = overloads.GetOverloadName(ignoreInterface);
-            this.Write(name);
+            Write(name);
 
             bool needComma = false;
             var isGeneric = methodDeclaration.TypeParameters.Count > 0;
             if (isGeneric)
             {
-                this.Write("<");
+                Write("<");
                 foreach (var p in methodDeclaration.TypeParameters)
                 {
                     if (needComma)
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
 
                     needComma = true;
-                    this.Write(p.Name);
+                    Write(p.Name);
                 }
-                this.Write(">");
+                Write(">");
 
-                this.WriteOpenParentheses();
+                WriteOpenParentheses();
 
                 var comma = false;
                 foreach (var p in methodDeclaration.TypeParameters)
                 {
                     if (comma)
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
-                    this.Write(p.Name);
-                    this.WriteColon();
-                    this.WriteOpenBrace();
-                    this.Write(JS.Fields.PROTOTYPE);
-                    this.WriteColon();
-                    this.Write(p.Name);
+                    Write(p.Name);
+                    WriteColon();
+                    WriteOpenBrace();
+                    Write(JS.Fields.PROTOTYPE);
+                    WriteColon();
+                    Write(p.Name);
 
-                    this.WriteCloseBrace();
+                    WriteCloseBrace();
                     comma = true;
                 }
             }
             else
             {
-                this.WriteOpenParentheses();
+                WriteOpenParentheses();
             }
 
             if (needComma && methodDeclaration.Parameters.Count > 0)
             {
-                this.WriteComma();
+                WriteComma();
             }
 
-            this.EmitMethodParameters(methodDeclaration.Parameters, methodDeclaration);
+            EmitMethodParameters(methodDeclaration.Parameters, methodDeclaration);
 
-            this.WriteCloseParentheses();
+            WriteCloseParentheses();
 
-            this.WriteColon();
+            WriteColon();
 
-            var retType = H5Types.ToTypeScriptName(methodDeclaration.ReturnType, this.Emitter);
-            this.Write(retType);
+            var retType = H5Types.ToTypeScriptName(methodDeclaration.ReturnType, Emitter);
+            Write(retType);
 
-            var resolveResult = this.Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, this.Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, Emitter);
             if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
             {
-                this.Write(" | null");
+                Write(" | null");
             }
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
         }
 
         protected virtual void EmitMethodParameters(IEnumerable<ParameterDeclaration> declarations, AstNode context)
@@ -120,26 +120,26 @@ namespace H5.Translator.TypeScript
 
             foreach (var p in declarations)
             {
-                var name = this.Emitter.GetParameterName(p);
+                var name = Emitter.GetParameterName(p);
                 bool optional = p.DefaultExpression != null && !p.DefaultExpression.IsNull;
 
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
-                this.Write(name);
+                Write(name);
 
                 if (optional)
                 {
-                    this.Write("?");
+                    Write("?");
                 }
 
-                this.WriteColon();
-                name = H5Types.ToTypeScriptName(p.Type, this.Emitter);
+                WriteColon();
+                name = H5Types.ToTypeScriptName(p.Type, Emitter);
 
-                var resolveResult = this.Emitter.Resolver.ResolveNode(p.Type, this.Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(p.Type, Emitter);
                 if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
                 {
                     name += " | null";
@@ -149,7 +149,7 @@ namespace H5.Translator.TypeScript
                 {
                     name = "{v: " + name + "}";
                 }
-                this.Write(name);
+                Write(name);
             }
         }
     }

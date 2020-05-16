@@ -45,8 +45,8 @@ namespace H5.Translator
             }
             set
             {
-                this.initialLevel = value;
-                this.ResetLevel();
+                initialLevel = value;
+                ResetLevel();
             }
         }
 
@@ -57,7 +57,7 @@ namespace H5.Translator
                 level = InitialLevel;
             }
 
-            if (level < InitialLevel && !this.InitPosition.HasValue )
+            if (level < InitialLevel && !InitPosition.HasValue )
             {
                 level = InitialLevel;
             }
@@ -67,9 +67,9 @@ namespace H5.Translator
                 level = 0;
             }
 
-            this.Level = level.Value;
+            Level = level.Value;
 
-            return this.Level;
+            return Level;
         }
 
         public InitPosition? InitPosition { get; set; }
@@ -102,11 +102,11 @@ namespace H5.Translator
         {
             get
             {
-                if (this.namespaces == null)
+                if (namespaces == null)
                 {
-                    this.namespaces = this.CreateNamespaces();
+                    namespaces = CreateNamespaces();
                 }
-                return this.namespaces;
+                return namespaces;
             }
         }
 
@@ -120,14 +120,14 @@ namespace H5.Translator
         {
             get
             {
-                if (this.list != null)
+                if (list != null)
                 {
-                    return this.list;
+                    return list;
                 }
 
-                this.list = Emitter.ToAssemblyReferences(this.References, this.Log);
+                list = Emitter.ToAssemblyReferences(References, this.Log);
 
-                return this.list;
+                return list;
             }
         }
 
@@ -231,7 +231,7 @@ namespace H5.Translator
         {
             get
             {
-                return this.AssemblyInfo.OverflowMode.HasValue && this.AssemblyInfo.OverflowMode == OverflowMode.Javascript;
+                return AssemblyInfo.OverflowMode.HasValue && AssemblyInfo.OverflowMode == OverflowMode.Javascript;
             }
         }
 

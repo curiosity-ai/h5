@@ -19,9 +19,9 @@ namespace H5.Translator
 
         public SourceMapEntry(SourceLocation sourceLocation, int scriptLine, int scriptColumn)
         {
-            this.SourceLocation = sourceLocation;
-            this.ScriptLine = scriptLine;
-            this.ScriptColumn = scriptColumn;
+            SourceLocation = sourceLocation;
+            ScriptLine = scriptLine;
+            ScriptColumn = scriptColumn;
         }
     }
 }

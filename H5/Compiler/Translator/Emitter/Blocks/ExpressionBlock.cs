@@ -9,39 +9,39 @@ namespace H5.Translator
         public ExpressionBlock(IEmitter emitter, ExpressionStatement expressionStatement)
             : base(emitter, expressionStatement)
         {
-            this.Emitter = emitter;
-            this.ExpressionStatement = expressionStatement;
+            Emitter = emitter;
+            ExpressionStatement = expressionStatement;
         }
 
         public ExpressionStatement ExpressionStatement { get; set; }
 
         protected override void DoEmit()
         {
-            if (this.ExpressionStatement.IsNull)
+            if (ExpressionStatement.IsNull)
             {
                 return;
             }
 
-            var oldSemiColon = this.Emitter.EnableSemicolon;
+            var oldSemiColon = Emitter.EnableSemicolon;
 
-            if (this.Emitter.IsAsync)
+            if (Emitter.IsAsync)
             {
-                var awaitSearch = new AwaitSearchVisitor(this.Emitter);
-                this.ExpressionStatement.Expression.AcceptVisitor(awaitSearch);
+                var awaitSearch = new AwaitSearchVisitor(Emitter);
+                ExpressionStatement.Expression.AcceptVisitor(awaitSearch);
             }
 
-            bool isAwaiter = this.ExpressionStatement.Expression is UnaryOperatorExpression && ((UnaryOperatorExpression)this.ExpressionStatement.Expression).Operator == UnaryOperatorType.Await;
+            bool isAwaiter = ExpressionStatement.Expression is UnaryOperatorExpression && ((UnaryOperatorExpression)ExpressionStatement.Expression).Operator == UnaryOperatorType.Await;
 
-            this.ExpressionStatement.Expression.AcceptVisitor(this.Emitter);
+            ExpressionStatement.Expression.AcceptVisitor(Emitter);
 
-            if (this.Emitter.EnableSemicolon && !isAwaiter)
+            if (Emitter.EnableSemicolon && !isAwaiter)
             {
-                this.WriteSemiColon(true);
+                WriteSemiColon(true);
             }
 
             if (oldSemiColon)
             {
-                this.Emitter.EnableSemicolon = true;
+                Emitter.EnableSemicolon = true;
             }
         }
     }

@@ -12,15 +12,15 @@ namespace H5.Translator
         public BaseReferenceBlock(IEmitter emitter, BaseReferenceExpression baseReferenceExpression)
             : base(emitter, baseReferenceExpression)
         {
-            this.Emitter = emitter;
-            this.BaseReferenceExpression = baseReferenceExpression;
+            Emitter = emitter;
+            BaseReferenceExpression = baseReferenceExpression;
         }
 
         public BaseReferenceExpression BaseReferenceExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.BaseReferenceExpression;
+            return BaseReferenceExpression;
         }
 
         protected override void EmitConversionExpression()
@@ -28,9 +28,9 @@ namespace H5.Translator
             var proto = false;
             var isProperty = false;
             IMember member = null;
-            if (this.BaseReferenceExpression.Parent != null)
+            if (BaseReferenceExpression.Parent != null)
             {
-                if (this.Emitter.Resolver.ResolveNode(this.BaseReferenceExpression.Parent, this.Emitter) is MemberResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(BaseReferenceExpression.Parent, Emitter) is MemberResolveResult rr)
                 {
                     if (rr.IsVirtualCall)
                     {
@@ -63,40 +63,40 @@ namespace H5.Translator
             {
                 if (isProperty)
                 {
-                    if (this.Emitter.GetInline(member) == null)
+                    if (Emitter.GetInline(member) == null)
                     {
-                        var name = OverloadsCollection.Create(this.Emitter, member).GetOverloadName(true);
-                        this.Write(JS.Types.H5.ENSURE_BASE_PROPERTY + "(this, " + this.Emitter.ToJavaScript(name));
+                        var name = OverloadsCollection.Create(Emitter, member).GetOverloadName(true);
+                        Write(JS.Types.H5.ENSURE_BASE_PROPERTY + "(this, " + Emitter.ToJavaScript(name));
 
-                        if (this.Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition) && !this.Emitter.Validator.IsH5Class(member.DeclaringTypeDefinition))
+                        if (Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition) && !Emitter.Validator.IsH5Class(member.DeclaringTypeDefinition))
                         {
-                            this.Write(", \"" + H5Types.ToJsName(member.DeclaringType, this.Emitter, isAlias: true) + "\"");
+                            Write(", \"" + H5Types.ToJsName(member.DeclaringType, Emitter, isAlias: true) + "\"");
                         }
 
-                        this.Write(")");
+                        Write(")");
                     }
                     else
                     {
-                        this.WriteThis();
+                        WriteThis();
                     }
                 }
                 else
                 {
-                    var baseType = this.Emitter.GetBaseTypeDefinition();
+                    var baseType = Emitter.GetBaseTypeDefinition();
 
-                    if (this.Emitter.TypeInfo.GetBaseTypes(this.Emitter).Any())
+                    if (Emitter.TypeInfo.GetBaseTypes(Emitter).Any())
                     {
-                        this.Write(H5Types.ToJsName(this.Emitter.TypeInfo.GetBaseClass(this.Emitter), this.Emitter), "." + JS.Fields.PROTOTYPE);
+                        Write(H5Types.ToJsName(Emitter.TypeInfo.GetBaseClass(Emitter), Emitter), "." + JS.Fields.PROTOTYPE);
                     }
                     else
                     {
-                        this.Write(H5Types.ToJsName(baseType, this.Emitter), "." + JS.Fields.PROTOTYPE);
+                        Write(H5Types.ToJsName(baseType, Emitter), "." + JS.Fields.PROTOTYPE);
                     }
                 }
             }
             else
             {
-                this.WriteThis();
+                WriteThis();
             }
         }
     }

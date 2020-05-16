@@ -12,8 +12,8 @@ namespace H5.Translator
         public VisitorPropertyBlock(IEmitter emitter, PropertyDeclaration propertyDeclaration)
             : base(emitter, propertyDeclaration)
         {
-            this.Emitter = emitter;
-            this.PropertyDeclaration = propertyDeclaration;
+            Emitter = emitter;
+            PropertyDeclaration = propertyDeclaration;
         }
 
         public PropertyDeclaration PropertyDeclaration { get; set; }
@@ -22,24 +22,24 @@ namespace H5.Translator
         protected override void BeginEmit()
         {
             base.BeginEmit();
-            this.OldRules = this.Emitter.Rules;
+            OldRules = Emitter.Rules;
 
 
-            if (this.Emitter.Resolver.ResolveNode(this.PropertyDeclaration, this.Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(PropertyDeclaration, Emitter) is MemberResolveResult rr)
             {
-                this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
+                Emitter.Rules = Rules.Get(Emitter, rr.Member);
             }
         }
 
         protected override void EndEmit()
         {
             base.EndEmit();
-            this.Emitter.Rules = this.OldRules;
+            Emitter.Rules = OldRules;
         }
 
         protected override void DoEmit()
         {
-            var memberResult = this.Emitter.Resolver.ResolveNode(this.PropertyDeclaration, this.Emitter) as MemberResolveResult;
+            var memberResult = Emitter.Resolver.ResolveNode(PropertyDeclaration, Emitter) as MemberResolveResult;
 
             if (memberResult != null &&
                 memberResult.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExternalAttribute")
@@ -48,74 +48,74 @@ namespace H5.Translator
                 return;
             }
 
-            this.EmitPropertyMethod(this.PropertyDeclaration, this.PropertyDeclaration.Getter, ((IProperty)memberResult.Member).Getter, false, false);
-            this.EmitPropertyMethod(this.PropertyDeclaration, this.PropertyDeclaration.Setter, ((IProperty)memberResult.Member).Setter, true, false);
+            EmitPropertyMethod(PropertyDeclaration, PropertyDeclaration.Getter, ((IProperty)memberResult.Member).Getter, false, false);
+            EmitPropertyMethod(PropertyDeclaration, PropertyDeclaration.Setter, ((IProperty)memberResult.Member).Setter, true, false);
         }
 
         public virtual void EmitPropertyMethod(PropertyDeclaration propertyDeclaration, Accessor accessor, IMethod method, bool setter, bool isObjectLiteral)
         {
-            if ((!accessor.IsNull || method != null && Helpers.IsScript(method)) && this.Emitter.GetInline(accessor) == null)
+            if ((!accessor.IsNull || method != null && Helpers.IsScript(method)) && Emitter.GetInline(accessor) == null)
             {
-                this.EnsureComma();
+                EnsureComma();
 
-                this.ResetLocals();
+                ResetLocals();
 
-                var prevMap = this.BuildLocalsMap();
-                var prevNamesMap = this.BuildLocalsNamesMap();
+                var prevMap = BuildLocalsMap();
+                var prevNamesMap = BuildLocalsNamesMap();
 
                 if (setter)
                 {
-                    this.AddLocals(new ParameterDeclaration[] { new ParameterDeclaration { Name = "value" } }, accessor.Body);
+                    AddLocals(new ParameterDeclaration[] { new ParameterDeclaration { Name = "value" } }, accessor.Body);
                 }
                 else
                 {
-                    this.AddLocals(new ParameterDeclaration[0], accessor.Body);
+                    AddLocals(new ParameterDeclaration[0], accessor.Body);
                 }
 
                 //XmlToJsDoc.EmitComment(this, this.PropertyDeclaration);
 
-                this.Write(setter ? JS.Funcs.Property.SET : JS.Funcs.Property.GET);
+                Write(setter ? JS.Funcs.Property.SET : JS.Funcs.Property.GET);
 
-                this.WriteColon();
-                this.WriteFunction();
+                WriteColon();
+                WriteFunction();
 
-                var m_rr = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(propertyDeclaration, this.Emitter);
-                var nm = Helpers.GetFunctionName(this.Emitter.AssemblyInfo.NamedFunctions, m_rr.Member, this.Emitter, setter);
+                var m_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(propertyDeclaration, Emitter);
+                var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, m_rr.Member, Emitter, setter);
                 if (nm != null)
                 {
-                    this.Write(nm);
+                    Write(nm);
                 }
 
-                this.WriteOpenParentheses();
-                this.Write(setter ? "value" : "");
-                this.WriteCloseParentheses();
-                this.WriteSpace();
+                WriteOpenParentheses();
+                Write(setter ? "value" : "");
+                WriteCloseParentheses();
+                WriteSpace();
 
-                var script = this.Emitter.GetScript(accessor);
+                var script = Emitter.GetScript(accessor);
 
                 if (script == null)
                 {
                     if (YieldBlock.HasYield(accessor.Body))
                     {
-                        new GeneratorBlock(this.Emitter, accessor).Emit();
+                        new GeneratorBlock(Emitter, accessor).Emit();
                     }
                     else
                     {
-                        accessor.Body.AcceptVisitor(this.Emitter);
+                        accessor.Body.AcceptVisitor(Emitter);
                     }
                 }
                 else
                 {
-                    this.BeginBlock();
+                    BeginBlock();
 
-                    this.WriteLines(script);
+                    WriteLines(script);
 
-                    this.EndBlock();
+                    EndBlock();
                 }
 
-                this.ClearLocalsMap(prevMap);
-                this.ClearLocalsNamesMap(prevNamesMap);
-                this.Emitter.Comma = true;
+                ClearLocalsMap(prevMap);
+                ClearLocalsNamesMap(prevNamesMap);
+                Emitter.Comma = true;
             }
         }
     }

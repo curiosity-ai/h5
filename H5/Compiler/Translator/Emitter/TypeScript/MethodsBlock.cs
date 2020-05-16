@@ -12,9 +12,9 @@ namespace H5.Translator.TypeScript
         public MethodsBlock(IEmitter emitter, ITypeInfo typeInfo, bool staticBlock)
             : base(emitter, typeInfo.TypeDeclaration)
         {
-            this.Emitter = emitter;
-            this.TypeInfo = typeInfo;
-            this.StaticBlock = staticBlock;
+            Emitter = emitter;
+            TypeInfo = typeInfo;
+            StaticBlock = staticBlock;
         }
 
         public ITypeInfo TypeInfo { get; set; }
@@ -23,20 +23,20 @@ namespace H5.Translator.TypeScript
 
         protected override void DoEmit()
         {
-            if (this.StaticBlock)
+            if (StaticBlock)
             {
-                this.EmitMethods(this.TypeInfo.StaticMethods, this.TypeInfo.StaticProperties, this.TypeInfo.Operators);
+                EmitMethods(TypeInfo.StaticMethods, TypeInfo.StaticProperties, TypeInfo.Operators);
             }
             else
             {
-                this.EmitMethods(this.TypeInfo.InstanceMethods, this.TypeInfo.InstanceProperties, null);
+                EmitMethods(TypeInfo.InstanceMethods, TypeInfo.InstanceProperties, null);
             }
         }
 
         protected virtual void EmitMethods(Dictionary<string, List<MethodDeclaration>> methods, Dictionary<string, List<EntityDeclaration>> properties, Dictionary<OperatorType, List<OperatorDeclaration>> operators)
         {
             var names = new List<string>(properties.Keys);
-            var fields = this.StaticBlock ? this.TypeInfo.StaticConfig.Fields : this.TypeInfo.InstanceConfig.Fields;
+            var fields = StaticBlock ? TypeInfo.StaticConfig.Fields : TypeInfo.InstanceConfig.Fields;
 
             foreach (var name in names)
             {
@@ -51,15 +51,15 @@ namespace H5.Translator.TypeScript
                 {
                     if (prop is PropertyDeclaration)
                     {
-                        new PropertyBlock(this.Emitter, (PropertyDeclaration)prop).Emit();
+                        new PropertyBlock(Emitter, (PropertyDeclaration)prop).Emit();
                     }
                     else if (prop is CustomEventDeclaration)
                     {
-                        new CustomEventBlock(this.Emitter, (CustomEventDeclaration)prop).Emit();
+                        new CustomEventBlock(Emitter, (CustomEventDeclaration)prop).Emit();
                     }
                     else if (prop is IndexerDeclaration)
                     {
-                        new IndexerBlock(this.Emitter, (IndexerDeclaration)prop).Emit();
+                        new IndexerBlock(Emitter, (IndexerDeclaration)prop).Emit();
                     }
                 }
             }
@@ -72,21 +72,21 @@ namespace H5.Translator.TypeScript
 
                 foreach (var method in group)
                 {
-                    if ((!method.Body.IsNull || this.Emitter.GetScript(method) != null) || this.Emitter.TypeInfo.TypeDeclaration.ClassType == ClassType.Interface)
+                    if ((!method.Body.IsNull || Emitter.GetScript(method) != null) || Emitter.TypeInfo.TypeDeclaration.ClassType == ClassType.Interface)
                     {
-                        new MethodBlock(this.Emitter, method).Emit();
+                        new MethodBlock(Emitter, method).Emit();
                     }
                 }
             }
 
-            var abstractMethods = this.TypeInfo.TypeDeclaration.Members.Where(m =>
+            var abstractMethods = TypeInfo.TypeDeclaration.Members.Where(m =>
             {
-                return m is MethodDeclaration && m.HasModifier(Modifiers.Abstract) && !(this.StaticBlock ^ m.HasModifier(Modifiers.Static));
+                return m is MethodDeclaration && m.HasModifier(Modifiers.Abstract) && !(StaticBlock ^ m.HasModifier(Modifiers.Static));
             }).Cast<MethodDeclaration>();
 
             foreach (var method in abstractMethods)
             {
-                new MethodBlock(this.Emitter, method).Emit();
+                new MethodBlock(Emitter, method).Emit();
             }
 
             if (operators != null)
@@ -99,67 +99,67 @@ namespace H5.Translator.TypeScript
 
                     foreach (var o in group)
                     {
-                        if (!o.Body.IsNull && this.Emitter.TypeInfo.TypeDeclaration.ClassType != ClassType.Interface)
+                        if (!o.Body.IsNull && Emitter.TypeInfo.TypeDeclaration.ClassType != ClassType.Interface)
                         {
-                            new OperatorBlock(this.Emitter, o).Emit();
+                            new OperatorBlock(Emitter, o).Emit();
                         }
                     }
                 }
             }
 
-            if (this.TypeInfo.ClassType == ClassType.Struct && !this.StaticBlock)
+            if (TypeInfo.ClassType == ClassType.Struct && !StaticBlock)
             {
-                this.EmitStructMethods();
+                EmitStructMethods();
             }
         }
 
         protected virtual void EmitStructMethods()
         {
-            var typeDef = this.Emitter.GetTypeDefinition();
-            string structName = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter);
+            var typeDef = Emitter.GetTypeDefinition();
+            string structName = H5Types.ToTypeScriptName(TypeInfo.Type, Emitter);
 
-            if (this.TypeInfo.InstanceConfig.Fields.Count == 0)
+            if (TypeInfo.InstanceConfig.Fields.Count == 0)
             {
-                this.Write(JS.Funcs.CLONE + "(to");
-                this.WriteColon();
-                this.Write(structName);
-                this.WriteCloseParentheses();
-                this.WriteColon();
-                this.Write(structName);
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                Write(JS.Funcs.CLONE + "(to");
+                WriteColon();
+                Write(structName);
+                WriteCloseParentheses();
+                WriteColon();
+                Write(structName);
+                WriteSemiColon();
+                WriteNewLine();
                 return;
             }
 
-            if (!this.TypeInfo.InstanceMethods.ContainsKey(CS.Methods.GETHASHCODE))
+            if (!TypeInfo.InstanceMethods.ContainsKey(CS.Methods.GETHASHCODE))
             {
-                this.Write(JS.Funcs.GETHASHCODE + "()");
-                this.WriteColon();
-                this.Write("number");
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                Write(JS.Funcs.GETHASHCODE + "()");
+                WriteColon();
+                Write("number");
+                WriteSemiColon();
+                WriteNewLine();
             }
 
-            if (!this.TypeInfo.InstanceMethods.ContainsKey(CS.Methods.EQUALS))
+            if (!TypeInfo.InstanceMethods.ContainsKey(CS.Methods.EQUALS))
             {
-                this.Write(JS.Funcs.EQUALS + "(o");
-                this.WriteColon();
-                this.Write(structName);
-                this.WriteCloseParentheses();
-                this.WriteColon();
-                this.Write("boolean");
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                Write(JS.Funcs.EQUALS + "(o");
+                WriteColon();
+                Write(structName);
+                WriteCloseParentheses();
+                WriteColon();
+                Write("boolean");
+                WriteSemiColon();
+                WriteNewLine();
             }
 
-            this.Write(JS.Funcs.CLONE + "(to");
-            this.WriteColon();
-            this.Write(structName);
-            this.WriteCloseParentheses();
-            this.WriteColon();
-            this.Write(structName);
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            Write(JS.Funcs.CLONE + "(to");
+            WriteColon();
+            Write(structName);
+            WriteCloseParentheses();
+            WriteColon();
+            Write(structName);
+            WriteSemiColon();
+            WriteNewLine();
         }
     }
 }

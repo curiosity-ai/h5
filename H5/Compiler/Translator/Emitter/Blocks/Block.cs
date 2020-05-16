@@ -11,22 +11,22 @@ namespace H5.Translator
         public Block(IEmitter emitter, BlockStatement blockStatement)
             : base(emitter, blockStatement)
         {
-            this.Emitter = emitter;
-            this.BlockStatement = blockStatement;
+            Emitter = emitter;
+            BlockStatement = blockStatement;
 
-            if (blockStatement.Parent is BlockStatement && this.Emitter.IsAsync)
+            if (blockStatement.Parent is BlockStatement && Emitter.IsAsync)
             {
-                this.Emitter.IgnoreBlock = blockStatement;
+                Emitter.IgnoreBlock = blockStatement;
             }
 
-            if (this.Emitter.IgnoreBlock == blockStatement || this.Emitter.IsAsync && this.GetAwaiters(blockStatement).Length > 0)
+            if (Emitter.IgnoreBlock == blockStatement || Emitter.IsAsync && GetAwaiters(blockStatement).Length > 0)
             {
-                this.AsyncNoBraces = true;
+                AsyncNoBraces = true;
             }
 
-            if (this.Emitter.NoBraceBlock == blockStatement)
+            if (Emitter.NoBraceBlock == blockStatement)
             {
-                this.NoBraces = true;
+                NoBraces = true;
             }
         }
 
@@ -54,19 +54,19 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            this.EmitBlock();
+            EmitBlock();
         }
 
         protected virtual bool KeepLineAfterBlock(BlockStatement block)
         {
             var parent = block.Parent;
 
-            if (this.AsyncNoBraces || this.NoBraces)
+            if (AsyncNoBraces || NoBraces)
             {
                 return true;
             }
 
-            if (parent is TryCatchStatement tcs && tcs.TryBlock.Equals(this.BlockStatement))
+            if (parent is TryCatchStatement tcs && tcs.TryBlock.Equals(BlockStatement))
             {
                 return true;
             }
@@ -117,9 +117,9 @@ namespace H5.Translator
 
         public void EmitBlock()
         {
-            this.BeginEmitBlock();
-            this.DoEmitBlock();
-            this.EndEmitBlock();
+            BeginEmitBlock();
+            DoEmitBlock();
+            EndEmitBlock();
         }
 
         private bool? isMethodBlock;
@@ -127,17 +127,17 @@ namespace H5.Translator
         {
             get
             {
-                if (!this.isMethodBlock.HasValue)
+                if (!isMethodBlock.HasValue)
                 {
-                    this.isMethodBlock = this.BlockStatement.Parent is MethodDeclaration ||
-                                         this.BlockStatement.Parent is AnonymousMethodExpression ||
-                                         this.BlockStatement.Parent is LambdaExpression ||
-                                         this.BlockStatement.Parent is ConstructorDeclaration ||
-                                         this.BlockStatement.Parent is OperatorDeclaration ||
-                                         this.BlockStatement.Parent is Accessor;
+                    isMethodBlock = BlockStatement.Parent is MethodDeclaration ||
+                                         BlockStatement.Parent is AnonymousMethodExpression ||
+                                         BlockStatement.Parent is LambdaExpression ||
+                                         BlockStatement.Parent is ConstructorDeclaration ||
+                                         BlockStatement.Parent is OperatorDeclaration ||
+                                         BlockStatement.Parent is Accessor;
                 }
 
-                return this.isMethodBlock.Value;
+                return isMethodBlock.Value;
             }
         }
 
@@ -145,159 +145,159 @@ namespace H5.Translator
 
         public void DoEmitBlock()
         {
-            if (this.BlockStatement.Parent is MethodDeclaration)
+            if (BlockStatement.Parent is MethodDeclaration)
             {
-                var methodDeclaration = (MethodDeclaration)this.BlockStatement.Parent;
+                var methodDeclaration = (MethodDeclaration)BlockStatement.Parent;
                 if (!methodDeclaration.ReturnType.IsNull)
                 {
-                    var rr = this.Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, this.Emitter);
-                    this.ReturnType = rr.Type;
+                    var rr = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, Emitter);
+                    ReturnType = rr.Type;
                 }
-                this.ConvertParamsToReferences(methodDeclaration.Parameters);
+                ConvertParamsToReferences(methodDeclaration.Parameters);
             }
-            else if (this.BlockStatement.Parent is AnonymousMethodExpression)
+            else if (BlockStatement.Parent is AnonymousMethodExpression)
             {
-                var methodDeclaration = (AnonymousMethodExpression)this.BlockStatement.Parent;
-                var rr = this.Emitter.Resolver.ResolveNode(methodDeclaration, this.Emitter);
-                this.ReturnType = rr.Type;
-                this.ConvertParamsToReferences(methodDeclaration.Parameters);
+                var methodDeclaration = (AnonymousMethodExpression)BlockStatement.Parent;
+                var rr = Emitter.Resolver.ResolveNode(methodDeclaration, Emitter);
+                ReturnType = rr.Type;
+                ConvertParamsToReferences(methodDeclaration.Parameters);
             }
-            else if (this.BlockStatement.Parent is LambdaExpression)
+            else if (BlockStatement.Parent is LambdaExpression)
             {
-                var methodDeclaration = (LambdaExpression)this.BlockStatement.Parent;
-                var rr = this.Emitter.Resolver.ResolveNode(methodDeclaration, this.Emitter);
-                this.ReturnType = rr.Type;
-                this.ConvertParamsToReferences(methodDeclaration.Parameters);
+                var methodDeclaration = (LambdaExpression)BlockStatement.Parent;
+                var rr = Emitter.Resolver.ResolveNode(methodDeclaration, Emitter);
+                ReturnType = rr.Type;
+                ConvertParamsToReferences(methodDeclaration.Parameters);
             }
-            else if (this.BlockStatement.Parent is ConstructorDeclaration)
+            else if (BlockStatement.Parent is ConstructorDeclaration)
             {
-                this.ConvertParamsToReferences(((ConstructorDeclaration)this.BlockStatement.Parent).Parameters);
+                ConvertParamsToReferences(((ConstructorDeclaration)BlockStatement.Parent).Parameters);
             }
-            else if (this.BlockStatement.Parent is OperatorDeclaration)
+            else if (BlockStatement.Parent is OperatorDeclaration)
             {
-                this.ConvertParamsToReferences(((OperatorDeclaration)this.BlockStatement.Parent).Parameters);
+                ConvertParamsToReferences(((OperatorDeclaration)BlockStatement.Parent).Parameters);
             }
-            else if (this.BlockStatement.Parent is Accessor)
+            else if (BlockStatement.Parent is Accessor)
             {
-                var role = this.BlockStatement.Parent.Role.ToString();
+                var role = BlockStatement.Parent.Role.ToString();
 
                 if (role == "Setter")
                 {
-                    this.ConvertParamsToReferences(new ParameterDeclaration[] { new ParameterDeclaration { Name = "value" } });
+                    ConvertParamsToReferences(new ParameterDeclaration[] { new ParameterDeclaration { Name = "value" } });
                 }
                 else if (role == "Getter")
                 {
-                    var methodDeclaration = (Accessor)this.BlockStatement.Parent;
+                    var methodDeclaration = (Accessor)BlockStatement.Parent;
                     if (!methodDeclaration.ReturnType.IsNull)
                     {
-                        var rr = this.Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, this.Emitter);
-                        this.ReturnType = rr.Type;
+                        var rr = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, Emitter);
+                        ReturnType = rr.Type;
                     }
                 }
             }
 
-            if (this.IsMethodBlock && YieldBlock.HasYield(this.BlockStatement))
+            if (IsMethodBlock && YieldBlock.HasYield(BlockStatement))
             {
-                this.IsYield = true;
+                IsYield = true;
             }
 
-            if (this.IsMethodBlock)
+            if (IsMethodBlock)
             {
-                this.OldReturnType = this.Emitter.ReturnType;
-                this.Emitter.ReturnType = this.ReturnType;
+                OldReturnType = Emitter.ReturnType;
+                Emitter.ReturnType = ReturnType;
             }
 
-            if (this.Emitter.BeforeBlock != null)
+            if (Emitter.BeforeBlock != null)
             {
-                this.Emitter.BeforeBlock();
-                this.Emitter.BeforeBlock = null;
+                Emitter.BeforeBlock();
+                Emitter.BeforeBlock = null;
             }
 
-            var ra = ReachabilityAnalysis.Create(this.BlockStatement, this.Emitter.Resolver.Resolver);
-            this.BlockStatement.Children.ToList().ForEach(child =>
+            var ra = ReachabilityAnalysis.Create(BlockStatement, Emitter.Resolver.Resolver);
+            BlockStatement.Children.ToList().ForEach(child =>
             {
                 if (child is Statement statement && !ra.IsReachable(statement))
                 {
                     return;
                 }
 
-                child.AcceptVisitor(this.Emitter);
+                child.AcceptVisitor(Emitter);
             });
         }
 
         public void EndEmitBlock()
         {
-            if (this.IsMethodBlock)
+            if (IsMethodBlock)
             {
-                this.Emitter.ReturnType = this.OldReturnType;
+                Emitter.ReturnType = OldReturnType;
 
-                if (this.Emitter.WrapRestCounter > 0)
+                if (Emitter.WrapRestCounter > 0)
                 {
-                    for (int i = 0; i < this.Emitter.WrapRestCounter; i++)
+                    for (int i = 0; i < Emitter.WrapRestCounter; i++)
                     {
-                        this.EndBlock();
-                        this.Write("));");
-                        this.WriteNewLine();
+                        EndBlock();
+                        Write("));");
+                        WriteNewLine();
                     }
                 }
 
-                this.Emitter.WrapRestCounter = this.OldWrapRestCounter;
+                Emitter.WrapRestCounter = OldWrapRestCounter;
             }
 
-            if (!this.NoBraces && (!this.Emitter.IsAsync || (!this.AsyncNoBraces && this.BlockStatement.Parent != this.Emitter.AsyncBlock.Node)))
+            if (!NoBraces && (!Emitter.IsAsync || (!AsyncNoBraces && BlockStatement.Parent != Emitter.AsyncBlock.Node)))
             {
-                if (this.IsMethodBlock && this.BeginPosition == this.Emitter.Output.Length)
+                if (IsMethodBlock && BeginPosition == Emitter.Output.Length)
                 {
-                    this.EndBlock();
-                    this.Emitter.Output.Length = this.SignaturePosition;
-                    this.WriteOpenCloseBrace();
+                    EndBlock();
+                    Emitter.Output.Length = SignaturePosition;
+                    WriteOpenCloseBrace();
                 }
                 else
                 {
-                    this.EndBlock();
+                    EndBlock();
                 }
             }
 
-            if (this.AddEndBlock)
+            if (AddEndBlock)
             {
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
 
-            if (this.OldReplaceJump.HasValue)
+            if (OldReplaceJump.HasValue)
             {
-                this.Emitter.ReplaceJump = this.OldReplaceJump.Value;
+                Emitter.ReplaceJump = OldReplaceJump.Value;
             }
 
-            if (!this.KeepLineAfterBlock(this.BlockStatement))
+            if (!KeepLineAfterBlock(BlockStatement))
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
 
-            if (this.IsMethodBlock && !this.Emitter.IsAsync)
+            if (IsMethodBlock && !Emitter.IsAsync)
             {
-                this.EmitTempVars(this.BeginPosition);
+                EmitTempVars(BeginPosition);
             }
 
-            this.PopLocals();
+            PopLocals();
         }
 
         public void BeginEmitBlock()
         {
-            this.PushLocals();
+            PushLocals();
 
-            if (!this.NoBraces && (!this.Emitter.IsAsync || (!this.AsyncNoBraces && this.BlockStatement.Parent != this.Emitter.AsyncBlock.Node)))
+            if (!NoBraces && (!Emitter.IsAsync || (!AsyncNoBraces && BlockStatement.Parent != Emitter.AsyncBlock.Node)))
             {
-                this.SignaturePosition = this.Emitter.Output.Length;
-                this.BeginBlock();
+                SignaturePosition = Emitter.Output.Length;
+                BeginBlock();
             }
 
-            this.BeginPosition = this.Emitter.Output.Length;
+            BeginPosition = Emitter.Output.Length;
 
-            if (this.IsMethodBlock)
+            if (IsMethodBlock)
             {
-                this.OldWrapRestCounter = this.Emitter.WrapRestCounter;
-                this.Emitter.WrapRestCounter = 0;
+                OldWrapRestCounter = Emitter.WrapRestCounter;
+                Emitter.WrapRestCounter = 0;
             }
         }
     }

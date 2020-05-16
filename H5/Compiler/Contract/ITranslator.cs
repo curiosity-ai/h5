@@ -20,8 +20,6 @@ namespace H5.Contract
 
         string Location { get; }
 
-        ILogger Log { get; set; }
-
         string MSBuildVersion { get; set; }
 
         TranslatorOutput Outputs { get; }

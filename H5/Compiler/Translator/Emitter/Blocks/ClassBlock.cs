@@ -17,7 +17,7 @@ namespace H5.Translator
         public ClassBlock(IEmitter emitter, ITypeInfo typeInfo)
             : base(emitter, typeInfo.TypeDeclaration)
         {
-            this.TypeInfo = typeInfo;
+            TypeInfo = typeInfo;
         }
 
         public ITypeInfo TypeInfo { get; set; }
@@ -30,50 +30,50 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            XmlToJsDoc.EmitComment(this, this.Emitter.Translator.EmitNode);
-            string globalTarget = H5Types.GetGlobalTarget(this.TypeInfo.Type.GetDefinition(), this.TypeInfo.TypeDeclaration);
+            XmlToJsDoc.EmitComment(this, Emitter.Translator.EmitNode);
+            string globalTarget = H5Types.GetGlobalTarget(TypeInfo.Type.GetDefinition(), TypeInfo.TypeDeclaration);
 
             if (globalTarget != null)
             {
-                this.CheckGlobalClass();
-                this.Emitter.NamedFunctions = new Dictionary<string, string>();
-                this.WriteTopInitMethods();
+                CheckGlobalClass();
+                Emitter.NamedFunctions = new Dictionary<string, string>();
+                WriteTopInitMethods();
 
-                this.Write(JS.Types.H5.APPLY);
-                this.WriteOpenParentheses();
-                this.Write(globalTarget);
-                this.Write(", ");
-                this.BeginBlock();
+                Write(JS.Types.H5.APPLY);
+                WriteOpenParentheses();
+                Write(globalTarget);
+                Write(", ");
+                BeginBlock();
 
-                new MethodBlock(this.Emitter, this.TypeInfo, true).Emit();
-                this.EmitMetadata();
+                new MethodBlock(Emitter, TypeInfo, true).Emit();
+                EmitMetadata();
 
-                this.WriteNewLine();
-                this.EndBlock();
-                this.WriteCloseParentheses();
-                this.WriteSemiColon();
+                WriteNewLine();
+                EndBlock();
+                WriteCloseParentheses();
+                WriteSemiColon();
 
-                this.EmitAnonymousTypes();
-                this.EmitNamedFunctions();
+                EmitAnonymousTypes();
+                EmitNamedFunctions();
 
-                this.WriteAfterInitMethods();
+                WriteAfterInitMethods();
 
-                this.WriteNewLine();
+                WriteNewLine();
             }
             else
             {
-                this.EmitClassHeader();
+                EmitClassHeader();
 
-                this.Emitter.NamedFunctions = new Dictionary<string, string>();
+                Emitter.NamedFunctions = new Dictionary<string, string>();
 
-                if (this.TypeInfo.TypeDeclaration.ClassType != ClassType.Interface)
+                if (TypeInfo.TypeDeclaration.ClassType != ClassType.Interface)
                 {
                     MethodDeclaration entryPoint = null;
-                    if (this.TypeInfo.StaticMethods.Any(group =>
+                    if (TypeInfo.StaticMethods.Any(group =>
                     {
                         return group.Value.Any(method =>
                         {
-                            var result = Helpers.IsEntryPointMethod(this.Emitter, method);
+                            var result = Helpers.IsEntryPointMethod(Emitter, method);
                             if (result)
                             {
                                 entryPoint = method;
@@ -84,201 +84,201 @@ namespace H5.Translator
                     {
                         if (!entryPoint.Body.IsNull)
                         {
-                            this.Emitter.VisitMethodDeclaration(entryPoint);
+                            Emitter.VisitMethodDeclaration(entryPoint);
                         }
                     }
 
-                    this.EmitStaticBlock();
-                    this.EmitInstantiableBlock();
+                    EmitStaticBlock();
+                    EmitInstantiableBlock();
                 }
 
-                this.EmitClassEnd();
+                EmitClassEnd();
             }
         }
 
         protected void CheckGlobalClass()
         {
-            var type = this.TypeInfo.Type.GetDefinition();
+            var type = TypeInfo.Type.GetDefinition();
             if (!type.IsStatic)
             {
-                throw new EmitterException(this.TypeInfo.TypeDeclaration, string.Format("The type {0} must be static in order to be decorated with a [MixinAttribute] or [GlobalMethodsAttribute]", this.TypeInfo.Type.FullName));
+                throw new EmitterException(TypeInfo.TypeDeclaration, string.Format("The type {0} must be static in order to be decorated with a [MixinAttribute] or [GlobalMethodsAttribute]", TypeInfo.Type.FullName));
             }
 
             if (type.TypeParameters.Count > 0)
             {
-                throw new EmitterException(this.TypeInfo.TypeDeclaration, string.Format("[MixinAttribute] or [GlobalMethodsAttribute] cannot be applied to the generic type {0}.", this.TypeInfo.Type.FullName));
+                throw new EmitterException(TypeInfo.TypeDeclaration, string.Format("[MixinAttribute] or [GlobalMethodsAttribute] cannot be applied to the generic type {0}.", TypeInfo.Type.FullName));
             }
 
             if (type.Members.Any(m => !m.IsStatic && m.SymbolKind != SymbolKind.Method))
             {
-                throw new EmitterException(this.TypeInfo.TypeDeclaration, string.Format("The type {0} can contain only methods in order to be decorated with a [MixinAttribute] or [GlobalMethodsAttribute]", this.TypeInfo.Type.FullName));
+                throw new EmitterException(TypeInfo.TypeDeclaration, string.Format("The type {0} can contain only methods in order to be decorated with a [MixinAttribute] or [GlobalMethodsAttribute]", TypeInfo.Type.FullName));
             }
         }
 
         protected virtual void EmitClassHeader()
         {
-            this.WriteTopInitMethods();
+            WriteTopInitMethods();
 
-            var typeDef = this.Emitter.GetTypeDefinition();
-            string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, false);
-            this.IsGeneric = typeDef.GenericParameters.Count > 0 && !Helpers.IsIgnoreGeneric(this.TypeInfo.Type, this.Emitter);
+            var typeDef = Emitter.GetTypeDefinition();
+            string name = Emitter.Validator.GetCustomTypeName(typeDef, Emitter, false);
+            IsGeneric = typeDef.GenericParameters.Count > 0 && !Helpers.IsIgnoreGeneric(TypeInfo.Type, Emitter);
 
             if (name.IsEmpty())
             {
-                name = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter, asDefinition: true, nomodule: true, ignoreLiteralName: false);
+                name = H5Types.ToJsName(TypeInfo.Type, Emitter, asDefinition: true, nomodule: true, ignoreLiteralName: false);
             }
 
             if (typeDef.IsInterface && typeDef.HasGenericParameters)
             {
-                this.Write(JS.Types.H5.DEFINE_I);
+                Write(JS.Types.H5.DEFINE_I);
             }
             else
             {
-                this.Write(JS.Types.H5.DEFINE);
+                Write(JS.Types.H5.DEFINE);
             }
 
-            this.WriteOpenParentheses();
+            WriteOpenParentheses();
 
-            this.WriteScript(name);
-            this.StartPosition = this.Emitter.Output.Length;
-            this.Write(", ");
+            WriteScript(name);
+            StartPosition = Emitter.Output.Length;
+            Write(", ");
 
-            if (this.IsGeneric)
+            if (IsGeneric)
             {
-                if (this.TypeInfo.Module != null)
+                if (TypeInfo.Module != null)
                 {
-                    this.Write(this.TypeInfo.Module.Name);
-                    this.Write(", ");
+                    Write(TypeInfo.Module.Name);
+                    Write(", ");
                 }
 
-                this.WriteFunction();
-                this.WriteOpenParentheses();
+                WriteFunction();
+                WriteOpenParentheses();
 
                 foreach (var p in typeDef.GenericParameters)
                 {
                     if (typeDef.GenericParameters.Count(gp => gp.FullName == p.FullName) > 1)
                     {
-                        throw new EmitterException(this.TypeInfo.TypeDeclaration, $"Type parameter '{p.FullName}' has the same name as the type parameter from outer type.");
+                        throw new EmitterException(TypeInfo.TypeDeclaration, $"Type parameter '{p.FullName}' has the same name as the type parameter from outer type.");
                     }
-                    this.EnsureComma(false);
-                    this.Write(p.Name);
-                    this.Emitter.Comma = true;
+                    EnsureComma(false);
+                    Write(p.Name);
+                    Emitter.Comma = true;
                 }
-                this.Emitter.Comma = false;
-                this.WriteCloseParentheses();
+                Emitter.Comma = false;
+                WriteCloseParentheses();
 
-                this.Write(" { return ");
+                Write(" { return ");
             }
 
-            this.BeginBlock();
+            BeginBlock();
 
-            string extend = this.Emitter.GetTypeHierarchy();
+            string extend = Emitter.GetTypeHierarchy();
 
-            if (extend.IsNotEmpty() && !this.TypeInfo.IsEnum)
+            if (extend.IsNotEmpty() && !TypeInfo.IsEnum)
             {
-                var h5Type = this.Emitter.H5Types.Get(this.Emitter.TypeInfo);
+                var h5Type = Emitter.H5Types.Get(Emitter.TypeInfo);
 
-                if (this.TypeInfo.InstanceMethods.Any(m => m.Value.Any(subm => this.Emitter.GetEntityName(subm) == JS.Fields.INHERITS)) ||
-                    this.TypeInfo.InstanceConfig.Fields.Any(m => m.GetName(this.Emitter) == JS.Fields.INHERITS))
+                if (TypeInfo.InstanceMethods.Any(m => m.Value.Any(subm => Emitter.GetEntityName(subm) == JS.Fields.INHERITS)) ||
+                    TypeInfo.InstanceConfig.Fields.Any(m => m.GetName(Emitter) == JS.Fields.INHERITS))
                 {
-                    this.Write(JS.Vars.D);
+                    Write(JS.Vars.D);
                 }
 
-                this.Write(JS.Fields.INHERITS);
-                this.WriteColon();
-                if (Helpers.IsTypeArgInSubclass(h5Type.TypeDefinition, h5Type.TypeDefinition, this.Emitter, false))
+                Write(JS.Fields.INHERITS);
+                WriteColon();
+                if (Helpers.IsTypeArgInSubclass(h5Type.TypeDefinition, h5Type.TypeDefinition, Emitter, false))
                 {
-                    this.WriteFunction();
-                    this.WriteOpenCloseParentheses(true);
-                    this.WriteOpenBrace(true);
-                    this.WriteReturn(true);
-                    this.Write(extend);
-                    this.WriteSemiColon();
-                    this.WriteCloseBrace(true);
+                    WriteFunction();
+                    WriteOpenCloseParentheses(true);
+                    WriteOpenBrace(true);
+                    WriteReturn(true);
+                    Write(extend);
+                    WriteSemiColon();
+                    WriteCloseBrace(true);
                 }
                 else
                 {
-                    this.Write(extend);
+                    Write(extend);
                 }
 
-                this.Emitter.Comma = true;
+                Emitter.Comma = true;
             }
 
-            this.WriteKind();
-            this.EmitMetadata();
-            this.WriteObjectLiteral();
+            WriteKind();
+            EmitMetadata();
+            WriteObjectLiteral();
 
-            if (this.TypeInfo.Module != null)
+            if (TypeInfo.Module != null)
             {
-                this.WriteScope();
-                this.WriteModule();
+                WriteScope();
+                WriteModule();
             }
 
-            this.WriteVariance();
+            WriteVariance();
         }
 
         protected virtual void EmitMetadata()
         {
-            if ((this.Emitter.HasModules || this.Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.Type) && this.Emitter.ReflectableTypes.Any(t => t == this.Emitter.TypeInfo.Type))
+            if ((Emitter.HasModules || Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.Type) && Emitter.ReflectableTypes.Any(t => t == Emitter.TypeInfo.Type))
             {
-                var meta = MetadataUtils.ConstructTypeMetadata(this.TypeInfo.Type.GetDefinition(), this.Emitter, false, this.TypeInfo.TypeDeclaration.GetParent<SyntaxTree>());
+                var meta = MetadataUtils.ConstructTypeMetadata(TypeInfo.Type.GetDefinition(), Emitter, false, TypeInfo.TypeDeclaration.GetParent<SyntaxTree>());
 
                 if (meta != null)
                 {
-                    this.EnsureComma();
-                    this.Write("$metadata : function () { return ");
-                    this.Write(meta.ToString(Formatting.None));
-                    this.Write("; }");
-                    this.Emitter.Comma = true;
+                    EnsureComma();
+                    Write("$metadata : function () { return ");
+                    Write(meta.ToString(Formatting.None));
+                    Write("; }");
+                    Emitter.Comma = true;
                 }
             }
         }
 
         private void WriteTopInitMethods()
         {
-            var beforeDefineMethods = this.GetBeforeDefineMethods();
+            var beforeDefineMethods = GetBeforeDefineMethods();
 
             if (beforeDefineMethods.Any())
             {
                 foreach (var method in beforeDefineMethods)
                 {
-                    if (!this.Emitter.IsNewLine)
+                    if (!Emitter.IsNewLine)
                     {
-                        this.WriteNewLine();
+                        WriteNewLine();
                     }
 
-                    this.Write(method);
+                    Write(method);
                 }
 
-                this.WriteNewLine();
-                this.WriteNewLine();
+                WriteNewLine();
+                WriteNewLine();
             }
 
-            var topDefineMethods = this.GetTopDefineMethods();
+            var topDefineMethods = GetTopDefineMethods();
 
             if (topDefineMethods.Any())
             {
                 foreach (var method in topDefineMethods)
                 {
-                    this.Emitter.EmitterOutput.TopOutput.Append(method);
+                    Emitter.EmitterOutput.TopOutput.Append(method);
                 }
             }
         }
 
         protected virtual void WriteVariance()
         {
-            var itypeDef = this.TypeInfo.Type.GetDefinition();
-            if (itypeDef.Kind == TypeKind.Interface && MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
+            var itypeDef = TypeInfo.Type.GetDefinition();
+            if (itypeDef.Kind == TypeKind.Interface && MetadataUtils.IsJsGeneric(itypeDef, Emitter) &&
                 itypeDef.TypeParameters != null &&
                 itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant))
             {
-                this.EnsureComma();
-                this.Write(JS.Fields.VARIANCE);
-                this.WriteColon();
-                this.WriteScript(
+                EnsureComma();
+                Write(JS.Fields.VARIANCE);
+                WriteColon();
+                WriteScript(
                     itypeDef.TypeParameters.Select(typeParameter => ClassBlock.ConvertVarianceToInt(typeParameter.Variance))
                         .ToArray());
-                this.Emitter.Comma = true;
+                Emitter.Comma = true;
             }
         }
 
@@ -299,248 +299,248 @@ namespace H5.Translator
 
         protected virtual void WriteScope()
         {
-            this.EnsureComma();
-            this.Write(JS.Vars.SCOPE);
-            this.WriteColon();
-            this.Write(this.TypeInfo.Module.Name);
-            this.Emitter.Comma = true;
+            EnsureComma();
+            Write(JS.Vars.SCOPE);
+            WriteColon();
+            Write(TypeInfo.Module.Name);
+            Emitter.Comma = true;
         }
 
         protected virtual void WriteModule()
         {
-            this.EnsureComma();
-            this.Write(JS.Vars.MODULE);
-            this.WriteColon();
-            this.WriteScript(this.TypeInfo.Module.Name);
-            this.Emitter.Comma = true;
+            EnsureComma();
+            Write(JS.Vars.MODULE);
+            WriteColon();
+            WriteScript(TypeInfo.Module.Name);
+            Emitter.Comma = true;
         }
 
         protected virtual void WriteKind()
         {
-            var isNested = this.TypeInfo.Type.DeclaringType != null;
-            if (this.TypeInfo.Type.Kind == TypeKind.Class && !isNested)
+            var isNested = TypeInfo.Type.DeclaringType != null;
+            if (TypeInfo.Type.Kind == TypeKind.Class && !isNested)
             {
                 return;
             }
 
-            this.EnsureComma();
-            this.Write(JS.Fields.KIND);
-            this.WriteColon();
-            this.WriteScript( (isNested ? "nested " : "") + this.TypeInfo.Type.Kind.ToString().ToLowerInvariant());
-            this.Emitter.Comma = true;
+            EnsureComma();
+            Write(JS.Fields.KIND);
+            WriteColon();
+            WriteScript( (isNested ? "nested " : "") + TypeInfo.Type.Kind.ToString().ToLowerInvariant());
+            Emitter.Comma = true;
         }
 
         protected virtual void WriteObjectLiteral()
         {
-            if (this.TypeInfo.IsObjectLiteral)
+            if (TypeInfo.IsObjectLiteral)
             {
-                this.EnsureComma();
-                this.Write(JS.Fields.LITERAL);
-                this.WriteColon();
-                this.WriteScript(true);
-                this.Emitter.Comma = true;
+                EnsureComma();
+                Write(JS.Fields.LITERAL);
+                WriteColon();
+                WriteScript(true);
+                Emitter.Comma = true;
             }
         }
 
         protected virtual void EmitStaticBlock()
         {
-            int pos = this.Emitter.Output.Length;
-            bool comma = this.Emitter.Comma;
-            bool newLine = this.Emitter.IsNewLine;
+            int pos = Emitter.Output.Length;
+            bool comma = Emitter.Comma;
+            bool newLine = Emitter.IsNewLine;
 
-            this.Emitter.StaticBlock = true;
-            this.EnsureComma();
+            Emitter.StaticBlock = true;
+            EnsureComma();
 
-            if (this.TypeInfo.InstanceMethods.Any(m => m.Value.Any(subm => this.Emitter.GetEntityName(subm) == JS.Fields.STATICS)) ||
-                this.TypeInfo.InstanceConfig.Fields.Any(m => m.GetName(this.Emitter) == JS.Fields.STATICS))
+            if (TypeInfo.InstanceMethods.Any(m => m.Value.Any(subm => Emitter.GetEntityName(subm) == JS.Fields.STATICS)) ||
+                TypeInfo.InstanceConfig.Fields.Any(m => m.GetName(Emitter) == JS.Fields.STATICS))
             {
-                this.Write(JS.Vars.D);
+                Write(JS.Vars.D);
             }
 
-            this.Write(JS.Fields.STATICS);
-            this.WriteColon();
-            this.BeginBlock();
-            int checkOutputPos = this.Emitter.Output.Length;
+            Write(JS.Fields.STATICS);
+            WriteColon();
+            BeginBlock();
+            int checkOutputPos = Emitter.Output.Length;
 
-            var ctorBlock = new ConstructorBlock(this.Emitter, this.TypeInfo, true);
+            var ctorBlock = new ConstructorBlock(Emitter, TypeInfo, true);
             ctorBlock.Emit();
-            this.HasEntryPoint = ctorBlock.HasEntryPoint;
+            HasEntryPoint = ctorBlock.HasEntryPoint;
 
-            new MethodBlock(this.Emitter, this.TypeInfo, true).Emit();
-            var clear = checkOutputPos == this.Emitter.Output.Length;
-            this.WriteNewLine();
-            this.EndBlock();
+            new MethodBlock(Emitter, TypeInfo, true).Emit();
+            var clear = checkOutputPos == Emitter.Output.Length;
+            WriteNewLine();
+            EndBlock();
 
             if (clear)
             {
-                this.Emitter.Output.Length = pos;
-                this.Emitter.Comma = comma;
-                this.Emitter.IsNewLine = newLine;
+                Emitter.Output.Length = pos;
+                Emitter.Comma = comma;
+                Emitter.IsNewLine = newLine;
             }
             else
             {
-                this.Emitter.Comma = true;
+                Emitter.Comma = true;
             }
 
-            this.Emitter.StaticBlock = false;
+            Emitter.StaticBlock = false;
         }
 
         protected virtual void EmitInstantiableBlock()
         {
-            if (this.TypeInfo.IsEnum)
+            if (TypeInfo.IsEnum)
             {
-                if (this.Emitter.GetTypeDefinition(this.TypeInfo.Type)
+                if (Emitter.GetTypeDefinition(TypeInfo.Type)
                         .CustomAttributes.Any(attr => attr.AttributeType.FullName == "System.FlagsAttribute"))
                 {
-                    this.EnsureComma();
-                    this.Write(JS.Fields.FLAGS + ": true");
-                    this.Emitter.Comma = true;
+                    EnsureComma();
+                    Write(JS.Fields.FLAGS + ": true");
+                    Emitter.Comma = true;
                 }
 
-                var etype = this.TypeInfo.Type.GetDefinition().EnumUnderlyingType;
-                var enumMode = Helpers.EnumEmitMode(this.TypeInfo.Type);
+                var etype = TypeInfo.Type.GetDefinition().EnumUnderlyingType;
+                var enumMode = Helpers.EnumEmitMode(TypeInfo.Type);
                 var isString = enumMode >= 3 && enumMode <= 6;
                 if (isString)
                 {
-                    etype = this.Emitter.Resolver.Compilation.FindType(KnownTypeCode.String);
+                    etype = Emitter.Resolver.Compilation.FindType(KnownTypeCode.String);
                 }
                 if (!etype.IsKnownType(KnownTypeCode.Int32))
                 {
-                    this.EnsureComma();
-                    this.Write(JS.Fields.UNDERLYINGTYPE + ": ");
-                    this.Write(H5Types.ToJsName(etype, this.Emitter));
+                    EnsureComma();
+                    Write(JS.Fields.UNDERLYINGTYPE + ": ");
+                    Write(H5Types.ToJsName(etype, Emitter));
 
-                    this.Emitter.Comma = true;
+                    Emitter.Comma = true;
                 }
             }
 
-            if (this.HasEntryPoint)
+            if (HasEntryPoint)
             {
-                this.EnsureComma();
-                this.Write(JS.Fields.ENTRY_POINT + ": true");
-                this.Emitter.Comma = true;
+                EnsureComma();
+                Write(JS.Fields.ENTRY_POINT + ": true");
+                Emitter.Comma = true;
             }
 
-            var ctorBlock = new ConstructorBlock(this.Emitter, this.TypeInfo, false);
+            var ctorBlock = new ConstructorBlock(Emitter, TypeInfo, false);
 
-            if (this.TypeInfo.HasRealInstantiable(this.Emitter) || this.Emitter.Plugins.HasConstructorInjectors(ctorBlock) || this.TypeInfo.ClassType == ClassType.Struct)
+            if (TypeInfo.HasRealInstantiable(Emitter) || Emitter.Plugins.HasConstructorInjectors(ctorBlock) || TypeInfo.ClassType == ClassType.Struct)
             {
                 ctorBlock.Emit();
-                new MethodBlock(this.Emitter, this.TypeInfo, false).Emit();
+                new MethodBlock(Emitter, TypeInfo, false).Emit();
             }
         }
 
         protected virtual void EmitClassEnd()
         {
-            this.WriteNewLine();
-            this.EndBlock();
+            WriteNewLine();
+            EndBlock();
 
-            var classStr = this.Emitter.Output.ToString().Substring(this.StartPosition);
+            var classStr = Emitter.Output.ToString().Substring(StartPosition);
 
             if (Regex.IsMatch(classStr, "^\\s*,\\s*\\{\\s*\\}\\s*$", RegexOptions.Multiline))
             {
-                this.Emitter.Output.Remove(this.StartPosition, this.Emitter.Output.Length - this.StartPosition);
+                Emitter.Output.Remove(StartPosition, Emitter.Output.Length - StartPosition);
             }
 
-            if (this.IsGeneric)
+            if (IsGeneric)
             {
-                this.Write("; }");
+                Write("; }");
             }
 
-            this.WriteCloseParentheses();
-            this.WriteSemiColon();
+            WriteCloseParentheses();
+            WriteSemiColon();
 
-            this.EmitAnonymousTypes();
-            this.EmitNamedFunctions();
+            EmitAnonymousTypes();
+            EmitNamedFunctions();
 
-            this.WriteAfterInitMethods();
+            WriteAfterInitMethods();
 
-            this.WriteNewLine();
+            WriteNewLine();
         }
 
         private void WriteAfterInitMethods()
         {
-            var afterDefineMethods = this.GetAfterDefineMethods();
+            var afterDefineMethods = GetAfterDefineMethods();
 
             if (afterDefineMethods.Any())
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
 
             foreach (var method in afterDefineMethods)
             {
-                this.WriteNewLine();
-                this.Write(method);
+                WriteNewLine();
+                Write(method);
             }
 
-            var bottomDefineMethods = this.GetBottomDefineMethods();
+            var bottomDefineMethods = GetBottomDefineMethods();
 
             if (bottomDefineMethods.Any())
             {
                 foreach (var method in bottomDefineMethods)
                 {
-                    this.Emitter.EmitterOutput.BottomOutput.Append(method);
+                    Emitter.EmitterOutput.BottomOutput.Append(method);
                 }
             }
         }
 
         protected virtual void EmitAnonymousTypes()
         {
-            var types = this.Emitter.AnonymousTypes.Values.Where(t => !t.Emitted).ToArray();
+            var types = Emitter.AnonymousTypes.Values.Where(t => !t.Emitted).ToArray();
             if (types.Any())
             {
-                this.Emitter.Comma = false;
+                Emitter.Comma = false;
                 foreach (IAnonymousTypeConfig type in types)
                 {
-                    this.WriteNewLine();
-                    this.WriteNewLine();
+                    WriteNewLine();
+                    WriteNewLine();
 
                     type.Emitted = true;
-                    this.Write(type.Code);
+                    Write(type.Code);
                 }
             }
         }
 
         protected virtual void EmitNamedFunctions()
         {
-            if (this.Emitter.NamedFunctions.Count > 0)
+            if (Emitter.NamedFunctions.Count > 0)
             {
-                this.Emitter.Comma = false;
+                Emitter.Comma = false;
 
-                var name = H5Types.ToJsName(this.Emitter.TypeInfo.Type, this.Emitter, true);
+                var name = H5Types.ToJsName(Emitter.TypeInfo.Type, Emitter, true);
 
-                this.WriteNewLine();
-                this.WriteNewLine();
-                this.Write(JS.Funcs.H5_NS);
-                this.WriteOpenParentheses();
-                this.WriteScript(name);
-                this.Write(", " + JS.Vars.D_ + ")");
-                this.WriteSemiColon();
+                WriteNewLine();
+                WriteNewLine();
+                Write(JS.Funcs.H5_NS);
+                WriteOpenParentheses();
+                WriteScript(name);
+                Write(", " + JS.Vars.D_ + ")");
+                WriteSemiColon();
 
-                this.WriteNewLine();
-                this.WriteNewLine();
-                this.Write(JS.Types.H5.APPLY + "(" + JS.Vars.D_ + ".");
-                this.Write(name);
-                this.Write(", ");
-                this.BeginBlock();
+                WriteNewLine();
+                WriteNewLine();
+                Write(JS.Types.H5.APPLY + "(" + JS.Vars.D_ + ".");
+                Write(name);
+                Write(", ");
+                BeginBlock();
 
-                foreach (KeyValuePair<string, string> namedFunction in this.Emitter.NamedFunctions)
+                foreach (KeyValuePair<string, string> namedFunction in Emitter.NamedFunctions)
                 {
-                    this.EnsureComma();
-                    this.Write(namedFunction.Key + ": " + namedFunction.Value);
-                    this.Emitter.Comma = true;
+                    EnsureComma();
+                    Write(namedFunction.Key + ": " + namedFunction.Value);
+                    Emitter.Comma = true;
                 }
 
-                this.WriteNewLine();
-                this.EndBlock();
-                this.WriteCloseParentheses();
-                this.WriteSemiColon();
+                WriteNewLine();
+                EndBlock();
+                WriteCloseParentheses();
+                WriteSemiColon();
             }
         }
 
         protected virtual IEnumerable<string> GetDefineMethods(InitPosition value, Func<MethodDeclaration, IMethod, string> fn)
         {
-            var methods = this.TypeInfo.InstanceMethods;
+            var methods = TypeInfo.InstanceMethods;
             var attrName = "H5.InitAttribute";
 
             foreach (var methodGroup in methods)
@@ -551,7 +551,7 @@ namespace H5.Translator
                     {
                         foreach (var attr in attrSection.Attributes)
                         {
-                            var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
+                            var rr = Emitter.Resolver.ResolveNode(attr.Type, Emitter);
                             if (rr.Type.FullName == attrName)
                             {
                                 throw new EmitterException(attr, "Instance method cannot be Init method");
@@ -561,7 +561,7 @@ namespace H5.Translator
                 }
             }
 
-            methods = this.TypeInfo.StaticMethods;
+            methods = TypeInfo.StaticMethods;
             List<string> list = new List<string>();
 
             foreach (var methodGroup in methods)
@@ -574,7 +574,7 @@ namespace H5.Translator
                     {
                         foreach (var attr in attrSection.Attributes)
                         {
-                            var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
+                            var rr = Emitter.Resolver.ResolveNode(attr.Type, Emitter);
                             if (rr.Type.FullName == attrName)
                             {
                                 InitPosition? initPosition = null;
@@ -583,7 +583,7 @@ namespace H5.Translator
                                     if (attr.Arguments.Count > 0)
                                     {
                                         var argExpr = attr.Arguments.First();
-                                        var argrr = this.Emitter.Resolver.ResolveNode(argExpr, this.Emitter);
+                                        var argrr = Emitter.Resolver.ResolveNode(argExpr, Emitter);
                                         if (argrr.ConstantValue is int)
                                         {
                                             initPosition = (InitPosition)argrr.ConstantValue;
@@ -603,7 +603,7 @@ namespace H5.Translator
                                 {
                                     if (rrMember == null)
                                     {
-                                        rrMember = this.Emitter.Resolver.ResolveNode(method, this.Emitter) as MemberResolveResult;
+                                        rrMember = Emitter.Resolver.ResolveNode(method, Emitter) as MemberResolveResult;
                                         rrMethod = rrMember != null ? rrMember.Member as IMethod : null;
                                     }
 
@@ -639,104 +639,104 @@ namespace H5.Translator
 
         protected virtual IEnumerable<string> GetBeforeDefineMethods()
         {
-            return this.GetDefineMethods(InitPosition.Before,
+            return GetDefineMethods(InitPosition.Before,
                 (method, rrMethod) =>
                 {
-                    var level = this.Emitter.Level;
+                    var level = Emitter.Level;
 
-                    this.PushWriter(JS.Types.H5.INIT + "(function () {0});");
-                    this.ResetLocals();
-                    var prevMap = this.BuildLocalsMap();
-                    var prevNamesMap = this.BuildLocalsNamesMap();
+                    PushWriter(JS.Types.H5.INIT + "(function () {0});");
+                    ResetLocals();
+                    var prevMap = BuildLocalsMap();
+                    var prevNamesMap = BuildLocalsNamesMap();
 
-                    this.Emitter.InitPosition = InitPosition.Before;
-                    this.Emitter.ResetLevel();
+                    Emitter.InitPosition = InitPosition.Before;
+                    Emitter.ResetLevel();
 
-                    method.Body.AcceptVisitor(this.Emitter);
+                    method.Body.AcceptVisitor(Emitter);
 
-                    this.Emitter.InitPosition = null;
-                    this.Emitter.ResetLevel(level);
+                    Emitter.InitPosition = null;
+                    Emitter.ResetLevel(level);
 
-                    this.ClearLocalsMap(prevMap);
-                    this.ClearLocalsNamesMap(prevNamesMap);
+                    ClearLocalsMap(prevMap);
+                    ClearLocalsNamesMap(prevNamesMap);
 
-                    return this.PopWriter(true);
+                    return PopWriter(true);
                 });
         }
 
         protected virtual IEnumerable<string> GetTopDefineMethods()
         {
-            return this.GetDefineMethods(InitPosition.Top,
+            return GetDefineMethods(InitPosition.Top,
                 (method, rrMethod) =>
                 {
-                    var prevLevel = this.Emitter.Level;
-                    var prevInitialLevel = this.Emitter.InitialLevel;
+                    var prevLevel = Emitter.Level;
+                    var prevInitialLevel = Emitter.InitialLevel;
 
-                    this.PushWriter("{0}");
-                    this.ResetLocals();
-                    var prevMap = this.BuildLocalsMap();
-                    var prevNamesMap = this.BuildLocalsNamesMap();
-                    this.Emitter.NoBraceBlock = method.Body;
+                    PushWriter("{0}");
+                    ResetLocals();
+                    var prevMap = BuildLocalsMap();
+                    var prevNamesMap = BuildLocalsNamesMap();
+                    Emitter.NoBraceBlock = method.Body;
 
-                    this.Emitter.InitPosition = InitPosition.Top;
-                    ((Emitter)this.Emitter).InitialLevel = this.Emitter.InitialLevel > 1 ? this.Emitter.InitialLevel - 1 : 0;
-                    this.Emitter.ResetLevel();
+                    Emitter.InitPosition = InitPosition.Top;
+                    ((Emitter)Emitter).InitialLevel = Emitter.InitialLevel > 1 ? Emitter.InitialLevel - 1 : 0;
+                    Emitter.ResetLevel();
 
-                    method.Body.AcceptVisitor(this.Emitter);
+                    method.Body.AcceptVisitor(Emitter);
 
-                    this.Emitter.InitPosition = null;
-                    ((Emitter)this.Emitter).InitialLevel = prevInitialLevel;
-                    this.Emitter.ResetLevel(prevLevel);
+                    Emitter.InitPosition = null;
+                    ((Emitter)Emitter).InitialLevel = prevInitialLevel;
+                    Emitter.ResetLevel(prevLevel);
 
-                    this.ClearLocalsMap(prevMap);
-                    this.ClearLocalsNamesMap(prevNamesMap);
+                    ClearLocalsMap(prevMap);
+                    ClearLocalsNamesMap(prevNamesMap);
 
-                    return this.PopWriter(true);
+                    return PopWriter(true);
                 });
         }
 
         protected virtual IEnumerable<string> GetBottomDefineMethods()
         {
-            return this.GetDefineMethods(InitPosition.Bottom,
+            return GetDefineMethods(InitPosition.Bottom,
                 (method, rrMethod) =>
                 {
-                    var prevLevel = this.Emitter.Level;
-                    var prevInitialLevel = this.Emitter.InitialLevel;
+                    var prevLevel = Emitter.Level;
+                    var prevInitialLevel = Emitter.InitialLevel;
 
-                    this.PushWriter("{0}");
-                    this.ResetLocals();
-                    var prevMap = this.BuildLocalsMap();
-                    var prevNamesMap = this.BuildLocalsNamesMap();
-                    this.Emitter.NoBraceBlock = method.Body;
+                    PushWriter("{0}");
+                    ResetLocals();
+                    var prevMap = BuildLocalsMap();
+                    var prevNamesMap = BuildLocalsNamesMap();
+                    Emitter.NoBraceBlock = method.Body;
 
-                    this.Emitter.InitPosition = InitPosition.Bottom;
-                    ((Emitter)this.Emitter).InitialLevel = this.Emitter.InitialLevel > 1 ? this.Emitter.InitialLevel - 1 : 0;
-                    this.Emitter.ResetLevel();
+                    Emitter.InitPosition = InitPosition.Bottom;
+                    ((Emitter)Emitter).InitialLevel = Emitter.InitialLevel > 1 ? Emitter.InitialLevel - 1 : 0;
+                    Emitter.ResetLevel();
 
-                    method.Body.AcceptVisitor(this.Emitter);
+                    method.Body.AcceptVisitor(Emitter);
 
-                    this.Emitter.InitPosition = null;
-                    ((Emitter)this.Emitter).InitialLevel = prevInitialLevel;
-                    this.Emitter.ResetLevel(prevLevel);
+                    Emitter.InitPosition = null;
+                    ((Emitter)Emitter).InitialLevel = prevInitialLevel;
+                    Emitter.ResetLevel(prevLevel);
 
-                    this.ClearLocalsMap(prevMap);
-                    this.ClearLocalsNamesMap(prevNamesMap);
+                    ClearLocalsMap(prevMap);
+                    ClearLocalsNamesMap(prevNamesMap);
 
-                    return this.PopWriter(true);
+                    return PopWriter(true);
                 });
         }
 
         protected virtual IEnumerable<string> GetAfterDefineMethods()
         {
-            return this.GetDefineMethods(InitPosition.After,
+            return GetDefineMethods(InitPosition.After,
                 (method, rrMethod) =>
                 {
-                    this.Emitter.InitPosition = InitPosition.After;
+                    Emitter.InitPosition = InitPosition.After;
 
-                    var callback = JS.Types.H5.INIT + "(function () { " + H5Types.ToJsName(rrMethod.DeclaringTypeDefinition, this.Emitter) + "." +
-                           this.Emitter.GetEntityName(method) + "(); });";
+                    var callback = JS.Types.H5.INIT + "(function () { " + H5Types.ToJsName(rrMethod.DeclaringTypeDefinition, Emitter) + "." +
+                           Emitter.GetEntityName(method) + "(); });";
 
-                    this.Emitter.InitPosition = null;
+                    Emitter.InitPosition = null;
 
                     return callback;
                 });

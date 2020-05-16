@@ -16,20 +16,20 @@ namespace H5.Translator
         public InvocationBlock(IEmitter emitter, InvocationExpression invocationExpression)
             : base(emitter, invocationExpression)
         {
-            this.Emitter = emitter;
-            this.InvocationExpression = invocationExpression;
+            Emitter = emitter;
+            InvocationExpression = invocationExpression;
         }
 
         public InvocationExpression InvocationExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.InvocationExpression;
+            return InvocationExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            this.VisitInvocationExpression();
+            VisitInvocationExpression();
         }
 
         protected virtual bool IsEmptyPartialInvoking(IMethod method)
@@ -45,11 +45,11 @@ namespace H5.Translator
 
                 if (first is Expression expression)
                 {
-                    expression.AcceptVisitor(this.Emitter);
+                    expression.AcceptVisitor(Emitter);
                 }
                 else
                 {
-                    this.WriteThis();
+                    WriteThis();
                 }
             }
         }
@@ -90,50 +90,50 @@ namespace H5.Translator
 
         protected void VisitInvocationExpression()
         {
-            InvocationExpression invocationExpression = this.InvocationExpression;
-            int pos = this.Emitter.Output.Length;
+            InvocationExpression invocationExpression = InvocationExpression;
+            int pos = Emitter.Output.Length;
 
-            if (this.Emitter.IsForbiddenInvocation(invocationExpression))
+            if (Emitter.IsForbiddenInvocation(invocationExpression))
             {
                 throw new EmitterException(invocationExpression, "This method cannot be invoked directly");
             }
 
-            var oldValue = this.Emitter.ReplaceAwaiterByVar;
-            var oldAsyncExpressionHandling = this.Emitter.AsyncExpressionHandling;
+            var oldValue = Emitter.ReplaceAwaiterByVar;
+            var oldAsyncExpressionHandling = Emitter.AsyncExpressionHandling;
 
-            if (this.Emitter.IsAsync && !this.Emitter.AsyncExpressionHandling)
+            if (Emitter.IsAsync && !Emitter.AsyncExpressionHandling)
             {
-                this.WriteAwaiters(invocationExpression);
-                this.Emitter.ReplaceAwaiterByVar = true;
-                this.Emitter.AsyncExpressionHandling = true;
+                WriteAwaiters(invocationExpression);
+                Emitter.ReplaceAwaiterByVar = true;
+                Emitter.AsyncExpressionHandling = true;
             }
 
-            Tuple<bool, bool, string> inlineInfo = this.Emitter.GetInlineCode(invocationExpression);
-            var argsInfo = new ArgumentsInfo(this.Emitter, invocationExpression);
+            Tuple<bool, bool, string> inlineInfo = Emitter.GetInlineCode(invocationExpression);
+            var argsInfo = new ArgumentsInfo(Emitter, invocationExpression);
 
             var argsExpressions = argsInfo.ArgumentsExpressions;
             var paramsArg = argsInfo.ParamsExpression;
 
-            var targetResolve = this.Emitter.Resolver.ResolveNode(invocationExpression, this.Emitter);
+            var targetResolve = Emitter.Resolver.ResolveNode(invocationExpression, Emitter);
             var csharpInvocation = targetResolve as CSharpInvocationResolveResult;
             MemberReferenceExpression targetMember = invocationExpression.Target as MemberReferenceExpression;
-            bool isObjectLiteral = csharpInvocation != null && csharpInvocation.Member.DeclaringTypeDefinition != null ? this.Emitter.Validator.IsObjectLiteral(csharpInvocation.Member.DeclaringTypeDefinition) : false;
+            bool isObjectLiteral = csharpInvocation != null && csharpInvocation.Member.DeclaringTypeDefinition != null ? Emitter.Validator.IsObjectLiteral(csharpInvocation.Member.DeclaringTypeDefinition) : false;
 
-            var interceptor = this.Emitter.Plugins.OnInvocation(this, this.InvocationExpression, targetResolve as InvocationResolveResult);
+            var interceptor = Emitter.Plugins.OnInvocation(this, InvocationExpression, targetResolve as InvocationResolveResult);
 
             if (interceptor.Cancel)
             {
-                this.Emitter.SkipSemiColon = true;
-                this.Emitter.ReplaceAwaiterByVar = oldValue;
-                this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                Emitter.SkipSemiColon = true;
+                Emitter.ReplaceAwaiterByVar = oldValue;
+                Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
                 return;
             }
 
             if (!string.IsNullOrEmpty(interceptor.Replacement))
             {
-                this.Write(interceptor.Replacement);
-                this.Emitter.ReplaceAwaiterByVar = oldValue;
-                this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                Write(interceptor.Replacement);
+                Emitter.ReplaceAwaiterByVar = oldValue;
+                Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
                 return;
             }
 
@@ -159,23 +159,23 @@ namespace H5.Translator
                         if (value.Length > 0)
                         {
                             value = InlineArgumentsBlock.ReplaceInlineArgs(this, inlineExpression.Value.ToString(), invocationExpression.Arguments.Skip(1).ToArray());
-                            this.Write(value);
+                            Write(value);
 
                             value = value.Trim();
                             if (value[value.Length - 1] == ';' || value.EndsWith("*/", StringComparison.InvariantCulture) || value.StartsWith("//"))
                             {
-                                this.Emitter.SkipSemiColon = true;
-                                this.WriteNewLine();
+                                Emitter.SkipSemiColon = true;
+                                WriteNewLine();
                             }
                         }
                         else
                         {
                             // Empty string, emit nothing.
-                            this.Emitter.SkipSemiColon = true;
+                            Emitter.SkipSemiColon = true;
                         }
 
-                        this.Emitter.ReplaceAwaiterByVar = oldValue;
-                        this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                        Emitter.ReplaceAwaiterByVar = oldValue;
+                        Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
                         return;
                     }
@@ -202,13 +202,13 @@ namespace H5.Translator
 
                         if (!isStaticMethod && noThis)
                         {
-                            this.WriteThis();
-                            this.WriteDot();
+                            WriteThis();
+                            WriteDot();
                         }
 
-                        new InlineArgumentsBlock(this.Emitter, argsInfo, inlineScript).Emit();
-                        this.Emitter.ReplaceAwaiterByVar = oldValue;
-                        this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                        new InlineArgumentsBlock(Emitter, argsInfo, inlineScript).Emit();
+                        Emitter.ReplaceAwaiterByVar = oldValue;
+                        Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
                         return;
                     }
@@ -217,7 +217,7 @@ namespace H5.Translator
 
             if (targetMember != null || isObjectLiteral)
             {
-                var member = targetMember != null ? this.Emitter.Resolver.ResolveNode(targetMember.Target, this.Emitter) : null;
+                var member = targetMember != null ? Emitter.Resolver.ResolveNode(targetMember.Target, Emitter) : null;
 
                 if (targetResolve != null)
                 {
@@ -236,8 +236,8 @@ namespace H5.Translator
                             isExtensionMethodInvocation = true;
                             if (invocationResult.Member is IMethod resolvedMethod && resolvedMethod.IsExtensionMethod)
                             {
-                                string inline = this.Emitter.GetInline(resolvedMethod);
-                                bool isNative = this.IsNativeMethod(resolvedMethod);
+                                string inline = Emitter.GetInline(resolvedMethod);
+                                bool isNative = IsNativeMethod(resolvedMethod);
 
                                 if (string.IsNullOrWhiteSpace(inline) && isNative)
                                 {
@@ -250,11 +250,11 @@ namespace H5.Translator
                             invocationResult = null;
                         }
 
-                        if (this.IsEmptyPartialInvoking(csharpInvocation.Member as IMethod) || IsConditionallyRemoved(invocationExpression, csharpInvocation.Member))
+                        if (IsEmptyPartialInvoking(csharpInvocation.Member as IMethod) || IsConditionallyRemoved(invocationExpression, csharpInvocation.Member))
                         {
-                            this.Emitter.SkipSemiColon = true;
-                            this.Emitter.ReplaceAwaiterByVar = oldValue;
-                            this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                            Emitter.SkipSemiColon = true;
+                            Emitter.ReplaceAwaiterByVar = oldValue;
+                            Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
                             return;
                         }
@@ -263,11 +263,11 @@ namespace H5.Translator
                     {
                         invocationResult = targetResolve as InvocationResolveResult;
 
-                        if (invocationResult != null && (this.IsEmptyPartialInvoking(invocationResult.Member as IMethod) || IsConditionallyRemoved(invocationExpression, invocationResult.Member)))
+                        if (invocationResult != null && (IsEmptyPartialInvoking(invocationResult.Member as IMethod) || IsConditionallyRemoved(invocationExpression, invocationResult.Member)))
                         {
-                            this.Emitter.SkipSemiColon = true;
-                            this.Emitter.ReplaceAwaiterByVar = oldValue;
-                            this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                            Emitter.SkipSemiColon = true;
+                            Emitter.ReplaceAwaiterByVar = oldValue;
+                            Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
                             return;
                         }
@@ -275,93 +275,93 @@ namespace H5.Translator
 
                     if (invocationResult == null)
                     {
-                        invocationResult = this.Emitter.Resolver.ResolveNode(invocationExpression, this.Emitter) as InvocationResolveResult;
+                        invocationResult = Emitter.Resolver.ResolveNode(invocationExpression, Emitter) as InvocationResolveResult;
                     }
 
                     if (invocationResult != null)
                     {
                         if (invocationResult.Member is IMethod resolvedMethod && (resolvedMethod.IsExtensionMethod || isObjectLiteral))
                         {
-                            string inline = this.Emitter.GetInline(resolvedMethod);
-                            bool isNative = this.IsNativeMethod(resolvedMethod);
+                            string inline = Emitter.GetInline(resolvedMethod);
+                            bool isNative = IsNativeMethod(resolvedMethod);
 
                             if (isExtensionMethodInvocation || isObjectLiteral)
                             {
                                 if (!string.IsNullOrWhiteSpace(inline))
                                 {
-                                    this.Write("");
-                                    StringBuilder savedBuilder = this.Emitter.Output;
-                                    this.Emitter.Output = new StringBuilder();
-                                    this.WriteThisExtension(invocationExpression.Target);
-                                    argsInfo.ThisArgument = this.Emitter.Output.ToString();
-                                    this.Emitter.Output = savedBuilder;
-                                    new InlineArgumentsBlock(this.Emitter, argsInfo, inline).Emit();
+                                    Write("");
+                                    StringBuilder savedBuilder = Emitter.Output;
+                                    Emitter.Output = new StringBuilder();
+                                    WriteThisExtension(invocationExpression.Target);
+                                    argsInfo.ThisArgument = Emitter.Output.ToString();
+                                    Emitter.Output = savedBuilder;
+                                    new InlineArgumentsBlock(Emitter, argsInfo, inline).Emit();
                                 }
                                 else if (!isNative)
                                 {
-                                    var overloads = OverloadsCollection.Create(this.Emitter, resolvedMethod);
+                                    var overloads = OverloadsCollection.Create(Emitter, resolvedMethod);
 
                                     if (isObjectLiteral && !resolvedMethod.IsStatic && resolvedMethod.DeclaringType.Kind == TypeKind.Interface)
                                     {
-                                        this.Write("H5.getType(");
-                                        this.WriteThisExtension(invocationExpression.Target);
-                                        this.Write(").");
+                                        Write("H5.getType(");
+                                        WriteThisExtension(invocationExpression.Target);
+                                        Write(").");
                                     }
                                     else
                                     {
-                                        string name = H5Types.ToJsName(resolvedMethod.DeclaringType, this.Emitter, ignoreLiteralName: false) + ".";
-                                        this.Write(name);
+                                        string name = H5Types.ToJsName(resolvedMethod.DeclaringType, Emitter, ignoreLiteralName: false) + ".";
+                                        Write(name);
                                     }
 
                                     if (isObjectLiteral && !resolvedMethod.IsStatic)
                                     {
-                                        this.Write(JS.Fields.PROTOTYPE + "." + overloads.GetOverloadName() + "." + JS.Funcs.CALL);
+                                        Write(JS.Fields.PROTOTYPE + "." + overloads.GetOverloadName() + "." + JS.Funcs.CALL);
                                     }
                                     else
                                     {
-                                        this.Write(overloads.GetOverloadName());
+                                        Write(overloads.GetOverloadName());
                                     }
 
-                                    var isIgnoreClass = resolvedMethod.DeclaringTypeDefinition != null && this.Emitter.Validator.IsExternalType(resolvedMethod.DeclaringTypeDefinition);
-                                    int openPos = this.Emitter.Output.Length;
-                                    this.WriteOpenParentheses();
+                                    var isIgnoreClass = resolvedMethod.DeclaringTypeDefinition != null && Emitter.Validator.IsExternalType(resolvedMethod.DeclaringTypeDefinition);
+                                    int openPos = Emitter.Output.Length;
+                                    WriteOpenParentheses();
 
-                                    this.Emitter.Comma = false;
+                                    Emitter.Comma = false;
 
                                     if (isObjectLiteral && !resolvedMethod.IsStatic)
                                     {
-                                        this.WriteThisExtension(invocationExpression.Target);
-                                        this.Emitter.Comma = true;
+                                        WriteThisExtension(invocationExpression.Target);
+                                        Emitter.Comma = true;
                                     }
 
-                                    if (!isIgnoreClass && !Helpers.IsIgnoreGeneric(resolvedMethod, this.Emitter) && argsInfo.HasTypeArguments)
+                                    if (!isIgnoreClass && !Helpers.IsIgnoreGeneric(resolvedMethod, Emitter) && argsInfo.HasTypeArguments)
                                     {
-                                        this.EnsureComma(false);
-                                        new TypeExpressionListBlock(this.Emitter, argsInfo.TypeArguments).Emit();
-                                        this.Emitter.Comma = true;
+                                        EnsureComma(false);
+                                        new TypeExpressionListBlock(Emitter, argsInfo.TypeArguments).Emit();
+                                        Emitter.Comma = true;
                                     }
 
                                     if (!isObjectLiteral && resolvedMethod.IsStatic)
                                     {
-                                        this.EnsureComma(false);
-                                        this.WriteThisExtension(invocationExpression.Target);
-                                        this.Emitter.Comma = true;
+                                        EnsureComma(false);
+                                        WriteThisExtension(invocationExpression.Target);
+                                        Emitter.Comma = true;
                                     }
 
                                     if (invocationExpression.Arguments.Count > 0)
                                     {
-                                        this.EnsureComma(false);
+                                        EnsureComma(false);
                                     }
 
-                                    new ExpressionListBlock(this.Emitter, argsExpressions, paramsArg, invocationExpression, openPos).Emit();
+                                    new ExpressionListBlock(Emitter, argsExpressions, paramsArg, invocationExpression, openPos).Emit();
 
-                                    this.WriteCloseParentheses();
+                                    WriteCloseParentheses();
                                 }
 
                                 if (!string.IsNullOrWhiteSpace(inline) || !isNative)
                                 {
-                                    this.Emitter.ReplaceAwaiterByVar = oldValue;
-                                    this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                                    Emitter.ReplaceAwaiterByVar = oldValue;
+                                    Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
                                     return;
                                 }
@@ -370,28 +370,28 @@ namespace H5.Translator
                             {
                                 if (!string.IsNullOrWhiteSpace(inline))
                                 {
-                                    this.Write("");
-                                    StringBuilder savedBuilder = this.Emitter.Output;
-                                    this.Emitter.Output = new StringBuilder();
-                                    this.WriteThisExtension(invocationExpression.Target);
-                                    argsInfo.ThisArgument = this.Emitter.Output.ToString();
-                                    this.Emitter.Output = savedBuilder;
-                                    new InlineArgumentsBlock(this.Emitter, argsInfo, inline).Emit();
+                                    Write("");
+                                    StringBuilder savedBuilder = Emitter.Output;
+                                    Emitter.Output = new StringBuilder();
+                                    WriteThisExtension(invocationExpression.Target);
+                                    argsInfo.ThisArgument = Emitter.Output.ToString();
+                                    Emitter.Output = savedBuilder;
+                                    new InlineArgumentsBlock(Emitter, argsInfo, inline).Emit();
                                 }
                                 else
                                 {
-                                    argsExpressions.First().AcceptVisitor(this.Emitter);
-                                    this.WriteDot();
-                                    string name = this.Emitter.GetEntityName(resolvedMethod);
-                                    this.Write(name);
-                                    int openPos = this.Emitter.Output.Length;
-                                    this.WriteOpenParentheses();
-                                    new ExpressionListBlock(this.Emitter, argsExpressions.Skip(1), paramsArg, invocationExpression, openPos).Emit();
-                                    this.WriteCloseParentheses();
+                                    argsExpressions.First().AcceptVisitor(Emitter);
+                                    WriteDot();
+                                    string name = Emitter.GetEntityName(resolvedMethod);
+                                    Write(name);
+                                    int openPos = Emitter.Output.Length;
+                                    WriteOpenParentheses();
+                                    new ExpressionListBlock(Emitter, argsExpressions.Skip(1), paramsArg, invocationExpression, openPos).Emit();
+                                    WriteCloseParentheses();
                                 }
 
-                                this.Emitter.ReplaceAwaiterByVar = oldValue;
-                                this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                                Emitter.ReplaceAwaiterByVar = oldValue;
+                                Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
                                 return;
                             }
@@ -403,7 +403,7 @@ namespace H5.Translator
             var proto = false;
             if (targetMember != null && targetMember.Target is BaseReferenceExpression)
             {
-                if (this.Emitter.Resolver.ResolveNode(targetMember, this.Emitter) is MemberResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(targetMember, Emitter) is MemberResolveResult rr)
                 {
                     proto = rr.IsVirtualCall;
 
@@ -426,31 +426,31 @@ namespace H5.Translator
 
             if (proto)
             {
-                var baseType = this.Emitter.GetBaseMethodOwnerTypeDefinition(targetMember.MemberName, targetMember.TypeArguments.Count);
+                var baseType = Emitter.GetBaseMethodOwnerTypeDefinition(targetMember.MemberName, targetMember.TypeArguments.Count);
 
-                bool isIgnore = this.Emitter.Validator.IsExternalType(baseType);
+                bool isIgnore = Emitter.Validator.IsExternalType(baseType);
 
                 bool needComma = false;
 
-                var resolveResult = this.Emitter.Resolver.ResolveNode(targetMember, this.Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(targetMember, Emitter);
 
                 string name = null;
 
-                if (this.Emitter.TypeInfo.GetBaseTypes(this.Emitter).Any())
+                if (Emitter.TypeInfo.GetBaseTypes(Emitter).Any())
                 {
-                    name = H5Types.ToJsName(this.Emitter.TypeInfo.GetBaseClass(this.Emitter), this.Emitter);
+                    name = H5Types.ToJsName(Emitter.TypeInfo.GetBaseClass(Emitter), Emitter);
                 }
                 else
                 {
-                    name = H5Types.ToJsName(baseType, this.Emitter);
+                    name = H5Types.ToJsName(baseType, Emitter);
                 }
 
                 string baseMethod;
                 bool isIgnoreGeneric = false;
                 if (resolveResult is MemberResolveResult memberResult)
                 {
-                    baseMethod = OverloadsCollection.Create(this.Emitter, memberResult.Member).GetOverloadName();
-                    isIgnoreGeneric = Helpers.IsIgnoreGeneric(memberResult.Member, this.Emitter);
+                    baseMethod = OverloadsCollection.Create(Emitter, memberResult.Member).GetOverloadName();
+                    isIgnoreGeneric = Helpers.IsIgnoreGeneric(memberResult.Member, Emitter);
                 }
                 else
                 {
@@ -458,15 +458,15 @@ namespace H5.Translator
                     baseMethod = Object.Net.Utilities.StringUtils.ToLowerCamelCase(baseMethod);
                 }
 
-                this.Write(name, "." + JS.Fields.PROTOTYPE + ".", baseMethod);
+                Write(name, "." + JS.Fields.PROTOTYPE + ".", baseMethod);
 
-                this.WriteCall();
-                this.WriteOpenParentheses();
-                this.WriteThis();
-                this.Emitter.Comma = true;
+                WriteCall();
+                WriteOpenParentheses();
+                WriteThis();
+                Emitter.Comma = true;
                 if (!isIgnore && !isIgnoreGeneric && argsInfo.HasTypeArguments)
                 {
-                    new TypeExpressionListBlock(this.Emitter, argsInfo.TypeArguments).Emit();
+                    new TypeExpressionListBlock(Emitter, argsInfo.TypeArguments).Emit();
                 }
 
                 needComma = false;
@@ -478,24 +478,24 @@ namespace H5.Translator
                         continue;
                     }
 
-                    this.EnsureComma(false);
+                    EnsureComma(false);
 
                     if (needComma)
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
 
                     needComma = true;
-                    arg.AcceptVisitor(this.Emitter);
+                    arg.AcceptVisitor(Emitter);
                 }
-                this.Emitter.Comma = false;
-                this.WriteCloseParentheses();
+                Emitter.Comma = false;
+                WriteCloseParentheses();
             }
             else
             {
                 IMethod method = null;
 
-                if (this.Emitter.Resolver.ResolveNode(invocationExpression, this.Emitter) is DynamicInvocationResolveResult dynamicResolveResult)
+                if (Emitter.Resolver.ResolveNode(invocationExpression, Emitter) is DynamicInvocationResolveResult dynamicResolveResult)
                 {
                     if (dynamicResolveResult.Target is MethodGroupResolveResult group && group.Methods.Count() > 1)
                     {
@@ -512,7 +512,7 @@ namespace H5.Translator
 
                                 if (argType.Kind == TypeKind.Dynamic)
                                 {
-                                    argType = this.Emitter.Resolver.Compilation.FindType(TypeCode.Object);
+                                    argType = Emitter.Resolver.Compilation.FindType(TypeCode.Object);
                                 }
 
                                 if (!m.Parameters[i].Type.Equals(argType))
@@ -532,7 +532,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var targetResolveResult = this.Emitter.Resolver.ResolveNode(invocationExpression.Target, this.Emitter);
+                    var targetResolveResult = Emitter.Resolver.ResolveNode(invocationExpression.Target, Emitter);
 
                     if (targetResolveResult is MemberResolveResult invocationResolveResult)
                     {
@@ -540,15 +540,15 @@ namespace H5.Translator
                     }
                 }
 
-                if (this.IsEmptyPartialInvoking(method) || IsConditionallyRemoved(invocationExpression, method))
+                if (IsEmptyPartialInvoking(method) || IsConditionallyRemoved(invocationExpression, method))
                 {
-                    this.Emitter.SkipSemiColon = true;
-                    this.Emitter.ReplaceAwaiterByVar = oldValue;
-                    this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+                    Emitter.SkipSemiColon = true;
+                    Emitter.ReplaceAwaiterByVar = oldValue;
+                    Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
                     return;
                 }
 
-                bool isIgnore = method != null && method.DeclaringTypeDefinition != null && this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition);
+                bool isIgnore = method != null && method.DeclaringTypeDefinition != null && Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition);
 
                 bool needExpand = false;
                 if (method != null)
@@ -570,31 +570,31 @@ namespace H5.Translator
                     }
                 }
 
-                int count = this.Emitter.Writers.Count;
-                invocationExpression.Target.AcceptVisitor(this.Emitter);
+                int count = Emitter.Writers.Count;
+                invocationExpression.Target.AcceptVisitor(Emitter);
 
-                if (this.Emitter.Writers.Count > count)
+                if (Emitter.Writers.Count > count)
                 {
-                    var writer = this.Emitter.Writers.Pop();
+                    var writer = Emitter.Writers.Pop();
 
                     if (method != null && method.IsExtensionMethod)
                     {
-                        StringBuilder savedBuilder = this.Emitter.Output;
-                        this.Emitter.Output = new StringBuilder();
-                        this.WriteThisExtension(invocationExpression.Target);
-                        argsInfo.ThisArgument = this.Emitter.Output.ToString();
-                        this.Emitter.Output = savedBuilder;
+                        StringBuilder savedBuilder = Emitter.Output;
+                        Emitter.Output = new StringBuilder();
+                        WriteThisExtension(invocationExpression.Target);
+                        argsInfo.ThisArgument = Emitter.Output.ToString();
+                        Emitter.Output = savedBuilder;
                     }
                     else if (writer.ThisArg != null)
                     {
                         argsInfo.ThisArgument = writer.ThisArg;
                     }
 
-                    new InlineArgumentsBlock(this.Emitter, argsInfo, writer.InlineCode) { IgnoreRange = writer.IgnoreRange }.Emit();
-                    var result = this.Emitter.Output.ToString();
-                    this.Emitter.Output = writer.Output;
-                    this.Emitter.IsNewLine = writer.IsNewLine;
-                    this.Write(result);
+                    new InlineArgumentsBlock(Emitter, argsInfo, writer.InlineCode) { IgnoreRange = writer.IgnoreRange }.Emit();
+                    var result = Emitter.Output.ToString();
+                    Emitter.Output = writer.Output;
+                    Emitter.IsNewLine = writer.IsNewLine;
+                    Write(result);
 
                     if (writer.Callback != null)
                     {
@@ -605,55 +605,55 @@ namespace H5.Translator
                 {
                     if (needExpand && isIgnore)
                     {
-                        this.Write("." + JS.Funcs.APPLY);
+                        Write("." + JS.Funcs.APPLY);
                     }
-                    int openPos = this.Emitter.Output.Length;
-                    this.WriteOpenParentheses();
+                    int openPos = Emitter.Output.Length;
+                    WriteOpenParentheses();
 
                     bool isIgnoreGeneric = false;
 
                     if (targetResolve is InvocationResolveResult invocationResult)
                     {
-                        isIgnoreGeneric = Helpers.IsIgnoreGeneric(invocationResult.Member, this.Emitter);
+                        isIgnoreGeneric = Helpers.IsIgnoreGeneric(invocationResult.Member, Emitter);
                     }
 
                     bool isWrapRest = false;
 
                     if (needExpand && isIgnore)
                     {
-                        StringBuilder savedBuilder = this.Emitter.Output;
-                        this.Emitter.Output = new StringBuilder();
-                        this.WriteThisExtension(invocationExpression.Target);
-                        var thisArg = this.Emitter.Output.ToString();
-                        this.Emitter.Output = savedBuilder;
+                        StringBuilder savedBuilder = Emitter.Output;
+                        Emitter.Output = new StringBuilder();
+                        WriteThisExtension(invocationExpression.Target);
+                        var thisArg = Emitter.Output.ToString();
+                        Emitter.Output = savedBuilder;
 
-                        this.Write(thisArg);
+                        Write(thisArg);
 
-                        this.Emitter.Comma = true;
+                        Emitter.Comma = true;
 
                         if (!isIgnore && !isIgnoreGeneric && argsInfo.HasTypeArguments)
                         {
-                            new TypeExpressionListBlock(this.Emitter, argsInfo.TypeArguments).Emit();
+                            new TypeExpressionListBlock(Emitter, argsInfo.TypeArguments).Emit();
                         }
 
-                        this.EnsureComma(false);
+                        EnsureComma(false);
 
                         if (argsExpressions.Length > 1)
                         {
-                            this.WriteOpenBracket();
-                            var elb = new ExpressionListBlock(this.Emitter, argsExpressions.Take(argsExpressions.Length - 1).ToArray(), paramsArg, invocationExpression, openPos);
+                            WriteOpenBracket();
+                            var elb = new ExpressionListBlock(Emitter, argsExpressions.Take(argsExpressions.Length - 1).ToArray(), paramsArg, invocationExpression, openPos);
                             elb.IgnoreExpandParams = true;
                             elb.Emit();
-                            this.WriteCloseBracket();
-                            this.Write(".concat(");
-                            elb = new ExpressionListBlock(this.Emitter, new Expression[] { argsExpressions[argsExpressions.Length - 1] }, paramsArg, invocationExpression, openPos);
+                            WriteCloseBracket();
+                            Write(".concat(");
+                            elb = new ExpressionListBlock(Emitter, new Expression[] { argsExpressions[argsExpressions.Length - 1] }, paramsArg, invocationExpression, openPos);
                             elb.IgnoreExpandParams = true;
                             elb.Emit();
-                            this.Write(")");
+                            Write(")");
                         }
                         else
                         {
-                            new ExpressionListBlock(this.Emitter, argsExpressions, paramsArg, invocationExpression, -1).Emit();
+                            new ExpressionListBlock(Emitter, argsExpressions, paramsArg, invocationExpression, -1).Emit();
                         }
                     }
                     else
@@ -663,49 +663,49 @@ namespace H5.Translator
                             isWrapRest = true;
                         }
 
-                        this.Emitter.Comma = false;
+                        Emitter.Comma = false;
                         if (!isIgnore && !isIgnoreGeneric && argsInfo.HasTypeArguments)
                         {
-                            new TypeExpressionListBlock(this.Emitter, argsInfo.TypeArguments).Emit();
+                            new TypeExpressionListBlock(Emitter, argsInfo.TypeArguments).Emit();
                         }
 
                         if (invocationExpression.Arguments.Count > 0 || argsExpressions.Length > 0 && !argsExpressions.All(expr => expr == null))
                         {
-                            this.EnsureComma(false);
+                            EnsureComma(false);
                         }
 
-                        new ExpressionListBlock(this.Emitter, argsExpressions, paramsArg, invocationExpression, openPos).Emit();
+                        new ExpressionListBlock(Emitter, argsExpressions, paramsArg, invocationExpression, openPos).Emit();
                     }
 
 
                     if (isWrapRest)
                     {
-                        this.EnsureComma(false);
-                        this.Write("H5.fn.bind(this, function () ");
-                        this.BeginBlock();
-                        this.Emitter.WrapRestCounter++;
-                        this.Emitter.SkipSemiColon = true;
+                        EnsureComma(false);
+                        Write("H5.fn.bind(this, function () ");
+                        BeginBlock();
+                        Emitter.WrapRestCounter++;
+                        Emitter.SkipSemiColon = true;
                     } else
                     {
-                        this.Emitter.Comma = false;
-                        this.WriteCloseParentheses();
+                        Emitter.Comma = false;
+                        WriteCloseParentheses();
                     }
                 }
             }
 
             if (targetResolve is InvocationResolveResult irr && irr.Member.MemberDefinition != null && irr.Member.MemberDefinition.ReturnType.Kind == TypeKind.TypeParameter)
             {
-                Helpers.CheckValueTypeClone(this.Emitter.Resolver.ResolveNode(invocationExpression, this.Emitter), invocationExpression, this, pos);
+                Helpers.CheckValueTypeClone(Emitter.Resolver.ResolveNode(invocationExpression, Emitter), invocationExpression, this, pos);
             }
 
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
-            this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+            Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
         }
 
         private bool IsNativeMethod(IMethod resolvedMethod)
         {
             return resolvedMethod.DeclaringTypeDefinition != null &&
-                   this.Emitter.Validator.IsExternalType(resolvedMethod.DeclaringTypeDefinition);
+                   Emitter.Validator.IsExternalType(resolvedMethod.DeclaringTypeDefinition);
         }
     }
 }

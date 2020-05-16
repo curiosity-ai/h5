@@ -13,104 +13,104 @@ namespace H5.Translator
         public DoWhileBlock(IEmitter emitter, DoWhileStatement doWhileStatement)
             : base(emitter, doWhileStatement)
         {
-            this.Emitter = emitter;
-            this.DoWhileStatement = doWhileStatement;
+            Emitter = emitter;
+            DoWhileStatement = doWhileStatement;
         }
 
         public DoWhileStatement DoWhileStatement { get; set; }
 
         protected override void DoEmit()
         {
-            var awaiters = this.Emitter.IsAsync ? this.GetAwaiters(this.DoWhileStatement) : null;
+            var awaiters = Emitter.IsAsync ? GetAwaiters(DoWhileStatement) : null;
 
             if (awaiters != null && awaiters.Length > 0)
             {
-                this.VisitAsyncDoWhileStatement();
+                VisitAsyncDoWhileStatement();
             }
             else
             {
-                this.VisitDoWhileStatement();
+                VisitDoWhileStatement();
             }
         }
 
         protected void VisitAsyncDoWhileStatement()
         {
-            DoWhileStatement doWhileStatement = this.DoWhileStatement;
+            DoWhileStatement doWhileStatement = DoWhileStatement;
 
-            var oldValue = this.Emitter.ReplaceAwaiterByVar;
-            var jumpStatements = this.Emitter.JumpStatements;
-            this.Emitter.JumpStatements = new List<IJumpInfo>();
+            var oldValue = Emitter.ReplaceAwaiterByVar;
+            var jumpStatements = Emitter.JumpStatements;
+            Emitter.JumpStatements = new List<IJumpInfo>();
 
-            var loopStep = this.Emitter.AsyncBlock.Steps.Last();
+            var loopStep = Emitter.AsyncBlock.Steps.Last();
 
             if (!string.IsNullOrWhiteSpace(loopStep.Output.ToString()))
             {
-                loopStep = this.Emitter.AsyncBlock.AddAsyncStep();
+                loopStep = Emitter.AsyncBlock.AddAsyncStep();
             }
 
-            this.Emitter.IgnoreBlock = doWhileStatement.EmbeddedStatement;
-            doWhileStatement.EmbeddedStatement.AcceptVisitor(this.Emitter);
+            Emitter.IgnoreBlock = doWhileStatement.EmbeddedStatement;
+            doWhileStatement.EmbeddedStatement.AcceptVisitor(Emitter);
 
-            this.Emitter.AsyncBlock.Steps.Last().JumpToStep = this.Emitter.AsyncBlock.Step;
-            var conditionStep = this.Emitter.AsyncBlock.AddAsyncStep();
-            this.WriteAwaiters(doWhileStatement.Condition);
+            Emitter.AsyncBlock.Steps.Last().JumpToStep = Emitter.AsyncBlock.Step;
+            var conditionStep = Emitter.AsyncBlock.AddAsyncStep();
+            WriteAwaiters(doWhileStatement.Condition);
 
-            this.WriteIf();
-            this.WriteOpenParentheses(true);
-            this.Emitter.ReplaceAwaiterByVar = true;
-            doWhileStatement.Condition.AcceptVisitor(this.Emitter);
-            this.WriteCloseParentheses(true);
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
+            WriteIf();
+            WriteOpenParentheses(true);
+            Emitter.ReplaceAwaiterByVar = true;
+            doWhileStatement.Condition.AcceptVisitor(Emitter);
+            WriteCloseParentheses(true);
+            Emitter.ReplaceAwaiterByVar = oldValue;
 
-            this.WriteSpace();
-            this.BeginBlock();
-            this.WriteNewLine();
-            this.Write(JS.Vars.ASYNC_STEP + " = " + loopStep.Step + ";");
-            this.WriteNewLine();
-            this.Write("continue;");
-            this.WriteNewLine();
-            this.EndBlock();
+            WriteSpace();
+            BeginBlock();
+            WriteNewLine();
+            Write(JS.Vars.ASYNC_STEP + " = " + loopStep.Step + ";");
+            WriteNewLine();
+            Write("continue;");
+            WriteNewLine();
+            EndBlock();
 
-            var nextStep = this.Emitter.AsyncBlock.AddAsyncStep();
+            var nextStep = Emitter.AsyncBlock.AddAsyncStep();
             conditionStep.JumpToStep = nextStep.Step;
 
-            if (this.Emitter.JumpStatements.Count > 0)
+            if (Emitter.JumpStatements.Count > 0)
             {
-                this.Emitter.JumpStatements.Sort((j1, j2) => -j1.Position.CompareTo(j2.Position));
-                foreach (var jump in this.Emitter.JumpStatements)
+                Emitter.JumpStatements.Sort((j1, j2) => -j1.Position.CompareTo(j2.Position));
+                foreach (var jump in Emitter.JumpStatements)
                 {
                     jump.Output.Insert(jump.Position, jump.Break ? nextStep.Step : conditionStep.Step);
                 }
             }
 
-            this.Emitter.JumpStatements = jumpStatements;
+            Emitter.JumpStatements = jumpStatements;
         }
 
         protected void VisitDoWhileStatement()
         {
-            DoWhileStatement doWhileStatement = this.DoWhileStatement;
-            var jumpStatements = this.Emitter.JumpStatements;
-            this.Emitter.JumpStatements = null;
+            DoWhileStatement doWhileStatement = DoWhileStatement;
+            var jumpStatements = Emitter.JumpStatements;
+            Emitter.JumpStatements = null;
 
-            this.WriteDo();
-            this.EmitBlockOrIndentedLine(doWhileStatement.EmbeddedStatement);
+            WriteDo();
+            EmitBlockOrIndentedLine(doWhileStatement.EmbeddedStatement);
 
             if (doWhileStatement.EmbeddedStatement is BlockStatement)
             {
-                this.WriteSpace();
+                WriteSpace();
             }
 
-            this.WriteWhile();
-            this.WriteOpenParentheses();
+            WriteWhile();
+            WriteOpenParentheses();
 
-            doWhileStatement.Condition.AcceptVisitor(this.Emitter);
+            doWhileStatement.Condition.AcceptVisitor(Emitter);
 
-            this.WriteCloseParentheses();
-            this.WriteSemiColon();
+            WriteCloseParentheses();
+            WriteSemiColon();
 
-            this.WriteNewLine();
+            WriteNewLine();
 
-            this.Emitter.JumpStatements = jumpStatements;
+            Emitter.JumpStatements = jumpStatements;
         }
     }
 }

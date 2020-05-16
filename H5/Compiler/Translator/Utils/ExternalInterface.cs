@@ -15,7 +15,7 @@ namespace H5.Translator
         {
             get
             {
-                return !this.IsNativeImplementation && !this.IsSimpleImplementation;
+                return !IsNativeImplementation && !IsSimpleImplementation;
             }
         }
     }

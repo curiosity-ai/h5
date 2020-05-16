@@ -16,50 +16,50 @@ namespace H5.Translator
         public ObjectCreateBlock(IEmitter emitter, ObjectCreateExpression objectCreateExpression)
             : base(emitter, objectCreateExpression)
         {
-            this.Emitter = emitter;
-            this.ObjectCreateExpression = objectCreateExpression;
+            Emitter = emitter;
+            ObjectCreateExpression = objectCreateExpression;
         }
 
         public ObjectCreateExpression ObjectCreateExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.ObjectCreateExpression;
+            return ObjectCreateExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            this.VisitObjectCreateExpression();
+            VisitObjectCreateExpression();
         }
 
         protected void VisitObjectCreateExpression()
         {
-            ObjectCreateExpression objectCreateExpression = this.ObjectCreateExpression;
+            ObjectCreateExpression objectCreateExpression = ObjectCreateExpression;
 
-            var resolveResult = this.Emitter.Resolver.ResolveNode(objectCreateExpression.Type, this.Emitter) as TypeResolveResult;
+            var resolveResult = Emitter.Resolver.ResolveNode(objectCreateExpression.Type, Emitter) as TypeResolveResult;
 
             if (resolveResult != null && resolveResult.Type.Kind == TypeKind.Enum)
             {
-                this.Write("(0)");
+                Write("(0)");
                 return;
             }
 
             bool isTypeParam = resolveResult != null && resolveResult.Type.Kind == TypeKind.TypeParameter;
-            var invocationResolveResult = this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter) as InvocationResolveResult;
+            var invocationResolveResult = Emitter.Resolver.ResolveNode(objectCreateExpression, Emitter) as InvocationResolveResult;
             var hasInitializer = !objectCreateExpression.Initializer.IsNull && objectCreateExpression.Initializer.Elements.Count > 0;
 
             if (isTypeParam && invocationResolveResult != null && invocationResolveResult.Member.Parameters.Count == 0 && !hasInitializer)
             {
-                this.Write(JS.Funcs.H5_CREATEINSTANCE);
-                this.WriteOpenParentheses();
-                this.Write(resolveResult.Type.Name);
-                this.WriteCloseParentheses();
+                Write(JS.Funcs.H5_CREATEINSTANCE);
+                WriteOpenParentheses();
+                Write(resolveResult.Type.Name);
+                WriteCloseParentheses();
 
                 return;
             }
 
-            var type = isTypeParam ? null : this.Emitter.GetTypeDefinition(objectCreateExpression.Type);
-            var isObjectLiteral = type != null && this.Emitter.Validator.IsObjectLiteral(type);
+            var type = isTypeParam ? null : Emitter.GetTypeDefinition(objectCreateExpression.Type);
+            var isObjectLiteral = type != null && Emitter.Validator.IsObjectLiteral(type);
 
             if (type != null && type.BaseType != null && type.BaseType.FullName == "System.MulticastDelegate")
             {
@@ -71,21 +71,21 @@ namespace H5.Translator
 
                 if (wrap)
                 {
-                    this.WriteOpenParentheses();
+                    WriteOpenParentheses();
                 }
 
-                this.Write("H5.fn.$build([");
-                objectCreateExpression.Arguments.First().AcceptVisitor(this.Emitter);
-                this.Write("])");
+                Write("H5.fn.$build([");
+                objectCreateExpression.Arguments.First().AcceptVisitor(Emitter);
+                Write("])");
 
                 if (wrap)
                 {
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
                 }
                 return;
             }
 
-            var argsInfo = new ArgumentsInfo(this.Emitter, objectCreateExpression);
+            var argsInfo = new ArgumentsInfo(Emitter, objectCreateExpression);
             var argsExpressions = argsInfo.ArgumentsExpressions;
             var paramsArg = argsInfo.ParamsExpression;
 
@@ -100,17 +100,17 @@ namespace H5.Translator
 
                     if (defCtor != null)
                     {
-                        inlineCode = this.Emitter.GetInline(defCtor);
+                        inlineCode = Emitter.GetInline(defCtor);
                     }
                 }
 
                 if (inlineCode == null)
                 {
-                    inlineCode = this.Emitter.GetInline(invocationResolveResult.Member);
+                    inlineCode = Emitter.GetInline(invocationResolveResult.Member);
                 }
             }
 
-            var customCtor = isTypeParam ? "" : (this.Emitter.Validator.GetCustomConstructor(type) ?? "");
+            var customCtor = isTypeParam ? "" : (Emitter.Validator.GetCustomConstructor(type) ?? "");
 
             AstNodeCollection<Expression> elements = null;
 
@@ -120,51 +120,51 @@ namespace H5.Translator
             }
 
             var isPlainObjectCtor = Regex.Match(customCtor, @"\s*\{\s*\}\s*").Success;
-            var isPlainMode = type != null && this.Emitter.Validator.GetObjectCreateMode(type) == 0;
+            var isPlainMode = type != null && Emitter.Validator.GetObjectCreateMode(type) == 0;
 
             if (inlineCode == null && isPlainObjectCtor && isPlainMode)
             {
-                this.WriteOpenBrace();
-                this.WriteSpace();
-                var pos = this.Emitter.Output.Length;
+                WriteOpenBrace();
+                WriteSpace();
+                var pos = Emitter.Output.Length;
 
-                this.WriteObjectInitializer(objectCreateExpression.Initializer.Elements, type, invocationResolveResult, false);
+                WriteObjectInitializer(objectCreateExpression.Initializer.Elements, type, invocationResolveResult, false);
 
-                if (pos < this.Emitter.Output.Length)
+                if (pos < Emitter.Output.Length)
                 {
-                    this.WriteSpace();
+                    WriteSpace();
                 }
 
-                this.WriteCloseBrace();
+                WriteCloseBrace();
             }
             else
             {
                 string tempVar = null;
                 if (hasInitializer)
                 {
-                    tempVar = this.GetTempVarName();
-                    this.WriteOpenParentheses();
-                    this.Write(tempVar);
-                    this.Write(" = ");
+                    tempVar = GetTempVarName();
+                    WriteOpenParentheses();
+                    Write(tempVar);
+                    Write(" = ");
                 }
 
                 if (inlineCode != null)
                 {
-                    new InlineArgumentsBlock(this.Emitter, argsInfo, inlineCode).Emit();
+                    new InlineArgumentsBlock(Emitter, argsInfo, inlineCode).Emit();
                 }
                 else
                 {
-                    var ctorMember = ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member;
+                    var ctorMember = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(objectCreateExpression, Emitter)).Member;
                     var expandParams = ctorMember.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                     bool applyCtor = false;
 
                     if (expandParams)
                     {
-                        var ctor_rr = this.Emitter.Resolver.ResolveNode(paramsArg, this.Emitter);
+                        var ctor_rr = Emitter.Resolver.ResolveNode(paramsArg, Emitter);
 
                         if (ctor_rr.Type.Kind == TypeKind.Array && !(paramsArg is ArrayCreateExpression) && objectCreateExpression.Arguments.Last() == paramsArg)
                         {
-                            this.Write(JS.Types.H5.Reflection.APPLYCONSTRUCTOR + "(");
+                            Write(JS.Types.H5.Reflection.APPLYCONSTRUCTOR + "(");
                             applyCtor = true;
                         }
                     }
@@ -173,72 +173,72 @@ namespace H5.Translator
                     {
                         if (!applyCtor && !isObjectLiteral)
                         {
-                            this.WriteNew();
+                            WriteNew();
                         }
 
-                        var typerr = this.Emitter.Resolver.ResolveNode(objectCreateExpression.Type, this.Emitter).Type;
+                        var typerr = Emitter.Resolver.ResolveNode(objectCreateExpression.Type, Emitter).Type;
                         var td = typerr.GetDefinition();
-                        var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, this.Emitter) || td != null && Validator.IsVirtualTypeStatic(td);
+                        var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, Emitter) || td != null && Validator.IsVirtualTypeStatic(td);
 
                         if (isGeneric && !applyCtor)
                         {
-                            this.WriteOpenParentheses();
+                            WriteOpenParentheses();
                         }
 
-                        objectCreateExpression.Type.AcceptVisitor(this.Emitter);
+                        objectCreateExpression.Type.AcceptVisitor(Emitter);
 
                         if (isGeneric && !applyCtor)
                         {
-                            this.WriteCloseParentheses();
+                            WriteCloseParentheses();
                         }
                     }
                     else
                     {
-                        this.Write(customCtor);
+                        Write(customCtor);
                     }
 
                     if (!isTypeParam && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType || isObjectLiteral ? 0 : 1))
                     {
-                        var member = ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member;
-                        if (!this.Emitter.Validator.IsExternalType(type) || member.Attributes.Any(a => a.AttributeType.FullName == "H5.NameAttribute"))
+                        var member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(objectCreateExpression, Emitter)).Member;
+                        if (!Emitter.Validator.IsExternalType(type) || member.Attributes.Any(a => a.AttributeType.FullName == "H5.NameAttribute"))
                         {
-                            this.WriteDot();
-                            var name = OverloadsCollection.Create(this.Emitter, member).GetOverloadName();
-                            this.Write(name);
+                            WriteDot();
+                            var name = OverloadsCollection.Create(Emitter, member).GetOverloadName();
+                            Write(name);
                         }
                     }
 
                     if (applyCtor)
                     {
-                        this.Write(", ");
+                        Write(", ");
                     }
                     else
                     {
-                        this.WriteOpenParentheses();
+                        WriteOpenParentheses();
                     }
 
-                    new ExpressionListBlock(this.Emitter, argsExpressions, paramsArg, objectCreateExpression, -1).Emit();
-                    this.WriteCloseParentheses();
+                    new ExpressionListBlock(Emitter, argsExpressions, paramsArg, objectCreateExpression, -1).Emit();
+                    WriteCloseParentheses();
                 }
 
                 if (hasInitializer)
                 {
                     if (isObjectLiteral && isPlainMode)
                     {
-                        this.WriteObjectInitializer(objectCreateExpression.Initializer.Elements, type, invocationResolveResult, true);
+                        WriteObjectInitializer(objectCreateExpression.Initializer.Elements, type, invocationResolveResult, true);
                     }
                     else
                     {
                         foreach (Expression item in elements)
                         {
-                            this.WriteInitializerExpression(item, tempVar);
+                            WriteInitializerExpression(item, tempVar);
                         }
                     }
 
-                    this.WriteComma();
-                    this.Write(tempVar);
-                    this.WriteCloseParentheses();
-                    this.RemoveTempVar(tempVar);
+                    WriteComma();
+                    Write(tempVar);
+                    WriteCloseParentheses();
+                    RemoveTempVar(tempVar);
                 }
             }
 
@@ -247,40 +247,40 @@ namespace H5.Translator
 
         private void WriteInitializerExpression(Expression item, string tempVar)
         {
-            var rr = this.Emitter.Resolver.ResolveNode(item, this.Emitter) as MemberResolveResult;
+            var rr = Emitter.Resolver.ResolveNode(item, Emitter) as MemberResolveResult;
 
             var inlineCode = ObjectCreateBlock.GetInlineInit(item, this, tempVar);
 
             if (inlineCode != null)
             {
-                this.WriteComma();
-                this.Write(inlineCode);
+                WriteComma();
+                Write(inlineCode);
             }
             else if (item is NamedExpression)
             {
-                this.WriteNamedExptession(((NamedExpression)item).Expression, tempVar, rr);
+                WriteNamedExptession(((NamedExpression)item).Expression, tempVar, rr);
             }
             else if (item is NamedArgumentExpression)
             {
-                this.WriteNamedExptession(((NamedArgumentExpression)item).Expression, tempVar, rr);
+                WriteNamedExptession(((NamedArgumentExpression)item).Expression, tempVar, rr);
             }
             else if (item is ArrayInitializerExpression arrayInitializer)
             {
                 foreach (var el in arrayInitializer.Elements)
                 {
-                    this.WriteInitializerExpression(el, tempVar + "." + this.Emitter.GetEntityName(rr.Member));
+                    WriteInitializerExpression(el, tempVar + "." + Emitter.GetEntityName(rr.Member));
                 }
             }
             else if (item is IdentifierExpression)
             {
-                this.WriteComma();
+                WriteComma();
                 var identifierExpression = (IdentifierExpression)item;
-                new IdentifierBlock(this.Emitter, identifierExpression).Emit();
+                new IdentifierBlock(Emitter, identifierExpression).Emit();
             }
             else
             {
-                this.WriteComma();
-                item.AcceptVisitor(this.Emitter);
+                WriteComma();
+                item.AcceptVisitor(Emitter);
             }
         }
 
@@ -290,17 +290,17 @@ namespace H5.Translator
             {
                 foreach (var el in arrayInitializer.Elements)
                 {
-                    this.WriteInitializerExpression(el, tempVar + "." + OverloadsCollection.Create(this.Emitter, rr.Member).GetOverloadName());
+                    WriteInitializerExpression(el, tempVar + "." + OverloadsCollection.Create(Emitter, rr.Member).GetOverloadName());
                 }
             }
             else
             {
-                this.WriteComma();
-                this.Write(tempVar);
-                this.WriteDot();
-                this.WriteIdentifier(OverloadsCollection.Create(this.Emitter, rr.Member).GetOverloadName());
-                this.Write(" = ");
-                expression.AcceptVisitor(this.Emitter);
+                WriteComma();
+                Write(tempVar);
+                WriteDot();
+                WriteIdentifier(OverloadsCollection.Create(Emitter, rr.Member).GetOverloadName());
+                Write(" = ");
+                expression.AcceptVisitor(Emitter);
             }
         }
 
@@ -408,11 +408,11 @@ namespace H5.Translator
         {
             bool needComma = false;
             List<string> names = new List<string>();
-            var isObjectLiteral = this.Emitter.Validator.IsObjectLiteral(type);
+            var isObjectLiteral = Emitter.Validator.IsObjectLiteral(type);
 
-            if (!withCtor && rr != null && this.ObjectCreateExpression.Arguments.Count > 0)
+            if (!withCtor && rr != null && ObjectCreateExpression.Arguments.Count > 0)
             {
-                var args = this.ObjectCreateExpression.Arguments.ToList();
+                var args = ObjectCreateExpression.Arguments.ToList();
                 var arrIsOpen = false;
                 for (int i = 0; i < args.Count; i++)
                 {
@@ -428,7 +428,7 @@ namespace H5.Translator
 
                     if (needComma)
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
 
                     needComma = true;
@@ -436,18 +436,18 @@ namespace H5.Translator
                     if (p.IsParams && !arrIsOpen)
                     {
                         arrIsOpen = true;
-                        this.Write("[");
+                        Write("[");
                     }
 
-                    this.Write(name, ": ");
-                    expression.AcceptVisitor(this.Emitter);
+                    Write(name, ": ");
+                    expression.AcceptVisitor(Emitter);
 
                     names.Add(name);
                 }
 
                 if (arrIsOpen)
                 {
-                    this.Write("]");
+                    Write("]");
                 }
             }
 
@@ -459,26 +459,26 @@ namespace H5.Translator
                     NamedArgumentExpression namedArgumentExpression = item as NamedArgumentExpression;
                     string name = namedExression != null ? namedExression.Name : namedArgumentExpression.Name;
 
-                    if (this.Emitter.Resolver.ResolveNode(item, this.Emitter) is MemberResolveResult itemrr)
+                    if (Emitter.Resolver.ResolveNode(item, Emitter) is MemberResolveResult itemrr)
                     {
-                        var oc = OverloadsCollection.Create(this.Emitter, itemrr.Member);
-                        bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.Attributes.Any(attr => attr.AttributeType.FullName == "H5.NameAttribute") && !this.Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
+                        var oc = OverloadsCollection.Create(Emitter, itemrr.Member);
+                        bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.Attributes.Any(attr => attr.AttributeType.FullName == "H5.NameAttribute") && !Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
 
                         name = oc.GetOverloadName(isObjectLiteral: forceObjectLiteral);
                     }
 
                     if (needComma)
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
 
                     needComma = true;
 
                     Expression expression = namedExression != null ? namedExression.Expression : namedArgumentExpression.Expression;
 
-                    this.WriteIdentifier(name, true, true);
-                    this.Write(": ");
-                    expression.AcceptVisitor(this.Emitter);
+                    WriteIdentifier(name, true, true);
+                    Write(": ");
+                    expression.AcceptVisitor(Emitter);
 
                     names.Add(name);
                 }
@@ -487,7 +487,7 @@ namespace H5.Translator
             if (isObjectLiteral)
             {
                 var key = H5Types.GetTypeDefinitionKey(type);
-                var tinfo = this.Emitter.Types.FirstOrDefault(t => t.Key == key);
+                var tinfo = Emitter.Types.FirstOrDefault(t => t.Key == key);
 
                 var mode = 0;
                 if (rr != null)
@@ -517,7 +517,7 @@ namespace H5.Translator
                     }
                     else if (type != null)
                     {
-                        mode = this.Emitter.Validator.GetObjectInitializationMode(type);
+                        mode = Emitter.Validator.GetObjectInitializationMode(type);
                     }
                 }
 
@@ -528,7 +528,7 @@ namespace H5.Translator
                         var properties = rr.Member.DeclaringTypeDefinition.GetProperties(null, GetMemberOptions.IgnoreInheritedMembers);
                         foreach (var prop in properties)
                         {
-                            var name = OverloadsCollection.Create(this.Emitter, prop).GetOverloadName();
+                            var name = OverloadsCollection.Create(Emitter, prop).GetOverloadName();
 
                             if (names.Contains(name))
                             {
@@ -537,23 +537,23 @@ namespace H5.Translator
 
                             if (needComma)
                             {
-                                this.WriteComma();
+                                WriteComma();
                             }
 
                             needComma = true;
 
-                            this.WriteIdentifier(name, true, true);
-                            this.Write(": ");
+                            WriteIdentifier(name, true, true);
+                            Write(": ");
 
                             var argType = prop.ReturnType;
                             var defValue = Inspector.GetDefaultFieldValue(argType, null);
                             if (defValue == argType)
                             {
-                                this.Write(Inspector.GetStructDefaultValue(argType, this.Emitter));
+                                Write(Inspector.GetStructDefaultValue(argType, Emitter));
                             }
                             else
                             {
-                                this.Write(defValue);
+                                Write(defValue);
                             }
                         }
                     }
@@ -574,7 +574,7 @@ namespace H5.Translator
                                 continue;
                             }
 
-                            var name = member.GetName(this.Emitter);
+                            var name = member.GetName(Emitter);
 
                             if (names.Contains(name))
                             {
@@ -583,40 +583,40 @@ namespace H5.Translator
 
                             if (needComma)
                             {
-                                this.WriteComma();
+                                WriteComma();
                             }
 
                             needComma = true;
 
-                            this.WriteIdentifier(name, true, true);
-                            this.Write(": ");
+                            WriteIdentifier(name, true, true);
+                            Write(": ");
 
                             if (mode == 2 && (member.Initializer == null || member.Initializer.IsNull) && !(member.VarInitializer == null || member.VarInitializer.Initializer.IsNull))
                             {
-                                var argType = this.Emitter.Resolver.ResolveNode(member.VarInitializer, this.Emitter).Type;
+                                var argType = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter).Type;
                                 var defValue = Inspector.GetDefaultFieldValue(argType, null);
                                 if (defValue == argType)
                                 {
-                                    this.Write(Inspector.GetStructDefaultValue(argType, this.Emitter));
+                                    Write(Inspector.GetStructDefaultValue(argType, Emitter));
                                 }
                                 else
                                 {
-                                    this.Write(defValue);
+                                    Write(defValue);
                                 }
                             }
                             else
                             {
                                 if (member.Initializer is PrimitiveExpression primitiveExpr && primitiveExpr.Value is AstType)
                                 {
-                                    this.Write(Inspector.GetStructDefaultValue((AstType)primitiveExpr.Value, this.Emitter));
+                                    Write(Inspector.GetStructDefaultValue((AstType)primitiveExpr.Value, Emitter));
                                 }
                                 else if (member.Initializer != null)
                                 {
-                                    member.Initializer.AcceptVisitor(this.Emitter);
+                                    member.Initializer.AcceptVisitor(Emitter);
                                 }
                                 else
                                 {
-                                    this.Write("null");
+                                    Write("null");
                                 }
                             }
                         }

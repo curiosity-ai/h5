@@ -9,8 +9,8 @@ namespace H5.Translator
         public VisitorCustomEventBlock(IEmitter emitter, CustomEventDeclaration customEventDeclaration)
             : base(emitter, customEventDeclaration)
         {
-            this.Emitter = emitter;
-            this.CustomEventDeclaration = customEventDeclaration;
+            Emitter = emitter;
+            CustomEventDeclaration = customEventDeclaration;
         }
 
         public CustomEventDeclaration CustomEventDeclaration { get; set; }
@@ -20,68 +20,68 @@ namespace H5.Translator
         protected override void BeginEmit()
         {
             base.BeginEmit();
-            this.OldRules = this.Emitter.Rules;
+            OldRules = Emitter.Rules;
 
 
-            if (this.Emitter.Resolver.ResolveNode(this.CustomEventDeclaration, this.Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(CustomEventDeclaration, Emitter) is MemberResolveResult rr)
             {
-                this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
+                Emitter.Rules = Rules.Get(Emitter, rr.Member);
             }
         }
 
         protected override void DoEmit()
         {
-            this.EmitPropertyMethod(this.CustomEventDeclaration, this.CustomEventDeclaration.AddAccessor, false);
-            this.EmitPropertyMethod(this.CustomEventDeclaration, this.CustomEventDeclaration.RemoveAccessor, true);
+            EmitPropertyMethod(CustomEventDeclaration, CustomEventDeclaration.AddAccessor, false);
+            EmitPropertyMethod(CustomEventDeclaration, CustomEventDeclaration.RemoveAccessor, true);
         }
 
         protected virtual void EmitPropertyMethod(CustomEventDeclaration customEventDeclaration, Accessor accessor, bool remover)
         {
-            if (!accessor.IsNull && this.Emitter.GetInline(accessor) == null)
+            if (!accessor.IsNull && Emitter.GetInline(accessor) == null)
             {
-                this.EnsureComma();
+                EnsureComma();
 
-                this.ResetLocals();
+                ResetLocals();
 
-                var prevMap = this.BuildLocalsMap();
-                var prevNamesMap = this.BuildLocalsNamesMap();
+                var prevMap = BuildLocalsMap();
+                var prevNamesMap = BuildLocalsNamesMap();
 
-                this.AddLocals(new ParameterDeclaration[] { new ParameterDeclaration { Name = "value" } }, accessor.Body);
-                XmlToJsDoc.EmitComment(this, this.CustomEventDeclaration);
-                var member_rr = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(customEventDeclaration, this.Emitter);
+                AddLocals(new ParameterDeclaration[] { new ParameterDeclaration { Name = "value" } }, accessor.Body);
+                XmlToJsDoc.EmitComment(this, CustomEventDeclaration);
+                var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(customEventDeclaration, Emitter);
 
-                this.Write(Helpers.GetEventRef(customEventDeclaration, this.Emitter, remover, false, false, OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr)));
-                this.WriteColon();
-                this.WriteFunction();
-                var m_rr = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(customEventDeclaration, this.Emitter);
-                var nm = Helpers.GetFunctionName(this.Emitter.AssemblyInfo.NamedFunctions, m_rr.Member, this.Emitter, remover);
+                Write(Helpers.GetEventRef(customEventDeclaration, Emitter, remover, false, false, OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr)));
+                WriteColon();
+                WriteFunction();
+                var m_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(customEventDeclaration, Emitter);
+                var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, m_rr.Member, Emitter, remover);
                 if (nm != null)
                 {
-                    this.Write(nm);
+                    Write(nm);
                 }
-                this.WriteOpenParentheses();
-                this.Write("value");
-                this.WriteCloseParentheses();
-                this.WriteSpace();
+                WriteOpenParentheses();
+                Write("value");
+                WriteCloseParentheses();
+                WriteSpace();
 
-                var script = this.Emitter.GetScript(accessor);
+                var script = Emitter.GetScript(accessor);
 
                 if (script == null)
                 {
-                    accessor.Body.AcceptVisitor(this.Emitter);
+                    accessor.Body.AcceptVisitor(Emitter);
                 }
                 else
                 {
-                    this.BeginBlock();
+                    BeginBlock();
 
-                    this.WriteLines(script);
+                    WriteLines(script);
 
-                    this.EndBlock();
+                    EndBlock();
                 }
 
-                this.ClearLocalsMap(prevMap);
-                this.ClearLocalsNamesMap(prevNamesMap);
-                this.Emitter.Comma = true;
+                ClearLocalsMap(prevMap);
+                ClearLocalsNamesMap(prevNamesMap);
+                Emitter.Comma = true;
             }
         }
     }

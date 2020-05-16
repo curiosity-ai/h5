@@ -15,11 +15,11 @@ namespace H5.Translator
 
         public Inspector(IAssemblyInfo config = null)
         {
-            this.Types = new List<ITypeInfo>();
-            this.IgnoredTypes = new List<string>();
-            this.AssemblyInfo = config ?? new AssemblyInfo();
+            Types = new List<ITypeInfo>();
+            IgnoredTypes = new List<string>();
+            AssemblyInfo = config ?? new AssemblyInfo();
 
-            this.Emitter = new TempEmitter { AssemblyInfo = this.AssemblyInfo };
+            Emitter = new TempEmitter { AssemblyInfo = AssemblyInfo };
         }
 
         protected virtual bool HasAttribute(EntityDeclaration type, string name)
@@ -33,7 +33,7 @@ namespace H5.Translator
                         return true;
                     }
 
-                    var resolveResult = this.Resolver.ResolveNode(j, null);
+                    var resolveResult = Resolver.ResolveNode(j, null);
                     if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (name + "Attribute"))
                     {
                         return true;
@@ -67,19 +67,19 @@ namespace H5.Translator
 
         protected virtual bool IsObjectLiteral(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".ObjectLiteral");
+            return HasAttribute(declaration, Translator.H5_ASSEMBLY + ".ObjectLiteral");
         }
 
         protected virtual bool IsNonScriptable(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".NonScriptable");
+            return HasAttribute(declaration, Translator.H5_ASSEMBLY + ".NonScriptable");
         }
 
         protected virtual bool HasExternal(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".External") ||
-                   this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Ignore") ||
-                   this.IsVirtual(declaration as TypeDeclaration);
+            return HasAttribute(declaration, Translator.H5_ASSEMBLY + ".External") ||
+                   HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Ignore") ||
+                   IsVirtual(declaration as TypeDeclaration);
         }
 
         protected virtual bool IsVirtual(TypeDeclaration typeDeclaration)
@@ -89,24 +89,24 @@ namespace H5.Translator
                 return false;
             }
 
-            var resolveResult = this.Resolver.ResolveNode(typeDeclaration, null);
+            var resolveResult = Resolver.ResolveNode(typeDeclaration, null);
             var typeDef = resolveResult?.Type?.GetDefinition();
             return typeDef != null && Validator.IsVirtualTypeStatic(typeDef);
         }
 
         protected virtual bool HasTemplate(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Template");
+            return HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Template");
         }
 
         protected virtual bool HasScript(EntityDeclaration declaration)
         {
-            return this.HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Script");
+            return HasAttribute(declaration, Translator.H5_ASSEMBLY + ".Script");
         }
 
         private Expression GetDefaultFieldInitializer(AstType type)
         {
-            return new PrimitiveExpression(Inspector.GetDefaultFieldValue(type, this.Resolver), "?");
+            return new PrimitiveExpression(Inspector.GetDefaultFieldValue(type, Resolver), "?");
         }
 
         public static object GetDefaultFieldValue(AstType type, IMemberResolver resolver)
@@ -315,13 +315,13 @@ namespace H5.Translator
         /// <param name="tpDecl">The TypeDefinition object of the validated item.</param>
         private void ValidateNamespace(TypeDeclaration tpDecl)
         {
-            if (this.AssemblyInfo.Assembly.EnableReservedNamespaces)
+            if (AssemblyInfo.Assembly.EnableReservedNamespaces)
             {
                 return;
             }
 
             ICSharpCode.NRefactory.CSharp.Attribute nsAt;
-            if (this.TryGetAttribute(tpDecl, "Namespace", out nsAt))
+            if (TryGetAttribute(tpDecl, "Namespace", out nsAt))
             {
                 var nsName = nsAt.Arguments.FirstOrNullObject().ToString().Trim('"');
                 if (H5.Translator.Inspector.IsConflictingNamespace(nsName))

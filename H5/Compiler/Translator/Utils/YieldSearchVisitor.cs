@@ -20,12 +20,12 @@ namespace H5.Translator
 
         public override void VisitYieldBreakStatement(YieldBreakStatement yieldBreakStatement)
         {
-            this.Found = true;
+            Found = true;
         }
 
         public override void VisitYieldReturnStatement(YieldReturnStatement yieldReturnStatement)
         {
-            this.Found = true;
+            Found = true;
         }
     }
 }

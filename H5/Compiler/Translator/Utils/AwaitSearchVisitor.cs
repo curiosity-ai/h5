@@ -12,9 +12,9 @@ namespace H5.Translator
     {
         public AwaitSearchVisitor(IEmitter emitter)
         {
-            this.AwaitExpressions = new List<AstNode>();
-            this.InsertPosition = -1;
-            this.Emitter = emitter;
+            AwaitExpressions = new List<AstNode>();
+            InsertPosition = -1;
+            Emitter = emitter;
         }
 
         public IEmitter Emitter { get; set; }
@@ -23,54 +23,54 @@ namespace H5.Translator
 
         public List<AstNode> GetAwaitExpressions()
         {
-            return this.AwaitExpressions.ToList();
+            return AwaitExpressions.ToList();
         }
 
         private int InsertPosition { get; set; }
 
         private void Add(AstNode node)
         {
-            if (this.InsertPosition >= 0)
+            if (InsertPosition >= 0)
             {
-                this.AwaitExpressions.Insert(this.InsertPosition++, node);
+                AwaitExpressions.Insert(InsertPosition++, node);
             }
             else
             {
-                this.AwaitExpressions.Add(node);
+                AwaitExpressions.Add(node);
             }
         }
 
         public override void VisitConditionalExpression(ConditionalExpression conditionalExpression)
         {
-            var count = this.AwaitExpressions.Count;
-            var idx = this.InsertPosition;
+            var count = AwaitExpressions.Count;
+            var idx = InsertPosition;
 
             base.VisitConditionalExpression(conditionalExpression);
 
-            if (this.AwaitExpressions.Count > count)
+            if (AwaitExpressions.Count > count)
             {
-                this.AwaitExpressions.Insert(idx > -1 ? idx : 0, conditionalExpression);
+                AwaitExpressions.Insert(idx > -1 ? idx : 0, conditionalExpression);
             }
         }
 
         public override void VisitBinaryOperatorExpression(BinaryOperatorExpression binaryOperatorExpression)
         {
-            if (this.Emitter != null && binaryOperatorExpression.GetParent<SyntaxTree>() != null)
+            if (Emitter != null && binaryOperatorExpression.GetParent<SyntaxTree>() != null)
             {
-                if (this.Emitter.Resolver.ResolveNode(binaryOperatorExpression, this.Emitter) is OperatorResolveResult rr && rr.Type.IsKnownType(KnownTypeCode.Boolean))
+                if (Emitter.Resolver.ResolveNode(binaryOperatorExpression, Emitter) is OperatorResolveResult rr && rr.Type.IsKnownType(KnownTypeCode.Boolean))
                 {
-                    var count = this.AwaitExpressions.Count;
-                    var idx = this.InsertPosition;
+                    var count = AwaitExpressions.Count;
+                    var idx = InsertPosition;
 
                     base.VisitBinaryOperatorExpression(binaryOperatorExpression);
 
-                    if (this.AwaitExpressions.Count > count && (
+                    if (AwaitExpressions.Count > count && (
                         binaryOperatorExpression.Operator == BinaryOperatorType.BitwiseAnd ||
                         binaryOperatorExpression.Operator == BinaryOperatorType.BitwiseOr ||
                         binaryOperatorExpression.Operator == BinaryOperatorType.ConditionalOr ||
                         binaryOperatorExpression.Operator == BinaryOperatorType.ConditionalAnd))
                     {
-                        this.AwaitExpressions.Insert(idx > -1 ? idx : 0, binaryOperatorExpression);
+                        AwaitExpressions.Insert(idx > -1 ? idx : 0, binaryOperatorExpression);
                     }
 
                     return;
@@ -93,28 +93,28 @@ namespace H5.Translator
             int oldPos = -2;
             if (invocationExpression.Parent is UnaryOperatorExpression uo && uo.Operator == UnaryOperatorType.Await)
             {
-                oldPos = this.InsertPosition;
-                this.InsertPosition = Math.Max(this.InsertPosition - 1, 0);
+                oldPos = InsertPosition;
+                InsertPosition = Math.Max(InsertPosition - 1, 0);
             }
 
             base.VisitInvocationExpression(invocationExpression);
 
             if (oldPos > -2)
             {
-                this.InsertPosition = oldPos;
+                InsertPosition = oldPos;
             }
         }
 
         public override void VisitYieldReturnStatement(YieldReturnStatement yieldReturnStatement)
         {
-            this.Add(yieldReturnStatement);
+            Add(yieldReturnStatement);
 
             base.VisitYieldReturnStatement(yieldReturnStatement);
         }
 
         public override void VisitYieldBreakStatement(YieldBreakStatement yieldBreakStatement)
         {
-            this.Add(yieldBreakStatement);
+            Add(yieldBreakStatement);
 
             base.VisitYieldBreakStatement(yieldBreakStatement);
         }
@@ -123,7 +123,7 @@ namespace H5.Translator
         {
             if (unaryOperatorExpression.Operator == UnaryOperatorType.Await)
             {
-                this.Add(unaryOperatorExpression.Expression);
+                Add(unaryOperatorExpression.Expression);
             }
 
             base.VisitUnaryOperatorExpression(unaryOperatorExpression);
@@ -131,25 +131,25 @@ namespace H5.Translator
 
         public override void VisitGotoCaseStatement(GotoCaseStatement gotoCaseStatement)
         {
-            this.Add(gotoCaseStatement);
+            Add(gotoCaseStatement);
             base.VisitGotoCaseStatement(gotoCaseStatement);
         }
 
         public override void VisitGotoDefaultStatement(GotoDefaultStatement gotoDefaultStatement)
         {
-            this.Add(gotoDefaultStatement);
+            Add(gotoDefaultStatement);
             base.VisitGotoDefaultStatement(gotoDefaultStatement);
         }
 
         public override void VisitGotoStatement(GotoStatement gotoStatement)
         {
-            this.Add(gotoStatement);
+            Add(gotoStatement);
             base.VisitGotoStatement(gotoStatement);
         }
 
         public override void VisitLabelStatement(LabelStatement labelStatement)
         {
-            this.Add(labelStatement);
+            Add(labelStatement);
             base.VisitLabelStatement(labelStatement);
         }
     }
@@ -178,7 +178,7 @@ namespace H5.Translator
 
                 if (tryBlock != null)
                 {
-                    this.Found = true;
+                    Found = true;
                 }
             }
 

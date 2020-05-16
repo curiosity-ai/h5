@@ -42,11 +42,11 @@ namespace H5.Translator
         {
             get
             {
-                return this.msbuildVersion;
+                return msbuildVersion;
             }
             set
             {
-                this.msbuildVersion = value;
+                msbuildVersion = value;
             }
         }
 
@@ -68,11 +68,11 @@ namespace H5.Translator
         {
             get
             {
-                return this.rebuild;
+                return rebuild;
             }
             set
             {
-                this.rebuild = value;
+                rebuild = value;
             }
         }
 

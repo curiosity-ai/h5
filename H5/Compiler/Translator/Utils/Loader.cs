@@ -34,14 +34,14 @@ namespace H5.Translator
 
         public bool IsManual(string name)
         {
-            if (this.ManualLoading)
+            if (ManualLoading)
             {
                 return true;
             }
 
-            if (!string.IsNullOrWhiteSpace(this.ManualLoadingMask))
+            if (!string.IsNullOrWhiteSpace(ManualLoadingMask))
             {
-                var parts = this.ManualLoadingMask.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                var parts = ManualLoadingMask.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (var part in parts)
                 {

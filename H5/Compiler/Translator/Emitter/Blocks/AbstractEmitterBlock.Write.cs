@@ -17,104 +17,104 @@ namespace H5.Translator
         {
             get
             {
-                return this.Emitter.Level;
+                return Emitter.Level;
             }
         }
 
         public virtual string RemoveTokens(string code)
         {
-            return this.Emitter.AssemblyInfo.SourceMap.Enabled
+            return Emitter.AssemblyInfo.SourceMap.Enabled
                         ? SourceMapGenerator.tokenRegex.Replace(code, "")
                         : code;
         }
 
         public virtual void Indent()
         {
-            this.Emitter.ResetLevel(this.Emitter.Level + 1);
+            Emitter.ResetLevel(Emitter.Level + 1);
         }
 
         public virtual void Outdent()
         {
-            this.Emitter.ResetLevel(this.Emitter.Level - 1);
+            Emitter.ResetLevel(Emitter.Level - 1);
         }
 
         public virtual void ResetLevel(int level)
         {
-            this.Emitter.ResetLevel(level);
+            Emitter.ResetLevel(level);
         }
 
         public virtual void WriteSourceMapName(string name)
         {
-            if (this.Emitter.AssemblyInfo.SourceMap.Enabled && !this.Emitter.EmitterOutput.Names.Contains(name))
+            if (Emitter.AssemblyInfo.SourceMap.Enabled && !Emitter.EmitterOutput.Names.Contains(name))
             {
-                this.Emitter.EmitterOutput.Names.Add(name);
+                Emitter.EmitterOutput.Names.Add(name);
             }
         }
 
         public virtual void WriteSequencePoint(DomRegion region)
         {
-            if (this.Emitter.AssemblyInfo.SourceMap.Enabled)
+            if (Emitter.AssemblyInfo.SourceMap.Enabled)
             {
                 var line = region.BeginLine;
                 var column = region.BeginColumn;
-                var idx = this.Emitter.SourceFileNameIndex;
+                var idx = Emitter.SourceFileNameIndex;
 
-                if (this.Emitter.TypeInfo.TypeDeclaration.HasModifier(ICSharpCode.NRefactory.CSharp.Modifiers.Partial))
+                if (Emitter.TypeInfo.TypeDeclaration.HasModifier(ICSharpCode.NRefactory.CSharp.Modifiers.Partial))
                 {
-                    var fn = this.Emitter.Translator.EmitNode.GetParent<SyntaxTree>().FileName;
+                    var fn = Emitter.Translator.EmitNode.GetParent<SyntaxTree>().FileName;
 
                     if (fn != null && fn.Length > 0)
                     {
-                        idx = this.Emitter.SourceFiles.IndexOf(fn);
+                        idx = Emitter.SourceFiles.IndexOf(fn);
 
                         if (idx == -1)
                         {
-                            idx = this.Emitter.SourceFileNameIndex;
+                            idx = Emitter.SourceFileNameIndex;
                         }
                     }
                 }
                 var point = string.Format("/*##|{0},{1},{2}|##*/", idx, line, column);
 
-                if (this.Emitter.LastSequencePoint != point)
+                if (Emitter.LastSequencePoint != point)
                 {
-                    this.Emitter.LastSequencePoint = point;
-                    this.Write(point);
+                    Emitter.LastSequencePoint = point;
+                    Write(point);
                 }
             }
         }
 
         public virtual void WriteIndent()
         {
-            if (!this.Emitter.IsNewLine)
+            if (!Emitter.IsNewLine)
             {
                 return;
             }
 
-            for (var i = 0; i < this.Level; i++)
+            for (var i = 0; i < Level; i++)
             {
-                this.Emitter.Output.Append(H5.Translator.Emitter.INDENT);
+                Emitter.Output.Append(H5.Translator.Emitter.INDENT);
             }
 
-            this.Emitter.IsNewLine = false;
+            Emitter.IsNewLine = false;
         }
 
         public virtual void WriteNewLine()
         {
-            this.Emitter.Output.Append(H5.Translator.Emitter.NEW_LINE);
-            this.Emitter.IsNewLine = true;
+            Emitter.Output.Append(H5.Translator.Emitter.NEW_LINE);
+            Emitter.IsNewLine = true;
         }
 
         public virtual void BeginBlock()
         {
-            this.WriteOpenBrace();
-            this.WriteNewLine();
-            this.Indent();
+            WriteOpenBrace();
+            WriteNewLine();
+            Indent();
         }
 
         public virtual void EndBlock()
         {
-            this.Outdent();
-            this.WriteCloseBrace();
+            Outdent();
+            WriteCloseBrace();
         }
 
         /// <summary>
@@ -124,37 +124,37 @@ namespace H5.Translator
         /// <param name="newline"></param>
         public virtual void WriteBlock(string what, bool newline = true)
         {
-            this.BeginBlock();
-            this.Write(what);
-            this.WriteNewLine();
-            this.EndBlock();
+            BeginBlock();
+            Write(what);
+            WriteNewLine();
+            EndBlock();
 
             if (newline)
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
         }
 
         public virtual void Write(object value)
         {
-            this.WriteIndent();
-            this.Emitter.Output.Append(value);
+            WriteIndent();
+            Emitter.Output.Append(value);
         }
 
         public virtual void Write(params object[] values)
         {
             foreach (var item in values)
             {
-                this.Write(item);
+                Write(item);
             }
         }
 
         public virtual void WriteScript(object value)
         {
-            this.WriteIndent();
-            var s = AbstractEmitterBlock.ToJavaScript(value, this.Emitter);
+            WriteIndent();
+            var s = AbstractEmitterBlock.ToJavaScript(value, Emitter);
 
-            this.Emitter.Output.Append(s);
+            Emitter.Output.Append(s);
         }
 
         public static string ToJavaScript(object value, IEmitter emitter)
@@ -235,14 +235,14 @@ namespace H5.Translator
         {
             foreach (var line in lines)
             {
-                this.Write(line.Replace(H5.Translator.Emitter.CRLF, H5.Translator.Emitter.NEW_LINE));
-                this.WriteNewLine();
+                Write(line.Replace(H5.Translator.Emitter.CRLF, H5.Translator.Emitter.NEW_LINE));
+                WriteNewLine();
             }
         }
 
         public virtual void WriteLines(params string[] lines)
         {
-            this.WriteLines((IEnumerable<string>)lines);
+            WriteLines((IEnumerable<string>)lines);
         }
 
         /// <summary>
@@ -287,12 +287,12 @@ namespace H5.Translator
 
                 if (!string.IsNullOrEmpty(line))
                 {
-                    this.WriteIndent();
+                    WriteIndent();
 
-                    this.Emitter.Output.Append(line);
+                    Emitter.Output.Append(line);
                 }
 
-                this.WriteNewLine();
+                WriteNewLine();
             }
         }
 
@@ -419,37 +419,37 @@ namespace H5.Translator
 
         public virtual void WriteCall(object callee = null)
         {
-            this.WriteDot();
+            WriteDot();
 
             if (callee == null)
             {
-                this.Write(JS.Funcs.CALL);
+                Write(JS.Funcs.CALL);
             }
             else
             {
-                this.Write(JS.Funcs.CALL);
-                this.WriteOpenParentheses();
-                this.Write(callee);
-                this.WriteCloseParentheses();
+                Write(JS.Funcs.CALL);
+                WriteOpenParentheses();
+                Write(callee);
+                WriteCloseParentheses();
             }
         }
 
         public virtual void WriteComma()
         {
-            this.WriteComma(false);
+            WriteComma(false);
         }
 
         public virtual void WriteComma(bool newLine)
         {
-            this.Write(",");
+            Write(",");
 
             if (newLine)
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
             else
             {
-                this.WriteSpace();
+                WriteSpace();
             }
         }
 
@@ -460,228 +460,228 @@ namespace H5.Translator
 
         public virtual void WriteThis()
         {
-            this.Write(AbstractEmitterBlock.GetThisAlias(this.Emitter));
-            this.Emitter.ThisRefCounter++;
+            Write(AbstractEmitterBlock.GetThisAlias(Emitter));
+            Emitter.ThisRefCounter++;
         }
 
         public virtual void WriteSpace()
         {
-            this.WriteSpace(true);
+            WriteSpace(true);
         }
 
         public virtual void WriteSpace(bool addSpace)
         {
             if (addSpace)
             {
-                this.Write(" ");
+                Write(" ");
             }
         }
 
         public virtual void WriteDot()
         {
-            this.Write(".");
+            Write(".");
         }
 
         public virtual void WriteColon()
         {
-            this.Write(": ");
+            Write(": ");
         }
 
         public virtual void WriteSemiColon()
         {
-            this.WriteSemiColon(false);
+            WriteSemiColon(false);
         }
 
         public virtual void WriteSemiColon(bool newLine)
         {
-            if (this.Emitter.SkipSemiColon)
+            if (Emitter.SkipSemiColon)
             {
-                this.Emitter.SkipSemiColon = false;
+                Emitter.SkipSemiColon = false;
                 return;
             }
 
-            this.Write(";");
+            Write(";");
 
             if (newLine)
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
         }
 
         public virtual void WriteNew()
         {
-            this.Write("new ");
+            Write("new ");
         }
 
         public virtual void WriteVar(bool ignoreAsync = false)
         {
-            if (!this.Emitter.IsAsync || ignoreAsync)
+            if (!Emitter.IsAsync || ignoreAsync)
             {
-                this.Write("var ");
+                Write("var ");
             }
         }
 
         public virtual void WriteIf()
         {
-            this.Write("if ");
+            Write("if ");
         }
 
         public virtual void WriteElse()
         {
-            this.Write("else ");
+            Write("else ");
         }
 
         public virtual void WriteWhile()
         {
-            this.Write("while ");
+            Write("while ");
         }
 
         public virtual void WriteFor()
         {
-            this.Write("for ");
+            Write("for ");
         }
 
         public virtual void WriteThrow()
         {
-            this.Write("throw ");
+            Write("throw ");
         }
 
         public virtual void WriteTry()
         {
-            this.Write("try ");
+            Write("try ");
         }
 
         public virtual void WriteCatch()
         {
-            this.Write("catch ");
+            Write("catch ");
         }
 
         public virtual void WriteFinally()
         {
-            this.Write("finally ");
+            Write("finally ");
         }
 
         public virtual void WriteDo()
         {
-            this.Write("do");
+            Write("do");
         }
 
         public virtual void WriteSwitch()
         {
-            this.Write("switch ");
+            Write("switch ");
         }
 
         public virtual void WriteReturn(bool addSpace)
         {
-            this.Write("return");
-            this.WriteSpace(addSpace);
+            Write("return");
+            WriteSpace(addSpace);
         }
 
         public virtual void WriteOpenBracket()
         {
-            this.WriteOpenBracket(false);
+            WriteOpenBracket(false);
         }
 
         public virtual void WriteOpenBracket(bool addSpace)
         {
-            this.Write("[");
-            this.WriteSpace(addSpace);
+            Write("[");
+            WriteSpace(addSpace);
         }
 
         public virtual void WriteCloseBracket()
         {
-            this.WriteCloseBracket(false);
+            WriteCloseBracket(false);
         }
 
         public virtual void WriteCloseBracket(bool addSpace)
         {
-            this.WriteSpace(addSpace);
-            this.Write("]");
+            WriteSpace(addSpace);
+            Write("]");
         }
 
         public virtual void WriteOpenParentheses()
         {
-            this.WriteOpenParentheses(false);
+            WriteOpenParentheses(false);
         }
 
         public virtual void WriteOpenParentheses(bool addSpace)
         {
-            this.Write("(");
-            this.WriteSpace(addSpace);
+            Write("(");
+            WriteSpace(addSpace);
         }
 
         public virtual void WriteCloseParentheses()
         {
-            this.WriteCloseParentheses(false);
+            WriteCloseParentheses(false);
         }
 
         public virtual void WriteCloseParentheses(bool addSpace)
         {
-            this.WriteSpace(addSpace);
-            this.Write(")");
+            WriteSpace(addSpace);
+            Write(")");
         }
 
         public virtual void WriteOpenCloseParentheses()
         {
-            this.WriteOpenCloseParentheses(false);
+            WriteOpenCloseParentheses(false);
         }
 
         public virtual void WriteOpenCloseParentheses(bool addSpace)
         {
-            this.Write("()");
-            this.WriteSpace(addSpace);
+            Write("()");
+            WriteSpace(addSpace);
         }
 
         public virtual void WriteOpenBrace()
         {
-            this.WriteOpenBrace(false);
+            WriteOpenBrace(false);
         }
 
         public virtual void WriteOpenBrace(bool addSpace)
         {
-            this.Write("{");
-            this.WriteSpace(addSpace);
+            Write("{");
+            WriteSpace(addSpace);
         }
 
         public virtual void WriteCloseBrace()
         {
-            this.WriteCloseBrace(false);
+            WriteCloseBrace(false);
         }
 
         public virtual void WriteCloseBrace(bool addSpace)
         {
-            this.WriteSpace(addSpace);
-            this.Write("}");
+            WriteSpace(addSpace);
+            Write("}");
         }
 
         public virtual void WriteOpenCloseBrace()
         {
-            this.Write("{ }");
+            Write("{ }");
         }
 
         public virtual void WriteFunction()
         {
-            this.Write("function ");
+            Write("function ");
         }
 
         public virtual void PushWriter(string format, Action callback = null, string thisArg = null, int[] ignoreRange = null)
         {
-            this.Emitter.Writers.Push(new Writer { InlineCode = format, Output = this.Emitter.Output, IsNewLine = this.Emitter.IsNewLine, Callback = callback, ThisArg = thisArg, IgnoreRange = ignoreRange });
-            this.Emitter.IsNewLine = false;
-            this.Emitter.Output = new StringBuilder();
+            Emitter.Writers.Push(new Writer { InlineCode = format, Output = Emitter.Output, IsNewLine = Emitter.IsNewLine, Callback = callback, ThisArg = thisArg, IgnoreRange = ignoreRange });
+            Emitter.IsNewLine = false;
+            Emitter.Output = new StringBuilder();
         }
 
         public virtual string PopWriter(bool preventWrite = false)
         {
-            string result = this.Emitter.Output.ToString();
-            var writer = this.Emitter.Writers.Pop();
-            this.Emitter.Output = writer.Output;
+            string result = Emitter.Output.ToString();
+            var writer = Emitter.Writers.Pop();
+            Emitter.Output = writer.Output;
             result = writer.InlineCode != null ? string.Format(writer.InlineCode, result) : result;
-            this.Emitter.IsNewLine = writer.IsNewLine;
+            Emitter.IsNewLine = writer.IsNewLine;
 
             if (!preventWrite)
             {
-                this.Write(result);
+                Write(result);
             }
 
             if (writer.Callback != null)
@@ -694,7 +694,7 @@ namespace H5.Translator
 
         public virtual string WriteIndentToString(string value)
         {
-            return WriteIndentToString(value, this.Level);
+            return WriteIndentToString(value, Level);
         }
 
         public static string UpdateIndentsInString(string value, int level)
@@ -733,10 +733,10 @@ namespace H5.Translator
 
         public virtual void EnsureComma(bool newLine = true)
         {
-            if (this.Emitter.Comma)
+            if (Emitter.Comma)
             {
-                this.WriteComma(newLine);
-                this.Emitter.Comma = false;
+                WriteComma(newLine);
+                Emitter.Comma = false;
             }
         }
 
@@ -752,25 +752,25 @@ namespace H5.Translator
 
             var info = new WriterInfo
             {
-                Output = this.Emitter.Output,
-                IsNewLine = this.Emitter.IsNewLine,
-                Level = this.Emitter.Level,
-                Comma = this.Emitter.Comma
+                Output = Emitter.Output,
+                IsNewLine = Emitter.IsNewLine,
+                Level = Emitter.Level,
+                Comma = Emitter.Comma
             };
 
-            this.Emitter.LastSavedWriter = info;
+            Emitter.LastSavedWriter = info;
 
             return info;
         }
 
         public bool RestoreWriter(IWriterInfo writer)
         {
-            if (this.Emitter.Output != writer.Output)
+            if (Emitter.Output != writer.Output)
             {
-                this.Emitter.Output = writer.Output;
-                this.Emitter.IsNewLine = writer.IsNewLine;
-                this.Emitter.ResetLevel(writer.Level);
-                this.Emitter.Comma = writer.Comma;
+                Emitter.Output = writer.Output;
+                Emitter.IsNewLine = writer.IsNewLine;
+                Emitter.ResetLevel(writer.Level);
+                Emitter.Comma = writer.Comma;
 
                 return true;
             }
@@ -780,17 +780,17 @@ namespace H5.Translator
 
         public StringBuilder NewWriter()
         {
-            this.Emitter.Output = new StringBuilder();
-            this.Emitter.IsNewLine = false;
-            this.Emitter.ResetLevel();
-            this.Emitter.Comma = false;
+            Emitter.Output = new StringBuilder();
+            Emitter.IsNewLine = false;
+            Emitter.ResetLevel();
+            Emitter.Comma = false;
 
-            return this.Emitter.Output;
+            return Emitter.Output;
         }
 
         public int GetNumberOfEmptyLinesAtEnd()
         {
-            return AbstractEmitterBlock.GetNumberOfEmptyLinesAtEnd(this.Emitter.Output);
+            return AbstractEmitterBlock.GetNumberOfEmptyLinesAtEnd(Emitter.Output);
         }
 
         public static int GetNumberOfEmptyLinesAtEnd(StringBuilder buffer)
@@ -829,7 +829,7 @@ namespace H5.Translator
 
         public bool IsOnlyWhitespaceOnPenultimateLine(bool lastTwoLines = true, string output = null)
         {
-            return AbstractEmitterBlock.IsOnlyWhitespaceOnPenultimateLine(output ?? this.Emitter.Output.ToString(), lastTwoLines);
+            return AbstractEmitterBlock.IsOnlyWhitespaceOnPenultimateLine(output ?? Emitter.Output.ToString(), lastTwoLines);
         }
 
         public static bool IsOnlyWhitespaceOnPenultimateLine(string buffer, bool lastTwoLines = true)
@@ -866,9 +866,9 @@ namespace H5.Translator
 
         public bool RemovePenultimateEmptyLines(bool withLast = false)
         {
-            if (this.Emitter.Output != null)
+            if (Emitter.Output != null)
             {
-                return AbstractMethodBlock.RemovePenultimateEmptyLines(this.Emitter.Output, withLast);
+                return AbstractMethodBlock.RemovePenultimateEmptyLines(Emitter.Output, withLast);
             }
 
             return false;

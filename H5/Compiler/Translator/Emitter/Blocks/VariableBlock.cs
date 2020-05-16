@@ -15,29 +15,29 @@ namespace H5.Translator
         public VariableBlock(IEmitter emitter, VariableDeclarationStatement variableDeclarationStatement)
             : base(emitter, variableDeclarationStatement)
         {
-            this.Emitter = emitter;
-            this.VariableDeclarationStatement = variableDeclarationStatement;
+            Emitter = emitter;
+            VariableDeclarationStatement = variableDeclarationStatement;
         }
 
         protected override void DoEmit()
         {
-            this.VisitVariableDeclarationStatement();
+            VisitVariableDeclarationStatement();
         }
 
         protected virtual void VisitVariableDeclarationStatement()
         {
             bool needVar = true;
             bool needComma = false;
-            bool addSemicolon = !this.Emitter.IsAsync;
+            bool addSemicolon = !Emitter.IsAsync;
 
-            var oldSemiColon = this.Emitter.EnableSemicolon;
-            var asyncExpressionHandling = this.Emitter.AsyncExpressionHandling;
+            var oldSemiColon = Emitter.EnableSemicolon;
+            var asyncExpressionHandling = Emitter.AsyncExpressionHandling;
 
-            foreach (var variable in this.VariableDeclarationStatement.Variables)
+            foreach (var variable in VariableDeclarationStatement.Variables)
             {
-                this.WriteSourceMapName(variable.Name);
+                WriteSourceMapName(variable.Name);
 
-                var varName = this.AddLocal(variable.Name, variable, this.VariableDeclarationStatement.Type);
+                var varName = AddLocal(variable.Name, variable, VariableDeclarationStatement.Type);
                 lastVarName = varName;
 
                 if (variable.Initializer != null && !variable.Initializer.IsNull && variable.Initializer.ToString().Contains(JS.Vars.FIX_ARGUMENT_NAME))
@@ -47,98 +47,98 @@ namespace H5.Translator
 
                 if (needVar)
                 {
-                    this.WriteVar();
+                    WriteVar();
                     needVar = false;
                 }
 
                 bool isReferenceLocal = false;
 
-                if (this.Emitter.LocalsMap != null && this.Emitter.Resolver.ResolveNode(variable, this.Emitter) is LocalResolveResult lrr && this.Emitter.LocalsMap.ContainsKey(lrr.Variable))
+                if (Emitter.LocalsMap != null && Emitter.Resolver.ResolveNode(variable, Emitter) is LocalResolveResult lrr && Emitter.LocalsMap.ContainsKey(lrr.Variable))
                 {
-                    isReferenceLocal = this.Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
+                    isReferenceLocal = Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
                 }
 
                 lastIsReferenceLocal = isReferenceLocal;
                 var hasInitializer = !variable.Initializer.IsNull;
 
-                if (variable.Initializer.IsNull && !this.VariableDeclarationStatement.Type.IsVar())
+                if (variable.Initializer.IsNull && !VariableDeclarationStatement.Type.IsVar())
                 {
-                    var typeDef = this.Emitter.GetTypeDefinition(this.VariableDeclarationStatement.Type, true);
+                    var typeDef = Emitter.GetTypeDefinition(VariableDeclarationStatement.Type, true);
 
-                    if (typeDef != null && typeDef.IsValueType && !this.Emitter.Validator.IsExternalType(typeDef))
+                    if (typeDef != null && typeDef.IsValueType && !Emitter.Validator.IsExternalType(typeDef))
                     {
                         hasInitializer = true;
                     }
                 }
 
-                if ((!this.Emitter.IsAsync || hasInitializer || isReferenceLocal) && needComma)
+                if ((!Emitter.IsAsync || hasInitializer || isReferenceLocal) && needComma)
                 {
-                    if (this.Emitter.IsAsync)
+                    if (Emitter.IsAsync)
                     {
-                        this.WriteSemiColon(true);
+                        WriteSemiColon(true);
                     }
                     else
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
                 }
 
                 needComma = true;
 
-                this.WriteAwaiters(variable.Initializer);
+                WriteAwaiters(variable.Initializer);
 
-                if (!this.Emitter.IsAsync || hasInitializer || isReferenceLocal)
+                if (!Emitter.IsAsync || hasInitializer || isReferenceLocal)
                 {
-                    this.Write(varName);
+                    Write(varName);
                 }
 
                 if (hasInitializer)
                 {
                     addSemicolon = true;
-                    this.Write(" = ");
+                    Write(" = ");
 
                     if (isReferenceLocal)
                     {
-                        this.Write("{ v : ");
+                        Write("{ v : ");
                     }
 
-                    var oldValue = this.Emitter.ReplaceAwaiterByVar;
-                    this.Emitter.ReplaceAwaiterByVar = true;
+                    var oldValue = Emitter.ReplaceAwaiterByVar;
+                    Emitter.ReplaceAwaiterByVar = true;
 
                     if (!variable.Initializer.IsNull)
                     {
-                        variable.Initializer.AcceptVisitor(this.Emitter);
+                        variable.Initializer.AcceptVisitor(Emitter);
                     }
                     else
                     {
-                        var typerr = this.Emitter.Resolver.ResolveNode(this.VariableDeclarationStatement.Type, this.Emitter).Type;
-                        var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, this.Emitter);
-                        this.Write(string.Concat("new ", isGeneric ? "(" : "", H5Types.ToJsName(this.VariableDeclarationStatement.Type, this.Emitter), isGeneric ? ")" : "", "()"));
+                        var typerr = Emitter.Resolver.ResolveNode(VariableDeclarationStatement.Type, Emitter).Type;
+                        var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, Emitter);
+                        Write(string.Concat("new ", isGeneric ? "(" : "", H5Types.ToJsName(VariableDeclarationStatement.Type, Emitter), isGeneric ? ")" : "", "()"));
                     }
-                    this.Emitter.ReplaceAwaiterByVar = oldValue;
+                    Emitter.ReplaceAwaiterByVar = oldValue;
 
                     if (isReferenceLocal)
                     {
-                        this.Write(" }");
+                        Write(" }");
                     }
                 }
                 else if (isReferenceLocal)
                 {
                     addSemicolon = true;
-                    this.Write(" = { }");
+                    Write(" = { }");
                 }
             }
 
-            this.Emitter.AsyncExpressionHandling = asyncExpressionHandling;
+            Emitter.AsyncExpressionHandling = asyncExpressionHandling;
 
-            if (this.Emitter.EnableSemicolon && !needVar && addSemicolon)
+            if (Emitter.EnableSemicolon && !needVar && addSemicolon)
             {
-                this.WriteSemiColon(true);
+                WriteSemiColon(true);
             }
 
             if (oldSemiColon)
             {
-                this.Emitter.EnableSemicolon = true;
+                Emitter.EnableSemicolon = true;
             }
         }
     }

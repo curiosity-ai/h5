@@ -14,8 +14,8 @@ namespace H5.Translator
         public VisitorMethodBlock(IEmitter emitter, MethodDeclaration methodDeclaration)
             : base(emitter, methodDeclaration)
         {
-            this.Emitter = emitter;
-            this.MethodDeclaration = methodDeclaration;
+            Emitter = emitter;
+            MethodDeclaration = methodDeclaration;
         }
 
         public MethodDeclaration MethodDeclaration { get; set; }
@@ -24,24 +24,24 @@ namespace H5.Translator
         protected override void BeginEmit()
         {
             base.BeginEmit();
-            this.OldRules = this.Emitter.Rules;
+            OldRules = Emitter.Rules;
 
 
-            if (this.Emitter.Resolver.ResolveNode(this.MethodDeclaration, this.Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(MethodDeclaration, Emitter) is MemberResolveResult rr)
             {
-                this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
+                Emitter.Rules = Rules.Get(Emitter, rr.Member);
             }
         }
 
         protected override void EndEmit()
         {
             base.EndEmit();
-            this.Emitter.Rules = this.OldRules;
+            Emitter.Rules = OldRules;
         }
 
         protected override void DoEmit()
         {
-            this.VisitMethodDeclaration(this.MethodDeclaration);
+            VisitMethodDeclaration(MethodDeclaration);
         }
 
         protected void VisitMethodDeclaration(MethodDeclaration methodDeclaration)
@@ -50,7 +50,7 @@ namespace H5.Translator
             {
                 foreach (var attr in attrSection.Attributes)
                 {
-                    var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
+                    var rr = Emitter.Resolver.ResolveNode(attr.Type, Emitter);
                     if (rr.Type.FullName == "H5.ExternalAttribute")
                     {
                         return;
@@ -64,7 +64,7 @@ namespace H5.Translator
                             if (attr.Arguments.Any())
                             {
                                 var argExpr = attr.Arguments.First();
-                                var argrr = this.Emitter.Resolver.ResolveNode(argExpr, this.Emitter);
+                                var argrr = Emitter.Resolver.ResolveNode(argExpr, Emitter);
                                 if (argrr.ConstantValue is int)
                                 {
                                     initPosition = (InitPosition)argrr.ConstantValue;
@@ -80,82 +80,82 @@ namespace H5.Translator
                 }
             }
 
-            this.EnsureComma();
-            this.ResetLocals();
+            EnsureComma();
+            ResetLocals();
 
-            var prevMap = this.BuildLocalsMap();
-            var prevNamesMap = this.BuildLocalsNamesMap();
+            var prevMap = BuildLocalsMap();
+            var prevNamesMap = BuildLocalsNamesMap();
 
-            this.AddLocals(methodDeclaration.Parameters, methodDeclaration.Body);
+            AddLocals(methodDeclaration.Parameters, methodDeclaration.Body);
 
-            var overloads = OverloadsCollection.Create(this.Emitter, methodDeclaration);
-            XmlToJsDoc.EmitComment(this, this.MethodDeclaration);
-            var isEntryPoint = Helpers.IsEntryPointMethod(this.Emitter, this.MethodDeclaration);
-            var member_rr = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(this.MethodDeclaration, this.Emitter);
+            var overloads = OverloadsCollection.Create(Emitter, methodDeclaration);
+            XmlToJsDoc.EmitComment(this, MethodDeclaration);
+            var isEntryPoint = Helpers.IsEntryPointMethod(Emitter, MethodDeclaration);
+            var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(MethodDeclaration, Emitter);
 
             string name = overloads.GetOverloadName(false, null, excludeTypeOnly: OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr));
 
             if (isEntryPoint)
             {
-                this.Write(JS.Funcs.ENTRY_POINT_NAME);
+                Write(JS.Funcs.ENTRY_POINT_NAME);
             }
             else
             {
-                this.Write(name);
+                Write(name);
             }
 
-            this.WriteColon();
+            WriteColon();
 
-            this.WriteFunction();
+            WriteFunction();
 
             if (isEntryPoint)
             {
-                this.Write(name);
-                this.WriteSpace();
+                Write(name);
+                WriteSpace();
             }
             else
             {
-                var nm = Helpers.GetFunctionName(this.Emitter.AssemblyInfo.NamedFunctions, member_rr.Member, this.Emitter);
+                var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, member_rr.Member, Emitter);
                 if (nm != null)
                 {
-                    this.Write(nm);
-                    this.WriteSpace();
+                    Write(nm);
+                    WriteSpace();
                 }
             }
 
-            this.EmitMethodParameters(methodDeclaration.Parameters, methodDeclaration.TypeParameters.Count > 0 && Helpers.IsIgnoreGeneric(methodDeclaration, this.Emitter) ? null : methodDeclaration.TypeParameters, methodDeclaration);
+            EmitMethodParameters(methodDeclaration.Parameters, methodDeclaration.TypeParameters.Count > 0 && Helpers.IsIgnoreGeneric(methodDeclaration, Emitter) ? null : methodDeclaration.TypeParameters, methodDeclaration);
 
-            this.WriteSpace();
+            WriteSpace();
 
-            var script = this.Emitter.GetScript(methodDeclaration);
+            var script = Emitter.GetScript(methodDeclaration);
 
             if (script == null)
             {
                 if (YieldBlock.HasYield(methodDeclaration.Body))
                 {
-                    new GeneratorBlock(this.Emitter, methodDeclaration).Emit();
+                    new GeneratorBlock(Emitter, methodDeclaration).Emit();
                 }
                 else if (methodDeclaration.HasModifier(Modifiers.Async) || AsyncBlock.HasGoto(methodDeclaration.Body))
                 {
-                    new AsyncBlock(this.Emitter, methodDeclaration).Emit();
+                    new AsyncBlock(Emitter, methodDeclaration).Emit();
                 }
                 else
                 {
-                    methodDeclaration.Body.AcceptVisitor(this.Emitter);
+                    methodDeclaration.Body.AcceptVisitor(Emitter);
                 }
             }
             else
             {
-                this.BeginBlock();
+                BeginBlock();
 
-                this.WriteLines(script);
+                WriteLines(script);
 
-                this.EndBlock();
+                EndBlock();
             }
 
-            this.ClearLocalsMap(prevMap);
-            this.ClearLocalsNamesMap(prevNamesMap);
-            this.Emitter.Comma = true;
+            ClearLocalsMap(prevMap);
+            ClearLocalsNamesMap(prevNamesMap);
+            Emitter.Comma = true;
         }
     }
 }

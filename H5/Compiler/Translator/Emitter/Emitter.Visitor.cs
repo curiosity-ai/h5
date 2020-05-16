@@ -291,18 +291,18 @@ namespace H5.Translator
         {
             if (newLineNode.PrevSibling == null || newLineNode.PrevSibling is NewLineNode || newLineNode.PrevSibling.EndLocation.Line != newLineNode.StartLocation.Line)
             {
-                if (this.IsAsync && this.AsyncBlock != null)
+                if (IsAsync && AsyncBlock != null)
                 {
-                    var step = this.AsyncBlock.Steps.LastOrDefault();
+                    var step = AsyncBlock.Steps.LastOrDefault();
 
-                    if (step != null && this.ContainsOnlyOrEmpty(step.Output, ' '))
+                    if (step != null && ContainsOnlyOrEmpty(step.Output, ' '))
                     {
                         return;
                     }
                 }
 
-                this.Output.Append(NEW_LINE);
-                this.IsNewLine = true;
+                Output.Append(NEW_LINE);
+                IsNewLine = true;
             }
         }
 
@@ -328,16 +328,16 @@ namespace H5.Translator
 
         public override void VisitUncheckedStatement(UncheckedStatement uncheckedStatement)
         {
-            this.NoBraceBlock = uncheckedStatement.Body;
+            NoBraceBlock = uncheckedStatement.Body;
             uncheckedStatement.Body.AcceptVisitor(this);
         }
 
         public override void VisitLockStatement(LockStatement lockStatement)
         {
             lockStatement.Expression.AcceptVisitor(this);
-            this.Output.Append(";");
-            this.Output.Append(NEW_LINE);
-            this.IsNewLine = true;
+            Output.Append(";");
+            Output.Append(NEW_LINE);
+            IsNewLine = true;
             lockStatement.EmbeddedStatement.AcceptVisitor(this);
         }
 
@@ -348,7 +348,7 @@ namespace H5.Translator
 
         public override void VisitCheckedStatement(CheckedStatement checkedStatement)
         {
-            this.NoBraceBlock = checkedStatement.Body;
+            NoBraceBlock = checkedStatement.Body;
             checkedStatement.Body.AcceptVisitor(this);
         }
 
@@ -369,9 +369,9 @@ namespace H5.Translator
 
         public override void VisitLabelStatement(LabelStatement labelStatement)
         {
-            if (this.AsyncBlock != null)
+            if (AsyncBlock != null)
             {
-                var step = this.AsyncBlock.AddAsyncStep();
+                var step = AsyncBlock.AddAsyncStep();
                 step.Label = labelStatement.Label;
                 step.Node = labelStatement;
             }

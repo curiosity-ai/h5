@@ -11,8 +11,8 @@ namespace H5.Translator.TypeScript
         public EnumBlock(IEmitter emitter, ITypeInfo typeInfo, string ns)
             : base(emitter, typeInfo.TypeDeclaration)
         {
-            this.TypeInfo = typeInfo;
-            this.Namespace = ns;
+            TypeInfo = typeInfo;
+            Namespace = ns;
         }
 
         public ITypeInfo TypeInfo { get; set; }
@@ -21,53 +21,53 @@ namespace H5.Translator.TypeScript
 
         protected override void DoEmit()
         {
-            var typeDef = this.Emitter.GetTypeDefinition();
-            string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, true, false);
+            var typeDef = Emitter.GetTypeDefinition();
+            string name = Emitter.Validator.GetCustomTypeName(typeDef, Emitter, true, false);
 
             if (name.IsEmpty())
             {
-                name = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
+                name = H5Types.ToTypeScriptName(TypeInfo.Type, Emitter, false, true);
             }
 
-            this.Write("enum ");
-            this.Write(name);
+            Write("enum ");
+            Write(name);
 
-            this.WriteSpace();
-            this.BeginBlock();
+            WriteSpace();
+            BeginBlock();
 
-            if (this.TypeInfo.StaticConfig.Fields.Count > 0)
+            if (TypeInfo.StaticConfig.Fields.Count > 0)
             {
-                var lastField = this.TypeInfo.StaticConfig.Fields.Last();
-                foreach (var field in this.TypeInfo.StaticConfig.Fields)
+                var lastField = TypeInfo.StaticConfig.Fields.Last();
+                foreach (var field in TypeInfo.StaticConfig.Fields)
                 {
 
-                    this.Write(EnumBlock.GetEnumItemName(this.Emitter, field));
+                    Write(EnumBlock.GetEnumItemName(Emitter, field));
 
                     var initializer = field.Initializer;
                     if (initializer != null && initializer is PrimitiveExpression)
                     {
-                        this.Write(" = ");
-                        if (Helpers.IsStringNameEnum(this.TypeInfo.Type))
+                        Write(" = ");
+                        if (Helpers.IsStringNameEnum(TypeInfo.Type))
                         {
-                            this.WriteScript(((PrimitiveExpression)initializer).Value);
+                            WriteScript(((PrimitiveExpression)initializer).Value);
                         }
                         else
                         {
-                            this.Write(((PrimitiveExpression)initializer).Value);
+                            Write(((PrimitiveExpression)initializer).Value);
                         }
 
                     }
 
                     if (field != lastField)
                     {
-                        this.Write(",");
+                        Write(",");
                     }
 
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
             }
 
-            this.EndBlock();
+            EndBlock();
         }
 
         public static string GetEnumItemName(IEmitter emitter, TypeConfigItem field)

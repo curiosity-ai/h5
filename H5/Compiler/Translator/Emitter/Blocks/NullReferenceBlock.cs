@@ -8,26 +8,26 @@ namespace H5.Translator
         public NullReferenceBlock(IEmitter emitter, AstNode nullNode)
             : base(emitter, nullNode)
         {
-            this.Emitter = emitter;
-            this.NullNode = nullNode;
+            Emitter = emitter;
+            NullNode = nullNode;
         }
 
         public AstNode NullNode { get; set; }
 
         protected override Expression GetExpression()
         {
-            var expr = this.NullNode as Expression;
+            var expr = NullNode as Expression;
             return expr;
         }
 
         protected override void EmitConversionExpression()
         {
-            this.VisitNull();
+            VisitNull();
         }
 
         protected void VisitNull()
         {
-            this.Write("null");
+            Write("null");
         }
     }
 }

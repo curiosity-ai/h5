@@ -22,7 +22,7 @@ namespace H5.Translator.TypeScript
         {
             get
             {
-                return base.Level - this.Emitter.InitialLevel;
+                return base.Level - Emitter.InitialLevel;
             }
         }
 

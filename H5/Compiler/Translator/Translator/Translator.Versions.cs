@@ -53,7 +53,7 @@ namespace H5.Translator
         {
             if (assemblyVersionInfo == null)
             {
-                assemblyVersionInfo = GetAssemblyVersionByPath(this.AssemblyLocation);
+                assemblyVersionInfo = GetAssemblyVersionByPath(AssemblyLocation);
             }
 
             return assemblyVersionInfo;
@@ -64,7 +64,7 @@ namespace H5.Translator
         {
             if (h5VersionInfo == null)
             {
-                h5VersionInfo = GetAssemblyVersionByPath(this.H5Location);
+                h5VersionInfo = GetAssemblyVersionByPath(H5Location);
             }
 
             return h5VersionInfo;
@@ -122,7 +122,7 @@ namespace H5.Translator
         {
             string assemblyDescription = null;
 
-            var assemblyDescriptionAttribute = this.AssemblyDefinition.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyDescriptionAttribute");
+            var assemblyDescriptionAttribute = AssemblyDefinition.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyDescriptionAttribute");
 
             if (assemblyDescriptionAttribute != null
                 && assemblyDescriptionAttribute.HasConstructorArguments)
@@ -142,7 +142,7 @@ namespace H5.Translator
         {
             string assemblyTitle = null;
 
-            var assemblyTitleAttribute = this.AssemblyDefinition.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyTitleAttribute");
+            var assemblyTitleAttribute = AssemblyDefinition.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyTitleAttribute");
 
             if (assemblyTitleAttribute != null
                 && assemblyTitleAttribute.HasConstructorArguments)
@@ -155,14 +155,14 @@ namespace H5.Translator
                 assemblyTitle = assemblyTitle.Trim();
             }
 
-            return assemblyTitle ?? this.AssemblyDefinition.Name.Name;
+            return assemblyTitle ?? AssemblyDefinition.Name.Name;
         }
 
         private void LogProductInfo()
         {
-            var compilerInfo = this.GetCompilerVersion();
+            var compilerInfo = GetCompilerVersion();
 
-            var h5Info = this.GetH5AssemblyVersion();
+            var h5Info = GetH5AssemblyVersion();
 
             this.Log.Info("Product info:");
             if (compilerInfo != null)

@@ -54,149 +54,149 @@ namespace H5.Translator
 
         public ArgumentsInfo(IEmitter emitter, IMethod method)
         {
-            this.Emitter = emitter;
-            this.Expression = null;
-            this.Method = method;
-            this.BuildTypedArguments(method);
+            Emitter = emitter;
+            Expression = null;
+            Method = method;
+            BuildTypedArguments(method);
         }
 
         public ArgumentsInfo(IEmitter emitter, IAttribute attr)
         {
-            this.Emitter = emitter;
-            this.Expression = null;
-            this.Attribute = attr;
+            Emitter = emitter;
+            Expression = null;
+            Attribute = attr;
         }
 
         public ArgumentsInfo(IEmitter emitter, string[] args)
         {
-            this.Emitter = emitter;
-            this.Expression = null;
-            this.StringArguments = args;
+            Emitter = emitter;
+            Expression = null;
+            StringArguments = args;
         }
 
         public ArgumentsInfo(IEmitter emitter, ConstructorInitializer initializer)
         {
-            this.Emitter = emitter;
-            this.Expression = null;
+            Emitter = emitter;
+            Expression = null;
 
             var arguments = initializer.Arguments.ToList();
-            this.ResolveResult = emitter.Resolver.ResolveNode(initializer, emitter) as InvocationResolveResult;
+            ResolveResult = emitter.Resolver.ResolveNode(initializer, emitter) as InvocationResolveResult;
 
-            this.BuildArgumentsList(arguments);
-            if (this.ResolveResult != null)
+            BuildArgumentsList(arguments);
+            if (ResolveResult != null)
             {
-                this.HasTypeArguments = ((IMethod)this.ResolveResult.Member).TypeArguments.Count > 0;
+                HasTypeArguments = ((IMethod)ResolveResult.Member).TypeArguments.Count > 0;
             }
         }
 
         public ArgumentsInfo(IEmitter emitter, InvocationExpression invocationExpression, IMethod method = null)
         {
-            this.Emitter = emitter;
-            this.Expression = invocationExpression;
+            Emitter = emitter;
+            Expression = invocationExpression;
 
             var arguments = invocationExpression.Arguments.ToList();
             var rr = emitter.Resolver.ResolveNode(invocationExpression, emitter);
-            this.ResolveResult = rr as InvocationResolveResult;
+            ResolveResult = rr as InvocationResolveResult;
 
-            if (this.ResolveResult == null && rr is DynamicInvocationResolveResult drr)
+            if (ResolveResult == null && rr is DynamicInvocationResolveResult drr)
             {
-                this.BuildDynamicArgumentsList(drr, arguments);
+                BuildDynamicArgumentsList(drr, arguments);
             }
             else
             {
-                this.BuildArgumentsList(arguments);
+                BuildArgumentsList(arguments);
             }
 
-            if (this.ResolveResult != null)
+            if (ResolveResult != null)
             {
-                this.HasTypeArguments = ((IMethod)this.ResolveResult.Member).TypeArguments.Count > 0;
-                this.BuildTypedArguments(invocationExpression.Target);
+                HasTypeArguments = ((IMethod)ResolveResult.Member).TypeArguments.Count > 0;
+                BuildTypedArguments(invocationExpression.Target);
             }
 
             if (method != null && method.Parameters.Count > 0)
             {
-                this.ThisArgument = invocationExpression;
+                ThisArgument = invocationExpression;
                 var name = method.Parameters[0].Name;
 
-                if (!this.ArgumentsNames.Contains(name))
+                if (!ArgumentsNames.Contains(name))
                 {
-                    var list = this.ArgumentsNames.ToList();
+                    var list = ArgumentsNames.ToList();
                     list.Add(name);
-                    this.ArgumentsNames = list.ToArray();
+                    ArgumentsNames = list.ToArray();
 
-                    var expr = this.ArgumentsExpressions.ToList();
+                    var expr = ArgumentsExpressions.ToList();
                     expr.Insert(0, invocationExpression);
-                    this.ArgumentsExpressions = expr.ToArray();
+                    ArgumentsExpressions = expr.ToArray();
 
-                    var namedExpr = this.NamedExpressions.ToList();
+                    var namedExpr = NamedExpressions.ToList();
                     namedExpr.Insert(0, new NamedParamExpression(name, invocationExpression));
-                    this.NamedExpressions = namedExpr.ToArray();
+                    NamedExpressions = namedExpr.ToArray();
                 }
             }
         }
 
         public ArgumentsInfo(IEmitter emitter, IndexerExpression invocationExpression, InvocationResolveResult rr = null)
         {
-            this.Emitter = emitter;
-            this.Expression = invocationExpression;
+            Emitter = emitter;
+            Expression = invocationExpression;
 
             var arguments = invocationExpression.Arguments.ToList();
-            this.ResolveResult = rr ?? emitter.Resolver.ResolveNode(invocationExpression, emitter) as InvocationResolveResult;
+            ResolveResult = rr ?? emitter.Resolver.ResolveNode(invocationExpression, emitter) as InvocationResolveResult;
 
-            this.BuildArgumentsList(arguments);
-            if (this.ResolveResult != null)
+            BuildArgumentsList(arguments);
+            if (ResolveResult != null)
             {
-                this.BuildTypedArguments(this.ResolveResult.Member);
+                BuildTypedArguments(ResolveResult.Member);
             }
         }
 
         public ArgumentsInfo(IEmitter emitter, Expression expression, InvocationResolveResult rr)
         {
-            this.Emitter = emitter;
-            this.Expression = expression;
-            this.ResolveResult = rr;
+            Emitter = emitter;
+            Expression = expression;
+            ResolveResult = rr;
 
-            this.ArgumentsExpressions = new Expression[] { expression };
-            this.ArgumentsNames = new string[] { rr.Member.Parameters.Count > 0 ? rr.Member.Parameters.First().Name : "{this}" };
-            this.ThisArgument = expression;
-            this.NamedExpressions = this.CreateNamedExpressions(this.ArgumentsNames, this.ArgumentsExpressions);
+            ArgumentsExpressions = new Expression[] { expression };
+            ArgumentsNames = new string[] { rr.Member.Parameters.Count > 0 ? rr.Member.Parameters.First().Name : "{this}" };
+            ThisArgument = expression;
+            NamedExpressions = CreateNamedExpressions(ArgumentsNames, ArgumentsExpressions);
 
-            this.BuildTypedArguments(rr.Member);
+            BuildTypedArguments(rr.Member);
         }
 
         public ArgumentsInfo(IEmitter emitter, Expression expression, IMethod method)
         {
-            this.Emitter = emitter;
-            this.Expression = expression;
+            Emitter = emitter;
+            Expression = expression;
 
-            this.ArgumentsExpressions = new Expression[] { expression };
-            this.ArgumentsNames = new string[] {method.Parameters.Count > 0 ? method.Parameters.First().Name : "{this}" };
-            this.ThisArgument = expression;
-            this.NamedExpressions = this.CreateNamedExpressions(this.ArgumentsNames, this.ArgumentsExpressions);
+            ArgumentsExpressions = new Expression[] { expression };
+            ArgumentsNames = new string[] {method.Parameters.Count > 0 ? method.Parameters.First().Name : "{this}" };
+            ThisArgument = expression;
+            NamedExpressions = CreateNamedExpressions(ArgumentsNames, ArgumentsExpressions);
 
-            this.BuildTypedArguments(method);
+            BuildTypedArguments(method);
         }
 
         public ArgumentsInfo(IEmitter emitter, Expression expression, ResolveResult rr = null)
         {
-            this.Emitter = emitter;
-            this.Expression = expression;
+            Emitter = emitter;
+            Expression = expression;
 
-            this.ArgumentsExpressions = new Expression[] { expression };
-            this.ArgumentsNames = new string[] { "{this}" };
-            this.ThisArgument = expression;
-            this.NamedExpressions = this.CreateNamedExpressions(this.ArgumentsNames, this.ArgumentsExpressions);
+            ArgumentsExpressions = new Expression[] { expression };
+            ArgumentsNames = new string[] { "{this}" };
+            ThisArgument = expression;
+            NamedExpressions = CreateNamedExpressions(ArgumentsNames, ArgumentsExpressions);
 
             if (rr is MemberResolveResult)
             {
-                this.BuildTypedArguments(((MemberResolveResult)rr).Member);
+                BuildTypedArguments(((MemberResolveResult)rr).Member);
             }
         }
 
         public ArgumentsInfo(IEmitter emitter, ObjectCreateExpression objectCreateExpression, IMethod method = null)
         {
-            this.Emitter = emitter;
-            this.Expression = objectCreateExpression;
+            Emitter = emitter;
+            Expression = objectCreateExpression;
 
             var arguments = objectCreateExpression.Arguments.ToList();
             var rr = emitter.Resolver.ResolveNode(objectCreateExpression, emitter);
@@ -208,60 +208,60 @@ namespace H5.Translator
                 }
             }
 
-            this.ResolveResult = rr as InvocationResolveResult;
-            this.BuildArgumentsList(arguments);
-            this.BuildTypedArguments(objectCreateExpression.Type);
+            ResolveResult = rr as InvocationResolveResult;
+            BuildArgumentsList(arguments);
+            BuildTypedArguments(objectCreateExpression.Type);
 
             if (method != null && method.Parameters.Count > 0)
             {
-                this.ThisArgument = objectCreateExpression;
+                ThisArgument = objectCreateExpression;
                 var name = method.Parameters[0].Name;
 
-                if (!this.ArgumentsNames.Contains(name))
+                if (!ArgumentsNames.Contains(name))
                 {
-                    var list = this.ArgumentsNames.ToList();
+                    var list = ArgumentsNames.ToList();
                     list.Add(name);
-                    this.ArgumentsNames = list.ToArray();
+                    ArgumentsNames = list.ToArray();
 
-                    var expr = this.ArgumentsExpressions.ToList();
+                    var expr = ArgumentsExpressions.ToList();
                     expr.Add(objectCreateExpression);
-                    this.ArgumentsExpressions = expr.ToArray();
+                    ArgumentsExpressions = expr.ToArray();
 
-                    var namedExpr = this.NamedExpressions.ToList();
+                    var namedExpr = NamedExpressions.ToList();
                     namedExpr.Add(new NamedParamExpression(name, objectCreateExpression));
-                    this.NamedExpressions = namedExpr.ToArray();
+                    NamedExpressions = namedExpr.ToArray();
                 }
             }
         }
 
         public ArgumentsInfo(IEmitter emitter, AssignmentExpression assignmentExpression, OperatorResolveResult operatorResolveResult, IMethod method)
         {
-            this.Emitter = emitter;
-            this.Expression = assignmentExpression;
-            this.OperatorResolveResult = operatorResolveResult;
+            Emitter = emitter;
+            Expression = assignmentExpression;
+            OperatorResolveResult = operatorResolveResult;
 
-            this.BuildOperatorArgumentsList(new Expression[] { assignmentExpression.Left, assignmentExpression.Right }, operatorResolveResult.UserDefinedOperatorMethod ?? method);
-            this.BuildOperatorTypedArguments();
+            BuildOperatorArgumentsList(new Expression[] { assignmentExpression.Left, assignmentExpression.Right }, operatorResolveResult.UserDefinedOperatorMethod ?? method);
+            BuildOperatorTypedArguments();
         }
 
         public ArgumentsInfo(IEmitter emitter, BinaryOperatorExpression binaryOperatorExpression, OperatorResolveResult operatorResolveResult, IMethod method)
         {
-            this.Emitter = emitter;
-            this.Expression = binaryOperatorExpression;
-            this.OperatorResolveResult = operatorResolveResult;
+            Emitter = emitter;
+            Expression = binaryOperatorExpression;
+            OperatorResolveResult = operatorResolveResult;
 
-            this.BuildOperatorArgumentsList(new Expression[] { binaryOperatorExpression.Left, binaryOperatorExpression.Right }, operatorResolveResult.UserDefinedOperatorMethod ?? method);
-            this.BuildOperatorTypedArguments();
+            BuildOperatorArgumentsList(new Expression[] { binaryOperatorExpression.Left, binaryOperatorExpression.Right }, operatorResolveResult.UserDefinedOperatorMethod ?? method);
+            BuildOperatorTypedArguments();
         }
 
         public ArgumentsInfo(IEmitter emitter, UnaryOperatorExpression unaryOperatorExpression, OperatorResolveResult operatorResolveResult, IMethod method)
         {
-            this.Emitter = emitter;
-            this.Expression = unaryOperatorExpression;
-            this.OperatorResolveResult = operatorResolveResult;
+            Emitter = emitter;
+            Expression = unaryOperatorExpression;
+            OperatorResolveResult = operatorResolveResult;
 
-            this.BuildOperatorArgumentsList(new Expression[] { unaryOperatorExpression.Expression }, operatorResolveResult.UserDefinedOperatorMethod ?? method);
-            this.BuildOperatorTypedArguments();
+            BuildOperatorArgumentsList(new Expression[] { unaryOperatorExpression.Expression }, operatorResolveResult.UserDefinedOperatorMethod ?? method);
+            BuildOperatorTypedArguments();
         }
 
         private void BuildTypedArguments(AstType type)
@@ -271,20 +271,20 @@ namespace H5.Translator
                 AstNodeCollection<AstType> typedArguments = simpleType.TypeArguments;
                 IList<ITypeParameter> typeParams = null;
 
-                if (this.ResolveResult.Member.DeclaringTypeDefinition != null)
+                if (ResolveResult.Member.DeclaringTypeDefinition != null)
                 {
-                    typeParams = this.ResolveResult.Member.DeclaringTypeDefinition.TypeParameters;
+                    typeParams = ResolveResult.Member.DeclaringTypeDefinition.TypeParameters;
                 }
-                else if (this.ResolveResult.Member is SpecializedMethod)
+                else if (ResolveResult.Member is SpecializedMethod)
                 {
-                    typeParams = ((SpecializedMethod)this.ResolveResult.Member).TypeParameters;
+                    typeParams = ((SpecializedMethod)ResolveResult.Member).TypeParameters;
                 }
 
-                this.TypeArguments = new TypeParamExpression[typedArguments.Count];
+                TypeArguments = new TypeParamExpression[typedArguments.Count];
                 var list = typedArguments.ToList();
                 for (int i = 0; i < list.Count; i++)
                 {
-                    this.TypeArguments[i] = new TypeParamExpression(typeParams[i].Name, list[i], null);
+                    TypeArguments[i] = new TypeParamExpression(typeParams[i].Name, list[i], null);
                 }
             }
         }
@@ -300,7 +300,7 @@ namespace H5.Translator
                 temp[i] = new TypeParamExpression(typeParams[i].Name, null, typeArgs[i], true);
             }
 
-            this.TypeArguments = temp;
+            TypeArguments = temp;
         }
 
         private void BuildTypedArguments(Expression expression)
@@ -320,23 +320,23 @@ namespace H5.Translator
             }
 
 
-            if (this.ResolveResult.Member is IMethod method)
+            if (ResolveResult.Member is IMethod method)
             {
-                this.TypeArguments = new TypeParamExpression[method.TypeParameters.Count];
+                TypeArguments = new TypeParamExpression[method.TypeParameters.Count];
 
                 if (typedArguments != null && typedArguments.Count == method.TypeParameters.Count)
                 {
                     var list = typedArguments.ToList();
                     for (int i = 0; i < list.Count; i++)
                     {
-                        this.TypeArguments[i] = new TypeParamExpression(method.TypeParameters[i].Name, list[i], null);
+                        TypeArguments[i] = new TypeParamExpression(method.TypeParameters[i].Name, list[i], null);
                     }
                 }
                 else
                 {
                     for (int i = 0; i < method.TypeArguments.Count; i++)
                     {
-                        this.TypeArguments[i] = new TypeParamExpression(method.TypeParameters[i].Name, null, method.TypeArguments[i]);
+                        TypeArguments[i] = new TypeParamExpression(method.TypeParameters[i].Name, null, method.TypeArguments[i]);
                     }
                 }
 
@@ -351,20 +351,20 @@ namespace H5.Translator
                         temp[i] = new TypeParamExpression(typeParams[i].Name, null, typeArgs[i], true);
                     }
 
-                    this.TypeArguments = this.TypeArguments.Concat(temp).ToArray();
+                    TypeArguments = TypeArguments.Concat(temp).ToArray();
                 }
             }
         }
 
         private void BuildOperatorTypedArguments()
         {
-            var method = this.OperatorResolveResult.UserDefinedOperatorMethod;
+            var method = OperatorResolveResult.UserDefinedOperatorMethod;
 
             if (method != null)
             {
                 for (int i = 0; i < method.TypeArguments.Count; i++)
                 {
-                    this.TypeArguments[i] = new TypeParamExpression(method.TypeParameters[i].Name, null, method.TypeArguments[i]);
+                    TypeArguments[i] = new TypeParamExpression(method.TypeParameters[i].Name, null, method.TypeArguments[i]);
                 }
             }
         }
@@ -390,7 +390,7 @@ namespace H5.Translator
 
                         if (argType.Kind == TypeKind.Dynamic)
                         {
-                            argType = this.Emitter.Resolver.Compilation.FindType(TypeCode.Object);
+                            argType = Emitter.Resolver.Compilation.FindType(TypeCode.Object);
                         }
 
                         if (!m.Parameters[i].Type.Equals(argType))
@@ -404,7 +404,7 @@ namespace H5.Translator
 
                 if (method == null)
                 {
-                    throw new EmitterException(this.Expression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
+                    throw new EmitterException(Expression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
                 }
             }
 
@@ -421,7 +421,7 @@ namespace H5.Translator
 
                 if (member != null)
                 {
-                    var inlineStr = this.Emitter.GetInline(member);
+                    var inlineStr = Emitter.GetInline(member);
                     named = !string.IsNullOrEmpty(inlineStr);
 
                     isInterfaceMember = member.DeclaringTypeDefinition != null &&
@@ -441,7 +441,7 @@ namespace H5.Translator
 
                         if (paramsArg == null && (parameters.Count > i) && parameters[i].IsParams)
                         {
-                            if (member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition))
+                            if (member.DeclaringTypeDefinition == null || !Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition))
                             {
                                 paramsArg = namedArg.Expression;
                             }
@@ -453,7 +453,7 @@ namespace H5.Translator
                     {
                         if (paramsArg == null && (parameters.Count > i) && parameters[i].IsParams)
                         {
-                            if (member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition))
+                            if (member.DeclaringTypeDefinition == null || !Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition))
                             {
                                 paramsArg = arg;
                             }
@@ -488,7 +488,7 @@ namespace H5.Translator
                         object t = null;
                         if (p.Type.Kind == TypeKind.Enum)
                         {
-                            t = Helpers.GetEnumValue(this.Emitter, p.Type, p.ConstantValue);
+                            t = Helpers.GetEnumValue(Emitter, p.Type, p.ConstantValue);
                         }
                         else
                         {
@@ -510,14 +510,14 @@ namespace H5.Translator
                     }
                 }
 
-                this.ArgumentsExpressions = result;
-                this.ArgumentsNames = names;
-                this.ParamsExpression = paramsArg;
-                this.NamedExpressions = this.CreateNamedExpressions(names, result);
+                ArgumentsExpressions = result;
+                ArgumentsNames = names;
+                ParamsExpression = paramsArg;
+                NamedExpressions = CreateNamedExpressions(names, result);
             }
             else
             {
-                this.ArgumentsExpressions = arguments.ToArray();
+                ArgumentsExpressions = arguments.ToArray();
             }
         }
 
@@ -525,7 +525,7 @@ namespace H5.Translator
         {
             Expression paramsArg = null;
             string paramArgName = null;
-            var resolveResult = this.ResolveResult;
+            var resolveResult = ResolveResult;
 
             if (resolveResult != null)
             {
@@ -537,8 +537,8 @@ namespace H5.Translator
                     resolvedMethod.IsExtensionMethod && invocationResult.IsExtensionMethodInvocation)
                 {
                     shift = 1;
-                    this.ThisName = resolvedMethod.Parameters[0].Name;
-                    this.IsExtensionMethod = true;
+                    ThisName = resolvedMethod.Parameters[0].Name;
+                    IsExtensionMethod = true;
                 }
 
                 Expression[] result = new Expression[parameters.Count - shift];
@@ -549,7 +549,7 @@ namespace H5.Translator
 
                 if (resolveResult.Member != null)
                 {
-                    var inlineStr = this.Emitter.GetInline(resolveResult.Member);
+                    var inlineStr = Emitter.GetInline(resolveResult.Member);
                     named = !string.IsNullOrEmpty(inlineStr);
 
                     isInterfaceMember = resolveResult.Member.DeclaringTypeDefinition != null &&
@@ -571,7 +571,7 @@ namespace H5.Translator
 
                         if (paramsArg == null && parameters.FirstOrDefault(p => p.Name == namedArg.Name).IsParams)
                         {
-                            if (resolveResult.Member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsExternalType(resolveResult.Member.DeclaringTypeDefinition))
+                            if (resolveResult.Member.DeclaringTypeDefinition == null || !Emitter.Validator.IsExternalType(resolveResult.Member.DeclaringTypeDefinition))
                             {
                                 paramsArg = namedArg.Expression;
                             }
@@ -583,7 +583,7 @@ namespace H5.Translator
                     {
                         if (paramsArg == null && (parameters.Count > (i + shift)) && parameters[i + shift].IsParams)
                         {
-                            if (resolveResult.Member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsExternalType(resolveResult.Member.DeclaringTypeDefinition) || expandParams)
+                            if (resolveResult.Member.DeclaringTypeDefinition == null || !Emitter.Validator.IsExternalType(resolveResult.Member.DeclaringTypeDefinition) || expandParams)
                             {
                                 paramsArg = arg;
                             }
@@ -618,7 +618,7 @@ namespace H5.Translator
                         object t = null;
                         if (p.Type.Kind == TypeKind.Enum)
                         {
-                            t = Helpers.GetEnumValue(this.Emitter, p.Type, p.ConstantValue);
+                            t = Helpers.GetEnumValue(Emitter, p.Type, p.ConstantValue);
                         }
                         else
                         {
@@ -640,14 +640,14 @@ namespace H5.Translator
                     }
                 }
 
-                this.ArgumentsExpressions = result;
-                this.ArgumentsNames = names;
-                this.ParamsExpression = paramsArg;
-                this.NamedExpressions = this.CreateNamedExpressions(names, result);
+                ArgumentsExpressions = result;
+                ArgumentsNames = names;
+                ParamsExpression = paramsArg;
+                NamedExpressions = CreateNamedExpressions(names, result);
             }
             else
             {
-                this.ArgumentsExpressions = arguments.ToArray();
+                ArgumentsExpressions = arguments.ToArray();
             }
         }
 
@@ -700,7 +700,7 @@ namespace H5.Translator
 
                         if (p.Type.Kind == TypeKind.Enum)
                         {
-                            result[i] = new PrimitiveExpression(Helpers.GetEnumValue(this.Emitter, p.Type, p.ConstantValue));
+                            result[i] = new PrimitiveExpression(Helpers.GetEnumValue(Emitter, p.Type, p.ConstantValue));
                         }
                         else
                         {
@@ -710,13 +710,13 @@ namespace H5.Translator
                     }
                 }
 
-                this.ArgumentsExpressions = result;
-                this.ArgumentsNames = names;
-                this.NamedExpressions = this.CreateNamedExpressions(names, result);
+                ArgumentsExpressions = result;
+                ArgumentsNames = names;
+                NamedExpressions = CreateNamedExpressions(names, result);
             }
             else
             {
-                this.ArgumentsExpressions = arguments.ToArray();
+                ArgumentsExpressions = arguments.ToArray();
             }
         }
 
@@ -734,16 +734,16 @@ namespace H5.Translator
 
         public string GetThisValue()
         {
-            if (this.ThisArgument != null)
+            if (ThisArgument != null)
             {
-                if (this.ThisArgument is string)
+                if (ThisArgument is string)
                 {
-                    return this.ThisArgument.ToString();
+                    return ThisArgument.ToString();
                 }
 
-                if (this.ThisArgument is Expression)
+                if (ThisArgument is Expression)
                 {
-                    ((Expression)this.ThisArgument).AcceptVisitor(this.Emitter);
+                    ((Expression)ThisArgument).AcceptVisitor(Emitter);
                     return null;
                 }
             }
@@ -753,11 +753,11 @@ namespace H5.Translator
 
         public void AddExtensionParam()
         {
-            var result = this.ArgumentsExpressions;
-            var namedResult = this.NamedExpressions;
-            var names = this.ArgumentsNames;
+            var result = ArgumentsExpressions;
+            var namedResult = NamedExpressions;
+            var names = ArgumentsNames;
 
-            if (this.IsExtensionMethod)
+            if (IsExtensionMethod)
             {
                 var list = result.ToList();
                 list.Insert(0, null);
@@ -766,19 +766,19 @@ namespace H5.Translator
                 strList.Insert(0, null);
 
                 var namedList = namedResult.ToList();
-                namedList.Insert(0, new NamedParamExpression(this.ThisName, null));
+                namedList.Insert(0, new NamedParamExpression(ThisName, null));
 
                 result = list.ToArray();
                 names = strList.ToArray();
                 namedResult = namedList.ToArray();
 
                 result[0] = null;
-                names[0] = this.ThisName;
+                names[0] = ThisName;
             }
 
-            this.ArgumentsExpressions = result;
-            this.ArgumentsNames = names;
-            this.NamedExpressions = namedResult;
+            ArgumentsExpressions = result;
+            ArgumentsNames = names;
+            NamedExpressions = namedResult;
         }
     }
 
@@ -786,8 +786,8 @@ namespace H5.Translator
     {
         public NamedParamExpression(string name, Expression expression)
         {
-            this.Name = name;
-            this.Expression = expression;
+            Name = name;
+            Expression = expression;
         }
 
         public string Name { get; private set; }
@@ -799,10 +799,10 @@ namespace H5.Translator
     {
         public TypeParamExpression(string name, AstType type, IType iType, bool inherited = false)
         {
-            this.Name = name;
-            this.AstType = type;
-            this.IType = iType;
-            this.Inherited = inherited;
+            Name = name;
+            AstType = type;
+            IType = iType;
+            Inherited = inherited;
         }
 
         public string Name { get; private set; }

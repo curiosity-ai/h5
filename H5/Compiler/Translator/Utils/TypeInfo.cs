@@ -10,18 +10,18 @@ namespace H5.Translator
     {
         public TypeInfo()
         {
-            this.StaticMethods = new Dictionary<string, List<MethodDeclaration>>();
-            this.InstanceMethods = new Dictionary<string, List<MethodDeclaration>>();
-            this.StaticProperties = new Dictionary<string, List<EntityDeclaration>>();
-            this.InstanceProperties = new Dictionary<string, List<EntityDeclaration>>();
-            this.FieldsDeclarations = new Dictionary<string, FieldDeclaration>();
-            this.EventsDeclarations = new Dictionary<string, EventDeclaration>();
-            this.Dependencies = new List<IPluginDependency>();
-            this.Ctors = new List<ConstructorDeclaration>();
-            this.Operators = new Dictionary<OperatorType, List<OperatorDeclaration>>();
-            this.StaticConfig = new TypeConfigInfo();
-            this.InstanceConfig = new TypeConfigInfo();
-            this.PartialTypeDeclarations = new List<TypeDeclaration>();
+            StaticMethods = new Dictionary<string, List<MethodDeclaration>>();
+            InstanceMethods = new Dictionary<string, List<MethodDeclaration>>();
+            StaticProperties = new Dictionary<string, List<EntityDeclaration>>();
+            InstanceProperties = new Dictionary<string, List<EntityDeclaration>>();
+            FieldsDeclarations = new Dictionary<string, FieldDeclaration>();
+            EventsDeclarations = new Dictionary<string, EventDeclaration>();
+            Dependencies = new List<IPluginDependency>();
+            Ctors = new List<ConstructorDeclaration>();
+            Operators = new Dictionary<OperatorType, List<OperatorDeclaration>>();
+            StaticConfig = new TypeConfigInfo();
+            InstanceConfig = new TypeConfigInfo();
+            PartialTypeDeclarations = new List<TypeDeclaration>();
         }
 
         public string Key { get; set; }
@@ -88,28 +88,28 @@ namespace H5.Translator
         {
             get
             {
-                return this.StaticConfig.HasMembers
-                       || this.StaticMethods.Count > 0
-                       || this.StaticProperties.Count > 0
-                       || this.StaticCtor != null
-                       || this.Operators.Count > 0;
+                return StaticConfig.HasMembers
+                       || StaticMethods.Count > 0
+                       || StaticProperties.Count > 0
+                       || StaticCtor != null
+                       || Operators.Count > 0;
             }
         }
 
         public bool HasRealStatic(IEmitter emitter)
         {
-            var result = this.ClassType == ClassType.Struct
-                       || this.StaticConfig.HasMembers
-                       || this.StaticProperties.Count > 0
-                       || this.StaticCtor != null
-                       || this.Operators.Count > 0;
+            var result = ClassType == ClassType.Struct
+                       || StaticConfig.HasMembers
+                       || StaticProperties.Count > 0
+                       || StaticCtor != null
+                       || Operators.Count > 0;
 
             if (result)
             {
                 return true;
             }
 
-            if (this.StaticMethods.Any(group =>
+            if (StaticMethods.Any(group =>
             {
                 foreach (var method in group.Value)
                 {
@@ -164,7 +164,7 @@ namespace H5.Translator
                 return true;
             }
 
-            if (this.Type.GetConstructors().Any(c => c.Parameters.Count == 0 && emitter.GetInline(c) != null))
+            if (Type.GetConstructors().Any(c => c.Parameters.Count == 0 && emitter.GetInline(c) != null))
             {
                 return true;
             }
@@ -174,12 +174,12 @@ namespace H5.Translator
 
         public bool HasRealInstantiable(IEmitter emitter)
         {
-            if (this.HasInstantiable)
+            if (HasInstantiable)
             {
                 return true;
             }
 
-            if (this.StaticMethods.Any(group =>
+            if (StaticMethods.Any(group =>
             {
                 return group.Value.Any(method => Helpers.IsEntryPointMethod(emitter, method));
             }))
@@ -194,10 +194,10 @@ namespace H5.Translator
         {
             get
             {
-                return this.InstanceConfig.HasMembers
-                       || this.InstanceMethods.Count > 0
-                       || this.InstanceProperties.Count > 0
-                       || this.Ctors.Count > 0;
+                return InstanceConfig.HasMembers
+                       || InstanceMethods.Count > 0
+                       || InstanceProperties.Count > 0
+                       || Ctors.Count > 0;
             }
         }
 
@@ -207,11 +207,11 @@ namespace H5.Translator
         {
             get
             {
-                return this.enumValue;
+                return enumValue;
             }
             set
             {
-                this.enumValue = value;
+                enumValue = value;
             }
         }
 
@@ -233,7 +233,7 @@ namespace H5.Translator
 
         public AstType GetBaseClass(IEmitter emitter)
         {
-            var types = this.GetBaseTypes(emitter);
+            var types = GetBaseTypes(emitter);
             var baseClass = types.FirstOrDefault(t => emitter.Resolver.ResolveNode(t, emitter).Type.Kind != TypeKind.Interface);
 
             return baseClass ?? types.First();
@@ -243,22 +243,22 @@ namespace H5.Translator
 
         public List<AstType> GetBaseTypes(IEmitter emitter)
         {
-            if (this.baseTypes != null)
+            if (baseTypes != null)
             {
-                return this.baseTypes;
+                return baseTypes;
             }
 
-            this.baseTypes = new List<AstType>();
-            this.baseTypes.AddRange(this.TypeDeclaration.BaseTypes);
+            baseTypes = new List<AstType>();
+            baseTypes.AddRange(TypeDeclaration.BaseTypes);
 
-            foreach (var partialTypeDeclaration in this.PartialTypeDeclarations)
+            foreach (var partialTypeDeclaration in PartialTypeDeclarations)
             {
                 var appendTypes = new List<AstType>();
                 var insertTypes = new List<AstType>();
                 foreach (var baseType in partialTypeDeclaration.BaseTypes)
                 {
                     var t = emitter.Resolver.ResolveNode(baseType, emitter);
-                    if (this.baseTypes.All(bt => emitter.Resolver.ResolveNode(bt, emitter).Type.FullName != t.Type.FullName))
+                    if (baseTypes.All(bt => emitter.Resolver.ResolveNode(bt, emitter).Type.FullName != t.Type.FullName))
                     {
                         if (t.Type.Kind != TypeKind.Interface)
                         {
@@ -271,11 +271,11 @@ namespace H5.Translator
                     }
                 }
 
-                this.baseTypes.AddRange(appendTypes);
-                this.baseTypes.InsertRange(0, insertTypes);
+                baseTypes.AddRange(appendTypes);
+                baseTypes.InsertRange(0, insertTypes);
             }
 
-            return this.baseTypes;
+            return baseTypes;
         }
 
         public string GetNamespace(IEmitter emitter, bool nons = false)
@@ -285,9 +285,9 @@ namespace H5.Translator
                 throw new System.ArgumentNullException("emitter");
             }
 
-            var name = this.Namespace;
+            var name = Namespace;
 
-            var h5Type = emitter.H5Types.Get(this.Key);
+            var h5Type = emitter.H5Types.Get(Key);
             var cas = h5Type.TypeDefinition.CustomAttributes;
 
             // Search for an 'NamespaceAttribute' entry

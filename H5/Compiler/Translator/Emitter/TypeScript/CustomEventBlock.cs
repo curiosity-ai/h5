@@ -10,38 +10,38 @@ namespace H5.Translator.TypeScript
         public CustomEventBlock(IEmitter emitter, CustomEventDeclaration customEventDeclaration)
             : base(emitter, customEventDeclaration)
         {
-            this.Emitter = emitter;
-            this.CustomEventDeclaration = customEventDeclaration;
+            Emitter = emitter;
+            CustomEventDeclaration = customEventDeclaration;
         }
 
         public CustomEventDeclaration CustomEventDeclaration { get; set; }
 
         protected override void DoEmit()
         {
-            this.EmitPropertyMethod(this.CustomEventDeclaration, this.CustomEventDeclaration.AddAccessor, false);
-            this.EmitPropertyMethod(this.CustomEventDeclaration, this.CustomEventDeclaration.RemoveAccessor, true);
+            EmitPropertyMethod(CustomEventDeclaration, CustomEventDeclaration.AddAccessor, false);
+            EmitPropertyMethod(CustomEventDeclaration, CustomEventDeclaration.RemoveAccessor, true);
         }
 
         protected virtual void EmitPropertyMethod(CustomEventDeclaration customEventDeclaration, Accessor accessor, bool remover)
         {
-            if (!accessor.IsNull && this.Emitter.GetInline(accessor) == null)
+            if (!accessor.IsNull && Emitter.GetInline(accessor) == null)
             {
                 XmlToJsDoc.EmitComment(this, customEventDeclaration);
-                var memberResult = this.Emitter.Resolver.ResolveNode(customEventDeclaration, this.Emitter) as MemberResolveResult;
+                var memberResult = Emitter.Resolver.ResolveNode(customEventDeclaration, Emitter) as MemberResolveResult;
                 var ignoreInterface = memberResult.Member.DeclaringType.Kind == TypeKind.Interface &&
                                           memberResult.Member.DeclaringType.TypeParameterCount > 0;
-                this.Write(Helpers.GetEventRef(customEventDeclaration, this.Emitter, remover, false, ignoreInterface));
-                this.WriteOpenParentheses();
-                this.Write("value");
-                this.WriteColon();
-                var retType = H5Types.ToTypeScriptName(customEventDeclaration.ReturnType, this.Emitter);
-                this.Write(retType);
-                this.WriteCloseParentheses();
-                this.WriteColon();
-                this.Write("void");
+                Write(Helpers.GetEventRef(customEventDeclaration, Emitter, remover, false, ignoreInterface));
+                WriteOpenParentheses();
+                Write("value");
+                WriteColon();
+                var retType = H5Types.ToTypeScriptName(customEventDeclaration.ReturnType, Emitter);
+                Write(retType);
+                WriteCloseParentheses();
+                WriteColon();
+                Write("void");
 
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                WriteSemiColon();
+                WriteNewLine();
             }
         }
     }

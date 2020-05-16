@@ -80,17 +80,17 @@ namespace H5.Translator
 
         protected Translator(string location)
         {
-            this.Location = location;
-            this.Validator = this.CreateValidator();
-            this.DefineConstants = new List<string>() { "H5" };
-            this.ProjectProperties = new ProjectProperties();
-            this.FileHelper = new FileHelper();
-            this.Outputs = new TranslatorOutput();
+            Location = location;
+            Validator = CreateValidator();
+            DefineConstants = new List<string>() { "H5" };
+            ProjectProperties = new ProjectProperties();
+            FileHelper = new FileHelper();
+            Outputs = new TranslatorOutput();
         }
 
         public Translator(string location, bool fromTask = false) : this(location)
         {
-            this.FromTask = fromTask;
+            FromTask = fromTask;
         }
 
         public void Translate()
@@ -98,41 +98,41 @@ namespace H5.Translator
             var logger = this.Log;
             Logger.LogInformation("Translating...");
 
-            var config = this.AssemblyInfo;
+            var config = AssemblyInfo;
 
-            if (this.Rebuild)
+            if (Rebuild)
             {
                 //if(File.Exists(this.AssemblyLocation))
                 //{
                 //    File.Delete(this.AssemblyLocation);
                 //}
                 Logger.LogInformation("Building assembly as Rebuild option is enabled");
-                this.BuildAssembly();
+                BuildAssembly();
             }
-            else if (!File.Exists(this.AssemblyLocation))
+            else if (!File.Exists(AssemblyLocation))
             {
-                Logger.LogInformation("Building assembly as it is not found at " + this.AssemblyLocation);
-                this.BuildAssembly();
+                Logger.LogInformation("Building assembly as it is not found at " + AssemblyLocation);
+                BuildAssembly();
             }
 
-            this.Outputs.Report = new TranslatorOutputItem
+            Outputs.Report = new TranslatorOutputItem
             {
                 Content = new StringBuilder(),
                 OutputKind = TranslatorOutputKind.Report,
                 OutputType = TranslatorOutputType.None,
-                Name = this.AssemblyInfo.Report.FileName ?? "h5.report.log",
-                Location = this.AssemblyInfo.Report.Path
+                Name = AssemblyInfo.Report.FileName ?? "h5.report.log",
+                Location = AssemblyInfo.Report.Path
             };
 
-            var references = this.InspectReferences();
-            this.References = references;
+            var references = InspectReferences();
+            References = references;
 
-            this.LogProductInfo();
+            LogProductInfo();
 
-            this.Plugins = H5.Translator.Plugins.GetPlugins(this, config, logger);
+            Plugins = H5.Translator.Plugins.GetPlugins(this, config, logger);
 
             Logger.LogInformation("Reading plugin configs...");
-            this.Plugins.OnConfigRead(config);
+            Plugins.OnConfigRead(config);
             Logger.LogInformation("Reading plugin configs done");
 
             if (!string.IsNullOrWhiteSpace(config.BeforeBuild))
@@ -140,7 +140,7 @@ namespace H5.Translator
                 try
                 {
                     Logger.LogInformation("Running BeforeBuild event " + config.BeforeBuild + " ...");
-                    this.RunEvent(config.BeforeBuild);
+                    RunEvent(config.BeforeBuild);
                     Logger.LogInformation("Running BeforeBuild event done");
                 }
                 catch (System.Exception exc)
@@ -153,35 +153,35 @@ namespace H5.Translator
                 }
             }
 
-            this.BuildSyntaxTree();
+            BuildSyntaxTree();
 
-            var resolver = new MemberResolver(this.ParsedSourceFiles, Emitter.ToAssemblyReferences(references, logger), this.AssemblyDefinition);
-            resolver = this.Preconvert(resolver, config);
+            var resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references, logger), AssemblyDefinition);
+            resolver = Preconvert(resolver, config);
 
-            this.InspectTypes(resolver, config);
+            InspectTypes(resolver, config);
 
             resolver.CanFreeze = true;
-            var emitter = this.CreateEmitter(resolver);
+            var emitter = CreateEmitter(resolver);
 
-            if (!this.AssemblyInfo.OverflowMode.HasValue)
+            if (!AssemblyInfo.OverflowMode.HasValue)
             {
-                this.AssemblyInfo.OverflowMode = this.OverflowMode;
+                AssemblyInfo.OverflowMode = OverflowMode;
             }
 
             emitter.Translator = this;
-            emitter.AssemblyInfo = this.AssemblyInfo;
+            emitter.AssemblyInfo = AssemblyInfo;
             emitter.References = references;
-            emitter.SourceFiles = this.SourceFiles;
+            emitter.SourceFiles = SourceFiles;
             emitter.Log = this.Log;
-            emitter.Plugins = this.Plugins;
+            emitter.Plugins = Plugins;
             emitter.InitialLevel = 1;
 
-            if (this.AssemblyInfo.Module != null)
+            if (AssemblyInfo.Module != null)
             {
-                this.AssemblyInfo.Module.Emitter = emitter;
+                AssemblyInfo.Module.Emitter = emitter;
             }
 
-            foreach(var td in this.TypeInfoDefinitions)
+            foreach(var td in TypeInfoDefinitions)
             {
                 if (td.Value.Module != null)
                 {
@@ -189,17 +189,17 @@ namespace H5.Translator
                 }
             }
 
-            this.SortReferences();
+            SortReferences();
 
             Logger.LogInformation("Before emitting...");
-            this.Plugins.BeforeEmit(emitter, this);
+            Plugins.BeforeEmit(emitter, this);
             Logger.LogInformation("Before emitting done");
 
-            this.AddMainOutputs(emitter.Emit());
-            this.EmitterOutputs = emitter.Outputs;
+            AddMainOutputs(emitter.Emit());
+            EmitterOutputs = emitter.Outputs;
 
             Logger.LogInformation("After emitting...");
-            this.Plugins.AfterEmit(emitter, this);
+            Plugins.AfterEmit(emitter, this);
             Logger.LogInformation("After emitting done");
 
             Logger.LogInformation("Translating done");
@@ -208,7 +208,7 @@ namespace H5.Translator
         protected virtual MemberResolver Preconvert(MemberResolver resolver, IAssemblyInfo config)
         {
             bool needRecompile = false;
-            foreach (var sourceFile in this.ParsedSourceFiles)
+            foreach (var sourceFile in ParsedSourceFiles)
             {
                 this.Log.Trace("Preconvert " + sourceFile.ParsedFile.FileName);
                 var syntaxTree = sourceFile.SyntaxTree;
@@ -228,7 +228,7 @@ namespace H5.Translator
 
             if (needRecompile)
             {
-                return new MemberResolver(this.ParsedSourceFiles, resolver.Assemblies, this.AssemblyDefinition);
+                return new MemberResolver(ParsedSourceFiles, resolver.Assemblies, AssemblyDefinition);
             }
 
             return resolver;
@@ -238,7 +238,7 @@ namespace H5.Translator
         {
             var graph = new TopologicalSorting.DependencyGraph();
 
-            foreach (var t in this.References)
+            foreach (var t in References)
             {
                 var tProcess = graph.Processes.FirstOrDefault(p => p.Name == t.Name.Name);
 
@@ -266,7 +266,7 @@ namespace H5.Translator
 
                 try
                 {
-                    var list = new List<AssemblyDefinition>(this.References.Count());
+                    var list = new List<AssemblyDefinition>(References.Count());
 
                     this.Log.Trace("Sorting references...");
 
@@ -294,7 +294,7 @@ namespace H5.Translator
                         {
                             this.Log.Trace("\tHandling " + process.Name);
 
-                            asmDef = this.References.FirstOrDefault(r => r.Name.Name == process.Name);
+                            asmDef = References.FirstOrDefault(r => r.Name.Name == process.Name);
 
                             if (asmDef != null && list.All(r => r.Name.Name != asmDef.Name.Name))
                             {
@@ -303,7 +303,7 @@ namespace H5.Translator
                         }
                     }
 
-                    this.References = list;
+                    References = list;
 
                     this.Log.Trace("Sorting references done:");
 
@@ -369,7 +369,7 @@ namespace H5.Translator
                 return null;
             }
 
-            foreach (var output in this.Outputs.GetOutputs())
+            foreach (var output in Outputs.GetOutputs())
             {
                 if (output.FullPath.LocalPath == filePath)
                 {
@@ -382,9 +382,9 @@ namespace H5.Translator
 
         public string GenerateSourceMap(string fileName, string content, Action<SourceMapBuilder> before = null)
         {
-            if (this.AssemblyInfo.SourceMap.Enabled)
+            if (AssemblyInfo.SourceMap.Enabled)
             {
-                var projectPath = Path.GetDirectoryName(this.Location);
+                var projectPath = Path.GetDirectoryName(Location);
 
                 SourceMapGenerator.Generate(fileName, projectPath, ref content,
                     before,
@@ -396,7 +396,7 @@ namespace H5.Translator
                         try
                         {
                             path = Path.Combine(projectPath, sourceRelativePath);
-                            sourceFile = this.ParsedSourceFiles.First(pf => pf.ParsedFile.FileName == path);
+                            sourceFile = ParsedSourceFiles.First(pf => pf.ParsedFile.FileName == path);
 
                             return sourceFile.SyntaxTree.TextSource ?? sourceFile.SyntaxTree.ToString(Translator.GetFormatter());
                         }
@@ -408,7 +408,7 @@ namespace H5.Translator
                         }
 
                     },
-                    new string[0], this.SourceFiles, this.AssemblyInfo.SourceMap.Eol, this.Log
+                    new string[0], SourceFiles, AssemblyInfo.SourceMap.Eol, this.Log
                 );
             }
 
@@ -436,12 +436,12 @@ namespace H5.Translator
         {
             this.Log.Info("Checking AfterBuild event...");
 
-            if (!string.IsNullOrWhiteSpace(this.AssemblyInfo.AfterBuild))
+            if (!string.IsNullOrWhiteSpace(AssemblyInfo.AfterBuild))
             {
                 try
                 {
                     this.Log.Trace("Run AfterBuild event");
-                    this.RunEvent(this.AssemblyInfo.AfterBuild);
+                    RunEvent(AssemblyInfo.AfterBuild);
                 }
                 catch (System.Exception ex)
                 {
@@ -463,7 +463,7 @@ namespace H5.Translator
         {
             this.Log.Info("Creating emitter...");
 
-            var emitter = new Emitter(this.TypeDefinitions, this.H5Types, this.Types, this.Validator, resolver, this.TypeInfoDefinitions, this.Log);
+            var emitter = new Emitter(TypeDefinitions, H5Types, Types, Validator, resolver, TypeInfoDefinitions, this.Log);
 
             this.Log.Info("Creating emitter done");
 
@@ -477,7 +477,7 @@ namespace H5.Translator
 
         public EmitterException CreateExceptionFromLastNode()
         {
-            return this.EmitNode != null ? new EmitterException(this.EmitNode) : null;
+            return EmitNode != null ? new EmitterException(EmitNode) : null;
         }
     }
 }

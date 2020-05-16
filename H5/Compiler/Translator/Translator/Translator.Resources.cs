@@ -39,7 +39,7 @@ namespace H5.Translator
         {
             this.Log.Info("Injecting resources...");
 
-            var resourcesConfig = this.AssemblyInfo.Resources;
+            var resourcesConfig = AssemblyInfo.Resources;
 
             if (resourcesConfig.Default != null
                 && resourcesConfig.Default.Inject != true
@@ -49,7 +49,7 @@ namespace H5.Translator
                 return;
             }
 
-            var outputs = this.Outputs;
+            var outputs = Outputs;
 
             if (outputs.Main.Count <= 0
                 && !resourcesConfig.HasEmbedResources())
@@ -58,22 +58,22 @@ namespace H5.Translator
                 return;
             }
 
-            var resourcesToEmbed = this.PrepareAndExtractResources(outputPath, projectPath);
+            var resourcesToEmbed = PrepareAndExtractResources(outputPath, projectPath);
 
-            this.EmbedResources(PrepareResourcesForEmbedding(resourcesToEmbed));
+            EmbedResources(PrepareResourcesForEmbedding(resourcesToEmbed));
 
             this.Log.Info("Done injecting resources");
         }
 
         private IEnumerable<Tuple<H5ResourceInfo, byte[]>> PrepareAndExtractResources(string outputPath, string projectPath)
         {
-            if (this.AssemblyInfo.Resources.HasEmbedResources())
+            if (AssemblyInfo.Resources.HasEmbedResources())
             {
                 // There are resources defined in the config so let's grab files
                 // Find all items and put in the order
                 this.Log.Trace("Preparing resources specified in config...");
 
-                foreach (var resource in this.AssemblyInfo.Resources.EmbedItems)
+                foreach (var resource in AssemblyInfo.Resources.EmbedItems)
                 {
                     this.Log.Trace("Preparing resource " + resource.Name);
 
@@ -85,9 +85,9 @@ namespace H5.Translator
 
                     using (var resourceBuffer = new MemoryStream(500 * 1024))
                     {
-                        this.GenerateResourceHeader(resourceBuffer, resource, projectPath);
+                        GenerateResourceHeader(resourceBuffer, resource, projectPath);
 
-                        var needSourceMap = this.ReadResourceFiles(projectPath, resourceBuffer, resource);
+                        var needSourceMap = ReadResourceFiles(projectPath, resourceBuffer, resource);
 
                         if (resourceBuffer.Length > 0)
                         {
@@ -108,7 +108,7 @@ namespace H5.Translator
                                 code = content.GetContentAsBytes();
                             }
 
-                            this.ExtractResource(resourcePath.Item1, resourcePath.Item2, resource, code);
+                            ExtractResource(resourcePath.Item1, resourcePath.Item2, resource, code);
 
                             var info = new H5ResourceInfo
                             {
@@ -138,13 +138,13 @@ namespace H5.Translator
                 var nonMinifiedCombinedPartsDone = false;
                 var minifiedCombinedPartsDone = false;
 
-                foreach (var outputItem in this.Outputs.GetOutputs(true))
+                foreach (var outputItem in Outputs.GetOutputs(true))
                 {
                     H5ResourceInfoPart[] parts = null;
 
                     this.Log.Trace("Getting output " + outputItem.FullPath.LocalPath);
 
-                    var isCombined = outputItem.OutputKind.HasFlag(TranslatorOutputKind.Combined) && this.Outputs.Combined != null;
+                    var isCombined = outputItem.OutputKind.HasFlag(TranslatorOutputKind.Combined) && Outputs.Combined != null;
                     var isMinified = outputItem.OutputKind.HasFlag(TranslatorOutputKind.Minified);
 
                     if (isCombined)
@@ -154,13 +154,13 @@ namespace H5.Translator
                         if (!isMinified)
                         {
                             this.Log.Trace("Choosing non-minified parts.");
-                            parts = this.Outputs.CombinedResourcePartsNonMinified.Select(x => x.Key).ToArray();
+                            parts = Outputs.CombinedResourcePartsNonMinified.Select(x => x.Key).ToArray();
                         }
 
                         if (isMinified)
                         {
                             this.Log.Trace("Choosing minified parts.");
-                            parts = this.Outputs.CombinedResourcePartsMinified.Select(x => x.Key).ToArray();
+                            parts = Outputs.CombinedResourcePartsMinified.Select(x => x.Key).ToArray();
                         }
                     }
 
@@ -197,14 +197,14 @@ namespace H5.Translator
                         {
                             this.Log.Trace("Preparing non-minified combined resource parts");
 
-                            partSource = this.Outputs.CombinedResourcePartsNonMinified;
+                            partSource = Outputs.CombinedResourcePartsNonMinified;
                         }
 
                         if (isMinified && !minifiedCombinedPartsDone)
                         {
                             this.Log.Trace("Preparing minified combined resource parts");
 
-                            partSource = this.Outputs.CombinedResourcePartsMinified;
+                            partSource = Outputs.CombinedResourcePartsMinified;
                         }
 
                         if (partSource != null)
@@ -237,7 +237,7 @@ namespace H5.Translator
                                 {
                                     if (CheckIfRequiresSourceMap(part.Key))
                                     {
-                                        var partSourceMap = this.GenerateSourceMap(part.Key.Name, part.Value);
+                                        var partSourceMap = GenerateSourceMap(part.Key.Name, part.Value);
                                         partContent = OutputEncoding.GetBytes(partSourceMap);
                                     }
                                     else
@@ -348,7 +348,7 @@ namespace H5.Translator
         {
             this.Log.Trace("PrepareResourcesForEmbedding...");
 
-            var assemblyDef = this.AssemblyDefinition;
+            var assemblyDef = AssemblyDefinition;
             var resources = assemblyDef.MainModule.Resources;
             var resourceList = new List<H5ResourceInfo>();
 
@@ -410,7 +410,7 @@ namespace H5.Translator
 
         private void BuildReportForResources(List<Tuple<string, string, string>> reportResources)
         {
-            var reportBuilder = this.Outputs.Report.Content.Builder;
+            var reportBuilder = Outputs.Report.Content.Builder;
 
             if (reportBuilder == null)
             {
@@ -446,7 +446,7 @@ namespace H5.Translator
         {
             this.Log.Trace("Embedding resources...");
 
-            var assemblyDef = this.AssemblyDefinition;
+            var assemblyDef = AssemblyDefinition;
             var resources = assemblyDef.MainModule.Resources;
             var configHelper = new ConfigHelper();
 
@@ -472,7 +472,7 @@ namespace H5.Translator
                 assemblyDef.MainModule.AssemblyReferences.Remove(mscorlib);
             }
 
-            var assemblyLocation = this.AssemblyLocation;
+            var assemblyLocation = AssemblyLocation;
 
             this.Log.Trace("Writing resources into " + assemblyLocation);
             Console.WriteLine("Writing resources into " + assemblyLocation);
@@ -513,11 +513,11 @@ namespace H5.Translator
 
                 this.Log.Trace("Writing resource " + resource.Name + " into " + fullPath);
 
-                this.EnsureDirectoryExists(path);
+                EnsureDirectoryExists(path);
 
                 File.WriteAllBytes(fullPath, code);
 
-                this.AddExtractedResourceOutput(resource, code);
+                AddExtractedResourceOutput(resource, code);
 
                 this.Log.Trace("Done writing resource into file");
             }
@@ -535,7 +535,7 @@ namespace H5.Translator
 
             if (resource.Output != null)
             {
-                this.GetResourceOutputPath(outputPath, resource, ref resourceOutputFileName, ref resourceOutputDirName);
+                GetResourceOutputPath(outputPath, resource, ref resourceOutputFileName, ref resourceOutputDirName);
             }
 
             if (resourceOutputDirName == null)
@@ -569,7 +569,7 @@ namespace H5.Translator
 
             try
             {
-                var pathParts = this.FileHelper.GetDirectoryAndFilenamePathComponents(output);
+                var pathParts = FileHelper.GetDirectoryAndFilenamePathComponents(output);
 
                 resourceOutputDirName = pathParts[0];
                 this.Log.Trace("Resource output setting directory relative to base path is " + resourceOutputDirName);
@@ -580,7 +580,7 @@ namespace H5.Translator
                 if (resourceOutputDirName != null)
                 {
                     this.Log.Trace("Checking resource output directory on invalid characters");
-                    resourceOutputDirName = CheckInvalidCharacters(name, silent, resourceOutputDirName, this.InvalidPathChars);
+                    resourceOutputDirName = CheckInvalidCharacters(name, silent, resourceOutputDirName, InvalidPathChars);
                 }
 
                 if (resourceOutputDirName != null)
@@ -690,7 +690,7 @@ namespace H5.Translator
 
         private Dictionary<string, string> PrepareResourseHeaderInfo()
         {
-            var assemblyInfo = this.GetVersionContext().Assembly;
+            var assemblyInfo = GetVersionContext().Assembly;
 
             var nowDate = DateTime.Now;
 
@@ -843,7 +843,7 @@ namespace H5.Translator
 
                     directoryPath = outputPath;
 
-                    var dirPathInFileName = this.FileHelper.GetDirectoryAndFilenamePathComponents(fileName)[0];
+                    var dirPathInFileName = FileHelper.GetDirectoryAndFilenamePathComponents(fileName)[0];
 
                     var filePathCleaned = fileName;
                     if (!string.IsNullOrEmpty(dirPathInFileName))
@@ -860,7 +860,7 @@ namespace H5.Translator
 
                     GenerateResourceFileRemark(buffer, item, filePathCleaned, dirPathInFileName);
 
-                    var outputItem = this.FindTranslatorOutputItem(fullFileName);
+                    var outputItem = FindTranslatorOutputItem(fullFileName);
 
                     if (outputItem != null)
                     {
@@ -1056,7 +1056,7 @@ namespace H5.Translator
             {
                 this.Log.Trace("Inserting resource file remark");
 
-                var filePath = this.MakeStandardPath(Path.Combine(dirPathInFileName, fileName));
+                var filePath = MakeStandardPath(Path.Combine(dirPathInFileName, fileName));
 
                 var remarkInfo = new Dictionary<string, string>()
                 {
@@ -1081,7 +1081,7 @@ namespace H5.Translator
         {
             this.Log.Trace("Preparing resources config...");
 
-            var config = this.AssemblyInfo.Resources;
+            var config = AssemblyInfo.Resources;
 
             var rawResources = config.Items;
 
@@ -1121,7 +1121,7 @@ namespace H5.Translator
 
                     var rawNonDefaultResources = rawResources.Where(x => x.Name != null);
 
-                    this.ValidateResourceSettings(defaultSetting, rawNonDefaultResources);
+                    ValidateResourceSettings(defaultSetting, rawNonDefaultResources);
 
                     foreach (var resource in rawNonDefaultResources)
                     {
@@ -1160,7 +1160,7 @@ namespace H5.Translator
             var consoleFormatted = resources.Where(x => x.Name == consoleResourceName && (x.Assembly == null || x.Assembly == Translator.H5_ASSEMBLY)).FirstOrDefault();
             var consoleMinified = resources.Where(x => x.Name == consoleResourceMinifiedName && (x.Assembly == null || x.Assembly == Translator.H5_ASSEMBLY)).FirstOrDefault();
 
-            if (this.AssemblyInfo.Console.Enabled != true)
+            if (AssemblyInfo.Console.Enabled != true)
             {
                 this.Log.Trace("Switching off H5 Console...");
 
@@ -1176,7 +1176,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    if (this.AssemblyInfo.Console.Enabled.HasValue)
+                    if (AssemblyInfo.Console.Enabled.HasValue)
                     {
                         this.Log.Trace("Overriding resource setting for " + consoleResourceName + " as h5.json has console option explicitly");
                     }
@@ -1207,7 +1207,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    if (this.AssemblyInfo.Console.Enabled.HasValue)
+                    if (AssemblyInfo.Console.Enabled.HasValue)
                     {
                         this.Log.Trace("Overriding resource setting for " + consoleResourceMinifiedName + " as h5.json has console option explicitly");
                     }

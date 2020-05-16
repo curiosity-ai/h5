@@ -35,16 +35,16 @@ namespace H5.Translator
         {
             var r = new Dictionary<string, string>()
             {
-                { WrapProperty("ProjectProperties"), GetString(this.ProjectProperties) },
-                { WrapProperty("ProjectLocation"), GetString(this.ProjectLocation) },
-                { WrapProperty("OutputLocation"), GetString(this.OutputLocation) },
-                { WrapProperty("DefaultFileName"), GetString(this.DefaultFileName) },
-                { WrapProperty("H5Location"), GetString(this.H5Location) },
-                { WrapProperty("Rebuild"), GetString(this.Rebuild) },
-                { WrapProperty("Run"), GetString(this.Run) },
-                { WrapProperty("FromTask"), GetString(this.FromTask) },
-                { WrapProperty("NoLoggerSetUp"), GetString(this.NoLoggerSetUp) },
-                { WrapProperty("ReferencesPath"), GetString(this.ReferencesPath) }
+                { WrapProperty("ProjectProperties"), GetString(ProjectProperties) },
+                { WrapProperty("ProjectLocation"), GetString(ProjectLocation) },
+                { WrapProperty("OutputLocation"), GetString(OutputLocation) },
+                { WrapProperty("DefaultFileName"), GetString(DefaultFileName) },
+                { WrapProperty("H5Location"), GetString(H5Location) },
+                { WrapProperty("Rebuild"), GetString(Rebuild) },
+                { WrapProperty("Run"), GetString(Run) },
+                { WrapProperty("FromTask"), GetString(FromTask) },
+                { WrapProperty("NoLoggerSetUp"), GetString(NoLoggerSetUp) },
+                { WrapProperty("ReferencesPath"), GetString(ReferencesPath) }
             };
 
             return r;

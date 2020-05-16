@@ -12,17 +12,17 @@ namespace H5.Translator
         public DefaultValueBlock(IEmitter emitter, DefaultValueExpression defaultValueExpression)
             : base(emitter, defaultValueExpression)
         {
-            this.Emitter = emitter;
-            this.DefaultValueExpression = defaultValueExpression;
+            Emitter = emitter;
+            DefaultValueExpression = defaultValueExpression;
         }
 
         public DefaultValueExpression DefaultValueExpression { get; set; }
 
         protected override void DoEmit()
         {
-            var resolveResult = this.Emitter.Resolver.ResolveNode(this.DefaultValueExpression.Type, this.Emitter);
-            var value = DefaultValueBlock.DefaultValue(resolveResult, this.Emitter, DefaultValueExpression.Type);
-            this.Write(value);
+            var resolveResult = Emitter.Resolver.ResolveNode(DefaultValueExpression.Type, Emitter);
+            var value = DefaultValueBlock.DefaultValue(resolveResult, Emitter, DefaultValueExpression.Type);
+            Write(value);
         }
 
         public static string DefaultValue(ResolveResult resolveResult, IEmitter emitter, AstType astType = null)

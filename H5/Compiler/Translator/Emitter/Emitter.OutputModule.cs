@@ -18,7 +18,7 @@ namespace H5.Translator
         {
             this.Log.Trace("Wrapping to modules...");
 
-            foreach (var outputPair in this.Outputs)
+            foreach (var outputPair in Outputs)
             {
                 var output = outputPair.Value;
 
@@ -34,17 +34,17 @@ namespace H5.Translator
                     switch (module.Type)
                     {
                         case ModuleType.CommonJS:
-                            this.WrapToCommonJS(moduleOutput, module, output);
+                            WrapToCommonJS(moduleOutput, module, output);
                             break;
                         case ModuleType.UMD:
-                            this.WrapToUMD(moduleOutput, module, output);
+                            WrapToUMD(moduleOutput, module, output);
                             break;
                         case ModuleType.ES6:
-                            this.WrapToES6(moduleOutput, module, output);
+                            WrapToES6(moduleOutput, module, output);
                             break;
                         case ModuleType.AMD:
                         default:
-                            this.WrapToAMD(moduleOutput, module, output);
+                            WrapToAMD(moduleOutput, module, output);
                             break;
                     }
 
@@ -60,23 +60,23 @@ namespace H5.Translator
             var str = moduleOutput.ToString();
             moduleOutput.Length = 0;
 
-            this.WriteIndent(moduleOutput, this.InitialLevel);
+            WriteIndent(moduleOutput, InitialLevel);
             moduleOutput.Append(JS.Funcs.DEFINE + "(");
 
             if (!module.NoName)
             {
-                moduleOutput.Append(this.ToJavaScript(module.OriginalName));
+                moduleOutput.Append(ToJavaScript(module.OriginalName));
                 moduleOutput.Append(", ");
             }
 
-            var enabledDependecies = this.GetEnabledDependecies(module, output);
+            var enabledDependecies = GetEnabledDependecies(module, output);
 
             if (enabledDependecies.Count > 0)
             {
                 moduleOutput.Append("[");
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append(this.ToJavaScript(md.DependencyName));
+                    moduleOutput.Append(ToJavaScript(md.DependencyName));
                     moduleOutput.Append(", ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
@@ -95,30 +95,30 @@ namespace H5.Translator
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
 
-            this.WriteNewLine(moduleOutput, ") {");
+            WriteNewLine(moduleOutput, ") {");
 
-            this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, Emitter.INDENT + "var " + module.Name + " = { };");
+            WriteIndent(moduleOutput, InitialLevel);
+            WriteNewLine(moduleOutput, Emitter.INDENT + "var " + module.Name + " = { };");
             moduleOutput.Append(str);
 
             if (!str.Trim().EndsWith(Emitter.NEW_LINE))
             {
-                this.WriteNewLine(moduleOutput);
+                WriteNewLine(moduleOutput);
             }
 
-            this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, Emitter.INDENT + "H5.init();");
+            WriteIndent(moduleOutput, InitialLevel);
+            WriteNewLine(moduleOutput, Emitter.INDENT + "H5.init();");
 
-            this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, Emitter.INDENT + "return " + module.Name + ";");
-            this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, "});");
+            WriteIndent(moduleOutput, InitialLevel);
+            WriteNewLine(moduleOutput, Emitter.INDENT + "return " + module.Name + ";");
+            WriteIndent(moduleOutput, InitialLevel);
+            WriteNewLine(moduleOutput, "});");
         }
 
         private List<IPluginDependency> GetEnabledDependecies(Module module, IEmitterOutput output)
         {
             var dependencies = output.ModuleDependencies;
-            var loader = this.AssemblyInfo.Loader;
+            var loader = AssemblyInfo.Loader;
 
             if (dependencies.ContainsKey(module.Name) && dependencies[module.Name].Count > 0)
             {
@@ -135,7 +135,7 @@ namespace H5.Translator
             moduleOutput.Append(Emitter.INDENT);
             moduleOutput.Append("(function (");
 
-            var enabledDependecies = this.GetEnabledDependecies(module, output);
+            var enabledDependecies = GetEnabledDependecies(module, output);
 
             if (enabledDependecies.Count > 0)
             {
@@ -147,32 +147,32 @@ namespace H5.Translator
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
 
-            this.WriteNewLine(moduleOutput, ") {");
+            WriteNewLine(moduleOutput, ") {");
             moduleOutput.Append(Emitter.INDENT);
-            this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
+            WriteIndent(moduleOutput, InitialLevel);
+            WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
             moduleOutput.Append(str);
 
             if (!str.Trim().EndsWith(Emitter.NEW_LINE))
             {
-                this.WriteNewLine(moduleOutput);
+                WriteNewLine(moduleOutput);
             }
 
-            this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, Emitter.INDENT + "module.exports." + module.Name + " = " + module.Name + ";");
-            this.WriteIndent(moduleOutput, this.InitialLevel);
+            WriteIndent(moduleOutput, InitialLevel);
+            WriteNewLine(moduleOutput, Emitter.INDENT + "module.exports." + module.Name + " = " + module.Name + ";");
+            WriteIndent(moduleOutput, InitialLevel);
             moduleOutput.Append("}) (");
 
             if (enabledDependecies.Count > 0)
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append("require(" + this.ToJavaScript(md.DependencyName) + "), ");
+                    moduleOutput.Append("require(" + ToJavaScript(md.DependencyName) + "), ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
 
-            this.WriteNewLine(moduleOutput, ");");
+            WriteNewLine(moduleOutput, ");");
         }
 
         protected virtual void WrapToUMD(StringBuilder moduleOutput, Module module, IEmitterOutput output)
@@ -180,67 +180,67 @@ namespace H5.Translator
             var str = moduleOutput.ToString();
             moduleOutput.Length = 0;
 
-            this.WriteIndent(moduleOutput, 1);
-            this.WriteNewLine(moduleOutput, "(function (root, factory) {");
-            this.WriteIndent(moduleOutput, 2);
-            this.WriteNewLine(moduleOutput, "if (typeof define === 'function' && define.amd) {");
-            this.WriteIndent(moduleOutput, 3);
+            WriteIndent(moduleOutput, 1);
+            WriteNewLine(moduleOutput, "(function (root, factory) {");
+            WriteIndent(moduleOutput, 2);
+            WriteNewLine(moduleOutput, "if (typeof define === 'function' && define.amd) {");
+            WriteIndent(moduleOutput, 3);
             moduleOutput.Append(JS.Funcs.DEFINE + "(");
             if (!module.NoName)
             {
-                moduleOutput.Append(this.ToJavaScript(module.OriginalName));
+                moduleOutput.Append(ToJavaScript(module.OriginalName));
                 moduleOutput.Append(", ");
             }
 
-            var enabledDependecies = this.GetEnabledDependecies(module, output);
+            var enabledDependecies = GetEnabledDependecies(module, output);
 
             if (enabledDependecies.Count > 0)
             {
                 moduleOutput.Append("[");
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append(this.ToJavaScript(md.DependencyName));
+                    moduleOutput.Append(ToJavaScript(md.DependencyName));
                     moduleOutput.Append(", ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
                 moduleOutput.Append("], ");
             }
-            this.WriteNewLine(moduleOutput, "factory);");
+            WriteNewLine(moduleOutput, "factory);");
 
-            this.WriteIndent(moduleOutput, 2);
-            this.WriteNewLine(moduleOutput, "} else if (typeof module === 'object' && module.exports) {");
-            this.WriteIndent(moduleOutput, 3);
+            WriteIndent(moduleOutput, 2);
+            WriteNewLine(moduleOutput, "} else if (typeof module === 'object' && module.exports) {");
+            WriteIndent(moduleOutput, 3);
             moduleOutput.Append("module.exports = factory(");
             if (enabledDependecies.Count > 0)
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append("require(" + this.ToJavaScript(md.DependencyName) + "), ");
+                    moduleOutput.Append("require(" + ToJavaScript(md.DependencyName) + "), ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2);
             }
 
-            this.WriteNewLine(moduleOutput, ");");
+            WriteNewLine(moduleOutput, ");");
 
-            this.WriteIndent(moduleOutput, 2);
-            this.WriteNewLine(moduleOutput, "} else {");
-            this.WriteIndent(moduleOutput, 3);
-            moduleOutput.Append("root[" + this.ToJavaScript(module.OriginalName) + "] = factory(");
+            WriteIndent(moduleOutput, 2);
+            WriteNewLine(moduleOutput, "} else {");
+            WriteIndent(moduleOutput, 3);
+            moduleOutput.Append("root[" + ToJavaScript(module.OriginalName) + "] = factory(");
 
             if (enabledDependecies.Count > 0)
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append("root[" + this.ToJavaScript(md.DependencyName) + "], ");
+                    moduleOutput.Append("root[" + ToJavaScript(md.DependencyName) + "], ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
 
-            this.WriteNewLine(moduleOutput, ");");
-            this.WriteIndent(moduleOutput, 2);
-            this.WriteNewLine(moduleOutput, "}");
+            WriteNewLine(moduleOutput, ");");
+            WriteIndent(moduleOutput, 2);
+            WriteNewLine(moduleOutput, "}");
 
-            this.WriteIndent(moduleOutput, 1);
+            WriteIndent(moduleOutput, 1);
             moduleOutput.Append("}(this, function (");
 
             if (enabledDependecies.Count > 0)
@@ -254,25 +254,25 @@ namespace H5.Translator
             }
 
             moduleOutput.Append(") {");
-            this.WriteNewLine(moduleOutput);
+            WriteNewLine(moduleOutput);
 
-            this.WriteIndent(moduleOutput, 2);
-            this.WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
+            WriteIndent(moduleOutput, 2);
+            WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
             moduleOutput.Append(str);
 
             if (!str.Trim().EndsWith(Emitter.NEW_LINE))
             {
-                this.WriteNewLine(moduleOutput);
+                WriteNewLine(moduleOutput);
             }
 
-            this.WriteIndent(moduleOutput, 2);
-            this.WriteNewLine(moduleOutput, "H5.init();");
+            WriteIndent(moduleOutput, 2);
+            WriteNewLine(moduleOutput, "H5.init();");
 
-            this.WriteIndent(moduleOutput, 2);
-            this.WriteNewLine(moduleOutput, "return " + module.Name + ";");
+            WriteIndent(moduleOutput, 2);
+            WriteNewLine(moduleOutput, "return " + module.Name + ";");
 
-            this.WriteIndent(moduleOutput, 1);
-            this.WriteNewLine(moduleOutput, "}));");
+            WriteIndent(moduleOutput, 1);
+            WriteNewLine(moduleOutput, "}));");
         }
 
         protected virtual void WrapToES6(StringBuilder moduleOutput, Module module, IEmitterOutput output)
@@ -281,21 +281,21 @@ namespace H5.Translator
             moduleOutput.Length = 0;
 
             moduleOutput.Append(Emitter.INDENT);
-            this.WriteNewLine(moduleOutput, "(function () {");
+            WriteNewLine(moduleOutput, "(function () {");
 
             moduleOutput.Append(Emitter.INDENT);
-            this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
+            WriteIndent(moduleOutput, InitialLevel);
+            WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
 
-            var enabledDependecies = this.GetEnabledDependecies(module, output);
+            var enabledDependecies = GetEnabledDependecies(module, output);
 
             if (enabledDependecies.Count > 0)
             {
                 enabledDependecies.Each(md =>
                 {
                     moduleOutput.Append(Emitter.INDENT);
-                    this.WriteIndent(moduleOutput, this.InitialLevel);
-                    this.WriteNewLine(moduleOutput, "import " + (md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName) + " from " + this.ToJavaScript(md.DependencyName) + ";");
+                    WriteIndent(moduleOutput, InitialLevel);
+                    WriteNewLine(moduleOutput, "import " + (md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName) + " from " + ToJavaScript(md.DependencyName) + ";");
                 });
             }
 
@@ -303,15 +303,15 @@ namespace H5.Translator
 
             if (!str.Trim().EndsWith(Emitter.NEW_LINE))
             {
-                this.WriteNewLine(moduleOutput);
+                WriteNewLine(moduleOutput);
             }
 
-            this.WriteIndent(moduleOutput, this.InitialLevel);
-            this.WriteNewLine(moduleOutput, Emitter.INDENT + "export {" + module.Name + "};");
-            this.WriteIndent(moduleOutput, this.InitialLevel);
+            WriteIndent(moduleOutput, InitialLevel);
+            WriteNewLine(moduleOutput, Emitter.INDENT + "export {" + module.Name + "};");
+            WriteIndent(moduleOutput, InitialLevel);
             moduleOutput.Append("}) (");
 
-            this.WriteNewLine(moduleOutput, ");");
+            WriteNewLine(moduleOutput, ");");
         }
     }
 }

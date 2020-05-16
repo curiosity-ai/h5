@@ -7,15 +7,15 @@ namespace H5.Translator
     {
         public JsDoc()
         {
-            this.Init();
+            Init();
         }
 
         public List<string> Namespaces { get; set; }
 
         public void Init()
         {
-            this.Namespaces = new List<string>();
-            this.Callbacks = new List<string>();
+            Namespaces = new List<string>();
+            Callbacks = new List<string>();
         }
 
         public List<string> Callbacks { get; set; }

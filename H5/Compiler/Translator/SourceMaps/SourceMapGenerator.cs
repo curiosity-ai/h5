@@ -19,8 +19,8 @@ namespace H5.Translator
         public SourceMapGenerator(string scriptPath, string sourceRoot, string basePath, UnicodeNewline? forceEols = null)
         {
             string scriptFileName = Path.GetFileName(scriptPath);
-            this.SourceMapBuilder = new SourceMapBuilder(scriptFileName, sourceRoot, basePath);
-            this.ForceEols = forceEols;
+            SourceMapBuilder = new SourceMapBuilder(scriptFileName, sourceRoot, basePath);
+            ForceEols = forceEols;
         }
 
         public void RecordLocation(int scriptLine, int scriptCol, string sourcePath, int sourceLine, int sourceCol)
@@ -35,12 +35,12 @@ namespace H5.Translator
                 sourceLocation = new SourceLocation(sourcePath, "", sourceLine - 1, sourceCol - 1);    // convert line and column to 0-based
             }
 
-            this.SourceMapBuilder.AddMapping(scriptLine - 1, scriptCol - 1, sourceLocation);
+            SourceMapBuilder.AddMapping(scriptLine - 1, scriptCol - 1, sourceLocation);
         }
 
         public string GetSourceMap(string[] sourcesContent)
         {
-            return this.SourceMapBuilder.Build(sourcesContent, this.ForceEols);
+            return SourceMapBuilder.Build(sourcesContent, ForceEols);
         }
 
         internal static Regex tokenRegex = new Regex(@"/\*##\|(.+?),(\d+?),(\d+?)\|##\*/", RegexOptions.Compiled);
@@ -122,10 +122,10 @@ namespace H5.Translator
         {
             public StringLocation(int line, int column, int position, int startLinePosition)
             {
-                this.Line = line;
-                this.Column = column;
-                this.StartLinePosition = startLinePosition;
-                this.Position = position;
+                Line = line;
+                Column = column;
+                StartLinePosition = startLinePosition;
+                Position = position;
             }
 
             public int Line

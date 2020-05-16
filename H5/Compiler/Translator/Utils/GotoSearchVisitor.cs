@@ -16,17 +16,17 @@ namespace H5.Translator
 
         public override void VisitGotoStatement(GotoStatement gotoStatement)
         {
-            this.Found = true;
+            Found = true;
         }
 
         public override void VisitGotoCaseStatement(GotoCaseStatement gotoCaseStatement)
         {
-            this.Found = true;
+            Found = true;
         }
 
         public override void VisitGotoDefaultStatement(GotoDefaultStatement gotoDefaultStatement)
         {
-            this.Found = true;
+            Found = true;
         }
     }
 }

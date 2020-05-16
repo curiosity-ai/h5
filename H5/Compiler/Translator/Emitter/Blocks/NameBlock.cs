@@ -15,13 +15,13 @@ namespace H5.Translator
         public NameBlock(IEmitter emitter, string name, Expression namedExpression, Expression expression, bool? isSet)
             : base(emitter, null)
         {
-            this.Emitter = emitter;
-            this.NamedExpression = namedExpression;
-            this.Expression = expression;
-            this.Name = name;
-            this.IsSet = isSet;
+            Emitter = emitter;
+            NamedExpression = namedExpression;
+            Expression = expression;
+            Name = name;
+            IsSet = isSet;
 
-            this.Emitter.Translator.EmitNode = namedExpression ?? expression;
+            Emitter.Translator.EmitNode = namedExpression ?? expression;
         }
 
         public bool? IsSet { get; set; }
@@ -34,39 +34,39 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            this.EmitNameExpression(this.Name, this.NamedExpression, this.Expression);
+            EmitNameExpression(Name, NamedExpression, Expression);
         }
 
         protected virtual void EmitNameExpression(string name, Expression namedExpression, Expression expression)
         {
-            var resolveResult = this.Emitter.Resolver.ResolveNode(namedExpression, this.Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(namedExpression, Emitter);
 
             if (resolveResult is MemberResolveResult)
             {
                 var member = ((MemberResolveResult)resolveResult).Member;
-                name = this.Emitter.GetEntityName(member);
+                name = Emitter.GetEntityName(member);
 
-                bool isSet = this.IsSet ?? !(expression is ArrayInitializerExpression);
+                bool isSet = IsSet ?? !(expression is ArrayInitializerExpression);
                 if (member is IProperty)
                 {
-                    this.Write(Helpers.GetPropertyRef(member, this.Emitter, isSet));
+                    Write(Helpers.GetPropertyRef(member, Emitter, isSet));
                 }
                 else if (member is IEvent)
                 {
-                    this.Write(Helpers.GetEventRef(member, this.Emitter, !isSet));
+                    Write(Helpers.GetEventRef(member, Emitter, !isSet));
                 }
                 else
                 {
-                    this.Write(name);
+                    Write(name);
                 }
             }
             else
             {
-                this.Write(name);
+                Write(name);
             }
 
-            this.WriteColon();
-            expression.AcceptVisitor(this.Emitter);
+            WriteColon();
+            expression.AcceptVisitor(Emitter);
         }
     }
 }

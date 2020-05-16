@@ -12,29 +12,29 @@ namespace H5.Translator
         public ArrayInitializerBlock(IEmitter emitter, ArrayInitializerExpression arrayInitializerExpression)
             : base(emitter, arrayInitializerExpression)
         {
-            this.Emitter = emitter;
-            this.ArrayInitializerExpression = arrayInitializerExpression;
+            Emitter = emitter;
+            ArrayInitializerExpression = arrayInitializerExpression;
         }
 
         public ArrayInitializerExpression ArrayInitializerExpression { get; set; }
 
         protected override void DoEmit()
         {
-            var elements = this.ArrayInitializerExpression.Elements;
+            var elements = ArrayInitializerExpression.Elements;
             var first = elements.Count > 0 ? elements.First() : null;
 
             var isObjectInitializer = first is NamedExpression || first is NamedArgumentExpression;
-            var rr = this.Emitter.Resolver.ResolveNode(this.ArrayInitializerExpression, this.Emitter) as ArrayCreateResolveResult;
+            var rr = Emitter.Resolver.ResolveNode(ArrayInitializerExpression, Emitter) as ArrayCreateResolveResult;
             var at = rr != null ? (ArrayType)rr.Type : null;
             var create = at != null && at.Dimensions > 1;
 
             if (rr != null) { }
-            if (!isObjectInitializer || this.ArrayInitializerExpression.IsSingleElement)
+            if (!isObjectInitializer || ArrayInitializerExpression.IsSingleElement)
             {
                 if (at != null)
                 {
-                    this.Write(create ? JS.Types.System.Array.CREATE : JS.Types.System.Array.INIT);
-                    this.WriteOpenParentheses();
+                    Write(create ? JS.Types.System.Array.CREATE : JS.Types.System.Array.INIT);
+                    WriteOpenParentheses();
                 }
 
                 if (create)
@@ -43,65 +43,65 @@ namespace H5.Translator
 
                     if (defaultInitializer.Value is IType)
                     {
-                        this.Write(Inspector.GetStructDefaultValue((IType)defaultInitializer.Value, this.Emitter));
+                        Write(Inspector.GetStructDefaultValue((IType)defaultInitializer.Value, Emitter));
                     }
                     else if (defaultInitializer.Value is RawValue)
                     {
-                        this.Write(defaultInitializer.Value.ToString());
+                        Write(defaultInitializer.Value.ToString());
                     }
                     else
                     {
-                        defaultInitializer.AcceptVisitor(this.Emitter);
+                        defaultInitializer.AcceptVisitor(Emitter);
                     }
 
-                    this.WriteComma();
+                    WriteComma();
                 }
 
-                this.Write("[");
+                Write("[");
             }
             else
             {
-                this.BeginBlock();
+                BeginBlock();
             }
 
-            new ExpressionListBlock(this.Emitter, elements, null, null, 0, elements.Count > 2).Emit();
+            new ExpressionListBlock(Emitter, elements, null, null, 0, elements.Count > 2).Emit();
 
-            if (!isObjectInitializer || this.ArrayInitializerExpression.IsSingleElement)
+            if (!isObjectInitializer || ArrayInitializerExpression.IsSingleElement)
             {
-                this.Write("]");
+                Write("]");
                 if (at != null)
                 {
-                    this.Write(", ");
-                    this.Write(H5Types.ToJsName(at.ElementType, this.Emitter));
+                    Write(", ");
+                    Write(H5Types.ToJsName(at.ElementType, Emitter));
 
                     if (create)
                     {
-                        this.Emitter.Comma = true;
+                        Emitter.Comma = true;
 
                         for (int i = 0; i < rr.SizeArguments.Count; i++)
                         {
                             var a = rr.SizeArguments[i];
-                            this.EnsureComma(false);
+                            EnsureComma(false);
 
                             if (a.IsCompileTimeConstant)
                             {
-                                this.Write(a.ConstantValue);
+                                Write(a.ConstantValue);
                             }
                             else
                             {
                                 AttributeCreateBlock.WriteResolveResult(rr.SizeArguments[i], this);
                             }
-                            this.Emitter.Comma = true;
+                            Emitter.Comma = true;
                         }
                     }
 
-                    this.Write(")");
+                    Write(")");
                 }
             }
             else
             {
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
         }
     }

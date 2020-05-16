@@ -13,9 +13,9 @@ namespace H5.Translator
         public AnonymousTypeCreateBlock(IEmitter emitter, AnonymousTypeCreateExpression anonymousTypeCreateExpression, bool plain = false)
             : base(emitter, anonymousTypeCreateExpression)
         {
-            this.Emitter = emitter;
-            this.AnonymousTypeCreateExpression = anonymousTypeCreateExpression;
-            this.Plain = plain;
+            Emitter = emitter;
+            AnonymousTypeCreateExpression = anonymousTypeCreateExpression;
+            Plain = plain;
         }
 
         public AnonymousTypeCreateExpression AnonymousTypeCreateExpression { get; set; }
@@ -27,13 +27,13 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            if (this.Plain || this.Emitter.Rules.AnonymousType == AnonymousTypeRule.Plain)
+            if (Plain || Emitter.Rules.AnonymousType == AnonymousTypeRule.Plain)
             {
-                this.VisitPlainAnonymousTypeCreateExpression();
+                VisitPlainAnonymousTypeCreateExpression();
             }
             else
             {
-                var rr = this.Emitter.Resolver.ResolveNode(this.AnonymousTypeCreateExpression.Parent, this.Emitter);
+                var rr = Emitter.Resolver.ResolveNode(AnonymousTypeCreateExpression.Parent, Emitter);
                 var member_rr = rr as MemberResolveResult;
 
                 if (member_rr == null)
@@ -45,258 +45,258 @@ namespace H5.Translator
                 }
 
                 if (member_rr != null && member_rr.Member.DeclaringTypeDefinition != null &&
-                    this.Emitter.Validator.IsObjectLiteral(member_rr.Member.DeclaringTypeDefinition))
+                    Emitter.Validator.IsObjectLiteral(member_rr.Member.DeclaringTypeDefinition))
                 {
-                    this.VisitPlainAnonymousTypeCreateExpression();
+                    VisitPlainAnonymousTypeCreateExpression();
                 }
                 else
                 {
-                    this.VisitAnonymousTypeCreateExpression();
+                    VisitAnonymousTypeCreateExpression();
                 }
             }
         }
 
         protected void VisitPlainAnonymousTypeCreateExpression()
         {
-            AnonymousTypeCreateExpression anonymousTypeCreateExpression = this.AnonymousTypeCreateExpression;
+            AnonymousTypeCreateExpression anonymousTypeCreateExpression = AnonymousTypeCreateExpression;
 
-            this.WriteOpenBrace();
-            this.WriteSpace();
+            WriteOpenBrace();
+            WriteSpace();
 
             if (anonymousTypeCreateExpression.Initializers.Count > 0)
             {
-                this.WriteObjectInitializer(anonymousTypeCreateExpression.Initializers, false);
+                WriteObjectInitializer(anonymousTypeCreateExpression.Initializers, false);
 
-                this.WriteSpace();
-                this.WriteCloseBrace();
+                WriteSpace();
+                WriteCloseBrace();
             }
             else
             {
-                this.WriteCloseBrace();
+                WriteCloseBrace();
             }
         }
 
         protected void VisitAnonymousTypeCreateExpression()
         {
-            AnonymousTypeCreateExpression anonymousTypeCreateExpression = this.AnonymousTypeCreateExpression;
-            var invocationrr = this.Emitter.Resolver.ResolveNode(anonymousTypeCreateExpression, this.Emitter) as InvocationResolveResult;
+            AnonymousTypeCreateExpression anonymousTypeCreateExpression = AnonymousTypeCreateExpression;
+            var invocationrr = Emitter.Resolver.ResolveNode(anonymousTypeCreateExpression, Emitter) as InvocationResolveResult;
             var type = invocationrr.Type as AnonymousType;
             IAnonymousTypeConfig config = null;
 
-            if (!this.Emitter.AnonymousTypes.ContainsKey(type))
+            if (!Emitter.AnonymousTypes.ContainsKey(type))
             {
                 config = CreateAnonymousType(type);
-                this.Emitter.AnonymousTypes.Add(type, config);
+                Emitter.AnonymousTypes.Add(type, config);
             }
             else
             {
-                config = this.Emitter.AnonymousTypes[type];
+                config = Emitter.AnonymousTypes[type];
             }
 
-            this.WriteNew();
-            this.Write(config.Name);
-            this.WriteOpenParentheses();
+            WriteNew();
+            Write(config.Name);
+            WriteOpenParentheses();
 
             if (anonymousTypeCreateExpression.Initializers.Count > 0)
             {
-                this.WriteObjectInitializer(anonymousTypeCreateExpression.Initializers, true, true);
+                WriteObjectInitializer(anonymousTypeCreateExpression.Initializers, true, true);
             }
 
-            this.WriteCloseParentheses();
+            WriteCloseParentheses();
         }
 
         public virtual IAnonymousTypeConfig CreateAnonymousType(AnonymousType type)
         {
             var config = new AnonymousTypeConfig();
-            config.Name = JS.Types.H5_ANONYMOUS + (this.Emitter.AnonymousTypes.Count + 1);
+            config.Name = JS.Types.H5_ANONYMOUS + (Emitter.AnonymousTypes.Count + 1);
             config.Type = type;
 
-            var oldWriter = this.SaveWriter();
-            this.NewWriter();
+            var oldWriter = SaveWriter();
+            NewWriter();
 
-            this.Write(JS.Types.H5.DEFINE);
-            this.WriteOpenParentheses();
-            this.WriteScript(config.Name);
+            Write(JS.Types.H5.DEFINE);
+            WriteOpenParentheses();
+            WriteScript(config.Name);
             config.Name = JS.Vars.ASM + "." + config.Name;
-            this.Write(", " + JS.Vars.ASM + ", ");
-            this.BeginBlock();
-            this.Emitter.Comma = false;
-            this.GenereateCtor(type);
+            Write(", " + JS.Vars.ASM + ", ");
+            BeginBlock();
+            Emitter.Comma = false;
+            GenereateCtor(type);
 
-            this.EnsureComma();
-            this.Write(JS.Fields.METHODS);
-            this.WriteColon();
-            this.BeginBlock();
+            EnsureComma();
+            Write(JS.Fields.METHODS);
+            WriteColon();
+            BeginBlock();
 
-            this.GenereateEquals(config);
-            this.GenerateHashCode(config);
-            this.GenereateToJSON(config);
+            GenereateEquals(config);
+            GenerateHashCode(config);
+            GenereateToJSON(config);
 
-            this.WriteNewLine();
-            this.EndBlock();
+            WriteNewLine();
+            EndBlock();
 
-            this.GenereateMetadata(config);
+            GenereateMetadata(config);
 
-            this.WriteNewLine();
-            this.EndBlock();
-            this.Write(");");
-            config.Code = this.Emitter.Output.ToString();
+            WriteNewLine();
+            EndBlock();
+            Write(");");
+            config.Code = Emitter.Output.ToString();
 
-            this.RestoreWriter(oldWriter);
+            RestoreWriter(oldWriter);
 
             return config;
         }
 
         private void GenereateCtor(AnonymousType type)
         {
-            this.EnsureComma();
-            this.Write(JS.Fields.KIND);
-            this.WriteColon();
-            this.WriteScript(TypeKind.Anonymous.ToString().ToLowerInvariant());
-            this.WriteComma(true);
-            this.Write(JS.Fields.CTORS);
-            this.WriteColon();
-            this.BeginBlock();
-            this.Write(JS.Funcs.CONSTRUCTOR + ": function (");
+            EnsureComma();
+            Write(JS.Fields.KIND);
+            WriteColon();
+            WriteScript(TypeKind.Anonymous.ToString().ToLowerInvariant());
+            WriteComma(true);
+            Write(JS.Fields.CTORS);
+            WriteColon();
+            BeginBlock();
+            Write(JS.Funcs.CONSTRUCTOR + ": function (");
             foreach (var property in type.Properties)
             {
-                this.EnsureComma(false);
-                this.Write(property.Name.ToLowerCamelCase());
-                this.Emitter.Comma = true;
+                EnsureComma(false);
+                Write(property.Name.ToLowerCamelCase());
+                Emitter.Comma = true;
             }
-            this.Write(") ");
-            this.Emitter.Comma = false;
-            this.BeginBlock();
+            Write(") ");
+            Emitter.Comma = false;
+            BeginBlock();
 
             foreach (var property in type.Properties)
             {
-                var name = this.Emitter.GetEntityName(property);
+                var name = Emitter.GetEntityName(property);
 
-                this.Write(string.Format("this.{0} = {1};", name, property.Name.ToLowerCamelCase()));
-                this.WriteNewLine();
+                Write(string.Format("this.{0} = {1};", name, property.Name.ToLowerCamelCase()));
+                WriteNewLine();
             }
 
-            this.EndBlock();
-            this.WriteNewLine();
-            this.EndBlock();
-            this.Emitter.Comma = true;
+            EndBlock();
+            WriteNewLine();
+            EndBlock();
+            Emitter.Comma = true;
         }
 
         private void GenereateMetadata(IAnonymousTypeConfig config)
         {
-            var meta = MetadataUtils.ConstructITypeMetadata(config.Type, this.Emitter);
+            var meta = MetadataUtils.ConstructITypeMetadata(config.Type, Emitter);
 
             if (meta != null)
             {
-                this.EnsureComma();
-                this.Write("statics : ");
-                this.BeginBlock();
+                EnsureComma();
+                Write("statics : ");
+                BeginBlock();
 
-                this.Write(JS.Fields.METHODS);
-                this.WriteColon();
-                this.BeginBlock();
+                Write(JS.Fields.METHODS);
+                WriteColon();
+                BeginBlock();
 
-                this.Write("$metadata : function () { return ");
-                this.Write(meta.ToString(Formatting.None));
-                this.Write("; }");
-                this.WriteNewLine();
-                this.EndBlock();
-                this.WriteNewLine();
-                this.EndBlock();
+                Write("$metadata : function () { return ");
+                Write(meta.ToString(Formatting.None));
+                Write("; }");
+                WriteNewLine();
+                EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
         }
 
         private void GenereateEquals(IAnonymousTypeConfig config)
         {
-            this.EnsureComma();
-            this.Write(JS.Funcs.EQUALS + ": function (o) ");
-            this.BeginBlock();
+            EnsureComma();
+            Write(JS.Funcs.EQUALS + ": function (o) ");
+            BeginBlock();
 
-            this.Write("if (!" + JS.Types.H5.IS + "(o, ");
-            this.Write(config.Name);
-            this.Write(")) ");
-            this.BeginBlock();
-            this.Write("return false;");
-            this.WriteNewLine();
-            this.EndBlock();
-            this.WriteNewLine();
-            this.Write("return ");
+            Write("if (!" + JS.Types.H5.IS + "(o, ");
+            Write(config.Name);
+            Write(")) ");
+            BeginBlock();
+            Write("return false;");
+            WriteNewLine();
+            EndBlock();
+            WriteNewLine();
+            Write("return ");
 
             bool and = false;
 
             foreach (var property in config.Type.Properties)
             {
-                var name = this.Emitter.GetEntityName(property);
+                var name = Emitter.GetEntityName(property);
 
                 if (and)
                 {
-                    this.Write(" && ");
+                    Write(" && ");
                 }
 
                 and = true;
 
-                this.Write(JS.Funcs.H5_EQUALS + "(this.");
-                this.Write(name);
-                this.Write(", o.");
-                this.Write(name);
-                this.Write(")");
+                Write(JS.Funcs.H5_EQUALS + "(this.");
+                Write(name);
+                Write(", o.");
+                Write(name);
+                Write(")");
             }
 
-            this.Write(";");
+            Write(";");
 
-            this.WriteNewLine();
-            this.EndBlock();
-            this.Emitter.Comma = true;
+            WriteNewLine();
+            EndBlock();
+            Emitter.Comma = true;
         }
 
         private void GenerateHashCode(IAnonymousTypeConfig config)
         {
-            this.EnsureComma();
-            this.Write(JS.Funcs.GETHASHCODE + ": function () ");
-            this.BeginBlock();
-            this.Write("var h = " + JS.Funcs.H5_ADDHASH + "([");
+            EnsureComma();
+            Write(JS.Funcs.GETHASHCODE + ": function () ");
+            BeginBlock();
+            Write("var h = " + JS.Funcs.H5_ADDHASH + "([");
 
             var nameHashValue = new HashHelper().GetDeterministicHash(config.Name);
-            this.Write(nameHashValue);
+            Write(nameHashValue);
 
             foreach (var property in config.Type.Properties)
             {
-                var name = this.Emitter.GetEntityName(property);
-                this.Write(", this." + name);
+                var name = Emitter.GetEntityName(property);
+                Write(", this." + name);
             }
 
-            this.Write("]);");
+            Write("]);");
 
-            this.WriteNewLine();
-            this.Write("return h;");
-            this.WriteNewLine();
-            this.EndBlock();
-            this.Emitter.Comma = true;
+            WriteNewLine();
+            Write("return h;");
+            WriteNewLine();
+            EndBlock();
+            Emitter.Comma = true;
         }
 
         private void GenereateToJSON(IAnonymousTypeConfig config)
         {
-            this.EnsureComma();
-            this.Write(JS.Funcs.TOJSON + ": function () ");
-            this.BeginBlock();
-            this.Write("return ");
-            this.BeginBlock();
+            EnsureComma();
+            Write(JS.Funcs.TOJSON + ": function () ");
+            BeginBlock();
+            Write("return ");
+            BeginBlock();
 
             foreach (var property in config.Type.Properties)
             {
-                this.EnsureComma();
-                var name = this.Emitter.GetEntityName(property);
+                EnsureComma();
+                var name = Emitter.GetEntityName(property);
 
-                this.Write(string.Format("{0} : this.{0}", name));
-                this.Emitter.Comma = true;
+                Write(string.Format("{0} : this.{0}", name));
+                Emitter.Comma = true;
             }
 
-            this.WriteNewLine();
-            this.EndBlock();
-            this.WriteSemiColon();
-            this.WriteNewLine();
-            this.EndBlock();
-            this.Emitter.Comma = true;
+            WriteNewLine();
+            EndBlock();
+            WriteSemiColon();
+            WriteNewLine();
+            EndBlock();
+            Emitter.Comma = true;
         }
     }
 }

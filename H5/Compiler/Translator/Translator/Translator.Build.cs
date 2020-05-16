@@ -32,12 +32,12 @@ namespace H5.Translator
 
         public virtual string[] GetProjectReferenceAssemblies()
         {
-            var baseDir = Path.GetDirectoryName(this.Location);
+            var baseDir = Path.GetDirectoryName(Location);
 
-            XDocument projDefinition = XDocument.Load(this.Location);
+            XDocument projDefinition = XDocument.Load(Location);
             XNamespace rootNs = projDefinition.Root.Name.Namespace;
             var helper = new ConfigHelper<AssemblyInfo>(this.Log);
-            var tokens = this.ProjectProperties.GetValues();
+            var tokens = ProjectProperties.GetValues();
 
             var referencesPathes = projDefinition
                 .Element(rootNs + "Project")
@@ -59,29 +59,29 @@ namespace H5.Translator
 
             if (projectReferences.Length > 0)
             {
-                if (this.ProjectProperties.BuildProjects == null)
+                if (ProjectProperties.BuildProjects == null)
                 {
-                    this.ProjectProperties.BuildProjects = new List<string>();
+                    ProjectProperties.BuildProjects = new List<string>();
                 }
 
                 foreach (var projectRef in projectReferences)
                 {
-                    var isBuilt = this.ProjectProperties.BuildProjects.Contains(projectRef);
+                    var isBuilt = ProjectProperties.BuildProjects.Contains(projectRef);
 
                     if (!isBuilt)
                     {
-                        this.ProjectProperties.BuildProjects.Add(projectRef);
+                        ProjectProperties.BuildProjects.Add(projectRef);
                     }
 
                     var processor = new TranslatorProcessor(new H5Options
                     {
-                        Rebuild = this.Rebuild,
+                        Rebuild = Rebuild,
                         ProjectLocation = projectRef,
-                        H5Location = this.H5Location,
+                        H5Location = H5Location,
                         ProjectProperties = new Contract.ProjectProperties
                         {
-                            BuildProjects = this.ProjectProperties.BuildProjects,
-                            Configuration = this.ProjectProperties.Configuration
+                            BuildProjects = ProjectProperties.BuildProjects,
+                            Configuration = ProjectProperties.Configuration
                         }
                     }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
 
@@ -102,21 +102,21 @@ namespace H5.Translator
 
         public virtual void BuildAssembly()
         {
-            this.Log.Info($"Building assembly '{this.ProjectProperties?.AssemblyName}' for location '{this.Location}'");
+            this.Log.Info($"Building assembly '{ProjectProperties?.AssemblyName}' for location '{Location}'");
 
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
 
-            var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, this.DefineConstants);
+            var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants);
 
-            var files = this.SourceFiles;
+            var files = SourceFiles;
             IList<string> referencesPathes = null;
             IList<PackageReference> referencedPackages = null;
-            var baseDir = Path.GetDirectoryName(this.Location);
+            var baseDir = Path.GetDirectoryName(Location);
 
-            XDocument projDefinition = XDocument.Load(this.Location);
+            XDocument projDefinition = XDocument.Load(Location);
             XNamespace rootNs = projDefinition.Root.Name.Namespace;
             var helper = new ConfigHelper<AssemblyInfo>(this.Log);
-            var tokens = this.ProjectProperties.GetValues();
+            var tokens = ProjectProperties.GetValues();
 
             referencesPathes = projDefinition
                 .Element(rootNs + "Project")
@@ -146,29 +146,29 @@ namespace H5.Translator
 
             if (projectReferences.Length > 0)
             {
-                if (this.ProjectProperties.BuildProjects == null)
+                if (ProjectProperties.BuildProjects == null)
                 {
-                    this.ProjectProperties.BuildProjects = new List<string>();
+                    ProjectProperties.BuildProjects = new List<string>();
                 }
 
                 foreach (var projectRef in projectReferences)
                 {
-                    var isBuilt = this.ProjectProperties.BuildProjects.Contains(projectRef);
+                    var isBuilt = ProjectProperties.BuildProjects.Contains(projectRef);
 
                     if (!isBuilt)
                     {
-                        this.ProjectProperties.BuildProjects.Add(projectRef);
+                        ProjectProperties.BuildProjects.Add(projectRef);
                     }
 
                     var processor = new TranslatorProcessor(new H5Options
                     {
-                        Rebuild = this.Rebuild,
+                        Rebuild = Rebuild,
                         ProjectLocation = projectRef,
-                        H5Location = this.H5Location,
+                        H5Location = H5Location,
                         ProjectProperties = new Contract.ProjectProperties
                         {
-                            BuildProjects = this.ProjectProperties.BuildProjects,
-                            Configuration = this.ProjectProperties.Configuration
+                            BuildProjects = ProjectProperties.BuildProjects,
+                            Configuration = ProjectProperties.Configuration
                         }
                     }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
 
@@ -176,7 +176,7 @@ namespace H5.Translator
 
                     var projectAssembly = processor.Translator.AssemblyLocation;
 
-                    if (!File.Exists(projectAssembly) || this.Rebuild && !isBuilt)
+                    if (!File.Exists(projectAssembly) || Rebuild && !isBuilt)
                     {
                         processor.Process();
                         processor.PostProcess();
@@ -193,7 +193,7 @@ namespace H5.Translator
             {
                 string packagePath = GetPackagesCacheFolder();
 
-                var outputFolder = Path.GetDirectoryName(this.AssemblyLocation);
+                var outputFolder = Path.GetDirectoryName(AssemblyLocation);
 
                 foreach (var rp in referencedPackages.GroupBy(p => p.PackageIdentity).OrderByDescending(p => p.Key.Version).Select(g => g.First()))
                 {
@@ -232,7 +232,7 @@ namespace H5.Translator
 
                         if (string.Equals(rp.PackageIdentity.Id, CS.NS.H5, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            this.H5Location = foundLibs.Single(); //H5 should be the single dll in the file
+                            H5Location = foundLibs.Single(); //H5 should be the single dll in the file
                         }
                     }
                     else
@@ -277,14 +277,14 @@ namespace H5.Translator
             }
 
             var references = new List<MetadataReference>();
-            var outputDir = Path.GetDirectoryName(this.AssemblyLocation);
+            var outputDir = Path.GetDirectoryName(AssemblyLocation);
             var di = new DirectoryInfo(outputDir);
             if (!di.Exists)
             {
                 di.Create();
             }
 
-            var updateH5Location = string.IsNullOrWhiteSpace(this.H5Location) || !File.Exists(this.H5Location);
+            var updateH5Location = string.IsNullOrWhiteSpace(H5Location) || !File.Exists(H5Location);
 
             foreach (var path in referencesPathes)
             {
@@ -296,34 +296,34 @@ namespace H5.Translator
 
                 if (updateH5Location && string.Compare(Path.GetFileName(path), "h5.dll", true) == 0)
                 {
-                    this.H5Location = path;
+                    H5Location = path;
                 }
 
                 references.Add(MetadataReference.CreateFromFile(path, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
             }
 
 
-            var compilation = CSharpCompilation.Create(this.ProjectProperties.AssemblyName ?? new DirectoryInfo(this.Location).Name, trees, null, compilationOptions)
+            var compilation = CSharpCompilation.Create(ProjectProperties.AssemblyName ?? new DirectoryInfo(Location).Name, trees, null, compilationOptions)
                                 .AddReferences(references)
                                 .AddReferences(referencesFromPackages);
 
             Microsoft.CodeAnalysis.Emit.EmitResult emitResult;
 
-            Log.Info($"Begin compiling {this.AssemblyLocation}");
-            using (var outputStream = new FileStream(this.AssemblyLocation, FileMode.Create))
+            Log.Info($"Begin compiling {AssemblyLocation}");
+            using (var outputStream = new FileStream(AssemblyLocation, FileMode.Create))
             {
                 emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true));
                 outputStream.Flush();
                 outputStream.Close();
             }
-            Log.Info($"Finished compiling {this.AssemblyLocation}");
+            Log.Info($"Finished compiling {AssemblyLocation}");
 
             if (!emitResult.Success)
             {
                 StringBuilder sb = new StringBuilder("C# Compilation Failed");
                 sb.AppendLine();
 
-                baseDir = File.Exists(this.Location) ? Path.GetDirectoryName(this.Location) : Path.GetFullPath(this.Location);
+                baseDir = File.Exists(Location) ? Path.GetDirectoryName(Location) : Path.GetFullPath(Location);
 
                 foreach (var d in emitResult.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error))
                 {
@@ -350,7 +350,7 @@ namespace H5.Translator
                 throw new H5.Translator.TranslatorException(sb.ToString());
             }
 
-            this.Log.Info($"Finished building assembly '{this.ProjectProperties?.AssemblyName}' for location '{this.Location}'");
+            this.Log.Info($"Finished building assembly '{ProjectProperties?.AssemblyName}' for location '{Location}'");
         }
 
         private static string GetPackagesCacheFolder()
@@ -422,7 +422,7 @@ namespace H5.Translator
             var asm = Mono.Cecil.AssemblyDefinition.ReadAssembly(refPath, new ReaderParameters()
             {
                 ReadingMode = ReadingMode.Deferred,
-                AssemblyResolver = new CecilAssemblyResolver(this.Log, this.AssemblyLocation)
+                AssemblyResolver = new CecilAssemblyResolver(this.Log, AssemblyLocation)
             });
 
             foreach (AssemblyNameReference r in asm.MainModule.AssemblyReferences)

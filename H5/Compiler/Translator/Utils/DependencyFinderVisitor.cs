@@ -9,32 +9,32 @@ namespace H5.Translator
     {
         public DependencyFinderVisitor(IEmitter emitter, ITypeInfo type)
         {
-            this.Emitter = emitter;
-            this.Type = type;
-            this.Dependencies = new List<ITypeInfo>();
+            Emitter = emitter;
+            Type = type;
+            Dependencies = new List<ITypeInfo>();
         }
 
         public override void VisitSimpleType(SimpleType simpleType)
         {
-            this.CheckDependency(simpleType);
+            CheckDependency(simpleType);
             base.VisitSimpleType(simpleType);
         }
 
         public override void VisitMemberReferenceExpression(MemberReferenceExpression memberReferenceExpression)
         {
-            this.CheckDependency(memberReferenceExpression.Target);
+            CheckDependency(memberReferenceExpression.Target);
             base.VisitMemberReferenceExpression(memberReferenceExpression);
         }
 
         public override void VisitIdentifierExpression(IdentifierExpression identifierExpression)
         {
-            this.CheckDependency(identifierExpression);
+            CheckDependency(identifierExpression);
             base.VisitIdentifierExpression(identifierExpression);
         }
 
         public override void VisitObjectCreateExpression(ObjectCreateExpression objectCreateExpression)
         {
-            this.CheckDependency(objectCreateExpression.Type);
+            CheckDependency(objectCreateExpression.Type);
             base.VisitObjectCreateExpression(objectCreateExpression);
         }
 
@@ -50,7 +50,7 @@ namespace H5.Translator
         {
             if (methodDeclaration.HasModifier(Modifiers.Static))
             {
-                this.CheckDependency(methodDeclaration.ReturnType);
+                CheckDependency(methodDeclaration.ReturnType);
                 base.VisitMethodDeclaration(methodDeclaration);
             }
         }
@@ -59,7 +59,7 @@ namespace H5.Translator
         {
             if (fieldDeclaration.HasModifier(Modifiers.Static))
             {
-                this.CheckDependency(fieldDeclaration.ReturnType);
+                CheckDependency(fieldDeclaration.ReturnType);
                 base.VisitFieldDeclaration(fieldDeclaration);
             }
         }
@@ -68,7 +68,7 @@ namespace H5.Translator
         {
             if (propertyDeclaration.HasModifier(Modifiers.Static))
             {
-                this.CheckDependency(propertyDeclaration.ReturnType);
+                CheckDependency(propertyDeclaration.ReturnType);
                 if (!propertyDeclaration.Getter.IsNull)
                 {
                     propertyDeclaration.Getter.AcceptVisitor(this);
@@ -81,7 +81,7 @@ namespace H5.Translator
             var prop = accessor.GetParent<PropertyDeclaration>();
             if (prop != null && prop.HasModifier(Modifiers.Static))
             {
-                this.CheckDependency(prop.ReturnType);
+                CheckDependency(prop.ReturnType);
                 base.VisitAccessor(accessor);
             }
         }
@@ -90,22 +90,22 @@ namespace H5.Translator
         {
             if (fixedFieldDeclaration.HasModifier(Modifiers.Static))
             {
-                this.CheckDependency(fixedFieldDeclaration.ReturnType);
+                CheckDependency(fixedFieldDeclaration.ReturnType);
                 base.VisitFixedFieldDeclaration(fixedFieldDeclaration);
             }
         }
 
         public void CheckDependency(AstNode node)
         {
-            var rr = this.Emitter.Resolver.ResolveNode(node, this.Emitter);
+            var rr = Emitter.Resolver.ResolveNode(node, Emitter);
 
             if (!rr.IsError)
             {
-                var typeInfo = this.Emitter.H5Types.Get(rr.Type, true);
+                var typeInfo = Emitter.H5Types.Get(rr.Type, true);
 
-                if (typeInfo != null && typeInfo.TypeInfo != null && typeInfo.Type.FullName != this.Type.Type.FullName && this.Dependencies.All(d => d.Type.FullName != typeInfo.TypeInfo.Type.FullName))
+                if (typeInfo != null && typeInfo.TypeInfo != null && typeInfo.Type.FullName != Type.Type.FullName && Dependencies.All(d => d.Type.FullName != typeInfo.TypeInfo.Type.FullName))
                 {
-                    this.Dependencies.Add(typeInfo.TypeInfo);
+                    Dependencies.Add(typeInfo.TypeInfo);
                 }
             }
         }

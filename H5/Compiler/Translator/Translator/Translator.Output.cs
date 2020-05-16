@@ -17,7 +17,7 @@ namespace H5.Translator
         {
             var logger = this.Log;
             Logger.LogInformation("Starts Save with projectOutputPath = " + projectOutputPath);
-            var outputs = this.Outputs.GetOutputs().ToList();
+            var outputs = Outputs.GetOutputs().ToList();
             var dtsReferences = new List<string>();
             bool addNoLibReference = false;
 
@@ -79,16 +79,16 @@ namespace H5.Translator
                         sb.Append(nl);
                     }
 
-                    this.SaveToFile(file.FullName, sb.ToString() + content);
+                    SaveToFile(file.FullName, sb.ToString() + content);
                 }
                 else if (CheckIfRequiresSourceMap(item))
                 {
                     content = item.Content.GetContentAsString();
-                    content = this.GenerateSourceMap(file.FullName, content);
+                    content = GenerateSourceMap(file.FullName, content);
 
                     item.HasGeneratedSourceMap = true;
 
-                    this.SaveToFile(file.FullName, content);
+                    SaveToFile(file.FullName, content);
                 }
                 else
                 {
@@ -96,12 +96,12 @@ namespace H5.Translator
 
                     if (buffer != null)
                     {
-                        this.SaveToFile(file.FullName, null, buffer);
+                        SaveToFile(file.FullName, null, buffer);
                     }
                     else
                     {
                         content = item.Content.GetContentAsString();
-                        this.SaveToFile(file.FullName, content);
+                        SaveToFile(file.FullName, content);
                     }
                 }
             }
@@ -115,7 +115,7 @@ namespace H5.Translator
 
             Logger.LogTrace("Report...");
 
-            var config = this.AssemblyInfo;
+            var config = AssemblyInfo;
 
             if (!config.Report.Enabled)
             {
@@ -123,14 +123,14 @@ namespace H5.Translator
                 return;
             }
 
-            var reportContent = this.Outputs.Report.Content.Builder;
+            var reportContent = Outputs.Report.Content.Builder;
 
-            string filePath = DefineOutputItemFullPath(this.Outputs.Report, projectOutputPath, null);
+            string filePath = DefineOutputItemFullPath(Outputs.Report, projectOutputPath, null);
 
             var file = FileHelper.CreateFileDirectory(filePath);
             Logger.LogTrace("Report file full name: " + file.FullName);
 
-            this.SaveToFile(file.FullName, reportContent.ToString());
+            SaveToFile(file.FullName, reportContent.ToString());
 
             Logger.LogTrace("Report done");
 
@@ -221,12 +221,12 @@ namespace H5.Translator
 
         public void CleanOutputFolderIfRequired(string outputPath)
         {
-            if (this.AssemblyInfo != null
-                && (!string.IsNullOrEmpty(this.AssemblyInfo.CleanOutputFolderBeforeBuild) || !string.IsNullOrEmpty(this.AssemblyInfo.CleanOutputFolderBeforeBuildPattern)))
+            if (AssemblyInfo != null
+                && (!string.IsNullOrEmpty(AssemblyInfo.CleanOutputFolderBeforeBuild) || !string.IsNullOrEmpty(AssemblyInfo.CleanOutputFolderBeforeBuildPattern)))
             {
-                var searchPattern = string.IsNullOrEmpty(this.AssemblyInfo.CleanOutputFolderBeforeBuildPattern)
-                    ? this.AssemblyInfo.CleanOutputFolderBeforeBuild
-                    : this.AssemblyInfo.CleanOutputFolderBeforeBuildPattern;
+                var searchPattern = string.IsNullOrEmpty(AssemblyInfo.CleanOutputFolderBeforeBuildPattern)
+                    ? AssemblyInfo.CleanOutputFolderBeforeBuild
+                    : AssemblyInfo.CleanOutputFolderBeforeBuildPattern;
 
                 string logFileFullPath = null;
 
@@ -246,21 +246,21 @@ namespace H5.Translator
 
         protected virtual void AddMainOutputs(List<TranslatorOutputItem> outputs)
         {
-            this.Outputs.Main.AddRange(outputs);
+            Outputs.Main.AddRange(outputs);
         }
 
         protected virtual void AddLocaleOutput(EmbeddedResource resource, string outputPath)
         {
             var fileName = resource.Name.Substring(Translator.LocalesPrefix.Length);
 
-            if (!string.IsNullOrWhiteSpace(this.AssemblyInfo.LocalesOutput))
+            if (!string.IsNullOrWhiteSpace(AssemblyInfo.LocalesOutput))
             {
-                outputPath = Path.Combine(outputPath, this.AssemblyInfo.LocalesOutput);
+                outputPath = Path.Combine(outputPath, AssemblyInfo.LocalesOutput);
             }
 
-            var content = this.ReadEmbeddedResource(resource);
+            var content = ReadEmbeddedResource(resource);
 
-            Emitter.AddOutputItem(this.Outputs.Locales, fileName, new StringBuilder(content), TranslatorOutputKind.Locale, location: outputPath);
+            Emitter.AddOutputItem(Outputs.Locales, fileName, new StringBuilder(content), TranslatorOutputKind.Locale, location: outputPath);
         }
 
         protected virtual void AddLocaleOutputs(IEnumerable<EmbeddedResource> resources, string outputPath)
@@ -287,7 +287,7 @@ namespace H5.Translator
 
                 var contentBuffer = new StringBuilder();
                 var needNewLine = false;
-                var noConsole = this.AssemblyInfo.Console.Enabled != true;
+                var noConsole = AssemblyInfo.Console.Enabled != true;
                 var fileHelper = new FileHelper();
 
                 foreach (var part in resource.Parts)
@@ -343,7 +343,7 @@ namespace H5.Translator
                         }
                         else
                         {
-                            var partAssembly = this.References
+                            var partAssembly = References
                                 .Where(x => x.Name.Name == partAssemblyName.Name)
                                 .OrderByDescending(x => x.Name.Version)
                                 .FirstOrDefault();
@@ -391,7 +391,7 @@ namespace H5.Translator
                                 {
                                     if (partAssembly.Name.Version != partAssemblyName.Version)
                                     {
-                                        var partAssemblyExactVersion = this.References
+                                        var partAssemblyExactVersion = References
                                             .Where(x => x.FullName == partAssemblyName.FullName)
                                             .FirstOrDefault();
 
@@ -459,7 +459,7 @@ namespace H5.Translator
 
             ExtractedScripts.Add(GetExtractedResourceName(currentAssembly, resource.Name));
 
-            Emitter.AddOutputItem(this.Outputs.References, fileName, content, TranslatorOutputKind.Reference, location: outputPath, assembly: currentAssembly);
+            Emitter.AddOutputItem(Outputs.References, fileName, content, TranslatorOutputKind.Reference, location: outputPath, assembly: currentAssembly);
         }
 
         private Tuple<byte[], string> ReadEmbeddedResource(AssemblyDefinition assembly, string resourceName, bool readAsString, Func<string, string> preHandler = null)
@@ -491,7 +491,7 @@ namespace H5.Translator
 
         protected virtual void AddExtractedResourceOutput(ResourceConfigItem resource, byte[] code)
         {
-            Emitter.AddOutputItem(this.Outputs.Resources, resource.Name, code, TranslatorOutputKind.Resource, location: resource.Output);
+            Emitter.AddOutputItem(Outputs.Resources, resource.Name, code, TranslatorOutputKind.Resource, location: resource.Output);
         }
 
         public void ExtractCore(string outputPath, string projectPath)
@@ -509,7 +509,7 @@ namespace H5.Translator
         {
             this.Log.Info("Extracting resources...");
 
-            foreach (var reference in this.References)
+            foreach (var reference in References)
             {
                 var resources = GetEmbeddedResourceList(reference);
 
@@ -518,7 +518,7 @@ namespace H5.Translator
                     continue;
                 }
 
-                var resourceOption = this.AssemblyInfo.Resources;
+                var resourceOption = AssemblyInfo.Resources;
 
                 var noExtract = !resourceOption.HasEmbedResources()
                     && !resourceOption.HasExtractResources()
@@ -566,7 +566,7 @@ namespace H5.Translator
                         {
                             this.Log.Trace("resources.output option " + resourceExtractItems.Output);
 
-                            this.GetResourceOutputPath(outputPath, resourceExtractItems, ref resourceOutputFileName, ref resourceOutputDirName);
+                            GetResourceOutputPath(outputPath, resourceExtractItems, ref resourceOutputFileName, ref resourceOutputDirName);
 
                             if (resourceOutputDirName != null)
                             {
@@ -597,7 +597,7 @@ namespace H5.Translator
                         {
                             this.Log.Trace("resource.Path option " + resource.Path);
 
-                            this.GetResourceOutputPath(outputPath, resource.Path, resource.Name, true, ref resourceOutputFileName, ref resourceOutputDirName);
+                            GetResourceOutputPath(outputPath, resource.Path, resource.Name, true, ref resourceOutputFileName, ref resourceOutputDirName);
 
                             if (resourceOutputDirName != null)
                             {
@@ -623,9 +623,9 @@ namespace H5.Translator
 
                     bool isTs = FileHelper.IsDTS(resName);
 
-                    if (!isTs || this.AssemblyInfo.GenerateTypeScript)
+                    if (!isTs || AssemblyInfo.GenerateTypeScript)
                     {
-                        this.AddReferencedOutput(resourceOutputDirName, reference, resource, resourceOutputFileName);
+                        AddReferencedOutput(resourceOutputDirName, reference, resource, resourceOutputFileName);
                     }
                 }
             }
@@ -635,7 +635,7 @@ namespace H5.Translator
 
         private void ExtractLocales(string outputPath)
         {
-            if (string.IsNullOrWhiteSpace(this.AssemblyInfo.Locales))
+            if (string.IsNullOrWhiteSpace(AssemblyInfo.Locales))
             {
                 this.Log.Info("Skipping extracting Locales");
                 return;
@@ -643,13 +643,13 @@ namespace H5.Translator
 
             this.Log.Info("Extracting Locales...");
 
-            var h5Assembly = this.References.FirstOrDefault(r => r.Name.Name == CS.NS.H5);
+            var h5Assembly = References.FirstOrDefault(r => r.Name.Name == CS.NS.H5);
             var localesResources = h5Assembly.MainModule.Resources.Where(r => r.Name.StartsWith(Translator.LocalesPrefix)).Cast<EmbeddedResource>();
-            var locales = this.AssemblyInfo.Locales.Split(';');
+            var locales = AssemblyInfo.Locales.Split(';');
 
             if (locales.Any(x => x == "all"))
             {
-                this.AddLocaleOutputs(localesResources, outputPath);
+                AddLocaleOutputs(localesResources, outputPath);
             }
             else
             {
@@ -660,14 +660,14 @@ namespace H5.Translator
                         var name = Translator.LocalesPrefix + locale.SubstringUpToFirst('*');
                         var maskedResources = localesResources.Where(r => r.Name.StartsWith(name));
 
-                        this.AddLocaleOutputs(maskedResources, outputPath);
+                        AddLocaleOutputs(maskedResources, outputPath);
                     }
                     else
                     {
                         var name = Translator.LocalesPrefix + locale + Files.Extensions.JS;
                         var maskedResource = localesResources.First(r => r.Name == name);
 
-                        this.AddLocaleOutput(maskedResource, outputPath);
+                        AddLocaleOutput(maskedResource, outputPath);
                     }
                 }
             }
@@ -721,24 +721,24 @@ namespace H5.Translator
         {
             this.Log.Trace("Combining locales...");
 
-            if (!this.AssemblyInfo.CombineLocales && !this.AssemblyInfo.CombineScripts)
+            if (!AssemblyInfo.CombineLocales && !AssemblyInfo.CombineScripts)
             {
                 this.Log.Trace("Skipping combining locales as CombineLocales and CombineScripts config oiptions are both switched off.");
                 return;
             }
 
-            var fileName = this.AssemblyInfo.LocalesFileName ?? Translator.DefaultLocalesOutputName;
+            var fileName = AssemblyInfo.LocalesFileName ?? Translator.DefaultLocalesOutputName;
 
-            var combinedLocales = Combine(null, this.Outputs.Locales, fileName, "locales", TranslatorOutputKind.Locale);
+            var combinedLocales = Combine(null, Outputs.Locales, fileName, "locales", TranslatorOutputKind.Locale);
 
-            if (combinedLocales != null && !string.IsNullOrWhiteSpace(this.AssemblyInfo.LocalesOutput))
+            if (combinedLocales != null && !string.IsNullOrWhiteSpace(AssemblyInfo.LocalesOutput))
             {
-                combinedLocales.Location = this.AssemblyInfo.LocalesOutput;
+                combinedLocales.Location = AssemblyInfo.LocalesOutput;
             }
 
-            this.Outputs.CombinedLocales = combinedLocales;
+            Outputs.CombinedLocales = combinedLocales;
 
-            this.Outputs.Locales.Clear();
+            Outputs.Locales.Clear();
 
             this.Log.Trace("Combining locales done");
         }
@@ -747,7 +747,7 @@ namespace H5.Translator
         {
             this.Log.Trace("Combining project outputs...");
 
-            if (!this.AssemblyInfo.CombineScripts)
+            if (!AssemblyInfo.CombineScripts)
             {
                 this.Log.Trace("Skipping project outputs as CombineScripts config option switched off.");
                 return;
@@ -760,12 +760,12 @@ namespace H5.Translator
             var combinedResourcePartsMinified = new Dictionary<H5ResourceInfoPart, string>();
             var combinedResourcePartsNonMinified = new Dictionary<H5ResourceInfoPart, string>();
 
-            foreach (var referenceOutput in this.Outputs.References)
+            foreach (var referenceOutput in Outputs.References)
             {
                 ConvertOutputItemIntoResourceInfoPart(combinedResourcePartsNonMinified, combinedResourcePartsMinified, referenceOutput);
             }
 
-            var combinedOutput = Combine(null, this.Outputs.References, fileName, "project references", TranslatorOutputKind.ProjectOutput);
+            var combinedOutput = Combine(null, Outputs.References, fileName, "project references", TranslatorOutputKind.ProjectOutput);
 
             if (combinedOutput?.Content?.Builder != null)
             {
@@ -779,7 +779,7 @@ namespace H5.Translator
                 }
             }
 
-            if (this.Outputs.CombinedLocales != null)
+            if (Outputs.CombinedLocales != null)
             {
                 if (needNewLine)
                 {
@@ -787,11 +787,11 @@ namespace H5.Translator
                     needNewLine = false;
                 }
 
-                ConvertOutputItemIntoResourceInfoPart(combinedResourcePartsNonMinified, combinedResourcePartsMinified, this.Outputs.CombinedLocales);
+                ConvertOutputItemIntoResourceInfoPart(combinedResourcePartsNonMinified, combinedResourcePartsMinified, Outputs.CombinedLocales);
 
-                combinedOutput = Combine(combinedOutput, new List<TranslatorOutputItem> { this.Outputs.CombinedLocales }, fileName, "combined locales output", TranslatorOutputKind.ProjectOutput);
+                combinedOutput = Combine(combinedOutput, new List<TranslatorOutputItem> { Outputs.CombinedLocales }, fileName, "combined locales output", TranslatorOutputKind.ProjectOutput);
 
-                this.Outputs.CombinedLocales = null;
+                Outputs.CombinedLocales = null;
 
                 if (combinedOutput?.Content?.Builder != null)
                 {
@@ -812,7 +812,7 @@ namespace H5.Translator
                 needNewLine = false;
             }
 
-            var combinedMainOutput = Combine(null, this.Outputs.Main, fileName, "project main output", TranslatorOutputKind.ProjectOutput);
+            var combinedMainOutput = Combine(null, Outputs.Main, fileName, "project main output", TranslatorOutputKind.ProjectOutput);
 
             ConvertOutputItemIntoResourceInfoPart(combinedResourcePartsNonMinified, combinedResourcePartsMinified, combinedMainOutput);
 
@@ -847,10 +847,10 @@ namespace H5.Translator
                 }
             }
 
-            this.Outputs.Combined = combinedOutput;
+            Outputs.Combined = combinedOutput;
 
-            this.Outputs.CombinedResourcePartsNonMinified = combinedResourcePartsNonMinified;
-            this.Outputs.CombinedResourcePartsMinified = combinedResourcePartsMinified;
+            Outputs.CombinedResourcePartsNonMinified = combinedResourcePartsNonMinified;
+            Outputs.CombinedResourcePartsMinified = combinedResourcePartsMinified;
 
             this.Log.Trace("Combining project outputs done");
         }
@@ -914,14 +914,14 @@ namespace H5.Translator
             StringBuilder buffer = null;
             StringBuilder minifiedBuffer = null;
 
-            if (this.AssemblyInfo.OutputFormatting != JavaScriptOutputType.Minified)
+            if (AssemblyInfo.OutputFormatting != JavaScriptOutputType.Minified)
             {
                 buffer = target != null
                             ? target.Content.Builder
                             : new StringBuilder();
             }
 
-            if (this.AssemblyInfo.OutputFormatting != JavaScriptOutputType.Formatted)
+            if (AssemblyInfo.OutputFormatting != JavaScriptOutputType.Formatted)
             {
                 minifiedBuffer = (target != null && target.MinifiedVersion != null)
                                     ? target.MinifiedVersion.Content.Builder
@@ -1066,15 +1066,15 @@ namespace H5.Translator
         {
             this.Log.Trace("Minification...");
 
-            if (this.AssemblyInfo.OutputFormatting == JavaScriptOutputType.Formatted)
+            if (AssemblyInfo.OutputFormatting == JavaScriptOutputType.Formatted)
             {
                 this.Log.Trace("No minification required as OutputFormatting = Formatted");
                 return;
             }
 
-            Minify(this.Outputs.References, GetMinifierSettings);
-            Minify(this.Outputs.Locales, (s) => MinifierCodeSettingsLocales);
-            Minify(this.Outputs.Main, GetMinifierSettings);
+            Minify(Outputs.References, GetMinifierSettings);
+            Minify(Outputs.Locales, (s) => MinifierCodeSettingsLocales);
+            Minify(Outputs.Main, GetMinifierSettings);
 
             this.Log.Trace("Minification done");
         }
@@ -1126,7 +1126,7 @@ namespace H5.Translator
 
             var minifiedName = FileHelper.GetMinifiedJSFileName(output.Name);
 
-            var minifiedContent = this.Minify(new Minifier(), formatted, minifierSettings);
+            var minifiedContent = Minify(new Minifier(), formatted, minifierSettings);
 
             output.MinifiedVersion = new TranslatorOutputItem
             {
@@ -1139,7 +1139,7 @@ namespace H5.Translator
                 Content = minifiedContent
             };
 
-            if (this.AssemblyInfo.OutputFormatting == JavaScriptOutputType.Minified)
+            if (AssemblyInfo.OutputFormatting == JavaScriptOutputType.Minified)
             {
                 output.IsEmpty = true;
             }
@@ -1174,7 +1174,7 @@ namespace H5.Translator
             }
 
             var settings = MinifierCodeSettingsSafe;
-            if (this.NoStrictMode)
+            if (NoStrictMode)
             {
                 settings = settings.Clone();
                 settings.StrictMode = false;

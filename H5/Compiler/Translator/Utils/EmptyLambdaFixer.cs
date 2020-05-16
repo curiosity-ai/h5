@@ -12,12 +12,12 @@ namespace H5.Translator
         {
             if (!(ifElseStatement.TrueStatement is BlockStatement))
             {
-                this.Found = true;
+                Found = true;
             }
 
             if (ifElseStatement.FalseStatement != null && !ifElseStatement.FalseStatement.IsNull && !(ifElseStatement.FalseStatement is BlockStatement || ifElseStatement.FalseStatement is IfElseStatement))
             {
-                this.Found = true;
+                Found = true;
             }
 
             base.VisitIfElseStatement(ifElseStatement);
@@ -27,7 +27,7 @@ namespace H5.Translator
         {
             if (lambdaExpression.Body.IsNull)
             {
-                this.Found = true;
+                Found = true;
             }
 
             base.VisitLambdaExpression(lambdaExpression);
@@ -37,7 +37,7 @@ namespace H5.Translator
         {
             if (!(forStatement.EmbeddedStatement is BlockStatement))
             {
-                this.Found = true;
+                Found = true;
             }
 
             base.VisitForStatement(forStatement);
@@ -47,7 +47,7 @@ namespace H5.Translator
         {
             if (!(foreachStatement.EmbeddedStatement is BlockStatement))
             {
-                this.Found = true;
+                Found = true;
             }
 
             base.VisitForeachStatement(foreachStatement);
@@ -57,7 +57,7 @@ namespace H5.Translator
         {
             if (!(whileStatement.EmbeddedStatement is BlockStatement))
             {
-                this.Found = true;
+                Found = true;
             }
 
             base.VisitWhileStatement(whileStatement);
@@ -67,7 +67,7 @@ namespace H5.Translator
         {
             if (!(whileStatement.EmbeddedStatement is BlockStatement))
             {
-                this.Found = true;
+                Found = true;
             }
 
             base.VisitDoWhileStatement(whileStatement);

@@ -54,14 +54,14 @@ namespace H5.Translator
 
             public void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
             {
-                this.Logger.LogTrace("Loaded assembly: " + (args.LoadedAssembly != null ? args.LoadedAssembly.FullName : "none"));
+                Logger.LogTrace("Loaded assembly: " + (args.LoadedAssembly != null ? args.LoadedAssembly.FullName : "none"));
             }
 
             public Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
             {
                 var domain = sender as AppDomain;
 
-                this.Logger.LogTrace("Domain " + domain.FriendlyName
+                Logger.LogTrace("Domain " + domain.FriendlyName
                     + " resolving assembly " + args.Name
                     + " requested by " + (args.RequestingAssembly != null ? args.RequestingAssembly.FullName : "none")
                     + " ...");
@@ -79,43 +79,43 @@ namespace H5.Translator
 
                 if (assemblyLoaded != null)
                 {
-                    this.Logger.LogTrace("Resolved for " + assemblyLoaded.FullName + " in the loaded domain assemblies");
+                    Logger.LogTrace("Resolved for " + assemblyLoaded.FullName + " in the loaded domain assemblies");
                     return assemblyLoaded;
                 }
 
-                this.Logger.LogTrace("Did not find the assembly " + args.Name + " in the loaded domain assemblies");
+                Logger.LogTrace("Did not find the assembly " + args.Name + " in the loaded domain assemblies");
 
                 if (args.RequestingAssembly != null)
                 {
-                    assemblyLoaded = Plugins.LoadAssemblyFromResources(this.Logger, args.RequestingAssembly, askedAssembly);
+                    assemblyLoaded = Plugins.LoadAssemblyFromResources(Logger, args.RequestingAssembly, askedAssembly);
 
                     if (assemblyLoaded != null)
                     {
-                        this.Logger.LogTrace("Resolved for " + assemblyLoaded.FullName + " in " + args.RequestingAssembly.FullName + " resources");
+                        Logger.LogTrace("Resolved for " + assemblyLoaded.FullName + " in " + args.RequestingAssembly.FullName + " resources");
                         return assemblyLoaded;
                     }
 
-                    assemblyLoaded = this.CheckAssemblyBinding(askedAssembly.Name);
+                    assemblyLoaded = CheckAssemblyBinding(askedAssembly.Name);
 
                     if (assemblyLoaded != null)
                     {
-                        this.Logger.LogTrace("Resolved for " + assemblyLoaded.FullName);
+                        Logger.LogTrace("Resolved for " + assemblyLoaded.FullName);
                         return assemblyLoaded;
                     }
 
-                    this.Logger.LogTrace("Did not resolve assembly " + args.Name + " in " + args.RequestingAssembly.FullName + " resources");
+                    Logger.LogTrace("Did not resolve assembly " + args.Name + " in " + args.RequestingAssembly.FullName + " resources");
                 }
                 else
                 {
-                    assemblyLoaded = this.CheckAssemblyBinding(askedAssembly.Name);
+                    assemblyLoaded = CheckAssemblyBinding(askedAssembly.Name);
 
                     if (assemblyLoaded != null)
                     {
-                        this.Logger.LogTrace("Resolved for " + assemblyLoaded.FullName);
+                        Logger.LogTrace("Resolved for " + assemblyLoaded.FullName);
                         return assemblyLoaded;
                     }
 
-                    this.Logger.LogTrace("Did not resolve assembly " + args.Name + ". Requesting assembly is null. Will not try to load the asked assembly in resources");
+                    Logger.LogTrace("Did not resolve assembly " + args.Name + ". Requesting assembly is null. Will not try to load the asked assembly in resources");
                 }
 
                 return null;
@@ -124,16 +124,16 @@ namespace H5.Translator
             private Stack<string> loadedStack = new Stack<string>();
             private Assembly CheckAssemblyBinding(string fullAssemblyName)
             {
-                if (this.loadedStack.Contains(fullAssemblyName))
+                if (loadedStack.Contains(fullAssemblyName))
                 {
                     return null;
                 }
 
                 if (Plugins.assemblyBindings.ContainsKey(fullAssemblyName))
                 {
-                    this.loadedStack.Push(fullAssemblyName);
+                    loadedStack.Push(fullAssemblyName);
                     var asm = Assembly.Load(Plugins.assemblyBindings[fullAssemblyName]);
-                    this.loadedStack.Pop();
+                    loadedStack.Pop();
                     return asm;
                 }
                 return null;
@@ -456,18 +456,18 @@ namespace H5.Translator
         {
             get
             {
-                if (this.plugins == null)
+                if (plugins == null)
                 {
-                    this.plugins = new List<IPlugin>();
+                    plugins = new List<IPlugin>();
                 }
 
-                return this.plugins;
+                return plugins;
             }
         }
 
         public void OnConfigRead(IAssemblyInfo config)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.OnConfigRead(config);
             }
@@ -476,7 +476,7 @@ namespace H5.Translator
         public IEnumerable<string> GetConstructorInjectors(IConstructorBlock constructorBlock)
         {
             IEnumerable<string> result = new List<string>();
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 var answer = plugin.GetConstructorInjectors(constructorBlock);
                 if (answer != null)
@@ -492,25 +492,25 @@ namespace H5.Translator
 
         private InvocationInterceptor GetInvocationInterceptor()
         {
-            if (this.defaultInvocationInterceptor == null)
+            if (defaultInvocationInterceptor == null)
             {
-                this.defaultInvocationInterceptor = new InvocationInterceptor();
+                defaultInvocationInterceptor = new InvocationInterceptor();
             }
 
-            this.defaultInvocationInterceptor.Cancel = false;
-            this.defaultInvocationInterceptor.Replacement = null;
-            return this.defaultInvocationInterceptor;
+            defaultInvocationInterceptor.Cancel = false;
+            defaultInvocationInterceptor.Replacement = null;
+            return defaultInvocationInterceptor;
         }
 
         public IInvocationInterceptor OnInvocation(IAbstractEmitterBlock block, InvocationExpression expression, InvocationResolveResult resolveResult)
         {
-            InvocationInterceptor interceptor = this.GetInvocationInterceptor();
+            InvocationInterceptor interceptor = GetInvocationInterceptor();
 
             interceptor.Block = block;
             interceptor.Expression = expression;
             interceptor.ResolveResult = resolveResult;
 
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.OnInvocation(interceptor);
                 if (interceptor.Cancel)
@@ -526,25 +526,25 @@ namespace H5.Translator
 
         private ReferenceInterceptor GetReferenceInterceptor()
         {
-            if (this.defaultReferenceInterceptor == null)
+            if (defaultReferenceInterceptor == null)
             {
-                this.defaultReferenceInterceptor = new ReferenceInterceptor();
+                defaultReferenceInterceptor = new ReferenceInterceptor();
             }
 
-            this.defaultReferenceInterceptor.Cancel = false;
-            this.defaultReferenceInterceptor.Replacement = null;
-            return this.defaultReferenceInterceptor;
+            defaultReferenceInterceptor.Cancel = false;
+            defaultReferenceInterceptor.Replacement = null;
+            return defaultReferenceInterceptor;
         }
 
         public IReferenceInterceptor OnReference(IAbstractEmitterBlock block, MemberReferenceExpression expression, MemberResolveResult resolveResult)
         {
-            ReferenceInterceptor interceptor = this.GetReferenceInterceptor();
+            ReferenceInterceptor interceptor = GetReferenceInterceptor();
 
             interceptor.Block = block;
             interceptor.Expression = expression;
             interceptor.ResolveResult = resolveResult;
 
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.OnReference(interceptor);
                 if (interceptor.Cancel)
@@ -558,7 +558,7 @@ namespace H5.Translator
 
         public bool HasConstructorInjectors(IConstructorBlock constructorBlock)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 if (plugin.HasConstructorInjectors(constructorBlock))
                 {
@@ -571,7 +571,7 @@ namespace H5.Translator
 
         public void BeforeEmit(IEmitter emitter, ITranslator translator)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.BeforeEmit(emitter, translator);
             }
@@ -579,7 +579,7 @@ namespace H5.Translator
 
         public void AfterEmit(IEmitter emitter, ITranslator translator)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.AfterEmit(emitter, translator);
             }
@@ -587,7 +587,7 @@ namespace H5.Translator
 
         public void AfterOutput(ITranslator translator, string outputPath)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.AfterOutput(translator, outputPath);
             }
@@ -595,7 +595,7 @@ namespace H5.Translator
 
         public void BeforeTypesEmit(IEmitter emitter, IList<ITypeInfo> types)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.BeforeTypesEmit(emitter, types);
             }
@@ -603,7 +603,7 @@ namespace H5.Translator
 
         public void AfterTypesEmit(IEmitter emitter, IList<ITypeInfo> types)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.AfterTypesEmit(emitter, types);
             }
@@ -611,7 +611,7 @@ namespace H5.Translator
 
         public void BeforeTypeEmit(IEmitter emitter, ITypeInfo type)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.BeforeTypeEmit(emitter, type);
             }
@@ -619,7 +619,7 @@ namespace H5.Translator
 
         public void AfterTypeEmit(IEmitter emitter, ITypeInfo type)
         {
-            foreach (var plugin in this.Parts)
+            foreach (var plugin in Parts)
             {
                 plugin.AfterTypeEmit(emitter, type);
             }

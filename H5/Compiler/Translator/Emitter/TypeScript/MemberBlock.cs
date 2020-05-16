@@ -12,9 +12,9 @@ namespace H5.Translator.TypeScript
         public MemberBlock(IEmitter emitter, ITypeInfo typeInfo, bool staticBlock)
             : base(emitter, typeInfo.TypeDeclaration)
         {
-            this.Emitter = emitter;
-            this.TypeInfo = typeInfo;
-            this.StaticBlock = staticBlock;
+            Emitter = emitter;
+            TypeInfo = typeInfo;
+            StaticBlock = staticBlock;
         }
 
         public ITypeInfo TypeInfo { get; set; }
@@ -23,7 +23,7 @@ namespace H5.Translator.TypeScript
 
         protected override void DoEmit()
         {
-            this.EmitFields(this.StaticBlock ? this.TypeInfo.StaticConfig : this.TypeInfo.InstanceConfig);
+            EmitFields(StaticBlock ? TypeInfo.StaticConfig : TypeInfo.InstanceConfig);
         }
 
         protected virtual void EmitFields(TypeConfigInfo info)
@@ -32,18 +32,18 @@ namespace H5.Translator.TypeScript
             {
                 foreach (var field in info.Fields)
                 {
-                    if (field.Entity.HasModifier(Modifiers.Public) || this.TypeInfo.IsEnum)
+                    if (field.Entity.HasModifier(Modifiers.Public) || TypeInfo.IsEnum)
                     {
                         if (field.Entity is FieldDeclaration fieldDecl)
                         {
                             foreach (var variableInitializer in fieldDecl.Variables)
                             {
-                                this.WriteFieldDeclaration(field, variableInitializer);
+                                WriteFieldDeclaration(field, variableInitializer);
                             }
                         }
                         else
                         {
-                            this.WriteFieldDeclaration(field, null);
+                            WriteFieldDeclaration(field, null);
                         }
                     }
                 }
@@ -53,29 +53,29 @@ namespace H5.Translator.TypeScript
             {
                 foreach (var ev in info.Events)
                 {
-                    if (ev.Entity.HasModifier(Modifiers.Public) || this.TypeInfo.Type.Kind == TypeKind.Interface)
+                    if (ev.Entity.HasModifier(Modifiers.Public) || TypeInfo.Type.Kind == TypeKind.Interface)
                     {
-                        if (this.Emitter.Resolver.ResolveNode(ev.VarInitializer, this.Emitter) is MemberResolveResult memberResult)
+                        if (Emitter.Resolver.ResolveNode(ev.VarInitializer, Emitter) is MemberResolveResult memberResult)
                         {
                             var ignoreInterface = memberResult.Member.DeclaringType.Kind == TypeKind.Interface &&
                                       memberResult.Member.DeclaringType.TypeParameterCount > 0;
 
-                            this.WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, this.Emitter, false, ignoreInterface: ignoreInterface), true);
-                            this.WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, this.Emitter, true, ignoreInterface: ignoreInterface), false);
+                            WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, Emitter, false, ignoreInterface: ignoreInterface), true);
+                            WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, Emitter, true, ignoreInterface: ignoreInterface), false);
 
-                            if (!ignoreInterface && this.TypeInfo.Type.Kind == TypeKind.Interface)
+                            if (!ignoreInterface && TypeInfo.Type.Kind == TypeKind.Interface)
                             {
-                                this.WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, this.Emitter, false, ignoreInterface: true), true);
-                                this.WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, this.Emitter, true, ignoreInterface: true), false);
+                                WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, Emitter, false, ignoreInterface: true), true);
+                                WriteEvent(ev, Helpers.GetEventRef(memberResult.Member, Emitter, true, ignoreInterface: true), false);
                             }
                         }
                         else
                         {
-                            var name = ev.GetName(this.Emitter);
+                            var name = ev.GetName(Emitter);
                             name = Helpers.ReplaceFirstDollar(name);
 
-                            this.WriteEvent(ev, Helpers.GetAddOrRemove(true, name), true);
-                            this.WriteEvent(ev, Helpers.GetAddOrRemove(false, name), false);
+                            WriteEvent(ev, Helpers.GetAddOrRemove(true, name), true);
+                            WriteEvent(ev, Helpers.GetAddOrRemove(false, name), false);
                         }
                     }
                 }
@@ -95,92 +95,92 @@ namespace H5.Translator.TypeScript
                 }
             }*/
 
-            new MethodsBlock(this.Emitter, this.TypeInfo, this.StaticBlock).Emit();
+            new MethodsBlock(Emitter, TypeInfo, StaticBlock).Emit();
         }
 
         private void WriteFieldDeclaration(TypeConfigItem field, VariableInitializer variableInitializer)
         {
             XmlToJsDoc.EmitComment(this, field.Entity, null, variableInitializer);
 
-            if (this.TypeInfo.IsEnum)
+            if (TypeInfo.IsEnum)
             {
-                this.Write(EnumBlock.GetEnumItemName(this.Emitter, field));
+                Write(EnumBlock.GetEnumItemName(Emitter, field));
             }
             else
             {
-                this.Write(field.GetName(this.Emitter));
+                Write(field.GetName(Emitter));
             }
 
             if (field.VarInitializer != null)
             {
-                var field_rr = this.Emitter.Resolver.ResolveNode(field.VarInitializer, this.Emitter);
+                var field_rr = Emitter.Resolver.ResolveNode(field.VarInitializer, Emitter);
                 if (field_rr is MemberResolveResult mrr && mrr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.OptionalAttribute"))
                 {
-                    this.Write("?");
+                    Write("?");
                 }
             }
 
-            this.WriteColon();
+            WriteColon();
 
-            string typeName = this.TypeInfo.IsEnum
-                ? (Helpers.IsStringNameEnum(this.TypeInfo.Type) ? "string" : "number")
-                : H5Types.ToTypeScriptName(field.Entity.ReturnType, this.Emitter);
-            this.Write(typeName);
+            string typeName = TypeInfo.IsEnum
+                ? (Helpers.IsStringNameEnum(TypeInfo.Type) ? "string" : "number")
+                : H5Types.ToTypeScriptName(field.Entity.ReturnType, Emitter);
+            Write(typeName);
 
-            if (!this.TypeInfo.IsEnum)
+            if (!TypeInfo.IsEnum)
             {
-                var resolveResult = this.Emitter.Resolver.ResolveNode(field.Entity.ReturnType, this.Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(field.Entity.ReturnType, Emitter);
                 if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
                 {
-                    this.Write(" | null");
+                    Write(" | null");
                 }
             }
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
         }
 
         private void WriteEvent(TypeConfigItem ev, string name, bool adder)
         {
             XmlToJsDoc.EmitComment(this, ev.Entity, adder);
-            this.Write(name);
-            this.WriteOpenParentheses();
-            this.Write("value");
-            this.WriteColon();
-            string typeName = H5Types.ToTypeScriptName(ev.Entity.ReturnType, this.Emitter);
-            this.Write(typeName);
+            Write(name);
+            WriteOpenParentheses();
+            Write("value");
+            WriteColon();
+            string typeName = H5Types.ToTypeScriptName(ev.Entity.ReturnType, Emitter);
+            Write(typeName);
 
-            var resolveResult = this.Emitter.Resolver.ResolveNode(ev.Entity.ReturnType, this.Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(ev.Entity.ReturnType, Emitter);
             if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
             {
-                this.Write(" | null");
+                Write(" | null");
             }
 
-            this.WriteCloseParentheses();
-            this.WriteColon();
-            this.Write("void");
+            WriteCloseParentheses();
+            WriteColon();
+            Write("void");
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
         }
 
         private void WriteProp(TypeConfigItem ev, string name)
         {
             XmlToJsDoc.EmitComment(this, ev.Entity);
-            this.Write(name);
-            this.WriteColon();
+            Write(name);
+            WriteColon();
 
-            string typeName = H5Types.ToTypeScriptName(ev.Entity.ReturnType, this.Emitter);
-            this.Write(typeName);
+            string typeName = H5Types.ToTypeScriptName(ev.Entity.ReturnType, Emitter);
+            Write(typeName);
 
-            var resolveResult = this.Emitter.Resolver.ResolveNode(ev.Entity.ReturnType, this.Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(ev.Entity.ReturnType, Emitter);
             if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
             {
-                this.Write(" | null");
+                Write(" | null");
             }
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
         }
     }
 }

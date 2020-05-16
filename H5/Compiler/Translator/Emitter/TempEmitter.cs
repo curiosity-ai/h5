@@ -13,8 +13,8 @@ namespace H5.Translator
     {
         public TempEmitter()
         {
-            this.AssemblyCompilerRuleCache = new Dictionary<IAssembly, CompilerRule[]>();
-            this.ClassCompilerRuleCache = new Dictionary<ITypeDefinition, CompilerRule[]>();
+            AssemblyCompilerRuleCache = new Dictionary<IAssembly, CompilerRule[]>();
+            ClassCompilerRuleCache = new Dictionary<ITypeDefinition, CompilerRule[]>();
 
         }
 

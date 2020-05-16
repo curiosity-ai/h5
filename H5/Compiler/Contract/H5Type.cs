@@ -1,7 +1,9 @@
 using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
+using Microsoft.Extensions.Logging;
 using Mono.Cecil;
+using Mosaik.Core;
 using Object.Net.Utilities;
 using System;
 using System.Collections.Generic;
@@ -40,14 +42,14 @@ namespace H5.Contract
 
     public class H5Types : Dictionary<string, H5Type>
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<H5Types>();
+
         private Dictionary<IType, H5Type> byType = new Dictionary<IType, H5Type>();
         private Dictionary<TypeReference, H5Type> byTypeRef = new Dictionary<TypeReference, H5Type>();
         private Dictionary<ITypeInfo, H5Type> byTypeInfo = new Dictionary<ITypeInfo, H5Type>();
         public void InitItems(IEmitter emitter)
         {
-            var logger = emitter.Log;
-
-            logger.Trace("Initializing items for H5 types...");
+            Logger.LogTrace("Initializing items for H5 types...");
 
             this.Emitter = emitter;
             byType = new Dictionary<IType, H5Type>();
@@ -69,7 +71,7 @@ namespace H5.Contract
                 }
             }
 
-            logger.Trace("Initializing items for H5 types done");
+            Logger.LogTrace("Initializing items for H5 types done");
         }
 
         public IEmitter Emitter { get; set; }
@@ -215,7 +217,7 @@ namespace H5.Contract
 
         public IType ToType(AstType type)
         {
-            var resolveResult = this.Emitter.Resolver.ResolveNode(type, this.Emitter);
+            var resolveResult = this.Emitter.Resolver.ResolveNode(type);
             return resolveResult.Type;
         }
 
@@ -604,7 +606,7 @@ namespace H5.Contract
                 return JS.Types.System.Object.NAME;
             }
 
-            var resolveResult = emitter.Resolver.ResolveNode(astType, emitter);
+            var resolveResult = emitter.Resolver.ResolveNode(astType);
 
             var symbol = resolveResult.Type as ISymbol;
 
@@ -882,7 +884,7 @@ namespace H5.Contract
                 return "any";
             }
 
-            var resolveResult = emitter.Resolver.ResolveNode(astType, emitter);
+            var resolveResult = emitter.Resolver.ResolveNode(astType);
             return H5Types.ToTypeScriptName(resolveResult.Type, emitter, asDefinition: asDefinition, ignoreDependency: ignoreDependency);
         }
 

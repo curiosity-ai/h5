@@ -13,39 +13,39 @@ namespace H5.Translator.TypeScript
         public ConstructorBlock(IEmitter emitter, ITypeInfo typeInfo)
             : base(emitter, typeInfo.TypeDeclaration)
         {
-            this.Emitter = emitter;
-            this.TypeInfo = typeInfo;
+            Emitter = emitter;
+            TypeInfo = typeInfo;
         }
 
         public ITypeInfo TypeInfo { get; set; }
 
         protected override void DoEmit()
         {
-            this.EmitCtorForInstantiableClass();
+            EmitCtorForInstantiableClass();
         }
 
         protected virtual void EmitCtorForInstantiableClass()
         {
-            var typeDef = this.Emitter.GetTypeDefinition();
-            string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, true, false);
+            var typeDef = Emitter.GetTypeDefinition();
+            string name = Emitter.Validator.GetCustomTypeName(typeDef, Emitter, true, false);
 
             if (name.IsEmpty())
             {
-                name = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
+                name = H5Types.ToTypeScriptName(TypeInfo.Type, Emitter, false, true);
             }
 
-            if (this.TypeInfo.Ctors.Count == 0)
+            if (TypeInfo.Ctors.Count == 0)
             {
-                this.Write("new ");
-                this.WriteOpenCloseParentheses();
-                this.WriteColon();
-                this.Write(name);
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                Write("new ");
+                WriteOpenCloseParentheses();
+                WriteColon();
+                Write(name);
+                WriteSemiColon();
+                WriteNewLine();
             }
-            else if (this.TypeInfo.Ctors.Count == 1)
+            else if (TypeInfo.Ctors.Count == 1)
             {
-                var ctor = this.TypeInfo.Ctors.First();
+                var ctor = TypeInfo.Ctors.First();
                 if (!ctor.HasModifier(Modifiers.Public))
                 {
                     return;
@@ -53,16 +53,16 @@ namespace H5.Translator.TypeScript
 
                 XmlToJsDoc.EmitComment(this, ctor);
 
-                this.Write("new ");
-                this.EmitMethodParameters(ctor.Parameters, ctor);
-                this.WriteColon();
-                this.Write(name);
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                Write("new ");
+                EmitMethodParameters(ctor.Parameters, ctor);
+                WriteColon();
+                Write(name);
+                WriteSemiColon();
+                WriteNewLine();
             }
             else
             {
-                foreach (var ctor in this.TypeInfo.Ctors)
+                foreach (var ctor in TypeInfo.Ctors)
                 {
                     if (!ctor.HasModifier(Modifiers.Public))
                     {
@@ -72,68 +72,68 @@ namespace H5.Translator.TypeScript
                     if (ctor.Parameters.Count == 0)
                     {
                         XmlToJsDoc.EmitComment(this, ctor);
-                        this.Write("new ()");
-                        this.WriteColon();
-                        this.Write(name);
-                        this.WriteSemiColon();
-                        this.WriteNewLine();
+                        Write("new ()");
+                        WriteColon();
+                        Write(name);
+                        WriteSemiColon();
+                        WriteNewLine();
                     }
 
                     XmlToJsDoc.EmitComment(this, ctor);
                     var ctorName = JS.Funcs.CONSTRUCTOR;
 
-                    if (this.TypeInfo.Ctors.Count > 1 && ctor.Parameters.Count > 0)
+                    if (TypeInfo.Ctors.Count > 1 && ctor.Parameters.Count > 0)
                     {
-                        var overloads = OverloadsCollection.Create(this.Emitter, ctor);
+                        var overloads = OverloadsCollection.Create(Emitter, ctor);
                         ctorName = overloads.GetOverloadName();
                     }
 
-                    this.Write(ctorName);
-                    this.WriteColon();
-                    this.BeginBlock();
+                    Write(ctorName);
+                    WriteColon();
+                    BeginBlock();
 
-                    this.WriteNew();
-                    this.EmitMethodParameters(ctor.Parameters, ctor);
-                    this.WriteColon();
+                    WriteNew();
+                    EmitMethodParameters(ctor.Parameters, ctor);
+                    WriteColon();
 
-                    this.Write(name);
-                    this.WriteNewLine();
-                    this.EndBlock();
+                    Write(name);
+                    WriteNewLine();
+                    EndBlock();
 
-                    this.WriteSemiColon();
-                    this.WriteNewLine();
+                    WriteSemiColon();
+                    WriteNewLine();
                 }
             }
         }
 
         protected virtual void EmitMethodParameters(IEnumerable<ParameterDeclaration> declarations, AstNode context)
         {
-            this.WriteOpenParentheses();
+            WriteOpenParentheses();
             bool needComma = false;
 
             foreach (var p in declarations)
             {
-                var name = this.Emitter.GetParameterName(p);
+                var name = Emitter.GetParameterName(p);
 
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
-                this.Write(name);
-                this.WriteColon();
-                name = H5Types.ToTypeScriptName(p.Type, this.Emitter);
-                this.Write(name);
+                Write(name);
+                WriteColon();
+                name = H5Types.ToTypeScriptName(p.Type, Emitter);
+                Write(name);
 
-                var resolveResult = this.Emitter.Resolver.ResolveNode(p.Type, this.Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(p.Type, Emitter);
                 if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
                 {
-                    this.Write(" | null");
+                    Write(" | null");
                 }
             }
 
-            this.WriteCloseParentheses();
+            WriteCloseParentheses();
         }
     }
 }

@@ -8,15 +8,15 @@ namespace H5.Translator
         public OperatorBlock(IEmitter emitter, OperatorDeclaration operatorDeclaration)
             : base(emitter, operatorDeclaration)
         {
-            this.Emitter = emitter;
-            this.OperatorDeclaration = operatorDeclaration;
+            Emitter = emitter;
+            OperatorDeclaration = operatorDeclaration;
         }
 
         public OperatorDeclaration OperatorDeclaration { get; set; }
 
         protected override void DoEmit()
         {
-            this.EmitOperatorDeclaration(this.OperatorDeclaration);
+            EmitOperatorDeclaration(OperatorDeclaration);
         }
 
         protected void EmitOperatorDeclaration(OperatorDeclaration operatorDeclaration)
@@ -25,7 +25,7 @@ namespace H5.Translator
             {
                 foreach (var attr in attrSection.Attributes)
                 {
-                    var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
+                    var rr = Emitter.Resolver.ResolveNode(attr.Type, Emitter);
                     if (rr.Type.FullName == "H5.ExternalAttribute")
                     {
                         return;
@@ -34,50 +34,50 @@ namespace H5.Translator
             }
 
             XmlToJsDoc.EmitComment(this, operatorDeclaration);
-            this.EnsureComma();
-            this.ResetLocals();
-            var prevMap = this.BuildLocalsMap();
-            var prevNamesMap = this.BuildLocalsNamesMap();
-            this.AddLocals(operatorDeclaration.Parameters, operatorDeclaration.Body);
+            EnsureComma();
+            ResetLocals();
+            var prevMap = BuildLocalsMap();
+            var prevNamesMap = BuildLocalsNamesMap();
+            AddLocals(operatorDeclaration.Parameters, operatorDeclaration.Body);
 
-            var overloads = OverloadsCollection.Create(this.Emitter, operatorDeclaration);
+            var overloads = OverloadsCollection.Create(Emitter, operatorDeclaration);
 
             if (overloads.HasOverloads)
             {
                 string name = overloads.GetOverloadName();
-                this.Write(name);
+                Write(name);
             }
             else
             {
-                this.Write(this.Emitter.GetEntityName(operatorDeclaration));
+                Write(Emitter.GetEntityName(operatorDeclaration));
             }
 
-            this.WriteColon();
+            WriteColon();
 
-            this.WriteFunction();
+            WriteFunction();
 
-            this.EmitMethodParameters(operatorDeclaration.Parameters, null, operatorDeclaration);
+            EmitMethodParameters(operatorDeclaration.Parameters, null, operatorDeclaration);
 
-            this.WriteSpace();
+            WriteSpace();
 
-            var script = this.Emitter.GetScript(operatorDeclaration);
+            var script = Emitter.GetScript(operatorDeclaration);
 
             if (script == null)
             {
-                operatorDeclaration.Body.AcceptVisitor(this.Emitter);
+                operatorDeclaration.Body.AcceptVisitor(Emitter);
             }
             else
             {
-                this.BeginBlock();
+                BeginBlock();
 
-                this.WriteLines(script);
+                WriteLines(script);
 
-                this.EndBlock();
+                EndBlock();
             }
 
-            this.ClearLocalsMap(prevMap);
-            this.ClearLocalsNamesMap(prevNamesMap);
-            this.Emitter.Comma = true;
+            ClearLocalsMap(prevMap);
+            ClearLocalsNamesMap(prevNamesMap);
+            Emitter.Comma = true;
         }
     }
 }

@@ -23,11 +23,11 @@ namespace H5.Translator
         public LambdaBlock(IEmitter emitter, IEnumerable<ParameterDeclaration> parameters, AstNode body, AstNode context, bool isAsync)
             : base(emitter, context)
         {
-            this.Emitter = emitter;
-            this.Parameters = parameters;
-            this.Body = body;
-            this.Context = context;
-            this.IsAsync = isAsync;
+            Emitter = emitter;
+            Parameters = parameters;
+            Body = body;
+            Context = context;
+            IsAsync = isAsync;
         }
 
         public bool IsAsync { get; set; }
@@ -48,68 +48,68 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            if (this.Emitter.TempVariables == null)
+            if (Emitter.TempVariables == null)
             {
-                this.ResetLocals();
+                ResetLocals();
             }
 
-            var oldReplaceJump = this.Emitter.ReplaceJump;
-            this.Emitter.ReplaceJump = false;
+            var oldReplaceJump = Emitter.ReplaceJump;
+            Emitter.ReplaceJump = false;
 
-            var rr = this.Emitter.Resolver.ResolveNode(this.Context, this.Emitter);
+            var rr = Emitter.Resolver.ResolveNode(Context, Emitter);
 
-            if (this.Context is Expression)
+            if (Context is Expression)
             {
-                var conversion = this.Emitter.Resolver.Resolver.GetConversion((Expression)this.Context);
+                var conversion = Emitter.Resolver.Resolver.GetConversion((Expression)Context);
                 if (conversion.IsAnonymousFunctionConversion)
                 {
-                    var type = this.Emitter.Resolver.Resolver.GetExpectedType((Expression)this.Context);
+                    var type = Emitter.Resolver.Resolver.GetExpectedType((Expression)Context);
                     if (type.FullName == typeof(System.Linq.Expressions.Expression).FullName && type.TypeParameterCount == 1)
                     {
-                        var expr = new ExpressionTreeBuilder(this.Emitter.Resolver.Compilation, this.Emitter, this.Context.GetParent<SyntaxTree>(), this).BuildExpressionTree((LambdaResolveResult)rr);
-                        this.Write(expr);
+                        var expr = new ExpressionTreeBuilder(Emitter.Resolver.Compilation, Emitter, Context.GetParent<SyntaxTree>(), this).BuildExpressionTree((LambdaResolveResult)rr);
+                        Write(expr);
                         return;
                     }
                 }
             }
 
-            var oldParentVariables = this.Emitter.ParentTempVariables;
-            if (this.Emitter.ParentTempVariables == null)
+            var oldParentVariables = Emitter.ParentTempVariables;
+            if (Emitter.ParentTempVariables == null)
             {
-                this.Emitter.ParentTempVariables = new Dictionary<string, bool>(this.Emitter.TempVariables);
+                Emitter.ParentTempVariables = new Dictionary<string, bool>(Emitter.TempVariables);
             }
             else
             {
-                this.Emitter.ParentTempVariables = new Dictionary<string, bool>(this.Emitter.ParentTempVariables);
-                foreach (var item in this.Emitter.TempVariables)
+                Emitter.ParentTempVariables = new Dictionary<string, bool>(Emitter.ParentTempVariables);
+                foreach (var item in Emitter.TempVariables)
                 {
-                    this.Emitter.ParentTempVariables.Add(item.Key, item.Value);
+                    Emitter.ParentTempVariables.Add(item.Key, item.Value);
                 }
             }
 
-            var oldVars = this.Emitter.TempVariables;
-            this.Emitter.TempVariables = new Dictionary<string, bool>();
-            this.PreviousIsAync = this.Emitter.IsAsync;
-            this.Emitter.IsAsync = this.IsAsync;
+            var oldVars = Emitter.TempVariables;
+            Emitter.TempVariables = new Dictionary<string, bool>();
+            PreviousIsAync = Emitter.IsAsync;
+            Emitter.IsAsync = IsAsync;
 
-            this.PreviousAsyncVariables = this.Emitter.AsyncVariables;
-            this.Emitter.AsyncVariables = null;
+            PreviousAsyncVariables = Emitter.AsyncVariables;
+            Emitter.AsyncVariables = null;
 
-            this.PreviousAsyncBlock = this.Emitter.AsyncBlock;
-            this.Emitter.AsyncBlock = null;
+            PreviousAsyncBlock = Emitter.AsyncBlock;
+            Emitter.AsyncBlock = null;
 
-            this.ReplaceAwaiterByVar = this.Emitter.ReplaceAwaiterByVar;
-            this.Emitter.ReplaceAwaiterByVar = false;
+            ReplaceAwaiterByVar = Emitter.ReplaceAwaiterByVar;
+            Emitter.ReplaceAwaiterByVar = false;
 
-            this.EmitLambda(this.Parameters, this.Body, this.Context);
+            EmitLambda(Parameters, Body, Context);
 
-            this.Emitter.IsAsync = this.PreviousIsAync;
-            this.Emitter.AsyncVariables = this.PreviousAsyncVariables;
-            this.Emitter.AsyncBlock = this.PreviousAsyncBlock;
-            this.Emitter.ReplaceAwaiterByVar = this.ReplaceAwaiterByVar;
-            this.Emitter.TempVariables = oldVars;
-            this.Emitter.ParentTempVariables = oldParentVariables;
-            this.Emitter.ReplaceJump = oldReplaceJump;
+            Emitter.IsAsync = PreviousIsAync;
+            Emitter.AsyncVariables = PreviousAsyncVariables;
+            Emitter.AsyncBlock = PreviousAsyncBlock;
+            Emitter.ReplaceAwaiterByVar = ReplaceAwaiterByVar;
+            Emitter.TempVariables = oldVars;
+            Emitter.ParentTempVariables = oldParentVariables;
+            Emitter.ReplaceJump = oldReplaceJump;
         }
 
         internal static Statement GetOuterLoop(AstNode context)
@@ -157,7 +157,7 @@ namespace H5.Translator
 
         private string[] GetCapturedLoopVariablesNames()
         {
-            var capturedVariables = LambdaBlock.GetCapturedLoopVariables(this.Emitter, this.Context, this.Parameters);
+            var capturedVariables = LambdaBlock.GetCapturedLoopVariables(Emitter, Context, Parameters);
 
             if (capturedVariables == null)
             {
@@ -167,13 +167,13 @@ namespace H5.Translator
             List<string> names = new List<string>();
             foreach (var capturedVariable in capturedVariables)
             {
-                if (this.Emitter.LocalsMap != null && this.Emitter.LocalsMap.ContainsKey(capturedVariable))
+                if (Emitter.LocalsMap != null && Emitter.LocalsMap.ContainsKey(capturedVariable))
                 {
-                    names.Add(this.RemoveReferencePart(this.Emitter.LocalsMap[capturedVariable]));
+                    names.Add(RemoveReferencePart(Emitter.LocalsMap[capturedVariable]));
                 }
-                else if (this.Emitter.LocalsNamesMap != null && this.Emitter.LocalsNamesMap.ContainsKey(capturedVariable.Name))
+                else if (Emitter.LocalsNamesMap != null && Emitter.LocalsNamesMap.ContainsKey(capturedVariable.Name))
                 {
-                    names.Add(this.RemoveReferencePart(this.Emitter.LocalsNamesMap[capturedVariable.Name]));
+                    names.Add(RemoveReferencePart(Emitter.LocalsNamesMap[capturedVariable.Name]));
                 }
                 else
                 {
@@ -196,137 +196,137 @@ namespace H5.Translator
 
         protected virtual void EmitLambda(IEnumerable<ParameterDeclaration> parameters, AstNode body, AstNode context)
         {
-            var rr = this.Emitter.Resolver.ResolveNode(context, this.Emitter);
-            var oldLifting = this.Emitter.ForbidLifting;
-            this.Emitter.ForbidLifting = false;
-            var noLiftingRule = this.Emitter.Rules.Lambda == LambdaRule.Plain;
+            var rr = Emitter.Resolver.ResolveNode(context, Emitter);
+            var oldLifting = Emitter.ForbidLifting;
+            Emitter.ForbidLifting = false;
+            var noLiftingRule = Emitter.Rules.Lambda == LambdaRule.Plain;
             CaptureAnalyzer analyzer = null;
 
             if (!noLiftingRule)
             {
-                analyzer = new CaptureAnalyzer(this.Emitter);
-                analyzer.Analyze(this.Body, this.Parameters.Select(p => p.Name));
+                analyzer = new CaptureAnalyzer(Emitter);
+                analyzer.Analyze(Body, Parameters.Select(p => p.Name));
             }
 
-            var oldLevel = this.Emitter.Level;
+            var oldLevel = Emitter.Level;
             if (!noLiftingRule && analyzer.UsedVariables.Count == 0)
             {
-                this.Emitter.ResetLevel();
+                Emitter.ResetLevel();
                 Indent();
             }
 
             IAsyncBlock asyncBlock = null;
-            this.PushLocals();
+            PushLocals();
 
-            if (this.IsAsync)
+            if (IsAsync)
             {
                 if (context is LambdaExpression)
                 {
-                    asyncBlock = new AsyncBlock(this.Emitter, (LambdaExpression)context);
+                    asyncBlock = new AsyncBlock(Emitter, (LambdaExpression)context);
                 }
                 else
                 {
-                    asyncBlock = new AsyncBlock(this.Emitter, (AnonymousMethodExpression)context);
+                    asyncBlock = new AsyncBlock(Emitter, (AnonymousMethodExpression)context);
                 }
 
                 asyncBlock.InitAsyncBlock();
             }
             else if (YieldBlock.HasYield(body))
             {
-                this.IsAsync = true;
+                IsAsync = true;
                 if (context is LambdaExpression)
                 {
-                    asyncBlock = new GeneratorBlock(this.Emitter, (LambdaExpression)context);
+                    asyncBlock = new GeneratorBlock(Emitter, (LambdaExpression)context);
                 }
                 else
                 {
-                    asyncBlock = new GeneratorBlock(this.Emitter, (AnonymousMethodExpression)context);
+                    asyncBlock = new GeneratorBlock(Emitter, (AnonymousMethodExpression)context);
                 }
 
                 asyncBlock.InitAsyncBlock();
             }
 
-            var prevMap = this.BuildLocalsMap();
-            var prevNamesMap = this.BuildLocalsNamesMap();
-            this.AddLocals(parameters, body);
+            var prevMap = BuildLocalsMap();
+            var prevNamesMap = BuildLocalsNamesMap();
+            AddLocals(parameters, body);
 
             bool block = body is BlockStatement;
-            this.Write("");
+            Write("");
 
-            var savedThisCount = this.Emitter.ThisRefCounter;
-            var capturedVariables = this.GetCapturedLoopVariablesNames();
+            var savedThisCount = Emitter.ThisRefCounter;
+            var capturedVariables = GetCapturedLoopVariablesNames();
             var hasCapturedVariables = capturedVariables != null && capturedVariables.Length > 0;
             if (hasCapturedVariables)
             {
-                this.Write("(function ($me, ");
-                this.Write(string.Join(", ", capturedVariables) + ") ");
-                this.BeginBlock();
-                this.Write("return ");
+                Write("(function ($me, ");
+                Write(string.Join(", ", capturedVariables) + ") ");
+                BeginBlock();
+                Write("return ");
             }
 
-            var savedPos = this.Emitter.Output.Length;
+            var savedPos = Emitter.Output.Length;
 
-            this.WriteFunction();
-            this.EmitMethodParameters(parameters, null, context);
-            this.WriteSpace();
+            WriteFunction();
+            EmitMethodParameters(parameters, null, context);
+            WriteSpace();
 
             int pos = 0;
-            if (!block && !this.IsAsync)
+            if (!block && !IsAsync)
             {
-                this.BeginBlock();
-                pos = this.Emitter.Output.Length;
+                BeginBlock();
+                pos = Emitter.Output.Length;
             }
 
-            bool isSimpleLambda = body.Parent is LambdaExpression && !block && !this.IsAsync;
+            bool isSimpleLambda = body.Parent is LambdaExpression && !block && !IsAsync;
 
             if (isSimpleLambda)
             {
-                this.ConvertParamsToReferences(parameters);
+                ConvertParamsToReferences(parameters);
 
                 if (!(rr is LambdaResolveResult lrr) || lrr.ReturnType.Kind != TypeKind.Void)
                 {
-                    this.WriteReturn(true);
+                    WriteReturn(true);
                 }
             }
 
-            if (this.IsAsync)
+            if (IsAsync)
             {
                 asyncBlock.Emit(true);
             }
             else
             {
-                body.AcceptVisitor(this.Emitter);
+                body.AcceptVisitor(Emitter);
             }
 
             if (isSimpleLambda)
             {
-                this.WriteSemiColon();
+                WriteSemiColon();
             }
 
-            if (!block && !this.IsAsync)
+            if (!block && !IsAsync)
             {
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
 
-            if (!block && !this.IsAsync)
+            if (!block && !IsAsync)
             {
-                this.EmitTempVars(pos);
+                EmitTempVars(pos);
             }
 
             if (!noLiftingRule && analyzer.UsedVariables.Count == 0)
             {
-                if (!this.Emitter.ForbidLifting)
+                if (!Emitter.ForbidLifting)
                 {
-                    var name = "f" + (this.Emitter.NamedFunctions.Count + 1);
-                    var code = this.Emitter.Output.ToString().Substring(savedPos);
-                    var codeForComare = this.RemoveTokens(code);
+                    var name = "f" + (Emitter.NamedFunctions.Count + 1);
+                    var code = Emitter.Output.ToString().Substring(savedPos);
+                    var codeForComare = RemoveTokens(code);
 
-                    var pair = this.Emitter.NamedFunctions.FirstOrDefault(p =>
+                    var pair = Emitter.NamedFunctions.FirstOrDefault(p =>
                     {
-                        if (this.Emitter.AssemblyInfo.SourceMap.Enabled)
+                        if (Emitter.AssemblyInfo.SourceMap.Enabled)
                         {
-                            return this.RemoveTokens(p.Value) == codeForComare;
+                            return RemoveTokens(p.Value) == codeForComare;
                         }
 
                         return p.Value == code;
@@ -338,45 +338,45 @@ namespace H5.Translator
                     }
                     else
                     {
-                        this.Emitter.NamedFunctions.Add(name, code);
+                        Emitter.NamedFunctions.Add(name, code);
                     }
 
-                    this.Emitter.Output.Remove(savedPos, this.Emitter.Output.Length - savedPos);
-                    this.Emitter.Output.Insert(savedPos, JS.Vars.D_ + "." + H5Types.ToJsName(this.Emitter.TypeInfo.Type, this.Emitter, true) + "." + name);
+                    Emitter.Output.Remove(savedPos, Emitter.Output.Length - savedPos);
+                    Emitter.Output.Insert(savedPos, JS.Vars.D_ + "." + H5Types.ToJsName(Emitter.TypeInfo.Type, Emitter, true) + "." + name);
                 }
 
-                this.Emitter.ResetLevel(oldLevel);
+                Emitter.ResetLevel(oldLevel);
             }
 
-            this.Emitter.ForbidLifting = oldLifting;
+            Emitter.ForbidLifting = oldLifting;
 
 
-            var methodDeclaration = this.Body.GetParent<MethodDeclaration>();
-            var thisCaptured = this.Emitter.ThisRefCounter > savedThisCount ||
-                               this.IsAsync && methodDeclaration != null &&
+            var methodDeclaration = Body.GetParent<MethodDeclaration>();
+            var thisCaptured = Emitter.ThisRefCounter > savedThisCount ||
+                               IsAsync && methodDeclaration != null &&
                                !methodDeclaration.HasModifier(Modifiers.Static);
 
             if (thisCaptured)
             {
-                this.Emitter.Output.Insert(savedPos, JS.Funcs.H5_BIND + (hasCapturedVariables ? "($me, " : "(this, "));
-                this.WriteCloseParentheses();
+                Emitter.Output.Insert(savedPos, JS.Funcs.H5_BIND + (hasCapturedVariables ? "($me, " : "(this, "));
+                WriteCloseParentheses();
             }
 
             if (hasCapturedVariables)
             {
-                this.WriteSemiColon(true);
-                this.EndBlock();
-                this.Write(")(");
+                WriteSemiColon(true);
+                EndBlock();
+                Write(")(");
 
-                this.Write("this, ");
+                Write("this, ");
 
-                this.Write(string.Join(", ", capturedVariables));
-                this.Write(")");
+                Write(string.Join(", ", capturedVariables));
+                Write(")");
             }
 
-            this.PopLocals();
-            this.ClearLocalsMap(prevMap);
-            this.ClearLocalsNamesMap(prevNamesMap);
+            PopLocals();
+            ClearLocalsMap(prevMap);
+            ClearLocalsNamesMap(prevNamesMap);
         }
     }
 }

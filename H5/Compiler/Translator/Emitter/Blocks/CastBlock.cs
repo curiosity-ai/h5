@@ -14,36 +14,36 @@ namespace H5.Translator
         public CastBlock(IEmitter emitter, CastExpression castExpression)
             : base(emitter, castExpression)
         {
-            this.Emitter = emitter;
-            this.CastExpression = castExpression;
+            Emitter = emitter;
+            CastExpression = castExpression;
         }
 
         public CastBlock(IEmitter emitter, AsExpression asExpression)
             : base(emitter, asExpression)
         {
-            this.Emitter = emitter;
-            this.AsExpression = asExpression;
+            Emitter = emitter;
+            AsExpression = asExpression;
         }
 
         public CastBlock(IEmitter emitter, IsExpression isExpression)
             : base(emitter, isExpression)
         {
-            this.Emitter = emitter;
-            this.IsExpression = isExpression;
+            Emitter = emitter;
+            IsExpression = isExpression;
         }
 
         public CastBlock(IEmitter emitter, IType iType)
             : base(emitter, null)
         {
-            this.Emitter = emitter;
-            this.IType = iType;
+            Emitter = emitter;
+            IType = iType;
         }
 
         public CastBlock(IEmitter emitter, AstType astType)
             : base(emitter, astType)
         {
-            this.Emitter = emitter;
-            this.AstType = astType;
+            Emitter = emitter;
+            AstType = astType;
         }
 
         public CastExpression CastExpression { get; set; }
@@ -58,17 +58,17 @@ namespace H5.Translator
 
         protected override Expression GetExpression()
         {
-            if (this.CastExpression != null)
+            if (CastExpression != null)
             {
-                return this.CastExpression;
+                return CastExpression;
             }
-            else if (this.AsExpression != null)
+            else if (AsExpression != null)
             {
-                return this.AsExpression;
+                return AsExpression;
             }
-            else if (this.IsExpression != null)
+            else if (IsExpression != null)
             {
-                return this.IsExpression;
+                return IsExpression;
             }
 
             return null;
@@ -76,33 +76,33 @@ namespace H5.Translator
 
         protected override void EmitConversionExpression()
         {
-            if (this.CastExpression != null)
+            if (CastExpression != null)
             {
-                this.EmitCastExpression(this.CastExpression.Expression, this.CastExpression.Type, CS.Ops.CAST);
+                EmitCastExpression(CastExpression.Expression, CastExpression.Type, CS.Ops.CAST);
             }
-            else if (this.AsExpression != null)
+            else if (AsExpression != null)
             {
-                this.EmitCastExpression(this.AsExpression.Expression, this.AsExpression.Type, CS.Ops.AS);
+                EmitCastExpression(AsExpression.Expression, AsExpression.Type, CS.Ops.AS);
             }
-            else if (this.IsExpression != null)
+            else if (IsExpression != null)
             {
-                this.EmitCastExpression(this.IsExpression.Expression, this.IsExpression.Type, CS.Ops.IS);
+                EmitCastExpression(IsExpression.Expression, IsExpression.Type, CS.Ops.IS);
             }
-            else if (this.IType != null)
+            else if (IType != null)
             {
-                this.EmitCastType(this.IType);
+                EmitCastType(IType);
             }
-            else if (this.AstType != null)
+            else if (AstType != null)
             {
-                this.EmitCastType(this.AstType);
+                EmitCastType(AstType);
             }
         }
 
         protected virtual void EmitCastExpression(Expression expression, AstType type, string method)
         {
-            var itype = this.Emitter.H5Types.ToType(type);
+            var itype = Emitter.H5Types.ToType(type);
             bool isCastAttr;
-            string castCode = this.GetCastCode(expression, type, method, out isCastAttr);
+            string castCode = GetCastCode(expression, type, method, out isCastAttr);
 
             var enumType = itype;
             if (NullableType.IsNullable(enumType))
@@ -118,52 +118,52 @@ namespace H5.Translator
                 var enumMode = Helpers.EnumEmitMode(enumType);
                 if (enumMode >= 3 && enumMode < 7)
                 {
-                    itype = this.Emitter.Resolver.Compilation.FindType(KnownTypeCode.String);
+                    itype = Emitter.Resolver.Compilation.FindType(KnownTypeCode.String);
                 }
             }
 
-            if (expression is NullReferenceExpression || (method != CS.Ops.IS && Helpers.IsIgnoreCast(type, this.Emitter)) || this.IsExternalCast(itype))
+            if (expression is NullReferenceExpression || (method != CS.Ops.IS && Helpers.IsIgnoreCast(type, Emitter)) || IsExternalCast(itype))
             {
                 if (expression is ParenthesizedExpression)
                 {
                     expression = ((ParenthesizedExpression) expression).Expression;
                 }
 
-                expression.AcceptVisitor(this.Emitter);
+                expression.AcceptVisitor(Emitter);
                 return;
             }
 
-            var expressionrr = this.Emitter.Resolver.ResolveNode(expression, this.Emitter);
-            var typerr = this.Emitter.Resolver.ResolveNode(type, this.Emitter);
+            var expressionrr = Emitter.Resolver.ResolveNode(expression, Emitter);
+            var typerr = Emitter.Resolver.ResolveNode(type, Emitter);
 
             if (expressionrr.Type.Kind == TypeKind.Enum)
             {
                 var enumMode = Helpers.EnumEmitMode(expressionrr.Type);
-                if (enumMode >= 3 && enumMode < 7 && Helpers.IsIntegerType(itype, this.Emitter.Resolver))
+                if (enumMode >= 3 && enumMode < 7 && Helpers.IsIntegerType(itype, Emitter.Resolver))
                 {
-                   throw new EmitterException(this.CastExpression, "Enum underlying type is string and cannot be casted to number");
+                   throw new EmitterException(CastExpression, "Enum underlying type is string and cannot be casted to number");
                 }
             }
 
             if (method == CS.Ops.CAST && expressionrr.Type.Kind != TypeKind.Enum)
             {
-                var cast_rr = this.Emitter.Resolver.ResolveNode(this.CastExpression, this.Emitter);
+                var cast_rr = Emitter.Resolver.ResolveNode(CastExpression, Emitter);
 
                 if (cast_rr is ConstantResolveResult)
                 {
-                    var expectedType = this.Emitter.Resolver.Resolver.GetExpectedType(this.CastExpression);
+                    var expectedType = Emitter.Resolver.Resolver.GetExpectedType(CastExpression);
                     var value = ((ConstantResolveResult)cast_rr).ConstantValue;
 
-                    this.WriteCastValue(value, expectedType);
+                    WriteCastValue(value, expectedType);
                     return;
                 }
                 else
                 {
                     if (cast_rr is ConversionResolveResult conv_rr && conv_rr.Input is ConstantResolveResult && !conv_rr.Conversion.IsUserDefined)
                     {
-                        var expectedType = this.Emitter.Resolver.Resolver.GetExpectedType(this.CastExpression);
+                        var expectedType = Emitter.Resolver.Resolver.GetExpectedType(CastExpression);
                         var value = ((ConstantResolveResult)conv_rr.Input).ConstantValue;
-                        this.WriteCastValue(value, expectedType);
+                        WriteCastValue(value, expectedType);
                         return;
                     }
                 }
@@ -171,12 +171,12 @@ namespace H5.Translator
 
             if (method == CS.Ops.IS && castToEnum)
             {
-                this.Write(JS.Types.H5.IS);
-                this.WriteOpenParentheses();
-                expression.AcceptVisitor(this.Emitter);
-                this.Write(", ");
-                this.Write(H5Types.ToJsName(itype, this.Emitter));
-                this.Write(")");
+                Write(JS.Types.H5.IS);
+                WriteOpenParentheses();
+                expression.AcceptVisitor(Emitter);
+                Write(", ");
+                Write(H5Types.ToJsName(itype, Emitter));
+                Write(")");
                 return;
             }
 
@@ -184,13 +184,13 @@ namespace H5.Translator
             {
                 if (method == CS.Ops.IS)
                 {
-                    this.Write(JS.Funcs.H5_HASVALUE);
-                    this.WriteOpenParentheses();
+                    Write(JS.Funcs.H5_HASVALUE);
+                    WriteOpenParentheses();
                 }
-                expression.AcceptVisitor(this.Emitter);
+                expression.AcceptVisitor(Emitter);
                 if (method == CS.Ops.IS)
                 {
-                    this.Write(")");
+                    Write(")");
                 }
 
                 return;
@@ -200,26 +200,26 @@ namespace H5.Translator
 
             if (castCode != null)
             {
-                this.EmitInlineCast(expressionrr, expression, type, castCode, isCastAttr, method);
+                EmitInlineCast(expressionrr, expression, type, castCode, isCastAttr, method);
                 return;
             }
 
             bool isCast = method == CS.Ops.CAST;
             if (isCast)
             {
-                if (ConversionBlock.IsUserDefinedConversion(this, this.CastExpression.Expression) || ConversionBlock.IsUserDefinedConversion(this, this.CastExpression))
+                if (ConversionBlock.IsUserDefinedConversion(this, CastExpression.Expression) || ConversionBlock.IsUserDefinedConversion(this, CastExpression))
                 {
-                    expression.AcceptVisitor(this.Emitter);
+                    expression.AcceptVisitor(Emitter);
 
                     return;
                 }
             }
 
-            var conversion = this.Emitter.Resolver.Resolver.GetConversion(expression);
+            var conversion = Emitter.Resolver.Resolver.GetConversion(expression);
 
             if (conversion.IsNumericConversion || conversion.IsEnumerationConversion || (isCast && conversion.IsIdentityConversion))
             {
-                expression.AcceptVisitor(this.Emitter);
+                expression.AcceptVisitor(Emitter);
                 return;
             }
 
@@ -229,7 +229,7 @@ namespace H5.Translator
             {
                 if (method == CS.Ops.CAST || method == CS.Ops.AS)
                 {
-                    expression.AcceptVisitor(this.Emitter);
+                    expression.AcceptVisitor(Emitter);
                     return;
                 }
                 else if (method == CS.Ops.IS)
@@ -239,51 +239,51 @@ namespace H5.Translator
                 }
             }
 
-            bool unbox = this.Emitter.Rules.Boxing == BoxingRule.Managed && !(itype.IsReferenceType.HasValue ? itype.IsReferenceType.Value : true) && !NullableType.IsNullable(itype) && isCast && conversion.IsUnboxingConversion;
+            bool unbox = Emitter.Rules.Boxing == BoxingRule.Managed && !(itype.IsReferenceType.HasValue ? itype.IsReferenceType.Value : true) && !NullableType.IsNullable(itype) && isCast && conversion.IsUnboxingConversion;
             if (unbox)
             {
-                this.Write("System.Nullable.getValue(");
+                Write("System.Nullable.getValue(");
             }
 
-            var typeDef = itype.Kind == TypeKind.TypeParameter ? null : this.Emitter.GetTypeDefinition(type, true);
-            if (typeDef != null && method == CS.Ops.IS && itype.Kind != TypeKind.Interface && this.Emitter.Validator.IsObjectLiteral(typeDef) && this.Emitter.Validator.GetObjectCreateMode(typeDef) == 0)
+            var typeDef = itype.Kind == TypeKind.TypeParameter ? null : Emitter.GetTypeDefinition(type, true);
+            if (typeDef != null && method == CS.Ops.IS && itype.Kind != TypeKind.Interface && Emitter.Validator.IsObjectLiteral(typeDef) && Emitter.Validator.GetObjectCreateMode(typeDef) == 0)
             {
                 throw new EmitterException(type, $"ObjectLiteral type ({itype.FullName}) with Plain mode cannot be used in 'is' operator. Please define cast logic in Cast attribute or use Constructor mode.");
             }
 
-            this.Write(JS.NS.H5);
-            this.WriteDot();
-            this.Write(method);
-            this.WriteOpenParentheses();
+            Write(JS.NS.H5);
+            WriteDot();
+            Write(method);
+            WriteOpenParentheses();
 
-            expression.AcceptVisitor(this.Emitter);
+            expression.AcceptVisitor(Emitter);
 
             if (!hasValue)
             {
-                this.WriteComma();
-                this.EmitCastType(itype);
+                WriteComma();
+                EmitCastType(itype);
             }
 
             if (isResultNullable && method != CS.Ops.IS)
             {
-                this.WriteComma();
-                this.WriteScript(true);
+                WriteComma();
+                WriteScript(true);
             }
 
-            this.WriteCloseParentheses();
+            WriteCloseParentheses();
 
             if (unbox)
             {
-                this.Write(")");
+                Write(")");
             }
         }
 
         private bool IsExternalCast(IType type)
         {
-            if (this.Emitter.Rules.ExternalCast == ExternalCastRule.Plain)
+            if (Emitter.Rules.ExternalCast == ExternalCastRule.Plain)
             {
                 var typeDef = type.GetDefinition();
-                if (typeDef == null || !this.Emitter.Validator.IsExternalType(typeDef))
+                if (typeDef == null || !Emitter.Validator.IsExternalType(typeDef))
                 {
                     return false;
                 }
@@ -307,15 +307,15 @@ namespace H5.Translator
 
             if (value == null || value.GetType().FullName != expectedType.ReflectionName)
             {
-                if (Helpers.IsDecimalType(expectedType, this.Emitter.Resolver))
+                if (Helpers.IsDecimalType(expectedType, Emitter.Resolver))
                 {
                     typeName = JS.Types.SYSTEM_DECIMAL;
                 }
-                else if (Helpers.IsLongType(expectedType, this.Emitter.Resolver))
+                else if (Helpers.IsLongType(expectedType, Emitter.Resolver))
                 {
                     typeName = JS.Types.System.Int64.NAME;
                 }
-                else if (Helpers.IsULongType(expectedType, this.Emitter.Resolver))
+                else if (Helpers.IsULongType(expectedType, Emitter.Resolver))
                 {
                     typeName = JS.Types.SYSTEM_UInt64;
                 }
@@ -323,32 +323,32 @@ namespace H5.Translator
 
             if (typeName != null)
             {
-                this.Write(typeName);
-                this.WriteOpenParentheses();
-                this.WriteScript(value);
-                this.WriteCloseParentheses();
+                Write(typeName);
+                WriteOpenParentheses();
+                WriteScript(value);
+                WriteCloseParentheses();
             }
             if (value is float && expectedType.IsKnownType(KnownTypeCode.Double))
             {
-                this.WriteScript((double)(float)value);
+                WriteScript((double)(float)value);
             }
             else
             {
-                this.WriteScript(value);
+                WriteScript(value);
             }
         }
 
         protected virtual void EmitCastType(AstType astType)
         {
-            var resolveResult = this.Emitter.Resolver.ResolveNode(astType, this.Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(astType, Emitter);
 
             if (NullableType.IsNullable(resolveResult.Type))
             {
-                this.Write(H5Types.ToJsName(NullableType.GetUnderlyingType(resolveResult.Type), this.Emitter));
+                Write(H5Types.ToJsName(NullableType.GetUnderlyingType(resolveResult.Type), Emitter));
             }
             else if (resolveResult.Type.Kind == TypeKind.Delegate)
             {
-                this.Write(JS.Types.FUNCTION);
+                Write(JS.Types.FUNCTION);
             }
             /*else if (resolveResult.Type.Kind == TypeKind.Array)
             {
@@ -356,7 +356,7 @@ namespace H5.Translator
             }*/
             else
             {
-                astType.AcceptVisitor(this.Emitter);
+                astType.AcceptVisitor(Emitter);
             }
         }
 
@@ -364,11 +364,11 @@ namespace H5.Translator
         {
             if (NullableType.IsNullable(iType))
             {
-                this.Write(H5Types.ToJsName(NullableType.GetUnderlyingType(iType), this.Emitter));
+                Write(H5Types.ToJsName(NullableType.GetUnderlyingType(iType), Emitter));
             }
             else if (iType.Kind == TypeKind.Delegate)
             {
-                this.Write(JS.Types.FUNCTION);
+                Write(JS.Types.FUNCTION);
             }
             /*else if (iType.Kind == TypeKind.Array)
             {
@@ -376,11 +376,11 @@ namespace H5.Translator
             }*/
             else if (iType.Kind == TypeKind.Anonymous)
             {
-                this.Write(JS.Types.System.Object.NAME);
+                Write(JS.Types.System.Object.NAME);
             }
             else
             {
-                this.Write(H5Types.ToJsName(iType, this.Emitter));
+                Write(H5Types.ToJsName(iType, Emitter));
             }
         }
 
@@ -388,26 +388,26 @@ namespace H5.Translator
         {
             isCastAttr = false;
 
-            if (!(this.Emitter.Resolver.ResolveNode(astType, this.Emitter) is TypeResolveResult resolveResult))
+            if (!(Emitter.Resolver.ResolveNode(astType, Emitter) is TypeResolveResult resolveResult))
             {
                 return null;
             }
 
-            var exprResolveResult = this.Emitter.Resolver.ResolveNode(expression, this.Emitter);
+            var exprResolveResult = Emitter.Resolver.ResolveNode(expression, Emitter);
             string inline = null;
             bool isOp = op == CS.Ops.IS;
 
-            var method = isOp ? null : this.GetCastMethod(exprResolveResult.Type, resolveResult.Type, out inline);
+            var method = isOp ? null : GetCastMethod(exprResolveResult.Type, resolveResult.Type, out inline);
 
             if (method == null && !isOp && (NullableType.IsNullable(exprResolveResult.Type) || NullableType.IsNullable(resolveResult.Type)))
             {
-                method = this.GetCastMethod(NullableType.IsNullable(exprResolveResult.Type) ? NullableType.GetUnderlyingType(exprResolveResult.Type) : exprResolveResult.Type,
+                method = GetCastMethod(NullableType.IsNullable(exprResolveResult.Type) ? NullableType.GetUnderlyingType(exprResolveResult.Type) : exprResolveResult.Type,
                                             NullableType.IsNullable(resolveResult.Type) ? NullableType.GetUnderlyingType(resolveResult.Type) : resolveResult.Type, out inline);
             }
 
             if (inline != null)
             {
-                this.InlineMethod = method;
+                InlineMethod = method;
                 return inline;
             }
 
@@ -428,7 +428,7 @@ namespace H5.Translator
 
             if (attributes != null)
             {
-                var attribute = this.Emitter.GetAttribute(attributes, Translator.H5_ASSEMBLY + ".CastAttribute");
+                var attribute = Emitter.GetAttribute(attributes, Translator.H5_ASSEMBLY + ".CastAttribute");
 
                 if (attribute != null)
                 {
@@ -443,29 +443,29 @@ namespace H5.Translator
         private void EmitArray(IType iType)
         {
             string typedArrayName = null;
-            if (this.Emitter.AssemblyInfo.UseTypedArrays && (typedArrayName = Helpers.GetTypedArrayName(iType)) != null)
+            if (Emitter.AssemblyInfo.UseTypedArrays && (typedArrayName = Helpers.GetTypedArrayName(iType)) != null)
             {
-                this.Write(typedArrayName);
+                Write(typedArrayName);
             }
             else
             {
-                this.Write(JS.Types.ARRAY);
+                Write(JS.Types.ARRAY);
             }
         }
 
 
         protected virtual void EmitInlineCast(ResolveResult expressionrr, Expression expression, AstType astType, string castCode, bool isCastAttr, string method)
         {
-            this.Write("");
+            Write("");
             string name;
 
-            if (this.InlineMethod == null)
+            if (InlineMethod == null)
             {
                 name = "{this}";
             }
             else
             {
-                name = "{" + this.InlineMethod.Parameters[0].Name + "}";
+                name = "{" + InlineMethod.Parameters[0].Name + "}";
                 if (!castCode.Contains(name))
                 {
                     name = "{this}";
@@ -478,17 +478,17 @@ namespace H5.Translator
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                             memberTargetrr.TargetResult is LocalResolveResult);
 
-            var oldBuilder = this.SaveWriter();
-            var sb = this.NewWriter();
+            var oldBuilder = SaveWriter();
+            var sb = NewWriter();
 
-            expression.AcceptVisitor(this.Emitter);
+            expression.AcceptVisitor(Emitter);
 
             expressionStr = sb.ToString();
-            this.RestoreWriter(oldBuilder);
+            RestoreWriter(oldBuilder);
 
             if (!(expressionrr is ThisResolveResult || expressionrr is ConstantResolveResult || expressionrr is LocalResolveResult || isField) && isCastAttr)
             {
-                tempVar = this.GetTempVarName();
+                tempVar = GetTempVarName();
             }
 
             if (castCode.Contains(name))
@@ -498,11 +498,11 @@ namespace H5.Translator
 
             if (castCode.Contains("{0}"))
             {
-                oldBuilder = this.SaveWriter();
-                sb = this.NewWriter();
-                this.EmitCastType(astType);
+                oldBuilder = SaveWriter();
+                sb = NewWriter();
+                EmitCastType(astType);
                 castCode = castCode.Replace("{0}", sb.ToString());
-                this.RestoreWriter(oldBuilder);
+                RestoreWriter(oldBuilder);
             }
 
             if (isCastAttr)
@@ -510,7 +510,7 @@ namespace H5.Translator
                 if (tempVar != null)
                 {
                     castCode = string.Format("({0} = {1}, H5.{2}({0}, {4}({0}) && ({3})))", tempVar, expressionStr, method, castCode, JS.Funcs.H5_HASVALUE);
-                    this.RemoveTempVar(tempVar);
+                    RemoveTempVar(tempVar);
                 }
                 else
                 {
@@ -518,7 +518,7 @@ namespace H5.Translator
                 }
             }
 
-            this.Write(castCode);
+            Write(castCode);
         }
 
         public IMethod GetCastMethod(IType fromType, IType toType, out string template)
@@ -532,7 +532,7 @@ namespace H5.Translator
                     m.Parameters[0].Type.ReflectionName == fromType.ReflectionName
                     )
                 {
-                    string tmpInline = this.Emitter.GetInline(m);
+                    string tmpInline = Emitter.GetInline(m);
 
                     if (!string.IsNullOrWhiteSpace(tmpInline))
                     {
@@ -554,7 +554,7 @@ namespace H5.Translator
                         (m.Parameters[0].Type.ReflectionName == fromType.ReflectionName)
                         )
                     {
-                        string tmpInline = this.Emitter.GetInline(m);
+                        string tmpInline = Emitter.GetInline(m);
 
                         if (!string.IsNullOrWhiteSpace(tmpInline))
                         {
@@ -567,15 +567,15 @@ namespace H5.Translator
                 });
             }
 
-            if (method == null && this.CastExpression != null)
+            if (method == null && CastExpression != null)
             {
-                var conversion = this.Emitter.Resolver.Resolver.GetConversion(this.CastExpression);
+                var conversion = Emitter.Resolver.Resolver.GetConversion(CastExpression);
 
                 if (conversion.IsUserDefined)
                 {
                     method = conversion.Method;
 
-                    string tmpInline = this.Emitter.GetInline(method);
+                    string tmpInline = Emitter.GetInline(method);
 
                     if (!string.IsNullOrWhiteSpace(tmpInline))
                     {

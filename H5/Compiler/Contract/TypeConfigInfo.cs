@@ -30,7 +30,7 @@ namespace H5.Contract
 
             if (this.VarInitializer != null)
             {
-                var rr = emitter.Resolver.ResolveNode(this.VarInitializer, emitter) as MemberResolveResult;
+                var rr = emitter.Resolver.ResolveNode(this.VarInitializer) as MemberResolveResult;
                 fieldName = OverloadsCollection.Create(emitter, rr.Member).GetOverloadName(false, null, withoutTypeParams);
             }
             else if (this.Entity is PropertyDeclaration)
@@ -41,7 +41,7 @@ namespace H5.Contract
             {
                 if (this.Entity != null)
                 {
-                    if (emitter.Resolver.ResolveNode(this.Entity, emitter) is MemberResolveResult rr)
+                    if (emitter.Resolver.ResolveNode(this.Entity) is MemberResolveResult rr)
                     {
                         fieldName = OverloadsCollection.Create(emitter, rr.Member).GetOverloadName(false, null, withoutTypeParams);
                     }

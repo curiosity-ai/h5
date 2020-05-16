@@ -46,24 +46,24 @@ namespace H5.Translator
         {
             this.Log.Trace("EnsureProjectProperties at " + (Location ?? "") + " ...");
 
-            ShouldReadProjectFile = !this.FromTask;
+            ShouldReadProjectFile = !FromTask;
 
-            var project = Translator.OpenProject(this.Location, this.GetEvaluationConditions());
+            var project = Translator.OpenProject(Location, GetEvaluationConditions());
 
-            this.ValidateProject(project);
+            ValidateProject(project);
 
-            this.EnsureOverflowMode(project);
+            EnsureOverflowMode(project);
 
-            this.EnsureDefaultNamespace(project);
+            EnsureDefaultNamespace(project);
 
-            this.EnsureAssemblyName(project);
+            EnsureAssemblyName(project);
 
-            this.EnsureAssemblyLocation(project);
+            EnsureAssemblyLocation(project);
 
-            this.SourceFiles = this.GetSourceFiles(project);
-            this.ParsedSourceFiles = new ParsedSourceFile[this.SourceFiles.Count];
+            SourceFiles = GetSourceFiles(project);
+            ParsedSourceFiles = new ParsedSourceFile[SourceFiles.Count];
 
-            this.EnsureDefineConstants(project);
+            EnsureDefineConstants(project);
 
             Translator.CloseProject(project);
 
@@ -83,7 +83,7 @@ namespace H5.Translator
                                 where x.Name == ProjectPropertyNames.ROOT_NAMESPACE_PROP || x.Name == ProjectPropertyNames.ASSEMBLY_NAME_PROP
                                 select x;
 
-            if (!this.AssemblyInfo.Assembly.EnableReservedNamespaces)
+            if (!AssemblyInfo.Assembly.EnableReservedNamespaces)
             {
                 foreach (var tag in combined_tags)
                 {
@@ -111,12 +111,12 @@ namespace H5.Translator
                 throw new H5.Translator.TranslatorException("'H5' name is reserved and may not " +
                     "be used as project names or root namespaces.\n" +
                     "Please verify your project settings and rename where it applies.\n" +
-                    "Project file: " + this.Location + "\n" +
+                    "Project file: " + Location + "\n" +
                     "Offending settings:\n" + offendingSettings
                 );
             }
 
-            var outputType = this.ProjectProperties.OutputType;
+            var outputType = ProjectProperties.OutputType;
 
             if (outputType == null && ShouldReadProjectFile)
             {
@@ -138,12 +138,12 @@ namespace H5.Translator
 
         private void EnsureOverflowMode(Project project)
         {
-            if (!this.ShouldReadProjectFile)
+            if (!ShouldReadProjectFile)
             {
                 return;
             }
 
-            if (this.OverflowMode.HasValue)
+            if (OverflowMode.HasValue)
             {
                 return;
             }
@@ -158,7 +158,7 @@ namespace H5.Translator
                 bool boolValue;
                 if (bool.TryParse(value, out boolValue))
                 {
-                    this.OverflowMode = boolValue ? H5.Contract.OverflowMode.Checked : H5.Contract.OverflowMode.Unchecked;
+                    OverflowMode = boolValue ? H5.Contract.OverflowMode.Checked : H5.Contract.OverflowMode.Unchecked;
                 }
             }
         }
@@ -167,18 +167,18 @@ namespace H5.Translator
         {
             this.Log.Trace("BuildAssemblyLocation...");
 
-            if (string.IsNullOrEmpty(this.AssemblyLocation))
+            if (string.IsNullOrEmpty(AssemblyLocation))
             {
-                var fullOutputPath = this.GetOutputPaths(project);
+                var fullOutputPath = GetOutputPaths(project);
 
                 this.Log.Trace("    FullOutputPath:" + fullOutputPath);
 
-                this.AssemblyLocation = Path.Combine(fullOutputPath, this.ProjectProperties.AssemblyName + ".dll");
+                AssemblyLocation = Path.Combine(fullOutputPath, ProjectProperties.AssemblyName + ".dll");
             }
 
-            this.Log.Trace("    OutDir:" + this.ProjectProperties.OutDir);
-            this.Log.Trace("    OutputPath:" + this.ProjectProperties.OutputPath);
-            this.Log.Trace("    AssemblyLocation:" + this.AssemblyLocation);
+            this.Log.Trace("    OutDir:" + ProjectProperties.OutDir);
+            this.Log.Trace("    OutputPath:" + ProjectProperties.OutputPath);
+            this.Log.Trace("    AssemblyLocation:" + AssemblyLocation);
 
             this.Log.Trace("BuildAssemblyLocation done");
         }
@@ -187,9 +187,9 @@ namespace H5.Translator
         {
             var configHelper = new H5.Contract.ConfigHelper();
 
-            var outputPath = this.ProjectProperties.OutputPath;
+            var outputPath = ProjectProperties.OutputPath;
 
-            if (outputPath == null && this.ShouldReadProjectFile)
+            if (outputPath == null && ShouldReadProjectFile)
             {
                 // Read OutputPath if not defined already
                 // Throw exception if not found
@@ -201,20 +201,20 @@ namespace H5.Translator
                 outputPath = string.Empty;
             }
 
-            this.ProjectProperties.OutputPath = outputPath;
+            ProjectProperties.OutputPath = outputPath;
 
-            var outDir = this.ProjectProperties.OutDir;
+            var outDir = ProjectProperties.OutDir;
 
-            if (outDir == null && this.ShouldReadProjectFile)
+            if (outDir == null && ShouldReadProjectFile)
             {
                 // Read OutDir if not defined already
                 outDir = ReadProperty(project, ProjectPropertyNames.OUT_DIR_PROP, true, configHelper);
             }
 
             // If OutDir value is not found then use OutputPath value
-            this.ProjectProperties.OutDir = outDir ?? outputPath;
+            ProjectProperties.OutDir = outDir ?? outputPath;
 
-            var fullPath = this.ProjectProperties.OutDir;
+            var fullPath = ProjectProperties.OutDir;
 
             if (!Path.IsPathRooted(fullPath))
             {
@@ -255,9 +255,9 @@ namespace H5.Translator
         {
             var properties = new Dictionary<string, string>();
 
-            if (this.ProjectProperties.Configuration != null)
+            if (ProjectProperties.Configuration != null)
             {
-                properties.Add(ProjectPropertyNames.CONFIGURATION_PROP, this.ProjectProperties.Configuration);
+                properties.Add(ProjectPropertyNames.CONFIGURATION_PROP, ProjectProperties.Configuration);
             }
 
             properties.Add(ProjectPropertyNames.PLATFORM_PROP, "AnyCPU");
@@ -292,7 +292,7 @@ namespace H5.Translator
             if (!sourceFiles.Any())
             {
                 throw new H5.Translator.TranslatorException("Unable to get source file list from project file '" +
-                    this.Location + "'. In order to use h5, you have to have at least one source code file " +
+                    Location + "'. In order to use h5, you have to have at least one source code file " +
                     "with the 'compile' property set (usually .cs files have it by default in C# projects).");
             };
 
@@ -305,12 +305,12 @@ namespace H5.Translator
         {
             this.Log.Trace("EnsureDefineConstants...");
 
-            if (this.DefineConstants == null)
+            if (DefineConstants == null)
             {
-                this.DefineConstants = new List<string>();
+                DefineConstants = new List<string>();
             }
 
-            if (this.ProjectProperties.DefineConstants == null && this.ShouldReadProjectFile)
+            if (ProjectProperties.DefineConstants == null && ShouldReadProjectFile)
             {
                 this.Log.Trace("Reading define constants...");
 
@@ -320,28 +320,28 @@ namespace H5.Translator
 
                 if (constantList == null || constantList.Count() < 1)
                 {
-                    this.ProjectProperties.DefineConstants = "";
+                    ProjectProperties.DefineConstants = "";
                 }
                 else
                 {
-                    this.ProjectProperties.DefineConstants = String.Join(";", constantList);
+                    ProjectProperties.DefineConstants = String.Join(";", constantList);
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(this.ProjectProperties.DefineConstants))
+            if (!string.IsNullOrWhiteSpace(ProjectProperties.DefineConstants))
             {
-                this.DefineConstants.AddRange(
-                    this.ProjectProperties.DefineConstants.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
+                DefineConstants.AddRange(
+                    ProjectProperties.DefineConstants.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
             }
 
-            this.DefineConstants = this.DefineConstants.Distinct().ToList();
+            DefineConstants = DefineConstants.Distinct().ToList();
 
             this.Log.Trace("EnsureDefineConstants done");
         }
 
         protected virtual void EnsureAssemblyName(Project project)
         {
-            if (this.ProjectProperties.AssemblyName == null && this.ShouldReadProjectFile)
+            if (ProjectProperties.AssemblyName == null && ShouldReadProjectFile)
             {
                 var property = (from n in project.AllEvaluatedProperties
                             where n.Name == ProjectPropertyNames.ASSEMBLY_NAME_PROP
@@ -349,11 +349,11 @@ namespace H5.Translator
 
                 if (property != null)
                 {
-                    this.ProjectProperties.AssemblyName = property.EvaluatedValue;
+                    ProjectProperties.AssemblyName = property.EvaluatedValue;
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(this.ProjectProperties.AssemblyName))
+            if (string.IsNullOrWhiteSpace(ProjectProperties.AssemblyName))
             {
                 H5.Translator.TranslatorException.Throw("Unable to determine assembly name");
             }
@@ -361,7 +361,7 @@ namespace H5.Translator
 
         protected virtual void EnsureDefaultNamespace(Project project)
         {
-            if (this.ProjectProperties.RootNamespace == null && this.ShouldReadProjectFile)
+            if (ProjectProperties.RootNamespace == null && ShouldReadProjectFile)
             {
                 var property = (from n in project.AllEvaluatedProperties
                             where n.Name == ProjectPropertyNames.ROOT_NAMESPACE_PROP
@@ -369,18 +369,18 @@ namespace H5.Translator
 
                 if (property != null)
                 {
-                    this.ProjectProperties.RootNamespace = property.EvaluatedValue;
+                    ProjectProperties.RootNamespace = property.EvaluatedValue;
                 }
             }
 
-            this.DefaultNamespace = this.ProjectProperties.RootNamespace;
+            DefaultNamespace = ProjectProperties.RootNamespace;
 
-            if (string.IsNullOrWhiteSpace(this.DefaultNamespace))
+            if (string.IsNullOrWhiteSpace(DefaultNamespace))
             {
-                this.DefaultNamespace = Translator.DefaultRootNamespace;
+                DefaultNamespace = Translator.DefaultRootNamespace;
             }
 
-            this.Log.Trace("DefaultNamespace:" + this.DefaultNamespace);
+            this.Log.Trace("DefaultNamespace:" + DefaultNamespace);
         }
 
         protected virtual IList<string> GetSourceFiles(string location)

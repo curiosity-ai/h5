@@ -46,20 +46,20 @@ namespace H5.Translator
 
         public virtual void WriteIndented(string s, int? position = null)
         {
-            var level = position.HasValue && position.Value == 0 ? this.InitialLevel : this.Level;
+            var level = position.HasValue && position.Value == 0 ? InitialLevel : Level;
 
             var indented = new StringBuilder(AbstractEmitterBlock.WriteIndentToString(s, level));
 
-            this.WriteIndent(indented, level, 0);
+            WriteIndent(indented, level, 0);
 
-            this.Write(this.Output, indented.ToString(), position);
+            Write(Output, indented.ToString(), position);
         }
 
         protected virtual void WriteIndent(StringBuilder sb, int level, int? position = null)
         {
             for (var i = 0; i < level; i++)
             {
-                this.Write(sb, INDENT, position);
+                Write(sb, INDENT, position);
             }
         }
 
@@ -67,9 +67,9 @@ namespace H5.Translator
         {
             this.Log.Info("Transforming outputs...");
 
-            this.WrapToModules();
+            WrapToModules();
 
-            var outputs = this.CombineOutputs();
+            var outputs = CombineOutputs();
 
             this.Log.Info("Transforming outputs done");
 
@@ -82,13 +82,13 @@ namespace H5.Translator
 
             var result = new List<TranslatorOutputItem>();
 
-            var disableAsm = this.AssemblyInfo.Assembly.DisableInitAssembly;
+            var disableAsm = AssemblyInfo.Assembly.DisableInitAssembly;
 
-            this.AssemblyJsDocWritten = false;
+            AssemblyJsDocWritten = false;
 
             var fileHelper = new FileHelper();
 
-            foreach (var outputPair in this.Outputs)
+            foreach (var outputPair in Outputs)
             {
                 var fileName = outputPair.Key;
                 var output = outputPair.Value;
@@ -130,12 +130,12 @@ namespace H5.Translator
             //  * @compiler H5 0.0.0
             //  */
 
-            if (this.AssemblyJsDocWritten)
+            if (AssemblyJsDocWritten)
             {
                 return;
             }
 
-            var versionContext = this.Translator.GetVersionContext();
+            var versionContext = Translator.GetVersionContext();
 
             string description = versionContext.Assembly.Description;
             string version = versionContext.Assembly.Version != null && versionContext.Assembly.Version != JS.Types.System.Reflection.Assembly.Config.DEFAULT_VERSION
@@ -171,7 +171,7 @@ namespace H5.Translator
 
             WriteNewLine(tmp, " */");
 
-            this.AssemblyJsDocWritten = true;
+            AssemblyJsDocWritten = true;
         }
 
         private void OutputTop(Contract.IEmitterOutput output, StringBuilder tmp)
@@ -187,7 +187,7 @@ namespace H5.Translator
         {
             bool metaDataWritten = false;
 
-            var level = this.InitialLevel;
+            var level = InitialLevel;
             StringBuilder endOutput = new StringBuilder();
 
             if (output.NonModuletOutput.Length > 0 || output.ModuleOutput.Count > 0)
@@ -196,8 +196,8 @@ namespace H5.Translator
                 {
                     if (!disableAsm)
                     {
-                        string asmName = this.AssemblyInfo.Assembly.FullName ??
-                                         this.Translator.ProjectProperties.AssemblyName;
+                        string asmName = AssemblyInfo.Assembly.FullName ??
+                                         Translator.ProjectProperties.AssemblyName;
 
                         OutputAssemblyComment(tmp);
 
@@ -207,9 +207,9 @@ namespace H5.Translator
 
                         tmp.Append(",");
 
-                        if (!metaDataWritten && (this.MetaDataOutputName == null || fileName == this.MetaDataOutputName))
+                        if (!metaDataWritten && (MetaDataOutputName == null || fileName == MetaDataOutputName))
                         {
-                            var res = this.GetIncludedResources();
+                            var res = GetIncludedResources();
 
                             if (res != null)
                             {
@@ -225,19 +225,19 @@ namespace H5.Translator
                         tmp.Append("function ($asm, globals) {");
                         WriteNewLine(tmp);
                         WriteIndent(tmp, level);
-                        tmp.Append(this.GetOutputHeader());
+                        tmp.Append(GetOutputHeader());
                         WriteNewLine(tmp);
                         WriteNewLine(tmp);
                     }
 
-                    level = this.AddDependencies(level, output, tmp, endOutput);
+                    level = AddDependencies(level, output, tmp, endOutput);
                 }
 
                 var code = output.NonModuletOutput.ToString();
 
                 if (code.Length > 0)
                 {
-                    tmp.Append(level > this.InitialLevel ? Emitter.INDENT + code.Replace(Emitter.NEW_LINE, Emitter.NEW_LINE + Emitter.INDENT) : code);
+                    tmp.Append(level > InitialLevel ? Emitter.INDENT + code.Replace(Emitter.NEW_LINE, Emitter.NEW_LINE + Emitter.INDENT) : code);
                 }
 
                 if (endOutput.Length > 0)
@@ -249,7 +249,7 @@ namespace H5.Translator
                 {
                     if (code.Length > 0)
                     {
-                        this.WriteNewLine(tmp);
+                        WriteNewLine(tmp);
                     }
 
                     foreach (var moduleOutput in output.ModuleOutput)
@@ -270,7 +270,7 @@ namespace H5.Translator
 
         private int AddDependencies(int level, Contract.IEmitterOutput output, StringBuilder tmp, StringBuilder endOutput)
         {
-            var loader = this.AssemblyInfo.Loader;
+            var loader = AssemblyInfo.Loader;
             var dependencies = output.NonModuleDependencies;
             if (dependencies != null && dependencies.Count > 0)
             {
@@ -279,22 +279,22 @@ namespace H5.Translator
 
                 if (disabledDependecies.Count > 0 && !loader.SkipManualVariables)
                 {
-                    this.WriteIndent(tmp, level);
-                    this.Write(tmp, "var ");
+                    WriteIndent(tmp, level);
+                    Write(tmp, "var ");
                     for (int i = 0; i < disabledDependecies.Count; i++)
                     {
                         var d = disabledDependecies[i];
                         if (i != 0)
                         {
-                            this.WriteIndent(tmp, level + 1);
+                            WriteIndent(tmp, level + 1);
                         }
 
-                        this.Write(tmp, d.VariableName.IsNotEmpty() ? d.VariableName : d.DependencyName);
-                        this.Write(tmp, i == (disabledDependecies.Count - 1) ? ";" : ",");
-                        this.WriteNewLine(tmp);
+                        Write(tmp, d.VariableName.IsNotEmpty() ? d.VariableName : d.DependencyName);
+                        Write(tmp, i == (disabledDependecies.Count - 1) ? ";" : ",");
+                        WriteNewLine(tmp);
                     }
 
-                    this.WriteNewLine(tmp);
+                    WriteNewLine(tmp);
                 }
 
                 var type = loader.Type;
@@ -304,13 +304,13 @@ namespace H5.Translator
 
                 if (amd.Count > 0)
                 {
-                    this.WriteIndent(tmp, level);
+                    WriteIndent(tmp, level);
                     tmp.Append(loader.FunctionName ?? "require");
                     tmp.Append("([");
 
                     amd.Each(md =>
                     {
-                        tmp.Append(this.ToJavaScript(md.DependencyName));
+                        tmp.Append(ToJavaScript(md.DependencyName));
                         tmp.Append(", ");
                     });
                     tmp.Remove(tmp.Length - 2, 2); // remove trailing comma
@@ -323,12 +323,12 @@ namespace H5.Translator
                     });
                     tmp.Remove(tmp.Length - 2, 2); // remove trailing comma
 
-                    this.WriteNewLine(tmp, ") {");
+                    WriteNewLine(tmp, ") {");
 
-                    this.WriteIndent(endOutput, level);
-                    this.WriteNewLine(endOutput, JS.Types.H5.INIT + "();");
-                    this.WriteIndent(endOutput, level);
-                    this.WriteNewLine(endOutput, "});");
+                    WriteIndent(endOutput, level);
+                    WriteNewLine(endOutput, JS.Types.H5.INIT + "();");
+                    WriteIndent(endOutput, level);
+                    WriteNewLine(endOutput, "});");
                     level++;
                 }
 
@@ -336,14 +336,14 @@ namespace H5.Translator
                 {
                     cjs.Each(md =>
                     {
-                        this.WriteIndent(tmp, level);
+                        WriteIndent(tmp, level);
                         tmp.AppendFormat("var {0} = require(\"{1}\");", md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName, md.DependencyName);
-                        this.WriteNewLine(tmp);
+                        WriteNewLine(tmp);
                     });
 
                     if (es6.Count == 0)
                     {
-                        this.WriteNewLine(tmp);
+                        WriteNewLine(tmp);
                     }
                 }
 
@@ -351,11 +351,11 @@ namespace H5.Translator
                 {
                     es6.Each(md =>
                     {
-                        this.WriteIndent(tmp, level);
-                        this.WriteNewLine(tmp, "import " + (md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName) + " from " + this.ToJavaScript(md.DependencyName) + ";");
+                        WriteIndent(tmp, level);
+                        WriteNewLine(tmp, "import " + (md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName) + " from " + ToJavaScript(md.DependencyName) + ";");
                     });
 
-                    this.WriteNewLine(tmp);
+                    WriteNewLine(tmp);
                 }
             }
 
@@ -373,7 +373,7 @@ namespace H5.Translator
 
         private string GetIncludedResources()
         {
-            var resources = this.Translator.AssemblyDefinition.MainModule.Resources.Where(r => r.ResourceType == ResourceType.Embedded && r.IsPublic && !r.Name.EndsWith(".dll")).Cast<EmbeddedResource>().ToArray();
+            var resources = Translator.AssemblyDefinition.MainModule.Resources.Where(r => r.ResourceType == ResourceType.Embedded && r.IsPublic && !r.Name.EndsWith(".dll")).Cast<EmbeddedResource>().ToArray();
             JObject obj = new JObject();
 
             foreach (var embeddedResource in resources)
@@ -396,7 +396,7 @@ namespace H5.Translator
 
         protected string GetOutputHeader()
         {
-            if (this.Translator.NoStrictMode)
+            if (Translator.NoStrictMode)
             {
                 return string.Empty;
             }

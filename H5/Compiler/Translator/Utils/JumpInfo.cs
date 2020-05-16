@@ -7,9 +7,9 @@ namespace H5.Translator
     {
         public JumpInfo(StringBuilder output, int position, bool @break)
         {
-            this.Output = output;
-            this.Position = position;
-            this.Break = @break;
+            Output = output;
+            Position = position;
+            Break = @break;
         }
 
         public StringBuilder Output { get; set; }

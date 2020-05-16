@@ -19,108 +19,108 @@ namespace H5.Translator
         public AttributeCreateBlock(IEmitter emitter, IAttribute attribute)
             : base(emitter, null)
         {
-            this.Emitter = emitter;
-            this.Attribute = attribute;
+            Emitter = emitter;
+            Attribute = attribute;
         }
 
         public IAttribute Attribute { get; set; }
 
         protected override void DoEmit()
         {
-            IAttribute attribute = this.Attribute;
+            IAttribute attribute = Attribute;
 
-            var type = this.Emitter.GetTypeDefinition(attribute.AttributeType);
+            var type = Emitter.GetTypeDefinition(attribute.AttributeType);
 
-            var argsInfo = new ArgumentsInfo(this.Emitter, attribute);
+            var argsInfo = new ArgumentsInfo(Emitter, attribute);
 
-            string inlineCode = this.Emitter.GetInline(attribute.Constructor);
+            string inlineCode = Emitter.GetInline(attribute.Constructor);
 
-            var customCtor = this.Emitter.Validator.GetCustomConstructor(type) ?? "";
+            var customCtor = Emitter.Validator.GetCustomConstructor(type) ?? "";
             var hasInitializer = attribute.NamedArguments.Count > 0;
 
             if (inlineCode == null && Regex.Match(customCtor, @"\s*\{\s*\}\s*").Success)
             {
-                this.WriteOpenBrace();
-                this.WriteSpace();
+                WriteOpenBrace();
+                WriteSpace();
 
                 if (hasInitializer)
                 {
-                    this.WriteObjectInitializer(attribute.NamedArguments, type, attribute);
-                    this.WriteSpace();
+                    WriteObjectInitializer(attribute.NamedArguments, type, attribute);
+                    WriteSpace();
                 }
-                else if (this.Emitter.Validator.IsObjectLiteral(type))
+                else if (Emitter.Validator.IsObjectLiteral(type))
                 {
-                    this.WriteObjectInitializer(null, type, attribute);
-                    this.WriteSpace();
+                    WriteObjectInitializer(null, type, attribute);
+                    WriteSpace();
                 }
 
-                this.WriteCloseBrace();
+                WriteCloseBrace();
             }
             else
             {
                 if (hasInitializer)
                 {
-                    this.Write(JS.Types.H5.APPLY);
-                    this.WriteOpenParentheses();
+                    Write(JS.Types.H5.APPLY);
+                    WriteOpenParentheses();
                 }
 
                 if (inlineCode != null)
                 {
-                    new InlineArgumentsBlock(this.Emitter, argsInfo, inlineCode, attribute.Constructor).Emit();
+                    new InlineArgumentsBlock(Emitter, argsInfo, inlineCode, attribute.Constructor).Emit();
                 }
                 else
                 {
                     if (String.IsNullOrEmpty(customCtor))
                     {
-                        this.WriteNew();
-                        this.Write(H5Types.ToJsName(attribute.AttributeType, this.Emitter));
+                        WriteNew();
+                        Write(H5Types.ToJsName(attribute.AttributeType, Emitter));
                     }
                     else
                     {
-                        this.Write(customCtor);
+                        Write(customCtor);
                     }
 
-                    if (!this.Emitter.Validator.IsExternalType(type) && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType ? 0 : 1))
+                    if (!Emitter.Validator.IsExternalType(type) && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType ? 0 : 1))
                     {
-                        this.WriteDot();
-                        var name = OverloadsCollection.Create(this.Emitter, attribute.Constructor).GetOverloadName();
-                        this.Write(name);
+                        WriteDot();
+                        var name = OverloadsCollection.Create(Emitter, attribute.Constructor).GetOverloadName();
+                        Write(name);
                     }
 
-                    this.WriteOpenParentheses();
+                    WriteOpenParentheses();
 
-                    this.WritePositionalList(attribute.PositionalArguments, attribute);
-                    this.WriteCloseParentheses();
+                    WritePositionalList(attribute.PositionalArguments, attribute);
+                    WriteCloseParentheses();
                 }
 
                 if (hasInitializer)
                 {
-                    this.WriteComma();
+                    WriteComma();
 
-                    this.BeginBlock();
+                    BeginBlock();
 
-                    var inlineInit = this.WriteObjectInitializer(attribute.NamedArguments, type, attribute);
+                    var inlineInit = WriteObjectInitializer(attribute.NamedArguments, type, attribute);
 
-                    this.WriteNewLine();
+                    WriteNewLine();
 
-                    this.EndBlock();
+                    EndBlock();
 
                     if (inlineInit.Count > 0)
                     {
-                        this.Write(", function () ");
-                        this.BeginBlock();
+                        Write(", function () ");
+                        BeginBlock();
 
                         foreach (var init in inlineInit)
                         {
-                            this.Write(init);
-                            this.WriteNewLine();
+                            Write(init);
+                            WriteNewLine();
                         }
 
-                        this.EndBlock();
+                        EndBlock();
                     }
 
-                    this.WriteSpace();
-                    this.WriteCloseParentheses();
+                    WriteSpace();
+                    WriteCloseParentheses();
                 }
             }
         }
@@ -128,14 +128,14 @@ namespace H5.Translator
         protected virtual void WritePositionalList(IList<ResolveResult> expressions, IAttribute attr)
         {
             bool needComma = false;
-            int count = this.Emitter.Writers.Count;
+            int count = Emitter.Writers.Count;
             bool expanded = false;
             int paramsIndex = -1;
 
             if (attr.Constructor.Parameters.Any(p => p.IsParams))
             {
                 paramsIndex = attr.Constructor.Parameters.IndexOf(attr.Constructor.Parameters.FirstOrDefault(p => p.IsParams));
-                var or = new OverloadResolution(this.Emitter.Resolver.Compilation, expressions.ToArray());
+                var or = new OverloadResolution(Emitter.Resolver.Compilation, expressions.ToArray());
                 or.AddCandidate(attr.Constructor);
                 expanded = or.BestCandidateIsExpandedForm;
             }
@@ -146,28 +146,28 @@ namespace H5.Translator
 
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
 
                 if (expanded && paramsIndex == i)
                 {
-                    this.WriteOpenBracket();
+                    WriteOpenBracket();
                 }
 
                 AttributeCreateBlock.WriteResolveResult(expr, this);
 
-                if (this.Emitter.Writers.Count != count)
+                if (Emitter.Writers.Count != count)
                 {
-                    this.PopWriter();
-                    count = this.Emitter.Writers.Count;
+                    PopWriter();
+                    count = Emitter.Writers.Count;
                 }
             }
 
             if (expanded)
             {
-                this.WriteCloseBracket();
+                WriteCloseBracket();
             }
         }
 
@@ -347,7 +347,7 @@ namespace H5.Translator
                 foreach (KeyValuePair<IMember, ResolveResult> item in expressions)
                 {
                     var member = item.Key;
-                    var name = this.Emitter.GetEntityName(member);
+                    var name = Emitter.GetEntityName(member);
 
                     var inlineCode = AttributeCreateBlock.GetInlineInit(item, this);
 
@@ -359,21 +359,21 @@ namespace H5.Translator
                     {
                         if (member is IProperty)
                         {
-                            name = Helpers.GetPropertyRef(member, this.Emitter, true);
+                            name = Helpers.GetPropertyRef(member, Emitter, true);
                         }
                         else if (member is IEvent)
                         {
-                            name = Helpers.GetEventRef(member, this.Emitter, false);
+                            name = Helpers.GetEventRef(member, Emitter, false);
                         }
 
                         if (needComma)
                         {
-                            this.WriteComma();
+                            WriteComma();
                         }
 
                         needComma = true;
 
-                        this.Write(name, ": ");
+                        Write(name, ": ");
 
                         AttributeCreateBlock.WriteResolveResult(item.Value, this);
 
@@ -382,10 +382,10 @@ namespace H5.Translator
                 }
             }
 
-            if (this.Emitter.Validator.IsObjectLiteral(type))
+            if (Emitter.Validator.IsObjectLiteral(type))
             {
                 var key = H5Types.GetTypeDefinitionKey(type);
-                var tinfo = this.Emitter.Types.FirstOrDefault(t => t.Key == key);
+                var tinfo = Emitter.Types.FirstOrDefault(t => t.Key == key);
 
                 if (tinfo == null)
                 {
@@ -397,7 +397,7 @@ namespace H5.Translator
                 {
                     if (tinfo.Type is ITypeDefinition itype)
                     {
-                        var oattr = this.Emitter.Validator.GetAttribute(itype.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
+                        var oattr = Emitter.Validator.GetAttribute(itype.Attributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
                         if (oattr.PositionalArguments.Count > 0)
                         {
                             var value = oattr.PositionalArguments.First().ConstantValue;
@@ -423,7 +423,7 @@ namespace H5.Translator
                                 continue;
                             }
 
-                            var name = member.GetName(this.Emitter);
+                            var name = member.GetName(Emitter);
 
                             if (names.Contains(name))
                             {
@@ -432,21 +432,21 @@ namespace H5.Translator
 
                             if (needComma)
                             {
-                                this.WriteComma();
+                                WriteComma();
                             }
 
                             needComma = true;
 
-                            this.Write(name, ": ");
+                            Write(name, ": ");
 
 
                             if (member.Initializer is PrimitiveExpression primitiveExpr && primitiveExpr.Value is AstType)
                             {
-                                this.Write(Inspector.GetStructDefaultValue((AstType)primitiveExpr.Value, this.Emitter));
+                                Write(Inspector.GetStructDefaultValue((AstType)primitiveExpr.Value, Emitter));
                             }
                             else
                             {
-                                member.Initializer.AcceptVisitor(this.Emitter);
+                                member.Initializer.AcceptVisitor(Emitter);
                             }
                         }
                     }

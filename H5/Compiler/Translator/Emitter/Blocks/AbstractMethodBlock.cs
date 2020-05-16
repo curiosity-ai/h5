@@ -17,44 +17,44 @@ namespace H5.Translator
 
         protected virtual void EmitMethodParameters(IEnumerable<ParameterDeclaration> declarations, IEnumerable<TypeParameterDeclaration> typeParamsdeclarations, AstNode context, bool skipCloseParentheses = false)
         {
-            this.WriteOpenParentheses();
+            WriteOpenParentheses();
             bool needComma = false;
 
             if (typeParamsdeclarations != null && typeParamsdeclarations.Any())
             {
-                this.EmitTypeParameters(typeParamsdeclarations, context);
+                EmitTypeParameters(typeParamsdeclarations, context);
 
                 if (declarations.Any())
                 {
-                    this.EnsureComma(false);
+                    EnsureComma(false);
                 }
             }
 
             foreach (var p in declarations)
             {
-                var name = this.Emitter.GetParameterName(p);
+                var name = Emitter.GetParameterName(p);
 
                 name = name.Replace(JS.Vars.FIX_ARGUMENT_NAME, "");
 
-                if (this.Emitter.LocalsNamesMap != null && this.Emitter.LocalsNamesMap.ContainsKey(name))
+                if (Emitter.LocalsNamesMap != null && Emitter.LocalsNamesMap.ContainsKey(name))
                 {
-                    name = this.Emitter.LocalsNamesMap[name];
+                    name = Emitter.LocalsNamesMap[name];
                 }
 
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
-                this.WriteSourceMapName(p.Name);
-                this.WriteSequencePoint(p.Region);
-                this.Write(name);
+                WriteSourceMapName(p.Name);
+                WriteSequencePoint(p.Region);
+                Write(name);
             }
 
             if (!skipCloseParentheses)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
         }
 
@@ -64,18 +64,18 @@ namespace H5.Translator
 
             foreach (var p in declarations)
             {
-                this.Emitter.Validator.CheckIdentifier(p.Name, context);
+                Emitter.Validator.CheckIdentifier(p.Name, context);
 
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
-                this.WriteSourceMapName(p.Name);
-                this.WriteSequencePoint(p.Region);
-                this.Write(p.Name.Replace(JS.Vars.FIX_ARGUMENT_NAME, ""));
-                this.Emitter.Comma = true;
+                WriteSourceMapName(p.Name);
+                WriteSequencePoint(p.Region);
+                Write(p.Name.Replace(JS.Vars.FIX_ARGUMENT_NAME, ""));
+                Emitter.Comma = true;
             }
         }
     }

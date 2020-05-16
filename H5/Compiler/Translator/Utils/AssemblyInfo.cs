@@ -10,21 +10,21 @@ namespace H5.Translator
 
         public AssemblyInfo()
         {
-            this.Dependencies = new List<IPluginDependency>();
-            this.DefineConstants = new List<string>();
-            this.Logging = new LoggingOptions();
-            this.Reflection = new ReflectionConfig();
-            this.ReflectionInternal = new ReflectionConfig();
-            this.Assembly = new AssemblyConfig();
-            this.Resources = new ResourceConfig();
-            this.Loader = new ModuleLoader();
-            this.Output = DEFAULT_OUTPUT;
-            this.SourceMap = new SourceMapConfig();
-            this.Html = new HtmlConfig();
-            this.Console = new ConsoleConfig();
-            this.Report = new ReportConfig();
-            this.Rules = new CompilerRule();
-            this.IgnoreDuplicateTypes = false;
+            Dependencies = new List<IPluginDependency>();
+            DefineConstants = new List<string>();
+            Logging = new LoggingOptions();
+            Reflection = new ReflectionConfig();
+            ReflectionInternal = new ReflectionConfig();
+            Assembly = new AssemblyConfig();
+            Resources = new ResourceConfig();
+            Loader = new ModuleLoader();
+            Output = DEFAULT_OUTPUT;
+            SourceMap = new SourceMapConfig();
+            Html = new HtmlConfig();
+            Console = new ConsoleConfig();
+            Report = new ReportConfig();
+            Rules = new CompilerRule();
+            IgnoreDuplicateTypes = false;
         }
 
         /// <summary>
@@ -56,16 +56,16 @@ namespace H5.Translator
         {
             get
             {
-                if (this.CombineScripts || !string.IsNullOrEmpty(this.FileName))
+                if (CombineScripts || !string.IsNullOrEmpty(FileName))
                 {
                     return OutputBy.Project;
                 }
 
-                return this.outputBy;
+                return outputBy;
             }
             set
             {
-                this.outputBy = value;
+                outputBy = value;
             }
         }
 
@@ -79,11 +79,11 @@ namespace H5.Translator
         {
             get
             {
-                return this.jsFileCasing;
+                return jsFileCasing;
             }
             set
             {
-                this.jsFileCasing = value;
+                jsFileCasing = value;
             }
         }
 
@@ -97,11 +97,11 @@ namespace H5.Translator
         {
             get
             {
-                return this.jsOutType;
+                return jsOutType;
             }
             set
             {
-                this.jsOutType = value;
+                jsOutType = value;
             }
         }
 
@@ -170,11 +170,11 @@ namespace H5.Translator
         {
             get
             {
-                return this.generateDocumentation;
+                return generateDocumentation;
             }
             set
             {
-                this.generateDocumentation = value;
+                generateDocumentation = value;
             }
         }
 

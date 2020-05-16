@@ -15,13 +15,13 @@ namespace H5.Translator
         public FieldBlock(IEmitter emitter, ITypeInfo typeInfo, bool staticBlock, bool fieldsOnly, bool isObjectLiteral = false)
             : base(emitter, typeInfo.TypeDeclaration)
         {
-            this.Emitter = emitter;
-            this.TypeInfo = typeInfo;
-            this.StaticBlock = staticBlock;
-            this.FieldsOnly = fieldsOnly;
-            this.Injectors = new List<string>();
-            this.IsObjectLiteral = isObjectLiteral;
-            this.ClearTempVariables = true;
+            Emitter = emitter;
+            TypeInfo = typeInfo;
+            StaticBlock = staticBlock;
+            FieldsOnly = fieldsOnly;
+            Injectors = new List<string>();
+            IsObjectLiteral = isObjectLiteral;
+            ClearTempVariables = true;
         }
 
         public bool IsObjectLiteral { get; set; }
@@ -45,11 +45,11 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            if (this.Emitter.TempVariables != null && this.ClearTempVariables)
+            if (Emitter.TempVariables != null && ClearTempVariables)
             {
-                this.Emitter.TempVariables = new Dictionary<string, bool>();
+                Emitter.TempVariables = new Dictionary<string, bool>();
             }
-            this.EmitFields(this.StaticBlock ? this.TypeInfo.StaticConfig : this.TypeInfo.InstanceConfig);
+            EmitFields(StaticBlock ? TypeInfo.StaticConfig : TypeInfo.InstanceConfig);
 
             /*if (this.Injectors.Count > 0 && this.Emitter.TempVariables != null && this.Emitter.TempVariables.Count > 0)
             {
@@ -64,68 +64,68 @@ namespace H5.Translator
 
         protected virtual void EmitFields(TypeConfigInfo info)
         {
-            if (this.FieldsOnly || this.IsObjectLiteral)
+            if (FieldsOnly || IsObjectLiteral)
             {
                 if (info.Fields.Count > 0)
                 {
-                    var hasFields = this.WriteObject(JS.Fields.FIELDS, info.Fields.Where(f => f.IsConst).Concat(info.Fields.Where(f => !f.IsConst)).ToList(), "this.{0} = {1};", "this[{0}] = {1};");
+                    var hasFields = WriteObject(JS.Fields.FIELDS, info.Fields.Where(f => f.IsConst).Concat(info.Fields.Where(f => !f.IsConst)).ToList(), "this.{0} = {1};", "this[{0}] = {1};");
                     if (hasFields)
                     {
-                        this.Emitter.Comma = true;
-                        this.WasEmitted = true;
+                        Emitter.Comma = true;
+                        WasEmitted = true;
                     }
                 }
 
-                if (!this.IsObjectLiteral)
+                if (!IsObjectLiteral)
                 {
                     return;
                 }
             }
 
-            if (info.Events.Count > 0 && !this.IsObjectLiteral)
+            if (info.Events.Count > 0 && !IsObjectLiteral)
             {
-                var hasProperties = this.WriteObject(JS.Fields.EVENTS, info.Events, JS.Funcs.H5_EVENT + "(this, \"{0}\", {1});", JS.Funcs.H5_EVENT + "(this, {0}, {1});");
+                var hasProperties = WriteObject(JS.Fields.EVENTS, info.Events, JS.Funcs.H5_EVENT + "(this, \"{0}\", {1});", JS.Funcs.H5_EVENT + "(this, {0}, {1});");
                 if (hasProperties)
                 {
-                    this.Emitter.Comma = true;
-                    this.WasEmitted = true;
+                    Emitter.Comma = true;
+                    WasEmitted = true;
                 }
             }
 
             if (info.Properties.Count > 0)
             {
-                var hasProperties = this.WriteObject(JS.Fields.PROPERTIES, info.Properties, "this.{0} = {1};", "this[{0}] = {1};");
+                var hasProperties = WriteObject(JS.Fields.PROPERTIES, info.Properties, "this.{0} = {1};", "this[{0}] = {1};");
                 if (hasProperties)
                 {
-                    this.Emitter.Comma = true;
-                    this.WasEmitted = true;
+                    Emitter.Comma = true;
+                    WasEmitted = true;
                 }
             }
 
-            if (info.Alias.Count > 0 && !this.IsObjectLiteral)
+            if (info.Alias.Count > 0 && !IsObjectLiteral)
             {
-                this.WriteAlias("alias", info.Alias);
-                this.Emitter.Comma = true;
+                WriteAlias("alias", info.Alias);
+                Emitter.Comma = true;
             }
         }
 
         protected virtual bool WriteObject(string objectName, List<TypeConfigItem> members, string format, string interfaceFormat)
         {
-            bool hasProperties = this.HasProperties(objectName, members);
+            bool hasProperties = HasProperties(objectName, members);
             int pos = 0;
             IWriterInfo writer = null;
             bool beginBlock = false;
 
-            if (hasProperties && objectName != null && !this.IsObjectLiteral)
+            if (hasProperties && objectName != null && !IsObjectLiteral)
             {
                 beginBlock = true;
-                pos = this.Emitter.Output.Length;
-                writer = this.SaveWriter();
-                this.EnsureComma();
-                this.Write(objectName);
+                pos = Emitter.Output.Length;
+                writer = SaveWriter();
+                EnsureComma();
+                Write(objectName);
 
-                this.WriteColon();
-                this.BeginBlock();
+                WriteColon();
+                BeginBlock();
             }
 
             bool isProperty = JS.Fields.PROPERTIES == objectName;
@@ -147,16 +147,16 @@ namespace H5.Translator
                     ResolveResult rr = null;
                     if (member.VarInitializer != null)
                     {
-                        rr = this.Emitter.Resolver.ResolveNode(member.VarInitializer, this.Emitter);
+                        rr = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter);
                     }
                     else
                     {
-                        rr = this.Emitter.Resolver.ResolveNode(member.Entity, this.Emitter);
+                        rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter);
                     }
 
                     if (rr != null && rr.Type.Kind == TypeKind.Enum)
                     {
-                        constValue = Helpers.GetEnumValue(this.Emitter, rr.Type, constValue);
+                        constValue = Helpers.GetEnumValue(Emitter, rr.Type, constValue);
                         writeScript = true;
                     }
                 }
@@ -172,13 +172,13 @@ namespace H5.Translator
 
                 if (!isNull && !isPrimitive)
                 {
-                    var constrr = this.Emitter.Resolver.ResolveNode(member.Initializer, this.Emitter);
+                    var constrr = Emitter.Resolver.ResolveNode(member.Initializer, Emitter);
                     if (constrr != null && constrr.IsCompileTimeConstant)
                     {
                         //isPrimitive = true;
                         constValue = constrr.ConstantValue;
 
-                        var expectedType = this.Emitter.Resolver.Resolver.GetExpectedType(member.Initializer);
+                        var expectedType = Emitter.Resolver.Resolver.GetExpectedType(member.Initializer);
                         if (!expectedType.Equals(constrr.Type) && expectedType.Kind != TypeKind.Dynamic)
                         {
                             try
@@ -187,13 +187,13 @@ namespace H5.Translator
                             }
                             catch (Exception)
                             {
-                                this.Emitter.Log.Warn($"FieldBlock: Convert.ChangeType is failed. Value type: {constrr.Type.FullName}, Target type: {expectedType.FullName}");
+                                Emitter.Log.Warn($"FieldBlock: Convert.ChangeType is failed. Value type: {constrr.Type.FullName}, Target type: {expectedType.FullName}");
                             }
                         }
 
                         if (constrr.Type.Kind == TypeKind.Enum)
                         {
-                            constValue = Helpers.GetEnumValue(this.Emitter, constrr.Type, constrr.ConstantValue);
+                            constValue = Helpers.GetEnumValue(Emitter, constrr.Type, constrr.ConstantValue);
                         }
 
                         writeScript = true;
@@ -204,7 +204,7 @@ namespace H5.Translator
 
                 if (isPrimitive && constValue is AstType)
                 {
-                    var itype = this.Emitter.Resolver.ResolveNode((AstType)constValue, this.Emitter);
+                    var itype = Emitter.Resolver.ResolveNode((AstType)constValue, Emitter);
 
                     if (NullableType.IsNullable(itype.Type))
                     {
@@ -217,8 +217,8 @@ namespace H5.Translator
                 MemberResolveResult init_rr = null;
                 if (isField && member.VarInitializer != null)
                 {
-                    init_rr = this.Emitter.Resolver.ResolveNode(member.VarInitializer, this.Emitter) as MemberResolveResult;
-                    tpl = init_rr != null ? this.Emitter.GetInline(init_rr.Member) : null;
+                    init_rr = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter) as MemberResolveResult;
+                    tpl = init_rr != null ? Emitter.GetInline(init_rr.Member) : null;
 
                     if (tpl != null)
                     {
@@ -230,7 +230,7 @@ namespace H5.Translator
 
                 if (isProperty)
                 {
-                    var member_rr = this.Emitter.Resolver.ResolveNode(member.Entity, this.Emitter) as MemberResolveResult;
+                    var member_rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter) as MemberResolveResult;
                     var property = (IProperty)member_rr.Member;
                     isAutoProperty = Helpers.IsAutoProperty(property);
                 }
@@ -243,28 +243,28 @@ namespace H5.Translator
                     string defValue = "";
                     if (!isPrimitive)
                     {
-                        var oldWriter = this.SaveWriter();
-                        this.NewWriter();
-                        member.Initializer.AcceptVisitor(this.Emitter);
-                        value = this.Emitter.Output.ToString();
-                        this.RestoreWriter(oldWriter);
+                        var oldWriter = SaveWriter();
+                        NewWriter();
+                        member.Initializer.AcceptVisitor(Emitter);
+                        value = Emitter.Output.ToString();
+                        RestoreWriter(oldWriter);
 
                         ResolveResult rr = null;
                         AstType astType = null;
                         if (member.VarInitializer != null)
                         {
-                            rr = this.Emitter.Resolver.ResolveNode(member.VarInitializer, this.Emitter);
+                            rr = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter);
                         }
                         else
                         {
                             astType = member.Entity.ReturnType;
-                            rr = this.Emitter.Resolver.ResolveNode(member.Entity, this.Emitter);
+                            rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter);
                         }
 
                         constValue = Inspector.GetDefaultFieldValue(rr.Type, astType);
                         if (rr.Type.Kind == TypeKind.Enum)
                         {
-                            constValue = Helpers.GetEnumValue(this.Emitter, rr.Type, constValue);
+                            constValue = Helpers.GetEnumValue(Emitter, rr.Type, constValue);
                         }
                         isNullable = NullableType.IsNullable(rr.Type);
                         needContinue = constValue is IType;
@@ -279,13 +279,13 @@ namespace H5.Translator
                     {
                         value = isNullable
                             ? "null"
-                            : Inspector.GetStructDefaultValue((AstType)constValue, this.Emitter);
+                            : Inspector.GetStructDefaultValue((AstType)constValue, Emitter);
                         constValue = value;
                         write = true;
                         needContinue = !isProperty && !isNullable;
                     }
 
-                    var name = member.GetName(this.Emitter);
+                    var name = member.GetName(Emitter);
 
                     bool isValidIdentifier = Helpers.IsValidIdentifier(name);
 
@@ -293,39 +293,39 @@ namespace H5.Translator
                     {
                         constValue = "null";
 
-                        if (this.IsObjectLiteral)
+                        if (IsObjectLiteral)
                         {
                             written = true;
                             if (isValidIdentifier)
                             {
-                                this.Write(string.Format("this.{0} = {1};", name, value));
+                                Write(string.Format("this.{0} = {1};", name, value));
                             }
                             else
                             {
-                                this.Write(string.Format("this[{0}] = {1};", AbstractEmitterBlock.ToJavaScript(name, this.Emitter), value));
+                                Write(string.Format("this[{0}] = {1};", AbstractEmitterBlock.ToJavaScript(name, Emitter), value));
                             }
 
-                            this.WriteNewLine();
+                            WriteNewLine();
                         }
                         else
                         {
-                            this.Injectors.Add(string.Format(name.StartsWith("\"") || !isValidIdentifier ? "this[{0}] = {1};" : "this.{0} = {1};", isValidIdentifier ? name : AbstractEmitterBlock.ToJavaScript(name, this.Emitter), value));
+                            Injectors.Add(string.Format(name.StartsWith("\"") || !isValidIdentifier ? "this[{0}] = {1};" : "this.{0} = {1};", isValidIdentifier ? name : AbstractEmitterBlock.ToJavaScript(name, Emitter), value));
                         }
                     }
                     else
                     {
-                        if (this.IsObjectLiteral)
+                        if (IsObjectLiteral)
                         {
                             written = true;
                             if (isValidIdentifier)
                             {
-                                this.Write(string.Format("this.{0} = {1};", name, value + defValue));
+                                Write(string.Format("this.{0} = {1};", name, value + defValue));
                             }
                             else
                             {
-                                this.Write(string.Format("this[{0}] = {1};", AbstractEmitterBlock.ToJavaScript(name, this.Emitter), value + defValue));
+                                Write(string.Format("this[{0}] = {1};", AbstractEmitterBlock.ToJavaScript(name, Emitter), value + defValue));
                             }
-                            this.WriteNewLine();
+                            WriteNewLine();
                         }
                         else if (tpl != null)
                         {
@@ -347,30 +347,30 @@ namespace H5.Translator
                                 }
                                 else if (writeScript)
                                 {
-                                    v = AbstractEmitterBlock.ToJavaScript(constValue, this.Emitter);
+                                    v = AbstractEmitterBlock.ToJavaScript(constValue, Emitter);
                                 }
                                 else
                                 {
-                                    var oldWriter = this.SaveWriter();
-                                    this.NewWriter();
-                                    member.Initializer.AcceptVisitor(this.Emitter);
-                                    v = this.Emitter.Output.ToString();
-                                    this.RestoreWriter(oldWriter);
+                                    var oldWriter = SaveWriter();
+                                    NewWriter();
+                                    member.Initializer.AcceptVisitor(Emitter);
+                                    v = Emitter.Output.ToString();
+                                    RestoreWriter(oldWriter);
                                 }
                             }
 
-                            tpl = Helpers.ConvertTokens(this.Emitter, tpl, templateMember);
+                            tpl = Helpers.ConvertTokens(Emitter, tpl, templateMember);
                             tpl = tpl.Replace("{this}", "this").Replace("{0}", v);
 
                             if (!tpl.EndsWith(";"))
                             {
                                 tpl += ";";
                             }
-                            this.Injectors.Add(tpl);
+                            Injectors.Add(tpl);
                         }
                         else
                         {
-                            bool isDefaultInstance = this.Emitter.Resolver.ResolveNode(member.Initializer, this.Emitter) is CSharpInvocationResolveResult rr &&
+                            bool isDefaultInstance = Emitter.Resolver.ResolveNode(member.Initializer, Emitter) is CSharpInvocationResolveResult rr &&
                                                      rr.Member.SymbolKind == SymbolKind.Constructor &&
                                                      rr.Arguments.Count == 0 &&
                                                      rr.InitializerStatements.Count == 0 &&
@@ -380,11 +380,11 @@ namespace H5.Translator
                             {
                                 if (isField && !isValidIdentifier)
                                 {
-                                    this.Injectors.Add(string.Format("this[{0}] = {1};", name.StartsWith("\"") ? name : AbstractEmitterBlock.ToJavaScript(name, this.Emitter), value + defValue));
+                                    Injectors.Add(string.Format("this[{0}] = {1};", name.StartsWith("\"") ? name : AbstractEmitterBlock.ToJavaScript(name, Emitter), value + defValue));
                                 }
                                 else
                                 {
-                                    this.Injectors.Add(string.Format(name.StartsWith("\"") ? interfaceFormat : format, name, value + defValue));
+                                    Injectors.Add(string.Format(name.StartsWith("\"") ? interfaceFormat : format, name, value + defValue));
                                 }
                             }
                         }
@@ -401,122 +401,122 @@ namespace H5.Translator
                 MemberResolveResult m_rr = null;
                 if (member.Entity != null)
                 {
-                    m_rr = this.Emitter.Resolver.ResolveNode(member.Entity, this.Emitter) as MemberResolveResult;
+                    m_rr = Emitter.Resolver.ResolveNode(member.Entity, Emitter) as MemberResolveResult;
                     if (m_rr != null)
                     {
                         withoutTypeParams = OverloadsCollection.ExcludeTypeParameterForDefinition(m_rr);
                     }
                 }
 
-                var mname = member.GetName(this.Emitter, withoutTypeParams);
+                var mname = member.GetName(Emitter, withoutTypeParams);
 
-                if (this.TypeInfo.IsEnum && m_rr != null)
+                if (TypeInfo.IsEnum && m_rr != null)
                 {
-                    mname = this.Emitter.GetEntityName(m_rr.Member);
+                    mname = Emitter.GetEntityName(m_rr.Member);
                 }
 
                 bool isValid = Helpers.IsValidIdentifier(mname);
                 if (!isValid)
                 {
-                    if (this.IsObjectLiteral)
+                    if (IsObjectLiteral)
                     {
-                        mname = "[" + AbstractEmitterBlock.ToJavaScript(mname, this.Emitter) + "]";
+                        mname = "[" + AbstractEmitterBlock.ToJavaScript(mname, Emitter) + "]";
                     }
                     else
                     {
-                        mname = AbstractEmitterBlock.ToJavaScript(mname, this.Emitter);
+                        mname = AbstractEmitterBlock.ToJavaScript(mname, Emitter);
                     }
                 }
 
-                if (this.IsObjectLiteral)
+                if (IsObjectLiteral)
                 {
-                    this.WriteThis();
+                    WriteThis();
                     if (isValid)
                     {
-                        this.WriteDot();
+                        WriteDot();
                     }
-                    this.Write(mname);
-                    this.Write(" = ");
+                    Write(mname);
+                    Write(" = ");
                 }
                 else
                 {
-                    this.EnsureComma();
+                    EnsureComma();
                     XmlToJsDoc.EmitComment(this, member.Entity, null, member.Entity is FieldDeclaration ? member.VarInitializer : null);
-                    this.Write(mname);
-                    this.WriteColon();
+                    Write(mname);
+                    WriteColon();
                 }
 
                 bool close = false;
                 if (isProperty && !IsObjectLiteral && !isAutoProperty)
                 {
-                    var oldTempVars = this.Emitter.TempVariables;
-                    this.BeginBlock();
-                    new VisitorPropertyBlock(this.Emitter, (PropertyDeclaration)member.Entity).Emit();
-                    this.WriteNewLine();
-                    this.EndBlock();
-                    this.Emitter.Comma = true;
-                    this.Emitter.TempVariables = oldTempVars;
+                    var oldTempVars = Emitter.TempVariables;
+                    BeginBlock();
+                    new VisitorPropertyBlock(Emitter, (PropertyDeclaration)member.Entity).Emit();
+                    WriteNewLine();
+                    EndBlock();
+                    Emitter.Comma = true;
+                    Emitter.TempVariables = oldTempVars;
                     continue;
                 }
 
                 if (constValue is AstType || constValue is IType)
                 {
-                    this.Write("null");
+                    Write("null");
 
                     if (!isNullable)
                     {
-                        var name = member.GetName(this.Emitter);
+                        var name = member.GetName(Emitter);
                         bool isValidIdentifier = Helpers.IsValidIdentifier(name);
-                        var value = constValue is AstType ? Inspector.GetStructDefaultValue((AstType)constValue, this.Emitter) : Inspector.GetStructDefaultValue((IType)constValue, this.Emitter);
+                        var value = constValue is AstType ? Inspector.GetStructDefaultValue((AstType)constValue, Emitter) : Inspector.GetStructDefaultValue((IType)constValue, Emitter);
 
                         if (!isValidIdentifier)
                         {
-                            this.Injectors.Insert(BeginCounter++, string.Format("this[{0}] = {1};", name.StartsWith("\"") ? name : AbstractEmitterBlock.ToJavaScript(name, this.Emitter), value));
+                            Injectors.Insert(BeginCounter++, string.Format("this[{0}] = {1};", name.StartsWith("\"") ? name : AbstractEmitterBlock.ToJavaScript(name, Emitter), value));
                         }
                         else
                         {
-                            this.Injectors.Insert(BeginCounter++, string.Format(name.StartsWith("\"") ? interfaceFormat : format, name, value));
+                            Injectors.Insert(BeginCounter++, string.Format(name.StartsWith("\"") ? interfaceFormat : format, name, value));
                         }
                     }
                 }
                 else if (write)
                 {
-                    this.Write(constValue);
+                    Write(constValue);
                 }
                 else if (writeScript)
                 {
-                    this.WriteScript(constValue);
+                    WriteScript(constValue);
                 }
                 else
                 {
-                    member.Initializer.AcceptVisitor(this.Emitter);
+                    member.Initializer.AcceptVisitor(Emitter);
                 }
 
                 if (close)
                 {
-                    this.Write(" }");
+                    Write(" }");
                 }
 
-                if (this.IsObjectLiteral)
+                if (IsObjectLiteral)
                 {
-                    this.WriteSemiColon(true);
+                    WriteSemiColon(true);
                 }
 
-                this.Emitter.Comma = true;
+                Emitter.Comma = true;
             }
 
             if (count > 0 && objectName != null && !IsObjectLiteral)
             {
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
             else if (beginBlock)
             {
-                this.Emitter.IsNewLine = writer.IsNewLine;
-                this.Emitter.ResetLevel(writer.Level);
-                this.Emitter.Comma = writer.Comma;
+                Emitter.IsNewLine = writer.IsNewLine;
+                Emitter.ResetLevel(writer.Level);
+                Emitter.Comma = writer.Comma;
 
-                this.Emitter.Output.Length = pos;
+                Emitter.Output.Length = pos;
             }
 
             return count > 0;
@@ -538,7 +538,7 @@ namespace H5.Translator
 
                 if (!isNull && !isPrimitive)
                 {
-                    if (this.Emitter.Resolver.ResolveNode(member.Initializer, this.Emitter) is ConstantResolveResult constrr)
+                    if (Emitter.Resolver.ResolveNode(member.Initializer, Emitter) is ConstantResolveResult constrr)
                     {
                         isPrimitive = true;
                         constValue = constrr.ConstantValue;
@@ -566,25 +566,25 @@ namespace H5.Translator
 
         protected virtual void WriteAlias(string objectName, List<TypeConfigItem> members)
         {
-            int pos = this.Emitter.Output.Length;
-            bool oldComma = this.Emitter.Comma;
-            bool oldNewLine = this.Emitter.IsNewLine;
+            int pos = Emitter.Output.Length;
+            bool oldComma = Emitter.Comma;
+            bool oldNewLine = Emitter.IsNewLine;
             bool nonEmpty = false;
             var changedIndenting = false;
             bool newLine = members.Count > 1;
 
             if (objectName != null)
             {
-                this.EnsureComma();
-                this.Write(objectName);
+                EnsureComma();
+                Write(objectName);
 
-                this.WriteColon();
-                this.WriteOpenBracket();
+                WriteColon();
+                WriteOpenBracket();
 
                 if (newLine)
                 {
-                    this.WriteNewLine();
-                    this.Indent();
+                    WriteNewLine();
+                    Indent();
                     changedIndenting = true;
                 }
             }
@@ -593,7 +593,7 @@ namespace H5.Translator
             {
                 if (member.DerivedMember != null)
                 {
-                    if (this.EmitMemberAlias(member.DerivedMember, member.InterfaceMember))
+                    if (EmitMemberAlias(member.DerivedMember, member.InterfaceMember))
                     {
                         nonEmpty = true;
                     }
@@ -612,7 +612,7 @@ namespace H5.Translator
                 {
                     foreach (var interfaceMember in rr.Member.ImplementedInterfaceMembers)
                     {
-                        if (this.EmitMemberAlias(rr.Member, interfaceMember))
+                        if (EmitMemberAlias(rr.Member, interfaceMember))
                         {
                             nonEmpty = true;
                         }
@@ -622,20 +622,20 @@ namespace H5.Translator
 
             if (newLine)
             {
-                this.WriteNewLine();
+                WriteNewLine();
                 if (changedIndenting)
                 {
-                    this.Outdent();
+                    Outdent();
                 }
             }
 
-            this.WriteCloseBracket();
+            WriteCloseBracket();
 
             if (!nonEmpty)
             {
-                this.Emitter.Output.Length = pos;
-                this.Emitter.Comma = oldComma;
-                this.Emitter.IsNewLine = oldNewLine;
+                Emitter.Output.Length = pos;
+                Emitter.Comma = oldComma;
+                Emitter.IsNewLine = oldNewLine;
             }
         }
 
@@ -657,7 +657,7 @@ namespace H5.Translator
             var pair = false;
             var itypeDef = interfaceMember.DeclaringTypeDefinition;
             if (!member.IsExplicitInterfaceImplementation &&
-                MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
+                MetadataUtils.IsJsGeneric(itypeDef, Emitter) &&
                 itypeDef.TypeParameters != null &&
                 itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant))
             {
@@ -670,65 +670,65 @@ namespace H5.Translator
                 if (property.CanGet)
                 {
                     nonEmpty = true;
-                    this.EnsureComma();
-                    this.WriteScript(Helpers.GetPropertyRef(member, this.Emitter, false, false, false, excludeTypeParam));
-                    this.WriteComma();
-                    var alias = Helpers.GetPropertyRef(interfaceMember, this.Emitter, false, false, false, withoutTypeParams: excludeAliasTypeParam);
+                    EnsureComma();
+                    WriteScript(Helpers.GetPropertyRef(member, Emitter, false, false, false, excludeTypeParam));
+                    WriteComma();
+                    var alias = Helpers.GetPropertyRef(interfaceMember, Emitter, false, false, false, withoutTypeParams: excludeAliasTypeParam);
 
                     if (pair)
                     {
-                        this.WriteOpenBracket();
+                        WriteOpenBracket();
                     }
 
                     if (alias.StartsWith("\""))
                     {
-                        this.Write(alias);
+                        Write(alias);
                     }
                     else
                     {
-                        this.WriteScript(alias);
+                        WriteScript(alias);
                     }
 
                     if (pair)
                     {
-                        this.WriteComma();
-                        this.WriteScript(Helpers.GetPropertyRef(interfaceMember, this.Emitter, withoutTypeParams: true));
-                        this.WriteCloseBracket();
+                        WriteComma();
+                        WriteScript(Helpers.GetPropertyRef(interfaceMember, Emitter, withoutTypeParams: true));
+                        WriteCloseBracket();
                     }
 
-                    this.Emitter.Comma = true;
+                    Emitter.Comma = true;
                 }
 
                 if (property.CanSet)
                 {
                     nonEmpty = true;
-                    this.EnsureComma();
-                    this.WriteScript(Helpers.GetPropertyRef(member, this.Emitter, true, false, false, excludeTypeParam));
-                    this.WriteComma();
-                    var alias = Helpers.GetPropertyRef(interfaceMember, this.Emitter, true, false, false, withoutTypeParams: excludeAliasTypeParam);
+                    EnsureComma();
+                    WriteScript(Helpers.GetPropertyRef(member, Emitter, true, false, false, excludeTypeParam));
+                    WriteComma();
+                    var alias = Helpers.GetPropertyRef(interfaceMember, Emitter, true, false, false, withoutTypeParams: excludeAliasTypeParam);
 
                     if (pair)
                     {
-                        this.WriteOpenBracket();
+                        WriteOpenBracket();
                     }
 
                     if (alias.StartsWith("\""))
                     {
-                        this.Write(alias);
+                        Write(alias);
                     }
                     else
                     {
-                        this.WriteScript(alias);
+                        WriteScript(alias);
                     }
 
                     if (pair)
                     {
-                        this.WriteComma();
-                        this.WriteScript(Helpers.GetPropertyRef(interfaceMember, this.Emitter, true, withoutTypeParams: true));
-                        this.WriteCloseBracket();
+                        WriteComma();
+                        WriteScript(Helpers.GetPropertyRef(interfaceMember, Emitter, true, withoutTypeParams: true));
+                        WriteCloseBracket();
                     }
 
-                    this.Emitter.Comma = true;
+                    Emitter.Comma = true;
                 }
             }
             else if (member is IEvent ev)
@@ -736,98 +736,98 @@ namespace H5.Translator
                 if (ev.CanAdd)
                 {
                     nonEmpty = true;
-                    this.EnsureComma();
-                    this.WriteScript(Helpers.GetEventRef(member, this.Emitter, false, false, false, excludeTypeParam));
-                    this.WriteComma();
-                    var alias = Helpers.GetEventRef(interfaceMember, this.Emitter, false, false, false, excludeAliasTypeParam);
+                    EnsureComma();
+                    WriteScript(Helpers.GetEventRef(member, Emitter, false, false, false, excludeTypeParam));
+                    WriteComma();
+                    var alias = Helpers.GetEventRef(interfaceMember, Emitter, false, false, false, excludeAliasTypeParam);
 
                     if (pair)
                     {
-                        this.WriteOpenBracket();
+                        WriteOpenBracket();
                     }
 
                     if (alias.StartsWith("\""))
                     {
-                        this.Write(alias);
+                        Write(alias);
                     }
                     else
                     {
-                        this.WriteScript(alias);
+                        WriteScript(alias);
                     }
 
                     if (pair)
                     {
-                        this.WriteComma();
-                        this.WriteScript(Helpers.GetEventRef(interfaceMember, this.Emitter, withoutTypeParams: true));
-                        this.WriteCloseBracket();
+                        WriteComma();
+                        WriteScript(Helpers.GetEventRef(interfaceMember, Emitter, withoutTypeParams: true));
+                        WriteCloseBracket();
                     }
 
-                    this.Emitter.Comma = true;
+                    Emitter.Comma = true;
                 }
 
                 if (ev.CanRemove)
                 {
                     nonEmpty = true;
-                    this.EnsureComma();
-                    this.WriteScript(Helpers.GetEventRef(member, this.Emitter, true, false, false, excludeTypeParam));
-                    this.WriteComma();
-                    var alias = Helpers.GetEventRef(interfaceMember, this.Emitter, true, false, false, excludeAliasTypeParam);
+                    EnsureComma();
+                    WriteScript(Helpers.GetEventRef(member, Emitter, true, false, false, excludeTypeParam));
+                    WriteComma();
+                    var alias = Helpers.GetEventRef(interfaceMember, Emitter, true, false, false, excludeAliasTypeParam);
 
                     if (pair)
                     {
-                        this.WriteOpenBracket();
+                        WriteOpenBracket();
                     }
 
                     if (alias.StartsWith("\""))
                     {
-                        this.Write(alias);
+                        Write(alias);
                     }
                     else
                     {
-                        this.WriteScript(alias);
+                        WriteScript(alias);
                     }
 
                     if (pair)
                     {
-                        this.WriteComma();
-                        this.WriteScript(Helpers.GetEventRef(interfaceMember, this.Emitter, true, withoutTypeParams: true));
-                        this.WriteCloseBracket();
+                        WriteComma();
+                        WriteScript(Helpers.GetEventRef(interfaceMember, Emitter, true, withoutTypeParams: true));
+                        WriteCloseBracket();
                     }
 
-                    this.Emitter.Comma = true;
+                    Emitter.Comma = true;
                 }
             }
             else
             {
                 nonEmpty = true;
-                this.EnsureComma();
-                this.WriteScript(OverloadsCollection.Create(Emitter, member).GetOverloadName(false, null, excludeTypeOnly: excludeTypeParam));
-                this.WriteComma();
+                EnsureComma();
+                WriteScript(OverloadsCollection.Create(Emitter, member).GetOverloadName(false, null, excludeTypeOnly: excludeTypeParam));
+                WriteComma();
                 var alias = OverloadsCollection.Create(Emitter, interfaceMember).GetOverloadName(withoutTypeParams: excludeAliasTypeParam);
 
                 if (pair)
                 {
-                    this.WriteOpenBracket();
+                    WriteOpenBracket();
                 }
 
                 if (alias.StartsWith("\""))
                 {
-                    this.Write(alias);
+                    Write(alias);
                 }
                 else
                 {
-                    this.WriteScript(alias);
+                    WriteScript(alias);
                 }
 
                 if (pair)
                 {
-                    this.WriteComma();
-                    this.WriteScript(OverloadsCollection.Create(Emitter, interfaceMember).GetOverloadName(withoutTypeParams: true));
-                    this.WriteCloseBracket();
+                    WriteComma();
+                    WriteScript(OverloadsCollection.Create(Emitter, interfaceMember).GetOverloadName(withoutTypeParams: true));
+                    WriteCloseBracket();
                 }
             }
 
-            this.Emitter.Comma = true;
+            Emitter.Comma = true;
             return nonEmpty;
         }
     }

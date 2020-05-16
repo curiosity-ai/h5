@@ -19,13 +19,13 @@ namespace H5.Translator
         {
             var result = new HashSet<string>();
 
-            foreach (string typeName in this.TypeDefinitions.Keys)
+            foreach (string typeName in TypeDefinitions.Keys)
             {
                 int index = typeName.LastIndexOf('.');
 
                 if (index >= 0)
                 {
-                    this.RegisterNamespace(typeName.Substring(0, index), result);
+                    RegisterNamespace(typeName.Substring(0, index), result);
                 }
             }
 
@@ -99,7 +99,7 @@ namespace H5.Translator
                         return j;
                     }
 
-                    var resolveResult = this.Resolver.ResolveNode(j, this);
+                    var resolveResult = Resolver.ResolveNode(j, this);
                     if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == fullName)
                     {
                         return j;
@@ -138,7 +138,7 @@ namespace H5.Translator
 
         protected virtual bool HasDelegateAttribute(MethodDeclaration method)
         {
-            return this.GetAttribute(method.Attributes, "Delegate") != null;
+            return GetAttribute(method.Attributes, "Delegate") != null;
         }
 
         public virtual Tuple<bool, bool, string> GetInlineCode(MemberReferenceExpression node)
@@ -165,7 +165,7 @@ namespace H5.Translator
         {
             if (member == null)
             {
-                var resolveResult = this.Resolver.ResolveNode(node, this);
+                var resolveResult = Resolver.ResolveNode(node, this);
 
                 if (!(resolveResult is MemberResolveResult memberResolveResult))
                 {
@@ -175,8 +175,8 @@ namespace H5.Translator
                 member = memberResolveResult.Member;
             }
 
-            bool isInlineMethod = this.IsInlineMethod(member);
-            var inlineCode = isInlineMethod ? null : this.GetInline(member);
+            bool isInlineMethod = IsInlineMethod(member);
+            var inlineCode = isInlineMethod ? null : GetInline(member);
             var isStatic = member.IsStatic;
 
             if (!string.IsNullOrEmpty(inlineCode) && member is IProperty)
@@ -193,14 +193,14 @@ namespace H5.Translator
             {
                 IMethod method = (IMethod)member;
 
-                StringBuilder savedBuilder = this.Output;
-                this.Output = new StringBuilder();
+                StringBuilder savedBuilder = Output;
+                Output = new StringBuilder();
                 var mrr = new MemberResolveResult(null, member);
                 var argsInfo = new ArgumentsInfo(this, node, mrr);
                 argsInfo.ThisArgument = JS.Vars.T;
                 new InlineArgumentsBlock(this, argsInfo, info.Item3, method, mrr).EmitNullableReference();
-                string tpl = this.Output.ToString();
-                this.Output = savedBuilder;
+                string tpl = Output.ToString();
+                Output = savedBuilder;
 
                 if (member.Name == CS.Methods.EQUALS)
                 {
@@ -222,7 +222,7 @@ namespace H5.Translator
 
         private IMember LiftNullableMember(MemberReferenceExpression target)
         {
-            var targetrr = this.Resolver.ResolveNode(target.Target, this);
+            var targetrr = Resolver.ResolveNode(target.Target, this);
             IMember member = null;
             if (targetrr.Type.IsKnownType(KnownTypeCode.NullableOfT))
             {
@@ -237,7 +237,7 @@ namespace H5.Translator
                 {
                     if (target.Parent is InvocationExpression)
                     {
-                        if (this.Resolver.ResolveNode(target.Parent, this) is InvocationResolveResult rr)
+                        if (Resolver.ResolveNode(target.Parent, this) is InvocationResolveResult rr)
                         {
                             typeArg = rr.Arguments.First().Type;
                         }
@@ -272,7 +272,7 @@ namespace H5.Translator
 
         public virtual bool IsForbiddenInvocation(InvocationExpression node)
         {
-            var resolveResult = this.Resolver.ResolveNode(node, this);
+            var resolveResult = Resolver.ResolveNode(node, this);
 
             if (!(resolveResult is MemberResolveResult memberResolveResult))
             {
@@ -313,9 +313,9 @@ namespace H5.Translator
 
         public virtual IEnumerable<string> GetScript(EntityDeclaration method)
         {
-            var attr = this.GetAttribute(method.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".Script");
+            var attr = GetAttribute(method.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".Script");
 
-            return this.GetScriptArguments(attr);
+            return GetScriptArguments(attr);
         }
 
         public virtual string GetEntityNameFromAttr(IEntity member, bool setter = false)
@@ -338,7 +338,7 @@ namespace H5.Translator
             }
 
             var attr = Helpers.GetInheritedAttribute(member, H5.Translator.Translator.H5_ASSEMBLY + ".NameAttribute");
-            bool isIgnore = member.DeclaringTypeDefinition != null && this.Validator.IsExternalType(member.DeclaringTypeDefinition);
+            bool isIgnore = member.DeclaringTypeDefinition != null && Validator.IsExternalType(member.DeclaringTypeDefinition);
             string name;
 
             if (attr != null)
@@ -346,7 +346,7 @@ namespace H5.Translator
                 var value = attr.PositionalArguments.First().ConstantValue;
                 if (value is string)
                 {
-                    name = this.GetEntityName(member);
+                    name = GetEntityName(member);
                     if (!isIgnore && member.IsStatic && Helpers.IsReservedStaticName(name, false))
                     {
                         name = Helpers.ChangeReservedWord(name);
@@ -362,14 +362,14 @@ namespace H5.Translator
         public virtual NameSemantic GetNameSemantic(IEntity member)
         {
             NameSemantic result;
-            if (this.entityNameCache.TryGetValue(member, out result))
+            if (entityNameCache.TryGetValue(member, out result))
             {
                 return result;
             }
 
             result = new NameSemantic { Entity = member, Emitter = this };
 
-            this.entityNameCache.Add(member, result);
+            entityNameCache.Add(member, result);
             return result;
         }
 
@@ -396,9 +396,9 @@ namespace H5.Translator
 
         public virtual string GetEntityName(EntityDeclaration entity)
         {
-            if (this.Resolver.ResolveNode(entity, this) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(entity, this) is MemberResolveResult rr)
             {
-                return this.GetEntityName(rr.Member);
+                return GetEntityName(rr.Member);
             }
 
             return null;
@@ -410,7 +410,7 @@ namespace H5.Translator
 
             if (entity.Parent != null && entity.GetParent<SyntaxTree>() != null)
             {
-                if (this.Resolver.ResolveNode(entity, this) is LocalResolveResult rr)
+                if (Resolver.ResolveNode(entity, this) is LocalResolveResult rr)
                 {
                     if (rr.Variable is IParameter iparam && iparam.Attributes != null)
                     {
@@ -468,19 +468,19 @@ namespace H5.Translator
 
         public Tuple<bool, string> IsGlobalTarget(IMember member)
         {
-            var attr = this.GetAttribute(member.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".GlobalTargetAttribute");
+            var attr = GetAttribute(member.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".GlobalTargetAttribute");
 
             return attr != null ? new Tuple<bool, string>(true, (string)attr.PositionalArguments.First().ConstantValue) : null;
         }
 
         public virtual string GetInline(EntityDeclaration method)
         {
-            if (this.Resolver.ResolveNode(method, this) is MemberResolveResult mrr)
+            if (Resolver.ResolveNode(method, this) is MemberResolveResult mrr)
             {
-                return this.GetInline(mrr.Member);
+                return GetInline(mrr.Member);
             }
 
-            var attr = this.GetAttribute(method.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".Template");
+            var attr = GetAttribute(method.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".Template");
 
             return attr != null && attr.Arguments.Count > 0 ? ((string)((PrimitiveExpression)attr.Arguments.First()).Value) : null;
         }
@@ -496,12 +496,12 @@ namespace H5.Translator
             if (entity.SymbolKind == SymbolKind.Property)
             {
                 var prop = (IProperty)entity;
-                entity = this.IsAssignment ? prop.Setter : prop.Getter;
+                entity = IsAssignment ? prop.Setter : prop.Getter;
             }
             else if (entity.SymbolKind == SymbolKind.Event)
             {
                 var ev = (IEvent)entity;
-                entity = this.IsAssignment ? (this.AssignmentType == AssignmentOperatorType.Add ? ev.AddAccessor : ev.RemoveAccessor) : ev.InvokeAccessor;
+                entity = IsAssignment ? (AssignmentType == AssignmentOperatorType.Add ? ev.AddAccessor : ev.RemoveAccessor) : ev.InvokeAccessor;
             }
 
             if (entity != null)
@@ -578,7 +578,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    if (this.Resolver.ResolveNode(arg, this) is ConstantResolveResult rr && rr.ConstantValue != null)
+                    if (Resolver.ResolveNode(arg, this) is ConstantResolveResult rr && rr.ConstantValue != null)
                     {
                         value = rr.ConstantValue.ToString();
                     }
@@ -611,7 +611,7 @@ namespace H5.Translator
 
             if (isConst)
             {
-                var attr = this.GetAttribute(member.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".InlineConstAttribute");
+                var attr = GetAttribute(member.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".InlineConstAttribute");
 
                 if (attr != null)
                 {
@@ -624,18 +624,18 @@ namespace H5.Translator
 
         public virtual void InitEmitter()
         {
-            this.Output = new StringBuilder();
-            this.Locals = null;
-            this.LocalsStack = null;
-            this.IteratorCount = 0;
-            this.ThisRefCounter = 0;
-            this.Writers = new Stack<IWriter>();
-            this.IsAssignment = false;
-            this.ResetLevel();
-            this.IsNewLine = true;
-            this.EnableSemicolon = true;
-            this.Comma = false;
-            this.CurrentDependencies = new List<IPluginDependency>();
+            Output = new StringBuilder();
+            Locals = null;
+            LocalsStack = null;
+            IteratorCount = 0;
+            ThisRefCounter = 0;
+            Writers = new Stack<IWriter>();
+            IsAssignment = false;
+            ResetLevel();
+            IsNewLine = true;
+            EnableSemicolon = true;
+            Comma = false;
+            CurrentDependencies = new List<IPluginDependency>();
         }
 
         public virtual bool ContainsOnlyOrEmpty(StringBuilder sb, params char[] c)

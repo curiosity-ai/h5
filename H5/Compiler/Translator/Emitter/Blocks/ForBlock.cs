@@ -11,8 +11,8 @@ namespace H5.Translator
         public ForBlock(IEmitter emitter, ForStatement forStatement)
             : base(emitter, forStatement)
         {
-            this.Emitter = emitter;
-            this.ForStatement = forStatement;
+            Emitter = emitter;
+            ForStatement = forStatement;
         }
 
         public ForStatement ForStatement { get; set; }
@@ -21,26 +21,26 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            var awaiters = this.Emitter.IsAsync ? this.GetAwaiters(this.ForStatement) : null;
+            var awaiters = Emitter.IsAsync ? GetAwaiters(ForStatement) : null;
 
             if (awaiters != null && awaiters.Length > 0)
             {
-                this.VisitAsyncForStatement();
+                VisitAsyncForStatement();
             }
             else
             {
-                this.VisitForStatement();
+                VisitForStatement();
             }
         }
 
         protected void VisitAsyncForStatement()
         {
-            ForStatement forStatement = this.ForStatement;
-            var oldValue = this.Emitter.ReplaceAwaiterByVar;
-            var jumpStatements = this.Emitter.JumpStatements;
-            this.Emitter.JumpStatements = new List<IJumpInfo>();
+            ForStatement forStatement = ForStatement;
+            var oldValue = Emitter.ReplaceAwaiterByVar;
+            var jumpStatements = Emitter.JumpStatements;
+            Emitter.JumpStatements = new List<IJumpInfo>();
 
-            this.PushLocals();
+            PushLocals();
 
             bool newLine = false;
 
@@ -48,92 +48,92 @@ namespace H5.Translator
             {
                 if (newLine)
                 {
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
 
-                item.AcceptVisitor(this.Emitter);
+                item.AcceptVisitor(Emitter);
                 newLine = true;
             }
 
-            this.RemovePenultimateEmptyLines(true);
-            this.WriteNewLine();
-            this.Write(JS.Vars.ASYNC_STEP + " = " + this.Emitter.AsyncBlock.Step + ";");
-            this.WriteNewLine();
-            this.Write("continue;");
+            RemovePenultimateEmptyLines(true);
+            WriteNewLine();
+            Write(JS.Vars.ASYNC_STEP + " = " + Emitter.AsyncBlock.Step + ";");
+            WriteNewLine();
+            Write("continue;");
 
-            IAsyncStep conditionStep = this.Emitter.AsyncBlock.AddAsyncStep();
-            this.WriteAwaiters(forStatement.Condition);
-            this.Emitter.ReplaceAwaiterByVar = true;
-            var lastConditionStep = this.Emitter.AsyncBlock.Steps.Last();
+            IAsyncStep conditionStep = Emitter.AsyncBlock.AddAsyncStep();
+            WriteAwaiters(forStatement.Condition);
+            Emitter.ReplaceAwaiterByVar = true;
+            var lastConditionStep = Emitter.AsyncBlock.Steps.Last();
 
-            this.WriteIf();
-            this.WriteOpenParentheses(true);
+            WriteIf();
+            WriteOpenParentheses(true);
 
             if (!forStatement.Condition.IsNull)
             {
-                forStatement.Condition.AcceptVisitor(this.Emitter);
+                forStatement.Condition.AcceptVisitor(Emitter);
             }
             else
             {
-                this.Write("true");
+                Write("true");
             }
 
-            this.WriteCloseParentheses(true);
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
+            WriteCloseParentheses(true);
+            Emitter.ReplaceAwaiterByVar = oldValue;
 
-            this.WriteSpace();
-            this.BeginBlock();
-            this.Write(JS.Vars.ASYNC_STEP + " = " + this.Emitter.AsyncBlock.Step + ";");
-            this.WriteNewLine();
-            this.Write("continue;");
+            WriteSpace();
+            BeginBlock();
+            Write(JS.Vars.ASYNC_STEP + " = " + Emitter.AsyncBlock.Step + ";");
+            WriteNewLine();
+            Write("continue;");
 
-            this.EmittedAsyncSteps = this.Emitter.AsyncBlock.EmittedAsyncSteps;
-            this.Emitter.AsyncBlock.EmittedAsyncSteps = new List<IAsyncStep>();
-            var writer = this.SaveWriter();
+            EmittedAsyncSteps = Emitter.AsyncBlock.EmittedAsyncSteps;
+            Emitter.AsyncBlock.EmittedAsyncSteps = new List<IAsyncStep>();
+            var writer = SaveWriter();
 
-            this.Emitter.AsyncBlock.AddAsyncStep();
-            this.Emitter.IgnoreBlock = forStatement.EmbeddedStatement;
-            var startCount = this.Emitter.AsyncBlock.Steps.Count;
-            forStatement.EmbeddedStatement.AcceptVisitor(this.Emitter);
+            Emitter.AsyncBlock.AddAsyncStep();
+            Emitter.IgnoreBlock = forStatement.EmbeddedStatement;
+            var startCount = Emitter.AsyncBlock.Steps.Count;
+            forStatement.EmbeddedStatement.AcceptVisitor(Emitter);
             IAsyncStep loopStep = null;
 
-            if (this.Emitter.AsyncBlock.Steps.Count > startCount)
+            if (Emitter.AsyncBlock.Steps.Count > startCount)
             {
-                loopStep = this.Emitter.AsyncBlock.Steps.Last();
+                loopStep = Emitter.AsyncBlock.Steps.Last();
             }
 
-            this.RestoreWriter(writer);
+            RestoreWriter(writer);
 
-            if (!AbstractEmitterBlock.IsJumpStatementLast(this.Emitter.Output.ToString()))
+            if (!AbstractEmitterBlock.IsJumpStatementLast(Emitter.Output.ToString()))
             {
-                this.WriteNewLine();
-                this.Write(JS.Vars.ASYNC_STEP + " = " + this.Emitter.AsyncBlock.Step + ";");
-                this.WriteNewLine();
-                this.Write("continue;");
-                this.WriteNewLine();
-                this.EndBlock();
-                this.WriteSpace();
+                WriteNewLine();
+                Write(JS.Vars.ASYNC_STEP + " = " + Emitter.AsyncBlock.Step + ";");
+                WriteNewLine();
+                Write("continue;");
+                WriteNewLine();
+                EndBlock();
+                WriteSpace();
             }
             else
             {
-                this.WriteNewLine();
-                this.EndBlock();
-                this.WriteSpace();
+                WriteNewLine();
+                EndBlock();
+                WriteSpace();
             }
 
-            if (this.Emitter.IsAsync)
+            if (Emitter.IsAsync)
             {
-                this.Emitter.AsyncBlock.EmittedAsyncSteps = this.EmittedAsyncSteps;
+                Emitter.AsyncBlock.EmittedAsyncSteps = EmittedAsyncSteps;
             }
 
-            IAsyncStep iteratorsStep = this.Emitter.AsyncBlock.AddAsyncStep();
+            IAsyncStep iteratorsStep = Emitter.AsyncBlock.AddAsyncStep();
 
             /*foreach (var item in forStatement.Iterators)
             {
                 this.WriteAwaiters(item);
             }*/
 
-            var lastIteratorStep = this.Emitter.AsyncBlock.Steps.Last();
+            var lastIteratorStep = Emitter.AsyncBlock.Steps.Last();
 
             if (loopStep != null)
             {
@@ -141,98 +141,98 @@ namespace H5.Translator
             }
 
             lastIteratorStep.JumpToStep = conditionStep.Step;
-            this.Emitter.ReplaceAwaiterByVar = true;
+            Emitter.ReplaceAwaiterByVar = true;
 
-            var beforeStepsCount = this.Emitter.AsyncBlock.Steps.Count;
+            var beforeStepsCount = Emitter.AsyncBlock.Steps.Count;
             foreach (var item in forStatement.Iterators)
             {
-                item.AcceptVisitor(this.Emitter);
+                item.AcceptVisitor(Emitter);
 
-                if (this.Emitter.Output.ToString().TrimEnd().Last() != ';')
+                if (Emitter.Output.ToString().TrimEnd().Last() != ';')
                 {
-                    this.WriteSemiColon();
+                    WriteSemiColon();
                 }
 
-                this.WriteNewLine();
+                WriteNewLine();
             }
 
-            if (beforeStepsCount < this.Emitter.AsyncBlock.Steps.Count)
+            if (beforeStepsCount < Emitter.AsyncBlock.Steps.Count)
             {
-                this.Emitter.AsyncBlock.Steps.Last().JumpToStep = conditionStep.Step;
+                Emitter.AsyncBlock.Steps.Last().JumpToStep = conditionStep.Step;
             }
 
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.ReplaceAwaiterByVar = oldValue;
 
-            this.PopLocals();
-            var nextStep = this.Emitter.AsyncBlock.AddAsyncStep();
+            PopLocals();
+            var nextStep = Emitter.AsyncBlock.AddAsyncStep();
             lastConditionStep.JumpToStep = nextStep.Step;
 
-            if (this.Emitter.JumpStatements.Count > 0)
+            if (Emitter.JumpStatements.Count > 0)
             {
-                this.Emitter.JumpStatements.Sort((j1, j2) => -j1.Position.CompareTo(j2.Position));
-                foreach (var jump in this.Emitter.JumpStatements)
+                Emitter.JumpStatements.Sort((j1, j2) => -j1.Position.CompareTo(j2.Position));
+                foreach (var jump in Emitter.JumpStatements)
                 {
                     jump.Output.Insert(jump.Position, jump.Break ? nextStep.Step : iteratorsStep.Step);
                 }
             }
 
-            this.Emitter.JumpStatements = jumpStatements;
+            Emitter.JumpStatements = jumpStatements;
         }
 
         protected void VisitForStatement()
         {
-            ForStatement forStatement = this.ForStatement;
-            var jumpStatements = this.Emitter.JumpStatements;
-            this.Emitter.JumpStatements = null;
+            ForStatement forStatement = ForStatement;
+            var jumpStatements = Emitter.JumpStatements;
+            Emitter.JumpStatements = null;
 
-            this.PushLocals();
-            this.Emitter.EnableSemicolon = false;
+            PushLocals();
+            Emitter.EnableSemicolon = false;
 
-            this.WriteFor();
-            this.WriteOpenParentheses();
+            WriteFor();
+            WriteOpenParentheses();
 
-            var old = this.Emitter.IsAsync;
-            this.Emitter.IsAsync = false;
+            var old = Emitter.IsAsync;
+            Emitter.IsAsync = false;
             foreach (var item in forStatement.Initializers)
             {
                 if (item != forStatement.Initializers.First())
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
-                item.AcceptVisitor(this.Emitter);
+                item.AcceptVisitor(Emitter);
             }
-            this.Emitter.IsAsync = old;
+            Emitter.IsAsync = old;
 
-            this.WriteSemiColon();
-            this.WriteSpace();
+            WriteSemiColon();
+            WriteSpace();
 
             if (!forStatement.Condition.IsNull)
             {
-                forStatement.Condition.AcceptVisitor(this.Emitter);
+                forStatement.Condition.AcceptVisitor(Emitter);
             }
 
-            this.WriteSemiColon();
-            this.WriteSpace();
+            WriteSemiColon();
+            WriteSpace();
 
             foreach (var item in forStatement.Iterators)
             {
                 if (item != forStatement.Iterators.First())
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
-                item.AcceptVisitor(this.Emitter);
+                item.AcceptVisitor(Emitter);
             }
 
-            this.WriteCloseParentheses();
+            WriteCloseParentheses();
 
-            this.Emitter.EnableSemicolon = true;
+            Emitter.EnableSemicolon = true;
 
-            this.EmitBlockOrIndentedLine(forStatement.EmbeddedStatement);
+            EmitBlockOrIndentedLine(forStatement.EmbeddedStatement);
 
-            this.PopLocals();
-            this.Emitter.JumpStatements = jumpStatements;
+            PopLocals();
+            Emitter.JumpStatements = jumpStatements;
         }
     }
 }

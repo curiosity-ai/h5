@@ -6,7 +6,7 @@
 
         public RawValue(string value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public override string ToString()

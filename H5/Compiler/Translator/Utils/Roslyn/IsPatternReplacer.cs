@@ -169,7 +169,7 @@ namespace H5.Translator
                             {
                                 var key = declarationPattern.Type.ToString();
                                 BinaryExpressionSyntax newExpr;
-                                if (this.typesInfo.Keys.Contains(key) && this.typesInfo[key])
+                                if (typesInfo.Keys.Contains(key) && typesInfo[key])
                                 {
                                     newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.ParenthesizedExpression(SyntaxFactory.AssignmentExpression(
                                         SyntaxKind.SimpleAssignmentExpression,

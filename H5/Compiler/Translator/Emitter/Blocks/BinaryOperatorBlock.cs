@@ -17,8 +17,8 @@ namespace H5.Translator
         public BinaryOperatorBlock(IEmitter emitter, BinaryOperatorExpression binaryOperatorExpression)
             : base(emitter, binaryOperatorExpression)
         {
-            this.Emitter = emitter;
-            this.BinaryOperatorExpression = binaryOperatorExpression;
+            Emitter = emitter;
+            BinaryOperatorExpression = binaryOperatorExpression;
         }
 
         public BinaryOperatorExpression BinaryOperatorExpression { get; set; }
@@ -31,105 +31,105 @@ namespace H5.Translator
 
         protected override Expression GetExpression()
         {
-            return this.BinaryOperatorExpression;
+            return BinaryOperatorExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            this.VisitBinaryOperatorExpression();
+            VisitBinaryOperatorExpression();
         }
 
         internal void WriteAsyncBinaryExpression(int index)
         {
-            if (this.Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(this.BinaryOperatorExpression))
+            if (Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(BinaryOperatorExpression))
             {
                 return;
             }
 
-            this.Emitter.AsyncBlock.WrittenAwaitExpressions.Add(this.BinaryOperatorExpression);
+            Emitter.AsyncBlock.WrittenAwaitExpressions.Add(BinaryOperatorExpression);
 
-            this.WriteAwaiters(this.BinaryOperatorExpression.Left);
+            WriteAwaiters(BinaryOperatorExpression.Left);
 
-            this.WriteIf();
-            this.WriteOpenParentheses();
+            WriteIf();
+            WriteOpenParentheses();
 
-            var oldValue = this.Emitter.ReplaceAwaiterByVar;
-            var oldAsyncExpressionHandling = this.Emitter.AsyncExpressionHandling;
-            this.Emitter.ReplaceAwaiterByVar = true;
-            this.Emitter.AsyncExpressionHandling = true;
+            var oldValue = Emitter.ReplaceAwaiterByVar;
+            var oldAsyncExpressionHandling = Emitter.AsyncExpressionHandling;
+            Emitter.ReplaceAwaiterByVar = true;
+            Emitter.AsyncExpressionHandling = true;
 
-            var isOr = this.BinaryOperatorExpression.Operator == BinaryOperatorType.BitwiseOr ||
-                        this.BinaryOperatorExpression.Operator == BinaryOperatorType.ConditionalOr;
+            var isOr = BinaryOperatorExpression.Operator == BinaryOperatorType.BitwiseOr ||
+                        BinaryOperatorExpression.Operator == BinaryOperatorType.ConditionalOr;
 
             if (isOr)
             {
-                this.Write("!");
+                Write("!");
             }
 
-            this.BinaryOperatorExpression.Left.AcceptVisitor(this.Emitter);
-            this.WriteCloseParentheses();
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
-            this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+            BinaryOperatorExpression.Left.AcceptVisitor(Emitter);
+            WriteCloseParentheses();
+            Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
             int startCount = 0;
             IAsyncStep trueStep = null;
-            startCount = this.Emitter.AsyncBlock.Steps.Count;
+            startCount = Emitter.AsyncBlock.Steps.Count;
 
-            this.EmittedAsyncSteps = this.Emitter.AsyncBlock.EmittedAsyncSteps;
-            this.Emitter.AsyncBlock.EmittedAsyncSteps = new List<IAsyncStep>();
+            EmittedAsyncSteps = Emitter.AsyncBlock.EmittedAsyncSteps;
+            Emitter.AsyncBlock.EmittedAsyncSteps = new List<IAsyncStep>();
 
             var taskResultVar = JS.Vars.ASYNC_TASK_RESULT + index;
-            if (!this.Emitter.Locals.ContainsKey(taskResultVar))
+            if (!Emitter.Locals.ContainsKey(taskResultVar))
             {
-                this.AddLocal(taskResultVar, null, AstType.Null);
+                AddLocal(taskResultVar, null, AstType.Null);
             }
 
-            this.WriteSpace();
-            this.BeginBlock();
-            this.Write($"{JS.Vars.ASYNC_STEP} = {this.Emitter.AsyncBlock.Step};");
-            this.WriteNewLine();
-            this.Write("continue;");
-            var writer = this.SaveWriter();
-            this.Emitter.AsyncBlock.AddAsyncStep();
+            WriteSpace();
+            BeginBlock();
+            Write($"{JS.Vars.ASYNC_STEP} = {Emitter.AsyncBlock.Step};");
+            WriteNewLine();
+            Write("continue;");
+            var writer = SaveWriter();
+            Emitter.AsyncBlock.AddAsyncStep();
 
-            this.WriteAwaiters(this.BinaryOperatorExpression.Right);
+            WriteAwaiters(BinaryOperatorExpression.Right);
 
-            oldValue = this.Emitter.ReplaceAwaiterByVar;
-            oldAsyncExpressionHandling = this.Emitter.AsyncExpressionHandling;
-            this.Emitter.ReplaceAwaiterByVar = true;
-            this.Emitter.AsyncExpressionHandling = true;
-            this.Write(taskResultVar + " = ");
-            this.BinaryOperatorExpression.Right.AcceptVisitor(this.Emitter);
-            this.WriteSemiColon();
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
-            this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+            oldValue = Emitter.ReplaceAwaiterByVar;
+            oldAsyncExpressionHandling = Emitter.AsyncExpressionHandling;
+            Emitter.ReplaceAwaiterByVar = true;
+            Emitter.AsyncExpressionHandling = true;
+            Write(taskResultVar + " = ");
+            BinaryOperatorExpression.Right.AcceptVisitor(Emitter);
+            WriteSemiColon();
+            Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
-            if (this.Emitter.AsyncBlock.Steps.Count > startCount)
+            if (Emitter.AsyncBlock.Steps.Count > startCount)
             {
-                trueStep = this.Emitter.AsyncBlock.Steps.Last();
+                trueStep = Emitter.AsyncBlock.Steps.Last();
             }
 
-            if (this.RestoreWriter(writer) && !this.IsOnlyWhitespaceOnPenultimateLine(true))
+            if (RestoreWriter(writer) && !IsOnlyWhitespaceOnPenultimateLine(true))
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
 
-            this.EndBlock();
+            EndBlock();
 
-            this.WriteNewLine();
-            this.Write($"{taskResultVar} = {(isOr ? "true" : "false")};");
-            this.WriteNewLine();
-            this.Write($"{JS.Vars.ASYNC_STEP} = {this.Emitter.AsyncBlock.Step};");
-            this.WriteNewLine();
-            this.Write("continue;");
-            var nextStep = this.Emitter.AsyncBlock.AddAsyncStep();
+            WriteNewLine();
+            Write($"{taskResultVar} = {(isOr ? "true" : "false")};");
+            WriteNewLine();
+            Write($"{JS.Vars.ASYNC_STEP} = {Emitter.AsyncBlock.Step};");
+            WriteNewLine();
+            Write("continue;");
+            var nextStep = Emitter.AsyncBlock.AddAsyncStep();
 
             if (trueStep != null)
             {
                 trueStep.JumpToStep = nextStep.Step;
             }
 
-            this.Emitter.AsyncBlock.EmittedAsyncSteps = this.EmittedAsyncSteps;
+            Emitter.AsyncBlock.EmittedAsyncSteps = EmittedAsyncSteps;
         }
 
         private IMethod FindOperatorTrueOrFalse(IType type, bool findTrue)
@@ -149,15 +149,15 @@ namespace H5.Translator
 
             if (method != null)
             {
-                var inline = this.Emitter.GetInline(method);
+                var inline = Emitter.GetInline(method);
 
                 if (!string.IsNullOrWhiteSpace(inline))
                 {
-                    new InlineArgumentsBlock(this.Emitter,
-                        new ArgumentsInfo(this.Emitter, binaryOperatorExpression, orr, method), inline).Emit();
+                    new InlineArgumentsBlock(Emitter,
+                        new ArgumentsInfo(Emitter, binaryOperatorExpression, orr, method), inline).Emit();
                     return true;
                 }
-                else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
+                else if (!Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
                 {
                     bool addClose = false;
                     string leftInterfaceTempVar = null;
@@ -172,59 +172,59 @@ namespace H5.Translator
 
                         if (!(left is ThisResolveResult || left is TypeResolveResult || left is LocalResolveResult || left is ConstantResolveResult || isField))
                         {
-                            this.WriteOpenParentheses();
+                            WriteOpenParentheses();
 
-                            leftInterfaceTempVar = this.GetTempVarName();
-                            this.Write(leftInterfaceTempVar);
-                            this.Write(" = ");
+                            leftInterfaceTempVar = GetTempVarName();
+                            Write(leftInterfaceTempVar);
+                            Write(" = ");
 
-                            binaryOperatorExpression.Left.AcceptVisitor(this.Emitter);
+                            binaryOperatorExpression.Left.AcceptVisitor(Emitter);
 
-                            this.WriteComma();
+                            WriteComma();
 
                             addClose = true;
                         }
 
                         var m = FindOperatorTrueOrFalse(left.Type, orElse);
 
-                        this.Write(H5Types.ToJsName(m.DeclaringType, this.Emitter));
-                        this.WriteDot();
-                        this.Write(OverloadsCollection.Create(this.Emitter, m).GetOverloadName());
+                        Write(H5Types.ToJsName(m.DeclaringType, Emitter));
+                        WriteDot();
+                        Write(OverloadsCollection.Create(Emitter, m).GetOverloadName());
 
-                        this.WriteOpenParentheses();
-
-                        if (leftInterfaceTempVar != null)
-                        {
-                            this.Write(leftInterfaceTempVar);
-                        }
-                        else
-                        {
-                            binaryOperatorExpression.Left.AcceptVisitor(this.Emitter);
-                        }
-
-                        this.WriteCloseParentheses();
-
-                        this.Write(" ? ");
+                        WriteOpenParentheses();
 
                         if (leftInterfaceTempVar != null)
                         {
-                            this.Write(leftInterfaceTempVar);
+                            Write(leftInterfaceTempVar);
                         }
                         else
                         {
-                            binaryOperatorExpression.Left.AcceptVisitor(this.Emitter);
+                            binaryOperatorExpression.Left.AcceptVisitor(Emitter);
                         }
 
-                        this.Write(" : ");
+                        WriteCloseParentheses();
+
+                        Write(" ? ");
+
+                        if (leftInterfaceTempVar != null)
+                        {
+                            Write(leftInterfaceTempVar);
+                        }
+                        else
+                        {
+                            binaryOperatorExpression.Left.AcceptVisitor(Emitter);
+                        }
+
+                        Write(" : ");
                     }
 
                     if (orr.IsLiftedOperator)
                     {
-                        this.Write(JS.Types.SYSTEM_NULLABLE + ".");
+                        Write(JS.Types.SYSTEM_NULLABLE + ".");
 
                         string action = JS.Funcs.Math.LIFT;
 
-                        switch (this.BinaryOperatorExpression.Operator)
+                        switch (BinaryOperatorExpression.Operator)
                         {
                             case BinaryOperatorType.GreaterThan:
                                 action = JS.Funcs.Math.LIFTCMP;
@@ -251,40 +251,40 @@ namespace H5.Translator
                                 break;
                         }
 
-                        this.Write(action + "(");
+                        Write(action + "(");
                     }
 
-                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
-                    this.WriteDot();
+                    Write(H5Types.ToJsName(method.DeclaringType, Emitter));
+                    WriteDot();
 
-                    this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
+                    Write(OverloadsCollection.Create(Emitter, method).GetOverloadName());
 
                     if (orr.IsLiftedOperator)
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
                     else
                     {
-                        this.WriteOpenParentheses();
+                        WriteOpenParentheses();
                     }
 
                     if (leftInterfaceTempVar != null)
                     {
-                        this.Write(leftInterfaceTempVar);
-                        this.Write(", ");
-                        binaryOperatorExpression.Right.AcceptVisitor(this.Emitter);
+                        Write(leftInterfaceTempVar);
+                        Write(", ");
+                        binaryOperatorExpression.Right.AcceptVisitor(Emitter);
                     }
                     else
                     {
-                        new ExpressionListBlock(this.Emitter,
+                        new ExpressionListBlock(Emitter,
                         new Expression[] { binaryOperatorExpression.Left, binaryOperatorExpression.Right }, null, null, 0).Emit();
                     }
 
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
 
                     if (addClose)
                     {
-                        this.WriteCloseParentheses();
+                        WriteCloseParentheses();
                     }
 
                     return true;
@@ -321,50 +321,50 @@ namespace H5.Translator
 
         protected void VisitBinaryOperatorExpression()
         {
-            BinaryOperatorExpression binaryOperatorExpression = this.BinaryOperatorExpression;
+            BinaryOperatorExpression binaryOperatorExpression = BinaryOperatorExpression;
 
-            if (this.Emitter.IsAsync && (
+            if (Emitter.IsAsync && (
                 binaryOperatorExpression.Operator == BinaryOperatorType.BitwiseAnd ||
                 binaryOperatorExpression.Operator == BinaryOperatorType.BitwiseOr ||
                 binaryOperatorExpression.Operator == BinaryOperatorType.ConditionalOr ||
                 binaryOperatorExpression.Operator == BinaryOperatorType.ConditionalAnd
-                ) && this.GetAwaiters(binaryOperatorExpression).Length > 0)
+                ) && GetAwaiters(binaryOperatorExpression).Length > 0)
             {
-                if (this.Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(binaryOperatorExpression))
+                if (Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(binaryOperatorExpression))
                 {
-                    var index = System.Array.IndexOf(this.Emitter.AsyncBlock.AwaitExpressions, binaryOperatorExpression) + 1;
-                    this.Write(JS.Vars.ASYNC_TASK_RESULT + index);
+                    var index = System.Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, binaryOperatorExpression) + 1;
+                    Write(JS.Vars.ASYNC_TASK_RESULT + index);
                 }
                 else
                 {
-                    var index = System.Array.IndexOf(this.Emitter.AsyncBlock.AwaitExpressions, binaryOperatorExpression) + 1;
-                    this.WriteAsyncBinaryExpression(index);
+                    var index = System.Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, binaryOperatorExpression) + 1;
+                    WriteAsyncBinaryExpression(index);
                 }
 
                 return;
             }
 
-            var resolveOperator = this.Emitter.Resolver.ResolveNode(binaryOperatorExpression, this.Emitter);
-            var expectedType = this.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression);
-            bool isDecimalExpected = Helpers.IsDecimalType(expectedType, this.Emitter.Resolver);
-            bool isDecimal = Helpers.IsDecimalType(resolveOperator.Type, this.Emitter.Resolver);
-            bool isLongExpected = Helpers.Is64Type(expectedType, this.Emitter.Resolver);
-            bool isLong = Helpers.Is64Type(resolveOperator.Type, this.Emitter.Resolver);
+            var resolveOperator = Emitter.Resolver.ResolveNode(binaryOperatorExpression, Emitter);
+            var expectedType = Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression);
+            bool isDecimalExpected = Helpers.IsDecimalType(expectedType, Emitter.Resolver);
+            bool isDecimal = Helpers.IsDecimalType(resolveOperator.Type, Emitter.Resolver);
+            bool isLongExpected = Helpers.Is64Type(expectedType, Emitter.Resolver);
+            bool isLong = Helpers.Is64Type(resolveOperator.Type, Emitter.Resolver);
             OperatorResolveResult orr = resolveOperator as OperatorResolveResult;
-            var leftResolverResult = this.Emitter.Resolver.ResolveNode(binaryOperatorExpression.Left, this.Emitter);
-            var rightResolverResult = this.Emitter.Resolver.ResolveNode(binaryOperatorExpression.Right, this.Emitter);
+            var leftResolverResult = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Left, Emitter);
+            var rightResolverResult = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Right, Emitter);
             var charToString = -1;
             string variable = null;
-            bool leftIsNull = this.BinaryOperatorExpression.Left is NullReferenceExpression;
-            bool rightIsNull = this.BinaryOperatorExpression.Right is NullReferenceExpression;
+            bool leftIsNull = BinaryOperatorExpression.Left is NullReferenceExpression;
+            bool rightIsNull = BinaryOperatorExpression.Right is NullReferenceExpression;
             bool isUint = resolveOperator.Type.IsKnownType(KnownTypeCode.UInt16) ||
                           resolveOperator.Type.IsKnownType(KnownTypeCode.UInt32) ||
                           resolveOperator.Type.IsKnownType(KnownTypeCode.UInt64);
 
-            var isFloatResult = Helpers.IsFloatType(resolveOperator.Type, this.Emitter.Resolver);
-            var leftExpected = this.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Left);
-            var rightExpected = this.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Right);
-            var strictNullChecks = this.Emitter.AssemblyInfo.StrictNullChecks;
+            var isFloatResult = Helpers.IsFloatType(resolveOperator.Type, Emitter.Resolver);
+            var leftExpected = Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Left);
+            var rightExpected = Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Right);
+            var strictNullChecks = Emitter.AssemblyInfo.StrictNullChecks;
 
             if (orr != null && orr.Type.IsKnownType(KnownTypeCode.String))
             {
@@ -379,7 +379,7 @@ namespace H5.Translator
 
             if (resolveOperator is ConstantResolveResult)
             {
-                this.WriteScript(((ConstantResolveResult)resolveOperator).ConstantValue);
+                WriteScript(((ConstantResolveResult)resolveOperator).ConstantValue);
                 return;
             }
 
@@ -393,15 +393,15 @@ namespace H5.Translator
 
             if (parentIsString)
             {
-                var parentResolveOperator = this.Emitter.Resolver.ResolveNode(binaryOperatorExpression.Parent, this.Emitter) as OperatorResolveResult;
+                var parentResolveOperator = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Parent, Emitter) as OperatorResolveResult;
 
-                if (parentResolveOperator != null && parentResolveOperator.UserDefinedOperatorMethod != null || BinaryOperatorBlock.IsOperatorSimple(parentBinary, this.Emitter))
+                if (parentResolveOperator != null && parentResolveOperator.UserDefinedOperatorMethod != null || BinaryOperatorBlock.IsOperatorSimple(parentBinary, Emitter))
                 {
                     parentIsString = false;
                 }
             }
 
-            bool isSimpleConcat = isStringConcat && BinaryOperatorBlock.IsOperatorSimple(binaryOperatorExpression, this.Emitter);
+            bool isSimpleConcat = isStringConcat && BinaryOperatorBlock.IsOperatorSimple(binaryOperatorExpression, Emitter);
 
             if (charToString == -1 && isStringConcat && !leftResolverResult.Type.IsKnownType(KnownTypeCode.String))
             {
@@ -413,7 +413,7 @@ namespace H5.Translator
                 toStringForRight = true;
             }
 
-            if (!isStringConcat && (Helpers.IsDecimalType(leftResolverResult.Type, this.Emitter.Resolver) || Helpers.IsDecimalType(rightResolverResult.Type, this.Emitter.Resolver)))
+            if (!isStringConcat && (Helpers.IsDecimalType(leftResolverResult.Type, Emitter.Resolver) || Helpers.IsDecimalType(rightResolverResult.Type, Emitter.Resolver)))
             {
                 isDecimal = true;
                 isDecimalExpected = true;
@@ -421,21 +421,21 @@ namespace H5.Translator
 
             if (isDecimal && isDecimalExpected && binaryOperatorExpression.Operator != BinaryOperatorType.NullCoalescing)
             {
-                this.HandleDecimal(resolveOperator);
+                HandleDecimal(resolveOperator);
                 return;
             }
 
-            var isLeftLong = Helpers.Is64Type(leftExpected, this.Emitter.Resolver);
-            var isRightLong = Helpers.Is64Type(rightExpected, this.Emitter.Resolver);
+            var isLeftLong = Helpers.Is64Type(leftExpected, Emitter.Resolver);
+            var isRightLong = Helpers.Is64Type(rightExpected, Emitter.Resolver);
 
             if (!isLeftLong && !isRightLong)
             {
-                if (leftExpected.Kind == TypeKind.Enum && Helpers.Is64Type(leftExpected.GetDefinition().EnumUnderlyingType, this.Emitter.Resolver))
+                if (leftExpected.Kind == TypeKind.Enum && Helpers.Is64Type(leftExpected.GetDefinition().EnumUnderlyingType, Emitter.Resolver))
                 {
                     isLeftLong = true;
                 }
 
-                if (rightExpected.Kind == TypeKind.Enum && Helpers.Is64Type(rightExpected.GetDefinition().EnumUnderlyingType, this.Emitter.Resolver))
+                if (rightExpected.Kind == TypeKind.Enum && Helpers.Is64Type(rightExpected.GetDefinition().EnumUnderlyingType, Emitter.Resolver))
                 {
                     isRightLong = true;
                 }
@@ -451,14 +451,14 @@ namespace H5.Translator
             {
                 if (!isFloatResult || binaryOperatorExpression.Operator == BinaryOperatorType.Divide && isLeftLong)
                 {
-                    this.HandleLong(resolveOperator, isUint);
+                    HandleLong(resolveOperator, isUint);
                     return;
                 }
             }
 
             var delegateOperator = false;
 
-            if (this.ResolveOperator(binaryOperatorExpression, orr))
+            if (ResolveOperator(binaryOperatorExpression, orr))
             {
                 return;
             }
@@ -467,65 +467,65 @@ namespace H5.Translator
             {
                 if (leftIsNull || rightIsNull)
                 {
-                    this.WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
+                    WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
 
                     if (binaryOperatorExpression.Operator == BinaryOperatorType.Equality)
                     {
-                        this.Write(strictNullChecks ? " === " : " == ");
+                        Write(strictNullChecks ? " === " : " == ");
                     }
                     else
                     {
-                        this.Write(strictNullChecks ? " !== " : " != ");
+                        Write(strictNullChecks ? " !== " : " != ");
                     }
 
-                    this.WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
+                    WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
                     return;
                 }
             }
 
-            var insideOverflowContext = ConversionBlock.InsideOverflowContext(this.Emitter, binaryOperatorExpression);
-            if (binaryOperatorExpression.Operator == BinaryOperatorType.Divide && this.Emitter.Rules.Integer == IntegerRule.Managed &&
-                !(this.Emitter.IsJavaScriptOverflowMode && !insideOverflowContext) &&
+            var insideOverflowContext = ConversionBlock.InsideOverflowContext(Emitter, binaryOperatorExpression);
+            if (binaryOperatorExpression.Operator == BinaryOperatorType.Divide && Emitter.Rules.Integer == IntegerRule.Managed &&
+                !(Emitter.IsJavaScriptOverflowMode && !insideOverflowContext) &&
                 (
-                    (Helpers.IsIntegerType(leftResolverResult.Type, this.Emitter.Resolver) &&
-                    Helpers.IsIntegerType(rightResolverResult.Type, this.Emitter.Resolver)) ||
+                    (Helpers.IsIntegerType(leftResolverResult.Type, Emitter.Resolver) &&
+                    Helpers.IsIntegerType(rightResolverResult.Type, Emitter.Resolver)) ||
 
-                    (Helpers.IsIntegerType(this.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Left), this.Emitter.Resolver) &&
-                    Helpers.IsIntegerType(this.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Right), this.Emitter.Resolver))
+                    (Helpers.IsIntegerType(Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Left), Emitter.Resolver) &&
+                    Helpers.IsIntegerType(Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Right), Emitter.Resolver))
                 ))
             {
-                this.Write(JS.Types.H5_INT + "." + JS.Funcs.Math.DIV + "(");
-                this.WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
-                this.Write(", ");
-                this.WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
-                this.Write(")");
+                Write(JS.Types.H5_INT + "." + JS.Funcs.Math.DIV + "(");
+                WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
+                Write(", ");
+                WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
+                Write(")");
                 return;
             }
 
-            if (binaryOperatorExpression.Operator == BinaryOperatorType.Multiply && this.Emitter.Rules.Integer == IntegerRule.Managed &&
-                !(this.Emitter.IsJavaScriptOverflowMode && !insideOverflowContext) &&
+            if (binaryOperatorExpression.Operator == BinaryOperatorType.Multiply && Emitter.Rules.Integer == IntegerRule.Managed &&
+                !(Emitter.IsJavaScriptOverflowMode && !insideOverflowContext) &&
                 (
-                    (Helpers.IsInteger32Type(leftResolverResult.Type, this.Emitter.Resolver) &&
-                    Helpers.IsInteger32Type(rightResolverResult.Type, this.Emitter.Resolver) &&
-                    Helpers.IsInteger32Type(resolveOperator.Type, this.Emitter.Resolver)) ||
+                    (Helpers.IsInteger32Type(leftResolverResult.Type, Emitter.Resolver) &&
+                    Helpers.IsInteger32Type(rightResolverResult.Type, Emitter.Resolver) &&
+                    Helpers.IsInteger32Type(resolveOperator.Type, Emitter.Resolver)) ||
 
-                    (Helpers.IsInteger32Type(this.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Left), this.Emitter.Resolver) &&
-                    Helpers.IsInteger32Type(this.Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Right), this.Emitter.Resolver) &&
-                    Helpers.IsInteger32Type(resolveOperator.Type, this.Emitter.Resolver))
+                    (Helpers.IsInteger32Type(Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Left), Emitter.Resolver) &&
+                    Helpers.IsInteger32Type(Emitter.Resolver.Resolver.GetExpectedType(binaryOperatorExpression.Right), Emitter.Resolver) &&
+                    Helpers.IsInteger32Type(resolveOperator.Type, Emitter.Resolver))
                 ))
             {
                 isUint = NullableType.GetUnderlyingType(resolveOperator.Type).IsKnownType(KnownTypeCode.UInt32);
-                this.Write(JS.Types.H5_INT + "." + (isUint ? JS.Funcs.Math.UMUL : JS.Funcs.Math.MUL) + "(");
-                this.WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
-                this.Write(", ");
-                this.WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
+                Write(JS.Types.H5_INT + "." + (isUint ? JS.Funcs.Math.UMUL : JS.Funcs.Math.MUL) + "(");
+                WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
+                Write(", ");
+                WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
 
-                if (ConversionBlock.IsInCheckedContext(this.Emitter, this.BinaryOperatorExpression))
+                if (ConversionBlock.IsInCheckedContext(Emitter, BinaryOperatorExpression))
                 {
-                    this.Write(", 1");
+                    Write(", 1");
                 }
 
-                this.Write(")");
+                Write(")");
                 return;
             }
 
@@ -534,23 +534,23 @@ namespace H5.Translator
             {
                 var add = binaryOperatorExpression.Operator == BinaryOperatorType.Add;
 
-                if (expectedType.Kind == TypeKind.Delegate || this.Emitter.Validator.IsDelegateOrLambda(leftResolverResult) && this.Emitter.Validator.IsDelegateOrLambda(rightResolverResult))
+                if (expectedType.Kind == TypeKind.Delegate || Emitter.Validator.IsDelegateOrLambda(leftResolverResult) && Emitter.Validator.IsDelegateOrLambda(rightResolverResult))
                 {
                     delegateOperator = true;
-                    this.Write(add ? JS.Funcs.H5_COMBINE : JS.Funcs.H5_REMOVE);
-                    this.WriteOpenParentheses();
+                    Write(add ? JS.Funcs.H5_COMBINE : JS.Funcs.H5_REMOVE);
+                    WriteOpenParentheses();
                 }
             }
 
-            this.NullStringCheck = isStringConcat && !parentIsString && isSimpleConcat;
+            NullStringCheck = isStringConcat && !parentIsString && isSimpleConcat;
             if (isStringConcat && !parentIsString && !isSimpleConcat)
             {
-                this.Write(JS.Types.System.String.CONCAT);
-                this.WriteOpenParentheses();
+                Write(JS.Types.System.String.CONCAT);
+                WriteOpenParentheses();
             }
 
             bool nullable = orr != null && orr.IsLiftedOperator;
-            bool isCoalescing = (this.Emitter.AssemblyInfo.StrictNullChecks ||
+            bool isCoalescing = (Emitter.AssemblyInfo.StrictNullChecks ||
                                  NullableType.IsNullable(leftResolverResult.Type) ||
                                  leftResolverResult.Type.IsKnownType(KnownTypeCode.String) ||
                                  leftResolverResult.Type.IsKnownType(KnownTypeCode.Object)
@@ -567,46 +567,46 @@ namespace H5.Translator
 
             if (rootSpecial)
             {
-                this.Write(root);
+                Write(root);
             }
             else if (!isRefEquals)
             {
                 if (isCoalescing)
                 {
-                    this.Write("(");
-                    variable = this.GetTempVarName();
-                    this.Write(variable);
-                    this.Write(" = ");
+                    Write("(");
+                    variable = GetTempVarName();
+                    Write(variable);
+                    Write(" = ");
                 }
                 else if (charToString == 0)
                 {
-                    this.Write(JS.Funcs.STRING_FROMCHARCODE + "(");
+                    Write(JS.Funcs.STRING_FROMCHARCODE + "(");
                 }
 
                 if (toBool)
                 {
-                    this.Write("!!(");
+                    Write("!!(");
                 }
 
-                this.WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult, isCoalescing);
+                WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult, isCoalescing);
 
                 if (isCoalescing)
                 {
-                    this.Write(", ");
-                    this.Write(variable);
+                    Write(", ");
+                    Write(variable);
 
-                    this.Write(strictNullChecks ? " !== null" : " != null");
+                    Write(strictNullChecks ? " !== null" : " != null");
 
-                    this.Write(" ? ");
+                    Write(" ? ");
 
                     ConversionBlock.expressionMap.Add(binaryOperatorExpression.Left, variable);
                     //this.Write(variable);
-                    binaryOperatorExpression.Left.AcceptVisitor(this.Emitter);
+                    binaryOperatorExpression.Left.AcceptVisitor(Emitter);
                     ConversionBlock.expressionMap.Remove(binaryOperatorExpression.Left);
                 }
                 else if (charToString == 0)
                 {
-                    this.Write(")");
+                    Write(")");
                 }
             }
 
@@ -614,9 +614,9 @@ namespace H5.Translator
             {
                 if (binaryOperatorExpression.Operator == BinaryOperatorType.InEquality)
                 {
-                    this.Write("!");
+                    Write("!");
                 }
-                this.Write(JS.Funcs.H5_REFERENCEEQUALS);
+                Write(JS.Funcs.H5_REFERENCEEQUALS);
                 special = true;
             }
 
@@ -624,23 +624,23 @@ namespace H5.Translator
             {
                 if (!special)
                 {
-                    this.WriteSpace();
+                    WriteSpace();
                 }
 
                 switch (binaryOperatorExpression.Operator)
                 {
                     case BinaryOperatorType.Add:
-                        this.Write(rootSpecial ? JS.Funcs.Math.ADD : "+");
+                        Write(rootSpecial ? JS.Funcs.Math.ADD : "+");
                         break;
 
                     case BinaryOperatorType.BitwiseAnd:
                         if (isBool)
                         {
-                            this.Write(rootSpecial ? JS.Funcs.Math.AND : "&");
+                            Write(rootSpecial ? JS.Funcs.Math.AND : "&");
                         }
                         else
                         {
-                            this.Write(rootSpecial ? JS.Funcs.Math.BAND : "&");
+                            Write(rootSpecial ? JS.Funcs.Math.BAND : "&");
                         }
 
                         break;
@@ -648,91 +648,91 @@ namespace H5.Translator
                     case BinaryOperatorType.BitwiseOr:
                         if (isBool)
                         {
-                            this.Write(rootSpecial ? JS.Funcs.Math.OR : "|");
+                            Write(rootSpecial ? JS.Funcs.Math.OR : "|");
                         }
                         else
                         {
-                            this.Write(rootSpecial ? JS.Funcs.Math.BOR : "|");
+                            Write(rootSpecial ? JS.Funcs.Math.BOR : "|");
                         }
                         break;
 
                     case BinaryOperatorType.ConditionalAnd:
-                        this.Write(rootSpecial ? JS.Funcs.Math.AND : "&&");
+                        Write(rootSpecial ? JS.Funcs.Math.AND : "&&");
                         break;
 
                     case BinaryOperatorType.NullCoalescing:
-                        this.Write(isCoalescing ? ":" : "||");
+                        Write(isCoalescing ? ":" : "||");
                         break;
 
                     case BinaryOperatorType.ConditionalOr:
-                        this.Write(rootSpecial ? JS.Funcs.Math.OR : "||");
+                        Write(rootSpecial ? JS.Funcs.Math.OR : "||");
                         break;
 
                     case BinaryOperatorType.Divide:
-                        this.Write(rootSpecial ? JS.Funcs.Math.DIV : "/");
+                        Write(rootSpecial ? JS.Funcs.Math.DIV : "/");
                         break;
 
                     case BinaryOperatorType.Equality:
                         if (!isRefEquals)
                         {
-                            this.Write(rootSpecial ? "eq" : "===");
+                            Write(rootSpecial ? "eq" : "===");
                         }
 
                         break;
 
                     case BinaryOperatorType.ExclusiveOr:
-                        this.Write(rootSpecial ? JS.Funcs.Math.XOR : (isBool ? "!=" : "^"));
+                        Write(rootSpecial ? JS.Funcs.Math.XOR : (isBool ? "!=" : "^"));
                         break;
 
                     case BinaryOperatorType.GreaterThan:
-                        this.Write(rootSpecial ? JS.Funcs.Math.GT : ">");
+                        Write(rootSpecial ? JS.Funcs.Math.GT : ">");
                         break;
 
                     case BinaryOperatorType.GreaterThanOrEqual:
-                        this.Write(rootSpecial ? JS.Funcs.Math.GTE : ">=");
+                        Write(rootSpecial ? JS.Funcs.Math.GTE : ">=");
                         break;
 
                     case BinaryOperatorType.InEquality:
                         if (!isRefEquals)
                         {
-                            this.Write(rootSpecial ? "neq" : "!==");
+                            Write(rootSpecial ? "neq" : "!==");
                         }
                         break;
 
                     case BinaryOperatorType.LessThan:
-                        this.Write(rootSpecial ? JS.Funcs.Math.LT : "<");
+                        Write(rootSpecial ? JS.Funcs.Math.LT : "<");
                         break;
 
                     case BinaryOperatorType.LessThanOrEqual:
-                        this.Write(rootSpecial ? JS.Funcs.Math.LTE : "<=");
+                        Write(rootSpecial ? JS.Funcs.Math.LTE : "<=");
                         break;
 
                     case BinaryOperatorType.Modulus:
-                        this.Write(rootSpecial ? JS.Funcs.Math.MOD : "%");
+                        Write(rootSpecial ? JS.Funcs.Math.MOD : "%");
                         break;
 
                     case BinaryOperatorType.Multiply:
-                        this.Write(rootSpecial ? JS.Funcs.Math.MUL : "*");
+                        Write(rootSpecial ? JS.Funcs.Math.MUL : "*");
                         break;
 
                     case BinaryOperatorType.ShiftLeft:
-                        this.Write(rootSpecial ? JS.Funcs.Math.SL : "<<");
+                        Write(rootSpecial ? JS.Funcs.Math.SL : "<<");
                         break;
 
                     case BinaryOperatorType.ShiftRight:
                         if (isUint)
                         {
-                            this.Write(rootSpecial ? JS.Funcs.Math.SRR : ">>>");
+                            Write(rootSpecial ? JS.Funcs.Math.SRR : ">>>");
                         }
                         else
                         {
-                            this.Write(rootSpecial ? JS.Funcs.Math.SR : ">>");
+                            Write(rootSpecial ? JS.Funcs.Math.SR : ">>");
                         }
 
                         break;
 
                     case BinaryOperatorType.Subtract:
-                        this.Write(rootSpecial ? JS.Funcs.Math.SUB : "-");
+                        Write(rootSpecial ? JS.Funcs.Math.SUB : "-");
                         break;
 
                     default:
@@ -741,51 +741,51 @@ namespace H5.Translator
             }
             else
             {
-                this.WriteComma();
+                WriteComma();
             }
 
             if (special)
             {
-                this.WriteOpenParentheses();
+                WriteOpenParentheses();
                 if (charToString == 0)
                 {
-                    this.Write(JS.Funcs.STRING_FROMCHARCODE + "(");
+                    Write(JS.Funcs.STRING_FROMCHARCODE + "(");
                 }
 
-                this.WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
+                WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
 
                 if (charToString == 0)
                 {
-                    this.Write(")");
+                    Write(")");
                 }
 
-                this.WriteComma();
+                WriteComma();
             }
             else if (!delegateOperator && (!isStringConcat || isSimpleConcat))
             {
-                this.WriteSpace();
+                WriteSpace();
             }
 
             if (charToString == 1)
             {
-                this.Write(JS.Funcs.STRING_FROMCHARCODE + "(");
+                Write(JS.Funcs.STRING_FROMCHARCODE + "(");
             }
 
-            this.WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
+            WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
 
             if (toBool)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
 
             if (charToString == 1 || isCoalescing)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
 
             if (delegateOperator || special || isStringConcat && !parentIsString && !isSimpleConcat)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
         }
 
@@ -796,84 +796,84 @@ namespace H5.Translator
 
             if (orr != null && method == null)
             {
-                var name = Helpers.GetBinaryOperatorMethodName(this.BinaryOperatorExpression.Operator);
-                var type = this.Emitter.Resolver.Compilation.FindType(typeCode);
+                var name = Helpers.GetBinaryOperatorMethodName(BinaryOperatorExpression.Operator);
+                var type = Emitter.Resolver.Compilation.FindType(typeCode);
                 method = type.GetMethods(m => m.Name == name, GetMemberOptions.IgnoreInheritedMembers).FirstOrDefault();
             }
 
             if (method != null)
             {
-                var inline = this.Emitter.GetInline(method);
+                var inline = Emitter.GetInline(method);
 
                 if (orr.IsLiftedOperator)
                 {
-                    this.Write(JS.Types.SYSTEM_NULLABLE + ".");
-                    this.Write(action);
-                    this.WriteOpenParentheses();
-                    this.WriteScript(op_name);
-                    this.WriteComma();
-                    new ExpressionListBlock(this.Emitter,
-                        new Expression[] { this.BinaryOperatorExpression.Left, this.BinaryOperatorExpression.Right }, null, null, 0)
+                    Write(JS.Types.SYSTEM_NULLABLE + ".");
+                    Write(action);
+                    WriteOpenParentheses();
+                    WriteScript(op_name);
+                    WriteComma();
+                    new ExpressionListBlock(Emitter,
+                        new Expression[] { BinaryOperatorExpression.Left, BinaryOperatorExpression.Right }, null, null, 0)
                         .Emit();
-                    this.AddOveflowFlag(typeCode, op_name);
-                    this.WriteCloseParentheses();
+                    AddOveflowFlag(typeCode, op_name);
+                    WriteCloseParentheses();
                 }
                 else if (!string.IsNullOrWhiteSpace(inline))
                 {
-                    new InlineArgumentsBlock(this.Emitter,
-                        new ArgumentsInfo(this.Emitter, this.BinaryOperatorExpression, orr, method), inline).Emit();
+                    new InlineArgumentsBlock(Emitter,
+                        new ArgumentsInfo(Emitter, BinaryOperatorExpression, orr, method), inline).Emit();
                 }
-                else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
+                else if (!Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
                 {
-                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
-                    this.WriteDot();
+                    Write(H5Types.ToJsName(method.DeclaringType, Emitter));
+                    WriteDot();
 
-                    this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
+                    Write(OverloadsCollection.Create(Emitter, method).GetOverloadName());
 
-                    this.WriteOpenParentheses();
+                    WriteOpenParentheses();
 
-                    new ExpressionListBlock(this.Emitter,
-                        new Expression[] { this.BinaryOperatorExpression.Left, this.BinaryOperatorExpression.Right }, null, null, 0)
+                    new ExpressionListBlock(Emitter,
+                        new Expression[] { BinaryOperatorExpression.Left, BinaryOperatorExpression.Right }, null, null, 0)
                         .Emit();
-                    this.AddOveflowFlag(typeCode, op_name);
-                    this.WriteCloseParentheses();
+                    AddOveflowFlag(typeCode, op_name);
+                    WriteCloseParentheses();
                 }
             }
             else
             {
                 if (orr.IsLiftedOperator)
                 {
-                    this.Write(JS.Types.SYSTEM_NULLABLE + ".");
-                    this.Write(action);
-                    this.WriteOpenParentheses();
-                    this.WriteScript(op_name);
-                    this.WriteComma();
-                    new ExpressionListBlock(this.Emitter,
-                        new Expression[] { this.BinaryOperatorExpression.Left, this.BinaryOperatorExpression.Right }, null, null, 0)
+                    Write(JS.Types.SYSTEM_NULLABLE + ".");
+                    Write(action);
+                    WriteOpenParentheses();
+                    WriteScript(op_name);
+                    WriteComma();
+                    new ExpressionListBlock(Emitter,
+                        new Expression[] { BinaryOperatorExpression.Left, BinaryOperatorExpression.Right }, null, null, 0)
                         .Emit();
-                    this.AddOveflowFlag(typeCode, op_name);
-                    this.WriteCloseParentheses();
+                    AddOveflowFlag(typeCode, op_name);
+                    WriteCloseParentheses();
                 }
                 else
                 {
-                    this.BinaryOperatorExpression.Left.AcceptVisitor(this.Emitter);
-                    this.WriteDot();
-                    this.Write(op_name);
-                    this.WriteOpenParentheses();
-                    this.BinaryOperatorExpression.Right.AcceptVisitor(this.Emitter);
-                    this.AddOveflowFlag(typeCode, op_name);
-                    this.WriteCloseParentheses();
+                    BinaryOperatorExpression.Left.AcceptVisitor(Emitter);
+                    WriteDot();
+                    Write(op_name);
+                    WriteOpenParentheses();
+                    BinaryOperatorExpression.Right.AcceptVisitor(Emitter);
+                    AddOveflowFlag(typeCode, op_name);
+                    WriteCloseParentheses();
                 }
             }
         }
 
         private void AddOveflowFlag(KnownTypeCode typeCode, string op_name)
         {
-            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && ConversionBlock.IsInCheckedContext(this.Emitter, this.BinaryOperatorExpression))
+            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && ConversionBlock.IsInCheckedContext(Emitter, BinaryOperatorExpression))
             {
                 if (op_name == JS.Funcs.Math.ADD || op_name == JS.Funcs.Math.SUB || op_name == JS.Funcs.Math.MUL)
                 {
-                    this.Write(", 1");
+                    Write(", 1");
                 }
             }
         }
@@ -883,7 +883,7 @@ namespace H5.Translator
             string action = JS.Funcs.Math.LIFT2;
             string op_name = null;
 
-            switch (this.BinaryOperatorExpression.Operator)
+            switch (BinaryOperatorExpression.Operator)
             {
                 case BinaryOperatorType.GreaterThan:
                     op_name = JS.Funcs.Math.GT;
@@ -939,7 +939,7 @@ namespace H5.Translator
                     throw new ArgumentOutOfRangeException();
             }
 
-            this.HandleType(resolveOperator, KnownTypeCode.Decimal, op_name, action);
+            HandleType(resolveOperator, KnownTypeCode.Decimal, op_name, action);
         }
 
         private void HandleLong(ResolveResult resolveOperator, bool isUint)
@@ -947,7 +947,7 @@ namespace H5.Translator
             string action = JS.Funcs.Math.LIFT2;
             string op_name = null;
 
-            switch (this.BinaryOperatorExpression.Operator)
+            switch (BinaryOperatorExpression.Operator)
             {
                 case BinaryOperatorType.GreaterThan:
                     op_name = JS.Funcs.Math.GT;
@@ -993,7 +993,7 @@ namespace H5.Translator
 
                 case BinaryOperatorType.Divide:
                     op_name = JS.Funcs.Math.DIV;
-                    if (Helpers.IsFloatType(resolveOperator.Type, this.Emitter.Resolver))
+                    if (Helpers.IsFloatType(resolveOperator.Type, Emitter.Resolver))
                     {
                         op_name = "JS.Funcs.Math.TO_NUMBER_DIVIDED";
                     }
@@ -1027,7 +1027,7 @@ namespace H5.Translator
                     throw new ArgumentOutOfRangeException();
             }
 
-            this.HandleType(resolveOperator, isUint ? KnownTypeCode.UInt64 : KnownTypeCode.Int64, op_name, action);
+            HandleType(resolveOperator, isUint ? KnownTypeCode.UInt64 : KnownTypeCode.Int64, op_name, action);
         }
 
         private void WritePart(Expression expression, bool toString, ResolveResult rr, bool isCoalescing = false)
@@ -1038,7 +1038,7 @@ namespace H5.Translator
             }
 
             bool wrapString = false;
-            if (this.NullStringCheck && rr.Type.IsKnownType(KnownTypeCode.String))
+            if (NullStringCheck && rr.Type.IsKnownType(KnownTypeCode.String))
             {
                 wrapString = !(expression is BinaryOperatorExpression) && !(expression is PrimitiveExpression || rr.Type.IsReferenceType != null && !rr.Type.IsReferenceType.Value);
             }
@@ -1060,30 +1060,30 @@ namespace H5.Translator
 
                 if (toStringMethod != null)
                 {
-                    var inline = this.Emitter.GetInline(toStringMethod);
+                    var inline = Emitter.GetInline(toStringMethod);
 
                     if (inline != null)
                     {
                         var writer = new Writer
                         {
                             InlineCode = inline,
-                            Output = this.Emitter.Output,
-                            IsNewLine = this.Emitter.IsNewLine
+                            Output = Emitter.Output,
+                            IsNewLine = Emitter.IsNewLine
                         };
-                        this.Emitter.IsNewLine = false;
-                        this.Emitter.Output = new StringBuilder();
+                        Emitter.IsNewLine = false;
+                        Emitter.Output = new StringBuilder();
 
-                        expression.AcceptVisitor(this.Emitter);
+                        expression.AcceptVisitor(Emitter);
 
-                        string result = this.Emitter.Output.ToString();
-                        this.Emitter.Output = writer.Output;
-                        this.Emitter.IsNewLine = writer.IsNewLine;
+                        string result = Emitter.Output.ToString();
+                        Emitter.Output = writer.Output;
+                        Emitter.IsNewLine = writer.IsNewLine;
 
-                        var argsInfo = new ArgumentsInfo(this.Emitter, expression, (IMethod)toStringMethod);
+                        var argsInfo = new ArgumentsInfo(Emitter, expression, (IMethod)toStringMethod);
                         argsInfo.ArgumentsExpressions = new Expression[] { expression };
                         argsInfo.ArgumentsNames = new string[] { "this" };
                         argsInfo.ThisArgument = result;
-                        new InlineArgumentsBlock(this.Emitter, argsInfo, writer.InlineCode).Emit();
+                        new InlineArgumentsBlock(Emitter, argsInfo, writer.InlineCode).Emit();
                         return;
                     }
                 }
@@ -1091,14 +1091,14 @@ namespace H5.Translator
 
             if (wrapString)
             {
-                this.Write("(");
+                Write("(");
             }
 
-            expression.AcceptVisitor(this.Emitter);
+            expression.AcceptVisitor(Emitter);
 
             if (wrapString)
             {
-                this.Write(" || \"\")");
+                Write(" || \"\")");
             }
 
             if (isCoalescing)

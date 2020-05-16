@@ -21,9 +21,9 @@ namespace H5.Translator
 
         protected sealed override void DoEmit()
         {
-            this.AfterOutput = "";
-            this.AfterOutput2 = "";
-            var expression = this.GetExpression();
+            AfterOutput = "";
+            AfterOutput2 = "";
+            var expression = GetExpression();
 
             if (expressionInWork.Contains(expression))
             {
@@ -31,11 +31,11 @@ namespace H5.Translator
                 {
                     if (ConversionBlock.expressionMap.ContainsKey(expression))
                     {
-                        this.Write(ConversionBlock.expressionMap[expression]);
+                        Write(ConversionBlock.expressionMap[expression]);
                     }
                     else
                     {
-                        this.EmitConversionExpression();
+                        EmitConversionExpression();
                     }
 
                     return;
@@ -51,10 +51,10 @@ namespace H5.Translator
 
             if (check)
             {
-                parenthesesLevel = this.CheckConversion(expression);
+                parenthesesLevel = CheckConversion(expression);
             }
 
-            if (this.DisableEmitConversionExpression)
+            if (DisableEmitConversionExpression)
             {
                 if (expressionInWork.Contains(expression) && !ConversionBlock.expressionIgnoreUserDefine.Contains(expression))
                 {
@@ -65,11 +65,11 @@ namespace H5.Translator
 
             if (expression != null && ConversionBlock.expressionMap.ContainsKey(expression))
             {
-                this.Write(ConversionBlock.expressionMap[expression]);
+                Write(ConversionBlock.expressionMap[expression]);
             }
             else
             {
-                this.EmitConversionExpression();
+                EmitConversionExpression();
             }
 
             if (expressionInWork.Contains(expression) && !ConversionBlock.expressionIgnoreUserDefine.Contains(expression))
@@ -81,18 +81,18 @@ namespace H5.Translator
             {
                 for (int i = 0; i < parenthesesLevel; i++)
                 {
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
                 }
             }
 
-            if (this.AfterOutput.Length > 0)
+            if (AfterOutput.Length > 0)
             {
-                this.Write(this.AfterOutput);
+                Write(AfterOutput);
             }
 
-            if (this.AfterOutput2.Length > 0)
+            if (AfterOutput2.Length > 0)
             {
-                this.Write(this.AfterOutput2);
+                Write(AfterOutput2);
             }
         }
 

@@ -12,15 +12,15 @@ namespace H5.Translator
         public YieldBlock(IEmitter emitter, YieldBreakStatement yieldBreakStatement)
             : base(emitter, yieldBreakStatement)
         {
-            this.Emitter = emitter;
-            this.YieldBreakStatement = yieldBreakStatement;
+            Emitter = emitter;
+            YieldBreakStatement = yieldBreakStatement;
         }
 
         public YieldBlock(IEmitter emitter, YieldReturnStatement yieldReturnStatement)
             : base(emitter, yieldReturnStatement)
         {
-            this.Emitter = emitter;
-            this.YieldReturnStatement = yieldReturnStatement;
+            Emitter = emitter;
+            YieldReturnStatement = yieldReturnStatement;
         }
 
         public YieldBreakStatement YieldBreakStatement { get; set; }
@@ -31,37 +31,37 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            this.EmittedAsyncSteps = this.Emitter.AsyncBlock.EmittedAsyncSteps;
-            this.Emitter.AsyncBlock.EmittedAsyncSteps = new List<IAsyncStep>();
+            EmittedAsyncSteps = Emitter.AsyncBlock.EmittedAsyncSteps;
+            Emitter.AsyncBlock.EmittedAsyncSteps = new List<IAsyncStep>();
 
-            if (this.YieldReturnStatement != null)
+            if (YieldReturnStatement != null)
             {
-                this.Write(JS.Vars.ENUMERATOR + "." + JS.Fields.CURRENT + " = ");
-                this.YieldReturnStatement.Expression.AcceptVisitor(this.Emitter);
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                Write(JS.Vars.ENUMERATOR + "." + JS.Fields.CURRENT + " = ");
+                YieldReturnStatement.Expression.AcceptVisitor(Emitter);
+                WriteSemiColon();
+                WriteNewLine();
 
-                this.Write(JS.Vars.ASYNC_STEP + " = " + this.Emitter.AsyncBlock.Step);
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                Write(JS.Vars.ASYNC_STEP + " = " + Emitter.AsyncBlock.Step);
+                WriteSemiColon();
+                WriteNewLine();
 
-                this.WriteReturn(true);
-                this.Write("true");
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                WriteReturn(true);
+                Write("true");
+                WriteSemiColon();
+                WriteNewLine();
 
-                this.Emitter.AsyncBlock.AddAsyncStep();
+                Emitter.AsyncBlock.AddAsyncStep();
             }
-            else if (this.YieldBreakStatement != null)
+            else if (YieldBreakStatement != null)
             {
-                this.WriteReturn(true);
-                this.Write("false");
+                WriteReturn(true);
+                Write("false");
 
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                WriteSemiColon();
+                WriteNewLine();
             }
 
-            this.Emitter.AsyncBlock.EmittedAsyncSteps = this.EmittedAsyncSteps;
+            Emitter.AsyncBlock.EmittedAsyncSteps = EmittedAsyncSteps;
         }
 
         public static bool HasYield(AstNode node)

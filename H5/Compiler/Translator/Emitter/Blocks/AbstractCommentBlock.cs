@@ -12,13 +12,13 @@ namespace H5.Translator
 
         public override void Emit()
         {
-            this.EmitComment();
+            EmitComment();
             base.Emit();
         }
 
         public virtual void EmitComment()
         {
-            XmlToJsDoc.EmitComment(this, this.Emitter.Translator.EmitNode);
+            XmlToJsDoc.EmitComment(this, Emitter.Translator.EmitNode);
         }
     }
 }

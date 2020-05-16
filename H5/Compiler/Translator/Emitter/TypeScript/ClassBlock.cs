@@ -13,15 +13,15 @@ namespace H5.Translator.TypeScript
         public ClassBlock(IEmitter emitter, ITypeInfo typeInfo)
             : base(emitter, typeInfo.TypeDeclaration)
         {
-            this.TypeInfo = typeInfo;
+            TypeInfo = typeInfo;
         }
 
         public ClassBlock(IEmitter emitter, ITypeInfo typeInfo, IEnumerable<ITypeInfo> nestedTypes, IEnumerable<ITypeInfo> allTypes, string ns)
             : this(emitter, typeInfo)
         {
-            this.NestedTypes = nestedTypes;
-            this.AllTypes = allTypes;
-            this.Namespace = ns;
+            NestedTypes = nestedTypes;
+            AllTypes = allTypes;
+            Namespace = ns;
         }
 
         public ITypeInfo TypeInfo { get; set; }
@@ -40,56 +40,56 @@ namespace H5.Translator.TypeScript
 
         protected override void DoEmit()
         {
-            XmlToJsDoc.EmitComment(this, this.Emitter.Translator.EmitNode);
+            XmlToJsDoc.EmitComment(this, Emitter.Translator.EmitNode);
 
-            if (this.TypeInfo.IsEnum && this.TypeInfo.ParentType == null)
+            if (TypeInfo.IsEnum && TypeInfo.ParentType == null)
             {
-                new EnumBlock(this.Emitter, this.TypeInfo, this.Namespace).Emit();
+                new EnumBlock(Emitter, TypeInfo, Namespace).Emit();
             }
             else
             {
-                this.EmitClassHeader();
-                this.EmitBlock();
-                this.EmitClassEnd();
+                EmitClassHeader();
+                EmitBlock();
+                EmitClassEnd();
             }
         }
 
         protected virtual void EmitClassHeader()
         {
-            var typeDef = this.Emitter.GetTypeDefinition();
-            string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, true, false);
-            this.IsGeneric = typeDef.GenericParameters.Count > 0;
+            var typeDef = Emitter.GetTypeDefinition();
+            string name = Emitter.Validator.GetCustomTypeName(typeDef, Emitter, true, false);
+            IsGeneric = typeDef.GenericParameters.Count > 0;
 
             if (name.IsEmpty())
             {
-                name = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, false, true);
+                name = H5Types.ToTypeScriptName(TypeInfo.Type, Emitter, false, true);
 
-                if (this.IsGeneric)
+                if (IsGeneric)
                 {
-                    this.DefName = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, true, true);
+                    DefName = H5Types.ToTypeScriptName(TypeInfo.Type, Emitter, true, true);
                 }
             }
-            else if (this.IsGeneric)
+            else if (IsGeneric)
             {
-                this.DefName = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, true);
+                DefName = Emitter.Validator.GetCustomTypeName(typeDef, Emitter, true);
             }
 
-            this.Write("interface ");
+            Write("interface ");
 
-            this.JsName = name;
-            this.Write(this.JsName);
+            JsName = name;
+            Write(JsName);
 
-            string extend = this.GetTypeHierarchy();
+            string extend = GetTypeHierarchy();
 
-            if (extend.IsNotEmpty() && !this.TypeInfo.IsEnum)
+            if (extend.IsNotEmpty() && !TypeInfo.IsEnum)
             {
-                this.Write(" extends ");
-                this.Write(extend);
+                Write(" extends ");
+                Write(extend);
             }
 
-            this.WriteSpace();
-            this.BeginBlock();
-            this.Position = this.Emitter.Output.Length;
+            WriteSpace();
+            BeginBlock();
+            Position = Emitter.Output.Length;
         }
 
         public string DefName { get; set; }
@@ -100,9 +100,9 @@ namespace H5.Translator.TypeScript
 
             var list = new List<string>();
 
-            foreach (var t in this.TypeInfo.GetBaseTypes(this.Emitter))
+            foreach (var t in TypeInfo.GetBaseTypes(Emitter))
             {
-                var name = H5Types.ToTypeScriptName(t, this.Emitter);
+                var name = H5Types.ToTypeScriptName(t, Emitter);
 
                 list.Add(name);
             }
@@ -135,193 +135,193 @@ namespace H5.Translator.TypeScript
 
         protected virtual void EmitBlock()
         {
-            var typeDef = this.Emitter.GetTypeDefinition();
+            var typeDef = Emitter.GetTypeDefinition();
 
-            new MemberBlock(this.Emitter, this.TypeInfo, false).Emit();
-            if (this.Emitter.TypeInfo.TypeDeclaration.ClassType != ICSharpCode.NRefactory.CSharp.ClassType.Interface)
+            new MemberBlock(Emitter, TypeInfo, false).Emit();
+            if (Emitter.TypeInfo.TypeDeclaration.ClassType != ICSharpCode.NRefactory.CSharp.ClassType.Interface)
             {
-                if (this.Position != this.Emitter.Output.Length && !this.Emitter.IsNewLine)
+                if (Position != Emitter.Output.Length && !Emitter.IsNewLine)
                 {
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
 
-                this.EndBlock();
+                EndBlock();
 
-                this.WriteNewLine();
+                WriteNewLine();
 
-                this.Write("interface ");
+                Write("interface ");
 
-                this.Write(this.DefName ?? this.JsName);
+                Write(DefName ?? JsName);
 
-                this.Write("Func extends Function ");
+                Write("Func extends Function ");
 
-                if (this.IsGeneric)
+                if (IsGeneric)
                 {
-                    this.BeginBlock();
-                    this.Write("<");
+                    BeginBlock();
+                    Write("<");
                     var comma = false;
                     foreach (var p in typeDef.GenericParameters)
                     {
                         if (comma)
                         {
-                            this.WriteComma();
+                            WriteComma();
                         }
-                        this.Write(p.Name);
+                        Write(p.Name);
                         comma = true;
                     }
-                    this.Write(">");
+                    Write(">");
 
-                    this.WriteOpenParentheses();
+                    WriteOpenParentheses();
                     comma = false;
                     foreach (var p in typeDef.GenericParameters)
                     {
                         if (comma)
                         {
-                            this.WriteComma();
+                            WriteComma();
                         }
-                        this.Write(JS.Vars.D + p.Name);
-                        this.WriteColon();
-                        this.Write(JS.Types.TypeRef);
-                        this.Write("<");
-                        this.Write(p.Name);
-                        this.Write(">");
+                        Write(JS.Vars.D + p.Name);
+                        WriteColon();
+                        Write(JS.Types.TypeRef);
+                        Write("<");
+                        Write(p.Name);
+                        Write(">");
                         comma = true;
                     }
 
-                    this.WriteCloseParentheses();
-                    this.WriteColon();
+                    WriteCloseParentheses();
+                    WriteColon();
                 }
 
-                this.BeginBlock();
+                BeginBlock();
 
-                this.Write(JS.Fields.PROTOTYPE + ": ");
-                this.Write(this.JsName);
-                this.WriteSemiColon();
-                this.WriteNewLine();
-                this.WriteNestedDefs();
-                this.Position = this.Emitter.Output.Length;
+                Write(JS.Fields.PROTOTYPE + ": ");
+                Write(JsName);
+                WriteSemiColon();
+                WriteNewLine();
+                WriteNestedDefs();
+                Position = Emitter.Output.Length;
 
-                if (this.Emitter.TypeInfo.TypeDeclaration.ClassType != ICSharpCode.NRefactory.CSharp.ClassType.Interface)
+                if (Emitter.TypeInfo.TypeDeclaration.ClassType != ICSharpCode.NRefactory.CSharp.ClassType.Interface)
                 {
-                    if (!this.TypeInfo.IsEnum)
+                    if (!TypeInfo.IsEnum)
                     {
-                        new ConstructorBlock(this.Emitter, this.TypeInfo).Emit();
+                        new ConstructorBlock(Emitter, TypeInfo).Emit();
                     }
-                    new MemberBlock(this.Emitter, this.TypeInfo, true).Emit();
+                    new MemberBlock(Emitter, TypeInfo, true).Emit();
                 }
             }
         }
 
         protected virtual void WriteNestedDefs()
         {
-            if (this.NestedTypes != null)
+            if (NestedTypes != null)
             {
-                foreach (var nestedType in this.NestedTypes)
+                foreach (var nestedType in NestedTypes)
                 {
 
-                    var typeDef = this.Emitter.GetTypeDefinition(nestedType.Type);
+                    var typeDef = Emitter.GetTypeDefinition(nestedType.Type);
 
-                    if (typeDef.IsInterface || this.Emitter.Validator.IsObjectLiteral(typeDef))
+                    if (typeDef.IsInterface || Emitter.Validator.IsObjectLiteral(typeDef))
                     {
                         continue;
                     }
 
-                    string customName = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, true);
+                    string customName = Emitter.Validator.GetCustomTypeName(typeDef, Emitter, true);
                     string defName = customName;
 
                     if (defName.IsEmpty())
                     {
-                        defName = H5Types.ToTypeScriptName(nestedType.Type, this.Emitter, true);
-                        this.Write(H5Types.ToTypeScriptName(nestedType.Type, this.Emitter, true, true));
+                        defName = H5Types.ToTypeScriptName(nestedType.Type, Emitter, true);
+                        Write(H5Types.ToTypeScriptName(nestedType.Type, Emitter, true, true));
                     }
                     else
                     {
-                        this.Write(defName);
+                        Write(defName);
                     }
 
                     if (typeDef.IsEnum)
                     {
-                        var parentTypeDef = this.Emitter.GetTypeDefinition();
-                        string parentName = this.Emitter.Validator.GetCustomTypeName(parentTypeDef, this.Emitter, false, false);
+                        var parentTypeDef = Emitter.GetTypeDefinition();
+                        string parentName = Emitter.Validator.GetCustomTypeName(parentTypeDef, Emitter, false, false);
                         if (parentName.IsEmpty())
                         {
-                            parentName = this.TypeInfo.Type.Name;
+                            parentName = TypeInfo.Type.Name;
                         }
-                        defName = parentName + "." + H5Types.ToTypeScriptName(nestedType.Type, this.Emitter, false, true);
+                        defName = parentName + "." + H5Types.ToTypeScriptName(nestedType.Type, Emitter, false, true);
                     }
 
-                    this.WriteColon();
+                    WriteColon();
 
-                    this.Write(defName + "Func");
-                    this.WriteSemiColon();
-                    this.WriteNewLine();
+                    Write(defName + "Func");
+                    WriteSemiColon();
+                    WriteNewLine();
                 }
             }
         }
 
         protected virtual void EmitClassEnd()
         {
-            if (this.Position != this.Emitter.Output.Length && !this.Emitter.IsNewLine)
+            if (Position != Emitter.Output.Length && !Emitter.IsNewLine)
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
 
-            var isInterface = this.Emitter.TypeInfo.TypeDeclaration.ClassType == ICSharpCode.NRefactory.CSharp.ClassType.Interface;
-            this.EndBlock();
+            var isInterface = Emitter.TypeInfo.TypeDeclaration.ClassType == ICSharpCode.NRefactory.CSharp.ClassType.Interface;
+            EndBlock();
 
-            if (this.IsGeneric && !isInterface)
+            if (IsGeneric && !isInterface)
             {
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
 
-            if (this.TypeInfo.ParentType == null && !isInterface)
+            if (TypeInfo.ParentType == null && !isInterface)
             {
-                string name = H5Types.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, true, true);
-                this.WriteNewLine();
+                string name = H5Types.ToTypeScriptName(TypeInfo.Type, Emitter, true, true);
+                WriteNewLine();
 
-                if (this.Namespace == null)
+                if (Namespace == null)
                 {
-                    this.Write("declare ");
+                    Write("declare ");
                 }
 
-                this.Write("var ");
-                this.Write(name);
-                this.WriteColon();
+                Write("var ");
+                Write(name);
+                WriteColon();
 
-                this.Write(name + "Func");
+                Write(name + "Func");
 
-                this.WriteSemiColon();
+                WriteSemiColon();
             }
 
-            this.WriteNestedTypes();
+            WriteNestedTypes();
         }
 
         protected virtual void WriteNestedTypes()
         {
-            if (this.NestedTypes != null && this.NestedTypes.Any())
+            if (NestedTypes != null && NestedTypes.Any())
             {
-                if (!this.Emitter.IsNewLine)
+                if (!Emitter.IsNewLine)
                 {
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
 
-                var typeDef = this.Emitter.GetTypeDefinition();
-                string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, true);
+                var typeDef = Emitter.GetTypeDefinition();
+                string name = Emitter.Validator.GetCustomTypeName(typeDef, Emitter, true);
                 if (name.IsEmpty())
                 {
-                    name = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter, true, true, nomodule: true);
+                    name = H5Types.ToJsName(TypeInfo.Type, Emitter, true, true, nomodule: true);
                 }
 
-                this.Write("module ");
-                this.Write(name);
-                this.WriteSpace();
-                this.BeginBlock();
+                Write("module ");
+                Write(name);
+                WriteSpace();
+                BeginBlock();
 
-                var last = this.NestedTypes.LastOrDefault();
-                foreach (var nestedType in this.NestedTypes)
+                var last = NestedTypes.LastOrDefault();
+                foreach (var nestedType in NestedTypes)
                 {
-                    this.Emitter.Translator.EmitNode = nestedType.TypeDeclaration;
+                    Emitter.Translator.EmitNode = nestedType.TypeDeclaration;
 
                     if (nestedType.IsObjectLiteral)
                     {
@@ -330,9 +330,9 @@ namespace H5.Translator.TypeScript
 
                     ITypeInfo typeInfo;
 
-                    if (this.Emitter.TypeInfoDefinitions.ContainsKey(nestedType.Key))
+                    if (Emitter.TypeInfoDefinitions.ContainsKey(nestedType.Key))
                     {
-                        typeInfo = this.Emitter.TypeInfoDefinitions[nestedType.Key];
+                        typeInfo = Emitter.TypeInfoDefinitions[nestedType.Key];
 
                         nestedType.Module = typeInfo.Module;
                         nestedType.FileName = typeInfo.FileName;
@@ -344,18 +344,18 @@ namespace H5.Translator.TypeScript
                         typeInfo = nestedType;
                     }
 
-                    this.Emitter.TypeInfo = nestedType;
+                    Emitter.TypeInfo = nestedType;
 
-                    var nestedTypes = this.AllTypes.Where(t => t.ParentType == nestedType);
-                    new ClassBlock(this.Emitter, this.Emitter.TypeInfo, nestedTypes, this.AllTypes, this.Namespace).Emit();
-                    this.WriteNewLine();
+                    var nestedTypes = AllTypes.Where(t => t.ParentType == nestedType);
+                    new ClassBlock(Emitter, Emitter.TypeInfo, nestedTypes, AllTypes, Namespace).Emit();
+                    WriteNewLine();
                     if (nestedType != last)
                     {
-                        this.WriteNewLine();
+                        WriteNewLine();
                     }
                 }
 
-                this.EndBlock();
+                EndBlock();
             }
         }
     }

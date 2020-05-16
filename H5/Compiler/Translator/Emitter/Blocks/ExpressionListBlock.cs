@@ -14,12 +14,12 @@ namespace H5.Translator
         public ExpressionListBlock(IEmitter emitter, IEnumerable<Expression> expressions, Expression paramArg, AstNode invocation, int openBracketPosition, bool newLine = false)
             : base(emitter, null)
         {
-            this.Emitter = emitter;
-            this.Expressions = expressions;
-            this.ParamExpression = paramArg;
-            this.InvocationExpression = invocation;
-            this.OpenBracketPosition = openBracketPosition;
-            this.NewLine = newLine;
+            Emitter = emitter;
+            Expressions = expressions;
+            ParamExpression = paramArg;
+            InvocationExpression = invocation;
+            OpenBracketPosition = openBracketPosition;
+            NewLine = newLine;
         }
 
         public bool NewLine { get; set; }
@@ -36,26 +36,26 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            var oldIsAssignment = this.Emitter.IsAssignment;
-            var oldUnary = this.Emitter.IsUnaryAccessor;
-            this.Emitter.IsAssignment = false;
-            this.Emitter.IsUnaryAccessor = false;
-            this.EmitExpressionList(this.Expressions, this.ParamExpression);
-            this.Emitter.IsAssignment = oldIsAssignment;
-            this.Emitter.IsUnaryAccessor = oldUnary;
+            var oldIsAssignment = Emitter.IsAssignment;
+            var oldUnary = Emitter.IsUnaryAccessor;
+            Emitter.IsAssignment = false;
+            Emitter.IsUnaryAccessor = false;
+            EmitExpressionList(Expressions, ParamExpression);
+            Emitter.IsAssignment = oldIsAssignment;
+            Emitter.IsUnaryAccessor = oldUnary;
         }
 
         protected virtual void EmitExpressionList(IEnumerable<Expression> expressions, Expression paramArg)
         {
             bool needComma = false;
-            int count = this.Emitter.Writers.Count;
-            bool wrapByBrackets = !this.IgnoreExpandParams;
+            int count = Emitter.Writers.Count;
+            bool wrapByBrackets = !IgnoreExpandParams;
             bool expandParams = false;
             bool isApply = false;
 
-            if (paramArg != null && this.InvocationExpression != null && !this.IgnoreExpandParams)
+            if (paramArg != null && InvocationExpression != null && !IgnoreExpandParams)
             {
-                if (this.Emitter.Resolver.ResolveNode(this.InvocationExpression, this.Emitter) is CSharpInvocationResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(InvocationExpression, Emitter) is CSharpInvocationResolveResult rr)
                 {
                     expandParams = rr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                     wrapByBrackets = rr.IsExpandedForm && !expandParams;
@@ -64,30 +64,30 @@ namespace H5.Translator
 
             if (paramArg != null && expandParams)
             {
-                var resolveResult = this.Emitter.Resolver.ResolveNode(paramArg, this.Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(paramArg, Emitter);
 
                 if (resolveResult.Type.Kind == TypeKind.Array && !(paramArg is ArrayCreateExpression) && expressions.Last() == paramArg)
                 {
                     bool needConcat = expressions.Count() > 1;
 
-                    if (this.InvocationExpression is ObjectCreateExpression)
+                    if (InvocationExpression is ObjectCreateExpression)
                     {
                         if (needConcat)
                         {
-                            this.Write("[");
+                            Write("[");
                         }
                     }
                     else
                     {
                         var scope = "null";
 
-                        if (this.InvocationExpression != null)
+                        if (InvocationExpression != null)
                         {
-                            if (this.Emitter.Resolver.ResolveNode(this.InvocationExpression, this.Emitter) is MemberResolveResult rr && !rr.Member.IsStatic && this.InvocationExpression is InvocationExpression)
+                            if (Emitter.Resolver.ResolveNode(InvocationExpression, Emitter) is MemberResolveResult rr && !rr.Member.IsStatic && InvocationExpression is InvocationExpression)
                             {
-                                var oldWriter = this.SaveWriter();
-                                var sb = this.NewWriter();
-                                var target = ((InvocationExpression)this.InvocationExpression).Target;
+                                var oldWriter = SaveWriter();
+                                var sb = NewWriter();
+                                var target = ((InvocationExpression)InvocationExpression).Target;
 
                                 if (target is MemberReferenceExpression)
                                 {
@@ -98,20 +98,20 @@ namespace H5.Translator
                                     target = new ThisReferenceExpression();
                                 }
 
-                                target.AcceptVisitor(this.Emitter);
+                                target.AcceptVisitor(Emitter);
                                 scope = sb.ToString();
-                                this.RestoreWriter(oldWriter);
+                                RestoreWriter(oldWriter);
                             }
                         }
 
-                        var pos = this.OpenBracketPosition;
+                        var pos = OpenBracketPosition;
 
                         if (pos > -1)
                         {
-                            this.Emitter.Output.Insert(pos, "." + JS.Funcs.APPLY);
+                            Emitter.Output.Insert(pos, "." + JS.Funcs.APPLY);
                             pos += 7;
 
-                            this.Emitter.Output.Insert(pos, scope + ", " + (needConcat ? "[" : ""));
+                            Emitter.Output.Insert(pos, scope + ", " + (needConcat ? "[" : ""));
                         }
                     }
 
@@ -119,10 +119,10 @@ namespace H5.Translator
                 }
             }
 
-            if (this.NewLine)
+            if (NewLine)
             {
-                this.WriteNewLine();
-                this.Indent();
+                WriteNewLine();
+                Indent();
             }
 
             foreach (var expr in expressions)
@@ -132,16 +132,16 @@ namespace H5.Translator
                     continue;
                 }
 
-                this.Emitter.Translator.EmitNode = expr;
+                Emitter.Translator.EmitNode = expr;
                 var isParamsArg = expr == paramArg;
 
                 if (needComma && !(isParamsArg && isApply))
                 {
-                    this.WriteComma();
-                    if (this.NewLine)
+                    WriteComma();
+                    if (NewLine)
                     {
-                        this.WriteNewLine();
-                        this.WriteIndent();
+                        WriteNewLine();
+                        WriteIndent();
                     }
                 }
 
@@ -149,29 +149,29 @@ namespace H5.Translator
 
                 if (expr is DirectionExpression directExpr)
                 {
-                    var resolveResult = this.Emitter.Resolver.ResolveNode(expr, this.Emitter);
+                    var resolveResult = Emitter.Resolver.ResolveNode(expr, Emitter);
 
                     if (resolveResult is ByReferenceResolveResult byReferenceResolveResult && !(byReferenceResolveResult.ElementResult is LocalResolveResult))
                     {
                         if (byReferenceResolveResult.ElementResult is MemberResolveResult mr && mr.Member.FullName == "H5.Ref.Value" && directExpr.Expression is MemberReferenceExpression mre)
                         {
-                            mre.Target.AcceptVisitor(this.Emitter);
+                            mre.Target.AcceptVisitor(Emitter);
                         }
                         else
                         {
-                            this.Write(JS.Funcs.H5_REF + "(");
+                            Write(JS.Funcs.H5_REF + "(");
 
-                            this.Emitter.IsRefArg = true;
-                            expr.AcceptVisitor(this.Emitter);
-                            this.Emitter.IsRefArg = false;
+                            Emitter.IsRefArg = true;
+                            expr.AcceptVisitor(Emitter);
+                            Emitter.IsRefArg = false;
 
-                            if (this.Emitter.Writers.Count != count)
+                            if (Emitter.Writers.Count != count)
                             {
-                                this.PopWriter();
-                                count = this.Emitter.Writers.Count;
+                                PopWriter();
+                                count = Emitter.Writers.Count;
                             }
 
-                            this.Write(")");
+                            Write(")");
                         }
 
                         continue;
@@ -182,51 +182,51 @@ namespace H5.Translator
                 {
                     if (wrapByBrackets)
                     {
-                        this.WriteOpenBracket();
+                        WriteOpenBracket();
                     }
                     else if (isApply)
                     {
-                        this.Write("].concat(");
+                        Write("].concat(");
                     }
                 }
 
-                int pos = this.Emitter.Output.Length;
+                int pos = Emitter.Output.Length;
 
                 if (expandParams && isParamsArg && expr is ArrayCreateExpression)
                 {
-                    new ExpressionListBlock(this.Emitter, ((ArrayCreateExpression)expr).Initializer.Elements, null, null, 0).DoEmit();
+                    new ExpressionListBlock(Emitter, ((ArrayCreateExpression)expr).Initializer.Elements, null, null, 0).DoEmit();
                 }
                 else
                 {
-                    expr.AcceptVisitor(this.Emitter);
+                    expr.AcceptVisitor(Emitter);
 
                     if (isParamsArg && isApply)
                     {
-                        this.Write(")");
+                        Write(")");
                     }
                 }
 
-                if (this.Emitter.Writers.Count != count)
+                if (Emitter.Writers.Count != count)
                 {
-                    this.PopWriter();
-                    count = this.Emitter.Writers.Count;
+                    PopWriter();
+                    count = Emitter.Writers.Count;
                 }
 
                 if (expr is AssignmentExpression)
                 {
-                    Helpers.CheckValueTypeClone(this.Emitter.Resolver.ResolveNode(expr, this.Emitter), expr, this, pos);
+                    Helpers.CheckValueTypeClone(Emitter.Resolver.ResolveNode(expr, Emitter), expr, this, pos);
                 }
             }
 
-            if (this.NewLine)
+            if (NewLine)
             {
-                this.WriteNewLine();
-                this.Outdent();
+                WriteNewLine();
+                Outdent();
             }
 
             if (wrapByBrackets && paramArg != null)
             {
-                this.WriteCloseBracket();
+                WriteCloseBracket();
             }
         }
     }

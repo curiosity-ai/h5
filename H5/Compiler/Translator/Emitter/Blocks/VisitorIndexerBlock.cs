@@ -10,8 +10,8 @@ namespace H5.Translator
         public VisitorIndexerBlock(IEmitter emitter, IndexerDeclaration indexerDeclaration)
             : base(emitter, indexerDeclaration)
         {
-            this.Emitter = emitter;
-            this.IndexerDeclaration = indexerDeclaration;
+            Emitter = emitter;
+            IndexerDeclaration = indexerDeclaration;
         }
 
         public IndexerDeclaration IndexerDeclaration { get; set; }
@@ -21,118 +21,118 @@ namespace H5.Translator
         protected override void BeginEmit()
         {
             base.BeginEmit();
-            this.OldRules = this.Emitter.Rules;
+            OldRules = Emitter.Rules;
 
 
-            if (this.Emitter.Resolver.ResolveNode(this.IndexerDeclaration, this.Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(IndexerDeclaration, Emitter) is MemberResolveResult rr)
             {
-                this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
+                Emitter.Rules = Rules.Get(Emitter, rr.Member);
             }
         }
 
         protected override void EndEmit()
         {
             base.EndEmit();
-            this.Emitter.Rules = this.OldRules;
+            Emitter.Rules = OldRules;
         }
 
         protected override void DoEmit()
         {
             IProperty prop = null;
-            if (this.Emitter.Resolver.ResolveNode(this.IndexerDeclaration, this.Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(IndexerDeclaration, Emitter) is MemberResolveResult rr)
             {
                 prop = rr.Member as IProperty;
 
-                if (prop != null && this.Emitter.Validator.IsExternalType(prop))
+                if (prop != null && Emitter.Validator.IsExternalType(prop))
                 {
                     return;
                 }
             }
 
-            this.EmitIndexerMethod(this.IndexerDeclaration, prop, this.IndexerDeclaration.Getter, prop?.Getter, false);
-            this.EmitIndexerMethod(this.IndexerDeclaration, prop, this.IndexerDeclaration.Setter, prop?.Setter, true);
+            EmitIndexerMethod(IndexerDeclaration, prop, IndexerDeclaration.Getter, prop?.Getter, false);
+            EmitIndexerMethod(IndexerDeclaration, prop, IndexerDeclaration.Setter, prop?.Setter, true);
         }
 
         protected virtual void EmitIndexerMethod(IndexerDeclaration indexerDeclaration, IProperty prop, Accessor accessor, IMethod propAccessor, bool setter)
         {
-            var isIgnore = propAccessor != null && this.Emitter.Validator.IsExternalType(propAccessor);
+            var isIgnore = propAccessor != null && Emitter.Validator.IsExternalType(propAccessor);
 
-            if (!accessor.IsNull && this.Emitter.GetInline(accessor) == null && !isIgnore)
+            if (!accessor.IsNull && Emitter.GetInline(accessor) == null && !isIgnore)
             {
-                this.EnsureComma();
+                EnsureComma();
 
-                this.ResetLocals();
+                ResetLocals();
 
-                var prevMap = this.BuildLocalsMap();
-                var prevNamesMap = this.BuildLocalsNamesMap();
+                var prevMap = BuildLocalsMap();
+                var prevNamesMap = BuildLocalsNamesMap();
 
                 if (setter)
                 {
-                    this.AddLocals(new ParameterDeclaration[] {new ParameterDeclaration {Name = "value"}}, accessor.Body);
+                    AddLocals(new ParameterDeclaration[] {new ParameterDeclaration {Name = "value"}}, accessor.Body);
                 }
                 else
                 {
-                    this.AddLocals(new ParameterDeclaration[0], accessor.Body);
+                    AddLocals(new ParameterDeclaration[0], accessor.Body);
                 }
 
-                XmlToJsDoc.EmitComment(this, this.IndexerDeclaration, !setter);
+                XmlToJsDoc.EmitComment(this, IndexerDeclaration, !setter);
 
                 string accName = null;
 
                 if (prop != null)
                 {
-                    accName = this.Emitter.GetEntityNameFromAttr(prop, setter);
+                    accName = Emitter.GetEntityNameFromAttr(prop, setter);
 
                     if (string.IsNullOrEmpty(accName))
                     {
-                        var member_rr = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(indexerDeclaration, this.Emitter);
+                        var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(indexerDeclaration, Emitter);
 
-                        var overloads = OverloadsCollection.Create(this.Emitter, indexerDeclaration, setter);
+                        var overloads = OverloadsCollection.Create(Emitter, indexerDeclaration, setter);
                         accName = overloads.GetOverloadName(false, Helpers.GetSetOrGet(setter), OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr));
                     }
                 }
 
-                this.Write(accName);
-                this.WriteColon();
-                this.WriteFunction();
-                var nm = Helpers.GetFunctionName(this.Emitter.AssemblyInfo.NamedFunctions, prop, this.Emitter, setter);
+                Write(accName);
+                WriteColon();
+                WriteFunction();
+                var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, prop, Emitter, setter);
                 if (nm != null)
                 {
-                    this.Write(nm);
+                    Write(nm);
                 }
-                this.EmitMethodParameters(indexerDeclaration.Parameters, null, indexerDeclaration, setter);
+                EmitMethodParameters(indexerDeclaration.Parameters, null, indexerDeclaration, setter);
 
                 if (setter)
                 {
-                    this.Write(", value)");
+                    Write(", value)");
                 }
-                this.WriteSpace();
+                WriteSpace();
 
-                var script = this.Emitter.GetScript(accessor);
+                var script = Emitter.GetScript(accessor);
 
                 if (script == null)
                 {
                     if (YieldBlock.HasYield(accessor.Body))
                     {
-                        new GeneratorBlock(this.Emitter, accessor).Emit();
+                        new GeneratorBlock(Emitter, accessor).Emit();
                     }
                     else
                     {
-                        accessor.Body.AcceptVisitor(this.Emitter);
+                        accessor.Body.AcceptVisitor(Emitter);
                     }
                 }
                 else
                 {
-                    this.BeginBlock();
+                    BeginBlock();
 
-                    this.WriteLines(script);
+                    WriteLines(script);
 
-                    this.EndBlock();
+                    EndBlock();
                 }
 
-                this.ClearLocalsMap(prevMap);
-                this.ClearLocalsNamesMap(prevNamesMap);
-                this.Emitter.Comma = true;
+                ClearLocalsMap(prevMap);
+                ClearLocalsNamesMap(prevNamesMap);
+                Emitter.Comma = true;
             }
         }
     }

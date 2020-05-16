@@ -1203,7 +1203,7 @@ namespace H5.Contract
 
         protected virtual IMember FindMember(EntityDeclaration entity)
         {
-            if (this.Emitter.Resolver.ResolveNode(entity, this.Emitter) is MemberResolveResult rr)
+            if (this.Emitter.Resolver.ResolveNode(entity) is MemberResolveResult rr)
             {
                 return rr.Member;
             }

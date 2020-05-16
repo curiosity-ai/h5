@@ -37,15 +37,15 @@ namespace H5.Translator
 
         public SourceMapBuilder(string scriptFileName, string sourceRoot, string basePath)
         {
-            this._scriptFileName = scriptFileName;
-            this._sourceRoot = sourceRoot;
+            _scriptFileName = scriptFileName;
+            _sourceRoot = sourceRoot;
 
             _entries = new List<SourceMapEntry>();
 
             _sourceUrlMap = new Dictionary<string, int>();
-            this.SourceUrlList = new List<string>();
+            SourceUrlList = new List<string>();
             _sourceNameMap = new Dictionary<string, int>();
-            this.SourceNameList = new List<string>();
+            SourceNameList = new List<string>();
 
             _previousTargetLine = 0;
             _previousTargetColumn = 0;
@@ -92,10 +92,10 @@ namespace H5.Translator
             buffer.AppendFormat("  \"file\": \"{0}\"," + nl, _scriptFileName);
             buffer.Append("  \"sourceRoot\": \"" + _sourceRoot + "\"," + nl);
             buffer.Append("  \"sources\": ");
-            PrintStringListOn(this.SourceUrlList, true, buffer);
+            PrintStringListOn(SourceUrlList, true, buffer);
             buffer.Append("," + nl);
             buffer.Append("  \"names\": ");
-            PrintStringListOn(this.SourceNameList, false, buffer);
+            PrintStringListOn(SourceNameList, false, buffer);
             buffer.Append("," + nl);
             buffer.Append("  \"mappings\": \"");
             buffer.Append(mappingsBuffer);
@@ -130,12 +130,12 @@ namespace H5.Translator
             _previousSourceLine = sourceLocation.Line;
             _previousSourceColumn = sourceLocation.Column;
             string sourceUrl = sourceLocation.SourceUrl;
-            _previousSourceUrlIndex = IndexOf(this.SourceUrlList, sourceUrl, _sourceUrlMap);
+            _previousSourceUrlIndex = IndexOf(SourceUrlList, sourceUrl, _sourceUrlMap);
             string sourceName = sourceLocation.SourceName;
 
             if (sourceName != null)
             {
-                _previousSourceNameIndex = IndexOf(this.SourceNameList, sourceName, _sourceNameMap);
+                _previousSourceNameIndex = IndexOf(SourceNameList, sourceName, _sourceNameMap);
             }
         }
 
@@ -146,7 +146,7 @@ namespace H5.Translator
                 return true;
             }
 
-            int sourceUrlIndex = IndexOf(this.SourceUrlList, sourceLocation.SourceUrl, _sourceUrlMap);
+            int sourceUrlIndex = IndexOf(SourceUrlList, sourceLocation.SourceUrl, _sourceUrlMap);
 
             return sourceUrlIndex == _previousSourceUrlIndex &&
                    sourceLocation.Line == _previousSourceLine &&
@@ -236,7 +236,7 @@ namespace H5.Translator
                     buffer.Append(",");
                 }
 
-                buffer.Append(SourceMapBuilder.EscapeQuotedStringLiteral(isPath ? GetRelativePath(str, this._basePath) : str, true));
+                buffer.Append(SourceMapBuilder.EscapeQuotedStringLiteral(isPath ? GetRelativePath(str, _basePath) : str, true));
                 first = false;
             }
 
@@ -280,14 +280,14 @@ namespace H5.Translator
             int sourceColumn = entry.SourceLocation.Column;
             string sourceName = entry.SourceLocation.SourceName;
 
-            int sourceUrlIndex = IndexOf(this.SourceUrlList, sourceUrl, _sourceUrlMap);
+            int sourceUrlIndex = IndexOf(SourceUrlList, sourceUrl, _sourceUrlMap);
             EncodeVLQ(output, sourceUrlIndex - _previousSourceUrlIndex);
             EncodeVLQ(output, sourceLine - _previousSourceLine);
             EncodeVLQ(output, sourceColumn - _previousSourceColumn);
 
             if (sourceName != null)
             {
-                int sourceNameIndex = IndexOf(this.SourceNameList, sourceName, _sourceNameMap);
+                int sourceNameIndex = IndexOf(SourceNameList, sourceName, _sourceNameMap);
                 EncodeVLQ(output, sourceNameIndex - _previousSourceNameIndex);
             }
 

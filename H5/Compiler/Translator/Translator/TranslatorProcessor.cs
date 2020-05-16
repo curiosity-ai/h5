@@ -22,24 +22,24 @@ namespace H5.Translator
 
         public TranslatorProcessor(H5Options h5Options)
         {
-            this.H5Options = h5Options;
+            H5Options = h5Options;
         }
 
         public void PreProcess()
         {
-            this.AdjustH5Options();
+            AdjustH5Options();
 
-            this.TranslatorConfiguration = this.ReadConfiguration();
+            TranslatorConfiguration = ReadConfiguration();
 
-            this.Translator = this.SetTranslatorProperties();
+            Translator = SetTranslatorProperties();
 
-            Logger.LogInformation($"Ready to build {this.H5Options.ProjectLocation}");
+            Logger.LogInformation($"Ready to build {H5Options.ProjectLocation}");
         }
 
         private void AdjustH5Options()
         {
             var pathHelper = new ConfigHelper();
-            var h5Options = this.H5Options;
+            var h5Options = H5Options;
 
             h5Options.H5Location = pathHelper.ConvertPath(h5Options.H5Location);
             h5Options.DefaultFileName = pathHelper.ConvertPath(h5Options.DefaultFileName);
@@ -51,13 +51,13 @@ namespace H5.Translator
 
         public void Process()
         {
-            this.Translator.Translate();
+            Translator.Translate();
         }
 
         public string PostProcess()
         {
-            var h5Options = this.H5Options;
-            var translator = this.Translator;
+            var h5Options = H5Options;
+            var translator = Translator;
 
             Logger.LogInformation("Post processing...");
 
@@ -89,7 +89,7 @@ namespace H5.Translator
             translator.Plugins.AfterOutput(translator, outputPath);
             Logger.LogInformation("Done plugins AfterOutput");
 
-            this.GenerateHtml(outputPath);
+            GenerateHtml(outputPath);
 
             translator.Report(outputPath);
 
@@ -114,7 +114,7 @@ namespace H5.Translator
 
         private string GetDefaultFileName(H5Options h5Options)
         {
-            var defaultFileName = this.Translator.AssemblyInfo.FileName;
+            var defaultFileName = Translator.AssemblyInfo.FileName;
 
             if (string.IsNullOrEmpty(defaultFileName))
             {
@@ -131,20 +131,20 @@ namespace H5.Translator
 
         private string GetOutputFolder(bool basePathOnly = false, bool strict = false)
         {
-            var h5Options = this.H5Options;
+            var h5Options = H5Options;
             string basePath = Path.GetDirectoryName(h5Options.ProjectLocation);
 
             if (!basePathOnly)
             {
                 string assemblyOutput = string.Empty;
 
-                if (this.Translator != null)
+                if (Translator != null)
                 {
-                    assemblyOutput = this.Translator.AssemblyInfo.Output;
+                    assemblyOutput = Translator.AssemblyInfo.Output;
                 }
-                else if (this.TranslatorConfiguration != null)
+                else if (TranslatorConfiguration != null)
                 {
-                    assemblyOutput = this.TranslatorConfiguration.Output;
+                    assemblyOutput = TranslatorConfiguration.Output;
                 }
                 else if (strict)
                 {
@@ -168,7 +168,7 @@ namespace H5.Translator
 
         private IAssemblyInfo ReadConfiguration()
         {
-            var h5Options = this.H5Options;
+            var h5Options = H5Options;
             var location = h5Options.ProjectLocation;
             var configReader = new AssemblyConfigHelper();
             return configReader.ReadConfig(location, h5Options.ProjectProperties.Configuration);
@@ -177,8 +177,8 @@ namespace H5.Translator
 
         private Translator SetTranslatorProperties()
         {
-            var h5Options = this.H5Options;
-            var assemblyConfig = this.TranslatorConfiguration;
+            var h5Options = H5Options;
+            var assemblyConfig = TranslatorConfiguration;
 
             Logger.LogTrace("Setting translator properties...");
 
@@ -191,9 +191,9 @@ namespace H5.Translator
 
             translator.AssemblyInfo = assemblyConfig;
 
-            if (this.H5Options.ReferencesPath != null)
+            if (H5Options.ReferencesPath != null)
             {
-                translator.AssemblyInfo.ReferencesPath = this.H5Options.ReferencesPath;
+                translator.AssemblyInfo.ReferencesPath = H5Options.ReferencesPath;
             }
 
             translator.OverflowMode = h5Options.ProjectProperties.CheckForOverflowUnderflow.HasValue ?

@@ -14,17 +14,17 @@ namespace H5.Translator
     {
         protected virtual IEnumerable<string> GetEventsAndAutoStartupMethods()
         {
-            var methods = this.StaticBlock ? this.TypeInfo.StaticMethods : this.TypeInfo.InstanceMethods;
+            var methods = StaticBlock ? TypeInfo.StaticMethods : TypeInfo.InstanceMethods;
             List<string> list = new List<string>();
 
             bool hasReadyAttribute;
-            var isGenericType = this.IsGenericType();
+            var isGenericType = IsGenericType();
 
             foreach (var methodGroup in methods)
             {
                 foreach (var method in methodGroup.Value)
                 {
-                    var isGenericMethod = this.IsGenericMethod(method);
+                    var isGenericMethod = IsGenericMethod(method);
 
                     HandleAttributes(list, methodGroup, method, out hasReadyAttribute);
 
@@ -37,12 +37,12 @@ namespace H5.Translator
                     }
                     else
                     {
-                        if (this.StaticBlock && !hasReadyAttribute)
+                        if (StaticBlock && !hasReadyAttribute)
                         {
                             if (method.Name == CS.Methods.AUTO_STARTUP_METHOD_NAME
                                 && method.HasModifier(Modifiers.Static)
                                 && !method.HasModifier(Modifiers.Abstract)
-                                && Helpers.IsEntryPointCandidate(this.Emitter, method))
+                                && Helpers.IsEntryPointCandidate(Emitter, method))
                             {
                                 if (isGenericType || isGenericMethod)
                                 {
@@ -54,7 +54,7 @@ namespace H5.Translator
 
                     if (hasReadyAttribute)
                     {
-                        this.HasEntryPoint = true;
+                        HasEntryPoint = true;
                     }
                 }
             }
@@ -65,14 +65,14 @@ namespace H5.Translator
         private void HandleAttributes(List<string> list, KeyValuePair<string, List<MethodDeclaration>> methodGroup, MethodDeclaration method, out bool hasReadyAttribute)
         {
             hasReadyAttribute = false;
-            var isGenericType = this.IsGenericType();
-            var isGenericMethod = this.IsGenericMethod(method);
+            var isGenericType = IsGenericType();
+            var isGenericMethod = IsGenericMethod(method);
 
             foreach (var attrSection in method.Attributes)
             {
                 foreach (var attr in attrSection.Attributes)
                 {
-                    if (this.Emitter.Resolver.ResolveNode(attr, this.Emitter) is InvocationResolveResult resolveResult)
+                    if (Emitter.Resolver.ResolveNode(attr, Emitter) is InvocationResolveResult resolveResult)
                     {
                         if (resolveResult.Type.FullName == CS.Attributes.READY_ATTRIBUTE_NAME)
                         {
@@ -115,7 +115,7 @@ namespace H5.Translator
                             }
 
                             string format = null;
-                            string formatName = this.StaticBlock ? "Format" : "FormatScope";
+                            string formatName = StaticBlock ? "Format" : "FormatScope";
                             var formatField = resolveResult.Type.GetFields(f => f.Name == formatName, GetMemberOptions.IgnoreInheritedMembers);
 
                             if (formatField.Count() > 0)
@@ -156,9 +156,9 @@ namespace H5.Translator
                                 {
                                     if (eventArg is MemberReferenceExpression memberArg)
                                     {
-                                        if (this.Emitter.Resolver.ResolveNode(memberArg, this.Emitter) is MemberResolveResult memberResolveResult)
+                                        if (Emitter.Resolver.ResolveNode(memberArg, Emitter) is MemberResolveResult memberResolveResult)
                                         {
-                                            eventName = this.Emitter.GetEntityName(memberResolveResult.Member);
+                                            eventName = Emitter.GetEntityName(memberResolveResult.Member);
                                         }
                                     }
                                 }
@@ -183,9 +183,9 @@ namespace H5.Translator
 
                             if (attr.Arguments.Count > (selectorIndex + 1))
                             {
-                                if (this.Emitter.Resolver.ResolveNode(attr.Arguments.ElementAt(selectorIndex + 1), this.Emitter) is MemberResolveResult memberResolveResult && memberResolveResult.Member.Attributes.Count > 0)
+                                if (Emitter.Resolver.ResolveNode(attr.Arguments.ElementAt(selectorIndex + 1), Emitter) is MemberResolveResult memberResolveResult && memberResolveResult.Member.Attributes.Count > 0)
                                 {
-                                    var template = this.Emitter.Validator.GetAttribute(memberResolveResult.Member.Attributes, "H5.TemplateAttribute");
+                                    var template = Emitter.Validator.GetAttribute(memberResolveResult.Member.Attributes, "H5.TemplateAttribute");
 
                                     if (template != null)
                                     {
@@ -220,7 +220,7 @@ namespace H5.Translator
 
                                     if (fields.Count() > 0)
                                     {
-                                        var template = this.Emitter.Validator.GetAttribute(fields.First().Attributes, "H5.TemplateAttribute");
+                                        var template = Emitter.Validator.GetAttribute(fields.First().Attributes, "H5.TemplateAttribute");
 
                                         if (template != null)
                                         {
@@ -230,7 +230,7 @@ namespace H5.Translator
                                 }
                             }
 
-                            list.Add(string.Format(format, eventName, selector, this.Emitter.GetEntityName(method)));
+                            list.Add(string.Format(format, eventName, selector, Emitter.GetEntityName(method)));
                         }
                     }
                 }
@@ -239,13 +239,13 @@ namespace H5.Translator
 
         private void LogWarning(string message)
         {
-            var logger = this.Emitter.Log as Logging.Logger;
-            this.Emitter.Log.Warn(message);
+            var logger = Emitter.Log as Logging.Logger;
+            Emitter.Log.Warn(message);
         }
 
         private void LogAutoStartupWarning(MethodDeclaration method)
         {
-            this.LogWarning(string.Format("'{0}.{1}': an entry point cannot be generic or in a generic type", this.TypeInfo.Type.ReflectionName, method.Name));
+            LogWarning(string.Format("'{0}.{1}': an entry point cannot be generic or in a generic type", TypeInfo.Type.ReflectionName, method.Name));
         }
     }
 }

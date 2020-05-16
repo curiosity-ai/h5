@@ -30,18 +30,18 @@ namespace H5.Translator
                 return 1;
             }
 
-            if (!this.TypeDefinitions.ContainsKey(x.Key))
+            if (!TypeDefinitions.ContainsKey(x.Key))
             {
                 throw new TranslatorException("Class with name '" + x.Key + "' is not found in the assembly, probably rebuild is required");
             }
 
-            if (!this.TypeDefinitions.ContainsKey(y.Key))
+            if (!TypeDefinitions.ContainsKey(y.Key))
             {
                 throw new TranslatorException("Class with name '" + y.Key + "' is not found in the assembly, probably rebuild is required");
             }
 
-            var xTypeDefinition = this.TypeDefinitions[x.Key];
-            var yTypeDefinition = this.TypeDefinitions[y.Key];
+            var xTypeDefinition = TypeDefinitions[x.Key];
+            var yTypeDefinition = TypeDefinitions[y.Key];
 
             return xTypeDefinition.FullName.CompareTo(yTypeDefinition.FullName);
         }
@@ -65,11 +65,11 @@ namespace H5.Translator
 
             var xZero = x.Key == "0";
             var yZero = y.Key == "0";
-            var xTypeDefinition = xZero ? null : this.TypeDefinitions[x.Key];
-            var yTypeDefinition = yZero ? null : this.TypeDefinitions[y.Key];
+            var xTypeDefinition = xZero ? null : TypeDefinitions[x.Key];
+            var yTypeDefinition = yZero ? null : TypeDefinitions[y.Key];
 
-            var xPriority = xZero ? 0 : this.GetPriority(xTypeDefinition);
-            var yPriority = yZero ? 0 : this.GetPriority(yTypeDefinition);
+            var xPriority = xZero ? 0 : GetPriority(xTypeDefinition);
+            var yPriority = yZero ? 0 : GetPriority(yTypeDefinition);
 
             return -xPriority.CompareTo(yPriority);
         }
@@ -82,8 +82,8 @@ namespace H5.Translator
             }
 
             var inherits = false;
-            var xTypeDefinition = this.TypeDefinitions[x.Key];
-            var yTypeDefinition = this.TypeDefinitions[y.Key];
+            var xTypeDefinition = TypeDefinitions[x.Key];
+            var yTypeDefinition = TypeDefinitions[y.Key];
 
             if (Helpers.IsSubclassOf(xTypeDefinition, yTypeDefinition, this) ||
                 (yTypeDefinition.IsInterface && Helpers.IsImplementationOf(xTypeDefinition, yTypeDefinition, this)) ||
@@ -101,7 +101,7 @@ namespace H5.Translator
             List<ITypeInfo> nonSortable = new List<ITypeInfo>();
             for (int i = 0; i < list.Count; i++)
             {
-                if (this.GetPriority(this.TypeDefinitions[list[i].Key]) == 0)
+                if (GetPriority(TypeDefinitions[list[i].Key]) == 0)
                 {
                     nonSortable.Add(list[i]);
                 }
@@ -113,7 +113,7 @@ namespace H5.Translator
 
             var zeroPlaceholder = new TypeInfo() { Key = "0" };
             sortable.Add(zeroPlaceholder);
-            sortable.Sort(this.CompareTypeInfosByPriority);
+            sortable.Sort(CompareTypeInfosByPriority);
 
             var idx = sortable.FindIndex(t => t.Key == "0");
             sortable.RemoveAt(idx);
@@ -126,15 +126,15 @@ namespace H5.Translator
         {
             this.Log.Trace("Sorting types by inheritance...");
 
-            if (this.Types.Count > 0)
+            if (Types.Count > 0)
             {
-                this.TopologicalSort();
+                TopologicalSort();
 
                 //this.Types.Sort has strange effects for items with 0 priority
 
                 this.Log.Trace("Priority sorting...");
 
-                this.Types = this.SortByPriority(this.Types);
+                Types = SortByPriority(Types);
 
                 this.Log.Trace("Priority sorting done");
             }
@@ -153,7 +153,7 @@ namespace H5.Translator
         {
             IList<ITypeInfo> result;
 
-            if (this.cacheParents.TryGetValue(type, out result))
+            if (cacheParents.TryGetValue(type, out result))
             {
                 list?.AddRange(result);
                 return result;
@@ -196,7 +196,7 @@ namespace H5.Translator
                             thisTypelist.Add(bType.TypeInfo);
                         }
 
-                        this.GetParents(typeArgument, thisTypelist);
+                        GetParents(typeArgument, thisTypelist);
                     }
                 }
             }
@@ -211,13 +211,13 @@ namespace H5.Translator
         public string GetReflectionName(IType type)
         {
             string name = null;
-            if (this.nameCache.TryGetValue(type, out name))
+            if (nameCache.TryGetValue(type, out name))
             {
                 return name;
             }
 
             name = type.ReflectionName;
-            this.nameCache[type] = name;
+            nameCache[type] = name;
 
             return name;
         }
@@ -233,10 +233,10 @@ namespace H5.Translator
 
             var hitCounters = new long[7];
 
-            foreach (var t in this.Types)
+            foreach (var t in Types)
             {
                 hitCounters[0]++;
-                var parents = this.GetParents(t.Type);
+                var parents = GetParents(t.Type);
                 var reflectionName = GetReflectionName(t.Type);
                 var tProcess = graph.Processes.FirstOrDefault(p => p.Name == reflectionName);
                 if (tProcess == null)
@@ -291,9 +291,9 @@ namespace H5.Translator
                     TopologicalSort sorted = graph.CalculateSort();
                     this.Log.Trace("\t\tCalculate sorting done");
 
-                    this.Log.Trace("\t\tGetting Reflection names for " + this.Types.Count + " types...");
+                    this.Log.Trace("\t\tGetting Reflection names for " + Types.Count + " types...");
 
-                    var list = new List<ITypeInfo>(this.Types.Count);
+                    var list = new List<ITypeInfo>(Types.Count);
                     // The fix required for Mono 5.0.0.94
                     // It does not "understand" TopologicalSort's Enumerator in foreach
                     // foreach (var processes in sorted)
@@ -315,7 +315,7 @@ namespace H5.Translator
                             handlingProcess = process;
                             hitCounters[1]++;
 
-                            tInfo = this.Types.First(ti => GetReflectionName(ti.Type) == process.Name);
+                            tInfo = Types.First(ti => GetReflectionName(ti.Type) == process.Name);
 
                             var reflectionName = GetReflectionName(tInfo.Type);
 
@@ -329,8 +329,8 @@ namespace H5.Translator
 
                     this.Log.Trace("\t\tGetting Reflection names done");
 
-                    this.Types.Clear();
-                    this.Types.AddRange(list);
+                    Types.Clear();
+                    Types.AddRange(list);
 
                     for (int i = 0; i < hitCounters.Length; i++)
                     {
@@ -351,24 +351,24 @@ namespace H5.Translator
 
         public virtual TypeDefinition GetTypeDefinition()
         {
-            return this.TypeDefinitions[this.TypeInfo.Key];
+            return TypeDefinitions[TypeInfo.Key];
         }
 
         public virtual TypeDefinition GetTypeDefinition(IType type)
         {
-            return this.H5Types.Get(type).TypeDefinition;
+            return H5Types.Get(type).TypeDefinition;
         }
 
         public virtual TypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
         {
-            var resolveResult = this.Resolver.ResolveNode(reference, this) as TypeResolveResult;
-            var type = this.H5Types.Get(resolveResult.Type, safe);
+            var resolveResult = Resolver.ResolveNode(reference, this) as TypeResolveResult;
+            var type = H5Types.Get(resolveResult.Type, safe);
             return type?.TypeDefinition;
         }
 
         public virtual TypeDefinition GetBaseTypeDefinition()
         {
-            return this.GetBaseTypeDefinition(this.GetTypeDefinition());
+            return GetBaseTypeDefinition(GetTypeDefinition());
         }
 
         public virtual TypeDefinition GetBaseTypeDefinition(TypeDefinition type)
@@ -380,12 +380,12 @@ namespace H5.Translator
                 return null;
             }
 
-            return this.H5Types.Get(reference).TypeDefinition;
+            return H5Types.Get(reference).TypeDefinition;
         }
 
         public virtual TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount)
         {
-            TypeDefinition type = this.GetBaseTypeDefinition();
+            TypeDefinition type = GetBaseTypeDefinition();
 
             while (true)
             {
@@ -399,7 +399,7 @@ namespace H5.Translator
                     }
                 }
 
-                type = this.GetBaseTypeDefinition(type);
+                type = GetBaseTypeDefinition(type);
             }
         }
 
@@ -410,7 +410,7 @@ namespace H5.Translator
 
             var list = new List<string>();
 
-            foreach (var t in this.TypeInfo.GetBaseTypes(this))
+            foreach (var t in TypeInfo.GetBaseTypes(this))
             {
                 var name = H5Types.ToJsName(t, this);
 
@@ -448,9 +448,9 @@ namespace H5.Translator
         private Dictionary<TypeDefinition, int> priorityMap = new Dictionary<TypeDefinition, int>();
         public virtual int GetPriority(TypeDefinition type)
         {
-            if (this.priorityMap.ContainsKey(type))
+            if (priorityMap.ContainsKey(type))
             {
-                return this.priorityMap[type];
+                return priorityMap[type];
             }
 
             var attr = type.CustomAttributes.FirstOrDefault(a =>
@@ -461,18 +461,18 @@ namespace H5.Translator
             if (attr != null)
             {
                 var attrp = System.Convert.ToInt32(attr.ConstructorArguments[0].Value);
-                this.priorityMap[type] = attrp;
+                priorityMap[type] = attrp;
                 return attrp;
             }
 
-            var baseType = this.GetBaseTypeDefinition(type);
+            var baseType = GetBaseTypeDefinition(type);
             var p = 0;
             if (baseType != null)
             {
-                p = this.GetPriority(baseType);
+                p = GetPriority(baseType);
             }
 
-            this.priorityMap[type] = p;
+            priorityMap[type] = p;
             return p;
         }
     }

@@ -14,37 +14,37 @@ namespace H5.Translator
         public ThrowBlock(IEmitter emitter, ThrowStatement throwStatement)
             : base(emitter, throwStatement)
         {
-            this.Emitter = emitter;
-            this.ThrowStatement = throwStatement;
+            Emitter = emitter;
+            ThrowStatement = throwStatement;
         }
 
         public ThrowStatement ThrowStatement { get; set; }
 
         protected override void DoEmit()
         {
-            var oldValue = this.Emitter.ReplaceAwaiterByVar;
+            var oldValue = Emitter.ReplaceAwaiterByVar;
 
-            if (this.Emitter.IsAsync)
+            if (Emitter.IsAsync)
             {
-                this.WriteAwaiters(this.ThrowStatement.Expression);
-                this.Emitter.ReplaceAwaiterByVar = true;
+                WriteAwaiters(ThrowStatement.Expression);
+                Emitter.ReplaceAwaiterByVar = true;
             }
 
-            this.WriteThrow();
+            WriteThrow();
 
-            if (this.ThrowStatement.Expression.IsNull)
+            if (ThrowStatement.Expression.IsNull)
             {
-                string name = this.Emitter.CatchBlockVariable ?? JS.Vars.ASYNC_E;
-                this.Write(name);
+                string name = Emitter.CatchBlockVariable ?? JS.Vars.ASYNC_E;
+                Write(name);
             }
             else
             {
-                this.ThrowStatement.Expression.AcceptVisitor(this.Emitter);
+                ThrowStatement.Expression.AcceptVisitor(Emitter);
             }
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
+            WriteSemiColon();
+            WriteNewLine();
+            Emitter.ReplaceAwaiterByVar = oldValue;
         }
     }
 }

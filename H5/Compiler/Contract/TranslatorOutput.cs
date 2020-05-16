@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+using Mosaik.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -121,6 +123,8 @@ namespace H5.Contract
 
     public class TranslatorOutputItem
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<TranslatorOutputItem>();
+
         public string Assembly { get; set; }
 
         public string Name { get; set; }
@@ -219,17 +223,11 @@ namespace H5.Contract
 
                 basePath = Path.GetFullPath(basePath);
 
-                if (logger != null)
-                {
-                    logger.Trace("\tbase: " + basePath);
-                }
+                Logger.LogTrace("\tbase: " + basePath);
 
                 path = MakeRelative(path, basePath);
 
-                if (logger != null)
-                {
-                    logger.Trace("\tpath: " + path);
-                }
+                Logger.LogTrace("\tpath: " + path);
             }
 
             if (htmlAdjusted)

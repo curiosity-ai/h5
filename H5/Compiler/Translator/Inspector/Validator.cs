@@ -22,7 +22,7 @@ namespace H5.Translator
     {
         public virtual bool CanIgnoreType(TypeDefinition type)
         {
-            if (this.IsExternalType(type))
+            if (IsExternalType(type))
             {
                 return true;
             }
@@ -37,31 +37,31 @@ namespace H5.Translator
 
         public virtual void CheckType(TypeDefinition type, ITranslator translator)
         {
-            this.CheckObjectLiteral(type, translator);
+            CheckObjectLiteral(type, translator);
 
-            if (this.CanIgnoreType(type))
+            if (CanIgnoreType(type))
             {
                 return;
             }
 
-            this.CheckConstructors(type, translator);
-            this.CheckFields(type, translator);
-            this.CheckProperties(type, translator);
-            this.CheckMethods(type, translator);
-            this.CheckEvents(type, translator);
-            this.CheckFileName(type, translator);
-            this.CheckModule(type, translator);
-            this.CheckModuleDependenies(type, translator);
+            CheckConstructors(type, translator);
+            CheckFields(type, translator);
+            CheckProperties(type, translator);
+            CheckMethods(type, translator);
+            CheckEvents(type, translator);
+            CheckFileName(type, translator);
+            CheckModule(type, translator);
+            CheckModuleDependenies(type, translator);
         }
 
         public virtual void CheckObjectLiteral(TypeDefinition type, ITranslator translator)
         {
-            if (!this.IsObjectLiteral(type))
+            if (!IsObjectLiteral(type))
             {
                 return;
             }
 
-            var objectCreateMode = this.GetObjectCreateMode(type);
+            var objectCreateMode = GetObjectCreateMode(type);
 
             if (objectCreateMode == 0)
             {
@@ -119,12 +119,12 @@ namespace H5.Translator
 
                 }
 
-                if (objectCreateMode == 1 && baseType != null && baseType.FullName != "System.Object" && baseType.FullName != "System.ValueType" && this.GetObjectCreateMode(baseType) == 0)
+                if (objectCreateMode == 1 && baseType != null && baseType.FullName != "System.Object" && baseType.FullName != "System.ValueType" && GetObjectCreateMode(baseType) == 0)
                 {
                     TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_CONSTRUCTOR_INHERITANCE, type);
                 }
 
-                if (objectCreateMode == 0 && baseType != null && this.GetObjectCreateMode(baseType) == 1)
+                if (objectCreateMode == 0 && baseType != null && GetObjectCreateMode(baseType) == 1)
                 {
                     TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_PLAIN_INHERITANCE, type);
                 }
@@ -144,7 +144,7 @@ namespace H5.Translator
 
                     }
 
-                    if (iDef != null && iDef.FullName != "System.Object" && !this.IsObjectLiteral(iDef))
+                    if (iDef != null && iDef.FullName != "System.Object" && !IsObjectLiteral(iDef))
                     {
                         TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_INTERFACE_INHERITANCE, type);
                     }
@@ -182,19 +182,19 @@ namespace H5.Translator
             string externalAttr = Translator.H5_ASSEMBLY + ".ExternalAttribute";
             string nonScriptableAttr = Translator.H5_ASSEMBLY + ".NonScriptableAttribute";
 
-            var has = this.HasAttribute(type.CustomAttributes, externalAttr)
-                      || this.HasAttribute(type.CustomAttributes, nonScriptableAttr);
+            var has = HasAttribute(type.CustomAttributes, externalAttr)
+                      || HasAttribute(type.CustomAttributes, nonScriptableAttr);
 
             if (!has && type.DeclaringType != null)
             {
-                has = this.HasAttribute(type.DeclaringType.CustomAttributes, externalAttr) || this.HasAttribute(type.DeclaringType.CustomAttributes, nonScriptableAttr);
+                has = HasAttribute(type.DeclaringType.CustomAttributes, externalAttr) || HasAttribute(type.DeclaringType.CustomAttributes, nonScriptableAttr);
             }
 
             if (!has)
             {
                 if (IsTypeFromH5Core(type.FullName)) return true;
 
-                has = this.HasAttribute(type.Module.Assembly.CustomAttributes, externalAttr);
+                has = HasAttribute(type.Module.Assembly.CustomAttributes, externalAttr);
             }
 
             if (!has)
@@ -224,8 +224,8 @@ namespace H5.Translator
             string nonScriptableAttr = Translator.H5_ASSEMBLY + ".NonScriptableAttribute";
 
             return
-                this.HasAttribute(entity.Attributes, externalAttr)
-                || this.HasAttribute(entity.Attributes, nonScriptableAttr);
+                HasAttribute(entity.Attributes, externalAttr)
+                || HasAttribute(entity.Attributes, nonScriptableAttr);
         }
 
         public virtual bool IsH5Class(IType type)
@@ -263,7 +263,7 @@ namespace H5.Translator
 
             if (!has && typeDefinition.DeclaringTypeDefinition != null)
             {
-                has = this.HasAttribute(typeDefinition.DeclaringTypeDefinition.Attributes, externalAttr);
+                has = HasAttribute(typeDefinition.DeclaringTypeDefinition.Attributes, externalAttr);
             }
 
             if (!has)
@@ -275,7 +275,7 @@ namespace H5.Translator
 
             if (!has)
             {
-                has = this.IsVirtualType(typeDefinition);
+                has = IsVirtualType(typeDefinition);
             }
 
             return has;
@@ -406,7 +406,7 @@ namespace H5.Translator
 
             if (attr == null)
             {
-                isNative = typeDefinition.ParentAssembly.AssemblyName == CS.NS.H5 || !this.IsExternalType(typeDefinition);
+                isNative = typeDefinition.ParentAssembly.AssemblyName == CS.NS.H5 || !IsExternalType(typeDefinition);
             }
 
             return attr != null;
@@ -464,18 +464,18 @@ namespace H5.Translator
         {
             string attrName = Translator.H5_ASSEMBLY + ".ImmutableAttribute";
 
-            return this.HasAttribute(type.CustomAttributes, attrName);
+            return HasAttribute(type.CustomAttributes, attrName);
         }
 
         
         public virtual bool HasAttribute(IEnumerable<CustomAttribute> attributes, string name)
         {
-            return this.GetAttribute(attributes, name) != null;
+            return GetAttribute(attributes, name) != null;
         }
 
         public bool HasAttribute(IEnumerable<IAttribute> attributes, string name)
         {
-            return this.GetAttribute(attributes, name) != null;
+            return GetAttribute(attributes, name) != null;
         }
 
         public virtual bool HasAttribute(ITypeDefinition typeDefinition, string name)
@@ -512,7 +512,7 @@ namespace H5.Translator
 
         public virtual string GetAttributeValue(IEnumerable<CustomAttribute> attributes, string name)
         {
-            CustomAttribute a = this.GetAttribute(attributes, name);
+            CustomAttribute a = GetAttribute(attributes, name);
 
             if (a != null)
             {
@@ -524,7 +524,7 @@ namespace H5.Translator
 
         public virtual bool IsObjectLiteral(TypeDefinition type)
         {
-            return this.HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
+            return HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
         }
 
         public int GetObjectInitializationMode(TypeDefinition type)
@@ -572,21 +572,21 @@ namespace H5.Translator
 
         public virtual bool IsObjectLiteral(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type)
         {
-            return this.HasAttribute(type, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
+            return HasAttribute(type, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute");
         }
 
         private Stack<TypeDefinition> _stack = new Stack<TypeDefinition>();
 
         public virtual string GetCustomTypeName(TypeDefinition type, IEmitter emitter, bool excludeNs, bool asDefinition = true)
         {
-            if (this._stack.Contains(type))
+            if (_stack.Contains(type))
             {
                 return null;
             }
 
-            var nsAtrr = excludeNs ? null : this.GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".NamespaceAttribute");
+            var nsAtrr = excludeNs ? null : GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".NamespaceAttribute");
             bool hasNs = nsAtrr != null && nsAtrr.ConstructorArguments.Count > 0;
-            var nameAttr = this.GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".NameAttribute");
+            var nameAttr = GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".NameAttribute");
 
             string name = null;
             bool changeCase = false;
@@ -606,7 +606,7 @@ namespace H5.Translator
                         }
                         else
                         {
-                            this._stack.Push(type);
+                            _stack.Push(type);
                             name = H5Types.ToJsName(type, emitter);
                             var i = name.LastIndexOf(".");
 
@@ -620,7 +620,7 @@ namespace H5.Translator
                             {
                                 name = name.ToLowerCamelCase();
                             }
-                            this._stack.Pop();
+                            _stack.Pop();
 
                             return name;
                         }
@@ -690,9 +690,9 @@ namespace H5.Translator
                 return name;
             }
 
-            if (this.HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute"))
+            if (HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute"))
             {
-                var mode = this.GetObjectCreateMode(type);
+                var mode = GetObjectCreateMode(type);
                 if (emitter.Validator.IsExternalType(type) && mode == 0)
                 {
                     return JS.Types.System.Object.NAME;
@@ -704,14 +704,14 @@ namespace H5.Translator
 
         public virtual string GetCustomConstructor(TypeDefinition type)
         {
-            string ctor = this.GetAttributeValue(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ConstructorAttribute");
+            string ctor = GetAttributeValue(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ConstructorAttribute");
 
             if (!string.IsNullOrEmpty(ctor))
             {
                 return ctor;
             }
 
-            if (this.HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute") && this.GetObjectCreateMode(type) == 0)
+            if (HasAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute") && GetObjectCreateMode(type) == 0)
             {
                 return "{ }";
             }
@@ -727,7 +727,7 @@ namespace H5.Translator
 
                 foreach (MethodDefinition ctor in ctors)
                 {
-                    this.CheckMethodArguments(ctor);
+                    CheckMethodArguments(ctor);
                 }
             }
         }
@@ -768,7 +768,7 @@ namespace H5.Translator
                     continue;
                 }
 
-                this.CheckMethodArguments(method);
+                CheckMethodArguments(method);
             }
         }
 
@@ -804,13 +804,13 @@ namespace H5.Translator
         {
             if (type.HasCustomAttributes)
             {
-                var attr = this.GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".FileNameAttribute");
+                var attr = GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".FileNameAttribute");
 
                 if (attr != null)
                 {
-                    var typeInfo = this.EnsureTypeInfo(type, translator);
+                    var typeInfo = EnsureTypeInfo(type, translator);
 
-                    var obj = this.GetAttributeArgumentValue(attr, 0);
+                    var obj = GetAttributeArgumentValue(attr, 0);
 
                     if (obj is string)
                     {
@@ -824,27 +824,27 @@ namespace H5.Translator
         {
             if (type.HasCustomAttributes)
             {
-                var attr = this.GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ModuleAttribute");
+                var attr = GetAttribute(type.CustomAttributes, Translator.H5_ASSEMBLY + ".ModuleAttribute");
 
                 if (attr != null)
                 {
-                    this.ReadModuleFromAttribute(type, translator, attr);
+                    ReadModuleFromAttribute(type, translator, attr);
                 }
             }
 
             if (type.Module.Assembly.HasCustomAttributes)
             {
-                var attr = this.GetAttribute(type.Module.Assembly.CustomAttributes, Translator.H5_ASSEMBLY + ".ModuleAttribute");
+                var attr = GetAttribute(type.Module.Assembly.CustomAttributes, Translator.H5_ASSEMBLY + ".ModuleAttribute");
 
                 if (attr != null)
                 {
-                    this.ReadModuleFromAttribute(type, translator, attr);
+                    ReadModuleFromAttribute(type, translator, attr);
                 }
             }
 
             if (translator.AssemblyInfo.Module != null && type.Module.Assembly.Equals(translator.AssemblyDefinition))
             {
-                var typeInfo = this.EnsureTypeInfo(type, translator);
+                var typeInfo = EnsureTypeInfo(type, translator);
                 if (typeInfo.Module == null)
                 {
                     typeInfo.Module = translator.AssemblyInfo.Module;
@@ -854,7 +854,7 @@ namespace H5.Translator
 
         private void ReadModuleFromAttribute(TypeDefinition type, ITranslator translator, CustomAttribute attr)
         {
-            var typeInfo = this.EnsureTypeInfo(type, translator);
+            var typeInfo = EnsureTypeInfo(type, translator);
             Module module = null;
 
             if (attr.ConstructorArguments.Count == 1)
@@ -944,17 +944,17 @@ namespace H5.Translator
                 {
                     foreach (var attr in attrs)
                     {
-                        var typeInfo = this.EnsureTypeInfo(type, translator);
+                        var typeInfo = EnsureTypeInfo(type, translator);
 
                         if (attr.ConstructorArguments.Count > 0)
                         {
                             ModuleDependency dependency = new ModuleDependency();
-                            var obj = this.GetAttributeArgumentValue(attr, 0);
+                            var obj = GetAttributeArgumentValue(attr, 0);
                             dependency.DependencyName = obj is string ? obj.ToString() : "";
 
                             if (attr.ConstructorArguments.Count > 1)
                             {
-                                obj = this.GetAttributeArgumentValue(attr, 1);
+                                obj = GetAttributeArgumentValue(attr, 1);
                                 dependency.VariableName = obj is string ? obj.ToString() : "";
                             }
                             else
@@ -1011,7 +1011,7 @@ namespace H5.Translator
                 return false;
             }
 
-            if (this.HasAttribute(entity.Attributes, CS.Attributes.ACCESSORSINDEXER_ATTRIBUTE_NAME))
+            if (HasAttribute(entity.Attributes, CS.Attributes.ACCESSORSINDEXER_ATTRIBUTE_NAME))
             {
                 return true;
             }

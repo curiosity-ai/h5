@@ -14,47 +14,47 @@ namespace H5.Translator
     {
         public virtual void PushLocals()
         {
-            if (this.Emitter.LocalsStack == null)
+            if (Emitter.LocalsStack == null)
             {
-                this.Emitter.LocalsStack = new Stack<Dictionary<string, AstType>>();
+                Emitter.LocalsStack = new Stack<Dictionary<string, AstType>>();
             }
 
             // Pushes even if null, else it will have nothing to pull later and another test will be needed.
-            this.Emitter.LocalsStack.Push(this.Emitter.Locals);
+            Emitter.LocalsStack.Push(Emitter.Locals);
 
-            if (this.Emitter.Locals != null)
+            if (Emitter.Locals != null)
             {
-                this.Emitter.Locals = new Dictionary<string, AstType>(this.Emitter.Locals);
+                Emitter.Locals = new Dictionary<string, AstType>(Emitter.Locals);
             }
             else
             {
-                this.Emitter.Locals = new Dictionary<string, AstType>();
+                Emitter.Locals = new Dictionary<string, AstType>();
             }
         }
 
         public virtual void PopLocals()
         {
-            this.Emitter.Locals = this.Emitter.LocalsStack.Pop();
+            Emitter.Locals = Emitter.LocalsStack.Pop();
         }
 
         public virtual void ResetLocals()
         {
-            this.Emitter.NamedTempVariables = new Dictionary<string, string>();
-            this.Emitter.TempVariables = new Dictionary<string, bool>();
-            this.Emitter.Locals = new Dictionary<string, AstType>();
-            this.Emitter.IteratorCount = 0;
+            Emitter.NamedTempVariables = new Dictionary<string, string>();
+            Emitter.TempVariables = new Dictionary<string, bool>();
+            Emitter.Locals = new Dictionary<string, AstType>();
+            Emitter.IteratorCount = 0;
         }
 
         public virtual void AddLocals(IEnumerable<ParameterDeclaration> declarations, AstNode statement)
         {
-            var visitor = new ReferenceArgumentVisitor(this.Emitter);
+            var visitor = new ReferenceArgumentVisitor(Emitter);
             statement.AcceptVisitor(visitor);
 
             declarations.ToList().ForEach(item =>
             {
-                var rr = item.Parent != null ? (LocalResolveResult)this.Emitter.Resolver.ResolveNode(item, this.Emitter) : null;
-                var name = this.Emitter.GetParameterName(item);
-                var vName = this.AddLocal(item.Name, item, item.Type, name);
+                var rr = item.Parent != null ? (LocalResolveResult)Emitter.Resolver.ResolveNode(item, Emitter) : null;
+                var name = Emitter.GetParameterName(item);
+                var vName = AddLocal(item.Name, item, item.Type, name);
 
                 if (item.Parent == null && item.Name == "value" && visitor.DirectionExpression.Any(expr => expr is IdentifierExpression && ((IdentifierExpression)expr).Identifier == "value"))
                 {
@@ -63,25 +63,25 @@ namespace H5.Translator
 
                 if (item.ParameterModifier == ParameterModifier.Out || item.ParameterModifier == ParameterModifier.Ref)
                 {
-                    this.Emitter.LocalsMap[rr != null ? rr.Variable : new DefaultVariable(ReflectionHelper.FindType(this.Emitter.Resolver.Compilation, TypeCode.Object), name)] = vName + ".v";
+                    Emitter.LocalsMap[rr != null ? rr.Variable : new DefaultVariable(ReflectionHelper.FindType(Emitter.Resolver.Compilation, TypeCode.Object), name)] = vName + ".v";
                 }
                 else
                 {
-                    this.Emitter.LocalsMap[rr != null ? rr.Variable : new DefaultVariable(ReflectionHelper.FindType(this.Emitter.Resolver.Compilation, TypeCode.Object), name)] = vName;
+                    Emitter.LocalsMap[rr != null ? rr.Variable : new DefaultVariable(ReflectionHelper.FindType(Emitter.Resolver.Compilation, TypeCode.Object), name)] = vName;
                 }
             });
 
             foreach (var expr in visitor.DirectionExpression)
             {
-                var rr = this.Emitter.Resolver.ResolveNode(expr, this.Emitter);
+                var rr = Emitter.Resolver.ResolveNode(expr, Emitter);
                 if (rr is LocalResolveResult lrr && (expr is IdentifierExpression identifierExpression))
                 {
                     var name = identifierExpression.Identifier;
-                    if (Helpers.IsReservedWord(this.Emitter, name))
+                    if (Helpers.IsReservedWord(Emitter, name))
                     {
                         name = Helpers.ChangeReservedWord(name);
                     }
-                    this.Emitter.LocalsMap[lrr.Variable] = name + ".v";
+                    Emitter.LocalsMap[lrr.Variable] = name + ".v";
                 }
             }
 
@@ -89,59 +89,59 @@ namespace H5.Translator
             {
                 var name = variable.Name;
 
-                if (Helpers.IsReservedWord(this.Emitter, name))
+                if (Helpers.IsReservedWord(Emitter, name))
                 {
                     name = Helpers.ChangeReservedWord(name);
                 }
-                this.Emitter.LocalsMap[variable] = name + ".v";
+                Emitter.LocalsMap[variable] = name + ".v";
             }
         }
 
         public string AddLocal(string name, AstNode node, AstType type, string valueName = null)
         {
-            if (this.Emitter.Locals.ContainsKey(name))
+            if (Emitter.Locals.ContainsKey(name))
             {
                 throw new EmitterException(node, string.Format(Constants.Messages.Exceptions.DUPLICATE_LOCAL_VARIABLE, name));
             }
 
-            this.Emitter.Locals.Add(name, type);
+            Emitter.Locals.Add(name, type);
 
             name = name.StartsWith(JS.Vars.FIX_ARGUMENT_NAME) ? name.Substring(JS.Vars.FIX_ARGUMENT_NAME.Length) : name;
             string vName = valueName ?? name;
 
-            if (Helpers.IsReservedWord(this.Emitter, vName))
+            if (Helpers.IsReservedWord(Emitter, vName))
             {
                 vName = Helpers.ChangeReservedWord(vName);
             }
 
-            if (!this.Emitter.LocalsNamesMap.ContainsKey(name))
+            if (!Emitter.LocalsNamesMap.ContainsKey(name))
             {
-                if (this.Emitter.LocalsNamesMap.ContainsValue(name))
+                if (Emitter.LocalsNamesMap.ContainsValue(name))
                 {
-                    this.Emitter.LocalsNamesMap.Add(name, this.GetUniqueNameByValue(vName));
+                    Emitter.LocalsNamesMap.Add(name, GetUniqueNameByValue(vName));
                 }
                 else
                 {
-                    this.Emitter.LocalsNamesMap.Add(name, vName);
+                    Emitter.LocalsNamesMap.Add(name, vName);
                 }
             }
             else
             {
-                this.Emitter.LocalsNamesMap[name] = this.GetUniqueName(vName);
+                Emitter.LocalsNamesMap[name] = GetUniqueName(vName);
             }
 
-            var result = this.Emitter.LocalsNamesMap[name];
-            var lrr = node != null && node.Parent != null ? this.Emitter.Resolver.ResolveNode(node, this.Emitter) as LocalResolveResult : null;
+            var result = Emitter.LocalsNamesMap[name];
+            var lrr = node != null && node.Parent != null ? Emitter.Resolver.ResolveNode(node, Emitter) as LocalResolveResult : null;
 
-            if (this.Emitter.LocalsMap != null && lrr != null && this.Emitter.LocalsMap.ContainsKey(lrr.Variable))
+            if (Emitter.LocalsMap != null && lrr != null && Emitter.LocalsMap.ContainsKey(lrr.Variable))
             {
-                var oldValue = this.Emitter.LocalsMap[lrr.Variable];
-                this.Emitter.LocalsMap[lrr.Variable] = result + (oldValue.EndsWith(".v") ? ".v" : "");
+                var oldValue = Emitter.LocalsMap[lrr.Variable];
+                Emitter.LocalsMap[lrr.Variable] = result + (oldValue.EndsWith(".v") ? ".v" : "");
             }
 
-            if (this.Emitter.IsAsync && !this.Emitter.AsyncVariables.Contains(result) && (lrr == null || !lrr.IsParameter))
+            if (Emitter.IsAsync && !Emitter.AsyncVariables.Contains(result) && (lrr == null || !lrr.IsParameter))
             {
-                this.Emitter.AsyncVariables.Add(result);
+                Emitter.AsyncVariables.Add(result);
             }
 
             return result;
@@ -152,7 +152,7 @@ namespace H5.Translator
             int index = 1;
             string tempName = name + index;
 
-            while (this.Emitter.LocalsNamesMap.ContainsValue(tempName) || Helpers.IsReservedWord(this.Emitter, tempName))
+            while (Emitter.LocalsNamesMap.ContainsValue(tempName) || Helpers.IsReservedWord(Emitter, tempName))
             {
                 tempName = name + ++index;
             }
@@ -164,9 +164,9 @@ namespace H5.Translator
         {
             int index = 1;
 
-            if (this.Emitter.LocalsNamesMap.ContainsKey(name))
+            if (Emitter.LocalsNamesMap.ContainsKey(name))
             {
-                var value = this.Emitter.LocalsNamesMap[name];
+                var value = Emitter.LocalsNamesMap[name];
                 if (value.Length > name.Length)
                 {
                     var suffix = value.Substring(name.Length);
@@ -183,7 +183,7 @@ namespace H5.Translator
 
             string tempName = name + index;
 
-            while (this.Emitter.LocalsNamesMap.ContainsValue(tempName) || Helpers.IsReservedWord(this.Emitter, tempName))
+            while (Emitter.LocalsNamesMap.ContainsValue(tempName) || Helpers.IsReservedWord(Emitter, tempName))
             {
                 tempName = name + ++index;
             }
@@ -193,15 +193,15 @@ namespace H5.Translator
 
         public virtual Dictionary<IVariable, string> BuildLocalsMap()
         {
-            var prevMap = this.Emitter.LocalsMap;
+            var prevMap = Emitter.LocalsMap;
 
             if (prevMap == null)
             {
-                this.Emitter.LocalsMap = new Dictionary<IVariable, string>();
+                Emitter.LocalsMap = new Dictionary<IVariable, string>();
             }
             else
             {
-                this.Emitter.LocalsMap = new Dictionary<IVariable, string>(prevMap);
+                Emitter.LocalsMap = new Dictionary<IVariable, string>(prevMap);
             }
 
             return prevMap;
@@ -209,20 +209,20 @@ namespace H5.Translator
 
         public virtual void ClearLocalsMap(Dictionary<IVariable, string> prevMap = null)
         {
-            this.Emitter.LocalsMap = prevMap;
+            Emitter.LocalsMap = prevMap;
         }
 
         public virtual Dictionary<string, string> BuildLocalsNamesMap()
         {
-            var prevMap = this.Emitter.LocalsNamesMap;
+            var prevMap = Emitter.LocalsNamesMap;
 
             if (prevMap == null)
             {
-                this.Emitter.LocalsNamesMap = new Dictionary<string, string>();
+                Emitter.LocalsNamesMap = new Dictionary<string, string>();
             }
             else
             {
-                this.Emitter.LocalsNamesMap = new Dictionary<string, string>(prevMap);
+                Emitter.LocalsNamesMap = new Dictionary<string, string>(prevMap);
             }
 
             return prevMap;
@@ -230,7 +230,7 @@ namespace H5.Translator
 
         public virtual void ClearLocalsNamesMap(Dictionary<string, string> prevMap = null)
         {
-            this.Emitter.LocalsNamesMap = prevMap;
+            Emitter.LocalsNamesMap = prevMap;
         }
 
         public virtual void ConvertParamsToReferences(IEnumerable<ParameterDeclaration> declarations)
@@ -240,7 +240,7 @@ namespace H5.Translator
                 var p = declarations.First().Parent;
                 if (p != null)
                 {
-                    if (this.Emitter.Resolver.ResolveNode(p, this.Emitter) is MemberResolveResult rr)
+                    if (Emitter.Resolver.ResolveNode(p, Emitter) is MemberResolveResult rr)
                     {
                         if (rr.Member is DefaultResolvedMethod method)
                         {
@@ -250,19 +250,19 @@ namespace H5.Translator
                                 if (prm.IsOptional)
                                 {
                                     var name = prm.Name;
-                                    if (Helpers.IsReservedWord(this.Emitter, name))
+                                    if (Helpers.IsReservedWord(Emitter, name))
                                     {
                                         name = Helpers.ChangeReservedWord(name);
                                     }
 
-                                    this.Write(string.Format("if ({0} === void 0) {{ {0} = ", name));
+                                    Write(string.Format("if ({0} === void 0) {{ {0} = ", name));
                                     if (prm.ConstantValue == null && prm.Type.Kind == TypeKind.Struct && !prm.Type.IsKnownType(KnownTypeCode.NullableOfT))
                                     {
-                                        this.Write(Inspector.GetStructDefaultValue(prm.Type, this.Emitter));
+                                        Write(Inspector.GetStructDefaultValue(prm.Type, Emitter));
                                     }
                                     else if (prm.ConstantValue == null && prm.Type.Kind == TypeKind.TypeParameter)
                                     {
-                                        this.Write(JS.Funcs.H5_GETDEFAULTVALUE + "(" + H5Types.ToJsName(prm.Type, this.Emitter) + ")");
+                                        Write(JS.Funcs.H5_GETDEFAULTVALUE + "(" + H5Types.ToJsName(prm.Type, Emitter) + ")");
                                     }
                                     else if (prm.Type.Kind == TypeKind.Enum)
                                     {
@@ -275,45 +275,45 @@ namespace H5.Translator
 
                                             if (member != null)
                                             {
-                                                string enumStringName = this.Emitter.GetEntityName(member);
-                                                this.WriteScript(enumStringName);
+                                                string enumStringName = Emitter.GetEntityName(member);
+                                                WriteScript(enumStringName);
                                             }
                                             else
                                             {
-                                                this.WriteScript(prm.ConstantValue);
+                                                WriteScript(prm.ConstantValue);
                                             }
                                         }
                                         else
                                         {
-                                            this.WriteScript(prm.ConstantValue);
+                                            WriteScript(prm.ConstantValue);
                                         }
                                     }
                                     else
                                     {
-                                        this.WriteScript(prm.ConstantValue);
+                                        WriteScript(prm.ConstantValue);
                                     }
 
-                                    this.Write("; }");
-                                    this.WriteNewLine();
+                                    Write("; }");
+                                    WriteNewLine();
                                 }
                                 else if (prm.IsParams)
                                 {
                                     var name = prm.Name;
-                                    if (Helpers.IsReservedWord(this.Emitter, name))
+                                    if (Helpers.IsReservedWord(Emitter, name))
                                     {
                                         name = Helpers.ChangeReservedWord(name);
                                     }
 
                                     if (expandParams)
                                     {
-                                        this.Write(string.Format("{0} = " + JS.Types.ARRAY + "." + JS.Fields.PROTOTYPE + "." + JS.Funcs.SLICE + "." + JS.Funcs.CALL + "(" + JS.Vars.ARGUMENTS + ", {1});", name, method.Parameters.IndexOf(prm) + method.TypeParameters.Count));
+                                        Write(string.Format("{0} = " + JS.Types.ARRAY + "." + JS.Fields.PROTOTYPE + "." + JS.Funcs.SLICE + "." + JS.Funcs.CALL + "(" + JS.Vars.ARGUMENTS + ", {1});", name, method.Parameters.IndexOf(prm) + method.TypeParameters.Count));
                                     }
                                     else
                                     {
-                                        this.Write(string.Format("if ({0} === void 0) {{ {0} = []; }}", name));
+                                        Write(string.Format("if ({0} === void 0) {{ {0} = []; }}", name));
                                     }
 
-                                    this.WriteNewLine();
+                                    WriteNewLine();
                                 }
                             }
                         }
@@ -323,12 +323,12 @@ namespace H5.Translator
 
             declarations.ToList().ForEach(item =>
             {
-                var lrr = item.Parent != null ? (LocalResolveResult)this.Emitter.Resolver.ResolveNode(item, this.Emitter) : null;
-                var isReferenceLocal = lrr != null && this.Emitter.LocalsMap.ContainsKey(lrr.Variable) && this.Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
+                var lrr = item.Parent != null ? (LocalResolveResult)Emitter.Resolver.ResolveNode(item, Emitter) : null;
+                var isReferenceLocal = lrr != null && Emitter.LocalsMap.ContainsKey(lrr.Variable) && Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
 
                 if (item.Parent == null && item.Name == "value")
                 {
-                    var p = this.Emitter.LocalsMap.FirstOrDefault(pair => pair.Key.Name == "value");
+                    var p = Emitter.LocalsMap.FirstOrDefault(pair => pair.Key.Name == "value");
                     if (p.Value != null && p.Value.EndsWith(".v"))
                     {
                         isReferenceLocal = true;
@@ -337,39 +337,39 @@ namespace H5.Translator
 
                 if (isReferenceLocal && !(item.ParameterModifier == ParameterModifier.Out || item.ParameterModifier == ParameterModifier.Ref))
                 {
-                    this.Write(string.Format("{0} = {{v:{0}}};", this.Emitter.LocalsNamesMap[item.Name]));
-                    this.WriteNewLine();
+                    Write(string.Format("{0} = {{v:{0}}};", Emitter.LocalsNamesMap[item.Name]));
+                    WriteNewLine();
                 }
             });
         }
 
         protected virtual void IntroduceTempVar(string name)
         {
-            this.Emitter.TempVariables[name] = true;
+            Emitter.TempVariables[name] = true;
 
-            if (this.Emitter.IsAsync && !this.Emitter.AsyncVariables.Contains(name))
+            if (Emitter.IsAsync && !Emitter.AsyncVariables.Contains(name))
             {
-                this.Emitter.AsyncVariables.Add(name);
+                Emitter.AsyncVariables.Add(name);
             }
         }
 
         public virtual void RemoveTempVar(string name)
         {
-            this.Emitter.TempVariables[name] = false;
+            Emitter.TempVariables[name] = false;
         }
 
         public virtual string GetTempVarName()
         {
-            if (this.Emitter.TempVariables == null)
+            if (Emitter.TempVariables == null)
             {
-                this.ResetLocals();
+                ResetLocals();
             }
 
-            foreach (var pair in this.Emitter.TempVariables)
+            foreach (var pair in Emitter.TempVariables)
             {
                 if (!pair.Value)
                 {
-                    this.Emitter.TempVariables[pair.Key] = true;
+                    Emitter.TempVariables[pair.Key] = true;
                     return pair.Key;
                 }
             }
@@ -377,71 +377,71 @@ namespace H5.Translator
             string name = JS.Vars.T;
             int i = 0;
 
-            while (this.Emitter.TempVariables.ContainsKey(name) || (this.Emitter.ParentTempVariables != null && this.Emitter.ParentTempVariables.ContainsKey(name)))
+            while (Emitter.TempVariables.ContainsKey(name) || (Emitter.ParentTempVariables != null && Emitter.ParentTempVariables.ContainsKey(name)))
             {
                 name = JS.Vars.T + ++i;
             }
 
             name = JS.Vars.T + (i > 0 ? i.ToString() : "");
 
-            this.IntroduceTempVar(name);
+            IntroduceTempVar(name);
 
             return name;
         }
 
         protected virtual void EmitTempVars(int pos, bool skipIndent = false)
         {
-            if (this.Emitter.TempVariables.Count > 0)
+            if (Emitter.TempVariables.Count > 0)
             {
-                var newLine = this.Emitter.IsNewLine;
-                var temp = this.Emitter.Output.ToString(pos, this.Emitter.Output.Length - pos);
-                this.Emitter.Output.Length = pos;
+                var newLine = Emitter.IsNewLine;
+                var temp = Emitter.Output.ToString(pos, Emitter.Output.Length - pos);
+                Emitter.Output.Length = pos;
 
-                this.Emitter.IsNewLine = true;
-                this.Emitter.Comma = false;
+                Emitter.IsNewLine = true;
+                Emitter.Comma = false;
 
                 if (!skipIndent)
                 {
-                    this.Indent();
-                    this.WriteIndent();
+                    Indent();
+                    WriteIndent();
                 }
-                this.WriteVar(true);
+                WriteVar(true);
 
-                foreach (var localVar in this.Emitter.TempVariables)
+                foreach (var localVar in Emitter.TempVariables)
                 {
-                    this.EnsureComma(false);
-                    this.Write(localVar.Key);
-                    this.Emitter.Comma = true;
+                    EnsureComma(false);
+                    Write(localVar.Key);
+                    Emitter.Comma = true;
                 }
 
-                this.Emitter.Comma = false;
-                this.WriteSemiColon();
-                this.Outdent();
-                this.WriteNewLine();
+                Emitter.Comma = false;
+                WriteSemiColon();
+                Outdent();
+                WriteNewLine();
 
-                this.Emitter.Output.Append(temp);
-                this.Emitter.IsNewLine = newLine;
+                Emitter.Output.Append(temp);
+                Emitter.IsNewLine = newLine;
             }
         }
 
         protected virtual void SimpleEmitTempVars(bool newline = true)
         {
-            if (this.Emitter.TempVariables.Count > 0)
+            if (Emitter.TempVariables.Count > 0)
             {
-                this.WriteVar(true);
+                WriteVar(true);
 
-                foreach (var localVar in this.Emitter.TempVariables)
+                foreach (var localVar in Emitter.TempVariables)
                 {
-                    this.EnsureComma(false);
-                    this.Write(localVar.Key);
-                    this.Emitter.Comma = true;
+                    EnsureComma(false);
+                    Write(localVar.Key);
+                    Emitter.Comma = true;
                 }
 
-                this.Emitter.Comma = false;
-                this.WriteSemiColon();
+                Emitter.Comma = false;
+                WriteSemiColon();
                 if (newline)
                 {
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
             }
         }

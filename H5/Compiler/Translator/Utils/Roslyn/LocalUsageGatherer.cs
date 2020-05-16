@@ -94,9 +94,9 @@ namespace H5.Translator
             {
                 var name = node.Identifier.Value.ToString();
 
-                if (!this.UsedVariablesNames.Contains(name))
+                if (!UsedVariablesNames.Contains(name))
                 {
-                    this.UsedVariablesNames.Add(name);
+                    UsedVariablesNames.Add(name);
                 }
 
                 base.VisitVariableDeclarator(node);
@@ -129,9 +129,9 @@ namespace H5.Translator
             {
                 var name = node.Identifier.Value.ToString();
 
-                if (!this.UsedVariablesNames.Contains(name))
+                if (!UsedVariablesNames.Contains(name))
                 {
-                    this.UsedVariablesNames.Add(name);
+                    UsedVariablesNames.Add(name);
                 }
                 base.VisitParameter(node);
             }
@@ -139,9 +139,9 @@ namespace H5.Translator
             {
                 var name = node.Identifier.Value.ToString();
 
-                if (!this.UsedVariablesNames.Contains(name))
+                if (!UsedVariablesNames.Contains(name))
                 {
-                    this.UsedVariablesNames.Add(name);
+                    UsedVariablesNames.Add(name);
                 }
                 base.VisitTypeParameter(node);
             }
@@ -175,7 +175,7 @@ namespace H5.Translator
         {
             if (syntax.Identifier.Value.ToString() == name)
             {
-                return this.replacer;
+                return replacer;
             }
 
             return syntax;
@@ -194,7 +194,7 @@ namespace H5.Translator
         {
             DirectlyOrIndirectlyUsesThis = directlyOrIndirectlyUsesThis;
             DirectlyOrIndirectlyUsedLocals = new HashSet<ISymbol>(directlyOrIndirectlyUsedVariables);
-            this.Names = new List<string>(names);
+            Names = new List<string>(names);
         }
     }
 }

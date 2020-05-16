@@ -9,13 +9,13 @@ namespace H5.Translator
     {
         public EmitterOutput(string fileName)
         {
-            this.FileName = fileName;
-            this.ModuleOutput = new Dictionary<Module, StringBuilder>();
-            this.NonModuletOutput = new StringBuilder();
-            this.TopOutput = new StringBuilder();
-            this.BottomOutput = new StringBuilder();
-            this.ModuleDependencies = new Dictionary<string, List<IPluginDependency>>();
-            this.Names = new List<string>();
+            FileName = fileName;
+            ModuleOutput = new Dictionary<Module, StringBuilder>();
+            NonModuletOutput = new StringBuilder();
+            TopOutput = new StringBuilder();
+            BottomOutput = new StringBuilder();
+            ModuleDependencies = new Dictionary<string, List<IPluginDependency>>();
+            Names = new List<string>();
         }
 
         public bool IsMetadata { get; set; }
@@ -38,7 +38,7 @@ namespace H5.Translator
         {
             get
             {
-                return this.FileName == AssemblyInfo.DEFAULT_FILENAME;
+                return FileName == AssemblyInfo.DEFAULT_FILENAME;
             }
         }
 

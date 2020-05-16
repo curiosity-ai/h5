@@ -33,16 +33,16 @@ namespace H5.Translator
 
         public HtmlGenerator(IAssemblyInfo config, TranslatorOutput outputs, string assemblyTitle)
         {
-            this.Config = config;
-            this.Outputs = outputs;
-            this.AssemblyTitle = assemblyTitle;
+            Config = config;
+            Outputs = outputs;
+            AssemblyTitle = assemblyTitle;
         }
 
         public void GenerateHtml(string outputPath)
         {
             Logger.LogTrace("GenerateHtml...");
 
-            if (this.Config.Html.Disabled)
+            if (Config.Html.Disabled)
             {
                 Logger.LogTrace("GenerateHtml skipped as disabled in config.");
                 return;
@@ -85,11 +85,11 @@ namespace H5.Translator
             var jsBuffer = new StringBuilder();
             var jsMinBuffer = new StringBuilder();
 
-            IEnumerable<TranslatorOutputItem> outputForHtml = this.Outputs.GetOutputs();
+            IEnumerable<TranslatorOutputItem> outputForHtml = Outputs.GetOutputs();
 
-            if (this.Outputs.Resources.Count > 0)
+            if (Outputs.Resources.Count > 0)
             {
-                outputForHtml = outputForHtml.Concat(this.Outputs.Resources);
+                outputForHtml = outputForHtml.Concat(Outputs.Resources);
             }
 
             var firstJs = true;
@@ -140,7 +140,7 @@ namespace H5.Translator
 
             var tokens = new Dictionary<string, string>()
             {
-                { tokenTitle, this.AssemblyTitle },
+                { tokenTitle, AssemblyTitle },
                 { tokenCss,  cssBuffer.ToString() },
                 { tokenScript, jsBuffer.ToString() }
             };
@@ -177,7 +177,7 @@ namespace H5.Translator
                 File.WriteAllText(htmlMinName, html, Translator.OutputEncoding);
             }
 
-            this.Log.Trace("GenerateHtml done");
+            Logger.LogTrace("GenerateHtml done");
         }
 
         private string GetIndent(string input, int index)

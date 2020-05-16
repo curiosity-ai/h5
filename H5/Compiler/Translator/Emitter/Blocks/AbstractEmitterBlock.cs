@@ -13,9 +13,9 @@ namespace H5.Translator
 
         public AbstractEmitterBlock(IEmitter emitter, AstNode node)
         {
-            this.Emitter = emitter;
-            this.previousNode = this.Emitter.Translator.EmitNode;
-            this.Emitter.Translator.EmitNode = node;
+            Emitter = emitter;
+            previousNode = Emitter.Translator.EmitNode;
+            Emitter.Translator.EmitNode = node;
         }
 
         protected abstract void DoEmit();
@@ -24,7 +24,7 @@ namespace H5.Translator
         {
             get
             {
-                return this.previousNode;
+                return previousNode;
             }
         }
 
@@ -32,9 +32,9 @@ namespace H5.Translator
 
         public virtual void Emit()
         {
-            this.BeginEmit();
-            this.DoEmit();
-            this.EndEmit();
+            BeginEmit();
+            DoEmit();
+            EndEmit();
         }
 
         private int startPos;
@@ -43,33 +43,33 @@ namespace H5.Translator
 
         protected virtual void BeginEmit()
         {
-            if (this.NeedSequencePoint())
+            if (NeedSequencePoint())
             {
-                this.startPos = this.Emitter.Output.Length;
-                this.WriteSequencePoint(this.Emitter.Translator.EmitNode.Region);
-                this.checkPos = this.Emitter.Output.Length;
-                this.checkedOutput = this.Emitter.Output;
+                startPos = Emitter.Output.Length;
+                WriteSequencePoint(Emitter.Translator.EmitNode.Region);
+                checkPos = Emitter.Output.Length;
+                checkedOutput = Emitter.Output;
             }
         }
 
         protected virtual void EndEmit()
         {
-            if (this.NeedSequencePoint() && this.checkPos == this.Emitter.Output.Length && this.checkedOutput == this.Emitter.Output)
+            if (NeedSequencePoint() && checkPos == Emitter.Output.Length && checkedOutput == Emitter.Output)
             {
-                this.Emitter.Output.Length = this.startPos;
+                Emitter.Output.Length = startPos;
             }
-            this.Emitter.Translator.EmitNode = this.previousNode;
+            Emitter.Translator.EmitNode = previousNode;
         }
 
         protected bool NeedSequencePoint()
         {
-            if (this.Emitter.Translator.EmitNode != null && !this.Emitter.Translator.EmitNode.Region.IsEmpty)
+            if (Emitter.Translator.EmitNode != null && !Emitter.Translator.EmitNode.Region.IsEmpty)
             {
-                if (this.Emitter.Translator.EmitNode is EntityDeclaration ||
-                    this.Emitter.Translator.EmitNode is BlockStatement ||
-                    this.Emitter.Translator.EmitNode is ArrayInitializerExpression ||
-                    this.Emitter.Translator.EmitNode is PrimitiveExpression ||
-                    this.Emitter.Translator.EmitNode is Comment)
+                if (Emitter.Translator.EmitNode is EntityDeclaration ||
+                    Emitter.Translator.EmitNode is BlockStatement ||
+                    Emitter.Translator.EmitNode is ArrayInitializerExpression ||
+                    Emitter.Translator.EmitNode is PrimitiveExpression ||
+                    Emitter.Translator.EmitNode is Comment)
                 {
                     return false;
                 }
@@ -91,19 +91,19 @@ namespace H5.Translator
 
             if (!block)
             {
-                this.WriteNewLine();
-                this.Indent();
+                WriteNewLine();
+                Indent();
             }
             else
             {
-                this.WriteSpace();
+                WriteSpace();
             }
 
-            node.AcceptVisitor(this.Emitter);
+            node.AcceptVisitor(Emitter);
 
             if (!block)
             {
-                this.Outdent();
+                Outdent();
             }
         }
 
@@ -128,7 +128,7 @@ namespace H5.Translator
 
         protected AstNode[] GetAwaiters(AstNode node)
         {
-            var awaitSearch = new AwaitSearchVisitor(this.Emitter);
+            var awaitSearch = new AwaitSearchVisitor(Emitter);
             node.AcceptVisitor(awaitSearch);
 
             return awaitSearch.GetAwaitExpressions().ToArray();
@@ -148,11 +148,11 @@ namespace H5.Translator
 
         protected IAsyncStep WriteAwaiter(AstNode node)
         {
-            var index = System.Array.IndexOf(this.Emitter.AsyncBlock.AwaitExpressions, node) + 1;
+            var index = System.Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, node) + 1;
 
             if (node is ConditionalExpression expression)
             {
-                new ConditionalBlock(this.Emitter, expression).WriteAsyncConditionalExpression(index);
+                new ConditionalBlock(Emitter, expression).WriteAsyncConditionalExpression(index);
                 return null;
             }
 
@@ -163,30 +163,30 @@ namespace H5.Translator
                     binaryOperatorExpression.Operator == BinaryOperatorType.ConditionalOr ||
                     binaryOperatorExpression.Operator == BinaryOperatorType.ConditionalAnd)
                 {
-                    new BinaryOperatorBlock(this.Emitter, binaryOperatorExpression).WriteAsyncBinaryExpression(index);
+                    new BinaryOperatorBlock(Emitter, binaryOperatorExpression).WriteAsyncBinaryExpression(index);
                     return null;
                 }
             }
 
-            if (this.Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(node))
+            if (Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(node))
             {
                 return null;
             }
 
-            this.Emitter.AsyncBlock.WrittenAwaitExpressions.Add(node);
+            Emitter.AsyncBlock.WrittenAwaitExpressions.Add(node);
 
-            this.Write(JS.Vars.ASYNC_TASK + index + " = ");
+            Write(JS.Vars.ASYNC_TASK + index + " = ");
             bool customAwaiter = false;
-            var oldValue = this.Emitter.ReplaceAwaiterByVar;
-            this.Emitter.ReplaceAwaiterByVar = true;
+            var oldValue = Emitter.ReplaceAwaiterByVar;
+            Emitter.ReplaceAwaiterByVar = true;
 
             if (node.Parent is UnaryOperatorExpression unaryExpr && unaryExpr.Operator == UnaryOperatorType.Await)
             {
-                if (this.Emitter.Resolver.ResolveNode(unaryExpr, this.Emitter) is AwaitResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(unaryExpr, Emitter) is AwaitResolveResult rr)
                 {
                     if (rr.GetAwaiterInvocation is InvocationResolveResult awaiterMethod && awaiterMethod.Member.FullName != "System.Threading.Tasks.Task.GetAwaiter")
                     {
-                        this.WriteCustomAwaiter(node, awaiterMethod);
+                        WriteCustomAwaiter(node, awaiterMethod);
                         customAwaiter = true;
                     }
                 }
@@ -194,46 +194,46 @@ namespace H5.Translator
 
             if (!customAwaiter)
             {
-                node.AcceptVisitor(this.Emitter);
+                node.AcceptVisitor(Emitter);
             }
 
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.ReplaceAwaiterByVar = oldValue;
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
-            this.Write(JS.Vars.ASYNC_STEP + " = " + this.Emitter.AsyncBlock.Step + ";");
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
+            Write(JS.Vars.ASYNC_STEP + " = " + Emitter.AsyncBlock.Step + ";");
+            WriteNewLine();
 
-            this.WriteIf();
-            this.WriteOpenParentheses();
+            WriteIf();
+            WriteOpenParentheses();
 
-            this.Write(JS.Vars.ASYNC_TASK + index + ".isCompleted()");
+            Write(JS.Vars.ASYNC_TASK + index + ".isCompleted()");
 
-            this.WriteCloseParentheses();
+            WriteCloseParentheses();
 
-            this.WriteSpace();
+            WriteSpace();
 
-            this.WriteBlock("continue;");
+            WriteBlock("continue;");
 
-            this.Write(JS.Vars.ASYNC_TASK + index + "." + JS.Funcs.CONTINUE_WITH + "(" + JS.Funcs.ASYNC_BODY + ");");
+            Write(JS.Vars.ASYNC_TASK + index + "." + JS.Funcs.CONTINUE_WITH + "(" + JS.Funcs.ASYNC_BODY + ");");
 
-            this.WriteNewLine();
+            WriteNewLine();
 
-            if (this.Emitter.WrapRestCounter > 0)
+            if (Emitter.WrapRestCounter > 0)
             {
-                this.EndBlock();
-                this.Write("));");
-                this.WriteNewLine();
-                this.Emitter.WrapRestCounter--;
+                EndBlock();
+                Write("));");
+                WriteNewLine();
+                Emitter.WrapRestCounter--;
             }
 
-            this.Write("return;");
+            Write("return;");
 
-            var asyncStep = this.Emitter.AsyncBlock.AddAsyncStep(index);
+            var asyncStep = Emitter.AsyncBlock.AddAsyncStep(index);
 
-            if (this.Emitter.AsyncBlock.EmittedAsyncSteps != null)
+            if (Emitter.AsyncBlock.EmittedAsyncSteps != null)
             {
-                this.Emitter.AsyncBlock.EmittedAsyncSteps.Add(asyncStep);
+                Emitter.AsyncBlock.EmittedAsyncSteps.Add(asyncStep);
             }
 
             return asyncStep;
@@ -242,51 +242,51 @@ namespace H5.Translator
         private void WriteCustomAwaiter(AstNode node, InvocationResolveResult awaiterMethod)
         {
             var method = awaiterMethod.Member;
-            var inline = this.Emitter.GetInline(method);
+            var inline = Emitter.GetInline(method);
 
             if (!string.IsNullOrWhiteSpace(inline))
             {
-                var argsInfo = new ArgumentsInfo(this.Emitter, node as Expression, awaiterMethod);
-                new InlineArgumentsBlock(this.Emitter, argsInfo, inline).Emit();
+                var argsInfo = new ArgumentsInfo(Emitter, node as Expression, awaiterMethod);
+                new InlineArgumentsBlock(Emitter, argsInfo, inline).Emit();
             }
             else
             {
                 if (method.IsStatic)
                 {
-                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
-                    this.WriteDot();
-                    this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
-                    this.WriteOpenParentheses();
-                    new ExpressionListBlock(this.Emitter, new Expression[] { (Expression)node }, null, null, 0).Emit();
-                    this.WriteCloseParentheses();
+                    Write(H5Types.ToJsName(method.DeclaringType, Emitter));
+                    WriteDot();
+                    Write(OverloadsCollection.Create(Emitter, method).GetOverloadName());
+                    WriteOpenParentheses();
+                    new ExpressionListBlock(Emitter, new Expression[] { (Expression)node }, null, null, 0).Emit();
+                    WriteCloseParentheses();
                 }
                 else
                 {
-                    node.AcceptVisitor(this.Emitter);
-                    this.WriteDot();
-                    var name = OverloadsCollection.Create(this.Emitter, method).GetOverloadName();
-                    this.Write(name);
-                    this.WriteOpenParentheses();
-                    this.WriteCloseParentheses();
+                    node.AcceptVisitor(Emitter);
+                    WriteDot();
+                    var name = OverloadsCollection.Create(Emitter, method).GetOverloadName();
+                    Write(name);
+                    WriteOpenParentheses();
+                    WriteCloseParentheses();
                 }
             }
         }
 
         protected void WriteAwaiters(AstNode node)
         {
-            var awaiters = this.Emitter.IsAsync && !node.IsNull ? this.GetAwaiters(node) : null;
+            var awaiters = Emitter.IsAsync && !node.IsNull ? GetAwaiters(node) : null;
 
             if (awaiters != null && awaiters.Length > 0)
             {
-                var oldValue = this.Emitter.AsyncExpressionHandling;
-                this.Emitter.AsyncExpressionHandling = true;
+                var oldValue = Emitter.AsyncExpressionHandling;
+                Emitter.AsyncExpressionHandling = true;
 
                 foreach (var awaiter in awaiters)
                 {
-                    this.WriteAwaiter(awaiter);
+                    WriteAwaiter(awaiter);
                 }
 
-                this.Emitter.AsyncExpressionHandling = oldValue;
+                Emitter.AsyncExpressionHandling = oldValue;
             }
         }
 
@@ -350,28 +350,28 @@ namespace H5.Translator
 
             if (isValid)
             {
-                this.Write(name);
+                Write(name);
             }
             else
             {
                 if (colon)
                 {
-                    this.WriteScript(name);
+                    WriteScript(name);
                 }
-                else if (this.Emitter.Output[this.Emitter.Output.Length - 1] == '.')
+                else if (Emitter.Output[Emitter.Output.Length - 1] == '.')
                 {
-                    --this.Emitter.Output.Length;
-                    this.Write("[");
+                    --Emitter.Output.Length;
+                    Write("[");
                     if (script)
                     {
-                        this.WriteScript(name);
+                        WriteScript(name);
                     }
                     else
                     {
-                        this.Write(name);
+                        Write(name);
                     }
 
-                    this.Write("]");
+                    Write("]");
                 }
             }
         }

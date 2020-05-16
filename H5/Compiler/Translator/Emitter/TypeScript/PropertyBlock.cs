@@ -11,20 +11,20 @@ namespace H5.Translator.TypeScript
         public PropertyBlock(IEmitter emitter, PropertyDeclaration propertyDeclaration)
             : base(emitter, propertyDeclaration)
         {
-            this.Emitter = emitter;
-            this.PropertyDeclaration = propertyDeclaration;
+            Emitter = emitter;
+            PropertyDeclaration = propertyDeclaration;
         }
 
         public PropertyDeclaration PropertyDeclaration { get; set; }
 
         protected override void DoEmit()
         {
-            this.EmitPropertyMethod(this.PropertyDeclaration);
+            EmitPropertyMethod(PropertyDeclaration);
         }
 
         protected virtual void EmitPropertyMethod(PropertyDeclaration propertyDeclaration)
         {
-            var memberResult = this.Emitter.Resolver.ResolveNode(propertyDeclaration, this.Emitter) as MemberResolveResult;
+            var memberResult = Emitter.Resolver.ResolveNode(propertyDeclaration, Emitter) as MemberResolveResult;
             var isInterface = memberResult != null && memberResult.Member.DeclaringType.Kind == TypeKind.Interface;
 
             if (!isInterface && !propertyDeclaration.HasModifier(Modifiers.Public))
@@ -38,44 +38,44 @@ namespace H5.Translator.TypeScript
                 return;
             }
 
-            if (!propertyDeclaration.Getter.IsNull && this.Emitter.GetInline(propertyDeclaration.Getter) == null)
+            if (!propertyDeclaration.Getter.IsNull && Emitter.GetInline(propertyDeclaration.Getter) == null)
             {
-                XmlToJsDoc.EmitComment(this, this.PropertyDeclaration);
+                XmlToJsDoc.EmitComment(this, PropertyDeclaration);
 
                 var ignoreInterface = isInterface &&
                                       memberResult.Member.DeclaringType.TypeParameterCount > 0;
-                this.WriteAccessor(propertyDeclaration, memberResult, ignoreInterface);
+                WriteAccessor(propertyDeclaration, memberResult, ignoreInterface);
 
                 if (!ignoreInterface && isInterface)
                 {
-                    this.WriteAccessor(propertyDeclaration, memberResult, true);
+                    WriteAccessor(propertyDeclaration, memberResult, true);
                 }
             }
         }
 
         private void WriteAccessor(PropertyDeclaration p, MemberResolveResult memberResult, bool ignoreInterface)
         {
-            string name = Helpers.GetPropertyRef(memberResult.Member, this.Emitter, false, false, ignoreInterface);
-            this.Write(name);
+            string name = Helpers.GetPropertyRef(memberResult.Member, Emitter, false, false, ignoreInterface);
+            Write(name);
 
-            var property_rr = this.Emitter.Resolver.ResolveNode(p, this.Emitter);
+            var property_rr = Emitter.Resolver.ResolveNode(p, Emitter);
             if (property_rr is MemberResolveResult mrr && mrr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.OptionalAttribute"))
             {
-                this.Write("?");
+                Write("?");
             }
 
-            this.WriteColon();
-            name = H5Types.ToTypeScriptName(p.ReturnType, this.Emitter);
-            this.Write(name);
+            WriteColon();
+            name = H5Types.ToTypeScriptName(p.ReturnType, Emitter);
+            Write(name);
 
-            var resolveResult = this.Emitter.Resolver.ResolveNode(p.ReturnType, this.Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(p.ReturnType, Emitter);
             if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
             {
-                this.Write(" | null");
+                Write(" | null");
             }
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
         }
     }
 }

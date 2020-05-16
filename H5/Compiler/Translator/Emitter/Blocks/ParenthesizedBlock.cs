@@ -9,43 +9,43 @@ namespace H5.Translator
         public ParenthesizedBlock(IEmitter emitter, ParenthesizedExpression parenthesizedExpression)
             : base(emitter, parenthesizedExpression)
         {
-            this.Emitter = emitter;
-            this.ParenthesizedExpression = parenthesizedExpression;
+            Emitter = emitter;
+            ParenthesizedExpression = parenthesizedExpression;
         }
 
         public ParenthesizedExpression ParenthesizedExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.ParenthesizedExpression;
+            return ParenthesizedExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            var ignoreParentheses = this.IgnoreParentheses(this.ParenthesizedExpression.Expression);
+            var ignoreParentheses = IgnoreParentheses(ParenthesizedExpression.Expression);
 
             if (!ignoreParentheses)
             {
-                this.WriteOpenParentheses();
+                WriteOpenParentheses();
             }
 
-            int startPos = this.Emitter.Output.Length;
+            int startPos = Emitter.Output.Length;
 
-            this.ParenthesizedExpression.Expression.AcceptVisitor(this.Emitter);
+            ParenthesizedExpression.Expression.AcceptVisitor(Emitter);
 
             if (!ignoreParentheses)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
         }
 
         protected bool IgnoreParentheses(Expression expression)
         {
-            if (this.ParenthesizedExpression.Parent is CastExpression)
+            if (ParenthesizedExpression.Parent is CastExpression)
             {
-                var conversion = this.Emitter.Resolver.Resolver.GetConversion(this.ParenthesizedExpression);
-                bool isOperator = this.ParenthesizedExpression.Parent.Parent is BinaryOperatorExpression ||
-                                  this.ParenthesizedExpression.Parent.Parent is UnaryOperatorExpression;
+                var conversion = Emitter.Resolver.Resolver.GetConversion(ParenthesizedExpression);
+                bool isOperator = ParenthesizedExpression.Parent.Parent is BinaryOperatorExpression ||
+                                  ParenthesizedExpression.Parent.Parent is UnaryOperatorExpression;
                 if (!isOperator && (conversion.IsNumericConversion || conversion.IsEnumerationConversion || conversion.IsIdentityConversion))
                 {
                     return true;
@@ -54,12 +54,12 @@ namespace H5.Translator
 
             if (expression is CastExpression castExpr)
             {
-                if (this.Emitter.Resolver.ResolveNode(castExpr.Expression, this.Emitter) is OperatorResolveResult orr)
+                if (Emitter.Resolver.ResolveNode(castExpr.Expression, Emitter) is OperatorResolveResult orr)
                 {
                     return false;
                 }
 
-                var rr = this.Emitter.Resolver.ResolveNode(expression, this.Emitter);
+                var rr = Emitter.Resolver.ResolveNode(expression, Emitter);
                 if (rr is ConstantResolveResult)
                 {
                     return false;

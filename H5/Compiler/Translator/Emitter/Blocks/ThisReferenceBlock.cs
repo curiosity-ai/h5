@@ -8,20 +8,20 @@ namespace H5.Translator
         public ThisReferenceBlock(IEmitter emitter, ThisReferenceExpression thisReferenceExpression)
             : base(emitter, thisReferenceExpression)
         {
-            this.Emitter = emitter;
-            this.ThisReferenceExpression = thisReferenceExpression;
+            Emitter = emitter;
+            ThisReferenceExpression = thisReferenceExpression;
         }
 
         public ThisReferenceExpression ThisReferenceExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.ThisReferenceExpression;
+            return ThisReferenceExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            this.WriteThis();
+            WriteThis();
         }
     }
 }

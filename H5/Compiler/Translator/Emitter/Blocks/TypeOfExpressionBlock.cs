@@ -8,20 +8,20 @@ namespace H5.Translator
         public TypeOfExpressionBlock(IEmitter emitter, TypeOfExpression typeOfExpression)
             : base(emitter, typeOfExpression)
         {
-            this.Emitter = emitter;
-            this.TypeOfExpression = typeOfExpression;
+            Emitter = emitter;
+            TypeOfExpression = typeOfExpression;
         }
 
         public TypeOfExpression TypeOfExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.TypeOfExpression;
+            return TypeOfExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            this.TypeOfExpression.Type.AcceptVisitor(this.Emitter);
+            TypeOfExpression.Type.AcceptVisitor(Emitter);
         }
     }
 }

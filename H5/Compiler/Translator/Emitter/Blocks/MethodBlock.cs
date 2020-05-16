@@ -15,9 +15,9 @@ namespace H5.Translator
         public MethodBlock(IEmitter emitter, ITypeInfo typeInfo, bool staticBlock)
             : base(emitter, typeInfo.TypeDeclaration)
         {
-            this.Emitter = emitter;
-            this.TypeInfo = typeInfo;
-            this.StaticBlock = staticBlock;
+            Emitter = emitter;
+            TypeInfo = typeInfo;
+            StaticBlock = staticBlock;
         }
 
         public ITypeInfo TypeInfo { get; set; }
@@ -26,32 +26,32 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            if (this.StaticBlock)
+            if (StaticBlock)
             {
-                this.EmitMethods(this.TypeInfo.StaticMethods, this.TypeInfo.StaticProperties, this.TypeInfo.Operators);
+                EmitMethods(TypeInfo.StaticMethods, TypeInfo.StaticProperties, TypeInfo.Operators);
             }
             else
             {
-                this.EmitMethods(this.TypeInfo.InstanceMethods, this.TypeInfo.InstanceProperties, null);
+                EmitMethods(TypeInfo.InstanceMethods, TypeInfo.InstanceProperties, null);
             }
         }
 
         protected virtual void EmitMethods(Dictionary<string, List<MethodDeclaration>> methods, Dictionary<string, List<EntityDeclaration>> properties, Dictionary<OperatorType, List<OperatorDeclaration>> operators)
         {
-            int pos = this.Emitter.Output.Length;
-            var writerInfo = this.SaveWriter();
+            int pos = Emitter.Output.Length;
+            var writerInfo = SaveWriter();
 
-            string globalTarget = H5Types.GetGlobalTarget(this.TypeInfo.Type.GetDefinition(), this.TypeInfo.TypeDeclaration);
+            string globalTarget = H5Types.GetGlobalTarget(TypeInfo.Type.GetDefinition(), TypeInfo.TypeDeclaration);
 
             if (globalTarget == null)
             {
-                this.EnsureComma();
-                this.Write(JS.Fields.METHODS);
-                this.WriteColon();
-                this.BeginBlock();
+                EnsureComma();
+                Write(JS.Fields.METHODS);
+                WriteColon();
+                BeginBlock();
             }
 
-            int checkPos = this.Emitter.Output.Length;
+            int checkPos = Emitter.Output.Length;
 
             var names = new List<string>(properties.Keys);
 
@@ -63,15 +63,15 @@ namespace H5.Translator
                 {
                     if (prop is PropertyDeclaration)
                     {
-                        this.Emitter.VisitPropertyDeclaration((PropertyDeclaration)prop);
+                        Emitter.VisitPropertyDeclaration((PropertyDeclaration)prop);
                     }
                     else if (prop is CustomEventDeclaration)
                     {
-                        this.Emitter.VisitCustomEventDeclaration((CustomEventDeclaration)prop);
+                        Emitter.VisitCustomEventDeclaration((CustomEventDeclaration)prop);
                     }
                     else if (prop is IndexerDeclaration)
                     {
-                        this.Emitter.VisitIndexerDeclaration((IndexerDeclaration)prop);
+                        Emitter.VisitIndexerDeclaration((IndexerDeclaration)prop);
                     }
                 }
             }
@@ -80,7 +80,7 @@ namespace H5.Translator
 
             foreach (var name in names)
             {
-                this.EmitMethodsGroup(methods[name]);
+                EmitMethodsGroup(methods[name]);
             }
 
             if (operators != null)
@@ -89,84 +89,84 @@ namespace H5.Translator
 
                 foreach (var op in ops)
                 {
-                    this.EmitOperatorGroup(operators[op]);
+                    EmitOperatorGroup(operators[op]);
                 }
             }
 
-            if (this.TypeInfo.ClassType == ClassType.Struct)
+            if (TypeInfo.ClassType == ClassType.Struct)
             {
-                if (!this.StaticBlock)
+                if (!StaticBlock)
                 {
-                    this.EmitStructMethods();
+                    EmitStructMethods();
                 }
                 else
                 {
-                    string structName = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter);
-                    if (this.TypeInfo.Type.TypeArguments.Count > 0 &&
-                        !Helpers.IsIgnoreGeneric(this.TypeInfo.Type, this.Emitter))
+                    string structName = H5Types.ToJsName(TypeInfo.Type, Emitter);
+                    if (TypeInfo.Type.TypeArguments.Count > 0 &&
+                        !Helpers.IsIgnoreGeneric(TypeInfo.Type, Emitter))
                     {
                         structName = "(" + structName + ")";
                     }
 
-                    this.EnsureComma();
-                    this.Write(JS.Funcs.GETDEFAULTVALUE + ": function () { return new " + structName + "(); }");
-                    this.Emitter.Comma = true;
+                    EnsureComma();
+                    Write(JS.Funcs.GETDEFAULTVALUE + ": function () { return new " + structName + "(); }");
+                    Emitter.Comma = true;
                 }
             }
-            else if (this.StaticBlock)
+            else if (StaticBlock)
             {
-                var ctor = this.TypeInfo.Type.GetConstructors().FirstOrDefault(c => c.Parameters.Count == 0 && this.Emitter.GetInline(c) != null);
+                var ctor = TypeInfo.Type.GetConstructors().FirstOrDefault(c => c.Parameters.Count == 0 && Emitter.GetInline(c) != null);
 
                 if (ctor != null)
                 {
-                    var code = this.Emitter.GetInline(ctor);
-                    this.EnsureComma();
-                    this.Write(JS.Funcs.GETDEFAULTVALUE + ": function () ");
-                    this.BeginBlock();
-                    this.Write("return ");
-                    var argsInfo = new ArgumentsInfo(this.Emitter, ctor);
-                    new InlineArgumentsBlock(this.Emitter, argsInfo, code).Emit();
-                    this.Write(";");
-                    this.WriteNewLine();
-                    this.EndBlock();
-                    this.Emitter.Comma = true;
+                    var code = Emitter.GetInline(ctor);
+                    EnsureComma();
+                    Write(JS.Funcs.GETDEFAULTVALUE + ": function () ");
+                    BeginBlock();
+                    Write("return ");
+                    var argsInfo = new ArgumentsInfo(Emitter, ctor);
+                    new InlineArgumentsBlock(Emitter, argsInfo, code).Emit();
+                    Write(";");
+                    WriteNewLine();
+                    EndBlock();
+                    Emitter.Comma = true;
                 }
             }
 
             if (globalTarget == null)
             {
-                if (checkPos == this.Emitter.Output.Length)
+                if (checkPos == Emitter.Output.Length)
                 {
-                    this.Emitter.IsNewLine = writerInfo.IsNewLine;
-                    this.Emitter.ResetLevel(writerInfo.Level);
-                    this.Emitter.Comma = writerInfo.Comma;
-                    this.Emitter.Output.Length = pos;
+                    Emitter.IsNewLine = writerInfo.IsNewLine;
+                    Emitter.ResetLevel(writerInfo.Level);
+                    Emitter.Comma = writerInfo.Comma;
+                    Emitter.Output.Length = pos;
                 }
                 else
                 {
-                    this.WriteNewLine();
-                    this.EndBlock();
+                    WriteNewLine();
+                    EndBlock();
                 }
             }
         }
 
         protected virtual void EmitStructMethods()
         {
-            var typeDef = this.Emitter.GetTypeDefinition();
-            string structName = H5Types.ToJsName(this.TypeInfo.Type, this.Emitter);
+            var typeDef = Emitter.GetTypeDefinition();
+            string structName = H5Types.ToJsName(TypeInfo.Type, Emitter);
 
-            bool immutable = this.Emitter.Validator.IsImmutableType(typeDef);
+            bool immutable = Emitter.Validator.IsImmutableType(typeDef);
 
             if (!immutable)
             {
-                var mutableFields = this.TypeInfo.Type.GetFields(f => !f.IsConst, GetMemberOptions.IgnoreInheritedMembers);
+                var mutableFields = TypeInfo.Type.GetFields(f => !f.IsConst, GetMemberOptions.IgnoreInheritedMembers);
                 var autoProps = typeDef.Properties.Where(Helpers.IsAutoProperty);
-                var autoEvents = this.TypeInfo.Type.GetEvents(null, GetMemberOptions.IgnoreInheritedMembers);
+                var autoEvents = TypeInfo.Type.GetEvents(null, GetMemberOptions.IgnoreInheritedMembers);
                 immutable = !mutableFields.Any() && !autoProps.Any() && !autoEvents.Any();
             }
 
-            var fields = this.TypeInfo.InstanceConfig.Fields;
-            var props = this.TypeInfo.InstanceConfig.Properties.Where(ent =>
+            var fields = TypeInfo.InstanceConfig.Fields;
+            var props = TypeInfo.InstanceConfig.Properties.Where(ent =>
             {
                 return ent.Entity is PropertyDeclaration p && p.Getter != null && p.Getter.Body.IsNull && p.Setter != null && p.Setter.Body.IsNull;
             });
@@ -176,110 +176,110 @@ namespace H5.Translator
 
             if (list.Count == 0)
             {
-                this.EnsureComma();
-                this.Write(JS.Funcs.CLONE + ": function (to) { return this; }");
-                this.Emitter.Comma = true;
+                EnsureComma();
+                Write(JS.Funcs.CLONE + ": function (to) { return this; }");
+                Emitter.Comma = true;
                 return;
             }
 
-            if (!this.TypeInfo.InstanceMethods.ContainsKey(CS.Methods.GETHASHCODE))
+            if (!TypeInfo.InstanceMethods.ContainsKey(CS.Methods.GETHASHCODE))
             {
-                this.EnsureComma();
-                this.Write(JS.Funcs.GETHASHCODE + ": function () ");
-                this.BeginBlock();
-                this.Write("var h = " + JS.Funcs.H5_ADDHASH + "([");
+                EnsureComma();
+                Write(JS.Funcs.GETHASHCODE + ": function () ");
+                BeginBlock();
+                Write("var h = " + JS.Funcs.H5_ADDHASH + "([");
 
-                var nameHashValue = new HashHelper().GetDeterministicHash(this.TypeInfo.Name);
-                this.Write(nameHashValue);
+                var nameHashValue = new HashHelper().GetDeterministicHash(TypeInfo.Name);
+                Write(nameHashValue);
 
                 foreach (var field in list)
                 {
-                    string fieldName = field.GetName(this.Emitter);
-                    this.Write(", this." + fieldName);
+                    string fieldName = field.GetName(Emitter);
+                    Write(", this." + fieldName);
                 }
 
-                this.Write("]);");
+                Write("]);");
 
-                this.WriteNewLine();
-                this.Write("return h;");
-                this.WriteNewLine();
-                this.EndBlock();
-                this.Emitter.Comma = true;
+                WriteNewLine();
+                Write("return h;");
+                WriteNewLine();
+                EndBlock();
+                Emitter.Comma = true;
             }
 
-            if (!this.TypeInfo.InstanceMethods.ContainsKey(CS.Methods.EQUALS))
+            if (!TypeInfo.InstanceMethods.ContainsKey(CS.Methods.EQUALS))
             {
-                this.EnsureComma();
-                this.Write(JS.Funcs.EQUALS + ": function (o) ");
-                this.BeginBlock();
-                this.Write("if (!" + JS.Types.H5.IS + "(o, ");
-                this.Write(structName);
-                this.Write(")) ");
-                this.BeginBlock();
-                this.Write("return false;");
-                this.WriteNewLine();
-                this.EndBlock();
-                this.WriteNewLine();
-                this.Write("return ");
+                EnsureComma();
+                Write(JS.Funcs.EQUALS + ": function (o) ");
+                BeginBlock();
+                Write("if (!" + JS.Types.H5.IS + "(o, ");
+                Write(structName);
+                Write(")) ");
+                BeginBlock();
+                Write("return false;");
+                WriteNewLine();
+                EndBlock();
+                WriteNewLine();
+                Write("return ");
 
                 bool and = false;
 
                 foreach (var field in list)
                 {
-                    string fieldName = field.GetName(this.Emitter);
+                    string fieldName = field.GetName(Emitter);
 
                     if (and)
                     {
-                        this.Write(" && ");
+                        Write(" && ");
                     }
 
                     and = true;
 
-                    this.Write(JS.Funcs.H5_EQUALS + "(this.");
-                    this.Write(fieldName);
-                    this.Write(", o.");
-                    this.Write(fieldName);
-                    this.Write(")");
+                    Write(JS.Funcs.H5_EQUALS + "(this.");
+                    Write(fieldName);
+                    Write(", o.");
+                    Write(fieldName);
+                    Write(")");
                 }
 
-                this.Write(";");
-                this.WriteNewLine();
-                this.EndBlock();
-                this.Emitter.Comma = true;
+                Write(";");
+                WriteNewLine();
+                EndBlock();
+                Emitter.Comma = true;
             }
 
-            this.EnsureComma();
+            EnsureComma();
 
             if (immutable)
             {
-                this.Write(JS.Funcs.CLONE + ": function (to) { return this; }");
+                Write(JS.Funcs.CLONE + ": function (to) { return this; }");
             }
             else
             {
-                this.Write(JS.Funcs.CLONE + ": function (to) ");
-                this.BeginBlock();
-                this.Write("var s = to || new ");
-                if (this.TypeInfo.Type.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(this.TypeInfo.Type, this.Emitter))
+                Write(JS.Funcs.CLONE + ": function (to) ");
+                BeginBlock();
+                Write("var s = to || new ");
+                if (TypeInfo.Type.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(TypeInfo.Type, Emitter))
                 {
                     structName = "(" + structName + ")";
                 }
-                this.Write(structName);
-                this.Write("();");
+                Write(structName);
+                Write("();");
 
                 foreach (var field in list)
                 {
-                    this.WriteNewLine();
-                    string fieldName = field.GetName(this.Emitter);
+                    WriteNewLine();
+                    string fieldName = field.GetName(Emitter);
 
-                    this.Write("s.");
-                    this.Write(fieldName);
-                    this.Write(" = ");
+                    Write("s.");
+                    Write(fieldName);
+                    Write(" = ");
 
-                    int insertPosition = this.Emitter.Output.Length;
-                    this.Write("this.");
-                    this.Write(fieldName);
+                    int insertPosition = Emitter.Output.Length;
+                    Write("this.");
+                    Write(fieldName);
 
-                    var rr = this.Emitter.Resolver.ResolveNode(field.Entity, this.Emitter) as MemberResolveResult;
+                    var rr = Emitter.Resolver.ResolveNode(field.Entity, Emitter) as MemberResolveResult;
 
                     if (rr == null && field.VarInitializer != null)
                     {
@@ -291,74 +291,74 @@ namespace H5.Translator
                         Helpers.CheckValueTypeClone(rr, null, this, insertPosition);
                     }
 
-                    this.Write(";");
+                    Write(";");
                 }
 
-                this.WriteNewLine();
-                this.Write("return s;");
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                Write("return s;");
+                WriteNewLine();
+                EndBlock();
             }
 
-            this.Emitter.Comma = true;
+            Emitter.Comma = true;
         }
 
         protected void EmitEventAccessor(EventDeclaration e, VariableInitializer evtVar, bool add)
         {
             string name = evtVar.Name;
 
-            this.Write(Helpers.GetAddOrRemove(add), name, " : ");
-            this.WriteFunction();
-            this.WriteOpenParentheses();
-            this.Write("value");
-            this.WriteCloseParentheses();
-            this.WriteSpace();
-            this.BeginBlock();
-            this.WriteThis();
-            this.WriteDot();
-            this.Write(this.Emitter.GetEntityName(e));
-            this.Write(" = ");
-            this.Write(add ? JS.Funcs.H5_COMBINE : JS.Funcs.H5_REMOVE);
-            this.WriteOpenParentheses();
-            this.WriteThis();
-            this.WriteDot();
-            this.Write(this.Emitter.GetEntityName(e));
-            this.WriteComma();
-            this.WriteSpace();
-            this.Write("value");
-            this.WriteCloseParentheses();
-            this.WriteSemiColon();
-            this.WriteNewLine();
-            this.EndBlock();
+            Write(Helpers.GetAddOrRemove(add), name, " : ");
+            WriteFunction();
+            WriteOpenParentheses();
+            Write("value");
+            WriteCloseParentheses();
+            WriteSpace();
+            BeginBlock();
+            WriteThis();
+            WriteDot();
+            Write(Emitter.GetEntityName(e));
+            Write(" = ");
+            Write(add ? JS.Funcs.H5_COMBINE : JS.Funcs.H5_REMOVE);
+            WriteOpenParentheses();
+            WriteThis();
+            WriteDot();
+            Write(Emitter.GetEntityName(e));
+            WriteComma();
+            WriteSpace();
+            Write("value");
+            WriteCloseParentheses();
+            WriteSemiColon();
+            WriteNewLine();
+            EndBlock();
         }
 
         protected virtual void EmitMethodsGroup(List<MethodDeclaration> group)
         {
             if (group.Count == 1)
             {
-                if ((!group[0].Body.IsNull || this.Emitter.GetScript(group[0]) != null) && (!this.StaticBlock || !Helpers.IsEntryPointMethod(this.Emitter, group[0])))
+                if ((!group[0].Body.IsNull || Emitter.GetScript(group[0]) != null) && (!StaticBlock || !Helpers.IsEntryPointMethod(Emitter, group[0])))
                 {
-                    this.Emitter.VisitMethodDeclaration(group[0]);
+                    Emitter.VisitMethodDeclaration(group[0]);
                 }
             }
             else
             {
-                var typeDef = this.Emitter.GetTypeDefinition();
+                var typeDef = Emitter.GetTypeDefinition();
                 var name = group[0].Name;
                 var methodsDef = typeDef.Methods.Where(m => m.Name == name);
-                this.Emitter.MethodsGroup = methodsDef;
-                this.Emitter.MethodsGroupBuilder = new Dictionary<int, StringBuilder>();
+                Emitter.MethodsGroup = methodsDef;
+                Emitter.MethodsGroupBuilder = new Dictionary<int, StringBuilder>();
 
                 foreach (var method in group)
                 {
-                    if (!method.Body.IsNull && (!this.StaticBlock || !Helpers.IsEntryPointMethod(this.Emitter, group[0])))
+                    if (!method.Body.IsNull && (!StaticBlock || !Helpers.IsEntryPointMethod(Emitter, group[0])))
                     {
-                        this.Emitter.VisitMethodDeclaration(method);
+                        Emitter.VisitMethodDeclaration(method);
                     }
                 }
 
-                this.Emitter.MethodsGroup = null;
-                this.Emitter.MethodsGroupBuilder = null;
+                Emitter.MethodsGroup = null;
+                Emitter.MethodsGroupBuilder = null;
             }
         }
 
@@ -368,26 +368,26 @@ namespace H5.Translator
             {
                 if (!group[0].Body.IsNull)
                 {
-                    this.Emitter.VisitOperatorDeclaration(group[0]);
+                    Emitter.VisitOperatorDeclaration(group[0]);
                 }
             }
             else
             {
                 var name = group[0].Name;
-                var methodsDef = this.Emitter.GetTypeDefinition().Methods.Where(m => m.Name == name);
-                this.Emitter.MethodsGroup = methodsDef;
-                this.Emitter.MethodsGroupBuilder = new Dictionary<int, StringBuilder>();
+                var methodsDef = Emitter.GetTypeDefinition().Methods.Where(m => m.Name == name);
+                Emitter.MethodsGroup = methodsDef;
+                Emitter.MethodsGroupBuilder = new Dictionary<int, StringBuilder>();
 
                 foreach (var method in group)
                 {
                     if (!method.Body.IsNull)
                     {
-                        this.Emitter.VisitOperatorDeclaration(method);
+                        Emitter.VisitOperatorDeclaration(method);
                     }
                 }
 
-                this.Emitter.MethodsGroup = null;
-                this.Emitter.MethodsGroupBuilder = null;
+                Emitter.MethodsGroup = null;
+                Emitter.MethodsGroupBuilder = null;
             }
         }
     }

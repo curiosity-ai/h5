@@ -16,54 +16,54 @@ namespace H5.Translator
         public GeneratorBlock(IEmitter emitter, MethodDeclaration methodDeclaration)
             : base(emitter, methodDeclaration)
         {
-            this.Emitter = emitter;
-            this.MethodDeclaration = methodDeclaration;
+            Emitter = emitter;
+            MethodDeclaration = methodDeclaration;
         }
 
         public GeneratorBlock(IEmitter emitter, LambdaExpression lambdaExpression)
             : base(emitter, lambdaExpression)
         {
 
-            this.Emitter = emitter;
-            this.LambdaExpression = lambdaExpression;
+            Emitter = emitter;
+            LambdaExpression = lambdaExpression;
         }
 
         public GeneratorBlock(IEmitter emitter, AnonymousMethodExpression anonymousMethodExpression)
             : base(emitter, anonymousMethodExpression)
         {
-            this.Emitter = emitter;
-            this.AnonymousMethodExpression = anonymousMethodExpression;
+            Emitter = emitter;
+            AnonymousMethodExpression = anonymousMethodExpression;
         }
 
         public GeneratorBlock(IEmitter emitter, Accessor accessor)
              : base(emitter, accessor)
          {
-             this.Emitter = emitter;
-             this.Accessor = accessor;
+             Emitter = emitter;
+             Accessor = accessor;
          }
 
         public AstNode Node
         {
             get
             {
-                if (this.MethodDeclaration != null)
+                if (MethodDeclaration != null)
                 {
-                    return this.MethodDeclaration;
+                    return MethodDeclaration;
                 }
 
-                if (this.AnonymousMethodExpression != null)
+                if (AnonymousMethodExpression != null)
                 {
-                    return this.AnonymousMethodExpression;
+                    return AnonymousMethodExpression;
                 }
 
-                if (this.LambdaExpression != null)
+                if (LambdaExpression != null)
                 {
-                    return this.LambdaExpression;
+                    return LambdaExpression;
                 }
 
-                if (this.Accessor != null)
+                if (Accessor != null)
                 {
-                    return this.Accessor;
+                    return Accessor;
                 }
 
                 return null;
@@ -84,24 +84,24 @@ namespace H5.Translator
         {
             get
             {
-                if (this.MethodDeclaration != null)
+                if (MethodDeclaration != null)
                 {
-                    return this.MethodDeclaration.Body;
+                    return MethodDeclaration.Body;
                 }
 
-                if (this.LambdaExpression != null)
+                if (LambdaExpression != null)
                 {
-                    return this.LambdaExpression.Body;
+                    return LambdaExpression.Body;
                 }
 
-                if (this.AnonymousMethodExpression != null)
+                if (AnonymousMethodExpression != null)
                 {
-                    return this.AnonymousMethodExpression.Body;
+                    return AnonymousMethodExpression.Body;
                 }
 
-                if (this.Accessor != null)
+                if (Accessor != null)
                 {
-                    return this.Accessor.Body;
+                    return Accessor.Body;
                 }
 
                 return null;
@@ -115,23 +115,23 @@ namespace H5.Translator
                 AstNodeCollection<ParameterDeclaration> prms = null;
                 AstNodeCollection<TypeParameterDeclaration> tprms = null;
 
-                if (this.MethodDeclaration != null)
+                if (MethodDeclaration != null)
                 {
-                    prms = this.MethodDeclaration.Parameters;
+                    prms = MethodDeclaration.Parameters;
 
-                    if (this.MethodDeclaration.TypeParameters.Count > 0 &&
-                        !Helpers.IsIgnoreGeneric(this.MethodDeclaration, this.Emitter))
+                    if (MethodDeclaration.TypeParameters.Count > 0 &&
+                        !Helpers.IsIgnoreGeneric(MethodDeclaration, Emitter))
                     {
-                        tprms = this.MethodDeclaration.TypeParameters;
+                        tprms = MethodDeclaration.TypeParameters;
                     }
                 }
-                else if (this.LambdaExpression != null)
+                else if (LambdaExpression != null)
                 {
-                    prms = this.LambdaExpression.Parameters;
+                    prms = LambdaExpression.Parameters;
                 }
-                else if (this.AnonymousMethodExpression != null)
+                else if (AnonymousMethodExpression != null)
                 {
-                    prms = this.AnonymousMethodExpression.Parameters;
+                    prms = AnonymousMethodExpression.Parameters;
                 }
 
                 var result = new List<string>();
@@ -148,10 +148,10 @@ namespace H5.Translator
                 {
                     foreach (var parameterDeclaration in prms)
                     {
-                        var name = this.Emitter.GetParameterName(parameterDeclaration);
-                        if (this.Emitter.LocalsNamesMap != null && this.Emitter.LocalsNamesMap.ContainsKey(name))
+                        var name = Emitter.GetParameterName(parameterDeclaration);
+                        if (Emitter.LocalsNamesMap != null && Emitter.LocalsNamesMap.ContainsKey(name))
                         {
-                            name = this.Emitter.LocalsNamesMap[name];
+                            name = Emitter.LocalsNamesMap[name];
                         }
 
                         result.Add(name);
@@ -192,278 +192,278 @@ namespace H5.Translator
 
         public void InitAsyncBlock()
         {
-            this.PreviousIsAync = this.Emitter.IsAsync;
-            this.PreviousIsYield = this.Emitter.IsYield;
-            this.Emitter.IsAsync = true;
-            this.Emitter.IsYield = true;
+            PreviousIsAync = Emitter.IsAsync;
+            PreviousIsYield = Emitter.IsYield;
+            Emitter.IsAsync = true;
+            Emitter.IsYield = true;
 
-            this.PreviousAsyncVariables = this.Emitter.AsyncVariables;
-            this.Emitter.AsyncVariables = new List<string>();
+            PreviousAsyncVariables = Emitter.AsyncVariables;
+            Emitter.AsyncVariables = new List<string>();
 
-            this.PreviousAsyncBlock = this.Emitter.AsyncBlock;
-            this.Emitter.AsyncBlock = this;
+            PreviousAsyncBlock = Emitter.AsyncBlock;
+            Emitter.AsyncBlock = this;
 
-            this.ReplaceAwaiterByVar = this.Emitter.ReplaceAwaiterByVar;
-            this.Emitter.ReplaceAwaiterByVar = false;
+            ReplaceAwaiterByVar = Emitter.ReplaceAwaiterByVar;
+            Emitter.ReplaceAwaiterByVar = false;
 
-            this.DetectReturnType();
-            this.FindAwaitNodes();
+            DetectReturnType();
+            FindAwaitNodes();
 
-            this.Steps = new List<IAsyncStep>();
-            this.TryInfos = new List<IAsyncTryInfo>();
-            this.JumpLabels = new List<IAsyncJumpLabel>();
-            this.WrittenAwaitExpressions = new List<AstNode>();
+            Steps = new List<IAsyncStep>();
+            TryInfos = new List<IAsyncTryInfo>();
+            JumpLabels = new List<IAsyncJumpLabel>();
+            WrittenAwaitExpressions = new List<AstNode>();
         }
 
         protected void FindAwaitNodes()
         {
-            this.AwaitExpressions = this.GetAwaiters(this.Body);
+            AwaitExpressions = GetAwaiters(Body);
         }
 
         protected void DetectReturnType()
         {
-            if (this.MethodDeclaration != null)
+            if (MethodDeclaration != null)
             {
-                this.ReturnType = this.Emitter.Resolver.ResolveNode(this.MethodDeclaration.ReturnType, this.Emitter).Type;
+                ReturnType = Emitter.Resolver.ResolveNode(MethodDeclaration.ReturnType, Emitter).Type;
             }
-            else if (this.LambdaExpression != null)
+            else if (LambdaExpression != null)
             {
-                this.ReturnType = ((LambdaResolveResult)this.Emitter.Resolver.ResolveNode(this.LambdaExpression, this.Emitter)).ReturnType;
+                ReturnType = ((LambdaResolveResult)Emitter.Resolver.ResolveNode(LambdaExpression, Emitter)).ReturnType;
             }
-            else if (this.AnonymousMethodExpression != null)
+            else if (AnonymousMethodExpression != null)
             {
-                this.ReturnType = ((LambdaResolveResult)this.Emitter.Resolver.ResolveNode(this.AnonymousMethodExpression, this.Emitter)).ReturnType;
+                ReturnType = ((LambdaResolveResult)Emitter.Resolver.ResolveNode(AnonymousMethodExpression, Emitter)).ReturnType;
             }
-            else if (this.Accessor != null)
+            else if (Accessor != null)
             {
-                this.ReturnType = this.Emitter.Resolver.ResolveNode(((EntityDeclaration)this.Accessor.Parent).ReturnType, this.Emitter).Type;
+                ReturnType = Emitter.Resolver.ResolveNode(((EntityDeclaration)Accessor.Parent).ReturnType, Emitter).Type;
             }
 
-            IsEnumeratorReturn = this.ReturnType.Name == "IEnumerator";
+            IsEnumeratorReturn = ReturnType.Name == "IEnumerator";
         }
 
         protected void FinishGeneratorBlock()
         {
-            this.Emitter.IsAsync = this.PreviousIsAync;
-            this.Emitter.IsYield = this.PreviousIsYield;
-            this.Emitter.AsyncVariables = this.PreviousAsyncVariables;
-            this.Emitter.AsyncBlock = this.PreviousAsyncBlock;
-            this.Emitter.ReplaceAwaiterByVar = this.ReplaceAwaiterByVar;
+            Emitter.IsAsync = PreviousIsAync;
+            Emitter.IsYield = PreviousIsYield;
+            Emitter.AsyncVariables = PreviousAsyncVariables;
+            Emitter.AsyncBlock = PreviousAsyncBlock;
+            Emitter.ReplaceAwaiterByVar = ReplaceAwaiterByVar;
         }
 
         protected override void DoEmit()
         {
-            this.Emit(false);
+            Emit(false);
         }
 
         public void Emit(bool skipInit)
         {
             if (!skipInit)
             {
-                this.InitAsyncBlock();
+                InitAsyncBlock();
             }
 
-            this.EmitGeneratorBlock();
-            this.FinishGeneratorBlock();
+            EmitGeneratorBlock();
+            FinishGeneratorBlock();
         }
 
         protected void EmitGeneratorBlock()
         {
-            this.BeginBlock();
-            var args = this.Parameters;
+            BeginBlock();
+            var args = Parameters;
 
             if (!IsEnumeratorReturn)
             {
-                this.WriteReturn(true);
-                this.Write("new ");
+                WriteReturn(true);
+                Write("new ");
 
-                if (this.ReturnType.IsParameterized)
+                if (ReturnType.IsParameterized)
                 {
-                    this.Write("(H5.GeneratorEnumerable$1(" + H5Types.ToJsName(this.ReturnType.TypeArguments[0], this.Emitter) + "))");
+                    Write("(H5.GeneratorEnumerable$1(" + H5Types.ToJsName(ReturnType.TypeArguments[0], Emitter) + "))");
                 }
                 else
                 {
-                    this.Write("H5.GeneratorEnumerable");
+                    Write("H5.GeneratorEnumerable");
                 }
 
-                this.WriteOpenParentheses();
+                WriteOpenParentheses();
 
-                this.Write(JS.Funcs.H5_BIND + "(this, ");
-                this.WriteFunction();
+                Write(JS.Funcs.H5_BIND + "(this, ");
+                WriteFunction();
                 if (args.Count > 0)
                 {
-                    this.WriteOpenParentheses();
+                    WriteOpenParentheses();
 
                     for (int i = 0; i < args.Count; i++)
                     {
-                        this.Write(args[i]);
+                        Write(args[i]);
 
                         if (i < args.Count - 1)
                         {
-                            this.Write(", ");
+                            Write(", ");
                         }
                     }
 
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
                 }
                 else
                 {
-                    this.WriteOpenCloseParentheses(true);
+                    WriteOpenCloseParentheses(true);
                 }
 
-                this.WriteSpace();
+                WriteSpace();
 
-                this.BeginBlock();
+                BeginBlock();
             }
 
-            this.WriteVar(true);
-            this.Write(JS.Vars.ASYNC_STEP + " = 0");
-            this.Emitter.Comma = true;
-            this.Indent();
+            WriteVar(true);
+            Write(JS.Vars.ASYNC_STEP + " = 0");
+            Emitter.Comma = true;
+            Indent();
 
             // This is required to add async variables into Emitter.AsyncVariables and emit them prior to body
-            IWriterInfo writerInfo = this.SaveWriter();
-            StringBuilder body = this.NewWriter();
+            IWriterInfo writerInfo = SaveWriter();
+            StringBuilder body = NewWriter();
             Emitter.ResetLevel(writerInfo.Level - 1);
-            this.EmitGeneratorBody();
-            this.RestoreWriter(writerInfo);
+            EmitGeneratorBody();
+            RestoreWriter(writerInfo);
 
-            foreach (var localVar in this.Emitter.AsyncVariables)
+            foreach (var localVar in Emitter.AsyncVariables)
             {
-                this.EnsureComma(true);
-                this.Write(localVar);
-                this.Emitter.Comma = true;
+                EnsureComma(true);
+                Write(localVar);
+                Emitter.Comma = true;
             }
 
-            this.Emitter.Comma = false;
-            this.WriteSemiColon();
-            this.Outdent();
-            this.WriteNewLine();
-            this.WriteNewLine();
+            Emitter.Comma = false;
+            WriteSemiColon();
+            Outdent();
+            WriteNewLine();
+            WriteNewLine();
 
-            this.WriteVar(true);
-            this.Write(JS.Vars.ENUMERATOR + " = new ");
+            WriteVar(true);
+            Write(JS.Vars.ENUMERATOR + " = new ");
 
-            if (this.ReturnType.IsParameterized)
+            if (ReturnType.IsParameterized)
             {
-                this.Write("(" + JS.Types.H5.Generator.NAME_GENERIC +"(" + H5Types.ToJsName(this.ReturnType.TypeArguments[0], this.Emitter) + "))");
+                Write("(" + JS.Types.H5.Generator.NAME_GENERIC +"(" + H5Types.ToJsName(ReturnType.TypeArguments[0], Emitter) + "))");
             }
             else
             {
-                this.Write(JS.Types.H5.Generator.NAME);
+                Write(JS.Types.H5.Generator.NAME);
             }
 
-            this.WriteOpenParentheses();
-            this.Write(JS.Funcs.H5_BIND + "(this, ");
-            this.WriteFunction();
-            this.WriteOpenCloseParentheses(true);
+            WriteOpenParentheses();
+            Write(JS.Funcs.H5_BIND + "(this, ");
+            WriteFunction();
+            WriteOpenCloseParentheses(true);
 
-            this.Write(body);
+            Write(body);
 
-            this.WriteCloseParentheses();
-            this.EmitFinallyHandler();
-            this.WriteCloseParentheses();
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteCloseParentheses();
+            EmitFinallyHandler();
+            WriteCloseParentheses();
+            WriteSemiColon();
+            WriteNewLine();
 
-            this.WriteReturn(true);
-            this.Write(JS.Vars.ENUMERATOR);
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteReturn(true);
+            Write(JS.Vars.ENUMERATOR);
+            WriteSemiColon();
+            WriteNewLine();
 
             if (!IsEnumeratorReturn)
             {
-                this.EndBlock();
+                EndBlock();
                 if (args.Count > 0)
                 {
-                    this.Write(", arguments");
+                    Write(", arguments");
                 }
-                this.WriteCloseParentheses();
-                this.WriteCloseParentheses();
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                WriteCloseParentheses();
+                WriteCloseParentheses();
+                WriteSemiColon();
+                WriteNewLine();
             }
 
-            this.EndBlock();
+            EndBlock();
         }
 
         protected void EmitGeneratorBody()
         {
-            this.BeginBlock();
+            BeginBlock();
 
             var asyncTryVisitor = new AsyncTryVisitor();
-            this.Node.AcceptChildren(asyncTryVisitor);
+            Node.AcceptChildren(asyncTryVisitor);
             var needTry = true;
 
-            this.Emitter.AsyncVariables.Add(JS.Vars.ASYNC_JUMP);
+            Emitter.AsyncVariables.Add(JS.Vars.ASYNC_JUMP);
             if (needTry)
             {
-                this.Emitter.AsyncVariables.Add(JS.Vars.ASYNC_RETURN_VALUE);
+                Emitter.AsyncVariables.Add(JS.Vars.ASYNC_RETURN_VALUE);
 
-                this.WriteTry();
-                this.BeginBlock();
+                WriteTry();
+                BeginBlock();
             }
 
-            this.WriteFor();
-            this.Write("(;;) ");
-            this.BeginBlock();
+            WriteFor();
+            Write("(;;) ");
+            BeginBlock();
 
-            this.WriteSwitch();
-            this.Write("(" + JS.Vars.ASYNC_STEP + ") ");
-            this.BeginBlock();
+            WriteSwitch();
+            Write("(" + JS.Vars.ASYNC_STEP + ") ");
+            BeginBlock();
 
-            this.Step = 0;
-            var writer = this.SaveWriter();
-            this.AddAsyncStep();
+            Step = 0;
+            var writer = SaveWriter();
+            AddAsyncStep();
 
-            this.Body.AcceptVisitor(this.Emitter);
+            Body.AcceptVisitor(Emitter);
 
-            this.RestoreWriter(writer);
+            RestoreWriter(writer);
 
-            this.InjectSteps();
+            InjectSteps();
 
-            this.WriteNewLine();
-            this.EndBlock();
+            WriteNewLine();
+            EndBlock();
 
-            this.WriteNewLine();
-            this.EndBlock();
+            WriteNewLine();
+            EndBlock();
 
             if (needTry)
             {
-                if (!this.Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
+                if (!Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
                 {
-                    this.AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
+                    AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
                 }
 
-                this.WriteNewLine();
-                this.EndBlock();
-                this.Write(" catch(" + JS.Vars.ASYNC_E1 + ") ");
-                this.BeginBlock();
-                this.Write(JS.Vars.ASYNC_E + " = " + JS.Types.System.Exception.CREATE + "(" + JS.Vars.ASYNC_E1 + ");");
-                this.WriteNewLine();
-                this.InjectCatchHandlers();
+                WriteNewLine();
+                EndBlock();
+                Write(" catch(" + JS.Vars.ASYNC_E1 + ") ");
+                BeginBlock();
+                Write(JS.Vars.ASYNC_E + " = " + JS.Types.System.Exception.CREATE + "(" + JS.Vars.ASYNC_E1 + ");");
+                WriteNewLine();
+                InjectCatchHandlers();
 
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
 
-            this.WriteNewLine();
-            this.EndBlock();
+            WriteNewLine();
+            EndBlock();
         }
 
         protected void InjectCatchHandlers()
         {
-            var infos = this.TryInfos;
+            var infos = TryInfos;
 
             foreach(var info in infos)
             {
                 if (info.CatchBlocks.Count > 0)
                 {
-                    this.WriteIf();
-                    this.WriteOpenParentheses(true);
-                    this.Write(string.Format(JS.Vars.ASYNC_STEP + " >= {0} && " + JS.Vars.ASYNC_STEP + " <= {1}", info.StartStep, info.EndStep));
-                    this.WriteCloseParentheses(true);
-                    this.BeginBlock();
+                    WriteIf();
+                    WriteOpenParentheses(true);
+                    Write(string.Format(JS.Vars.ASYNC_STEP + " >= {0} && " + JS.Vars.ASYNC_STEP + " <= {1}", info.StartStep, info.EndStep));
+                    WriteCloseParentheses(true);
+                    BeginBlock();
                     var firstClause = true;
 
                     for(int i = 0; i < info.CatchBlocks.Count; i++)
@@ -478,136 +478,136 @@ namespace H5.Translator
                         {
                             if (!string.IsNullOrEmpty(varName))
                             {
-                                this.Write(varName + " = " + JS.Vars.ASYNC_E + ";");
-                                this.WriteNewLine();
+                                Write(varName + " = " + JS.Vars.ASYNC_E + ";");
+                                WriteNewLine();
                             }
 
-                            this.Write(JS.Vars.ASYNC_STEP + " = " + step + ";");
+                            Write(JS.Vars.ASYNC_STEP + " = " + step + ";");
 
-                            this.WriteNewLine();
-                            this.Write(JS.Vars.ENUMERATOR + "." + JS.Funcs.ASYNC_YIELD_BODY + "();");
-                            this.WriteNewLine();
-                            this.Write("return;");
+                            WriteNewLine();
+                            Write(JS.Vars.ENUMERATOR + "." + JS.Funcs.ASYNC_YIELD_BODY + "();");
+                            WriteNewLine();
+                            Write("return;");
                         }
                         else
                         {
                             if (!firstClause)
                             {
-                                this.WriteSpace();
-                                this.WriteElse();
+                                WriteSpace();
+                                WriteElse();
                             }
 
                             if (!isBaseException)
                             {
-                                this.WriteIf();
-                                this.WriteOpenParentheses();
-                                this.Write(JS.Types.H5.IS + "(" + JS.Vars.ASYNC_E + ", " + exceptionType + ")");
-                                this.WriteCloseParentheses();
-                                this.WriteSpace();
+                                WriteIf();
+                                WriteOpenParentheses();
+                                Write(JS.Types.H5.IS + "(" + JS.Vars.ASYNC_E + ", " + exceptionType + ")");
+                                WriteCloseParentheses();
+                                WriteSpace();
                             }
 
                             firstClause = false;
 
-                            this.BeginBlock();
+                            BeginBlock();
 
                             if (!string.IsNullOrEmpty(varName))
                             {
-                                this.Write(varName + " = " + JS.Vars.ASYNC_E + ";");
-                                this.WriteNewLine();
+                                Write(varName + " = " + JS.Vars.ASYNC_E + ";");
+                                WriteNewLine();
                             }
 
-                            this.Write(JS.Vars.ASYNC_STEP + " = " + step + ";");
+                            Write(JS.Vars.ASYNC_STEP + " = " + step + ";");
 
-                            this.WriteNewLine();
-                            this.Write(JS.Vars.ENUMERATOR + "." + JS.Funcs.ASYNC_YIELD_BODY + "();");
-                            this.WriteNewLine();
-                            this.Write("return;");
-                            this.WriteNewLine();
-                            this.EndBlock();
+                            WriteNewLine();
+                            Write(JS.Vars.ENUMERATOR + "." + JS.Funcs.ASYNC_YIELD_BODY + "();");
+                            WriteNewLine();
+                            Write("return;");
+                            WriteNewLine();
+                            EndBlock();
                         }
                     }
 
-                    this.WriteNewLine();
-                    this.EndBlock();
-                    this.WriteNewLine();
+                    WriteNewLine();
+                    EndBlock();
+                    WriteNewLine();
                 }
 
                 if (info.FinallyStep > 0)
                 {
-                    if (!this.Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
+                    if (!Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
                     {
-                        this.AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
+                        AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
                     }
 
-                    this.WriteIf();
-                    this.WriteOpenParentheses();
-                    this.Write(string.Format(JS.Vars.ASYNC_STEP + " >= {0} && " + JS.Vars.ASYNC_STEP + " <= {1}", info.StartStep, info.CatchBlocks.Count > 0 ? info.CatchBlocks.Last().Item4 : info.EndStep));
-                    this.WriteCloseParentheses();
-                    this.BeginBlock();
+                    WriteIf();
+                    WriteOpenParentheses();
+                    Write(string.Format(JS.Vars.ASYNC_STEP + " >= {0} && " + JS.Vars.ASYNC_STEP + " <= {1}", info.StartStep, info.CatchBlocks.Count > 0 ? info.CatchBlocks.Last().Item4 : info.EndStep));
+                    WriteCloseParentheses();
+                    BeginBlock();
 
                     //this.Write(Variables.E + " = " + Variables.ASYNC_E + ";");
-                    this.WriteNewLine();
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + info.FinallyStep + ";");
+                    WriteNewLine();
+                    Write(JS.Vars.ASYNC_STEP + " = " + info.FinallyStep + ";");
 
-                    this.WriteNewLine();
-                    this.Write(JS.Vars.ENUMERATOR + "." + JS.Funcs.ASYNC_YIELD_BODY + "();");
-                    this.WriteNewLine();
-                    this.Write("return;");
+                    WriteNewLine();
+                    Write(JS.Vars.ENUMERATOR + "." + JS.Funcs.ASYNC_YIELD_BODY + "();");
+                    WriteNewLine();
+                    Write("return;");
 
-                    this.WriteNewLine();
-                    this.EndBlock();
-                    this.WriteNewLine();
+                    WriteNewLine();
+                    EndBlock();
+                    WriteNewLine();
                 }
             }
 
-            this.Write("throw " + JS.Vars.ASYNC_E + ";");
+            Write("throw " + JS.Vars.ASYNC_E + ";");
         }
 
         protected bool EmitFinallyHandler()
         {
-            var infos = this.TryInfos;
+            var infos = TryInfos;
             bool needHeader = true;
 
             foreach (var info in infos)
             {
                 if (info.FinallyStep > 0)
                 {
-                    if (!this.Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
+                    if (!Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
                     {
-                        this.AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
+                        AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
                     }
 
                     if (needHeader)
                     {
-                        this.Write(", function () ");
-                        this.BeginBlock();
+                        Write(", function () ");
+                        BeginBlock();
                         needHeader = false;
                     }
 
-                    this.WriteIf();
-                    this.WriteOpenParentheses();
-                    this.Write(string.Format(JS.Vars.ASYNC_STEP + " >= {0} && " + JS.Vars.ASYNC_STEP + " <= {1}", info.StartStep, info.CatchBlocks.Count > 0 ? info.CatchBlocks.Last().Item4 : info.EndStep));
-                    this.WriteCloseParentheses();
-                    this.BeginBlock();
+                    WriteIf();
+                    WriteOpenParentheses();
+                    Write(string.Format(JS.Vars.ASYNC_STEP + " >= {0} && " + JS.Vars.ASYNC_STEP + " <= {1}", info.StartStep, info.CatchBlocks.Count > 0 ? info.CatchBlocks.Last().Item4 : info.EndStep));
+                    WriteCloseParentheses();
+                    BeginBlock();
 
-                    this.WriteNewLine();
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + info.FinallyStep + ";");
+                    WriteNewLine();
+                    Write(JS.Vars.ASYNC_STEP + " = " + info.FinallyStep + ";");
 
-                    this.WriteNewLine();
-                    this.Write(JS.Vars.ENUMERATOR + "." + JS.Funcs.ASYNC_YIELD_BODY + "();");
-                    this.WriteNewLine();
-                    this.Write("return;");
+                    WriteNewLine();
+                    Write(JS.Vars.ENUMERATOR + "." + JS.Funcs.ASYNC_YIELD_BODY + "();");
+                    WriteNewLine();
+                    Write("return;");
 
-                    this.WriteNewLine();
-                    this.EndBlock();
-                    this.WriteNewLine();
+                    WriteNewLine();
+                    EndBlock();
+                    WriteNewLine();
                 }
             }
 
             if (!needHeader)
             {
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
 
             return !needHeader;
@@ -615,27 +615,27 @@ namespace H5.Translator
 
         protected void InjectSteps()
         {
-            foreach(var label in this.JumpLabels)
+            foreach(var label in JumpLabels)
             {
-                var tostep = this.Steps.First(s => s.Node == label.Node);
+                var tostep = Steps.First(s => s.Node == label.Node);
                 label.Output.Replace(Helpers.PrefixDollar("{", label.Node.GetHashCode(), "}"), tostep.Step.ToString());
             }
 
-            for(int i = 0; i < this.Steps.Count; i++)
+            for(int i = 0; i < Steps.Count; i++)
             {
-                var step = this.Steps[i];
+                var step = Steps[i];
 
                 if (i != 0)
                 {
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
 
                 var output = step.Output.ToString();
-                var cleanOutput = this.RemoveTokens(output);
+                var cleanOutput = RemoveTokens(output);
 
-                this.Write("case " + i + ": ");
+                Write("case " + i + ": ");
 
-                this.BeginBlock();
+                BeginBlock();
 
                 bool addNewLine = false;
 
@@ -643,13 +643,13 @@ namespace H5.Translator
                 {
                     if (addNewLine)
                     {
-                        this.WriteNewLine();
+                        WriteNewLine();
                     }
 
-                    this.Write(this.WriteIndentToString(output.TrimEnd()));
+                    Write(WriteIndentToString(output.TrimEnd()));
                 }
 
-                if (!this.IsOnlyWhitespaceOnPenultimateLine(false))
+                if (!IsOnlyWhitespaceOnPenultimateLine(false))
                 {
                     addNewLine = true;
                 }
@@ -658,59 +658,59 @@ namespace H5.Translator
                 {
                     if (addNewLine)
                     {
-                        this.WriteNewLine();
+                        WriteNewLine();
                     }
 
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + step.JumpToStep + ";");
-                    this.WriteNewLine();
-                    this.Write("continue;");
+                    Write(JS.Vars.ASYNC_STEP + " = " + step.JumpToStep + ";");
+                    WriteNewLine();
+                    Write("continue;");
                 }
                 else if (step.JumpToNode != null && !AbstractEmitterBlock.IsJumpStatementLast(cleanOutput))
                 {
-                    var tostep = this.Steps.First(s => s.Node == step.JumpToNode);
+                    var tostep = Steps.First(s => s.Node == step.JumpToNode);
 
                     if (addNewLine)
                     {
-                        this.WriteNewLine();
+                        WriteNewLine();
                     }
 
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + tostep.Step + ";");
-                    this.WriteNewLine();
-                    this.Write("continue;");
+                    Write(JS.Vars.ASYNC_STEP + " = " + tostep.Step + ";");
+                    WriteNewLine();
+                    Write("continue;");
                 }
-                else if (i == (this.Steps.Count - 1) && !AbstractEmitterBlock.IsReturnLast(cleanOutput))
+                else if (i == (Steps.Count - 1) && !AbstractEmitterBlock.IsReturnLast(cleanOutput))
                 {
                     if (addNewLine)
                     {
-                        this.WriteNewLine();
+                        WriteNewLine();
                     }
                 }
 
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
             }
 
-            this.WriteNewLine();
-            this.Write("default: ");
-            this.BeginBlock();
+            WriteNewLine();
+            Write("default: ");
+            BeginBlock();
 
-            this.Write("return false;");
-            this.WriteNewLine();
-            this.EndBlock();
+            Write("return false;");
+            WriteNewLine();
+            EndBlock();
         }
 
         public IAsyncStep AddAsyncStep(int fromTaskNumber = -1)
         {
-            var step = this.Step++;
-            var asyncStep = new AsyncStep(this.Emitter, step, fromTaskNumber);
-            this.Steps.Add(asyncStep);
+            var step = Step++;
+            var asyncStep = new AsyncStep(Emitter, step, fromTaskNumber);
+            Steps.Add(asyncStep);
 
             return asyncStep;
         }
 
         public IAsyncStep AddAsyncStep(AstNode node)
         {
-            var asyncStep = this.AddAsyncStep();
+            var asyncStep = AddAsyncStep();
             asyncStep.Node = node;
 
             return asyncStep;
@@ -724,7 +724,7 @@ namespace H5.Translator
             }
             else
             {
-                foreach(var awaiter in this.AwaitExpressions)
+                foreach(var awaiter in AwaitExpressions)
                 {
                     if (child.IsInside(awaiter.StartLocation))
                     {
@@ -741,23 +741,23 @@ namespace H5.Translator
     {
         public GeneratorStep(IEmitter emitter, int step)
         {
-            this.Step = step;
-            this.Emitter = emitter;
-            this.JumpToStep = -1;
+            Step = step;
+            Emitter = emitter;
+            JumpToStep = -1;
 
-            if (this.Emitter.LastSavedWriter != null)
+            if (Emitter.LastSavedWriter != null)
             {
-                this.Emitter.LastSavedWriter.Comma = this.Emitter.Comma;
-                this.Emitter.LastSavedWriter.IsNewLine = this.Emitter.IsNewLine;
-                this.Emitter.LastSavedWriter.Level = this.Emitter.Level;
-                this.Emitter.LastSavedWriter = null;
+                Emitter.LastSavedWriter.Comma = Emitter.Comma;
+                Emitter.LastSavedWriter.IsNewLine = Emitter.IsNewLine;
+                Emitter.LastSavedWriter.Level = Emitter.Level;
+                Emitter.LastSavedWriter = null;
             }
 
-            this.Output = new StringBuilder();
-            this.Emitter.Output = this.Output;
-            this.Emitter.IsNewLine = false;
-            this.Emitter.ResetLevel();
-            this.Emitter.Comma = false;
+            Output = new StringBuilder();
+            Emitter.Output = Output;
+            Emitter.IsNewLine = false;
+            Emitter.ResetLevel();
+            Emitter.Comma = false;
         }
 
         public int FromTaskNumber { get; set; }

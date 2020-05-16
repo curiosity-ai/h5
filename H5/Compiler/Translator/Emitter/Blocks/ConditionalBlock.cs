@@ -11,8 +11,8 @@ namespace H5.Translator
         public ConditionalBlock(IEmitter emitter, ConditionalExpression conditionalExpression)
             : base(emitter, conditionalExpression)
         {
-            this.Emitter = emitter;
-            this.ConditionalExpression = conditionalExpression;
+            Emitter = emitter;
+            ConditionalExpression = conditionalExpression;
         }
 
         public ConditionalExpression ConditionalExpression { get; set; }
@@ -21,155 +21,155 @@ namespace H5.Translator
 
         protected override Expression GetExpression()
         {
-            return this.ConditionalExpression;
+            return ConditionalExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            var conditionalExpression = this.ConditionalExpression;
+            var conditionalExpression = ConditionalExpression;
 
-            if (this.Emitter.IsAsync && this.GetAwaiters(this.ConditionalExpression).Length > 0)
+            if (Emitter.IsAsync && GetAwaiters(ConditionalExpression).Length > 0)
             {
-                if (this.Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(conditionalExpression))
+                if (Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(conditionalExpression))
                 {
-                    var index = System.Array.IndexOf(this.Emitter.AsyncBlock.AwaitExpressions, conditionalExpression) + 1;
-                    this.Write(JS.Vars.ASYNC_TASK_RESULT + index);
+                    var index = System.Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, conditionalExpression) + 1;
+                    Write(JS.Vars.ASYNC_TASK_RESULT + index);
                 }
                 else
                 {
-                    var index = System.Array.IndexOf(this.Emitter.AsyncBlock.AwaitExpressions, this.ConditionalExpression) + 1;
-                    this.WriteAsyncConditionalExpression(index);
+                    var index = System.Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, ConditionalExpression) + 1;
+                    WriteAsyncConditionalExpression(index);
                 }
             }
             else
             {
-                conditionalExpression.Condition.AcceptVisitor(this.Emitter);
-                this.Write(" ? ");
-                conditionalExpression.TrueExpression.AcceptVisitor(this.Emitter);
-                this.Write(" : ");
-                conditionalExpression.FalseExpression.AcceptVisitor(this.Emitter);
+                conditionalExpression.Condition.AcceptVisitor(Emitter);
+                Write(" ? ");
+                conditionalExpression.TrueExpression.AcceptVisitor(Emitter);
+                Write(" : ");
+                conditionalExpression.FalseExpression.AcceptVisitor(Emitter);
             }
         }
 
         internal void WriteAsyncConditionalExpression(int index)
         {
-            if (this.Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(this.ConditionalExpression))
+            if (Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(ConditionalExpression))
             {
                 return;
             }
 
-            this.Emitter.AsyncBlock.WrittenAwaitExpressions.Add(this.ConditionalExpression);
+            Emitter.AsyncBlock.WrittenAwaitExpressions.Add(ConditionalExpression);
 
-            this.WriteAwaiters(this.ConditionalExpression.Condition);
+            WriteAwaiters(ConditionalExpression.Condition);
 
-            this.WriteIf();
-            this.WriteOpenParentheses();
+            WriteIf();
+            WriteOpenParentheses();
 
-            var oldValue = this.Emitter.ReplaceAwaiterByVar;
-            var oldAsyncExpressionHandling = this.Emitter.AsyncExpressionHandling;
-            this.Emitter.ReplaceAwaiterByVar = true;
-            this.Emitter.AsyncExpressionHandling = true;
-            this.ConditionalExpression.Condition.AcceptVisitor(this.Emitter);
-            this.WriteCloseParentheses();
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
-            this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+            var oldValue = Emitter.ReplaceAwaiterByVar;
+            var oldAsyncExpressionHandling = Emitter.AsyncExpressionHandling;
+            Emitter.ReplaceAwaiterByVar = true;
+            Emitter.AsyncExpressionHandling = true;
+            ConditionalExpression.Condition.AcceptVisitor(Emitter);
+            WriteCloseParentheses();
+            Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
             int startCount = 0;
             int elseCount = 0;
             IAsyncStep trueStep = null;
             IAsyncStep elseStep = null;
 
-            startCount = this.Emitter.AsyncBlock.Steps.Count;
+            startCount = Emitter.AsyncBlock.Steps.Count;
 
-            this.EmittedAsyncSteps = this.Emitter.AsyncBlock.EmittedAsyncSteps;
-            this.Emitter.AsyncBlock.EmittedAsyncSteps = new List<IAsyncStep>();
+            EmittedAsyncSteps = Emitter.AsyncBlock.EmittedAsyncSteps;
+            Emitter.AsyncBlock.EmittedAsyncSteps = new List<IAsyncStep>();
 
             var taskResultVar = JS.Vars.ASYNC_TASK_RESULT + index;
-            if (!this.Emitter.Locals.ContainsKey(taskResultVar))
+            if (!Emitter.Locals.ContainsKey(taskResultVar))
             {
-                this.AddLocal(taskResultVar, null, AstType.Null);
+                AddLocal(taskResultVar, null, AstType.Null);
             }
 
-            this.WriteSpace();
-            this.BeginBlock();
-            this.Write($"{JS.Vars.ASYNC_STEP} = {this.Emitter.AsyncBlock.Step};");
-            this.WriteNewLine();
-            this.Write("continue;");
-            var writer = this.SaveWriter();
-            this.Emitter.AsyncBlock.AddAsyncStep();
+            WriteSpace();
+            BeginBlock();
+            Write($"{JS.Vars.ASYNC_STEP} = {Emitter.AsyncBlock.Step};");
+            WriteNewLine();
+            Write("continue;");
+            var writer = SaveWriter();
+            Emitter.AsyncBlock.AddAsyncStep();
 
-            this.WriteAwaiters(this.ConditionalExpression.TrueExpression);
+            WriteAwaiters(ConditionalExpression.TrueExpression);
 
-            oldValue = this.Emitter.ReplaceAwaiterByVar;
-            oldAsyncExpressionHandling = this.Emitter.AsyncExpressionHandling;
-            this.Emitter.ReplaceAwaiterByVar = true;
-            this.Emitter.AsyncExpressionHandling = true;
-            this.Write(taskResultVar + " = ");
-            this.ConditionalExpression.TrueExpression.AcceptVisitor(this.Emitter);
-            this.WriteSemiColon();
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
-            this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+            oldValue = Emitter.ReplaceAwaiterByVar;
+            oldAsyncExpressionHandling = Emitter.AsyncExpressionHandling;
+            Emitter.ReplaceAwaiterByVar = true;
+            Emitter.AsyncExpressionHandling = true;
+            Write(taskResultVar + " = ");
+            ConditionalExpression.TrueExpression.AcceptVisitor(Emitter);
+            WriteSemiColon();
+            Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
-            if (this.Emitter.AsyncBlock.Steps.Count > startCount)
+            if (Emitter.AsyncBlock.Steps.Count > startCount)
             {
-                trueStep = this.Emitter.AsyncBlock.Steps.Last();
+                trueStep = Emitter.AsyncBlock.Steps.Last();
             }
 
-            if (this.RestoreWriter(writer) && !this.IsOnlyWhitespaceOnPenultimateLine(true))
+            if (RestoreWriter(writer) && !IsOnlyWhitespaceOnPenultimateLine(true))
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
 
-            this.EndBlock();
-            this.WriteSpace();
+            EndBlock();
+            WriteSpace();
 
-            elseCount = this.Emitter.AsyncBlock.Steps.Count;
+            elseCount = Emitter.AsyncBlock.Steps.Count;
 
-            this.WriteSpace();
-            this.WriteElse();
-            this.BeginBlock();
+            WriteSpace();
+            WriteElse();
+            BeginBlock();
 
-            this.Write($"{JS.Vars.ASYNC_STEP} = {this.Emitter.AsyncBlock.Step};");
-            this.WriteNewLine();
-            this.Write("continue;");
-            writer = this.SaveWriter();
-            this.Emitter.AsyncBlock.AddAsyncStep();
-            this.WriteAwaiters(this.ConditionalExpression.FalseExpression);
+            Write($"{JS.Vars.ASYNC_STEP} = {Emitter.AsyncBlock.Step};");
+            WriteNewLine();
+            Write("continue;");
+            writer = SaveWriter();
+            Emitter.AsyncBlock.AddAsyncStep();
+            WriteAwaiters(ConditionalExpression.FalseExpression);
 
-            oldValue = this.Emitter.ReplaceAwaiterByVar;
-            oldAsyncExpressionHandling = this.Emitter.AsyncExpressionHandling;
-            this.Emitter.ReplaceAwaiterByVar = true;
-            this.Emitter.AsyncExpressionHandling = true;
-            this.Write(taskResultVar + " = ");
-            this.ConditionalExpression.FalseExpression.AcceptVisitor(this.Emitter);
-            this.WriteSemiColon();
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
-            this.Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
+            oldValue = Emitter.ReplaceAwaiterByVar;
+            oldAsyncExpressionHandling = Emitter.AsyncExpressionHandling;
+            Emitter.ReplaceAwaiterByVar = true;
+            Emitter.AsyncExpressionHandling = true;
+            Write(taskResultVar + " = ");
+            ConditionalExpression.FalseExpression.AcceptVisitor(Emitter);
+            WriteSemiColon();
+            Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
 
-            if (this.Emitter.AsyncBlock.Steps.Count > elseCount)
+            if (Emitter.AsyncBlock.Steps.Count > elseCount)
             {
-                elseStep = this.Emitter.AsyncBlock.Steps.Last();
+                elseStep = Emitter.AsyncBlock.Steps.Last();
             }
 
-            if (this.RestoreWriter(writer) && !this.IsOnlyWhitespaceOnPenultimateLine(true))
+            if (RestoreWriter(writer) && !IsOnlyWhitespaceOnPenultimateLine(true))
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
 
-            this.EndBlock();
-            this.WriteSpace();
+            EndBlock();
+            WriteSpace();
 
-            if (this.Emitter.IsAsync && this.Emitter.AsyncBlock.Steps.Count > startCount)
+            if (Emitter.IsAsync && Emitter.AsyncBlock.Steps.Count > startCount)
             {
-                if (this.Emitter.AsyncBlock.Steps.Count <= elseCount && !AbstractEmitterBlock.IsJumpStatementLast(this.Emitter.Output.ToString()))
+                if (Emitter.AsyncBlock.Steps.Count <= elseCount && !AbstractEmitterBlock.IsJumpStatementLast(Emitter.Output.ToString()))
                 {
-                    this.WriteNewLine();
-                    this.Write($"{JS.Vars.ASYNC_STEP} = {this.Emitter.AsyncBlock.Step};");
-                    this.WriteNewLine();
-                    this.Write("continue;");
+                    WriteNewLine();
+                    Write($"{JS.Vars.ASYNC_STEP} = {Emitter.AsyncBlock.Step};");
+                    WriteNewLine();
+                    Write("continue;");
                 }
 
-                var nextStep = this.Emitter.AsyncBlock.AddAsyncStep();
+                var nextStep = Emitter.AsyncBlock.AddAsyncStep();
 
                 if (trueStep != null)
                 {
@@ -181,14 +181,14 @@ namespace H5.Translator
                     elseStep.JumpToStep = nextStep.Step;
                 }
             }
-            else if (this.Emitter.IsAsync)
+            else if (Emitter.IsAsync)
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
 
-            if (this.Emitter.IsAsync)
+            if (Emitter.IsAsync)
             {
-                this.Emitter.AsyncBlock.EmittedAsyncSteps = this.EmittedAsyncSteps;
+                Emitter.AsyncBlock.EmittedAsyncSteps = EmittedAsyncSteps;
             }
         }
     }

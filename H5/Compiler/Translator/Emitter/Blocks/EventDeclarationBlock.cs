@@ -8,15 +8,15 @@ namespace H5.Translator
         public EventDeclarationBlock(IEmitter emitter, EventDeclaration eventDeclaration)
             : base(emitter, eventDeclaration)
         {
-            this.Emitter = emitter;
-            this.EventDeclaration = eventDeclaration;
+            Emitter = emitter;
+            EventDeclaration = eventDeclaration;
         }
 
         public EventDeclaration EventDeclaration { get; set; }
 
         protected override void DoEmit()
         {
-            var vars = this.EventDeclaration.Variables;
+            var vars = EventDeclaration.Variables;
         }
     }
 }

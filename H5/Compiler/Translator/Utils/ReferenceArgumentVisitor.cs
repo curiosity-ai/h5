@@ -9,9 +9,9 @@ namespace H5.Translator
     {
         public ReferenceArgumentVisitor(IEmitter emitter)
         {
-            this.DirectionExpression = new List<Expression>();
-            this.DirectionVariables = new List<IVariable>();
-            this.Emitter = emitter;
+            DirectionExpression = new List<Expression>();
+            DirectionVariables = new List<IVariable>();
+            Emitter = emitter;
         }
 
         public IEmitter Emitter
@@ -25,13 +25,13 @@ namespace H5.Translator
 
         public override void VisitDirectionExpression(DirectionExpression directionExpression)
         {
-            this.DirectionExpression.Add(directionExpression.Expression);
+            DirectionExpression.Add(directionExpression.Expression);
             base.VisitDirectionExpression(directionExpression);
         }
 
         public override void VisitLambdaExpression(LambdaExpression lambdaExpression)
         {
-            var capturedVariables = LambdaBlock.GetCapturedLoopVariables(this.Emitter, lambdaExpression, lambdaExpression.Parameters, true);
+            var capturedVariables = LambdaBlock.GetCapturedLoopVariables(Emitter, lambdaExpression, lambdaExpression.Parameters, true);
 
             if (capturedVariables != null)
             {
@@ -43,7 +43,7 @@ namespace H5.Translator
 
         public override void VisitAnonymousMethodExpression(AnonymousMethodExpression anonymousMethodExpression)
         {
-            var capturedVariables = LambdaBlock.GetCapturedLoopVariables(this.Emitter, anonymousMethodExpression, anonymousMethodExpression.Parameters, true);
+            var capturedVariables = LambdaBlock.GetCapturedLoopVariables(Emitter, anonymousMethodExpression, anonymousMethodExpression.Parameters, true);
 
             if (capturedVariables != null)
             {

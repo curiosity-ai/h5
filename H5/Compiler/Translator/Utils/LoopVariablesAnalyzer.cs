@@ -22,8 +22,8 @@ namespace H5.Translator
 
         public LoopVariablesAnalyzer(IEmitter emitter, bool excludeReadOnly)
         {
-            this.Emitter = emitter;
-            this.ExcludeReadOnly = excludeReadOnly;
+            Emitter = emitter;
+            ExcludeReadOnly = excludeReadOnly;
         }
 
         public bool ExcludeReadOnly
@@ -38,17 +38,17 @@ namespace H5.Translator
                 node = ((ForStatement)node).EmbeddedStatement;
             }
 
-            this.VariableNames.Clear();
+            VariableNames.Clear();
 
-            if (node is ForeachStatement && !this.ExcludeReadOnly)
+            if (node is ForeachStatement && !ExcludeReadOnly)
             {
                 var foreachStatement = (ForeachStatement)node;
 
                 if (foreachStatement.VariableNameToken != null && !foreachStatement.VariableNameToken.IsNull)
                 {
-                    this.VariableNames.Add(foreachStatement.VariableName);
-                    var rr = (ForEachResolveResult)this.Emitter.Resolver.ResolveNode(foreachStatement, this.Emitter);
-                    this.Variables.Add(rr.ElementVariable);
+                    VariableNames.Add(foreachStatement.VariableName);
+                    var rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement, Emitter);
+                    Variables.Add(rr.ElementVariable);
                 }
             }
 
@@ -59,9 +59,9 @@ namespace H5.Translator
         {
             if (foreachStatement.VariableNameToken != null && !foreachStatement.VariableNameToken.IsNull)
             {
-                this.VariableNames.Add(foreachStatement.VariableName);
-                var rr = (ForEachResolveResult)this.Emitter.Resolver.ResolveNode(foreachStatement, this.Emitter);
-                this.Variables.Add(rr.ElementVariable);
+                VariableNames.Add(foreachStatement.VariableName);
+                var rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement, Emitter);
+                Variables.Add(rr.ElementVariable);
             }
 
             base.VisitForeachStatement(foreachStatement);
@@ -71,20 +71,20 @@ namespace H5.Translator
         {
             foreach (var variable in variableDeclarationStatement.Variables)
             {
-                this.VariableNames.Add(variable.Name);
-                var lrr = (LocalResolveResult)this.Emitter.Resolver.ResolveNode(variable, this.Emitter);
-                this.Variables.Add(lrr.Variable);
+                VariableNames.Add(variable.Name);
+                var lrr = (LocalResolveResult)Emitter.Resolver.ResolveNode(variable, Emitter);
+                Variables.Add(lrr.Variable);
             }
             base.VisitVariableDeclarationStatement(variableDeclarationStatement);
         }
 
         public override void VisitCatchClause(CatchClause catchClause)
         {
-            if (!this.ExcludeReadOnly && catchClause.VariableNameToken != null && !catchClause.VariableNameToken.IsNull)
+            if (!ExcludeReadOnly && catchClause.VariableNameToken != null && !catchClause.VariableNameToken.IsNull)
             {
-                this.VariableNames.Add(catchClause.VariableName);
-                var lrr = (LocalResolveResult)this.Emitter.Resolver.ResolveNode(catchClause.VariableNameToken, this.Emitter);
-                this.Variables.Add(lrr.Variable);
+                VariableNames.Add(catchClause.VariableName);
+                var lrr = (LocalResolveResult)Emitter.Resolver.ResolveNode(catchClause.VariableNameToken, Emitter);
+                Variables.Add(lrr.Variable);
             }
 
             base.VisitCatchClause(catchClause);

@@ -10,54 +10,54 @@ namespace H5.Translator
         public ContinueBlock(IEmitter emitter, ContinueStatement continueStatement)
             : base(emitter, continueStatement)
         {
-            this.Emitter = emitter;
-            this.ContinueStatement = continueStatement;
+            Emitter = emitter;
+            ContinueStatement = continueStatement;
         }
 
         public ContinueStatement ContinueStatement { get; set; }
 
         protected override void DoEmit()
         {
-            if (this.Emitter.JumpStatements != null)
+            if (Emitter.JumpStatements != null)
             {
-                var finallyNode = this.GetParentFinallyBlock(this.ContinueStatement, true);
+                var finallyNode = GetParentFinallyBlock(ContinueStatement, true);
 
                 if (finallyNode != null)
                 {
                     var hashcode = finallyNode.GetHashCode();
-                    this.Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
+                    Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
                     {
                         Node = finallyNode,
-                        Output = this.Emitter.Output
+                        Output = Emitter.Output
                     });
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
-                    this.WriteNewLine();
-                    this.Write(JS.Vars.ASYNC_JUMP + " = ");
-                    this.Emitter.JumpStatements.Add(new JumpInfo(this.Emitter.Output, this.Emitter.Output.Length, false));
-                    this.WriteSemiColon();
-                    this.WriteNewLine();
+                    Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
+                    WriteNewLine();
+                    Write(JS.Vars.ASYNC_JUMP + " = ");
+                    Emitter.JumpStatements.Add(new JumpInfo(Emitter.Output, Emitter.Output.Length, false));
+                    WriteSemiColon();
+                    WriteNewLine();
                 }
                 else
                 {
-                    this.Write(JS.Vars.ASYNC_STEP + " = ");
-                    this.Emitter.JumpStatements.Add(new JumpInfo(this.Emitter.Output, this.Emitter.Output.Length, false));
+                    Write(JS.Vars.ASYNC_STEP + " = ");
+                    Emitter.JumpStatements.Add(new JumpInfo(Emitter.Output, Emitter.Output.Length, false));
 
-                    this.WriteSemiColon();
-                    this.WriteNewLine();
+                    WriteSemiColon();
+                    WriteNewLine();
                 }
             }
 
-            if (this.Emitter.ReplaceJump && this.Emitter.JumpStatements == null)
+            if (Emitter.ReplaceJump && Emitter.JumpStatements == null)
             {
-                this.Write("return {jump:1}");
+                Write("return {jump:1}");
             }
             else
             {
-                this.Write("continue");
+                Write("continue");
             }
 
-            this.WriteSemiColon();
-            this.WriteNewLine();
+            WriteSemiColon();
+            WriteNewLine();
         }
     }
 }

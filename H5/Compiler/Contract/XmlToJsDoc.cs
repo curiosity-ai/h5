@@ -41,7 +41,7 @@ namespace H5.Contract
             }
 
             object value = null;
-            var rr = block.Emitter.Resolver.ResolveNode(varInitializer ?? node, block.Emitter);
+            var rr = block.Emitter.Resolver.ResolveNode(varInitializer ?? node);
             string source = BuildCommentString(visitor.Comments);
 
             if (node is FieldDeclaration)
@@ -55,7 +55,7 @@ namespace H5.Contract
             {
                 foreach (var evVar in eventDecl.Variables)
                 {
-                    var ev_rr = block.Emitter.Resolver.ResolveNode(evVar, block.Emitter);
+                    var ev_rr = block.Emitter.Resolver.ResolveNode(evVar);
                     var memberResolveResult = ev_rr as MemberResolveResult;
                     var ev = memberResolveResult.Member as IEvent;
 
@@ -548,7 +548,7 @@ namespace H5.Contract
             {
                 var name = XmlToJsDoc.ToJavascriptName(t, emitter);
 
-                var rr = emitter.Resolver.ResolveNode(t, emitter);
+                var rr = emitter.Resolver.ResolveNode(t);
                 if (rr.Type.Kind == TypeKind.Interface)
                 {
                     name = "+" + name;
@@ -649,7 +649,7 @@ namespace H5.Contract
                 return "object";
             }
 
-            var resolveResult = emitter.Resolver.ResolveNode(astType, emitter);
+            var resolveResult = emitter.Resolver.ResolveNode(astType);
             return XmlToJsDoc.ToJavascriptName(resolveResult.Type, emitter);
         }
 
@@ -930,7 +930,7 @@ namespace H5.Contract
                 comment.Append(" * " + string.Join(newLine + " * ", this.Descriptions.ToArray()) + newLine + " *" + newLine);
             }
 
-            if (this.Remarks.Count > 0 && this.Remarks.Any(v=> !string.IsNullOrWhiteSpace(v)))
+            if (this.Remarks.Count > 0 && this.Remarks.Any(v => !string.IsNullOrWhiteSpace(v)))
             {
                 comment.Append(" * " + string.Join(newLine + " * ", this.Remarks) + newLine + " *" + newLine);
             }

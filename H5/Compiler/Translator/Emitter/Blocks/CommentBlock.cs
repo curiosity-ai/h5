@@ -14,37 +14,37 @@ namespace H5.Translator
         public CommentBlock(IEmitter emitter, Comment comment)
             : base(emitter, comment)
         {
-            this.Emitter = emitter;
-            this.Comment = comment;
+            Emitter = emitter;
+            Comment = comment;
         }
 
         public Comment Comment { get; set; }
 
         protected override void DoEmit()
         {
-            this.VisitComment();
+            VisitComment();
         }
 
         private static Regex injectComment = new Regex("^@(.*)@?$", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
         protected virtual void WriteMultiLineComment(string text, bool newline, bool wrap, bool alignedIndent, int offsetAlreadyApplied)
         {
-            if (!newline && this.RemovePenultimateEmptyLines(true))
+            if (!newline && RemovePenultimateEmptyLines(true))
             {
-                this.Emitter.IsNewLine = false;
-                this.WriteSpace();
+                Emitter.IsNewLine = false;
+                WriteSpace();
             }
 
             string wrapperStart = wrap ? "/* " : null;
             string wrapperEnd = wrap ? "*/" : null;
 
-            var lines = this.GetNormalizedWhitespaceAndAsteriskLines(text, true);
+            var lines = GetNormalizedWhitespaceAndAsteriskLines(text, true);
 
             int offset = 0;
 
             if (wrap || (lines.Length > 0 && lines[0].Any(x => !char.IsWhiteSpace(x))))
             {
-                offset = this.Comment.StartLocation.Column + offsetAlreadyApplied;
+                offset = Comment.StartLocation.Column + offsetAlreadyApplied;
             }
             else
             {
@@ -66,30 +66,30 @@ namespace H5.Translator
             if (!wrap)
             {
                 // Only if !wrap i.e. in case of injection comment
-                this.RemoveFirstAndLastEmptyElements(ref lines);
+                RemoveFirstAndLastEmptyElements(ref lines);
             }
 
-            this.WriteLinesIndented(lines, offset, wrapperStart, wrapperEnd, alignedIndent);
+            WriteLinesIndented(lines, offset, wrapperStart, wrapperEnd, alignedIndent);
         }
 
         protected virtual void WriteSingleLineComment(string text, bool newline, bool wrap, bool alignedIndent, int offsetAlreadyApplied)
         {
-            if (!newline && this.RemovePenultimateEmptyLines(true))
+            if (!newline && RemovePenultimateEmptyLines(true))
             {
-                this.Emitter.IsNewLine = false;
-                this.WriteSpace();
+                Emitter.IsNewLine = false;
+                WriteSpace();
             }
 
             string wrapperStart = wrap ? "//" : null;
 
-            var lines = this.GetNormalizedWhitespaceAndAsteriskLines(text, false);
+            var lines = GetNormalizedWhitespaceAndAsteriskLines(text, false);
 
-            this.WriteLinesIndented(lines, offsetAlreadyApplied, wrapperStart, null, alignedIndent);
+            WriteLinesIndented(lines, offsetAlreadyApplied, wrapperStart, null, alignedIndent);
         }
 
         protected void VisitComment()
         {
-            Comment comment = this.Comment;
+            Comment comment = Comment;
             var prev = comment.PrevSibling;
             bool newLine = true;
 
@@ -111,7 +111,7 @@ namespace H5.Translator
                         code = code.Substring(0, code.Length - 1);
                     }
 
-                    this.WriteMultiLineComment(code, true, false, true, 2);
+                    WriteMultiLineComment(code, true, false, true, 2);
                 }
                 else if (comment.CommentType == CommentType.SingleLine)
                 {
@@ -122,18 +122,18 @@ namespace H5.Translator
                         code = " " + code.Substring(1);
                     }
 
-                    this.WriteSingleLineComment(code, true, false, true, 2);
+                    WriteSingleLineComment(code, true, false, true, 2);
                 }
             }
             else if (comment.CommentType == CommentType.MultiLine)
             {
-                this.WriteMultiLineComment(comment.Content, newLine, true, false, 0);
+                WriteMultiLineComment(comment.Content, newLine, true, false, 0);
             }
             else if (comment.CommentType == CommentType.SingleLine)
             {
-                if (this.Emitter.Rules.InlineComment == InlineCommentRule.Managed)
+                if (Emitter.Rules.InlineComment == InlineCommentRule.Managed)
                 {
-                    this.WriteSingleLineComment(comment.Content, newLine, true, false, 0);
+                    WriteSingleLineComment(comment.Content, newLine, true, false, 0);
                 }
             }
         }

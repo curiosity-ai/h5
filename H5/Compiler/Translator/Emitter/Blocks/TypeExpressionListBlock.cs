@@ -9,15 +9,15 @@ namespace H5.Translator
         public TypeExpressionListBlock(IEmitter emitter, IEnumerable<TypeParamExpression> expressions)
             : base(emitter, null)
         {
-            this.Emitter = emitter;
-            this.Expressions = expressions;
+            Emitter = emitter;
+            Expressions = expressions;
         }
 
         public TypeExpressionListBlock(IEmitter emitter, IEnumerable<AstType> types)
             : base(emitter, null)
         {
-            this.Emitter = emitter;
-            this.Types = types;
+            Emitter = emitter;
+            Types = types;
         }
 
         public IEnumerable<TypeParamExpression> Expressions { get; set; }
@@ -26,13 +26,13 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            if (this.Expressions != null)
+            if (Expressions != null)
             {
-                this.EmitExpressionList(this.Expressions);
+                EmitExpressionList(Expressions);
             }
-            else if (this.Types != null)
+            else if (Types != null)
             {
-                this.EmitExpressionList(this.Types);
+                EmitExpressionList(Types);
             }
         }
 
@@ -46,33 +46,33 @@ namespace H5.Translator
                 {
                     continue;
                 }
-                this.EnsureComma(false);
+                EnsureComma(false);
 
-                this.Emitter.Translator.EmitNode = expr.AstType;
+                Emitter.Translator.EmitNode = expr.AstType;
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
 
                 if (expr.AstType != null)
                 {
-                    this.Write(H5Types.ToJsName(expr.AstType, this.Emitter));
+                    Write(H5Types.ToJsName(expr.AstType, Emitter));
                 }
                 else if (expr.IType != null)
                 {
-                    this.Write(H5Types.ToJsName(expr.IType, this.Emitter));
+                    Write(H5Types.ToJsName(expr.IType, Emitter));
                 }
                 else
                 {
-                    throw new EmitterException(this.PreviousNode, "There is no type information");
+                    throw new EmitterException(PreviousNode, "There is no type information");
                 }
             }
 
             if (needComma)
             {
-                this.Emitter.Comma = true;
+                Emitter.Comma = true;
             }
         }
 
@@ -82,20 +82,20 @@ namespace H5.Translator
 
             foreach (var type in types)
             {
-                this.EnsureComma(false);
-                this.Emitter.Translator.EmitNode = type;
+                EnsureComma(false);
+                Emitter.Translator.EmitNode = type;
                 if (needComma)
                 {
-                    this.WriteComma();
+                    WriteComma();
                 }
 
                 needComma = true;
-                this.Write(H5Types.ToJsName(type, this.Emitter));
+                Write(H5Types.ToJsName(type, Emitter));
             }
 
             if (needComma)
             {
-                this.Emitter.Comma = true;
+                Emitter.Comma = true;
             }
         }
     }

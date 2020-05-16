@@ -14,9 +14,9 @@ namespace H5.Translator.TypeScript
         {
             public OutputKey(string key, Module module, string ns)
             {
-                this.Key = key;
-                this.Module = module;
-                this.Namespace = ns;
+                Key = key;
+                Module = module;
+                Namespace = ns;
             }
 
             public string Key { get; set; }
@@ -29,13 +29,13 @@ namespace H5.Translator.TypeScript
             {
                 unchecked
                 {
-                    return ((this.Key != null ? this.Key.GetHashCode() : 0) * 397) ^ (this.Module != null ? this.Module.GetHashCode() : 0);
+                    return ((Key != null ? Key.GetHashCode() : 0) * 397) ^ (Module != null ? Module.GetHashCode() : 0);
                 }
             }
 
             public override bool Equals(object obj)
             {
-                return !(obj is OutputKey other) ? false : this.Key == other.Key && (this.Module == null && other.Module == null || this.Module != null && this.Module.Equals(other.Module));
+                return !(obj is OutputKey other) ? false : Key == other.Key && (Module == null && other.Module == null || Module != null && Module.Equals(other.Module));
             }
         }
 
@@ -50,12 +50,12 @@ namespace H5.Translator.TypeScript
         public EmitBlock(IEmitter emitter)
             : base(emitter, null)
         {
-            this.Emitter = emitter;
+            Emitter = emitter;
         }
 
         protected virtual StringBuilder GetOutputForType(ITypeInfo typeInfo)
         {
-            var info = H5Types.GetNamespaceFilename(typeInfo, this.Emitter);
+            var info = H5Types.GetNamespaceFilename(typeInfo, Emitter);
             var ns = info.Item1;
             var fileName = info.Item2;
             var module = info.Item3;
@@ -63,28 +63,28 @@ namespace H5.Translator.TypeScript
             StringBuilder output = null;
             OutputKey key = new OutputKey(fileName, module, ns);
 
-            if (this.ns != null && (this.ns != ns || this.outputKey != null && !this.outputKey.Equals(key)))
+            if (this.ns != null && (this.ns != ns || outputKey != null && !outputKey.Equals(key)))
             {
-                this.EndBlock();
-                this.WriteNewLine();
+                EndBlock();
+                WriteNewLine();
             }
 
             this.ns = ns;
-            this.outputKey = key;
+            outputKey = key;
 
-            if (this.Outputs.ContainsKey(key))
+            if (Outputs.ContainsKey(key))
             {
-                output = this.Outputs[key];
+                output = Outputs[key];
             }
             else
             {
-                if (this.Emitter.Output != null)
+                if (Emitter.Output != null)
                 {
-                    this.InsertDependencies(this.Emitter.Output);
+                    InsertDependencies(Emitter.Output);
                 }
 
                 output = new StringBuilder();
-                this.Emitter.Output = output;
+                Emitter.Output = output;
 
                 if (ns != null)
                 {
@@ -94,11 +94,11 @@ namespace H5.Translator.TypeScript
                     }
 
                     output.Append("namespace " + ns + " ");
-                    this.BeginBlock();
+                    BeginBlock();
                 }
 
-                this.Outputs.Add(key, output);
-                this.Emitter.CurrentDependencies = new List<IPluginDependency>();
+                Outputs.Add(key, output);
+                Emitter.CurrentDependencies = new List<IPluginDependency>();
             }
 
             return output;
@@ -106,36 +106,36 @@ namespace H5.Translator.TypeScript
 
         protected virtual void InsertDependencies(StringBuilder sb)
         {
-            if (this.Emitter.CurrentDependencies != null && this.Emitter.CurrentDependencies.Count > 0)
+            if (Emitter.CurrentDependencies != null && Emitter.CurrentDependencies.Count > 0)
             {
                 StringBuilder depSb = new StringBuilder();
-                foreach (var d in this.Emitter.CurrentDependencies)
+                foreach (var d in Emitter.CurrentDependencies)
                 {
                     depSb.Append(@"/// <reference path=""./" + d.DependencyName + @".d.ts"" />");
                     depSb.Append(newLine);
                 }
 
                 sb.Insert(0, depSb.ToString() + newLine);
-                this.Emitter.CurrentDependencies.Clear();
+                Emitter.CurrentDependencies.Clear();
             }
         }
 
         private void TransformOutputs()
         {
-            if (this.Emitter.Outputs.Count == 0)
+            if (Emitter.Outputs.Count == 0)
             {
                 return;
             }
 
-            var withoutModuleOutputs = this.Outputs.Where(o => o.Key.Module == null).ToList();
-            var withModuleOutputs = this.Outputs.Where(o => o.Key.Module != null).ToList();
+            var withoutModuleOutputs = Outputs.Where(o => o.Key.Module == null).ToList();
+            var withModuleOutputs = Outputs.Where(o => o.Key.Module != null).ToList();
 
             var nonModuleOutputs = withoutModuleOutputs.GroupBy(o => o.Key.Key).ToDictionary(t => t.Key, t => string.Join(newLine.ToString(), t.Select(r => r.Value.ToString()).ToList()));
             var outputs = withModuleOutputs.GroupBy(o => o.Key.Module).ToDictionary(t => t.Key, t => string.Join(newLine.ToString(), t.Select(r => r.Value.ToString()).ToList()));
 
-            if (this.Emitter.AssemblyInfo.OutputBy == OutputBy.Project)
+            if (Emitter.AssemblyInfo.OutputBy == OutputBy.Project)
             {
-                var fileName = Path.GetFileNameWithoutExtension(this.Emitter.Outputs.First().Key) + Files.Extensions.DTS;
+                var fileName = Path.GetFileNameWithoutExtension(Emitter.Outputs.First().Key) + Files.Extensions.DTS;
                 var e = new EmitterOutput(fileName);
 
                 foreach (var item in nonModuleOutputs)
@@ -148,7 +148,7 @@ namespace H5.Translator.TypeScript
                     e.NonModuletOutput.Append(WrapModule(item) + newLine);
                 }
 
-                this.Emitter.Outputs.Add(fileName, e);
+                Emitter.Outputs.Add(fileName, e);
             }
             else
             {
@@ -157,7 +157,7 @@ namespace H5.Translator.TypeScript
                     var fileName = item.Key + Files.Extensions.DTS;
                     var e = new EmitterOutput(fileName);
                     e.NonModuletOutput.Append(item.Value.ToString());
-                    this.Emitter.Outputs.Add(fileName, e);
+                    Emitter.Outputs.Add(fileName, e);
                 }
 
                 foreach (var item in outputs)
@@ -165,7 +165,7 @@ namespace H5.Translator.TypeScript
                     var fileName = item.Key.ExportAsNamespace + Files.Extensions.DTS;
                     var e = new EmitterOutput(fileName);
                     e.NonModuletOutput.Append(WrapModule(item));
-                    this.Emitter.Outputs.Add(fileName, e);
+                    Emitter.Outputs.Add(fileName, e);
                 }
             }
         }
@@ -204,15 +204,15 @@ namespace H5.Translator.TypeScript
 
         protected override void DoEmit()
         {
-            this.Emitter.Tag = "TS";
-            this.Emitter.Writers = new Stack<IWriter>();
-            this.Outputs = new Dictionary<OutputKey, StringBuilder>();
+            Emitter.Tag = "TS";
+            Emitter.Writers = new Stack<IWriter>();
+            Outputs = new Dictionary<OutputKey, StringBuilder>();
 
-            var types = this.Emitter.Types.ToArray();
+            var types = Emitter.Types.ToArray();
             Array.Sort(types, (t1, t2) =>
             {
-                var t1ns = H5Types.GetNamespaceFilename(t1, this.Emitter);
-                var t2ns = H5Types.GetNamespaceFilename(t2, this.Emitter);
+                var t1ns = H5Types.GetNamespaceFilename(t1, Emitter);
+                var t2ns = H5Types.GetNamespaceFilename(t2, Emitter);
 
                 if (t1ns.Item1 == null && t2ns.Item1 == null)
                 {
@@ -234,7 +234,7 @@ namespace H5.Translator.TypeScript
 
                 return t1ns.Item1.CompareTo(t2ns.Item1);
             });
-            this.Emitter.InitEmitter();
+            Emitter.InitEmitter();
 
             bool nsExists = false;
             var last = types.LastOrDefault();
@@ -242,7 +242,7 @@ namespace H5.Translator.TypeScript
             {
                 if (!nsExists)
                 {
-                    var tns = H5Types.GetNamespaceFilename(type, this.Emitter);
+                    var tns = H5Types.GetNamespaceFilename(type, Emitter);
 
                     if (tns.Item1 != null)
                     {
@@ -255,7 +255,7 @@ namespace H5.Translator.TypeScript
                     continue;
                 }
 
-                this.Emitter.Translator.EmitNode = type.TypeDeclaration;
+                Emitter.Translator.EmitNode = type.TypeDeclaration;
 
                 if (type.IsObjectLiteral)
                 {
@@ -264,9 +264,9 @@ namespace H5.Translator.TypeScript
 
                 ITypeInfo typeInfo;
 
-                if (this.Emitter.TypeInfoDefinitions.ContainsKey(type.Key))
+                if (Emitter.TypeInfoDefinitions.ContainsKey(type.Key))
                 {
-                    typeInfo = this.Emitter.TypeInfoDefinitions[type.Key];
+                    typeInfo = Emitter.TypeInfoDefinitions[type.Key];
 
                     type.Module = typeInfo.Module;
                     type.FileName = typeInfo.FileName;
@@ -278,27 +278,27 @@ namespace H5.Translator.TypeScript
                     typeInfo = type;
                 }
 
-                this.Emitter.TypeInfo = type;
-                type.JsName = H5Types.ToJsName(type.Type, this.Emitter, true);
+                Emitter.TypeInfo = type;
+                type.JsName = H5Types.ToJsName(type.Type, Emitter, true);
 
-                this.Emitter.Output = this.GetOutputForType(typeInfo);
+                Emitter.Output = GetOutputForType(typeInfo);
                 var nestedTypes = types.Where(t => t.ParentType == type);
-                new ClassBlock(this.Emitter, this.Emitter.TypeInfo, nestedTypes, types, this.ns).Emit();
-                this.WriteNewLine();
+                new ClassBlock(Emitter, Emitter.TypeInfo, nestedTypes, types, ns).Emit();
+                WriteNewLine();
 
                 if (type != last)
                 {
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
             }
 
-            this.InsertDependencies(this.Emitter.Output);
-            if (this.outputKey != null && nsExists)
+            InsertDependencies(Emitter.Output);
+            if (outputKey != null && nsExists)
             {
-                this.EndBlock();
+                EndBlock();
             }
 
-            this.TransformOutputs();
+            TransformOutputs();
         }
     }
 }

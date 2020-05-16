@@ -14,177 +14,177 @@ namespace H5.Translator
         public TryCatchBlock(IEmitter emitter, TryCatchStatement tryCatchStatement)
             : base(emitter, tryCatchStatement)
         {
-            this.Emitter = emitter;
-            this.TryCatchStatement = tryCatchStatement;
+            Emitter = emitter;
+            TryCatchStatement = tryCatchStatement;
         }
 
         public TryCatchStatement TryCatchStatement { get; set; }
 
         protected override void DoEmit()
         {
-            var awaiters = this.Emitter.IsAsync ? this.GetAwaiters(this.TryCatchStatement) : null;
+            var awaiters = Emitter.IsAsync ? GetAwaiters(TryCatchStatement) : null;
 
             if (awaiters != null && awaiters.Length > 0)
             {
-                this.VisitAsyncTryCatchStatement();
+                VisitAsyncTryCatchStatement();
             }
             else
             {
-                this.VisitTryCatchStatement();
+                VisitTryCatchStatement();
             }
         }
 
         protected void VisitAsyncTryCatchStatement()
         {
-            TryCatchStatement tryCatchStatement = this.TryCatchStatement;
+            TryCatchStatement tryCatchStatement = TryCatchStatement;
 
-            this.Emitter.AsyncBlock.Steps.Last().JumpToStep = this.Emitter.AsyncBlock.Step;
+            Emitter.AsyncBlock.Steps.Last().JumpToStep = Emitter.AsyncBlock.Step;
 
-            var tryStep = this.Emitter.AsyncBlock.AddAsyncStep();
+            var tryStep = Emitter.AsyncBlock.AddAsyncStep();
             AsyncTryInfo tryInfo = new AsyncTryInfo();
             tryInfo.StartStep = tryStep.Step;
 
-            this.Emitter.IgnoreBlock = tryCatchStatement.TryBlock;
-            tryCatchStatement.TryBlock.AcceptVisitor(this.Emitter);
-            tryStep = this.Emitter.AsyncBlock.Steps.Last();
+            Emitter.IgnoreBlock = tryCatchStatement.TryBlock;
+            tryCatchStatement.TryBlock.AcceptVisitor(Emitter);
+            tryStep = Emitter.AsyncBlock.Steps.Last();
             tryInfo.EndStep = tryStep.Step;
 
             List<IAsyncStep> catchSteps = new List<IAsyncStep>();
 
             foreach (var clause in tryCatchStatement.CatchClauses)
             {
-                var catchStep = this.Emitter.AsyncBlock.AddAsyncStep();
+                var catchStep = Emitter.AsyncBlock.AddAsyncStep();
 
-                this.PushLocals();
+                PushLocals();
                 var varName = clause.VariableName;
 
-                if (!String.IsNullOrEmpty(varName) && !this.Emitter.Locals.ContainsKey(varName))
+                if (!String.IsNullOrEmpty(varName) && !Emitter.Locals.ContainsKey(varName))
                 {
-                    varName = this.AddLocal(varName, clause.VariableNameToken, clause.Type);
+                    varName = AddLocal(varName, clause.VariableNameToken, clause.Type);
                 }
 
-                this.Emitter.IgnoreBlock = clause.Body;
-                clause.Body.AcceptVisitor(this.Emitter);
+                Emitter.IgnoreBlock = clause.Body;
+                clause.Body.AcceptVisitor(Emitter);
                 Write(JS.Vars.ASYNC_E + " = null;");
-                this.PopLocals();
-                this.WriteNewLine();
+                PopLocals();
+                WriteNewLine();
 
-                tryInfo.CatchBlocks.Add(new Tuple<string, string, int, int>(varName, clause.Type.IsNull ? JS.Types.System.Exception.NAME : H5Types.ToJsName(clause.Type, this.Emitter), catchStep.Step, Emitter.AsyncBlock.Steps.Last().Step));
+                tryInfo.CatchBlocks.Add(new Tuple<string, string, int, int>(varName, clause.Type.IsNull ? JS.Types.System.Exception.NAME : H5Types.ToJsName(clause.Type, Emitter), catchStep.Step, Emitter.AsyncBlock.Steps.Last().Step));
                 catchSteps.Add(Emitter.AsyncBlock.Steps.Last());
             }
 
-            if (!this.Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
+            if (!Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
             {
-                this.AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
+                AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
             }
 
             IAsyncStep finalyStep = null;
             if (!tryCatchStatement.FinallyBlock.IsNull)
             {
-                finalyStep = this.Emitter.AsyncBlock.AddAsyncStep(tryCatchStatement.FinallyBlock);
-                this.Emitter.IgnoreBlock = tryCatchStatement.FinallyBlock;
-                tryCatchStatement.FinallyBlock.AcceptVisitor(this.Emitter);
+                finalyStep = Emitter.AsyncBlock.AddAsyncStep(tryCatchStatement.FinallyBlock);
+                Emitter.IgnoreBlock = tryCatchStatement.FinallyBlock;
+                tryCatchStatement.FinallyBlock.AcceptVisitor(Emitter);
 
-                var finallyNode = this.GetParentFinallyBlock(tryCatchStatement, false);
+                var finallyNode = GetParentFinallyBlock(tryCatchStatement, false);
 
-                this.WriteNewLine();
+                WriteNewLine();
 
-                this.WriteIf();
-                this.WriteOpenParentheses();
-                this.Write(JS.Vars.ASYNC_JUMP + " > -1");
-                this.WriteCloseParentheses();
-                this.WriteSpace();
-                this.BeginBlock();
+                WriteIf();
+                WriteOpenParentheses();
+                Write(JS.Vars.ASYNC_JUMP + " > -1");
+                WriteCloseParentheses();
+                WriteSpace();
+                BeginBlock();
                 if (finallyNode != null)
                 {
                     var hashcode = finallyNode.GetHashCode();
-                    this.Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
+                    Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
                     {
                         Node = finallyNode,
-                        Output = this.Emitter.Output
+                        Output = Emitter.Output
                     });
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
-                    this.WriteNewLine();
-                    this.Write("continue;");
+                    Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
+                    WriteNewLine();
+                    Write("continue;");
                 }
                 else
                 {
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + JS.Vars.ASYNC_JUMP + ";");
-                    this.WriteNewLine();
-                    this.Write(JS.Vars.ASYNC_JUMP + " = null;");
+                    Write(JS.Vars.ASYNC_STEP + " = " + JS.Vars.ASYNC_JUMP + ";");
+                    WriteNewLine();
+                    Write(JS.Vars.ASYNC_JUMP + " = null;");
                 }
 
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
 
-                this.WriteSpace();
-                this.WriteElse();
-                this.WriteIf();
-                this.WriteOpenParentheses();
-                this.Write(JS.Vars.ASYNC_E);
-                this.WriteCloseParentheses();
-                this.WriteSpace();
-                this.BeginBlock();
+                WriteSpace();
+                WriteElse();
+                WriteIf();
+                WriteOpenParentheses();
+                Write(JS.Vars.ASYNC_E);
+                WriteCloseParentheses();
+                WriteSpace();
+                BeginBlock();
 
-                if (this.Emitter.AsyncBlock.IsTaskReturn)
+                if (Emitter.AsyncBlock.IsTaskReturn)
                 {
-                    this.Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_EXCEPTION + "(" + JS.Vars.ASYNC_E + ");");
+                    Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_EXCEPTION + "(" + JS.Vars.ASYNC_E + ");");
                 }
                 else
                 {
-                    this.Write("throw " + JS.Vars.ASYNC_E + ";");
+                    Write("throw " + JS.Vars.ASYNC_E + ";");
                 }
 
-                this.WriteNewLine();
-                this.WriteReturn(false);
-                this.WriteSemiColon();
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                WriteReturn(false);
+                WriteSemiColon();
+                WriteNewLine();
+                EndBlock();
 
-                this.WriteSpace();
-                this.WriteElse();
-                this.WriteIf();
-                this.WriteOpenParentheses();
-                this.Write(JS.Funcs.H5_IS_DEFINED);
-                this.WriteOpenParentheses();
-                this.Write(JS.Vars.ASYNC_RETURN_VALUE);
-                this.WriteCloseParentheses();
-                this.WriteCloseParentheses();
-                this.WriteSpace();
-                this.BeginBlock();
+                WriteSpace();
+                WriteElse();
+                WriteIf();
+                WriteOpenParentheses();
+                Write(JS.Funcs.H5_IS_DEFINED);
+                WriteOpenParentheses();
+                Write(JS.Vars.ASYNC_RETURN_VALUE);
+                WriteCloseParentheses();
+                WriteCloseParentheses();
+                WriteSpace();
+                BeginBlock();
 
                 if (finallyNode != null)
                 {
                     var hashcode = finallyNode.GetHashCode();
-                    this.Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
+                    Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
                     {
                         Node = finallyNode,
-                        Output = this.Emitter.Output
+                        Output = Emitter.Output
                     });
-                    this.Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
-                    this.WriteNewLine();
-                    this.Write("continue;");
+                    Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
+                    WriteNewLine();
+                    Write("continue;");
                 }
                 else
                 {
-                    this.Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_RESULT + "(" + JS.Vars.ASYNC_RETURN_VALUE + ");");
-                    this.WriteNewLine();
-                    this.WriteReturn(false);
-                    this.WriteSemiColon();
+                    Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_RESULT + "(" + JS.Vars.ASYNC_RETURN_VALUE + ");");
+                    WriteNewLine();
+                    WriteReturn(false);
+                    WriteSemiColon();
                 }
 
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteNewLine();
+                EndBlock();
 
-                if (!this.Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
+                if (!Emitter.Locals.ContainsKey(JS.Vars.ASYNC_E))
                 {
-                    this.AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
+                    AddLocal(JS.Vars.ASYNC_E, null, AstType.Null);
                 }
             }
 
             var lastFinallyStep = Emitter.AsyncBlock.Steps.Last();
 
-            var nextStep = this.Emitter.AsyncBlock.AddAsyncStep();
+            var nextStep = Emitter.AsyncBlock.AddAsyncStep();
             if (finalyStep != null)
             {
                 tryInfo.FinallyStep = finalyStep.Step;
@@ -198,125 +198,125 @@ namespace H5.Translator
                 step.JumpToStep = finalyStep != null ? finalyStep.Step : nextStep.Step;
             }
 
-            this.Emitter.AsyncBlock.TryInfos.Add(tryInfo);
+            Emitter.AsyncBlock.TryInfos.Add(tryInfo);
         }
 
         protected void VisitTryCatchStatement()
         {
-            this.EmitTryBlock();
+            EmitTryBlock();
 
-            var count = this.TryCatchStatement.CatchClauses.Count;
+            var count = TryCatchStatement.CatchClauses.Count;
 
             if (count > 0)
             {
-                var firstClause = this.TryCatchStatement.CatchClauses.Count == 1 ? this.TryCatchStatement.CatchClauses.First() : null;
-                var exceptionType = (firstClause == null || firstClause.Type.IsNull) ? null : H5Types.ToJsName(firstClause.Type, this.Emitter);
+                var firstClause = TryCatchStatement.CatchClauses.Count == 1 ? TryCatchStatement.CatchClauses.First() : null;
+                var exceptionType = (firstClause == null || firstClause.Type.IsNull) ? null : H5Types.ToJsName(firstClause.Type, Emitter);
                 var isBaseException = exceptionType == null || exceptionType == JS.Types.System.Exception.NAME;
 
                 if (count == 1 && isBaseException)
                 {
-                    this.EmitSingleCatchBlock();
+                    EmitSingleCatchBlock();
                 }
                 else
                 {
-                    this.EmitMultipleCatchBlock();
+                    EmitMultipleCatchBlock();
                 }
             }
 
-            this.EmitFinallyBlock();
+            EmitFinallyBlock();
         }
 
         protected virtual void EmitTryBlock()
         {
-            TryCatchStatement tryCatchStatement = this.TryCatchStatement;
+            TryCatchStatement tryCatchStatement = TryCatchStatement;
 
-            this.WriteTry();
+            WriteTry();
 
-            tryCatchStatement.TryBlock.AcceptVisitor(this.Emitter);
+            tryCatchStatement.TryBlock.AcceptVisitor(Emitter);
         }
 
         protected virtual void EmitFinallyBlock()
         {
-            TryCatchStatement tryCatchStatement = this.TryCatchStatement;
+            TryCatchStatement tryCatchStatement = TryCatchStatement;
 
             if (!tryCatchStatement.FinallyBlock.IsNull)
             {
-                this.WriteSpace();
-                this.WriteFinally();
-                tryCatchStatement.FinallyBlock.AcceptVisitor(this.Emitter);
+                WriteSpace();
+                WriteFinally();
+                tryCatchStatement.FinallyBlock.AcceptVisitor(Emitter);
             }
         }
 
         protected virtual void EmitSingleCatchBlock()
         {
-            TryCatchStatement tryCatchStatement = this.TryCatchStatement;
+            TryCatchStatement tryCatchStatement = TryCatchStatement;
 
             foreach (var clause in tryCatchStatement.CatchClauses)
             {
-                this.PushLocals();
+                PushLocals();
 
                 var varName = clause.VariableName;
 
                 if (String.IsNullOrEmpty(varName))
                 {
-                    varName = this.AddLocal(this.GetUniqueName(JS.Vars.E), null, AstType.Null);
+                    varName = AddLocal(GetUniqueName(JS.Vars.E), null, AstType.Null);
                 }
                 else
                 {
-                    varName = this.AddLocal(varName, clause.VariableNameToken, clause.Type);
+                    varName = AddLocal(varName, clause.VariableNameToken, clause.Type);
                 }
 
-                var oldVar = this.Emitter.CatchBlockVariable;
-                this.Emitter.CatchBlockVariable = varName;
+                var oldVar = Emitter.CatchBlockVariable;
+                Emitter.CatchBlockVariable = varName;
 
-                this.WriteSpace();
-                this.WriteCatch();
-                this.WriteOpenParentheses();
-                this.Write(varName);
-                this.WriteCloseParentheses();
-                this.WriteSpace();
+                WriteSpace();
+                WriteCatch();
+                WriteOpenParentheses();
+                Write(varName);
+                WriteCloseParentheses();
+                WriteSpace();
 
-                this.BeginBlock();
-                this.Write(string.Format("{0} = " + JS.Types.System.Exception.CREATE + "({0});", varName));
+                BeginBlock();
+                Write(string.Format("{0} = " + JS.Types.System.Exception.CREATE + "({0});", varName));
 
-                this.WriteNewLine();
-                this.Emitter.NoBraceBlock = clause.Body;
-                clause.Body.AcceptVisitor(this.Emitter);
-                if (!this.Emitter.IsNewLine)
+                WriteNewLine();
+                Emitter.NoBraceBlock = clause.Body;
+                clause.Body.AcceptVisitor(Emitter);
+                if (!Emitter.IsNewLine)
                 {
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
 
-                this.EndBlock();
+                EndBlock();
 
                 if (tryCatchStatement.FinallyBlock.IsNull)
                 {
-                    this.WriteNewLine();
+                    WriteNewLine();
                 }
 
-                this.PopLocals();
-                this.Emitter.CatchBlockVariable = oldVar;
+                PopLocals();
+                Emitter.CatchBlockVariable = oldVar;
             }
         }
 
         protected virtual void EmitMultipleCatchBlock()
         {
-            TryCatchStatement tryCatchStatement = this.TryCatchStatement;
+            TryCatchStatement tryCatchStatement = TryCatchStatement;
 
-            this.WriteSpace();
-            this.WriteCatch();
-            this.WriteOpenParentheses();
-            var varName = this.AddLocal(this.GetUniqueName(JS.Vars.E), null, AstType.Null);
+            WriteSpace();
+            WriteCatch();
+            WriteOpenParentheses();
+            var varName = AddLocal(GetUniqueName(JS.Vars.E), null, AstType.Null);
 
-            var oldVar = this.Emitter.CatchBlockVariable;
-            this.Emitter.CatchBlockVariable = varName;
+            var oldVar = Emitter.CatchBlockVariable;
+            Emitter.CatchBlockVariable = varName;
 
-            this.Write(varName);
-            this.WriteCloseParentheses();
-            this.WriteSpace();
-            this.BeginBlock();
-            this.Write(string.Format("{0} = " + JS.Types.System.Exception.CREATE + "({0});", varName));
-            this.WriteNewLine();
+            Write(varName);
+            WriteCloseParentheses();
+            WriteSpace();
+            BeginBlock();
+            Write(string.Format("{0} = " + JS.Types.System.Exception.CREATE + "({0});", varName));
+            WriteNewLine();
 
             var catchVars = new Dictionary<string, string>();
             var writeVar = false;
@@ -328,20 +328,20 @@ namespace H5.Translator
                     if (!writeVar)
                     {
                         writeVar = true;
-                        this.WriteVar(true);
+                        WriteVar(true);
                     }
 
-                    this.EnsureComma(false);
+                    EnsureComma(false);
                     catchVars.Add(clause.VariableName, clause.VariableName);
-                    this.Write(clause.VariableName);
-                    this.Emitter.Comma = true;
+                    Write(clause.VariableName);
+                    Emitter.Comma = true;
                 }
             }
 
-            this.Emitter.Comma = false;
+            Emitter.Comma = false;
             if (writeVar)
             {
-                this.WriteSemiColon(true);
+                WriteSemiColon(true);
             }
 
             var firstClause = true;
@@ -350,13 +350,13 @@ namespace H5.Translator
 
             foreach (var clause in tryCatchStatement.CatchClauses)
             {
-                var exceptionType = clause.Type.IsNull ? null : H5Types.ToJsName(clause.Type, this.Emitter);
+                var exceptionType = clause.Type.IsNull ? null : H5Types.ToJsName(clause.Type, Emitter);
                 var isBaseException = exceptionType == null || exceptionType == JS.Types.System.Exception.NAME;
 
                 if (!firstClause)
                 {
-                    this.WriteSpace();
-                    this.WriteElse();
+                    WriteSpace();
+                    WriteElse();
                 }
 
                 if (isBaseException)
@@ -365,59 +365,59 @@ namespace H5.Translator
                 }
                 else
                 {
-                    this.WriteIf();
-                    this.WriteOpenParentheses();
-                    this.Write(string.Format(JS.Types.H5.IS + "({0}, {1})", varName, exceptionType));
-                    this.WriteCloseParentheses();
-                    this.WriteSpace();
+                    WriteIf();
+                    WriteOpenParentheses();
+                    Write(string.Format(JS.Types.H5.IS + "({0}, {1})", varName, exceptionType));
+                    WriteCloseParentheses();
+                    WriteSpace();
                 }
 
                 firstClause = false;
 
-                this.PushLocals();
-                this.BeginBlock();
+                PushLocals();
+                BeginBlock();
 
                 if (clause.VariableName.IsNotEmpty())
                 {
-                    this.Write(clause.VariableName + " = " + varName);
-                    this.WriteSemiColon();
-                    this.WriteNewLine();
+                    Write(clause.VariableName + " = " + varName);
+                    WriteSemiColon();
+                    WriteNewLine();
                 }
 
-                this.Emitter.NoBraceBlock = clause.Body;
-                clause.Body.AcceptVisitor(this.Emitter);
-                this.Emitter.NoBraceBlock = null;
-                this.EndBlock();
+                Emitter.NoBraceBlock = clause.Body;
+                clause.Body.AcceptVisitor(Emitter);
+                Emitter.NoBraceBlock = null;
+                EndBlock();
 
                 needNewLine = true;
 
-                this.PopLocals();
+                PopLocals();
             }
 
             if (writeElse)
             {
-                this.WriteSpace();
-                this.WriteElse();
-                this.BeginBlock();
-                this.Write("throw " + varName);
-                this.WriteSemiColon();
-                this.WriteNewLine();
-                this.EndBlock();
+                WriteSpace();
+                WriteElse();
+                BeginBlock();
+                Write("throw " + varName);
+                WriteSemiColon();
+                WriteNewLine();
+                EndBlock();
                 needNewLine = true;
             }
 
             if (needNewLine)
             {
-                this.WriteNewLine();
+                WriteNewLine();
                 needNewLine = false;
             }
 
-            this.EndBlock();
+            EndBlock();
             if (tryCatchStatement.FinallyBlock.IsNull)
             {
-                this.WriteNewLine();
+                WriteNewLine();
             }
-            this.Emitter.CatchBlockVariable = oldVar;
+            Emitter.CatchBlockVariable = oldVar;
         }
     }
 
@@ -435,11 +435,11 @@ namespace H5.Translator
         {
             get
             {
-                if (this.catchBlocks == null)
+                if (catchBlocks == null)
                 {
-                    this.catchBlocks = new List<Tuple<string, string, int, int>>();
+                    catchBlocks = new List<Tuple<string, string, int, int>>();
                 }
-                return this.catchBlocks;
+                return catchBlocks;
             }
         }
     }

@@ -46,7 +46,7 @@ namespace H5.Contract
                 TypeDefinition gTypeDef = null;
                 try
                 {
-                    gTypeDef = Helpers.ToTypeDefinition(gArgDef, emitter);
+                    gTypeDef = ToTypeDefinition(gArgDef, emitter);
                 }
                 catch
                 {
@@ -57,15 +57,15 @@ namespace H5.Contract
                     return true;
                 }
 
-                if (deep && gTypeDef != null && (Helpers.IsSubclassOf(gTypeDef, searchType, emitter) ||
-                    (searchType.IsInterface && Helpers.IsImplementationOf(gTypeDef, searchType, emitter))))
+                if (deep && gTypeDef != null && (IsSubclassOf(gTypeDef, searchType, emitter) ||
+                    (searchType.IsInterface && IsImplementationOf(gTypeDef, searchType, emitter))))
                 {
                     return true;
                 }
 
                 if (orig.IsGenericInstance)
                 {
-                    var result = Helpers.HasGenericArgument((GenericInstanceType)orig, searchType, emitter, deep);
+                    var result = HasGenericArgument((GenericInstanceType)orig, searchType, emitter, deep);
 
                     if (result)
                     {
@@ -81,7 +81,7 @@ namespace H5.Contract
         {
             foreach (var interfaceReference in thisTypeDefinition.Interfaces)
             {
-                if (interfaceReference.InterfaceType is GenericInstanceType gBaseType && Helpers.HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
+                if (interfaceReference.InterfaceType is GenericInstanceType gBaseType && HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
                 {
                     return true;
                 }
@@ -91,14 +91,14 @@ namespace H5.Contract
             {
                 TypeDefinition baseTypeDefinition = null;
 
-                if (thisTypeDefinition.BaseType is GenericInstanceType gBaseType && Helpers.HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
+                if (thisTypeDefinition.BaseType is GenericInstanceType gBaseType && HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
                 {
                     return true;
                 }
 
                 try
                 {
-                    baseTypeDefinition = Helpers.ToTypeDefinition(thisTypeDefinition.BaseType, emitter);
+                    baseTypeDefinition = ToTypeDefinition(thisTypeDefinition.BaseType, emitter);
                 }
                 catch
                 {
@@ -106,7 +106,7 @@ namespace H5.Contract
 
                 if (baseTypeDefinition != null && deep)
                 {
-                    return Helpers.IsTypeArgInSubclass(baseTypeDefinition, typeArgDefinition, emitter);
+                    return IsTypeArgInSubclass(baseTypeDefinition, typeArgDefinition, emitter);
                 }
             }
             return false;
@@ -120,7 +120,7 @@ namespace H5.Contract
 
                 try
                 {
-                    baseTypeDefinition = Helpers.ToTypeDefinition(thisTypeDefinition.BaseType, emitter);
+                    baseTypeDefinition = ToTypeDefinition(thisTypeDefinition.BaseType, emitter);
                 }
                 catch
                 {
@@ -128,7 +128,7 @@ namespace H5.Contract
 
                 if (baseTypeDefinition != null)
                 {
-                    return (baseTypeDefinition == typeDefinition || Helpers.IsSubclassOf(baseTypeDefinition, typeDefinition, emitter));
+                    return (baseTypeDefinition == typeDefinition || IsSubclassOf(baseTypeDefinition, typeDefinition, emitter));
                 }
             }
             return false;
@@ -153,13 +153,13 @@ namespace H5.Contract
 
                 try
                 {
-                    interfaceDefinition = Helpers.ToTypeDefinition(iref, emitter);
+                    interfaceDefinition = ToTypeDefinition(iref, emitter);
                 }
                 catch
                 {
                 }
 
-                if (interfaceDefinition != null && Helpers.IsImplementationOf(interfaceDefinition, interfaceTypeDefinition, emitter))
+                if (interfaceDefinition != null && IsImplementationOf(interfaceDefinition, interfaceTypeDefinition, emitter))
                 {
                     return true;
                 }
@@ -170,8 +170,8 @@ namespace H5.Contract
         public static bool IsAssignableFrom(TypeDefinition thisTypeDefinition, TypeDefinition typeDefinition, IEmitter emitter)
         {
             return (thisTypeDefinition == typeDefinition
-                    || (typeDefinition.IsClass && !typeDefinition.IsValueType && Helpers.IsSubclassOf(typeDefinition, thisTypeDefinition, emitter))
-                    || (typeDefinition.IsInterface && Helpers.IsImplementationOf(typeDefinition, thisTypeDefinition, emitter)));
+                    || (typeDefinition.IsClass && !typeDefinition.IsValueType && IsSubclassOf(typeDefinition, thisTypeDefinition, emitter))
+                    || (typeDefinition.IsInterface && IsImplementationOf(typeDefinition, thisTypeDefinition, emitter)));
         }
 
         public static TypeDefinition ToTypeDefinition(TypeReference reference, IEmitter emitter)
@@ -204,12 +204,12 @@ namespace H5.Contract
 
         public static bool IsIgnoreGeneric(ITypeDefinition type)
         {
-            return type.Attributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute") || type.DeclaringTypeDefinition != null && Helpers.IsIgnoreGeneric(type.DeclaringTypeDefinition);
+            return type.Attributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute") || type.DeclaringTypeDefinition != null && IsIgnoreGeneric(type.DeclaringTypeDefinition);
         }
 
         public static bool IsIgnoreGeneric(TypeDefinition type)
         {
-            return type.CustomAttributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute") || type.DeclaringType != null && Helpers.IsIgnoreGeneric(type.DeclaringType);
+            return type.CustomAttributes.Any(a => a.AttributeType.FullName == "H5.IgnoreGenericAttribute") || type.DeclaringType != null && IsIgnoreGeneric(type.DeclaringType);
         }
 
         public static bool IsIgnoreGeneric(IType type, IEmitter emitter, bool allowInTypeScript = false)
@@ -228,7 +228,7 @@ namespace H5.Contract
                 return true;
             }
 
-            return type.DeclaringType != null && Helpers.IsIgnoreGeneric(type.DeclaringType, emitter, allowInTypeScript);
+            return type.DeclaringType != null && IsIgnoreGeneric(type.DeclaringType, emitter, allowInTypeScript);
         }
 
         public static bool IsIgnoreGeneric(IEntity member, IEmitter emitter)
@@ -238,9 +238,9 @@ namespace H5.Contract
 
         public static bool IsIgnoreGeneric(MethodDeclaration method, IEmitter emitter)
         {
-            if (emitter.Resolver.ResolveNode(method, emitter) is MemberResolveResult resolveResult && resolveResult.Member != null)
+            if (emitter.Resolver.ResolveNode(method) is MemberResolveResult resolveResult && resolveResult.Member != null)
             {
-                return Helpers.IsIgnoreGeneric(resolveResult.Member, emitter);
+                return IsIgnoreGeneric(resolveResult.Member, emitter);
             }
 
             return false;
@@ -345,22 +345,22 @@ namespace H5.Contract
 
         public static bool IsDecimalType(IType type, IMemberResolver resolver, bool allowArray = false)
         {
-            return Helpers.IsKnownType(KnownTypeCode.Decimal, type, resolver, allowArray);
+            return IsKnownType(KnownTypeCode.Decimal, type, resolver, allowArray);
         }
 
         public static bool IsLongType(IType type, IMemberResolver resolver, bool allowArray = false)
         {
-            return Helpers.IsKnownType(KnownTypeCode.Int64, type, resolver, allowArray);
+            return IsKnownType(KnownTypeCode.Int64, type, resolver, allowArray);
         }
 
         public static bool IsULongType(IType type, IMemberResolver resolver, bool allowArray = false)
         {
-            return Helpers.IsKnownType(KnownTypeCode.UInt64, type, resolver, allowArray);
+            return IsKnownType(KnownTypeCode.UInt64, type, resolver, allowArray);
         }
 
         public static bool Is64Type(IType type, IMemberResolver resolver, bool allowArray = false)
         {
-            return Helpers.IsKnownType(KnownTypeCode.UInt64, type, resolver, allowArray) || Helpers.IsKnownType(KnownTypeCode.Int64, type, resolver, allowArray);
+            return IsKnownType(KnownTypeCode.UInt64, type, resolver, allowArray) || IsKnownType(KnownTypeCode.Int64, type, resolver, allowArray);
         }
 
         public static bool IsKnownType(KnownTypeCode typeCode, IType type, IMemberResolver resolver, bool allowArray = false)
@@ -439,14 +439,14 @@ namespace H5.Contract
             var type = nullable ? ((ParameterizedType)rrtype).TypeArguments[0] : rrtype;
             if (type.Kind == TypeKind.Struct)
             {
-                if (Helpers.IsImmutableStruct(block.Emitter, type))
+                if (IsImmutableStruct(block.Emitter, type))
                 {
                     return;
                 }
 
                 if (writeClone)
                 {
-                    Helpers.WriteClone(block, insertPosition, nullable);
+                    WriteClone(block, insertPosition, nullable);
                     return;
                 }
 
@@ -455,7 +455,7 @@ namespace H5.Contract
 
                 if (field != null && field.IsReadOnly)
                 {
-                    Helpers.WriteClone(block, insertPosition, nullable);
+                    WriteClone(block, insertPosition, nullable);
                     return;
                 }
 
@@ -463,7 +463,7 @@ namespace H5.Contract
                 if (expression != null &&
                     (expression.Parent is BinaryOperatorExpression || expression.Parent is UnaryOperatorExpression))
                 {
-                    isOperator = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter) is OperatorResolveResult orr && orr.UserDefinedOperatorMethod != null;
+                    isOperator = block.Emitter.Resolver.ResolveNode(expression.Parent) is OperatorResolveResult orr && orr.UserDefinedOperatorMethod != null;
                 }
 
                 if (expression == null || isOperator ||
@@ -485,7 +485,7 @@ namespace H5.Contract
                         }
                     }
 
-                    Helpers.WriteClone(block, insertPosition, nullable);
+                    WriteClone(block, insertPosition, nullable);
                 }
             }
         }
@@ -518,7 +518,7 @@ namespace H5.Contract
             }
 
             var mutableFields = type.GetFields(f => !f.IsReadOnly && !f.IsConst, GetMemberOptions.IgnoreInheritedMembers);
-            var autoProps = typeDef.Properties.Where(Helpers.IsAutoProperty);
+            var autoProps = typeDef.Properties.Where(IsAutoProperty);
             var autoEvents = type.GetEvents(null, GetMemberOptions.IgnoreInheritedMembers);
 
             if (!mutableFields.Any() && !autoProps.Any() && !autoEvents.Any())
@@ -540,12 +540,12 @@ namespace H5.Contract
 
         public static bool IsAutoProperty(IProperty propertyDeclaration)
         {
-            if (propertyDeclaration.CanGet && Helpers.IsScript(propertyDeclaration.Getter))
+            if (propertyDeclaration.CanGet && IsScript(propertyDeclaration.Getter))
             {
                 return false;
             }
 
-            if (propertyDeclaration.CanSet && Helpers.IsScript(propertyDeclaration.Setter))
+            if (propertyDeclaration.CanSet && IsScript(propertyDeclaration.Setter))
             {
                 return false;
             }
@@ -556,12 +556,12 @@ namespace H5.Contract
 
         public static bool IsAutoProperty(PropertyDefinition propDef)
         {
-            if (propDef.GetMethod != null && Helpers.IsScript(propDef.GetMethod))
+            if (propDef.GetMethod != null && IsScript(propDef.GetMethod))
             {
                 return false;
             }
 
-            if (propDef.SetMethod != null && Helpers.IsScript(propDef.SetMethod))
+            if (propDef.SetMethod != null && IsScript(propDef.SetMethod))
             {
                 return false;
             }
@@ -586,19 +586,19 @@ namespace H5.Contract
 
         public static string GetEventRef(CustomEventDeclaration property, IEmitter emitter, bool remove = false, bool noOverload = false, bool ignoreInterface = false, bool withoutTypeParams = false)
         {
-            if (emitter.Resolver.ResolveNode(property, emitter) is MemberResolveResult resolveResult && resolveResult.Member != null)
+            if (emitter.Resolver.ResolveNode(property) is MemberResolveResult resolveResult && resolveResult.Member != null)
             {
-                return Helpers.GetEventRef(resolveResult.Member, emitter, remove, noOverload, ignoreInterface, withoutTypeParams);
+                return GetEventRef(resolveResult.Member, emitter, remove, noOverload, ignoreInterface, withoutTypeParams);
             }
 
             if (!noOverload)
             {
                 var overloads = OverloadsCollection.Create(emitter, property, remove);
-                return overloads.GetOverloadName(ignoreInterface, Helpers.GetAddOrRemove(!remove), withoutTypeParams);
+                return overloads.GetOverloadName(ignoreInterface, GetAddOrRemove(!remove), withoutTypeParams);
             }
 
             var name = emitter.GetEntityName(property);
-            return Helpers.GetAddOrRemove(!remove, name);
+            return GetAddOrRemove(!remove, name);
         }
 
         public static string GetEventRef(IMember property, IEmitter emitter, bool remove = false, bool noOverload = false, bool ignoreInterface = false, bool withoutTypeParams = false, bool skipPrefix = false)
@@ -607,17 +607,17 @@ namespace H5.Contract
 
             if (!String.IsNullOrEmpty(attrName))
             {
-                return Helpers.AddInterfacePrefix(property, emitter, ignoreInterface, attrName, remove);
+                return AddInterfacePrefix(property, emitter, ignoreInterface, attrName, remove);
             }
 
             if (!noOverload)
             {
                 var overloads = OverloadsCollection.Create(emitter, property, remove);
-                return overloads.GetOverloadName(ignoreInterface, skipPrefix ? null : Helpers.GetAddOrRemove(!remove), withoutTypeParams);
+                return overloads.GetOverloadName(ignoreInterface, skipPrefix ? null : GetAddOrRemove(!remove), withoutTypeParams);
             }
 
             var name = emitter.GetEntityName(property);
-            return skipPrefix ? name : Helpers.GetAddOrRemove(!remove, name);
+            return skipPrefix ? name : GetAddOrRemove(!remove, name);
         }
 
         public static string GetSetOrGet(bool isSetter, string name = null)
@@ -627,10 +627,10 @@ namespace H5.Contract
 
         public static string GetPropertyRef(PropertyDeclaration property, IEmitter emitter, bool isSetter = false, bool noOverload = false, bool ignoreInterface = false, bool withoutTypeParams = false, bool skipPrefix = true)
         {
-            ResolveResult resolveResult = emitter.Resolver.ResolveNode(property, emitter) as MemberResolveResult;
+            ResolveResult resolveResult = emitter.Resolver.ResolveNode(property) as MemberResolveResult;
             if (resolveResult != null && ((MemberResolveResult)resolveResult).Member != null)
             {
-                return Helpers.GetPropertyRef(((MemberResolveResult)resolveResult).Member, emitter, isSetter, noOverload, ignoreInterface, withoutTypeParams, skipPrefix);
+                return GetPropertyRef(((MemberResolveResult)resolveResult).Member, emitter, isSetter, noOverload, ignoreInterface, withoutTypeParams, skipPrefix);
             }
 
             string name;
@@ -638,29 +638,29 @@ namespace H5.Contract
             if (!noOverload)
             {
                 var overloads = OverloadsCollection.Create(emitter, property, isSetter);
-                return overloads.GetOverloadName(ignoreInterface, skipPrefix ? null : Helpers.GetSetOrGet(isSetter), withoutTypeParams);
+                return overloads.GetOverloadName(ignoreInterface, skipPrefix ? null : GetSetOrGet(isSetter), withoutTypeParams);
             }
 
             name = emitter.GetEntityName(property);
-            return Helpers.GetSetOrGet(isSetter, name);
+            return GetSetOrGet(isSetter, name);
         }
 
         public static string GetPropertyRef(IndexerDeclaration property, IEmitter emitter, bool isSetter = false, bool noOverload = false, bool ignoreInterface = false)
         {
-            ResolveResult resolveResult = emitter.Resolver.ResolveNode(property, emitter) as MemberResolveResult;
+            ResolveResult resolveResult = emitter.Resolver.ResolveNode(property) as MemberResolveResult;
             if (resolveResult != null && ((MemberResolveResult)resolveResult).Member != null)
             {
-                return Helpers.GetIndexerRef(((MemberResolveResult)resolveResult).Member, emitter, isSetter, noOverload, ignoreInterface);
+                return GetIndexerRef(((MemberResolveResult)resolveResult).Member, emitter, isSetter, noOverload, ignoreInterface);
             }
 
             if (!noOverload)
             {
                 var overloads = OverloadsCollection.Create(emitter, property, isSetter);
-                return overloads.GetOverloadName(ignoreInterface, Helpers.GetSetOrGet(isSetter));
+                return overloads.GetOverloadName(ignoreInterface, GetSetOrGet(isSetter));
             }
 
             var name = emitter.GetEntityName(property);
-            return Helpers.GetSetOrGet(isSetter, name);
+            return GetSetOrGet(isSetter, name);
         }
 
         public static string GetIndexerRef(IMember property, IEmitter emitter, bool isSetter = false, bool noOverload = false, bool ignoreInterface = false)
@@ -669,17 +669,17 @@ namespace H5.Contract
 
             if (!String.IsNullOrEmpty(attrName))
             {
-                return Helpers.AddInterfacePrefix(property, emitter, ignoreInterface, attrName, isSetter);
+                return AddInterfacePrefix(property, emitter, ignoreInterface, attrName, isSetter);
             }
 
             if (!noOverload)
             {
                 var overloads = OverloadsCollection.Create(emitter, property, isSetter);
-                return overloads.GetOverloadName(ignoreInterface, Helpers.GetSetOrGet(isSetter));
+                return overloads.GetOverloadName(ignoreInterface, GetSetOrGet(isSetter));
             }
 
             var name = emitter.GetEntityName(property);
-            return Helpers.GetSetOrGet(isSetter, name);
+            return GetSetOrGet(isSetter, name);
         }
 
         public static string GetPropertyRef(IMember property, IEmitter emitter, bool isSetter = false, bool noOverload = false, bool ignoreInterface = false, bool withoutTypeParams = false, bool skipPrefix = true)
@@ -688,7 +688,7 @@ namespace H5.Contract
 
             if (!String.IsNullOrEmpty(attrName))
             {
-                return Helpers.AddInterfacePrefix(property, emitter, ignoreInterface, attrName, isSetter);
+                return AddInterfacePrefix(property, emitter, ignoreInterface, attrName, isSetter);
             }
 
             string name = null;
@@ -701,11 +701,11 @@ namespace H5.Contract
             if (!noOverload)
             {
                 var overloads = OverloadsCollection.Create(emitter, property, isSetter);
-                return overloads.GetOverloadName(ignoreInterface, skipPrefix ? null : Helpers.GetSetOrGet(isSetter), withoutTypeParams);
+                return overloads.GetOverloadName(ignoreInterface, skipPrefix ? null : GetSetOrGet(isSetter), withoutTypeParams);
             }
 
             name = emitter.GetEntityName(property);
-            return skipPrefix ? name : Helpers.GetSetOrGet(isSetter, name);
+            return skipPrefix ? name : GetSetOrGet(isSetter, name);
         }
 
         private static string AddInterfacePrefix(IMember property, IEmitter emitter, bool ignoreInterface, string attrName, bool isSetter)
@@ -739,11 +739,11 @@ namespace H5.Contract
                 list.AddRange(typeDef.Methods);
             }
 
-            var baseTypeDefinition = Helpers.ToTypeDefinition(typeDef.BaseType, emitter);
+            var baseTypeDefinition = ToTypeDefinition(typeDef.BaseType, emitter);
 
             if (baseTypeDefinition != null)
             {
-                Helpers.GetMethods(baseTypeDefinition, emitter, list);
+                GetMethods(baseTypeDefinition, emitter, list);
             }
 
             return list;
@@ -760,12 +760,12 @@ namespace H5.Contract
 
         public static string ChangeReservedWord(string name)
         {
-            return Helpers.PrefixDollar(name);
+            return PrefixDollar(name);
         }
 
         public static object GetEnumValue(IEmitter emitter, IType type, object constantValue)
         {
-            var enumMode = Helpers.EnumEmitMode(type);
+            var enumMode = EnumEmitMode(type);
 
             if ((emitter.Validator.IsExternalType(type.GetDefinition()) && enumMode == -1) || enumMode == 2)
             {
@@ -974,7 +974,7 @@ namespace H5.Contract
         {
             if (entity is IMember)
             {
-                return Helpers.GetInheritedAttribute((IMember)entity, attrName);
+                return GetInheritedAttribute((IMember)entity, attrName);
             }
 
             foreach (var attr in entity.Attributes)
@@ -1003,14 +1003,14 @@ namespace H5.Contract
 
                 if (member != null)
                 {
-                    return Helpers.GetInheritedAttribute(member, attrName);
+                    return GetInheritedAttribute(member, attrName);
                 }
             }
             else if (member.ImplementedInterfaceMembers != null && member.ImplementedInterfaceMembers.Count > 0)
             {
                 foreach (var interfaceMember in member.ImplementedInterfaceMembers)
                 {
-                    var attr = Helpers.GetInheritedAttribute(interfaceMember, attrName);
+                    var attr = GetInheritedAttribute(interfaceMember, attrName);
                     if (attr != null)
                     {
                         return attr;
@@ -1035,7 +1035,7 @@ namespace H5.Contract
 
             if (baseType != null)
             {
-                return Helpers.GetInheritedAttribute(baseType.GetDefinition(), attrName);
+                return GetInheritedAttribute(baseType.GetDefinition(), attrName);
             }
 
             return null;
@@ -1057,11 +1057,11 @@ namespace H5.Contract
 
                 if (isOverride)
                 {
-                    member = Helpers.GetBaseMethod(methodDefinition, emitter);
+                    member = GetBaseMethod(methodDefinition, emitter);
 
                     if (member != null)
                     {
-                        return Helpers.GetInheritedAttribute(emitter, member, attrName);
+                        return GetInheritedAttribute(emitter, member, attrName);
                     }
                 }
             }
@@ -1122,19 +1122,19 @@ namespace H5.Contract
 
         public static bool IsNonScriptable(ITypeDefinition type)
         {
-            return Helpers.GetInheritedAttribute(type, "H5.NonScriptableAttribute") != null;
+            return GetInheritedAttribute(type, "H5.NonScriptableAttribute") != null;
         }
 
         public static bool IsNonScriptable(IEntity entity)
         {
-            return Helpers.GetInheritedAttribute(entity, "H5.NonScriptableAttribute") != null;
+            return GetInheritedAttribute(entity, "H5.NonScriptableAttribute") != null;
         }
 
         public static bool IsEntryPointMethod(IEmitter emitter, MethodDeclaration methodDeclaration)
         {
-            IMethod method = emitter.Resolver.ResolveNode(methodDeclaration, emitter) is MemberResolveResult member_rr ? member_rr.Member as IMethod : null;
+            IMethod method = emitter.Resolver.ResolveNode(methodDeclaration) is MemberResolveResult member_rr ? member_rr.Member as IMethod : null;
 
-            return Helpers.IsEntryPointMethod(method);
+            return IsEntryPointMethod(method);
         }
 
         public static bool IsEntryPointMethod(IMethod method)
@@ -1142,7 +1142,7 @@ namespace H5.Contract
             if (method != null && method.Name == CS.Methods.AUTO_STARTUP_METHOD_NAME &&
                 method.IsStatic &&
                 !method.IsAbstract &&
-                Helpers.IsEntryPointCandidate(method))
+                IsEntryPointCandidate(method))
             {
                 bool isReady = false;
                 foreach (var attr in method.Attributes)
@@ -1171,14 +1171,14 @@ namespace H5.Contract
             }
 
 
-            if (!(emitter.Resolver.ResolveNode(methodDeclaration, emitter) is MemberResolveResult m_rr) || !(m_rr.Member is IMethod))
+            if (!(emitter.Resolver.ResolveNode(methodDeclaration) is MemberResolveResult m_rr) || !(m_rr.Member is IMethod))
             {
                 return false;
             }
 
             var m = (IMethod)m_rr.Member;
 
-            return Helpers.IsEntryPointCandidate(m);
+            return IsEntryPointCandidate(m);
         }
 
         public static bool IsEntryPointCandidate(IMethod m)
@@ -1204,11 +1204,11 @@ namespace H5.Contract
         public static bool IsTypeParameterType(IType type)
         {
             var typeDef = type.GetDefinition();
-            if (typeDef != null && Helpers.IsIgnoreGeneric(typeDef))
+            if (typeDef != null && IsIgnoreGeneric(typeDef))
             {
                 return false;
             }
-            return type.TypeArguments.Any(Helpers.HasTypeParameters);
+            return type.TypeArguments.Any(HasTypeParameters);
         }
 
         public static bool HasTypeParameters(IType type)
@@ -1223,12 +1223,12 @@ namespace H5.Contract
                 foreach (var typeArgument in type.TypeArguments)
                 {
                     var typeDef = typeArgument.GetDefinition();
-                    if (typeDef != null && Helpers.IsIgnoreGeneric(typeDef))
+                    if (typeDef != null && IsIgnoreGeneric(typeDef))
                     {
                         continue;
                     }
 
-                    if (Helpers.HasTypeParameters(typeArgument))
+                    if (HasTypeParameters(typeArgument))
                     {
                         return true;
                     }
@@ -1241,7 +1241,7 @@ namespace H5.Contract
         private static Regex validIdentifier = new Regex("^[$A-Z_][0-9A-Z_$]*$", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
         public static bool IsValidIdentifier(string name)
         {
-            return Helpers.validIdentifier.IsMatch(name);
+            return validIdentifier.IsMatch(name);
         }
 
         public static int EnumEmitMode(ITypeDefinition type)
@@ -1282,18 +1282,18 @@ namespace H5.Contract
 
         public static bool IsValueEnum(IType type)
         {
-            return Helpers.EnumEmitMode(type) == 2;
+            return EnumEmitMode(type) == 2;
         }
 
         public static bool IsNameEnum(IType type)
         {
-            var enumEmitMode = Helpers.EnumEmitMode(type);
+            var enumEmitMode = EnumEmitMode(type);
             return enumEmitMode == 1 || enumEmitMode > 6;
         }
 
         public static bool IsStringNameEnum(IType type)
         {
-            var mode = Helpers.EnumEmitMode(type);
+            var mode = EnumEmitMode(type);
             return mode >= 3 && mode <= 6;
         }
 
@@ -1362,7 +1362,7 @@ namespace H5.Contract
 
         public static string ReplaceThis(IEmitter emitter, string template, string replacer, IMember member)
         {
-            template = Helpers.ConvertTokens(emitter, template, member);
+            template = ConvertTokens(emitter, template, member);
             return template.Replace("{this}", replacer);
         }
 
@@ -1380,7 +1380,7 @@ namespace H5.Contract
                 comma = true;
             }
 
-            if (!Helpers.IsIgnoreGeneric(method, emitter) && method.TypeArguments.Count > 0)
+            if (!IsIgnoreGeneric(method, emitter) && method.TypeArguments.Count > 0)
             {
                 foreach (var typeParameter in method.TypeArguments)
                 {

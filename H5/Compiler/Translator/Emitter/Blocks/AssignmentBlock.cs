@@ -15,20 +15,20 @@ namespace H5.Translator
         public AssignmentBlock(IEmitter emitter, AssignmentExpression assignmentExpression)
             : base(emitter, assignmentExpression)
         {
-            this.Emitter = emitter;
-            this.AssignmentExpression = assignmentExpression;
+            Emitter = emitter;
+            AssignmentExpression = assignmentExpression;
         }
 
         public AssignmentExpression AssignmentExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.AssignmentExpression;
+            return AssignmentExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            this.VisitAssignmentExpression();
+            VisitAssignmentExpression();
         }
 
         protected bool ResolveOperator(AssignmentExpression assignmentExpression, OperatorResolveResult orr, int initCount, bool thisAssignment)
@@ -37,57 +37,57 @@ namespace H5.Translator
 
             if (method != null)
             {
-                var inline = this.Emitter.GetInline(method);
+                var inline = Emitter.GetInline(method);
 
                 if (!string.IsNullOrWhiteSpace(inline))
                 {
-                    if (this.Emitter.Writers.Count == initCount && !thisAssignment)
+                    if (Emitter.Writers.Count == initCount && !thisAssignment)
                     {
-                        this.Write("= ");
+                        Write("= ");
                     }
 
-                    new InlineArgumentsBlock(this.Emitter,
-                        new ArgumentsInfo(this.Emitter, assignmentExpression, orr, method), inline).Emit();
+                    new InlineArgumentsBlock(Emitter,
+                        new ArgumentsInfo(Emitter, assignmentExpression, orr, method), inline).Emit();
 
-                    if (this.Emitter.Writers.Count > initCount)
+                    if (Emitter.Writers.Count > initCount)
                     {
-                        this.PopWriter();
+                        PopWriter();
                     }
                     return true;
                 }
-                else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
+                else if (!Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
                 {
-                    if (this.Emitter.Writers.Count == initCount && !thisAssignment)
+                    if (Emitter.Writers.Count == initCount && !thisAssignment)
                     {
-                        this.Write("= ");
+                        Write("= ");
                     }
 
                     if (orr.IsLiftedOperator)
                     {
-                        this.Write(JS.Types.SYSTEM_NULLABLE + "." + JS.Funcs.Math.LIFT + ".(");
+                        Write(JS.Types.SYSTEM_NULLABLE + "." + JS.Funcs.Math.LIFT + ".(");
                     }
 
-                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
-                    this.WriteDot();
+                    Write(H5Types.ToJsName(method.DeclaringType, Emitter));
+                    WriteDot();
 
-                    this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
+                    Write(OverloadsCollection.Create(Emitter, method).GetOverloadName());
 
                     if (orr.IsLiftedOperator)
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
                     else
                     {
-                        this.WriteOpenParentheses();
+                        WriteOpenParentheses();
                     }
 
-                    new ExpressionListBlock(this.Emitter,
+                    new ExpressionListBlock(Emitter,
                         new Expression[] { assignmentExpression.Left, assignmentExpression.Right }, null, null, 0).Emit();
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
 
-                    if (this.Emitter.Writers.Count > initCount)
+                    if (Emitter.Writers.Count > initCount)
                     {
-                        this.PopWriter();
+                        PopWriter();
                     }
                     return true;
                 }
@@ -102,13 +102,13 @@ namespace H5.Translator
 
             if (method != null)
             {
-                var inline = this.Emitter.GetInline(method);
+                var inline = Emitter.GetInline(method);
 
                 if (!string.IsNullOrWhiteSpace(inline))
                 {
                     return true;
                 }
-                else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
+                else if (!Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
                 {
                     return true;
                 }
@@ -119,16 +119,16 @@ namespace H5.Translator
 
         protected void VisitAssignmentExpression()
         {
-            AssignmentExpression assignmentExpression = this.AssignmentExpression;
-            var oldAssigment = this.Emitter.IsAssignment;
-            var oldAssigmentType = this.Emitter.AssignmentType;
+            AssignmentExpression assignmentExpression = AssignmentExpression;
+            var oldAssigment = Emitter.IsAssignment;
+            var oldAssigmentType = Emitter.AssignmentType;
             string variable = null;
 
             bool needReturnValue = !(assignmentExpression.Parent is ExpressionStatement);
 
             if (needReturnValue && assignmentExpression.Parent is LambdaExpression)
             {
-                if (this.Emitter.Resolver.ResolveNode(assignmentExpression.Parent, this.Emitter) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
+                if (Emitter.Resolver.ResolveNode(assignmentExpression.Parent, Emitter) is LambdaResolveResult lambdarr && lambdarr.ReturnType.Kind == TypeKind.Void)
                 {
                     needReturnValue = false;
                 }
@@ -136,23 +136,23 @@ namespace H5.Translator
 
             var delegateAssigment = false;
             bool isEvent = false;
-            var initCount = this.Emitter.Writers.Count;
+            var initCount = Emitter.Writers.Count;
 
-            var asyncExpressionHandling = this.Emitter.AsyncExpressionHandling;
+            var asyncExpressionHandling = Emitter.AsyncExpressionHandling;
 
-            this.WriteAwaiters(assignmentExpression.Left);
-            this.WriteAwaiters(assignmentExpression.Right);
+            WriteAwaiters(assignmentExpression.Left);
+            WriteAwaiters(assignmentExpression.Right);
 
-            var leftResolverResult = this.Emitter.Resolver.ResolveNode(assignmentExpression.Left, this.Emitter);
-            var rightResolverResult = this.Emitter.Resolver.ResolveNode(assignmentExpression.Right, this.Emitter);
-            var rr = this.Emitter.Resolver.ResolveNode(assignmentExpression, this.Emitter);
+            var leftResolverResult = Emitter.Resolver.ResolveNode(assignmentExpression.Left, Emitter);
+            var rightResolverResult = Emitter.Resolver.ResolveNode(assignmentExpression.Right, Emitter);
+            var rr = Emitter.Resolver.ResolveNode(assignmentExpression, Emitter);
             var orr = rr as OperatorResolveResult;
-            bool isDecimal = Helpers.IsDecimalType(rr.Type, this.Emitter.Resolver);
-            bool isLong = Helpers.Is64Type(rr.Type, this.Emitter.Resolver);
-            var expectedType = this.Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression);
-            bool isDecimalExpected = Helpers.IsDecimalType(expectedType, this.Emitter.Resolver);
-            bool isLongExpected = Helpers.Is64Type(expectedType, this.Emitter.Resolver);
-            bool isUserOperator = this.IsUserOperator(orr);
+            bool isDecimal = Helpers.IsDecimalType(rr.Type, Emitter.Resolver);
+            bool isLong = Helpers.Is64Type(rr.Type, Emitter.Resolver);
+            var expectedType = Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression);
+            bool isDecimalExpected = Helpers.IsDecimalType(expectedType, Emitter.Resolver);
+            bool isLongExpected = Helpers.Is64Type(expectedType, Emitter.Resolver);
+            bool isUserOperator = IsUserOperator(orr);
 
             var rrType = rr.Type;
 
@@ -165,12 +165,12 @@ namespace H5.Translator
                           rrType.IsKnownType(KnownTypeCode.UInt32) ||
                           rrType.IsKnownType(KnownTypeCode.UInt64);
 
-            if (!isLong && rr.Type.Kind == TypeKind.Enum && Helpers.Is64Type(rr.Type.GetDefinition().EnumUnderlyingType, this.Emitter.Resolver))
+            if (!isLong && rr.Type.Kind == TypeKind.Enum && Helpers.Is64Type(rr.Type.GetDefinition().EnumUnderlyingType, Emitter.Resolver))
             {
                 isLong = true;
             }
 
-            if (!isLongExpected && expectedType.Kind == TypeKind.Enum && Helpers.Is64Type(expectedType.GetDefinition().EnumUnderlyingType, this.Emitter.Resolver))
+            if (!isLongExpected && expectedType.Kind == TypeKind.Enum && Helpers.Is64Type(expectedType.GetDefinition().EnumUnderlyingType, Emitter.Resolver))
             {
                 isLongExpected = true;
             }
@@ -208,159 +208,159 @@ namespace H5.Translator
             {
                 if (needTempVar)
                 {
-                    variable = this.GetTempVarName();
-                    this.Write("(" + variable + " = ");
+                    variable = GetTempVarName();
+                    Write("(" + variable + " = ");
 
-                    var oldValue1 = this.Emitter.ReplaceAwaiterByVar;
-                    this.Emitter.ReplaceAwaiterByVar = true;
-                    assignmentExpression.Right.AcceptVisitor(this.Emitter);
+                    var oldValue1 = Emitter.ReplaceAwaiterByVar;
+                    Emitter.ReplaceAwaiterByVar = true;
+                    assignmentExpression.Right.AcceptVisitor(Emitter);
 
-                    this.Emitter.ReplaceAwaiterByVar = oldValue1;
-                    this.Write(", ");
+                    Emitter.ReplaceAwaiterByVar = oldValue1;
+                    Write(", ");
                 }
                 else
                 {
-                    this.Write("(");
+                    Write("(");
                 }
             }
 
-            if (assignmentExpression.Operator == AssignmentOperatorType.Divide && this.Emitter.Rules.Integer == IntegerRule.Managed &&
-                !(this.Emitter.IsJavaScriptOverflowMode && !ConversionBlock.InsideOverflowContext(this.Emitter, assignmentExpression)) &&
+            if (assignmentExpression.Operator == AssignmentOperatorType.Divide && Emitter.Rules.Integer == IntegerRule.Managed &&
+                !(Emitter.IsJavaScriptOverflowMode && !ConversionBlock.InsideOverflowContext(Emitter, assignmentExpression)) &&
                 !isLong && !isLongExpected &&
                 (
-                    (Helpers.IsIntegerType(leftResolverResult.Type, this.Emitter.Resolver) &&
-                    Helpers.IsIntegerType(rightResolverResult.Type, this.Emitter.Resolver)) ||
+                    (Helpers.IsIntegerType(leftResolverResult.Type, Emitter.Resolver) &&
+                    Helpers.IsIntegerType(rightResolverResult.Type, Emitter.Resolver)) ||
 
-                    (Helpers.IsIntegerType(this.Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression.Left), this.Emitter.Resolver) &&
-                    Helpers.IsIntegerType(this.Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression.Right), this.Emitter.Resolver))
+                    (Helpers.IsIntegerType(Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression.Left), Emitter.Resolver) &&
+                    Helpers.IsIntegerType(Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression.Right), Emitter.Resolver))
                 ))
             {
-                this.Emitter.IsAssignment = true;
-                this.Emitter.AssignmentType = AssignmentOperatorType.Assign;
-                var oldValue1 = this.Emitter.ReplaceAwaiterByVar;
-                this.Emitter.ReplaceAwaiterByVar = true;
-                this.AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
+                Emitter.IsAssignment = true;
+                Emitter.AssignmentType = AssignmentOperatorType.Assign;
+                var oldValue1 = Emitter.ReplaceAwaiterByVar;
+                Emitter.ReplaceAwaiterByVar = true;
+                AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
 
-                if (this.Emitter.Writers.Count == initCount)
+                if (Emitter.Writers.Count == initCount)
                 {
-                    this.Write(" = ");
+                    Write(" = ");
                 }
 
-                this.Emitter.ReplaceAwaiterByVar = oldValue1;
-                this.Emitter.AssignmentType = oldAssigmentType;
-                this.Emitter.IsAssignment = oldAssigment;
+                Emitter.ReplaceAwaiterByVar = oldValue1;
+                Emitter.AssignmentType = oldAssigmentType;
+                Emitter.IsAssignment = oldAssigment;
 
-                this.Write(JS.Types.H5_INT + "." + JS.Funcs.Math.DIV + "(");
-                assignmentExpression.Left.AcceptVisitor(this.Emitter);
-                this.Write(", ");
-                oldValue1 = this.Emitter.ReplaceAwaiterByVar;
-                this.Emitter.ReplaceAwaiterByVar = true;
+                Write(JS.Types.H5_INT + "." + JS.Funcs.Math.DIV + "(");
+                assignmentExpression.Left.AcceptVisitor(Emitter);
+                Write(", ");
+                oldValue1 = Emitter.ReplaceAwaiterByVar;
+                Emitter.ReplaceAwaiterByVar = true;
 
-                assignmentExpression.Right.AcceptVisitor(this.Emitter);
+                assignmentExpression.Right.AcceptVisitor(Emitter);
 
-                this.Write(")");
+                Write(")");
 
-                this.Emitter.ReplaceAwaiterByVar = oldValue1;
-                this.Emitter.AsyncExpressionHandling = asyncExpressionHandling;
+                Emitter.ReplaceAwaiterByVar = oldValue1;
+                Emitter.AsyncExpressionHandling = asyncExpressionHandling;
 
-                if (this.Emitter.Writers.Count > initCount)
+                if (Emitter.Writers.Count > initCount)
                 {
-                    this.PopWriter();
+                    PopWriter();
                 }
 
                 if (needReturnValue && !isField)
                 {
                     if (needTempVar)
                     {
-                        this.Write(", " + variable);
+                        Write(", " + variable);
                     }
                     else
                     {
-                        this.Write(", ");
-                        this.Emitter.IsAssignment = false;
-                        assignmentExpression.Right.AcceptVisitor(this.Emitter);
-                        this.Emitter.IsAssignment = oldAssigment;
+                        Write(", ");
+                        Emitter.IsAssignment = false;
+                        assignmentExpression.Right.AcceptVisitor(Emitter);
+                        Emitter.IsAssignment = oldAssigment;
                     }
                 }
 
                 if (needReturnValue)
                 {
-                    this.Write(")");
+                    Write(")");
                 }
 
                 return;
             }
 
-            if (assignmentExpression.Operator == AssignmentOperatorType.Multiply && this.Emitter.Rules.Integer == IntegerRule.Managed &&
-                !(this.Emitter.IsJavaScriptOverflowMode && !ConversionBlock.InsideOverflowContext(this.Emitter, assignmentExpression)) &&
+            if (assignmentExpression.Operator == AssignmentOperatorType.Multiply && Emitter.Rules.Integer == IntegerRule.Managed &&
+                !(Emitter.IsJavaScriptOverflowMode && !ConversionBlock.InsideOverflowContext(Emitter, assignmentExpression)) &&
                 !isLong && !isLongExpected &&
                 (
-                    (Helpers.IsInteger32Type(leftResolverResult.Type, this.Emitter.Resolver) &&
-                    Helpers.IsInteger32Type(rightResolverResult.Type, this.Emitter.Resolver) &&
-                    Helpers.IsInteger32Type(rr.Type, this.Emitter.Resolver)) ||
+                    (Helpers.IsInteger32Type(leftResolverResult.Type, Emitter.Resolver) &&
+                    Helpers.IsInteger32Type(rightResolverResult.Type, Emitter.Resolver) &&
+                    Helpers.IsInteger32Type(rr.Type, Emitter.Resolver)) ||
 
-                    (Helpers.IsInteger32Type(this.Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression.Left), this.Emitter.Resolver) &&
-                    Helpers.IsInteger32Type(this.Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression.Right), this.Emitter.Resolver) &&
-                    Helpers.IsInteger32Type(rr.Type, this.Emitter.Resolver))
+                    (Helpers.IsInteger32Type(Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression.Left), Emitter.Resolver) &&
+                    Helpers.IsInteger32Type(Emitter.Resolver.Resolver.GetExpectedType(assignmentExpression.Right), Emitter.Resolver) &&
+                    Helpers.IsInteger32Type(rr.Type, Emitter.Resolver))
                 ))
             {
-                this.Emitter.IsAssignment = true;
-                this.Emitter.AssignmentType = AssignmentOperatorType.Assign;
-                var oldValue1 = this.Emitter.ReplaceAwaiterByVar;
-                this.Emitter.ReplaceAwaiterByVar = true;
-                this.AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
+                Emitter.IsAssignment = true;
+                Emitter.AssignmentType = AssignmentOperatorType.Assign;
+                var oldValue1 = Emitter.ReplaceAwaiterByVar;
+                Emitter.ReplaceAwaiterByVar = true;
+                AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
 
-                if (this.Emitter.Writers.Count == initCount)
+                if (Emitter.Writers.Count == initCount)
                 {
-                    this.Write(" = ");
+                    Write(" = ");
                 }
 
-                this.Emitter.ReplaceAwaiterByVar = oldValue1;
-                this.Emitter.AssignmentType = oldAssigmentType;
-                this.Emitter.IsAssignment = oldAssigment;
+                Emitter.ReplaceAwaiterByVar = oldValue1;
+                Emitter.AssignmentType = oldAssigmentType;
+                Emitter.IsAssignment = oldAssigment;
 
                 isUint = NullableType.GetUnderlyingType(rr.Type).IsKnownType(KnownTypeCode.UInt32);
-                this.Write(JS.Types.H5_INT + "." + (isUint ? JS.Funcs.Math.UMUL : JS.Funcs.Math.MUL) + "(");
-                assignmentExpression.Left.AcceptVisitor(this.Emitter);
-                this.Write(", ");
-                oldValue1 = this.Emitter.ReplaceAwaiterByVar;
-                this.Emitter.ReplaceAwaiterByVar = true;
+                Write(JS.Types.H5_INT + "." + (isUint ? JS.Funcs.Math.UMUL : JS.Funcs.Math.MUL) + "(");
+                assignmentExpression.Left.AcceptVisitor(Emitter);
+                Write(", ");
+                oldValue1 = Emitter.ReplaceAwaiterByVar;
+                Emitter.ReplaceAwaiterByVar = true;
 
-                assignmentExpression.Right.AcceptVisitor(this.Emitter);
+                assignmentExpression.Right.AcceptVisitor(Emitter);
 
-                if (ConversionBlock.IsInCheckedContext(this.Emitter, assignmentExpression))
+                if (ConversionBlock.IsInCheckedContext(Emitter, assignmentExpression))
                 {
-                    this.Write(", 1");
+                    Write(", 1");
                 }
 
-                this.Write(")");
+                Write(")");
 
-                this.Emitter.ReplaceAwaiterByVar = oldValue1;
-                this.Emitter.AsyncExpressionHandling = asyncExpressionHandling;
+                Emitter.ReplaceAwaiterByVar = oldValue1;
+                Emitter.AsyncExpressionHandling = asyncExpressionHandling;
 
-                if (this.Emitter.Writers.Count > initCount)
+                if (Emitter.Writers.Count > initCount)
                 {
-                    this.PopWriter();
+                    PopWriter();
                 }
 
                 if (needReturnValue && !isField)
                 {
                     if (needTempVar)
                     {
-                        this.Write(", " + variable);
+                        Write(", " + variable);
                     }
                     else
                     {
-                        this.Write(", ");
-                        this.Emitter.IsAssignment = false;
-                        assignmentExpression.Right.AcceptVisitor(this.Emitter);
-                        this.Emitter.IsAssignment = oldAssigment;
+                        Write(", ");
+                        Emitter.IsAssignment = false;
+                        assignmentExpression.Right.AcceptVisitor(Emitter);
+                        Emitter.IsAssignment = oldAssigment;
                     }
                 }
 
                 if (needReturnValue)
                 {
-                    this.Write(")");
+                    Write(")");
                 }
 
                 return;
@@ -373,33 +373,33 @@ namespace H5.Translator
             {
                 var add = assignmentExpression.Operator == AssignmentOperatorType.Add;
 
-                if (this.Emitter.Validator.IsDelegateOrLambda(leftResolverResult))
+                if (Emitter.Validator.IsDelegateOrLambda(leftResolverResult))
                 {
                     delegateAssigment = true;
 
                     if (leftResolverResult is MemberResolveResult leftMemberResolveResult)
                     {
                         isEvent = leftMemberResolveResult.Member is IEvent;
-                        this.Emitter.IsAssignment = true;
-                        this.Emitter.AssignmentType = assignmentExpression.Operator;
-                        templateDelegateAssigment = !string.IsNullOrWhiteSpace(this.Emitter.GetInline(leftMemberResolveResult.Member));
-                        this.Emitter.IsAssignment = false;
+                        Emitter.IsAssignment = true;
+                        Emitter.AssignmentType = assignmentExpression.Operator;
+                        templateDelegateAssigment = !string.IsNullOrWhiteSpace(Emitter.GetInline(leftMemberResolveResult.Member));
+                        Emitter.IsAssignment = false;
                     }
 
                     if (!isEvent)
                     {
-                        this.Emitter.IsAssignment = true;
-                        this.Emitter.AssignmentType = AssignmentOperatorType.Assign;
-                        this.AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
-                        this.Emitter.IsAssignment = false;
+                        Emitter.IsAssignment = true;
+                        Emitter.AssignmentType = AssignmentOperatorType.Assign;
+                        AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
+                        Emitter.IsAssignment = false;
 
-                        if (this.Emitter.Writers.Count == initCount)
+                        if (Emitter.Writers.Count == initCount)
                         {
-                            this.Write(" = ");
+                            Write(" = ");
                         }
 
-                        this.Write(add ? JS.Funcs.H5_COMBINE : JS.Funcs.H5_REMOVE);
-                        this.WriteOpenParentheses();
+                        Write(add ? JS.Funcs.H5_COMBINE : JS.Funcs.H5_REMOVE);
+                        WriteOpenParentheses();
                     }
                 }
             }
@@ -409,10 +409,10 @@ namespace H5.Translator
 
             bool special = nullable;
 
-            this.Emitter.IsAssignment = true;
-            this.Emitter.AssignmentType = assignmentExpression.Operator;
-            var oldValue = this.Emitter.ReplaceAwaiterByVar;
-            this.Emitter.ReplaceAwaiterByVar = true;
+            Emitter.IsAssignment = true;
+            Emitter.AssignmentType = assignmentExpression.Operator;
+            var oldValue = Emitter.ReplaceAwaiterByVar;
+            Emitter.ReplaceAwaiterByVar = true;
 
             bool thisAssignment = leftResolverResult is ThisResolveResult;
 
@@ -420,119 +420,119 @@ namespace H5.Translator
             {
                 if (special || (isDecimal && isDecimalExpected) || (isLong && isLongExpected) || isUserOperator)
                 {
-                    this.Emitter.AssignmentType = AssignmentOperatorType.Assign;
+                    Emitter.AssignmentType = AssignmentOperatorType.Assign;
                 }
 
                 if (delegateAssigment && !isEvent)
                 {
-                    this.Emitter.IsAssignment = false;
+                    Emitter.IsAssignment = false;
                 }
 
-                this.AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
+                AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
 
                 if (delegateAssigment)
                 {
-                    this.Emitter.IsAssignment = true;
+                    Emitter.IsAssignment = true;
                 }
             }
             else
             {
-                this.Write("(");
+                Write("(");
             }
 
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
-            this.Emitter.AssignmentType = oldAssigmentType;
-            this.Emitter.IsAssignment = oldAssigment;
+            Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.AssignmentType = oldAssigmentType;
+            Emitter.IsAssignment = oldAssigment;
 
-            if (this.Emitter.Writers.Count == initCount && !delegateAssigment && !thisAssignment)
+            if (Emitter.Writers.Count == initCount && !delegateAssigment && !thisAssignment)
             {
-                this.WriteSpace();
+                WriteSpace();
             }
 
             if (isDecimal && isDecimalExpected)
             {
-                if (this.Emitter.Writers.Count == initCount)
+                if (Emitter.Writers.Count == initCount)
                 {
-                    this.Write("= ");
+                    Write("= ");
                 }
 
-                oldValue = this.Emitter.ReplaceAwaiterByVar;
-                this.Emitter.ReplaceAwaiterByVar = true;
+                oldValue = Emitter.ReplaceAwaiterByVar;
+                Emitter.ReplaceAwaiterByVar = true;
 
-                this.HandleDecimal(rr, variable);
+                HandleDecimal(rr, variable);
 
-                if (this.Emitter.Writers.Count > initCount)
+                if (Emitter.Writers.Count > initCount)
                 {
-                    this.PopWriter();
+                    PopWriter();
                 }
 
                 if (needTempVar)
                 {
-                    this.Write(", " + variable + ")");
+                    Write(", " + variable + ")");
                 }
                 else if (needReturnValue)
                 {
                     if (!isField)
                     {
-                        this.Write(", ");
-                        this.Emitter.IsAssignment = false;
-                        assignmentExpression.Right.AcceptVisitor(this.Emitter);
-                        this.Emitter.IsAssignment = oldAssigment;
+                        Write(", ");
+                        Emitter.IsAssignment = false;
+                        assignmentExpression.Right.AcceptVisitor(Emitter);
+                        Emitter.IsAssignment = oldAssigment;
                     }
 
-                    this.Write(")");
+                    Write(")");
                 }
 
-                this.Emitter.ReplaceAwaiterByVar = oldValue;
+                Emitter.ReplaceAwaiterByVar = oldValue;
                 return;
             }
 
             if (isLong && isLongExpected)
             {
-                if (this.Emitter.Writers.Count == initCount)
+                if (Emitter.Writers.Count == initCount)
                 {
-                    this.Write("= ");
+                    Write("= ");
                 }
 
-                oldValue = this.Emitter.ReplaceAwaiterByVar;
-                this.Emitter.ReplaceAwaiterByVar = true;
+                oldValue = Emitter.ReplaceAwaiterByVar;
+                Emitter.ReplaceAwaiterByVar = true;
 
-                this.HandleLong(rr, variable, isUint);
+                HandleLong(rr, variable, isUint);
 
-                if (this.Emitter.Writers.Count > initCount)
+                if (Emitter.Writers.Count > initCount)
                 {
-                    this.PopWriter();
+                    PopWriter();
                 }
 
                 if (needTempVar)
                 {
-                    this.Write(", " + variable + ")");
+                    Write(", " + variable + ")");
                 }
                 else if (needReturnValue)
                 {
                     if (!isField)
                     {
-                        this.Write(", ");
-                        this.Emitter.IsAssignment = false;
-                        assignmentExpression.Right.AcceptVisitor(this.Emitter);
-                        this.Emitter.IsAssignment = oldAssigment;
+                        Write(", ");
+                        Emitter.IsAssignment = false;
+                        assignmentExpression.Right.AcceptVisitor(Emitter);
+                        Emitter.IsAssignment = oldAssigment;
                     }
 
-                    this.Write(")");
+                    Write(")");
                 }
-                this.Emitter.ReplaceAwaiterByVar = oldValue;
+                Emitter.ReplaceAwaiterByVar = oldValue;
                 return;
             }
 
-            if (this.ResolveOperator(assignmentExpression, orr, initCount, thisAssignment))
+            if (ResolveOperator(assignmentExpression, orr, initCount, thisAssignment))
             {
                 if (thisAssignment)
                 {
-                    this.Write(")." + JS.Funcs.CLONE + "(this)");
+                    Write(")." + JS.Funcs.CLONE + "(this)");
                 }
                 else if (needReturnValue)
                 {
-                    this.Write(")");
+                    Write(")");
                 }
                 return;
             }
@@ -549,52 +549,52 @@ namespace H5.Translator
                             break;
 
                         case AssignmentOperatorType.Add:
-                            this.Write("+");
+                            Write("+");
                             break;
 
                         case AssignmentOperatorType.BitwiseAnd:
                             if (!isBool)
                             {
-                                this.Write("&");
+                                Write("&");
                             }
                             break;
 
                         case AssignmentOperatorType.BitwiseOr:
                             if (!isBool)
                             {
-                                this.Write("|");
+                                Write("|");
                             }
 
                             break;
 
                         case AssignmentOperatorType.Divide:
-                            this.Write("/");
+                            Write("/");
                             break;
 
                         case AssignmentOperatorType.ExclusiveOr:
                             if (!isBool) {
-                                this.Write("^");
+                                Write("^");
                             }
                             break;
 
                         case AssignmentOperatorType.Modulus:
-                            this.Write("%");
+                            Write("%");
                             break;
 
                         case AssignmentOperatorType.Multiply:
-                            this.Write("*");
+                            Write("*");
                             break;
 
                         case AssignmentOperatorType.ShiftLeft:
-                            this.Write("<<");
+                            Write("<<");
                             break;
 
                         case AssignmentOperatorType.ShiftRight:
-                            this.Write(isUint ? ">>>" : ">>");
+                            Write(isUint ? ">>>" : ">>");
                             break;
 
                         case AssignmentOperatorType.Subtract:
-                            this.Write("-");
+                            Write("-");
                             break;
 
                         default:
@@ -605,11 +605,11 @@ namespace H5.Translator
 
                 if (special)
                 {
-                    if (this.Emitter.Writers.Count == initCount)
+                    if (Emitter.Writers.Count == initCount)
                     {
-                        this.Write("= ");
+                        Write("= ");
                     }
-                    this.Write(root);
+                    Write(root);
 
                     switch (assignmentExpression.Operator)
                     {
@@ -617,43 +617,43 @@ namespace H5.Translator
                             break;
 
                         case AssignmentOperatorType.Add:
-                            this.Write(JS.Funcs.Math.ADD);
+                            Write(JS.Funcs.Math.ADD);
                             break;
 
                         case AssignmentOperatorType.BitwiseAnd:
-                            this.Write(isBool ? JS.Funcs.Math.AND : JS.Funcs.Math.BAND);
+                            Write(isBool ? JS.Funcs.Math.AND : JS.Funcs.Math.BAND);
                             break;
 
                         case AssignmentOperatorType.BitwiseOr:
-                            this.Write(isBool ? JS.Funcs.Math.OR : JS.Funcs.Math.BOR);
+                            Write(isBool ? JS.Funcs.Math.OR : JS.Funcs.Math.BOR);
                             break;
 
                         case AssignmentOperatorType.Divide:
-                            this.Write(JS.Funcs.Math.DIV);
+                            Write(JS.Funcs.Math.DIV);
                             break;
 
                         case AssignmentOperatorType.ExclusiveOr:
-                            this.Write(JS.Funcs.Math.XOR);
+                            Write(JS.Funcs.Math.XOR);
                             break;
 
                         case AssignmentOperatorType.Modulus:
-                            this.Write(JS.Funcs.Math.MOD);
+                            Write(JS.Funcs.Math.MOD);
                             break;
 
                         case AssignmentOperatorType.Multiply:
-                            this.Write(JS.Funcs.Math.MUL);
+                            Write(JS.Funcs.Math.MUL);
                             break;
 
                         case AssignmentOperatorType.ShiftLeft:
-                            this.Write(JS.Funcs.Math.SL);
+                            Write(JS.Funcs.Math.SL);
                             break;
 
                         case AssignmentOperatorType.ShiftRight:
-                            this.Write(isUint ? JS.Funcs.Math.SRR : JS.Funcs.Math.SR);
+                            Write(isUint ? JS.Funcs.Math.SRR : JS.Funcs.Math.SR);
                             break;
 
                         case AssignmentOperatorType.Subtract:
-                            this.Write(JS.Funcs.Math.SUB);
+                            Write(JS.Funcs.Math.SUB);
                             break;
 
                         default:
@@ -661,30 +661,30 @@ namespace H5.Translator
                                 "Unsupported assignment operator: " + assignmentExpression.Operator.ToString());
                     }
 
-                    this.WriteOpenParentheses();
+                    WriteOpenParentheses();
 
-                    assignmentExpression.Left.AcceptVisitor(this.Emitter);
-                    this.Write(", ");
+                    assignmentExpression.Left.AcceptVisitor(Emitter);
+                    Write(", ");
                 }
 
-                if (this.Emitter.Writers.Count == initCount && !thisAssignment && !special)
+                if (Emitter.Writers.Count == initCount && !thisAssignment && !special)
                 {
-                    this.Write("= ");
+                    Write("= ");
                 }
             }
             else if (!isEvent)
             {
-                this.WriteComma();
+                WriteComma();
             }
 
             if (!special && isBool && (assignmentExpression.Operator == AssignmentOperatorType.BitwiseAnd || assignmentExpression.Operator == AssignmentOperatorType.BitwiseOr || assignmentExpression.Operator == AssignmentOperatorType.ExclusiveOr))
             {
                 if (assignmentExpression.Operator != AssignmentOperatorType.ExclusiveOr)
                 {
-                    this.Write("!!(");
+                    Write("!!(");
                 }
 
-                assignmentExpression.Left.AcceptVisitor(this.Emitter);
+                assignmentExpression.Left.AcceptVisitor(Emitter);
 
                 string op = null;
                 switch(assignmentExpression.Operator)
@@ -699,39 +699,39 @@ namespace H5.Translator
                         op = " != ";
                         break;
                 }
-                this.Write(op);
+                Write(op);
             }
 
-            oldValue = this.Emitter.ReplaceAwaiterByVar;
-            this.Emitter.ReplaceAwaiterByVar = true;
+            oldValue = Emitter.ReplaceAwaiterByVar;
+            Emitter.ReplaceAwaiterByVar = true;
 
             if (charToString == 1)
             {
-                this.Write(JS.Funcs.STRING_FROMCHARCODE + "(");
+                Write(JS.Funcs.STRING_FROMCHARCODE + "(");
             }
 
             if (needTempVar)
             {
-                int pos = this.Emitter.Output.Length;
-                this.Write(variable);
+                int pos = Emitter.Output.Length;
+                Write(variable);
                 Helpers.CheckValueTypeClone(rr, assignmentExpression.Right, this, pos);
             }
             else
             {
                 var wrap = assignmentExpression.Operator != AssignmentOperatorType.Assign
-                    && this.Emitter.Writers.Count > initCount
+                    && Emitter.Writers.Count > initCount
                     && !AssigmentExpressionHelper.CheckIsRightAssigmentExpression(assignmentExpression);
 
                 if (wrap)
                 {
-                    this.WriteOpenParentheses();
+                    WriteOpenParentheses();
                 }
 
-                assignmentExpression.Right.AcceptVisitor(this.Emitter);
+                assignmentExpression.Right.AcceptVisitor(Emitter);
 
                 if (wrap)
                 {
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
                 }
             }
 
@@ -739,117 +739,117 @@ namespace H5.Translator
                 (assignmentExpression.Operator == AssignmentOperatorType.BitwiseAnd ||
                  assignmentExpression.Operator == AssignmentOperatorType.BitwiseOr))
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
 
             if (charToString == 1)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
 
             if (special)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
 
             if (thisAssignment)
             {
-                this.Write(")." + JS.Funcs.CLONE + "(this)");
+                Write(")." + JS.Funcs.CLONE + "(this)");
             }
 
-            this.Emitter.ReplaceAwaiterByVar = oldValue;
-            this.Emitter.AsyncExpressionHandling = asyncExpressionHandling;
+            Emitter.ReplaceAwaiterByVar = oldValue;
+            Emitter.AsyncExpressionHandling = asyncExpressionHandling;
 
-            if (this.Emitter.Writers.Count > initCount)
+            if (Emitter.Writers.Count > initCount)
             {
-                var writerCount = this.Emitter.Writers.Count;
+                var writerCount = Emitter.Writers.Count;
                 for (int i = initCount; i < writerCount; i++)
                 {
-                    this.PopWriter();
+                    PopWriter();
                 }
             }
 
             if (delegateAssigment && !templateDelegateAssigment)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
 
             if (needTempVar)
             {
-                this.Write(", " + variable + ")");
+                Write(", " + variable + ")");
             }
             else if (needReturnValue)
             {
                 if (!isField)
                 {
-                    this.Write(", ");
-                    this.Emitter.IsAssignment = false;
-                    assignmentExpression.Right.AcceptVisitor(this.Emitter);
-                    this.Emitter.IsAssignment = oldAssigment;
+                    Write(", ");
+                    Emitter.IsAssignment = false;
+                    assignmentExpression.Right.AcceptVisitor(Emitter);
+                    Emitter.IsAssignment = oldAssigment;
                 }
 
-                this.Write(")");
+                Write(")");
             }
         }
 
         private void AcceptLeftExpression(Expression left, ResolveResult rr)
         {
-            if (!this.Emitter.InConstructor || !(rr is MemberResolveResult mrr) || !(mrr.Member is IProperty) || mrr.Member.IsStatic || mrr.Member.DeclaringTypeDefinition == null || !mrr.Member.DeclaringTypeDefinition.Equals(this.Emitter.TypeInfo.Type))
+            if (!Emitter.InConstructor || !(rr is MemberResolveResult mrr) || !(mrr.Member is IProperty) || mrr.Member.IsStatic || mrr.Member.DeclaringTypeDefinition == null || !mrr.Member.DeclaringTypeDefinition.Equals(Emitter.TypeInfo.Type))
             {
-                left.AcceptVisitor(this.Emitter);
+                left.AcceptVisitor(Emitter);
             }
             else
             {
                 var property = (IProperty)mrr.Member;
                 var proto = mrr.IsVirtualCall || property.IsVirtual || property.IsOverride;
 
-                var td = this.Emitter.GetTypeDefinition();
+                var td = Emitter.GetTypeDefinition();
                 var prop = td.Properties.FirstOrDefault(p => p.Name == mrr.Member.Name);
 
                 if (proto && prop != null && prop.SetMethod == null)
                 {
-                    var name = OverloadsCollection.Create(this.Emitter, mrr.Member).GetOverloadName();
-                    this.Write(JS.Types.H5.ENSURE_BASE_PROPERTY + "(this, \"" + name + "\"");
+                    var name = OverloadsCollection.Create(Emitter, mrr.Member).GetOverloadName();
+                    Write(JS.Types.H5.ENSURE_BASE_PROPERTY + "(this, \"" + name + "\"");
 
-                    if (this.Emitter.Validator.IsExternalType(property.DeclaringTypeDefinition) && !this.Emitter.Validator.IsH5Class(property.DeclaringTypeDefinition))
+                    if (Emitter.Validator.IsExternalType(property.DeclaringTypeDefinition) && !Emitter.Validator.IsH5Class(property.DeclaringTypeDefinition))
                     {
-                        this.Write(", \"" + H5Types.ToJsName(property.DeclaringType, this.Emitter, isAlias: true) + "\"");
+                        Write(", \"" + H5Types.ToJsName(property.DeclaringType, Emitter, isAlias: true) + "\"");
                     }
 
-                    this.Write(")");
+                    Write(")");
 
-                    this.WriteDot();
-                    var alias = H5Types.ToJsName(mrr.Member.DeclaringType, this.Emitter, isAlias: true);
+                    WriteDot();
+                    var alias = H5Types.ToJsName(mrr.Member.DeclaringType, Emitter, isAlias: true);
                     if (alias.StartsWith("\""))
                     {
                         alias = alias.Insert(1, "$");
                         name = alias + "+\"$" + name + "\"";
-                        this.WriteIdentifier(name, false);
+                        WriteIdentifier(name, false);
                     }
                     else
                     {
                         name = "$" + alias + "$" + name;
-                        this.WriteIdentifier(name);
+                        WriteIdentifier(name);
                     }
                 }
                 else
                 {
-                    left.AcceptVisitor(this.Emitter);
+                    left.AcceptVisitor(Emitter);
                 }
             }
         }
 
         private void HandleType(ResolveResult resolveOperator, string variable, string op_name, KnownTypeCode typeCode)
         {
-            if (this.AssignmentExpression.Operator == AssignmentOperatorType.Assign)
+            if (AssignmentExpression.Operator == AssignmentOperatorType.Assign)
             {
                 if (variable != null)
                 {
-                    this.Write(variable);
+                    Write(variable);
                 }
                 else
                 {
-                    new ExpressionListBlock(this.Emitter, new Expression[] { this.AssignmentExpression.Right }, null, null, 0).Emit();
+                    new ExpressionListBlock(Emitter, new Expression[] { AssignmentExpression.Right }, null, null, 0).Emit();
                 }
 
                 return;
@@ -857,7 +857,7 @@ namespace H5.Translator
 
             var orr = resolveOperator as OperatorResolveResult;
             var method = orr?.UserDefinedOperatorMethod;
-            var assigmentType = Helpers.TypeOfAssignment(this.AssignmentExpression.Operator);
+            var assigmentType = Helpers.TypeOfAssignment(AssignmentExpression.Operator);
             if (orr != null && method == null)
             {
                 var name = Helpers.GetBinaryOperatorMethodName(assigmentType);
@@ -867,108 +867,108 @@ namespace H5.Translator
 
             if (method != null)
             {
-                var inline = this.Emitter.GetInline(method);
+                var inline = Emitter.GetInline(method);
 
                 if (orr.IsLiftedOperator)
                 {
-                    this.Write(JS.Types.SYSTEM_NULLABLE + ".");
+                    Write(JS.Types.SYSTEM_NULLABLE + ".");
                     string action = JS.Funcs.Math.LIFT2;
 
-                    this.Write(action);
-                    this.WriteOpenParentheses();
-                    this.WriteScript(op_name);
-                    this.WriteComma();
+                    Write(action);
+                    WriteOpenParentheses();
+                    WriteScript(op_name);
+                    WriteComma();
                     if (variable != null)
                     {
-                        new ExpressionListBlock(this.Emitter, new Expression[] { this.AssignmentExpression.Left }, null, null, 0).Emit();
+                        new ExpressionListBlock(Emitter, new Expression[] { AssignmentExpression.Left }, null, null, 0).Emit();
                     }
                     else
                     {
-                        new ExpressionListBlock(this.Emitter, new Expression[] { this.AssignmentExpression.Left, this.AssignmentExpression.Right }, null, null, 0).Emit();
+                        new ExpressionListBlock(Emitter, new Expression[] { AssignmentExpression.Left, AssignmentExpression.Right }, null, null, 0).Emit();
                     }
-                    this.AddOveflowFlag(typeCode, op_name);
-                    this.WriteCloseParentheses();
+                    AddOveflowFlag(typeCode, op_name);
+                    WriteCloseParentheses();
                 }
                 else if (!string.IsNullOrWhiteSpace(inline))
                 {
-                    new InlineArgumentsBlock(this.Emitter,
-                        new ArgumentsInfo(this.Emitter, this.AssignmentExpression, orr, method), inline).Emit();
+                    new InlineArgumentsBlock(Emitter,
+                        new ArgumentsInfo(Emitter, AssignmentExpression, orr, method), inline).Emit();
                 }
-                else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
+                else if (!Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
                 {
-                    this.Write(H5Types.ToJsName(method.DeclaringType, this.Emitter));
-                    this.WriteDot();
+                    Write(H5Types.ToJsName(method.DeclaringType, Emitter));
+                    WriteDot();
 
-                    this.Write(OverloadsCollection.Create(this.Emitter, method).GetOverloadName());
+                    Write(OverloadsCollection.Create(Emitter, method).GetOverloadName());
 
-                    this.WriteOpenParentheses();
+                    WriteOpenParentheses();
 
                     if (variable != null)
                     {
-                        new ExpressionListBlock(this.Emitter, new Expression[] { this.AssignmentExpression.Left }, null, null, 0).Emit();
-                        this.Write(", " + variable);
+                        new ExpressionListBlock(Emitter, new Expression[] { AssignmentExpression.Left }, null, null, 0).Emit();
+                        Write(", " + variable);
                     }
                     else
                     {
-                        new ExpressionListBlock(this.Emitter, new Expression[] { this.AssignmentExpression.Left, this.AssignmentExpression.Right }, null, null, 0).Emit();
+                        new ExpressionListBlock(Emitter, new Expression[] { AssignmentExpression.Left, AssignmentExpression.Right }, null, null, 0).Emit();
                     }
 
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
                 }
             }
             else
             {
                 if (orr.IsLiftedOperator)
                 {
-                    this.Write(JS.Types.SYSTEM_NULLABLE + ".");
+                    Write(JS.Types.SYSTEM_NULLABLE + ".");
                     string action = JS.Funcs.Math.LIFT2;
 
-                    this.Write(action);
-                    this.WriteOpenParentheses();
-                    this.WriteScript(op_name);
-                    this.WriteComma();
+                    Write(action);
+                    WriteOpenParentheses();
+                    WriteScript(op_name);
+                    WriteComma();
                     if (variable != null)
                     {
-                        new ExpressionListBlock(this.Emitter, new Expression[] { this.AssignmentExpression.Left }, null, null, 0).Emit();
+                        new ExpressionListBlock(Emitter, new Expression[] { AssignmentExpression.Left }, null, null, 0).Emit();
                     }
                     else
                     {
-                        new ExpressionListBlock(this.Emitter, new Expression[] { this.AssignmentExpression.Left, this.AssignmentExpression.Right }, null, null, 0).Emit();
+                        new ExpressionListBlock(Emitter, new Expression[] { AssignmentExpression.Left, AssignmentExpression.Right }, null, null, 0).Emit();
                     }
-                    this.AddOveflowFlag(typeCode, op_name);
-                    this.WriteCloseParentheses();
+                    AddOveflowFlag(typeCode, op_name);
+                    WriteCloseParentheses();
                 }
                 else
                 {
-                    this.AssignmentExpression.Left.AcceptVisitor(this.Emitter);
-                    this.WriteDot();
-                    this.Write(op_name);
-                    this.WriteOpenParentheses();
-                    this.AssignmentExpression.Right.AcceptVisitor(this.Emitter);
-                    this.AddOveflowFlag(typeCode, op_name);
-                    this.WriteCloseParentheses();
+                    AssignmentExpression.Left.AcceptVisitor(Emitter);
+                    WriteDot();
+                    Write(op_name);
+                    WriteOpenParentheses();
+                    AssignmentExpression.Right.AcceptVisitor(Emitter);
+                    AddOveflowFlag(typeCode, op_name);
+                    WriteCloseParentheses();
                 }
             }
         }
 
         private void AddOveflowFlag(KnownTypeCode typeCode, string op_name)
         {
-            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && ConversionBlock.IsInCheckedContext(this.Emitter, this.AssignmentExpression))
+            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && ConversionBlock.IsInCheckedContext(Emitter, AssignmentExpression))
             {
                 if (op_name == JS.Funcs.Math.ADD || op_name == JS.Funcs.Math.SUB || op_name == JS.Funcs.Math.MUL)
                 {
-                    this.Write(", 1");
+                    Write(", 1");
                 }
             }
         }
 
         private void HandleDecimal(ResolveResult resolveOperator, string variable)
         {
-            var assigmentType = Helpers.TypeOfAssignment(this.AssignmentExpression.Operator);
+            var assigmentType = Helpers.TypeOfAssignment(AssignmentExpression.Operator);
 
             string op_name = null;
 
-            if (this.AssignmentExpression.Operator != AssignmentOperatorType.Assign)
+            if (AssignmentExpression.Operator != AssignmentOperatorType.Assign)
             {
                 switch (assigmentType)
                 {
@@ -1020,15 +1020,15 @@ namespace H5.Translator
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            this.HandleType(resolveOperator, variable, op_name, KnownTypeCode.Decimal);
+            HandleType(resolveOperator, variable, op_name, KnownTypeCode.Decimal);
         }
 
         private void HandleLong(ResolveResult resolveOperator, string variable, bool isUnsigned)
         {
-            var assigmentType = Helpers.TypeOfAssignment(this.AssignmentExpression.Operator);
+            var assigmentType = Helpers.TypeOfAssignment(AssignmentExpression.Operator);
 
             string op_name = null;
-            if (this.AssignmentExpression.Operator != AssignmentOperatorType.Assign)
+            if (AssignmentExpression.Operator != AssignmentOperatorType.Assign)
             {
                 switch (assigmentType)
                 {
@@ -1101,7 +1101,7 @@ namespace H5.Translator
                 }
             }
 
-            this.HandleType(resolveOperator, variable, op_name, isUnsigned ? KnownTypeCode.UInt64 : KnownTypeCode.Int64);
+            HandleType(resolveOperator, variable, op_name, isUnsigned ? KnownTypeCode.UInt64 : KnownTypeCode.Int64);
         }
     }
 }

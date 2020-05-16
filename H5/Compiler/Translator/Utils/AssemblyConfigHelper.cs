@@ -18,7 +18,7 @@ namespace H5.Translator.Utils
 
         public AssemblyConfigHelper()
         {
-            this.helper = new ConfigHelper<AssemblyInfo>();
+            helper = new ConfigHelper<AssemblyInfo>();
         }
 
         public IAssemblyInfo ReadConfig(string configFileName, string location, string configuration)

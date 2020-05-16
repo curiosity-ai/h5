@@ -15,18 +15,18 @@ namespace H5.Translator
             public Analyzer(SemanticModel semanticModel)
             {
                 _semanticModel = semanticModel;
-                this.Awaiters = new HashSet<AwaitExpressionSyntax>();
+                Awaiters = new HashSet<AwaitExpressionSyntax>();
             }
 
             public void Analyze(SyntaxNode node)
             {
-                this.Awaiters.Clear();
+                Awaiters.Clear();
                 Visit(node);
             }
 
             public override void VisitAwaitExpression(AwaitExpressionSyntax node)
             {
-                this.Awaiters.Add(node);
+                Awaiters.Add(node);
                 base.VisitAwaitExpression(node);
             }
         }

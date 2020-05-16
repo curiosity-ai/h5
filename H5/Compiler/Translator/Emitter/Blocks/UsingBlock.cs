@@ -12,8 +12,8 @@ namespace H5.Translator
         public UsingBlock(IEmitter emitter, UsingStatement usingStatement)
             : base(emitter, usingStatement)
         {
-            this.Emitter = emitter;
-            this.UsingStatement = usingStatement;
+            Emitter = emitter;
+            UsingStatement = usingStatement;
         }
 
         public UsingStatement UsingStatement { get; set; }
@@ -22,15 +22,15 @@ namespace H5.Translator
         {
             IEnumerable<AstNode> inner = null;
 
-            var res = this.UsingStatement.ResourceAcquisition;
+            var res = UsingStatement.ResourceAcquisition;
             if (res is VariableDeclarationStatement varStat)
             {
-                this.VariableDeclarationStatement = varStat;
+                VariableDeclarationStatement = varStat;
                 inner = varStat.Variables.Skip(1);
                 res = varStat.Variables.First();
             }
 
-            this.EmitUsing(res, inner);
+            EmitUsing(res, inner);
         }
 
         public VariableDeclarationStatement VariableDeclarationStatement
@@ -44,11 +44,11 @@ namespace H5.Translator
             string name = null;
             bool isReferenceLocal = false;
 
-            this.PushLocals();
+            PushLocals();
 
             if (expression is VariableInitializer varInit)
             {
-                var block = new VariableBlock(this.Emitter, this.VariableDeclarationStatement);
+                var block = new VariableBlock(Emitter, VariableDeclarationStatement);
                 block.Emit();
                 name = block.lastVarName;
                 isReferenceLocal = block.lastIsReferenceLocal;
@@ -69,19 +69,19 @@ namespace H5.Translator
             }
             else if (expression is IdentifierExpression)
             {
-                var resolveResult = this.Emitter.Resolver.ResolveNode(expression, this.Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(expression, Emitter);
                 var id = ((IdentifierExpression)expression).Identifier;
 
-                if (this.Emitter.Locals != null && this.Emitter.Locals.ContainsKey(id) && resolveResult is LocalResolveResult)
+                if (Emitter.Locals != null && Emitter.Locals.ContainsKey(id) && resolveResult is LocalResolveResult)
                 {
                     var lrr = (LocalResolveResult)resolveResult;
-                    if (this.Emitter.LocalsMap != null && this.Emitter.LocalsMap.ContainsKey(lrr.Variable) && !(expression.Parent is DirectionExpression))
+                    if (Emitter.LocalsMap != null && Emitter.LocalsMap.ContainsKey(lrr.Variable) && !(expression.Parent is DirectionExpression))
                     {
-                        name = this.Emitter.LocalsMap[lrr.Variable];
+                        name = Emitter.LocalsMap[lrr.Variable];
                     }
-                    else if (this.Emitter.LocalsNamesMap != null && this.Emitter.LocalsNamesMap.ContainsKey(id))
+                    else if (Emitter.LocalsNamesMap != null && Emitter.LocalsNamesMap.ContainsKey(id))
                     {
-                        name = this.Emitter.LocalsNamesMap[id];
+                        name = Emitter.LocalsNamesMap[id];
                     }
                     else
                     {
@@ -92,63 +92,63 @@ namespace H5.Translator
 
             if (name == null)
             {
-                temp = this.GetTempVarName();
+                temp = GetTempVarName();
                 name = temp;
-                this.Write(temp);
-                this.Write(" = ");
-                expression.AcceptVisitor(this.Emitter);
-                this.WriteSemiColon();
-                this.WriteNewLine();
+                Write(temp);
+                Write(" = ");
+                expression.AcceptVisitor(Emitter);
+                WriteSemiColon();
+                WriteNewLine();
             }
 
-            this.WriteTry();
+            WriteTry();
 
             if (inner != null && inner.Any())
             {
-                this.BeginBlock();
-                this.EmitUsing(inner.First(), inner.Skip(1));
-                this.EndBlock();
-                this.WriteNewLine();
+                BeginBlock();
+                EmitUsing(inner.First(), inner.Skip(1));
+                EndBlock();
+                WriteNewLine();
             }
             else
             {
-                bool block = this.UsingStatement.EmbeddedStatement is BlockStatement;
+                bool block = UsingStatement.EmbeddedStatement is BlockStatement;
 
                 if (!block)
                 {
-                    this.BeginBlock();
+                    BeginBlock();
                 }
 
-                this.UsingStatement.EmbeddedStatement.AcceptVisitor(this.Emitter);
+                UsingStatement.EmbeddedStatement.AcceptVisitor(Emitter);
 
                 if (!block)
                 {
-                    this.EndBlock();
-                    this.WriteNewLine();
+                    EndBlock();
+                    WriteNewLine();
                 }
             }
 
-            this.WriteFinally();
-            this.BeginBlock();
+            WriteFinally();
+            BeginBlock();
 
-            this.Write("if (" + JS.Funcs.H5_HASVALUE + "(" + name + ")) ");
-            this.BeginBlock();
-            this.Write(name);
-            this.Write(".");
-            this.Write(JS.Funcs.DISPOSE);
-            this.Write("();");
-            this.WriteNewLine();
-            this.EndBlock();
-            this.WriteNewLine();
-            this.EndBlock();
-            this.WriteNewLine();
+            Write("if (" + JS.Funcs.H5_HASVALUE + "(" + name + ")) ");
+            BeginBlock();
+            Write(name);
+            Write(".");
+            Write(JS.Funcs.DISPOSE);
+            Write("();");
+            WriteNewLine();
+            EndBlock();
+            WriteNewLine();
+            EndBlock();
+            WriteNewLine();
 
             if (temp != null)
             {
-                this.RemoveTempVar(temp);
+                RemoveTempVar(temp);
             }
 
-            this.PopLocals();
+            PopLocals();
         }
     }
 }

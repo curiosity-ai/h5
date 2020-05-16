@@ -23,10 +23,10 @@ namespace H5.Translator
 
         public SourceLocation(String sourceUrl, String sourceName, int line, int column)
         {
-            this.SourceUrl = sourceUrl;
-            this.SourceName = sourceName;
-            this.Line = line;
-            this.Column = column;
+            SourceUrl = sourceUrl;
+            SourceName = sourceName;
+            Line = line;
+            Column = column;
         }
     }
 }

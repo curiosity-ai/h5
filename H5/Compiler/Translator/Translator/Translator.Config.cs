@@ -37,7 +37,7 @@ namespace H5.Translator
             this.Log.Trace("ApplyProjectPropertiesToConfig...");
 
             var configReader = new AssemblyConfigHelper(this.Log);
-            configReader.ApplyTokens(this.AssemblyInfo, this.ProjectProperties);
+            configReader.ApplyTokens(AssemblyInfo, ProjectProperties);
 
             this.Log.Trace("ApplyProjectPropertiesToConfig done");
         }

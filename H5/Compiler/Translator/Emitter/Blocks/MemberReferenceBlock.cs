@@ -18,20 +18,20 @@ namespace H5.Translator
         public MemberReferenceBlock(IEmitter emitter, MemberReferenceExpression memberReferenceExpression)
             : base(emitter, memberReferenceExpression)
         {
-            this.Emitter = emitter;
-            this.MemberReferenceExpression = memberReferenceExpression;
+            Emitter = emitter;
+            MemberReferenceExpression = memberReferenceExpression;
         }
 
         public MemberReferenceExpression MemberReferenceExpression { get; set; }
 
         protected override Expression GetExpression()
         {
-            return this.MemberReferenceExpression;
+            return MemberReferenceExpression;
         }
 
         protected override void EmitConversionExpression()
         {
-            this.VisitMemberReferenceExpression();
+            VisitMemberReferenceExpression();
         }
 
         protected string WriteTarget(ResolveResult resolveResult, bool isInterfaceMember, MemberResolveResult memberTargetrr, ResolveResult targetrr, bool openParentheses)
@@ -41,14 +41,14 @@ namespace H5.Translator
             {
                 MemberResolveResult member = resolveResult as MemberResolveResult;
                 bool nativeImplementation = true;
-                var externalInterface = member != null && this.Emitter.Validator.IsExternalInterface(member.Member.DeclaringTypeDefinition, out nativeImplementation);
+                var externalInterface = member != null && Emitter.Validator.IsExternalInterface(member.Member.DeclaringTypeDefinition, out nativeImplementation);
                 bool isField = memberTargetrr != null && memberTargetrr.Member is IField && (memberTargetrr.TargetResult is ThisResolveResult || memberTargetrr.TargetResult is LocalResolveResult);
                 bool variance = false;
 
                 if (member != null)
                 {
                     var itypeDef = member.Member.DeclaringTypeDefinition;
-                    variance = MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
+                    variance = MetadataUtils.IsJsGeneric(itypeDef, Emitter) &&
                         itypeDef.TypeParameters != null &&
                         itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant);
                 }
@@ -57,16 +57,16 @@ namespace H5.Translator
                 {
                     if (openParentheses)
                     {
-                        this.WriteOpenParentheses();
+                        WriteOpenParentheses();
                     }
 
-                    interfaceTempVar = this.GetTempVarName();
-                    this.Write(interfaceTempVar);
-                    this.Write(" = ");
+                    interfaceTempVar = GetTempVarName();
+                    Write(interfaceTempVar);
+                    Write(" = ");
                 }
             }
 
-            this.WriteSimpleTarget(resolveResult);
+            WriteSimpleTarget(resolveResult);
 
             return interfaceTempVar;
         }
@@ -75,7 +75,7 @@ namespace H5.Translator
         {
             if (!(resolveResult is MemberResolveResult member) || !member.Member.IsStatic)
             {
-                this.MemberReferenceExpression.Target.AcceptVisitor(this.Emitter);
+                MemberReferenceExpression.Target.AcceptVisitor(Emitter);
                 return;
             }
 
@@ -83,21 +83,21 @@ namespace H5.Translator
             var imember = member.Member;
             if ((imethod != null && imethod.IsExtensionMethod) || imember == null)
             {
-                this.MemberReferenceExpression.Target.AcceptVisitor(this.Emitter);
+                MemberReferenceExpression.Target.AcceptVisitor(Emitter);
                 return;
             }
-            var target = H5Types.ToJsName(member.Member.DeclaringType, this.Emitter, ignoreLiteralName: false);
-            this.NoTarget = string.IsNullOrWhiteSpace(target);
+            var target = H5Types.ToJsName(member.Member.DeclaringType, Emitter, ignoreLiteralName: false);
+            NoTarget = string.IsNullOrWhiteSpace(target);
 
             if (member.Member.IsStatic
                 && target != CS.NS.H5
                 && !Validator.IsTypeFromH5ButNotFromH5Core(target)
-                && this.MemberReferenceExpression.Target.ToString().StartsWith(CS.NS.GLOBAL))
+                && MemberReferenceExpression.Target.ToString().StartsWith(CS.NS.GLOBAL))
             {
-                this.Write(JS.Types.H5.Global.DOTNAME);
+                Write(JS.Types.H5.Global.DOTNAME);
             }
 
-            this.Write(target);
+            Write(target);
         }
 
         public bool NoTarget
@@ -108,81 +108,81 @@ namespace H5.Translator
         private void WriteInterfaceMember(string interfaceTempVar, MemberResolveResult resolveResult, bool isSetter, string prefix = null)
         {
             var itypeDef = resolveResult.Member.DeclaringTypeDefinition;
-            var externalInterface = this.Emitter.Validator.IsExternalInterface(itypeDef);
-            bool variance = MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
+            var externalInterface = Emitter.Validator.IsExternalInterface(itypeDef);
+            bool variance = MetadataUtils.IsJsGeneric(itypeDef, Emitter) &&
                 itypeDef.TypeParameters != null &&
                 itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant);
 
             if (interfaceTempVar != null && externalInterface == null && !variance)
             {
-                this.WriteComma();
-                this.Write(interfaceTempVar);
+                WriteComma();
+                Write(interfaceTempVar);
             }
 
             if (externalInterface != null && externalInterface.IsDualImplementation || variance)
             {
                 if (interfaceTempVar != null)
                 {
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
                 }
 
-                this.WriteOpenBracket();
-                this.Write(JS.Funcs.H5_GET_I);
-                this.WriteOpenParentheses();
+                WriteOpenBracket();
+                Write(JS.Funcs.H5_GET_I);
+                WriteOpenParentheses();
 
                 if (interfaceTempVar != null)
                 {
-                    this.Write(interfaceTempVar);
+                    Write(interfaceTempVar);
                 }
                 else
                 {
-                    this.WriteSimpleTarget(resolveResult);
+                    WriteSimpleTarget(resolveResult);
                 }
 
-                this.WriteComma();
+                WriteComma();
 
                 var interfaceName = OverloadsCollection.Create(Emitter, resolveResult.Member, isSetter).GetOverloadName(false, prefix);
 
                 if (interfaceName.StartsWith("\""))
                 {
-                    this.Write(interfaceName);
+                    Write(interfaceName);
                 }
                 else
                 {
-                    this.WriteScript(interfaceName);
+                    WriteScript(interfaceName);
                 }
 
                 if (variance)
                 {
-                    this.WriteComma();
-                    this.WriteScript(OverloadsCollection.Create(Emitter, resolveResult.Member, isSetter).GetOverloadName(false, prefix, withoutTypeParams: true));
+                    WriteComma();
+                    WriteScript(OverloadsCollection.Create(Emitter, resolveResult.Member, isSetter).GetOverloadName(false, prefix, withoutTypeParams: true));
                 }
 
                 /*this.WriteComma();
                 this.WriteScript(OverloadsCollection.Create(Emitter, resolveResult.Member, isSetter).GetOverloadName(true, prefix));*/
 
-                this.Write(")");
-                this.WriteCloseBracket();
+                Write(")");
+                WriteCloseBracket();
 
                 return;
             }
 
-            this.WriteOpenBracket();
-            this.Write(OverloadsCollection.Create(Emitter, resolveResult.Member, isSetter).GetOverloadName(externalInterface != null && externalInterface.IsSimpleImplementation, prefix));
-            this.WriteCloseBracket();
+            WriteOpenBracket();
+            Write(OverloadsCollection.Create(Emitter, resolveResult.Member, isSetter).GetOverloadName(externalInterface != null && externalInterface.IsSimpleImplementation, prefix));
+            WriteCloseBracket();
 
             if (interfaceTempVar != null)
             {
-                this.WriteCloseParentheses();
+                WriteCloseParentheses();
             }
         }
 
         protected void VisitMemberReferenceExpression()
         {
-            MemberReferenceExpression memberReferenceExpression = this.MemberReferenceExpression;
-            int pos = this.Emitter.Output.Length;
-            bool isRefArg = this.Emitter.IsRefArg;
-            this.Emitter.IsRefArg = false;
+            MemberReferenceExpression memberReferenceExpression = MemberReferenceExpression;
+            int pos = Emitter.Output.Length;
+            bool isRefArg = Emitter.IsRefArg;
+            Emitter.IsRefArg = false;
 
             ResolveResult resolveResult = null;
             ResolveResult expressionResolveResult = null;
@@ -191,7 +191,7 @@ namespace H5.Translator
             bool isStatement = false;
             bool isConstTarget = false;
 
-            var targetrr = this.Emitter.Resolver.ResolveNode(memberReferenceExpression.Target, this.Emitter);
+            var targetrr = Emitter.Resolver.ResolveNode(memberReferenceExpression.Target, Emitter);
             if (targetrr is ConstantResolveResult)
             {
                 isConstTarget = true;
@@ -214,8 +214,8 @@ namespace H5.Translator
             var isInvoke = memberReferenceExpression.Parent is InvocationExpression && (((InvocationExpression)(memberReferenceExpression.Parent)).Target == memberReferenceExpression);
             if (isInvoke)
             {
-                resolveResult = this.Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, this.Emitter);
-                expressionResolveResult = this.Emitter.Resolver.ResolveNode(memberReferenceExpression, this.Emitter);
+                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, Emitter);
+                expressionResolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression, Emitter);
 
                 if (expressionResolveResult is InvocationResolveResult)
                 {
@@ -231,30 +231,30 @@ namespace H5.Translator
             }
             else
             {
-                resolveResult = this.Emitter.Resolver.ResolveNode(memberReferenceExpression, this.Emitter);
+                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression, Emitter);
             }
 
-            bool oldIsAssignment = this.Emitter.IsAssignment;
-            bool oldUnary = this.Emitter.IsUnaryAccessor;
+            bool oldIsAssignment = Emitter.IsAssignment;
+            bool oldUnary = Emitter.IsUnaryAccessor;
 
             if (resolveResult == null)
             {
-                this.Emitter.IsAssignment = false;
-                this.Emitter.IsUnaryAccessor = false;
+                Emitter.IsAssignment = false;
+                Emitter.IsUnaryAccessor = false;
                 if (isConstTarget)
                 {
-                    this.Write("(");
+                    Write("(");
                 }
-                memberReferenceExpression.Target.AcceptVisitor(this.Emitter);
+                memberReferenceExpression.Target.AcceptVisitor(Emitter);
                 if (isConstTarget)
                 {
-                    this.Write(")");
+                    Write(")");
                 }
-                this.Emitter.IsAssignment = oldIsAssignment;
-                this.Emitter.IsUnaryAccessor = oldUnary;
-                this.WriteDot();
+                Emitter.IsAssignment = oldIsAssignment;
+                Emitter.IsUnaryAccessor = oldUnary;
+                WriteDot();
                 string name = memberReferenceExpression.MemberName;
-                this.Write(name.ToLowerCamelCase());
+                Write(name.ToLowerCamelCase());
 
                 return;
             }
@@ -277,7 +277,7 @@ namespace H5.Translator
 
                             if (argType.Kind == TypeKind.Dynamic)
                             {
-                                argType = this.Emitter.Resolver.Compilation.FindType(TypeCode.Object);
+                                argType = Emitter.Resolver.Compilation.FindType(TypeCode.Object);
                             }
 
                             if (!m.Parameters[i].Type.Equals(argType))
@@ -297,7 +297,7 @@ namespace H5.Translator
 
             if (resolveResult is MethodGroupResolveResult oldResult)
             {
-                resolveResult = this.Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, this.Emitter);
+                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, Emitter);
 
                 if (resolveResult is DynamicInvocationResolveResult)
                 {
@@ -307,17 +307,17 @@ namespace H5.Translator
             }
 
             MemberResolveResult member = resolveResult as MemberResolveResult;
-            var globalTarget = member != null ? this.Emitter.IsGlobalTarget(member.Member) : null;
+            var globalTarget = member != null ? Emitter.IsGlobalTarget(member.Member) : null;
 
             if (member != null &&
                 member.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.NonScriptableAttribute"))
             {
-                throw new EmitterException(this.MemberReferenceExpression, "Member " + member.ToString() + " is marked as not usable from script");
+                throw new EmitterException(MemberReferenceExpression, "Member " + member.ToString() + " is marked as not usable from script");
             }
 
             if (!(resolveResult is InvocationResolveResult) && member != null && member.Member is IMethod)
             {
-                var interceptor = this.Emitter.Plugins.OnReference(this, this.MemberReferenceExpression, member);
+                var interceptor = Emitter.Plugins.OnReference(this, MemberReferenceExpression, member);
 
                 if (interceptor.Cancel)
                 {
@@ -326,7 +326,7 @@ namespace H5.Translator
 
                 if (!string.IsNullOrEmpty(interceptor.Replacement))
                 {
-                    this.Write(interceptor.Replacement);
+                    Write(interceptor.Replacement);
                     return;
                 }
             }
@@ -363,11 +363,11 @@ namespace H5.Translator
                     {
                         if (resolveResult is InvocationResolveResult)
                         {
-                            this.PushWriter(target);
+                            PushWriter(target);
                         }
                         else
                         {
-                            this.Write(target);
+                            Write(target);
                         }
 
                         return;
@@ -376,13 +376,13 @@ namespace H5.Translator
 
                 if (resolveResult is InvocationResolveResult)
                 {
-                    this.PushWriter("");
+                    PushWriter("");
                 }
 
                 return;
             }
 
-            Tuple<bool, bool, string> inlineInfo = member != null ? (isDynamic ? ((Emitter)this.Emitter).GetInlineCodeFromMember(member.Member, null) : this.Emitter.GetInlineCode(memberReferenceExpression)) : null;
+            Tuple<bool, bool, string> inlineInfo = member != null ? (isDynamic ? ((Emitter)Emitter).GetInlineCodeFromMember(member.Member, null) : Emitter.GetInlineCode(memberReferenceExpression)) : null;
             //string inline = member != null ? this.Emitter.GetInline(member.Member) : null;
             string inline = inlineInfo?.Item3;
 
@@ -402,16 +402,16 @@ namespace H5.Translator
                     var method = (IMethod)member.Member;
                     if (method.TypeArguments.Count > 0 || method.IsExtensionMethod)
                     {
-                        inline = MemberReferenceBlock.GenerateInlineForMethodReference(method, this.Emitter);
+                        inline = MemberReferenceBlock.GenerateInlineForMethodReference(method, Emitter);
                     }
                 }
             }
 
             if (member != null && member.Member is IMethod && isInvoke)
             {
-                if (this.Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, this.Emitter) is CSharpInvocationResolveResult i_rr && !i_rr.IsExpandedForm)
+                if (Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, Emitter) is CSharpInvocationResolveResult i_rr && !i_rr.IsExpandedForm)
                 {
-                    var tpl = this.Emitter.GetAttribute(member.Member.Attributes, JS.NS.H5 + ".TemplateAttribute");
+                    var tpl = Emitter.GetAttribute(member.Member.Attributes, JS.NS.H5 + ".TemplateAttribute");
 
                     if (tpl != null && tpl.PositionalArguments.Count == 2)
                     {
@@ -422,7 +422,7 @@ namespace H5.Translator
 
             bool hasInline = !string.IsNullOrEmpty(inline);
             bool hasThis = hasInline && Helpers.HasThis(inline);
-            inline = hasInline ? Helpers.ConvertTokens(this.Emitter, inline, member.Member) : inline;
+            inline = hasInline ? Helpers.ConvertTokens(Emitter, inline, member.Member) : inline;
             bool isInterfaceMember = false;
 
             if (hasInline && inline.StartsWith("<self>"))
@@ -437,7 +437,7 @@ namespace H5.Translator
             if (isInterface)
             {
                 var itypeDef = member.Member.DeclaringTypeDefinition;
-                var variance = MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
+                var variance = MetadataUtils.IsJsGeneric(itypeDef, Emitter) &&
                     itypeDef.TypeParameters != null &&
                     itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant);
 
@@ -447,7 +447,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var ei = this.Emitter.Validator.IsExternalInterface(itypeDef);
+                    var ei = Emitter.Validator.IsExternalInterface(itypeDef);
 
                     if (ei != null)
                     {
@@ -456,7 +456,7 @@ namespace H5.Translator
                     else
                     {
                         nativeImplementation = member.Member.DeclaringTypeDefinition.ParentAssembly.AssemblyName == CS.NS.H5 ||
-                                               !this.Emitter.Validator.IsExternalType(member.Member.DeclaringTypeDefinition);
+                                               !Emitter.Validator.IsExternalType(member.Member.DeclaringTypeDefinition);
                     }
 
                     if (ei != null && ei.IsSimpleImplementation)
@@ -478,32 +478,32 @@ namespace H5.Translator
 
             if (hasThis)
             {
-                this.Write("");
-                var oldBuilder = this.Emitter.Output;
+                Write("");
+                var oldBuilder = Emitter.Output;
                 var oldInline = inline;
                 string thisArg = null;
                 bool isSimple = true;
 
-                if (this.MemberReferenceExpression.Target is BaseReferenceExpression)
+                if (MemberReferenceExpression.Target is BaseReferenceExpression)
                 {
                     thisArg = "this";
                 }
                 else
                 {
-                    this.Emitter.Output = new StringBuilder();
-                    this.Emitter.IsAssignment = false;
-                    this.Emitter.IsUnaryAccessor = false;
+                    Emitter.Output = new StringBuilder();
+                    Emitter.IsAssignment = false;
+                    Emitter.IsUnaryAccessor = false;
                     if (isConstTarget)
                     {
-                        this.Write("(");
+                        Write("(");
                     }
-                    this.WriteSimpleTarget(resolveResult);
+                    WriteSimpleTarget(resolveResult);
                     if (isConstTarget)
                     {
-                        this.Write(")");
+                        Write(")");
                     }
 
-                    thisArg = this.Emitter.Output.ToString();
+                    thisArg = Emitter.Output.ToString();
 
                     if (Regex.Matches(inline, @"\{(\*?)this\}").Count > 1)
                     {
@@ -517,13 +517,13 @@ namespace H5.Translator
                 }
 
                 int thisIndex;
-                inline = member != null ? Helpers.ConvertTokens(this.Emitter, inline, member.Member) : inline;
+                inline = member != null ? Helpers.ConvertTokens(Emitter, inline, member.Member) : inline;
                 if (!isSimple)
                 {
                     StringBuilder sb = new StringBuilder();
 
                     sb.Append("(");
-                    var tempVar = this.GetTempVarName();
+                    var tempVar = GetTempVarName();
                     inline = inline.Replace("{this}", tempVar);
                     thisIndex = tempVar.Length + 2;
 
@@ -545,28 +545,28 @@ namespace H5.Translator
 
                 if (member != null && member.Member is IProperty)
                 {
-                    this.Emitter.Output = new StringBuilder();
+                    Emitter.Output = new StringBuilder();
                     inline = inline.Replace("{0}", "[[0]]");
-                    new InlineArgumentsBlock(this.Emitter, new ArgumentsInfo(this.Emitter, memberReferenceExpression, resolveResult), inline).Emit();
-                    inline = this.Emitter.Output.ToString();
+                    new InlineArgumentsBlock(Emitter, new ArgumentsInfo(Emitter, memberReferenceExpression, resolveResult), inline).Emit();
+                    inline = Emitter.Output.ToString();
                     inline = inline.Replace("[[0]]", "{0}");
                 }
                 else if (member != null && member.Member is IEvent)
                 {
-                    this.Emitter.Output = new StringBuilder();
+                    Emitter.Output = new StringBuilder();
                     inline = inline.Replace("{0}", "[[0]]");
-                    new InlineArgumentsBlock(this.Emitter, new ArgumentsInfo(this.Emitter, memberReferenceExpression, resolveResult), inline).Emit();
-                    inline = this.Emitter.Output.ToString();
+                    new InlineArgumentsBlock(Emitter, new ArgumentsInfo(Emitter, memberReferenceExpression, resolveResult), inline).Emit();
+                    inline = Emitter.Output.ToString();
                     inline = inline.Replace("[[0]]", "{0}");
                 }
 
-                this.Emitter.Output = new StringBuilder(inline);
-                Helpers.CheckValueTypeClone(resolveResult, this.MemberReferenceExpression, this, pos);
-                inline = this.Emitter.Output.ToString();
+                Emitter.Output = new StringBuilder(inline);
+                Helpers.CheckValueTypeClone(resolveResult, MemberReferenceExpression, this, pos);
+                inline = Emitter.Output.ToString();
 
-                this.Emitter.IsAssignment = oldIsAssignment;
-                this.Emitter.IsUnaryAccessor = oldUnary;
-                this.Emitter.Output = oldBuilder;
+                Emitter.IsAssignment = oldIsAssignment;
+                Emitter.IsUnaryAccessor = oldUnary;
+                Emitter.Output = oldBuilder;
 
                 int[] range = null;
 
@@ -577,68 +577,68 @@ namespace H5.Translator
 
                 if (resolveResult is InvocationResolveResult)
                 {
-                    this.PushWriter(inline, null, thisArg, range);
+                    PushWriter(inline, null, thisArg, range);
                 }
                 else
                 {
                     if (member != null && member.Member is IMethod)
                     {
-                        new InlineArgumentsBlock(this.Emitter, new ArgumentsInfo(this.Emitter, memberReferenceExpression, resolveResult), oldInline, (IMethod)member.Member, targetrr).EmitFunctionReference();
+                        new InlineArgumentsBlock(Emitter, new ArgumentsInfo(Emitter, memberReferenceExpression, resolveResult), oldInline, (IMethod)member.Member, targetrr).EmitFunctionReference();
                     }
                     else if (member != null && member.Member is IField && inline.Contains("{0}"))
                     {
-                        this.PushWriter(inline, null, thisArg, range);
+                        PushWriter(inline, null, thisArg, range);
                     }
                     else if (InlineArgumentsBlock.FormatArgRegex.IsMatch(inline))
                     {
-                        this.PushWriter(inline, null, thisArg, range);
+                        PushWriter(inline, null, thisArg, range);
                     }
                     else
                     {
-                        this.Write(inline);
+                        Write(inline);
                     }
                 }
 
                 return;
             }
 
-            if (member != null && member.Member.SymbolKind == SymbolKind.Field && this.Emitter.IsMemberConst(member.Member) && this.Emitter.IsInlineConst(member.Member))
+            if (member != null && member.Member.SymbolKind == SymbolKind.Field && Emitter.IsMemberConst(member.Member) && Emitter.IsInlineConst(member.Member))
             {
                 bool wrap = false;
 
                 if (memberReferenceExpression.Parent is MemberReferenceExpression parentExpression)
                 {
-                    var ii = this.Emitter.GetInlineCode(parentExpression);
+                    var ii = Emitter.GetInlineCode(parentExpression);
 
                     if (string.IsNullOrEmpty(ii.Item3))
                     {
                         wrap = true;
-                        this.WriteOpenParentheses();
+                        WriteOpenParentheses();
                     }
                 }
 
-                this.WriteScript(H5.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, this.Emitter));
+                WriteScript(H5.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, Emitter));
 
                 if (wrap)
                 {
-                    this.WriteCloseParentheses();
+                    WriteCloseParentheses();
                 }
             }
             else if (hasInline && member.Member.IsStatic)
             {
                 if (resolveResult is InvocationResolveResult)
                 {
-                    this.PushWriter(inline);
+                    PushWriter(inline);
                 }
                 else
                 {
                     if (member != null && member.Member is IMethod)
                     {
-                        new InlineArgumentsBlock(this.Emitter, new ArgumentsInfo(this.Emitter, memberReferenceExpression, resolveResult), inline, (IMethod)member.Member, targetrr).EmitFunctionReference();
+                        new InlineArgumentsBlock(Emitter, new ArgumentsInfo(Emitter, memberReferenceExpression, resolveResult), inline, (IMethod)member.Member, targetrr).EmitFunctionReference();
                     }
                     else
                     {
-                        new InlineArgumentsBlock(this.Emitter, new ArgumentsInfo(this.Emitter, memberReferenceExpression, resolveResult), inline).Emit();
+                        new InlineArgumentsBlock(Emitter, new ArgumentsInfo(Emitter, memberReferenceExpression, resolveResult), inline).Emit();
                     }
                 }
             }
@@ -650,17 +650,17 @@ namespace H5.Translator
                     {
                         var enumMode = Helpers.EnumEmitMode(typeDef);
 
-                        if ((this.Emitter.Validator.IsExternalType(typeDef) && enumMode == -1) || enumMode == 2)
+                        if ((Emitter.Validator.IsExternalType(typeDef) && enumMode == -1) || enumMode == 2)
                         {
-                            this.WriteScript(member.ConstantValue);
+                            WriteScript(member.ConstantValue);
 
                             return;
                         }
 
                         if (enumMode >= 3 && enumMode < 7)
                         {
-                            string enumStringName = this.Emitter.GetEntityName(member.Member);
-                            this.WriteScript(enumStringName);
+                            string enumStringName = Emitter.GetEntityName(member.Member);
+                            WriteScript(enumStringName);
                             return;
                         }
                     }
@@ -668,7 +668,7 @@ namespace H5.Translator
 
                 if (resolveResult is TypeResolveResult typeResolveResult)
                 {
-                    this.Write(H5Types.ToJsName(typeResolveResult.Type, this.Emitter));
+                    Write(H5Types.ToJsName(typeResolveResult.Type, Emitter));
                     return;
                 }
                 else
@@ -690,18 +690,18 @@ namespace H5.Translator
                             {
                                 if (!(resolveResult is InvocationResolveResult) && member != null && member.Member is IMethod)
                                 {
-                                    new InlineArgumentsBlock(this.Emitter,
-                                        new ArgumentsInfo(this.Emitter, memberReferenceExpression, resolveResult), inline,
+                                    new InlineArgumentsBlock(Emitter,
+                                        new ArgumentsInfo(Emitter, memberReferenceExpression, resolveResult), inline,
                                         (IMethod)member.Member, targetrr).EmitFunctionReference();
                                 }
                                 else if (resolveResult is InvocationResolveResult ||
-                                         (member.Member.SymbolKind == SymbolKind.Property && this.Emitter.IsAssignment))
+                                         (member.Member.SymbolKind == SymbolKind.Property && Emitter.IsAssignment))
                                 {
-                                    this.PushWriter(inline);
+                                    PushWriter(inline);
                                 }
                                 else
                                 {
-                                    this.Write(inline);
+                                    Write(inline);
                                 }
                             }
                             else
@@ -711,72 +711,72 @@ namespace H5.Translator
 
                                 var isExtensionMethod = resolvedMethod.IsExtensionMethod;
 
-                                this.Emitter.IsAssignment = false;
-                                this.Emitter.IsUnaryAccessor = false;
+                                Emitter.IsAssignment = false;
+                                Emitter.IsUnaryAccessor = false;
 
                                 if (!isStatic)
                                 {
-                                    this.Write(isExtensionMethod ? JS.Funcs.H5_BIND_SCOPE : JS.Funcs.H5_CACHE_BIND);
-                                    this.WriteOpenParentheses();
+                                    Write(isExtensionMethod ? JS.Funcs.H5_BIND_SCOPE : JS.Funcs.H5_CACHE_BIND);
+                                    WriteOpenParentheses();
 
                                     if (memberReferenceExpression.Target is BaseReferenceExpression)
                                     {
-                                        this.WriteThis();
+                                        WriteThis();
                                     }
                                     else
                                     {
-                                        interfaceTempVar = this.WriteTarget(resolveResult, isInterfaceMember, memberTargetrr, targetrr, false);
+                                        interfaceTempVar = WriteTarget(resolveResult, isInterfaceMember, memberTargetrr, targetrr, false);
                                     }
 
-                                    this.Write(", ");
+                                    Write(", ");
                                 }
 
-                                this.Emitter.IsAssignment = oldIsAssignment;
-                                this.Emitter.IsUnaryAccessor = oldUnary;
+                                Emitter.IsAssignment = oldIsAssignment;
+                                Emitter.IsUnaryAccessor = oldUnary;
 
                                 if (isExtensionMethod)
                                 {
-                                    this.Write(H5Types.ToJsName(resolvedMethod.DeclaringType, this.Emitter));
+                                    Write(H5Types.ToJsName(resolvedMethod.DeclaringType, Emitter));
                                 }
                                 else
                                 {
-                                    this.Emitter.IsAssignment = false;
-                                    this.Emitter.IsUnaryAccessor = false;
+                                    Emitter.IsAssignment = false;
+                                    Emitter.IsUnaryAccessor = false;
                                     if (isConstTarget)
                                     {
-                                        this.Write("(");
+                                        Write("(");
                                     }
 
                                     if (interfaceTempVar != null)
                                     {
-                                        this.Write(interfaceTempVar);
+                                        Write(interfaceTempVar);
                                     }
                                     else
                                     {
-                                        this.WriteSimpleTarget(resolveResult);
+                                        WriteSimpleTarget(resolveResult);
                                     }
 
                                     if (isConstTarget)
                                     {
-                                        this.Write(")");
+                                        Write(")");
                                     }
-                                    this.Emitter.IsAssignment = oldIsAssignment;
-                                    this.Emitter.IsUnaryAccessor = oldUnary;
+                                    Emitter.IsAssignment = oldIsAssignment;
+                                    Emitter.IsUnaryAccessor = oldUnary;
                                 }
 
                                 if (isInterfaceMember)
                                 {
-                                    this.WriteInterfaceMember(interfaceTempVar, member, false);
+                                    WriteInterfaceMember(interfaceTempVar, member, false);
                                 }
                                 else
                                 {
-                                    this.WriteDot();
-                                    this.Write(OverloadsCollection.Create(this.Emitter, member.Member).GetOverloadName(!nativeImplementation));
+                                    WriteDot();
+                                    Write(OverloadsCollection.Create(Emitter, member.Member).GetOverloadName(!nativeImplementation));
                                 }
 
                                 if (!isStatic)
                                 {
-                                    this.Write(")");
+                                    Write(")");
                                 }
                             }
 
@@ -786,16 +786,16 @@ namespace H5.Translator
 
                     bool isProperty = false;
 
-                    if (member != null && member.Member.SymbolKind == SymbolKind.Property && (member.Member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition)))
+                    if (member != null && member.Member.SymbolKind == SymbolKind.Property && (member.Member.DeclaringTypeDefinition == null || !Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition)))
                     {
                         isProperty = true;
                         bool writeTargetVar = false;
 
-                        if (this.Emitter.IsAssignment && this.Emitter.AssignmentType != AssignmentOperatorType.Assign)
+                        if (Emitter.IsAssignment && Emitter.AssignmentType != AssignmentOperatorType.Assign)
                         {
                             writeTargetVar = true;
                         }
-                        else if (this.Emitter.IsUnaryAccessor)
+                        else if (Emitter.IsUnaryAccessor)
                         {
                             writeTargetVar = true;
 
@@ -808,7 +808,7 @@ namespace H5.Translator
 
                             if (!isStatement)
                             {
-                                this.WriteOpenParentheses();
+                                WriteOpenParentheses();
                             }
                         }
 
@@ -818,36 +818,36 @@ namespace H5.Translator
 
                             if (!(targetrr is ThisResolveResult || targetrr is TypeResolveResult || targetrr is LocalResolveResult || isField))
                             {
-                                targetVar = this.GetTempVarName();
+                                targetVar = GetTempVarName();
 
-                                this.Write(targetVar);
-                                this.Write(" = ");
+                                Write(targetVar);
+                                Write(" = ");
                             }
                         }
                     }
 
-                    if (isProperty && this.Emitter.IsUnaryAccessor && !isStatement && targetVar == null)
+                    if (isProperty && Emitter.IsUnaryAccessor && !isStatement && targetVar == null)
                     {
-                        valueVar = this.GetTempVarName();
+                        valueVar = GetTempVarName();
 
-                        this.Write(valueVar);
-                        this.Write(" = ");
+                        Write(valueVar);
+                        Write(" = ");
                     }
 
-                    this.Emitter.IsAssignment = false;
-                    this.Emitter.IsUnaryAccessor = false;
+                    Emitter.IsAssignment = false;
+                    Emitter.IsUnaryAccessor = false;
                     if (isConstTarget)
                     {
-                        this.Write("(");
+                        Write("(");
                     }
 
                     if (targetVar == null && isInterfaceMember)
                     {
-                        interfaceTempVar = this.WriteTarget(resolveResult, isInterfaceMember, memberTargetrr, targetrr, true);
+                        interfaceTempVar = WriteTarget(resolveResult, isInterfaceMember, memberTargetrr, targetrr, true);
                     }
                     else
                     {
-                        this.WriteSimpleTarget(resolveResult);
+                        WriteSimpleTarget(resolveResult);
                     }
 
                     if (member != null && targetrr != null && targetrr.Type.Kind == TypeKind.Delegate && (member.Member.Name == "Invoke"))
@@ -860,43 +860,43 @@ namespace H5.Translator
 
                     if (isConstTarget)
                     {
-                        this.Write(")");
+                        Write(")");
                     }
-                    this.Emitter.IsAssignment = oldIsAssignment;
-                    this.Emitter.IsUnaryAccessor = oldUnary;
+                    Emitter.IsAssignment = oldIsAssignment;
+                    Emitter.IsUnaryAccessor = oldUnary;
 
                     if (targetVar != null)
                     {
-                        if (this.Emitter.IsUnaryAccessor && !isStatement)
+                        if (Emitter.IsUnaryAccessor && !isStatement)
                         {
-                            this.WriteComma(false);
+                            WriteComma(false);
 
-                            valueVar = this.GetTempVarName();
+                            valueVar = GetTempVarName();
 
-                            this.Write(valueVar);
-                            this.Write(" = ");
+                            Write(valueVar);
+                            Write(" = ");
 
-                            this.Write(targetVar);
+                            Write(targetVar);
                         }
                         else
                         {
-                            this.WriteSemiColon();
-                            this.WriteNewLine();
-                            this.Write(targetVar);
+                            WriteSemiColon();
+                            WriteNewLine();
+                            Write(targetVar);
                         }
                     }
                 }
 
 
-                if (!(targetrr is MemberResolveResult targetResolveResult) || this.Emitter.IsGlobalTarget(targetResolveResult.Member) == null)
+                if (!(targetrr is MemberResolveResult targetResolveResult) || Emitter.IsGlobalTarget(targetResolveResult.Member) == null)
                 {
                     if (isRefArg)
                     {
-                        this.WriteComma();
+                        WriteComma();
                     }
-                    else if (!isInterfaceMember && !this.NoTarget)
+                    else if (!isInterfaceMember && !NoTarget)
                     {
-                        this.WriteDot();
+                        WriteDot();
                     }
                 }
 
@@ -904,96 +904,96 @@ namespace H5.Translator
                 {
                     if (targetrr != null && targetrr.Type.Kind == TypeKind.Dynamic)
                     {
-                        this.Write(memberReferenceExpression.MemberName);
+                        Write(memberReferenceExpression.MemberName);
                     }
                     else
                     {
-                        this.Write(memberReferenceExpression.MemberName.ToLowerCamelCase());
+                        Write(memberReferenceExpression.MemberName.ToLowerCamelCase());
                     }
                 }
                 else if (!string.IsNullOrEmpty(inline))
                 {
                     if (!(resolveResult is InvocationResolveResult) && member != null && member.Member is IMethod)
                     {
-                        new InlineArgumentsBlock(this.Emitter, new ArgumentsInfo(this.Emitter, memberReferenceExpression, resolveResult), inline, (IMethod)member.Member, targetrr).EmitFunctionReference();
+                        new InlineArgumentsBlock(Emitter, new ArgumentsInfo(Emitter, memberReferenceExpression, resolveResult), inline, (IMethod)member.Member, targetrr).EmitFunctionReference();
                     }
                     else if (resolveResult is InvocationResolveResult ||
-                        (member.Member.SymbolKind == SymbolKind.Property && this.Emitter.IsAssignment) ||
+                        (member.Member.SymbolKind == SymbolKind.Property && Emitter.IsAssignment) ||
                         (member.Member != null && member.Member is IEvent))
                     {
-                        this.PushWriter(inline);
+                        PushWriter(inline);
                     }
                     else
                     {
-                        this.Write(inline);
+                        Write(inline);
                     }
                 }
-                else if (member.Member.SymbolKind == SymbolKind.Property && (member.Member.DeclaringTypeDefinition == null || (!this.Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition) || member.Member.IsStatic)))
+                else if (member.Member.SymbolKind == SymbolKind.Property && (member.Member.DeclaringTypeDefinition == null || (!Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition) || member.Member.IsStatic)))
                 {
-                    if (member.Member is IProperty && targetrr != null && targetrr.Type.GetDefinition() != null && this.Emitter.Validator.IsObjectLiteral(targetrr.Type.GetDefinition()) && !this.Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition))
+                    if (member.Member is IProperty && targetrr != null && targetrr.Type.GetDefinition() != null && Emitter.Validator.IsObjectLiteral(targetrr.Type.GetDefinition()) && !Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition))
                     {
-                        this.Write(this.Emitter.GetLiteralEntityName(member.Member));
+                        Write(Emitter.GetLiteralEntityName(member.Member));
                     }
                     else
                     {
                         if (isInterfaceMember)
                         {
-                            this.WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
+                            WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
                         }
                         else
                         {
-                            var name = OverloadsCollection.Create(this.Emitter, member.Member).GetOverloadName(!nativeImplementation);
+                            var name = OverloadsCollection.Create(Emitter, member.Member).GetOverloadName(!nativeImplementation);
                             var property = (IProperty)member.Member;
                             var proto = member.IsVirtualCall || property.IsVirtual || property.IsOverride;
 
-                            if (this.MemberReferenceExpression.Target is BaseReferenceExpression && !property.IsIndexer && proto)
+                            if (MemberReferenceExpression.Target is BaseReferenceExpression && !property.IsIndexer && proto)
                             {
-                                var alias = H5Types.ToJsName(member.Member.DeclaringType, this.Emitter,
+                                var alias = H5Types.ToJsName(member.Member.DeclaringType, Emitter,
                                     isAlias: true);
                                 if (alias.StartsWith("\""))
                                 {
                                     alias = alias.Insert(1, "$");
                                     name = alias + "+\"$" + name + "\"";
-                                    this.WriteIdentifier(name, false);
+                                    WriteIdentifier(name, false);
                                 }
                                 else
                                 {
                                     name = "$" + alias + "$" + name;
-                                    this.WriteIdentifier(name);
+                                    WriteIdentifier(name);
                                 }
                             }
                             else
                             {
-                                this.WriteIdentifier(name);
+                                WriteIdentifier(name);
                             }
                         }
                     }
                 }
                 else if (member.Member.SymbolKind == SymbolKind.Field)
                 {
-                    bool isConst = this.Emitter.IsMemberConst(member.Member);
+                    bool isConst = Emitter.IsMemberConst(member.Member);
 
-                    if (isConst && this.Emitter.IsInlineConst(member.Member))
+                    if (isConst && Emitter.IsInlineConst(member.Member))
                     {
-                        this.WriteScript(H5.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, this.Emitter));
+                        WriteScript(H5.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, Emitter));
                     }
                     else
                     {
                         if (isInterfaceMember)
                         {
-                            this.WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
+                            WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
                         }
                         else
                         {
-                            var fieldName = OverloadsCollection.Create(this.Emitter, member.Member).GetOverloadName(!nativeImplementation);
+                            var fieldName = OverloadsCollection.Create(Emitter, member.Member).GetOverloadName(!nativeImplementation);
 
                             if (isRefArg)
                             {
-                                this.WriteScript(fieldName);
+                                WriteScript(fieldName);
                             }
                             else
                             {
-                                this.WriteIdentifier(fieldName);
+                                WriteIdentifier(fieldName);
                             }
                         }
                     }
@@ -1002,46 +1002,46 @@ namespace H5.Translator
                 {
                     if (isInterfaceMember)
                     {
-                        this.WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
+                        WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
                     }
                     else if (expressionResolveResult is MemberResolveResult expresssionMember &&
                         resolveResult is CSharpInvocationResolveResult cInvocationResult &&
                         cInvocationResult.IsDelegateInvocation &&
                         invocationResult.Member != expresssionMember.Member)
                     {
-                        this.Write(OverloadsCollection.Create(this.Emitter, expresssionMember.Member).GetOverloadName(!nativeImplementation));
+                        Write(OverloadsCollection.Create(Emitter, expresssionMember.Member).GetOverloadName(!nativeImplementation));
                     }
                     else
                     {
-                        this.Write(OverloadsCollection.Create(this.Emitter, invocationResult.Member).GetOverloadName(!nativeImplementation));
+                        Write(OverloadsCollection.Create(Emitter, invocationResult.Member).GetOverloadName(!nativeImplementation));
                     }
                 }
                 else if (member.Member is IEvent)
                 {
-                    if (this.Emitter.IsAssignment &&
-                        (this.Emitter.AssignmentType == AssignmentOperatorType.Add ||
-                         this.Emitter.AssignmentType == AssignmentOperatorType.Subtract))
+                    if (Emitter.IsAssignment &&
+                        (Emitter.AssignmentType == AssignmentOperatorType.Add ||
+                         Emitter.AssignmentType == AssignmentOperatorType.Subtract))
                     {
                         if (isInterfaceMember)
                         {
-                            this.WriteInterfaceMember(interfaceTempVar ?? targetVar, member, this.Emitter.AssignmentType == AssignmentOperatorType.Subtract, Helpers.GetAddOrRemove(this.Emitter.AssignmentType == AssignmentOperatorType.Add));
+                            WriteInterfaceMember(interfaceTempVar ?? targetVar, member, Emitter.AssignmentType == AssignmentOperatorType.Subtract, Helpers.GetAddOrRemove(Emitter.AssignmentType == AssignmentOperatorType.Add));
                         }
                         else
                         {
-                            this.Write(Helpers.GetEventRef(member.Member, this.Emitter, this.Emitter.AssignmentType != AssignmentOperatorType.Add, ignoreInterface: !nativeImplementation));
+                            Write(Helpers.GetEventRef(member.Member, Emitter, Emitter.AssignmentType != AssignmentOperatorType.Add, ignoreInterface: !nativeImplementation));
                         }
 
-                        this.WriteOpenParentheses();
+                        WriteOpenParentheses();
                     }
                     else
                     {
                         if (isInterfaceMember)
                         {
-                            this.WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
+                            WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
                         }
                         else
                         {
-                            this.Write(this.Emitter.GetEntityName(member.Member));
+                            Write(Emitter.GetEntityName(member.Member));
                         }
                     }
                 }
@@ -1049,18 +1049,18 @@ namespace H5.Translator
                 {
                     if (isInterfaceMember)
                     {
-                        this.WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
+                        WriteInterfaceMember(interfaceTempVar ?? targetVar, member, false);
                     }
                     else
                     {
-                        var memberName = this.Emitter.GetEntityName(member.Member);
+                        var memberName = Emitter.GetEntityName(member.Member);
                         if (isRefArg)
                         {
-                            this.WriteScript(memberName);
+                            WriteScript(memberName);
                         }
                         else
                         {
-                            this.WriteIdentifier(memberName);
+                            WriteIdentifier(memberName);
                         }
                     }
                 }

@@ -22,46 +22,46 @@ namespace H5.Translator
 
         public override void VisitNamespaceDeclaration(NamespaceDeclaration namespaceDeclaration)
         {
-            if (!String.IsNullOrEmpty(this.Namespace))
+            if (!String.IsNullOrEmpty(Namespace))
             {
                 //throw (EmitterException)this.CreateException(namespaceDeclaration, "Nested namespaces are not supported");
             }
 
-            if (!this.AssemblyInfo.Assembly.EnableReservedNamespaces)
+            if (!AssemblyInfo.Assembly.EnableReservedNamespaces)
             {
                 ValidateNamespace(namespaceDeclaration);
             }
 
-            var prevNamespace = this.Namespace;
+            var prevNamespace = Namespace;
 
-            this.Namespace = namespaceDeclaration.Name;
+            Namespace = namespaceDeclaration.Name;
 
             namespaceDeclaration.AcceptChildren(this);
 
-            this.Namespace = prevNamespace;
+            Namespace = prevNamespace;
         }
 
         public override void VisitTypeDeclaration(TypeDeclaration typeDeclaration)
         {
-            if (this.CurrentType != null)
+            if (CurrentType != null)
             {
-                this.NestedTypes = this.NestedTypes ?? new List<Tuple<TypeDeclaration, ITypeInfo>>();
-                this.NestedTypes.Add(new Tuple<TypeDeclaration, ITypeInfo>(typeDeclaration, this.CurrentType));
+                NestedTypes = NestedTypes ?? new List<Tuple<TypeDeclaration, ITypeInfo>>();
+                NestedTypes.Add(new Tuple<TypeDeclaration, ITypeInfo>(typeDeclaration, CurrentType));
                 return;
             }
 
             ValidateNamespace(typeDeclaration);
 
-            var rr = this.Resolver.ResolveNode(typeDeclaration, null);
+            var rr = Resolver.ResolveNode(typeDeclaration, null);
             var fullName = rr.Type.ReflectionName;
-            var partialType = this.Types.FirstOrDefault(t => t.Key == fullName);
+            var partialType = Types.FirstOrDefault(t => t.Key == fullName);
             var add = true;
-            var ignored = this.IgnoredTypes.Contains(fullName);
-            var external = this.HasExternal(typeDeclaration);
+            var ignored = IgnoredTypes.Contains(fullName);
+            var external = HasExternal(typeDeclaration);
 
             if (!external)
             {
-                var resolveResult = this.Resolver.ResolveNode(typeDeclaration, null);
+                var resolveResult = Resolver.ResolveNode(typeDeclaration, null);
                 if (resolveResult != null && resolveResult.Type != null)
                 {
                     var def = resolveResult.Type.GetDefinition();
@@ -70,16 +70,16 @@ namespace H5.Translator
                 }
             }
 
-            if ((external || ignored || this.IsNonScriptable(typeDeclaration)) && !this.IsObjectLiteral(typeDeclaration))
+            if ((external || ignored || IsNonScriptable(typeDeclaration)) && !IsObjectLiteral(typeDeclaration))
             {
                 if (partialType != null)
                 {
-                    this.Types.Remove(partialType);
+                    Types.Remove(partialType);
                 }
 
                 if (!ignored)
                 {
-                    this.IgnoredTypes.Add(fullName);
+                    IgnoredTypes.Add(fullName);
                 }
 
                 return;
@@ -91,29 +91,29 @@ namespace H5.Translator
                 var parentTypeDeclaration = typeDeclaration.GetParent<TypeDeclaration>();
                 if (parentTypeDeclaration != null)
                 {
-                    var rr1 = this.Resolver.ResolveNode(parentTypeDeclaration, null);
+                    var rr1 = Resolver.ResolveNode(parentTypeDeclaration, null);
                     var parentName = rr1.Type.ReflectionName;
-                    parentTypeInfo = this.Types.FirstOrDefault(t => t.Key == parentName);
+                    parentTypeInfo = Types.FirstOrDefault(t => t.Key == parentName);
                 }
 
-                this.CurrentType = new TypeInfo()
+                CurrentType = new TypeInfo()
                 {
                     Key = rr.Type.ReflectionName,
                     TypeDeclaration = typeDeclaration,
                     ParentType = parentTypeInfo,
                     Name = typeDeclaration.Name,
                     ClassType = typeDeclaration.ClassType,
-                    Namespace = this.Namespace,
+                    Namespace = Namespace,
                     IsEnum = typeDeclaration.ClassType == ClassType.Enum,
                     IsStatic = typeDeclaration.ClassType == ClassType.Enum || typeDeclaration.HasModifier(Modifiers.Static),
-                    IsObjectLiteral = this.IsObjectLiteral(typeDeclaration),
+                    IsObjectLiteral = IsObjectLiteral(typeDeclaration),
                     Type = rr.Type
                 };
             }
             else
             {
-                this.CurrentType = partialType;
-                this.CurrentType.PartialTypeDeclarations.Add(typeDeclaration);
+                CurrentType = partialType;
+                CurrentType.PartialTypeDeclarations.Add(typeDeclaration);
                 add = false;
             }
 
@@ -128,30 +128,30 @@ namespace H5.Translator
 
             if (add)
             {
-                this.Types.Add(this.CurrentType);
+                Types.Add(CurrentType);
             }
 
             if (typeDeclaration.ClassType != ClassType.Interface)
             {
-                this.AddMissingAliases(typeDeclaration);
+                AddMissingAliases(typeDeclaration);
             }
 
-            this.CurrentType = null;
+            CurrentType = null;
 
-            while (this.NestedTypes != null && this.NestedTypes.Count > 0)
+            while (NestedTypes != null && NestedTypes.Count > 0)
             {
-                var types = this.NestedTypes;
-                this.NestedTypes = null;
+                var types = NestedTypes;
+                NestedTypes = null;
                 foreach (var nestedType in types)
                 {
-                    this.VisitTypeDeclaration(nestedType.Item1);
+                    VisitTypeDeclaration(nestedType.Item1);
                 }
             }
         }
 
         private void AddMissingAliases(TypeDeclaration typeDeclaration)
         {
-            var type = this.Resolver.ResolveNode(typeDeclaration, null).Type;
+            var type = Resolver.ResolveNode(typeDeclaration, null).Type;
             var interfaces = type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface).ToArray();
             var members = type.GetMembers(null, GetMemberOptions.IgnoreInheritedMembers).ToArray();
             var baseTypes = type.GetNonInterfaceBaseTypes().ToArray().Reverse();
@@ -193,9 +193,9 @@ namespace H5.Translator
                                     }
                                 }
 
-                                if (derivedMember != null && !derivedMember.ImplementedInterfaceMembers.Contains(interfaceMember) && !this.CurrentType.InstanceConfig.Alias.Any(a => typeDeclaration.Equals(a.Entity) && interfaceMember.Equals(a.InterfaceMember) && derivedMember.Equals(a.DerivedMember)))
+                                if (derivedMember != null && !derivedMember.ImplementedInterfaceMembers.Contains(interfaceMember) && !CurrentType.InstanceConfig.Alias.Any(a => typeDeclaration.Equals(a.Entity) && interfaceMember.Equals(a.InterfaceMember) && derivedMember.Equals(a.DerivedMember)))
                                 {
-                                    this.CurrentType.InstanceConfig.Alias.Add(new TypeConfigItem { Entity = typeDeclaration, InterfaceMember = interfaceMember, DerivedMember = derivedMember });
+                                    CurrentType.InstanceConfig.Alias.Add(new TypeConfigItem { Entity = typeDeclaration, InterfaceMember = interfaceMember, DerivedMember = derivedMember });
                                     break;
                                 }
                             }
@@ -207,13 +207,13 @@ namespace H5.Translator
 
         public override void VisitFieldDeclaration(FieldDeclaration fieldDeclaration)
         {
-            bool isStatic = this.CurrentType.ClassType == ClassType.Enum
+            bool isStatic = CurrentType.ClassType == ClassType.Enum
                 || fieldDeclaration.HasModifier(Modifiers.Static)
                 || fieldDeclaration.HasModifier(Modifiers.Const);
 
             foreach (var item in fieldDeclaration.Variables)
             {
-                var rr = this.Resolver.ResolveNode(item, null) as MemberResolveResult;
+                var rr = Resolver.ResolveNode(item, null) as MemberResolveResult;
                 if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.Attributes.Any(a => a.AttributeType.FullName == H5.Translator.Translator.H5_ASSEMBLY + ".InlineConstAttribute"))
                 {
                     continue;
@@ -223,15 +223,15 @@ namespace H5.Translator
 
                 if (initializer.IsNull)
                 {
-                    if (this.CurrentType.ClassType == ClassType.Enum)
+                    if (CurrentType.ClassType == ClassType.Enum)
                     {
-                        throw (EmitterException)this.CreateException(fieldDeclaration, "Enum items must be explicitly numbered");
+                        throw (EmitterException)CreateException(fieldDeclaration, "Enum items must be explicitly numbered");
                     }
 
-                    initializer = this.GetDefaultFieldInitializer(fieldDeclaration.ReturnType);
+                    initializer = GetDefaultFieldInitializer(fieldDeclaration.ReturnType);
                 }
 
-                this.CurrentType.FieldsDeclarations.Add(item.Name, fieldDeclaration);
+                CurrentType.FieldsDeclarations.Add(item.Name, fieldDeclaration);
 
                 string prefix = SharpSixRewriter.AutoInitFieldPrefix;
                 bool autoInitializer = item.Name.StartsWith(prefix);
@@ -239,15 +239,15 @@ namespace H5.Translator
 
                 if (isStatic)
                 {
-                    var collection = this.CurrentType.StaticConfig.Fields;
+                    var collection = CurrentType.StaticConfig.Fields;
                     if (autoInitializer)
                     {
-                        collection = this.CurrentType.StaticConfig.AutoPropertyInitializers;
-                        var prop = this.CurrentType.StaticConfig.Properties.FirstOrDefault(p => p.Name == name);
+                        collection = CurrentType.StaticConfig.AutoPropertyInitializers;
+                        var prop = CurrentType.StaticConfig.Properties.FirstOrDefault(p => p.Name == name);
 
                         if (prop == null)
                         {
-                            prop = this.CurrentType.StaticConfig.Fields.FirstOrDefault(p => p.Name == name);
+                            prop = CurrentType.StaticConfig.Fields.FirstOrDefault(p => p.Name == name);
                         }
 
                         if (prop != null)
@@ -268,15 +268,15 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var collection = this.CurrentType.InstanceConfig.Fields;
+                    var collection = CurrentType.InstanceConfig.Fields;
                     if (autoInitializer)
                     {
-                        collection = this.CurrentType.InstanceConfig.AutoPropertyInitializers;
-                        var prop = this.CurrentType.InstanceConfig.Properties.FirstOrDefault(p => p.Name == name);
+                        collection = CurrentType.InstanceConfig.AutoPropertyInitializers;
+                        var prop = CurrentType.InstanceConfig.Properties.FirstOrDefault(p => p.Name == name);
 
                         if (prop == null)
                         {
-                            prop = this.CurrentType.InstanceConfig.Fields.FirstOrDefault(p => p.Name == name);
+                            prop = CurrentType.InstanceConfig.Fields.FirstOrDefault(p => p.Name == name);
                         }
 
                         if (prop != null)
@@ -307,35 +307,35 @@ namespace H5.Translator
 
         public override void VisitConstructorDeclaration(ConstructorDeclaration constructorDeclaration)
         {
-            if (this.HasTemplate(constructorDeclaration) || constructorDeclaration.HasModifier(Modifiers.Extern) && !this.HasScript(constructorDeclaration))
+            if (HasTemplate(constructorDeclaration) || constructorDeclaration.HasModifier(Modifiers.Extern) && !HasScript(constructorDeclaration))
             {
                 return;
             }
 
             bool isStatic = constructorDeclaration.HasModifier(Modifiers.Static);
 
-            this.FixMethodParameters(constructorDeclaration.Parameters, constructorDeclaration.Body);
+            FixMethodParameters(constructorDeclaration.Parameters, constructorDeclaration.Body);
 
             if (isStatic)
             {
-                this.CurrentType.StaticCtor = constructorDeclaration;
+                CurrentType.StaticCtor = constructorDeclaration;
             }
             else
             {
-                this.CurrentType.Ctors.Add(constructorDeclaration);
+                CurrentType.Ctors.Add(constructorDeclaration);
             }
         }
 
         public override void VisitOperatorDeclaration(OperatorDeclaration operatorDeclaration)
         {
-            if (this.HasTemplate(operatorDeclaration))
+            if (HasTemplate(operatorDeclaration))
             {
                 return;
             }
 
-            this.FixMethodParameters(operatorDeclaration.Parameters, operatorDeclaration.Body);
+            FixMethodParameters(operatorDeclaration.Parameters, operatorDeclaration.Body);
 
-            Dictionary<OperatorType, List<OperatorDeclaration>> dict = this.CurrentType.Operators;
+            Dictionary<OperatorType, List<OperatorDeclaration>> dict = CurrentType.Operators;
 
             var key = operatorDeclaration.OperatorType;
             if (dict.ContainsKey(key))
@@ -368,7 +368,7 @@ namespace H5.Translator
                 dict.Add(key, new List<EntityDeclaration>(new[] { indexerDeclaration }));
             }
 
-            var rr = this.Resolver.ResolveNode(indexerDeclaration, null) as MemberResolveResult;
+            var rr = Resolver.ResolveNode(indexerDeclaration, null) as MemberResolveResult;
             if (OverloadsCollection.NeedCreateAlias(rr))
             {
                 var config = rr.Member.IsStatic
@@ -380,12 +380,12 @@ namespace H5.Translator
 
         public override void VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
-            if (methodDeclaration.HasModifier(Modifiers.Abstract) || this.HasTemplate(methodDeclaration))
+            if (methodDeclaration.HasModifier(Modifiers.Abstract) || HasTemplate(methodDeclaration))
             {
                 return;
             }
 
-            this.FixMethodParameters(methodDeclaration.Parameters, methodDeclaration.Body);
+            FixMethodParameters(methodDeclaration.Parameters, methodDeclaration.Body);
 
             bool isStatic = methodDeclaration.HasModifier(Modifiers.Static);
 
@@ -439,7 +439,7 @@ namespace H5.Translator
                 dict.Add(key, new List<EntityDeclaration>(new[] { customEventDeclaration }));
             }
 
-            var rr = this.Resolver.ResolveNode(customEventDeclaration, null) as MemberResolveResult;
+            var rr = Resolver.ResolveNode(customEventDeclaration, null) as MemberResolveResult;
             if (OverloadsCollection.NeedCreateAlias(rr))
             {
                 var config = rr.Member.IsStatic
@@ -473,7 +473,7 @@ namespace H5.Translator
                 dict.Add(key, new List<EntityDeclaration>(new[] { propertyDeclaration }));
             }
 
-            var rr = this.Resolver.ResolveNode(propertyDeclaration, null) as MemberResolveResult;
+            var rr = Resolver.ResolveNode(propertyDeclaration, null) as MemberResolveResult;
             if (OverloadsCollection.NeedCreateAlias(rr))
             {
                 var config = rr.Member.IsStatic
@@ -482,16 +482,16 @@ namespace H5.Translator
                 config.Alias.Add(new TypeConfigItem { Entity = propertyDeclaration });
             }
 
-            if (!this.HasExternal(propertyDeclaration)
-                && !this.HasTemplate(propertyDeclaration.Getter))
+            if (!HasExternal(propertyDeclaration)
+                && !HasTemplate(propertyDeclaration.Getter))
             {
-                Expression initializer = this.GetDefaultFieldInitializer(propertyDeclaration.ReturnType);
-                TypeConfigInfo info = isStatic ? this.CurrentType.StaticConfig : this.CurrentType.InstanceConfig;
+                Expression initializer = GetDefaultFieldInitializer(propertyDeclaration.ReturnType);
+                TypeConfigInfo info = isStatic ? CurrentType.StaticConfig : CurrentType.InstanceConfig;
 
                 bool autoPropertyToField = false;
                 if (rr != null && rr.Member != null && Helpers.IsAutoProperty((IProperty)rr.Member))
                 {
-                    var rules = Rules.Get(this.Emitter, rr.Member);
+                    var rules = Rules.Get(Emitter, rr.Member);
 
                     if (rules.AutoProperty.HasValue)
                     {
@@ -499,13 +499,13 @@ namespace H5.Translator
                     }
                     else
                     {
-                        autoPropertyToField = this.HasFieldAttribute(rr.Member);
+                        autoPropertyToField = HasFieldAttribute(rr.Member);
 
                         if (!autoPropertyToField && rr.Member.ImplementedInterfaceMembers.Count > 0)
                         {
                             foreach (var interfaceMember in rr.Member.ImplementedInterfaceMembers)
                             {
-                                autoPropertyToField = this.HasFieldAttribute(interfaceMember, false);
+                                autoPropertyToField = HasFieldAttribute(interfaceMember, false);
 
                                 if (autoPropertyToField)
                                 {
@@ -567,7 +567,7 @@ namespace H5.Translator
 
         private void CheckFieldProperty(PropertyDeclaration propertyDeclaration, MemberResolveResult resolvedProperty)
         {
-            if (this.HasExternal(propertyDeclaration) || this.CurrentType.IsObjectLiteral)
+            if (HasExternal(propertyDeclaration) || CurrentType.IsObjectLiteral)
             {
                 return;
             }
@@ -576,13 +576,13 @@ namespace H5.Translator
             {
                 var possiblyWrongGetter = !propertyDeclaration.Getter.IsNull
                         && !propertyDeclaration.Getter.Body.IsNull
-                        && !this.HasTemplate(propertyDeclaration.Getter)
-                        && !this.HasScript(propertyDeclaration.Getter);
+                        && !HasTemplate(propertyDeclaration.Getter)
+                        && !HasScript(propertyDeclaration.Getter);
 
                 var possiblyWrongSetter = !propertyDeclaration.Setter.IsNull
                     && !propertyDeclaration.Setter.Body.IsNull
-                    && !this.HasTemplate(propertyDeclaration.Setter)
-                    && !this.HasScript(propertyDeclaration.Setter);
+                    && !HasTemplate(propertyDeclaration.Setter)
+                    && !HasScript(propertyDeclaration.Setter);
 
                 if (possiblyWrongGetter || possiblyWrongSetter)
                 {
@@ -605,7 +605,7 @@ namespace H5.Translator
         public override void VisitEnumMemberDeclaration(EnumMemberDeclaration enumMemberDeclaration)
         {
             Expression initializer = enumMemberDeclaration.Initializer;
-            var member = this.Resolver.ResolveNode(enumMemberDeclaration, null) as MemberResolveResult;
+            var member = Resolver.ResolveNode(enumMemberDeclaration, null) as MemberResolveResult;
             var initializerIsString = false;
             if (member != null)
             {
@@ -666,26 +666,26 @@ namespace H5.Translator
             {
                 if (enumMemberDeclaration.Initializer.IsNull)
                 {
-                    dynamic i = this.CurrentType.LastEnumValue;
+                    dynamic i = CurrentType.LastEnumValue;
                     ++i;
-                    this.CurrentType.LastEnumValue = i;
+                    CurrentType.LastEnumValue = i;
 
                     if (member != null && member.Member.DeclaringTypeDefinition.EnumUnderlyingType.IsKnownType(KnownTypeCode.Int64))
                     {
-                        initializer = new PrimitiveExpression(Convert.ToInt64(this.CurrentType.LastEnumValue));
+                        initializer = new PrimitiveExpression(Convert.ToInt64(CurrentType.LastEnumValue));
                     }
                     else if (member != null && member.Member.DeclaringTypeDefinition.EnumUnderlyingType.IsKnownType(KnownTypeCode.UInt64))
                     {
-                        initializer = new PrimitiveExpression(Convert.ToUInt64(this.CurrentType.LastEnumValue));
+                        initializer = new PrimitiveExpression(Convert.ToUInt64(CurrentType.LastEnumValue));
                     }
                     else
                     {
-                        initializer = new PrimitiveExpression(this.CurrentType.LastEnumValue);
+                        initializer = new PrimitiveExpression(CurrentType.LastEnumValue);
                     }
                 }
                 else
                 {
-                    if (this.Resolver.ResolveNode(enumMemberDeclaration.Initializer, null) is ConstantResolveResult rr)
+                    if (Resolver.ResolveNode(enumMemberDeclaration.Initializer, null) is ConstantResolveResult rr)
                     {
                         if (member != null && member.Member.DeclaringTypeDefinition.EnumUnderlyingType.IsKnownType(KnownTypeCode.Int64))
                         {
@@ -699,12 +699,12 @@ namespace H5.Translator
                         {
                             initializer = new PrimitiveExpression(rr.ConstantValue);
                         }
-                        this.CurrentType.LastEnumValue = rr.ConstantValue;
+                        CurrentType.LastEnumValue = rr.ConstantValue;
                     }
                 }
             }
 
-            this.CurrentType.StaticConfig.Fields.Add(new TypeConfigItem
+            CurrentType.StaticConfig.Fields.Add(new TypeConfigItem
             {
                 Name = enumMemberDeclaration.Name,
                 Entity = enumMemberDeclaration,
@@ -718,10 +718,10 @@ namespace H5.Translator
             foreach (var item in eventDeclaration.Variables)
             {
                 Expression initializer = item.Initializer;
-                this.CurrentType.EventsDeclarations.Add(item.Name, eventDeclaration);
+                CurrentType.EventsDeclarations.Add(item.Name, eventDeclaration);
                 if (isStatic)
                 {
-                    this.CurrentType.StaticConfig.Events.Add(new TypeConfigItem
+                    CurrentType.StaticConfig.Events.Add(new TypeConfigItem
                     {
                         Name = item.Name,
                         Entity = eventDeclaration,
@@ -731,7 +731,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    this.CurrentType.InstanceConfig.Events.Add(new TypeConfigItem
+                    CurrentType.InstanceConfig.Events.Add(new TypeConfigItem
                     {
                         Name = item.Name,
                         Entity = eventDeclaration,
@@ -740,7 +740,7 @@ namespace H5.Translator
                     });
                 }
 
-                var rr = this.Resolver.ResolveNode(item, null) as MemberResolveResult;
+                var rr = Resolver.ResolveNode(item, null) as MemberResolveResult;
                 if (OverloadsCollection.NeedCreateAlias(rr))
                 {
                     var config = rr.Member.IsStatic
@@ -761,14 +761,14 @@ namespace H5.Translator
             foreach (var attr in attributeSection.Attributes)
             {
                 var name = attr.Type.ToString();
-                var resolveResult = this.Resolver.ResolveNode(attr, null);
+                var resolveResult = Resolver.ResolveNode(attr, null);
 
-                this.ReadModuleInfo(attr, name, resolveResult);
-                this.ReadFileNameInfo(attr, name, resolveResult);
-                this.ReadOutputPathInfo(attr, name, resolveResult);
-                this.ReadOutputByInfo(attr, name, resolveResult);
-                this.ReadModuleDependency(attr, name, resolveResult);
-                this.ReadReflectionInfo(attr, name, resolveResult);
+                ReadModuleInfo(attr, name, resolveResult);
+                ReadFileNameInfo(attr, name, resolveResult);
+                ReadOutputPathInfo(attr, name, resolveResult);
+                ReadOutputByInfo(attr, name, resolveResult);
+                ReadModuleDependency(attr, name, resolveResult);
+                ReadReflectionInfo(attr, name, resolveResult);
             }
         }
 
@@ -776,7 +776,7 @@ namespace H5.Translator
         {
             if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == Translator.H5_ASSEMBLY + ".ReflectableAttribute")
             {
-                var config = ((AssemblyInfo)this.AssemblyInfo).ReflectionInternal;
+                var config = ((AssemblyInfo)AssemblyInfo).ReflectionInternal;
 
                 if (attr.Arguments.Count > 0)
                 {
@@ -785,7 +785,7 @@ namespace H5.Translator
                         var list = new List<MemberAccessibility>();
                         for (int i = 0; i < attr.Arguments.Count; i++)
                         {
-                            object v = this.GetAttributeArgumentValue(attr, resolveResult, i);
+                            object v = GetAttributeArgumentValue(attr, resolveResult, i);
                             list.Add((MemberAccessibility)(int)v);
                         }
 
@@ -793,7 +793,7 @@ namespace H5.Translator
                     }
                     else
                     {
-                        object v = this.GetAttributeArgumentValue(attr, resolveResult, 0);
+                        object v = GetAttributeArgumentValue(attr, resolveResult, 0);
 
                         if (v is bool boolean)
                         {
@@ -812,7 +812,7 @@ namespace H5.Translator
                         }
                         else if (v is int intVal)
                         {
-                            IType t = this.GetAttributeArgumentType(attr, resolveResult, 0);
+                            IType t = GetAttributeArgumentType(attr, resolveResult, 0);
 
                             if (t.FullName == "H5.TypeAccessibility")
                             {
@@ -930,7 +930,7 @@ namespace H5.Translator
                     }
                 }
 
-                this.AssemblyInfo.Module = module;
+                AssemblyInfo.Module = module;
 
                 return true;
             }
@@ -945,11 +945,11 @@ namespace H5.Translator
             {
                 if (attr.Arguments.Count > 0)
                 {
-                    object nameObj = this.GetAttributeArgumentValue(attr, resolveResult, 0);
+                    object nameObj = GetAttributeArgumentValue(attr, resolveResult, 0);
 
                     if (nameObj is string)
                     {
-                        this.AssemblyInfo.FileName = nameObj.ToString();
+                        AssemblyInfo.FileName = nameObj.ToString();
                     }
                 }
 
@@ -968,11 +968,11 @@ namespace H5.Translator
             {
                 if (attr.Arguments.Count > 0)
                 {
-                    object nameObj = this.GetAttributeArgumentValue(attr, resolveResult, 0);
+                    object nameObj = GetAttributeArgumentValue(attr, resolveResult, 0);
 
                     if (nameObj is string)
                     {
-                        this.AssemblyInfo.Output = configHelper.ConvertPath(nameObj.ToString());
+                        AssemblyInfo.Output = configHelper.ConvertPath(nameObj.ToString());
                     }
                 }
 
@@ -989,20 +989,20 @@ namespace H5.Translator
             {
                 if (attr.Arguments.Count > 0)
                 {
-                    object nameObj = this.GetAttributeArgumentValue(attr, resolveResult, 0);
+                    object nameObj = GetAttributeArgumentValue(attr, resolveResult, 0);
 
                     if (nameObj != null)
                     {
-                        this.AssemblyInfo.OutputBy = (OutputBy)Enum.ToObject(typeof(OutputBy), nameObj);
+                        AssemblyInfo.OutputBy = (OutputBy)Enum.ToObject(typeof(OutputBy), nameObj);
                     }
 
                     if (attr.Arguments.Count > 1)
                     {
-                        nameObj = this.GetAttributeArgumentValue(attr, resolveResult, 1);
+                        nameObj = GetAttributeArgumentValue(attr, resolveResult, 1);
 
                         if (nameObj is int intVal)
                         {
-                            this.AssemblyInfo.StartIndexInName = intVal;
+                            AssemblyInfo.StartIndexInName = intVal;
                         }
                     }
                 }
@@ -1021,14 +1021,14 @@ namespace H5.Translator
                 if (attr.Arguments.Count > 0)
                 {
                     ModuleDependency dependency = new ModuleDependency();
-                    object nameObj = this.GetAttributeArgumentValue(attr, resolveResult, 0);
+                    object nameObj = GetAttributeArgumentValue(attr, resolveResult, 0);
 
                     if (nameObj is string)
                     {
                         dependency.DependencyName = nameObj.ToString();
                     }
 
-                    nameObj = this.GetAttributeArgumentValue(attr, resolveResult, 1);
+                    nameObj = GetAttributeArgumentValue(attr, resolveResult, 1);
 
                     if (nameObj is string)
                     {
@@ -1039,7 +1039,7 @@ namespace H5.Translator
                         dependency.VariableName = Module.EscapeName(dependency.DependencyName);
                     }
 
-                    this.AssemblyInfo.Dependencies.Add(dependency);
+                    AssemblyInfo.Dependencies.Add(dependency);
                 }
 
                 return true;
@@ -1081,7 +1081,7 @@ namespace H5.Translator
 
                 if (arg is PrimitiveExpression primitive)
                 {
-                    return this.Resolver.ResolveNode(primitive, null).Type;
+                    return Resolver.ResolveNode(primitive, null).Type;
                 }
             }
             return null;

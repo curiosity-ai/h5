@@ -53,29 +53,29 @@ namespace H5.Translator
         public SharpSixRewriter(ITranslator translator)
         {
             this.translator = translator;
-            this.logger = translator.Log;
-            this.compilation = this.CreateCompilation();
-            this.isParent = true;
+            logger = translator.Log;
+            compilation = CreateCompilation();
+            isParent = true;
             _cachedRewrittenData = LoadCache();
         }
 
         public SharpSixRewriter(SharpSixRewriter rewriter)
         {
-            this.translator = rewriter.translator;
-            this.logger = rewriter.logger;
-            this.compilation = rewriter.compilation;
-            this._cachedRewrittenData = rewriter._cachedRewrittenData;
+            translator = rewriter.translator;
+            logger = rewriter.logger;
+            compilation = rewriter.compilation;
+            _cachedRewrittenData = rewriter._cachedRewrittenData;
         }
 
 
         private string GetCacheFile()
         {
-            return this.translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".rewriter.cached";
+            return translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".rewriter.cached";
         }
 
         public SharpSixRewriterCachedOutput LoadCache()
         {
-            if (!this.isParent) throw new InvalidOperationException("Can only be called on parent Rewriter");
+            if (!isParent) throw new InvalidOperationException("Can only be called on parent Rewriter");
 
             var cf = GetCacheFile();
             
@@ -106,7 +106,7 @@ namespace H5.Translator
 
         public void CommitCache()
         {
-            if (!this.isParent) throw new InvalidOperationException("Can only be called on parent Rewriter");
+            if (!isParent) throw new InvalidOperationException("Can only be called on parent Rewriter");
             using(var f = File.OpenWrite(GetCacheFile()))
             {
                 f.SetLength(0);
@@ -152,11 +152,11 @@ namespace H5.Translator
                 return cached;
             }
 
-            this.currentType = new Stack<ITypeSymbol>();
-            this.usingStaticNames = new List<string>();
+            currentType = new Stack<ITypeSymbol>();
+            usingStaticNames = new List<string>();
 
-            var syntaxTree = this.compilation.SyntaxTrees[index];
-            this.semanticModel = this.compilation.GetSemanticModel(syntaxTree, true);
+            var syntaxTree = compilation.SyntaxTrees[index];
+            semanticModel = compilation.GetSemanticModel(syntaxTree, true);
 
             SyntaxTree newTree = null;
 
@@ -164,7 +164,7 @@ namespace H5.Translator
                 newTree = SyntaxFactory.SyntaxTree(root, GetParseOptions());
                 compilation = compilation.ReplaceSyntaxTree(syntaxTree, newTree);
                 syntaxTree = newTree;
-                this.semanticModel = this.compilation.GetSemanticModel(newTree, true);
+                semanticModel = compilation.GetSemanticModel(newTree, true);
                 return new Tuple<SyntaxTree, SemanticModel>(newTree, semanticModel);
             };
 
@@ -177,31 +177,31 @@ namespace H5.Translator
             result = new DeconstructionReplacer().Replace(syntaxTree.GetRoot(), semanticModel, modelUpdater, this);
             modelUpdater(result);
 
-            result = this.Visit(syntaxTree.GetRoot());
+            result = Visit(syntaxTree.GetRoot());
 
             var replacers = new List<ICSharpReplacer>();
 
-            if (this.hasLocalFunctions)
+            if (hasLocalFunctions)
             {
                 replacers.Add(new LocalFunctionReplacer());
             }
 
-            if (this.hasChainingAssigment)
+            if (hasChainingAssigment)
             {
                 replacers.Add(new ChainingAssigmentReplacer());
             }
 
-            if (this.hasStaticUsingOrAliases)
+            if (hasStaticUsingOrAliases)
             {
                 replacers.Add(new UsingStaticReplacer());
             }
 
-            if (this.hasIsPattern)
+            if (hasIsPattern)
             {
                 replacers.Add(new IsPatternReplacer());
             }
 
-            if (this.hasCasePatternSwitchLabel)
+            if (hasCasePatternSwitchLabel)
             {
                 replacers.Add(new SwitchPatternReplacer());
             }
@@ -245,9 +245,9 @@ namespace H5.Translator
             var parseOptions = GetParseOptions();
 
             var syntaxTrees = translator.SourceFiles.Select(s => ParseSourceFile(s, parseOptions)).Where(s => s != null).ToList();
-            var references = new MetadataReference[this.translator.References.Count()];
+            var references = new MetadataReference[translator.References.Count()];
             var i = 0;
-            foreach (var r in this.translator.References)
+            foreach (var r in translator.References)
             {
                 references[i++] = MetadataReference.CreateFromFile(r.MainModule.FileName, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global")));
             }
@@ -257,13 +257,13 @@ namespace H5.Translator
 
         private string GetAssemblyName()
         {
-            if (this.translator.AssemblyLocation != null)
+            if (translator.AssemblyLocation != null)
             {
-                return Path.GetFileNameWithoutExtension(this.translator.AssemblyLocation);
+                return Path.GetFileNameWithoutExtension(translator.AssemblyLocation);
             }
-            else if (this.translator.SourceFiles.Count > 0)
+            else if (translator.SourceFiles.Count > 0)
             {
-                return Path.GetFileNameWithoutExtension(this.translator.SourceFiles[0]);
+                return Path.GetFileNameWithoutExtension(translator.SourceFiles[0]);
             }
             else
             {
@@ -333,7 +333,7 @@ namespace H5.Translator
 
             if (node.Value is CastExpressionSyntax ce && ce.Expression.Kind() == SyntaxKind.DefaultLiteralExpression)
             {
-                this.hasCasePatternSwitchLabel = true;
+                hasCasePatternSwitchLabel = true;
             }
 
             return node;
@@ -361,25 +361,25 @@ namespace H5.Translator
 
         public override SyntaxNode VisitLocalFunctionStatement(LocalFunctionStatementSyntax node)
         {
-            var oldMarkAsAsync = this.markAsAsync;
-            this.markAsAsync = false;
+            var oldMarkAsAsync = markAsAsync;
+            markAsAsync = false;
 
-            this.hasLocalFunctions = true;
+            hasLocalFunctions = true;
 
-            if (this.markAsAsync && node.Modifiers.IndexOf(SyntaxKind.AsyncKeyword) == -1)
+            if (markAsAsync && node.Modifiers.IndexOf(SyntaxKind.AsyncKeyword) == -1)
             {
                 node = node.AddModifiers(SyntaxFactory.Token(SyntaxKind.AsyncKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" ")).WithLeadingTrivia(SyntaxFactory.Whitespace(" ")));
             }
 
-            this.markAsAsync = oldMarkAsAsync;
+            markAsAsync = oldMarkAsAsync;
 
             return base.VisitLocalFunctionStatement(node);
         }
 
         private void ThrowRefNotSupported(SyntaxNode node)
         {
-            var mapped = this.semanticModel.SyntaxTree.GetLineSpan(node.Span);
-            throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Ref returns and locals are not supported", this.semanticModel.SyntaxTree.FilePath, node.ToString()));
+            var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+            throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Ref returns and locals are not supported", semanticModel.SyntaxTree.FilePath, node.ToString()));
         }
 
         public override SyntaxNode VisitRefType(RefTypeSyntax node)
@@ -551,13 +551,13 @@ namespace H5.Translator
 
         public override SyntaxNode VisitCasePatternSwitchLabel(CasePatternSwitchLabelSyntax node)
         {
-            this.hasCasePatternSwitchLabel = true;
+            hasCasePatternSwitchLabel = true;
             return base.VisitCasePatternSwitchLabel(node);
         }
 
         public override SyntaxNode VisitIsPatternExpression(IsPatternExpressionSyntax node)
         {
-            this.hasIsPattern = true;
+            hasIsPattern = true;
             return base.VisitIsPatternExpression(node);
         }
 
@@ -570,7 +570,7 @@ namespace H5.Translator
 
                 if (local != null && local.Declaration.Variables.Any(v => v.Identifier.ValueText == name))
                 {
-                    this.hasChainingAssigment = true;
+                    hasChainingAssigment = true;
                 }
             }
             return base.VisitAssignmentExpression(node);
@@ -591,7 +591,7 @@ namespace H5.Translator
 
         public override SyntaxNode VisitArgument(ArgumentSyntax node)
         {
-            var ti = this.semanticModel.GetTypeInfo(node.Expression);
+            var ti = semanticModel.GetTypeInfo(node.Expression);
 
             ITypeSymbol type = null;
             IMethodSymbol method = null;
@@ -628,7 +628,7 @@ namespace H5.Translator
             {
                 if (node.Parent is ArgumentListSyntax list && node.Parent.Parent is InvocationExpressionSyntax invocation)
                 {
-                    method = this.semanticModel.GetSymbolInfo(invocation).Symbol as IMethodSymbol;
+                    method = semanticModel.GetSymbolInfo(invocation).Symbol as IMethodSymbol;
 
                     if (method != null)
                     {
@@ -676,7 +676,7 @@ namespace H5.Translator
             if (isParam)
             {
                 var pType = parameter.Type;
-                if (parameter.IsParams && SharpSixRewriter.IsExpandedForm(this.semanticModel, parent, method))
+                if (parameter.IsParams && SharpSixRewriter.IsExpandedForm(semanticModel, parent, method))
                 {
                     pType = ((IArrayTypeSymbol)parameter.Type).ElementType;
                 }
@@ -698,7 +698,7 @@ namespace H5.Translator
                     var cast = SyntaxFactory.CastExpression(
                         SyntaxHelper.GenerateTypeSyntax(
                             pType,
-                            this.semanticModel,
+                            semanticModel,
                             pos,
                             this
                         ),
@@ -755,7 +755,7 @@ namespace H5.Translator
 
         public override SyntaxNode VisitInvocationExpression(InvocationExpressionSyntax node)
         {
-            var method = this.semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
+            var method = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
             
             var isRef = false;
             var toAwait = false;
@@ -809,7 +809,7 @@ namespace H5.Translator
                         if (method.MethodKind == MethodKind.ReducedExtension && conditionalParent == null)
                         {
                             var target = ma.Expression;
-                            var clsName = method.ContainingType.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart);
+                            var clsName = method.ContainingType.GetFullyQualifiedNameAndValidate(semanticModel, spanStart);
                             ma = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(clsName), genericName);
                             node = node.WithArgumentList(node.ArgumentList.WithArguments(node.ArgumentList.Arguments.Insert(0, SyntaxFactory.Argument(target))));
                         }
@@ -830,7 +830,7 @@ namespace H5.Translator
 
             if (toAwait)
             {
-                this.markAsAsync = true;
+                markAsAsync = true;
 
                 if (node.Expression is MemberAccessExpressionSyntax ma)
                 {
@@ -928,19 +928,19 @@ namespace H5.Translator
         {
             if (node.StaticKeyword.RawKind == (int)SyntaxKind.StaticKeyword)
             {
-                this.hasStaticUsingOrAliases = true;
-                this.usingStaticNames.Add(node.Name.ToString());
+                hasStaticUsingOrAliases = true;
+                usingStaticNames.Add(node.Name.ToString());
             }
             if (node.Alias != null)
             {
-                this.hasStaticUsingOrAliases = true;
+                hasStaticUsingOrAliases = true;
             }
             return base.VisitUsingDirective(node);
         }
 
         public override SyntaxNode VisitGenericName(GenericNameSyntax node)
         {
-            if (!this.hasStaticUsingOrAliases)
+            if (!hasStaticUsingOrAliases)
             {
                 return base.VisitGenericName(node);
             }
@@ -948,7 +948,7 @@ namespace H5.Translator
             var symbol = semanticModel.GetSymbolInfo(node).Symbol;
             var nodeParent = node.Parent;
 
-            ITypeSymbol thisType = this.currentType.Count == 0 ? null : this.currentType.Peek();
+            ITypeSymbol thisType = currentType.Count == 0 ? null : currentType.Peek();
 
             bool needHandle = !node.IsVar &&
                               symbol is ITypeSymbol &&
@@ -979,10 +979,10 @@ namespace H5.Translator
             {
                 if (symbol is INamedTypeSymbol namedType && namedType.IsGenericType && namedType.TypeArguments.Length > 0 && !namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
-                    return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false), node.GetTrailingTrivia()), namedType.TypeArguments, semanticModel, spanStart, this);
+                    return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, spanStart, false), node.GetTrailingTrivia()), namedType.TypeArguments, semanticModel, spanStart, this);
                 }
 
-                return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart), node.GetTrailingTrivia()));
+                return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, spanStart), node.GetTrailingTrivia()));
             }
 
             IMethodSymbol methodSymbol = null;
@@ -999,10 +999,10 @@ namespace H5.Translator
             {
                 if (methodSymbol != null && methodSymbol.IsGenericMethod && methodSymbol.TypeArguments.Length > 0 && !methodSymbol.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
-                    return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false), node.GetTrailingTrivia()), methodSymbol.TypeArguments, semanticModel, spanStart, this);
+                    return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, spanStart, false), node.GetTrailingTrivia()), methodSymbol.TypeArguments, semanticModel, spanStart, this);
                 }
 
-                return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart), node.GetTrailingTrivia()));
+                return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, spanStart), node.GetTrailingTrivia()));
             }
 
             return node;
@@ -1106,7 +1106,7 @@ namespace H5.Translator
                 isRef = true;
             }
 
-            if (!this.hasStaticUsingOrAliases)
+            if (!hasStaticUsingOrAliases)
             {
                 var newNode = (ExpressionSyntax)base.VisitIdentifierName(node);
 
@@ -1120,7 +1120,7 @@ namespace H5.Translator
 
             var isAlias = semanticModel.GetAliasInfo(node) != null;
 
-            ITypeSymbol thisType = this.currentType.Count == 0 ? null : this.currentType.Peek();
+            ITypeSymbol thisType = currentType.Count == 0 ? null : currentType.Peek();
 
             bool needHandle = !isAlias &&
                               !node.IsVar &&
@@ -1156,7 +1156,7 @@ namespace H5.Translator
                     return genericName.WithLeadingTrivia(node.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(node.GetTrailingTrivia().ExcludeDirectivies());
                 }
 
-                return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart), node.GetTrailingTrivia()));
+                return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, spanStart), node.GetTrailingTrivia()));
             }
 
             IMethodSymbol methodSymbol = null;
@@ -1175,11 +1175,11 @@ namespace H5.Translator
             {
                 if (methodSymbol != null && methodSymbol.IsGenericMethod && methodSymbol.TypeArguments.Length > 0 && !methodSymbol.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
-                    var genericName = SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false)), methodSymbol.TypeArguments, semanticModel, spanStart, this);
+                    var genericName = SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(symbol.GetFullyQualifiedNameAndValidate(semanticModel, spanStart, false)), methodSymbol.TypeArguments, semanticModel, spanStart, this);
                     return genericName.WithLeadingTrivia(node.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(node.GetTrailingTrivia().ExcludeDirectivies());
                 }
 
-                return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart), node.GetTrailingTrivia()));
+                return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, spanStart), node.GetTrailingTrivia()));
             }
 
             if (isRef)
@@ -1196,7 +1196,7 @@ namespace H5.Translator
             var symbol = new Lazy<ISymbol>(() => semanticModel.GetSymbolInfo(oldNode.Expression).Symbol);
             var symbolNode = new Lazy<ISymbol>(() => semanticModel.GetSymbolInfo(oldNode).Symbol);
 
-            ITypeSymbol thisType = this.currentType.Count == 0 ? null : this.currentType.Peek();
+            ITypeSymbol thisType = currentType.Count == 0 ? null : currentType.Peek();
 
             var spanStart = node.Expression.SpanStart;
             node = (MemberAccessExpressionSyntax)base.VisitMemberAccessExpression(node);
@@ -1224,7 +1224,7 @@ namespace H5.Translator
             {
                 return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
                     SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(),
-                        symbol.Value.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart),
+                        symbol.Value.GetFullyQualifiedNameAndValidate(semanticModel, spanStart),
                         node.GetTrailingTrivia())), node.OperatorToken, node.Name);
             }
 
@@ -1240,7 +1240,7 @@ namespace H5.Translator
             {
                 return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
                     SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(),
-                        symbol.Value.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart),
+                        symbol.Value.GetFullyQualifiedNameAndValidate(semanticModel, spanStart),
                         node.GetTrailingTrivia())), node.OperatorToken, node.Name);
             }
 
@@ -1417,18 +1417,18 @@ namespace H5.Translator
 
         public override SyntaxNode VisitStructDeclaration(StructDeclarationSyntax node)
         {
-            this.currentType.Push(this.semanticModel.GetDeclaredSymbol(node));
+            currentType.Push(semanticModel.GetDeclaredSymbol(node));
 
-            var old = this.fields;
-            this.fields = new List<MemberDeclarationSyntax>();
+            var old = fields;
+            fields = new List<MemberDeclarationSyntax>();
             var isReadOnly = node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1;
             var isRef = node.Modifiers.IndexOf(SyntaxKind.RefKeyword) > -1;
             var c = base.VisitStructDeclaration(node) as StructDeclarationSyntax;
 
-            if (c != null && this.fields.Count > 0)
+            if (c != null && fields.Count > 0)
             {
                 var list = c.Members.ToList();
-                var arr = this.fields.ToArray();
+                var arr = fields.ToArray();
                 var trivias = c.CloseBraceToken.LeadingTrivia;
                 trivias = trivias.Insert(0, SyntaxFactory.Whitespace("\n")).Add(SyntaxFactory.Whitespace("\n"));
                 arr[0] = arr[0].WithLeadingTrivia(trivias);
@@ -1455,26 +1455,26 @@ namespace H5.Translator
                 node = node.WithAttributeLists(node.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("H5.PrivateProtectedAttribute"))))));
             }
 
-            this.fields = old;
-            this.currentType.Pop();
+            fields = old;
+            currentType.Pop();
 
             return c;
         }
 
         public override SyntaxNode VisitClassDeclaration(ClassDeclarationSyntax node)
         {
-            this.currentType.Push(this.semanticModel.GetDeclaredSymbol(node));
-            var oldIndex = this.IndexInstance;
-            this.IndexInstance = 0;
-            var old = this.fields;
-            this.fields = new List<MemberDeclarationSyntax>();
+            currentType.Push(semanticModel.GetDeclaredSymbol(node));
+            var oldIndex = IndexInstance;
+            IndexInstance = 0;
+            var old = fields;
+            fields = new List<MemberDeclarationSyntax>();
 
             var c = base.VisitClassDeclaration(node) as ClassDeclarationSyntax;
 
-            if (c != null && this.fields.Count > 0)
+            if (c != null && fields.Count > 0)
             {
                 var list = c.Members.ToList();
-                var arr = this.fields.ToArray();
+                var arr = fields.ToArray();
                 var trivias = c.CloseBraceToken.LeadingTrivia;
                 trivias = trivias.Insert(0, SyntaxFactory.Whitespace("\n")).Add(SyntaxFactory.Whitespace("\n"));
                 arr[0] = arr[0].WithLeadingTrivia(trivias);
@@ -1490,18 +1490,18 @@ namespace H5.Translator
                 node = node.WithAttributeLists(node.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("H5.PrivateProtectedAttribute"))))));
             }
 
-            this.fields = old;
-            this.IndexInstance = oldIndex;
-            this.currentType.Pop();
+            fields = old;
+            IndexInstance = oldIndex;
+            currentType.Pop();
 
             return c;
         }
 
         public override SyntaxNode VisitInterfaceDeclaration(InterfaceDeclarationSyntax node)
         {
-            this.currentType.Push(this.semanticModel.GetDeclaredSymbol(node));
+            currentType.Push(semanticModel.GetDeclaredSymbol(node));
             node = base.VisitInterfaceDeclaration(node) as InterfaceDeclarationSyntax;
-            this.currentType.Pop();
+            currentType.Pop();
 
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
@@ -1515,11 +1515,11 @@ namespace H5.Translator
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
-            var oldMarkAsAsync = this.markAsAsync;
-            this.markAsAsync = false;
+            var oldMarkAsAsync = markAsAsync;
+            markAsAsync = false;
 
-            var oldIndex = this.IndexInstance;
-            this.IndexInstance = 0;
+            var oldIndex = IndexInstance;
+            IndexInstance = 0;
 
             node = base.VisitMethodDeclaration(node) as MethodDeclarationSyntax;
 
@@ -1530,29 +1530,29 @@ namespace H5.Translator
                 node = node.WithAttributeLists(node.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("H5.PrivateProtectedAttribute"))))));
             }
 
-            if (this.markAsAsync && node.Modifiers.IndexOf(SyntaxKind.AsyncKeyword) == -1)
+            if (markAsAsync && node.Modifiers.IndexOf(SyntaxKind.AsyncKeyword) == -1)
             {
                 node = node.AddModifiers(SyntaxFactory.Token(SyntaxKind.AsyncKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" ")).WithLeadingTrivia(SyntaxFactory.Whitespace(" ")));
             }
 
-            this.markAsAsync = oldMarkAsAsync;
+            markAsAsync = oldMarkAsAsync;
             if (node.ExpressionBody != null)
             {
                 return SyntaxHelper.ToStatementBody(node);
             }
 
-            this.IndexInstance = oldIndex;
+            IndexInstance = oldIndex;
 
             return node;
         }
 
         public override SyntaxNode VisitAccessorDeclaration(AccessorDeclarationSyntax node)
         {
-            var oldIndex = this.IndexInstance;
-            this.IndexInstance = 0;
+            var oldIndex = IndexInstance;
+            IndexInstance = 0;
             var result = base.VisitAccessorDeclaration(node);
 
-            this.IndexInstance = oldIndex;
+            IndexInstance = oldIndex;
             return result;
         }
 
@@ -1591,57 +1591,57 @@ namespace H5.Translator
 
         public override SyntaxNode VisitParenthesizedLambdaExpression(ParenthesizedLambdaExpressionSyntax node)
         {
-            var oldMarkAsAsync = this.markAsAsync;
-            this.markAsAsync = false;
-            var ti = this.semanticModel.GetTypeInfo(node);
-            var oldValue = this.IsExpressionOfT;
+            var oldMarkAsAsync = markAsAsync;
+            markAsAsync = false;
+            var ti = semanticModel.GetTypeInfo(node);
+            var oldValue = IsExpressionOfT;
 
             if (ti.Type != null && ti.Type.IsExpressionOfT() ||
                 ti.ConvertedType != null && ti.ConvertedType.IsExpressionOfT())
             {
-                this.IsExpressionOfT = true;
+                IsExpressionOfT = true;
             }
 
             var newNode = base.VisitParenthesizedLambdaExpression(node);
 
-            this.IsExpressionOfT = oldValue;
+            IsExpressionOfT = oldValue;
 
-            if (this.markAsAsync && newNode is ParenthesizedLambdaExpressionSyntax ple)
+            if (markAsAsync && newNode is ParenthesizedLambdaExpressionSyntax ple)
             {
                 ple = ple.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
                 newNode = ple;
             }
 
-            this.markAsAsync = oldMarkAsAsync;
+            markAsAsync = oldMarkAsAsync;
 
             return newNode;
         }
 
         public override SyntaxNode VisitSimpleLambdaExpression(SimpleLambdaExpressionSyntax node)
         {
-            var oldMarkAsAsync = this.markAsAsync;
-            this.markAsAsync = false;
+            var oldMarkAsAsync = markAsAsync;
+            markAsAsync = false;
 
-            var ti = this.semanticModel.GetTypeInfo(node);
-            var oldValue = this.IsExpressionOfT;
+            var ti = semanticModel.GetTypeInfo(node);
+            var oldValue = IsExpressionOfT;
 
             if (ti.Type != null && ti.Type.IsExpressionOfT() ||
                 ti.ConvertedType != null && ti.ConvertedType.IsExpressionOfT())
             {
-                this.IsExpressionOfT = true;
+                IsExpressionOfT = true;
             }
 
             var newNode = base.VisitSimpleLambdaExpression(node);
 
-            this.IsExpressionOfT = oldValue;
+            IsExpressionOfT = oldValue;
 
-            if (this.markAsAsync && newNode is SimpleLambdaExpressionSyntax sle)
+            if (markAsAsync && newNode is SimpleLambdaExpressionSyntax sle)
             {
                 sle = sle.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
                 newNode = sle;
             }
 
-            this.markAsAsync = oldMarkAsAsync;
+            markAsAsync = oldMarkAsAsync;
 
             return newNode;
         }
@@ -1677,7 +1677,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var symbolInfo = this.semanticModel.GetCollectionInitializerSymbolInfo(init);
+                    var symbolInfo = semanticModel.GetCollectionInitializerSymbolInfo(init);
                     var collectionInitializer = symbolInfo.Symbol;
 
                     if (symbolInfo.Symbol == null && symbolInfo.CandidateSymbols.Length > 0)
@@ -1727,18 +1727,18 @@ namespace H5.Translator
             node = (ObjectCreationExpressionSyntax)base.VisitObjectCreationExpression(node);
             if (needRewrite)
             {
-                if (this.IsExpressionOfT)
+                if (IsExpressionOfT)
                 {
                     if (isImplicitElementAccessSyntax)
                     {
-                        var mapped = this.semanticModel.SyntaxTree.GetLineSpan(node.Span);
-                        throw new Exception(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Index collection initializer is not supported inside Expression<T>", this.semanticModel.SyntaxTree.FilePath, node.ToString()));
+                        var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+                        throw new Exception(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Index collection initializer is not supported inside Expression<T>", semanticModel.SyntaxTree.FilePath, node.ToString()));
                     }
 
                     if (extensionMethodExists)
                     {
-                        var mapped = this.semanticModel.SyntaxTree.GetLineSpan(node.Span);
-                        throw new Exception(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Extension method for collection initializer is not supported inside Expression<T>", this.semanticModel.SyntaxTree.FilePath, node.ToString()));
+                        var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+                        throw new Exception(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Extension method for collection initializer is not supported inside Expression<T>", semanticModel.SyntaxTree.FilePath, node.ToString()));
                     }
 
                     return node;
@@ -1767,7 +1767,7 @@ namespace H5.Translator
                 string instance = "_o" + ++IndexInstance;
                 if (parent != null)
                 {
-                    var info = LocalUsageGatherer.GatherInfo(this.semanticModel, parent);
+                    var info = LocalUsageGatherer.GatherInfo(semanticModel, parent);
                     while (info.DirectlyOrIndirectlyUsedLocals.Any(s => s.Name == instance) || info.Names.Contains(instance))
                     {
                         instance = "_o" + ++IndexInstance;
@@ -1780,7 +1780,7 @@ namespace H5.Translator
 
                 var body = SyntaxFactory.Block(statements);
                 var lambda = SyntaxFactory.ParenthesizedLambdaExpression(SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Parameter(SyntaxFactory.Identifier(instance)) })), body);
-                var isAsync = AwaitersCollector.HasAwaiters(this.semanticModel, node);
+                var isAsync = AwaitersCollector.HasAwaiters(semanticModel, node);
                 if (isAsync)
                 {
                     lambda = lambda.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
@@ -1999,7 +1999,7 @@ namespace H5.Translator
                 string instance = "_e" + ++IndexInstance;
                 if (parent != null)
                 {
-                    var info = LocalUsageGatherer.GatherInfo(this.semanticModel, parent);
+                    var info = LocalUsageGatherer.GatherInfo(semanticModel, parent);
                     while (info.DirectlyOrIndirectlyUsedLocals.Any(s => s.Name == instance) || info.Names.Contains(instance))
                     {
                         instance = "_e" + ++IndexInstance;
@@ -2061,9 +2061,9 @@ namespace H5.Translator
 
                 var expressionType = semanticModel.GetTypeInfo(node.Expression).Type;
                 ExpressionType = SyntaxFactory.ParseTypeName(expressionType.ToMinimalDisplayString(semanticModel, node.Expression.GetLocation().SourceSpan.Start));
-                this.IsNullable = expressionType.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T;
+                IsNullable = expressionType.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T;
 
-                if (this.IsNullable)
+                if (IsNullable)
                 {
                     UnderlyingNullableType = ((INamedTypeSymbol)expressionType).TypeArguments[0];
                     ExpressionType = SyntaxFactory.ParseTypeName(UnderlyingNullableType.ToMinimalDisplayString(semanticModel, node.Expression.GetLocation().SourceSpan.Start));

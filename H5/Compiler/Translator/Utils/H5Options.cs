@@ -17,8 +17,6 @@ namespace H5.Translator
         public string DefaultFileName { get; set; }
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
-        public bool SkipResourcesExtraction { get; set; }
-        public bool SkipEmbeddingResources { get; set; }
 
         public string ReferencesPath { get; set; }
 

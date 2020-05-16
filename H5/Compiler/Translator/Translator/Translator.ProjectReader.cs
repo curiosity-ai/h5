@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using H5.Contract.Constants;
 using H5.Translator.Utils;
 using ZLogger;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace H5.Translator
 {
@@ -26,7 +27,14 @@ namespace H5.Translator
             public const string OUT_DIR_PROP = "OutDir";
             public const string CONFIGURATION_PROP = "Configuration";
             public const string PLATFORM_PROP = "Platform";
+
+            public static class H5_Specific
+            {
+                public const string SkipResourcesExtraction = "SkipResourcesExtraction";
+                public const string SkipEmbeddingResources = "SkipEmbeddingResources";
+            }
         }
+
         
         private bool _shouldReadProjectFile = true; //RFO: Might use this in the future for running as a service, so leave here for now
 
@@ -61,9 +69,19 @@ namespace H5.Translator
 
             EnsureDefineConstants(project);
 
+            ReadH5Specific(project);
+
             CloseProject(project);
 
             Logger.ZLogTrace("EnsureProjectProperties done");
+        }
+
+        private void ReadH5Specific(Project project)
+        {
+            var configHelper = new Contract.ConfigHelper();
+
+            SkipEmbeddingResources  = ReadProperty(project, ProjectPropertyNames.H5_Specific.SkipEmbeddingResources, true, configHelper) is string s ? bool.Parse(s) : false;
+            SkipResourcesExtraction = ReadProperty(project, ProjectPropertyNames.H5_Specific.SkipResourcesExtraction, true, configHelper) is string s2 ? bool.Parse(s2) : false;
         }
 
         /// <summary>
@@ -219,7 +237,7 @@ namespace H5.Translator
             return fullPath;
         }
 
-        private string ReadProperty(Project doc, string name, bool safe, Contract.ConfigHelper configHelper)
+        private string ReadProperty(Project doc, string name, bool fineIfMissing, Contract.ConfigHelper configHelper)
         {
             var node = (from n in doc.AllEvaluatedProperties
                         where string.Compare(n.Name, name, true) == 0
@@ -227,7 +245,7 @@ namespace H5.Translator
 
             if (node is null)
             {
-                if (safe) { return null; }
+                if (fineIfMissing) { return null; }
 
                 TranslatorException.Throw("Unable to determine " + name + " in the project file with conditions " + EvaluationConditionsAsString());
             }

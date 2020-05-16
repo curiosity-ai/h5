@@ -111,6 +111,10 @@ namespace H5.Translator
 
         public OverflowMode? OverflowMode { get; set; }
 
+        public bool SkipResourcesExtraction { get; set; } = false;
+        public bool SkipEmbeddingResources { get; set; } = false;
+
+
         public HashSet<string> ExtractedScripts { get; set; } = new HashSet<string>();
     }
 }

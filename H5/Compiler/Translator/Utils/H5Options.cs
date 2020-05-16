@@ -7,8 +7,6 @@ namespace H5.Translator
 {
     public class H5Options
     {
-        public string Name { get; set; }
-
         public ProjectProperties ProjectProperties { get; set; }
 
         public string ProjectLocation { get; set; }
@@ -37,7 +35,6 @@ namespace H5.Translator
         {
             var r = new Dictionary<string, string>()
             {
-                { WrapProperty("Name"), GetString(this.Name) },
                 { WrapProperty("ProjectProperties"), GetString(this.ProjectProperties) },
                 { WrapProperty("ProjectLocation"), GetString(this.ProjectLocation) },
                 { WrapProperty("OutputLocation"), GetString(this.OutputLocation) },

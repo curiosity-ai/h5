@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using System.Xml.Linq;
 using System.Linq;
 using System.IO;
-using H5.Translator.Logging;
+using Microsoft.Extensions.Logging;
 using H5.Contract;
 using System.Collections.Generic;
 using System.Collections.Immutable;

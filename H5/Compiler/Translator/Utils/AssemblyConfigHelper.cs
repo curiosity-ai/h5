@@ -13,7 +13,7 @@ namespace H5.Translator.Utils
         private ILogger Logger { get; set; }
         private ConfigHelper<AssemblyInfo> helper { get; set; }
 
-        public AssemblyConfigHelper(ILogger logger)
+        public AssemblyConfigHelper()
         {
             this.Logger = logger;
             this.helper = new ConfigHelper<AssemblyInfo>(logger);
@@ -66,7 +66,7 @@ namespace H5.Translator.Utils
 
         public void ApplyTokens(IAssemblyInfo config, ProjectProperties projectProperties)
         {
-            Logger.Trace("ApplyTokens ...");
+            Logger.LogTrace("ApplyTokens ...");
 
             if (config == null)
             {
@@ -78,13 +78,13 @@ namespace H5.Translator.Utils
                 throw new ArgumentNullException("projectProperties");
             }
 
-            Logger.Trace("Properties:" + projectProperties.ToString());
+            Logger.LogTrace("Properties:" + projectProperties.ToString());
 
             var tokens = projectProperties.GetValues();
 
             if (tokens == null || tokens.Count <= 0)
             {
-                Logger.Trace("No tokens applied as no values to apply");
+                Logger.LogTrace("No tokens applied as no values to apply");
                 return;
             }
 
@@ -144,7 +144,7 @@ namespace H5.Translator.Utils
                 config.Report.Path = helper.ApplyPathTokens(tokens, config.Report.Path);
             }
 
-            Logger.Trace("ApplyTokens done");
+            Logger.LogTrace("ApplyTokens done");
         }
 
         public void ConvertConfigPaths(IAssemblyInfo assemblyInfo)

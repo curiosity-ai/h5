@@ -20,12 +20,6 @@ namespace H5.Translator
             set;
         }
 
-        public ILogger Log
-        {
-            get;
-            set;
-        }
-
         public IValidator Validator
         {
             get;

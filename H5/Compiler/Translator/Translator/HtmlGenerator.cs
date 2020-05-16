@@ -32,7 +32,7 @@ namespace H5.Translator
             get; set;
         }
 
-        public HtmlGenerator(ILogger logger, IAssemblyInfo config, TranslatorOutput outputs, string assemblyTitle)
+        public HtmlGenerator(IAssemblyInfo config, TranslatorOutput outputs, string assemblyTitle)
         {
             this.Log = logger;
             this.Config = config;

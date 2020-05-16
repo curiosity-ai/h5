@@ -1,28 +1,28 @@
 using H5.Contract;
-using H5.Translator.Logging;
+using Microsoft.Extensions.Logging;
 using H5.Translator.Utils;
-
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Mosaik.Core;
 
 namespace H5.Translator
 {
     public class TranslatorProcessor
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<TranslatorProcessor>();
+
         public H5Options H5Options { get; private set; }
 
-        public Logger Logger { get; private set; }
 
         public IAssemblyInfo TranslatorConfiguration { get; private set; }
 
         public Translator Translator { get; private set; }
 
-        public TranslatorProcessor(H5Options h5Options, Logger logger)
+        public TranslatorProcessor(H5Options h5Options)
         {
             this.H5Options = h5Options;
-            this.Logger = logger;
         }
 
         public void PreProcess()
@@ -33,9 +33,7 @@ namespace H5.Translator
 
             this.Translator = this.SetTranslatorProperties();
 
-            this.SetLoggerConfigurationParameters();
-
-            Logger.Info($"Ready to build {this.H5Options.ProjectLocation}");
+            Logger.LogInformation($"Ready to build {this.H5Options.ProjectLocation}");
         }
 
         private void AdjustH5Options()
@@ -58,22 +56,21 @@ namespace H5.Translator
 
         public string PostProcess()
         {
-            var logger = this.Logger;
             var h5Options = this.H5Options;
             var translator = this.Translator;
 
-            logger.Info("Post processing...");
+            Logger.LogInformation("Post processing...");
 
             var outputPath = GetOutputFolder();
 
-            logger.Info("outputPath is " + outputPath);
+            Logger.LogInformation("outputPath is " + outputPath);
 
             translator.CleanOutputFolderIfRequired(outputPath);
 
             translator.PrepareResourcesConfig();
 
             var projectPath = Path.GetDirectoryName(translator.Location);
-            logger.Info("projectPath is " + projectPath);
+            Logger.LogInformation("projectPath is " + projectPath);
 
             translator.ExtractCore(outputPath, projectPath);
 
@@ -88,15 +85,15 @@ namespace H5.Translator
 
             translator.RunAfterBuild();
 
-            logger.Info("Run plugins AfterOutput...");
+            Logger.LogInformation("Run plugins AfterOutput...");
             translator.Plugins.AfterOutput(translator, outputPath);
-            logger.Info("Done plugins AfterOutput");
+            Logger.LogInformation("Done plugins AfterOutput");
 
             this.GenerateHtml(outputPath);
 
             translator.Report(outputPath);
 
-            logger.Info("Done post processing");
+            Logger.LogInformation("Done post processing");
 
             return outputPath;
         }
@@ -110,12 +107,7 @@ namespace H5.Translator
                 htmlTitle = Translator.GetAssemblyTitle();
             }
 
-            var htmlGenerator = new HtmlGenerator(
-                Translator.Log,
-                Translator.AssemblyInfo,
-                Translator.Outputs,
-                htmlTitle
-                );
+            var htmlGenerator = new HtmlGenerator(Translator.AssemblyInfo, Translator.Outputs, htmlTitle);
 
             htmlGenerator.GenerateHtml(outputPath);
         }
@@ -160,7 +152,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    this.Logger.Warn("Could not get assembly output folder");
+                    Logger.LogWarning("Could not get assembly output folder");
                 }
 
                 basePath = string.IsNullOrWhiteSpace(assemblyOutput)
@@ -177,88 +169,18 @@ namespace H5.Translator
         private IAssemblyInfo ReadConfiguration()
         {
             var h5Options = this.H5Options;
-
-            var logger = this.Logger;
-
             var location = h5Options.ProjectLocation;
-
-            var configReader = new AssemblyConfigHelper(logger);
-
+            var configReader = new AssemblyConfigHelper();
             return configReader.ReadConfig(location, h5Options.ProjectProperties.Configuration);
         }
 
-        private void SetLoggerConfigurationParameters()
-        {
-            var logger = this.Logger;
-            var h5Options = this.H5Options;
-            var assemblyConfig = this.TranslatorConfiguration;
-
-            if (h5Options.NoLoggerSetUp)
-            {
-                return;
-            }
-
-            logger.Trace("Applying logger configuration parameters...");
-
-            logger.Name = h5Options.Name;
-
-            if (!string.IsNullOrEmpty(logger.Name))
-            {
-                logger.Trace("Logger name: " + logger.Name);
-            }
-
-            var loggerLevel = assemblyConfig.Logging.Level ?? LoggerLevel.Info;
-
-            logger.Trace("Logger level: " + loggerLevel);
-
-            if (loggerLevel <= LoggerLevel.None)
-            {
-                logger.Info("    To enable detailed logging, configure \"logging\" in h5.json: https://github.com/bridgedotnet/bridge/wiki/global-configuration#logging");
-            }
-
-            logger.LoggerLevel = loggerLevel;
-
-            logger.Trace("Read config file: " + AssemblyConfigHelper.ConfigToString(assemblyConfig));
-
-            logger.BufferedMode = false;
-
-            var fileLoggerWriter = logger.GetFileLogger();
-
-            if (fileLoggerWriter != null)
-            {
-                string logFileFolder = GetLoggerFolder(assemblyConfig);
-
-                fileLoggerWriter.SetParameters(logFileFolder, assemblyConfig.Logging.FileName, assemblyConfig.Logging.MaxSize);
-            }
-
-            logger.Flush();
-
-            logger.Trace("Setting logger configuration parameters done");
-        }
-
-        private string GetLoggerFolder(IAssemblyInfo assemblyConfig)
-        {
-            var logFileFolder = assemblyConfig.Logging.Folder;
-
-            if (string.IsNullOrWhiteSpace(logFileFolder))
-            {
-                logFileFolder = this.GetOutputFolder(false, false);
-            }
-            else if (!Path.IsPathRooted(logFileFolder))
-            {
-                logFileFolder = Path.Combine(this.GetOutputFolder(true, false), logFileFolder);
-            }
-
-            return logFileFolder;
-        }
 
         private Translator SetTranslatorProperties()
         {
-            var logger = this.Logger;
             var h5Options = this.H5Options;
             var assemblyConfig = this.TranslatorConfiguration;
 
-            logger.Trace("Setting translator properties...");
+            Logger.LogTrace("Setting translator properties...");
 
             H5.Translator.Translator translator = null;
 
@@ -284,7 +206,6 @@ namespace H5.Translator
 
             translator.H5Location = h5Options.H5Location;
             translator.Rebuild = h5Options.Rebuild;
-            translator.Log = logger;
 
             if (h5Options.ProjectProperties.DefineConstants != null)
             {
@@ -292,19 +213,18 @@ namespace H5.Translator
                 translator.DefineConstants = translator.DefineConstants.Distinct().ToList();
             }
 
-            translator.Log.Trace("Translator properties:");
-            translator.Log.Trace("\tH5Location:" + translator.H5Location);
-            translator.Log.Trace("\tBuildArguments:" + translator.BuildArguments);
-            translator.Log.Trace("\tDefineConstants:" + (translator.DefineConstants != null ? string.Join(" ", translator.DefineConstants) : ""));
-            translator.Log.Trace("\tRebuild:" + translator.Rebuild);
-            translator.Log.Trace("\tProjectProperties:" + translator.ProjectProperties);
+           Logger.LogTrace("Translator properties:");
+           Logger.LogTrace("\tH5Location:" + translator.H5Location);
+           Logger.LogTrace("\tBuildArguments:" + translator.BuildArguments);
+           Logger.LogTrace("\tDefineConstants:" + (translator.DefineConstants != null ? string.Join(" ", translator.DefineConstants) : ""));
+           Logger.LogTrace("\tRebuild:" + translator.Rebuild);
+           Logger.LogTrace("\tProjectProperties:" + translator.ProjectProperties);
 
-            
             translator.EnsureProjectProperties();
 
             translator.ApplyProjectPropertiesToConfig();
 
-            logger.Trace("Setting translator properties done");
+            Logger.LogTrace("Setting translator properties done");
 
             return translator;
         }

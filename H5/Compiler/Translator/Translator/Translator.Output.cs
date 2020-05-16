@@ -1,6 +1,6 @@
 using H5.Contract;
 using H5.Contract.Constants;
-using H5.Translator.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Ajax.Utilities;
 using Mono.Cecil;
 using System;
@@ -16,7 +16,7 @@ namespace H5.Translator
         public virtual void Save(string projectOutputPath, string defaultFileName)
         {
             var logger = this.Log;
-            logger.Info("Starts Save with projectOutputPath = " + projectOutputPath);
+            Logger.LogInformation("Starts Save with projectOutputPath = " + projectOutputPath);
             var outputs = this.Outputs.GetOutputs().ToList();
             var dtsReferences = new List<string>();
             bool addNoLibReference = false;
@@ -42,18 +42,18 @@ namespace H5.Translator
 
             foreach (var item in outputs)
             {
-                logger.Trace("Output " + item.Name);
+                Logger.LogTrace("Output " + item.Name);
 
                 string filePath = DefineOutputItemFullPath(item, projectOutputPath, defaultFileName);
 
                 if (item.IsEmpty && (item.MinifiedVersion == null || item.MinifiedVersion.IsEmpty))
                 {
-                    logger.Trace("Output " + filePath + " is empty");
+                    Logger.LogTrace("Output " + filePath + " is empty");
                     continue;
                 }
 
                 var file = FileHelper.CreateFileDirectory(filePath);
-                logger.Trace("Output full name " + file.FullName);
+                Logger.LogTrace("Output full name " + file.FullName);
 
                 byte[] buffer = null;
                 string content = null;
@@ -106,20 +106,20 @@ namespace H5.Translator
                 }
             }
 
-            logger.Info("Done Save path = " + projectOutputPath);
+            Logger.LogInformation("Done Save path = " + projectOutputPath);
         }
 
         public void Report(string projectOutputPath)
         {
             var logger = this.Log;
 
-            logger.Trace("Report...");
+            Logger.LogTrace("Report...");
 
             var config = this.AssemblyInfo;
 
             if (!config.Report.Enabled)
             {
-                logger.Trace("Report skipped as disabled in config.");
+                Logger.LogTrace("Report skipped as disabled in config.");
                 return;
             }
 
@@ -128,11 +128,11 @@ namespace H5.Translator
             string filePath = DefineOutputItemFullPath(this.Outputs.Report, projectOutputPath, null);
 
             var file = FileHelper.CreateFileDirectory(filePath);
-            logger.Trace("Report file full name: " + file.FullName);
+            Logger.LogTrace("Report file full name: " + file.FullName);
 
             this.SaveToFile(file.FullName, reportContent.ToString());
 
-            logger.Trace("Report done");
+            Logger.LogTrace("Report done");
 
         }
 
@@ -166,7 +166,7 @@ namespace H5.Translator
 
             if (fileName != item.Name)
             {
-                logger.Trace("Output file name changed to " + fileName);
+                Logger.LogTrace("Output file name changed to " + fileName);
                 item.Name = fileName;
             }
 
@@ -179,7 +179,7 @@ namespace H5.Translator
 
                 if (fileName != filePath)
                 {
-                    logger.Trace("Output file name changed to " + filePath);
+                    Logger.LogTrace("Output file name changed to " + filePath);
                 }
             }
 
@@ -188,7 +188,7 @@ namespace H5.Translator
             if (filePath1 != filePath)
             {
                 filePath = filePath1;
-                logger.Trace("Output file name changed to " + filePath1);
+                Logger.LogTrace("Output file name changed to " + filePath1);
             }
 
             filePath = Path.GetFullPath(filePath);

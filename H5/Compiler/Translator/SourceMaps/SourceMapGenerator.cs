@@ -86,8 +86,8 @@ namespace H5.Translator
 
             if (logger != null)
             {
-                logger.Trace("SourceMap for " + scriptFileName);
-                logger.Trace(map);
+                Logger.LogTrace("SourceMap for " + scriptFileName);
+                Logger.LogTrace(map);
             }
 
             var encoded = "//# sourceMappingURL=data:application/json;base64,"
@@ -95,8 +95,8 @@ namespace H5.Translator
 
             if (logger != null)
             {
-                logger.Trace("Base64 SourceMap for " + scriptFileName);
-                logger.Trace(encoded);
+                Logger.LogTrace("Base64 SourceMap for " + scriptFileName);
+                Logger.LogTrace(encoded);
             }
 
             content = content + Emitter.NEW_LINE + encoded + Emitter.NEW_LINE;

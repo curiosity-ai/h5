@@ -26,9 +26,9 @@ namespace H5.Translator
 
             this.H5Types.InitItems(this);
 
-            logger.Trace("Sorting types infos by name...");
+            Logger.LogTrace("Sorting types infos by name...");
             this.Types.Sort(this.CompareTypeInfosByName);
-            logger.Trace("Sorting types infos by name done");
+            Logger.LogTrace("Sorting types infos by name done");
 
             this.SortTypesByInheritance();
 

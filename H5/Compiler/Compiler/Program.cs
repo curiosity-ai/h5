@@ -1,24 +1,34 @@
+using Cysharp.Text;
 using H5.Contract;
 using H5.Translator;
-using H5.Translator.Logging;
-
+using Microsoft.Build.Utilities;
+using Microsoft.Extensions.Logging;
+using Mosaik.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using ZLogger;
 
 namespace H5.Builder
 {
+
     public class Program
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<Program>();
+
         private static int Main(string[] args)
         {
             Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
+            DefaultEncoding.ForceInvariantCultureAndUTF8Output();
 
-            var logger = new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter());
-            
-            var h5Options = GetH5OptionsFromCommandLine(args, logger);
+            //TODO: get log level from command line
+            //TODO: add options on SDK Target to set log level on command line
+
+            ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(LogLevel.Information).AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1}:{2}:{3}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))));
+
+            var h5Options = GetH5OptionsFromCommandLine(args);
 
             if (h5Options is null)
             {
@@ -26,9 +36,9 @@ namespace H5.Builder
                 return 0;
             }
 
-            logger.Info($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
+            Logger.LogInformation($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
 
-            var processor = new TranslatorProcessor(h5Options, logger);
+            var processor = new TranslatorProcessor(h5Options);
 
             try
             {
@@ -40,7 +50,7 @@ namespace H5.Builder
             }
             catch (EmitterException ex)
             {
-                logger.Error(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
+                Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
                 return 1;
             }
             catch (Exception ex)
@@ -49,11 +59,11 @@ namespace H5.Builder
 
                 if (ee != null)
                 {
-                    logger.Error(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
+                    Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
                 }
                 else
                 {
-                    logger.Error(string.Format("H5 Compiler error: {0}", ex.ToString()));
+                    Logger.LogError(string.Format("H5 Compiler error: {0}", ex.ToString()));
                 }
 
                 return 1;
@@ -62,6 +72,21 @@ namespace H5.Builder
             return 0;
         }
 
+        internal static string GetLogLevelString(LogLevel logLevel)
+        {
+            switch (logLevel)
+            {
+                case LogLevel.Trace: return "trce";
+                case LogLevel.Debug: return "dbug";
+                case LogLevel.Information: return "info";
+                case LogLevel.Warning: return "warn";
+                case LogLevel.Error: return "fail";
+                case LogLevel.Critical: return "crit";
+                case LogLevel.None: return "none";
+                default: throw new ArgumentOutOfRangeException(nameof(logLevel));
+            }
+        }
+        
         /// <summary>
         /// Commandline arguments based on http://docopt.org/
         /// </summary>
@@ -87,7 +112,7 @@ namespace H5.Builder
 -D --define <const-list>   Semicolon-delimited list of project constants.");
         }
 
-        private static bool BindCmdArgumentToOption(string arg, H5Options h5Options, ILogger logger)
+        private static bool BindCmdArgumentToOption(string arg, H5Options h5Options)
         {
             if (h5Options.ProjectLocation == null)
             {
@@ -100,11 +125,10 @@ namespace H5.Builder
             return false; // didn't bind anywhere
         }
 
-        public static H5Options GetH5OptionsFromCommandLine(string[] args, ILogger logger)
+        public static H5Options GetH5OptionsFromCommandLine(string[] args)
         {
             var h5Options = new H5Options();
 
-            h5Options.Name = "";
             h5Options.ProjectProperties = new ProjectProperties();
 
             // options -c, -P and -D have priority over -S
@@ -152,12 +176,12 @@ namespace H5.Builder
 
                     case "-S":
                     case "--settings":
-                        var error = ParseProjectProperties(h5Options, args[++i], logger);
+                        var error = ParseProjectProperties(h5Options, args[++i]);
 
                         if (error != null)
                         {
-                            logger.Error("Invalid argument --setting(-S): " + args[i]);
-                            logger.Error(error);
+                            Logger.LogError("Invalid argument --setting(-S): " + args[i]);
+                            Logger.LogError(error);
                             return null;
                         }
 
@@ -175,7 +199,7 @@ namespace H5.Builder
                         {
                             // don't care about success. If not set already, then try next cmdline argument
                             // as the file parameter and ignore following arguments, if any.
-                            BindCmdArgumentToOption(args[i + 1], h5Options, logger);
+                            BindCmdArgumentToOption(args[i + 1], h5Options);
                         }
                         i = args.Length; // move to the end of arguments list
                         break;
@@ -184,9 +208,9 @@ namespace H5.Builder
 
                         // If this argument does not look like a cmdline switch and
                         // neither backwards -project nor -lib were specified
-                        if (!BindCmdArgumentToOption(args[i], h5Options, logger))
+                        if (!BindCmdArgumentToOption(args[i], h5Options))
                         {
-                            logger.Error("Invalid argument: " + args[i]);
+                            Logger.LogError("Invalid argument: " + args[i]);
                             return null;
                         }
                         break;
@@ -217,26 +241,26 @@ namespace H5.Builder
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex.ToString());
+                    Logger.LogError(ex.ToString());
                 }
 
                 if (csprojs.Length > 1)
                 {
-                    logger.Error("Could not default to a csproj because multiple were found:");
-                    logger.Info(string.Join(", ", csprojs.Select(path => Path.GetFileName(path))));
+                    Logger.LogError("Could not default to a csproj because multiple were found:");
+                    Logger.LogInformation(string.Join(", ", csprojs.Select(path => Path.GetFileName(path))));
                     return null; // error: arguments not provided, so can't guess what to do
                 }
 
                 if (csprojs.Length == 0)
                 {
-                    logger.Warn("Could not default to a csproj because none were found.");
-                    logger.Error("Error: Project or assembly file name must be specified.");
+                    Logger.LogWarning("Could not default to a csproj because none were found.");
+                    Logger.LogError("Error: Project or assembly file name must be specified.");
                     return null;
                 }
 
                 var csproj = csprojs[0];
                 h5Options.ProjectLocation = csproj;
-                logger.Info("Defaulting Project Location to " + csproj);
+                Logger.LogInformation("Defaulting Project Location to " + csproj);
             }
 
             if (string.IsNullOrEmpty(h5Options.OutputLocation))
@@ -254,7 +278,7 @@ namespace H5.Builder
             return h5Options;
         }
 
-        private static string ParseProjectProperties(H5Options h5Options, string parameters, ILogger logger)
+        private static string ParseProjectProperties(H5Options h5Options, string parameters)
         {
             var properties = new ProjectProperties();
             h5Options.ProjectProperties = properties;
@@ -283,7 +307,7 @@ namespace H5.Builder
                 var parts = pair.Split(new char[] { ':' }, 2);
                 if (parts.Length < 2)
                 {
-                    logger.Warn("Skipped " + pair + " when parsing --settings as it is not well-formed like name:value");
+                    Logger.LogWarning("Skipped " + pair + " when parsing --settings as it is not well-formed like name:value");
                     continue;
                 }
 
@@ -291,7 +315,7 @@ namespace H5.Builder
 
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    logger.Warn("Skipped " + pair + " when parsing --settings as name is empty in name:value");
+                    Logger.LogWarning("Skipped " + pair + " when parsing --settings as name is empty in name:value");
                     continue;
                 }
 
@@ -300,7 +324,7 @@ namespace H5.Builder
                 if (settings.ContainsKey(name))
                 {
                     value = settings[name];
-                    logger.Warn("Skipped " + pair + " when parsing --settings as it already found in " + name + ":" + value);
+                    Logger.LogWarning("Skipped " + pair + " when parsing --settings as it already found in " + name + ":" + value);
                     continue;
                 }
 

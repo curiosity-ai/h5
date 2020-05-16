@@ -96,7 +96,7 @@ namespace H5.Translator
         public void Translate()
         {
             var logger = this.Log;
-            logger.Info("Translating...");
+            Logger.LogInformation("Translating...");
 
             var config = this.AssemblyInfo;
 
@@ -106,12 +106,12 @@ namespace H5.Translator
                 //{
                 //    File.Delete(this.AssemblyLocation);
                 //}
-                logger.Info("Building assembly as Rebuild option is enabled");
+                Logger.LogInformation("Building assembly as Rebuild option is enabled");
                 this.BuildAssembly();
             }
             else if (!File.Exists(this.AssemblyLocation))
             {
-                logger.Info("Building assembly as it is not found at " + this.AssemblyLocation);
+                Logger.LogInformation("Building assembly as it is not found at " + this.AssemblyLocation);
                 this.BuildAssembly();
             }
 
@@ -131,17 +131,17 @@ namespace H5.Translator
 
             this.Plugins = H5.Translator.Plugins.GetPlugins(this, config, logger);
 
-            logger.Info("Reading plugin configs...");
+            Logger.LogInformation("Reading plugin configs...");
             this.Plugins.OnConfigRead(config);
-            logger.Info("Reading plugin configs done");
+            Logger.LogInformation("Reading plugin configs done");
 
             if (!string.IsNullOrWhiteSpace(config.BeforeBuild))
             {
                 try
                 {
-                    logger.Info("Running BeforeBuild event " + config.BeforeBuild + " ...");
+                    Logger.LogInformation("Running BeforeBuild event " + config.BeforeBuild + " ...");
                     this.RunEvent(config.BeforeBuild);
-                    logger.Info("Running BeforeBuild event done");
+                    Logger.LogInformation("Running BeforeBuild event done");
                 }
                 catch (System.Exception exc)
                 {
@@ -191,18 +191,18 @@ namespace H5.Translator
 
             this.SortReferences();
 
-            logger.Info("Before emitting...");
+            Logger.LogInformation("Before emitting...");
             this.Plugins.BeforeEmit(emitter, this);
-            logger.Info("Before emitting done");
+            Logger.LogInformation("Before emitting done");
 
             this.AddMainOutputs(emitter.Emit());
             this.EmitterOutputs = emitter.Outputs;
 
-            logger.Info("After emitting...");
+            Logger.LogInformation("After emitting...");
             this.Plugins.AfterEmit(emitter, this);
-            logger.Info("After emitting done");
+            Logger.LogInformation("After emitting done");
 
-            logger.Info("Translating done");
+            Logger.LogInformation("Translating done");
         }
 
         protected virtual MemberResolver Preconvert(MemberResolver resolver, IAssemblyInfo config)

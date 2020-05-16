@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace H5.Contract
 {
-    public interface IEmitter : ILog, IAstVisitor
+    public interface IEmitter : IAstVisitor
     {
         string Tag
         {
@@ -20,13 +20,13 @@ namespace H5.Contract
             set;
         }
 
-        ICSharpCode.NRefactory.CSharp.AssignmentOperatorType AssignmentType
+        AssignmentOperatorType AssignmentType
         {
             get;
             set;
         }
 
-        ICSharpCode.NRefactory.CSharp.UnaryOperatorType UnaryOperatorType
+        UnaryOperatorType UnaryOperatorType
         {
             get;
             set;
@@ -50,13 +50,13 @@ namespace H5.Contract
             set;
         }
 
-        ICSharpCode.NRefactory.CSharp.SwitchStatement AsyncSwitch
+        SwitchStatement AsyncSwitch
         {
             get;
             set;
         }
 
-        System.Collections.Generic.List<string> AsyncVariables
+        List<string> AsyncVariables
         {
             get;
             set;
@@ -76,7 +76,7 @@ namespace H5.Contract
 
         void SortTypesByInheritance();
 
-        System.Collections.Generic.List<IPluginDependency> CurrentDependencies
+        List<IPluginDependency> CurrentDependencies
         {
             get;
             set;
@@ -90,51 +90,51 @@ namespace H5.Contract
             set;
         }
 
-        ICSharpCode.NRefactory.TypeSystem.IAttribute GetAttribute(System.Collections.Generic.IEnumerable<ICSharpCode.NRefactory.TypeSystem.IAttribute> attributes, string name);
+        IAttribute GetAttribute(IEnumerable<IAttribute> attributes, string name);
 
-        Mono.Cecil.CustomAttribute GetAttribute(System.Collections.Generic.IEnumerable<Mono.Cecil.CustomAttribute> attributes, string name);
+        CustomAttribute GetAttribute(IEnumerable<CustomAttribute> attributes, string name);
 
-        Mono.Cecil.TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount);
+        TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount);
 
-        Mono.Cecil.TypeDefinition GetBaseTypeDefinition();
+        TypeDefinition GetBaseTypeDefinition();
 
-        Mono.Cecil.TypeDefinition GetBaseTypeDefinition(Mono.Cecil.TypeDefinition type);
+        TypeDefinition GetBaseTypeDefinition(TypeDefinition type);
 
-        string GetEntityName(ICSharpCode.NRefactory.CSharp.EntityDeclaration entity);
+        string GetEntityName(EntityDeclaration entity);
 
-        string GetParameterName(ICSharpCode.NRefactory.CSharp.ParameterDeclaration entity);
+        string GetParameterName(ParameterDeclaration entity);
 
         NameSemantic GetNameSemantic(IEntity member);
 
-        string GetEntityName(ICSharpCode.NRefactory.TypeSystem.IEntity member);
+        string GetEntityName(IEntity member);
 
-        string GetTypeName(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type, TypeDefinition typeDefinition);
+        string GetTypeName(ITypeDefinition type, TypeDefinition typeDefinition);
 
-        string GetLiteralEntityName(ICSharpCode.NRefactory.TypeSystem.IEntity member);
+        string GetLiteralEntityName(IEntity member);
 
-        string GetInline(ICSharpCode.NRefactory.CSharp.EntityDeclaration method);
+        string GetInline(EntityDeclaration method);
 
-        string GetInline(ICSharpCode.NRefactory.TypeSystem.IEntity entity);
+        string GetInline(IEntity entity);
 
-        Tuple<bool, bool, string> GetInlineCode(ICSharpCode.NRefactory.CSharp.InvocationExpression node);
+        Tuple<bool, bool, string> GetInlineCode(InvocationExpression node);
 
-        Tuple<bool, bool, string> GetInlineCode(ICSharpCode.NRefactory.CSharp.MemberReferenceExpression node);
+        Tuple<bool, bool, string> GetInlineCode(MemberReferenceExpression node);
 
         bool IsForbiddenInvocation(InvocationExpression node);
 
-        System.Collections.Generic.IEnumerable<string> GetScript(ICSharpCode.NRefactory.CSharp.EntityDeclaration method);
+        IEnumerable<string> GetScript(EntityDeclaration method);
 
-        int GetPriority(Mono.Cecil.TypeDefinition type);
+        int GetPriority(TypeDefinition type);
 
-        Mono.Cecil.TypeDefinition GetTypeDefinition();
+        TypeDefinition GetTypeDefinition();
 
-        Mono.Cecil.TypeDefinition GetTypeDefinition(ICSharpCode.NRefactory.CSharp.AstType reference, bool safe = false);
+        TypeDefinition GetTypeDefinition(AstType reference, bool safe = false);
 
-        Mono.Cecil.TypeDefinition GetTypeDefinition(IType type);
+        TypeDefinition GetTypeDefinition(IType type);
 
         string GetTypeHierarchy();
 
-        ICSharpCode.NRefactory.CSharp.AstNode IgnoreBlock
+        AstNode IgnoreBlock
         {
             get;
             set;
@@ -158,9 +158,9 @@ namespace H5.Contract
             set;
         }
 
-        bool IsInlineConst(ICSharpCode.NRefactory.TypeSystem.IMember member);
+        bool IsInlineConst(IMember member);
 
-        bool IsMemberConst(ICSharpCode.NRefactory.TypeSystem.IMember member);
+        bool IsMemberConst(IMember member);
 
         bool IsNativeMember(string fullName);
 
@@ -176,7 +176,7 @@ namespace H5.Contract
             set;
         }
 
-        System.Collections.Generic.List<IJumpInfo> JumpStatements
+        List<IJumpInfo> JumpStatements
         {
             get;
             set;
@@ -206,49 +206,43 @@ namespace H5.Contract
             set;
         }
 
-        System.Collections.Generic.Dictionary<string, ICSharpCode.NRefactory.CSharp.AstType> Locals
+        Dictionary<string, AstType> Locals
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Dictionary<IVariable, string> LocalsMap
+        Dictionary<IVariable, string> LocalsMap
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Dictionary<string, string> LocalsNamesMap
+        Dictionary<string, string> LocalsNamesMap
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Stack<System.Collections.Generic.Dictionary<string, ICSharpCode.NRefactory.CSharp.AstType>> LocalsStack
+        Stack<Dictionary<string, AstType>> LocalsStack
         {
             get;
             set;
         }
 
-        ILogger Log
+        IEnumerable<MethodDefinition> MethodsGroup
         {
             get;
             set;
         }
 
-        System.Collections.Generic.IEnumerable<Mono.Cecil.MethodDefinition> MethodsGroup
+        Dictionary<int, System.Text.StringBuilder> MethodsGroupBuilder
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Dictionary<int, System.Text.StringBuilder> MethodsGroupBuilder
-        {
-            get;
-            set;
-        }
-
-        ICSharpCode.NRefactory.CSharp.AstNode NoBraceBlock
+        AstNode NoBraceBlock
         {
             get;
             set;
@@ -296,7 +290,7 @@ namespace H5.Contract
             set;
         }
 
-        System.Collections.Generic.IEnumerable<Mono.Cecil.AssemblyDefinition> References
+        IEnumerable<AssemblyDefinition> References
         {
             get;
             set;
@@ -320,7 +314,7 @@ namespace H5.Contract
             set;
         }
 
-        System.Collections.Generic.IList<string> SourceFiles
+        IList<string> SourceFiles
         {
             get;
             set;
@@ -334,7 +328,7 @@ namespace H5.Contract
 
         string ToJavaScript(object value);
 
-        System.Collections.Generic.IDictionary<string, Mono.Cecil.TypeDefinition> TypeDefinitions
+        IDictionary<string, TypeDefinition> TypeDefinitions
         {
             get;
         }
@@ -345,13 +339,13 @@ namespace H5.Contract
             set;
         }
 
-        System.Collections.Generic.Dictionary<string, ITypeInfo> TypeInfoDefinitions
+        Dictionary<string, ITypeInfo> TypeInfoDefinitions
         {
             get;
             set;
         }
 
-        System.Collections.Generic.List<ITypeInfo> Types
+        List<ITypeInfo> Types
         {
             get;
             set;
@@ -362,7 +356,7 @@ namespace H5.Contract
             get;
         }
 
-        System.Collections.Generic.Stack<IWriter> Writers
+        Stack<IWriter> Writers
         {
             get;
             set;

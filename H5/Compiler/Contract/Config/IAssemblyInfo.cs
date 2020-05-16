@@ -149,11 +149,6 @@ namespace H5.Contract
             get; set;
         }
 
-        LoggingOptions Logging
-        {
-            get; set;
-        }
-
         [JsonConverter(typeof(StringEnumConverter))]
         OverflowMode? OverflowMode
         {

@@ -39,7 +39,7 @@ namespace H5.Translator
             private AssemblyDefinition CecilAssemblyResolver_ResolveFailure(object sender, AssemblyNameReference reference)
             {
                 string fullName = reference != null ? reference.FullName : "";
-                this.Logger.Trace("CecilAssemblyResolver: ResolveFailure " + (fullName ?? ""));
+                this.Logger.LogTrace("CecilAssemblyResolver: ResolveFailure " + (fullName ?? ""));
 
                 return null;
             }
@@ -48,7 +48,7 @@ namespace H5.Translator
             {
                 string fullName = name != null ? name.FullName : "";
 
-                this.Logger.Trace("CecilAssemblyResolver: Resolve(AssemblyNameReference) " + (fullName ?? ""));
+                this.Logger.LogTrace("CecilAssemblyResolver: Resolve(AssemblyNameReference) " + (fullName ?? ""));
 
                 return base.Resolve(name);
             }
@@ -57,7 +57,7 @@ namespace H5.Translator
             {
                 string fullName = name != null ? name.FullName : "";
 
-                this.Logger.Trace(
+                this.Logger.LogTrace(
                     "CecilAssemblyResolver: Resolve(AssemblyNameReference, ReaderParameters) "
                     + (fullName ?? "")
                     + ", "

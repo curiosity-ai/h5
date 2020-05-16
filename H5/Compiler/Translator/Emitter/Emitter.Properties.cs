@@ -229,7 +229,7 @@ namespace H5.Translator
 
         internal static List<IAssemblyReference> ToAssemblyReferences(IEnumerable<AssemblyDefinition> references, ILogger logger)
         {
-            logger.Info("Assembly definition to references...");
+            Logger.LogInformation("Assembly definition to references...");
 
             var list = new List<IAssemblyReference>();
 
@@ -240,17 +240,17 @@ namespace H5.Translator
 
             foreach (var reference in references)
             {
-                logger.Trace("\tLoading AssemblyDefinition " + (reference != null && reference.Name != null && reference.Name.Name != null ? reference.Name.Name : "") + " ...");
+                Logger.LogTrace("\tLoading AssemblyDefinition " + (reference != null && reference.Name != null && reference.Name.Name != null ? reference.Name.Name : "") + " ...");
 
                 var loader = new CecilLoader();
                 loader.IncludeInternalMembers = true;
 
                 list.Add(loader.LoadAssembly(reference));
 
-                logger.Trace("\tLoading AssemblyDefinition done");
+                Logger.LogTrace("\tLoading AssemblyDefinition done");
             }
 
-            logger.Info("Assembly definition to references done");
+            Logger.LogInformation("Assembly definition to references done");
 
             return list;
         }

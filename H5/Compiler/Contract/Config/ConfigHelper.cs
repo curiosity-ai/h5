@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+using Mosaik.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,8 +13,6 @@ namespace H5.Contract
     {
         class PathChanger
         {
-            //private Regex PathSchemaRegex = new Regex(@"(?<=(^\w+:)|^)[\\/]{2,}");
-            //private Regex PathNonSchemaRegex = new Regex(@"(?<!((^\w+:)|^)[\\/]*)[\\/]+");
             private Regex PathRegex = new Regex(@"(?<schema>(?<=(^\w+:)|^)[\\/]{2,})|[\\/]+");
 
             public string Separator
@@ -48,9 +48,6 @@ namespace H5.Contract
 
             public string ConvertPath()
             {
-                //path = PathSchemaRegex.Replace(path, directorySeparator.ToString());
-                //path = PathNonSchemaRegex.Replace(path, directorySeparator.ToString());
-
                 return PathRegex.Replace(Path, ReplaceSlashEvaluator);
             }
         }
@@ -137,14 +134,10 @@ namespace H5.Contract
 
     public class ConfigHelper<T> : ConfigHelper
     {
-        private ILogger Logger
-        {
-            get; set;
-        }
+        private static ILogger Logger = ApplicationLogging.CreateLogger<ConfigHelper<T>>();
 
-        public ConfigHelper(ILogger logger)
+        public ConfigHelper()
         {
-            this.Logger = logger;
         }
 
         public virtual T ReadConfig(string configFileName, string location, string configuration)
@@ -152,7 +145,7 @@ namespace H5.Contract
             string configPath = null;
             string mergePath = null;
 
-            Logger.Trace("Reading configuration file " + (configFileName ?? "") + " at " + (location ?? "") + " for configuration " + (configuration ?? "") + " ...");
+            Logger.LogTrace("Reading configuration file " + (configFileName ?? "") + " at " + (location ?? "") + " for configuration " + (configuration ?? "") + " ...");
 
             if (!string.IsNullOrWhiteSpace(configuration))
             {
@@ -182,19 +175,19 @@ namespace H5.Contract
 
             if (configPath == null)
             {
-                Logger.Info("H5 config file is not found. Returning default config");
+                Logger.LogInformation("H5 config file is not found. Returning default config");
                 return default(T);
             }
 
             try
             {
-                Logger.Trace("Reading base configuration at " + (configPath ?? "") + " ...");
+                Logger.LogTrace("Reading base configuration at " + (configPath ?? "") + " ...");
                 var json = File.ReadAllText(configPath);
 
                 T config;
                 if (mergePath != null)
                 {
-                    Logger.Trace("Reading merge configuration at " + (mergePath ?? "") + " ...");
+                    Logger.LogTrace("Reading merge configuration at " + (mergePath ?? "") + " ...");
                     var jsonMerge = File.ReadAllText(mergePath);
 
                     var cfgMain = JObject.Parse(json);
@@ -223,7 +216,7 @@ namespace H5.Contract
 
         public string GetConfigPath(string configFileName, string location)
         {
-            this.Logger.Trace("Getting configuration by file path " + (configFileName ?? "") + " at " + (location ?? "") + " ...");
+            Logger.LogTrace("Getting configuration by file path " + (configFileName ?? "") + " at " + (location ?? "") + " ...");
 
             var folder = Path.GetDirectoryName(location);
             var path = folder + Path.DirectorySeparatorChar + "H5" + Path.DirectorySeparatorChar + configFileName;
@@ -235,11 +228,11 @@ namespace H5.Contract
 
             if (!File.Exists(path))
             {
-                this.Logger.Trace("Skipping " + configFileName + " (not found)");
+                Logger.LogTrace("Skipping " + configFileName + " (not found)");
                 return null;
             }
 
-            this.Logger.Trace("Found configuration file " + (path ?? ""));
+            Logger.LogTrace("Found configuration file " + (path ?? ""));
 
             return path;
         }

@@ -20,7 +20,7 @@ namespace H5.Builder
             
             var h5Options = GetH5OptionsFromCommandLine(args, logger);
 
-            if (h5Options == null)
+            if (h5Options is null)
             {
                 ShowHelp();
                 return 0;

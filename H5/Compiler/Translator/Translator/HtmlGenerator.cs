@@ -72,7 +72,7 @@ namespace H5.Translator
             var indexScript = htmlTemplate.IndexOf(HtmlTokens.SCRIPT, StringComparison.InvariantCultureIgnoreCase);
 
             var cssLinkTemplate = "<link rel=\"stylesheet\" href=\"{0}\">";
-            var scriptTemplate = "<script src=\"{0}\"></script>";
+            var scriptTemplate = "<script src=\"{0}\" defer></script>";
 
             var indentCss = GetIndent(htmlTemplate, indexCss);
             var indentScript = GetIndent(htmlTemplate, indexScript);

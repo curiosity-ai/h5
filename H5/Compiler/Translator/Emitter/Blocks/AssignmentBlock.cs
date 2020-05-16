@@ -225,7 +225,7 @@ namespace H5.Translator
             }
 
             if (assignmentExpression.Operator == AssignmentOperatorType.Divide && Emitter.Rules.Integer == IntegerRule.Managed &&
-                !(Emitter.IsJavaScriptOverflowMode && !ConversionBlock.InsideOverflowContext(Emitter, assignmentExpression)) &&
+                !(Emitter.IsJavaScriptOverflowMode && !InsideOverflowContext(Emitter, assignmentExpression)) &&
                 !isLong && !isLongExpected &&
                 (
                     (Helpers.IsIntegerType(leftResolverResult.Type, Emitter.Resolver) &&
@@ -292,7 +292,7 @@ namespace H5.Translator
             }
 
             if (assignmentExpression.Operator == AssignmentOperatorType.Multiply && Emitter.Rules.Integer == IntegerRule.Managed &&
-                !(Emitter.IsJavaScriptOverflowMode && !ConversionBlock.InsideOverflowContext(Emitter, assignmentExpression)) &&
+                !(Emitter.IsJavaScriptOverflowMode && !InsideOverflowContext(Emitter, assignmentExpression)) &&
                 !isLong && !isLongExpected &&
                 (
                     (Helpers.IsInteger32Type(leftResolverResult.Type, Emitter.Resolver) &&
@@ -328,7 +328,7 @@ namespace H5.Translator
 
                 assignmentExpression.Right.AcceptVisitor(Emitter);
 
-                if (ConversionBlock.IsInCheckedContext(Emitter, assignmentExpression))
+                if (IsInCheckedContext(Emitter, assignmentExpression))
                 {
                     Write(", 1");
                 }
@@ -953,7 +953,7 @@ namespace H5.Translator
 
         private void AddOveflowFlag(KnownTypeCode typeCode, string op_name)
         {
-            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && ConversionBlock.IsInCheckedContext(Emitter, AssignmentExpression))
+            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && IsInCheckedContext(Emitter, AssignmentExpression))
             {
                 if (op_name == JS.Funcs.Math.ADD || op_name == JS.Funcs.Math.SUB || op_name == JS.Funcs.Math.MUL)
                 {

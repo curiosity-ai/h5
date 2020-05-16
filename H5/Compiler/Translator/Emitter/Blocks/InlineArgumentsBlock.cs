@@ -142,7 +142,7 @@ namespace H5.Translator
             if (args.Length > 0)
             {
                 var emitter = block.Emitter;
-                inline = InlineArgumentsBlock.FormatArgRegex.Replace(inline, delegate (Match m)
+                inline = FormatArgRegex.Replace(inline, delegate (Match m)
                 {
                     int count = emitter.Writers.Count;
                     string key = m.Groups[2].Value;
@@ -299,7 +299,7 @@ namespace H5.Translator
 
             if (paramsName != null)
             {
-                var matches = InlineArgumentsBlock.FormatArgRegex.Matches(inline);
+                var matches = FormatArgRegex.Matches(inline);
                 bool ignoreArray = false;
                 foreach (Match m in matches)
                 {
@@ -382,7 +382,7 @@ namespace H5.Translator
                 }
             }
 
-            var r = InlineArgumentsBlock.FormatArgRegex.Matches(inline);
+            var r = FormatArgRegex.Matches(inline);
             List<Match> keyMatches = new List<Match>();
             foreach (Match keyMatch in r)
             {
@@ -392,7 +392,7 @@ namespace H5.Translator
             var tempVars = new Dictionary<string, string>();
             var tempMap = new Dictionary<string, string>();
 
-            inline = InlineArgumentsBlock.FormatArgRegex.Replace(inline, delegate (Match m)
+            inline = FormatArgRegex.Replace(inline, delegate (Match m)
             {
                 if (IgnoreRange != null && m.Index >= IgnoreRange[0] && m.Index <= IgnoreRange[1])
                 {

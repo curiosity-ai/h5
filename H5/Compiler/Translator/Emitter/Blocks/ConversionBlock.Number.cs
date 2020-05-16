@@ -209,7 +209,7 @@ namespace H5.Translator
                      (expression is BinaryOperatorExpression || expression is UnaryOperatorExpression || expression.Parent is AssignmentExpression) &&
                      IsInUncheckedContext(block.Emitter, expression))
             {
-                if (ConversionBlock.IsLongConversion(block, expression, rr, toType, conversion) || rr is ConstantResolveResult)
+                if (IsLongConversion(block, expression, rr, toType, conversion) || rr is ConstantResolveResult)
                 {
                     return;
                 }
@@ -399,7 +399,7 @@ namespace H5.Translator
                 if (rr != null)
                 {
                     if (binaryOperatorExpression.Operator == BinaryOperatorType.Multiply &&
-                        !(block.Emitter.IsJavaScriptOverflowMode && !ConversionBlock.InsideOverflowContext(block.Emitter, binaryOperatorExpression)) &&
+                        !(block.Emitter.IsJavaScriptOverflowMode && !InsideOverflowContext(block.Emitter, binaryOperatorExpression)) &&
                         (
                             (Helpers.IsInteger32Type(leftResolverResult.Type, block.Emitter.Resolver) &&
                             Helpers.IsInteger32Type(rightResolverResult.Type, block.Emitter.Resolver) &&
@@ -423,7 +423,7 @@ namespace H5.Translator
 
                 if (assignmentExpression.Operator == AssignmentOperatorType.Multiply &&
                     !(block.Emitter.IsJavaScriptOverflowMode ||
-                      ConversionBlock.InsideOverflowContext(block.Emitter, assignmentExpression)) &&
+                      InsideOverflowContext(block.Emitter, assignmentExpression)) &&
                     (
                         (Helpers.IsInteger32Type(leftResolverResult.Type, block.Emitter.Resolver) &&
                          Helpers.IsInteger32Type(rightResolverResult.Type, block.Emitter.Resolver) &&

@@ -171,7 +171,7 @@ namespace H5.Translator
 
                 if (hasVirtualMethods)
                 {
-                    H5.Translator.TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_NO_VIRTUAL_METHODS, type);
+                    TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_NO_VIRTUAL_METHODS, type);
                 }
             }
         }
@@ -283,7 +283,7 @@ namespace H5.Translator
 
         public bool IsVirtualType(ITypeDefinition typeDefinition)
         {
-            return Validator.IsVirtualTypeStatic(typeDefinition);
+            return IsVirtualTypeStatic(typeDefinition);
         }
 
         public static bool IsVirtualTypeStatic(TypeDefinition typeDefinition)
@@ -293,7 +293,7 @@ namespace H5.Translator
 
             if (attr == null && typeDefinition.DeclaringType != null)
             {
-                return Validator.IsVirtualTypeStatic(typeDefinition.DeclaringType);
+                return IsVirtualTypeStatic(typeDefinition.DeclaringType);
             }
 
             if (attr == null)
@@ -346,7 +346,7 @@ namespace H5.Translator
 
             if (attr == null && typeDefinition.DeclaringType != null)
             {
-                return Validator.IsVirtualTypeStatic(typeDefinition.DeclaringType.GetDefinition());
+                return IsVirtualTypeStatic(typeDefinition.DeclaringType.GetDefinition());
             }
 
             if (attr == null)
@@ -788,7 +788,7 @@ namespace H5.Translator
 
                     if (!allTypes.ContainsKey(parentName))
                     {
-                        H5.Translator.TranslatorException.Throw("Unknown type {0}", parentName);
+                        TranslatorException.Throw("Unknown type {0}", parentName);
                     }
 
                     if (!result.Contains(parentName))
@@ -993,7 +993,7 @@ namespace H5.Translator
 
         public virtual bool IsDelegateOrLambda(ResolveResult result)
         {
-            return result.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Delegate || result is LambdaResolveResult;
+            return result.Type.Kind == TypeKind.Delegate || result is LambdaResolveResult;
         }
 
         public virtual void CheckIdentifier(string name, AstNode context)

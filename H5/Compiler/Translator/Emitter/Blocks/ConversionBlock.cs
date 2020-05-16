@@ -27,11 +27,11 @@ namespace H5.Translator
 
             if (expressionInWork.Contains(expression))
             {
-                if (!ConversionBlock.expressionIgnoreUserDefine.Contains(expression))
+                if (!expressionIgnoreUserDefine.Contains(expression))
                 {
-                    if (ConversionBlock.expressionMap.ContainsKey(expression))
+                    if (expressionMap.ContainsKey(expression))
                     {
-                        Write(ConversionBlock.expressionMap[expression]);
+                        Write(expressionMap[expression]);
                     }
                     else
                     {
@@ -56,23 +56,23 @@ namespace H5.Translator
 
             if (DisableEmitConversionExpression)
             {
-                if (expressionInWork.Contains(expression) && !ConversionBlock.expressionIgnoreUserDefine.Contains(expression))
+                if (expressionInWork.Contains(expression) && !expressionIgnoreUserDefine.Contains(expression))
                 {
                     expressionInWork.Remove(expression);
                 }
                 return;
             }
 
-            if (expression != null && ConversionBlock.expressionMap.ContainsKey(expression))
+            if (expression != null && expressionMap.ContainsKey(expression))
             {
-                Write(ConversionBlock.expressionMap[expression]);
+                Write(expressionMap[expression]);
             }
             else
             {
                 EmitConversionExpression();
             }
 
-            if (expressionInWork.Contains(expression) && !ConversionBlock.expressionIgnoreUserDefine.Contains(expression))
+            if (expressionInWork.Contains(expression) && !expressionIgnoreUserDefine.Contains(expression))
             {
                 expressionInWork.Remove(expression);
             }
@@ -108,7 +108,7 @@ namespace H5.Translator
 
         protected virtual int CheckConversion(Expression expression)
         {
-            return ConversionBlock.CheckConversion(this, expression);
+            return CheckConversion(this, expression);
         }
 
         public static bool IsUserDefinedConversion(AbstractEmitterBlock block, Expression expression)
@@ -182,7 +182,7 @@ namespace H5.Translator
                     }
                 }
 
-                return ConversionBlock.DoConversion(block, expression, conversion, expectedType, level, rr);
+                return DoConversion(block, expression, conversion, expectedType, level, rr);
             }
             catch
             {
@@ -203,7 +203,7 @@ namespace H5.Translator
 
         internal static string GetInlineMethod(IEmitter emitter, string name, IType returnType, IType type, Expression expression)
         {
-            var methodDef = ConversionBlock.GetBoxedMethod(name, returnType, type);
+            var methodDef = GetBoxedMethod(name, returnType, type);
 
             if (methodDef != null)
             {
@@ -216,7 +216,7 @@ namespace H5.Translator
                     if (isNullable)
                     {
                         string template = "System.Nullable.{1}Fn({0})";
-                        var methodRef = ConversionBlock.GetInlineMethod(emitter, name, returnType,
+                        var methodRef = GetInlineMethod(emitter, name, returnType,
                             NullableType.GetUnderlyingType(type), expression);
 
                         return methodRef == null ? $"System.Nullable.{name.ToLowerCamelCase()}" : string.Format(template, methodRef, name.ToLowerCamelCase());
@@ -293,14 +293,14 @@ namespace H5.Translator
                 if (tc == KnownTypeCode.IListOfT || tc == KnownTypeCode.ICollectionOfT || tc == KnownTypeCode.IEnumerableOfT || tc == KnownTypeCode.IReadOnlyListOfT)
                 {
                     var type = pt.GetTypeArgument(0);
-                    return type.IsKnownType(KnownTypeCode.Object) || ConversionBlock.IsUnpackGenericInterfaceObject(type);
+                    return type.IsKnownType(KnownTypeCode.Object) || IsUnpackGenericInterfaceObject(type);
                 }
             }
 
             if (interfaceType is TypeWithElementType typeWithEl)
             {
                 var type = typeWithEl.ElementType;
-                return type.IsKnownType(KnownTypeCode.Object) || ConversionBlock.IsUnpackGenericInterfaceObject(type);
+                return type.IsKnownType(KnownTypeCode.Object) || IsUnpackGenericInterfaceObject(type);
             }
 
             return false;
@@ -336,7 +336,7 @@ namespace H5.Translator
                 }
             }
 
-            if (ConversionBlock.expressionIgnoreUserDefine.Contains(expression) && conversion.IsUserDefined)
+            if (expressionIgnoreUserDefine.Contains(expression) && conversion.IsUserDefined)
             {
                 expectedType = conversion.Method.Parameters.First().Type;
             }
@@ -421,8 +421,8 @@ namespace H5.Translator
                     isStringConcat = resultIsString && binaryOperatorExpression.Operator == BinaryOperatorType.Add;
                 }
 
-                bool needBox = ConversionBlock.IsBoxable(rr.Type, block.Emitter)
-                    || rr.Type.IsKnownType(KnownTypeCode.NullableOfT) && ConversionBlock.IsBoxable(NullableType.GetUnderlyingType(rr.Type), block.Emitter);
+                bool needBox = IsBoxable(rr.Type, block.Emitter)
+                    || rr.Type.IsKnownType(KnownTypeCode.NullableOfT) && IsBoxable(NullableType.GetUnderlyingType(rr.Type), block.Emitter);
                 var nullable = rr.Type.IsKnownType(KnownTypeCode.NullableOfT);
 
                 if (isBoxing && !isStringConcat && block.Emitter.Rules.Boxing == BoxingRule.Managed)
@@ -431,9 +431,9 @@ namespace H5.Translator
                     {
                         block.Write(JS.Types.H5.BOX);
                         block.WriteOpenParentheses();
-                        block.AfterOutput2 += ", " + ConversionBlock.GetBoxedType(rr.Type, block.Emitter);
+                        block.AfterOutput2 += ", " + GetBoxedType(rr.Type, block.Emitter);
 
-                        var inlineMethod = ConversionBlock.GetInlineMethod(block.Emitter, CS.Methods.TOSTRING,
+                        var inlineMethod = GetInlineMethod(block.Emitter, CS.Methods.TOSTRING,
                             block.Emitter.Resolver.Compilation.FindType(KnownTypeCode.String), rr.Type, expression);
 
                         if (inlineMethod != null)
@@ -441,7 +441,7 @@ namespace H5.Translator
                             block.AfterOutput2 += ", " + inlineMethod;
                         }
 
-                        inlineMethod = ConversionBlock.GetInlineMethod(block.Emitter, CS.Methods.GETHASHCODE,
+                        inlineMethod = GetInlineMethod(block.Emitter, CS.Methods.GETHASHCODE,
                             block.Emitter.Resolver.Compilation.FindType(KnownTypeCode.Int32), rr.Type, expression);
 
                         if (inlineMethod != null)
@@ -470,7 +470,7 @@ namespace H5.Translator
                     }
                 }
 
-                if (conversion.IsUnboxingConversion || isArgument && (expectedType.IsKnownType(KnownTypeCode.Object) || ConversionBlock.IsUnpackArrayObject(expectedType)) && (rr.Type.IsKnownType(KnownTypeCode.Object) || ConversionBlock.IsUnpackGenericInterfaceObject(rr.Type) || ConversionBlock.IsUnpackGenericArrayInterfaceObject(rr.Type)))
+                if (conversion.IsUnboxingConversion || isArgument && (expectedType.IsKnownType(KnownTypeCode.Object) || IsUnpackArrayObject(expectedType)) && (rr.Type.IsKnownType(KnownTypeCode.Object) || IsUnpackGenericInterfaceObject(rr.Type) || IsUnpackGenericArrayInterfaceObject(rr.Type)))
                 {
                     if (!nobox && block.Emitter.Rules.Boxing == BoxingRule.Managed)
                     {
@@ -478,7 +478,7 @@ namespace H5.Translator
                         block.WriteOpenParentheses();
                         if (conversion.IsUnboxingConversion)
                         {
-                            block.AfterOutput2 += string.Format(", {0})", ConversionBlock.GetBoxedType(expectedType, block.Emitter));
+                            block.AfterOutput2 += string.Format(", {0})", GetBoxedType(expectedType, block.Emitter));
                         }
                         else
                         {
@@ -540,14 +540,14 @@ namespace H5.Translator
 
                         if (parentrr != null && parentrr.Type != expectedType || parentrr == null && expectedType != parentExpectedType)
                         {
-                            level = ConversionBlock.DoConversion(block, expression, conversion, expectedType, level, rr, true, true);
+                            level = DoConversion(block, expression, conversion, expectedType, level, rr, true, true);
                             afterUserDefined = block.AfterOutput;
                             block.AfterOutput = "";
                         }
                     }
                     else
                     {
-                        level = ConversionBlock.DoConversion(block, expression, conversion, expectedType, level, rr, true, true);
+                        level = DoConversion(block, expression, conversion, expectedType, level, rr, true, true);
                         afterUserDefined = block.AfterOutput;
                         block.AfterOutput = "";
                     }
@@ -570,7 +570,7 @@ namespace H5.Translator
                 (expression is BinaryOperatorExpression || expression is UnaryOperatorExpression ||
                  expression.Parent is AssignmentExpression))
             {
-                level = ConversionBlock.CheckUserDefinedConversion(block, expression, conversion, level, rr, expectedType);
+                level = CheckUserDefinedConversion(block, expression, conversion, level, rr, expectedType);
 
                 if (conversion.IsUserDefined && block.DisableEmitConversionExpression)
                 {
@@ -583,7 +583,7 @@ namespace H5.Translator
 
             if (!(conversion.IsExplicit && conversion.IsNumericConversion))
             {
-                if (ConversionBlock.CheckDecimalConversion(block, expression, rr, expectedType, conversion, ignoreConversionResolveResult))
+                if (CheckDecimalConversion(block, expression, rr, expectedType, conversion, ignoreConversionResolveResult))
                 {
                     block.AfterOutput += ")";
                 }
@@ -595,7 +595,7 @@ namespace H5.Translator
                 block.AfterOutput = "";
                 if (!((expression.Parent is CastExpression) && !(expression is CastExpression)))
                 {
-                    ConversionBlock.CheckNumericConversion(block, expression, rr, expectedType, conversion);
+                    CheckNumericConversion(block, expression, rr, expectedType, conversion);
                 }
 
                 block.AfterOutput =block.AfterOutput + s + afterUserDefined;
@@ -604,7 +604,7 @@ namespace H5.Translator
 
             if (!(conversion.IsExplicit && conversion.IsNumericConversion))
             {
-                if (ConversionBlock.CheckLongConversion(block, expression, rr, expectedType, conversion, ignoreConversionResolveResult))
+                if (CheckLongConversion(block, expression, rr, expectedType, conversion, ignoreConversionResolveResult))
                 {
                     block.AfterOutput += ")";
                 }
@@ -616,7 +616,7 @@ namespace H5.Translator
                 block.AfterOutput = "";
                 if (!((expression.Parent is CastExpression) && !(expression is CastExpression)))
                 {
-                    ConversionBlock.CheckNumericConversion(block, expression, rr, expectedType, conversion);
+                    CheckNumericConversion(block, expression, rr, expectedType, conversion);
                 }
 
                 block.AfterOutput = block.AfterOutput + s + afterUserDefined;
@@ -625,7 +625,7 @@ namespace H5.Translator
 
             if (!((expression.Parent is CastExpression) && !(expression is CastExpression)))
             {
-                ConversionBlock.CheckNumericConversion(block, expression, rr, expectedType, conversion);
+                CheckNumericConversion(block, expression, rr, expectedType, conversion);
             }
 
             if (conversion.IsIdentityConversion)
@@ -652,7 +652,7 @@ namespace H5.Translator
                 !(expression is BinaryOperatorExpression || expression is UnaryOperatorExpression ||
                   expression.Parent is AssignmentExpression))
             {
-                level = ConversionBlock.CheckUserDefinedConversion(block, expression, conversion, level, rr, expectedType);
+                level = CheckUserDefinedConversion(block, expression, conversion, level, rr, expectedType);
             }
 
             block.AfterOutput = block.AfterOutput + afterUserDefined;
@@ -687,7 +687,7 @@ namespace H5.Translator
 
         private static int CheckUserDefinedConversion(ConversionBlock block, Expression expression, Conversion conversion, int level, ResolveResult rr, IType expectedType)
         {
-            if (conversion.IsUserDefined && !ConversionBlock.expressionIgnoreUserDefine.Contains(expression))
+            if (conversion.IsUserDefined && !expressionIgnoreUserDefine.Contains(expression))
             {
                 var method = conversion.Method;
 
@@ -701,7 +701,7 @@ namespace H5.Translator
 
                 if (!string.IsNullOrWhiteSpace(inline))
                 {
-                    ConversionBlock.expressionIgnoreUserDefine.Add(expression);
+                    expressionIgnoreUserDefine.Add(expression);
 
                     if (expression is InvocationExpression invocExp)
                     {
@@ -732,7 +732,7 @@ namespace H5.Translator
                     }
 
                     block.DisableEmitConversionExpression = true;
-                    ConversionBlock.expressionIgnoreUserDefine.Remove(expression);
+                    expressionIgnoreUserDefine.Remove(expression);
 
                     // Still returns true if Nullable.lift( was written.
                     return level;
@@ -759,7 +759,7 @@ namespace H5.Translator
                 if (Helpers.IsDecimalType(arg.Type, block.Emitter.Resolver, arg.IsParams) && !Helpers.IsDecimalType(rr.Type, block.Emitter.Resolver) && !expression.IsNull)
                 {
                     block.Write(JS.Types.SYSTEM_DECIMAL);
-                    if (NullableType.IsNullable(arg.Type) && ConversionBlock.ShouldBeLifted(expression))
+                    if (NullableType.IsNullable(arg.Type) && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
@@ -775,7 +775,7 @@ namespace H5.Translator
                 {
                     var isUint = Helpers.IsULongType(arg.Type, block.Emitter.Resolver, arg.IsParams);
                     block.Write(isUint ? JS.Types.SYSTEM_UInt64 : JS.Types.System.Int64.NAME);
-                    if (NullableType.IsNullable(arg.Type) && ConversionBlock.ShouldBeLifted(expression))
+                    if (NullableType.IsNullable(arg.Type) && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
@@ -838,7 +838,7 @@ namespace H5.Translator
                         }
 
                         block.Write(typeName);
-                        if (NullableType.IsNullable(arg.Type) && ConversionBlock.ShouldBeLifted(expression))
+                        if (NullableType.IsNullable(arg.Type) && ShouldBeLifted(expression))
                         {
                             block.Write("." + JS.Funcs.Math.LIFT);
                         }
@@ -869,7 +869,7 @@ namespace H5.Translator
                         }
 
                         block.Write(typeName);
-                        if (NullableType.IsNullable(arg.Type) && ConversionBlock.ShouldBeLifted(expression))
+                        if (NullableType.IsNullable(arg.Type) && ShouldBeLifted(expression))
                         {
                             block.Write("." + JS.Funcs.Math.LIFT);
                         }
@@ -895,7 +895,7 @@ namespace H5.Translator
                     }
 
                     block.Write(typeName);
-                    if (NullableType.IsNullable(namedArgResolveResult.Type) && ConversionBlock.ShouldBeLifted(expression))
+                    if (NullableType.IsNullable(namedArgResolveResult.Type) && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
@@ -920,7 +920,7 @@ namespace H5.Translator
                     }
 
                     block.Write(typeName);
-                    if (NullableType.IsNullable(namedResolveResult.Type) && ConversionBlock.ShouldBeLifted(expression))
+                    if (NullableType.IsNullable(namedResolveResult.Type) && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
@@ -946,7 +946,7 @@ namespace H5.Translator
                     }
 
                     block.Write(typeName);
-                    if (isNullable && ConversionBlock.ShouldBeLifted(expression))
+                    if (isNullable && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
@@ -971,7 +971,7 @@ namespace H5.Translator
                     }
 
                     block.Write(typeName);
-                    if (NullableType.IsNullable(conditionalrr.Operands[idx].Type) && ConversionBlock.ShouldBeLifted(expression))
+                    if (NullableType.IsNullable(conditionalrr.Operands[idx].Type) && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
@@ -996,7 +996,7 @@ namespace H5.Translator
                     }
 
                     block.Write(typeName);
-                    if (NullableType.IsNullable(assigmentRr.Operands[1].Type) && ConversionBlock.ShouldBeLifted(expression))
+                    if (NullableType.IsNullable(assigmentRr.Operands[1].Type) && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
@@ -1031,7 +1031,7 @@ namespace H5.Translator
                             }
 
                             block.Write(typeName);
-                            if (NullableType.IsNullable(invocationrr.Member.Parameters.ElementAt(index).Type) && ConversionBlock.ShouldBeLifted(expression))
+                            if (NullableType.IsNullable(invocationrr.Member.Parameters.ElementAt(index).Type) && ShouldBeLifted(expression))
                             {
                                 block.Write("." + JS.Funcs.Math.LIFT);
                             }
@@ -1106,7 +1106,7 @@ namespace H5.Translator
                     }
 
                     block.Write(typeName);
-                    if (NullableType.IsNullable(elementType) && ConversionBlock.ShouldBeLifted(expression))
+                    if (NullableType.IsNullable(elementType) && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }
@@ -1149,7 +1149,7 @@ namespace H5.Translator
                     }
 
                     block.Write(typeName);
-                    if (NullableType.IsNullable(expectedType) && ConversionBlock.ShouldBeLifted(expression))
+                    if (NullableType.IsNullable(expectedType) && ShouldBeLifted(expression))
                     {
                         block.Write("." + JS.Funcs.Math.LIFT);
                     }

@@ -21,7 +21,7 @@ namespace H5.Translator
         protected override void DoEmit()
         {
             var resolveResult = Emitter.Resolver.ResolveNode(DefaultValueExpression.Type);
-            var value = DefaultValueBlock.DefaultValue(resolveResult, Emitter, DefaultValueExpression.Type);
+            var value = DefaultValue(resolveResult, Emitter, DefaultValueExpression.Type);
             Write(value);
         }
 

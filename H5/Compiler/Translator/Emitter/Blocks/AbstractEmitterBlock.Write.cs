@@ -59,7 +59,7 @@ namespace H5.Translator
                 var column = region.BeginColumn;
                 var idx = Emitter.SourceFileNameIndex;
 
-                if (Emitter.TypeInfo.TypeDeclaration.HasModifier(ICSharpCode.NRefactory.CSharp.Modifiers.Partial))
+                if (Emitter.TypeInfo.TypeDeclaration.HasModifier(Modifiers.Partial))
                 {
                     var fn = Emitter.Translator.EmitNode.GetParent<SyntaxTree>().FileName;
 
@@ -152,7 +152,7 @@ namespace H5.Translator
         public virtual void WriteScript(object value)
         {
             WriteIndent();
-            var s = AbstractEmitterBlock.ToJavaScript(value, Emitter);
+            var s = ToJavaScript(value, Emitter);
 
             Emitter.Output.Append(s);
         }
@@ -206,7 +206,7 @@ namespace H5.Translator
             else if (value is decimal dec)
             {
                 var tmp = dec.ToString(CultureInfo.InvariantCulture);
-                s = JS.Types.SYSTEM_DECIMAL + "(" + AbstractEmitterBlock.DecimalConstant(dec, emitter);
+                s = JS.Types.SYSTEM_DECIMAL + "(" + DecimalConstant(dec, emitter);
 
                 int dot;
                 if ((dot = tmp.IndexOf(".")) >= 0)
@@ -218,11 +218,11 @@ namespace H5.Translator
             }
             else if (value is long l)
             {
-                s = JS.Types.System.Int64.NAME + "(" + AbstractEmitterBlock.LongConstant(l, emitter) + ")";
+                s = JS.Types.System.Int64.NAME + "(" + LongConstant(l, emitter) + ")";
             }
             else if (value is ulong ul)
             {
-                s = JS.Types.SYSTEM_UInt64 + "(" + AbstractEmitterBlock.ULongConstant(ul, emitter) + ")";
+                s = JS.Types.SYSTEM_UInt64 + "(" + ULongConstant(ul, emitter) + ")";
             }
             else
             {
@@ -460,7 +460,7 @@ namespace H5.Translator
 
         public virtual void WriteThis()
         {
-            Write(AbstractEmitterBlock.GetThisAlias(Emitter));
+            Write(GetThisAlias(Emitter));
             Emitter.ThisRefCounter++;
         }
 
@@ -790,7 +790,7 @@ namespace H5.Translator
 
         public int GetNumberOfEmptyLinesAtEnd()
         {
-            return AbstractEmitterBlock.GetNumberOfEmptyLinesAtEnd(Emitter.Output);
+            return GetNumberOfEmptyLinesAtEnd(Emitter.Output);
         }
 
         public static int GetNumberOfEmptyLinesAtEnd(StringBuilder buffer)
@@ -829,7 +829,7 @@ namespace H5.Translator
 
         public bool IsOnlyWhitespaceOnPenultimateLine(bool lastTwoLines = true, string output = null)
         {
-            return AbstractEmitterBlock.IsOnlyWhitespaceOnPenultimateLine(output ?? Emitter.Output.ToString(), lastTwoLines);
+            return IsOnlyWhitespaceOnPenultimateLine(output ?? Emitter.Output.ToString(), lastTwoLines);
         }
 
         public static bool IsOnlyWhitespaceOnPenultimateLine(string buffer, bool lastTwoLines = true)
@@ -868,7 +868,7 @@ namespace H5.Translator
         {
             if (Emitter.Output != null)
             {
-                return AbstractMethodBlock.RemovePenultimateEmptyLines(Emitter.Output, withLast);
+                return RemovePenultimateEmptyLines(Emitter.Output, withLast);
             }
 
             return false;
@@ -988,7 +988,7 @@ namespace H5.Translator
         public static bool IsJumpStatementLast(string str)
         {
             str = str.TrimEnd();
-            return str.EndsWith("continue;") || str.EndsWith("break;") || AbstractEmitterBlock.IsReturnLast(str);
+            return str.EndsWith("continue;") || str.EndsWith("break;") || IsReturnLast(str);
         }
     }
 

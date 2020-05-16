@@ -679,7 +679,7 @@ namespace H5.Translator
             if (isParam)
             {
                 var pType = parameter.Type;
-                if (parameter.IsParams && SharpSixRewriter.IsExpandedForm(semanticModel, parent, method))
+                if (parameter.IsParams && IsExpandedForm(semanticModel, parent, method))
                 {
                     pType = ((IArrayTypeSymbol)parameter.Type).ElementType;
                 }
@@ -1774,7 +1774,7 @@ namespace H5.Translator
                     }
                 }
 
-                SharpSixRewriter.ConvertInitializers(initializers, instance, statements, initializerInfos);
+                ConvertInitializers(initializers, instance, statements, initializerInfos);
 
                 statements.Add(SyntaxFactory.ReturnStatement(SyntaxFactory.IdentifierName(instance).WithLeadingTrivia(SyntaxFactory.Space)));
 
@@ -1869,7 +1869,7 @@ namespace H5.Translator
                             name = instance;
                         }
 
-                        SharpSixRewriter.ConvertInitializers(syntax.Expressions, name, statements, info.nested);
+                        ConvertInitializers(syntax.Expressions, name, statements, info.nested);
                     }
                     else
                     {

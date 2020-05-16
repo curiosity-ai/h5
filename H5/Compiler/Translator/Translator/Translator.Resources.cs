@@ -295,7 +295,7 @@ namespace H5.Translator
         private H5ResourceInfo[] GetEmbeddedResourceList(AssemblyDefinition assemblyDefinition)
         {
             // First read Json format list
-            var resourcesStr = ReadEmbeddedResourceList(assemblyDefinition, Translator.H5ResourcesJsonFormatList);
+            var resourcesStr = ReadEmbeddedResourceList(assemblyDefinition, H5ResourcesJsonFormatList);
 
             if (resourcesStr != null)
             {
@@ -303,7 +303,7 @@ namespace H5.Translator
             }
 
             // Then read old plus separated format list (by another file name)
-            resourcesStr = ReadEmbeddedResourceList(assemblyDefinition, Translator.H5ResourcesPlusSeparatedFormatList);
+            resourcesStr = ReadEmbeddedResourceList(assemblyDefinition, H5ResourcesPlusSeparatedFormatList);
 
             if (resourcesStr != null)
             {
@@ -413,15 +413,15 @@ namespace H5.Translator
             var resources = assemblyDef.MainModule.Resources;
             var configHelper = new ConfigHelper();
 
-            CheckIfResourceExistsAndRemove(resources, Translator.H5ResourcesPlusSeparatedFormatList);
+            CheckIfResourceExistsAndRemove(resources, H5ResourcesPlusSeparatedFormatList);
 
-            var resourceListName = Translator.H5ResourcesJsonFormatList;
+            var resourceListName = H5ResourcesJsonFormatList;
             CheckIfResourceExistsAndRemove(resources, resourceListName);
 
             var listArray = resourcesToEmbed.ToArray();
             var listContent = Newtonsoft.Json.JsonConvert.SerializeObject(listArray, Newtonsoft.Json.Formatting.Indented);
 
-            var listResources = new EmbeddedResource(resourceListName, ManifestResourceAttributes.Private, Translator.OutputEncoding.GetBytes(listContent));
+            var listResources = new EmbeddedResource(resourceListName, ManifestResourceAttributes.Private, OutputEncoding.GetBytes(listContent));
 
             resources.Add(listResources);
             Logger.ZLogTrace("Added resource list " + resourceListName);
@@ -918,9 +918,9 @@ namespace H5.Translator
             {
                 Logger.ZLogTrace("Reading resource file {0} via StreamReader with byte order mark detection option", file.FullName);
 
-                using (var m = new StreamReader(file.FullName, Translator.OutputEncoding, true))
+                using (var m = new StreamReader(file.FullName, OutputEncoding, true))
                 {
-                    content = Translator.OutputEncoding.GetBytes(m.ReadToEnd());
+                    content = OutputEncoding.GetBytes(m.ReadToEnd());
 
                     if (m.CurrentEncoding != OutputEncoding)
                     {
@@ -1104,8 +1104,8 @@ namespace H5.Translator
             var consoleResourceName = H5ConsoleName;
             var consoleResourceMinifiedName = FileHelper.GetMinifiedJSFileName(consoleResourceName);
 
-            var consoleFormatted = resources.Where(x => x.Name == consoleResourceName && (x.Assembly == null || x.Assembly == Translator.H5_ASSEMBLY)).FirstOrDefault();
-            var consoleMinified = resources.Where(x => x.Name == consoleResourceMinifiedName && (x.Assembly == null || x.Assembly == Translator.H5_ASSEMBLY)).FirstOrDefault();
+            var consoleFormatted = resources.Where(x => x.Name == consoleResourceName && (x.Assembly == null || x.Assembly == H5_ASSEMBLY)).FirstOrDefault();
+            var consoleMinified = resources.Where(x => x.Name == consoleResourceMinifiedName && (x.Assembly == null || x.Assembly == H5_ASSEMBLY)).FirstOrDefault();
 
             if (AssemblyInfo.Console.Enabled != true)
             {

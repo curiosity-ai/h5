@@ -198,7 +198,7 @@ namespace H5.Translator
             {
                 if (drr.Target is MethodGroupResolveResult group && group.Methods.Count() > 1)
                 {
-                    throw new EmitterException(objectCreateExpression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
+                    throw new EmitterException(objectCreateExpression, Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
                 }
             }
 
@@ -398,7 +398,7 @@ namespace H5.Translator
 
                 if (method == null)
                 {
-                    throw new EmitterException(Expression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
+                    throw new EmitterException(Expression, Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
                 }
             }
 

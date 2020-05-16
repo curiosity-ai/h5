@@ -57,7 +57,7 @@ namespace H5.Translator
 
             content = tokenRegex.Replace(content, match =>
             {
-                location = SourceMapGenerator.LocationFromPos(script, match.Index, location, ref offset);
+                location = LocationFromPos(script, match.Index, location, ref offset);
                 offset += match.Length;
                 var sourceLine = int.Parse(match.Groups[2].Value);
                 var sourceCol = int.Parse(match.Groups[3].Value);

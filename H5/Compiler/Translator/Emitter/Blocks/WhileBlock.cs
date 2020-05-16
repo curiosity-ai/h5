@@ -77,7 +77,7 @@ namespace H5.Translator
 
             WhileStatement.EmbeddedStatement.AcceptVisitor(Emitter);
 
-            if (!AbstractEmitterBlock.IsJumpStatementLast(Emitter.Output.ToString()))
+            if (!IsJumpStatementLast(Emitter.Output.ToString()))
             {
                 WriteNewLine();
                 Write(JS.Vars.ASYNC_STEP + " = " + conditionStep.Step + ";");
@@ -91,7 +91,7 @@ namespace H5.Translator
             EndBlock();
             WriteSpace();
 
-            if (!AbstractEmitterBlock.IsJumpStatementLast(Emitter.Output.ToString()))
+            if (!IsJumpStatementLast(Emitter.Output.ToString()))
             {
                 WriteNewLine();
                 Write(JS.Vars.ASYNC_STEP + " = " + Emitter.AsyncBlock.Step + ";");

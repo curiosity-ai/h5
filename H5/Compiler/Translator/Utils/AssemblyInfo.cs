@@ -132,7 +132,7 @@ namespace H5.Translator
 
         public bool GenerateTypeScript { get; set; }
 
-        private DocumentationMode generateDocumentation = H5.Contract.DocumentationMode.Basic;
+        private DocumentationMode generateDocumentation = DocumentationMode.Basic;
 
         public DocumentationMode GenerateDocumentation
         {

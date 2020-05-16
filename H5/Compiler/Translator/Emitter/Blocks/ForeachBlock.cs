@@ -250,7 +250,7 @@ namespace H5.Translator
 
             RestoreWriter(writer);
 
-            if (!AbstractEmitterBlock.IsJumpStatementLast(Emitter.Output.ToString()))
+            if (!IsJumpStatementLast(Emitter.Output.ToString()))
             {
                 Write(JS.Vars.ASYNC_STEP + " = " + conditionStep.Step + ";");
                 WriteNewLine();

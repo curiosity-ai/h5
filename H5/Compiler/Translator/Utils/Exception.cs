@@ -26,7 +26,7 @@ namespace H5.Translator
 
         public static void Throw(string format, params object[] args)
         {
-            throw (TranslatorException)H5.Translator.TranslatorException.Create(format, args);
+            throw (TranslatorException)Create(format, args);
         }
     }
 }

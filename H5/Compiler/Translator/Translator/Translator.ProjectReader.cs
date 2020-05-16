@@ -46,7 +46,7 @@ namespace H5.Translator
 
             ShouldReadProjectFile = !FromTask;
 
-            var project = Translator.OpenProject(Location, GetEvaluationConditions());
+            var project = OpenProject(Location, GetEvaluationConditions());
 
             ValidateProject(project);
 
@@ -63,7 +63,7 @@ namespace H5.Translator
 
             EnsureDefineConstants(project);
 
-            Translator.CloseProject(project);
+            CloseProject(project);
 
             Logger.ZLogTrace("EnsureProjectProperties done");
         }
@@ -128,9 +128,9 @@ namespace H5.Translator
                 }
             }
 
-            if (outputType != null && string.Compare(outputType, Translator.SupportedProjectType, true) != 0)
+            if (outputType != null && string.Compare(outputType, SupportedProjectType, true) != 0)
             {
-                H5.Translator.TranslatorException.Throw("Project type ({0}) is not supported, please use Library instead of {0}", outputType);
+                TranslatorException.Throw("Project type ({0}) is not supported, please use Library instead of {0}", outputType);
             }
         }
 
@@ -156,7 +156,7 @@ namespace H5.Translator
                 bool boolValue;
                 if (bool.TryParse(value, out boolValue))
                 {
-                    OverflowMode = boolValue ? H5.Contract.OverflowMode.Checked : H5.Contract.OverflowMode.Unchecked;
+                    OverflowMode = boolValue ? Contract.OverflowMode.Checked : Contract.OverflowMode.Unchecked;
                 }
             }
         }
@@ -231,7 +231,7 @@ namespace H5.Translator
             {
                 if (safe) { return null; }
 
-                H5.Translator.TranslatorException.Throw("Unable to determine " + name + " in the project file with conditions " + EvaluationConditionsAsString());
+                TranslatorException.Throw("Unable to determine " + name + " in the project file with conditions " + EvaluationConditionsAsString());
             }
 
             var value = node.EvaluatedValue;
@@ -263,7 +263,7 @@ namespace H5.Translator
 
         public static bool IsRunningOnMono()
         {
-            return System.Type.GetType("Mono.Runtime") != null;
+            return Type.GetType("Mono.Runtime") != null;
         }
 
         protected virtual IList<string> GetSourceFiles(Project project)
@@ -363,7 +363,7 @@ namespace H5.Translator
 
             if (string.IsNullOrWhiteSpace(DefaultNamespace))
             {
-                DefaultNamespace = Translator.DefaultRootNamespace;
+                DefaultNamespace = DefaultRootNamespace;
             }
 
             Logger.ZLogTrace("DefaultNamespace:" + DefaultNamespace);
@@ -372,7 +372,7 @@ namespace H5.Translator
         protected virtual IList<string> GetSourceFiles(string location)
         {
             Logger.ZLogTrace("Getting source files by location...");
-            string[] allfiles = System.IO.Directory.GetFiles(location, "*.cs", SearchOption.TopDirectoryOnly);
+            string[] allfiles = Directory.GetFiles(location, "*.cs", SearchOption.TopDirectoryOnly);
             Logger.ZLogTrace("Getting source files by location done (found {0} items)", allfiles.Length);
             return allfiles;
         }

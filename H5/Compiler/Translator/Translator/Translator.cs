@@ -58,8 +58,8 @@ namespace H5.Translator
 
         private static readonly CodeSettings MinifierCodeSettingsSafe = new CodeSettings
         {
-            EvalTreatment = Microsoft.Ajax.Utilities.EvalTreatment.MakeAllSafe,
-            LocalRenaming = Microsoft.Ajax.Utilities.LocalRenaming.KeepAll,
+            EvalTreatment = EvalTreatment.MakeAllSafe,
+            LocalRenaming = LocalRenaming.KeepAll,
             TermSemicolons = true,
             StrictMode = false,
             RemoveUnneededCode = false,
@@ -396,7 +396,7 @@ namespace H5.Translator
                             path = Path.Combine(projectPath, sourceRelativePath);
                             sourceFile = ParsedSourceFiles.First(pf => pf.ParsedFile.FileName == path);
 
-                            return sourceFile.SyntaxTree.TextSource ?? sourceFile.SyntaxTree.ToString(Translator.GetFormatter());
+                            return sourceFile.SyntaxTree.TextSource ?? sourceFile.SyntaxTree.ToString(GetFormatter());
                         }
                         catch (Exception ex)
                         {

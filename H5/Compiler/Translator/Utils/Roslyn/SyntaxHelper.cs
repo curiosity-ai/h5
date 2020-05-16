@@ -318,7 +318,7 @@ namespace H5.Translator
                 var types = new List<TypeSyntax>();
                 foreach (var el in elements)
                 {
-                    types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type));
+                    types.Add(GenerateTypeSyntax(el.Type));
                 }
 
                 return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
@@ -335,7 +335,7 @@ namespace H5.Translator
                 var types = new List<TypeSyntax>();
                 foreach (var el in elements)
                 {
-                    types.Add(SyntaxHelper.GenerateTypeSyntax(el));
+                    types.Add(GenerateTypeSyntax(el));
                 }
 
                 return SyntaxFactory.GenericName(SyntaxFactory.Identifier(type.ToDisplayString(new SymbolDisplayFormat(genericsOptions: SymbolDisplayGenericsOptions.None))), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
@@ -352,7 +352,7 @@ namespace H5.Translator
                 var types = new List<TypeSyntax>();
                 foreach (var el in elements)
                 {
-                    types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type, model, pos, rewriter));
+                    types.Add(GenerateTypeSyntax(el.Type, model, pos, rewriter));
                 }
 
                 return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
@@ -369,7 +369,7 @@ namespace H5.Translator
                 var types = new List<TypeSyntax>();
                 foreach (var el in elements)
                 {
-                    types.Add(SyntaxHelper.GenerateTypeSyntax(el, model, pos, rewriter));
+                    types.Add(GenerateTypeSyntax(el, model, pos, rewriter));
                 }
 
                 if (type.OriginalDefinition != null && type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T)
@@ -388,7 +388,7 @@ namespace H5.Translator
                     string gtypeName;
                     if (type.ContainingType != null)
                     {
-                        var parent = SyntaxHelper.GenerateTypeSyntax(type.ContainingType, model, pos, rewriter);
+                        var parent = GenerateTypeSyntax(type.ContainingType, model, pos, rewriter);
                         var name = type.Name;
                         gtypeName = SyntaxFactory.QualifiedName((NameSyntax)parent, SyntaxFactory.IdentifierName(name)).ToString();
                     }
@@ -424,7 +424,7 @@ namespace H5.Translator
 
             if (type.ContainingType != null && type.Kind != SymbolKind.TypeParameter)
             {
-                var parent = SyntaxHelper.GenerateTypeSyntax(type.ContainingType, model, pos, rewriter);
+                var parent = GenerateTypeSyntax(type.ContainingType, model, pos, rewriter);
                 var name = type.Name;
                 return SyntaxFactory.QualifiedName((NameSyntax)parent, SyntaxFactory.IdentifierName(name));
             }
@@ -634,7 +634,7 @@ namespace H5.Translator
 
             var localName = symbol.Name;
 
-            if (SyntaxHelper.IsCSharpKeyword(localName))
+            if (IsCSharpKeyword(localName))
             {
                 localName = "@" + localName;
             }
@@ -685,7 +685,7 @@ namespace H5.Translator
 
             if (type is INamedTypeSymbol namedType && namedType.IsGenericType)
             {
-                return namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous);
+                return namedType.TypeArguments.Any(IsAnonymous);
             }
 
             return false;
@@ -694,7 +694,7 @@ namespace H5.Translator
 
         private static string AppendTypeArguments(string localName, IReadOnlyCollection<ITypeSymbol> typeArguments)
         {
-            if (typeArguments.Count > 0 && !typeArguments.Any(SyntaxHelper.IsAnonymous))
+            if (typeArguments.Count > 0 && !typeArguments.Any(IsAnonymous))
             {
                 bool first = true;
 
@@ -914,8 +914,8 @@ namespace H5.Translator
                     }
                 }
 
-                var nameAttr = SyntaxHelper.GetInheritedAttribute(symbol, H5.Translator.Translator.H5_ASSEMBLY + ".NameAttribute");
-                bool isIgnore = symbol.ContainingType != null && SyntaxHelper.IsExternalType(symbol.ContainingType);
+                var nameAttr = GetInheritedAttribute(symbol, Translator.H5_ASSEMBLY + ".NameAttribute");
+                bool isIgnore = symbol.ContainingType != null && IsExternalType(symbol.ContainingType);
 
                 name = symbol.Name;
 
@@ -973,9 +973,9 @@ namespace H5.Translator
             string virtualAttr = Translator.H5_ASSEMBLY + ".VirtualAttribute";
             string objectLiteralAttr = Translator.H5_ASSEMBLY + ".ObjectLiteralAttribute";
 
-            var result = SyntaxHelper.HasAttribute(symbol.GetAttributes(), externalAttr)
-                   || SyntaxHelper.HasAttribute(symbol.GetAttributes(), objectLiteralAttr)
-                   || SyntaxHelper.HasAttribute(symbol.ContainingAssembly.GetAttributes(), externalAttr);
+            var result = HasAttribute(symbol.GetAttributes(), externalAttr)
+                   || HasAttribute(symbol.GetAttributes(), objectLiteralAttr)
+                   || HasAttribute(symbol.ContainingAssembly.GetAttributes(), externalAttr);
 
             if (result)
             {
@@ -1039,12 +1039,12 @@ namespace H5.Translator
 
             if (symbol is IMethodSymbol method && method.OverriddenMethod != null)
             {
-                return SyntaxHelper.GetInheritedAttribute(method.OverriddenMethod, attrName);
+                return GetInheritedAttribute(method.OverriddenMethod, attrName);
             }
 
             if (symbol is IPropertySymbol property && property.OverriddenProperty != null)
             {
-                return SyntaxHelper.GetInheritedAttribute(property.OverriddenProperty, attrName);
+                return GetInheritedAttribute(property.OverriddenProperty, attrName);
             }
 
             return null;

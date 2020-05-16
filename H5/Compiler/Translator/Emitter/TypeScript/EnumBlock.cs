@@ -41,7 +41,7 @@ namespace H5.Translator.TypeScript
                 foreach (var field in TypeInfo.StaticConfig.Fields)
                 {
 
-                    Write(EnumBlock.GetEnumItemName(Emitter, field));
+                    Write(GetEnumItemName(Emitter, field));
 
                     var initializer = field.Initializer;
                     if (initializer != null && initializer is PrimitiveExpression)

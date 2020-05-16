@@ -77,7 +77,7 @@ namespace H5.Translator
                 if (resolvedMember is IProperty property)
                 {
                     member = property;
-                    current = IndexerBlock.GetIndexerAccessor(Emitter, member, Emitter.IsAssignment);
+                    current = GetIndexerAccessor(Emitter, member, Emitter.IsAssignment);
                 }
             }
 
@@ -1311,7 +1311,7 @@ namespace H5.Translator
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                             memberTargetrr.TargetResult is TypeResolveResult ||
                             memberTargetrr.TargetResult is LocalResolveResult);
-            bool isArray = targetrr.Type.Kind == TypeKind.Array && !ConversionBlock.IsInUncheckedContext(Emitter, indexerExpression, false);
+            bool isArray = targetrr.Type.Kind == TypeKind.Array && !IsInUncheckedContext(Emitter, indexerExpression, false);
             bool isSimple = !isArray || (targetrr is ThisResolveResult || targetrr is LocalResolveResult ||
                             targetrr is ConstantResolveResult || isField);
             string targetVar = null;

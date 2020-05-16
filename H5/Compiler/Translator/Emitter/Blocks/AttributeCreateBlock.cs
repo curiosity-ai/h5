@@ -156,7 +156,7 @@ namespace H5.Translator
                     WriteOpenBracket();
                 }
 
-                AttributeCreateBlock.WriteResolveResult(expr, this);
+                WriteResolveResult(expr, this);
 
                 if (Emitter.Writers.Count != count)
                 {
@@ -298,7 +298,7 @@ namespace H5.Translator
                     {
                         inlineCode = inlineCode.Replace("{0}", "[[0]]");
 
-                        AttributeCreateBlock.WriteResolveResult(item.Value, block);
+                        WriteResolveResult(item.Value, block);
                         var value = block.Emitter.Output.ToString();
                         inlineCode = inlineCode.Replace("{value}", value);
                         inlineCode = inlineCode.Replace("[[0]]", "{0}");
@@ -310,7 +310,7 @@ namespace H5.Translator
                     {
                         var count = block.Emitter.Writers.Count;
                         block.PushWriter("this." + inlineCode);
-                        AttributeCreateBlock.WriteResolveResult(item.Value, block);
+                        WriteResolveResult(item.Value, block);
 
                         if (block.Emitter.Writers.Count > count)
                         {
@@ -349,7 +349,7 @@ namespace H5.Translator
                     var member = item.Key;
                     var name = Emitter.GetEntityName(member);
 
-                    var inlineCode = AttributeCreateBlock.GetInlineInit(item, this);
+                    var inlineCode = GetInlineInit(item, this);
 
                     if (inlineCode != null)
                     {
@@ -375,7 +375,7 @@ namespace H5.Translator
 
                         Write(name, ": ");
 
-                        AttributeCreateBlock.WriteResolveResult(item.Value, this);
+                        WriteResolveResult(item.Value, this);
 
                         names.Add(name);
                     }

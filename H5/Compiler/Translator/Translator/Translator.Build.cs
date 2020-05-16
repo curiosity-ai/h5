@@ -421,7 +421,7 @@ namespace H5.Translator
                 }
             }
 
-            var asm = Mono.Cecil.AssemblyDefinition.ReadAssembly(refPath, new ReaderParameters()
+            var asm = AssemblyDefinition.ReadAssembly(refPath, new ReaderParameters()
             {
                 ReadingMode = ReadingMode.Deferred,
                 AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)

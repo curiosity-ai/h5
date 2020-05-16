@@ -214,7 +214,7 @@ namespace H5.Translator
             foreach (var item in fieldDeclaration.Variables)
             {
                 var rr = Resolver.ResolveNode(item) as MemberResolveResult;
-                if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.Attributes.Any(a => a.AttributeType.FullName == H5.Translator.Translator.H5_ASSEMBLY + ".InlineConstAttribute"))
+                if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.Attributes.Any(a => a.AttributeType.FullName == Translator.H5_ASSEMBLY + ".InlineConstAttribute"))
                 {
                     continue;
                 }
@@ -587,7 +587,7 @@ namespace H5.Translator
                 if (possiblyWrongGetter || possiblyWrongSetter)
                 {
                     var message = string.Format(
-                            H5.Translator.Constants.Messages.Exceptions.FIELD_PROPERTY_MARKED_ADVISE,
+                            Constants.Messages.Exceptions.FIELD_PROPERTY_MARKED_ADVISE,
                             resolvedProperty.Member.ToString(),
                             possiblyWrongGetter ? "getter" : string.Empty,
                             possiblyWrongSetter ? (possiblyWrongGetter ? " and " : string.Empty) + "setter" : string.Empty

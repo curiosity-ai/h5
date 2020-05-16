@@ -236,7 +236,7 @@ namespace H5.Translator
                     buffer.Append(",");
                 }
 
-                buffer.Append(SourceMapBuilder.EscapeQuotedStringLiteral(isPath ? GetRelativePath(str, _basePath) : str, true));
+                buffer.Append(EscapeQuotedStringLiteral(isPath ? GetRelativePath(str, _basePath) : str, true));
                 first = false;
             }
 

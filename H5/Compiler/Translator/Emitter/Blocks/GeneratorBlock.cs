@@ -654,7 +654,7 @@ namespace H5.Translator
                     addNewLine = true;
                 }
 
-                if (step.JumpToStep > -1 && !AbstractEmitterBlock.IsJumpStatementLast(cleanOutput))
+                if (step.JumpToStep > -1 && !IsJumpStatementLast(cleanOutput))
                 {
                     if (addNewLine)
                     {
@@ -665,7 +665,7 @@ namespace H5.Translator
                     WriteNewLine();
                     Write("continue;");
                 }
-                else if (step.JumpToNode != null && !AbstractEmitterBlock.IsJumpStatementLast(cleanOutput))
+                else if (step.JumpToNode != null && !IsJumpStatementLast(cleanOutput))
                 {
                     var tostep = Steps.First(s => s.Node == step.JumpToNode);
 
@@ -678,7 +678,7 @@ namespace H5.Translator
                     WriteNewLine();
                     Write("continue;");
                 }
-                else if (i == (Steps.Count - 1) && !AbstractEmitterBlock.IsReturnLast(cleanOutput))
+                else if (i == (Steps.Count - 1) && !IsReturnLast(cleanOutput))
                 {
                     if (addNewLine)
                     {

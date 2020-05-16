@@ -235,7 +235,7 @@ namespace H5.Translator
 
                 if (code.Length > 0)
                 {
-                    tmp.Append(level > InitialLevel ? Emitter.INDENT + code.Replace(Emitter.NEW_LINE, Emitter.NEW_LINE + Emitter.INDENT) : code);
+                    tmp.Append(level > InitialLevel ? INDENT + code.Replace(NEW_LINE, NEW_LINE + INDENT) : code);
                 }
 
                 if (endOutput.Length > 0)
@@ -376,7 +376,7 @@ namespace H5.Translator
 
             foreach (var embeddedResource in resources)
             {
-                obj.Add(embeddedResource.Name, Convert.ToBase64String(Emitter.ReadResource(embeddedResource)));
+                obj.Add(embeddedResource.Name, Convert.ToBase64String(ReadResource(embeddedResource)));
             }
 
             return obj.Count > 0 ? obj.ToString(Formatting.None) : null;

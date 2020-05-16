@@ -526,7 +526,7 @@ namespace H5.Translator
 
                         if (method == null)
                         {
-                            throw new EmitterException(invocationExpression, H5.Translator.Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
+                            throw new EmitterException(invocationExpression, Constants.Messages.Exceptions.DYNAMIC_INVOCATION_TOO_MANY_OVERLOADS);
                         }
                     }
                 }

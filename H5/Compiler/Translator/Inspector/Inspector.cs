@@ -106,7 +106,7 @@ namespace H5.Translator
 
         private Expression GetDefaultFieldInitializer(AstType type)
         {
-            return new PrimitiveExpression(Inspector.GetDefaultFieldValue(type, Resolver), "?");
+            return new PrimitiveExpression(GetDefaultFieldValue(type, Resolver), "?");
         }
 
         public static object GetDefaultFieldValue(AstType type, IMemberResolver resolver)
@@ -324,7 +324,7 @@ namespace H5.Translator
             if (TryGetAttribute(tpDecl, "Namespace", out nsAt))
             {
                 var nsName = nsAt.Arguments.FirstOrNullObject().ToString().Trim('"');
-                if (H5.Translator.Inspector.IsConflictingNamespace(nsName))
+                if (IsConflictingNamespace(nsName))
                 {
                     throw new EmitterException(nsAt, "Custom attribute '[" + nsAt.ToString() +
                         "]' uses reserved namespace name 'H5'."
@@ -340,7 +340,7 @@ namespace H5.Translator
         /// <param name="nsDecl">The NamespaceDefinition object of the validated item.</param>
         private void ValidateNamespace(NamespaceDeclaration nsDecl)
         {
-            if (H5.Translator.Inspector.IsConflictingNamespace(nsDecl.FullName))
+            if (IsConflictingNamespace(nsDecl.FullName))
             {
                 throw new EmitterException(nsDecl, "Namespace '" + nsDecl.FullName +
                     "' uses reserved name 'H5'."

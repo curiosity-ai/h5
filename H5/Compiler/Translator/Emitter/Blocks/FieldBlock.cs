@@ -303,14 +303,14 @@ namespace H5.Translator
                             }
                             else
                             {
-                                Write(string.Format("this[{0}] = {1};", AbstractEmitterBlock.ToJavaScript(name, Emitter), value));
+                                Write(string.Format("this[{0}] = {1};", ToJavaScript(name, Emitter), value));
                             }
 
                             WriteNewLine();
                         }
                         else
                         {
-                            Injectors.Add(string.Format(name.StartsWith("\"") || !isValidIdentifier ? "this[{0}] = {1};" : "this.{0} = {1};", isValidIdentifier ? name : AbstractEmitterBlock.ToJavaScript(name, Emitter), value));
+                            Injectors.Add(string.Format(name.StartsWith("\"") || !isValidIdentifier ? "this[{0}] = {1};" : "this.{0} = {1};", isValidIdentifier ? name : ToJavaScript(name, Emitter), value));
                         }
                     }
                     else
@@ -324,7 +324,7 @@ namespace H5.Translator
                             }
                             else
                             {
-                                Write(string.Format("this[{0}] = {1};", AbstractEmitterBlock.ToJavaScript(name, Emitter), value + defValue));
+                                Write(string.Format("this[{0}] = {1};", ToJavaScript(name, Emitter), value + defValue));
                             }
                             WriteNewLine();
                         }
@@ -348,7 +348,7 @@ namespace H5.Translator
                                 }
                                 else if (writeScript)
                                 {
-                                    v = AbstractEmitterBlock.ToJavaScript(constValue, Emitter);
+                                    v = ToJavaScript(constValue, Emitter);
                                 }
                                 else
                                 {
@@ -381,7 +381,7 @@ namespace H5.Translator
                             {
                                 if (isField && !isValidIdentifier)
                                 {
-                                    Injectors.Add(string.Format("this[{0}] = {1};", name.StartsWith("\"") ? name : AbstractEmitterBlock.ToJavaScript(name, Emitter), value + defValue));
+                                    Injectors.Add(string.Format("this[{0}] = {1};", name.StartsWith("\"") ? name : ToJavaScript(name, Emitter), value + defValue));
                                 }
                                 else
                                 {
@@ -421,11 +421,11 @@ namespace H5.Translator
                 {
                     if (IsObjectLiteral)
                     {
-                        mname = "[" + AbstractEmitterBlock.ToJavaScript(mname, Emitter) + "]";
+                        mname = "[" + ToJavaScript(mname, Emitter) + "]";
                     }
                     else
                     {
-                        mname = AbstractEmitterBlock.ToJavaScript(mname, Emitter);
+                        mname = ToJavaScript(mname, Emitter);
                     }
                 }
 
@@ -472,7 +472,7 @@ namespace H5.Translator
 
                         if (!isValidIdentifier)
                         {
-                            Injectors.Insert(BeginCounter++, string.Format("this[{0}] = {1};", name.StartsWith("\"") ? name : AbstractEmitterBlock.ToJavaScript(name, Emitter), value));
+                            Injectors.Insert(BeginCounter++, string.Format("this[{0}] = {1};", name.StartsWith("\"") ? name : ToJavaScript(name, Emitter), value));
                         }
                         else
                         {

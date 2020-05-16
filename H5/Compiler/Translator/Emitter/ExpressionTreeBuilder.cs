@@ -92,7 +92,7 @@ namespace H5.Translator
                 _allParameters[rr.Parameters[i]] = temp;
                 parameters[i] = new JRaw(temp);
 
-                map.Add(temp, CompileFactoryCall("Parameter", new[] { typeof(Type), typeof(string) }, new[] { ExpressionTreeBuilder.GetTypeName(rr.Parameters[i].Type, _emitter), _emitter.ToJavaScript(rr.Parameters[i].Name) }));
+                map.Add(temp, CompileFactoryCall("Parameter", new[] { typeof(Type), typeof(string) }, new[] { GetTypeName(rr.Parameters[i].Type, _emitter), _emitter.ToJavaScript(rr.Parameters[i].Name) }));
             }
 
             var body = VisitResolveResult(rr.Body, null);
@@ -123,7 +123,7 @@ namespace H5.Translator
 
         public string GetExpressionForLocal(string name, string accessor, IType type)
         {
-            var scriptType = ExpressionTreeBuilder.GetTypeName(type, _emitter);
+            var scriptType = GetTypeName(type, _emitter);
 
             string getterDefinition = "function () { return " + accessor + "}";
             string setterDefinition = "function ($) { " + accessor + " = $; }";
@@ -200,7 +200,7 @@ namespace H5.Translator
             var arguments = new string[rr.Operands.Count + 1];
             for (int i = 0; i < rr.Operands.Count; i++)
                 arguments[i] = VisitResolveResult(rr.Operands[i], null);
-            arguments[arguments.Length - 1] = isUserDefined ? GetMember(rr.UserDefinedOperatorMethod) : ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter);
+            arguments[arguments.Length - 1] = isUserDefined ? GetMember(rr.UserDefinedOperatorMethod) : GetTypeName(rr.Type, _emitter);
             if (rr.OperatorType == ExpressionType.Conditional)
                 return CompileFactoryCall("Condition", new[] { typeof(Expression), typeof(Expression), typeof(Expression), typeof(Type) }, arguments);
             else
@@ -225,21 +225,21 @@ namespace H5.Translator
             }
             else if (rr.Conversion.IsNullLiteralConversion)
             {
-                return CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { input, ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter) });
+                return CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { input, GetTypeName(rr.Type, _emitter) });
             }
             else if (rr.Conversion.IsMethodGroupConversion)
             {
                 var methodInfo = _compilation.FindType(typeof(MethodInfo));
                 return CompileFactoryCall("Convert", new[] { typeof(Expression), typeof(Type) }, new[] {
                            CompileFactoryCall("Call", new[] { typeof(Expression), typeof(MethodInfo), typeof(Expression[]) }, new[] {
-                               CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { GetMember(rr.Conversion.Method), ExpressionTreeBuilder.GetTypeName(methodInfo, _emitter) }),
+                               CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { GetMember(rr.Conversion.Method), GetTypeName(methodInfo, _emitter) }),
                                GetMember(methodInfo.GetMethods().Single(m => m.Name == "CreateDelegate" && m.Parameters.Count == 2 && m.Parameters[0].Type.FullName == typeof(Type).FullName && m.Parameters[1].Type.FullName == typeof(object).FullName)),
                                _emitter.ToJavaScript(new [] {
-                                   new JRaw(ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter)),
+                                   new JRaw(GetTypeName(rr.Type, _emitter)),
                                    new JRaw(rr.Conversion.Method.IsStatic ? "null" : VisitResolveResult(((MethodGroupResolveResult)rr.Input).TargetResult, null))
                                })
                            }),
-                           ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter)
+                           GetTypeName(rr.Type, _emitter)
                        });
             }
             else
@@ -252,15 +252,15 @@ namespace H5.Translator
                 else
                     methodName = "Convert";
                 if (rr.Conversion.IsUserDefined)
-                    return CompileFactoryCall(methodName, new[] { typeof(Expression), typeof(Type), typeof(MethodInfo) }, new[] { input, ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter), GetMember(rr.Conversion.Method) });
+                    return CompileFactoryCall(methodName, new[] { typeof(Expression), typeof(Type), typeof(MethodInfo) }, new[] { input, GetTypeName(rr.Type, _emitter), GetMember(rr.Conversion.Method) });
                 else
-                    return CompileFactoryCall(methodName, new[] { typeof(Expression), typeof(Type) }, new[] { input, ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter) });
+                    return CompileFactoryCall(methodName, new[] { typeof(Expression), typeof(Type) }, new[] { input, GetTypeName(rr.Type, _emitter) });
             }
         }
 
         public override string VisitTypeIsResolveResult(TypeIsResolveResult rr, object data)
         {
-            return CompileFactoryCall("TypeIs", new[] { typeof(Expression), typeof(Type) }, new[] { VisitResolveResult(rr.Input, null), ExpressionTreeBuilder.GetTypeName(rr.TargetType, _emitter) });
+            return CompileFactoryCall("TypeIs", new[] { typeof(Expression), typeof(Type) }, new[] { VisitResolveResult(rr.Input, null), GetTypeName(rr.TargetType, _emitter) });
         }
 
         public override string VisitMemberResolveResult(MemberResolveResult rr, object data)
@@ -395,7 +395,7 @@ namespace H5.Translator
 
             if (rr.Member.DeclaringType.Kind == TypeKind.Delegate && rr.Member.Name == "Invoke")
             {
-                return CompileFactoryCall("Invoke", new[] { typeof(Type), typeof(Expression), typeof(Expression[]) }, new[] { ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter), VisitResolveResult(rr.TargetResult, null), _emitter.ToJavaScript(rr.GetArgumentsForCall().Select(a => new JRaw(VisitResolveResult(a, null)))) });
+                return CompileFactoryCall("Invoke", new[] { typeof(Type), typeof(Expression), typeof(Expression[]) }, new[] { GetTypeName(rr.Type, _emitter), VisitResolveResult(rr.TargetResult, null), _emitter.ToJavaScript(rr.GetArgumentsForCall().Select(a => new JRaw(VisitResolveResult(a, null)))) });
             }
             else if (rr.Member is IMethod && ((IMethod)rr.Member).IsConstructor)
             {
@@ -451,7 +451,7 @@ namespace H5.Translator
 
         public override string VisitTypeOfResolveResult(TypeOfResolveResult rr, object data)
         {
-            return CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { ExpressionTreeBuilder.GetTypeName(rr.ReferencedType, _emitter), ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter) });
+            return CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { GetTypeName(rr.ReferencedType, _emitter), GetTypeName(rr.Type, _emitter) });
         }
 
         public override string VisitDefaultResolveResult(ResolveResult rr, object data)
@@ -467,7 +467,7 @@ namespace H5.Translator
         private string MakeConstant(ResolveResult rr)
         {
             var value = rr.ConstantValue == null ? DefaultValueBlock.DefaultValue(rr, _emitter) : AbstractEmitterBlock.ToJavaScript(rr.ConstantValue, _emitter);
-            return CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { value, ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter) });
+            return CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { value, GetTypeName(rr.Type, _emitter) });
         }
 
         public override string VisitConstantResolveResult(ConstantResolveResult rr, object data)
@@ -488,9 +488,9 @@ namespace H5.Translator
         {
             var array = VisitResolveResult(rr.Array, null);
             if (rr.Indexes.Count == 1)
-                return CompileFactoryCall("ArrayIndex", new[] { typeof(Type), typeof(Expression), typeof(Expression) }, new[] { ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter), array, VisitResolveResult(rr.Indexes[0], null) });
+                return CompileFactoryCall("ArrayIndex", new[] { typeof(Type), typeof(Expression), typeof(Expression) }, new[] { GetTypeName(rr.Type, _emitter), array, VisitResolveResult(rr.Indexes[0], null) });
             else
-                return CompileFactoryCall("ArrayIndex", new[] { typeof(Type), typeof(Expression), typeof(Expression[]) }, new[] { ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter), array, _emitter.ToJavaScript(rr.Indexes.Select(i => new JRaw(VisitResolveResult(i, null))).ToArray()) });
+                return CompileFactoryCall("ArrayIndex", new[] { typeof(Type), typeof(Expression), typeof(Expression[]) }, new[] { GetTypeName(rr.Type, _emitter), array, _emitter.ToJavaScript(rr.Indexes.Select(i => new JRaw(VisitResolveResult(i, null))).ToArray()) });
         }
 
         public override string VisitArrayCreateResolveResult(ArrayCreateResolveResult rr, object data)
@@ -498,15 +498,15 @@ namespace H5.Translator
             var arrayType = rr.Type as ArrayType;
             if (rr.InitializerElements != null)
             {
-                return CompileFactoryCall("NewArrayInit", new[] { typeof(Type), typeof(Expression[]) }, new[] { ExpressionTreeBuilder.GetTypeName(arrayType != null ? arrayType.ElementType : rr.Type, _emitter), _emitter.ToJavaScript(rr.InitializerElements.Select(e => new JRaw(VisitResolveResult(e, null))).ToArray()) });
+                return CompileFactoryCall("NewArrayInit", new[] { typeof(Type), typeof(Expression[]) }, new[] { GetTypeName(arrayType != null ? arrayType.ElementType : rr.Type, _emitter), _emitter.ToJavaScript(rr.InitializerElements.Select(e => new JRaw(VisitResolveResult(e, null))).ToArray()) });
             }
 
-            return CompileFactoryCall("NewArrayBounds", new[] { typeof(Type), typeof(Expression[]) }, new[] { ExpressionTreeBuilder.GetTypeName(arrayType != null ? arrayType.ElementType : rr.Type, _emitter), _emitter.ToJavaScript(rr.SizeArguments.Select(a => new JRaw(VisitResolveResult(a, null))).ToArray()) });
+            return CompileFactoryCall("NewArrayBounds", new[] { typeof(Type), typeof(Expression[]) }, new[] { GetTypeName(arrayType != null ? arrayType.ElementType : rr.Type, _emitter), _emitter.ToJavaScript(rr.SizeArguments.Select(a => new JRaw(VisitResolveResult(a, null))).ToArray()) });
         }
 
         public override string VisitThisResolveResult(ThisResolveResult rr, object data)
         {
-            return CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { AbstractEmitterBlock.GetThisAlias(_emitter), ExpressionTreeBuilder.GetTypeName(rr.Type, _emitter) });
+            return CompileFactoryCall("Constant", new[] { typeof(object), typeof(Type) }, new[] { AbstractEmitterBlock.GetThisAlias(_emitter), GetTypeName(rr.Type, _emitter) });
         }
 
         private static string GetTypeName(IType type, IEmitter emitter)
@@ -558,7 +558,7 @@ namespace H5.Translator
             int index = FindIndexInReflectableMembers(owner ?? member);
             if (index >= 0)
             {
-                string result = string.Format("H5.getMetadata({0}).m[{1}]", ExpressionTreeBuilder.GetTypeName(member.DeclaringType, _emitter), index);
+                string result = string.Format("H5.getMetadata({0}).m[{1}]", GetTypeName(member.DeclaringType, _emitter), index);
                 if (owner != null)
                 {
                     if (owner is IProperty)

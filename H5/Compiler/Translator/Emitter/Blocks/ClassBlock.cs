@@ -276,7 +276,7 @@ namespace H5.Translator
                 Write(JS.Fields.VARIANCE);
                 WriteColon();
                 WriteScript(
-                    itypeDef.TypeParameters.Select(typeParameter => ClassBlock.ConvertVarianceToInt(typeParameter.Variance))
+                    itypeDef.TypeParameters.Select(typeParameter => ConvertVarianceToInt(typeParameter.Variance))
                         .ToArray());
                 Emitter.Comma = true;
             }

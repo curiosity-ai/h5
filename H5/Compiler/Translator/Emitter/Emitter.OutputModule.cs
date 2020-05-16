@@ -97,19 +97,19 @@ namespace H5.Translator
             WriteNewLine(moduleOutput, ") {");
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, Emitter.INDENT + "var " + module.Name + " = { };");
+            WriteNewLine(moduleOutput, INDENT + "var " + module.Name + " = { };");
             moduleOutput.Append(str);
 
-            if (!str.Trim().EndsWith(Emitter.NEW_LINE))
+            if (!str.Trim().EndsWith(NEW_LINE))
             {
                 WriteNewLine(moduleOutput);
             }
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, Emitter.INDENT + "H5.init();");
+            WriteNewLine(moduleOutput, INDENT + "H5.init();");
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, Emitter.INDENT + "return " + module.Name + ";");
+            WriteNewLine(moduleOutput, INDENT + "return " + module.Name + ";");
             WriteIndent(moduleOutput, InitialLevel);
             WriteNewLine(moduleOutput, "});");
         }
@@ -131,7 +131,7 @@ namespace H5.Translator
             var str = moduleOutput.ToString();
             moduleOutput.Length = 0;
 
-            moduleOutput.Append(Emitter.INDENT);
+            moduleOutput.Append(INDENT);
             moduleOutput.Append("(function (");
 
             var enabledDependecies = GetEnabledDependecies(module, output);
@@ -147,18 +147,18 @@ namespace H5.Translator
             }
 
             WriteNewLine(moduleOutput, ") {");
-            moduleOutput.Append(Emitter.INDENT);
+            moduleOutput.Append(INDENT);
             WriteIndent(moduleOutput, InitialLevel);
             WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
             moduleOutput.Append(str);
 
-            if (!str.Trim().EndsWith(Emitter.NEW_LINE))
+            if (!str.Trim().EndsWith(NEW_LINE))
             {
                 WriteNewLine(moduleOutput);
             }
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, Emitter.INDENT + "module.exports." + module.Name + " = " + module.Name + ";");
+            WriteNewLine(moduleOutput, INDENT + "module.exports." + module.Name + " = " + module.Name + ";");
             WriteIndent(moduleOutput, InitialLevel);
             moduleOutput.Append("}) (");
 
@@ -259,7 +259,7 @@ namespace H5.Translator
             WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
             moduleOutput.Append(str);
 
-            if (!str.Trim().EndsWith(Emitter.NEW_LINE))
+            if (!str.Trim().EndsWith(NEW_LINE))
             {
                 WriteNewLine(moduleOutput);
             }
@@ -279,10 +279,10 @@ namespace H5.Translator
             var str = moduleOutput.ToString();
             moduleOutput.Length = 0;
 
-            moduleOutput.Append(Emitter.INDENT);
+            moduleOutput.Append(INDENT);
             WriteNewLine(moduleOutput, "(function () {");
 
-            moduleOutput.Append(Emitter.INDENT);
+            moduleOutput.Append(INDENT);
             WriteIndent(moduleOutput, InitialLevel);
             WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
 
@@ -292,7 +292,7 @@ namespace H5.Translator
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append(Emitter.INDENT);
+                    moduleOutput.Append(INDENT);
                     WriteIndent(moduleOutput, InitialLevel);
                     WriteNewLine(moduleOutput, "import " + (md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName) + " from " + ToJavaScript(md.DependencyName) + ";");
                 });
@@ -300,13 +300,13 @@ namespace H5.Translator
 
             moduleOutput.Append(str);
 
-            if (!str.Trim().EndsWith(Emitter.NEW_LINE))
+            if (!str.Trim().EndsWith(NEW_LINE))
             {
                 WriteNewLine(moduleOutput);
             }
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, Emitter.INDENT + "export {" + module.Name + "};");
+            WriteNewLine(moduleOutput, INDENT + "export {" + module.Name + "};");
             WriteIndent(moduleOutput, InitialLevel);
             moduleOutput.Append("}) (");
 

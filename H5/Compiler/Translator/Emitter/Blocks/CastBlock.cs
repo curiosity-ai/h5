@@ -207,7 +207,7 @@ namespace H5.Translator
             bool isCast = method == CS.Ops.CAST;
             if (isCast)
             {
-                if (ConversionBlock.IsUserDefinedConversion(this, CastExpression.Expression) || ConversionBlock.IsUserDefinedConversion(this, CastExpression))
+                if (IsUserDefinedConversion(this, CastExpression.Expression) || IsUserDefinedConversion(this, CastExpression))
                 {
                     expression.AcceptVisitor(Emitter);
 

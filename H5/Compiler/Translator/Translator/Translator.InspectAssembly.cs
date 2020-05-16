@@ -281,7 +281,7 @@ namespace H5.Translator
                 H5Types = new H5Types();
                 AssemblyDefinition = assembly;
 
-                if (assembly.Name.Name != Translator.H5_ASSEMBLY || AssemblyInfo.Assembly != null && AssemblyInfo.Assembly.EnableReservedNamespaces)
+                if (assembly.Name.Name != H5_ASSEMBLY || AssemblyInfo.Assembly != null && AssemblyInfo.Assembly.EnableReservedNamespaces)
                 {
                     ReadTypes(assembly);
                 }

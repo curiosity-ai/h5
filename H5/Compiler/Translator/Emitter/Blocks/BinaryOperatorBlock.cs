@@ -309,10 +309,10 @@ namespace H5.Translator
             if (!isSimpleConcat)
             {
                 var be = binaryOperatorExpression.Left as BinaryOperatorExpression;
-                leftIsSimple = be != null ? BinaryOperatorBlock.IsOperatorSimple(be, emitter) : leftIsSimple;
+                leftIsSimple = be != null ? IsOperatorSimple(be, emitter) : leftIsSimple;
 
                 be = binaryOperatorExpression.Right as BinaryOperatorExpression;
-                rightIsSimple = be != null ? BinaryOperatorBlock.IsOperatorSimple(be, emitter) : rightIsSimple;
+                rightIsSimple = be != null ? IsOperatorSimple(be, emitter) : rightIsSimple;
                 isSimpleConcat = leftIsSimple && rightIsSimple;
             }
 
@@ -332,12 +332,12 @@ namespace H5.Translator
             {
                 if (Emitter.AsyncBlock.WrittenAwaitExpressions.Contains(binaryOperatorExpression))
                 {
-                    var index = System.Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, binaryOperatorExpression) + 1;
+                    var index = Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, binaryOperatorExpression) + 1;
                     Write(JS.Vars.ASYNC_TASK_RESULT + index);
                 }
                 else
                 {
-                    var index = System.Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, binaryOperatorExpression) + 1;
+                    var index = Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, binaryOperatorExpression) + 1;
                     WriteAsyncBinaryExpression(index);
                 }
 
@@ -395,13 +395,13 @@ namespace H5.Translator
             {
                 var parentResolveOperator = Emitter.Resolver.ResolveNode(binaryOperatorExpression.Parent) as OperatorResolveResult;
 
-                if (parentResolveOperator != null && parentResolveOperator.UserDefinedOperatorMethod != null || BinaryOperatorBlock.IsOperatorSimple(parentBinary, Emitter))
+                if (parentResolveOperator != null && parentResolveOperator.UserDefinedOperatorMethod != null || IsOperatorSimple(parentBinary, Emitter))
                 {
                     parentIsString = false;
                 }
             }
 
-            bool isSimpleConcat = isStringConcat && BinaryOperatorBlock.IsOperatorSimple(binaryOperatorExpression, Emitter);
+            bool isSimpleConcat = isStringConcat && IsOperatorSimple(binaryOperatorExpression, Emitter);
 
             if (charToString == -1 && isStringConcat && !leftResolverResult.Type.IsKnownType(KnownTypeCode.String))
             {
@@ -483,7 +483,7 @@ namespace H5.Translator
                 }
             }
 
-            var insideOverflowContext = ConversionBlock.InsideOverflowContext(Emitter, binaryOperatorExpression);
+            var insideOverflowContext = InsideOverflowContext(Emitter, binaryOperatorExpression);
             if (binaryOperatorExpression.Operator == BinaryOperatorType.Divide && Emitter.Rules.Integer == IntegerRule.Managed &&
                 !(Emitter.IsJavaScriptOverflowMode && !insideOverflowContext) &&
                 (
@@ -520,7 +520,7 @@ namespace H5.Translator
                 Write(", ");
                 WritePart(binaryOperatorExpression.Right, toStringForRight, rightResolverResult);
 
-                if (ConversionBlock.IsInCheckedContext(Emitter, BinaryOperatorExpression))
+                if (IsInCheckedContext(Emitter, BinaryOperatorExpression))
                 {
                     Write(", 1");
                 }
@@ -599,10 +599,10 @@ namespace H5.Translator
 
                     Write(" ? ");
 
-                    ConversionBlock.expressionMap.Add(binaryOperatorExpression.Left, variable);
+                    expressionMap.Add(binaryOperatorExpression.Left, variable);
                     //this.Write(variable);
                     binaryOperatorExpression.Left.AcceptVisitor(Emitter);
-                    ConversionBlock.expressionMap.Remove(binaryOperatorExpression.Left);
+                    expressionMap.Remove(binaryOperatorExpression.Left);
                 }
                 else if (charToString == 0)
                 {
@@ -869,7 +869,7 @@ namespace H5.Translator
 
         private void AddOveflowFlag(KnownTypeCode typeCode, string op_name)
         {
-            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && ConversionBlock.IsInCheckedContext(Emitter, BinaryOperatorExpression))
+            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && IsInCheckedContext(Emitter, BinaryOperatorExpression))
             {
                 if (op_name == JS.Funcs.Math.ADD || op_name == JS.Funcs.Math.SUB || op_name == JS.Funcs.Math.MUL)
                 {
@@ -1034,7 +1034,7 @@ namespace H5.Translator
         {
             if (isCoalescing)
             {
-                ConversionBlock.expressionInWork.Add(expression);
+                expressionInWork.Add(expression);
             }
 
             bool wrapString = false;
@@ -1103,7 +1103,7 @@ namespace H5.Translator
 
             if (isCoalescing)
             {
-                ConversionBlock.expressionInWork.Remove(expression);
+                expressionInWork.Remove(expression);
             }
         }
     }

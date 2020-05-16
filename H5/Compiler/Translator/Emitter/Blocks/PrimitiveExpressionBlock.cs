@@ -30,7 +30,7 @@ namespace H5.Translator
             var isTplRaw = Emitter.TemplateModifier == "raw";
             if (PrimitiveExpression.Value is RawValue || isTplRaw)
             {
-                Write(AbstractEmitterBlock.UpdateIndentsInString(PrimitiveExpression.Value.ToString(), 0));
+                Write(UpdateIndentsInString(PrimitiveExpression.Value.ToString(), 0));
             }
             else
             {

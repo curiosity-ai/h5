@@ -141,7 +141,7 @@ namespace H5.Translator
 
         internal static IVariable[] GetCapturedLoopVariables(IEmitter emitter, AstNode context, IEnumerable<ParameterDeclaration> parameters, bool excludeReadOnly = false)
         {
-            var loop = LambdaBlock.GetOuterLoop(context);
+            var loop = GetOuterLoop(context);
             if (loop == null)
             {
                 return null;
@@ -157,7 +157,7 @@ namespace H5.Translator
 
         private string[] GetCapturedLoopVariablesNames()
         {
-            var capturedVariables = LambdaBlock.GetCapturedLoopVariables(Emitter, Context, Parameters);
+            var capturedVariables = GetCapturedLoopVariables(Emitter, Context, Parameters);
 
             if (capturedVariables == null)
             {

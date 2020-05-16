@@ -399,7 +399,7 @@ namespace H5.Translator
                     var method = (IMethod)member.Member;
                     if (method.TypeArguments.Count > 0 || method.IsExtensionMethod)
                     {
-                        inline = MemberReferenceBlock.GenerateInlineForMethodReference(method, Emitter);
+                        inline = GenerateInlineForMethodReference(method, Emitter);
                     }
                 }
             }

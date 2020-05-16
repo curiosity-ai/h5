@@ -137,7 +137,7 @@ namespace H5.Translator
 
             if (Emitter.IsAsync && Emitter.AsyncBlock.Steps.Count > startCount)
             {
-                if (Emitter.AsyncBlock.Steps.Count <= elseCount && !AbstractEmitterBlock.IsJumpStatementLast(Emitter.Output.ToString()))
+                if (Emitter.AsyncBlock.Steps.Count <= elseCount && !IsJumpStatementLast(Emitter.Output.ToString()))
                 {
                     WriteNewLine();
                     Write(JS.Vars.ASYNC_STEP + " = " + Emitter.AsyncBlock.Step + ";");

@@ -249,7 +249,7 @@ namespace H5.Translator
         {
             var rr = Emitter.Resolver.ResolveNode(item) as MemberResolveResult;
 
-            var inlineCode = ObjectCreateBlock.GetInlineInit(item, this, tempVar);
+            var inlineCode = GetInlineInit(item, this, tempVar);
 
             if (inlineCode != null)
             {

@@ -18,8 +18,7 @@ namespace H5.Translator
     {
         protected FileHelper FileHelper { get; set; }
 
-        public EmitBlock(IEmitter emitter)
-            : base(emitter, null)
+        public EmitBlock(IEmitter emitter) : base(emitter, null)
         {
             Emitter = emitter;
             FileHelper = new FileHelper();
@@ -65,12 +64,11 @@ namespace H5.Translator
                         break;
                 }
 
-                var isPathRelated = Emitter.AssemblyInfo.OutputBy == OutputBy.ClassPath ||
-                                    Emitter.AssemblyInfo.OutputBy == OutputBy.NamespacePath;
+                var isPathRelated = Emitter.AssemblyInfo.OutputBy == OutputBy.ClassPath || Emitter.AssemblyInfo.OutputBy == OutputBy.NamespacePath;
 
                 if (fileName.IsNotEmpty() && isPathRelated)
                 {
-                    fileName = fileName.Replace('.', System.IO.Path.DirectorySeparatorChar);
+                    fileName = fileName.Replace('.', Path.DirectorySeparatorChar);
 
                     if (Emitter.AssemblyInfo.StartIndexInName > 0)
                     {
@@ -97,7 +95,7 @@ namespace H5.Translator
             // Apply lowerCamelCase to filename if set up in h5.json (or left default)
             if (Emitter.AssemblyInfo.FileNameCasing == FileNameCaseConvert.CamelCase)
             {
-                var sepList = new string[] { ".", System.IO.Path.DirectorySeparatorChar.ToString(), "\\", "/" };
+                var sepList = new string[] { ".", Path.DirectorySeparatorChar.ToString(), "\\", "/" };
 
                 // Populate list only with needed separators, as usually we will never have all four of them
                 var neededSepList = new List<string>();
@@ -135,7 +133,7 @@ namespace H5.Translator
             // when filesystem is not case sensitive.
             if (!FileHelper.IsJS(fileName))
             {
-                fileName += Contract.Constants.Files.Extensions.JS;
+                fileName += Files.Extensions.JS;
             }
 
             switch (Emitter.AssemblyInfo.FileNameCasing)
@@ -186,7 +184,7 @@ namespace H5.Translator
 
             if (module.Name == "")
             {
-                module.Name = H5.Translator.AssemblyInfo.DEFAULT_FILENAME;
+                module.Name = AssemblyInfo.DEFAULT_FILENAME;
             }
 
             if (output.ModuleOutput.ContainsKey(module))
@@ -490,7 +488,7 @@ namespace H5.Translator
                     if (!string.IsNullOrWhiteSpace(Emitter.AssemblyInfo.FileName) &&
                         Emitter.AssemblyInfo.FileName != AssemblyInfo.DEFAULT_FILENAME)
                     {
-                        output = System.IO.Path.GetFileNameWithoutExtension(Emitter.AssemblyInfo.FileName) + ".meta.js";
+                        output = Path.GetFileNameWithoutExtension(Emitter.AssemblyInfo.FileName) + ".meta.js";
                     }
                     else
                     {
@@ -834,7 +832,7 @@ namespace H5.Translator
 
                     if (external && attr == null)
                     {
-                        if (!string.IsNullOrWhiteSpace(filter) && EmitBlock.MatchFilter(type, filter, thisAssembly, result))
+                        if (!string.IsNullOrWhiteSpace(filter) && MatchFilter(type, filter, thisAssembly, result))
                         {
                             reflectTypes.Add(type);
                         }
@@ -880,7 +878,7 @@ namespace H5.Translator
 
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    result = EmitBlock.MatchFilter(type, filter, thisAssembly, result);
+                    result = MatchFilter(type, filter, thisAssembly, result);
 
                     if (!result)
                     {

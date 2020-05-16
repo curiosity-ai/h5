@@ -341,7 +341,7 @@ namespace H5.Translator
                     case UnaryOperatorType.Await:
                         if (Emitter.ReplaceAwaiterByVar)
                         {
-                            var index = System.Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, unaryOperatorExpression.Expression) + 1;
+                            var index = Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, unaryOperatorExpression.Expression) + 1;
                             Write(JS.Vars.ASYNC_TASK_RESULT + index);
                         }
                         else
@@ -378,7 +378,7 @@ namespace H5.Translator
 
         private void AddOveflowFlag(KnownTypeCode typeCode, string op_name, bool lifted)
         {
-            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && ConversionBlock.IsInCheckedContext(Emitter, UnaryOperatorExpression))
+            if ((typeCode == KnownTypeCode.Int64 || typeCode == KnownTypeCode.UInt64) && IsInCheckedContext(Emitter, UnaryOperatorExpression))
             {
                 if (op_name == JS.Funcs.Math.NEG || op_name == JS.Funcs.Math.DEC || op_name == JS.Funcs.Math.INC)
                 {

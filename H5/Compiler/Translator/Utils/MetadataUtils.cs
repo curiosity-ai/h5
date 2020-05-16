@@ -17,14 +17,14 @@ namespace H5.Translator
     {
         public static JObject ConstructTypeMetadata(ITypeDefinition type, IEmitter emitter, bool ifHasAttribute, SyntaxTree tree)
         {
-            var properties = ifHasAttribute ? new JObject() : MetadataUtils.GetCommonTypeProperties(type, emitter);
-            var scriptableAttributes = MetadataUtils.GetScriptableAttributes(type.Attributes, emitter, tree).ToList();
+            var properties = ifHasAttribute ? new JObject() : GetCommonTypeProperties(type, emitter);
+            var scriptableAttributes = GetScriptableAttributes(type.Attributes, emitter, tree).ToList();
             if (scriptableAttributes.Count != 0)
             {
                 JArray attrArr = new JArray();
                 foreach (var a in scriptableAttributes)
                 {
-                    attrArr.Add(MetadataUtils.ConstructAttribute(a, type, emitter));
+                    attrArr.Add(ConstructAttribute(a, type, emitter));
                 }
 
                 properties.Add("at", attrArr);
@@ -32,12 +32,12 @@ namespace H5.Translator
 
             if (type.Kind == TypeKind.Class || type.Kind == TypeKind.Struct || type.Kind == TypeKind.Interface || type.Kind == TypeKind.Enum)
             {
-                var reflectable = type.Members.Where(m => MetadataUtils.IsReflectable(m, emitter, ifHasAttribute, tree))
+                var reflectable = type.Members.Where(m => IsReflectable(m, emitter, ifHasAttribute, tree))
                                           .OrderBy(m => m, MemberOrderer.Instance);
 
-                var members = reflectable.Select(m => MetadataUtils.ConstructMemberInfo(m, emitter, false, false, tree)).ToList();
+                var members = reflectable.Select(m => ConstructMemberInfo(m, emitter, false, false, tree)).ToList();
 
-                var backingFields = reflectable.Where(m => m is IProperty p && Helpers.IsAutoProperty(p)).Select(m => MetadataUtils.ConstructBackingField(m, emitter)).ToList();
+                var backingFields = reflectable.Where(m => m is IProperty p && Helpers.IsAutoProperty(p)).Select(m => ConstructBackingField(m, emitter)).ToList();
 
                 if (backingFields.Count > 0)
                 {
@@ -104,23 +104,23 @@ namespace H5.Translator
             }
 
             result.Add("t", (int)MemberTypes.Field);
-            result.Add("rt", new JRaw(MetadataUtils.GetTypeName(m.ReturnType, emitter, false)));
+            result.Add("rt", new JRaw(GetTypeName(m.ReturnType, emitter, false)));
             result.Add("sn", OverloadsCollection.Create(emitter, m).GetOverloadName());
 
-            MetadataUtils.AddBox(m, emitter, result);
+            AddBox(m, emitter, result);
 
             return result;
         }
 
         public static JObject ConstructITypeMetadata(IType type, IEmitter emitter)
         {
-            var properties = MetadataUtils.GetCommonTypeProperties(type, emitter);
+            var properties = GetCommonTypeProperties(type, emitter);
 
             if (type.Kind == TypeKind.Class || type.Kind == TypeKind.Anonymous)
             {
-                var members = type.GetMembers(null, GetMemberOptions.IgnoreInheritedMembers).Where(m => MetadataUtils.IsReflectable(m, emitter, false, null))
+                var members = type.GetMembers(null, GetMemberOptions.IgnoreInheritedMembers).Where(m => IsReflectable(m, emitter, false, null))
                                           .OrderBy(m => m, MemberOrderer.Instance)
-                                          .Select(m => MetadataUtils.ConstructMemberInfo(m, emitter, false, false, null))
+                                          .Select(m => ConstructMemberInfo(m, emitter, false, false, null))
                                           .ToList();
                 if (members.Count > 0)
                 {
@@ -142,7 +142,7 @@ namespace H5.Translator
 
                 if (type.DeclaringType != null)
                 {
-                    result.Add("td", new JRaw(MetadataUtils.GetTypeName(type.DeclaringType, emitter, false)));
+                    result.Add("td", new JRaw(GetTypeName(type.DeclaringType, emitter, false)));
                 }
 
                 var nestedTypes = type.GetNestedTypes(null, GetMemberOptions.IgnoreInheritedMembers);
@@ -153,7 +153,7 @@ namespace H5.Translator
                     {
                         if (!emitter.Validator.IsExternalType(nestedType.GetDefinition()) && emitter.H5Types.Get(nestedType, true) != null)
                         {
-                            array.Add(new JRaw(MetadataUtils.GetTypeName(nestedType, emitter, false, true)));
+                            array.Add(new JRaw(GetTypeName(nestedType, emitter, false, true)));
                         }
                     }
 
@@ -206,7 +206,7 @@ namespace H5.Translator
             return attributes.Where(a =>
             {
                 var typeDef = a.AttributeType.GetDefinition();
-                return typeDef != null && !MetadataUtils.IsConditionallyRemoved(a, emitter.Translator, tree) && !emitter.Validator.IsExternalType(typeDef) &&
+                return typeDef != null && !IsConditionallyRemoved(a, emitter.Translator, tree) && !emitter.Validator.IsExternalType(typeDef) &&
                        !Helpers.IsNonScriptable(typeDef);
             });
         }
@@ -216,7 +216,7 @@ namespace H5.Translator
             var typeDef = attr.AttributeType.GetDefinition();
             if (typeDef != null)
             {
-                var symbols = MetadataUtils.FindConditionalSymbols(typeDef);
+                var symbols = FindConditionalSymbols(typeDef);
 
                 if (symbols.Count > 0)
                 {
@@ -277,7 +277,7 @@ namespace H5.Translator
                 return false;
             }
 
-            bool? reflectable = MetadataUtils.ReflectableValue(member.Attributes, member, emitter);
+            bool? reflectable = ReflectableValue(member.Attributes, member, emitter);
 
             if (reflectable != null)
             {
@@ -286,7 +286,7 @@ namespace H5.Translator
 
             if (member.DeclaringTypeDefinition != null)
             {
-                reflectable = MetadataUtils.ReflectableValue(member.DeclaringTypeDefinition.Attributes, member, emitter);
+                reflectable = ReflectableValue(member.DeclaringTypeDefinition.Attributes, member, emitter);
             }
 
             if (reflectable != null)
@@ -305,13 +305,13 @@ namespace H5.Translator
             {
                 memberAccessibility = new[] { ifHasAttribute ? MemberAccessibility.None : MemberAccessibility.All };
 
-                if (ifHasAttribute && MetadataUtils.GetScriptableAttributes(member.Attributes, emitter, tree).Any())
+                if (ifHasAttribute && GetScriptableAttributes(member.Attributes, emitter, tree).Any())
                 {
                     memberAccessibility = new[] { MemberAccessibility.All };
                 }
             }
 
-            return MetadataUtils.IsMemberReflectable(member, memberAccessibility);
+            return IsMemberReflectable(member, memberAccessibility);
         }
 
         private static bool? ReflectableValue(IList<IAttribute> attributes, IMember member, IEmitter emitter)
@@ -356,7 +356,7 @@ namespace H5.Translator
                         list.Add((MemberAccessibility)(int)v);
                     }
 
-                    return MetadataUtils.IsMemberReflectable(member, list.ToArray());
+                    return IsMemberReflectable(member, list.ToArray());
                 }
                 else
                 {
@@ -365,7 +365,7 @@ namespace H5.Translator
 
                     if (rr is ArrayCreateResolveResult)
                     {
-                        return MetadataUtils.IsMemberReflectable(member, ((ArrayCreateResolveResult)rr).InitializerElements.Select(ie => (int)ie.ConstantValue).Cast<MemberAccessibility>().ToArray());
+                        return IsMemberReflectable(member, ((ArrayCreateResolveResult)rr).InitializerElements.Select(ie => (int)ie.ConstantValue).Cast<MemberAccessibility>().ToArray());
                     }
 
                     if (value is bool)
@@ -375,12 +375,12 @@ namespace H5.Translator
 
                     if (value is int)
                     {
-                        return MetadataUtils.IsMemberReflectable(member, new[] { (MemberAccessibility)(int)value });
+                        return IsMemberReflectable(member, new[] { (MemberAccessibility)(int)value });
                     }
 
                     if (value is int[])
                     {
-                        return MetadataUtils.IsMemberReflectable(member, ((int[])value).Cast<MemberAccessibility>().ToArray());
+                        return IsMemberReflectable(member, ((int[])value).Cast<MemberAccessibility>().ToArray());
                     }
                 }
             }
@@ -496,13 +496,13 @@ namespace H5.Translator
         {
             var result = new JObject();
 
-            var attr = MetadataUtils.GetScriptableAttributes(p.Attributes, emitter, tree).ToList();
+            var attr = GetScriptableAttributes(p.Attributes, emitter, tree).ToList();
             if (attr.Count > 0)
             {
                 JArray attrArr = new JArray();
                 foreach (var a in attr)
                 {
-                    attrArr.Add(MetadataUtils.ConstructAttribute(a, null, emitter));
+                    attrArr.Add(ConstructAttribute(a, null, emitter));
                 }
 
                 result.Add("at", attrArr);
@@ -542,7 +542,7 @@ namespace H5.Translator
                 result.Add("ip", true);
             }
 
-            result.Add("pt", new JRaw(MetadataUtils.GetTypeName(p.Type, emitter, isGenericSpecialization)));
+            result.Add("pt", new JRaw(GetTypeName(p.Type, emitter, isGenericSpecialization)));
             result.Add("ps", p.Owner.Parameters.IndexOf(p));
 
             var nameAttr = p.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "H5.NameAttribute");
@@ -568,10 +568,10 @@ namespace H5.Translator
         {
             if (m is IMethod && ((IMethod)m).IsConstructor)
             {
-                return MetadataUtils.ConstructConstructorInfo((IMethod)m, emitter, includeDeclaringType, isGenericSpecialization, tree);
+                return ConstructConstructorInfo((IMethod)m, emitter, includeDeclaringType, isGenericSpecialization, tree);
             }
 
-            var properties = MetadataUtils.GetCommonMemberInfoProperties(m, emitter, includeDeclaringType, isGenericSpecialization, tree);
+            var properties = GetCommonMemberInfoProperties(m, emitter, includeDeclaringType, isGenericSpecialization, tree);
             if (m.IsStatic)
             {
                 properties.Add("is", true);
@@ -588,7 +588,7 @@ namespace H5.Translator
 
                 properties.Add("t", (int)MemberTypes.Method);
 
-                var parametersInfo = method.Parameters.Select(p => MetadataUtils.ConstructParameterInfo(p, emitter, false, false, tree)).ToList();
+                var parametersInfo = method.Parameters.Select(p => ConstructParameterInfo(p, emitter, false, false, tree)).ToList();
                 if (parametersInfo.Count > 0)
                 {
                     properties.Add("pi", new JArray(parametersInfo));
@@ -619,7 +619,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    if (MetadataUtils.IsJsGeneric(method, emitter))
+                    if (IsJsGeneric(method, emitter))
                     {
                         properties.Add("tpc", method.TypeParameters.Count);
                         properties.Add("tprm", new JArray(method.TypeParameters.Select(tp => tp.Name).ToArray()));
@@ -655,15 +655,15 @@ namespace H5.Translator
                         properties.Add("sn", sname);
                     }
                 }
-                properties.Add("rt", new JRaw(MetadataUtils.GetTypeName(method.ReturnType, emitter, isGenericSpecialization)));
+                properties.Add("rt", new JRaw(GetTypeName(method.ReturnType, emitter, isGenericSpecialization)));
 
-                var attr = MetadataUtils.GetScriptableAttributes(method.ReturnTypeAttributes, emitter, tree).ToList();
+                var attr = GetScriptableAttributes(method.ReturnTypeAttributes, emitter, tree).ToList();
                 if (attr.Count > 0)
                 {
                     JArray attrArr = new JArray();
                     foreach (var a in attr)
                     {
-                        attrArr.Add(MetadataUtils.ConstructAttribute(a, null, emitter));
+                        attrArr.Add(ConstructAttribute(a, null, emitter));
                     }
 
                     properties.Add("rta", attrArr);
@@ -671,22 +671,22 @@ namespace H5.Translator
 
                 if (method.Parameters.Count > 0)
                 {
-                    properties.Add("p", new JArray(method.Parameters.Select(p => new JRaw(MetadataUtils.GetTypeName(p.Type, emitter, isGenericSpecialization)))));
+                    properties.Add("p", new JArray(method.Parameters.Select(p => new JRaw(GetTypeName(p.Type, emitter, isGenericSpecialization)))));
                 }
 
-                MetadataUtils.AddBox(m, emitter, properties);
+                AddBox(m, emitter, properties);
             }
             else if (m is IField field)
             {
                 properties.Add("t", (int)MemberTypes.Field);
-                properties.Add("rt", new JRaw(MetadataUtils.GetTypeName(field.ReturnType, emitter, isGenericSpecialization)));
+                properties.Add("rt", new JRaw(GetTypeName(field.ReturnType, emitter, isGenericSpecialization)));
                 properties.Add("sn", OverloadsCollection.Create(emitter, field).GetOverloadName());
                 if (field.IsReadOnly)
                 {
                     properties.Add("ro", field.IsReadOnly);
                 }
 
-                MetadataUtils.AddBox(m, emitter, properties);
+                AddBox(m, emitter, properties);
             }
             else if (m is IProperty)
             {
@@ -711,10 +711,10 @@ namespace H5.Translator
                 }
 
                 properties.Add("t", (int)MemberTypes.Property);
-                properties.Add("rt", new JRaw(MetadataUtils.GetTypeName(prop.ReturnType, emitter, isGenericSpecialization)));
+                properties.Add("rt", new JRaw(GetTypeName(prop.ReturnType, emitter, isGenericSpecialization)));
                 if (prop.Parameters.Count > 0)
                 {
-                    properties.Add("p", new JArray(prop.Parameters.Select(p => new JRaw(MetadataUtils.GetTypeName(p.Type, emitter, isGenericSpecialization)))));
+                    properties.Add("p", new JArray(prop.Parameters.Select(p => new JRaw(GetTypeName(p.Type, emitter, isGenericSpecialization)))));
                 }
 
                 if (prop.IsIndexer)
@@ -726,7 +726,7 @@ namespace H5.Translator
                 {
                     if (prop.Getter != null)
                     {
-                        var parametersInfo = prop.Getter.Parameters.Select(p => MetadataUtils.ConstructParameterInfo(p, emitter, false, false, tree)).ToList();
+                        var parametersInfo = prop.Getter.Parameters.Select(p => ConstructParameterInfo(p, emitter, false, false, tree)).ToList();
                         if (parametersInfo.Count > 0)
                         {
                             properties.Add("ipi", new JArray(parametersInfo));
@@ -734,7 +734,7 @@ namespace H5.Translator
                     }
                     else if (prop.Setter != null)
                     {
-                        var parametersInfo = prop.Setter.Parameters.Take(prop.Setter.Parameters.Count - 1).Select(p => MetadataUtils.ConstructParameterInfo(p, emitter, false, false, tree)).ToList();
+                        var parametersInfo = prop.Setter.Parameters.Take(prop.Setter.Parameters.Count - 1).Select(p => ConstructParameterInfo(p, emitter, false, false, tree)).ToList();
                         if (parametersInfo.Count > 0)
                         {
                             properties.Add("ipi", new JArray(parametersInfo));
@@ -749,12 +749,12 @@ namespace H5.Translator
                 {
                     if (canGet)
                     {
-                        properties.Add("g", MetadataUtils.ConstructMemberInfo(prop.Getter, emitter, includeDeclaringType, isGenericSpecialization, tree));
+                        properties.Add("g", ConstructMemberInfo(prop.Getter, emitter, includeDeclaringType, isGenericSpecialization, tree));
                     }
 
                     if (canSet)
                     {
-                        properties.Add("s", MetadataUtils.ConstructMemberInfo(prop.Setter, emitter, includeDeclaringType, isGenericSpecialization, tree));
+                        properties.Add("s", ConstructMemberInfo(prop.Setter, emitter, includeDeclaringType, isGenericSpecialization, tree));
                     }
                 }
                 else
@@ -762,11 +762,11 @@ namespace H5.Translator
                     var fieldName = OverloadsCollection.Create(emitter, prop).GetOverloadName();
                     if (canGet)
                     {
-                        properties.Add("g", MetadataUtils.ConstructFieldPropertyAccessor(prop.Getter, emitter, fieldName, true, includeDeclaringType, isGenericSpecialization, tree));
+                        properties.Add("g", ConstructFieldPropertyAccessor(prop.Getter, emitter, fieldName, true, includeDeclaringType, isGenericSpecialization, tree));
                     }
                     if (canSet)
                     {
-                        properties.Add("s", MetadataUtils.ConstructFieldPropertyAccessor(prop.Setter, emitter, fieldName, false, includeDeclaringType, isGenericSpecialization, tree));
+                        properties.Add("s", ConstructFieldPropertyAccessor(prop.Setter, emitter, fieldName, false, includeDeclaringType, isGenericSpecialization, tree));
                     }
 
                     properties.Add("fn", fieldName);
@@ -775,8 +775,8 @@ namespace H5.Translator
             else if (m is IEvent evt)
             {
                 properties.Add("t", (int)MemberTypes.Event);
-                properties.Add("ad", MetadataUtils.ConstructMemberInfo(evt.AddAccessor, emitter, includeDeclaringType, isGenericSpecialization, tree));
-                properties.Add("r", MetadataUtils.ConstructMemberInfo(evt.RemoveAccessor, emitter, includeDeclaringType, isGenericSpecialization, tree));
+                properties.Add("ad", ConstructMemberInfo(evt.AddAccessor, emitter, includeDeclaringType, isGenericSpecialization, tree));
+                properties.Add("r", ConstructMemberInfo(evt.RemoveAccessor, emitter, includeDeclaringType, isGenericSpecialization, tree));
             }
             else
             {
@@ -825,28 +825,28 @@ namespace H5.Translator
 
         public static JObject ConstructFieldPropertyAccessor(IMethod m, IEmitter emitter, string fieldName, bool isGetter, bool includeDeclaringType, bool isGenericSpecialization, SyntaxTree tree)
         {
-            var properties = MetadataUtils.GetCommonMemberInfoProperties(m, emitter, includeDeclaringType, isGenericSpecialization, tree);
+            var properties = GetCommonMemberInfoProperties(m, emitter, includeDeclaringType, isGenericSpecialization, tree);
             properties.Add("t", (int)MemberTypes.Method);
             if (m.Parameters.Count > 0)
             {
-                properties.Add("p", new JArray(m.Parameters.Select(p => new JRaw(MetadataUtils.GetTypeName(p.Type, emitter, isGenericSpecialization)))));
+                properties.Add("p", new JArray(m.Parameters.Select(p => new JRaw(GetTypeName(p.Type, emitter, isGenericSpecialization)))));
             }
 
-            properties.Add("rt", new JRaw(MetadataUtils.GetTypeName(m.ReturnType, emitter, isGenericSpecialization)));
+            properties.Add("rt", new JRaw(GetTypeName(m.ReturnType, emitter, isGenericSpecialization)));
             properties.Add(isGetter ? "fg" : "fs", fieldName);
             if (m.IsStatic)
             {
                 properties.Add("is", true);
             }
 
-            MetadataUtils.AddBox(m, emitter, properties);
+            AddBox(m, emitter, properties);
 
             return properties;
         }
 
         private static JObject ConstructConstructorInfo(IMethod constructor, IEmitter emitter, bool includeDeclaringType, bool isGenericSpecialization, SyntaxTree tree)
         {
-            var properties = MetadataUtils.GetCommonMemberInfoProperties(constructor, emitter, includeDeclaringType, isGenericSpecialization, tree);
+            var properties = GetCommonMemberInfoProperties(constructor, emitter, includeDeclaringType, isGenericSpecialization, tree);
 
             if (Helpers.IsNonScriptable(constructor))
             {
@@ -856,10 +856,10 @@ namespace H5.Translator
             properties.Add("t", (int)MemberTypes.Constructor);
             if (constructor.Parameters.Count > 0)
             {
-                properties.Add("p", new JArray(constructor.Parameters.Select(p => new JRaw(MetadataUtils.GetTypeName(p.Type, emitter, isGenericSpecialization)))));
+                properties.Add("p", new JArray(constructor.Parameters.Select(p => new JRaw(GetTypeName(p.Type, emitter, isGenericSpecialization)))));
             }
 
-            var parametersInfo = constructor.Parameters.Select(p => MetadataUtils.ConstructParameterInfo(p, emitter, false, false, tree)).ToList();
+            var parametersInfo = constructor.Parameters.Select(p => ConstructParameterInfo(p, emitter, false, false, tree)).ToList();
             if (parametersInfo.Count > 0)
             {
                 properties.Add("pi", new JArray(parametersInfo));
@@ -952,13 +952,13 @@ namespace H5.Translator
         private static JObject GetCommonMemberInfoProperties(IMember m, IEmitter emitter, bool includeDeclaringType, bool isGenericSpecialization, SyntaxTree tree)
         {
             var result = new JObject();
-            var attr = MetadataUtils.GetScriptableAttributes(m.Attributes, emitter, tree).ToList();
+            var attr = GetScriptableAttributes(m.Attributes, emitter, tree).ToList();
             if (attr.Count > 0)
             {
                 JArray attrArr = new JArray();
                 foreach (var a in attr)
                 {
-                    attrArr.Add(MetadataUtils.ConstructAttribute(a, m.DeclaringTypeDefinition, emitter));
+                    attrArr.Add(ConstructAttribute(a, m.DeclaringTypeDefinition, emitter));
                 }
 
                 result.Add("at", attrArr);
@@ -966,7 +966,7 @@ namespace H5.Translator
 
             if (includeDeclaringType)
             {
-                result.Add("td", new JRaw(MetadataUtils.GetTypeName(m.DeclaringType, emitter, isGenericSpecialization)));
+                result.Add("td", new JRaw(GetTypeName(m.DeclaringType, emitter, isGenericSpecialization)));
             }
 
             if (m.IsOverride)

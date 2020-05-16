@@ -40,7 +40,7 @@ namespace H5.Translator.TypeScript
         }
 
         // This ensures a constant line separator throughout the application
-        private const char newLine = H5.Contract.XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
+        private const char newLine = XmlToJSConstants.DEFAULT_LINE_SEPARATOR;
 
         private Dictionary<OutputKey, StringBuilder> Outputs { get; set; }
 
@@ -178,7 +178,7 @@ namespace H5.Translator.TypeScript
             {
                 sb.Append("declare module \"" + item.Key.ExportAsNamespace + "\" {");
                 sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("    " + AbstractEmitterBlock.WriteIndentToString(item.Value, 1));
+                sb.Append("    " + WriteIndentToString(item.Value, 1));
                 sb.Append(H5.Translator.Emitter.NEW_LINE);
                 sb.Append("}");
             }

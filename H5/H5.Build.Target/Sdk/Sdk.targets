@@ -66,7 +66,7 @@
   </PropertyGroup>
 
   <!-- H5 implements it's own standard library for all C# base types (like System.Object and everything else under the System namespace).
-	     To avoid Visual Studio complaining that these types are defined in two assemblies, we need to remove all references with the variables bellow-->
+       To avoid Visual Studio complaining that these types are defined in two assemblies, we need to remove all references with the variables bellow-->
   <PropertyGroup>
     <ExcludeMscorlibFacade>true</ExcludeMscorlibFacade>
     <NoStdLib>true</NoStdLib>
@@ -86,9 +86,6 @@
     <DebugSymbols>false</DebugSymbols>
     <!-- Projects can set this flag to false to disable the auto-install / update of the H5 compiler-->
     <UpdateH5 Condition="'$(UpdateH5)' == ''">true</UpdateH5>
-
-    <!-- Projects can set this flag to pass aditional flags to the H5 compiler-->
-    <H5ExtraFlags Condition="'$(H5ExtraFlags)' == ''"></H5ExtraFlags>
   </PropertyGroup>
 
 
@@ -111,9 +108,9 @@
   </ItemGroup>
 
   <Target Name="GenerateBuildDependencyFile"
-		 BeforeTargets="CopyFilesToOutputDirectory"
-		 Inputs="$(ProjectAssetsFile);$(ProjectAssetsCacheFile);$(MSBuildAllProjects)"
-		 Outputs="$(ProjectDepsFilePath)">
+          BeforeTargets="CopyFilesToOutputDirectory"
+          Inputs="$(ProjectAssetsFile);$(ProjectAssetsCacheFile);$(MSBuildAllProjects)"
+          Outputs="$(ProjectDepsFilePath)">
 
     <Message Importance="high" Text="Running GenerateBuildDependencyFile" />
 
@@ -127,30 +124,30 @@
     </ItemGroup>
 
     <GenerateDepsFile ProjectPath="$(MSBuildProjectFullPath)"
-						  AssetsFilePath="$(ProjectAssetsFile)"
-						  DepsFilePath="$(ProjectDepsFilePath)"
-						  TargetFramework="$(TargetFrameworkMoniker)"
-						  AssemblyName="$(AssemblyName)"
-						  AssemblyExtension="$(TargetExt)"
-						  AssemblyVersion="$(Version)"
-						  AssemblySatelliteAssemblies="@(IntermediateSatelliteAssembliesWithTargetPath)"
-						  ReferencePaths="@(ReferencePath)"
-						  ReferenceDependencyPaths="@(ReferenceDependencyPaths)"
-						  ReferenceSatellitePaths="@(ReferenceSatellitePaths)"
-						  ReferenceAssemblies="@(_ReferenceAssemblies)"
-						  RuntimePackAssets="@(RuntimePackAsset)"
-						  IncludeMainProject="$(IncludeMainProjectInDepsFile)"
-						  RuntimeIdentifier="$(RuntimeIdentifier)"
-						  PlatformLibraryName="$(MicrosoftNETPlatformLibrary)"
-						  RuntimeFrameworks="@(RuntimeFramework)"
-						  CompilerOptions="@(DependencyFileCompilerOptions)"
-						  CompileReferences="@(ResolvedCompileFileDefinitions)"
-						  ResolvedNuGetFiles="@(NativeCopyLocalItems);@(ResourceCopyLocalItems);@(RuntimeCopyLocalItems)"
-						  UserRuntimeAssemblies="@(UserRuntimeAssembly)"
-						  ResolvedRuntimeTargetsFiles="@(RuntimeTargetsCopyLocalItems)"
-						  IsSelfContained="$(SelfContained)"
-						  IncludeRuntimeFileVersions="$(IncludeFileVersionsInDependencyFile)"
-						  RuntimeGraphPath="$(BundledRuntimeIdentifierGraphFile)"/>
+                      AssetsFilePath="$(ProjectAssetsFile)"
+                      DepsFilePath="$(ProjectDepsFilePath)"
+                      TargetFramework="$(TargetFrameworkMoniker)"
+                      AssemblyName="$(AssemblyName)"
+                      AssemblyExtension="$(TargetExt)"
+                      AssemblyVersion="$(Version)"
+                      AssemblySatelliteAssemblies="@(IntermediateSatelliteAssembliesWithTargetPath)"
+                      ReferencePaths="@(ReferencePath)"
+                      ReferenceDependencyPaths="@(ReferenceDependencyPaths)"
+                      ReferenceSatellitePaths="@(ReferenceSatellitePaths)"
+                      ReferenceAssemblies="@(_ReferenceAssemblies)"
+                      RuntimePackAssets="@(RuntimePackAsset)"
+                      IncludeMainProject="$(IncludeMainProjectInDepsFile)"
+                      RuntimeIdentifier="$(RuntimeIdentifier)"
+                      PlatformLibraryName="$(MicrosoftNETPlatformLibrary)"
+                      RuntimeFrameworks="@(RuntimeFramework)"
+                      CompilerOptions="@(DependencyFileCompilerOptions)"
+                      CompileReferences="@(ResolvedCompileFileDefinitions)"
+                      ResolvedNuGetFiles="@(NativeCopyLocalItems);@(ResourceCopyLocalItems);@(RuntimeCopyLocalItems)"
+                      UserRuntimeAssemblies="@(UserRuntimeAssembly)"
+                      ResolvedRuntimeTargetsFiles="@(RuntimeTargetsCopyLocalItems)"
+                      IsSelfContained="$(SelfContained)"
+                      IncludeRuntimeFileVersions="$(IncludeFileVersionsInDependencyFile)"
+                      RuntimeGraphPath="$(BundledRuntimeIdentifierGraphFile)"/>
 
     <Message Importance="high" Text="No output assembly found, will build." Condition="!Exists('$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)')"  />
 
@@ -287,7 +284,7 @@
     <Exec Command="dotnet tool update --global h5-compiler" Condition="$(UpdateH5)" />
 
     <Message Importance="high" Text="H5 compilation begins now... " />
-    <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot; $(H5ExtraFlags)" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)"/>
+    <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)"/>
     <Message Importance="high" Text="... H5 compilation finished!" />
 
   </Target>

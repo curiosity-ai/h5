@@ -17,13 +17,29 @@ namespace H5
     public class RulesAttribute : Attribute
 #endif
     {
+        public static CompilerRule DefaultIfNotH5()
+        {
+            return new CompilerRule()
+            {
+                AnonymousType = AnonymousTypeRule.Plain,
+                ArrayIndex = ArrayIndexRule.Managed,
+                AutoProperty = AutoPropertyRule.Plain,
+                Boxing = BoxingRule.Managed,
+                ExternalCast = ExternalCastRule.Plain,
+                InlineComment = InlineCommentRule.Plain,
+                Integer = IntegerRule.Managed,
+                Lambda = LambdaRule.Plain
+            };
+        }
+
         public
 #if  H5_COMPILER
             LambdaRule?
 #else
             LambdaRule
 #endif
-        Lambda { get; set; }
+        Lambda
+        { get; set; }
 
         public
 #if H5_COMPILER
@@ -31,7 +47,8 @@ namespace H5
 #else
             BoxingRule
 #endif
-        Boxing { get; set; }
+        Boxing
+        { get; set; }
 
         public
 #if H5_COMPILER
@@ -39,7 +56,8 @@ namespace H5
 #else
             ArrayIndexRule
 #endif
-        ArrayIndex { get; set; }
+        ArrayIndex
+        { get; set; }
 
         public
 #if H5_COMPILER
@@ -47,7 +65,8 @@ namespace H5
 #else
             IntegerRule
 #endif
-        Integer { get; set; }
+        Integer
+        { get; set; }
 
         public
 #if H5_COMPILER
@@ -55,7 +74,8 @@ namespace H5
 #else
             AnonymousTypeRule
 #endif
-        AnonymousType { get; set; }
+        AnonymousType
+        { get; set; }
 
         public
 #if H5_COMPILER
@@ -63,7 +83,8 @@ namespace H5
 #else
             AutoPropertyRule
 #endif
-        AutoProperty { get; set; }
+        AutoProperty
+        { get; set; }
 
         public
 #if H5_COMPILER
@@ -71,7 +92,8 @@ namespace H5
 #else
             InlineCommentRule
 #endif
-        InlineComment { get; set; }
+        InlineComment
+        { get; set; }
 
         public
 #if H5_COMPILER
@@ -79,7 +101,8 @@ namespace H5
 #else
             ExternalCastRule
 #endif
-        ExternalCast { get; set; }
+        ExternalCast
+        { get; set; }
 
 #if H5_COMPILER
         public CompilerRuleLevel Level { get; set; }

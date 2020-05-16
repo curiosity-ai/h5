@@ -101,6 +101,12 @@ namespace H5.Contract
                 rules.AddRange(assemblyRules);
             }
 
+            //Must be last, as MergeRules works backwards
+            if (!assembly.AssemblyName.StartsWith("H5"))
+            {
+                rules.Add(CompilerRule.DefaultIfNotH5());
+            }
+
             return MergeRules(rules);
         }
 

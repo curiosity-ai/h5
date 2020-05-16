@@ -95,7 +95,6 @@ namespace H5.Translator
         {
             using (new Measure(Logger, "Translating assembly"))
             {
-
                 var config = AssemblyInfo;
 
                 if (Rebuild)

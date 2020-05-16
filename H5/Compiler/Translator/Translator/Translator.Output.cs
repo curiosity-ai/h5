@@ -19,7 +19,6 @@ namespace H5.Translator
         {
             using (new Measure(Logger, $"Saving results to output folder '{projectOutputPath}'"))
             {
-
                 var outputs = Outputs.GetOutputs().ToList();
                 var dtsReferences = new List<string>();
                 bool addNoLibReference = false;

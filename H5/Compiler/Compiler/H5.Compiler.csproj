@@ -9,8 +9,8 @@
     <AssemblyName>h5</AssemblyName>
   </PropertyGroup>
 
-  <!-- There is an annoying bug with PackAsTool that throws an error (https://github.com/NuGet/Home/issues/7001), so for debugging we disable this-->
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' " >
+  <!-- There is an annoying bug with PackAsTool that throws an error (https://github.com/NuGet/Home/issues/7001), so for debugging we disable this -->
+  <PropertyGroup Condition=" '$(BuildingInsideVisualStudio)' != 'true' " >
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

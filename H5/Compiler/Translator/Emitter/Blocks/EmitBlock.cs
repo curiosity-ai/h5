@@ -2,6 +2,8 @@ using H5.Contract;
 using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
+using Microsoft.Extensions.Logging;
+using Mosaik.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Object.Net.Utilities;
@@ -16,6 +18,8 @@ namespace H5.Translator
 {
     public class EmitBlock : AbstractEmitterBlock
     {
+        private static ILogger Logger = ApplicationLogging.CreateLogger<EmitBlock>();
+
         protected FileHelper FileHelper { get; set; }
 
         public EmitBlock(IEmitter emitter) : base(emitter, null)
@@ -158,7 +162,7 @@ namespace H5.Translator
                     break;
             }
 
-            IEmitterOutput output = null;
+            IEmitterOutput output;
 
             if (Emitter.Outputs.ContainsKey(fileName))
             {
@@ -251,232 +255,256 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
+            bool mustEmitInFull = Emitter.Translator.Plugins.HasAny();
+
             Emitter.Tag = "JS";
             Emitter.Writers = new Stack<IWriter>();
             Emitter.Outputs = new EmitterOutputs();
+            
+            var defaultFileName = GetDefaultFileName();
+
             var metas = new Dictionary<IType, JObject>();
             var metasOutput = new Dictionary<string, Dictionary<IType, JObject>>();
             var nsCache = new Dictionary<string, Dictionary<string, int>>();
 
-            Emitter.Translator.Plugins.BeforeTypesEmit(Emitter, Emitter.Types);
-            Emitter.ReflectableTypes = GetReflectableTypes();
-            var reflectedTypes = Emitter.ReflectableTypes;
-            var tmpBuffer = new StringBuilder();
-            StringBuilder currentOutput = null;
-            Emitter.NamedBoxedFunctions = new Dictionary<IType, Dictionary<string, string>>();
-
-            Emitter.HasModules = Emitter.Types.Any(t => t.Module != null);
-            foreach (var type in Emitter.Types)
+            if (Emitter.Translator.Plugins.HasAny())
             {
-                Emitter.Translator.Plugins.BeforeTypeEmit(Emitter, type);
-
-                Emitter.Translator.EmitNode = type.TypeDeclaration;
-                var typeDef = type.Type.GetDefinition();
-                Emitter.Rules = Rules.Get(Emitter, typeDef);
-
-                bool isNative;
-                if (typeDef.Kind == TypeKind.Interface && Emitter.Validator.IsExternalInterface(typeDef, out isNative))
-                {
-                    Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
-                    continue;
-                }
-
-                if (type.IsObjectLiteral)
-                {
-                    var mode = Emitter.Validator.GetObjectCreateMode(Emitter.GetTypeDefinition(type.Type));
-                    var ignore = mode == 0 && !type.Type.GetMethods(null, GetMemberOptions.IgnoreInheritedMembers).Any(m => !m.IsConstructor && !m.IsAccessor);
-
-                    if (Emitter.Validator.IsExternalType(typeDef) || ignore)
-                    {
-                        Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
-                        continue;
-                    }
-                }
-
-                Emitter.InitEmitter();
-
-                ITypeInfo typeInfo;
-
-                if (Emitter.TypeInfoDefinitions.ContainsKey(type.Key))
-                {
-                    typeInfo = Emitter.TypeInfoDefinitions[type.Key];
-
-                    type.Module = typeInfo.Module;
-                    type.FileName = typeInfo.FileName;
-                    type.Dependencies = typeInfo.Dependencies;
-                    typeInfo = type;
-                }
-                else
-                {
-                    typeInfo = type;
-                }
-
-                Emitter.SourceFileName = type.TypeDeclaration.GetParent<SyntaxTree>().FileName;
-                Emitter.SourceFileNameIndex = Emitter.SourceFiles.IndexOf(Emitter.SourceFileName);
-
-                Emitter.Output = GetOutputForType(typeInfo, null);
-                Emitter.TypeInfo = type;
-                type.JsName = H5Types.ToJsName(type.Type, Emitter, true, removeScope: false);
-
-                if (Emitter.Output.Length > 0)
-                {
-                    WriteNewLine();
-                }
-
-                tmpBuffer.Length = 0;
-                currentOutput = Emitter.Output;
-                Emitter.Output = tmpBuffer;
-
-                if (Emitter.TypeInfo.Module != null)
-                {
-                    Indent();
-                }
-
-                var name = H5Types.ToJsName(type.Type, Emitter, true, true, true);
-                if (type.Type.DeclaringType != null && JS.Reserved.StaticNames.Any(n => String.Equals(name, n, StringComparison.InvariantCulture)))
-                {
-                    throw new EmitterException(type.TypeDeclaration, "Nested class cannot have such name: " + name + ". Please rename it.");
-                }
-
-                new ClassBlock(Emitter, Emitter.TypeInfo).Emit();
-                Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
-
-                currentOutput.Append(tmpBuffer.ToString());
-                Emitter.Output = currentOutput;
+                Emitter.Translator.Plugins.BeforeTypesEmit(Emitter, Emitter.Types);
             }
 
-            Emitter.DisableDependencyTracking = true;
-            EmitNamedBoxedFunctions();
+            var reflectedTypes = Emitter.ReflectableTypes = GetReflectableTypes();
 
-            var oldDependencies = Emitter.CurrentDependencies;
-            var oldEmitterOutput = Emitter.EmitterOutput;
-            Emitter.NamespacesCache = new Dictionary<string, int>();
-
-            if (!Emitter.HasModules && Emitter.AssemblyInfo.Reflection.Target != MetadataTarget.Type)
+            using (new Measure(Logger, "Emitting types to javascript"))
             {
+                var tmpBuffer = new StringBuilder();
+
+                Emitter.NamedBoxedFunctions = new Dictionary<IType, Dictionary<string, string>>();
+
+                Emitter.HasModules = Emitter.Types.Any(t => t.Module != null);
+
                 foreach (var type in Emitter.Types)
                 {
-                    var typeDef = type.Type.GetDefinition();
-                    bool isGlobal = false;
-                    if (typeDef != null)
+                    if (Emitter.Translator.Plugins.HasAny())
                     {
-                        isGlobal = IsGlobalType(typeDef);
+                        Emitter.Translator.Plugins.BeforeTypeEmit(Emitter, type);
                     }
 
-                    if (typeDef.FullName != "System.Object")
-                    {
-                        var name = H5Types.ToJsName(typeDef, Emitter);
+                    Emitter.Translator.EmitNode = type.TypeDeclaration;
+                    var typeDef = type.Type.GetDefinition();
+                    Emitter.Rules = Rules.Get(Emitter, typeDef);
 
-                        if (name == "Object")
+                    if (typeDef.Kind == TypeKind.Interface && Emitter.Validator.IsExternalInterface(typeDef, out var isNative))
+                    {
+                        if (Emitter.Translator.Plugins.HasAny())
                         {
+                            Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
+                        }
+                        continue;
+                    }
+
+                    if (type.IsObjectLiteral)
+                    {
+                        var mode = Emitter.Validator.GetObjectCreateMode(Emitter.GetTypeDefinition(type.Type));
+                        var ignore = mode == 0 && !type.Type.GetMethods(null, GetMemberOptions.IgnoreInheritedMembers).Any(m => !m.IsConstructor && !m.IsAccessor);
+
+                        if (Emitter.Validator.IsExternalType(typeDef) || ignore)
+                        {
+                            if (Emitter.Translator.Plugins.HasAny())
+                            {
+                                Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
+                            }
                             continue;
                         }
                     }
 
-                    var isObjectLiteral = Emitter.Validator.IsObjectLiteral(typeDef);
-                    var isPlainMode = isObjectLiteral && Emitter.Validator.GetObjectCreateMode(Emitter.H5Types.Get(type.Key).TypeDefinition) == 0;
+                    Emitter.InitEmitter();
 
-                    if (isPlainMode)
+                    if (Emitter.TypeInfoDefinitions.TryGetValue(type.Key, out var typeInfo))
                     {
-                        continue;
+                        type.Module = typeInfo.Module;
+                        type.FileName = typeInfo.FileName;
+                        type.Dependencies = typeInfo.Dependencies;
+                        typeInfo = type;
+                    }
+                    else
+                    {
+                        typeInfo = type;
                     }
 
-                    if (isGlobal || Emitter.TypeInfo.Module != null || reflectedTypes.Any(t => t == type.Type))
+                    Emitter.SourceFileName = type.TypeDeclaration.GetParent<SyntaxTree>().FileName;
+                    Emitter.SourceFileNameIndex = Emitter.SourceFiles.IndexOf(Emitter.SourceFileName);
+
+                    Emitter.Output = GetOutputForType(typeInfo, null);
+                    Emitter.TypeInfo = type;
+                    type.JsName = H5Types.ToJsName(type.Type, Emitter, true, removeScope: false);
+
+                    if (Emitter.Output.Length > 0)
                     {
-                        continue;
+                        WriteNewLine();
                     }
 
-                    GetOutputForType(type, null);
+                    //Switch the current output of the emitter with the temporary one
+                    tmpBuffer.Clear();
+                    var currentOutput = Emitter.Output; Emitter.Output = tmpBuffer;
 
-                    var fn = Path.GetFileNameWithoutExtension(Emitter.EmitterOutput.FileName);
-                    if (!metasOutput.ContainsKey(fn))
+                    if (Emitter.TypeInfo.Module is object)
                     {
-                        metasOutput.Add(fn, new Dictionary<IType, JObject>());
+                        Indent();
                     }
 
-                    if (Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.File)
+                    var name = H5Types.ToJsName(type.Type, Emitter, true, true, true);
+                    if (type.Type.DeclaringType != null && JS.Reserved.StaticNames.Any(n => String.Equals(name, n, StringComparison.InvariantCulture)))
                     {
-                        if (!nsCache.ContainsKey(fn))
+                        throw new EmitterException(type.TypeDeclaration, "Nested class cannot have such name: " + name + ". Please rename it.");
+                    }
+
+                    new ClassBlock(Emitter, Emitter.TypeInfo).Emit();
+
+                    if (Emitter.Translator.Plugins.HasAny())
+                    {
+                        Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
+                    }
+
+                    currentOutput.Append(tmpBuffer.ToString());
+
+                    //Switch back the emitter output to the previous StringBuilder
+                    Emitter.Output = currentOutput;
+                }
+
+                Emitter.DisableDependencyTracking = true;
+                EmitNamedBoxedFunctions();
+
+                var oldDependencies = Emitter.CurrentDependencies;
+                var oldEmitterOutput = Emitter.EmitterOutput;
+                Emitter.NamespacesCache = new Dictionary<string, int>();
+
+                if (!Emitter.HasModules && Emitter.AssemblyInfo.Reflection.Target != MetadataTarget.Type)
+                {
+                    foreach (var type in Emitter.Types)
+                    {
+                        var typeDef = type.Type.GetDefinition();
+                        bool isGlobal = false;
+                        if (typeDef != null)
                         {
-                            nsCache.Add(fn, new Dictionary<string, int>());
+                            isGlobal = IsGlobalType(typeDef);
                         }
 
-                        Emitter.NamespacesCache = nsCache[fn];
-                    }
+                        if (typeDef.FullName != "System.Object")
+                        {
+                            var name = H5Types.ToJsName(typeDef, Emitter);
 
-                    var meta = MetadataUtils.ConstructTypeMetadata(typeDef, Emitter, true, type.TypeDeclaration.GetParent<SyntaxTree>());
+                            if (name == "Object")
+                            {
+                                continue;
+                            }
+                        }
 
-                    if (meta != null)
-                    {
-                        metas.Add(type.Type, meta);
-                        metasOutput[fn].Add(type.Type, meta);
+                        var isObjectLiteral = Emitter.Validator.IsObjectLiteral(typeDef);
+                        var isPlainMode = isObjectLiteral && Emitter.Validator.GetObjectCreateMode(Emitter.H5Types.Get(type.Key).TypeDefinition) == 0;
+
+                        if (isPlainMode)
+                        {
+                            continue;
+                        }
+
+                        if (isGlobal || Emitter.TypeInfo.Module != null || reflectedTypes.Any(t => t == type.Type))
+                        {
+                            continue;
+                        }
+
+                        GetOutputForType(type, null);
+
+                        var fn = Path.GetFileNameWithoutExtension(Emitter.EmitterOutput.FileName);
+                        if (!metasOutput.ContainsKey(fn))
+                        {
+                            metasOutput.Add(fn, new Dictionary<IType, JObject>());
+                        }
+
+                        if (Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.File)
+                        {
+                            if (!nsCache.ContainsKey(fn))
+                            {
+                                nsCache.Add(fn, new Dictionary<string, int>());
+                            }
+
+                            Emitter.NamespacesCache = nsCache[fn];
+                        }
+
+                        var meta = MetadataUtils.ConstructTypeMetadata(typeDef, Emitter, true, type.TypeDeclaration.GetParent<SyntaxTree>());
+
+                        if (meta != null)
+                        {
+                            metas.Add(type.Type, meta);
+                            metasOutput[fn].Add(type.Type, meta);
+                        }
                     }
                 }
+
+                using (new Measure(Logger, "Emitting types reflection metadata to javascript"))
+                {
+                    foreach (var reflectedType in reflectedTypes)
+                    {
+                        var typeDef = reflectedType.GetDefinition();
+                        JObject meta = null;
+
+                        var h5Type = Emitter.H5Types.Get(reflectedType, true);
+                        string fileName = defaultFileName;
+                        if (h5Type != null && h5Type.TypeInfo != null)
+                        {
+                            GetOutputForType(h5Type.TypeInfo, null);
+                            fileName = Emitter.EmitterOutput.FileName;
+                        }
+
+                        fileName = Path.GetFileNameWithoutExtension(fileName);
+
+                        if (!metasOutput.ContainsKey(fileName))
+                        {
+                            metasOutput.Add(fileName, new Dictionary<IType, JObject>());
+                        }
+
+                        if (Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.File)
+                        {
+                            if (!nsCache.ContainsKey(fileName))
+                            {
+                                nsCache.Add(fileName, new Dictionary<string, int>());
+                            }
+
+                            Emitter.NamespacesCache = nsCache[fileName];
+                        }
+
+                        if (typeDef != null)
+                        {
+                            var tInfo = Emitter.Types.FirstOrDefault(t => t.Type == reflectedType);
+                            SyntaxTree tree = null;
+
+                            if (tInfo != null && tInfo.TypeDeclaration != null)
+                            {
+                                tree = tInfo.TypeDeclaration.GetParent<SyntaxTree>();
+                            }
+
+                            if (tInfo != null && tInfo.Module != null || Emitter.HasModules || Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.Type)
+                            {
+                                continue;
+                            }
+
+                            meta = MetadataUtils.ConstructTypeMetadata(reflectedType.GetDefinition(), Emitter, false, tree);
+                        }
+                        else
+                        {
+                            meta = MetadataUtils.ConstructITypeMetadata(reflectedType, Emitter);
+                        }
+
+                        if (meta != null)
+                        {
+                            metas.Add(reflectedType, meta);
+                            metasOutput[fileName].Add(reflectedType, meta);
+                        }
+                    }
+                }
+
+                Emitter.CurrentDependencies = oldDependencies;
+                Emitter.EmitterOutput = oldEmitterOutput;
             }
-
-            var defaultFileName = GetDefaultFileName();
-            foreach (var reflectedType in reflectedTypes)
-            {
-                var typeDef = reflectedType.GetDefinition();
-                JObject meta = null;
-
-                var h5Type = Emitter.H5Types.Get(reflectedType, true);
-                string fileName = defaultFileName;
-                if (h5Type != null && h5Type.TypeInfo != null)
-                {
-                    GetOutputForType(h5Type.TypeInfo, null);
-                    fileName = Emitter.EmitterOutput.FileName;
-                }
-
-                fileName = Path.GetFileNameWithoutExtension(fileName);
-
-                if (!metasOutput.ContainsKey(fileName))
-                {
-                    metasOutput.Add(fileName, new Dictionary<IType, JObject>());
-                }
-
-                if (Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.File)
-                {
-                    if (!nsCache.ContainsKey(fileName))
-                    {
-                        nsCache.Add(fileName, new Dictionary<string, int>());
-                    }
-
-                    Emitter.NamespacesCache = nsCache[fileName];
-                }
-
-
-                if (typeDef != null)
-                {
-                    var tInfo = Emitter.Types.FirstOrDefault(t => t.Type == reflectedType);
-                    SyntaxTree tree = null;
-
-                    if (tInfo != null && tInfo.TypeDeclaration != null)
-                    {
-                        tree = tInfo.TypeDeclaration.GetParent<SyntaxTree>();
-                    }
-
-                    if (tInfo != null && tInfo.Module != null || Emitter.HasModules || Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.Type)
-                    {
-                        continue;
-                    }
-
-                    meta = MetadataUtils.ConstructTypeMetadata(reflectedType.GetDefinition(), Emitter, false, tree);
-                }
-                else
-                {
-                    meta = MetadataUtils.ConstructITypeMetadata(reflectedType, Emitter);
-                }
-
-                if (meta != null)
-                {
-                    metas.Add(reflectedType, meta);
-                    metasOutput[fileName].Add(reflectedType, meta);
-                }
-            }
-
-            Emitter.CurrentDependencies = oldDependencies;
-            Emitter.EmitterOutput = oldEmitterOutput;
 
             var lastOutput = Emitter.Output;
             var output = Emitter.AssemblyInfo.Reflection.Output;
@@ -596,25 +624,22 @@ namespace H5.Translator
                 WriteNewLine();
             }
 
-            //this.RemovePenultimateEmptyLines(true);
-
-            Emitter.Translator.Plugins.AfterTypesEmit(Emitter, Emitter.Types);
+            if (Emitter.Translator.Plugins.HasAny())
+            {
+                Emitter.Translator.Plugins.AfterTypesEmit(Emitter, Emitter.Types);
+            }
         }
 
         private static bool IsGlobalType(ITypeDefinition typeDef)
         {
-            var isGlobal = typeDef.Attributes.Any(a =>
-                            a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
-                            a.AttributeType.FullName == "H5.MixinAttribute");
+            var isGlobal = typeDef.Attributes.Any(a => a.AttributeType.FullName == "H5.GlobalMethodsAttribute" || a.AttributeType.FullName == "H5.MixinAttribute");
 
             if (!isGlobal && typeDef.DeclaringType is object)
             {
                 var parent = typeDef.DeclaringType;
                 while (parent is object)
                 {
-                    isGlobal = parent.GetDefinition().Attributes.Any(a =>
-                        a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
-                        a.AttributeType.FullName == "H5.MixinAttribute");
+                    isGlobal = parent.GetDefinition().Attributes.Any(a => a.AttributeType.FullName == "H5.GlobalMethodsAttribute" || a.AttributeType.FullName == "H5.MixinAttribute");
 
                     if (isGlobal) { break; }
 
@@ -680,20 +705,14 @@ namespace H5.Translator
                 return true;
             }
 
-            var skip = typeDef.Attributes.Any(a =>
-                    a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
-                    a.AttributeType.FullName == "H5.NonScriptableAttribute" ||
-                    a.AttributeType.FullName == "H5.MixinAttribute");
+            var skip = typeDef.Attributes.Any(a => a.AttributeType.FullName == "H5.GlobalMethodsAttribute" || a.AttributeType.FullName == "H5.NonScriptableAttribute" || a.AttributeType.FullName == "H5.MixinAttribute");
 
             if(!skip && typeDef.DeclaringType is object)
             {
                 var parent = typeDef.DeclaringType;
                 while (parent is object)
                 {
-                    skip = parent.GetDefinition().Attributes.Any(a =>
-                        a.AttributeType.FullName == "H5.GlobalMethodsAttribute" ||
-                        a.AttributeType.FullName == "H5.NonScriptableAttribute" ||
-                        a.AttributeType.FullName == "H5.MixinAttribute");
+                    skip = parent.GetDefinition().Attributes.Any(a => a.AttributeType.FullName == "H5.GlobalMethodsAttribute" || a.AttributeType.FullName == "H5.NonScriptableAttribute" || a.AttributeType.FullName == "H5.MixinAttribute");
 
                     if (skip) { break; }
 

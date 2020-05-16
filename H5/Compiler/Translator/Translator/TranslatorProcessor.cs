@@ -79,14 +79,6 @@ namespace H5.Translator
 
                 translator.RunAfterBuild();
 
-                if (translator.Plugins.HasAny())
-                {
-                    using (new Measure(Logger, "Run plugins AfterOutput"))
-                    {
-                        translator.Plugins.AfterOutput(translator, outputPath);
-                    }
-                }
-
                 GenerateHtml(outputPath);
 
                 return outputPath;

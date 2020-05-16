@@ -674,19 +674,6 @@ namespace H5.Translator
             }
         }
 
-        public IPlugins Plugins
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public IReadOnlyList<AssemblyDefinition> References
         {
             get

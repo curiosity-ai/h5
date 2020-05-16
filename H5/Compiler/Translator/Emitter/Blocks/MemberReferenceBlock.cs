@@ -312,22 +312,6 @@ namespace H5.Translator
                 throw new EmitterException(MemberReferenceExpression, "Member " + member.ToString() + " is marked as not usable from script");
             }
 
-            if (!(resolveResult is InvocationResolveResult) && member != null && member.Member is IMethod)
-            {
-                var interceptor = Emitter.Plugins.OnReference(this, MemberReferenceExpression, member);
-
-                if (interceptor.Cancel)
-                {
-                    return;
-                }
-
-                if (!string.IsNullOrEmpty(interceptor.Replacement))
-                {
-                    Write(interceptor.Replacement);
-                    return;
-                }
-            }
-
             if (globalTarget != null && globalTarget.Item1)
             {
                 var target = globalTarget.Item2;

@@ -38,8 +38,6 @@ namespace H5.Contract
 
         IValidator Validator { get; }
 
-        IPlugins Plugins { get; set; }
-
         H5Types H5Types { get; set; }
 
         AstNode EmitNode { get; set; }

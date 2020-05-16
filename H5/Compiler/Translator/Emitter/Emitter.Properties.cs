@@ -200,8 +200,6 @@ namespace H5.Translator
 
         public SwitchStatement AsyncSwitch { get; set; }
 
-        public IPlugins Plugins { get; set; }
-
         public Dictionary<string, bool> TempVariables { get; set; }
 
         public Dictionary<string, string> NamedTempVariables { get; set; }

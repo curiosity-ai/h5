@@ -43,8 +43,7 @@ namespace H5.Translator
         protected virtual IEnumerable<string> GetInjectors()
         {
             var handlers = GetEventsAndAutoStartupMethods();
-            var injectors = Emitter.Plugins.GetConstructorInjectors(this);
-            return injectors.Concat(handlers);
+            return handlers;
         }
 
         protected virtual void EmitCtorForStaticClass()

@@ -119,24 +119,6 @@ namespace H5.Translator
             MemberReferenceExpression targetMember = invocationExpression.Target as MemberReferenceExpression;
             bool isObjectLiteral = csharpInvocation != null && csharpInvocation.Member.DeclaringTypeDefinition != null ? Emitter.Validator.IsObjectLiteral(csharpInvocation.Member.DeclaringTypeDefinition) : false;
 
-            var interceptor = Emitter.Plugins.OnInvocation(this, InvocationExpression, targetResolve as InvocationResolveResult);
-
-            if (interceptor.Cancel)
-            {
-                Emitter.SkipSemiColon = true;
-                Emitter.ReplaceAwaiterByVar = oldValue;
-                Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
-                return;
-            }
-
-            if (!string.IsNullOrEmpty(interceptor.Replacement))
-            {
-                Write(interceptor.Replacement);
-                Emitter.ReplaceAwaiterByVar = oldValue;
-                Emitter.AsyncExpressionHandling = oldAsyncExpressionHandling;
-                return;
-            }
-
             if (inlineInfo != null)
             {
                 bool isStaticMethod = inlineInfo.Item1;

@@ -113,16 +113,6 @@ namespace H5.Translator
 
                 LogProductInfo();
 
-                Plugins = H5.Translator.Plugins.GetPlugins(this, config);
-
-                if (Plugins.HasAny())
-                {
-                    using (new Measure(Logger, "Reading plugin configuration"))
-                    {
-                        Plugins.OnConfigRead(config);
-                    }
-                }
-
                 if (!string.IsNullOrWhiteSpace(config.BeforeBuild))
                 {
                     try
@@ -158,7 +148,6 @@ namespace H5.Translator
                 emitter.AssemblyInfo = AssemblyInfo;
                 emitter.References = references;
                 emitter.SourceFiles = SourceFiles;
-                emitter.Plugins = Plugins;
                 emitter.InitialLevel = 1;
 
                 if (AssemblyInfo.Module != null)
@@ -176,24 +165,8 @@ namespace H5.Translator
 
                 SortReferences();
 
-                if (Plugins.HasAny())
-                {
-                    using (new Measure(Logger, "Running plugins BeforeEmit event"))
-                    {
-                        Plugins.BeforeEmit(emitter, this);
-                    }
-                }
-
                 AddMainOutputs(emitter.Emit());
                 EmitterOutputs = emitter.Outputs;
-
-                if (Plugins.HasAny())
-                {
-                    using (new Measure(Logger, "Running plugins AfterEmit event"))
-                    {
-                        Plugins.AfterEmit(emitter, this);
-                    }
-                }
             }
         }
 

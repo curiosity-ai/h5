@@ -383,8 +383,6 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            bool mustEmitInFull = Emitter.Translator.Plugins.HasAny();
-
             EmitBlockCachedOutput cachedEmittedData = null;
             
             if (false) //RFO: Disabled for now till we figure out the possible bug bellow
@@ -414,12 +412,6 @@ namespace H5.Translator
                 configHash = Hashes.Combine(configHash, $"{context.Compiler.Version}/{context.H5.Version}".Hash128());
 
                 cachedEmittedData.ClearIfConfigHashChanged(configHash);
-
-                if (Emitter.Translator.Plugins.HasAny())
-                {
-                    //As plugins can affect the result, we ignore the cache here
-                    cachedEmittedData.ClearIfConfigHashChanged(default, force: true);
-                } 
             }
 
 
@@ -433,11 +425,6 @@ namespace H5.Translator
             var metasOutput = new Dictionary<string, Dictionary<IType, JObject>>();
             var nsCache = new Dictionary<string, Dictionary<string, int>>();
 
-            if (Emitter.Translator.Plugins.HasAny())
-            {
-                Emitter.Translator.Plugins.BeforeTypesEmit(Emitter, Emitter.Types);
-            }
-
             var reflectedTypes = Emitter.ReflectableTypes = GetReflectableTypes();
 
             using (new Measure(Logger, "Emitting types to javascript"))
@@ -450,21 +437,12 @@ namespace H5.Translator
 
                 foreach (var type in Emitter.Types)
                 {
-                    if (Emitter.Translator.Plugins.HasAny())
-                    {
-                        Emitter.Translator.Plugins.BeforeTypeEmit(Emitter, type);
-                    }
-
                     Emitter.Translator.EmitNode = type.TypeDeclaration;
                     var typeDef = type.Type.GetDefinition();
                     Emitter.Rules = Rules.Get(Emitter, typeDef);
 
                     if (typeDef.Kind == TypeKind.Interface && Emitter.Validator.IsExternalInterface(typeDef, out var isNative))
                     {
-                        if (Emitter.Translator.Plugins.HasAny())
-                        {
-                            Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
-                        }
                         continue;
                     }
 
@@ -475,10 +453,6 @@ namespace H5.Translator
 
                         if (Emitter.Validator.IsExternalType(typeDef) || ignore)
                         {
-                            if (Emitter.Translator.Plugins.HasAny())
-                            {
-                                Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
-                            }
                             continue;
                         }
                     }
@@ -514,7 +488,7 @@ namespace H5.Translator
 
                     var currentOutput = Emitter.Output; Emitter.Output = tmpBuffer;
 
-                    if (!Emitter.Translator.Plugins.HasAny() && cachedEmittedData is object && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.JsName, out var cachedCode))
+                    if (cachedEmittedData is object && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.JsName, out var cachedCode))
                     {
                         tmpBuffer.Append(cachedCode);
                     }
@@ -532,20 +506,10 @@ namespace H5.Translator
                         }
 
                         new ClassBlock(Emitter, Emitter.TypeInfo).Emit();
-
-                        if (Emitter.Translator.Plugins.HasAny())
-                        {
-                            Emitter.Translator.Plugins.AfterTypeEmit(Emitter, type);
-                        }
                     }
 
                     var finalCode = tmpBuffer.ToString();
                     
-                    if (!Emitter.Translator.Plugins.HasAny())
-                    {
-                        cachedEmittedData?.AddToCache(Emitter.SourceFileName, type.JsName, finalCode);
-                    }
-
                     currentOutput.Append(finalCode);
 
                     //Switch back the emitter output to the previous StringBuilder
@@ -803,11 +767,6 @@ namespace H5.Translator
 
                 Write(string.Format("$asm.attr= {0};", attrArr.ToString(Formatting.None)));
                 WriteNewLine();
-            }
-
-            if (Emitter.Translator.Plugins.HasAny())
-            {
-                Emitter.Translator.Plugins.AfterTypesEmit(Emitter, Emitter.Types);
             }
 
             if (cachedEmittedData is object)

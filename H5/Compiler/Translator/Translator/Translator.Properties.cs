@@ -94,8 +94,6 @@ namespace H5.Translator
 
         public IEmitterOutputs EmitterOutputs { get; set; }
 
-        public IPlugins Plugins { get; set; }
-
         public H5Types H5Types { get; set; }
 
         public AstNode EmitNode { get; set; }

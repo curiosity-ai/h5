@@ -422,7 +422,7 @@ namespace H5.Translator
 
             var ctorBlock = new ConstructorBlock(Emitter, TypeInfo, false);
 
-            if (TypeInfo.HasRealInstantiable(Emitter) || Emitter.Plugins.HasConstructorInjectors(ctorBlock) || TypeInfo.ClassType == ClassType.Struct)
+            if (TypeInfo.HasRealInstantiable(Emitter) || TypeInfo.ClassType == ClassType.Struct)
             {
                 ctorBlock.Emit();
                 new MethodBlock(Emitter, TypeInfo, false).Emit();

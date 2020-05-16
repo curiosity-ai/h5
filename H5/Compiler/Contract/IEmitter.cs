@@ -174,8 +174,6 @@ namespace H5.Contract
 
         IVisitorException CreateException(AstNode node, string message);
 
-        IPlugins Plugins { get; set; }
-
         EmitterCache Cache { get; }
 
         string GetFieldName(FieldDeclaration field);

@@ -176,139 +176,144 @@ namespace H5.Translator
 
         public static IPlugins GetPlugins(ITranslator translator, IAssemblyInfo config)
         {
-            Logger.LogInformation("Discovering plugins...");
-
-            if (!IsLoaded)
-            {
-                var resolver = new AssemblyResolver();
-
-                AppDomain.CurrentDomain.AssemblyResolve += resolver.CurrentDomain_AssemblyResolve;
-
-                AppDomain.CurrentDomain.AssemblyLoad += resolver.CurrentDomain_AssemblyLoad;
-
-                IsLoaded = true;
-
-                Logger.ZLogTrace("Set assembly Resolve and Load events for domain {0}.", AppDomain.CurrentDomain.FriendlyName);
-            }
-
-            Logger.ZLogTrace("Current domain {0}",  AppDomain.CurrentDomain.FriendlyName);
-
-            Logger.ZLogTrace("Loaded assemblies:");
-
-            foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                var location = a.IsDynamic ? "dynamic" : a.Location;
-                Logger.ZLogTrace("\t{0} {1} {2}", a.FullName, location, a.GlobalAssemblyCache);
-            }
-
             var path = GetPluginPath(translator, config);
-            Logger.ZLogInformation("Will use the following plugin path '{0}'", path);
 
-            var catalogs = new List<ComposablePartCatalog>();
-
-            if (Directory.Exists(path))
+            using (var m = new Measure(Logger, $"Discovering plugins on folder {path}", logOnlyDuration: true))
             {
-                catalogs.Add(new DirectoryCatalog(path, "*.dll"));
-                Logger.LogInformation("The plugin path exists. Will use it as DirectoryCatalog");
-            }
-            else
-            {
-                Logger.LogInformation("The plugin path does not exist. Skipping searching test framework plugins in the plugin folder.");
-            }
-
-            string[] skipPluginAssemblies = null;
-            if (translator is Translator translatorInstance)
-            {
-                skipPluginAssemblies = translatorInstance.SkipPluginAssemblies;
-            }
-
-            Logger.ZLogTrace("Will search all translator references to find resource(s) with names starting from '{0}' ...", PLUGIN_RESOURCE_NAME_PREFIX);
-
-            foreach (var reference in translator.References)
-            {
-                Logger.ZLogTrace("Searching plugins in reference {0} ...", reference.FullName);
-
-                if (skipPluginAssemblies is object && skipPluginAssemblies.FirstOrDefault(x => reference.Name.FullName.Contains(x)) is object)
+                if (!IsLoaded)
                 {
-                    Logger.ZLogTrace("Skipping the reference {0} as it is in skipPluginAssemblies", reference.Name.FullName);
-                    continue;
+                    var resolver = new AssemblyResolver();
+
+                    AppDomain.CurrentDomain.AssemblyResolve += resolver.CurrentDomain_AssemblyResolve;
+
+                    AppDomain.CurrentDomain.AssemblyLoad += resolver.CurrentDomain_AssemblyLoad;
+
+                    IsLoaded = true;
+
+                    Logger.ZLogTrace("Set assembly Resolve and Load events for domain {0}.", AppDomain.CurrentDomain.FriendlyName);
+                }
+
+                Logger.ZLogTrace("Current domain {0}", AppDomain.CurrentDomain.FriendlyName);
+
+                Logger.ZLogTrace("Loaded assemblies:");
+
+                foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    var location = a.IsDynamic ? "dynamic" : a.Location;
+                    Logger.ZLogTrace("\t{0} {1} {2}", a.FullName, location, a.GlobalAssemblyCache);
+                }
+
+
+                var catalogs = new List<ComposablePartCatalog>();
+
+                if (Directory.Exists(path))
+                {
+                    catalogs.Add(new DirectoryCatalog(path, "*.dll"));
+                    Logger.ZLogTrace("The plugin path exists. Will use it as DirectoryCatalog");
                 }
                 else
                 {
-                    Logger.ZLogTrace("skipPluginAssemblies is not set");
+                    Logger.ZLogTrace("The plugin path does not exist. Skipping searching test framework plugins in the plugin folder.");
                 }
 
-                var assemblies = reference.MainModule.Resources.Where(res => res.Name.StartsWith(PLUGIN_RESOURCE_NAME_PREFIX)).ToArray();
-
-                Logger.ZLogTrace("The reference contains {0} resource(s) needed", assemblies.Length);
-
-                if (assemblies.Any())
+                string[] skipPluginAssemblies = null;
+                if (translator is Translator translatorInstance)
                 {
-                    foreach (var res_assembly in assemblies)
+                    skipPluginAssemblies = translatorInstance.SkipPluginAssemblies;
+                }
+
+                Logger.ZLogTrace("Will search all translator references to find resource(s) with names starting from '{0}' ...", PLUGIN_RESOURCE_NAME_PREFIX);
+
+                foreach (var reference in translator.References)
+                {
+                    Logger.ZLogTrace("Searching plugins in reference {0} ...", reference.FullName);
+
+                    if (skipPluginAssemblies is object && skipPluginAssemblies.FirstOrDefault(x => reference.Name.FullName.Contains(x)) is object)
                     {
-                        Logger.ZLogTrace("Searching plugins in resource {0} ...", res_assembly.Name);
+                        Logger.ZLogTrace("Skipping the reference {0} as it is in skipPluginAssemblies", reference.Name.FullName);
+                        continue;
+                    }
+                    else
+                    {
+                        Logger.ZLogTrace("skipPluginAssemblies is not set");
+                    }
 
-                        try
+                    var assemblies = reference.MainModule.Resources.Where(res => res.Name.StartsWith(PLUGIN_RESOURCE_NAME_PREFIX)).ToArray();
+
+                    Logger.ZLogTrace("The reference contains {0} resource(s) needed", assemblies.Length);
+
+                    if (assemblies.Any())
+                    {
+                        foreach (var res_assembly in assemblies)
                         {
-                            using (var resourcesStream = ((EmbeddedResource)res_assembly).GetResourceStream())
+                            Logger.ZLogTrace("Searching plugins in resource {0} ...", res_assembly.Name);
+
+                            try
                             {
-                                var ba = new byte[(int)resourcesStream.Length];
-                                resourcesStream.Read(ba, 0, (int)resourcesStream.Length);
+                                using (var resourcesStream = ((EmbeddedResource)res_assembly).GetResourceStream())
+                                {
+                                    var ba = new byte[(int)resourcesStream.Length];
+                                    resourcesStream.Read(ba, 0, (int)resourcesStream.Length);
 
-                                Logger.ZLogTrace("Read the assembly resource stream of {0} bytes length", resourcesStream.Length);
+                                    Logger.ZLogTrace("Read the assembly resource stream of {0} bytes length", resourcesStream.Length);
 
-                                var trimmedName = TrimResourceAssemblyName(res_assembly, PLUGIN_RESOURCE_NAME_PREFIX);
+                                    var trimmedName = TrimResourceAssemblyName(res_assembly, PLUGIN_RESOURCE_NAME_PREFIX);
 
-                                var assembly = CheckIfAssemblyLoaded(ba, null, trimmedName);
+                                    var assembly = CheckIfAssemblyLoaded(ba, null, trimmedName);
 
-                                catalogs.Add(new AssemblyCatalog(assembly));
-                                Logger.ZLogTrace("The assembly {0} was added to the catalogs", assembly.FullName);
+                                    catalogs.Add(new AssemblyCatalog(assembly));
+                                    Logger.ZLogTrace("The assembly {0} was added to the catalogs", assembly.FullName);
+                                }
                             }
-                        }
-                        catch (ReflectionTypeLoadException ex)
-                        {
-                            LogAssemblyLoaderException("Could not load assembly from resources", ex);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.ZLogError(ex, "Could not load assembly from resources");
+                            catch (ReflectionTypeLoadException ex)
+                            {
+                                LogAssemblyLoaderException("Could not load assembly from resources", ex);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.ZLogError(ex, "Could not load assembly from resources");
+                            }
                         }
                     }
                 }
+
+                if (catalogs.Count == 0)
+                {
+                    Logger.ZLogTrace("No AssemblyCatalogs found");
+                    return new Plugins() { plugins = new IPlugin[0] };
+                }
+
+                var catalog = new AggregateCatalog(catalogs);
+
+                CompositionContainer container = new CompositionContainer(catalog);
+                var plugins = new Plugins();
+
+                Logger.ZLogTrace("ComposingParts to discover plugins...");
+
+                try
+                {
+                    container.ComposeParts(plugins);
+                }
+                catch (ReflectionTypeLoadException ex)
+                {
+                    LogAssemblyLoaderException("Could not compose Plugin parts", ex);
+                }
+                catch (Exception ex)
+                {
+                    Logger.ZLogError(ex, "Could not compose Plugin parts.");
+                }
+
+                if (plugins.Parts is object)
+                {
+                    Logger.ZLogInformation("Discovered {0} plugin(s)", plugins.Parts.Count());
+                }
+                else
+                {
+                    m.MarkAsFailed();
+                }
+
+                return plugins;
             }
-
-            if (catalogs.Count == 0)
-            {
-                Logger.ZLogInformation("No AssemblyCatalogs found");
-                return new Plugins() { plugins = new IPlugin[0] };
-            }
-
-            var catalog = new AggregateCatalog(catalogs);
-
-            CompositionContainer container = new CompositionContainer(catalog);
-            var plugins = new Plugins();
-
-            Logger.ZLogInformation("ComposingParts to discover plugins...");
-
-            try
-            {
-                container.ComposeParts(plugins);
-            }
-            catch (ReflectionTypeLoadException ex)
-            {
-                LogAssemblyLoaderException("Could not compose Plugin parts", ex);
-            }
-            catch (Exception ex)
-            {
-                Logger.ZLogError(ex, "Could not compose Plugin parts.");
-            }
-
-            if (plugins.Parts is object)
-            {
-                Logger.ZLogInformation("Discovered {0} plugin(s)", plugins.Parts.Count());
-            }
-
-            return plugins;
         }
 
         public bool HasAny() => Parts.Any();

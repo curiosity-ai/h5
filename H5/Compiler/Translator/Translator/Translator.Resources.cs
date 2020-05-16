@@ -947,12 +947,12 @@ namespace H5.Translator
 
             if (oneFileResource)
             {
-                Logger.ZLogTrace("Reading resource file " + file.FullName + " as one-file-resource");
+                Logger.ZLogTrace("Reading resource file {0} as one-file-resource", file.FullName);
                 content = File.ReadAllBytes(file.FullName);
             }
             else
             {
-                Logger.ZLogTrace("Reading resource file " + file.FullName + " via StreamReader with byte order mark detection option");
+                Logger.ZLogTrace("Reading resource file {0} via StreamReader with byte order mark detection option", file.FullName);
 
                 using (var m = new StreamReader(file.FullName, Translator.OutputEncoding, true))
                 {
@@ -960,28 +960,20 @@ namespace H5.Translator
 
                     if (m.CurrentEncoding != OutputEncoding)
                     {
-                        Logger.ZLogInformation("Converting resource file "
-                                       + file.FullName
-                                       + " from encoding "
-                                       + m.CurrentEncoding.EncodingName
-                                       + " into default encoding"
-                                       + Translator.OutputEncoding.EncodingName);
+                        Logger.ZLogTrace("Converting resource file {0} from encoding {1} into default encoding {2}", file.FullName, m.CurrentEncoding.EncodingName, OutputEncoding.EncodingName);
                     }
                 }
             }
 
             if (content.Length > 0)
             {
-                var checkBom = (oneFileResource && item.RemoveBom == true)
-                   || (!oneFileResource && (!item.RemoveBom.HasValue || item.RemoveBom.Value));
+                var checkBom = (oneFileResource && item.RemoveBom == true) || (!oneFileResource && (!item.RemoveBom.HasValue || item.RemoveBom.Value));
 
-                var bomLength = checkBom
-                    ? GetBomLength(content)
-                    : 0;
+                var bomLength = checkBom ? GetBomLength(content) : 0;
 
                 if (bomLength > 0)
                 {
-                    Logger.ZLogTrace("Found BOM symbols (" + bomLength + " byte length)");
+                    Logger.ZLogTrace("Found BOM symbols ({0} byte length)", bomLength);
                 }
 
                 if (bomLength < content.Length)
@@ -992,7 +984,6 @@ namespace H5.Translator
                 {
                     Logger.ZLogTrace("Skipped resource as it contains only BOM");
                 }
-
             }
 
             return content;

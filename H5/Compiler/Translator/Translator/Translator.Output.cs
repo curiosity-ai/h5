@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using ZLogger;
+using Mosaik.Core;
 
 namespace H5.Translator
 {
@@ -235,7 +236,7 @@ namespace H5.Translator
 
         protected virtual void AddLocaleOutput(EmbeddedResource resource, string outputPath)
         {
-            var fileName = resource.Name.Substring(Translator.LocalesPrefix.Length);
+            var fileName = resource.Name.Substring(LocalesPrefix.Length);
 
             if (!string.IsNullOrWhiteSpace(AssemblyInfo.LocalesOutput))
             {
@@ -287,7 +288,7 @@ namespace H5.Translator
                         partAssemblyName = GetAssemblyNameFromResource(part.Assembly);
 
                         if (noConsole
-                            && partAssemblyName.Name == Translator.H5_ASSEMBLY
+                            && partAssemblyName.Name == H5_ASSEMBLY
                             && (string.Compare(part.Name, H5ConsoleName, true) == 0
                                 || string.Compare(part.Name, fileHelper.GetMinifiedJSFileName(H5ConsoleName), true) == 0)
                             )
@@ -480,141 +481,139 @@ namespace H5.Translator
 
         public void ExtractCore(string outputPath, string projectPath)
         {
-            Logger.ZLogInformation("Extracting core scripts...");
-
-            ExtractResources(outputPath, projectPath);
-
-            ExtractLocales(outputPath);
-
-            Logger.ZLogInformation("Done extracting core scripts");
+            using (new Measure(Logger, "Extracting core scripts"))
+            {
+                ExtractResources(outputPath, projectPath);
+                ExtractLocales(outputPath);
+            }
         }
 
         private void ExtractResources(string outputPath, string projectPath)
         {
-            Logger.ZLogInformation("Extracting resources...");
-
-            foreach (var reference in References)
+            using (new Measure(Logger, "Extracting resources"))
             {
-                var resources = GetEmbeddedResourceList(reference);
 
-                if (!resources.Any())
+                foreach (var reference in References)
                 {
-                    continue;
-                }
+                    var resources = GetEmbeddedResourceList(reference);
 
-                var resourceOption = AssemblyInfo.Resources;
-
-                var noExtract = !resourceOption.HasEmbedResources()
-                    && !resourceOption.HasExtractResources()
-                    && resourceOption.Default != null
-                    && resourceOption.Default.Extract != true;
-
-                if (noExtract)
-                {
-                    Logger.ZLogInformation("No extract option enabled (resources config option contains only default setting with extract disabled)");
-                    Logger.ZLogInformation("Skipping extracting all resources");
-
-                    continue;
-                }
-
-                foreach (var resource in resources)
-                {
-                    Logger.ZLogTrace("Extracting item " + resource.Name);
-
-                    var fileName = resource.FileName;
-                    var resName = resource.Name;
-
-                    Logger.ZLogTrace("Resource name " + resName + " and file name: " + fileName);
-
-                    string resourceOutputDirName = null;
-                    string resourceOutputFileName = null;
-
-                    var resourceExtractItems = resourceOption.ExtractItems
-                        .Where(
-                            x => string.Compare(x.Name, resName, StringComparison.InvariantCultureIgnoreCase) == 0
-                            && (x.Assembly == null
-                                || string.Compare(x.Assembly, reference.Name.Name, StringComparison.InvariantCultureIgnoreCase) == 0))
-                        .FirstOrDefault();
-
-                    if (resourceExtractItems != null)
+                    if (!resources.Any())
                     {
-                        Logger.ZLogTrace("Found resource option for resource name " + resName + " and reference " + resourceExtractItems.Assembly);
+                        continue;
+                    }
 
-                        if (resourceExtractItems.Extract != true)
+                    var resourceOption = AssemblyInfo.Resources;
+
+                    var noExtract = !resourceOption.HasEmbedResources()
+                        && !resourceOption.HasExtractResources()
+                        && resourceOption.Default != null
+                        && resourceOption.Default.Extract != true;
+
+                    if (noExtract)
+                    {
+                        Logger.ZLogInformation("No extract option enabled (resources config option contains only default setting with extract disabled)");
+                        Logger.ZLogInformation("Skipping extracting all resources");
+
+                        continue;
+                    }
+
+                    foreach (var resource in resources)
+                    {
+                        Logger.ZLogTrace("Extracting item " + resource.Name);
+
+                        var fileName = resource.FileName;
+                        var resName = resource.Name;
+
+                        Logger.ZLogTrace("Resource name " + resName + " and file name: " + fileName);
+
+                        string resourceOutputDirName = null;
+                        string resourceOutputFileName = null;
+
+                        var resourceExtractItems = resourceOption.ExtractItems
+                            .Where(
+                                x => string.Compare(x.Name, resName, StringComparison.InvariantCultureIgnoreCase) == 0
+                                && (x.Assembly == null
+                                    || string.Compare(x.Assembly, reference.Name.Name, StringComparison.InvariantCultureIgnoreCase) == 0))
+                            .FirstOrDefault();
+
+                        if (resourceExtractItems != null)
                         {
-                            Logger.ZLogInformation("Skipping resource " + resName + " as it has setting resources.extract != true");
-                            continue;
-                        }
+                            Logger.ZLogTrace("Found resource option for resource name " + resName + " and reference " + resourceExtractItems.Assembly);
 
-                        if (resourceExtractItems.Output != null)
-                        {
-                            Logger.ZLogTrace("resources.output option " + resourceExtractItems.Output);
-
-                            GetResourceOutputPath(outputPath, resourceExtractItems, ref resourceOutputFileName, ref resourceOutputDirName);
-
-                            if (resourceOutputDirName != null)
+                            if (resourceExtractItems.Extract != true)
                             {
-                                Logger.ZLogTrace("Changing output path according to output resource setting to " + resourceOutputDirName);
+                                Logger.ZLogInformation("Skipping resource " + resName + " as it has setting resources.extract != true");
+                                continue;
                             }
 
-                            if (resourceOutputFileName != null)
+                            if (resourceExtractItems.Output != null)
                             {
-                                Logger.ZLogTrace("Changing output file name according to output resource setting to " + resourceOutputFileName);
+                                Logger.ZLogTrace("resources.output option " + resourceExtractItems.Output);
+
+                                GetResourceOutputPath(outputPath, resourceExtractItems, ref resourceOutputFileName, ref resourceOutputDirName);
+
+                                if (resourceOutputDirName != null)
+                                {
+                                    Logger.ZLogTrace("Changing output path according to output resource setting to " + resourceOutputDirName);
+                                }
+
+                                if (resourceOutputFileName != null)
+                                {
+                                    Logger.ZLogTrace("Changing output file name according to output resource setting to " + resourceOutputFileName);
+                                }
+                            }
+                            else
+                            {
+                                Logger.ZLogTrace("No extract resource option affecting extraction for resource name " + resourceExtractItems.Name);
                             }
                         }
                         else
                         {
-                            Logger.ZLogTrace("No extract resource option affecting extraction for resource name " + resourceExtractItems.Name);
-                        }
-                    }
-                    else
-                    {
-                        if (resourceOption.Default != null && resourceOption.Default.Extract != true)
-                        {
-                            Logger.ZLogInformation("Skipping resource " + resName + " as it has no setting resources.extract = true and default setting is resources.extract != true");
-                            continue;
-                        }
-
-                        Logger.ZLogTrace("Did not find extract resource option for resource name " + resName + ". Will use default embed behavior");
-
-                        if (resource.Path != null)
-                        {
-                            Logger.ZLogTrace("resource.Path option " + resource.Path);
-
-                            GetResourceOutputPath(outputPath, resource.Path, resource.Name, true, ref resourceOutputFileName, ref resourceOutputDirName);
-
-                            if (resourceOutputDirName != null)
+                            if (resourceOption.Default != null && resourceOption.Default.Extract != true)
                             {
-                                Logger.ZLogTrace("Changing output path according to embedded resource Path setting to " + resourceOutputDirName);
+                                Logger.ZLogInformation("Skipping resource " + resName + " as it has no setting resources.extract = true and default setting is resources.extract != true");
+                                continue;
                             }
 
-                            if (resourceOutputFileName != null)
+                            Logger.ZLogTrace("Did not find extract resource option for resource name " + resName + ". Will use default embed behavior");
+
+                            if (resource.Path != null)
                             {
-                                Logger.ZLogTrace("Changing output file name according to embedded resource Path setting to " + resourceOutputFileName);
+                                Logger.ZLogTrace("resource.Path option " + resource.Path);
+
+                                GetResourceOutputPath(outputPath, resource.Path, resource.Name, true, ref resourceOutputFileName, ref resourceOutputDirName);
+
+                                if (resourceOutputDirName != null)
+                                {
+                                    Logger.ZLogTrace("Changing output path according to embedded resource Path setting to " + resourceOutputDirName);
+                                }
+
+                                if (resourceOutputFileName != null)
+                                {
+                                    Logger.ZLogTrace("Changing output file name according to embedded resource Path setting to " + resourceOutputFileName);
+                                }
                             }
                         }
-                    }
 
-                    if (resourceOutputDirName == null)
-                    {
-                        resourceOutputDirName = outputPath;
-                    }
+                        if (resourceOutputDirName == null)
+                        {
+                            resourceOutputDirName = outputPath;
+                        }
 
-                    if (resourceOutputFileName == null)
-                    {
-                        resourceOutputFileName = fileName;
-                    }
+                        if (resourceOutputFileName == null)
+                        {
+                            resourceOutputFileName = fileName;
+                        }
 
-                    bool isTs = FileHelper.IsDTS(resName);
+                        bool isTs = FileHelper.IsDTS(resName);
 
-                    if (!isTs || AssemblyInfo.GenerateTypeScript)
-                    {
-                        AddReferencedOutput(resourceOutputDirName, reference, resource, resourceOutputFileName);
+                        if (!isTs || AssemblyInfo.GenerateTypeScript)
+                        {
+                            AddReferencedOutput(resourceOutputDirName, reference, resource, resourceOutputFileName);
+                        }
                     }
                 }
             }
-
-            Logger.ZLogInformation("Done extracting resources");
         }
 
         private void ExtractLocales(string outputPath)
@@ -625,74 +624,74 @@ namespace H5.Translator
                 return;
             }
 
-            Logger.ZLogInformation("Extracting Locales...");
-
-            var h5Assembly = References.FirstOrDefault(r => r.Name.Name == CS.NS.H5);
-            var localesResources = h5Assembly.MainModule.Resources.Where(r => r.Name.StartsWith(Translator.LocalesPrefix)).Cast<EmbeddedResource>();
-            var locales = AssemblyInfo.Locales.Split(';');
-
-            if (locales.Any(x => x == "all"))
+            using (new Measure(Logger, "Extracting Locales"))
             {
-                AddLocaleOutputs(localesResources, outputPath);
-            }
-            else
-            {
-                foreach (var locale in locales)
+
+                var h5Assembly = References.FirstOrDefault(r => r.Name.Name == CS.NS.H5);
+                var localesResources = h5Assembly.MainModule.Resources.Where(r => r.Name.StartsWith(LocalesPrefix)).Cast<EmbeddedResource>();
+                var locales = AssemblyInfo.Locales.Split(';');
+
+                if (locales.Any(x => x == "all"))
                 {
-                    if (locale.Contains("*"))
+                    AddLocaleOutputs(localesResources, outputPath);
+                }
+                else
+                {
+                    foreach (var locale in locales)
                     {
-                        var name = Translator.LocalesPrefix + locale.SubstringUpToFirst('*');
-                        var maskedResources = localesResources.Where(r => r.Name.StartsWith(name));
+                        if (locale.Contains("*"))
+                        {
+                            var name = LocalesPrefix + locale.SubstringUpToFirst('*');
+                            var maskedResources = localesResources.Where(r => r.Name.StartsWith(name));
 
-                        AddLocaleOutputs(maskedResources, outputPath);
-                    }
-                    else
-                    {
-                        var name = Translator.LocalesPrefix + locale + Files.Extensions.JS;
-                        var maskedResource = localesResources.First(r => r.Name == name);
+                            AddLocaleOutputs(maskedResources, outputPath);
+                        }
+                        else
+                        {
+                            var name = LocalesPrefix + locale + Files.Extensions.JS;
+                            var maskedResource = localesResources.First(r => r.Name == name);
 
-                        AddLocaleOutput(maskedResource, outputPath);
+                            AddLocaleOutput(maskedResource, outputPath);
+                        }
                     }
                 }
+
+                //if ((bufferjs != null && bufferjs.Length > 0) || (bufferjsmin != null && bufferjsmin.Length > 0))
+                //{
+                //    if (!string.IsNullOrWhiteSpace(this.AssemblyInfo.LocalesOutput))
+                //    {
+                //        outputPath = Path.Combine(outputPath, this.AssemblyInfo.LocalesOutput);
+                //    }
+
+                //    var defaultFileName = this.AssemblyInfo.LocalesFileName ?? "H5.Locales.js";
+                //    var fileName = defaultFileName.Replace(":", "_");
+                //    var oldFNlen = fileName.Length;
+                //    while (Path.IsPathRooted(fileName))
+                //    {
+                //        fileName = fileName.TrimStart(Path.DirectorySeparatorChar, '/', '\\');
+                //        if (fileName.Length == oldFNlen)
+                //        {
+                //            break;
+                //        }
+                //        oldFNlen = fileName.Length;
+                //    }
+
+                //    var file = CreateFileDirectory(outputPath, fileName);
+
+                //    if (bufferjs != null && bufferjs.Length > 0)
+                //    {
+                //        File.WriteAllText(file.FullName, bufferjs.ToString(), OutputEncoding);
+                //        this.AddOutputItem(this.OutputItems.Locales, file.Name, Path.GetDirectoryName(file.FullName));
+                //    }
+
+                //    if (bufferjsmin != null && bufferjsmin.Length > 0)
+                //    {
+                //        var minifiedName = FileHelper.GetMinifiedJSFileName(file.FullName);
+                //        File.WriteAllText(minifiedName, bufferjsmin.ToString(), OutputEncoding);
+                //        this.AddOutputItem(this.OutputItems.Locales, minifiedName, Path.GetDirectoryName(file.FullName));
+                //    }
+                //}
             }
-
-            //if ((bufferjs != null && bufferjs.Length > 0) || (bufferjsmin != null && bufferjsmin.Length > 0))
-            //{
-            //    if (!string.IsNullOrWhiteSpace(this.AssemblyInfo.LocalesOutput))
-            //    {
-            //        outputPath = Path.Combine(outputPath, this.AssemblyInfo.LocalesOutput);
-            //    }
-
-            //    var defaultFileName = this.AssemblyInfo.LocalesFileName ?? "H5.Locales.js";
-            //    var fileName = defaultFileName.Replace(":", "_");
-            //    var oldFNlen = fileName.Length;
-            //    while (Path.IsPathRooted(fileName))
-            //    {
-            //        fileName = fileName.TrimStart(Path.DirectorySeparatorChar, '/', '\\');
-            //        if (fileName.Length == oldFNlen)
-            //        {
-            //            break;
-            //        }
-            //        oldFNlen = fileName.Length;
-            //    }
-
-            //    var file = CreateFileDirectory(outputPath, fileName);
-
-            //    if (bufferjs != null && bufferjs.Length > 0)
-            //    {
-            //        File.WriteAllText(file.FullName, bufferjs.ToString(), OutputEncoding);
-            //        this.AddOutputItem(this.OutputItems.Locales, file.Name, Path.GetDirectoryName(file.FullName));
-            //    }
-
-            //    if (bufferjsmin != null && bufferjsmin.Length > 0)
-            //    {
-            //        var minifiedName = FileHelper.GetMinifiedJSFileName(file.FullName);
-            //        File.WriteAllText(minifiedName, bufferjsmin.ToString(), OutputEncoding);
-            //        this.AddOutputItem(this.OutputItems.Locales, minifiedName, Path.GetDirectoryName(file.FullName));
-            //    }
-            //}
-
-            Logger.ZLogInformation("Done extracting Locales");
         }
 
         internal void Combine(string fileName)
@@ -711,7 +710,7 @@ namespace H5.Translator
                 return;
             }
 
-            var fileName = AssemblyInfo.LocalesFileName ?? Translator.DefaultLocalesOutputName;
+            var fileName = AssemblyInfo.LocalesFileName ?? DefaultLocalesOutputName;
 
             var combinedLocales = Combine(null, Outputs.Locales, fileName, "locales", TranslatorOutputKind.Locale);
 
@@ -1080,7 +1079,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    settings = Translator.MinifierCodeSettingsSafe;
+                    settings = MinifierCodeSettingsSafe;
                 }
 
                 Minify(output, settings);
@@ -1175,83 +1174,80 @@ namespace H5.Translator
 
         private void CleanDirectory(string outputPath, string searchPattern, params string[] systemFilesToIgnore)
         {
-            Logger.ZLogInformation("Cleaning output folder " + (outputPath ?? string.Empty) + " with search pattern (" + (searchPattern ?? string.Empty) + ") ...");
-
-            if (string.IsNullOrWhiteSpace(outputPath))
+            using (new Measure(Logger, $"Cleaning output folder {(outputPath ?? "")} with search pattern ({(searchPattern ?? "")})", logOnlyDuration: true))
             {
-                Logger.ZLogWarning("Output directory is not specified. No files deleted.");
-                return;
-            }
 
-            try
-            {
-                var outputDirectory = new DirectoryInfo(outputPath);
-                if (!outputDirectory.Exists)
+                if (string.IsNullOrWhiteSpace(outputPath))
                 {
-                    Logger.ZLogWarning("Output directory does not exist " + outputPath + ". No files deleted.");
+                    Logger.ZLogWarning("Output directory is not specified. No files deleted.");
                     return;
                 }
 
-                var patterns = searchPattern.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (patterns.Length == 0)
+                try
                 {
-                    Logger.ZLogWarning("Incorrect search pattern - empty. No files deleted.");
-                    return;
-                }
-
-                var filesToDelete = new List<FileInfo>();
-                var filesToSkip = new List<Tuple<string, FileInfo>>();
-                foreach (var pattern in patterns)
-                {
-                    if (string.IsNullOrEmpty(pattern))
+                    var outputDirectory = new DirectoryInfo(outputPath);
+                    if (!outputDirectory.Exists)
                     {
-                        continue;
+                        Logger.ZLogInformation("Output directory {0} does not exist. No files to delete.", outputPath);
+                        return;
                     }
 
-                    if (pattern.StartsWith("!"))
+                    var patterns = searchPattern.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (patterns.Length == 0)
                     {
-                        if (pattern.Length > 1)
+                        Logger.ZLogWarning("Invalid empty search pattern. No files will be deleted from output folder.");
+                        return;
+                    }
+
+                    var filesToDelete = new List<FileInfo>();
+                    var filesToSkip = new List<Tuple<string, FileInfo>>();
+                    foreach (var pattern in patterns)
+                    {
+                        if (string.IsNullOrEmpty(pattern)) { continue; }
+
+                        if (pattern.StartsWith("!"))
                         {
-                            filesToSkip.AddRange(outputDirectory.GetFiles(pattern.Substring(1), SearchOption.AllDirectories).Select(x => Tuple.Create(pattern, x)));
+                            if (pattern.Length > 1)
+                            {
+                                filesToSkip.AddRange(outputDirectory.GetFiles(pattern.Substring(1), SearchOption.AllDirectories).Select(x => Tuple.Create(pattern, x)));
+                            }
+                        }
+                        else
+                        {
+                            filesToDelete.AddRange(outputDirectory.GetFiles(pattern, SearchOption.AllDirectories));
                         }
                     }
-                    else
+
+                    if (systemFilesToIgnore != null && systemFilesToIgnore.All(x => string.IsNullOrEmpty(x)))
                     {
-                        filesToDelete.AddRange(outputDirectory.GetFiles(pattern, SearchOption.AllDirectories));
+                        systemFilesToIgnore = null;
+                    }
+
+                    foreach (var file in filesToDelete)
+                    {
+                        if (systemFilesToIgnore != null && systemFilesToIgnore.Any(x => x == file.FullName))
+                        {
+                            Logger.ZLogTrace("skip cleaning {0} as it is a system file", file.FullName);
+                            continue;
+                        }
+
+                        var skipPattern = filesToSkip.FirstOrDefault(x => x.Item2.FullName == file.FullName);
+
+                        if (skipPattern != null)
+                        {
+                            Logger.ZLogTrace("skip cleaning {0} as it has skip pattern {1}", file.FullName, skipPattern.Item1);
+                            continue;
+                        }
+
+                        Logger.ZLogTrace("cleaning {0}", file.FullName);
+                        file.Delete();
                     }
                 }
-
-                if (systemFilesToIgnore != null && systemFilesToIgnore.All(x => string.IsNullOrEmpty(x)))
+                catch (Exception ex)
                 {
-                    systemFilesToIgnore = null;
+                    Logger.ZLogError(ex.ToString());
                 }
-
-                foreach (var file in filesToDelete)
-                {
-                    if (systemFilesToIgnore != null && systemFilesToIgnore.Any(x => x == file.FullName))
-                    {
-                        Logger.ZLogTrace("skip cleaning " + file.FullName + " as it is a system file");
-                        continue;
-                    }
-
-                    var skipPattern = filesToSkip.FirstOrDefault(x => x.Item2.FullName == file.FullName);
-
-                    if (skipPattern != null)
-                    {
-                        Logger.ZLogTrace("skip cleaning " + file.FullName + " as it has skip pattern " + skipPattern.Item1);
-                        continue;
-                    }
-
-                    Logger.ZLogTrace("cleaning " + file.FullName);
-                    file.Delete();
-                }
-
-                Logger.ZLogInformation("Cleaning output folder done");
-            }
-            catch (Exception ex)
-            {
-                Logger.ZLogError(ex.ToString());
             }
         }
     }

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Mono.Cecil;
 using Mosaik.Core;
 using Microsoft.Extensions.Logging;
+using ZLogger;
 
 namespace H5.Translator
 {
@@ -182,7 +183,7 @@ namespace H5.Translator
 
                 if (result.IsError)
                 {
-                    Logger.LogWarning("Node resolving has failed {0}: {1}", node.StartLocation, node.ToString());
+                    Logger.ZLogTrace("Node resolving has failed {0}: {1}", node.StartLocation, node.ToString());
                 }
             }
 

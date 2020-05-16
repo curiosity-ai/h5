@@ -9,6 +9,11 @@
     <AssemblyName>h5</AssemblyName>
   </PropertyGroup>
 
+  <!-- There is an annoying bug with PackAsTool that throws an error (https://github.com/NuGet/Home/issues/7001), so for debugging we disable this-->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' " >
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
   <PropertyGroup>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>h5</ToolCommandName>
@@ -17,10 +22,9 @@
     <LangVersion>latest</LangVersion>
     <PackageId>h5-compiler</PackageId>
     <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
-    <Company></Company>
+    <Company/>
     <Description>The .NET Core C# to JavaScript compiler 🚀</Description>
     <Copyright>(c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>0.0.42</Version>
     <IncludeReferencedProjects>true</IncludeReferencedProjects>

@@ -311,14 +311,15 @@ namespace H5.Translator
 
                 Microsoft.CodeAnalysis.Emit.EmitResult emitResult;
 
-                Logger.ZLogInformation($"Begin compiling {AssemblyLocation}");
-                using (var outputStream = new FileStream(AssemblyLocation, FileMode.Create))
+                using (new Measure(Logger, $"Compiling {AssemblyLocation} with Roslyn"))
                 {
-                    emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true));
-                    outputStream.Flush();
-                    outputStream.Close();
+                    using (var outputStream = new FileStream(AssemblyLocation, FileMode.Create))
+                    {
+                        emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true));
+                        outputStream.Flush();
+                        outputStream.Close();
+                    }
                 }
-                Logger.ZLogInformation($"Finished compiling {AssemblyLocation}");
 
                 if (!emitResult.Success)
                 {

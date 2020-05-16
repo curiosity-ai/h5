@@ -160,27 +160,11 @@ namespace H5.Translator
         private void LogProductInfo()
         {
             var compilerInfo = GetCompilerVersion();
-
             var h5Info = GetH5AssemblyVersion();
 
-            Logger.ZLogInformation("Product info:");
             if (compilerInfo != null)
             {
-                Logger.ZLogInformation("\t{0} version {1}", compilerInfo.ProductName, compilerInfo.ProductVersion);
-            }
-            else
-            {
-                Logger.ZLogInformation("Not found");
-            }
-
-            if (h5Info != null)
-            {
-                Logger.ZLogInformation("\t[{0} Framework, version {1}]", h5Info.ProductName, h5Info.ProductVersion);
-            }
-
-            if (compilerInfo != null)
-            {
-                Logger.ZLogInformation("\t" + compilerInfo.LegalCopyright);
+                Logger.ZLogInformation("Running compiler version {0}:",compilerInfo.ProductVersion);
             }
         }
     }

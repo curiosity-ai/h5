@@ -58,44 +58,41 @@ namespace H5.Translator
         {
             var h5Options = H5Options;
             var translator = Translator;
-
-            Logger.LogInformation("Post processing...");
-
             var outputPath = GetOutputFolder();
-
-            Logger.LogInformation("outputPath is " + outputPath);
-
-            translator.CleanOutputFolderIfRequired(outputPath);
-
-            translator.PrepareResourcesConfig();
-
             var projectPath = Path.GetDirectoryName(translator.Location);
-            Logger.LogInformation("projectPath is " + projectPath);
 
-            translator.ExtractCore(outputPath, projectPath);
-
-            var fileName = GetDefaultFileName(h5Options);
-            if (!h5Options.SkipEmbeddingResources)
+            using (new Measure(Logger, $"Post-processing output on '{outputPath}' for project '{translator.Location}'"))
             {
-                translator.Minify();
-                translator.Combine(fileName);
-                translator.Save(outputPath, fileName);
-                translator.InjectResources(outputPath, projectPath);
+                translator.CleanOutputFolderIfRequired(outputPath);
+                translator.PrepareResourcesConfig();
+
+                translator.ExtractCore(outputPath, projectPath);
+
+                var fileName = GetDefaultFileName(h5Options);
+                if (!h5Options.SkipEmbeddingResources)
+                {
+                    translator.Minify();
+                    translator.Combine(fileName);
+                    translator.Save(outputPath, fileName);
+                    translator.InjectResources(outputPath, projectPath);
+                }
+
+                translator.RunAfterBuild();
+
+                if (translator.Plugins.HasAny())
+                {
+                    using (new Measure(Logger, "Run plugins AfterOutput"))
+                    {
+                        translator.Plugins.AfterOutput(translator, outputPath);
+                    }
+                }
+
+                GenerateHtml(outputPath);
+
+                translator.Report(outputPath);
+
+                return outputPath;
             }
-
-            translator.RunAfterBuild();
-
-            Logger.LogInformation("Run plugins AfterOutput...");
-            translator.Plugins.AfterOutput(translator, outputPath);
-            Logger.LogInformation("Done plugins AfterOutput");
-
-            GenerateHtml(outputPath);
-
-            translator.Report(outputPath);
-
-            Logger.LogInformation("Done post processing");
-
-            return outputPath;
         }
 
         private void GenerateHtml(string outputPath)

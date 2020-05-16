@@ -14,20 +14,11 @@ namespace H5.Contract
 {
     public class NameSemantic
     {
-        public string Prefix
-        {
-            get; set;
-        }
+        public string Prefix{ get; set; }
 
-        public string Suffix
-        {
-            get; set;
-        }
+        public string Suffix{ get; set; }
 
-        public bool IsCustomName
-        {
-            get; set;
-        }
+        public bool IsCustomName{ get; set; }
 
         private bool isObjectLiteral;
         public bool IsObjectLiteral
@@ -60,20 +51,11 @@ namespace H5.Contract
             }
         }
 
-        public NameRule AppliedRule
-        {
-            get; set;
-        }
+        public NameRule AppliedRule{ get; set; }
 
-        public IEntity Entity
-        {
-            get; set;
-        }
+        public IEntity Entity{ get; set; }
 
-        public TypeDefinition TypeDefinition
-        {
-            get; set;
-        }
+        public TypeDefinition TypeDefinition{ get; set; }
 
         internal string DefaultName
         {
@@ -105,10 +87,7 @@ namespace H5.Contract
             }
         }
 
-        public IEmitter Emitter
-        {
-            get; set;
-        }
+        public IEmitter Emitter{ get; set; }
 
         public int EnumMode { get; set; } = -1;
 

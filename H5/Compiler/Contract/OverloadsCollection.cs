@@ -206,10 +206,7 @@ namespace H5.Contract
             private set;
         }
 
-        public IMember OriginalMember
-        {
-            get; set;
-        }
+        public IMember OriginalMember{ get; set; }
 
         private OverloadsCollection(IEmitter emitter, FieldDeclaration fieldDeclaration)
         {

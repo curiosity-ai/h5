@@ -7,15 +7,9 @@ namespace H5.Contract
 {
     public class SourceMapConfig
     {
-        public bool Enabled
-        {
-            get; set;
-        }
+        public bool Enabled{ get; set; }
 
-        public UnicodeNewline? Eol
-        {
-            get; set;
-        }
+        public UnicodeNewline? Eol{ get; set; }
     }
 
     public class SourceMapConfigConverter : JsonConverter

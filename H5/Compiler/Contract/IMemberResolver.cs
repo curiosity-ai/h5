@@ -7,7 +7,7 @@ namespace H5.Contract
 {
     public interface IMemberResolver
     {
-        ResolveResult ResolveNode(AstNode node, ILog log);
+        ResolveResult ResolveNode(AstNode node);
 
         CSharpAstResolver Resolver { get; }
 

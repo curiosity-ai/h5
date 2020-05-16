@@ -7,15 +7,9 @@ namespace H5.Contract
 {
     public class StringBoolJsonConverter : JsonConverter
     {
-        protected string DefaultForTrue
-        {
-            get; set;
-        }
+        protected string DefaultForTrue{ get; set; }
 
-        protected string DefaultForFalse
-        {
-            get; set;
-        }
+        protected string DefaultForFalse{ get; set; }
 
         public StringBoolJsonConverter()
         {

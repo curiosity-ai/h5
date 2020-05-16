@@ -23,35 +23,20 @@ namespace H5.Contract
             get; private set;
         }
 
-        public TranslatorOutputItem Combined
-        {
-            get; set;
-        }
+        public TranslatorOutputItem Combined { get; set; }
 
-        public Dictionary<H5ResourceInfoPart, string> CombinedResourcePartsNonMinified
-        {
-            get; set;
-        }
+        public Dictionary<H5ResourceInfoPart, string> CombinedResourcePartsNonMinified { get; set; }
 
-        public Dictionary<H5ResourceInfoPart, string> CombinedResourcePartsMinified
-        {
-            get; set;
-        }
+        public Dictionary<H5ResourceInfoPart, string> CombinedResourcePartsMinified { get; set; }
 
-        public TranslatorOutputItem CombinedLocales
-        {
-            get; set;
-        }
+        public TranslatorOutputItem CombinedLocales { get; set; }
 
         public List<TranslatorOutputItem> Resources
         {
             get; private set;
         }
 
-        public TranslatorOutputItem Report
-        {
-            get; set;
-        }
+        public TranslatorOutputItem Report { get; set; }
 
         public IEnumerable<TranslatorOutputItem> GetOutputs(bool projectOutputOnly = false)
         {
@@ -136,25 +121,13 @@ namespace H5.Contract
 
     public class TranslatorOutputItem
     {
-        public string Assembly
-        {
-            get; set;
-        }
+        public string Assembly { get; set; }
 
-        public string Name
-        {
-            get; set;
-        }
+        public string Name { get; set; }
 
-        public string Location
-        {
-            get; set;
-        }
+        public string Location { get; set; }
 
-        public bool HasGeneratedSourceMap
-        {
-            get; set;
-        }
+        public bool HasGeneratedSourceMap { get; set; }
 
         private Uri fullPath;
         public Uri FullPath
@@ -177,25 +150,13 @@ namespace H5.Contract
             }
         }
 
-        public TranslatorOutputType OutputType
-        {
-            get; set;
-        }
+        public TranslatorOutputType OutputType { get; set; }
 
-        public TranslatorOutputKind OutputKind
-        {
-            get; set;
-        }
+        public TranslatorOutputKind OutputKind { get; set; }
 
-        public TranslatorOutputItemContent Content
-        {
-            get; set;
-        }
+        public TranslatorOutputItemContent Content { get; set; }
 
-        public bool IsMinified
-        {
-            get; set;
-        }
+        public bool IsMinified { get; set; }
 
         private bool isEmpty;
         public bool IsEmpty
@@ -223,12 +184,9 @@ namespace H5.Contract
             }
         }
 
-        public TranslatorOutputItem MinifiedVersion
-        {
-            get; set;
-        }
+        public TranslatorOutputItem MinifiedVersion { get; set; }
 
-        public string GetOutputPath(string basePath = null, bool htmlAdjusted = false, ILogger logger = null)
+        public string GetOutputPath(string basePath = null, bool htmlAdjusted = false)
         {
             var item = this;
 

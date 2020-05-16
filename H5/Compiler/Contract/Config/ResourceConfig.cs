@@ -12,10 +12,7 @@ namespace H5.Contract
             this.Items = new ResourceConfigItem[] { };
         }
 
-        public ResourceConfigItem[] Items
-        {
-            get; set;
-        }
+        public ResourceConfigItem[] Items{ get; set; }
 
         public bool HasExtractResources()
         {
@@ -109,55 +106,25 @@ namespace H5.Contract
             }
         }
 
-        public string Header
-        {
-            get; set;
-        }
+        public string Header{ get; set; }
 
-        public bool? Extract
-        {
-            get; set;
-        }
+        public bool? Extract{ get; set; }
 
-        public bool? Inject
-        {
-            get; set;
-        }
+        public bool? Inject{ get; set; }
 
-        public bool? Silent
-        {
-            get; set;
-        }
+        public bool? Silent{ get; set; }
 
-        public bool? RemoveBom
-        {
-            get; set;
-        }
+        public bool? RemoveBom{ get; set; }
 
-        public string Name
-        {
-            get; set;
-        }
+        public string Name{ get; set; }
 
-        public string Assembly
-        {
-            get; set;
-        }
+        public string Assembly{ get; set; }
 
-        public string Output
-        {
-            get; set;
-        }
+        public string Output{ get; set; }
 
-        public string[] Files
-        {
-            get; set;
-        }
+        public string[] Files{ get; set; }
 
-        public string Remark
-        {
-            get; set;
-        }
+        public string Remark{ get; set; }
     }
 
     public class ResourceConfigConverter : JsonConverter

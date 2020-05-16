@@ -2,19 +2,10 @@ namespace H5.Contract
 {
     public class AssemblyConfig
     {
-        public bool DisableInitAssembly
-        {
-            get; set;
-        }
+        public bool DisableInitAssembly{ get; set; }
 
-        public bool EnableReservedNamespaces
-        {
-            get; set;
-        }
+        public bool EnableReservedNamespaces{ get; set; }
 
-        public string FullName
-        {
-            get; set;
-        }
+        public string FullName{ get; set; }
     }
  }

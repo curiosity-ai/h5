@@ -7,10 +7,7 @@ namespace H5.Contract
 {
     public class ConsoleConfig
     {
-        public bool? Enabled
-        {
-            get; set;
-        }
+        public bool? Enabled{ get; set; }
     }
 
     public class ConsoleConfigConverter : JsonConverter

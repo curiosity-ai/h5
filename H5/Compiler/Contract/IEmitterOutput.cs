@@ -22,9 +22,6 @@ namespace H5.Contract
 
         System.Text.StringBuilder BottomOutput { get; set; }
 
-        List<string> Names
-        {
-            get; set;
-        }
+        List<string> Names{ get; set; }
     }
 }

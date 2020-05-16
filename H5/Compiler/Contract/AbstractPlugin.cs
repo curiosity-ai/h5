@@ -4,8 +4,6 @@ namespace H5.Contract
 {
     public abstract class AbstractPlugin : IPlugin
     {
-        public virtual ILogger Logger { get; set; }
-
         public virtual IEnumerable<string> GetConstructorInjectors(IConstructorBlock constructorBlock)
         {
             return null;

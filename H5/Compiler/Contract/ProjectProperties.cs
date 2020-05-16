@@ -6,55 +6,28 @@ namespace H5.Contract
 
     public class ProjectProperties
     {
-        public string AssemblyName
-        {
-            get; set;
-        }
+        public string AssemblyName{ get; set; }
 
-        public bool? CheckForOverflowUnderflow
-        {
-            get; set;
-        }
+        public bool? CheckForOverflowUnderflow{ get; set; }
 
-        public string Configuration
-        {
-            get; set;
-        }
+        public string Configuration{ get; set; }
 
-        public string DefineConstants
-        {
-            get; set;
-        }
+        public string DefineConstants{ get; set; }
 
-        public string OutputPath
-        {
-            get; set;
-        }
+        public string OutputPath{ get; set; }
 
-        public string OutDir
-        {
-            get; set;
-        }
+        public string OutDir{ get; set; }
 
-        public string OutputType
-        {
-            get; set;
-        }
+        public string OutputType{ get; set; }
 
-        public string RootNamespace
-        {
-            get; set;
-        }
+        public string RootNamespace{ get; set; }
 
         public override string ToString()
         {
             return string.Join(", ", GetValues().Select(x => x.Key + ":" + x.Value));
         }
 
-        public List<string> BuildProjects
-        {
-            get; set;
-        }
+        public List<string> BuildProjects{ get; set; }
 
         public Dictionary<string, string> GetValues()
         {

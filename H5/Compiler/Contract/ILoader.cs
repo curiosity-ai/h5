@@ -10,30 +10,15 @@ namespace H5.Contract
 
     public interface IModuleLoader
     {
-        ModuleLoaderType Type
-        {
-            get; set;
-        }
+        ModuleLoaderType Type{ get; set; }
 
-        string FunctionName
-        {
-            get; set;
-        }
+        string FunctionName{ get; set; }
 
-        bool ManualLoading
-        {
-            get; set;
-        }
+        bool ManualLoading{ get; set; }
 
-        string ManualLoadingMask
-        {
-            get; set;
-        }
+        string ManualLoadingMask{ get; set; }
 
-        bool SkipManualVariables
-        {
-            get; set;
-        }
+        bool SkipManualVariables{ get; set; }
 
         bool IsManual(string name);
     }

@@ -8,20 +8,11 @@ namespace H5.Contract
 {
     public class ReportConfig
     {
-        public bool Enabled
-        {
-            get; set;
-        }
+        public bool Enabled{ get; set; }
 
-        public string FileName
-        {
-            get; set;
-        }
+        public string FileName{ get; set; }
 
-        public string Path
-        {
-            get; set;
-        }
+        public string Path{ get; set; }
     }
 
     public class ReportConfigConverter : JsonConverter

@@ -7,20 +7,11 @@ namespace H5.Contract
 {
     public class HtmlConfig
     {
-        public bool Disabled
-        {
-            get; set;
-        }
+        public bool Disabled{ get; set; }
 
-        public string Name
-        {
-            get; set;
-        }
+        public string Name{ get; set; }
 
-        public string Title
-        {
-            get; set;
-        }
+        public string Title{ get; set; }
     }
 
     public class HtmlConfigConverter : JsonConverter

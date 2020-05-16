@@ -17,9 +17,6 @@ namespace H5.Contract
 
         AstNode Node { get; set; }
 
-        object Label
-        {
-            get; set;
-        }
+        object Label{ get; set; }
     }
 }

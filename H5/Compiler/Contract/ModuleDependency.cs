@@ -35,15 +35,9 @@ namespace H5.Contract
             }
         }
 
-        public ModuleType? Type
-        {
-            get; set;
-        }
+        public ModuleType? Type{ get; set; }
 
-        public bool PreventName
-        {
-            get; set;
-        }
+        public bool PreventName{ get; set; }
     }
 
     public class Module
@@ -118,10 +112,7 @@ namespace H5.Contract
             private set;
         }
 
-        public IEmitter Emitter
-        {
-            get; set;
-        }
+        public IEmitter Emitter{ get; set; }
 
         public bool NoName
         {

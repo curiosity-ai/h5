@@ -1,4 +1,6 @@
 using H5.Contract;
+using Microsoft.Extensions.Logging;
+using Mosaik.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,13 +12,13 @@ namespace H5.Translator.Utils
     {
         private const string CONFIG_FILE_NAME = "h5.json";
 
-        private ILogger Logger { get; set; }
+        private static ILogger Logger = ApplicationLogging.CreateLogger<AssemblyConfigHelper>();
+
         private ConfigHelper<AssemblyInfo> helper { get; set; }
 
         public AssemblyConfigHelper()
         {
-            this.Logger = logger;
-            this.helper = new ConfigHelper<AssemblyInfo>(logger);
+            this.helper = new ConfigHelper<AssemblyInfo>();
         }
 
         public IAssemblyInfo ReadConfig(string configFileName, string location, string configuration)
@@ -99,14 +101,6 @@ namespace H5.Translator.Utils
             config.LocalesOutput = helper.ApplyTokens(tokens, config.LocalesOutput);
             config.LocalesFileName = helper.ApplyPathTokens(tokens, config.LocalesFileName);
 
-            if (config.Logging != null)
-            {
-                var logging = config.Logging;
-
-                logging.FileName = helper.ApplyPathTokens(tokens, logging.FileName);
-                logging.Folder = helper.ApplyPathTokens(tokens, logging.Folder);
-            }
-
             if (config.Reflection != null)
             {
                 config.Reflection.Filter = helper.ApplyTokens(tokens, config.Reflection.Filter);
@@ -154,11 +148,6 @@ namespace H5.Translator.Utils
             assemblyInfo.Output = helper.ConvertPath(assemblyInfo.Output);
             assemblyInfo.PluginsPath = helper.ConvertPath(assemblyInfo.PluginsPath);
             assemblyInfo.LocalesOutput = helper.ConvertPath(assemblyInfo.LocalesOutput);
-
-            if (assemblyInfo.Logging != null)
-            {
-                assemblyInfo.Logging.Folder = helper.ConvertPath(assemblyInfo.Logging.Folder);
-            }
 
             if (assemblyInfo.Html != null)
             {

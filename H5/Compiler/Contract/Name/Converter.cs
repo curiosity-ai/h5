@@ -91,45 +91,21 @@ namespace H5.Contract
 
     public class NameRule
     {
-        public Notation Notation
-        {
-            get; set;
-        }
+        public Notation Notation{ get; set; }
 
-        public ConventionTarget Target
-        {
-            get; set;
-        }
+        public ConventionTarget Target{ get; set; }
 
-        public ConventionMember Member
-        {
-            get; set;
-        }
+        public ConventionMember Member{ get; set; }
 
-        public ConventionAccessibility Accessibility
-        {
-            get; set;
-        }
+        public ConventionAccessibility Accessibility{ get; set; }
 
-        public string Filter
-        {
-            get; set;
-        }
+        public string Filter{ get; set; }
 
-        public string CustomName
-        {
-            get; set;
-        }
+        public string CustomName{ get; set; }
 
-        public int Priority
-        {
-            get; set;
-        }
+        public int Priority{ get; set; }
 
-        public NameRuleLevel Level
-        {
-            get; set;
-        }
+        public NameRuleLevel Level{ get; set; }
     }
 
     public static class NameConvertor

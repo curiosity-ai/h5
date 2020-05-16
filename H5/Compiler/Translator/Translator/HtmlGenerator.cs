@@ -1,7 +1,9 @@
 using H5.Contract;
 using H5.Contract.Constants;
 using Microsoft.Ajax.Utilities;
+using Microsoft.Extensions.Logging;
 using Mono.Cecil;
+using Mosaik.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,12 +12,9 @@ using System.Text;
 
 namespace H5.Translator
 {
-    class HtmlGenerator
+    internal class HtmlGenerator
     {
-        public ILogger Log
-        {
-            get; set;
-        }
+        private static ILogger Logger = ApplicationLogging.CreateLogger<HtmlGenerator>();
 
         public IAssemblyInfo Config
         {
@@ -34,19 +33,18 @@ namespace H5.Translator
 
         public HtmlGenerator(IAssemblyInfo config, TranslatorOutput outputs, string assemblyTitle)
         {
-            this.Log = logger;
             this.Config = config;
             this.Outputs = outputs;
             this.AssemblyTitle = assemblyTitle;
         }
 
         public void GenerateHtml(string outputPath)
-        {    
-            this.Log.Trace("GenerateHtml...");
+        {
+            Logger.LogTrace("GenerateHtml...");
 
             if (this.Config.Html.Disabled)
             {
-                this.Log.Trace("GenerateHtml skipped as disabled in config.");
+                Logger.LogTrace("GenerateHtml skipped as disabled in config.");
                 return;
             }
 
@@ -67,15 +65,8 @@ namespace H5.Translator
 </html>
 
 ";
-                
-                
-                
-                
-                
-                
-                
-                //ReadEmbeddedResource("H5.Translator.Resources.HtmlTemplate.html");
-            this.Log.Trace("Applying default html template");
+            //ReadEmbeddedResource("H5.Translator.Resources.HtmlTemplate.html");
+            Logger.LogTrace("Applying default html template");
 
             var tokenTitle = "{title}";
             var tokenCss = "{css}";
@@ -105,8 +96,6 @@ namespace H5.Translator
             var firstMinJs = true;
             var firstCss = true;
 
-            ILogger outputLogger = this.Log;
-
             foreach (var output in outputForHtml)
             {
                 if (output.OutputType == TranslatorOutputType.JavaScript && indexScript >= 0)
@@ -121,7 +110,7 @@ namespace H5.Translator
 
                         firstMinJs = false;
 
-                        jsMinBuffer.Append(string.Format(scriptTemplate, output.GetOutputPath(outputPath, true, outputLogger)));
+                        jsMinBuffer.Append(string.Format(scriptTemplate, output.GetOutputPath(outputPath, true)));
                     }
                     else
                     {
@@ -133,7 +122,7 @@ namespace H5.Translator
 
                         firstJs = false;
 
-                        jsBuffer.Append(string.Format(scriptTemplate, output.GetOutputPath(outputPath, true, outputLogger)));
+                        jsBuffer.Append(string.Format(scriptTemplate, output.GetOutputPath(outputPath, true)));
                     }
                 } else if (output.OutputType == TranslatorOutputType.StyleSheets && indexCss >= 0)
                 {
@@ -145,7 +134,7 @@ namespace H5.Translator
 
                     firstCss = false;
 
-                    cssBuffer.Append(string.Format(cssLinkTemplate, output.GetOutputPath(outputPath, true, outputLogger)));
+                    cssBuffer.Append(string.Format(cssLinkTemplate, output.GetOutputPath(outputPath, true)));
                 }
             }
 

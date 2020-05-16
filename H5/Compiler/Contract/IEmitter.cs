@@ -206,15 +206,9 @@ namespace H5.Contract
 
         string CatchBlockVariable { get; set; }
 
-        Dictionary<string, string> NamedFunctions
-        {
-            get; set;
-        }
+        Dictionary<string, string> NamedFunctions{ get; set; }
 
-        Dictionary<IType, Dictionary<string, string>> NamedBoxedFunctions
-        {
-            get; set;
-        }
+        Dictionary<IType, Dictionary<string, string>> NamedBoxedFunctions{ get; set; }
 
         bool StaticBlock { get; set; }
 
@@ -222,32 +216,17 @@ namespace H5.Contract
 
         bool IsRefArg { get; set; }
 
-        Dictionary<AnonymousType, IAnonymousTypeConfig> AnonymousTypes
-        {
-            get; set;
-        }
+        Dictionary<AnonymousType, IAnonymousTypeConfig> AnonymousTypes{ get; set; }
 
         List<string> AutoStartupMethods { get; set; }
 
-        bool IsAnonymousReflectable
-        {
-            get; set;
-        }
+        bool IsAnonymousReflectable{ get; set; }
 
-        string MetaDataOutputName
-        {
-            get; set;
-        }
+        string MetaDataOutputName{ get; set; }
 
-        IType[] ReflectableTypes
-        {
-            get; set;
-        }
+        IType[] ReflectableTypes{ get; set; }
 
-        Dictionary<string, int> NamespacesCache
-        {
-            get; set;
-        }
+        Dictionary<string, int> NamespacesCache{ get; set; }
 
         bool DisableDependencyTracking { get; set; }
 

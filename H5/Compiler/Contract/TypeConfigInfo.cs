@@ -18,20 +18,11 @@ namespace H5.Contract
 
         public bool IsConst { get; set; }
 
-        public IMember InterfaceMember
-        {
-            get; set;
-        }
+        public IMember InterfaceMember{ get; set; }
 
-        public IMember DerivedMember
-        {
-            get; set;
-        }
+        public IMember DerivedMember{ get; set; }
 
-        public bool IsPropertyInitializer
-        {
-            get; set;
-        }
+        public bool IsPropertyInitializer{ get; set; }
 
         public string GetName(IEmitter emitter, bool withoutTypeParams = false)
         {

@@ -6,9 +6,6 @@ namespace H5.Contract
 
         string VariableName { get; set; }
 
-        ModuleType? Type
-        {
-            get; set;
-        }
+        ModuleType? Type{ get; set; }
     }
 }

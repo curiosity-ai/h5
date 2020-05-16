@@ -4,24 +4,12 @@ namespace H5.Contract
 {
     public interface IAnonymousTypeConfig
     {
-        string Code
-        {
-            get; set;
-        }
+        string Code{ get; set; }
 
-        string Name
-        {
-            get; set;
-        }
+        string Name{ get; set; }
 
-        AnonymousType Type
-        {
-            get; set;
-        }
+        AnonymousType Type{ get; set; }
 
-        bool Emitted
-        {
-            get; set;
-        }
+        bool Emitted{ get; set; }
     }
 }

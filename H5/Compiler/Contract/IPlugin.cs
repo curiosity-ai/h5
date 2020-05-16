@@ -4,8 +4,6 @@ namespace H5.Contract
 {
     public interface IPlugin
     {
-        ILogger Logger { get; set; }
-
         IEnumerable<string> GetConstructorInjectors(IConstructorBlock constructorBlock);
 
         void OnInvocation(IInvocationInterceptor interceptor);

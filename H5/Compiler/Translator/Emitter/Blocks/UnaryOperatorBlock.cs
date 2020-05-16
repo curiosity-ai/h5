@@ -77,7 +77,7 @@ namespace H5.Translator
             var unaryOperatorExpression = UnaryOperatorExpression;
             var oldType = Emitter.UnaryOperatorType;
             var oldAccessor = Emitter.IsUnaryAccessor;
-            var resolveOperator = Emitter.Resolver.ResolveNode(unaryOperatorExpression, Emitter);
+            var resolveOperator = Emitter.Resolver.ResolveNode(unaryOperatorExpression);
             var expectedType = Emitter.Resolver.Resolver.GetExpectedType(unaryOperatorExpression);
             bool isDecimalExpected = Helpers.IsDecimalType(expectedType, Emitter.Resolver);
             bool isDecimal = Helpers.IsDecimalType(resolveOperator.Type, Emitter.Resolver);
@@ -134,7 +134,7 @@ namespace H5.Translator
             }
 
             var op = unaryOperatorExpression.Operator;
-            var argResolverResult = Emitter.Resolver.ResolveNode(unaryOperatorExpression.Expression, Emitter);
+            var argResolverResult = Emitter.Resolver.ResolveNode(unaryOperatorExpression.Expression);
             bool nullable = NullableType.IsNullable(argResolverResult.Type);
 
             if (nullable)
@@ -400,7 +400,7 @@ namespace H5.Translator
             var typeCode = isLong ? KnownTypeCode.Int64 : KnownTypeCode.Decimal;
             Emitter.UnaryOperatorType = op;
 
-            var argResolverResult = Emitter.Resolver.ResolveNode(UnaryOperatorExpression.Expression, Emitter);
+            var argResolverResult = Emitter.Resolver.ResolveNode(UnaryOperatorExpression.Expression);
             bool nullable = NullableType.IsNullable(argResolverResult.Type);
             bool isAccessor = false;
 

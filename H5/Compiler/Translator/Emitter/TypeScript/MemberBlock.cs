@@ -55,7 +55,7 @@ namespace H5.Translator.TypeScript
                 {
                     if (ev.Entity.HasModifier(Modifiers.Public) || TypeInfo.Type.Kind == TypeKind.Interface)
                     {
-                        if (Emitter.Resolver.ResolveNode(ev.VarInitializer, Emitter) is MemberResolveResult memberResult)
+                        if (Emitter.Resolver.ResolveNode(ev.VarInitializer) is MemberResolveResult memberResult)
                         {
                             var ignoreInterface = memberResult.Member.DeclaringType.Kind == TypeKind.Interface &&
                                       memberResult.Member.DeclaringType.TypeParameterCount > 0;
@@ -113,7 +113,7 @@ namespace H5.Translator.TypeScript
 
             if (field.VarInitializer != null)
             {
-                var field_rr = Emitter.Resolver.ResolveNode(field.VarInitializer, Emitter);
+                var field_rr = Emitter.Resolver.ResolveNode(field.VarInitializer);
                 if (field_rr is MemberResolveResult mrr && mrr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.OptionalAttribute"))
                 {
                     Write("?");
@@ -129,7 +129,7 @@ namespace H5.Translator.TypeScript
 
             if (!TypeInfo.IsEnum)
             {
-                var resolveResult = Emitter.Resolver.ResolveNode(field.Entity.ReturnType, Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(field.Entity.ReturnType);
                 if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
                 {
                     Write(" | null");
@@ -150,7 +150,7 @@ namespace H5.Translator.TypeScript
             string typeName = H5Types.ToTypeScriptName(ev.Entity.ReturnType, Emitter);
             Write(typeName);
 
-            var resolveResult = Emitter.Resolver.ResolveNode(ev.Entity.ReturnType, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(ev.Entity.ReturnType);
             if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
             {
                 Write(" | null");
@@ -173,7 +173,7 @@ namespace H5.Translator.TypeScript
             string typeName = H5Types.ToTypeScriptName(ev.Entity.ReturnType, Emitter);
             Write(typeName);
 
-            var resolveResult = Emitter.Resolver.ResolveNode(ev.Entity.ReturnType, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(ev.Entity.ReturnType);
             if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
             {
                 Write(" | null");

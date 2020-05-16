@@ -56,7 +56,7 @@ namespace H5.Translator
             var oldReplaceJump = Emitter.ReplaceJump;
             Emitter.ReplaceJump = false;
 
-            var rr = Emitter.Resolver.ResolveNode(Context, Emitter);
+            var rr = Emitter.Resolver.ResolveNode(Context);
 
             if (Context is Expression)
             {
@@ -196,7 +196,7 @@ namespace H5.Translator
 
         protected virtual void EmitLambda(IEnumerable<ParameterDeclaration> parameters, AstNode body, AstNode context)
         {
-            var rr = Emitter.Resolver.ResolveNode(context, Emitter);
+            var rr = Emitter.Resolver.ResolveNode(context);
             var oldLifting = Emitter.ForbidLifting;
             Emitter.ForbidLifting = false;
             var noLiftingRule = Emitter.Rules.Lambda == LambdaRule.Plain;

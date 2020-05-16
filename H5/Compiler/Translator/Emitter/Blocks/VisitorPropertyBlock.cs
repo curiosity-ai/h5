@@ -25,7 +25,7 @@ namespace H5.Translator
             OldRules = Emitter.Rules;
 
 
-            if (Emitter.Resolver.ResolveNode(PropertyDeclaration, Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(PropertyDeclaration) is MemberResolveResult rr)
             {
                 Emitter.Rules = Rules.Get(Emitter, rr.Member);
             }
@@ -39,7 +39,7 @@ namespace H5.Translator
 
         protected override void DoEmit()
         {
-            var memberResult = Emitter.Resolver.ResolveNode(PropertyDeclaration, Emitter) as MemberResolveResult;
+            var memberResult = Emitter.Resolver.ResolveNode(PropertyDeclaration) as MemberResolveResult;
 
             if (memberResult != null &&
                 memberResult.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.ExternalAttribute")
@@ -79,7 +79,7 @@ namespace H5.Translator
                 WriteColon();
                 WriteFunction();
 
-                var m_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(propertyDeclaration, Emitter);
+                var m_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(propertyDeclaration);
                 var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, m_rr.Member, Emitter, setter);
                 if (nm != null)
                 {

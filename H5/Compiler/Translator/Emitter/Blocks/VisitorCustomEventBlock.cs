@@ -23,7 +23,7 @@ namespace H5.Translator
             OldRules = Emitter.Rules;
 
 
-            if (Emitter.Resolver.ResolveNode(CustomEventDeclaration, Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(CustomEventDeclaration) is MemberResolveResult rr)
             {
                 Emitter.Rules = Rules.Get(Emitter, rr.Member);
             }
@@ -48,12 +48,12 @@ namespace H5.Translator
 
                 AddLocals(new ParameterDeclaration[] { new ParameterDeclaration { Name = "value" } }, accessor.Body);
                 XmlToJsDoc.EmitComment(this, CustomEventDeclaration);
-                var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(customEventDeclaration, Emitter);
+                var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(customEventDeclaration);
 
                 Write(Helpers.GetEventRef(customEventDeclaration, Emitter, remover, false, false, OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr)));
                 WriteColon();
                 WriteFunction();
-                var m_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(customEventDeclaration, Emitter);
+                var m_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(customEventDeclaration);
                 var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, m_rr.Member, Emitter, remover);
                 if (nm != null)
                 {

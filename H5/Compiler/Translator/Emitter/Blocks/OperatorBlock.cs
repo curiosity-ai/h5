@@ -25,7 +25,7 @@ namespace H5.Translator
             {
                 foreach (var attr in attrSection.Attributes)
                 {
-                    var rr = Emitter.Resolver.ResolveNode(attr.Type, Emitter);
+                    var rr = Emitter.Resolver.ResolveNode(attr.Type);
                     if (rr.Type.FullName == "H5.ExternalAttribute")
                     {
                         return;

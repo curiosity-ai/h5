@@ -127,7 +127,7 @@ namespace H5.Translator
                     {
                         foreach (var attr in attrSection.Attributes)
                         {
-                            var rr = emitter.Resolver.ResolveNode(attr.Type, emitter);
+                            var rr = emitter.Resolver.ResolveNode(attr.Type);
                             if (rr.Type.FullName == "H5.InitAttribute")
                             {
                                 if (!attr.HasArgumentList)
@@ -137,7 +137,7 @@ namespace H5.Translator
 
                                 var expr = attr.Arguments.First();
 
-                                var argrr = emitter.Resolver.ResolveNode(expr, emitter);
+                                var argrr = emitter.Resolver.ResolveNode(expr);
                                 if (argrr.ConstantValue is int)
                                 {
                                     var value = (InitPosition)argrr.ConstantValue;
@@ -234,7 +234,7 @@ namespace H5.Translator
         public AstType GetBaseClass(IEmitter emitter)
         {
             var types = GetBaseTypes(emitter);
-            var baseClass = types.FirstOrDefault(t => emitter.Resolver.ResolveNode(t, emitter).Type.Kind != TypeKind.Interface);
+            var baseClass = types.FirstOrDefault(t => emitter.Resolver.ResolveNode(t).Type.Kind != TypeKind.Interface);
 
             return baseClass ?? types.First();
         }
@@ -257,8 +257,8 @@ namespace H5.Translator
                 var insertTypes = new List<AstType>();
                 foreach (var baseType in partialTypeDeclaration.BaseTypes)
                 {
-                    var t = emitter.Resolver.ResolveNode(baseType, emitter);
-                    if (baseTypes.All(bt => emitter.Resolver.ResolveNode(bt, emitter).Type.FullName != t.Type.FullName))
+                    var t = emitter.Resolver.ResolveNode(baseType);
+                    if (baseTypes.All(bt => emitter.Resolver.ResolveNode(bt).Type.FullName != t.Type.FullName))
                     {
                         if (t.Type.Kind != TypeKind.Interface)
                         {

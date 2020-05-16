@@ -52,7 +52,7 @@ namespace H5.Translator
 
             ValidateNamespace(typeDeclaration);
 
-            var rr = Resolver.ResolveNode(typeDeclaration, null);
+            var rr = Resolver.ResolveNode(typeDeclaration);
             var fullName = rr.Type.ReflectionName;
             var partialType = Types.FirstOrDefault(t => t.Key == fullName);
             var add = true;
@@ -61,7 +61,7 @@ namespace H5.Translator
 
             if (!external)
             {
-                var resolveResult = Resolver.ResolveNode(typeDeclaration, null);
+                var resolveResult = Resolver.ResolveNode(typeDeclaration);
                 if (resolveResult != null && resolveResult.Type != null)
                 {
                     var def = resolveResult.Type.GetDefinition();
@@ -91,7 +91,7 @@ namespace H5.Translator
                 var parentTypeDeclaration = typeDeclaration.GetParent<TypeDeclaration>();
                 if (parentTypeDeclaration != null)
                 {
-                    var rr1 = Resolver.ResolveNode(parentTypeDeclaration, null);
+                    var rr1 = Resolver.ResolveNode(parentTypeDeclaration);
                     var parentName = rr1.Type.ReflectionName;
                     parentTypeInfo = Types.FirstOrDefault(t => t.Key == parentName);
                 }
@@ -151,7 +151,7 @@ namespace H5.Translator
 
         private void AddMissingAliases(TypeDeclaration typeDeclaration)
         {
-            var type = Resolver.ResolveNode(typeDeclaration, null).Type;
+            var type = Resolver.ResolveNode(typeDeclaration).Type;
             var interfaces = type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface).ToArray();
             var members = type.GetMembers(null, GetMemberOptions.IgnoreInheritedMembers).ToArray();
             var baseTypes = type.GetNonInterfaceBaseTypes().ToArray().Reverse();
@@ -213,7 +213,7 @@ namespace H5.Translator
 
             foreach (var item in fieldDeclaration.Variables)
             {
-                var rr = Resolver.ResolveNode(item, null) as MemberResolveResult;
+                var rr = Resolver.ResolveNode(item) as MemberResolveResult;
                 if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.Attributes.Any(a => a.AttributeType.FullName == H5.Translator.Translator.H5_ASSEMBLY + ".InlineConstAttribute"))
                 {
                     continue;
@@ -368,7 +368,7 @@ namespace H5.Translator
                 dict.Add(key, new List<EntityDeclaration>(new[] { indexerDeclaration }));
             }
 
-            var rr = Resolver.ResolveNode(indexerDeclaration, null) as MemberResolveResult;
+            var rr = Resolver.ResolveNode(indexerDeclaration) as MemberResolveResult;
             if (OverloadsCollection.NeedCreateAlias(rr))
             {
                 var config = rr.Member.IsStatic
@@ -404,7 +404,7 @@ namespace H5.Translator
                 dict.Add(key, new List<MethodDeclaration>(new[] { methodDeclaration }));
             }
 
-            var memberrr = Resolver.ResolveNode(methodDeclaration, null) as MemberResolveResult;
+            var memberrr = Resolver.ResolveNode(methodDeclaration) as MemberResolveResult;
 
             if (OverloadsCollection.NeedCreateAlias(memberrr))
             {
@@ -439,7 +439,7 @@ namespace H5.Translator
                 dict.Add(key, new List<EntityDeclaration>(new[] { customEventDeclaration }));
             }
 
-            var rr = Resolver.ResolveNode(customEventDeclaration, null) as MemberResolveResult;
+            var rr = Resolver.ResolveNode(customEventDeclaration) as MemberResolveResult;
             if (OverloadsCollection.NeedCreateAlias(rr))
             {
                 var config = rr.Member.IsStatic
@@ -473,7 +473,7 @@ namespace H5.Translator
                 dict.Add(key, new List<EntityDeclaration>(new[] { propertyDeclaration }));
             }
 
-            var rr = Resolver.ResolveNode(propertyDeclaration, null) as MemberResolveResult;
+            var rr = Resolver.ResolveNode(propertyDeclaration) as MemberResolveResult;
             if (OverloadsCollection.NeedCreateAlias(rr))
             {
                 var config = rr.Member.IsStatic
@@ -605,7 +605,7 @@ namespace H5.Translator
         public override void VisitEnumMemberDeclaration(EnumMemberDeclaration enumMemberDeclaration)
         {
             Expression initializer = enumMemberDeclaration.Initializer;
-            var member = Resolver.ResolveNode(enumMemberDeclaration, null) as MemberResolveResult;
+            var member = Resolver.ResolveNode(enumMemberDeclaration) as MemberResolveResult;
             var initializerIsString = false;
             if (member != null)
             {
@@ -685,7 +685,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    if (Resolver.ResolveNode(enumMemberDeclaration.Initializer, null) is ConstantResolveResult rr)
+                    if (Resolver.ResolveNode(enumMemberDeclaration.Initializer) is ConstantResolveResult rr)
                     {
                         if (member != null && member.Member.DeclaringTypeDefinition.EnumUnderlyingType.IsKnownType(KnownTypeCode.Int64))
                         {
@@ -740,7 +740,7 @@ namespace H5.Translator
                     });
                 }
 
-                var rr = Resolver.ResolveNode(item, null) as MemberResolveResult;
+                var rr = Resolver.ResolveNode(item) as MemberResolveResult;
                 if (OverloadsCollection.NeedCreateAlias(rr))
                 {
                     var config = rr.Member.IsStatic
@@ -761,7 +761,7 @@ namespace H5.Translator
             foreach (var attr in attributeSection.Attributes)
             {
                 var name = attr.Type.ToString();
-                var resolveResult = Resolver.ResolveNode(attr, null);
+                var resolveResult = Resolver.ResolveNode(attr);
 
                 ReadModuleInfo(attr, name, resolveResult);
                 ReadFileNameInfo(attr, name, resolveResult);
@@ -1081,7 +1081,7 @@ namespace H5.Translator
 
                 if (arg is PrimitiveExpression primitive)
                 {
-                    return Resolver.ResolveNode(primitive, null).Type;
+                    return Resolver.ResolveNode(primitive).Type;
                 }
             }
             return null;

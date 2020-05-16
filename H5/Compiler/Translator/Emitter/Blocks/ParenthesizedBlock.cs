@@ -54,12 +54,12 @@ namespace H5.Translator
 
             if (expression is CastExpression castExpr)
             {
-                if (Emitter.Resolver.ResolveNode(castExpr.Expression, Emitter) is OperatorResolveResult orr)
+                if (Emitter.Resolver.ResolveNode(castExpr.Expression) is OperatorResolveResult orr)
                 {
                     return false;
                 }
 
-                var rr = Emitter.Resolver.ResolveNode(expression, Emitter);
+                var rr = Emitter.Resolver.ResolveNode(expression);
                 if (rr is ConstantResolveResult)
                 {
                     return false;

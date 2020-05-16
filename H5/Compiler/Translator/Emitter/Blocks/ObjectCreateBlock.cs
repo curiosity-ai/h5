@@ -36,7 +36,7 @@ namespace H5.Translator
         {
             ObjectCreateExpression objectCreateExpression = ObjectCreateExpression;
 
-            var resolveResult = Emitter.Resolver.ResolveNode(objectCreateExpression.Type, Emitter) as TypeResolveResult;
+            var resolveResult = Emitter.Resolver.ResolveNode(objectCreateExpression.Type) as TypeResolveResult;
 
             if (resolveResult != null && resolveResult.Type.Kind == TypeKind.Enum)
             {
@@ -45,7 +45,7 @@ namespace H5.Translator
             }
 
             bool isTypeParam = resolveResult != null && resolveResult.Type.Kind == TypeKind.TypeParameter;
-            var invocationResolveResult = Emitter.Resolver.ResolveNode(objectCreateExpression, Emitter) as InvocationResolveResult;
+            var invocationResolveResult = Emitter.Resolver.ResolveNode(objectCreateExpression) as InvocationResolveResult;
             var hasInitializer = !objectCreateExpression.Initializer.IsNull && objectCreateExpression.Initializer.Elements.Count > 0;
 
             if (isTypeParam && invocationResolveResult != null && invocationResolveResult.Member.Parameters.Count == 0 && !hasInitializer)
@@ -154,13 +154,13 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var ctorMember = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(objectCreateExpression, Emitter)).Member;
+                    var ctorMember = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(objectCreateExpression)).Member;
                     var expandParams = ctorMember.Attributes.Any(a => a.AttributeType.FullName == "H5.ExpandParamsAttribute");
                     bool applyCtor = false;
 
                     if (expandParams)
                     {
-                        var ctor_rr = Emitter.Resolver.ResolveNode(paramsArg, Emitter);
+                        var ctor_rr = Emitter.Resolver.ResolveNode(paramsArg);
 
                         if (ctor_rr.Type.Kind == TypeKind.Array && !(paramsArg is ArrayCreateExpression) && objectCreateExpression.Arguments.Last() == paramsArg)
                         {
@@ -176,7 +176,7 @@ namespace H5.Translator
                             WriteNew();
                         }
 
-                        var typerr = Emitter.Resolver.ResolveNode(objectCreateExpression.Type, Emitter).Type;
+                        var typerr = Emitter.Resolver.ResolveNode(objectCreateExpression.Type).Type;
                         var td = typerr.GetDefinition();
                         var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, Emitter) || td != null && Validator.IsVirtualTypeStatic(td);
 
@@ -199,7 +199,7 @@ namespace H5.Translator
 
                     if (!isTypeParam && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType || isObjectLiteral ? 0 : 1))
                     {
-                        var member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(objectCreateExpression, Emitter)).Member;
+                        var member = ((InvocationResolveResult)Emitter.Resolver.ResolveNode(objectCreateExpression)).Member;
                         if (!Emitter.Validator.IsExternalType(type) || member.Attributes.Any(a => a.AttributeType.FullName == "H5.NameAttribute"))
                         {
                             WriteDot();
@@ -247,7 +247,7 @@ namespace H5.Translator
 
         private void WriteInitializerExpression(Expression item, string tempVar)
         {
-            var rr = Emitter.Resolver.ResolveNode(item, Emitter) as MemberResolveResult;
+            var rr = Emitter.Resolver.ResolveNode(item) as MemberResolveResult;
 
             var inlineCode = ObjectCreateBlock.GetInlineInit(item, this, tempVar);
 
@@ -316,7 +316,7 @@ namespace H5.Translator
                 expr = namedArgumentExpression.Expression;
             }
 
-            var rr = block.Emitter.Resolver.ResolveNode(item, block.Emitter);
+            var rr = block.Emitter.Resolver.ResolveNode(item);
             string inlineCode = null;
             if (expr != null && rr is MemberResolveResult)
             {
@@ -459,7 +459,7 @@ namespace H5.Translator
                     NamedArgumentExpression namedArgumentExpression = item as NamedArgumentExpression;
                     string name = namedExression != null ? namedExression.Name : namedArgumentExpression.Name;
 
-                    if (Emitter.Resolver.ResolveNode(item, Emitter) is MemberResolveResult itemrr)
+                    if (Emitter.Resolver.ResolveNode(item) is MemberResolveResult itemrr)
                     {
                         var oc = OverloadsCollection.Create(Emitter, itemrr.Member);
                         bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.Attributes.Any(attr => attr.AttributeType.FullName == "H5.NameAttribute") && !Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
@@ -593,7 +593,7 @@ namespace H5.Translator
 
                             if (mode == 2 && (member.Initializer == null || member.Initializer.IsNull) && !(member.VarInitializer == null || member.VarInitializer.Initializer.IsNull))
                             {
-                                var argType = Emitter.Resolver.ResolveNode(member.VarInitializer, Emitter).Type;
+                                var argType = Emitter.Resolver.ResolveNode(member.VarInitializer).Type;
                                 var defValue = Inspector.GetDefaultFieldValue(argType, null);
                                 if (defValue == argType)
                                 {

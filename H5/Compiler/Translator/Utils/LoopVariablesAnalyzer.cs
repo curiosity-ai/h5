@@ -41,7 +41,7 @@ namespace H5.Translator
                 if (foreachStatement.VariableNameToken != null && !foreachStatement.VariableNameToken.IsNull)
                 {
                     VariableNames.Add(foreachStatement.VariableName);
-                    var rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement, Emitter);
+                    var rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement);
                     Variables.Add(rr.ElementVariable);
                 }
             }
@@ -54,7 +54,7 @@ namespace H5.Translator
             if (foreachStatement.VariableNameToken != null && !foreachStatement.VariableNameToken.IsNull)
             {
                 VariableNames.Add(foreachStatement.VariableName);
-                var rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement, Emitter);
+                var rr = (ForEachResolveResult)Emitter.Resolver.ResolveNode(foreachStatement);
                 Variables.Add(rr.ElementVariable);
             }
 
@@ -66,7 +66,7 @@ namespace H5.Translator
             foreach (var variable in variableDeclarationStatement.Variables)
             {
                 VariableNames.Add(variable.Name);
-                var lrr = (LocalResolveResult)Emitter.Resolver.ResolveNode(variable, Emitter);
+                var lrr = (LocalResolveResult)Emitter.Resolver.ResolveNode(variable);
                 Variables.Add(lrr.Variable);
             }
             base.VisitVariableDeclarationStatement(variableDeclarationStatement);
@@ -77,7 +77,7 @@ namespace H5.Translator
             if (!ExcludeReadOnly && catchClause.VariableNameToken != null && !catchClause.VariableNameToken.IsNull)
             {
                 VariableNames.Add(catchClause.VariableName);
-                var lrr = (LocalResolveResult)Emitter.Resolver.ResolveNode(catchClause.VariableNameToken, Emitter);
+                var lrr = (LocalResolveResult)Emitter.Resolver.ResolveNode(catchClause.VariableNameToken);
                 Variables.Add(lrr.Variable);
             }
 

@@ -65,7 +65,7 @@ namespace H5.Translator
             {
                 if (expression.Parent != null)
                 {
-                    var rr = emitter.Resolver.ResolveNode(expression, emitter);
+                    var rr = emitter.Resolver.ResolveNode(expression);
                     var conversion = emitter.Resolver.Resolver.GetConversion(expression);
                     var expectedType = emitter.Resolver.Resolver.GetExpectedType(expression);
 
@@ -99,7 +99,7 @@ namespace H5.Translator
                         return j;
                     }
 
-                    var resolveResult = Resolver.ResolveNode(j, this);
+                    var resolveResult = Resolver.ResolveNode(j);
                     if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == fullName)
                     {
                         return j;
@@ -165,7 +165,7 @@ namespace H5.Translator
         {
             if (member == null)
             {
-                var resolveResult = Resolver.ResolveNode(node, this);
+                var resolveResult = Resolver.ResolveNode(node);
 
                 if (!(resolveResult is MemberResolveResult memberResolveResult))
                 {
@@ -222,7 +222,7 @@ namespace H5.Translator
 
         private IMember LiftNullableMember(MemberReferenceExpression target)
         {
-            var targetrr = Resolver.ResolveNode(target.Target, this);
+            var targetrr = Resolver.ResolveNode(target.Target);
             IMember member = null;
             if (targetrr.Type.IsKnownType(KnownTypeCode.NullableOfT))
             {
@@ -237,7 +237,7 @@ namespace H5.Translator
                 {
                     if (target.Parent is InvocationExpression)
                     {
-                        if (Resolver.ResolveNode(target.Parent, this) is InvocationResolveResult rr)
+                        if (Resolver.ResolveNode(target.Parent) is InvocationResolveResult rr)
                         {
                             typeArg = rr.Arguments.First().Type;
                         }
@@ -272,7 +272,7 @@ namespace H5.Translator
 
         public virtual bool IsForbiddenInvocation(InvocationExpression node)
         {
-            var resolveResult = Resolver.ResolveNode(node, this);
+            var resolveResult = Resolver.ResolveNode(node);
 
             if (!(resolveResult is MemberResolveResult memberResolveResult))
             {
@@ -396,7 +396,7 @@ namespace H5.Translator
 
         public virtual string GetEntityName(EntityDeclaration entity)
         {
-            if (Resolver.ResolveNode(entity, this) is MemberResolveResult rr)
+            if (Resolver.ResolveNode(entity) is MemberResolveResult rr)
             {
                 return GetEntityName(rr.Member);
             }
@@ -410,7 +410,7 @@ namespace H5.Translator
 
             if (entity.Parent != null && entity.GetParent<SyntaxTree>() != null)
             {
-                if (Resolver.ResolveNode(entity, this) is LocalResolveResult rr)
+                if (Resolver.ResolveNode(entity) is LocalResolveResult rr)
                 {
                     if (rr.Variable is IParameter iparam && iparam.Attributes != null)
                     {
@@ -475,7 +475,7 @@ namespace H5.Translator
 
         public virtual string GetInline(EntityDeclaration method)
         {
-            if (Resolver.ResolveNode(method, this) is MemberResolveResult mrr)
+            if (Resolver.ResolveNode(method) is MemberResolveResult mrr)
             {
                 return GetInline(mrr.Member);
             }
@@ -578,7 +578,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    if (Resolver.ResolveNode(arg, this) is ConstantResolveResult rr && rr.ConstantValue != null)
+                    if (Resolver.ResolveNode(arg) is ConstantResolveResult rr && rr.ConstantValue != null)
                     {
                         value = rr.ConstantValue.ToString();
                     }

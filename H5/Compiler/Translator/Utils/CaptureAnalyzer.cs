@@ -117,7 +117,7 @@ namespace H5.Translator
                 {
                     foreach (var attr in attrSection.Attributes)
                     {
-                        var rr = emitter.Resolver.ResolveNode(attr.Type, emitter);
+                        var rr = emitter.Resolver.ResolveNode(attr.Type);
                         if (rr.Type.FullName == "H5.InitAttribute")
                         {
                             _usedVariables.Add(null);
@@ -170,7 +170,7 @@ namespace H5.Translator
 
         public void CheckType(AstType type)
         {
-            var rr = emitter.Resolver.ResolveNode(type, emitter);
+            var rr = emitter.Resolver.ResolveNode(type);
 
             if (Helpers.HasTypeParameters(rr.Type))
             {
@@ -188,7 +188,7 @@ namespace H5.Translator
 
             if (_usedVariables.Count == 0)
             {
-                var rr = emitter.Resolver.ResolveNode(indexerExpression, emitter);
+                var rr = emitter.Resolver.ResolveNode(indexerExpression);
                 var member = rr as MemberResolveResult;
 
                 bool isInterface = member != null && member.Member.DeclaringTypeDefinition != null && member.Member.DeclaringTypeDefinition.Kind == TypeKind.Interface;
@@ -222,7 +222,7 @@ namespace H5.Translator
         {
             if (_usedVariables.Count == 0)
             {
-                var rr = emitter.Resolver.ResolveNode(expression, emitter);
+                var rr = emitter.Resolver.ResolveNode(expression);
                 var conversion = emitter.Resolver.Resolver.GetConversion(expression);
                 if (conversion != null && conversion.Method != null)
                 {
@@ -237,7 +237,7 @@ namespace H5.Translator
 
             if (_usedVariables.Count == 0)
             {
-                var rr = emitter.Resolver.ResolveNode(memberReferenceExpression, emitter);
+                var rr = emitter.Resolver.ResolveNode(memberReferenceExpression);
 
                 var member = rr as MemberResolveResult;
 
@@ -263,7 +263,7 @@ namespace H5.Translator
 
         public override void VisitIdentifierExpression(IdentifierExpression identifierExpression)
         {
-            var rr = emitter.Resolver.ResolveNode(identifierExpression, emitter);
+            var rr = emitter.Resolver.ResolveNode(identifierExpression);
             CheckExpression(identifierExpression);
 
             if (_usedVariables.Count == 0)
@@ -386,7 +386,7 @@ namespace H5.Translator
         {
             CheckExpression(binaryOperatorExpression);
 
-            if (emitter.Resolver.ResolveNode(binaryOperatorExpression, emitter) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
+            if (emitter.Resolver.ResolveNode(binaryOperatorExpression) is OperatorResolveResult rr && rr.UserDefinedOperatorMethod != null)
             {
                 foreach (var typeArgument in rr.UserDefinedOperatorMethod.DeclaringType.TypeArguments)
                 {
@@ -450,7 +450,7 @@ namespace H5.Translator
             CheckExpression(invocationExpression);
 
 
-            if (emitter.Resolver.ResolveNode(invocationExpression, emitter) is InvocationResolveResult rr)
+            if (emitter.Resolver.ResolveNode(invocationExpression) is InvocationResolveResult rr)
             {
                 foreach (var argument in rr.Arguments)
                 {

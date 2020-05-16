@@ -66,7 +66,7 @@ namespace H5.Translator
             }
             else if (expression is IdentifierExpression)
             {
-                var resolveResult = Emitter.Resolver.ResolveNode(expression, Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(expression);
                 var id = ((IdentifierExpression)expression).Identifier;
 
                 if (Emitter.Locals != null && Emitter.Locals.ContainsKey(id) && resolveResult is LocalResolveResult)

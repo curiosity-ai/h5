@@ -57,7 +57,7 @@ namespace H5.Translator
         {
             if (Emitter != null && binaryOperatorExpression.GetParent<SyntaxTree>() != null)
             {
-                if (Emitter.Resolver.ResolveNode(binaryOperatorExpression, Emitter) is OperatorResolveResult rr && rr.Type.IsKnownType(KnownTypeCode.Boolean))
+                if (Emitter.Resolver.ResolveNode(binaryOperatorExpression) is OperatorResolveResult rr && rr.Type.IsKnownType(KnownTypeCode.Boolean))
                 {
                     var count = AwaitExpressions.Count;
                     var idx = InsertPosition;

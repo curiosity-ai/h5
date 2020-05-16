@@ -27,7 +27,7 @@ namespace H5.Translator
             OldRules = Emitter.Rules;
 
 
-            if (Emitter.Resolver.ResolveNode(MethodDeclaration, Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(MethodDeclaration) is MemberResolveResult rr)
             {
                 Emitter.Rules = Rules.Get(Emitter, rr.Member);
             }
@@ -50,7 +50,7 @@ namespace H5.Translator
             {
                 foreach (var attr in attrSection.Attributes)
                 {
-                    var rr = Emitter.Resolver.ResolveNode(attr.Type, Emitter);
+                    var rr = Emitter.Resolver.ResolveNode(attr.Type);
                     if (rr.Type.FullName == "H5.ExternalAttribute")
                     {
                         return;
@@ -64,7 +64,7 @@ namespace H5.Translator
                             if (attr.Arguments.Any())
                             {
                                 var argExpr = attr.Arguments.First();
-                                var argrr = Emitter.Resolver.ResolveNode(argExpr, Emitter);
+                                var argrr = Emitter.Resolver.ResolveNode(argExpr);
                                 if (argrr.ConstantValue is int)
                                 {
                                     initPosition = (InitPosition)argrr.ConstantValue;
@@ -91,7 +91,7 @@ namespace H5.Translator
             var overloads = OverloadsCollection.Create(Emitter, methodDeclaration);
             XmlToJsDoc.EmitComment(this, MethodDeclaration);
             var isEntryPoint = Helpers.IsEntryPointMethod(Emitter, MethodDeclaration);
-            var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(MethodDeclaration, Emitter);
+            var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(MethodDeclaration);
 
             string name = overloads.GetOverloadName(false, null, excludeTypeOnly: OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr));
 

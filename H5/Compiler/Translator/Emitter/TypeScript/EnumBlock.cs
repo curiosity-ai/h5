@@ -72,7 +72,7 @@ namespace H5.Translator.TypeScript
 
         public static string GetEnumItemName(IEmitter emitter, TypeConfigItem field)
         {
-            var memeber_rr = (MemberResolveResult)emitter.Resolver.ResolveNode(field.Entity, emitter);
+            var memeber_rr = (MemberResolveResult)emitter.Resolver.ResolveNode(field.Entity);
             var mname = emitter.GetEntityName(memeber_rr.Member);
             return mname;
         }

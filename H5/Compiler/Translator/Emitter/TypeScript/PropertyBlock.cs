@@ -24,7 +24,7 @@ namespace H5.Translator.TypeScript
 
         protected virtual void EmitPropertyMethod(PropertyDeclaration propertyDeclaration)
         {
-            var memberResult = Emitter.Resolver.ResolveNode(propertyDeclaration, Emitter) as MemberResolveResult;
+            var memberResult = Emitter.Resolver.ResolveNode(propertyDeclaration) as MemberResolveResult;
             var isInterface = memberResult != null && memberResult.Member.DeclaringType.Kind == TypeKind.Interface;
 
             if (!isInterface && !propertyDeclaration.HasModifier(Modifiers.Public))
@@ -58,7 +58,7 @@ namespace H5.Translator.TypeScript
             string name = Helpers.GetPropertyRef(memberResult.Member, Emitter, false, false, ignoreInterface);
             Write(name);
 
-            var property_rr = Emitter.Resolver.ResolveNode(p, Emitter);
+            var property_rr = Emitter.Resolver.ResolveNode(p);
             if (property_rr is MemberResolveResult mrr && mrr.Member.Attributes.Any(a => a.AttributeType.FullName == "H5.OptionalAttribute"))
             {
                 Write("?");
@@ -68,7 +68,7 @@ namespace H5.Translator.TypeScript
             name = H5Types.ToTypeScriptName(p.ReturnType, Emitter);
             Write(name);
 
-            var resolveResult = Emitter.Resolver.ResolveNode(p.ReturnType, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(p.ReturnType);
             if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
             {
                 Write(" | null");

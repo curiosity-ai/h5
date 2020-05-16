@@ -97,7 +97,7 @@ namespace H5.Translator
 
         public void CheckDependency(AstNode node)
         {
-            var rr = Emitter.Resolver.ResolveNode(node, Emitter);
+            var rr = Emitter.Resolver.ResolveNode(node);
 
             if (!rr.IsError)
             {

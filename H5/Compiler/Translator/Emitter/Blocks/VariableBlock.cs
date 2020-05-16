@@ -53,7 +53,7 @@ namespace H5.Translator
 
                 bool isReferenceLocal = false;
 
-                if (Emitter.LocalsMap != null && Emitter.Resolver.ResolveNode(variable, Emitter) is LocalResolveResult lrr && Emitter.LocalsMap.ContainsKey(lrr.Variable))
+                if (Emitter.LocalsMap != null && Emitter.Resolver.ResolveNode(variable) is LocalResolveResult lrr && Emitter.LocalsMap.ContainsKey(lrr.Variable))
                 {
                     isReferenceLocal = Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
                 }
@@ -111,7 +111,7 @@ namespace H5.Translator
                     }
                     else
                     {
-                        var typerr = Emitter.Resolver.ResolveNode(VariableDeclarationStatement.Type, Emitter).Type;
+                        var typerr = Emitter.Resolver.ResolveNode(VariableDeclarationStatement.Type).Type;
                         var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, Emitter);
                         Write(string.Concat("new ", isGeneric ? "(" : "", H5Types.ToJsName(VariableDeclarationStatement.Type, Emitter), isGeneric ? ")" : "", "()"));
                     }

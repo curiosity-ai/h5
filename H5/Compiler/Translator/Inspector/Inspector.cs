@@ -33,7 +33,7 @@ namespace H5.Translator
                         return true;
                     }
 
-                    var resolveResult = Resolver.ResolveNode(j, null);
+                    var resolveResult = Resolver.ResolveNode(j);
                     if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (name + "Attribute"))
                     {
                         return true;
@@ -89,7 +89,7 @@ namespace H5.Translator
                 return false;
             }
 
-            var resolveResult = Resolver.ResolveNode(typeDeclaration, null);
+            var resolveResult = Resolver.ResolveNode(typeDeclaration);
             var typeDef = resolveResult?.Type?.GetDefinition();
             return typeDef != null && Validator.IsVirtualTypeStatic(typeDef);
         }
@@ -139,7 +139,7 @@ namespace H5.Translator
                 }
             }
 
-            var resolveResult = resolver.ResolveNode(type, null);
+            var resolveResult = resolver.ResolveNode(type);
 
             var o = GetDefaultFieldValue(resolveResult.Type, type, false);
 
@@ -233,7 +233,7 @@ namespace H5.Translator
 
         public static string GetStructDefaultValue(AstType type, IEmitter emitter)
         {
-            var rr = emitter.Resolver.ResolveNode(type, emitter);
+            var rr = emitter.Resolver.ResolveNode(type);
             return GetStructDefaultValue(rr.Type, emitter);
         }
 

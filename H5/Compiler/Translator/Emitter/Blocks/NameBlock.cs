@@ -39,7 +39,7 @@ namespace H5.Translator
 
         protected virtual void EmitNameExpression(string name, Expression namedExpression, Expression expression)
         {
-            var resolveResult = Emitter.Resolver.ResolveNode(namedExpression, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(namedExpression);
 
             if (resolveResult is MemberResolveResult)
             {

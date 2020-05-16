@@ -27,7 +27,7 @@ namespace H5.Translator.TypeScript
             if (!accessor.IsNull && Emitter.GetInline(accessor) == null)
             {
                 XmlToJsDoc.EmitComment(this, customEventDeclaration);
-                var memberResult = Emitter.Resolver.ResolveNode(customEventDeclaration, Emitter) as MemberResolveResult;
+                var memberResult = Emitter.Resolver.ResolveNode(customEventDeclaration) as MemberResolveResult;
                 var ignoreInterface = memberResult.Member.DeclaringType.Kind == TypeKind.Interface &&
                                           memberResult.Member.DeclaringType.TypeParameterCount > 0;
                 Write(Helpers.GetEventRef(customEventDeclaration, Emitter, remover, false, ignoreInterface));

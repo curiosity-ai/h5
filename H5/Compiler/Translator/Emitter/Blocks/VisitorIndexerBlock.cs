@@ -24,7 +24,7 @@ namespace H5.Translator
             OldRules = Emitter.Rules;
 
 
-            if (Emitter.Resolver.ResolveNode(IndexerDeclaration, Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(IndexerDeclaration) is MemberResolveResult rr)
             {
                 Emitter.Rules = Rules.Get(Emitter, rr.Member);
             }
@@ -39,7 +39,7 @@ namespace H5.Translator
         protected override void DoEmit()
         {
             IProperty prop = null;
-            if (Emitter.Resolver.ResolveNode(IndexerDeclaration, Emitter) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(IndexerDeclaration) is MemberResolveResult rr)
             {
                 prop = rr.Member as IProperty;
 
@@ -85,7 +85,7 @@ namespace H5.Translator
 
                     if (string.IsNullOrEmpty(accName))
                     {
-                        var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(indexerDeclaration, Emitter);
+                        var member_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(indexerDeclaration);
 
                         var overloads = OverloadsCollection.Create(Emitter, indexerDeclaration, setter);
                         accName = overloads.GetOverloadName(false, Helpers.GetSetOrGet(setter), OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr));

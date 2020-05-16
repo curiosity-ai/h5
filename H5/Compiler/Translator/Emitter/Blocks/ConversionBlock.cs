@@ -714,7 +714,7 @@ namespace H5.Translator
                     /*else if (expression is UnaryOperatorExpression)
                     {
                         var unaryExpression = (UnaryOperatorExpression)expression;
-                        var resolveOperator = block.Emitter.Resolver.ResolveNode(unaryExpression, block.Emitter);
+                        var resolveOperator = block.Emitter.Resolver.ResolveNode(unaryExpression);
                         OperatorResolveResult orr = resolveOperator as OperatorResolveResult;
                         if (orr != null)
                         {

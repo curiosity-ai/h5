@@ -140,7 +140,7 @@ namespace H5.Translator
             bool writeElse = false;
             var thisStep = Emitter.AsyncBlock.Steps.Last();
 
-            var rr = Emitter.Resolver.ResolveNode(switchStatement.Expression, Emitter);
+            var rr = Emitter.Resolver.ResolveNode(switchStatement.Expression);
             bool is64Bit = Helpers.Is64Type(rr.Type, Emitter.Resolver);
 
             foreach (var switchSection in list)
@@ -304,7 +304,7 @@ namespace H5.Translator
 
             WriteSwitch();
             WriteOpenParentheses();
-            var rr = Emitter.Resolver.ResolveNode(switchStatement.Expression, Emitter);
+            var rr = Emitter.Resolver.ResolveNode(switchStatement.Expression);
             bool is64Bit = false;
             bool wrap = true;
 
@@ -379,8 +379,8 @@ namespace H5.Translator
             {
                 Write("case ");
 
-                var rr = Emitter.Resolver.ResolveNode(caseLabel.Expression.GetParent<SwitchStatement>().Expression, Emitter);
-                var caserr = Emitter.Resolver.ResolveNode(caseLabel.Expression, Emitter);
+                var rr = Emitter.Resolver.ResolveNode(caseLabel.Expression.GetParent<SwitchStatement>().Expression);
+                var caserr = Emitter.Resolver.ResolveNode(caseLabel.Expression);
 
                 if (Helpers.Is64Type(rr.Type, Emitter.Resolver))
                 {

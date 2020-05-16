@@ -27,7 +27,7 @@ namespace H5.Translator.TypeScript
         {
             XmlToJsDoc.EmitComment(this, MethodDeclaration);
             var overloads = OverloadsCollection.Create(Emitter, methodDeclaration);
-            var memberResult = Emitter.Resolver.ResolveNode(methodDeclaration, Emitter) as MemberResolveResult;
+            var memberResult = Emitter.Resolver.ResolveNode(methodDeclaration) as MemberResolveResult;
             var isInterface = memberResult.Member.DeclaringType.Kind == TypeKind.Interface;
             var ignoreInterface = isInterface &&
                                       memberResult.Member.DeclaringType.TypeParameterCount > 0;
@@ -104,7 +104,7 @@ namespace H5.Translator.TypeScript
             var retType = H5Types.ToTypeScriptName(methodDeclaration.ReturnType, Emitter);
             Write(retType);
 
-            var resolveResult = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType, Emitter);
+            var resolveResult = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType);
             if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
             {
                 Write(" | null");
@@ -139,7 +139,7 @@ namespace H5.Translator.TypeScript
                 WriteColon();
                 name = H5Types.ToTypeScriptName(p.Type, Emitter);
 
-                var resolveResult = Emitter.Resolver.ResolveNode(p.Type, Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(p.Type);
                 if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
                 {
                     name += " | null";

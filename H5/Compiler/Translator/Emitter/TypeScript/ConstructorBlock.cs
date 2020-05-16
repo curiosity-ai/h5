@@ -126,7 +126,7 @@ namespace H5.Translator.TypeScript
                 name = H5Types.ToTypeScriptName(p.Type, Emitter);
                 Write(name);
 
-                var resolveResult = Emitter.Resolver.ResolveNode(p.Type, Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(p.Type);
                 if (resolveResult != null && (resolveResult.Type.IsReferenceType.HasValue && resolveResult.Type.IsReferenceType.Value || resolveResult.Type.IsKnownType(KnownTypeCode.NullableOfT)))
                 {
                     Write(" | null");

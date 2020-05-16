@@ -217,7 +217,7 @@ namespace H5.Translator
 
             if (targetMember != null || isObjectLiteral)
             {
-                var member = targetMember != null ? Emitter.Resolver.ResolveNode(targetMember.Target, Emitter) : null;
+                var member = targetMember != null ? Emitter.Resolver.ResolveNode(targetMember.Target) : null;
 
                 if (targetResolve != null)
                 {
@@ -275,7 +275,7 @@ namespace H5.Translator
 
                     if (invocationResult == null)
                     {
-                        invocationResult = Emitter.Resolver.ResolveNode(invocationExpression, Emitter) as InvocationResolveResult;
+                        invocationResult = Emitter.Resolver.ResolveNode(invocationExpression) as InvocationResolveResult;
                     }
 
                     if (invocationResult != null)
@@ -403,7 +403,7 @@ namespace H5.Translator
             var proto = false;
             if (targetMember != null && targetMember.Target is BaseReferenceExpression)
             {
-                if (Emitter.Resolver.ResolveNode(targetMember, Emitter) is MemberResolveResult rr)
+                if (Emitter.Resolver.ResolveNode(targetMember) is MemberResolveResult rr)
                 {
                     proto = rr.IsVirtualCall;
 
@@ -432,7 +432,7 @@ namespace H5.Translator
 
                 bool needComma = false;
 
-                var resolveResult = Emitter.Resolver.ResolveNode(targetMember, Emitter);
+                var resolveResult = Emitter.Resolver.ResolveNode(targetMember);
 
                 string name = null;
 
@@ -495,7 +495,7 @@ namespace H5.Translator
             {
                 IMethod method = null;
 
-                if (Emitter.Resolver.ResolveNode(invocationExpression, Emitter) is DynamicInvocationResolveResult dynamicResolveResult)
+                if (Emitter.Resolver.ResolveNode(invocationExpression) is DynamicInvocationResolveResult dynamicResolveResult)
                 {
                     if (dynamicResolveResult.Target is MethodGroupResolveResult group && group.Methods.Count() > 1)
                     {
@@ -532,7 +532,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    var targetResolveResult = Emitter.Resolver.ResolveNode(invocationExpression.Target, Emitter);
+                    var targetResolveResult = Emitter.Resolver.ResolveNode(invocationExpression.Target);
 
                     if (targetResolveResult is MemberResolveResult invocationResolveResult)
                     {
@@ -695,7 +695,7 @@ namespace H5.Translator
 
             if (targetResolve is InvocationResolveResult irr && irr.Member.MemberDefinition != null && irr.Member.MemberDefinition.ReturnType.Kind == TypeKind.TypeParameter)
             {
-                Helpers.CheckValueTypeClone(Emitter.Resolver.ResolveNode(invocationExpression, Emitter), invocationExpression, this, pos);
+                Helpers.CheckValueTypeClone(Emitter.Resolver.ResolveNode(invocationExpression), invocationExpression, this, pos);
             }
 
             Emitter.ReplaceAwaiterByVar = oldValue;

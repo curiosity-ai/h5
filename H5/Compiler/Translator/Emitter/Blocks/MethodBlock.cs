@@ -279,11 +279,11 @@ namespace H5.Translator
                     Write("this.");
                     Write(fieldName);
 
-                    var rr = Emitter.Resolver.ResolveNode(field.Entity, Emitter) as MemberResolveResult;
+                    var rr = Emitter.Resolver.ResolveNode(field.Entity) as MemberResolveResult;
 
                     if (rr == null && field.VarInitializer != null)
                     {
-                        rr = Emitter.Resolver.ResolveNode(field.VarInitializer, Emitter) as MemberResolveResult;
+                        rr = Emitter.Resolver.ResolveNode(field.VarInitializer) as MemberResolveResult;
                     }
 
                     if (rr != null)

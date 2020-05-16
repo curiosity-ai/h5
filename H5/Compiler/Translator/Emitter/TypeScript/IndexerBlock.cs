@@ -27,7 +27,7 @@ namespace H5.Translator.TypeScript
         {
             if (!accessor.IsNull && Emitter.GetInline(accessor) == null)
             {
-                var memberResult = Emitter.Resolver.ResolveNode(IndexerDeclaration, Emitter) as MemberResolveResult;
+                var memberResult = Emitter.Resolver.ResolveNode(IndexerDeclaration) as MemberResolveResult;
                 var isInterface = memberResult.Member.DeclaringType.Kind == TypeKind.Interface;
                 var ignoreInterface = isInterface &&
                                       memberResult.Member.DeclaringType.TypeParameterCount > 0;

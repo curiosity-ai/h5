@@ -188,7 +188,7 @@ namespace H5.Translator
             bool isStatement = false;
             bool isConstTarget = false;
 
-            var targetrr = Emitter.Resolver.ResolveNode(memberReferenceExpression.Target, Emitter);
+            var targetrr = Emitter.Resolver.ResolveNode(memberReferenceExpression.Target);
             if (targetrr is ConstantResolveResult)
             {
                 isConstTarget = true;
@@ -211,8 +211,8 @@ namespace H5.Translator
             var isInvoke = memberReferenceExpression.Parent is InvocationExpression && (((InvocationExpression)(memberReferenceExpression.Parent)).Target == memberReferenceExpression);
             if (isInvoke)
             {
-                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, Emitter);
-                expressionResolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression, Emitter);
+                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent);
+                expressionResolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression);
 
                 if (expressionResolveResult is InvocationResolveResult)
                 {
@@ -228,7 +228,7 @@ namespace H5.Translator
             }
             else
             {
-                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression, Emitter);
+                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression);
             }
 
             bool oldIsAssignment = Emitter.IsAssignment;
@@ -294,7 +294,7 @@ namespace H5.Translator
 
             if (resolveResult is MethodGroupResolveResult oldResult)
             {
-                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, Emitter);
+                resolveResult = Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent);
 
                 if (resolveResult is DynamicInvocationResolveResult)
                 {
@@ -406,7 +406,7 @@ namespace H5.Translator
 
             if (member != null && member.Member is IMethod && isInvoke)
             {
-                if (Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent, Emitter) is CSharpInvocationResolveResult i_rr && !i_rr.IsExpandedForm)
+                if (Emitter.Resolver.ResolveNode(memberReferenceExpression.Parent) is CSharpInvocationResolveResult i_rr && !i_rr.IsExpandedForm)
                 {
                     var tpl = Emitter.GetAttribute(member.Member.Attributes, JS.NS.H5 + ".TemplateAttribute");
 

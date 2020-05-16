@@ -8,6 +8,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <SkipResourcesExtraction>true</SkipResourcesExtraction>
   </PropertyGroup>
   
   <ItemGroup>

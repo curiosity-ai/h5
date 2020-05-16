@@ -77,7 +77,7 @@ namespace H5.Translator
                 }
 
                 var fileName = GetDefaultFileName(h5Options);
-                if (!h5Options.SkipEmbeddingResourcesIfBuildingH5Core && !translator.SkipResourcesExtraction)
+                if (!h5Options.SkipEmbeddingResourcesIfBuildingH5Core && !translator.SkipEmbeddingResources)
                 {
                     translator.Minify();
                     translator.Combine(fileName);

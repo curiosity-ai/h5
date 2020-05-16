@@ -420,9 +420,8 @@
                 if (((array.length - arrayIndex) | 0) < this.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var keyValuePairArray = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue)));
-                if (keyValuePairArray != null) {
+                var keyValuePairArray;
+                if (((keyValuePairArray = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue))))) != null) {
                     for (var i = 0; i < this.Count; i = (i + 1) | 0) {
                         keyValuePairArray[System.Array.index(((i + arrayIndex) | 0), keyValuePairArray)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(this.keys[System.Array.index(i, this.keys)], this.values[System.Array.index(i, this.values)]);
                     }

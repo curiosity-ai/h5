@@ -39,10 +39,9 @@
                 if (H5.referenceEquals(obj, this)) {
                     return true;
                 }
+                var other;
 
-                var other = H5.as(obj, System.ComponentModel.BrowsableAttribute);
-
-                return (other != null) && other.Browsable === this.browsable;
+                return (((other = H5.as(obj, System.ComponentModel.BrowsableAttribute))) != null) && other.Browsable === this.browsable;
             },
             getHashCode: function () {
                 return H5.getHashCode(this.browsable);

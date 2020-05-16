@@ -35,17 +35,15 @@
                 if (y == null) {
                     return 1;
                 }
-
-                var sa = H5.as(x, System.String);
-                if (sa != null) {
-                    var sb = H5.as(y, System.String);
-                    if (sb != null) {
+                var sa;
+                if (((sa = H5.as(x, System.String))) != null) {
+                    var sb;
+                    if (((sb = H5.as(y, System.String))) != null) {
                         return this.compare(sa, sb);
                     }
                 }
-
-                var ia = H5.as(x, System.IComparable);
-                if (ia != null) {
+                var ia;
+                if (((ia = H5.as(x, System.IComparable))) != null) {
                     return H5.compare(ia, y);
                 }
 
@@ -58,11 +56,10 @@
                 if (x == null || y == null) {
                     return false;
                 }
-
-                var sa = H5.as(x, System.String);
-                if (sa != null) {
-                    var sb = H5.as(y, System.String);
-                    if (sb != null) {
+                var sa;
+                if (((sa = H5.as(x, System.String))) != null) {
+                    var sb;
+                    if (((sb = H5.as(y, System.String))) != null) {
                         return this.equals2(sa, sb);
                     }
                 }
@@ -72,9 +69,8 @@
                 if (obj == null) {
                     throw new System.ArgumentNullException.$ctor1("obj");
                 }
-
-                var s = H5.as(obj, System.String);
-                if (s != null) {
+                var s;
+                if (((s = H5.as(obj, System.String))) != null) {
                     return this.getHashCode2(s);
                 }
                 return H5.getHashCode(obj);

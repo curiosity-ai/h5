@@ -22,19 +22,17 @@
                     if (((array.length - index) | 0) < System.Array.getCount(collection, T)) {
                         throw new System.ArgumentException.$ctor1("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
                     }
-
-                    var nonGenericCollection = H5.as(collection, System.Collections.ICollection);
-                    if (nonGenericCollection != null) {
+                    var nonGenericCollection;
+                    if (((nonGenericCollection = H5.as(collection, System.Collections.ICollection))) != null) {
                         System.Array.copyTo(nonGenericCollection, array, index);
                         return;
                     }
-
-                    var items = H5.as(array, System.Array.type(T));
-                    if (items != null) {
+                    var items;
+                    if (((items = H5.as(array, System.Array.type(T)))) != null) {
                         System.Array.copyTo(collection, items, index, T);
                     } else {
-                        /* 
-                           FxOverRh: Type.IsAssignableNot() not an api on that platform.
+                        var objects; /* 
+                        FxOverRh: Type.IsAssignableNot() not an api on that platform.
 
                         //
                         // Catch the obvious case assignment will fail.
@@ -45,12 +43,11 @@
                         Type targetType = array.GetType().GetElementType();
                         Type sourceType = typeof(T);
                         if (!(targetType.IsAssignableFrom(sourceType) || sourceType.IsAssignableFrom(targetType))) {
-                           throw new ArgumentException(SR.Argument_InvalidArrayType);
+                        throw new ArgumentException(SR.Argument_InvalidArrayType);
                         }
                         */
 
-                        var objects = H5.as(array, System.Array.type(System.Object));
-                        if (objects == null) {
+                        if (!(((objects = H5.as(array, System.Array.type(System.Object)))) != null)) {
                             throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                         }
 

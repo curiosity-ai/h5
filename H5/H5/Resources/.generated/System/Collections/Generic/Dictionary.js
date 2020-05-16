@@ -438,9 +438,8 @@
                 if (((array.length - index) | 0) < this.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue)));
-                if (pairs != null) {
+                var pairs;
+                if (((pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue))))) != null) {
                     this.CopyTo(pairs, index);
                 } else if (H5.is(array, System.Array.type(System.Collections.DictionaryEntry))) {
                     var dictEntryArray = H5.as(array, System.Array.type(System.Collections.DictionaryEntry));

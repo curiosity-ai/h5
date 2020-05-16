@@ -125,8 +125,8 @@
             },
             Write$8: function (value) {
                 if (value != null) {
-                    var f = H5.as(value, System.IFormattable);
-                    if (f != null) {
+                    var f;
+                    if (((f = H5.as(value, System.IFormattable))) != null) {
                         this.Write$10(H5.format(f, null, this.FormatProvider));
                     } else {
                         this.Write$10(H5.toString(value));
@@ -221,8 +221,8 @@
                 if (value == null) {
                     this.WriteLine();
                 } else {
-                    var f = H5.as(value, System.IFormattable);
-                    if (f != null) {
+                    var f;
+                    if (((f = H5.as(value, System.IFormattable))) != null) {
                         this.WriteLine$11(H5.format(f, null, this.FormatProvider));
                     } else {
                         this.WriteLine$11(H5.toString(value));

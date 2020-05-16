@@ -98,9 +98,8 @@
                 if (((array.length - index) | 0) < this.dictionary.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var values = H5.as(array, System.Array.type(TValue));
-                if (values != null) {
+                var values;
+                if (((values = H5.as(array, System.Array.type(TValue)))) != null) {
                     this.copyTo(values, index);
                 } else {
                     var objects = H5.as(array, System.Array.type(System.Object));

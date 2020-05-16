@@ -146,8 +146,8 @@
                     throw new System.ArgumentNullException.$ctor1("collection");
                 }
                 var suggestedCapacity = 0;
-                var coll = H5.as(collection, System.Collections.Generic.ICollection$1(T));
-                if (coll != null) {
+                var coll;
+                if (((coll = H5.as(collection, System.Collections.Generic.ICollection$1(T)))) != null) {
                     suggestedCapacity = System.Array.getCount(coll, T);
                 }
                 this.Initialize(suggestedCapacity);
@@ -281,14 +281,14 @@
                 if (this._count === 0) {
                     return;
                 }
-                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                if (otherAsCollection != null) {
+                var otherAsCollection;
+                if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         this.clear();
                         return;
                     }
-                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    var otherAsSet;
+                    if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         this.IntersectWithHashSetWithSameEC(otherAsSet);
                         return;
                     }
@@ -331,8 +331,8 @@
                     this.clear();
                     return;
                 }
-                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                var otherAsSet;
+                if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     this.SymmetricExceptWithUniqueHashSet(otherAsSet);
                 } else {
                     this.SymmetricExceptWithEnumerable(other);
@@ -345,8 +345,8 @@
                 if (this._count === 0) {
                     return true;
                 }
-                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                var otherAsSet;
+                if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     if (this._count > otherAsSet.Count) {
                         return false;
                     }
@@ -360,13 +360,13 @@
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                if (otherAsCollection != null) {
+                var otherAsCollection;
+                if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                     if (this._count === 0) {
                         return System.Array.getCount(otherAsCollection, T) > 0;
                     }
-                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    var otherAsSet;
+                    if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (this._count >= otherAsSet.Count) {
                             return false;
                         }
@@ -380,13 +380,13 @@
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                if (otherAsCollection != null) {
+                var otherAsCollection;
+                if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         return true;
                     }
-                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    var otherAsSet;
+                    if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (otherAsSet.Count > this._count) {
                             return false;
                         }
@@ -401,13 +401,13 @@
                 if (this._count === 0) {
                     return false;
                 }
-                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                if (otherAsCollection != null) {
+                var otherAsCollection;
+                if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         return true;
                     }
-                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    var otherAsSet;
+                    if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (otherAsSet.Count >= this._count) {
                             return false;
                         }
@@ -444,15 +444,15 @@
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                var otherAsSet;
+                if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     if (this._count !== otherAsSet.Count) {
                         return false;
                     }
                     return this.ContainsAllElements(otherAsSet);
                 } else {
-                    var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                    if (otherAsCollection != null) {
+                    var otherAsCollection;
+                    if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                         if (this._count === 0 && System.Array.getCount(otherAsCollection, T) > 0) {
                             return false;
                         }

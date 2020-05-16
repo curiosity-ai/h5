@@ -37,8 +37,8 @@
                 return System.Collections.Generic.SortedSet$1(T).SortedSetEquals(x, y, this.comparer);
             },
             equals: function (obj) {
-                var comparer = H5.as(obj, System.Collections.Generic.SortedSetEqualityComparer$1(T));
-                if (comparer == null) {
+                var comparer;
+                if (!(((comparer = H5.as(obj, System.Collections.Generic.SortedSetEqualityComparer$1(T)))) != null)) {
                     return false;
                 }
                 return (H5.referenceEquals(this.comparer, comparer.comparer));

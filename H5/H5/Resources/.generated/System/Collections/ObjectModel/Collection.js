@@ -35,8 +35,8 @@
             System$Collections$ICollection$SyncRoot: {
                 get: function () {
                     if (this._syncRoot == null) {
-                        var c = H5.as(this.items, System.Collections.ICollection);
-                        if (c != null) {
+                        var c;
+                        if (((c = H5.as(this.items, System.Collections.ICollection))) != null) {
                             this._syncRoot = c.System$Collections$ICollection$SyncRoot;
                         } else {
                             throw System.NotImplemented.ByDesign;
@@ -52,8 +52,8 @@
             },
             System$Collections$IList$IsFixedSize: {
                 get: function () {
-                    var list = H5.as(this.items, System.Collections.IList);
-                    if (list != null) {
+                    var list;
+                    if (((list = H5.as(this.items, System.Collections.IList))) != null) {
                         return System.Array.isFixedSize(list);
                     }
                     return System.Array.getIsReadOnly(this.items, T);
@@ -183,9 +183,8 @@
                 if (((array.length - index) | 0) < this.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var tArray = H5.as(array, System.Array.type(T));
-                if (tArray != null) {
+                var tArray;
+                if (((tArray = H5.as(array, System.Array.type(T)))) != null) {
                     System.Array.copyTo(this.items, tArray, index, T);
                 } else {
                     var targetType = (H5.getType(array).$elementType || null);

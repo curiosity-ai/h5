@@ -102,10 +102,9 @@
                 if (H5.referenceEquals(obj, this)) {
                     return true;
                 }
+                var other;
 
-                var other = H5.as(obj, System.ComponentModel.DefaultValueAttribute);
-
-                if (other != null) {
+                if (((other = H5.as(obj, System.ComponentModel.DefaultValueAttribute))) != null) {
                     if (this.Value != null) {
                         return H5.equals(this.Value, other.Value);
                     } else {

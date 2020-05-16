@@ -122,9 +122,8 @@
                 if (((array.length - index) | 0) < this.Count) {
                     throw new System.ArgumentException.ctor();
                 }
-
-                var items = H5.as(array, System.Array.type(T));
-                if (items != null) {
+                var items;
+                if (((items = H5.as(array, System.Array.type(T)))) != null) {
                     System.Array.copyTo(this.list, items, index, T);
                 } else {
                     var targetType = (H5.getType(array).$elementType || null);
@@ -132,9 +131,8 @@
                     if (!(H5.Reflection.isAssignableFrom(targetType, sourceType) || H5.Reflection.isAssignableFrom(sourceType, targetType))) {
                         throw new System.ArgumentException.ctor();
                     }
-
-                    var objects = H5.as(array, System.Array.type(System.Object));
-                    if (objects == null) {
+                    var objects;
+                    if (!(((objects = H5.as(array, System.Array.type(System.Object)))) != null)) {
                         throw new System.ArgumentException.ctor();
                     }
 

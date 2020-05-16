@@ -213,13 +213,12 @@
                 if (((array.length - index) | 0) < this.Count) {
                     throw new System.ArgumentException.$ctor1("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
                 }
-
-                var pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue)));
-                if (pairs != null) {
+                var pairs;
+                if (((pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue))))) != null) {
                     System.Array.copyTo(this.m_dictionary, pairs, index, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
                 } else {
-                    var dictEntryArray = H5.as(array, System.Array.type(System.Collections.DictionaryEntry));
-                    if (dictEntryArray != null) {
+                    var dictEntryArray;
+                    if (((dictEntryArray = H5.as(array, System.Array.type(System.Collections.DictionaryEntry)))) != null) {
                         $t = H5.getEnumerator(this.m_dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
                         try {
                             while ($t.moveNext()) {
@@ -232,8 +231,8 @@
                             }
                         }
                     } else {
-                        var objects = H5.as(array, System.Array.type(System.Object));
-                        if (objects == null) {
+                        var objects;
+                        if (!(((objects = H5.as(array, System.Array.type(System.Object)))) != null)) {
                             throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                         }
 
@@ -273,8 +272,8 @@
                 return H5.getEnumerator(H5.cast(this.m_dictionary, System.Collections.IEnumerable));
             },
             System$Collections$IDictionary$GetEnumerator: function () {
-                var d = H5.as(this.m_dictionary, System.Collections.IDictionary);
-                if (d != null) {
+                var d;
+                if (((d = H5.as(this.m_dictionary, System.Collections.IDictionary))) != null) {
                     return d.System$Collections$IDictionary$GetEnumerator();
                 }
                 return new (System.Collections.ObjectModel.ReadOnlyDictionary$2.DictionaryEnumerator(TKey,TValue)).$ctor1(this.m_dictionary).$clone();

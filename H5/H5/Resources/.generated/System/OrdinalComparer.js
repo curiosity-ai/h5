@@ -50,8 +50,8 @@
                 return System.String.equals(x, y);
             },
             equals: function (obj) {
-                var comparer = H5.as(obj, System.OrdinalComparer);
-                if (comparer == null) {
+                var comparer;
+                if (!(((comparer = H5.as(obj, System.OrdinalComparer))) != null)) {
                     return false;
                 }
                 return (this._ignoreCase === comparer._ignoreCase);

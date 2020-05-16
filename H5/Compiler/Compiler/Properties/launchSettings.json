@@ -19,6 +19,10 @@
       "commandName": "Project",
       "commandLineArgs": "--rebuild -p \"C:\\h5\\Tests\\Placeholder\\Placeholder.csproj\" -c \"$(Configuration)\"",
       "workingDirectory": "C:\\h5\\Tests\\Placeholder\\"
+    },
+    "build h5": {
+      "commandName": "Project",
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\H5\\H5\\H5.csproj\" -c \"$(Configuration)\""
     }
   }
 }

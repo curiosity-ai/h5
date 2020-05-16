@@ -322,14 +322,13 @@
             },
             $ctor3: function (collection, comparer) {
                 System.Collections.Generic.SortedSet$1(T).$ctor1.call(this, comparer);
-
                 if (collection == null) {
                     throw new System.ArgumentNullException.$ctor1("collection");
                 }
 
-                var baseSortedSet = H5.as(collection, System.Collections.Generic.SortedSet$1(T));
                 var baseTreeSubSet = H5.as(collection, System.Collections.Generic.SortedSet$1.TreeSubSet(T));
-                if (baseSortedSet != null && baseTreeSubSet == null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, baseSortedSet)) {
+                var baseSortedSet;
+                if (((baseSortedSet = H5.as(collection, System.Collections.Generic.SortedSet$1(T)))) != null && baseTreeSubSet == null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, baseSortedSet)) {
                     if (baseSortedSet.Count === 0) {
                         this.count = 0;
                         this.version = 0;
@@ -730,9 +729,8 @@
                 if (((array.length - index) | 0) < this.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var tarray = H5.as(array, System.Array.type(T));
-                if (tarray != null) {
+                var tarray;
+                if (((tarray = H5.as(array, System.Array.type(T)))) != null) {
                     this.copyTo(tarray, index);
                 } else {
                     var objects = H5.as(array, System.Array.type(System.Object));
@@ -949,12 +947,12 @@
                 }
 
 
-                var s = H5.as(other, System.Collections.Generic.SortedSet$1(T));
                 var t = H5.as(this, System.Collections.Generic.SortedSet$1.TreeSubSet(T));
                 if (t != null) {
                     this.VersionCheck();
                 }
-                if (s != null && t == null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, s)) {
+                var s;
+                if (((s = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && t == null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, s)) {
 
 
                     var merged = System.Array.init(this.Count, function (){
@@ -1025,10 +1023,9 @@
                     this.clear();
                     return;
                 }
+                var asSorted;
 
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     if (!(this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](asSorted.Max, this.Min) < 0 || this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](asSorted.Min, this.Max) > 0)) {
                         var min = this.Min;
                         var max = this.Max;
@@ -1069,19 +1066,18 @@
                     this.clear();
                     return;
                 }
-
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     this.SymmetricExceptWithSameEC$1(asSorted);
-                } else if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
-                    this.SymmetricExceptWithSameEC$1(asHash);
                 } else {
-                    var elements = (new (System.Collections.Generic.List$1(T)).$ctor1(other)).ToArray();
-                    System.Array.sort(elements, this.Comparer);
-                    this.SymmetricExceptWithSameEC(elements);
+                    var asHash;
+                    if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                        this.SymmetricExceptWithSameEC$1(asHash);
+                    } else {
+                        var elements = (new (System.Collections.Generic.List$1(T)).$ctor1(other)).ToArray();
+                        System.Array.sort(elements, this.Comparer);
+                        this.SymmetricExceptWithSameEC(elements);
+                    }
                 }
             },
             SymmetricExceptWithSameEC$1: function (other) {
@@ -1130,10 +1126,9 @@
                 if (this.Count === 0) {
                     return true;
                 }
+                var asSorted;
 
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     if (this.Count > asSorted.Count) {
                         return false;
                     }
@@ -1173,16 +1168,14 @@
                         return System.Array.getCount((H5.as(other, System.Collections.ICollection))) > 0;
                     }
                 }
+                var asHash;
 
 
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.isProperSupersetOf(this);
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     if (this.Count >= asSorted.Count) {
                         return false;
                     }
@@ -1202,15 +1195,13 @@
                 if ((H5.as(other, System.Collections.ICollection)) != null && System.Array.getCount((H5.as(other, System.Collections.ICollection))) === 0) {
                     return true;
                 }
+                var asHash;
 
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.isSubsetOf(this);
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     if (this.Count < asSorted.Count) {
                         return false;
                     }
@@ -1245,16 +1236,14 @@
                 if ((H5.as(other, System.Collections.ICollection)) != null && System.Array.getCount((H5.as(other, System.Collections.ICollection))) === 0) {
                     return true;
                 }
+                var asHash;
 
 
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.isProperSubsetOf(this);
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(asSorted, this)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(asSorted, this)) {
                     if (asSorted.Count >= this.Count) {
                         return false;
                     }
@@ -1284,14 +1273,12 @@
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                var asHash;
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.setEquals(this);
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     var mine = this.GetEnumerator().$clone();
                     var theirs = asSorted.GetEnumerator().$clone();
                     var mineEnded = !mine.System$Collections$IEnumerator$moveNext();
@@ -1322,14 +1309,12 @@
                 if ((H5.as(other, System.Collections.Generic.ICollection$1(T)) != null) && System.Array.getCount((H5.as(other, System.Collections.Generic.ICollection$1(T))), T) === 0) {
                     return false;
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted) && (this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.Min, asSorted.Max) > 0 || this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.Max, asSorted.Min) < 0)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted) && (this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.Min, asSorted.Max) > 0 || this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.Max, asSorted.Min) < 0)) {
                     return false;
                 }
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                var asHash;
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.overlaps(this);
                 }
 

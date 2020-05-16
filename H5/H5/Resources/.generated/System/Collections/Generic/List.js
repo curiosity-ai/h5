@@ -125,9 +125,8 @@
                 if (collection == null) {
                     throw new System.ArgumentNullException.$ctor1("collection");
                 }
-
-                var c = H5.as(collection, System.Collections.Generic.ICollection$1(T));
-                if (c != null) {
+                var c;
+                if (((c = H5.as(collection, System.Collections.Generic.ICollection$1(T)))) != null) {
                     var count = System.Array.getCount(c, T);
                     if (count === 0) {
                         this._items = System.Collections.Generic.List$1(T)._emptyArray;
@@ -525,9 +524,8 @@
                 if ((index >>> 0) > (this._size >>> 0)) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
-
-                var c = H5.as(collection, System.Collections.Generic.ICollection$1(T));
-                if (c != null) {
+                var c;
+                if (((c = H5.as(collection, System.Collections.Generic.ICollection$1(T)))) != null) {
                     var count = System.Array.getCount(c, T);
                     if (count > 0) {
                         this.EnsureCapacity(((this._size + count) | 0));

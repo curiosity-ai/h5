@@ -2,8 +2,9 @@
  * @version   :  - H5.NET
  * @author    : Object.NET, Inc. http://h5.net/
  * @copyright : Copyright 2008-2020 Object.NET, Inc. http://object.net/
- * @license   : See license.txt and https://github.com/curiosity-ai/h5/blob/master/LICENSE.md
+ * @license   : See license.txt and https://github.com/bridgedotnet/Bridge.NET/blob/master/LICENSE.
  */
+
 
     // @source Init.js
 
@@ -662,7 +663,7 @@
 
         getHashCode: function (value, safe, deep) {
             // In CLR: mutable object should keep on returning same value
-            // H5.NET goals: make it deterministic (to make testing easier) without breaking CLR contracts
+            // H5 goals: make it deterministic (to make testing easier) without breaking CLR contracts
             //     for value types it returns deterministic values (f.e. for int 3 it returns 3)
             //     for reference types it returns random value
 
@@ -3531,7 +3532,7 @@
 
     H5.init(function () {
         H5.SystemAssembly.version = "";
-        H5.SystemAssembly.compiler = "0.0.7698";
+        H5.SystemAssembly.compiler = "1.0.0";
     });
 
     H5.define("H5.Utils.SystemAssemblyVersion");
@@ -15770,9 +15771,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - arrayIndex) | 0) < this.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var keyValuePairArray = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue)));
-                if (keyValuePairArray != null) {
+                var keyValuePairArray;
+                if (((keyValuePairArray = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue))))) != null) {
                     for (var i = 0; i < this.Count; i = (i + 1) | 0) {
                         keyValuePairArray[System.Array.index(((i + arrayIndex) | 0), keyValuePairArray)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(this.keys[System.Array.index(i, this.keys)], this.values[System.Array.index(i, this.values)]);
                     }
@@ -16728,14 +16728,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             $ctor3: function (collection, comparer) {
                 System.Collections.Generic.SortedSet$1(T).$ctor1.call(this, comparer);
-
                 if (collection == null) {
                     throw new System.ArgumentNullException.$ctor1("collection");
                 }
 
-                var baseSortedSet = H5.as(collection, System.Collections.Generic.SortedSet$1(T));
                 var baseTreeSubSet = H5.as(collection, System.Collections.Generic.SortedSet$1.TreeSubSet(T));
-                if (baseSortedSet != null && baseTreeSubSet == null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, baseSortedSet)) {
+                var baseSortedSet;
+                if (((baseSortedSet = H5.as(collection, System.Collections.Generic.SortedSet$1(T)))) != null && baseTreeSubSet == null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, baseSortedSet)) {
                     if (baseSortedSet.Count === 0) {
                         this.count = 0;
                         this.version = 0;
@@ -17136,9 +17135,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - index) | 0) < this.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var tarray = H5.as(array, System.Array.type(T));
-                if (tarray != null) {
+                var tarray;
+                if (((tarray = H5.as(array, System.Array.type(T)))) != null) {
                     this.copyTo(tarray, index);
                 } else {
                     var objects = H5.as(array, System.Array.type(System.Object));
@@ -17355,12 +17353,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 }
 
 
-                var s = H5.as(other, System.Collections.Generic.SortedSet$1(T));
                 var t = H5.as(this, System.Collections.Generic.SortedSet$1.TreeSubSet(T));
                 if (t != null) {
                     this.VersionCheck();
                 }
-                if (s != null && t == null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, s)) {
+                var s;
+                if (((s = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && t == null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, s)) {
 
 
                     var merged = System.Array.init(this.Count, function (){
@@ -17431,10 +17429,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     this.clear();
                     return;
                 }
+                var asSorted;
 
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     if (!(this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](asSorted.Max, this.Min) < 0 || this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](asSorted.Min, this.Max) > 0)) {
                         var min = this.Min;
                         var max = this.Max;
@@ -17475,19 +17472,18 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     this.clear();
                     return;
                 }
-
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     this.SymmetricExceptWithSameEC$1(asSorted);
-                } else if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
-                    this.SymmetricExceptWithSameEC$1(asHash);
                 } else {
-                    var elements = (new (System.Collections.Generic.List$1(T)).$ctor1(other)).ToArray();
-                    System.Array.sort(elements, this.Comparer);
-                    this.SymmetricExceptWithSameEC(elements);
+                    var asHash;
+                    if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                        this.SymmetricExceptWithSameEC$1(asHash);
+                    } else {
+                        var elements = (new (System.Collections.Generic.List$1(T)).$ctor1(other)).ToArray();
+                        System.Array.sort(elements, this.Comparer);
+                        this.SymmetricExceptWithSameEC(elements);
+                    }
                 }
             },
             SymmetricExceptWithSameEC$1: function (other) {
@@ -17536,10 +17532,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (this.Count === 0) {
                     return true;
                 }
+                var asSorted;
 
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     if (this.Count > asSorted.Count) {
                         return false;
                     }
@@ -17579,16 +17574,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         return System.Array.getCount((H5.as(other, System.Collections.ICollection))) > 0;
                     }
                 }
+                var asHash;
 
 
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.isProperSupersetOf(this);
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     if (this.Count >= asSorted.Count) {
                         return false;
                     }
@@ -17608,15 +17601,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if ((H5.as(other, System.Collections.ICollection)) != null && System.Array.getCount((H5.as(other, System.Collections.ICollection))) === 0) {
                     return true;
                 }
+                var asHash;
 
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.isSubsetOf(this);
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     if (this.Count < asSorted.Count) {
                         return false;
                     }
@@ -17651,16 +17642,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if ((H5.as(other, System.Collections.ICollection)) != null && System.Array.getCount((H5.as(other, System.Collections.ICollection))) === 0) {
                     return true;
                 }
+                var asHash;
 
 
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.isProperSubsetOf(this);
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(asSorted, this)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(asSorted, this)) {
                     if (asSorted.Count >= this.Count) {
                         return false;
                     }
@@ -17690,14 +17679,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                var asHash;
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.setEquals(this);
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted)) {
                     var mine = this.GetEnumerator().$clone();
                     var theirs = asSorted.GetEnumerator().$clone();
                     var mineEnded = !mine.System$Collections$IEnumerator$moveNext();
@@ -17728,14 +17715,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if ((H5.as(other, System.Collections.Generic.ICollection$1(T)) != null) && System.Array.getCount((H5.as(other, System.Collections.Generic.ICollection$1(T))), T) === 0) {
                     return false;
                 }
-
-                var asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T));
-                if (asSorted != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted) && (this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.Min, asSorted.Max) > 0 || this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.Max, asSorted.Min) < 0)) {
+                var asSorted;
+                if (((asSorted = H5.as(other, System.Collections.Generic.SortedSet$1(T)))) != null && System.Collections.Generic.SortedSet$1(T).AreComparersEqual(this, asSorted) && (this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.Min, asSorted.Max) > 0 || this.comparer[H5.geti(this.comparer, "System$Collections$Generic$IComparer$1$" + H5.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.Max, asSorted.Min) < 0)) {
                     return false;
                 }
-
-                var asHash = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (asHash != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
+                var asHash;
+                if (((asHash = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && H5.equals(this.comparer, new (System.Collections.Generic.Comparer$1(T))(System.Collections.Generic.Comparer$1.$default.fn)) && H5.equals(asHash.Comparer, System.Collections.Generic.EqualityComparer$1(T).def)) {
                     return asHash.overlaps(this);
                 }
 
@@ -17951,8 +17936,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return System.Collections.Generic.SortedSet$1(T).SortedSetEquals(x, y, this.comparer);
             },
             equals: function (obj) {
-                var comparer = H5.as(obj, System.Collections.Generic.SortedSetEqualityComparer$1(T));
-                if (comparer == null) {
+                var comparer;
+                if (!(((comparer = H5.as(obj, System.Collections.Generic.SortedSetEqualityComparer$1(T)))) != null)) {
                     return false;
                 }
                 return (H5.referenceEquals(this.comparer, comparer.comparer));
@@ -18680,9 +18665,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - index) | 0) < this.Count) {
                     throw new System.ArgumentException.ctor();
                 }
-
-                var tArray = H5.as(array, System.Array.type(T));
-                if (tArray != null) {
+                var tArray;
+                if (((tArray = H5.as(array, System.Array.type(T)))) != null) {
                     this.copyTo(tArray, index);
                 } else {
                     var targetType = (H5.getType(array).$elementType || null);
@@ -18690,9 +18674,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (!(H5.Reflection.isAssignableFrom(targetType, sourceType) || H5.Reflection.isAssignableFrom(sourceType, targetType))) {
                         throw new System.ArgumentException.ctor();
                     }
-
-                    var objects = H5.as(array, System.Array.type(System.Object));
-                    if (objects == null) {
+                    var objects;
+                    if (!(((objects = H5.as(array, System.Array.type(System.Object)))) != null)) {
                         throw new System.ArgumentException.ctor();
                     }
                     var node = this.head;
@@ -19476,9 +19459,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - index) | 0) < this.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue)));
-                if (pairs != null) {
+                var pairs;
+                if (((pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue))))) != null) {
                     this.CopyTo(pairs, index);
                 } else if (H5.is(array, System.Array.type(System.Collections.DictionaryEntry))) {
                     var dictEntryArray = H5.as(array, System.Array.type(System.Collections.DictionaryEntry));
@@ -19980,9 +19962,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - index) | 0) < this.dictionary.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var keys = H5.as(array, System.Array.type(TKey));
-                if (keys != null) {
+                var keys;
+                if (((keys = H5.as(array, System.Array.type(TKey)))) != null) {
                     this.copyTo(keys, index);
                 } else {
                     var objects = H5.as(array, System.Array.type(System.Object));
@@ -20225,9 +20206,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - index) | 0) < this.dictionary.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var values = H5.as(array, System.Array.type(TValue));
-                if (values != null) {
+                var values;
+                if (((values = H5.as(array, System.Array.type(TValue)))) != null) {
                     this.copyTo(values, index);
                 } else {
                     var objects = H5.as(array, System.Array.type(System.Object));
@@ -20583,13 +20563,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - index) | 0) < this.Count) {
                     throw new System.ArgumentException.$ctor1("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
                 }
-
-                var pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue)));
-                if (pairs != null) {
+                var pairs;
+                if (((pairs = H5.as(array, System.Array.type(System.Collections.Generic.KeyValuePair$2(TKey,TValue))))) != null) {
                     System.Array.copyTo(this.m_dictionary, pairs, index, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
                 } else {
-                    var dictEntryArray = H5.as(array, System.Array.type(System.Collections.DictionaryEntry));
-                    if (dictEntryArray != null) {
+                    var dictEntryArray;
+                    if (((dictEntryArray = H5.as(array, System.Array.type(System.Collections.DictionaryEntry)))) != null) {
                         $t = H5.getEnumerator(this.m_dictionary, System.Collections.Generic.KeyValuePair$2(TKey,TValue));
                         try {
                             while ($t.moveNext()) {
@@ -20602,8 +20581,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             }
                         }
                     } else {
-                        var objects = H5.as(array, System.Array.type(System.Object));
-                        if (objects == null) {
+                        var objects;
+                        if (!(((objects = H5.as(array, System.Array.type(System.Object)))) != null)) {
                             throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                         }
 
@@ -20643,8 +20622,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return H5.getEnumerator(H5.cast(this.m_dictionary, System.Collections.IEnumerable));
             },
             System$Collections$IDictionary$GetEnumerator: function () {
-                var d = H5.as(this.m_dictionary, System.Collections.IDictionary);
-                if (d != null) {
+                var d;
+                if (((d = H5.as(this.m_dictionary, System.Collections.IDictionary))) != null) {
                     return d.System$Collections$IDictionary$GetEnumerator();
                 }
                 return new (System.Collections.ObjectModel.ReadOnlyDictionary$2.DictionaryEnumerator(TKey,TValue)).$ctor1(this.m_dictionary).$clone();
@@ -20916,19 +20895,17 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (((array.length - index) | 0) < System.Array.getCount(collection, T)) {
                         throw new System.ArgumentException.$ctor1("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
                     }
-
-                    var nonGenericCollection = H5.as(collection, System.Collections.ICollection);
-                    if (nonGenericCollection != null) {
+                    var nonGenericCollection;
+                    if (((nonGenericCollection = H5.as(collection, System.Collections.ICollection))) != null) {
                         System.Array.copyTo(nonGenericCollection, array, index);
                         return;
                     }
-
-                    var items = H5.as(array, System.Array.type(T));
-                    if (items != null) {
+                    var items;
+                    if (((items = H5.as(array, System.Array.type(T)))) != null) {
                         System.Array.copyTo(collection, items, index, T);
                     } else {
-                        /* 
-                           FxOverRh: Type.IsAssignableNot() not an api on that platform.
+                        var objects; /* 
+                        FxOverRh: Type.IsAssignableNot() not an api on that platform.
 
                         //
                         // Catch the obvious case assignment will fail.
@@ -20939,12 +20916,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         Type targetType = array.GetType().GetElementType();
                         Type sourceType = typeof(T);
                         if (!(targetType.IsAssignableFrom(sourceType) || sourceType.IsAssignableFrom(targetType))) {
-                           throw new ArgumentException(SR.Argument_InvalidArrayType);
+                        throw new ArgumentException(SR.Argument_InvalidArrayType);
                         }
                         */
 
-                        var objects = H5.as(array, System.Array.type(System.Object));
-                        if (objects == null) {
+                        if (!(((objects = H5.as(array, System.Array.type(System.Object)))) != null)) {
                             throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                         }
 
@@ -21058,17 +21034,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (y == null) {
                     return 1;
                 }
-
-                var sa = H5.as(x, System.String);
-                if (sa != null) {
-                    var sb = H5.as(y, System.String);
-                    if (sb != null) {
+                var sa;
+                if (((sa = H5.as(x, System.String))) != null) {
+                    var sb;
+                    if (((sb = H5.as(y, System.String))) != null) {
                         return this.compare(sa, sb);
                     }
                 }
-
-                var ia = H5.as(x, System.IComparable);
-                if (ia != null) {
+                var ia;
+                if (((ia = H5.as(x, System.IComparable))) != null) {
                     return H5.compare(ia, y);
                 }
 
@@ -21081,11 +21055,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (x == null || y == null) {
                     return false;
                 }
-
-                var sa = H5.as(x, System.String);
-                if (sa != null) {
-                    var sb = H5.as(y, System.String);
-                    if (sb != null) {
+                var sa;
+                if (((sa = H5.as(x, System.String))) != null) {
+                    var sb;
+                    if (((sb = H5.as(y, System.String))) != null) {
                         return this.equals2(sa, sb);
                     }
                 }
@@ -21095,9 +21068,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (obj == null) {
                     throw new System.ArgumentNullException.$ctor1("obj");
                 }
-
-                var s = H5.as(obj, System.String);
-                if (s != null) {
+                var s;
+                if (((s = H5.as(obj, System.String))) != null) {
                     return this.getHashCode2(s);
                 }
                 return H5.getHashCode(obj);
@@ -21159,8 +21131,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return System.String.equals(x, y);
             },
             equals: function (obj) {
-                var comparer = H5.as(obj, System.OrdinalComparer);
-                if (comparer == null) {
+                var comparer;
+                if (!(((comparer = H5.as(obj, System.OrdinalComparer))) != null)) {
                     return false;
                 }
                 return (this._ignoreCase === comparer._ignoreCase);
@@ -21608,9 +21580,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (collection == null) {
                     throw new System.ArgumentNullException.$ctor1("collection");
                 }
-
-                var c = H5.as(collection, System.Collections.Generic.ICollection$1(T));
-                if (c != null) {
+                var c;
+                if (((c = H5.as(collection, System.Collections.Generic.ICollection$1(T)))) != null) {
                     var count = System.Array.getCount(c, T);
                     if (count === 0) {
                         this._items = System.Collections.Generic.List$1(T)._emptyArray;
@@ -22008,9 +21979,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if ((index >>> 0) > (this._size >>> 0)) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
-
-                var c = H5.as(collection, System.Collections.Generic.ICollection$1(T));
-                if (c != null) {
+                var c;
+                if (((c = H5.as(collection, System.Collections.Generic.ICollection$1(T)))) != null) {
                     var count = System.Array.getCount(c, T);
                     if (count > 0) {
                         this.EnsureCapacity(((this._size + count) | 0));
@@ -36701,8 +36671,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     throw new System.ArgumentNullException.$ctor1("collection");
                 }
                 var suggestedCapacity = 0;
-                var coll = H5.as(collection, System.Collections.Generic.ICollection$1(T));
-                if (coll != null) {
+                var coll;
+                if (((coll = H5.as(collection, System.Collections.Generic.ICollection$1(T)))) != null) {
                     suggestedCapacity = System.Array.getCount(coll, T);
                 }
                 this.Initialize(suggestedCapacity);
@@ -36836,14 +36806,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (this._count === 0) {
                     return;
                 }
-                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                if (otherAsCollection != null) {
+                var otherAsCollection;
+                if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         this.clear();
                         return;
                     }
-                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    var otherAsSet;
+                    if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         this.IntersectWithHashSetWithSameEC(otherAsSet);
                         return;
                     }
@@ -36886,8 +36856,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     this.clear();
                     return;
                 }
-                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                var otherAsSet;
+                if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     this.SymmetricExceptWithUniqueHashSet(otherAsSet);
                 } else {
                     this.SymmetricExceptWithEnumerable(other);
@@ -36900,8 +36870,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (this._count === 0) {
                     return true;
                 }
-                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                var otherAsSet;
+                if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     if (this._count > otherAsSet.Count) {
                         return false;
                     }
@@ -36915,13 +36885,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                if (otherAsCollection != null) {
+                var otherAsCollection;
+                if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                     if (this._count === 0) {
                         return System.Array.getCount(otherAsCollection, T) > 0;
                     }
-                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    var otherAsSet;
+                    if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (this._count >= otherAsSet.Count) {
                             return false;
                         }
@@ -36935,13 +36905,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                if (otherAsCollection != null) {
+                var otherAsCollection;
+                if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         return true;
                     }
-                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    var otherAsSet;
+                    if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (otherAsSet.Count > this._count) {
                             return false;
                         }
@@ -36956,13 +36926,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (this._count === 0) {
                     return false;
                 }
-                var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                if (otherAsCollection != null) {
+                var otherAsCollection;
+                if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                     if (System.Array.getCount(otherAsCollection, T) === 0) {
                         return true;
                     }
-                    var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    var otherAsSet;
+                    if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (otherAsSet.Count >= this._count) {
                             return false;
                         }
@@ -36999,15 +36969,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
-                var otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                var otherAsSet;
+                if (((otherAsSet = H5.as(other, System.Collections.Generic.HashSet$1(T)))) != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     if (this._count !== otherAsSet.Count) {
                         return false;
                     }
                     return this.ContainsAllElements(otherAsSet);
                 } else {
-                    var otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T));
-                    if (otherAsCollection != null) {
+                    var otherAsCollection;
+                    if (((otherAsCollection = H5.as(other, System.Collections.Generic.ICollection$1(T)))) != null) {
                         if (this._count === 0 && System.Array.getCount(otherAsCollection, T) > 0) {
                             return false;
                         }
@@ -38578,8 +38548,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             System$Collections$ICollection$SyncRoot: {
                 get: function () {
                     if (this._syncRoot == null) {
-                        var c = H5.as(this.items, System.Collections.ICollection);
-                        if (c != null) {
+                        var c;
+                        if (((c = H5.as(this.items, System.Collections.ICollection))) != null) {
                             this._syncRoot = c.System$Collections$ICollection$SyncRoot;
                         } else {
                             throw System.NotImplemented.ByDesign;
@@ -38595,8 +38565,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             System$Collections$IList$IsFixedSize: {
                 get: function () {
-                    var list = H5.as(this.items, System.Collections.IList);
-                    if (list != null) {
+                    var list;
+                    if (((list = H5.as(this.items, System.Collections.IList))) != null) {
                         return System.Array.isFixedSize(list);
                     }
                     return System.Array.getIsReadOnly(this.items, T);
@@ -38726,9 +38696,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - index) | 0) < this.Count) {
                     System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
                 }
-
-                var tArray = H5.as(array, System.Array.type(T));
-                if (tArray != null) {
+                var tArray;
+                if (((tArray = H5.as(array, System.Array.type(T)))) != null) {
                     System.Array.copyTo(this.items, tArray, index, T);
                 } else {
                     var targetType = (H5.getType(array).$elementType || null);
@@ -38982,9 +38951,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (((array.length - index) | 0) < this.Count) {
                     throw new System.ArgumentException.ctor();
                 }
-
-                var items = H5.as(array, System.Array.type(T));
-                if (items != null) {
+                var items;
+                if (((items = H5.as(array, System.Array.type(T)))) != null) {
                     System.Array.copyTo(this.list, items, index, T);
                 } else {
                     var targetType = (H5.getType(array).$elementType || null);
@@ -38992,9 +38960,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (!(H5.Reflection.isAssignableFrom(targetType, sourceType) || H5.Reflection.isAssignableFrom(sourceType, targetType))) {
                         throw new System.ArgumentException.ctor();
                     }
-
-                    var objects = H5.as(array, System.Array.type(System.Object));
-                    if (objects == null) {
+                    var objects;
+                    if (!(((objects = H5.as(array, System.Array.type(System.Object)))) != null)) {
                         throw new System.ArgumentException.ctor();
                     }
 
@@ -39095,10 +39062,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (H5.referenceEquals(obj, this)) {
                     return true;
                 }
+                var other;
 
-                var other = H5.as(obj, System.ComponentModel.BrowsableAttribute);
-
-                return (other != null) && other.Browsable === this.browsable;
+                return (((other = H5.as(obj, System.ComponentModel.BrowsableAttribute))) != null) && other.Browsable === this.browsable;
             },
             getHashCode: function () {
                 return H5.getHashCode(this.browsable);
@@ -39212,10 +39178,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (H5.referenceEquals(obj, this)) {
                     return true;
                 }
+                var other;
 
-                var other = H5.as(obj, System.ComponentModel.DefaultValueAttribute);
-
-                if (other != null) {
+                if (((other = H5.as(obj, System.ComponentModel.DefaultValueAttribute))) != null) {
                     if (this.Value != null) {
                         return H5.equals(this.Value, other.Value);
                     } else {
@@ -47478,8 +47443,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             Write$8: function (value) {
                 if (value != null) {
-                    var f = H5.as(value, System.IFormattable);
-                    if (f != null) {
+                    var f;
+                    if (((f = H5.as(value, System.IFormattable))) != null) {
                         this.Write$10(H5.format(f, null, this.FormatProvider));
                     } else {
                         this.Write$10(H5.toString(value));
@@ -47574,8 +47539,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (value == null) {
                     this.WriteLine();
                 } else {
-                    var f = H5.as(value, System.IFormattable);
-                    if (f != null) {
+                    var f;
+                    if (((f = H5.as(value, System.IFormattable))) != null) {
                         this.WriteLine$11(H5.format(f, null, this.FormatProvider));
                     } else {
                         this.WriteLine$11(H5.toString(value));

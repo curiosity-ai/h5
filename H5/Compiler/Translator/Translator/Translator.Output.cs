@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using ZLogger;
 using Mosaik.Core;
+using System.Threading.Tasks;
 
 namespace H5.Translator
 {
@@ -42,7 +43,7 @@ namespace H5.Translator
                     }
                 }
 
-                foreach (var item in outputs)
+                Parallel.ForEach(outputs, item =>
                 {
                     Logger.ZLogTrace("Output {0}", item.Name);
 
@@ -51,7 +52,7 @@ namespace H5.Translator
                     if (item.IsEmpty && (item.MinifiedVersion == null || item.MinifiedVersion.IsEmpty))
                     {
                         Logger.LogTrace("Output {0} is empty", filePath);
-                        continue;
+                        return;
                     }
 
                     var file = FileHelper.CreateFileDirectory(filePath);
@@ -63,7 +64,7 @@ namespace H5.Translator
                     if (item.OutputType == TranslatorOutputType.TypeScript && item.OutputKind == TranslatorOutputKind.ProjectOutput)
                     {
                         content = item.Content.GetContentAsString();
-                        StringBuilder sb = new StringBuilder();
+                        var sb = new StringBuilder();
                         var nl = Emitter.NEW_LINE;
 
                         if (addNoLibReference)
@@ -81,7 +82,8 @@ namespace H5.Translator
                             sb.Append(nl);
                         }
 
-                        SaveToFile(file.FullName, sb.ToString() + content);
+                        sb.Append(content);
+                        SaveToFile(file.FullName, sb.ToString());
                     }
                     else if (CheckIfRequiresSourceMap(item))
                     {
@@ -106,7 +108,7 @@ namespace H5.Translator
                             SaveToFile(file.FullName, content);
                         }
                     }
-                }
+                });
             }
         }
 

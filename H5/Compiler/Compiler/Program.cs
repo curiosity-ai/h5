@@ -52,6 +52,7 @@ namespace H5.Compiler
             catch (EmitterException ex)
             {
                 Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
+                Logger.LogError(ex.StackTrace.ToString());
                 return 1;
             }
             catch (Exception ex)
@@ -66,6 +67,8 @@ namespace H5.Compiler
                 {
                     Logger.LogError(string.Format("H5 Compiler error: {0}", ex.ToString()));
                 }
+
+                Logger.LogError(ex.StackTrace.ToString());
 
                 return 1;
             }

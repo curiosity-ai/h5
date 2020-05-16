@@ -148,14 +148,8 @@ namespace H5.Translator
                     Task.WaitAll(references.Select(reference => Task.Run(() =>
                     {
                         Logger.ZLogTrace("\tLoading AssemblyDefinition {0} ...", (reference != null && reference.Name != null && reference.Name.Name != null ? reference.Name.Name : ""));
-
-                        var loader = new CecilLoader();
-                        loader.IncludeInternalMembers = true;
-
-
-                        var asm = loader.LoadAssembly(reference);
-                        stack.Push(asm);
-
+                        var loader = new CecilLoader() { IncludeInternalMembers = true };
+                        stack.Push(loader.LoadAssembly(reference));
                         Logger.ZLogTrace("\tLoading AssemblyDefinition done");
                     })).ToArray());
                 }

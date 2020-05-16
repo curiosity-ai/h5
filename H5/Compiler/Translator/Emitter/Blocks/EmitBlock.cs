@@ -543,7 +543,7 @@ namespace H5.Translator
                     
                     if (!Emitter.Translator.Plugins.HasAny())
                     {
-                        cachedEmittedData.AddToCache(Emitter.SourceFileName, type.JsName, finalCode);
+                        cachedEmittedData?.AddToCache(Emitter.SourceFileName, type.JsName, finalCode);
                     }
 
                     currentOutput.Append(finalCode);

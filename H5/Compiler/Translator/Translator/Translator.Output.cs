@@ -453,7 +453,10 @@ namespace H5.Translator
 
         protected virtual void AddExtractedResourceOutput(ResourceConfigItem resource, byte[] code)
         {
-            Emitter.AddOutputItem(Outputs.Resources, resource.Name, code, TranslatorOutputKind.Resource, location: resource.Output);
+            if (resource.Load ?? true)
+            {
+                Emitter.AddOutputItem(Outputs.ResourcesForHtml, resource.Name, code, TranslatorOutputKind.Resource, location: resource.Output);
+            }
         }
 
         public void ExtractCore(string outputPath, string projectPath)

@@ -67,7 +67,7 @@ namespace H5.Translator
         private IEnumerable<Tuple<H5ResourceInfo, byte[]>> PrepareAndExtractResources(string outputPath, string projectPath)
         {
             if (AssemblyInfo.Resources.HasEmbedResources())
-            {
+            { 
                 // There are resources defined in the config so let's grab files
                 // Find all items and put in the order
                 Logger.ZLogTrace("Preparing resources specified in config...");

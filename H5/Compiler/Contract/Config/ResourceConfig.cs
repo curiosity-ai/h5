@@ -95,6 +95,11 @@ namespace H5.Contract
                 this.Inject = true;
             }
 
+            if (!this.Load.HasValue)
+            {
+                this.Load = true;
+            }
+
             if (!this.Silent.HasValue)
             {
                 this.Silent = true;
@@ -111,6 +116,8 @@ namespace H5.Contract
         public bool? Extract{ get; set; }
 
         public bool? Inject{ get; set; }
+
+        public bool? Load { get; set; }
 
         public bool? Silent{ get; set; }
 

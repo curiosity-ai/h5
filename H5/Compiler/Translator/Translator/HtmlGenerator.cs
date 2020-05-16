@@ -83,16 +83,16 @@ namespace H5.Translator
 
             var outputForHtml = _translatorOutputs.GetOutputs();
 
-            if (_translatorOutputs.Resources.Count > 0)
+            if (_translatorOutputs.ResourcesForHtml.Count > 0)
             {
-                outputForHtml = outputForHtml.Concat(_translatorOutputs.Resources);
+                outputForHtml = outputForHtml.Concat(_translatorOutputs.ResourcesForHtml);
             }
 
             var firstJs = true;
             var firstMinJs = true;
             var firstCss = true;
 
-            foreach (var output in outputForHtml)
+            foreach (var output in outputForHtml.Where(o => o.LoadInHtml))
             {
                 if (output.OutputType == TranslatorOutputType.JavaScript && indexScript >= 0)
                 {

@@ -77,7 +77,7 @@ namespace H5.Translator
                 }
 
                 var fileName = GetDefaultFileName(h5Options);
-                if (!h5Options.SkipEmbeddingResources)
+                if (!h5Options.SkipEmbeddingResourcesIfBuildingH5Core && !h5Options.SkipResourcesExtraction)
                 {
                     translator.Minify();
                     translator.Combine(fileName);
@@ -87,24 +87,32 @@ namespace H5.Translator
 
                 translator.RunAfterBuild();
 
-                GenerateHtml(outputPath);
+                GenerateHtmlIfNeeded(outputPath);
 
                 return outputPath;
             }
         }
 
-        private void GenerateHtml(string outputPath)
+        private void GenerateHtmlIfNeeded(string outputPath)
         {
-            var htmlTitle = Translator.AssemblyInfo.Html.Title;
-
-            if (string.IsNullOrEmpty(htmlTitle))
+            if (Translator.AssemblyInfo.Html.Disabled)
             {
-                htmlTitle = Translator.GetAssemblyTitle();
+                Logger.LogTrace("GenerateHtml skipped as disabled in config.");
+                return;
             }
+            else
+            {
+                var htmlTitle = Translator.AssemblyInfo.Html.Title;
 
-            var htmlGenerator = new HtmlGenerator(Translator.AssemblyInfo, Translator.Outputs, htmlTitle);
+                if (string.IsNullOrEmpty(htmlTitle))
+                {
+                    htmlTitle = Translator.GetAssemblyTitle();
+                }
 
-            htmlGenerator.GenerateHtml(outputPath);
+                var htmlGenerator = new HtmlGenerator(Translator.AssemblyInfo, Translator.Outputs, htmlTitle, Translator.ProjectProperties.Configuration);
+
+                htmlGenerator.GenerateHtml(outputPath);
+            }
         }
 
         private string GetDefaultFileName(H5Options h5Options)

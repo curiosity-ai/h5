@@ -5,6 +5,9 @@
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
+    <!-- Skip embedding any javascript code in this package -->
+    <SkipEmbeddingResources>true</SkipEmbeddingResources>
   </PropertyGroup>
 
   <ItemGroup>

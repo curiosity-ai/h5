@@ -14,14 +14,14 @@ namespace H5.Translator
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<TranslatorProcessor>();
 
-        public H5Options H5Options { get; private set; }
+        public CompilationOptions H5Options { get; private set; }
 
 
         public IAssemblyInfo TranslatorConfiguration { get; private set; }
 
         public Translator Translator { get; private set; }
 
-        public TranslatorProcessor(H5Options h5Options)
+        public TranslatorProcessor(CompilationOptions h5Options)
         {
             H5Options = h5Options;
         }
@@ -77,7 +77,8 @@ namespace H5.Translator
                 }
 
                 var fileName = GetDefaultFileName(h5Options);
-                if (!h5Options.SkipEmbeddingResourcesIfBuildingH5Core && !translator.SkipEmbeddingResources)
+
+                if (!translator.SkipEmbeddingResources)
                 {
                     translator.Minify();
                     translator.Combine(fileName);
@@ -115,7 +116,7 @@ namespace H5.Translator
             }
         }
 
-        private string GetDefaultFileName(H5Options h5Options)
+        private string GetDefaultFileName(CompilationOptions h5Options)
         {
             var defaultFileName = Translator.AssemblyInfo.FileName;
 

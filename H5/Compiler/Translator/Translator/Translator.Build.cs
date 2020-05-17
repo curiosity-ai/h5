@@ -77,7 +77,7 @@ namespace H5.Translator
                         ProjectProperties.BuildProjects.Add(projectRef);
                     }
 
-                    var processor = new TranslatorProcessor(new H5Options
+                    var processor = new TranslatorProcessor(new CompilationOptions
                     {
                         Rebuild = Rebuild,
                         ProjectLocation = projectRef,
@@ -164,7 +164,7 @@ namespace H5.Translator
                             ProjectProperties.BuildProjects.Add(projectRef);
                         }
 
-                        var processor = new TranslatorProcessor(new H5Options
+                        var processor = new TranslatorProcessor(new CompilationOptions
                         {
                             Rebuild = Rebuild,
                             ProjectLocation = projectRef,
@@ -303,7 +303,7 @@ namespace H5.Translator
                     var newPath = Path.GetFullPath(new Uri(Path.Combine(outputDir, Path.GetFileName(path))).LocalPath);
                     if (string.Compare(newPath, path, true) != 0)
                     {
-                        File.Copy(path, newPath, true);
+                        CopyFileAsync(path, newPath).Wait();
                     }
 
                     if (updateH5Location && string.Compare(Path.GetFileName(path), "h5.dll", true) == 0)
@@ -461,6 +461,42 @@ namespace H5.Translator
 
         private static async Task CopyFileAsync(string sourceFile, string destinationFile)
         {
+            var sfi = new FileInfo(sourceFile);
+            var dfi = new FileInfo(destinationFile);
+
+            if(!sfi.Exists)
+            {
+                throw new FileNotFoundException($"File {sourceFile} not found");
+            }
+
+            if (dfi.Exists)
+            {
+                if(dfi.Length == sfi.Length && dfi.LastWriteTimeUtc == sfi.LastWriteTimeUtc)
+                {
+                    //We can assume it's the same file, so skip copying
+                    return;
+                }
+                else
+                {
+                    lock (_loadedAssembliesLock)
+                    {
+                        if (_loadedAssemblies.TryGetValue(destinationFile, out var previouslyLoaded))
+                        {
+                            _loadedAssemblies.Remove(destinationFile);
+                            previouslyLoaded.Dispose();
+                            if (_loadedAssemblieStreams.TryGetValue(destinationFile, out var stream))
+                            {
+                                _loadedAssemblieStreams.Remove(destinationFile);
+                                stream.Close();
+                                stream.Dispose();
+                            }
+                        }
+                    }
+
+                    await Task.Delay(50);
+                }
+            }
+
             var fileOptions = FileOptions.Asynchronous | FileOptions.SequentialScan;
             var bufferSize = 4096;
             using (var sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, fileOptions))
@@ -469,7 +505,11 @@ namespace H5.Translator
                 destinationStream.SetLength(0);
                 await sourceStream.CopyToAsync(destinationStream, bufferSize).ConfigureAwait(false);
                 await destinationStream.FlushAsync().ConfigureAwait(false);
+                sourceStream.Close();
+                destinationStream.Close();
             }
+
+            File.SetLastWriteTimeUtc(destinationFile, sfi.LastWriteTimeUtc);
         }
     }
 }

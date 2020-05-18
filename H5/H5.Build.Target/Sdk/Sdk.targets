@@ -301,7 +301,6 @@
   <!--This is where the magic actually happens-->
 
   <Target Name="_H5Build"
-      DependsOnTargets="SourceFilesProjectOutputGroup"
       Inputs="@(SourceFilesProjectOutputGroupOutput);$(MSBuildAllProjects);$(ProjectDepsFilePath);$(ProjectRuntimeConfigFilePath);$(ProjectRuntimeConfigDevFilePath)"
       Outputs="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)">
 

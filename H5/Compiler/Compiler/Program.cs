@@ -56,6 +56,11 @@ namespace H5.Compiler
             // We need the logic for compiler -> startserver -> server because otherwise the server process is marked as a child of the compiler process
             // Which msbuild keeps track of, so it would kill the server
 
+            if(args.Length == 0)
+            {
+                ShowHelp(); 
+                return 0;
+            }
             if (args.Length == 1 && args[0] == "server")
             {
                 TrySetConsoleTitle();
@@ -274,7 +279,7 @@ namespace H5.Compiler
                 WorkingDirectory = Directory.GetCurrentDirectory(),
             };
 
-            if (self.MainModule.FileName.Contains("dotnet"))
+            if (Path.GetFileNameWithoutExtension(self.MainModule.FileName) == "dotnet") //Need to check the file name, as otherwise when running as a tool we're in a folder called /.dotnet/
             {
                 pInfo.ArgumentList.Add("h5.dll");
             }

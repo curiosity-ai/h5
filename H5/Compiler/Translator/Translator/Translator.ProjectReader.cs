@@ -32,6 +32,7 @@ namespace H5.Translator
             {
                 public const string SkipResourcesExtraction = "SkipResourcesExtraction";
                 public const string SkipEmbeddingResources = "SkipEmbeddingResources";
+                public const string SkipHtmlGeneration  = "SkipHtmlGeneration";
             }
         }
 
@@ -82,6 +83,7 @@ namespace H5.Translator
 
             SkipEmbeddingResources  = ReadProperty(project, ProjectPropertyNames.H5_Specific.SkipEmbeddingResources, true, configHelper) is string s ? bool.Parse(s) : false;
             SkipResourcesExtraction = ReadProperty(project, ProjectPropertyNames.H5_Specific.SkipResourcesExtraction, true, configHelper) is string s2 ? bool.Parse(s2) : false;
+            SkipHtmlGeneration      = ReadProperty(project, ProjectPropertyNames.H5_Specific.SkipHtmlGeneration, true, configHelper) is string s3 ? bool.Parse(s3) : false;
         }
 
         /// <summary>

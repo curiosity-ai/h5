@@ -106,7 +106,11 @@ namespace H5.Translator
                 translator.RunAfterBuild();
 
                 _cancellationToken.ThrowIfCancellationRequested();
-                GenerateHtmlIfNeeded(outputPath);
+
+                if (!translator.SkipHtmlGeneration)
+                {
+                    GenerateHtmlIfNeeded(outputPath);
+                }
 
                 return outputPath;
             }

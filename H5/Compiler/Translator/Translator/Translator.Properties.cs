@@ -114,6 +114,7 @@ namespace H5.Translator
         public bool SkipResourcesExtraction { get; set; } = false;
         public bool SkipEmbeddingResources { get; set; } = false;
 
+        public bool SkipHtmlGeneration { get; set; } = false;
 
         public HashSet<string> ExtractedScripts { get; set; } = new HashSet<string>();
     }

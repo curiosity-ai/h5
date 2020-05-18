@@ -53,12 +53,23 @@ namespace H5.Compiler
                 e.Cancel = true;
             };
 
+            // We need the logic for compiler -> startserver -> server because otherwise the server process is marked as a child of the compiler process
+            // Which msbuild keeps track of, so it would kill the server
+
             if (args.Length == 1 && args[0] == "server")
             {
                 TrySetConsoleTitle();
                 Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
 
                 return await RunCompilationServerAsync();
+            }
+            else if (args.Length == 1 && args[0] == "startserver")
+            {
+                TrySetConsoleTitle();
+                Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
+
+                ActuallyStartCompilationServer();
+                return 0;
             }
             else
             {
@@ -69,61 +80,69 @@ namespace H5.Compiler
                 var channel = new Channel("localhost", PORT, ChannelCredentials.Insecure);
                 var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
 
-                while (true)
-                {
-                    try
-                    {
-                        await remoteCompiler.Ping(_exitToken.Token);
-                        Logger.LogInformation("Found compilation server, sending compilation request\n\n");
-                        break;
-                    }
-                    catch(Exception E)
-                    {
-                        Logger.LogInformation("Compilation server not online, will start it in the background\n\n");
-                    }
-                    await RestartCompilationServer();
-                }
-
                 Logger.LogInformation($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
 
-                var compilationUID = await remoteCompiler.RequestCompilationAsync(compilationRequest, _exitToken.Token);
-
-                while(true)
+                if (compilationRequest.NoCompilationServer)
                 {
-                    try
+                    return CompilationProcessor.Compile(compilationRequest, default, _exitToken.Token);
+                }
+                else
+                {
+                    while (true)
                     {
-                        var status = await remoteCompiler.GetStatusAsync(compilationUID, _exitToken.Token);
-
-                        if (status.Messages is object)
+                        try
                         {
-                            foreach (var message in status.Messages)
+                            await remoteCompiler.Ping(_exitToken.Token);
+                            Logger.LogInformation("Found compilation server, sending compilation request\n\n");
+                            break;
+                        }
+                        catch (Exception E)
+                        {
+                            Logger.LogInformation("Compilation server not online, will start it in the background\n\n");
+                        }
+                        await TriggerCompilationServerChildProcessStarter();
+                    }
+
+
+                    var compilationUID = await remoteCompiler.RequestCompilationAsync(compilationRequest, _exitToken.Token);
+
+                    while (true)
+                    {
+                        try
+                        {
+                            var status = await remoteCompiler.GetStatusAsync(compilationUID, _exitToken.Token);
+
+                            if (status.Messages is object)
                             {
-                                Logger.Log(message.LogLevel, message.Message);
+                                foreach (var message in status.Messages)
+                                {
+                                    Logger.Log(message.LogLevel, message.Message);
+                                }
                             }
-                        }
 
-                        switch (status.Status)
+                            switch (status.Status)
+                            {
+                                case CompilationStatus.OnGoing:
+                                    break;
+                                case CompilationStatus.Success:
+                                    return 0;
+                                case CompilationStatus.Fail:
+                                    return 1;
+                                case CompilationStatus.Pending:
+                                    break;
+                            }
+                            await Task.Delay(500, _exitToken.Token);
+                        }
+                        catch (OperationCanceledException)
                         {
-                            case CompilationStatus.OnGoing:
-                                break;
-                            case CompilationStatus.Success:
-                                return 0;
-                            case CompilationStatus.Fail:
-                                return 1;
-                            case CompilationStatus.Pending:
-                                break;
+                            //Ignore and send an abort request bellow
                         }
-                        await Task.Delay(500, _exitToken.Token);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        //Ignore and send an abort request bellow
-                    }
 
-                    if (_exitToken.IsCancellationRequested)
-                    {
-                        await remoteCompiler.AbortAsync(compilationUID, default);
-                        return 0;
+                        if (_exitToken.IsCancellationRequested)
+                        {
+                            await remoteCompiler.AbortAsync(compilationUID, default);
+                            return 0;
+                        }
                     }
                 }
             }
@@ -215,7 +234,34 @@ namespace H5.Compiler
             }
         }
 
-        private static async Task RestartCompilationServer()
+        private static async Task TriggerCompilationServerChildProcessStarter()
+        {
+            var self = Process.GetCurrentProcess();
+
+            var pInfo = new ProcessStartInfo()
+            {
+                FileName = self.MainModule.FileName,
+                UseShellExecute = true,
+                CreateNoWindow = false,
+                WorkingDirectory = Directory.GetCurrentDirectory(),
+            };
+
+            if (self.MainModule.FileName.Contains("dotnet"))
+            {
+                pInfo.ArgumentList.Add("h5.dll");
+            }
+
+            pInfo.ArgumentList.Add("startserver");
+
+            var process = new Process();
+            process.StartInfo = pInfo;
+            process.Start();
+
+            //Change this delay to monitoring the process console output for the ready message, or error message    
+            await Task.Delay(4000);
+        }
+
+        private static void ActuallyStartCompilationServer()
         {
             var self = Process.GetCurrentProcess();
 
@@ -237,9 +283,6 @@ namespace H5.Compiler
             var process = new Process();
             process.StartInfo = pInfo;
             process.Start();
-
-            //Change this delay to monitoring the process console output for the ready message, or error message    
-            await Task.Delay(4000);
         }
 
         private static async Task<int> RunCompilationServerAsync()
@@ -376,6 +419,10 @@ namespace H5.Compiler
                         compilationRequest.Rebuild = true;
                         break;
 
+                    case "--no-server":
+                        compilationRequest.NoCompilationServer = true;
+                        break;
+
                     case "-S":
                     case "--settings":
                         var error = ParseProjectProperties(compilationRequest, args[++i]);
@@ -473,6 +520,16 @@ namespace H5.Compiler
             if (string.IsNullOrWhiteSpace(compilationRequest.DefaultFileName))
             {
                 compilationRequest.DefaultFileName = Path.GetFileName(compilationRequest.OutputLocation);
+            }
+
+            // TODO: Add more checks
+            var isAzure  = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("Build.BuildId")); //From here: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+            var isJenkis = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BUILD_ID"));      //From here: https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
+
+            if (isAzure || isJenkis)
+            {
+                Logger.LogInformation("Running on build machine, bypassing compilation server");
+                compilationRequest.NoCompilationServer = true;
             }
 
             return compilationRequest;

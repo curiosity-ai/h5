@@ -12,6 +12,8 @@ namespace H5.Compiler.Hosted
         public string DefaultFileName { get; set; }
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
+        public bool NoCompilationServer { get; set; }
+
         public ProjectProperties ProjectProperties { get; set; } = new ProjectProperties();
 
         internal CompilationOptions ToOptions()

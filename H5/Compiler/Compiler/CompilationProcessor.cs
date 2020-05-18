@@ -77,7 +77,7 @@ namespace H5.Compiler
             thread.Start();
         }
 
-        public static void Compile(CompilationRequest compilationRequest, UID128 compilationUID, CancellationToken cancellationToken)
+        public static int Compile(CompilationRequest compilationRequest, UID128 compilationUID, CancellationToken cancellationToken)
         {
             var compilationOptions = compilationRequest.ToOptions();
 
@@ -90,20 +90,31 @@ namespace H5.Compiler
                     processor.PreProcess();
                     processor.Process();
                     processor.PostProcess();
-                    Logger.ZLogInformation("==== SUCCESS {0}", compilationUID);
+                    if (compilationUID.IsNotNull())
+                    {
+                        Logger.ZLogInformation("==== SUCCESS {0}", compilationUID);
+                    }
+                    return 0;
                 }
             }
             catch (OperationCanceledException)
             {
                 //Ignore, probably compilation aborted
-                Logger.ZLogInformation("==== CANCELED {0}", compilationUID);
-                return;
+                if (compilationUID.IsNotNull())
+                {
+                    Logger.ZLogInformation("==== CANCELED {0}", compilationUID);
+                }
+                return 0;
             }
             catch (EmitterException ex)
             {
                 Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
                 Logger.LogError(ex.StackTrace.ToString());
-                Logger.ZLogInformation("==== FAIL {0}", compilationUID);
+                if (compilationUID.IsNotNull())
+                {
+                    Logger.ZLogInformation("==== FAIL {0}", compilationUID);
+                }
+                return 1;
             }
             catch (Exception ex)
             {
@@ -120,7 +131,12 @@ namespace H5.Compiler
 
                 Logger.LogError(ex.StackTrace.ToString());
 
-                Logger.ZLogInformation("==== FAIL {0}", compilationUID);
+
+                if (compilationUID.IsNotNull())
+                {
+                    Logger.ZLogInformation("==== FAIL {0}", compilationUID);
+                }
+                return 1;
             }
         }
 

@@ -5,14 +5,11 @@ using H5.Contract;
 
 namespace H5.Translator
 {
-    public class H5Options
+    public class CompilationOptions
     {
         public ProjectProperties ProjectProperties { get; set; }
 
         public string ProjectLocation { get; set; }
-
-        internal bool SkipEmbeddingResourcesIfBuildingH5Core => ProjectLocation.Contains("H5.Core.csproj");
-
         public string OutputLocation { get; set; }
         public string DefaultFileName { get; set; }
         public string H5Location { get; set; }
@@ -20,7 +17,7 @@ namespace H5.Translator
 
         public string ReferencesPath { get; set; }
 
-        public H5Options()
+        public CompilationOptions()
         {
         }
 

@@ -45,6 +45,7 @@
   <ItemGroup>
     <PackageReference Include="AjaxMin" Version="5.14.5506.26202" />
     <PackageReference Include="Lokad.ILPack" Version="0.1.4" />
+    <PackageReference Include="MagicOnion.Hosting" Version="3.0.11" />
     <PackageReference Include="Microsoft.Build" Version="16.5.0" />
     <PackageReference Include="Microsoft.Build.Framework" Version="16.5.0" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.5.0" />

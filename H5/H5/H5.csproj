@@ -865,6 +865,5 @@
     <EmbeddedResource Include="Resources\Locales\zh.js" />
     <EmbeddedResource Include="Resources\Locales\zu-ZA.js" />
     <EmbeddedResource Include="Resources\Locales\zu.js" />
-    <EmbeddedResource Include="shared\Resources\Strings.resx" />
   </ItemGroup>
 </Project>

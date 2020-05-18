@@ -28,7 +28,7 @@ namespace H5.Translator
 <html lang=en>
 <head>
     <meta charset=""utf-8"" />
-    {meta}
+    {-!-meta-!-}
     <title>{-!-title-!-}</title>
     {-!-css-!-}
     {-!-script-!-}

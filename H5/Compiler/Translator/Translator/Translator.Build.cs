@@ -25,6 +25,7 @@ using Mosaik.Core;
 using ZLogger;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace H5.Translator
 {
@@ -77,7 +78,7 @@ namespace H5.Translator
                         ProjectProperties.BuildProjects.Add(projectRef);
                     }
 
-                    var processor = new TranslatorProcessor(new H5Options
+                    var processor = new TranslatorProcessor(new CompilationOptions
                     {
                         Rebuild = Rebuild,
                         ProjectLocation = projectRef,
@@ -87,7 +88,7 @@ namespace H5.Translator
                             BuildProjects = ProjectProperties.BuildProjects,
                             Configuration = ProjectProperties.Configuration
                         }
-                    });
+                    }, default);
 
                     processor.PreProcess();
 
@@ -104,7 +105,7 @@ namespace H5.Translator
 
         }
 
-        public virtual void BuildAssembly()
+        public virtual void BuildAssembly(CancellationToken cancellationToken)
         {
             using (new Measure(Logger, $"Building assembly '{ProjectProperties?.AssemblyName}' for location '{Location}'"))
             {
@@ -164,7 +165,7 @@ namespace H5.Translator
                             ProjectProperties.BuildProjects.Add(projectRef);
                         }
 
-                        var processor = new TranslatorProcessor(new H5Options
+                        var processor = new TranslatorProcessor(new CompilationOptions
                         {
                             Rebuild = Rebuild,
                             ProjectLocation = projectRef,
@@ -174,7 +175,7 @@ namespace H5.Translator
                                 BuildProjects = ProjectProperties.BuildProjects,
                                 Configuration = ProjectProperties.Configuration
                             }
-                        });
+                        }, cancellationToken);
 
                         processor.PreProcess();
 
@@ -203,6 +204,8 @@ namespace H5.Translator
 
                     foreach (var rp in referencedPackages.GroupBy(p => p.PackageIdentity).OrderByDescending(p => p.Key.Version).Select(g => g.First()))
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
+
                         var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
                         if (Directory.Exists(pp))
                         {
@@ -250,6 +253,8 @@ namespace H5.Translator
                     {
                         Task.WaitAll(filesToCopy.Select(async (copy) =>
                         {
+                            cancellationToken.ThrowIfCancellationRequested();
+
                             Logger.ZLogInformation($"NuGet: Copying lib file '{copy.source}' to '{copy.destination}'");
                             await CopyFileAsync(copy.source, copy.destination).ConfigureAwait(false);
                         }).ToArray());
@@ -277,12 +282,14 @@ namespace H5.Translator
                 var arr = referencesPathes.ToArray();
                 foreach (var refPath in arr)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     AddNestedReferences(referencesPathes, refPath);
                 }
 
                 IList<SyntaxTree> trees = new List<SyntaxTree>(files.Count);
                 foreach (var file in files)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     var filePath = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
                     var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), parseOptions, filePath, Encoding.Default);
                     trees.Add(syntaxTree);
@@ -291,6 +298,7 @@ namespace H5.Translator
                 var references = new List<MetadataReference>();
                 var outputDir = Path.GetDirectoryName(AssemblyLocation);
                 var di = new DirectoryInfo(outputDir);
+
                 if (!di.Exists)
                 {
                     di.Create();
@@ -300,10 +308,12 @@ namespace H5.Translator
 
                 foreach (var path in referencesPathes)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     var newPath = Path.GetFullPath(new Uri(Path.Combine(outputDir, Path.GetFileName(path))).LocalPath);
                     if (string.Compare(newPath, path, true) != 0)
                     {
-                        File.Copy(path, newPath, true);
+                        CopyFileAsync(path, newPath).Wait();
                     }
 
                     if (updateH5Location && string.Compare(Path.GetFileName(path), "h5.dll", true) == 0)
@@ -325,7 +335,7 @@ namespace H5.Translator
                 {
                     using (var outputStream = new FileStream(AssemblyLocation, FileMode.Create))
                     {
-                        emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true));
+                        emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true), cancellationToken: cancellationToken);
                         outputStream.Flush();
                         outputStream.Close();
                     }
@@ -461,6 +471,42 @@ namespace H5.Translator
 
         private static async Task CopyFileAsync(string sourceFile, string destinationFile)
         {
+            var sfi = new FileInfo(sourceFile);
+            var dfi = new FileInfo(destinationFile);
+
+            if(!sfi.Exists)
+            {
+                throw new FileNotFoundException($"File {sourceFile} not found");
+            }
+
+            if (dfi.Exists)
+            {
+                if(dfi.Length == sfi.Length && dfi.LastWriteTimeUtc == sfi.LastWriteTimeUtc)
+                {
+                    //We can assume it's the same file, so skip copying
+                    return;
+                }
+                else
+                {
+                    lock (_loadedAssembliesLock)
+                    {
+                        if (_loadedAssemblies.TryGetValue(destinationFile, out var previouslyLoaded))
+                        {
+                            _loadedAssemblies.Remove(destinationFile);
+                            previouslyLoaded.Dispose();
+                            if (_loadedAssemblieStreams.TryGetValue(destinationFile, out var stream))
+                            {
+                                _loadedAssemblieStreams.Remove(destinationFile);
+                                stream.Close();
+                                stream.Dispose();
+                            }
+                        }
+                    }
+
+                    await Task.Delay(50);
+                }
+            }
+
             var fileOptions = FileOptions.Asynchronous | FileOptions.SequentialScan;
             var bufferSize = 4096;
             using (var sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, fileOptions))
@@ -469,7 +515,11 @@ namespace H5.Translator
                 destinationStream.SetLength(0);
                 await sourceStream.CopyToAsync(destinationStream, bufferSize).ConfigureAwait(false);
                 await destinationStream.FlushAsync().ConfigureAwait(false);
+                sourceStream.Close();
+                destinationStream.Close();
             }
+
+            File.SetLastWriteTimeUtc(destinationFile, sfi.LastWriteTimeUtc);
         }
     }
 }

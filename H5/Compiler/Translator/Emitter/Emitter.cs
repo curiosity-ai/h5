@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Mono.Cecil;
 using Mosaik.Core;
 using System.Collections.Generic;
+using System.Threading;
 using ZLogger;
 
 namespace H5.Translator
@@ -12,13 +13,14 @@ namespace H5.Translator
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<Emitter>();
 
-        public Emitter(IDictionary<string,TypeDefinition> typeDefinitions, H5Types h5Types, List<ITypeInfo> types, IValidator validator, IMemberResolver resolver, Dictionary<string, ITypeInfo> typeInfoDefinitions)
+        public Emitter(IDictionary<string,TypeDefinition> typeDefinitions, H5Types h5Types, List<ITypeInfo> types, IValidator validator, IMemberResolver resolver, Dictionary<string, ITypeInfo> typeInfoDefinitions, CancellationToken cancellationToken)
         {
             Resolver = resolver;
             TypeDefinitions = typeDefinitions;
             TypeInfoDefinitions = typeInfoDefinitions;
             Types = types;
             H5Types = h5Types;
+            CancellationToken = cancellationToken;
 
             H5Types.InitItems(this);
 
@@ -49,6 +51,8 @@ namespace H5.Translator
                 var blocks = GetBlocks();
                 foreach (var block in blocks)
                 {
+                    CancellationToken.ThrowIfCancellationRequested();
+
                     JsDoc.Init();
 
                     Logger.ZLogTrace("Emitting block {0}", block.GetType());

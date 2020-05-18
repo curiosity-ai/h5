@@ -18,6 +18,11 @@ namespace H5.Translator
 {
     public partial class Translator
     {
+
+        private static readonly Dictionary<string, AssemblyDefinition> _loadedAssemblies = new Dictionary<string, AssemblyDefinition>();
+        private static readonly Dictionary<string, Stream> _loadedAssemblieStreams = new Dictionary<string, Stream>();
+        private static readonly object _loadedAssembliesLock = new object();
+
         private static ILogger Logger = ApplicationLogging.CreateLogger<Translator>();
         
         public Stack<string> CurrentAssemblyLocationInspected { get; set; } = new Stack<string>();
@@ -65,22 +70,26 @@ namespace H5.Translator
 
             foreach (var path in locations)
             {
-                var ms = LoadAssemblyAsFileStream(path);
+                AssemblyDefinition assemblyDefinition;
+
+                lock (_loadedAssembliesLock)
                 {
-
-                    var reference = AssemblyDefinition.ReadAssembly(
-                        ms,
-                        new ReaderParameters()
-                        {
-                            ReadingMode = ReadingMode.Deferred,
-                            AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
-                        }
-                    );
-
-                    if (reference != null && !references.Any(a => a.Name.Name == reference.Name.Name))
+                    if (!_loadedAssemblies.TryGetValue(path, out assemblyDefinition))
                     {
-                        references.Add(reference);
+                        assemblyDefinition = AssemblyDefinition.ReadAssembly(LoadAssemblyAsFileStream(path),
+                            new ReaderParameters()
+                            {
+                                ReadingMode = ReadingMode.Deferred,
+                                AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
+                            }
+                        );
+                        _loadedAssemblies[path] = assemblyDefinition;
                     }
+                }
+
+                if (assemblyDefinition is object && !references.Any(a => a.Name.Name == assemblyDefinition.Name.Name))
+                {
+                    references.Add(assemblyDefinition);
                 }
             }
         }
@@ -98,73 +107,79 @@ namespace H5.Translator
 
             CurrentAssemblyLocationInspected.Push(location);
 
-            var ms = LoadAssemblyAsFileStream(location);
+            AssemblyDefinition assemblyDefinition;
+
+            lock (_loadedAssembliesLock)
             {
-                var assemblyDefinition = AssemblyDefinition.ReadAssembly(
-                        ms,
+                if (!_loadedAssemblies.TryGetValue(location, out assemblyDefinition))
+                {
+                    assemblyDefinition = AssemblyDefinition.ReadAssembly(LoadAssemblyAsFileStream(location),
                         new ReaderParameters()
                         {
                             ReadingMode = ReadingMode.Deferred,
                             AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
                         }
                     );
-
-
-                foreach (AssemblyNameReference r in assemblyDefinition.MainModule.AssemblyReferences)
-                {
-                    var name = r.Name;
-
-                    if (name == SystemAssemblyName || name == "System.Core")
-                    {
-                        continue;
-                    }
-
-                    var fullName = r.FullName;
-
-                    if (references.Any(a => a.Name.FullName == fullName))
-                    {
-                        continue;
-                    }
-
-                    var path = Path.Combine(Path.GetDirectoryName(location), name) + ".dll";
-
-                    if(!File.Exists(path) && PackageReferencesDiscoveredPaths is object && PackageReferencesDiscoveredPaths.TryGetValue(name, out var discoveredPath))
-                    {
-                        path = discoveredPath;
-                    }
-
-                    var updateH5Location = name.ToLowerInvariant() == "h5" && (string.IsNullOrWhiteSpace(H5Location) || !File.Exists(H5Location));
-
-                    if (updateH5Location)
-                    {
-                        H5Location = path;
-                    }
-
-                    var reference = LoadAssembly(path, references);
-
-                    if (reference != null && !references.Any(a => a.Name.FullName == reference.Name.FullName))
-                    {
-                        references.Add(reference);
-                    }
+                    _loadedAssemblies[location] = assemblyDefinition;
                 }
-
-                Logger.ZLogTrace("Assembly definition loading {0} done", (location ?? ""));
-
-                var cl = CurrentAssemblyLocationInspected.Pop();
-
-                if (cl != location)
-                {
-                    throw new InvalidOperationException(string.Format("Current location {0} is not the current location in stack {1}", location, cl));
-                }
-
-                return assemblyDefinition;
             }
+
+            foreach (AssemblyNameReference r in assemblyDefinition.MainModule.AssemblyReferences)
+            {
+                var name = r.Name;
+
+                if (name == SystemAssemblyName || name == "System.Core")
+                {
+                    continue;
+                }
+
+                var fullName = r.FullName;
+
+                if (references.Any(a => a.Name.FullName == fullName))
+                {
+                    continue;
+                }
+
+                var path = Path.Combine(Path.GetDirectoryName(location), name) + ".dll";
+
+                if(!File.Exists(path) && PackageReferencesDiscoveredPaths is object && PackageReferencesDiscoveredPaths.TryGetValue(name, out var discoveredPath))
+                {
+                    path = discoveredPath;
+                }
+
+                var updateH5Location = name.ToLowerInvariant() == "h5" && (string.IsNullOrWhiteSpace(H5Location) || !File.Exists(H5Location));
+
+                if (updateH5Location)
+                {
+                    H5Location = path;
+                }
+
+                var reference = LoadAssembly(path, references);
+
+                if (reference != null && !references.Any(a => a.Name.FullName == reference.Name.FullName))
+                {
+                    references.Add(reference);
+                }
+            }
+
+            Logger.ZLogTrace("Assembly definition loading {0} done", (location ?? ""));
+
+            var cl = CurrentAssemblyLocationInspected.Pop();
+
+            if (cl != location)
+            {
+                throw new InvalidOperationException(string.Format("Current location {0} is not the current location in stack {1}", location, cl));
+            }
+
+            return assemblyDefinition;
         }
 
         private static Stream LoadAssemblyAsFileStream(string location)
         {
             //Must be a FileStream, as it needs the path info attached
-            return File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            var stream = File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
+            return stream;
         }
 
         protected virtual void ReadTypes(AssemblyDefinition assembly)
@@ -362,7 +377,7 @@ namespace H5.Translator
             }
         }
 
-        protected void BuildSyntaxTree()
+        protected void BuildSyntaxTree(CancellationToken cancellationToken)
         {
             var rewriten = Rewrite();
 
@@ -374,7 +389,7 @@ namespace H5.Translator
                 {
                     var t = new Thread(() =>
                     {
-                        while (queue.TryDequeue(out var index))
+                        while (queue.TryDequeue(out var index) && !cancellationToken.IsCancellationRequested)
                         {
                             BuildSyntaxTreeForFile(index, ref rewriten);
                         }
@@ -385,6 +400,8 @@ namespace H5.Translator
                 }).ToArray();
 
                 Array.ForEach(threads, t => t.Join());
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 m.SetOperations(rewriten.Length);
             }

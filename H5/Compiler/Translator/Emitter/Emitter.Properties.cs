@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using ZLogger;
 using System.Collections.Concurrent;
+using System.Threading;
 
 namespace H5.Translator
 {
@@ -207,6 +208,8 @@ namespace H5.Translator
         public Dictionary<string, bool> ParentTempVariables { get; set; }
 
         public H5Types H5Types { get; set; }
+        
+        public CancellationToken CancellationToken { get; }
 
         public ITranslator Translator { get; set; }
 

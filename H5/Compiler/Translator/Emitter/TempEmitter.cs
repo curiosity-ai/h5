@@ -6,6 +6,7 @@ using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace H5.Translator
 {
@@ -964,6 +965,8 @@ namespace H5.Translator
         }
 
         public int WrapRestCounter { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public CancellationToken CancellationToken => default;
 
         public int CompareTypeInfosByName(ITypeInfo x, ITypeInfo y)
         {

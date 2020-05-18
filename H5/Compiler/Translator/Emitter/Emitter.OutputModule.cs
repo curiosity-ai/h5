@@ -22,6 +22,8 @@ namespace H5.Translator
             {
                 foreach (var outputPair in Outputs)
                 {
+                    CancellationToken.ThrowIfCancellationRequested();
+
                     var output = outputPair.Value;
                     int k = 0;
                     foreach (var moduleOutputPair in output.ModuleOutput)

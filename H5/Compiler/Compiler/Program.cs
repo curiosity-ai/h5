@@ -1,7 +1,8 @@
 using Cysharp.Text;
+using Grpc.Core;
+using H5.Compiler.Hosted;
 using H5.Contract;
 using H5.Translator;
-using Microsoft.Build.Utilities;
 using Microsoft.Extensions.Logging;
 using Mosaik.Core;
 using System;
@@ -10,68 +11,267 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using ZLogger;
+using System.Threading.Tasks;
+using MagicOnion.Hosting;
+using MagicOnion.Server;
+using System.Diagnostics;
+using System.Threading;
 
 namespace H5.Compiler
 {
+
     public class Program
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<Program>();
+        
+        private const int PORT = 51515;
 
-        private static int Main(string[] args)
+        private static readonly CancellationTokenSource _exitToken = new CancellationTokenSource();
+        private static readonly TaskCompletionSource<object> _exitTask    = new TaskCompletionSource<object>();
+
+        private static async Task<int> Main(string[] args)
         {
-            Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
             DefaultEncoding.ForceInvariantCultureAndUTF8Output();
+            SayHi();
 
             //TODO: get log level from command line
             //TODO: add options on SDK Target to set log level on command line
 
-            ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(LogLevel.Information).AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1}:{2}:{3}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))));
+            ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(LogLevel.Information)
+                                                                           .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1}:{2}:{3}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))
+                                                                           .AddZLoggerLogProcessor(new Logging.InMemoryPerCompilationProvider())));
 
-            var h5Options = GetH5OptionsFromCommandLine(args);
-
-            if (h5Options is null)
+            Console.CancelKeyPress += (sender, e) =>
             {
-                ShowHelp();
-                return 0;
+                Console.WriteLine("Ctrl+C received");
+                if(_exitToken.IsCancellationRequested) //Called twice, so just kill the entire process
+                {
+                    Environment.Exit(1);
+                }
+                _exitToken.Cancel();
+                _exitTask.SetResult(new object());
+                e.Cancel = true;
+            };
+
+            if (args.Length == 1 && args[0] == "server")
+            {
+                TrySetConsoleTitle();
+                Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
+
+                return await RunCompilationServerAsync();
             }
+            else
+            {
+                var compilationRequest = ParseRequestFromCommandLine(args);
 
-            Logger.LogInformation($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
+                if (compilationRequest is null) { ShowHelp(); return 0; }
 
-            var processor = new TranslatorProcessor(h5Options);
+                var channel = new Channel("localhost", PORT, ChannelCredentials.Insecure);
+                var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
+
+                while (true)
+                {
+                    try
+                    {
+                        await remoteCompiler.Ping(_exitToken.Token);
+                        Logger.LogInformation("Found compilation server, sending compilation request\n\n");
+                        break;
+                    }
+                    catch(Exception E)
+                    {
+                        Logger.LogInformation("Compilation server not online, will start it in the background\n\n");
+                    }
+                    await RestartCompilationServer();
+                }
+
+                Logger.LogInformation($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
+
+                var compilationUID = await remoteCompiler.RequestCompilationAsync(compilationRequest, _exitToken.Token);
+
+                while(true)
+                {
+                    try
+                    {
+                        var status = await remoteCompiler.GetStatusAsync(compilationUID, _exitToken.Token);
+
+                        if (status.Messages is object)
+                        {
+                            foreach (var message in status.Messages)
+                            {
+                                Logger.Log(message.LogLevel, message.Message);
+                            }
+                        }
+
+                        switch (status.Status)
+                        {
+                            case CompilationStatus.OnGoing:
+                                break;
+                            case CompilationStatus.Success:
+                                return 0;
+                            case CompilationStatus.Fail:
+                                return 1;
+                            case CompilationStatus.Pending:
+                                break;
+                        }
+                        await Task.Delay(500, _exitToken.Token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        //Ignore and send an abort request bellow
+                    }
+
+                    if (_exitToken.IsCancellationRequested)
+                    {
+                        await remoteCompiler.AbortAsync(compilationUID, default);
+                        return 0;
+                    }
+                }
+            }
+        }
+
+        private static void TrySetConsoleTitle()
+        {
+            try
+            {
+                Console.Title = "H5 Compilation server";
+            }
+            catch
+            {
+                //Ignore, will fail in some platforms
+            }
+        }
+
+        private static void SayHi()
+        {
+            void Print(string text)
+            {
+                for(int i = 0; i < text.Length; i++)
+                {
+                    if (text[i] == 'R')
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                    }
+                    else if (text[i] == 'Y')
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    }
+                    else if (text[i] == 'W')
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    else
+                    {
+                        Console.Write(text[i]);
+                    }
+                }
+            }
 
             try
             {
-                using (new Measure(Logger, "H5 Compilation"))
-                {
-                    processor.PreProcess();
-                    processor.Process();
-                    processor.PostProcess();
-                }
+
+                Console.ResetColor();
+
+                Print(
+@"
+
+
+    Y    )                                                      
+     ( /( (  (       (                           (             
+     )\R()Y))\))(      )\           )          (   )\   (   (    
+    (R(_)Y\(R(_)Y()\   ((R(_)Y   (     (     `  )  )\ (R(_)Y ))\  )(   
+    W _R((W_R)Y(R()Y(R(_)Y  )\W___Y)  Y)\    )\  ' /(/( (R(_)Y W_Y  /(R(W_R)Y(()\  
+    W| || | | __|  Y(R(W/ __| Y(R(W_R)W _Y(R(W_R)Y) (R(W_R)W_Y\ R(W_R)W| |R(W_R)W)   (R(W_R) 
+    W| __ | |__ \   | (__ / _ \| '  \R()W/ '_ \)| || |/ -_) | '_| 
+    |_||_| |___/    \___|\___/|_|_|_| | .__/ |_||_|\___| |_|   
+                                      |_|                      
+
+
+");
+
+                // The above call prints the following:
+
+                //        )                                              
+                //     ( /((  (       (                      (           
+                //     )\())\))(      )\         )        (  )\  (  (    
+                //    ((_)((_)()\   (((_)  (    (    `  ) )\((_)))\ )(   
+                //     _((_|()((_)  )\___  )\   )\  '/(/(((_)_ /((_|()\  
+                //    | || || __|  ((/ __|((_)_((_))((_)_\(_) (_))  ((_) 
+                //    | __ ||__ \   | (__/ _ \ '  \() '_ \) | / -_)| '_| 
+                //    |_||_||___/    \___\___/_|_|_|| .__/|_|_\___||_|   
+                //                                  |_|                  
+
+                // Alternative:
+                //     _  _ ___    ___                _ _         
+                //    | || | __|  / __|___ _ __  _ __(_) |___ _ _ 
+                //    | __ |__ \ | (__/ _ \ '  \| '_ \ | / -_) '_|
+                //    |_||_|___/  \___\___/_|_|_| .__/_|_\___|_|  
+                //                              |_|               
+
+                Console.ResetColor();
             }
-            catch (EmitterException ex)
+            catch
             {
-                Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
-                Logger.LogError(ex.StackTrace.ToString());
-                return 1;
+                //Ignore
             }
-            catch (Exception ex)
+        }
+
+        private static async Task RestartCompilationServer()
+        {
+            var self = Process.GetCurrentProcess();
+
+            var pInfo = new ProcessStartInfo()
             {
-                var ee = processor.Translator?.CreateExceptionFromLastNode();
+                FileName = self.MainModule.FileName,
+                UseShellExecute = true,
+                CreateNoWindow = false,
+                WorkingDirectory = Directory.GetCurrentDirectory(),
+            };
 
-                if (ee != null)
-                {
-                    Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
-                }
-                else
-                {
-                    Logger.LogError(string.Format("H5 Compiler error: {0}", ex.ToString()));
-                }
-
-                Logger.LogError(ex.StackTrace.ToString());
-
-                return 1;
+            if (self.MainModule.FileName.Contains("dotnet"))
+            {
+                pInfo.ArgumentList.Add("h5.dll");
             }
 
+            pInfo.ArgumentList.Add("server");
+
+            var process = new Process();
+            process.StartInfo = pInfo;
+            process.Start();
+
+            //Change this delay to monitoring the process console output for the ready message, or error message    
+            await Task.Delay(4000);
+        }
+
+        private static async Task<int> RunCompilationServerAsync()
+        {
+            using (var host = MagicOnionHost.CreateDefaultBuilder()
+                                      .UseMagicOnion(new MagicOnionOptions(isReturnExceptionStackTraceInErrorDetail: true),
+                                                     new ServerPort("localhost", PORT, ServerCredentials.Insecure))
+                                      .Build())
+            {
+                Logger.LogInformation("==== HOST Starting");
+                try
+                {
+                    await host.StartAsync();
+                }
+                catch (Exception E)
+                {
+                    if(!E.Message.Contains("Failed to bind"))
+                    {
+                        Console.WriteLine($"Failed to start server: " + E.Message);
+                    }
+                    return 1;
+                }
+
+                Logger.LogInformation("==== HOST Started Onion Server");
+                CompilationProcessor.CompileForever(_exitToken.Token);
+                await _exitTask.Task;
+                Logger.LogInformation("==== HOST Exit requested");
+                await CompilationProcessor.StopAsync();
+                Logger.LogInformation("==== HOST Compilation stopped");
+                await host.StopAsync();
+                Logger.LogInformation("==== HOST Onion Server stopped");
+            }
             return 0;
         }
 
@@ -116,7 +316,7 @@ namespace H5.Compiler
 ");
         }
 
-        private static bool BindCmdArgumentToOption(string arg, H5Options h5Options)
+        private static bool BindCmdArgumentToOption(string arg, CompilationRequest h5Options)
         {
             if (h5Options.ProjectLocation == null)
             {
@@ -129,11 +329,9 @@ namespace H5.Compiler
             return false; // didn't bind anywhere
         }
 
-        public static H5Options GetH5OptionsFromCommandLine(string[] args)
+        public static CompilationRequest ParseRequestFromCommandLine(string[] args)
         {
-            var h5Options = new H5Options();
-
-            h5Options.ProjectProperties = new ProjectProperties();
+            var compilationRequest = new CompilationRequest();
 
             // options -c, -P and -D have priority over -S
             string configuration = null;
@@ -149,16 +347,16 @@ namespace H5.Compiler
                 {
                     case "-p":
                     case "--project":
-                        h5Options.ProjectLocation = args[++i];
+                        compilationRequest.ProjectLocation = args[++i];
                         break;
 
                     case "--h5":
-                        h5Options.H5Location = args[++i];
+                        compilationRequest.H5Location = args[++i];
                         break;
 
                     case "-o":
                     case "--output":
-                        h5Options.OutputLocation = args[++i];
+                        compilationRequest.OutputLocation = args[++i];
                         break;
 
                     case "-c":
@@ -175,12 +373,12 @@ namespace H5.Compiler
 
                     case "--rebuild":
                     case "-r":
-                        h5Options.Rebuild = true;
+                        compilationRequest.Rebuild = true;
                         break;
 
                     case "-S":
                     case "--settings":
-                        var error = ParseProjectProperties(h5Options, args[++i]);
+                        var error = ParseProjectProperties(compilationRequest, args[++i]);
 
                         if (error != null)
                         {
@@ -203,7 +401,7 @@ namespace H5.Compiler
                         {
                             // don't care about success. If not set already, then try next cmdline argument
                             // as the file parameter and ignore following arguments, if any.
-                            BindCmdArgumentToOption(args[i + 1], h5Options);
+                            BindCmdArgumentToOption(args[i + 1], compilationRequest);
                         }
                         i = args.Length; // move to the end of arguments list
                         break;
@@ -212,7 +410,7 @@ namespace H5.Compiler
 
                         // If this argument does not look like a cmdline switch and
                         // neither backwards -project nor -lib were specified
-                        if (!BindCmdArgumentToOption(args[i], h5Options))
+                        if (!BindCmdArgumentToOption(args[i], compilationRequest))
                         {
                             Logger.LogError("Invalid argument: " + args[i]);
                             return null;
@@ -225,15 +423,15 @@ namespace H5.Compiler
 
             if (hasPriorityConfiguration)
             {
-                h5Options.ProjectProperties.Configuration = configuration;
+                compilationRequest.ProjectProperties.Configuration = configuration;
             }
 
             if (hasPriorityDefineConstants)
             {
-                h5Options.ProjectProperties.DefineConstants = defineConstants;
+                compilationRequest.ProjectProperties.DefineConstants = defineConstants;
             }
 
-            if (h5Options.ProjectLocation == null)
+            if (compilationRequest.ProjectLocation == null)
             {
                 var folder = Environment.CurrentDirectory;
 
@@ -258,35 +456,30 @@ namespace H5.Compiler
                 if (csprojs.Length == 0)
                 {
                     Logger.LogWarning("Could not default to a csproj because none were found.");
-                    Logger.LogError("Error: Project or assembly file name must be specified.");
+                    Logger.LogError("Error: Project file name must be specified.");
                     return null;
                 }
 
                 var csproj = csprojs[0];
-                h5Options.ProjectLocation = csproj;
+                compilationRequest.ProjectLocation = csproj;
                 Logger.LogInformation("Defaulting Project Location to " + csproj);
             }
 
-            if (string.IsNullOrEmpty(h5Options.OutputLocation))
+            if (string.IsNullOrEmpty(compilationRequest.OutputLocation))
             {
-                h5Options.OutputLocation = Path.GetFileNameWithoutExtension(h5Options.ProjectLocation);
+                compilationRequest.OutputLocation = Path.GetFileNameWithoutExtension(compilationRequest.ProjectLocation);
             }
 
-            h5Options.DefaultFileName = Path.GetFileName(h5Options.OutputLocation);
-
-            if (string.IsNullOrWhiteSpace(h5Options.DefaultFileName))
+            if (string.IsNullOrWhiteSpace(compilationRequest.DefaultFileName))
             {
-                h5Options.DefaultFileName = Path.GetFileName(h5Options.OutputLocation);
+                compilationRequest.DefaultFileName = Path.GetFileName(compilationRequest.OutputLocation);
             }
 
-            return h5Options;
+            return compilationRequest;
         }
 
-        private static string ParseProjectProperties(H5Options h5Options, string parameters)
+        private static string ParseProjectProperties(CompilationRequest request, string parameters)
         {
-            var properties = new ProjectProperties();
-            h5Options.ProjectProperties = properties;
-
             if (string.IsNullOrWhiteSpace(parameters))
             {
                 return null;
@@ -344,7 +537,7 @@ namespace H5.Compiler
 
             try
             {
-                properties.SetValues(settings);
+                request.ProjectProperties.SetValues(settings);
             }
             catch (ArgumentException ex)
             {

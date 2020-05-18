@@ -1,9 +1,11 @@
 namespace H5.Contract
 {
+    using MessagePack;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    [MessagePackObject(keyAsPropertyName:true)]
     public class ProjectProperties
     {
         public string AssemblyName{ get; set; }

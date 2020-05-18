@@ -7,7 +7,6 @@
   "html": {
     "disabled": true
   },
-
   "resources": [
 
     // Include the JS that is compiled from the C# in this project - be sure to include non-minified AND minified version (and to include the meta data files required for reflection)
@@ -173,16 +172,5 @@
       "output": "assets/fonts"
     }
   ],
-  "cleanOutputFolderBeforeBuildPattern": "*.*",
-  "loader": { "type": "Global" },
-  "rules": {
-    "anonymousType": "Plain",
-    "arrayIndex": "Managed",
-    "autoProperty": "Plain",
-    "boxing": "Managed",
-    "externalCast": "Plain",
-    "inlineComment": "Plain",
-    "integer": "Managed",
-    "lambda": "Plain"
-  }
+  "cleanOutputFolderBeforeBuildPattern": "*.*"
 }

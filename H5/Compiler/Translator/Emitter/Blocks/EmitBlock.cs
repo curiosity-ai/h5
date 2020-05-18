@@ -437,6 +437,8 @@ namespace H5.Translator
 
                 foreach (var type in Emitter.Types)
                 {
+                    Emitter.CancellationToken.ThrowIfCancellationRequested();
+
                     Emitter.Translator.EmitNode = type.TypeDeclaration;
                     var typeDef = type.Type.GetDefinition();
                     Emitter.Rules = Rules.Get(Emitter, typeDef);
@@ -527,6 +529,8 @@ namespace H5.Translator
                 {
                     foreach (var type in Emitter.Types)
                     {
+                        Emitter.CancellationToken.ThrowIfCancellationRequested();
+
                         var typeDef = type.Type.GetDefinition();
                         bool isGlobal = false;
                         if (typeDef != null)
@@ -589,6 +593,8 @@ namespace H5.Translator
                 {
                     foreach (var reflectedType in reflectedTypes)
                     {
+                        Emitter.CancellationToken.ThrowIfCancellationRequested();
+
                         var typeDef = reflectedType.GetDefinition();
                         JObject meta = null;
 
@@ -685,6 +691,8 @@ namespace H5.Translator
 
                 foreach (var metaInfo in metasOutput)
                 {
+                    Emitter.CancellationToken.ThrowIfCancellationRequested();
+
                     if (Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.File && Emitter.AssemblyInfo.Module == null)
                     {
                         var outputName = metaInfo.Key;//Path.GetFileNameWithoutExtension(metaInfo.Key);
@@ -722,6 +730,8 @@ namespace H5.Translator
 
                     foreach (var meta in metaInfo.Value)
                     {
+                        Emitter.CancellationToken.ThrowIfCancellationRequested();
+
                         var metaData = meta.Value;
                         string typeArgs = "";
 

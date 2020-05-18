@@ -89,6 +89,8 @@ namespace H5.Translator
                 int k = 0;
                 foreach (var outputPair in Outputs)
                 {
+                    CancellationToken.ThrowIfCancellationRequested();
+
                     var fileName = outputPair.Key;
                     var output = outputPair.Value;
 

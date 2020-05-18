@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Mosaik.Core;
 using ZLogger;
+using System.Threading;
 
 namespace H5.Translator
 {
@@ -16,22 +17,26 @@ namespace H5.Translator
 
         public CompilationOptions H5Options { get; private set; }
 
-
         public IAssemblyInfo TranslatorConfiguration { get; private set; }
 
         public Translator Translator { get; private set; }
 
-        public TranslatorProcessor(CompilationOptions h5Options)
+        private readonly CancellationToken _cancellationToken;
+
+        public TranslatorProcessor(CompilationOptions h5Options, CancellationToken cancellationToken)
         {
             H5Options = h5Options;
+            _cancellationToken = cancellationToken;
         }
 
         public void PreProcess()
         {
             AdjustH5Options();
 
+            _cancellationToken.ThrowIfCancellationRequested();
             TranslatorConfiguration = ReadConfiguration();
 
+            _cancellationToken.ThrowIfCancellationRequested();
             Translator = SetTranslatorProperties();
 
             Logger.LogInformation($"Ready to build {H5Options.ProjectLocation}");
@@ -52,7 +57,7 @@ namespace H5.Translator
 
         public void Process()
         {
-            Translator.Translate();
+            Translator.Translate(_cancellationToken);
         }
 
         public string PostProcess()
@@ -64,9 +69,13 @@ namespace H5.Translator
 
             using (new Measure(Logger, $"Post-processing output on '{outputPath}' for project '{translator.Location}'"))
             {
+                _cancellationToken.ThrowIfCancellationRequested();
                 translator.CleanOutputFolderIfRequired(outputPath);
+
+                _cancellationToken.ThrowIfCancellationRequested();
                 translator.PrepareResourcesConfig();
 
+                _cancellationToken.ThrowIfCancellationRequested();
                 if (!translator.SkipResourcesExtraction)
                 {
                     translator.ExtractCore(outputPath, projectPath);
@@ -80,14 +89,23 @@ namespace H5.Translator
 
                 if (!translator.SkipEmbeddingResources)
                 {
+                    _cancellationToken.ThrowIfCancellationRequested();
                     translator.Minify();
+                    
+                    _cancellationToken.ThrowIfCancellationRequested();
                     translator.Combine(fileName);
+                    
+                    _cancellationToken.ThrowIfCancellationRequested();
                     translator.Save(outputPath, fileName);
+
+                    _cancellationToken.ThrowIfCancellationRequested();
                     translator.InjectResources(outputPath, projectPath);
                 }
 
+                _cancellationToken.ThrowIfCancellationRequested();
                 translator.RunAfterBuild();
 
+                _cancellationToken.ThrowIfCancellationRequested();
                 GenerateHtmlIfNeeded(outputPath);
 
                 return outputPath;

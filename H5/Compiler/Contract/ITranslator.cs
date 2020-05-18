@@ -1,12 +1,13 @@
 using ICSharpCode.NRefactory.CSharp;
 using Mono.Cecil;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace H5.Contract
 {
     public interface ITranslator
     {
-        Mono.Cecil.AssemblyDefinition AssemblyDefinition { get; set; }
+        AssemblyDefinition AssemblyDefinition { get; set; }
 
         IAssemblyInfo AssemblyInfo { get; set; }
 
@@ -28,13 +29,13 @@ namespace H5.Contract
 
         void Save(string path, string defaultFileName);
 
-        System.Collections.Generic.IList<string> SourceFiles { get; }
+        IList<string> SourceFiles { get; }
 
-        void Translate();
+        void Translate(CancellationToken cancellationToken);
 
-        System.Collections.Generic.Dictionary<string, ITypeInfo> TypeInfoDefinitions { get; set; }
+        Dictionary<string, ITypeInfo> TypeInfoDefinitions { get; set; }
 
-        System.Collections.Generic.List<ITypeInfo> Types { get; }
+        List<ITypeInfo> Types { get; }
 
         IValidator Validator { get; }
 

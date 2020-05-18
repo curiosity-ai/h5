@@ -30,7 +30,7 @@ namespace H5.Compiler
             await _compilationFinished.Task;
         }
 
-        public static void CompileForever()
+        public static void CompileForever(CancellationToken cancellationToken)
         {
             var thread = new Thread(() =>
             {
@@ -38,9 +38,11 @@ namespace H5.Compiler
                 foreach (var request in _compilationQueue.GetConsumingEnumerable())
                 {
                     _currentCompilation = request.uid;
+                    Logger.ZLogInformation("\n\n\n\n");
                     Logger.ZLogInformation("==== BEGIN {0}", request.uid);
-                    Compile(request.request, request.uid);
+                    Compile(request.request, request.uid, cancellationToken);
                     Logger.ZLogInformation("==== END {0}", request.uid);
+                    Logger.ZLogInformation("\n\n\n\n");
                     _currentCompilation = default;
                 }
                 Logger.ZLogInformation("==== HOST Finished compilation thread");
@@ -50,11 +52,11 @@ namespace H5.Compiler
             thread.Start();
         }
 
-        public static void Compile(CompilationRequest compilationRequest, UID128 compilationUID)
+        public static void Compile(CompilationRequest compilationRequest, UID128 compilationUID, CancellationToken cancellationToken)
         {
             var compilationOptions = compilationRequest.ToOptions();
 
-            var processor = new TranslatorProcessor(compilationOptions);
+            var processor = new TranslatorProcessor(compilationOptions, cancellationToken);
             
             try
             {

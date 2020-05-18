@@ -377,7 +377,7 @@ namespace H5.Translator
             }
         }
 
-        protected void BuildSyntaxTree()
+        protected void BuildSyntaxTree(CancellationToken cancellationToken)
         {
             var rewriten = Rewrite();
 
@@ -389,7 +389,7 @@ namespace H5.Translator
                 {
                     var t = new Thread(() =>
                     {
-                        while (queue.TryDequeue(out var index))
+                        while (queue.TryDequeue(out var index) && !cancellationToken.IsCancellationRequested)
                         {
                             BuildSyntaxTreeForFile(index, ref rewriten);
                         }
@@ -400,6 +400,8 @@ namespace H5.Translator
                 }).ToArray();
 
                 Array.ForEach(threads, t => t.Join());
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 m.SetOperations(rewriten.Length);
             }

@@ -15,6 +15,7 @@ using AssemblyDefinition = Mono.Cecil.AssemblyDefinition;
 using Microsoft.Extensions.Logging;
 using ZLogger;
 using Mosaik.Core;
+using System.Threading;
 
 namespace H5.Translator
 {
@@ -91,7 +92,7 @@ namespace H5.Translator
             Outputs = new TranslatorOutput();
         }
 
-        public void Translate()
+        public void Translate(CancellationToken cancellationToken)
         {
             using (new Measure(Logger, "Translating assembly"))
             {
@@ -100,12 +101,12 @@ namespace H5.Translator
                 if (Rebuild)
                 {
                     Logger.ZLogInformation("Rebuilding assembly on path {0}", AssemblyLocation);
-                    BuildAssembly();
+                    BuildAssembly(cancellationToken);
                 }
                 else if (!File.Exists(AssemblyLocation))
                 {
                     Logger.ZLogInformation("Building assembly on path {0}", AssemblyLocation);
-                    BuildAssembly();
+                    BuildAssembly(cancellationToken);
                 }
 
                 var references = InspectReferences();
@@ -129,15 +130,15 @@ namespace H5.Translator
                     }
                 }
 
-                BuildSyntaxTree();
+                BuildSyntaxTree(cancellationToken);
 
                 var resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references), AssemblyDefinition);
-                resolver = Preconvert(resolver, config);
+                resolver = Preconvert(resolver, config, cancellationToken);
 
                 InspectTypes(resolver, config);
 
                 resolver.CanFreeze = true;
-                var emitter = CreateEmitter(resolver);
+                var emitter = CreateEmitter(resolver, cancellationToken);
 
                 if (!AssemblyInfo.OverflowMode.HasValue)
                 {
@@ -170,11 +171,13 @@ namespace H5.Translator
             }
         }
 
-        protected virtual MemberResolver Preconvert(MemberResolver resolver, IAssemblyInfo config)
+        protected virtual MemberResolver Preconvert(MemberResolver resolver, IAssemblyInfo config, CancellationToken cancellationToken)
         {
             bool needRecompile = false;
             foreach (var sourceFile in ParsedSourceFiles)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 Logger.ZLogTrace("Preconvert {0}", sourceFile.ParsedFile.FileName);
                 var syntaxTree = sourceFile.SyntaxTree;
                 var tempEmitter = new TempEmitter { AssemblyInfo = config };
@@ -423,11 +426,11 @@ namespace H5.Translator
             }
         }
 
-        protected virtual Emitter CreateEmitter(IMemberResolver resolver)
+        protected virtual Emitter CreateEmitter(IMemberResolver resolver, CancellationToken cancellationToken)
         {
             using (new Measure(Logger, "Creating Emitter"))
             {
-                return new Emitter(TypeDefinitions, H5Types, Types, Validator, resolver, TypeInfoDefinitions);
+                return new Emitter(TypeDefinitions, H5Types, Types, Validator, resolver, TypeInfoDefinitions, cancellationToken);
             }
         }
 

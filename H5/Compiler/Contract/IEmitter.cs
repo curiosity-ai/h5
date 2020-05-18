@@ -3,6 +3,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 using Mono.Cecil;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace H5.Contract
 {
@@ -244,6 +245,8 @@ namespace H5.Contract
         CompilerRule Rules { get; set; }
         bool HasModules { get; set; }
         string TemplateModifier { get; set; }
+
+        CancellationToken CancellationToken { get; }
 
         int WrapRestCounter { get; set; }
     }

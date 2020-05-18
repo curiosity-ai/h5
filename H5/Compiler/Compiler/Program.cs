@@ -32,6 +32,7 @@ namespace H5.Compiler
         private static async Task<int> Main(string[] args)
         {
             DefaultEncoding.ForceInvariantCultureAndUTF8Output();
+            SayHi();
 
             //TODO: get log level from command line
             //TODO: add options on SDK Target to set log level on command line
@@ -42,6 +43,11 @@ namespace H5.Compiler
 
             Console.CancelKeyPress += (sender, e) =>
             {
+                Console.WriteLine("Ctrl+C received");
+                if(_exitToken.IsCancellationRequested) //Called twice, so just kill the entire process
+                {
+                    Environment.Exit(1);
+                }
                 _exitToken.Cancel();
                 _exitTask.SetResult(new object());
                 e.Cancel = true;
@@ -108,20 +114,75 @@ namespace H5.Compiler
             }
         }
 
+        private static void SayHi()
+        {
+            void Print(string text)
+            {
+                for(int i = 0; i < text.Length; i++)
+                {
+                    if (text[i] == 'R')
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                    }
+                    else if (text[i] == 'Y')
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    }
+                    else if (text[i] == 'W')
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    else
+                    {
+                        Console.Write(text[i]);
+                    }
+                }
+            }
+
+            Console.ResetColor();
+
+            Print(
+@"
+
+
+    Y    )                                                      
+     ( /( (  (       (                           (             
+     )\R()Y))\))(      )\           )          (   )\   (   (    
+    (R(_)Y\(R(_)Y()\   ((R(_)Y   (     (     `  )  )\ (R(_)Y ))\  )(   
+     _(R(_)Y(()(R(_)Y  )\___   )\    )\  ' /(/( (R(_)Y _  /(R(_)Y(()\  
+    W| || | | __|  ((/ __| (R(_)W _(R(_)W) (R(_)W_\ R(_)W| |R(_)W)   (R(_)W 
+    | __ | |__ \   | (__ / _ \| '  \()| '_ \)| || |/ -_) | '_| 
+    |_||_| |___/    \___|\___/|_|_|_| | .__/ |_||_|\___| |_|   
+                                      |_|                      
+
+
+");
+
+// The above call prints the following:
+
+//        )                                              
+//     ( /((  (       (                      (           
+//     )\())\))(      )\         )        (  )\  (  (    
+//    ((_)((_)()\   (((_)  (    (    `  ) )\((_)))\ )(   
+//     _((_|()((_)  )\___  )\   )\  '/(/(((_)_ /((_|()\  
+//    | || || __|  ((/ __|((_)_((_))((_)_\(_) (_))  ((_) 
+//    | __ ||__ \   | (__/ _ \ '  \() '_ \) | / -_)| '_| 
+//    |_||_||___/    \___\___/_|_|_|| .__/|_|_\___||_|   
+//                                  |_|                  
+
+// Alternative:
+ //     _  _ ___    ___                _ _         
+ //    | || | __|  / __|___ _ __  _ __(_) |___ _ _ 
+ //    | __ |__ \ | (__/ _ \ '  \| '_ \ | / -_) '_|
+ //    |_||_|___/  \___\___/_|_|_| .__/_|_\___|_|  
+ //                              |_|               
+
+            Console.ResetColor();
+        }
+
         private static async Task RestartCompilationServer()
         {
             var self = Process.GetCurrentProcess();
-
-
-            //TODO: fix this, doesnt work (need to check if PID is listening to port to know if it is the other server
-            //foreach (var other in Process.GetProcessesByName("h5"))
-            //{
-            //    if(other.Id != self.Id && other.Arguments == "server")
-            //    {
-            //        other.Kill();
-            //    }
-            //}
-
 
             var pInfo = new ProcessStartInfo()
             {
@@ -141,7 +202,9 @@ namespace H5.Compiler
             var process = new Process();
             process.StartInfo = pInfo;
             process.Start();
-            await Task.Delay(5000);
+
+            //Change this delay to monitoring the process console output for the ready message, or error message    
+            await Task.Delay(4000);
         }
 
         private static async Task<int> RunCompilationServerAsync()
@@ -152,9 +215,21 @@ namespace H5.Compiler
                                       .Build())
             {
                 Logger.LogInformation("==== HOST Starting");
-                await host.StartAsync();
+                try
+                {
+                    await host.StartAsync();
+                }
+                catch (Exception E)
+                {
+                    if(!E.Message.Contains("Failed to bind"))
+                    {
+                        Console.WriteLine($"Failed to start server: " + E.Message);
+                    }
+                    return 1;
+                }
+
                 Logger.LogInformation("==== HOST Started Onion Server");
-                CompilationProcessor.CompileForever();
+                CompilationProcessor.CompileForever(_exitToken.Token);
                 await _exitTask.Task;
                 Logger.LogInformation("==== HOST Exit requested");
                 await CompilationProcessor.StopAsync();

@@ -84,6 +84,7 @@ namespace H5.Compiler
 
                 if (compilationRequest.NoCompilationServer)
                 {
+                    Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
                     return CompilationProcessor.Compile(compilationRequest, default, _exitToken.Token);
                 }
                 else

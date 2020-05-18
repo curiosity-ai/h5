@@ -247,7 +247,7 @@ namespace H5.Compiler
                 WorkingDirectory = Directory.GetCurrentDirectory(),
             };
 
-            if (self.MainModule.FileName.Contains("dotnet"))
+            if (Path.GetFileNameWithoutExtension(self.MainModule.FileName) == "dotnet") //Need to check the file name, as otherwise when running as a tool we're in a folder called /.dotnet/
             {
                 pInfo.ArgumentList.Add("h5.dll");
             }

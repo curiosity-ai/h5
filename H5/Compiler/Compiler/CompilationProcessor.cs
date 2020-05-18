@@ -18,9 +18,18 @@ namespace H5.Compiler
     {
         private static readonly ILogger Logger = ApplicationLogging.CreateLogger<CompilationProcessor>();
 
+        private static readonly ConcurrentDictionary<UID128, CancellationTokenSource> _abortTokens = new ConcurrentDictionary<UID128, CancellationTokenSource>();
         private static readonly BlockingCollection<(CompilationRequest request, UID128 uid)> _compilationQueue = new BlockingCollection<(CompilationRequest request, UID128 uid)>();
         
         internal static UID128 _currentCompilation;
+
+        internal static void Abort(UID128 compilationUID)
+        {
+            if(_abortTokens.TryGetValue(compilationUID, out var token))
+            {
+                token.Cancel();
+            }
+        }
 
         private static TaskCompletionSource<object> _compilationFinished = new TaskCompletionSource<object>();
 
@@ -37,13 +46,29 @@ namespace H5.Compiler
                 Logger.ZLogInformation("==== HOST Starting compilation thread");
                 foreach (var request in _compilationQueue.GetConsumingEnumerable())
                 {
+                    var abortToken = _abortTokens[request.uid];
                     _currentCompilation = request.uid;
                     Logger.ZLogInformation("\n\n\n\n");
                     Logger.ZLogInformation("==== BEGIN {0}", request.uid);
-                    Compile(request.request, request.uid, cancellationToken);
+                    var cts = CancellationTokenSource.CreateLinkedTokenSource(abortToken.Token, cancellationToken);
+                    try
+                    {
+                        Compile(request.request, request.uid, cts.Token);
+                    }
+                    catch (Exception E)
+                    {
+                        // This should never happen, as Compile already handles exceptions 
+                        Logger.LogError(E, "H5 Compiler fail"); 
+                    }
+
                     Logger.ZLogInformation("==== END {0}", request.uid);
                     Logger.ZLogInformation("\n\n\n\n");
                     _currentCompilation = default;
+
+                    if(cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
                 }
                 Logger.ZLogInformation("==== HOST Finished compilation thread");
                 _compilationFinished.SetResult(new object());
@@ -67,6 +92,12 @@ namespace H5.Compiler
                     processor.PostProcess();
                     Logger.ZLogInformation("==== SUCCESS {0}", compilationUID);
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                //Ignore, probably compilation aborted
+                Logger.ZLogInformation("==== CANCELED {0}", compilationUID);
+                return;
             }
             catch (EmitterException ex)
             {
@@ -97,6 +128,7 @@ namespace H5.Compiler
         {
             var uid = UID128.New();
             Logger.ZLogInformation("==== RCV {0}", uid);
+            _abortTokens[uid] = new CancellationTokenSource();
             _compilationQueue.Add((request, uid));
             return uid;
         }

@@ -23,6 +23,7 @@ namespace H5.Compiler.Hosted
         public async UnaryResult<Nil> AbortAsync(UID128 compilationUID)
         {
             Logger.ZLogInformation("==== ABORT {0}", compilationUID);
+            CompilationProcessor.Abort(compilationUID);
             return Nil.Default;
         }
 

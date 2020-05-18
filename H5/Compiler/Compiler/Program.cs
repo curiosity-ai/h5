@@ -55,6 +55,7 @@ namespace H5.Compiler
 
             if (args.Length == 1 && args[0] == "server")
             {
+                TrySetConsoleTitle();
                 Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
 
                 return await RunCompilationServerAsync();
@@ -73,11 +74,12 @@ namespace H5.Compiler
                     try
                     {
                         await remoteCompiler.Ping(_exitToken.Token);
+                        Logger.LogInformation("Found compilation server, sending compilation request\n\n");
                         break;
                     }
                     catch(Exception E)
                     {
-                        Logger.LogInformation("Failed to reach compiler, will start it in the background");
+                        Logger.LogInformation("Compilation server not online, will start it in the background\n\n");
                     }
                     await RestartCompilationServer();
                 }
@@ -88,29 +90,54 @@ namespace H5.Compiler
 
                 while(true)
                 {
-                    var status = await remoteCompiler.GetStatusAsync(compilationUID, _exitToken.Token);
-                    
-                    if(status.Messages is object)
+                    try
                     {
-                        foreach(var message in status.Messages)
+                        var status = await remoteCompiler.GetStatusAsync(compilationUID, _exitToken.Token);
+
+                        if (status.Messages is object)
                         {
-                            Logger.Log(message.LogLevel, message.Message);
+                            foreach (var message in status.Messages)
+                            {
+                                Logger.Log(message.LogLevel, message.Message);
+                            }
                         }
+
+                        switch (status.Status)
+                        {
+                            case CompilationStatus.OnGoing:
+                                break;
+                            case CompilationStatus.Success:
+                                return 0;
+                            case CompilationStatus.Fail:
+                                return 1;
+                            case CompilationStatus.Pending:
+                                break;
+                        }
+                        await Task.Delay(500, _exitToken.Token);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        //Ignore and send an abort request bellow
                     }
 
-                    switch (status.Status)
+                    if (_exitToken.IsCancellationRequested)
                     {
-                        case CompilationStatus.OnGoing:
-                            break;
-                        case CompilationStatus.Success:
-                            return 0;
-                        case CompilationStatus.Fail:
-                            return 1;
-                        case CompilationStatus.Pending:
-                            break;
+                        await remoteCompiler.AbortAsync(compilationUID, default);
+                        return 0;
                     }
-                    await Task.Delay(500);
                 }
+            }
+        }
+
+        private static void TrySetConsoleTitle()
+        {
+            try
+            {
+                Console.Title = "H5 Compilation server";
+            }
+            catch
+            {
+                //Ignore, will fail in some platforms
             }
         }
 
@@ -139,9 +166,12 @@ namespace H5.Compiler
                 }
             }
 
-            Console.ResetColor();
+            try
+            {
 
-            Print(
+                Console.ResetColor();
+
+                Print(
 @"
 
 
@@ -149,35 +179,40 @@ namespace H5.Compiler
      ( /( (  (       (                           (             
      )\R()Y))\))(      )\           )          (   )\   (   (    
     (R(_)Y\(R(_)Y()\   ((R(_)Y   (     (     `  )  )\ (R(_)Y ))\  )(   
-     _(R(_)Y(()(R(_)Y  )\___   )\    )\  ' /(/( (R(_)Y _  /(R(_)Y(()\  
-    W| || | | __|  ((/ __| (R(_)W _(R(_)W) (R(_)W_\ R(_)W| |R(_)W)   (R(_)W 
-    | __ | |__ \   | (__ / _ \| '  \()| '_ \)| || |/ -_) | '_| 
+    W _R((W_R)Y(R()Y(R(_)Y  )\W___Y)  Y)\    )\  ' /(/( (R(_)Y W_Y  /(R(W_R)Y(()\  
+    W| || | | __|  Y(R(W/ __| Y(R(W_R)W _Y(R(W_R)Y) (R(W_R)W_Y\ R(W_R)W| |R(W_R)W)   (R(W_R) 
+    W| __ | |__ \   | (__ / _ \| '  \R()W/ '_ \)| || |/ -_) | '_| 
     |_||_| |___/    \___|\___/|_|_|_| | .__/ |_||_|\___| |_|   
                                       |_|                      
 
 
 ");
 
-// The above call prints the following:
+                // The above call prints the following:
 
-//        )                                              
-//     ( /((  (       (                      (           
-//     )\())\))(      )\         )        (  )\  (  (    
-//    ((_)((_)()\   (((_)  (    (    `  ) )\((_)))\ )(   
-//     _((_|()((_)  )\___  )\   )\  '/(/(((_)_ /((_|()\  
-//    | || || __|  ((/ __|((_)_((_))((_)_\(_) (_))  ((_) 
-//    | __ ||__ \   | (__/ _ \ '  \() '_ \) | / -_)| '_| 
-//    |_||_||___/    \___\___/_|_|_|| .__/|_|_\___||_|   
-//                                  |_|                  
+                //        )                                              
+                //     ( /((  (       (                      (           
+                //     )\())\))(      )\         )        (  )\  (  (    
+                //    ((_)((_)()\   (((_)  (    (    `  ) )\((_)))\ )(   
+                //     _((_|()((_)  )\___  )\   )\  '/(/(((_)_ /((_|()\  
+                //    | || || __|  ((/ __|((_)_((_))((_)_\(_) (_))  ((_) 
+                //    | __ ||__ \   | (__/ _ \ '  \() '_ \) | / -_)| '_| 
+                //    |_||_||___/    \___\___/_|_|_|| .__/|_|_\___||_|   
+                //                                  |_|                  
 
-// Alternative:
- //     _  _ ___    ___                _ _         
- //    | || | __|  / __|___ _ __  _ __(_) |___ _ _ 
- //    | __ |__ \ | (__/ _ \ '  \| '_ \ | / -_) '_|
- //    |_||_|___/  \___\___/_|_|_| .__/_|_\___|_|  
- //                              |_|               
+                // Alternative:
+                //     _  _ ___    ___                _ _         
+                //    | || | __|  / __|___ _ __  _ __(_) |___ _ _ 
+                //    | __ |__ \ | (__/ _ \ '  \| '_ \ | / -_) '_|
+                //    |_||_|___/  \___\___/_|_|_| .__/_|_\___|_|  
+                //                              |_|               
 
-            Console.ResetColor();
+                Console.ResetColor();
+            }
+            catch
+            {
+                //Ignore
+            }
         }
 
         private static async Task RestartCompilationServer()

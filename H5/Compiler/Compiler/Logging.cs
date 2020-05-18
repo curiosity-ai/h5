@@ -103,6 +103,11 @@ namespace H5.Compiler
                         _perCompilationStatus[_currentUID] = CompilationStatus.Fail;
                         _currentUID = default;
                     }
+                    else if (content.StartsWith("CANCELED"))
+                    {
+                        _perCompilationStatus[_currentUID] = CompilationStatus.Fail;
+                        _currentUID = default;
+                    }
                 }
                 else
                 {

@@ -60,7 +60,7 @@ namespace H5.Compiler
                 if (compilationRequest is null) { ShowHelp(); return 0; }
 
                 var channel = new Channel("localhost", PORT, ChannelCredentials.Insecure);
-                var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(30_000)); ;
+                var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
 
                 while (true)
                 {

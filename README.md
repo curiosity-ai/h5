@@ -21,7 +21,7 @@ This new compiler build is fully based on [netstandard2.0](https://github.com/th
 To get started with it, you can use the following project template  
 
 ````xml
-<Project Sdk="h5.Target/0.0.8018">
+<Project Sdk="h5.Target/0.0.*">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
@@ -32,7 +32,10 @@ To get started with it, you can use the following project template
 </Project>
 ````
 
-The Sdk target above (``<Project Sdk="h5.Target/0.0.8018">``) will automatically install (and update) the compiler as a ``dotnet global tool``. Don't forget to run ``dotnet restore`` to fill the versions with the latest values. You can also manually install it with:
+The Sdk target above (``<Project Sdk="h5.Target/0.0.*">``) will automatically install (and update) the compiler as a ``dotnet global tool``. You need to update the version ``/0.0.*`` to the latest [![Nuget](https://img.shields.io/nuget/v/h5.target.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.target/) package.
+
+
+Don't forget to run ``dotnet restore`` to fill the versions with the latest values. You can also manually install it with:
 
 ````bash
 dotnet tool update --global h5-compiler

@@ -92,7 +92,7 @@ namespace H5.Translator
             {
                 if (!_loadedAssemblies.TryGetValue(path, out var assemblyData) || (assemblyData.size != fileInfo.Length || assemblyData.timestamp != fileInfo.LastWriteTimeUtc))
                 {
-                    if(_loadedAssemblieStreams.TryGetValue(path, out var oldStream))
+                    if (_loadedAssemblieStreams.TryGetValue(path, out var oldStream))
                     {
                         _loadedAssemblieStreams.Remove(path);
                         oldStream.Close();
@@ -107,7 +107,7 @@ namespace H5.Translator
                         }
                     );
 
-                    if (path.Contains(".nuget"))
+                    if (ShouldCacheAssembly(path))
                     {
                         //Only cache if it's a nuget package, otherwise it will keep streams locked 
                         _loadedAssemblies[path] = (assemblyDefinition, fileInfo.LastWriteTimeUtc, fileInfo.Length);
@@ -120,6 +120,11 @@ namespace H5.Translator
             }
 
             return assemblyDefinition;
+        }
+
+        private static bool ShouldCacheAssembly(string path)
+        {
+            return path.Contains(".nuget");
         }
 
         protected virtual AssemblyDefinition LoadAssembly(string location, List<AssemblyDefinition> references)
@@ -191,7 +196,10 @@ namespace H5.Translator
         {
             //Must be a FileStream, as it needs the path info attached
             var stream = File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
-            _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
+            if (ShouldCacheAssembly(location))
+            {
+                _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
+            }
             return stream;
         }
 

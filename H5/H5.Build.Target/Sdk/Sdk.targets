@@ -40,8 +40,8 @@
       IncrementalClean;
       PostBuildEvent;
       GenerateBuildDependencyFile;
-      _GenerateRuntimeConfigurationFilesInputCache;
       GenerateBuildRuntimeConfigurationFiles;
+      CopyFilesToOutputDirectory;
       Check1;
       Check2;
       Check3;
@@ -108,6 +108,7 @@
   </ItemGroup>
 
   <Target Name="GenerateBuildDependencyFile"
+		  DependsOnTargets="_ComputeUserRuntimeAssemblies"
           BeforeTargets="CopyFilesToOutputDirectory"
           Inputs="$(ProjectAssetsFile);$(ProjectAssetsCacheFile);$(MSBuildAllProjects)"
           Outputs="$(ProjectDepsFilePath)">
@@ -248,6 +249,31 @@
     </PropertyGroup>
   </Target>
 
+
+	<!--
+    ============================================================
+                                        _ComputeUserRuntimeAssemblies
+    Computes references or reference dependencies that are copy local.
+     NOTE: NuGet and framework references are never copy local so those are not included here.
+           These will be project references and direct references and their copy local dependencies.
+    ============================================================
+    -->
+	<Target Name="_ComputeUserRuntimeAssemblies">
+        <Message Importance="high" Text="Running _ComputeUserRuntimeAssemblies" />
+		<ItemGroup>
+			<!-- IncludeRuntimeDependency=true metadata is escape hatch to include a non-copy local reference in deps file as a runtime dependency -->
+			<ReferencePath>
+				<IncludeRuntimeDependency Condition="'%(ReferencePath.IncludeRuntimeDependency)' == '' and '%(ReferencePath.CopyLocal)' == 'true'">true</IncludeRuntimeDependency>
+			</ReferencePath>
+
+			<ReferenceDependencyPaths>
+				<IncludeRuntimeDependency Condition="'%(ReferenceDependencyPaths.IncludeRuntimeDependency)' == '' and '%(ReferenceDependencyPaths.CopyLocal)' == 'true'">true</IncludeRuntimeDependency>
+			</ReferenceDependencyPaths>
+
+			<UserRuntimeAssembly Include="@(ReferencePath->WithMetadataValue('IncludeRuntimeDependency', 'true'))"  />
+			<UserRuntimeAssembly Include="@(ReferenceDependencyPaths->WithMetadataValue('IncludeRuntimeDependency', 'true'))" />
+		</ItemGroup>
+	</Target>
 
   <!--The following checks are just debug messages to know what triggered the compilation of the project. They will be eventually removed in the future.-->
 

@@ -119,7 +119,7 @@ namespace H5.Translator
 
         private string GetCacheFile()
         {
-            return Emitter.Translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".emitted.js.cached";
+            return Emitter.Translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".h5.emittedJS.cache";
         }
 
         public EmitBlockCachedOutput LoadCache()

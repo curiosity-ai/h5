@@ -495,13 +495,13 @@ namespace H5.Translator
                             _loadedAssemblies.Remove(destinationFile);
                             
                             previouslyLoaded.assembly.Dispose();
+                        }
 
-                            if (_loadedAssemblieStreams.TryGetValue(destinationFile, out var stream))
-                            {
-                                _loadedAssemblieStreams.Remove(destinationFile);
-                                stream.Close();
-                                stream.Dispose();
-                            }
+                        if (_loadedAssemblieStreams.TryGetValue(destinationFile, out var stream))
+                        {
+                            _loadedAssemblieStreams.Remove(destinationFile);
+                            stream.Close();
+                            stream.Dispose();
                         }
                     }
 

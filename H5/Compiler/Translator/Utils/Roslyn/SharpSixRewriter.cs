@@ -76,7 +76,7 @@ namespace H5.Translator
 
         private string GetCacheFile()
         {
-            return translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".rewriter.cached";
+            return translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".h5.rewriter.cache";
         }
 
         public SharpSixRewriterCachedOutput LoadCache()

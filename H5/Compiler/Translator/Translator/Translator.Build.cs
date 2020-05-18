@@ -493,7 +493,9 @@ namespace H5.Translator
                         if (_loadedAssemblies.TryGetValue(destinationFile, out var previouslyLoaded))
                         {
                             _loadedAssemblies.Remove(destinationFile);
-                            previouslyLoaded.Dispose();
+                            
+                            previouslyLoaded.assembly.Dispose();
+
                             if (_loadedAssemblieStreams.TryGetValue(destinationFile, out var stream))
                             {
                                 _loadedAssemblieStreams.Remove(destinationFile);

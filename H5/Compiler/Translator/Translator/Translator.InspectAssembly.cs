@@ -18,8 +18,7 @@ namespace H5.Translator
 {
     public partial class Translator
     {
-
-        private static readonly Dictionary<string, AssemblyDefinition> _loadedAssemblies = new Dictionary<string, AssemblyDefinition>();
+        private static readonly Dictionary<string, (AssemblyDefinition assembly, DateTime timestamp, long size) > _loadedAssemblies = new Dictionary<string, (AssemblyDefinition assembly, DateTime timestamp, long size)>();
         private static readonly Dictionary<string, Stream> _loadedAssemblieStreams = new Dictionary<string, Stream>();
         private static readonly object _loadedAssembliesLock = new object();
 
@@ -70,28 +69,57 @@ namespace H5.Translator
 
             foreach (var path in locations)
             {
-                AssemblyDefinition assemblyDefinition;
-
-                lock (_loadedAssembliesLock)
-                {
-                    if (!_loadedAssemblies.TryGetValue(path, out assemblyDefinition))
-                    {
-                        assemblyDefinition = AssemblyDefinition.ReadAssembly(LoadAssemblyAsFileStream(path),
-                            new ReaderParameters()
-                            {
-                                ReadingMode = ReadingMode.Deferred,
-                                AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
-                            }
-                        );
-                        _loadedAssemblies[path] = assemblyDefinition;
-                    }
-                }
+                var assemblyDefinition = LoadOrGetFromCache(path);
 
                 if (assemblyDefinition is object && !references.Any(a => a.Name.Name == assemblyDefinition.Name.Name))
                 {
                     references.Add(assemblyDefinition);
                 }
             }
+        }
+
+        private AssemblyDefinition LoadOrGetFromCache(string path)
+        {
+            AssemblyDefinition assemblyDefinition;
+            var fileInfo = new FileInfo(path);
+
+            if (!fileInfo.Exists)
+            {
+                throw new FileNotFoundException(path);
+            }
+
+            lock (_loadedAssembliesLock)
+            {
+                if (!_loadedAssemblies.TryGetValue(path, out var assemblyData) || (assemblyData.size != fileInfo.Length || assemblyData.timestamp != fileInfo.LastWriteTimeUtc))
+                {
+                    if(_loadedAssemblieStreams.TryGetValue(path, out var oldStream))
+                    {
+                        _loadedAssemblieStreams.Remove(path);
+                        oldStream.Close();
+                        oldStream.Dispose();
+                    }
+
+                    assemblyDefinition = AssemblyDefinition.ReadAssembly(LoadAssemblyAsFileStream(path),
+                        new ReaderParameters()
+                        {
+                            ReadingMode = ReadingMode.Deferred,
+                            AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
+                        }
+                    );
+
+                    if (path.Contains(".nuget"))
+                    {
+                        //Only cache if it's a nuget package, otherwise it will keep streams locked 
+                        _loadedAssemblies[path] = (assemblyDefinition, fileInfo.LastWriteTimeUtc, fileInfo.Length);
+                    }
+                }
+                else
+                {
+                    assemblyDefinition = assemblyData.assembly;
+                }
+            }
+
+            return assemblyDefinition;
         }
 
         protected virtual AssemblyDefinition LoadAssembly(string location, List<AssemblyDefinition> references)
@@ -107,22 +135,7 @@ namespace H5.Translator
 
             CurrentAssemblyLocationInspected.Push(location);
 
-            AssemblyDefinition assemblyDefinition;
-
-            lock (_loadedAssembliesLock)
-            {
-                if (!_loadedAssemblies.TryGetValue(location, out assemblyDefinition))
-                {
-                    assemblyDefinition = AssemblyDefinition.ReadAssembly(LoadAssemblyAsFileStream(location),
-                        new ReaderParameters()
-                        {
-                            ReadingMode = ReadingMode.Deferred,
-                            AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
-                        }
-                    );
-                    _loadedAssemblies[location] = assemblyDefinition;
-                }
-            }
+            var assemblyDefinition = LoadOrGetFromCache(location);
 
             foreach (AssemblyNameReference r in assemblyDefinition.MainModule.AssemblyReferences)
             {
@@ -177,7 +190,7 @@ namespace H5.Translator
         private static Stream LoadAssemblyAsFileStream(string location)
         {
             //Must be a FileStream, as it needs the path info attached
-            var stream = File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            var stream = File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
             _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
             return stream;
         }

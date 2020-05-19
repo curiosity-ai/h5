@@ -9,6 +9,8 @@ using H5.Contract.Constants;
 using H5.Translator.Utils;
 using ZLogger;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Text.RegularExpressions;
+using NuGet.Versioning;
 
 namespace H5.Translator
 {
@@ -52,7 +54,9 @@ namespace H5.Translator
         internal virtual void EnsureProjectProperties()
         {
             Logger.ZLogTrace("EnsureProjectProperties at " + (Location ?? "") + " ...");
-            
+
+            UpdateSdkTargetIfNeeded(Location);
+
             var project = OpenProject(Location, GetEvaluationConditions());
 
             ValidateProject(project);
@@ -75,6 +79,27 @@ namespace H5.Translator
             CloseProject(project);
 
             Logger.ZLogTrace("EnsureProjectProperties done");
+        }
+
+        private void UpdateSdkTargetIfNeeded(string location)
+        {
+            var projectXML = File.ReadAllText(location);
+            var regex = new Regex(@"\<Project Sdk=""h5\.Target\/([0-9.]*)"">");
+            var match = regex.Match(projectXML);
+            
+            if(match.Success)
+            {
+                if(NuGetVersion.TryParse(match.Groups[1].Value, out var installedVersion))
+                {
+                    var latest = NuGetVersion.Parse("0.0.8171");
+                    if(latest > installedVersion)
+                    {
+                        projectXML = regex.Replace(projectXML, "<Project Sdk=\"h5.Target/@\">".Replace("@", latest.ToString()));
+                        File.WriteAllText(location, projectXML);
+                        Logger.ZLogWarning("Found outdated Sdk Target version '{0}', auto-updated to latest: {1}", installedVersion, latest);
+                    }
+                }
+            }
         }
 
         private void ReadH5Specific(Project project)

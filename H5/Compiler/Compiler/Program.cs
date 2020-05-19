@@ -31,19 +31,18 @@ namespace H5.Compiler
         private static async Task<int> Main(string[] args)
         {
             DefaultEncoding.ForceInvariantCultureAndUTF8Output();
+
             SayHi();
+
+            ConfigureLogging();
 
             //TODO: get log level from command line
             //TODO: add options on SDK Target to set log level on command line
 
-            ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(LogLevel.Information)
-                                                                           .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1}:{2}:{3}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))
-                                                                           .AddZLoggerLogProcessor(new Logging.InMemoryPerCompilationProvider())));
-
             Console.CancelKeyPress += (sender, e) =>
             {
                 Console.WriteLine("Ctrl+C received");
-                if(_exitToken.IsCancellationRequested) //Called twice, so just kill the entire process
+                if (_exitToken.IsCancellationRequested) //Called twice, so just kill the entire process
                 {
                     Environment.Exit(1);
                 }
@@ -53,11 +52,11 @@ namespace H5.Compiler
             };
 
             // We need the logic for compiler -> startserver -> server because otherwise the server process is marked as a child of the compiler process
-            // Which msbuild keeps track of, so it would kill the server
+            // Which MSBUILD keeps track of, so it would kill the server on a canceled build
 
-            if(args.Length == 0)
+            if (args.Length == 0)
             {
-                ShowHelp(); 
+                ShowHelp();
                 return 0;
             }
             if (args.Length == 1 && args[0] == "server")
@@ -121,7 +120,7 @@ namespace H5.Compiler
                             {
                                 foreach (var message in status.Messages)
                                 {
-                                    Logger.Log(message.LogLevel, message.Message);
+                                    Logger.Log(message.LogLevel, Logging.RemoveTimeAndLogLevel(message.Message));
                                 }
                             }
 
@@ -151,6 +150,13 @@ namespace H5.Compiler
                     }
                 }
             }
+        }
+
+        private static void ConfigureLogging()
+        {
+            ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(LogLevel.Information)
+                                                                           .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1:D2}:{2:D2}:{3:D2}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))
+                                                                           .AddZLoggerLogProcessor(new Logging.InMemoryPerCompilationProvider())));
         }
 
         private static void TrySetConsoleTitle()

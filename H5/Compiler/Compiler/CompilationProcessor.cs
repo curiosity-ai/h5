@@ -116,8 +116,11 @@ namespace H5.Compiler
             }
             catch (EmitterException ex)
             {
+                LogErrorMarker();
+
                 Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
-                Logger.LogError(ex.StackTrace.ToString());
+                Logger.LogError(ex.StackTrace?.ToString());
+
                 if (compilationUID.IsNotNull())
                 {
                     Logger.ZLogInformation("==== FAIL {0}", compilationUID);
@@ -128,6 +131,8 @@ namespace H5.Compiler
             {
                 var ee = processor.Translator?.CreateExceptionFromLastNode();
 
+                LogErrorMarker();
+
                 if (ee != null)
                 {
                     Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
@@ -137,15 +142,29 @@ namespace H5.Compiler
                     Logger.LogError(string.Format("H5 Compiler error: {0}", ex.ToString()));
                 }
 
-                Logger.LogError(ex.StackTrace.ToString());
+                Logger.LogError(ex.StackTrace?.ToString());
 
 
                 if (compilationUID.IsNotNull())
                 {
                     Logger.ZLogInformation("==== FAIL {0}", compilationUID);
                 }
+
                 return 1;
             }
+        }
+
+        private static void LogErrorMarker()
+        {
+            Logger.ZLogInformation(
+@"
+
+ __ _  _  _  _ 
+|_ |_)|_)/ \|_)
+|__| \| \\_/| \
+
+
+");
         }
 
         internal static UID128 Enqueue(CompilationRequest request)

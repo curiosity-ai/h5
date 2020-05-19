@@ -41,7 +41,5 @@ namespace H5.Compiler.Hosted
         {
             await _client.WithDeadline(DateTime.UtcNow.Add(_timeout)).WithCancellationToken(cancellationToken).AbortAsync(compilationUID);
         }
-
-
     }
 }

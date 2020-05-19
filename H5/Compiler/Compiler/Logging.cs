@@ -127,6 +127,20 @@ namespace H5.Compiler
             }
         }
 
+        internal static string RemoveTimeAndLogLevel(string message)
+        {
+            var first  = message.IndexOf(']');
+            if(first > 0)
+            {
+                var second = message.IndexOf(']', first+1);
+                if(second > 0)
+                {
+                    return message.Substring(second + 1);
+                }
+            }
+            return message;
+        }
+
         internal class InMemoryPerCompilationProvider : IAsyncLogProcessor
         {
             public ValueTask DisposeAsync()

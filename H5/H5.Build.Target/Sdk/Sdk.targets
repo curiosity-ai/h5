@@ -412,9 +412,13 @@
     <Exec Command="dotnet tool update --global h5-compiler" Condition="$(UpdateH5)"  ContinueOnError="WarnAndContinue"/>
 
     <Message Importance="high" Text="H5 compilation begins now... " />
-    <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false"/>
-    <Message Importance="high" Text="... H5 compilation finished!" />
+    <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false">
+        <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
+    </Exec>
 
+    <Error Text="H5 compilation failed, see logs for error message" Condition="$(ExitCode) != 0"/>
+      
+    <Message Importance="high" Text="... H5 compilation finished!" />
   </Target>
 
   <Import Project="$(CustomAfterH5)" Condition="'$(CustomAfterH5)' != '' and Exists('$(CustomAfterH5)')" />

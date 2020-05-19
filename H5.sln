@@ -47,6 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".devops", ".devops", "{E9B8
 		.devops\build-h5-core.yml = .devops\build-h5-core.yml
 		.devops\build-h5-json.yml = .devops\build-h5-json.yml
 		.devops\build-h5-lib.yml = .devops\build-h5-lib.yml
+		.devops\build-template.yml = .devops\build-template.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Build.Target", "H5\H5.Build.Target\H5.Build.Target.csproj", "{B4C19113-10D0-4775-A7AE-807C9104999C}"

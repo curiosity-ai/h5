@@ -349,8 +349,7 @@ namespace H5.Compiler
         /// </summary>
         private static void ShowHelp()
         {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            string programName = Path.GetFileName(codeBase);
+            string programName = "h5";
 
             Console.WriteLine(@"Usage: " + programName + @" [options] (<project-file>|<assembly-file>)
        " + programName + @"

@@ -21,6 +21,21 @@
   <Import Project="$(CustomBeforeH5)" Condition="'$(CustomBeforeH5)' != '' and Exists('$(CustomBeforeH5)')" />
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" Condition=" '$(CommonTargetsPath)' == '' " />
+  
+  <PropertyGroup Condition="'$(UsingNETSdkDefaults)' != 'true'">
+    <!-- Skip import of Microsoft.NuGet.props and Microsoft.NuGet.targets -->
+    <SkipImportNuGetProps>true</SkipImportNuGetProps>
+    <SkipImportNuGetBuildTargets>true</SkipImportNuGetBuildTargets>
+  </PropertyGroup>
+
+  <!-- Workaround: https://github.com/Microsoft/msbuild/issues/1293 -->
+  <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core' Or '$(TargetFrameworkIdentifier)' != '.NETFramework'">
+    <GenerateResourceMSBuildArchitecture Condition=" '$(GenerateResourceMSBuildArchitecture)' == '' ">CurrentArchitecture</GenerateResourceMSBuildArchitecture>
+    <GenerateResourceMSBuildRuntime Condition=" '$(GenerateResourceMSBuildRuntime)' == '' ">CurrentRuntime</GenerateResourceMSBuildRuntime>
+  </PropertyGroup>
+
+  <!-- <Import Project="Microsoft.NET.Sdk.Common.targets" /> -->
+
 
   <ItemGroup>
     <IntermediateAssembly Remove="@(IntermediateAssembly)" />
@@ -31,23 +46,24 @@
   <PropertyGroup>
     <!-- This property must be overridden to remove a few targets that compile assemblies -->
     <CoreBuildDependsOn>
-      BuildOnlySettings;
-      PrepareForBuild;
-      PreBuildEvent;
-      ResolveProjectReferences;
-      GetTargetPath;
-      PrepareForRun;
-      IncrementalClean;
-      PostBuildEvent;
-      GenerateBuildDependencyFile;
-      GenerateBuildRuntimeConfigurationFiles;
-      CopyFilesToOutputDirectory;
-      Check1;
-      Check2;
-      Check3;
-      Check4;
-      Check5;
-      _H5Build
+        BuildOnlySettings;
+        PrepareForBuild;
+        PreBuildEvent;
+        ResolveProjectReferences;
+        ResolvePackageDependenciesForBuild;
+        GetTargetPath;
+        PrepareForRun;
+        IncrementalClean;
+        PostBuildEvent;
+        GenerateBuildDependencyFile;
+        GenerateBuildRuntimeConfigurationFiles;
+        CopyFilesToOutputDirectory;
+        Check1;
+        Check2;
+        Check3;
+        Check4;
+        Check5;
+        _H5Build
     </CoreBuildDependsOn>
   </PropertyGroup>
 
@@ -106,9 +122,21 @@
     <GenerateRuntimeConfigurationFilesInputs Include="$(ProjectAssetsCacheFile)" />
     <GenerateRuntimeConfigurationFilesInputs Include="$(UserRuntimeConfig)" Condition=" Exists($(UserRuntimeConfig)) " />
   </ItemGroup>
+  
+    <Target Name="_ComputePackageReferencePublish">
+    <ItemGroup>
+
+      <!-- PrivateAssets="All" means exclude from publish, unless Publish metadata is specified separately -->
+      <PackageReference Publish="false"
+                        Condition="('%(PackageReference.PrivateAssets)' == 'All') And ('%(PackageReference.Publish)' == '')"/>
+
+      <_ExcludeFromPublishPackageReference Include="@(PackageReference)"
+                                           Condition="('%(PackageReference.Publish)' == 'false')" />
+    </ItemGroup>
+  </Target>
 
   <Target Name="GenerateBuildDependencyFile"
-		  DependsOnTargets="_ComputeUserRuntimeAssemblies"
+          DependsOnTargets="_HandlePackageFileConflicts;_ComputeReferenceAssemblies;_ComputeUserRuntimeAssemblies;ResolveRuntimePackAssets;_ComputePackageReferencePublish"
           BeforeTargets="CopyFilesToOutputDirectory"
           Inputs="$(ProjectAssetsFile);$(ProjectAssetsCacheFile);$(MSBuildAllProjects)"
           Outputs="$(ProjectDepsFilePath)">
@@ -168,19 +196,19 @@
     <Message Importance="high" Text="Running GenerateBuildRuntimeConfigurationFiles" />
 
     <GenerateRuntimeConfigurationFiles AssetsFilePath="$(ProjectAssetsFile)"
-										   TargetFrameworkMoniker="$(TargetFrameworkMoniker)"
-										   TargetFramework="$(TargetFramework)"
-										   RuntimeConfigPath="$(ProjectRuntimeConfigFilePath)"
-										   RuntimeConfigDevPath="$(ProjectRuntimeConfigDevFilePath)"
-										   RuntimeIdentifier="$(RuntimeIdentifier)"
-										   PlatformLibraryName="$(MicrosoftNETPlatformLibrary)"
-										   RuntimeFrameworks="@(RuntimeFramework)"
-										   RollForward="$(RollForward)"
-										   UserRuntimeConfig="$(UserRuntimeConfig)"
-										   HostConfigurationOptions="@(RuntimeHostConfigurationOption)"
-										   AdditionalProbingPaths="@(AdditionalProbingPath)"
-										   IsSelfContained="$(SelfContained)"
-										   WriteIncludedFrameworks="true">
+                                           TargetFrameworkMoniker="$(TargetFrameworkMoniker)"
+                                           TargetFramework="$(TargetFramework)"
+                                           RuntimeConfigPath="$(ProjectRuntimeConfigFilePath)"
+                                           RuntimeConfigDevPath="$(ProjectRuntimeConfigDevFilePath)"
+                                           RuntimeIdentifier="$(RuntimeIdentifier)"
+                                           PlatformLibraryName="$(MicrosoftNETPlatformLibrary)"
+                                           RuntimeFrameworks="@(RuntimeFramework)"
+                                           RollForward="$(RollForward)"
+                                           UserRuntimeConfig="$(UserRuntimeConfig)"
+                                           HostConfigurationOptions="@(RuntimeHostConfigurationOption)"
+                                           AdditionalProbingPaths="@(AdditionalProbingPath)"
+                                           IsSelfContained="$(SelfContained)"
+                                           WriteIncludedFrameworks="true">
     </GenerateRuntimeConfigurationFiles>
 
     <Message Importance="high" Text="Writing project runtime config file $(ProjectRuntimeConfigFilePath)" Condition="Exists('$(ProjectRuntimeConfigFilePath)')"  />
@@ -219,10 +247,10 @@
     </Hash>
 
     <WriteLinesToFile
-		  Lines="$(_GenerateRuntimeConfigurationPropertyInputsCacheHash)"
-		  File="$(_GenerateRuntimeConfigurationPropertyInputsCache)"
-		  Overwrite="True"
-		  WriteOnlyWhenDifferent="True" />
+          Lines="$(_GenerateRuntimeConfigurationPropertyInputsCacheHash)"
+          File="$(_GenerateRuntimeConfigurationPropertyInputsCache)"
+          Overwrite="True"
+          WriteOnlyWhenDifferent="True" />
 
     <ItemGroup>
       <FileWrites Include="$(_GenerateRuntimeConfigurationPropertyInputsCache)" />
@@ -250,7 +278,7 @@
   </Target>
 
 
-	<!--
+    <!--
     ============================================================
                                         _ComputeUserRuntimeAssemblies
     Computes references or reference dependencies that are copy local.
@@ -258,22 +286,51 @@
            These will be project references and direct references and their copy local dependencies.
     ============================================================
     -->
-	<Target Name="_ComputeUserRuntimeAssemblies">
+    <Target Name="_ComputeUserRuntimeAssemblies">
         <Message Importance="high" Text="Running _ComputeUserRuntimeAssemblies" />
-		<ItemGroup>
-			<!-- IncludeRuntimeDependency=true metadata is escape hatch to include a non-copy local reference in deps file as a runtime dependency -->
-			<ReferencePath>
-				<IncludeRuntimeDependency Condition="'%(ReferencePath.IncludeRuntimeDependency)' == '' and '%(ReferencePath.CopyLocal)' == 'true'">true</IncludeRuntimeDependency>
-			</ReferencePath>
+        <ItemGroup>
+            <!-- IncludeRuntimeDependency=true metadata is escape hatch to include a non-copy local reference in deps file as a runtime dependency -->
+            <ReferencePath>
+                <IncludeRuntimeDependency Condition="'%(ReferencePath.IncludeRuntimeDependency)' == '' and '%(ReferencePath.CopyLocal)' == 'true'">true</IncludeRuntimeDependency>
+            </ReferencePath>
 
-			<ReferenceDependencyPaths>
-				<IncludeRuntimeDependency Condition="'%(ReferenceDependencyPaths.IncludeRuntimeDependency)' == '' and '%(ReferenceDependencyPaths.CopyLocal)' == 'true'">true</IncludeRuntimeDependency>
-			</ReferenceDependencyPaths>
+            <ReferenceDependencyPaths>
+                <IncludeRuntimeDependency Condition="'%(ReferenceDependencyPaths.IncludeRuntimeDependency)' == '' and '%(ReferenceDependencyPaths.CopyLocal)' == 'true'">true</IncludeRuntimeDependency>
+            </ReferenceDependencyPaths>
 
-			<UserRuntimeAssembly Include="@(ReferencePath->WithMetadataValue('IncludeRuntimeDependency', 'true'))"  />
-			<UserRuntimeAssembly Include="@(ReferenceDependencyPaths->WithMetadataValue('IncludeRuntimeDependency', 'true'))" />
-		</ItemGroup>
-	</Target>
+            <UserRuntimeAssembly Include="@(ReferencePath->WithMetadataValue('IncludeRuntimeDependency', 'true'))"  />
+            <UserRuntimeAssembly Include="@(ReferenceDependencyPaths->WithMetadataValue('IncludeRuntimeDependency', 'true'))" />
+        </ItemGroup>
+    </Target>
+    
+  <Target Name="_ComputeReferenceAssemblies"
+          DependsOnTargets="ResolveAssemblyReferences">
+
+    <ItemGroup>
+      <_FrameworkReferenceAssemblies Include="@(ReferencePath)"
+                                     Condition="(%(ReferencePath.FrameworkFile) == 'true' or
+                                                %(ReferencePath.ResolvedFrom) == 'ImplicitlyExpandDesignTimeFacades')
+                                            and ('%(ReferencePath.NuGetSourceType)' == ''  or
+                                                 '%(ReferencePath.NuGetIsFrameworkReference)' == 'true')" />
+
+      <!--
+      "ReferenceOnly" assemblies are assemblies that are only used at compile-time, and they can't be resolved
+      by the normal compile-assembly resolvers at runtime:
+      1. App local
+      2. NuGet/Package layout
+      3. ProgramFiles\Reference Assemblies
+      These assemblies need to be copied to the 'refs' folder for both build and publish.
+      -->
+      <_ReferenceOnlyAssemblies Include="@(ReferencePath)"
+                                Exclude="@(_FrameworkReferenceAssemblies)"
+                                Condition="%(ReferencePath.CopyLocal) != 'true' and
+                                           %(ReferencePath.NuGetSourceType) == ''" />
+
+      <_ReferenceAssemblies Include="@(_FrameworkReferenceAssemblies)" />
+      <_ReferenceAssemblies Include="@(_ReferenceOnlyAssemblies)" />
+    </ItemGroup>
+
+  </Target>    
 
   <!--The following checks are just debug messages to know what triggered the compilation of the project. They will be eventually removed in the future.-->
 

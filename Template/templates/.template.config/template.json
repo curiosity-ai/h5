@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Rafael Oliveira",
+  "classifications": [ "H5", "Web" ],
+  "name": "h5 Template",
+  "identity": "h5.Template",
+  "shortName": "h5",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "MyProject",
+  "preferNameDirectory": true
+}

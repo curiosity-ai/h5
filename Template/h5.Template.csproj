@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageVersion>1.0</PackageVersion>
+    <Version>1.0</Version>
     <PackageId>h5.Template</PackageId>
     <Title>h5 Template</Title>
     <Authors>Rafael Oliveira</Authors>
@@ -20,5 +20,4 @@
     <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
     <Compile Remove="**\*" />
   </ItemGroup>
-
 </Project>

@@ -1,0 +1,57 @@
+variables:
+  project: '$(Build.SourcesDirectory)/Template/h5.Template.csproj'
+  buildConfiguration: 'Release'
+
+pool:
+  vmImage: 'windows-2019'
+
+trigger: 
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - Template/*
+    - .devops/build-template.yml
+
+pr: none
+
+steps:
+- checkout: self
+  
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 3.1.201
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: DotNetCoreCLI@2
+  displayName: 'restore nuget'
+  inputs:
+    command: 'restore'
+    projects: '$(project)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'build'
+  inputs:
+    command: 'build'
+    projects: '$(project)'
+    arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'pack nuget'
+  inputs:
+    command: 'pack'
+    configuration: '$(buildConfiguration)'
+    packagesToPack: '$(project)'
+    versioningScheme: 'off'
+    buildProperties: 'Version="0.0.$(build.buildId)"'
+
+- task: NuGetCommand@2
+  displayName: 'push nuget'
+  inputs:
+    command: 'push'
+    packagesToPush: '**/h5.Template.0.0.$(build.buildId).nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget-curiosity'

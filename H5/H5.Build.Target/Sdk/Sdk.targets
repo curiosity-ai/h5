@@ -29,13 +29,10 @@
   </PropertyGroup>
 
   <!-- Workaround: https://github.com/Microsoft/msbuild/issues/1293 -->
-  <PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core' Or '$(TargetFrameworkIdentifier)' != '.NETFramework'">
+  <PropertyGroup>
     <GenerateResourceMSBuildArchitecture Condition=" '$(GenerateResourceMSBuildArchitecture)' == '' ">CurrentArchitecture</GenerateResourceMSBuildArchitecture>
     <GenerateResourceMSBuildRuntime Condition=" '$(GenerateResourceMSBuildRuntime)' == '' ">CurrentRuntime</GenerateResourceMSBuildRuntime>
   </PropertyGroup>
-
-  <!-- <Import Project="Microsoft.NET.Sdk.Common.targets" /> -->
-
 
   <ItemGroup>
     <IntermediateAssembly Remove="@(IntermediateAssembly)" />
@@ -54,7 +51,6 @@
         GetTargetPath;
         PrepareForRun;
         IncrementalClean;
-        PostBuildEvent;
         GenerateBuildDependencyFile;
         GenerateBuildRuntimeConfigurationFiles;
         CopyFilesToOutputDirectory;
@@ -63,7 +59,8 @@
         Check3;
         Check4;
         Check5;
-        _H5Build
+        _H5Build;
+        PostBuildEvent
     </CoreBuildDependsOn>
   </PropertyGroup>
 
@@ -123,7 +120,8 @@
     <GenerateRuntimeConfigurationFilesInputs Include="$(UserRuntimeConfig)" Condition=" Exists($(UserRuntimeConfig)) " />
   </ItemGroup>
   
-    <Target Name="_ComputePackageReferencePublish">
+  <Target Name="_ComputePackageReferencePublish">
+    <Message Importance="high" Text="Running _ComputePackageReferencePublish" />
     <ItemGroup>
 
       <!-- PrivateAssets="All" means exclude from publish, unless Publish metadata is specified separately -->
@@ -133,6 +131,52 @@
       <_ExcludeFromPublishPackageReference Include="@(PackageReference)"
                                            Condition="('%(PackageReference.Publish)' == 'false')" />
     </ItemGroup>
+  </Target>
+  
+   <!--
+    _HandlePackageFileConflicts
+    Handles package file conflict resolution for build.
+    This will differ from the conflict resolution at publish time if the publish assets differ from build.
+  -->
+  <Target Name="_HandlePackageFileConflicts" DependsOnTargets="GetFrameworkPaths;GetReferenceAssemblyPaths;ResolveTargetingPackAssets">
+    <Message Importance="high" Text="Running _HandlePackageFileConflicts" />
+
+    <ItemGroup>
+      <!--
+        All runtime assets for conflict resolution.
+        Exclude the copy-local items since those are passed in separately.
+      -->
+      <_RuntimeAssetsForConflictResolution
+        Include="@(RuntimeCopyLocalItems);
+                 @(NativeCopyLocalItems);
+                 @(ResourceCopyLocalItems);
+                 @(RuntimeTargetsCopyLocalItems)"
+        Exclude="@(ReferenceCopyLocalPaths)" />
+    </ItemGroup>
+
+    <ResolvePackageFileConflicts References="@(Reference)"
+                                 ReferenceCopyLocalPaths="@(ReferenceCopyLocalPaths)"
+                                 OtherRuntimeItems="@(_RuntimeAssetsForConflictResolution)"
+                                 PlatformManifests="@(PackageConflictPlatformManifests)"
+                                 TargetFrameworkDirectories="$(TargetFrameworkDirectory)"
+                                 PackageOverrides="@(PackageConflictOverrides)"
+                                 PreferredPackages="$(PackageConflictPreferredPackages)">
+      <Output TaskParameter="ReferencesWithoutConflicts" ItemName="_ReferencesWithoutConflicts" />
+      <Output TaskParameter="ReferenceCopyLocalPathsWithoutConflicts" ItemName="_ReferenceCopyLocalPathsWithoutConflicts" />
+      <Output TaskParameter="Conflicts" ItemName="_ConflictPackageFiles" />
+    </ResolvePackageFileConflicts>
+
+    <!-- Replace Reference / ReferenceCopyLocalPaths with the filtered lists.
+         We must remove all and include rather than just remove since removal is based
+         only on ItemSpec and duplicate ItemSpecs may exist with different metadata 
+         (eg: HintPath) -->
+    <ItemGroup>
+      <Reference Remove="@(Reference)" />
+      <Reference Include="@(_ReferencesWithoutConflicts)" />
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+      <ReferenceCopyLocalPaths Include="@(_ReferenceCopyLocalPathsWithoutConflicts)" />
+    </ItemGroup>
+
   </Target>
 
   <Target Name="GenerateBuildDependencyFile"
@@ -303,9 +347,10 @@
         </ItemGroup>
     </Target>
     
-  <Target Name="_ComputeReferenceAssemblies"
-          DependsOnTargets="ResolveAssemblyReferences">
+  <Target Name="_ComputeReferenceAssemblies" DependsOnTargets="ResolveAssemblyReferences">
 
+    <Message Importance="high" Text="Running _ComputeReferenceAssemblies" />
+    
     <ItemGroup>
       <_FrameworkReferenceAssemblies Include="@(ReferencePath)"
                                      Condition="(%(ReferencePath.FrameworkFile) == 'true' or

@@ -373,6 +373,7 @@ namespace H5.Translator
                 var result = new string[SourceFiles.Count];
 
                 var queue = new ConcurrentQueue<int>(Enumerable.Range(0, SourceFiles.Count));
+                var exceptions = new ConcurrentStack<Exception>();
 
                 var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
                     {
@@ -380,7 +381,15 @@ namespace H5.Translator
                         {
                             while (queue.TryDequeue(out var index))
                             {
-                                result[index] = rewriter.Clone().Rewrite(index);
+                                try
+                                {
+                                    result[index] = rewriter.Clone().Rewrite(index);
+                                }
+                                catch (Exception ex)
+                                {
+                                    exceptions.Push(ex);
+                                    return;
+                                }
                             }
                         });
                         t.IsBackground = true;
@@ -389,6 +398,12 @@ namespace H5.Translator
                     }).ToArray();
 
                 Array.ForEach(threads, t => t.Join());
+
+
+                if (exceptions.Any())
+                {
+                    throw new AggregateException("Compilation failed", exceptions);
+                }
 
                 rewriter.CommitCache();
 
@@ -406,13 +421,23 @@ namespace H5.Translator
             {
                 var queue = new ConcurrentQueue<int>(Enumerable.Range(0, rewriten.Length));
 
+                var exceptions = new ConcurrentStack<Exception>();
+
                 var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
                 {
                     var t = new Thread(() =>
                     {
                         while (queue.TryDequeue(out var index) && !cancellationToken.IsCancellationRequested)
                         {
-                            BuildSyntaxTreeForFile(index, ref rewriten);
+                            try
+                            {
+                                BuildSyntaxTreeForFile(index, ref rewriten);
+                            }
+                            catch(Exception ex)
+                            {
+                                exceptions.Push(ex);
+                                return;
+                            }
                         }
                     });
                     t.IsBackground = true;
@@ -423,6 +448,11 @@ namespace H5.Translator
                 Array.ForEach(threads, t => t.Join());
 
                 cancellationToken.ThrowIfCancellationRequested();
+
+                if(exceptions.Any())
+                {
+                    throw new AggregateException("Compilation failed", exceptions);
+                }
 
                 m.SetOperations(rewriten.Length);
             }

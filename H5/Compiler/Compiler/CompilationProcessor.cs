@@ -51,7 +51,9 @@ namespace H5.Compiler
                     Logger.ZLogInformation("\n\n\n\n");
                     Logger.ZLogInformation("==== BEGIN {0}", request.uid);
                     Logger.ZLogInformation("Setting working directory to '{0}'", request.request.WorkingDirectory);
+                    
                     var beforeDir = Environment.CurrentDirectory;
+
                     Environment.CurrentDirectory = request.request.WorkingDirectory;
 
                     var cts = CancellationTokenSource.CreateLinkedTokenSource(abortToken.Token, cancellationToken);
@@ -119,7 +121,11 @@ namespace H5.Compiler
                 LogErrorMarker();
 
                 Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
-                Logger.LogError(ex.StackTrace?.ToString());
+                
+                if (ex.StackTrace is object)
+                {
+                    Logger.LogError(ex.StackTrace.ToString());
+                }
 
                 if (compilationUID.IsNotNull())
                 {
@@ -142,8 +148,10 @@ namespace H5.Compiler
                     Logger.LogError(string.Format("H5 Compiler error: {0}", ex.ToString()));
                 }
 
-                Logger.LogError(ex.StackTrace?.ToString());
-
+                if(ex.StackTrace is object)
+                {
+                    Logger.LogError(ex.StackTrace.ToString());
+                }
 
                 if (compilationUID.IsNotNull())
                 {

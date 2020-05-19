@@ -50,6 +50,10 @@ namespace H5.Compiler
                     _currentCompilation = request.uid;
                     Logger.ZLogInformation("\n\n\n\n");
                     Logger.ZLogInformation("==== BEGIN {0}", request.uid);
+                    Logger.ZLogInformation("Setting working directory to '{0}'", request.request.WorkingDirectory);
+                    var beforeDir = Environment.CurrentDirectory;
+                    Environment.CurrentDirectory = request.request.WorkingDirectory;
+
                     var cts = CancellationTokenSource.CreateLinkedTokenSource(abortToken.Token, cancellationToken);
                     try
                     {
@@ -59,6 +63,10 @@ namespace H5.Compiler
                     {
                         // This should never happen, as Compile already handles exceptions 
                         Logger.LogError(E, "H5 Compiler fail"); 
+                    }
+                    finally
+                    {
+                        Environment.CurrentDirectory = beforeDir;
                     }
 
                     Logger.ZLogInformation("==== END {0}", request.uid);

@@ -19,7 +19,6 @@ using System.Threading;
 
 namespace H5.Compiler
 {
-
     public class Program
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<Program>();
@@ -381,6 +380,7 @@ namespace H5.Compiler
         public static CompilationRequest ParseRequestFromCommandLine(string[] args)
         {
             var compilationRequest = new CompilationRequest();
+            compilationRequest.WorkingDirectory = Environment.CurrentDirectory;
 
             // options -c, -P and -D have priority over -S
             string configuration = null;

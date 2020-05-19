@@ -14,6 +14,8 @@ namespace H5.Compiler.Hosted
         public bool Rebuild { get; set; }
         public bool NoCompilationServer { get; set; }
 
+        public string WorkingDirectory { get; set; }
+
         public ProjectProperties ProjectProperties { get; set; } = new ProjectProperties();
 
         internal CompilationOptions ToOptions()

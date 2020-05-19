@@ -21,7 +21,7 @@ This new compiler build is fully based on [netstandard2.0](https://github.com/th
 To get started with it, you can use the following project template  
 
 ````xml
-<Project Sdk="h5.Target/0.0.8018">
+<Project Sdk="h5.Target/0.0.*">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
@@ -32,7 +32,10 @@ To get started with it, you can use the following project template
 </Project>
 ````
 
-The Sdk target above (``<Project Sdk="h5.Target/0.0.8018">``) will automatically install (and update) the compiler as a ``dotnet global tool``. Don't forget to run ``dotnet restore`` to fill the versions with the latest values. You can also manually install it with:
+The Sdk target above (``<Project Sdk="h5.Target/0.0.*">``) will automatically install (and update) the compiler as a ``dotnet global tool``. You need to update the version ``/0.0.*`` to the latest [![Nuget](https://img.shields.io/nuget/v/h5.target.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.target/) package.
+
+
+Don't forget to run ``dotnet restore`` to fill the versions with the latest values. You can also manually install it with:
 
 ````bash
 dotnet tool update --global h5-compiler
@@ -49,6 +52,7 @@ This experimental fork introduces a series of breaking changes as part of the mo
 - Compiler is now distributed as a ``dotnet global`` tool and have it's own versioning and auto-update on build (this can be disable by setting `<UpdateH5>false<UpdateH5/>` on your project file.
 - **Retyped packages are not supported** (as those are maintained by the Bridge authors, and cannot be built separately or consumed without Bridge).
 - Logging and Report options have been removed from the h5.json config file. Logging settings will be available only as a command line argument (and exposed as a Project file option in the future)
+- Hosted Compiler process (to speed up compilation and avoiding reloading assemblies that don't change often (like nuget packages), h5 introduces an off-process compiler server. *For now, this process will open a terminal with the compilation logs - but this will be hidden in the future)*
 
 Other breaking changes will probably be introduced with the goal of supporting:
 - Full multiplatform (Windows, Linux & MacOS) compilation without any need for Mono.

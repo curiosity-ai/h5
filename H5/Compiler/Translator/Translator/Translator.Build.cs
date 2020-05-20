@@ -26,6 +26,7 @@ using ZLogger;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Threading;
+using Microsoft.CodeAnalysis.Emit;
 
 namespace H5.Translator
 {
@@ -105,193 +106,32 @@ namespace H5.Translator
 
         }
 
-        public virtual void BuildAssembly(CancellationToken cancellationToken)
+        public virtual Dictionary<string, string> BuildAssembly(CancellationToken cancellationToken)
         {
             using (new Measure(Logger, $"Building assembly '{ProjectProperties?.AssemblyName}' for location '{Location}'"))
             {
-                var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
-
-                var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants);
-
-                var files = SourceFiles;
-                List<string> referencesPathes = null;
-                IList<PackageReference> referencedPackages = null;
                 var baseDir = Path.GetDirectoryName(Location);
 
-                XDocument projDefinition = XDocument.Load(Location);
-                XNamespace rootNs = projDefinition.Root.Name.Namespace;
-                var helper = new ConfigHelper<AssemblyInfo>();
-                var tokens = ProjectProperties.GetValues();
+                ProcessProjectReferences(baseDir, out var pathToReferencesInProject, out var referencedPackages, out var projectReferences);
 
-                referencesPathes = projDefinition
-                    .Element(rootNs + "Project")
-                    .Elements(rootNs + "ItemGroup")
-                    .Elements(rootNs + "Reference")
-                    .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
-                    .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                    .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                    .ToList();
+                BuildReferencedProjectsIfNeeded(pathToReferencesInProject, projectReferences, cancellationToken);
 
-                referencedPackages = projDefinition
-                    .Element(rootNs + "Project")
-                    .Elements(rootNs + "ItemGroup")
-                    .Elements(rootNs + "PackageReference")
-                    .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
-                    .Select(refElem => new PackageReference(new PackageIdentity(refElem.Attribute("Include").Value, new NuGetVersion(refElem.Attribute("Version").Value)), NuGetFramework.Parse("netstandard2.0")))
-                    .ToList();
+                ProcessPackagedReferences(referencedPackages, out var referencesFromPackages, out var packageDiscoveredPaths, cancellationToken);
 
-                var projectReferences = projDefinition
-                    .Element(rootNs + "Project")
-                    .Elements(rootNs + "ItemGroup")
-                    .Elements(rootNs + "ProjectReference")
-                    .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
-                    .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                    .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                    .ToArray();
+                pathToReferencesInProject.AddRange(packageDiscoveredPaths.Values);
 
-                if (projectReferences.Length > 0)
-                {
-                    if (ProjectProperties.BuildProjects == null)
-                    {
-                        ProjectProperties.BuildProjects = new List<string>();
-                    }
-
-                    foreach (var projectRef in projectReferences)
-                    {
-                        var isBuilt = ProjectProperties.BuildProjects.Contains(projectRef);
-
-                        if (!isBuilt)
-                        {
-                            ProjectProperties.BuildProjects.Add(projectRef);
-                        }
-
-                        var processor = new TranslatorProcessor(new CompilationOptions
-                        {
-                            Rebuild = Rebuild,
-                            ProjectLocation = projectRef,
-                            H5Location = H5Location,
-                            ProjectProperties = new ProjectProperties
-                            {
-                                BuildProjects = ProjectProperties.BuildProjects,
-                                Configuration = ProjectProperties.Configuration
-                            }
-                        }, cancellationToken);
-
-                        processor.PreProcess();
-
-                        var projectAssembly = processor.Translator.AssemblyLocation;
-
-                        if (!File.Exists(projectAssembly) || Rebuild && !isBuilt)
-                        {
-                            processor.Process();
-                            processor.PostProcess();
-                        }
-
-                        referencesPathes.Add(projectAssembly);
-                    }
-                }
-
-                //RFO: need to do the package discover first so it populates the 
-                var referencesFromPackages = new List<MetadataReference>();
-
-                if (referencedPackages is object && referencedPackages.Any())
-                {
-                    string packagePath = GetPackagesCacheFolder();
-
-                    var outputFolder = Path.GetDirectoryName(AssemblyLocation);
-
-                    var filesToCopy = new List<(string source, string destination)>();
-
-                    foreach (var rp in referencedPackages.GroupBy(p => p.PackageIdentity).OrderByDescending(p => p.Key.Version).Select(g => g.First()))
-                    {
-                        cancellationToken.ThrowIfCancellationRequested();
-
-                        var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
-                        if (Directory.Exists(pp))
-                        {
-                            Logger.ZLogInformation($"NuGet: Importing package {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
-
-                            var foundLibs = new List<string>();
-                            foreach (var file in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.dll", SearchOption.AllDirectories))
-                            {
-                                referencesFromPackages.Add(MetadataReference.CreateFromFile(file));
-                                _packagedFiles[Path.GetFileName(file)] = file;
-                                foundLibs.Add(file);
-                            }
-
-                            foreach (var source in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
-                            {
-                                var target = Path.Combine(outputFolder, Path.GetFileName(source));
-                                filesToCopy.Add((source, target));
-                            }
-
-                            var contentFolder = Path.Combine(pp, "content");
-                            if (Directory.Exists(contentFolder))
-                            {
-                                foreach (var source in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
-                                {
-                                    var target = Path.Combine(outputFolder, Path.GetFileName(source));
-                                    filesToCopy.Add((source, target));
-                                }
-                            }
-
-                            PackageReferencesDiscoveredPaths[rp.PackageIdentity.Id] = foundLibs.First();
-
-                            if (string.Equals(rp.PackageIdentity.Id, CS.NS.H5, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                H5Location = foundLibs.Single(); //H5 should be the single dll in the file
-                            }
-                        }
-                        else
-                        {
-                            Logger.ZLogError($"NuGet package not found: {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
-                            throw new Exception($"NuGet package not found: {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
-                        }
-                    }
-
-                    if (filesToCopy.Any())
-                    {
-                        Task.WaitAll(filesToCopy.Select(async (copy) =>
-                        {
-                            cancellationToken.ThrowIfCancellationRequested();
-
-                            Logger.ZLogInformation($"NuGet: Copying lib file '{copy.source}' to '{copy.destination}'");
-                            await CopyFileAsync(copy.source, copy.destination).ConfigureAwait(false);
-                        }).ToArray());
-                    }
-                    //var resolver = new NuGet.Resolver.PackageResolver();
-                    //var packages = resolver.Resolve(new NuGet.Resolver.PackageResolverContext(NuGet.Resolver.DependencyBehavior.Highest,
-                    //                                    referencedPackages.Select(p => p.PackageIdentity.Id), 
-                    //                                    referencedPackages.Select(p => p.PackageIdentity.Id),
-                    //                                    referencedPackages, referencedPackages.Select(p => p.PackageIdentity),
-                    //                                    Enumerable.Empty<PackageIdentity>(),
-                    //packages,
-                    //Enumerable.Empty<PackageSource>()));
-
-                }
-
-                //var trustedAssembliesPaths = ((string)AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES")).Split(Path.PathSeparator);
-                //var referencesFromTrustedPath = trustedAssembliesPaths
-                //    .Where(p => neededAssemblies.Contains(Path.GetFileNameWithoutExtension(p)))
-                //    .Select(p => MetadataReference.CreateFromFile(p))
-                //    .ToList();
-
-
-                referencesPathes.AddRange(PackageReferencesDiscoveredPaths.Values);
-
-                var arr = referencesPathes.ToArray();
-                foreach (var refPath in arr)
+                foreach (var refPath in pathToReferencesInProject.ToArray()) //ToArray because we modify the list in AddNestedReferences
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    AddNestedReferences(referencesPathes, refPath);
+                    AddNestedReferences(pathToReferencesInProject, refPath);
                 }
 
-                IList<SyntaxTree> trees = new List<SyntaxTree>(files.Count);
-                foreach (var file in files)
+                IList<SyntaxTree> trees = new List<SyntaxTree>(SourceFiles.Count);
+                foreach (var file in SourceFiles)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     var filePath = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
-                    var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), parseOptions, filePath, Encoding.Default);
+                    var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
                     trees.Add(syntaxTree);
                 }
 
@@ -299,14 +139,11 @@ namespace H5.Translator
                 var outputDir = Path.GetDirectoryName(AssemblyLocation);
                 var di = new DirectoryInfo(outputDir);
 
-                if (!di.Exists)
-                {
-                    di.Create();
-                }
+                if (!di.Exists) { di.Create(); }
 
                 var updateH5Location = string.IsNullOrWhiteSpace(H5Location) || !File.Exists(H5Location);
 
-                foreach (var path in referencesPathes)
+                foreach (var path in pathToReferencesInProject)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
@@ -324,54 +161,221 @@ namespace H5.Translator
                     references.Add(MetadataReference.CreateFromFile(path, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
                 }
 
+                var emitResult = CompileAndEmit(referencesFromPackages, trees, references, cancellationToken);
 
-                var compilation = CSharpCompilation.Create(ProjectProperties.AssemblyName ?? new DirectoryInfo(Location).Name, trees, null, compilationOptions)
-                                    .AddReferences(references)
-                                    .AddReferences(referencesFromPackages);
+                HandleBuildErrorsIfAny(baseDir, emitResult);
 
-                Microsoft.CodeAnalysis.Emit.EmitResult emitResult;
+                return packageDiscoveredPaths;
+            }
+        }
 
-                using (new Measure(Logger, $"Compiling {AssemblyLocation} with Roslyn"))
+        private void ProcessProjectReferences(string baseDir, out List<string> pathToReferencesInProject, out List<PackageReference> referencedPackages, out string[] projectReferences)
+        {
+            var projDefinition = XDocument.Load(Location);
+            var rootNs = projDefinition.Root.Name.Namespace;
+            var helper = new ConfigHelper<AssemblyInfo>();
+            var tokens = ProjectProperties.GetValues();
+
+            pathToReferencesInProject = projDefinition
+                .Element(rootNs + "Project")
+                .Elements(rootNs + "ItemGroup")
+                .Elements(rootNs + "Reference")
+                .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+                .ToList();
+
+            referencedPackages = projDefinition
+                .Element(rootNs + "Project")
+                .Elements(rootNs + "ItemGroup")
+                .Elements(rootNs + "PackageReference")
+                .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+                .Select(refElem => new PackageReference(new PackageIdentity(refElem.Attribute("Include").Value, new NuGetVersion(refElem.Attribute("Version").Value)), NuGetFramework.Parse("netstandard2.0")))
+                .ToList();
+
+            projectReferences = projDefinition
+                .Element(rootNs + "Project")
+                .Elements(rootNs + "ItemGroup")
+                .Elements(rootNs + "ProjectReference")
+                .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
+                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+                .ToArray();
+        }
+
+        private void BuildReferencedProjectsIfNeeded(List<string> pathToReferencesInProject, string[] projectReferences, CancellationToken cancellationToken)
+        {
+            if (projectReferences.Length > 0)
+            {
+                if (ProjectProperties.BuildProjects == null)
                 {
-                    using (var outputStream = new FileStream(AssemblyLocation, FileMode.Create))
+                    ProjectProperties.BuildProjects = new List<string>();
+                }
+
+                foreach (var projectRef in projectReferences)
+                {
+                    var isBuilt = ProjectProperties.BuildProjects.Contains(projectRef);
+
+                    if (!isBuilt)
                     {
-                        emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true), cancellationToken: cancellationToken);
-                        outputStream.Flush();
-                        outputStream.Close();
+                        ProjectProperties.BuildProjects.Add(projectRef);
+                    }
+
+                    var processor = new TranslatorProcessor(new CompilationOptions
+                    {
+                        Rebuild = Rebuild,
+                        ProjectLocation = projectRef,
+                        H5Location = H5Location,
+                        ProjectProperties = new ProjectProperties
+                        {
+                            BuildProjects = ProjectProperties.BuildProjects,
+                            Configuration = ProjectProperties.Configuration
+                        }
+                    }, cancellationToken);
+
+                    processor.PreProcess();
+
+                    var projectAssembly = processor.Translator.AssemblyLocation;
+
+                    if (!File.Exists(projectAssembly) || Rebuild && !isBuilt)
+                    {
+                        processor.Process();
+                        processor.PostProcess();
+                    }
+
+                    pathToReferencesInProject.Add(projectAssembly);
+                }
+            }
+        }
+
+        private void ProcessPackagedReferences(List<PackageReference> referencedPackages, out List<MetadataReference> referencesFromPackages, out Dictionary<string, string> packageDiscoveredPaths,  CancellationToken cancellationToken)
+        {
+            //RFO: need to do the package discover first so it populates the 
+            referencesFromPackages = new List<MetadataReference>();
+
+            packageDiscoveredPaths = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+
+            if (referencedPackages is object && referencedPackages.Any())
+            {
+                string packagePath = GetPackagesCacheFolder();
+
+                var outputFolder = Path.GetDirectoryName(AssemblyLocation);
+
+                var filesToCopy = new List<(string source, string destination)>();
+
+                foreach (var rp in referencedPackages.GroupBy(p => p.PackageIdentity).OrderByDescending(p => p.Key.Version).Select(g => g.First()))
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
+                    if (Directory.Exists(pp))
+                    {
+                        Logger.ZLogInformation($"NuGet: Importing package {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
+
+                        var foundLibs = new List<string>();
+                        foreach (var file in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.dll", SearchOption.AllDirectories))
+                        {
+                            referencesFromPackages.Add(MetadataReference.CreateFromFile(file));
+                            _packagedFiles[Path.GetFileName(file)] = file;
+                            foundLibs.Add(file);
+                        }
+
+                        foreach (var source in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
+                        {
+                            var target = Path.Combine(outputFolder, Path.GetFileName(source));
+                            filesToCopy.Add((source, target));
+                        }
+
+                        var contentFolder = Path.Combine(pp, "content");
+                        if (Directory.Exists(contentFolder))
+                        {
+                            foreach (var source in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
+                            {
+                                var target = Path.Combine(outputFolder, Path.GetFileName(source));
+                                filesToCopy.Add((source, target));
+                            }
+                        }
+
+                        packageDiscoveredPaths[rp.PackageIdentity.Id] = foundLibs.First();
+
+                        if (string.Equals(rp.PackageIdentity.Id, CS.NS.H5, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            H5Location = foundLibs.Single(); //H5 should be the single dll in the file
+                        }
+                    }
+                    else
+                    {
+                        Logger.ZLogError($"NuGet package not found: {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
+                        throw new Exception($"NuGet package not found: {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
                     }
                 }
 
-                if (!emitResult.Success)
+                if (filesToCopy.Any())
                 {
-                    StringBuilder sb = new StringBuilder("C# Compilation Failed");
-                    sb.AppendLine();
-
-                    baseDir = File.Exists(Location) ? Path.GetDirectoryName(Location) : Path.GetFullPath(Location);
-
-                    foreach (var d in emitResult.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error))
+                    Task.WaitAll(filesToCopy.Select(async (copy) =>
                     {
-                        var filePath = d.Location?.SourceTree?.FilePath ?? "";
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        Logger.ZLogInformation($"NuGet: Copying lib file '{copy.source}' to '{copy.destination}'");
+                        await CopyFileAsync(copy.source, copy.destination).ConfigureAwait(false);
+                    }).ToArray());
+                }
+            }
+        }
+
+        private EmitResult CompileAndEmit(List<MetadataReference> referencesFromPackages, IList<SyntaxTree> trees, List<MetadataReference> references, CancellationToken cancellationToken)
+        {
+            var compilation = CSharpCompilation.Create(ProjectProperties.AssemblyName ?? new DirectoryInfo(Location).Name, trees, null, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+                                .AddReferences(references)
+                                .AddReferences(referencesFromPackages);
+
+            EmitResult emitResult;
+
+            using (new Measure(Logger, $"Compiling {AssemblyLocation} with Roslyn"))
+            {
+                using (var outputStream = new FileStream(AssemblyLocation, FileMode.Create))
+                {
+                    emitResult = compilation.Emit(outputStream, options: new Microsoft.CodeAnalysis.Emit.EmitOptions(false, Microsoft.CodeAnalysis.Emit.DebugInformationFormat.Embedded, runtimeMetadataVersion: RuntimeMetadataVersion, includePrivateMembers: true), cancellationToken: cancellationToken);
+                    outputStream.Flush();
+                    outputStream.Close();
+                }
+            }
+
+            return emitResult;
+        }
+
+        private void HandleBuildErrorsIfAny(string baseDir, EmitResult emitResult)
+        {
+            if (!emitResult.Success)
+            {
+                StringBuilder sb = new StringBuilder("C# Compilation Failed");
+                sb.AppendLine();
+
+                baseDir = File.Exists(Location) ? Path.GetDirectoryName(Location) : Path.GetFullPath(Location);
+
+                foreach (var d in emitResult.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error))
+                {
+                    var filePath = d.Location?.SourceTree?.FilePath ?? "";
+                    if (filePath.StartsWith(baseDir))
+                    {
+                        filePath = filePath.Substring(baseDir.Length + 1);
+                    }
+
+                    var mapped = d.Location != null ? d.Location.GetMappedLineSpan() : default(FileLinePositionSpan);
+                    sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "\t{4}({0},{1}): {2}: {3}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, d.Id, d.GetMessage(), filePath));
+                    foreach (var l in d.AdditionalLocations)
+                    {
+                        filePath = l.SourceTree.FilePath ?? "";
                         if (filePath.StartsWith(baseDir))
                         {
                             filePath = filePath.Substring(baseDir.Length + 1);
                         }
-
-                        var mapped = d.Location != null ? d.Location.GetMappedLineSpan() : default(FileLinePositionSpan);
-                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "\t{4}({0},{1}): {2}: {3}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, d.Id, d.GetMessage(), filePath));
-                        foreach (var l in d.AdditionalLocations)
-                        {
-                            filePath = l.SourceTree.FilePath ?? "";
-                            if (filePath.StartsWith(baseDir))
-                            {
-                                filePath = filePath.Substring(baseDir.Length + 1);
-                            }
-                            mapped = l.GetMappedLineSpan();
-                            sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "\t{2}({0},{1}): (Related location)", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, filePath));
-                        }
+                        mapped = l.GetMappedLineSpan();
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "\t{2}({0},{1}): (Related location)", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, filePath));
                     }
-
-                    throw new TranslatorException(sb.ToString());
                 }
+
+                throw new TranslatorException(sb.ToString());
             }
         }
 

@@ -16,8 +16,6 @@ namespace H5.Translator
 
         public string H5Location { get; set; }
 
-        public Dictionary<string, string> PackageReferencesDiscoveredPaths { get; set; } = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-
         public string Location
         {
             get;

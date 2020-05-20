@@ -378,6 +378,36 @@
         </ItemGroup>
     </Target>
 
+    <!--
+    ============================================================
+                                        _CopyReferenceOnlyAssembliesForBuild
+
+    Copies reference assemblies that normally can't be resolved at runtime to the 'refs' folder in the build output.
+    This is necessary in order for the running app to resolve these reference assemblies.
+    ============================================================
+    -->
+    <Target Name="_CopyReferenceOnlyAssembliesForBuild"
+            Condition="'$(PreserveCompilationReferences)' == 'true'"
+            DependsOnTargets="_ComputeReferenceAssemblies"
+            AfterTargets="CopyFilesToOutputDirectory">
+
+        <Message Importance="high" Text="Running _CopyReferenceOnlyAssembliesForBuild" />
+
+        <Copy SourceFiles="@(_ReferenceOnlyAssemblies)"
+              DestinationFolder="$(OutDir)$(RefAssembliesFolderName)"
+              SkipUnchangedFiles="$(SkipCopyUnchangedFiles)"
+              OverwriteReadOnlyFiles="$(OverwriteReadOnlyFiles)"
+              Retries="$(CopyRetryCount)"
+              RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
+              UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)"
+              UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)">
+
+            <Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
+
+        </Copy>
+
+    </Target>
+
     <!--The following checks are just debug messages to know what triggered the compilation of the project. They will be eventually removed in the future.-->
 
     <Target Name="Check1" Inputs="$(MSBuildAllProjects)" Outputs="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)">
@@ -403,19 +433,19 @@
 
     <Target Name="_CheckForH5">
         <!-- If the compiler is not running, or if not found, set the flag to update it -->
-        
+
         <Exec Command="h5 check-if-online" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="false">
             <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
         </Exec>
-        
+
         <PropertyGroup  Condition="'$(MSBuildLastTaskResult)' == 'False' OR '$(ExitCode)' == '1'">
             <UpdateH5>true</UpdateH5>
         </PropertyGroup>
     </Target>
-    
+
 
     <Target Name="_H5Build"
-        DependsOnTargets="SourceFilesProjectOutputGroup;GenerateBuildDependencyFile;GenerateBuildRuntimeConfigurationFiles;_ComputeReferenceAssemblies;_ComputeUserRuntimeAssemblies"
+        DependsOnTargets="SourceFilesProjectOutputGroup;GenerateBuildDependencyFile;GenerateBuildRuntimeConfigurationFiles;_ComputeReferenceAssemblies;_ComputeUserRuntimeAssemblies;_CopyReferenceOnlyAssembliesForBuild"
         Inputs="@(UserRuntimeAssembly);@(_ReferenceAssemblies);@(SourceFilesProjectOutputGroupOutput);$(MSBuildAllProjects);$(ProjectDepsFilePath);$(ProjectRuntimeConfigFilePath);$(ProjectRuntimeConfigDevFilePath)"
         Outputs="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)">
 
@@ -423,8 +453,11 @@
         <Message Importance="high" Text="Skipping updating the h5 compiler. You can always install/update it by calling dotnet tool update --global h5-compiler" Condition="!$(UpdateH5)" />
         <Exec Command="dotnet tool update --global h5-compiler" Condition="$(UpdateH5)"  ContinueOnError="WarnAndContinue"/>
 
+        <Message Importance="high" Text="Deleting previous assembly: $(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)"/>
+        <Delete Files="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)"/>
+
         <!--This is where the h5 is finally called to compile the code -->
-        
+
         <Message Importance="high" Text="H5 compilation begins now... " />
         <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false">
             <Output TaskParameter="ExitCode" PropertyName="ExitCode" />

@@ -127,7 +127,7 @@ namespace H5.Translator
             return path.Contains(".nuget");
         }
 
-        protected virtual AssemblyDefinition LoadAssembly(string location, List<AssemblyDefinition> references)
+        protected virtual AssemblyDefinition LoadAssembly(string location, List<AssemblyDefinition> references, Dictionary<string, string> discoveredAssemblyPaths)
         {
             Logger.ZLogTrace("Assembly definition loading {0} ...", (location ?? ""));
 
@@ -160,7 +160,7 @@ namespace H5.Translator
 
                 var path = Path.Combine(Path.GetDirectoryName(location), name) + ".dll";
 
-                if(!File.Exists(path) && PackageReferencesDiscoveredPaths is object && PackageReferencesDiscoveredPaths.TryGetValue(name, out var discoveredPath))
+                if(!File.Exists(path) && discoveredAssemblyPaths is object && discoveredAssemblyPaths.TryGetValue(name, out var discoveredPath))
                 {
                     path = discoveredPath;
                 }
@@ -172,7 +172,7 @@ namespace H5.Translator
                     H5Location = path;
                 }
 
-                var reference = LoadAssembly(path, references);
+                var reference = LoadAssembly(path, references, discoveredAssemblyPaths);
 
                 if (reference != null && !references.Any(a => a.Name.FullName == reference.Name.FullName))
                 {
@@ -304,14 +304,14 @@ namespace H5.Translator
             }
         }
 
-        protected virtual List<AssemblyDefinition> InspectReferences()
+        protected virtual List<AssemblyDefinition> InspectReferences(Dictionary<string, string> discoveredAssemblyPaths)
         {
             using (new Measure(Logger, "Inspecting references"))
             {
                 TypeInfoDefinitions = new Dictionary<string, ITypeInfo>();
 
                 var references = new List<AssemblyDefinition>();
-                var assembly = LoadAssembly(AssemblyLocation, references);
+                var assembly = LoadAssembly(AssemblyLocation, references, discoveredAssemblyPaths);
                 LoadReferenceAssemblies(references);
                 TypeDefinitions = new Dictionary<string, TypeDefinition>();
                 H5Types = new H5Types();

@@ -32,8 +32,6 @@ namespace H5.Compiler
         {
             DefaultEncoding.ForceInvariantCultureAndUTF8Output();
 
-            SayHi();
-
             ConfigureLogging();
 
             //TODO: get log level from command line
@@ -56,11 +54,13 @@ namespace H5.Compiler
 
             if (args.Length == 0)
             {
+                SayHi();
                 ShowHelp();
                 return 0;
             }
             if (args.Length == 1 && args[0] == "server")
             {
+                SayHi();
                 TrySetConsoleTitle();
                 Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
 
@@ -68,6 +68,7 @@ namespace H5.Compiler
             }
             else if (args.Length == 1 && args[0] == "startserver")
             {
+                SayHi();
                 TrySetConsoleTitle();
                 Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
 
@@ -92,6 +93,8 @@ namespace H5.Compiler
             }
             else
             {
+                SayHi();
+
                 var compilationRequest = ParseRequestFromCommandLine(args);
 
                 if (compilationRequest is null) { ShowHelp(); return 0; }

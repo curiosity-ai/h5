@@ -98,18 +98,20 @@ namespace H5.Translator
             {
                 var config = AssemblyInfo;
 
+                Dictionary<string, string> discoveredAssemblyPaths = null;
+
                 if (Rebuild)
                 {
                     Logger.ZLogInformation("Rebuilding assembly on path {0}", AssemblyLocation);
-                    BuildAssembly(cancellationToken);
+                    discoveredAssemblyPaths = BuildAssembly(cancellationToken);
                 }
                 else if (!File.Exists(AssemblyLocation))
                 {
                     Logger.ZLogInformation("Building assembly on path {0}", AssemblyLocation);
-                    BuildAssembly(cancellationToken);
+                    discoveredAssemblyPaths = BuildAssembly(cancellationToken);
                 }
 
-                var references = InspectReferences();
+                var references = InspectReferences(discoveredAssemblyPaths);
                 References = references;
 
                 LogProductInfo();

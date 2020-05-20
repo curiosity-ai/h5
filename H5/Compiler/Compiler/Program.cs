@@ -74,6 +74,22 @@ namespace H5.Compiler
                 ActuallyStartCompilationServer();
                 return 0;
             }
+            else if(args.Length == 1 && args[0] == "check-if-online")
+            {
+                var channel = new Channel("localhost", PORT, ChannelCredentials.Insecure);
+                var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
+                try
+                {
+                    await remoteCompiler.Ping(_exitToken.Token);
+                    Logger.LogInformation("Found compilation server");
+                    return 0;
+                }
+                catch (Exception E)
+                {
+                    Logger.LogInformation("Compilation server not online");
+                    return 1;
+                }
+            }
             else
             {
                 var compilationRequest = ParseRequestFromCommandLine(args);

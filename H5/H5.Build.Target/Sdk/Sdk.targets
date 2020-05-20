@@ -402,13 +402,17 @@
 
 
     <Target Name="_CheckForH5">
-        <Exec Command="h5" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="false"/>
-        <PropertyGroup  Condition="'$(MSBuildLastTaskResult)' == 'False'">
+        <!-- If the compiler is not running, or if not found, set the flag to update it -->
+        
+        <Exec Command="h5 check-if-online" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="false">
+            <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
+        </Exec>
+        
+        <PropertyGroup  Condition="'$(MSBuildLastTaskResult)' == 'False' OR '$(ExitCode)' == '1'">
             <UpdateH5>true</UpdateH5>
         </PropertyGroup>
     </Target>
-
-    <!--This is where the magic actually happens -->
+    
 
     <Target Name="_H5Build"
         DependsOnTargets="SourceFilesProjectOutputGroup;GenerateBuildDependencyFile;GenerateBuildRuntimeConfigurationFiles;_ComputeReferenceAssemblies;_ComputeUserRuntimeAssemblies"
@@ -419,6 +423,8 @@
         <Message Importance="high" Text="Skipping updating the h5 compiler. You can always install/update it by calling dotnet tool update --global h5-compiler" Condition="!$(UpdateH5)" />
         <Exec Command="dotnet tool update --global h5-compiler" Condition="$(UpdateH5)"  ContinueOnError="WarnAndContinue"/>
 
+        <!--This is where the h5 is finally called to compile the code -->
+        
         <Message Importance="high" Text="H5 compilation begins now... " />
         <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false">
             <Output TaskParameter="ExitCode" PropertyName="ExitCode" />

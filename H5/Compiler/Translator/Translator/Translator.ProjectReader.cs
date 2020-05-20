@@ -91,12 +91,11 @@ namespace H5.Translator
             {
                 if(NuGetVersion.TryParse(match.Groups[1].Value, out var installedVersion))
                 {
-                    var latest = NuGetVersion.Parse("0.0.8171");
-                    if(latest > installedVersion)
+                    if (SdkTargetVersion.Latest > installedVersion)
                     {
-                        projectXML = regex.Replace(projectXML, "<Project Sdk=\"h5.Target/@\">".Replace("@", latest.ToString()));
+                        projectXML = regex.Replace(projectXML, "<Project Sdk=\"h5.Target/@\">".Replace("@", SdkTargetVersion.Latest.ToString()));
                         File.WriteAllText(location, projectXML);
-                        Logger.ZLogWarning("Found outdated Sdk Target version '{0}', auto-updated to latest: {1}", installedVersion, latest);
+                        Logger.ZLogWarning("Found outdated Sdk Target version '{0}', auto-updated to latest: {1}", installedVersion, SdkTargetVersion.Latest);
                     }
                 }
             }

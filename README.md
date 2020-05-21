@@ -18,6 +18,8 @@ H5 is under active development, and targets a more integrated and faster develop
 
 ##  Getting Started ⚡
 
+[![Gitter](https://badges.gitter.im/curiosityai/h5.svg)](https://gitter.im/curiosityai/h5?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 H5 is fully based on [netstandard2.0](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj) & [netcore3.1](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework coming from the original source-code.
 
 To get started with it, you can use the following project template  

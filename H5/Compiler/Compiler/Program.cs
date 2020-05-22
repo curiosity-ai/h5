@@ -107,7 +107,13 @@ namespace H5.Compiler
                 if (compilationRequest.NoCompilationServer)
                 {
                     Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
-                    return CompilationProcessor.Compile(compilationRequest, default, _exitToken.Token);
+                    var resp = CompilationProcessor.Compile(compilationRequest, default, _exitToken.Token);
+                    if(resp != 0)
+                    {
+                        //Gives some time for the logs to flush
+                        await Task.Delay(1000);
+                    }
+                    return resp;
                 }
                 else
                 {

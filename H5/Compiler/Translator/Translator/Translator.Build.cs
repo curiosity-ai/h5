@@ -268,6 +268,7 @@ namespace H5.Translator
                     cancellationToken.ThrowIfCancellationRequested();
 
                     string packageBasePath;
+
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     {
                         packageBasePath = Path.Combine(nugetLocation, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
@@ -315,8 +316,8 @@ namespace H5.Translator
                     }
                     else
                     {
-                        Logger.ZLogError($"NuGet package not found: {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
-                        throw new Exception($"NuGet package not found: {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
+                        Logger.ZLogError($"NuGet package not found on path '{packageBasePath}': {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
+                        throw new Exception($"NuGet package not found on path '{packageBasePath}': {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
                     }
                 }
 
@@ -395,7 +396,7 @@ namespace H5.Translator
 
             if (!string.IsNullOrWhiteSpace(overridePath))
             {
-                overridePath = Environment.ExpandEnvironmentVariables(overridePath);
+                overridePath = Path.GetFullPath(Environment.ExpandEnvironmentVariables(overridePath));
                 if (Directory.Exists(overridePath))
                 {
                     return overridePath;
@@ -404,11 +405,11 @@ namespace H5.Translator
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return Environment.ExpandEnvironmentVariables(@"%userprofile%\.nuget\packages\");
+                return Path.GetFullPath(Environment.ExpandEnvironmentVariables(@"%userprofile%\.nuget\packages\"));
             }
             else
             {
-                return "~/.nuget/packages/";
+                return Path.GetFullPath("~/.nuget/packages/");
             }
         }
 

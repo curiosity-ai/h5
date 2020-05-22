@@ -257,7 +257,7 @@ namespace H5.Translator
 
             if (referencedPackages is object && referencedPackages.Any())
             {
-                string packagePath = GetPackagesCacheFolder();
+                string nugetLocation = GetPackagesCacheFolder();
 
                 var outputFolder = Path.GetDirectoryName(AssemblyLocation);
 
@@ -267,26 +267,36 @@ namespace H5.Translator
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    var pp = Path.Combine(packagePath, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
-                    if (Directory.Exists(pp))
+                    string packageBasePath;
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        packageBasePath = Path.Combine(nugetLocation, rp.PackageIdentity.Id, rp.PackageIdentity.Version.ToString());
+                    }
+                    else
+                    {
+                        //Package path is lower-case on Linux platforms
+                        packageBasePath = Path.Combine(nugetLocation, rp.PackageIdentity.Id.ToLowerInvariant(), rp.PackageIdentity.Version.ToString().ToLowerInvariant());
+                    }
+
+                    if (Directory.Exists(packageBasePath))
                     {
                         Logger.ZLogInformation($"NuGet: Importing package {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
 
                         var foundLibs = new List<string>();
-                        foreach (var file in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.dll", SearchOption.AllDirectories))
+                        foreach (var file in Directory.EnumerateFiles(Path.Combine(packageBasePath, "lib", rp.TargetFramework.GetShortFolderName()), "*.dll", SearchOption.AllDirectories))
                         {
                             referencesFromPackages.Add(MetadataReference.CreateFromFile(file));
                             _packagedFiles[Path.GetFileName(file)] = file;
                             foundLibs.Add(file);
                         }
 
-                        foreach (var source in Directory.EnumerateFiles(Path.Combine(pp, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
+                        foreach (var source in Directory.EnumerateFiles(Path.Combine(packageBasePath, "lib", rp.TargetFramework.GetShortFolderName()), "*.*", SearchOption.AllDirectories))
                         {
                             var target = Path.Combine(outputFolder, Path.GetFileName(source));
                             filesToCopy.Add((source, target));
                         }
 
-                        var contentFolder = Path.Combine(pp, "content");
+                        var contentFolder = Path.Combine(packageBasePath, "content");
                         if (Directory.Exists(contentFolder))
                         {
                             foreach (var source in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
@@ -394,11 +404,11 @@ namespace H5.Translator
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return Environment.ExpandEnvironmentVariables(@"%userprofile%\.nuget\packages");
+                return Environment.ExpandEnvironmentVariables(@"%userprofile%\.nuget\packages\");
             }
             else
             {
-                return "~/.nuget/packages";
+                return "~/.nuget/packages/";
             }
         }
 

@@ -1,4 +1,4 @@
-<Project Sdk="h5.Target/0.0.8080">
+<Project Sdk="h5.Target/0.0.8194">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>7.2</LangVersion>
@@ -6,8 +6,8 @@
 
     <ItemGroup>
         <PackageReference Include="h5" Version="0.0.8032" />
-        <PackageReference Include="h5.Core" Version="0.0.8007" />
-        <PackageReference Include="h5.Newtonsoft.Json" Version="0.0.7982" />
-        <PackageReference Include="h5.Tesserae" Version="0.0.8004" />
+        <PackageReference Include="h5.Core" Version="0.0.8126" />
+        <PackageReference Include="h5.Newtonsoft.Json" Version="0.0.8127" />
+        <PackageReference Include="Tesserae" Version="0.0.8242" />
     </ItemGroup>
 </Project>

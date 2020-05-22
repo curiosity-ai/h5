@@ -2,7 +2,7 @@
   "profiles": {
     "H5.Builder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -c \"$(Configuration)\"",
+      "commandLineArgs": "-p \"C:\\h5\\Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -c \"$(Configuration)\" --no-server",
       "workingDirectory": "C:\\h5\\Tesserae\\Tesserae.Tests\\"
     },
     "build H5.Core": {
@@ -17,7 +17,7 @@
     },
     "Placeholder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tests\\Placeholder\\Placeholder.csproj\" -c \"$(Configuration)\"",
+      "commandLineArgs": "--rebuild -p \"C:\\h5\\Tests\\Placeholder\\Placeholder.csproj\" -c \"$(Configuration)\" --no-server",
       "workingDirectory": "C:\\h5\\Tests\\Placeholder\\"
     },
     "build h5": {

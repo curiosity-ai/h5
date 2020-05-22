@@ -213,6 +213,18 @@ namespace H5.Translator
 
                 Logger.ZLogTrace("    FullOutputPath: {0}", fullOutputPath);
 
+                if (!string.IsNullOrEmpty(fullOutputPath))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory(fullOutputPath);
+                    }
+                    catch (Exception E)
+                    {
+                        Logger.ZLogError(E, "Failed to create output directory {0}", fullOutputPath);
+                    }
+                }
+
                 AssemblyLocation = Path.Combine(fullOutputPath, ProjectProperties.AssemblyName + ".dll");
             }
 

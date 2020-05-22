@@ -189,6 +189,18 @@ namespace H5.Translator
             basePath = new ConfigHelper().ConvertPath(basePath);
             basePath = Path.GetFullPath(basePath);
 
+            if (!string.IsNullOrEmpty(basePath))
+            {
+                try
+                {
+                    Directory.CreateDirectory(basePath);
+                }
+                catch (Exception E)
+                {
+                    Logger.ZLogError(E, "Failed to create output directory {0}", basePath);
+                }
+            }
+
             return basePath;
         }
 

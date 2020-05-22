@@ -87,17 +87,17 @@ namespace H5.Translator
 
                 var fileName = GetDefaultFileName(h5Options);
 
+                _cancellationToken.ThrowIfCancellationRequested();
+                translator.Minify();
+                    
+                _cancellationToken.ThrowIfCancellationRequested();
+                translator.Combine(fileName);
+                    
+                _cancellationToken.ThrowIfCancellationRequested();
+                translator.Save(outputPath, fileName);
+
                 if (!translator.SkipEmbeddingResources)
                 {
-                    _cancellationToken.ThrowIfCancellationRequested();
-                    translator.Minify();
-                    
-                    _cancellationToken.ThrowIfCancellationRequested();
-                    translator.Combine(fileName);
-                    
-                    _cancellationToken.ThrowIfCancellationRequested();
-                    translator.Save(outputPath, fileName);
-
                     _cancellationToken.ThrowIfCancellationRequested();
                     translator.InjectResources(outputPath, projectPath);
                 }

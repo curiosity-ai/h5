@@ -120,11 +120,11 @@ namespace H5.Compiler
             {
                 LogErrorMarker();
 
-                Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ex.ToString(), ex.FileName, ex.StartLine, ex.StartColumn));
+                Logger.ZLogError("\n{0} ({1},{2},{3},{4}): error H5001: {5}", ex.FileName, ex.StartLine, ex.StartColumn, ex.EndLine, ex.EndColumn, ex.Message);
                 
                 if (ex.StackTrace is object)
                 {
-                    Logger.LogError(ex.StackTrace.ToString());
+                    Logger.ZLogError("\nStack Trace: {0}", ex.StackTrace.ToString());
                 }
 
                 if (compilationUID.IsNotNull())
@@ -141,16 +141,16 @@ namespace H5.Compiler
 
                 if (ee != null)
                 {
-                    Logger.LogError(string.Format("H5 Compiler error: {1} ({2}, {3}) {0}", ee.ToString(), ee.FileName, ee.StartLine, ee.StartColumn));
+                    Logger.ZLogError("\n{0} ({1},{2},{3},{4}): error H5002: {5}", ee.FileName, ee.StartLine, ee.StartColumn, ee.EndLine, ee.EndColumn, ee.Message);
                 }
                 else
                 {
-                    Logger.LogError(string.Format("H5 Compiler error: {0}", ex.ToString()));
+                    Logger.ZLogError("\nH5: error H5003: {0}", ex.Message);
                 }
 
                 if(ex.StackTrace is object)
                 {
-                    Logger.LogError(ex.StackTrace.ToString());
+                    Logger.ZLogError("\nStack Trace: {0}", ex.StackTrace.ToString());
                 }
 
                 if (compilationUID.IsNotNull())
@@ -167,10 +167,9 @@ namespace H5.Compiler
             Logger.ZLogInformation(
 @"
 
- __ _  _  _  _ 
-|_ |_)|_)/ \|_)
-|__| \| \\_/| \
-
+     __ _  _  _  _ 
+    |_ |_)|_)/ \|_)
+    |__| \| \\_/| \
 
 ");
         }

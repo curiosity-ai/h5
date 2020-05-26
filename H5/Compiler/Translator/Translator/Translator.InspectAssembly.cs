@@ -194,13 +194,35 @@ namespace H5.Translator
 
         private static Stream LoadAssemblyAsFileStream(string location)
         {
-            //Must be a FileStream, as it needs the path info attached
-            var stream = File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
-            if (ShouldCacheAssembly(location))
+            Stream stream = null;
+            for (int i = 0; i < 5; i++)
             {
-                _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
+                try
+                {
+                    //Must be a FileStream, as it needs the path info attached
+                    stream = File.Open(location, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+                    break;
+                }
+                catch (Exception E)
+                {
+                    Logger.ZLogWarning(E, "Failed to open file {0}, {1}", location, i < 4 ? " will try again in a few milliseconds" : "throwing...");
+                }
+                Thread.Sleep(100 + i * 250);
             }
-            return stream;
+
+            if (stream is object)
+            {
+                if (ShouldCacheAssembly(location))
+                {
+                    _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
+                }
+
+                return stream;
+            }
+            else
+            {
+                throw new IOException($"Access to the path {location} is denied.");
+            }
         }
 
         protected virtual void ReadTypes(AssemblyDefinition assembly)

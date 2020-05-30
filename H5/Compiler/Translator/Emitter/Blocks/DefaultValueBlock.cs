@@ -39,6 +39,19 @@ namespace H5.Translator
                 return isString ? "null" : "0";
             }
 
+            if(resolveResult.Type.Kind == TypeKind.Struct)
+            {
+                var type = emitter.GetTypeDefinition(resolveResult.Type);
+                
+                var customCtor = (emitter.Validator.GetCustomConstructor(type) ?? "");
+                if (!string.IsNullOrEmpty(customCtor))
+                {
+                    return customCtor + "()";
+                }
+            }
+
+
+
             return JS.Funcs.H5_GETDEFAULTVALUE + "(" + (astType != null ? H5Types.ToJsName(astType, emitter) : H5Types.ToJsName(resolveResult.Type, emitter)) + ")";
         }
     }

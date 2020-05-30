@@ -113,7 +113,24 @@ namespace H5.Translator
                     {
                         var typerr = Emitter.Resolver.ResolveNode(VariableDeclarationStatement.Type).Type;
                         var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, Emitter);
-                        Write(string.Concat("new ", isGeneric ? "(" : "", H5Types.ToJsName(VariableDeclarationStatement.Type, Emitter), isGeneric ? ")" : "", "()"));
+
+                        bool hadCustomConstructor = false;
+                        if (typerr.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Struct)
+                        {
+                            var type = Emitter.GetTypeDefinition(typerr);
+
+                            var customCtor = (Emitter.Validator.GetCustomConstructor(type) ?? "");
+                            if (!string.IsNullOrEmpty(customCtor))
+                            {
+                                hadCustomConstructor = true;
+                                Write(string.Concat(customCtor, "()"));
+                            }
+                        }
+
+                        if (!hadCustomConstructor)
+                        {
+                            Write(string.Concat("new ", isGeneric ? "(" : "", H5Types.ToJsName(VariableDeclarationStatement.Type, Emitter), isGeneric ? ")" : "", "()"));
+                        }
                     }
                     Emitter.ReplaceAwaiterByVar = oldValue;
 

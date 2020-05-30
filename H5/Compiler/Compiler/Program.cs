@@ -198,29 +198,6 @@ namespace H5.Compiler
 
         private static void SayHi()
         {
-            //void Print(string text)
-            //{
-            //    for(int i = 0; i < text.Length; i++)
-            //    {
-            //        if (text[i] == 'R')
-            //        {
-            //            Console.ForegroundColor = ConsoleColor.DarkRed;
-            //        }
-            //        else if (text[i] == 'Y')
-            //        {
-            //            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            //        }
-            //        else if (text[i] == 'W')
-            //        {
-            //            Console.ForegroundColor = ConsoleColor.Blue;
-            //        }
-            //        else
-            //        {
-            //            Console.Write(text[i]);
-            //        }
-            //    }
-            //}
-
             void Print(string text)
             {
                 var prev = ' ';

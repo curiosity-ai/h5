@@ -90,8 +90,6 @@ namespace H5.Contract
 
         HtmlConfig Html{ get; set; }
 
-        ConsoleConfig Console{ get; set; }
-
         CompilerRule Rules{ get; set; }
 
         string ReferencesPath { get; set; }

@@ -372,16 +372,6 @@
       ]
     },
     {
-      "name": "h5.console.js",
-      "extract": false,
-      "header": "Resources/.auxiliary/Header.js",
-      "files": [
-        "Resources/.auxiliary/AssemblyBegin.js",
-        "Resources/.generated/H5/Utils/Console.js",
-        "Resources/.auxiliary/AssemblyEnd.js"
-      ]
-    },
-    {
       "name": "h5.meta.js",
       "header": "Resources/.auxiliary/header.js",
       "extract": false,

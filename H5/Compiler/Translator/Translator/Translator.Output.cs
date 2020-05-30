@@ -249,7 +249,6 @@ namespace H5.Translator
 
                 var contentBuffer = new StringBuilder();
                 var needNewLine = false;
-                var noConsole = AssemblyInfo.Console.Enabled != true;
                 var fileHelper = new FileHelper();
 
                 foreach (var part in resource.Parts)
@@ -264,16 +263,10 @@ namespace H5.Translator
                     {
                         partAssemblyName = GetAssemblyNameFromResource(part.Assembly);
 
-                        if (noConsole
-                            && partAssemblyName.Name == H5_ASSEMBLY
-                            && (string.Compare(part.Name, H5ConsoleName, true) == 0
-                                || string.Compare(part.Name, fileHelper.GetMinifiedJSFileName(H5ConsoleName), true) == 0)
-                            )
+                        if (partAssemblyName.Name == H5_ASSEMBLY && (string.Compare(part.Name, H5ConsoleName, true) == 0 || string.Compare(part.Name, fileHelper.GetMinifiedJSFileName(H5ConsoleName), true) == 0) )
                         {
-                            // Skip H5 console resource
+                            //RFO: Skip H5 console resource, as this is now removed. We keep the Check here just so that it continues to compile old H5 versions without it
                             needPart = false;
-
-                            Logger.ZLogTrace("Skipping this part as it is H5 Console and the Console option disabled");
                         }
                         else
                         {

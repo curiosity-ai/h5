@@ -92,6 +92,39 @@ namespace H5.Translator
             Outputs = new TranslatorOutput();
         }
 
+        public void PostBuildStreamCacheCleanup()
+        {
+            bool ShouldCacheAssembly(string path)
+            {
+                return path.Contains(".nuget");
+            }
+
+            foreach (var path in _loadedAssemblies.Keys.ToArray())
+            {
+                if (!ShouldCacheAssembly(path))
+                {
+                    if (_loadedAssemblies.TryGetValue(path, out var oldAssembly))
+                    {
+                        _loadedAssemblies.Remove(path);
+                        oldAssembly.assembly.Dispose();
+                    }
+                }
+            }
+
+            foreach (var path in _loadedAssemblieStreams.Keys.ToArray())
+            {
+                if (!ShouldCacheAssembly(path))
+                {
+                    if (_loadedAssemblieStreams.TryGetValue(path, out var oldStream))
+                    {
+                        _loadedAssemblieStreams.Remove(path);
+                        oldStream.Close();
+                        oldStream.Dispose();
+                    }
+                }
+            }
+        }
+
         public void Translate(CancellationToken cancellationToken)
         {
             using (new Measure(Logger, "Translating assembly"))

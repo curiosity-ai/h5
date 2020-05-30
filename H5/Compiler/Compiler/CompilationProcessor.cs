@@ -160,6 +160,10 @@ namespace H5.Compiler
 
                 return 1;
             }
+            finally
+            {
+                processor.Translator.PostBuildStreamCacheCleanup();
+            }
         }
 
         private static void LogErrorMarker()

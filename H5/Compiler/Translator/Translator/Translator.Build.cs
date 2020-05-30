@@ -413,30 +413,30 @@ namespace H5.Translator
             }
         }
 
-        private void AddPackageAssembly(List<string> list, string packageDir)
-        {
-            if (Directory.Exists(packageDir))
-            {
-                var packageLib = Path.Combine(packageDir, "lib");
+        //private void AddPackageAssembly(List<string> list, string packageDir)
+        //{
+        //    if (Directory.Exists(packageDir))
+        //    {
+        //        var packageLib = Path.Combine(packageDir, "lib");
 
-                if (Directory.Exists(packageLib))
-                {
-                    var libsFolders = Directory.GetDirectories(packageLib, "net*", SearchOption.TopDirectoryOnly);
-                    var libFolder = libsFolders.Length > 0 ? (libsFolders.Contains("net40") ? "net40" : libsFolders[0]) : null;
+        //        if (Directory.Exists(packageLib))
+        //        {
+        //            var libsFolders = Directory.GetDirectories(packageLib, "net*", SearchOption.TopDirectoryOnly);
+        //            var libFolder = libsFolders.Length > 0 ? (libsFolders.Contains("net40") ? "net40" : libsFolders[0]) : null;
 
-                    if (libFolder != null)
-                    {
-                        var assemblies = Directory.GetFiles(libFolder, "*.dll", SearchOption.TopDirectoryOnly);
+        //            if (libFolder != null)
+        //            {
+        //                var assemblies = Directory.GetFiles(libFolder, "*.dll", SearchOption.TopDirectoryOnly);
 
-                        foreach (var assembly in assemblies)
-                        {
-                            list.Add(assembly);
-                            _packagedFiles[Path.GetFileName(assembly)] = assembly;
-                        }
-                    }
-                }
-            }
-        }
+        //                foreach (var assembly in assemblies)
+        //                {
+        //                    list.Add(assembly);
+        //                    _packagedFiles[Path.GetFileName(assembly)] = assembly;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         private void AddNestedReferences(List<string> referencesPathes, string refPath)
         {
@@ -508,7 +508,6 @@ namespace H5.Translator
                         if (_loadedAssemblies.TryGetValue(destinationFile, out var previouslyLoaded))
                         {
                             _loadedAssemblies.Remove(destinationFile);
-                            
                             previouslyLoaded.assembly.Dispose();
                         }
 

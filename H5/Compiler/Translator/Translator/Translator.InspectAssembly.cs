@@ -107,11 +107,8 @@ namespace H5.Translator
                         }
                     );
 
-                    if (ShouldCacheAssembly(path))
-                    {
-                        //Only cache if it's a nuget package, otherwise it will keep streams locked 
-                        _loadedAssemblies[path] = (assemblyDefinition, fileInfo.LastWriteTimeUtc, fileInfo.Length);
-                    }
+                        
+                    _loadedAssemblies[path] = (assemblyDefinition, fileInfo.LastWriteTimeUtc, fileInfo.Length);
                 }
                 else
                 {
@@ -120,11 +117,6 @@ namespace H5.Translator
             }
 
             return assemblyDefinition;
-        }
-
-        private static bool ShouldCacheAssembly(string path)
-        {
-            return path.Contains(".nuget");
         }
 
         protected virtual AssemblyDefinition LoadAssembly(string location, List<AssemblyDefinition> references, Dictionary<string, string> discoveredAssemblyPaths)
@@ -212,10 +204,8 @@ namespace H5.Translator
 
             if (stream is object)
             {
-                if (ShouldCacheAssembly(location))
-                {
-                    _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
-                }
+                //Always add the stream to the Cache, so it gets disposed after
+                _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
 
                 return stream;
             }

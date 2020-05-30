@@ -55,37 +55,42 @@ namespace H5.Contract
                 throw new ArgumentNullException("values");
             }
 
-            foreach (var pair in values)
+            foreach (var kv in values)
             {
-                switch (pair.Key.ToLowerInvariant())
-                {
-                    case "assemblyname":
-                        this.AssemblyName = pair.Value;
-                        break;
-                    case "checkforoverflowunderflow":
-                        this.CheckForOverflowUnderflow = GetNullableBool(pair.Value);
-                        break;
-                    case "configuration":
-                        this.Configuration = pair.Value;
-                        break;
-                    case "defineconstants":
-                        this.DefineConstants = pair.Value;
-                        break;
-                    case "outdir":
-                        this.OutDir = pair.Value;
-                        break;
-                    case "outputpath":
-                        this.OutputPath = pair.Value;
-                        break;
-                    case "outputtype":
-                        this.OutputType = pair.Value;
-                        break;
-                    case "rootnamespace":
-                        this.RootNamespace = pair.Value;
-                        break;
-                    default:
-                        break;
-                }
+                SetValue(kv.Key, kv.Value);
+            }
+        }
+
+        public void SetValue(string key, string value)
+        {
+            switch (key.ToLowerInvariant())
+            {
+                case "assemblyname":
+                    this.AssemblyName = value;
+                    break;
+                case "checkforoverflowunderflow":
+                    this.CheckForOverflowUnderflow = GetNullableBool(value);
+                    break;
+                case "configuration":
+                    this.Configuration = value;
+                    break;
+                case "defineconstants":
+                    this.DefineConstants = value;
+                    break;
+                case "outdir":
+                    this.OutDir = value;
+                    break;
+                case "outputpath":
+                    this.OutputPath = value;
+                    break;
+                case "outputtype":
+                    this.OutputType = value;
+                    break;
+                case "rootnamespace":
+                    this.RootNamespace = value;
+                    break;
+                default:
+                    break;
             }
         }
 

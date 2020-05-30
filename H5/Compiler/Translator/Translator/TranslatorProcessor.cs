@@ -17,7 +17,7 @@ namespace H5.Translator
 
         public CompilationOptions H5Options { get; private set; }
 
-        public IAssemblyInfo TranslatorConfiguration { get; private set; }
+        public IH5DotJson_AssemblySettings TranslatorConfiguration { get; private set; }
 
         public Translator Translator { get; private set; }
 
@@ -29,12 +29,12 @@ namespace H5.Translator
             _cancellationToken = cancellationToken;
         }
 
-        public void PreProcess()
+        public void PreProcess(IH5DotJson_AssemblySettings translatorConfiguration = null)
         {
             AdjustH5Options();
 
             _cancellationToken.ThrowIfCancellationRequested();
-            TranslatorConfiguration = ReadConfiguration();
+            TranslatorConfiguration = translatorConfiguration ?? ReadConfiguration();
 
             _cancellationToken.ThrowIfCancellationRequested();
             Translator = SetTranslatorProperties();
@@ -49,7 +49,6 @@ namespace H5.Translator
 
             h5Options.H5Location = pathHelper.ConvertPath(h5Options.H5Location);
             h5Options.DefaultFileName = pathHelper.ConvertPath(h5Options.DefaultFileName);
-            h5Options.OutputLocation = pathHelper.ConvertPath(h5Options.OutputLocation);
             h5Options.ProjectLocation = pathHelper.ConvertPath(h5Options.ProjectLocation);
             h5Options.ProjectProperties.OutputPath = pathHelper.ConvertPath(h5Options.ProjectProperties.OutputPath);
             h5Options.ProjectProperties.OutDir = pathHelper.ConvertPath(h5Options.ProjectProperties.OutDir);
@@ -178,12 +177,10 @@ namespace H5.Translator
                 }
                 else
                 {
-                    Logger.LogWarning("Could not get assembly output folder");
+                    throw new InvalidOperationException("Could not get output folder");
                 }
 
-                basePath = string.IsNullOrWhiteSpace(assemblyOutput)
-                    ? Path.Combine(basePath, Path.GetDirectoryName(h5Options.OutputLocation))
-                    : Path.Combine(basePath, assemblyOutput);
+                basePath = Path.Combine(basePath, assemblyOutput);
             }
 
             basePath = new ConfigHelper().ConvertPath(basePath);
@@ -204,7 +201,7 @@ namespace H5.Translator
             return basePath;
         }
 
-        private IAssemblyInfo ReadConfiguration()
+        private IH5DotJson_AssemblySettings ReadConfiguration()
         {
             var h5Options = H5Options;
             var location = h5Options.ProjectLocation;

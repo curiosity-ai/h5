@@ -423,7 +423,7 @@ namespace H5.Compiler
 
                     case "-o":
                     case "--output":
-                        compilationRequest.OutputLocation = args[++i];
+                        compilationRequest.ProjectProperties.SetValue("OutDir", args[++i]);
                         break;
 
                     case "-c":
@@ -534,16 +534,6 @@ namespace H5.Compiler
                 var csproj = csprojs[0];
                 compilationRequest.ProjectLocation = csproj;
                 Logger.LogInformation("Defaulting Project Location to " + csproj);
-            }
-
-            if (string.IsNullOrEmpty(compilationRequest.OutputLocation))
-            {
-                compilationRequest.OutputLocation = Path.GetFileNameWithoutExtension(compilationRequest.ProjectLocation);
-            }
-
-            if (string.IsNullOrWhiteSpace(compilationRequest.DefaultFileName))
-            {
-                compilationRequest.DefaultFileName = Path.GetFileName(compilationRequest.OutputLocation);
             }
 
             // TODO: Add more checks

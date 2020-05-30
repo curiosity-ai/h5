@@ -206,7 +206,7 @@ namespace H5.Translator
             }
         }
 
-        protected virtual MemberResolver Preconvert(MemberResolver resolver, IAssemblyInfo config, CancellationToken cancellationToken)
+        protected virtual MemberResolver Preconvert(MemberResolver resolver, IH5DotJson_AssemblySettings config, CancellationToken cancellationToken)
         {
             bool needRecompile = false;
             foreach (var sourceFile in ParsedSourceFiles)

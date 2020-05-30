@@ -21,7 +21,7 @@ namespace H5.Translator.Utils
             helper = new ConfigHelper<H5DotJson_AssemblySettings>();
         }
 
-        public IAssemblyInfo ReadConfig(string configFileName, string location, string configuration)
+        private IH5DotJson_AssemblySettings ReadConfig(string configFileName, string location, string configuration)
         {
             var config = helper.ReadConfig(configFileName, location, configuration);
 
@@ -36,12 +36,12 @@ namespace H5.Translator.Utils
             return config;
         }
 
-        public IAssemblyInfo ReadConfig(string location, string configuration)
+        public IH5DotJson_AssemblySettings ReadConfig(string location, string configuration)
         {
             return ReadConfig(CONFIG_FILE_NAME, location, configuration);
         }
 
-        public string CreateConfig(IAssemblyInfo h5Config, string folder)
+        private string CreateConfig(IH5DotJson_AssemblySettings h5Config, string folder)
         {
             var path = Path.Combine(folder, CONFIG_FILE_NAME);
 
@@ -61,12 +61,12 @@ namespace H5.Translator.Utils
             return path;
         }
 
-        public static string ConfigToString(IAssemblyInfo config)
+        public static string ConfigToString(IH5DotJson_AssemblySettings config)
         {
             return JsonConvert.SerializeObject(config);
         }
 
-        public void ApplyTokens(IAssemblyInfo config, ProjectProperties projectProperties)
+        public void ApplyTokens(IH5DotJson_AssemblySettings config, ProjectProperties projectProperties)
         {
             Logger.LogTrace("ApplyTokens ...");
 
@@ -135,7 +135,7 @@ namespace H5.Translator.Utils
             Logger.LogTrace("ApplyTokens done");
         }
 
-        public void ConvertConfigPaths(IAssemblyInfo assemblyInfo)
+        public void ConvertConfigPaths(IH5DotJson_AssemblySettings assemblyInfo)
         {
             assemblyInfo.AfterBuild = helper.ConvertPath(assemblyInfo.AfterBuild);
             assemblyInfo.BeforeBuild = helper.ConvertPath(assemblyInfo.BeforeBuild);

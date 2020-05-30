@@ -8,7 +8,7 @@ namespace H5.Translator
 {
     public partial class Translator
     {
-        public IAssemblyInfo AssemblyInfo { get; set; }
+        public IH5DotJson_AssemblySettings AssemblyInfo { get; set; }
 
         public AssemblyDefinition AssemblyDefinition { get; set; }
 
@@ -110,6 +110,7 @@ namespace H5.Translator
         public OverflowMode? OverflowMode { get; set; }
 
         public bool SkipResourcesExtraction { get; set; } = false;
+
         public bool SkipEmbeddingResources { get; set; } = false;
 
         public bool SkipHtmlGeneration { get; set; } = false;

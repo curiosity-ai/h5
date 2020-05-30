@@ -8,7 +8,6 @@ namespace H5.Compiler.Hosted
     public class CompilationRequest
     {
         public string ProjectLocation { get; set; }
-        public string OutputLocation { get; set; }
         public string DefaultFileName { get; set; }
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
@@ -23,7 +22,6 @@ namespace H5.Compiler.Hosted
             return new CompilationOptions()
             {
                 ProjectLocation = ProjectLocation,
-                OutputLocation = OutputLocation,
                 DefaultFileName = DefaultFileName,
                 H5Location = H5Location,
                 Rebuild = Rebuild,

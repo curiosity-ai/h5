@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace H5.Translator
 {
-    public class H5DotJson_AssemblySettings : IAssemblyInfo
+    public class H5DotJson_AssemblySettings : IH5DotJson_AssemblySettings
     {
         public const string DEFAULT_FILENAME = "---";
         public const string DEFAULT_OUTPUT = "$(OutDir)/h5/";

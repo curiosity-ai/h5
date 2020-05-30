@@ -38,7 +38,7 @@ namespace H5.Translator
 
         public Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache { get; set; }
 
-        public IAssemblyInfo AssemblyInfo { get; set; }
+        public IH5DotJson_AssemblySettings AssemblyInfo { get; set; }
 
         public Dictionary<IAssembly, NameRule[]> AssemblyNameRuleCache
         {

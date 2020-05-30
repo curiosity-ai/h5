@@ -9,7 +9,7 @@ namespace H5.Contract
     {
         AssemblyDefinition AssemblyDefinition { get; set; }
 
-        IAssemblyInfo AssemblyInfo { get; set; }
+        IH5DotJson_AssemblySettings AssemblyInfo { get; set; }
 
         string AssemblyLocation { get; }
 

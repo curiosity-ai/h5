@@ -1,9 +1,6 @@
 variables:
-  compilerPath:  '$(Build.SourcesDirectory)/H5/Compiler/Compiler/'
-  compiler:  '$(compilerPath)H5.Compiler.csproj'
-  h5base: '$(Build.SourcesDirectory)/H5/H5/H5.csproj'
-  h5core: '$(Build.SourcesDirectory)/H5/H5.Core/H5.Core.csproj'
-  h5json: '$(Build.SourcesDirectory)/H5/H5.Newtonsoft.Json/H5.Newtonsoft.Json.csproj'
+  compiler:  '$(Build.SourcesDirectory)/H5/Compiler/Compiler/H5.Compiler.csproj'
+  compilerService: '$(Build.SourcesDirectory)/H5/Compiler/Compiler.Service/H5.Compiler.Service.csproj'
   buildConfiguration: 'Release'
 
 pool:
@@ -27,28 +24,50 @@ steps:
   displayName: 'Use .NET Core sdk'
   inputs:
     packageType: sdk
-    version: 3.1.201
+    version: 3.1.300
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: DotNetCoreCLI@2
-  displayName: 'restore nuget'
+  displayName: 'restore nuget compiler'
   inputs:
     command: 'restore'
     projects: '$(compiler)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'build'
+  displayName: 'restore nuget compiler-as-a-service'
+  inputs:
+    command: 'restore'
+    projects: '$(compilerService)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'build compiler'
   inputs:
     command: 'build'
     projects: '$(compiler)'
     arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)  /p:AllowUnsafeBlocks=True /p:LangVersion=latest'
 
 - task: DotNetCoreCLI@2
-  displayName: 'pack nuget'
+  displayName: 'build compiler-as-a-service'
+  inputs:
+    command: 'build'
+    projects: '$(compilerService)'
+    arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)  /p:AllowUnsafeBlocks=True /p:LangVersion=latest'
+
+- task: DotNetCoreCLI@2
+  displayName: 'pack nuget compiler'
   inputs:
     command: 'pack'
     configuration: '$(buildConfiguration)'
     packagesToPack: '$(compiler)'
+    versioningScheme: 'off'
+    buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'
+
+- task: DotNetCoreCLI@2
+  displayName: 'pack nuget compiler-as-a-service'
+  inputs:
+    command: 'pack'
+    configuration: '$(buildConfiguration)'
+    packagesToPack: '$(compilerService)'
     versioningScheme: 'off'
     buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'
 
@@ -57,5 +76,13 @@ steps:
   inputs:
     command: 'push'
     packagesToPush: '**/h5-compiler.0.0.$(build.buildId).nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget-curiosity'
+
+- task: NuGetCommand@2
+  displayName: 'push nuget'
+  inputs:
+    command: 'push'
+    packagesToPush: '**/h5.Compiler.Service.0.0.$(build.buildId).nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget-curiosity'

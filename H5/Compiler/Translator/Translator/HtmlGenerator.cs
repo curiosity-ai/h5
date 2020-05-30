@@ -44,7 +44,7 @@ namespace H5.Translator
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<HtmlGenerator>();
 
-        private readonly IAssemblyInfo _assemblyConfig;
+        private readonly IH5DotJson_AssemblySettings _assemblyConfig;
 
         private readonly TranslatorOutput _translatorOutputs;
 
@@ -52,7 +52,7 @@ namespace H5.Translator
 
         private readonly string _buildConfig;
 
-        public HtmlGenerator(IAssemblyInfo config, TranslatorOutput outputs, string title, string buildConfig)
+        public HtmlGenerator(IH5DotJson_AssemblySettings config, TranslatorOutput outputs, string title, string buildConfig)
         {
             _assemblyConfig = config;
             _translatorOutputs = outputs;

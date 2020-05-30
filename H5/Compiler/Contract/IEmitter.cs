@@ -11,7 +11,7 @@ namespace H5.Contract
     {
         string Tag { get; set; }
 
-        IAssemblyInfo AssemblyInfo { get; set; }
+        IH5DotJson_AssemblySettings AssemblyInfo { get; set; }
 
         AssignmentOperatorType AssignmentType { get; set; }
 

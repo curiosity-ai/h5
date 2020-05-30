@@ -161,7 +161,7 @@ namespace H5.Translator
 
         public IMemberResolver Resolver { get; set; }
 
-        public IAssemblyInfo AssemblyInfo { get; set; }
+        public IH5DotJson_AssemblySettings AssemblyInfo { get; set; }
 
         public Dictionary<string, ITypeInfo> TypeInfoDefinitions { get; set; }
 

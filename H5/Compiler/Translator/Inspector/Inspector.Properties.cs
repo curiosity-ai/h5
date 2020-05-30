@@ -9,7 +9,7 @@ namespace H5.Translator
     {
         protected string Namespace { get; set; }
 
-        public IAssemblyInfo AssemblyInfo { get; set; }
+        public IH5DotJson_AssemblySettings AssemblyInfo { get; set; }
 
         protected ITypeInfo CurrentType { get; set; }
 

@@ -5,7 +5,7 @@ using Newtonsoft.Json.Converters;
 
 namespace H5.Contract
 {
-    public interface IAssemblyInfo
+    public interface IH5DotJson_AssemblySettings
     {
         List<IModuleDependency> Dependencies{ get; set; }
 

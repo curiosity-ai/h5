@@ -10,7 +10,6 @@ namespace H5.Translator
         public ProjectProperties ProjectProperties { get; set; }
 
         public string ProjectLocation { get; set; }
-        public string OutputLocation { get; set; }
         public string DefaultFileName { get; set; }
         public string H5Location { get; set; }
         public bool Rebuild { get; set; }
@@ -32,7 +31,6 @@ namespace H5.Translator
             {
                 { WrapProperty("ProjectProperties"), GetString(ProjectProperties) },
                 { WrapProperty("ProjectLocation"), GetString(ProjectLocation) },
-                { WrapProperty("OutputLocation"), GetString(OutputLocation) },
                 { WrapProperty("DefaultFileName"), GetString(DefaultFileName) },
                 { WrapProperty("H5Location"), GetString(H5Location) },
                 { WrapProperty("Rebuild"), GetString(Rebuild) },

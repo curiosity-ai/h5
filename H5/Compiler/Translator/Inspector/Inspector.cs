@@ -13,7 +13,7 @@ namespace H5.Translator
     {
         internal IEmitter Emitter { get; private set; }
 
-        public Inspector(IAssemblyInfo config = null)
+        public Inspector(IH5DotJson_AssemblySettings config = null)
         {
             Types = new List<ITypeInfo>();
             IgnoredTypes = new List<string>();

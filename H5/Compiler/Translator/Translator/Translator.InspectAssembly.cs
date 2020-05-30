@@ -351,7 +351,7 @@ namespace H5.Translator
             }
         }
 
-        protected virtual void InspectTypes(MemberResolver resolver, IAssemblyInfo config)
+        protected virtual void InspectTypes(MemberResolver resolver, IH5DotJson_AssemblySettings config)
         {
             using (new Measure(Logger, "Inspecting types"))
             {
@@ -372,7 +372,7 @@ namespace H5.Translator
             }
         }
 
-        protected virtual Inspector CreateInspector(IAssemblyInfo config = null)
+        protected virtual Inspector CreateInspector(IH5DotJson_AssemblySettings config = null)
         {
             return new Inspector(config);
         }

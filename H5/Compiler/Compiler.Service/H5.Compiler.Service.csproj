@@ -15,7 +15,7 @@
   <ItemGroup>
     <None Include="..\..\..\logo\h5.png" Link="h5.png" Pack="true" PackagePath="\" />
   </ItemGroup>
-  
+
   <PropertyGroup>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <PackageIcon>h5.png</PackageIcon>
@@ -73,11 +73,23 @@
     <PackageReference Include="TopologicalSorting.netstandard" Version="1.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Private="true" Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj" />
-    <ProjectReference Private="true" Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />
-    <ProjectReference Private="true" Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" />
-    <ProjectReference Private="true" Include="..\..\..\External\Object.Net.Utilities\Object.Net.Utilities.csproj" />
-    <ProjectReference Private="true" Include="..\Contract\H5.Contract.csproj" />
-    <ProjectReference Private="true" Include="..\Translator\H5.Translator.csproj" />
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj">
+      <Package>true</Package>
+    </ProjectReference >
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj">
+      <Package>true</Package>
+    </ProjectReference >
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj">
+      <Package>true</Package>
+    </ProjectReference >
+    <ProjectReference Include="..\..\..\External\Object.Net.Utilities\Object.Net.Utilities.csproj">
+      <Package>true</Package>
+    </ProjectReference >
+    <ProjectReference Include="..\Contract\H5.Contract.csproj">
+      <Package>true</Package>
+    </ProjectReference >
+    <ProjectReference Include="..\Translator\H5.Translator.csproj">
+      <Package>true</Package>
+    </ProjectReference >
   </ItemGroup>
 </Project>

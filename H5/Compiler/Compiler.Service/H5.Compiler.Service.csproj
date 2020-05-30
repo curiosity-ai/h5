@@ -5,6 +5,7 @@
     <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
     <DefineConstants>H5_COMPILER</DefineConstants>
     <AssemblyName>h5</AssemblyName>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <!-- There is an annoying bug with PackAsTool that throws an error (https://github.com/NuGet/Home/issues/7001), so for debugging we disable this -->
@@ -73,23 +74,18 @@
     <PackageReference Include="TopologicalSorting.netstandard" Version="1.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj">
-      <Package>true</Package>
-    </ProjectReference >
-    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj">
-      <Package>true</Package>
-    </ProjectReference >
-    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj">
-      <Package>true</Package>
-    </ProjectReference >
-    <ProjectReference Include="..\..\..\External\Object.Net.Utilities\Object.Net.Utilities.csproj">
-      <Package>true</Package>
-    </ProjectReference >
-    <ProjectReference Include="..\Contract\H5.Contract.csproj">
-      <Package>true</Package>
-    </ProjectReference >
-    <ProjectReference Include="..\Translator\H5.Translator.csproj">
-      <Package>true</Package>
-    </ProjectReference >
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj"  PrivateAssets="all" />
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\..\..\External\Object.Net.Utilities\Object.Net.Utilities.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\Contract\H5.Contract.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\Translator\H5.Translator.csproj" PrivateAssets="all" />
   </ItemGroup>
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+    </ItemGroup>
+  </Target>
+  
 </Project>

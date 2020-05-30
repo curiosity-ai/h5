@@ -8,6 +8,7 @@ H5.NET.sln.ide/*
 
 # NuGet Packages Directory
 packages/*
+nupkg/*
 
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
@@ -208,5 +209,4 @@ Tests/**/App_Readme/
 .nuget/nuget.exe
 
 # y no work?
-# !/H5/H5/Resources/.generated/System/Diagnostics/Debug/*
-/H5.Dev.Sandbox.sln
+# !/H5/H5/Resources/.generated/*

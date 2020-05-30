@@ -259,6 +259,21 @@ namespace System
         }
 
         /// <summary>
+        /// Dump the object to the console
+        /// </summary>
+        /// <param name="value">The value to write.</param>
+        [H5.Name("Log")]
+        public static void Log(object value)
+        {
+            var con = H5.Script.ToDynamic().H5.global.console;
+
+            if (con && con.log)
+            {
+                con.log(value.As<dynamic>());
+            }
+        }
+
+        /// <summary>
         /// Writes the text representation of the specified Type, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>

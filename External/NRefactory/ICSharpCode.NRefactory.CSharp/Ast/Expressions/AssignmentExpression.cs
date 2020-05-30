@@ -25,8 +25,8 @@
 // THE SOFTWARE.
 
 using System;
-using System.Linq.Expressions;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace ICSharpCode.NRefactory.CSharp
 {
@@ -39,17 +39,17 @@ namespace ICSharpCode.NRefactory.CSharp
         public readonly static Role<Expression> LeftRole = BinaryOperatorExpression.LeftRole;
         public readonly static Role<Expression> RightRole = BinaryOperatorExpression.RightRole;
 
-        public readonly static TokenRole AssignRole = new TokenRole ("=");
-        public readonly static TokenRole AddRole = new TokenRole ("+=");
-        public readonly static TokenRole SubtractRole = new TokenRole ("-=");
-        public readonly static TokenRole MultiplyRole = new TokenRole ("*=");
-        public readonly static TokenRole DivideRole = new TokenRole ("/=");
-        public readonly static TokenRole ModulusRole = new TokenRole ("%=");
-        public readonly static TokenRole ShiftLeftRole = new TokenRole ("<<=");
-        public readonly static TokenRole ShiftRightRole = new TokenRole (">>=");
-        public readonly static TokenRole BitwiseAndRole = new TokenRole ("&=");
-        public readonly static TokenRole BitwiseOrRole = new TokenRole ("|=");
-        public readonly static TokenRole ExclusiveOrRole = new TokenRole ("^=");
+        public readonly static TokenRole AssignRole = new TokenRole("=");
+        public readonly static TokenRole AddRole = new TokenRole("+=");
+        public readonly static TokenRole SubtractRole = new TokenRole("-=");
+        public readonly static TokenRole MultiplyRole = new TokenRole("*=");
+        public readonly static TokenRole DivideRole = new TokenRole("/=");
+        public readonly static TokenRole ModulusRole = new TokenRole("%=");
+        public readonly static TokenRole ShiftLeftRole = new TokenRole("<<=");
+        public readonly static TokenRole ShiftRightRole = new TokenRole(">>=");
+        public readonly static TokenRole BitwiseAndRole = new TokenRole("&=");
+        public readonly static TokenRole BitwiseOrRole = new TokenRole("|=");
+        public readonly static TokenRole ExclusiveOrRole = new TokenRole("^=");
 
         public AssignmentExpression()
         {
@@ -68,38 +68,42 @@ namespace ICSharpCode.NRefactory.CSharp
             this.Right = right;
         }
 
-        public AssignmentOperatorType Operator {
+        public AssignmentOperatorType Operator
+        {
             get;
             set;
         }
 
-        public Expression Left {
-            get { return GetChildByRole (LeftRole); }
+        public Expression Left
+        {
+            get { return GetChildByRole(LeftRole); }
             set { SetChildByRole(LeftRole, value); }
         }
 
-        public CSharpTokenNode OperatorToken {
-            get { return GetChildByRole (GetOperatorRole(Operator)); }
+        public CSharpTokenNode OperatorToken
+        {
+            get { return GetChildByRole(GetOperatorRole(Operator)); }
         }
 
-        public Expression Right {
-            get { return GetChildByRole (RightRole); }
+        public Expression Right
+        {
+            get { return GetChildByRole(RightRole); }
             set { SetChildByRole(RightRole, value); }
         }
 
-        public override void AcceptVisitor (IAstVisitor visitor)
+        public override void AcceptVisitor(IAstVisitor visitor)
         {
-            visitor.VisitAssignmentExpression (this);
+            visitor.VisitAssignmentExpression(this);
         }
 
-        public override T AcceptVisitor<T> (IAstVisitor<T> visitor)
+        public override T AcceptVisitor<T>(IAstVisitor<T> visitor)
         {
-            return visitor.VisitAssignmentExpression (this);
+            return visitor.VisitAssignmentExpression(this);
         }
 
-        public override S AcceptVisitor<T, S> (IAstVisitor<T, S> visitor, T data)
+        public override S AcceptVisitor<T, S>(IAstVisitor<T, S> visitor, T data)
         {
-            return visitor.VisitAssignmentExpression (this, data);
+            return visitor.VisitAssignmentExpression(this, data);
         }
 
         protected internal override bool DoMatch(AstNode other, PatternMatching.Match match)
@@ -110,7 +114,8 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public static TokenRole GetOperatorRole(AssignmentOperatorType op)
         {
-            switch (op) {
+            switch (op)
+            {
                 case AssignmentOperatorType.Assign:
                     return AssignRole;
                 case AssignmentOperatorType.Add:
@@ -144,7 +149,8 @@ namespace ICSharpCode.NRefactory.CSharp
         /// </summary>
         public static BinaryOperatorType? GetCorrespondingBinaryOperator(AssignmentOperatorType op)
         {
-            switch (op) {
+            switch (op)
+            {
                 case AssignmentOperatorType.Assign:
                     return null;
                 case AssignmentOperatorType.Add:
@@ -174,7 +180,8 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public static ExpressionType GetLinqNodeType(AssignmentOperatorType op, bool checkForOverflow)
         {
-            switch (op) {
+            switch (op)
+            {
                 case AssignmentOperatorType.Assign:
                     return ExpressionType.Assign;
                 case AssignmentOperatorType.Add:
@@ -254,17 +261,17 @@ namespace ICSharpCode.NRefactory.CSharp
 
         public override CastExpression CastTo(AstType type)
         {
-            return new CastExpression { Type = type,  Expression = new ParenthesizedExpression(this) };
+            return new CastExpression { Type = type, Expression = new ParenthesizedExpression(this) };
         }
 
         public override AsExpression CastAs(AstType type)
         {
-            return new AsExpression { Type = type,  Expression = new ParenthesizedExpression(this) };
+            return new AsExpression { Type = type, Expression = new ParenthesizedExpression(this) };
         }
 
         public override IsExpression IsType(AstType type)
         {
-            return new IsExpression { Type = type,  Expression = new ParenthesizedExpression(this) };
+            return new IsExpression { Type = type, Expression = new ParenthesizedExpression(this) };
         }
         #endregion
     }

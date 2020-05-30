@@ -164,7 +164,7 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [H5.Name("Write")]
-        [CLSCompliant(false)]
+        
         public static extern void Write(uint value);
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [H5.Name("Write")]
-        [CLSCompliant(false)]
+        
         public static extern void Write(ulong value);
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [H5.Name("WriteLine")]
-        [CLSCompliant(false)]
+        
         public static extern void WriteLine(uint value);
 
         /// <summary>
@@ -353,7 +353,7 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [H5.Name("WriteLine")]
-        [CLSCompliant(false)]
+        
         public static extern void WriteLine(ulong value);
 
         /// <summary>

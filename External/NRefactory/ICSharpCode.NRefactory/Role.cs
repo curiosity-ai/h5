@@ -33,7 +33,7 @@ namespace ICSharpCode.NRefactory
 
         readonly uint index;
 
-        [CLSCompliant(false)]
+        
         public uint Index {
             get { return index; }
         }
@@ -55,7 +55,7 @@ namespace ICSharpCode.NRefactory
         /// <summary>
         /// Gets the role with the specified index.
         /// </summary>
-        [CLSCompliant(false)]
+        
         public static Role GetByIndex(uint index)
         {
             return roles[index];

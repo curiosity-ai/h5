@@ -145,7 +145,7 @@ namespace System.ComponentModel
         /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='sbyte'/>
         /// value.</para>
         /// </devdoc>
-        [CLSCompliant(false)]
+        
         public DefaultValueAttribute(sbyte value)
         {
             _value = value;
@@ -155,7 +155,7 @@ namespace System.ComponentModel
         /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='ushort'/>
         /// value.</para>
         /// </devdoc>
-        [CLSCompliant(false)]
+        
         public DefaultValueAttribute(ushort value)
         {
             _value = value;
@@ -165,7 +165,7 @@ namespace System.ComponentModel
         /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='uint'/>
         /// value.</para>
         /// </devdoc>
-        [CLSCompliant(false)]
+        
         public DefaultValueAttribute(uint value)
         {
             _value = value;
@@ -175,7 +175,7 @@ namespace System.ComponentModel
         /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='ulong'/>
         /// value.</para>
         /// </devdoc>
-        [CLSCompliant(false)]
+        
         public DefaultValueAttribute(ulong value)
         {
             _value = value;

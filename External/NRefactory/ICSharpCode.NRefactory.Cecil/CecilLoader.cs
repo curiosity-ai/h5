@@ -75,7 +75,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// Warning: if delay-loading is used and the type system is accessed by multiple threads,
         /// the callback may be invoked concurrently on multiple threads.
         /// </remarks>
-        [CLSCompliant(false)]
+        
         public Action<IUnresolvedEntity, MemberReference> OnEntityLoaded { get; set; }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// Loads the assembly definition into a project content.
         /// </summary>
         /// <returns>Unresolved type system representing the assembly</returns>
-        [CLSCompliant(false)]
+        
         public IUnresolvedAssembly LoadAssembly(AssemblyDefinition assemblyDefinition)
         {
             if (assemblyDefinition == null)
@@ -144,7 +144,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// Loads the module definition into a project content.
         /// </summary>
         /// <returns>Unresolved type system representing the assembly</returns>
-        [CLSCompliant(false)]
+        
         public IUnresolvedAssembly LoadModule(ModuleDefinition moduleDefinition)
         {
             if (moduleDefinition == null)
@@ -235,7 +235,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// This causes ReadTypeReference() to use <see cref="DefaultAssemblyReference.CurrentAssembly"/> for references
         /// in that module.
         /// </summary>
-        [CLSCompliant(false)]
+        
         public void SetCurrentModule(ModuleDefinition module)
         {
             this.currentModule = module;
@@ -246,7 +246,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// </summary>
         /// <param name="typeDefinition">The Cecil TypeDefinition.</param>
         /// <returns>ITypeDefinition representing the Cecil type.</returns>
-        [CLSCompliant(false)]
+        
         public IUnresolvedTypeDefinition LoadType(TypeDefinition typeDefinition)
         {
             if (typeDefinition == null)
@@ -317,7 +317,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// a type system type reference.</param>
         /// <param name="typeAttributes">Attributes associated with the Cecil type reference.
         /// This is used to support the 'dynamic' type.</param>
-        [CLSCompliant(false)]
+        
         public ITypeReference ReadTypeReference(TypeReference type, ICustomAttributeProvider typeAttributes = null)
         {
             int typeIndex = 0;
@@ -797,7 +797,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
             }
         }
 
-        [CLSCompliant(false)]
+        
         public IUnresolvedAttribute ReadAttribute(CustomAttribute attribute)
         {
             if (attribute == null)
@@ -820,7 +820,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// <summary>
         /// Reads a security declaration.
         /// </summary>
-        [CLSCompliant(false)]
+        
         public IList<IUnresolvedAttribute> ReadSecurityDeclaration(SecurityDeclaration secDecl)
         {
             if (secDecl == null)
@@ -1320,7 +1320,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         #endregion
 
         #region Read Method
-        [CLSCompliant(false)]
+        
         public IUnresolvedMethod ReadMethod(MethodDefinition method, IUnresolvedTypeDefinition parentType, SymbolKind methodType = SymbolKind.Method)
         {
             return ReadMethod(method, parentType, methodType, null);
@@ -1452,7 +1452,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         #endregion
 
         #region Read Parameter
-        [CLSCompliant(false)]
+        
         public IUnresolvedParameter ReadParameter(ParameterDefinition parameter)
         {
             if (parameter == null)
@@ -1531,7 +1531,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
             return new decimal((int)ctorArgs[4], (int)ctorArgs[3], (int)ctorArgs[2], (byte)ctorArgs[1] != 0, (byte)ctorArgs[0]);
         }
 
-        [CLSCompliant(false)]
+        
         public IUnresolvedField ReadField(FieldDefinition field, IUnresolvedTypeDefinition parentType)
         {
             if (field == null)
@@ -1635,7 +1635,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
             return left;
         }
 
-        [CLSCompliant(false)]
+        
         public IUnresolvedProperty ReadProperty(PropertyDefinition property, IUnresolvedTypeDefinition parentType, SymbolKind propertyType = SymbolKind.Property)
         {
             if (property == null)
@@ -1675,7 +1675,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         #endregion
 
         #region Read Event
-        [CLSCompliant(false)]
+        
         public IUnresolvedEvent ReadEvent(EventDefinition ev, IUnresolvedTypeDefinition parentType)
         {
             if (ev == null)
@@ -1752,13 +1752,13 @@ namespace ICSharpCode.NRefactory.TypeSystem
             return result as T;
         }
 
-        [CLSCompliant(false)]
+        
         public AssemblyDefinition GetCecilObject (IUnresolvedAssembly content)
         {
             return InternalGetCecilObject<AssemblyDefinition> (content);
         }
 
-        [CLSCompliant(false)]
+        
         public TypeDefinition GetCecilObject (IUnresolvedTypeDefinition type)
         {
             if (type == null)
@@ -1766,25 +1766,25 @@ namespace ICSharpCode.NRefactory.TypeSystem
             return InternalGetCecilObject<TypeDefinition> (type);
         }
 
-        [CLSCompliant(false)]
+        
         public MethodDefinition GetCecilObject (IUnresolvedMethod method)
         {
             return InternalGetCecilObject<MethodDefinition> (method);
         }
 
-        [CLSCompliant(false)]
+        
         public FieldDefinition GetCecilObject (IUnresolvedField field)
         {
             return InternalGetCecilObject<FieldDefinition> (field);
         }
 
-        [CLSCompliant(false)]
+        
         public EventDefinition GetCecilObject (IUnresolvedEvent evt)
         {
             return InternalGetCecilObject<EventDefinition> (evt);
         }
 
-        [CLSCompliant(false)]
+        
         public PropertyDefinition GetCecilObject (IUnresolvedProperty property)
         {
             return InternalGetCecilObject<PropertyDefinition> (property);

@@ -63,11 +63,11 @@ namespace System.Text
 
         public extern StringBuilder Append(string value);
 
-        [CLSCompliant(false)]
+        
         public extern StringBuilder Append(uint value);
 
         [H5.Template("{this}.append({value}.toString())")]
-        [CLSCompliant(false)]
+        
         public extern StringBuilder Append(ulong value);
 
         [H5.Template("append(String.fromCharCode({value}), {repeatCount})")]
@@ -105,11 +105,11 @@ namespace System.Text
 
         public extern StringBuilder Insert(int index, string value);
 
-        [CLSCompliant(false)]
+        
         public extern StringBuilder Insert(int index, uint value);
 
         [H5.Template("{this}.insert({index}, {value}.toString())")]
-        [CLSCompliant(false)]
+        
         public extern StringBuilder Insert(int index, ulong value);
 
         public extern StringBuilder Insert(int index, string value, int count);

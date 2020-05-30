@@ -38,7 +38,7 @@ namespace System
         public extern Decimal(int i);
 
         [H5.Template("System.Decimal({i})")]
-        [CLSCompliant(false)]
+        
         public extern Decimal(uint i);
 
         [H5.Template("System.Decimal({f})")]
@@ -48,7 +48,7 @@ namespace System
         public extern Decimal(long n);
 
         [H5.Template("System.Decimal({n})")]
-        [CLSCompliant(false)]
+        
         public extern Decimal(ulong n);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -82,14 +82,14 @@ namespace System
         public static extern implicit operator decimal (byte value);
 
         //[H5.Template("System.Decimal.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern implicit operator decimal (sbyte value);
 
         //[H5.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (short value);
 
         //[H5.Template("System.Decimal.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern implicit operator decimal (ushort value);
 
         //[H5.Template("System.Decimal.lift({value})")]
@@ -99,14 +99,14 @@ namespace System
         public static extern implicit operator decimal (int value);
 
         //[H5.Template("System.Decimal.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern implicit operator decimal (uint value);
 
         //[H5.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (long value);
 
         //[H5.Template("System.Decimal.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern implicit operator decimal (ulong value);
 
         //[H5.Template("System.Decimal.lift({value})")]
@@ -119,7 +119,7 @@ namespace System
         public static extern explicit operator byte (decimal value);
 
         //[H5.Template("System.Decimal.toInt({value}, System.SByte)")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator sbyte (decimal value);
 
         //[H5.Template("System.Decimal.toInt({value}, H5.Char)")]
@@ -129,21 +129,21 @@ namespace System
         public static extern explicit operator short (decimal value);
 
         //[H5.Template("System.Decimal.toInt({value}, System.UInt16)")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator ushort (decimal value);
 
         //[H5.Template("System.Decimal.toInt({value}, System.Int32)")]
         public static extern explicit operator int (decimal value);
 
         //[H5.Template("System.Decimal.toInt({value}, System.UInt32)")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator uint (decimal value);
 
         //[H5.Template("System.Decimal.toInt({value}, System.Int64)")]
         public static extern explicit operator long (decimal value);
 
         //[H5.Template("System.Decimal.toInt({value}, System.UInt64)")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator ulong (decimal value);
 
         //[H5.Template("System.Decimal.toFloat({value})")]
@@ -276,7 +276,7 @@ namespace System
         public static extern byte ToByte(decimal value);
 
         [H5.Template("System.Decimal.toInt({value})")]
-        [CLSCompliant(false)]
+        
         public static extern sbyte ToSByte(decimal value);
 
         [H5.Template("System.Decimal.toInt({value})")]
@@ -286,21 +286,21 @@ namespace System
         public static extern short ToInt16(decimal value);
 
         [H5.Template("System.Decimal.toInt({value})")]
-        [CLSCompliant(false)]
+        
         public static extern ushort ToUInt16(decimal value);
 
         [H5.Template("System.Decimal.toInt({value})")]
         public static extern int ToInt32(decimal value);
 
         [H5.Template("System.Decimal.toInt({value})")]
-        [CLSCompliant(false)]
+        
         public static extern uint ToUInt32(decimal value);
 
         [H5.Template("System.Decimal.toInt({value}, System.Int64)")]
         public static extern long ToInt64(decimal value);
 
         [H5.Template("System.Decimal.toInt({value}, System.UInt64)")]
-        [CLSCompliant(false)]
+        
         public static extern ulong ToUInt64(decimal value);
 
         [H5.Template("System.Decimal.toFloat({value})")]

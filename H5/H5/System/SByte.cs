@@ -10,27 +10,27 @@ namespace System
         private extern SByte(int i);
 
         [H5.InlineConst]
-        [CLSCompliant(false)]
+        
         public const sbyte MinValue = -128;
 
         [H5.InlineConst]
-        [CLSCompliant(false)]
+        
         public const sbyte MaxValue = 127;
 
         [H5.Template("System.SByte.parse({s})")]
-        [CLSCompliant(false)]
+        
         public static extern sbyte Parse(string s);
 
         [H5.Template("System.SByte.parse({s}, {radix})")]
-        [CLSCompliant(false)]
+        
         public static extern sbyte Parse(string s, int radix);
 
         [H5.Template("System.SByte.tryParse({s}, {result})")]
-        [CLSCompliant(false)]
+        
         public static extern bool TryParse(string s, out sbyte result);
 
         [H5.Template("System.SByte.tryParse({s}, {result}, {radix})")]
-        [CLSCompliant(false)]
+        
         public static extern bool TryParse(string s, out sbyte result, int radix);
 
         public extern string ToString(int radix);
@@ -48,14 +48,14 @@ namespace System
         public extern string ToString(string format, IFormatProvider provider);
 
         [H5.Template("H5.compare({this}, {other})")]
-        [CLSCompliant(false)]
+        
         public extern int CompareTo(sbyte other);
 
         [H5.Template("H5.compare({this}, {obj})")]
         public extern int CompareTo(object obj);
 
         [H5.Template("{this} === {other}")]
-        [CLSCompliant(false)]
+        
         public extern bool Equals(sbyte other);
 
         [H5.Template("System.SByte.equals({this}, {other})")]

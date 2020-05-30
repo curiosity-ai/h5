@@ -198,7 +198,7 @@ namespace System.IO
         // text representation of the given value is produced by calling the
         // UInt32.ToString() method.
         //
-        [CLSCompliant(false)]
+        
         public virtual void Write(uint value)
         {
             Write(value.ToString("G", FormatProvider));
@@ -217,7 +217,7 @@ namespace System.IO
         // stream. The text representation of the given value is produced
         // by calling the UInt64.ToString() method.
         //
-        [CLSCompliant(false)]
+        
         public virtual void Write(ulong value)
         {
             Write(value.ToString("G", FormatProvider));
@@ -361,7 +361,7 @@ namespace System.IO
         // Writes the text representation of an unsigned integer followed by
         // a line terminator to the text stream.
         //
-        [CLSCompliant(false)]
+        
         public virtual void WriteLine(uint value)
         {
             Write(value);
@@ -380,7 +380,7 @@ namespace System.IO
         // Writes the text representation of an unsigned long followed by
         // a line terminator to the text stream.
         //
-        [CLSCompliant(false)]
+        
         public virtual void WriteLine(ulong value)
         {
             Write(value);

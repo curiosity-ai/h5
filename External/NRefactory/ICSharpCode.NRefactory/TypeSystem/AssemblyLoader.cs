@@ -73,7 +73,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         /// </summary>
         public IDocumentationProvider DocumentationProvider { get; set; }
 
-        [CLSCompliant(false)]
+        
         protected InterningProvider interningProvider = new SimpleInterningProvider();
 
         /// <summary>

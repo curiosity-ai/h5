@@ -56,7 +56,7 @@ namespace System
         /// Converts the value of the specified 8-bit signed integer to its equivalent Unicode character.
         /// </summary>
         [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.SByte + ")")]
-        [CLSCompliant(false)]
+        
         public static extern char ToChar(sbyte value);
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace System
         /// Converts the value of the specified 16-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
         [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt16 + ")")]
-        [CLSCompliant(false)]
+        
         public static extern char ToChar(ushort value);
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace System
         /// Converts the value of the specified 32-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
         [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt32 + ")")]
-        [CLSCompliant(false)]
+        
         public static extern char ToChar(uint value);
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace System
         /// Converts the value of the specified 64-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
         [H5.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt64 + ")")]
-        [CLSCompliant(false)]
+        
         public static extern char ToChar(ulong value);
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace System
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [H5.Template("System.Convert.toSByte({value})")]
-        [CLSCompliant(false)]
+        
         public static extern sbyte ToSByte(object value);
 
         /// <summary>
@@ -157,21 +157,21 @@ namespace System
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [H5.Template("System.Convert.toSByte({value}, {provider})")]
-        [CLSCompliant(false)]
+        
         public static extern sbyte ToSByte(object value, IFormatProvider provider);
 
         /// <summary>
         /// Converts the value of the specified object to an 8-bit signed integer.
         /// </summary>
         [H5.Template("System.Convert.toSByte({value}, null, " + TypeCodeValues.String + ")")]
-        [CLSCompliant(false)]
+        
         public static extern sbyte ToSByte(string value);
 
         /// <summary>
         /// Converts the value of the specified object to an 8-bit signed integer, using the specified culture-specific formatting information.
         /// </summary>
         [H5.Template("System.Convert.toSByte({value}, {provider}, " + TypeCodeValues.String + ")")]
-        [CLSCompliant(false)]
+        
         public static extern sbyte ToSByte(string value, IFormatProvider provider);
 
         #endregion ToSByte
@@ -219,7 +219,7 @@ namespace System
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [H5.Template("System.Convert.toUInt16({value})")]
-        [CLSCompliant(false)]
+        
         public static extern ushort ToUInt16(object value);
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace System
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [H5.Template("System.Convert.toUInt16({value}, {provider})")]
-        [CLSCompliant(false)]
+        
         public static extern ushort ToUInt16(object value, IFormatProvider provider);
 
         #endregion ToUInt16
@@ -257,7 +257,7 @@ namespace System
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [H5.Template("System.Convert.toUInt32({value})")]
-        [CLSCompliant(false)]
+        
         public static extern uint ToUInt32(object value);
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace System
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [H5.Template("System.Convert.toUInt32({value}, {provider})")]
-        [CLSCompliant(false)]
+        
         public static extern uint ToUInt32(object value, IFormatProvider provider);
 
         #endregion ToUInt32
@@ -295,7 +295,7 @@ namespace System
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [H5.Template("System.Convert.toUInt64({value})")]
-        [CLSCompliant(false)]
+        
         public static extern ulong ToUInt64(object value);
 
         /// <summary>
@@ -303,7 +303,7 @@ namespace System
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [H5.Template("System.Convert.toUInt64({value}, {provider})")]
-        [CLSCompliant(false)]
+        
         public static extern ulong ToUInt64(object value, IFormatProvider provider);
 
         #endregion ToUInt64
@@ -420,7 +420,7 @@ namespace System
         /// Converts the string representation of a number in a specified base to an equivalent 8-bit signed integer.
         /// </summary>
         [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.SByte + ")")]
-        [CLSCompliant(false)]
+        
         public static extern sbyte ToSByte(string value, int fromBase);
 
         /// <summary>
@@ -433,7 +433,7 @@ namespace System
         /// Converts the string representation of a number in a specified base to an equivalent 16-bit unsigned integer.
         /// </summary>
         [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt16 + ")")]
-        [CLSCompliant(false)]
+        
         public static extern ushort ToUInt16(string value, int fromBase);
 
         /// <summary>
@@ -446,7 +446,7 @@ namespace System
         /// Converts the string representation of a number in a specified base to an equivalent 32-bit unsigned integer.
         /// </summary>
         [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt32 + ")")]
-        [CLSCompliant(false)]
+        
         public static extern uint ToUInt32(string value, int fromBase);
 
         /// <summary>
@@ -459,7 +459,7 @@ namespace System
         /// Converts the string representation of a number in a specified base to an equivalent 64-bit unsigned integer.
         /// </summary>
         [H5.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt64 + ")")]
-        [CLSCompliant(false)]
+        
         public static extern ulong ToUInt64(string value, int fromBase);
 
         #endregion ToNumberFromBase

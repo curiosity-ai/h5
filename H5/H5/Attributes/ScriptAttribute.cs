@@ -9,7 +9,7 @@ namespace H5
     /// </summary>
     [NonScriptable]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor)]
-    [CLSCompliant(false)]
+    
     public sealed class ScriptAttribute : Attribute
     {
         public ScriptAttribute(params string[] lines)

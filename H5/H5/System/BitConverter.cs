@@ -78,7 +78,7 @@
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 2.</returns>
-        [CLSCompliant(false)]
+        
         public static byte[] GetBytes(ushort value)
         {
             var view = View(2);
@@ -92,7 +92,7 @@
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 4.</returns>
-        [CLSCompliant(false)]
+        
         public static byte[] GetBytes(uint value)
         {
             var view = View(4);
@@ -106,7 +106,7 @@
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 8.</returns>
-        [CLSCompliant(false)]
+        
         public static byte[] GetBytes(ulong value)
         {
             var view = GetView((long)value);
@@ -225,7 +225,7 @@
         /// <param name="value">The array of bytes.</param>
         /// <param name="startIndex">The starting position within value.</param>
         /// <returns>A 16-bit unsigned integer formed by two bytes beginning at startIndex.</returns>
-        [CLSCompliant(false)]
+        
         public static ushort ToUInt16(byte[] value, int startIndex)
         {
             return (ushort)ToInt16(value, startIndex);
@@ -237,7 +237,7 @@
         /// <param name="value">An array of bytes.</param>
         /// <param name="startIndex">The starting position within value.</param>
         /// <returns>A 32-bit unsigned integer formed by four bytes beginning at startIndex.</returns>
-        [CLSCompliant(false)]
+        
         public static uint ToUInt32(byte[] value, int startIndex)
         {
             return (uint)ToInt32(value, startIndex);
@@ -249,7 +249,7 @@
         /// <param name="value">An array of bytes.</param>
         /// <param name="startIndex">The starting position within value.</param>
         /// <returns>A 64-bit unsigned integer formed by the eight bytes beginning at startIndex.</returns>
-        [CLSCompliant(false)]
+        
         public static ulong ToUInt64(byte[] value, int startIndex)
         {
             var l = ToInt64(value, startIndex);

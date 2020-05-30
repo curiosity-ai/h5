@@ -4,7 +4,7 @@
 
 namespace System.Runtime.Serialization
 {
-    [CLSCompliant(false)]
+    
     public interface IFormatterConverter
     {
         object Convert(object value, Type type);

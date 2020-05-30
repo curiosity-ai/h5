@@ -19,7 +19,7 @@ namespace System
     // does not exist (because the particular conversion is not supported), the
     // IConvertible implementation should simply throw an InvalidCastException.
 
-    [CLSCompliant(false)]
+    
     public interface IConvertible
     {
         // Returns the type code of this object. An implementation of this method

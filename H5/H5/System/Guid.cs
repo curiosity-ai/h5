@@ -88,7 +88,7 @@ namespace System
         /// <param name="i">The next byte of the GUID.</param>
         /// <param name="j">The next byte of the GUID.</param>
         /// <param name="k">The next byte of the GUID.</param>
-        [CLSCompliant(false)]
+        
         public Guid(uint a, ushort b, ushort c, byte d, byte e, byte f, byte g, byte h, byte i, byte j, byte k)
         {
             _a = (int)a;

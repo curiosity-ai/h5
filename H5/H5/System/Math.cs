@@ -35,7 +35,7 @@ namespace System
         /// <param name="val1">The first of two 8-bit signed integers to compare.</param>
         /// <param name="val2">The second of two 8-bit signed integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is larger.</returns>
-        [CLSCompliant(false)]
+        
         public static extern sbyte Max(sbyte val1, sbyte val2);
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace System
         /// <param name="val1">The first of two 16-bit unsigned integers to compare.</param>
         /// <param name="val2">The second of two 16-bit unsigned integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is larger.</returns>
-        [CLSCompliant(false)]
+        
         public static extern ushort Max(ushort val1, ushort val2);
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace System
         /// <param name="val1">The first of two 32-bit unsigned integers to compare.</param>
         /// <param name="val2">The second of two 32-bit unsigned integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is larger.</returns>
-        [CLSCompliant(false)]
+        
         public static extern uint Max(uint val1, uint val2);
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace System
         /// <param name="val2">The second of two 64-bit unsigned integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is larger.</returns>
         [H5.Template("System.UInt64.max({val1}, {val2})")]
-        [CLSCompliant(false)]
+        
         public static extern ulong Max(ulong val1, ulong val2);
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace System
         /// <param name="val1">The first of two 8-bit signed integers to compare.</param>
         /// <param name="val2">The second of two 8-bit signed integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is smaller.</returns>
-        [CLSCompliant(false)]
+        
         public static extern sbyte Min(sbyte val1, sbyte val2);
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace System
         /// <param name="val1">The first of two 16-bit unsigned integers to compare.</param>
         /// <param name="val2">The second of two 16-bit unsigned integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is smaller.</returns>
-        [CLSCompliant(false)]
+        
         public static extern ushort Min(ushort val1, ushort val2);
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace System
         /// <param name="val1">The first of two 32-bit unsigned integers to compare.</param>
         /// <param name="val2">The second of two 32-bit unsigned integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is smaller.</returns>
-        [CLSCompliant(false)]
+        
         public static extern uint Min(uint val1, uint val2);
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace System
         /// <param name="val2">The second of two 64-bit unsigned integers to compare.</param>
         /// <returns>Parameter val1 or val2, whichever is smaller.</returns>
         [H5.Template("System.UInt64.min({val1}, {val2})")]
-        [CLSCompliant(false)]
+        
         public static extern ulong Min(ulong val1, ulong val2);
 
         /// <summary>

@@ -39,14 +39,14 @@ namespace System
         public static extern implicit operator long (byte value);
 
         //[H5.Template("System.Int64.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern implicit operator long (sbyte value);
 
         //[H5.Template("System.Int64.lift({value})")]
         public static extern implicit operator long (short value);
 
         //[H5.Template("System.Int64.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern implicit operator long (ushort value);
 
         //[H5.Template("System.Int64.lift({value})")]
@@ -56,7 +56,7 @@ namespace System
         public static extern implicit operator long (int value);
 
         //[H5.Template("System.Int64.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern implicit operator long (uint value);
 
         //[H5.Template("System.Int64.lift(H5.Int.clip64({value}))")]
@@ -66,14 +66,14 @@ namespace System
         public static extern explicit operator long (double value);
 
         //[H5.Template("System.Int64.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator long (ulong value);
 
         //[H5.Template("System.Int64.clip8({value})")]
         public static extern explicit operator byte (long value);
 
         //[H5.Template("System.Int64.clipu8({value})")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator sbyte (long value);
 
         //[H5.Template("System.Int64.clipu16({value})")]
@@ -83,18 +83,18 @@ namespace System
         public static extern explicit operator short (long value);
 
         //[H5.Template("System.Int64.clipu16({value})")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator ushort (long value);
 
         //[H5.Template("System.Int64.clip32({value})")]
         public static extern explicit operator int (long value);
 
         //[H5.Template("System.Int64.clipu32({value})")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator uint (long value);
 
         //[H5.Template("System.UInt64.lift({value})")]
-        [CLSCompliant(false)]
+        
         public static extern explicit operator ulong (long value);
 
         //[H5.Template("System.Int64.toNumber({value})")]

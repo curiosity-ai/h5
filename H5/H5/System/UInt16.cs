@@ -10,27 +10,27 @@ namespace System
         private extern UInt16(int i);
 
         [H5.InlineConst]
-        [CLSCompliant(false)]
+        
         public const ushort MinValue = 0;
 
         [H5.InlineConst]
-        [CLSCompliant(false)]
+        
         public const ushort MaxValue = 65535;
 
         [H5.Template("System.UInt16.parse({s})")]
-        [CLSCompliant(false)]
+        
         public static extern ushort Parse(string s);
 
         [H5.Template("System.UInt16.parse({s}, {radix})")]
-        [CLSCompliant(false)]
+        
         public static extern ushort Parse(string s, int radix);
 
         [H5.Template("System.UInt16.tryParse({s}, {result})")]
-        [CLSCompliant(false)]
+        
         public static extern bool TryParse(string s, out ushort result);
 
         [H5.Template("System.UInt16.tryParse({s}, {result}, {radix})")]
-        [CLSCompliant(false)]
+        
         public static extern bool TryParse(string s, out ushort result, int radix);
 
         public extern string ToString(int radix);
@@ -48,14 +48,14 @@ namespace System
         public extern string ToString(string format, IFormatProvider provider);
 
         [H5.Template("H5.compare({this}, {other})")]
-        [CLSCompliant(false)]
+        
         public extern int CompareTo(ushort other);
 
         [H5.Template("H5.compare({this}, {obj})")]
         public extern int CompareTo(object obj);
 
         [H5.Template("{this} === {other}")]
-        [CLSCompliant(false)]
+        
         public extern bool Equals(ushort other);
 
         [H5.Template("System.UInt16.equals({this}, {other})")]

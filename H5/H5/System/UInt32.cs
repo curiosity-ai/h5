@@ -10,27 +10,27 @@ namespace System
         private extern UInt32(int i);
 
         [H5.InlineConst]
-        [CLSCompliant(false)]
+        
         public const uint MinValue = 0;
 
         [H5.InlineConst]
-        [CLSCompliant(false)]
+        
         public const uint MaxValue = 4294967295;
 
         [H5.Template("System.UInt32.parse({s})")]
-        [CLSCompliant(false)]
+        
         public static extern uint Parse(string s);
 
         [H5.Template("System.UInt32.parse({s}, {radix})")]
-        [CLSCompliant(false)]
+        
         public static extern uint Parse(string s, int radix);
 
         [H5.Template("System.UInt32.tryParse({s}, {result})")]
-        [CLSCompliant(false)]
+        
         public static extern bool TryParse(string s, out uint result);
 
         [H5.Template("System.UInt32.tryParse({s}, {result}, {radix})")]
-        [CLSCompliant(false)]
+        
         public static extern bool TryParse(string s, out uint result, int radix);
 
         public extern string ToString(int radix);
@@ -48,14 +48,14 @@ namespace System
         public extern string ToString(string format, IFormatProvider provider);
 
         [H5.Template("H5.compare({this}, {other})")]
-        [CLSCompliant(false)]
+        
         public extern int CompareTo(uint other);
 
         [H5.Template("H5.compare({this}, {obj})")]
         public extern int CompareTo(object obj);
 
         [H5.Template("{this} === {other}")]
-        [CLSCompliant(false)]
+        
         public extern bool Equals(uint other);
 
         [H5.Template("System.UInt32.equals({this}, {other})")]

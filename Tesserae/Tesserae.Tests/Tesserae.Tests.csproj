@@ -11,6 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="h5" Version="0.0.8032" />
+    <PackageReference Include="h5" Version="0.0.8537" />
   </ItemGroup>
 </Project>

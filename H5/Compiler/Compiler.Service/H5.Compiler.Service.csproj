@@ -48,12 +48,12 @@
   <ItemGroup>
     <PackageReference Include="NUglify" Version="1.5.14" />
     <PackageReference Include="Lokad.ILPack" Version="0.1.4" />
-    <PackageReference Include="MagicOnion.Hosting" Version="3.0.11" />
+    <PackageReference Include="MagicOnion.Hosting" Version="3.0.12" />
     <PackageReference Include="Microsoft.Build" Version="16.5.0" />
     <PackageReference Include="Microsoft.Build.Framework" Version="16.5.0" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.5.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.5.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.5.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.6.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.6.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Mono.Cecil" Version="0.11.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -74,7 +74,7 @@
     <PackageReference Include="TopologicalSorting.netstandard" Version="1.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj"  PrivateAssets="all" />
+    <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.Cecil\ICSharpCode.NRefactory.Cecil.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\..\..\External\Object.Net.Utilities\Object.Net.Utilities.csproj" PrivateAssets="all" />
@@ -84,7 +84,7 @@
 
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
     <ItemGroup>
-      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
     </ItemGroup>
   </Target>
   

@@ -17,7 +17,7 @@ namespace H5.Translator
         {
             Types = new List<ITypeInfo>();
             IgnoredTypes = new List<string>();
-            AssemblyInfo = config ?? new AssemblyInfo();
+            AssemblyInfo = config ?? new H5DotJson_AssemblySettings();
 
             Emitter = new TempEmitter { AssemblyInfo = AssemblyInfo };
         }

@@ -38,7 +38,7 @@ namespace H5.Translator
         {
             get
             {
-                return FileName == AssemblyInfo.DEFAULT_FILENAME;
+                return FileName == H5DotJson_AssemblySettings.DEFAULT_FILENAME;
             }
         }
 

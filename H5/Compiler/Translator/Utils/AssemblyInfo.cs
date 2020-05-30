@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace H5.Translator
 {
-    public class AssemblyInfo : IAssemblyInfo
+    public class H5DotJson_AssemblySettings : IAssemblyInfo
     {
         public const string DEFAULT_FILENAME = "---";
         public const string DEFAULT_OUTPUT = "$(OutDir)/h5/";
 
-        public AssemblyInfo()
+        public H5DotJson_AssemblySettings()
         {
             Dependencies = new List<IModuleDependency>();
             Reflection = new ReflectionConfig();

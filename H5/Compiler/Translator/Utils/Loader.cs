@@ -7,7 +7,7 @@ namespace H5.Translator
 {
     public class ModuleLoader : IModuleLoader
     {
-        public ModuleLoaderType Type { get; set; }
+        public ModuleLoaderType Type { get; set; } = ModuleLoaderType.Global; //RFO: Change default loader to Global loader
 
         public string FunctionName { get; set; }
 

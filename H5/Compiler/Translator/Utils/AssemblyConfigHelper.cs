@@ -14,11 +14,11 @@ namespace H5.Translator.Utils
 
         private static ILogger Logger = ApplicationLogging.CreateLogger<AssemblyConfigHelper>();
 
-        private ConfigHelper<AssemblyInfo> helper { get; set; }
+        private ConfigHelper<H5DotJson_AssemblySettings> helper { get; set; }
 
         public AssemblyConfigHelper()
         {
-            helper = new ConfigHelper<AssemblyInfo>();
+            helper = new ConfigHelper<H5DotJson_AssemblySettings>();
         }
 
         public IAssemblyInfo ReadConfig(string configFileName, string location, string configuration)
@@ -27,7 +27,7 @@ namespace H5.Translator.Utils
 
             if (config == null)
             {
-                config = new AssemblyInfo();
+                config = new H5DotJson_AssemblySettings();
             }
 
             // Convert '/' and '\\' to platform-specific path separator.

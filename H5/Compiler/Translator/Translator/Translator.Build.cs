@@ -42,7 +42,7 @@ namespace H5.Translator
 
             XDocument projDefinition = XDocument.Load(Location);
             XNamespace rootNs = projDefinition.Root.Name.Namespace;
-            var helper = new ConfigHelper<AssemblyInfo>();
+            var helper = new ConfigHelper<H5DotJson_AssemblySettings>();
             var tokens = ProjectProperties.GetValues();
 
             var referencesPathes = projDefinition
@@ -173,7 +173,7 @@ namespace H5.Translator
         {
             var projDefinition = XDocument.Load(Location);
             var rootNs = projDefinition.Root.Name.Namespace;
-            var helper = new ConfigHelper<AssemblyInfo>();
+            var helper = new ConfigHelper<H5DotJson_AssemblySettings>();
             var tokens = ProjectProperties.GetValues();
 
             pathToReferencesInProject = projDefinition

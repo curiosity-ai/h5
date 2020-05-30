@@ -222,7 +222,7 @@ namespace H5.Translator
 
             if (fileName.IsEmpty())
             {
-                fileName = AssemblyInfo.DEFAULT_FILENAME;
+                fileName = H5DotJson_AssemblySettings.DEFAULT_FILENAME;
             }
 
             // Apply lowerCamelCase to filename if set up in h5.json (or left default)
@@ -317,7 +317,7 @@ namespace H5.Translator
 
             if (module.Name == "")
             {
-                module.Name = AssemblyInfo.DEFAULT_FILENAME;
+                module.Name = H5DotJson_AssemblySettings.DEFAULT_FILENAME;
             }
 
             if (output.ModuleOutput.ContainsKey(module))
@@ -375,7 +375,7 @@ namespace H5.Translator
 
             if (string.IsNullOrEmpty(defaultFileName))
             {
-                return AssemblyInfo.DEFAULT_FILENAME;
+                return H5DotJson_AssemblySettings.DEFAULT_FILENAME;
             }
 
             return Path.GetFileNameWithoutExtension(defaultFileName);
@@ -665,7 +665,7 @@ namespace H5.Translator
                 if (string.IsNullOrEmpty(output))
                 {
                     if (!string.IsNullOrWhiteSpace(Emitter.AssemblyInfo.FileName) &&
-                        Emitter.AssemblyInfo.FileName != AssemblyInfo.DEFAULT_FILENAME)
+                        Emitter.AssemblyInfo.FileName != H5DotJson_AssemblySettings.DEFAULT_FILENAME)
                     {
                         output = Path.GetFileNameWithoutExtension(Emitter.AssemblyInfo.FileName) + ".meta.js";
                     }
@@ -891,7 +891,7 @@ namespace H5.Translator
         public IType[] GetReflectableTypes()
         {
             var config = Emitter.AssemblyInfo.Reflection;
-            var configInternal = ((AssemblyInfo)Emitter.AssemblyInfo).ReflectionInternal;
+            var configInternal = ((H5DotJson_AssemblySettings)Emitter.AssemblyInfo).ReflectionInternal;
             //bool? enable = config.Disabled.HasValue ? !config.Disabled : (configInternal.Disabled.HasValue ? !configInternal.Disabled : true);
             bool? enable = null;
             if (config.Disabled.HasValue && !config.Disabled.Value)

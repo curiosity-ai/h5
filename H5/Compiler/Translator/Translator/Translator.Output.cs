@@ -116,9 +116,9 @@ namespace H5.Translator
         {
             var fileName = item.Name;
             
-            if (fileName.Contains(H5.Translator.AssemblyInfo.DEFAULT_FILENAME))
+            if (fileName.Contains(H5.Translator.H5DotJson_AssemblySettings.DEFAULT_FILENAME))
             {
-                fileName = fileName.Replace(H5.Translator.AssemblyInfo.DEFAULT_FILENAME, defaultFileName);
+                fileName = fileName.Replace(H5.Translator.H5DotJson_AssemblySettings.DEFAULT_FILENAME, defaultFileName);
             }
 
             // Ensure filename contains no ":". It could be used like "c:/absolute/path"

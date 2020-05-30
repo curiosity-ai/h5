@@ -149,7 +149,7 @@ namespace H5.Translator
 
             if (string.IsNullOrEmpty(defaultFileName))
             {
-                return AssemblyInfo.DEFAULT_FILENAME;
+                return H5DotJson_AssemblySettings.DEFAULT_FILENAME;
             }
 
             return Path.GetFileNameWithoutExtension(defaultFileName);

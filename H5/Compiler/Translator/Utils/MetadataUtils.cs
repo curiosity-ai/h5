@@ -298,7 +298,7 @@ namespace H5.Translator
 
             if (memberAccessibility == null || memberAccessibility.Length == 0)
             {
-                memberAccessibility = ((AssemblyInfo)emitter.AssemblyInfo).ReflectionInternal.MemberAccessibility;
+                memberAccessibility = ((H5DotJson_AssemblySettings)emitter.AssemblyInfo).ReflectionInternal.MemberAccessibility;
             }
 
             if (memberAccessibility == null || memberAccessibility.Length == 0)

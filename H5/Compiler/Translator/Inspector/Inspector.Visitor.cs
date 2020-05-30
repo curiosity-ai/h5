@@ -776,7 +776,7 @@ namespace H5.Translator
         {
             if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == Translator.H5_ASSEMBLY + ".ReflectableAttribute")
             {
-                var config = ((AssemblyInfo)AssemblyInfo).ReflectionInternal;
+                var config = ((H5DotJson_AssemblySettings)AssemblyInfo).ReflectionInternal;
 
                 if (attr.Arguments.Count > 0)
                 {

@@ -10,8 +10,7 @@ namespace H5.Translator
 
         public AssemblyInfo()
         {
-            Dependencies = new List<IPluginDependency>();
-            DefineConstants = new List<string>();
+            Dependencies = new List<IModuleDependency>();
             Reflection = new ReflectionConfig();
             ReflectionInternal = new ReflectionConfig();
             Assembly = new AssemblyConfig();
@@ -111,7 +110,7 @@ namespace H5.Translator
         /// <summary>
         /// The list of module dependencies.
         /// </summary>
-        public List<IPluginDependency> Dependencies { get; set; }
+        public List<IModuleDependency> Dependencies { get; set; }
 
         /// <summary>
         /// The executable file to be launched before building. The path will be concatenated with the project's root.
@@ -163,10 +162,6 @@ namespace H5.Translator
         /// </summary>
         public string CleanOutputFolderBeforeBuildPattern { get; set; }
 
-        public string Configuration { get; set; }
-
-        public List<string> DefineConstants { get; set; }
-
         public string Locales { get; set; }
 
         public string LocalesOutput { get; set; }
@@ -196,8 +191,6 @@ namespace H5.Translator
         public ResourceConfig Resources { get; set; }
 
         public IModuleLoader Loader { get; set; }
-
-        public NamedFunctionMode NamedFunctions { get; set; }
 
         [Newtonsoft.Json.JsonConverter(typeof(SourceMapConfigConverter))]
         public SourceMapConfig SourceMap { get; set; }

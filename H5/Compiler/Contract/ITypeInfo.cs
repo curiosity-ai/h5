@@ -50,7 +50,7 @@ namespace H5.Contract
 
         Module Module { get; set; }
 
-        List<IPluginDependency> Dependencies { get; set; }
+        List<IModuleDependency> Dependencies { get; set; }
 
         ITypeInfo ParentType { get; set; }
 

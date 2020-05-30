@@ -635,7 +635,7 @@ namespace H5.Translator
             IsNewLine = true;
             EnableSemicolon = true;
             Comma = false;
-            CurrentDependencies = new List<IPluginDependency>();
+            CurrentDependencies = new List<IModuleDependency>();
         }
 
         public virtual bool ContainsOnlyOrEmpty(StringBuilder sb, params char[] c)

@@ -165,7 +165,7 @@ namespace H5.Translator
 
         public Dictionary<string, ITypeInfo> TypeInfoDefinitions { get; set; }
 
-        public List<IPluginDependency> CurrentDependencies { get; set; }
+        public List<IModuleDependency> CurrentDependencies { get; set; }
 
         public IEmitterOutputs Outputs { get; set; }
 

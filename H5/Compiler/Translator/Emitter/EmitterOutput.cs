@@ -14,7 +14,7 @@ namespace H5.Translator
             NonModuletOutput = new StringBuilder();
             TopOutput = new StringBuilder();
             BottomOutput = new StringBuilder();
-            ModuleDependencies = new Dictionary<string, List<IPluginDependency>>();
+            ModuleDependencies = new Dictionary<string, List<IModuleDependency>>();
             Names = new List<string>();
         }
 
@@ -30,9 +30,9 @@ namespace H5.Translator
 
         public Dictionary<Module, StringBuilder> ModuleOutput { get; set; }
 
-        public Dictionary<string, List<IPluginDependency>> ModuleDependencies { get; set; }
+        public Dictionary<string, List<IModuleDependency>> ModuleDependencies { get; set; }
 
-        public List<IPluginDependency> NonModuleDependencies { get; set; }
+        public List<IModuleDependency> NonModuleDependencies { get; set; }
 
         public bool IsDefaultOutput
         {

@@ -309,7 +309,7 @@ namespace H5.Translator
             {
                 if (output.NonModuleDependencies == null)
                 {
-                    output.NonModuleDependencies = new List<IPluginDependency>();
+                    output.NonModuleDependencies = new List<IModuleDependency>();
                 }
                 Emitter.CurrentDependencies = output.NonModuleDependencies;
                 return output.NonModuletOutput;
@@ -328,7 +328,7 @@ namespace H5.Translator
 
             StringBuilder moduleOutput = new StringBuilder();
             output.ModuleOutput.Add(module, moduleOutput);
-            var dependencies = new List<IPluginDependency>();
+            var dependencies = new List<IModuleDependency>();
             output.ModuleDependencies.Add(module.Name, dependencies);
 
             if (typeInfo != null && typeInfo.Dependencies.Count > 0)

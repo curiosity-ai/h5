@@ -16,7 +16,7 @@ namespace H5.Translator
             InstanceProperties = new Dictionary<string, List<EntityDeclaration>>();
             FieldsDeclarations = new Dictionary<string, FieldDeclaration>();
             EventsDeclarations = new Dictionary<string, EventDeclaration>();
-            Dependencies = new List<IPluginDependency>();
+            Dependencies = new List<IModuleDependency>();
             Ctors = new List<ConstructorDeclaration>();
             Operators = new Dictionary<OperatorType, List<OperatorDeclaration>>();
             StaticConfig = new TypeConfigInfo();
@@ -219,7 +219,7 @@ namespace H5.Translator
 
         public Module Module { get; set; }
 
-        public List<IPluginDependency> Dependencies { get; set; }
+        public List<IModuleDependency> Dependencies { get; set; }
 
         public ITypeInfo ParentType { get; set; }
 

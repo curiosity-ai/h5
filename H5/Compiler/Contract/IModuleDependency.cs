@@ -1,6 +1,6 @@
 namespace H5.Contract
 {
-    public interface IPluginDependency
+    public interface IModuleDependency
     {
         string DependencyName { get; set; }
 

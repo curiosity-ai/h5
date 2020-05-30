@@ -116,7 +116,7 @@ namespace H5.Translator
             WriteNewLine(moduleOutput, "});");
         }
 
-        private List<IPluginDependency> GetEnabledDependecies(Module module, IEmitterOutput output)
+        private List<IModuleDependency> GetEnabledDependecies(Module module, IEmitterOutput output)
         {
             var dependencies = output.ModuleDependencies;
             var loader = AssemblyInfo.Loader;
@@ -125,7 +125,7 @@ namespace H5.Translator
             {
                 return dependencies[module.Name].Where(d => !loader.IsManual(d.DependencyName)).ToList();
             }
-            return new List<IPluginDependency>();
+            return new List<IModuleDependency>();
         }
 
         protected virtual void WrapToCommonJS(StringBuilder moduleOutput, Module module, IEmitterOutput output)

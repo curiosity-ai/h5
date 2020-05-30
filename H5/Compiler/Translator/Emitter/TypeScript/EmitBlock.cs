@@ -98,7 +98,7 @@ namespace H5.Translator.TypeScript
                 }
 
                 Outputs.Add(key, output);
-                Emitter.CurrentDependencies = new List<IPluginDependency>();
+                Emitter.CurrentDependencies = new List<IModuleDependency>();
             }
 
             return output;

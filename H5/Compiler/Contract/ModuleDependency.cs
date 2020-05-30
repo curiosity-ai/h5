@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace H5.Contract
 {
-    public class ModuleDependency : IPluginDependency
+    public class ModuleDependency : IModuleDependency
     {
         public string DependencyName { get; set; }
 

@@ -80,11 +80,6 @@ namespace H5.Translator
                 WriteFunction();
 
                 var m_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(propertyDeclaration);
-                var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, m_rr.Member, Emitter, setter);
-                if (nm != null)
-                {
-                    Write(nm);
-                }
 
                 WriteOpenParentheses();
                 Write(setter ? "value" : "");

@@ -196,7 +196,7 @@ namespace H5.Translator
             }
         }
 
-        public List<IPluginDependency> CurrentDependencies
+        public List<IModuleDependency> CurrentDependencies
         {
             get
             {

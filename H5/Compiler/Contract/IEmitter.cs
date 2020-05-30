@@ -37,7 +37,7 @@ namespace H5.Contract
 
         void SortTypesByInheritance();
 
-        List<IPluginDependency> CurrentDependencies { get; set; }
+        List<IModuleDependency> CurrentDependencies { get; set; }
 
         List<TranslatorOutputItem> Emit();
 

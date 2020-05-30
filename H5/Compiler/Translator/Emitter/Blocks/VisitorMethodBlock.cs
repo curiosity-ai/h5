@@ -113,15 +113,6 @@ namespace H5.Translator
                 Write(name);
                 WriteSpace();
             }
-            else
-            {
-                var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, member_rr.Member, Emitter);
-                if (nm != null)
-                {
-                    Write(nm);
-                    WriteSpace();
-                }
-            }
 
             EmitMethodParameters(methodDeclaration.Parameters, methodDeclaration.TypeParameters.Count > 0 && Helpers.IsIgnoreGeneric(methodDeclaration, Emitter) ? null : methodDeclaration.TypeParameters, methodDeclaration);
 

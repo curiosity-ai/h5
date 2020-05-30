@@ -95,11 +95,6 @@ namespace H5.Translator
                 Write(accName);
                 WriteColon();
                 WriteFunction();
-                var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, prop, Emitter, setter);
-                if (nm != null)
-                {
-                    Write(nm);
-                }
                 EmitMethodParameters(indexerDeclaration.Parameters, null, indexerDeclaration, setter);
 
                 if (setter)

@@ -54,11 +54,6 @@ namespace H5.Translator
                 WriteColon();
                 WriteFunction();
                 var m_rr = (MemberResolveResult)Emitter.Resolver.ResolveNode(customEventDeclaration);
-                var nm = Helpers.GetFunctionName(Emitter.AssemblyInfo.NamedFunctions, m_rr.Member, Emitter, remover);
-                if (nm != null)
-                {
-                    Write(nm);
-                }
                 WriteOpenParentheses();
                 Write("value");
                 WriteCloseParentheses();

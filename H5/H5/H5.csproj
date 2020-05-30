@@ -11,7 +11,7 @@
 
   <PropertyGroup>
     <IncludeSymbols>false</IncludeSymbols>
-    <ApplicationIcon />
+    <PackageIcon>h5.png</PackageIcon>
     <PackageId>h5</PackageId>
     <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
     <Company>Rafael Oliveira</Company>
@@ -25,6 +25,10 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\..\logo\h5.png" Link="h5.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Compile Remove="shared\System\DateTime.cs" />
     <Compile Remove="shared\System\Globalization\InternalGlobalizationHelper.cs" />

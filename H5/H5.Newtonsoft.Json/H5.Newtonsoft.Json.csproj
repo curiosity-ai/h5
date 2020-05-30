@@ -10,11 +10,15 @@
   <ItemGroup>
     <PackageReference Include="h5" Version="0.0.8032" />
   </ItemGroup>
-    
+
+  <ItemGroup>
+    <None Include="..\..\logo\h5.png" Link="h5.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  
   <PropertyGroup>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <IncludeSymbols>false</IncludeSymbols>
-    <ApplicationIcon />
+    <PackageIcon>h5.png</PackageIcon>
     <LangVersion>latest</LangVersion>
     <PackageId>h5.Newtonsoft.Json</PackageId>
     <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>

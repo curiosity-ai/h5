@@ -5,20 +5,26 @@
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    
+
     <!-- Skip embedding any javascript code in this package -->
-	  <SkipEmbeddingResources>true</SkipEmbeddingResources>
-	  <SkipHtmlGeneration>true</SkipHtmlGeneration>
+    
+    <SkipEmbeddingResources>true</SkipEmbeddingResources>
+    <SkipHtmlGeneration>true</SkipHtmlGeneration>
+    
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="h5" Version="0.0.8032" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\..\logo\h5.png" Link="h5.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <IncludeSymbols>false</IncludeSymbols>
-    <ApplicationIcon />
+    <PackageIcon>h5.png</PackageIcon>
     <LangVersion>latest</LangVersion>
     <PackageId>h5.core</PackageId>
     <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
@@ -43,5 +49,5 @@
     <!-- Explicitly generate Assembly Info so the attributes above are included -->
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
-  
+
 </Project>

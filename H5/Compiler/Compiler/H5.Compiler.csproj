@@ -14,11 +14,16 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\..\..\logo\h5.png" Link="h5.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  
+
   <PropertyGroup>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>h5</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-    <ApplicationIcon />
+    <PackageIcon>h5.png</PackageIcon>
     <LangVersion>latest</LangVersion>
     <PackageId>h5-compiler</PackageId>
     <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
@@ -42,6 +47,8 @@
     <Compile Remove="Overrides\ResolveVisitor.cs" />
     <Compile Remove="Refactoring\CodeActions\RemoveFieldRefactoryActionRefactoringAction.cs" />
   </ItemGroup>
+
+
   <ItemGroup>
     <PackageReference Include="AjaxMin" Version="5.14.5506.26202" />
     <PackageReference Include="Lokad.ILPack" Version="0.1.4" />

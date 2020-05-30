@@ -1,6 +1,5 @@
 using H5.Contract;
 using H5.Contract.Constants;
-using Microsoft.Ajax.Utilities;
 using Microsoft.Extensions.Logging;
 using Mono.Cecil;
 using Mosaik.Core;

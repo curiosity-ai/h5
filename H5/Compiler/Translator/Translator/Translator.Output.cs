@@ -1,7 +1,6 @@
 using H5.Contract;
 using H5.Contract.Constants;
 using Microsoft.Extensions.Logging;
-using Microsoft.Ajax.Utilities;
 using Mono.Cecil;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,9 @@ using System.Text;
 using ZLogger;
 using Mosaik.Core;
 using System.Threading.Tasks;
+using NUglify.Helpers;
+using NUglify.JavaScript;
+using NUglify;
 
 namespace H5.Translator
 {
@@ -1088,7 +1090,7 @@ namespace H5.Translator
 
             var minifiedName = FileHelper.GetMinifiedJSFileName(output.Name);
 
-            var minifiedContent = Minify(new Minifier(), formatted, minifierSettings);
+            var minifiedContent = Minify(formatted, minifierSettings);
 
             output.MinifiedVersion = new TranslatorOutputItem
             {
@@ -1107,7 +1109,7 @@ namespace H5.Translator
             }
         }
 
-        private string Minify(Minifier minifier, string source, CodeSettings settings)
+        private string Minify(string source, CodeSettings settings)
         {
             Logger.ZLogTrace("Minification...");
 
@@ -1119,11 +1121,11 @@ namespace H5.Translator
 
             Logger.ZLogTrace("Input script length is " + source.Length + " symbols...");
 
-            var contentMinified = minifier.MinifyJavaScript(source, settings);
+            var contentMinified = Uglify.Js(source, settings);
 
-            Logger.ZLogTrace("Output script length is " + contentMinified.Length + " symbols. Done.");
+            Logger.ZLogTrace("Output script length is " + contentMinified.Code.Length + " symbols. Done.");
 
-            return contentMinified;
+            return contentMinified.Code;
         }
 
         private CodeSettings GetMinifierSettings(string fileName)

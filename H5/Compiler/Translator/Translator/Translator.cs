@@ -1,7 +1,6 @@
 using H5.Contract;
 using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
-using Microsoft.Ajax.Utilities;
 using Mono.Cecil;
 using Object.Net.Utilities;
 using System;
@@ -16,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using ZLogger;
 using Mosaik.Core;
 using System.Threading;
+using NUglify.JavaScript;
 
 namespace H5.Translator
 {

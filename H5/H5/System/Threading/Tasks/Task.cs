@@ -102,6 +102,13 @@ namespace System.Threading.Tasks
 
         public static extern Task Delay(TimeSpan delay, CancellationToken cancellationToken);
 
+        
+        public static extern Task CompletedTask 
+        {
+            [H5.Template("System.Threading.Tasks.Task.fromResult({}, null)")]
+            get; 
+        }
+
         [H5.Template("System.Threading.Tasks.Task.fromResult({result}, {TResult})")]
         public static extern Task<TResult> FromResult<TResult>(TResult result);
 

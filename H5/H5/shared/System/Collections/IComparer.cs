@@ -18,6 +18,6 @@ namespace System.Collections
         // value greater than zero if x is greater than y.
         //
         [H5.Convention(H5.Notation.CamelCase)]
-        int Compare(Object x, Object y);
+        int Compare(object x, object y);
     }
 }

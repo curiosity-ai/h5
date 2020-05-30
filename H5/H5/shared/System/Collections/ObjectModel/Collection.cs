@@ -15,7 +15,7 @@ namespace System.Collections.ObjectModel
     {
         private IList<T> items; // Do not rename (binary serialization)
         [NonSerialized]
-        private Object _syncRoot;
+        private object _syncRoot;
 
         public Collection()
         {

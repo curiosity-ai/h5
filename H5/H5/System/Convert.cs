@@ -565,40 +565,40 @@ namespace System
 
         #endregion FromBase64CharArray
 
-        public static extern Object ChangeType(Object value, Type conversionType);
-        public static extern Object ChangeType(Object value, Type conversionType, IFormatProvider provider);
-        public static extern Object ChangeType(Object value, TypeCode typeCode);
-        public static extern Object ChangeType(Object value, TypeCode typeCode, IFormatProvider provider);
+        public static extern object ChangeType(object value, Type conversionType);
+        public static extern object ChangeType(object value, Type conversionType, IFormatProvider provider);
+        public static extern object ChangeType(object value, TypeCode typeCode);
+        public static extern object ChangeType(object value, TypeCode typeCode, IFormatProvider provider);
 
         //A typeof operation is fairly expensive (does a system call), so we'll cache these here
         //statically.  These are exactly lined up with the TypeCode, eg. ConvertType[TypeCode.Int16]
         //will give you the type of an Int16.
         internal static readonly Type[] ConvertTypes = {
             typeof(System.Empty),
-            typeof(Object),
+            typeof(object),
             typeof(System.DBNull),
-            typeof(Boolean),
-            typeof(Char),
-            typeof(SByte),
-            typeof(Byte),
-            typeof(Int16),
-            typeof(UInt16),
-            typeof(Int32),
-            typeof(UInt32),
-            typeof(Int64),
-            typeof(UInt64),
-            typeof(Single),
-            typeof(Double),
-            typeof(Decimal),
+            typeof(bool),
+            typeof(char),
+            typeof(sbyte),
+            typeof(byte),
+            typeof(short),
+            typeof(ushort),
+            typeof(int),
+            typeof(uint),
+            typeof(long),
+            typeof(ulong),
+            typeof(float),
+            typeof(double),
+            typeof(decimal),
             typeof(DateTime),
-            typeof(Object), //TypeCode is discontinuous so we need a placeholder.
-            typeof(String)
+            typeof(object), //TypeCode is discontinuous so we need a placeholder.
+            typeof(string)
         };
 
         // Need to special case Enum because typecode will be underlying type, e.g. Int32
         private static readonly Type EnumType = typeof(Enum);
 
-        internal static Object DefaultToType(IConvertible value, Type targetType, IFormatProvider provider)
+        internal static object DefaultToType(IConvertible value, Type targetType, IFormatProvider provider)
         {
             Debug.Assert(value != null, "[Convert.DefaultToType]value!=null");
             if (targetType == null)
@@ -642,7 +642,7 @@ namespace System
             if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.String]))
                 return value.ToString(provider);
             if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Object]))
-                return (Object)value;
+                return (object)value;
             //  Need to special case Enum because typecode will be underlying type, e.g. Int32
             if (ReferenceEquals(targetType, EnumType))
                 return (Enum)value;

@@ -5,14 +5,14 @@ namespace System.Diagnostics.Contracts
     [H5.Name("System.Object")]
     public sealed class ContractFailedEventArgs : EventArgs
     {
-        public extern ContractFailedEventArgs(ContractFailureKind failureKind, String message, String condition, Exception originalException);
+        public extern ContractFailedEventArgs(ContractFailureKind failureKind, string message, string condition, Exception originalException);
 
-        public extern String Message
+        public extern string Message
         {
             get;
         }
 
-        public extern String Condition
+        public extern string Condition
         {
             get;
         }

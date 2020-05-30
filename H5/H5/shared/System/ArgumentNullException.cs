@@ -32,7 +32,7 @@ namespace System
             HResult = HResults.E_POINTER;
         }
 
-        public ArgumentNullException(String paramName)
+        public ArgumentNullException(string paramName)
             : base("Value cannot be null.", paramName)
         // TODO: NotSupported
         //: base(SR.ArgumentNull_Generic, paramName)
@@ -40,13 +40,13 @@ namespace System
             HResult = HResults.E_POINTER;
         }
 
-        public ArgumentNullException(String message, Exception innerException)
+        public ArgumentNullException(string message, Exception innerException)
             : base(message, innerException)
         {
             HResult = HResults.E_POINTER;
         }
 
-        public ArgumentNullException(String paramName, String message)
+        public ArgumentNullException(string paramName, string message)
             : base(message, paramName)
         {
             HResult = HResults.E_POINTER;

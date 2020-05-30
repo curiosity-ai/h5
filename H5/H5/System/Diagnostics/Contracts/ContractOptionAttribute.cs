@@ -9,17 +9,17 @@ namespace System.Diagnostics.Contracts
     [H5.External]
     public sealed class ContractOptionAttribute : Attribute
     {
-        public extern ContractOptionAttribute(String category, String setting, bool enabled);
+        public extern ContractOptionAttribute(string category, string setting, bool enabled);
 
-        public extern ContractOptionAttribute(String category, String setting, String value);
+        public extern ContractOptionAttribute(string category, string setting, string value);
 
-        public extern String Category
+        public extern string Category
         {
             get;
             private set;
         }
 
-        public extern String Setting
+        public extern string Setting
         {
             get;
             private set;
@@ -31,7 +31,7 @@ namespace System.Diagnostics.Contracts
             private set;
         }
 
-        public extern String Value
+        public extern string Value
         {
             get;
             private set;

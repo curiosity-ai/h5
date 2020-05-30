@@ -11,7 +11,7 @@ namespace System
     [H5.External]
     [H5.Constructor("System.Decimal")]
     [H5.Reflectable]
-    public struct Decimal : IComparable, IComparable<Decimal>, IEquatable<Decimal>, IFormattable
+    public struct Decimal : IComparable, IComparable<decimal>, IEquatable<decimal>, IFormattable
     {
         [H5.Convention]
         public const decimal Zero = 0;

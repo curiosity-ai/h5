@@ -34,7 +34,7 @@ namespace System.IO
     // routines such as Delete, etc.
     public static class File
     {
-        public static StreamReader OpenText(String path)
+        public static StreamReader OpenText(string path)
         {
             if (path == null)
                 throw new ArgumentNullException("path");
@@ -42,12 +42,12 @@ namespace System.IO
             return new StreamReader(path);
         }
 
-        public static FileStream OpenRead(String path)
+        public static FileStream OpenRead(string path)
         {
             return new FileStream(path, FileMode.Open);
         }
 
-        public static String ReadAllText(String path)
+        public static string ReadAllText(string path)
         {
             if (path == null)
                 throw new ArgumentNullException("path");
@@ -58,7 +58,7 @@ namespace System.IO
             return InternalReadAllText(path, Encoding.UTF8, true);
         }
 
-        public static String ReadAllText(String path, Encoding encoding)
+        public static string ReadAllText(string path, Encoding encoding)
         {
             if (path == null)
                 throw new ArgumentNullException("path");
@@ -71,7 +71,7 @@ namespace System.IO
             return InternalReadAllText(path, encoding, true);
         }
 
-        private static String InternalReadAllText(String path, Encoding encoding, bool checkHost)
+        private static string InternalReadAllText(string path, Encoding encoding, bool checkHost)
         {
             Contract.Requires(path != null);
             Contract.Requires(encoding != null);
@@ -81,12 +81,12 @@ namespace System.IO
                 return sr.ReadToEnd();
         }
 
-        public static byte[] ReadAllBytes(String path)
+        public static byte[] ReadAllBytes(string path)
         {
             return InternalReadAllBytes(path, true);
         }
 
-        private static byte[] InternalReadAllBytes(String path, bool checkHost)
+        private static byte[] InternalReadAllBytes(string path, bool checkHost)
         {
             byte[] bytes;
             using (FileStream fs = new FileStream(path, FileMode.Open))
@@ -94,7 +94,7 @@ namespace System.IO
                 // Do a blocking read
                 int index = 0;
                 long fileLength = fs.Length;
-                if (fileLength > Int32.MaxValue)
+                if (fileLength > int.MaxValue)
                     throw new IOException("IO.IO_FileTooLong2GB");
                 int count = (int)fileLength;
                 bytes = new byte[count];
@@ -110,7 +110,7 @@ namespace System.IO
             return bytes;
         }
 
-        public static String[] ReadAllLines(String path)
+        public static string[] ReadAllLines(string path)
         {
             if (path == null)
                 throw new ArgumentNullException("path");
@@ -121,7 +121,7 @@ namespace System.IO
             return InternalReadAllLines(path, Encoding.UTF8);
         }
 
-        public static String[] ReadAllLines(String path, Encoding encoding)
+        public static string[] ReadAllLines(string path, Encoding encoding)
         {
             if (path == null)
                 throw new ArgumentNullException("path");
@@ -134,14 +134,14 @@ namespace System.IO
             return InternalReadAllLines(path, encoding);
         }
 
-        private static String[] InternalReadAllLines(String path, Encoding encoding)
+        private static string[] InternalReadAllLines(string path, Encoding encoding)
         {
             Contract.Requires(path != null);
             Contract.Requires(encoding != null);
             Contract.Requires(path.Length != 0);
 
-            String line;
-            List<String> lines = new List<String>();
+            string line;
+            List<string> lines = new List<string>();
 
             using (StreamReader sr = new StreamReader(path, encoding))
                 while ((line = sr.ReadLine()) != null)
@@ -150,7 +150,7 @@ namespace System.IO
             return lines.ToArray();
         }
 
-        public static IEnumerable<String> ReadLines(String path)
+        public static IEnumerable<string> ReadLines(string path)
         {
             if (path == null)
                 throw new ArgumentNullException("path");
@@ -161,7 +161,7 @@ namespace System.IO
             return ReadLinesIterator.CreateIterator(path, Encoding.UTF8);
         }
 
-        public static IEnumerable<String> ReadLines(String path, Encoding encoding)
+        public static IEnumerable<string> ReadLines(string path, Encoding encoding)
         {
             if (path == null)
                 throw new ArgumentNullException("path");

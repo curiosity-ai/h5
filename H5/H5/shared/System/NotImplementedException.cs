@@ -27,12 +27,12 @@ namespace System
         {
             HResult = HResults.E_NOTIMPL;
         }
-        public NotImplementedException(String message)
+        public NotImplementedException(string message)
             : base(message)
         {
             HResult = HResults.E_NOTIMPL;
         }
-        public NotImplementedException(String message, Exception inner)
+        public NotImplementedException(string message, Exception inner)
             : base(message, inner)
         {
             HResult = HResults.E_NOTIMPL;

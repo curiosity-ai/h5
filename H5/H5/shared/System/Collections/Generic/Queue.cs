@@ -382,7 +382,7 @@ namespace System.Collections.Generic
                 }
             }
 
-            Object System.Collections.IEnumerator.Current
+            object System.Collections.IEnumerator.Current
             {
                 get
                 {

@@ -5,7 +5,7 @@ namespace System
     [H5.Reflectable]
     [H5.Constructor("Number")]
 #pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
-    public struct SByte : IComparable, IComparable<SByte>, IEquatable<SByte>, IFormattable
+    public struct SByte : IComparable, IComparable<sbyte>, IEquatable<sbyte>, IFormattable
     {
         private extern SByte(int i);
 

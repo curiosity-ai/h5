@@ -18,13 +18,13 @@ namespace System
             HResult = HResults.COR_E_SYSTEM;
         }
 
-        public SystemException(String message)
+        public SystemException(string message)
             : base(message)
         {
             HResult = HResults.COR_E_SYSTEM;
         }
 
-        public SystemException(String message, Exception innerException)
+        public SystemException(string message, Exception innerException)
             : base(message, innerException)
         {
             HResult = HResults.COR_E_SYSTEM;

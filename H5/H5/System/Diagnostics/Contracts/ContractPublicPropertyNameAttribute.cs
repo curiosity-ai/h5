@@ -10,9 +10,9 @@ namespace System.Diagnostics.Contracts
     [H5.External]
     public sealed class ContractPublicPropertyNameAttribute : Attribute
     {
-        public extern ContractPublicPropertyNameAttribute(String name);
+        public extern ContractPublicPropertyNameAttribute(string name);
 
-        public extern String Name
+        public extern string Name
         {
             get;
             private set;

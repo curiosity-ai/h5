@@ -10,6 +10,6 @@ namespace System.Collections.Generic
             get;
         }
 
-        public abstract int Compare(Object x, Object y);
+        public abstract int Compare(object x, object y);
     }
 }

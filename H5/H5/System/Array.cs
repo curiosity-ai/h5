@@ -87,13 +87,13 @@ namespace System
         public static extern void ForEach<T>(T[] array, Action<T, int, T[]> action);
 
         [H5.Template("System.Array.indexOfT({array}, {value})")]
-        public static extern int IndexOf(Array array, Object value);
+        public static extern int IndexOf(Array array, object value);
 
         [H5.Template("System.Array.indexOfT({array}, {value}, {startIndex})")]
-        public static extern int IndexOf(Array array, Object value, int startIndex);
+        public static extern int IndexOf(Array array, object value, int startIndex);
 
         [H5.Template("System.Array.indexOfT({array}, {value}, {startIndex}, {count})")]
-        public static extern int IndexOf(Array array, Object value, int startIndex, int count);
+        public static extern int IndexOf(Array array, object value, int startIndex, int count);
 
         [H5.Template("System.Array.indexOfT({array}, {value})")]
         public static extern int IndexOf<T>(T[] array, T value);
@@ -105,13 +105,13 @@ namespace System
         public static extern int IndexOf<T>(T[] array, T value, int startIndex, int count);
 
         [H5.Template("System.Array.lastIndexOfT({array}, {value})")]
-        public static extern int LastIndexOf(Array array, Object value);
+        public static extern int LastIndexOf(Array array, object value);
 
         [H5.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex})")]
-        public static extern int LastIndexOf(Array array, Object value, int startIndex);
+        public static extern int LastIndexOf(Array array, object value, int startIndex);
 
         [H5.Template("System.Array.lastIndexOfT({array}, {value}, {startIndex}, {count})")]
-        public static extern int LastIndexOf(Array array, Object value, int startIndex, int count);
+        public static extern int LastIndexOf(Array array, object value, int startIndex, int count);
 
         [H5.Template("System.Array.lastIndexOfT({array}, {value})")]
         public static extern int LastIndexOf<T>(T[] array, T value);
@@ -313,7 +313,7 @@ namespace System
         /// An object that can be used to synchronize access to the System.Array.
         /// </returns>
 
-        public extern Object SyncRoot
+        public extern object SyncRoot
         {
             [H5.Template("System.Array.syncRoot({this})")]
             get;

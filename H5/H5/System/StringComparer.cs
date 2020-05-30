@@ -32,9 +32,9 @@ namespace System
             if (x == null) return -1;
             if (y == null) return 1;
 
-            if (x is String sa)
+            if (x is string sa)
             {
-                if (y is String sb)
+                if (y is string sb)
                 {
                     return Compare(sa, sb);
                 }
@@ -49,14 +49,14 @@ namespace System
         }
 
 
-        public new bool Equals(Object x, Object y)
+        public new bool Equals(object x, object y)
         {
             if (x == y) return true;
             if (x == null || y == null) return false;
 
-            if (x is String sa)
+            if (x is string sa)
             {
-                if (y is String sb)
+                if (y is string sb)
                 {
                     return Equals(sa, sb);
                 }
@@ -78,8 +78,8 @@ namespace System
             return obj.GetHashCode();
         }
 
-        public abstract int Compare(String x, String y);
-        public abstract bool Equals(String x, String y);
+        public abstract int Compare(string x, string y);
+        public abstract bool Equals(string x, string y);
         public abstract int GetHashCode(string obj);
     }
 
@@ -101,10 +101,10 @@ namespace System
 
             if (_ignoreCase)
             {
-                return String.Compare(x, y, StringComparison.OrdinalIgnoreCase);
+                return string.Compare(x, y, StringComparison.OrdinalIgnoreCase);
             }
 
-            return String.Compare(x, y, false);
+            return string.Compare(x, y, false);
         }
 
         public override bool Equals(string x, string y)
@@ -118,7 +118,7 @@ namespace System
                 {
                     return false;
                 }
-                return (String.Compare(x, y, StringComparison.OrdinalIgnoreCase) == 0);
+                return (string.Compare(x, y, StringComparison.OrdinalIgnoreCase) == 0);
             }
             return x.Equals(y);
         }
@@ -139,7 +139,7 @@ namespace System
         }
 
         // Equals method for the comparer itself.
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             if (!(obj is OrdinalComparer comparer))
             {

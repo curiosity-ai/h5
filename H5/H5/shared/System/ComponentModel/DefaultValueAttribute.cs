@@ -117,7 +117,7 @@ namespace System.ComponentModel
             _value = value;
         }
         /// <devdoc>
-        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='System.Boolean'/>
+        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='bool'/>
         /// value.</para>
         /// </devdoc>
         public DefaultValueAttribute(bool value)
@@ -125,7 +125,7 @@ namespace System.ComponentModel
             _value = value;
         }
         /// <devdoc>
-        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='System.String'/>.</para>
+        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='string'/>.</para>
         /// </devdoc>
         public DefaultValueAttribute(string value)
         {
@@ -142,7 +142,7 @@ namespace System.ComponentModel
         }
 
         /// <devdoc>
-        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='System.SByte'/>
+        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='sbyte'/>
         /// value.</para>
         /// </devdoc>
         [CLSCompliant(false)]
@@ -152,7 +152,7 @@ namespace System.ComponentModel
         }
 
         /// <devdoc>
-        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='System.UInt16'/>
+        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='ushort'/>
         /// value.</para>
         /// </devdoc>
         [CLSCompliant(false)]
@@ -162,7 +162,7 @@ namespace System.ComponentModel
         }
 
         /// <devdoc>
-        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='System.UInt32'/>
+        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='uint'/>
         /// value.</para>
         /// </devdoc>
         [CLSCompliant(false)]
@@ -172,7 +172,7 @@ namespace System.ComponentModel
         }
 
         /// <devdoc>
-        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='System.UInt64'/>
+        /// <para>Initializes a new instance of the <see cref='System.ComponentModel.DefaultValueAttribute'/> class using a <see cref='ulong'/>
         /// value.</para>
         /// </devdoc>
         [CLSCompliant(false)]

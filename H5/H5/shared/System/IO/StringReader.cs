@@ -27,11 +27,11 @@ namespace System.IO
     //
     public class StringReader : TextReader
     {
-        private String _s;
+        private string _s;
         private int _pos;
         private int _length;
 
-        public StringReader(String s)
+        public StringReader(string s)
         {
             if (s == null)
                 throw new ArgumentNullException("s");
@@ -109,11 +109,11 @@ namespace System.IO
             return n;
         }
 
-        public override String ReadToEnd()
+        public override string ReadToEnd()
         {
             if (_s == null)
                 __Error.ReaderClosed();
-            String s;
+            string s;
             if (_pos == 0)
                 s = _s;
             else
@@ -128,7 +128,7 @@ namespace System.IO
         // contain the terminating carriage return and/or line feed. The returned
         // value is null if the end of the underlying string has been reached.
         //
-        public override String ReadLine()
+        public override string ReadLine()
         {
             if (_s == null)
                 __Error.ReaderClosed();
@@ -138,7 +138,7 @@ namespace System.IO
                 char ch = _s[i];
                 if (ch == '\r' || ch == '\n')
                 {
-                    String result = _s.Substring(_pos, i - _pos);
+                    string result = _s.Substring(_pos, i - _pos);
                     _pos = i + 1;
                     if (ch == '\r' && _pos < _length && _s[_pos] == '\n') _pos++;
                     return result;
@@ -147,7 +147,7 @@ namespace System.IO
             }
             if (i > _pos)
             {
-                String result = _s.Substring(_pos, i - _pos);
+                string result = _s.Substring(_pos, i - _pos);
                 _pos = i;
                 return result;
             }

@@ -132,7 +132,7 @@ namespace System.IO
         // Writes a string to the underlying string buffer. If the given string is
         // null, nothing is written.
         //
-        public override void Write(String value)
+        public override void Write(string value)
         {
             if (!_isOpen)
                 __Error.WriterClosed();
@@ -142,7 +142,7 @@ namespace System.IO
         // Returns a string containing the characters written to this TextWriter
         // so far.
         //
-        public override String ToString()
+        public override string ToString()
         {
             return _sb.ToString();
         }

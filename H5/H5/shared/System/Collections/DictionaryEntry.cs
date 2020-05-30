@@ -22,17 +22,17 @@ namespace System.Collections {
     [Serializable]
     public struct DictionaryEntry
     {
-        private Object _key;
-        private Object _value;
+        private object _key;
+        private object _value;
 
         // Constructs a new DictionaryEnumerator by setting the Key
         // and Value fields appropriately.
-        public DictionaryEntry(Object key, Object value) {
+        public DictionaryEntry(object key, object value) {
             _key = key;
             _value = value;
         }
 
-        public Object Key {
+        public object Key {
             get {
                 return _key;
             }
@@ -42,7 +42,7 @@ namespace System.Collections {
             }
         }
 
-        public Object Value {
+        public object Value {
             get {
                 return _value;
             }

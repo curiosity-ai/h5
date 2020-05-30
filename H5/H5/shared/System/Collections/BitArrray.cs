@@ -77,7 +77,7 @@ namespace System.Collections
             // this value is chosen to prevent overflow when computing m_length.
             // m_length is of type int32 and is exposed as a property, so
             // type of m_length can't be changed to accommodate.
-            if (bytes.Length > Int32.MaxValue / BitsPerByte)
+            if (bytes.Length > int.MaxValue / BitsPerByte)
             {
                 throw new ArgumentException(string.Format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", BitsPerByte), "bytes");
             }
@@ -152,7 +152,7 @@ namespace System.Collections
                 throw new ArgumentNullException("values");
             }
             // this value is chosen to prevent overflow when computing m_length
-            if (values.Length > Int32.MaxValue / BitsPerInt32)
+            if (values.Length > int.MaxValue / BitsPerInt32)
             {
                 throw new ArgumentException(string.Format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", BitsPerInt32), "values");
             }
@@ -459,7 +459,7 @@ namespace System.Collections
             }
         }
 
-        public Object Clone()
+        public object Clone()
         {
             BitArray bitArray = new BitArray(m_array);
             bitArray._version = _version;
@@ -541,7 +541,7 @@ namespace System.Collections
                 return false;
             }
 
-            public virtual Object Current
+            public virtual object Current
             {
                 get
                 {

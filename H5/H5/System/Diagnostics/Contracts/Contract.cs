@@ -255,7 +255,7 @@ namespace System.Diagnostics.Contracts
         [Pure]
         [Conditional("CONTRACTS_FULL")]
         [H5.Template("0 /*{condition} {userMessage}*/")]
-        public static extern void Invariant(bool condition, String userMessage);
+        public static extern void Invariant(bool condition, string userMessage);
 
         #endregion Invariant
 

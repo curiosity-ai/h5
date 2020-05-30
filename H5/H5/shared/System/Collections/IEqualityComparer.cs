@@ -11,8 +11,8 @@ namespace System.Collections
     public interface IEqualityComparer
     {
         [H5.Convention(H5.Notation.CamelCase)]
-        bool Equals(Object x, Object y);
+        bool Equals(object x, object y);
         [H5.Convention(H5.Notation.CamelCase)]
-        int GetHashCode(Object obj);
+        int GetHashCode(object obj);
     }
 }

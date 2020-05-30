@@ -45,7 +45,7 @@ namespace System.IO
         // This should be initialized to Environment.NewLine, but
         // to avoid loading Environment unnecessarily so I've duplicated
         // the value here.
-        private const String InitialNewLine = "\r\n";
+        private const string InitialNewLine = "\r\n";
 
         protected char[] CoreNewLine = new char[] { '\r', '\n' };
 
@@ -115,11 +115,11 @@ namespace System.IO
         // the TextWriter to be readable by a TextReader, only one of the following line
         // terminator strings should be used: "\r", "\n", or "\r\n".
         //
-        public virtual String NewLine
+        public virtual string NewLine
         {
             get
             {
-                return new String(CoreNewLine);
+                return new string(CoreNewLine);
             }
             set
             {
@@ -182,7 +182,7 @@ namespace System.IO
         //
         public virtual void Write(bool value)
         {
-            Write(value ? Boolean.TrueString : Boolean.FalseString);
+            Write(value ? bool.TrueString : bool.FalseString);
         }
 
         // Writes the text representation of an integer to the text stream. The
@@ -241,7 +241,7 @@ namespace System.IO
             Write(value.ToString(FormatProvider));
         }
 
-        public virtual void Write(Decimal value)
+        public virtual void Write(decimal value)
         {
             Write(value.ToString(FormatProvider));
         }
@@ -249,7 +249,7 @@ namespace System.IO
         // Writes a string to the text stream. If the given string is null, nothing
         // is written to the text stream.
         //
-        public virtual void Write(String value)
+        public virtual void Write(string value)
         {
             if (value != null) Write(value.ToCharArray());
         }
@@ -260,7 +260,7 @@ namespace System.IO
         // string representation, and the resulting string is then written to the
         // output stream.
         //
-        public virtual void Write(Object value)
+        public virtual void Write(object value)
         {
             if (value != null)
             {
@@ -275,33 +275,33 @@ namespace System.IO
         // Writes out a formatted string.  Uses the same semantics as
         // String.Format.
         //
-        public virtual void Write(String format, Object arg0)
+        public virtual void Write(string format, object arg0)
         {
-            Write(String.Format(FormatProvider, format, arg0));
+            Write(string.Format(FormatProvider, format, arg0));
         }
 
         // Writes out a formatted string.  Uses the same semantics as
         // String.Format.
         //
-        public virtual void Write(String format, Object arg0, Object arg1)
+        public virtual void Write(string format, object arg0, object arg1)
         {
-            Write(String.Format(FormatProvider, format, arg0, arg1));
+            Write(string.Format(FormatProvider, format, arg0, arg1));
         }
 
         // Writes out a formatted string.  Uses the same semantics as
         // String.Format.
         //
-        public virtual void Write(String format, Object arg0, Object arg1, Object arg2)
+        public virtual void Write(string format, object arg0, object arg1, object arg2)
         {
-            Write(String.Format(FormatProvider, format, arg0, arg1, arg2));
+            Write(string.Format(FormatProvider, format, arg0, arg1, arg2));
         }
 
         // Writes out a formatted string.  Uses the same semantics as
         // String.Format.
         //
-        public virtual void Write(String format, params Object[] arg)
+        public virtual void Write(string format, params object[] arg)
         {
-            Write(String.Format(FormatProvider, format, arg));
+            Write(string.Format(FormatProvider, format, arg));
         }
 
 
@@ -413,7 +413,7 @@ namespace System.IO
 
         // Writes a string followed by a line terminator to the text stream.
         //
-        public virtual void WriteLine(String value)
+        public virtual void WriteLine(string value)
         {
 
             if (value == null)
@@ -455,7 +455,7 @@ namespace System.IO
         // Writes the text representation of an object followed by a line
         // terminator to the text stream.
         //
-        public virtual void WriteLine(Object value)
+        public virtual void WriteLine(object value)
         {
             if (value == null)
             {
@@ -475,33 +475,33 @@ namespace System.IO
         // Writes out a formatted string and a new line.  Uses the same
         // semantics as String.Format.
         //
-        public virtual void WriteLine(String format, Object arg0)
+        public virtual void WriteLine(string format, object arg0)
         {
-            WriteLine(String.Format(FormatProvider, format, arg0));
+            WriteLine(string.Format(FormatProvider, format, arg0));
         }
 
         // Writes out a formatted string and a new line.  Uses the same
         // semantics as String.Format.
         //
-        public virtual void WriteLine(String format, Object arg0, Object arg1)
+        public virtual void WriteLine(string format, object arg0, object arg1)
         {
-            WriteLine(String.Format(FormatProvider, format, arg0, arg1));
+            WriteLine(string.Format(FormatProvider, format, arg0, arg1));
         }
 
         // Writes out a formatted string and a new line.  Uses the same
         // semantics as String.Format.
         //
-        public virtual void WriteLine(String format, Object arg0, Object arg1, Object arg2)
+        public virtual void WriteLine(string format, object arg0, object arg1, object arg2)
         {
-            WriteLine(String.Format(FormatProvider, format, arg0, arg1, arg2));
+            WriteLine(string.Format(FormatProvider, format, arg0, arg1, arg2));
         }
 
         // Writes out a formatted string and a new line.  Uses the same
         // semantics as String.Format.
         //
-        public virtual void WriteLine(String format, params Object[] arg)
+        public virtual void WriteLine(string format, params object[] arg)
         {
-            WriteLine(String.Format(FormatProvider, format, arg));
+            WriteLine(string.Format(FormatProvider, format, arg));
         }
 
 #if FEATURE_ASYNC_IO
@@ -606,7 +606,7 @@ namespace System.IO
             {
             }
 
-            public override void Write(String value)
+            public override void Write(string value)
             {
             }
 
@@ -616,11 +616,11 @@ namespace System.IO
             }
 
             // Not strictly necessary, but for perf reasons
-            public override void WriteLine(String value)
+            public override void WriteLine(string value)
             {
             }
 
-            public override void WriteLine(Object value)
+            public override void WriteLine(object value)
             {
             }
         }

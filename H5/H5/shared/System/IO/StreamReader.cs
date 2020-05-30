@@ -143,31 +143,31 @@ namespace System.IO
             Init(stream, encoding, detectEncodingFromByteOrderMarks, bufferSize, leaveOpen);
         }
 
-        public StreamReader(String path) : this(path, true)
+        public StreamReader(string path) : this(path, true)
         {
         }
 
-        public StreamReader(String path, bool detectEncodingFromByteOrderMarks)
+        public StreamReader(string path, bool detectEncodingFromByteOrderMarks)
             : this(path, Encoding.UTF8, detectEncodingFromByteOrderMarks, DefaultBufferSize)
         {
         }
 
-        public StreamReader(String path, Encoding encoding)
+        public StreamReader(string path, Encoding encoding)
             : this(path, encoding, true, DefaultBufferSize)
         {
         }
 
-        public StreamReader(String path, Encoding encoding, bool detectEncodingFromByteOrderMarks)
+        public StreamReader(string path, Encoding encoding, bool detectEncodingFromByteOrderMarks)
             : this(path, encoding, detectEncodingFromByteOrderMarks, DefaultBufferSize)
         {
         }
 
-        public StreamReader(String path, Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize)
+        public StreamReader(string path, Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize)
             : this(path, encoding, detectEncodingFromByteOrderMarks, bufferSize, true)
         {
         }
 
-        internal StreamReader(String path, Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize, bool checkHost)
+        internal StreamReader(string path, Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize, bool checkHost)
         {
             // Don't open a Stream before checking for invalid arguments,
             // or we'll create a FileStream on disk and we won't close it until
@@ -363,7 +363,7 @@ namespace System.IO
             return charsRead;
         }
 
-        public override async Task<String> ReadToEndAsync()
+        public override async Task<string> ReadToEndAsync()
         {
             if (this.stream is FileStream)
             {
@@ -373,7 +373,7 @@ namespace System.IO
             return await base.ReadToEndAsync();
         }
 
-        public override String ReadToEnd()
+        public override string ReadToEnd()
         {
             if (stream == null)
                 __Error.ReaderClosed();
@@ -609,7 +609,7 @@ namespace System.IO
         // contain the terminating carriage return and/or line feed. The returned
         // value is null if the end of the input stream has been reached.
         //
-        public override String ReadLine()
+        public override string ReadLine()
         {
             if (stream == null)
                 __Error.ReaderClosed();
@@ -630,15 +630,15 @@ namespace System.IO
                     // \n - UNIX   \r\n - DOS   \r - Mac
                     if (ch == '\r' || ch == '\n')
                     {
-                        String s;
+                        string s;
                         if (sb != null)
                         {
-                            sb.Append(new String(charBuffer, charPos, i - charPos));
+                            sb.Append(new string(charBuffer, charPos, i - charPos));
                             s = sb.ToString();
                         }
                         else
                         {
-                            s = new String(charBuffer, charPos, i - charPos);
+                            s = new string(charBuffer, charPos, i - charPos);
                         }
                         charPos = i + 1;
                         if (ch == '\r' && (charPos < charLen || ReadBuffer() > 0))
@@ -651,7 +651,7 @@ namespace System.IO
                 } while (i < charLen);
                 i = charLen - charPos;
                 if (sb == null) sb = new StringBuilder(i + 80);
-                sb.Append(new String(charBuffer, charPos, i));
+                sb.Append(new string(charBuffer, charPos, i));
             } while (ReadBuffer() > 0);
             return sb.ToString();
         }
@@ -703,14 +703,14 @@ namespace System.IO
                 return 0;
             }
 
-            public override String ReadLine()
+            public override string ReadLine()
             {
                 return null;
             }
 
-            public override String ReadToEnd()
+            public override string ReadToEnd()
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             internal override int ReadBuffer()

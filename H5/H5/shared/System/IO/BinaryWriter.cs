@@ -190,7 +190,7 @@ namespace System.IO
         //
         public virtual void Write(char ch)
         {
-            if (Char.IsSurrogate(ch))
+            if (char.IsSurrogate(ch))
                 throw new ArgumentException("Arg_SurrogatesNotAllowedAsSingleChar");
             Contract.EndContractBlock();
 
@@ -247,7 +247,7 @@ namespace System.IO
 
         public virtual void Write(decimal value)
         {
-            var buf = Decimal.GetBytes(value);
+            var buf = decimal.GetBytes(value);
             OutStream.Write(buf, 0, 23);
         }
 
@@ -349,7 +349,7 @@ namespace System.IO
         // a four-byte unsigned integer, and then writes that many characters
         // to the stream.
         //
-        public virtual void Write(String value)
+        public virtual void Write(string value)
         {
             if (value == null)
                 throw new ArgumentNullException("value");

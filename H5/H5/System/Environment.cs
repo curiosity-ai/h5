@@ -23,15 +23,15 @@ namespace System
     public static class Environment
     {
 
-        internal static String GetResourceString(String key)
+        internal static string GetResourceString(string key)
         {
             return key;
         }
 
-        internal static String GetResourceString(String key, params Object[] values)
+        internal static string GetResourceString(string key, params object[] values)
         {
-            String s = GetResourceString(key);
-            return String.Format(CultureInfo.CurrentCulture, s, values);
+            string s = GetResourceString(key);
+            return string.Format(CultureInfo.CurrentCulture, s, values);
         }
 
         /// <summary>

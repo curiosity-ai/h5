@@ -263,7 +263,7 @@ namespace System.IO
             FillBuffer(23);
             try
             {
-                return Decimal.FromBytes(m_buffer);
+                return decimal.FromBytes(m_buffer);
             }
             catch (ArgumentException e)
             {
@@ -272,9 +272,9 @@ namespace System.IO
             }
         }
 
-        public virtual String ReadString()
+        public virtual string ReadString()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
+            Contract.Ensures(Contract.Result<string>() != null);
 
             if (m_stream == null)
                 __Error.FileNotOpen();
@@ -294,7 +294,7 @@ namespace System.IO
 
             if (stringLength == 0)
             {
-                return String.Empty;
+                return string.Empty;
             }
 
             if (m_charBytes == null)
@@ -321,7 +321,7 @@ namespace System.IO
                 charsRead = m_encoding.GetChars(m_charBytes, 0, n, m_charBuffer, 0);
 
                 if (currPos == 0 && n == stringLength)
-                    return new String(m_charBuffer, 0, charsRead);
+                    return new string(m_charBuffer, 0, charsRead);
 
                 if (sb == null)
                 {

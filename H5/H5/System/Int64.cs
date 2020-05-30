@@ -3,7 +3,7 @@ namespace System
     [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
     [H5.External]
     [H5.Reflectable]
-    public struct Int64 : IComparable, IComparable<Int64>, IEquatable<Int64>, IFormattable
+    public struct Int64 : IComparable, IComparable<long>, IEquatable<long>, IFormattable
     {
         private extern Int64(int i);
 

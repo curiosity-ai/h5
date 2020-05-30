@@ -73,7 +73,7 @@ namespace System {
         //    }
         //}
 
-        internal static bool TryParseExact(String s, String format, DateTimeFormatInfo dtfi, DateTimeStyles style, out DateTime result) {
+        internal static bool TryParseExact(string s, string format, DateTimeFormatInfo dtfi, DateTimeStyles style, out DateTime result) {
             return DateTime.TryParseExact(s, format, null, out result);
 
             // TODO: NotSupported
@@ -2276,7 +2276,7 @@ namespace System {
         //            return true;
         //        }
 
-        internal static DateTime Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+        internal static DateTime Parse(string s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
         {
             return DateTime.Parse(s, dtfi);
             // TODO: NotSupported
@@ -2292,7 +2292,7 @@ namespace System {
             //}
         }
 
-        internal static DateTime Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles, out TimeSpan offset)
+        internal static DateTime Parse(string s, DateTimeFormatInfo dtfi, DateTimeStyles styles, out TimeSpan offset)
         {
             throw NotImplemented.ByDesign;
 
@@ -2312,7 +2312,7 @@ namespace System {
         }
 
 
-        internal static bool TryParse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles, out DateTime result) {
+        internal static bool TryParse(string s, DateTimeFormatInfo dtfi, DateTimeStyles styles, out DateTime result) {
             return DateTime.TryParse(s, out result);
 
             // TODO: NotSupported
@@ -2326,7 +2326,7 @@ namespace System {
             //return false;
         }
 
-        internal static bool TryParse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles, out DateTime result, out TimeSpan offset) {
+        internal static bool TryParse(string s, DateTimeFormatInfo dtfi, DateTimeStyles styles, out DateTime result, out TimeSpan offset) {
             throw NotImplemented.ByDesign;
             // TODO: NotSupported
             //result = DateTime.MinValue;

@@ -15,7 +15,7 @@
     /// The start time for a Timer is passed in the dueTime parameter of the Timer constructors, and the period is passed in the period parameter.
     /// For an example that demonstrates creating and using a TimerCallback delegate, see System.Threading.Timer.
     /// </remarks>
-    public delegate void TimerCallback(Object state);
+    public delegate void TimerCallback(object state);
 
     /// <summary>
     /// Provides a mechanism for executing a method at specified intervals. This class cannot be inherited.
@@ -44,7 +44,7 @@
     /// </remarks>
     public sealed class Timer : IDisposable
     {
-        private const UInt32 MAX_SUPPORTED_TIMEOUT = (uint)0xfffffffe;
+        private const uint MAX_SUPPORTED_TIMEOUT = (uint)0xfffffffe;
         private const string EXC_LESS = "Number must be either non-negative and less than or equal to Int32.MaxValue or -1.";
         private const string EXC_MORE = "Time-out interval must be less than 2^32-2.";
         private const string EXC_DISPOSED = "The timer has been already disposed.";
@@ -60,7 +60,7 @@
         internal long period;
 
         private TimerCallback timerCallback;
-        private Object state;
+        private object state;
         private int? id;
         private bool disposed;
 
@@ -73,7 +73,7 @@
         /// <param name="state">An object containing information to be used by the callback method, or null.</param>
         /// <param name="dueTime">The amount of time to delay before callback is invoked, in milliseconds. Specify Timeout.Infinite to prevent the timer from starting. Specify zero (0) to start the timer immediately.</param>
         /// <param name="period">The time interval between invocations of callback, in milliseconds. Specify Timeout.Infinite to disable periodic signaling.</param>
-        public Timer(TimerCallback callback, Object state, int dueTime, int period)
+        public Timer(TimerCallback callback, object state, int dueTime, int period)
         {
             TimerSetup(callback, state, dueTime, period);
         }
@@ -87,7 +87,7 @@
         /// <param name="state">An object containing information to be used by the callback method, or null.</param>
         /// <param name="dueTime">The amount of time to delay before callback is invoked, in milliseconds. Specify Timeout.Infinite to prevent the timer from starting. Specify zero (0) to start the timer immediately.</param>
         /// <param name="period">The time interval between invocations of callback, in milliseconds. Specify Timeout.Infinite to disable periodic signaling.</param>
-        public Timer(TimerCallback callback, Object state, TimeSpan dueTime, TimeSpan period)
+        public Timer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period)
         {
             var dueTm = (long)dueTime.TotalMilliseconds;
             var periodTm = (long)period.TotalMilliseconds;
@@ -105,7 +105,7 @@
         /// <param name="dueTime">The amount of time to delay before callback is invoked, in milliseconds. Specify Timeout.Infinite to prevent the timer from starting. Specify zero (0) to start the timer immediately.</param>
         /// <param name="period">The time interval between invocations of callback, in milliseconds. Specify Timeout.Infinite to disable periodic signaling.</param>
         [CLSCompliant(false)]
-        public Timer(TimerCallback callback, Object state, UInt32 dueTime, UInt32 period)
+        public Timer(TimerCallback callback, object state, uint dueTime, uint period)
         {
             TimerSetup(callback, state, dueTime, period);
         }
@@ -119,7 +119,7 @@
         /// <param name="state">An object containing information to be used by the callback method, or null.</param>
         /// <param name="dueTime">The amount of time to delay before callback is invoked, in milliseconds. Specify Timeout.Infinite to prevent the timer from starting. Specify zero (0) to start the timer immediately.</param>
         /// <param name="period">The time interval between invocations of callback, in milliseconds. Specify Timeout.Infinite to disable periodic signaling.</param>
-        public Timer(TimerCallback callback, Object state, long dueTime, long period)
+        public Timer(TimerCallback callback, object state, long dueTime, long period)
         {
             TimerSetup(callback, state, dueTime, period);
         }
@@ -140,7 +140,7 @@
             TimerSetup(callback, this, dueTime, period);
         }
 
-        private bool TimerSetup(TimerCallback callback, Object state, long dueTime, long period)
+        private bool TimerSetup(TimerCallback callback, object state, long dueTime, long period)
         {
             if (this.disposed)
             {
@@ -234,7 +234,7 @@
         /// <param name="period">The time interval between invocations of the callback method specified when the Timer was constructed, in milliseconds. Specify Timeout.Infinite to disable periodic signaling.</param>
         /// <returns>true if the timer was successfully updated; otherwise, false.</returns>
         [CLSCompliant(false)]
-        public bool Change(UInt32 dueTime, UInt32 period)
+        public bool Change(uint dueTime, uint period)
         {
             return ChangeTimer(dueTime, period);
         }

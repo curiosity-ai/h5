@@ -209,7 +209,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="index">The zero-based index of the element to get or set.</param>
         /// <returns>The element at the specified index.</returns>
-        Object System.Collections.IList.this[int index]
+        object System.Collections.IList.this[int index]
         {
             get
             {
@@ -252,7 +252,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="item">The Object to add to the IList.</param>
         /// <returns>The position into which the new element was inserted.</returns>
-        int System.Collections.IList.Add(Object item)
+        int System.Collections.IList.Add(object item)
         {
             if (item == null && !(default(T) == null))
             {
@@ -396,7 +396,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="item">The Object to locate in the IList.</param>
         /// <returns>true if item is found in the IList; otherwise, false.</returns>
-        bool System.Collections.IList.Contains(Object item)
+        bool System.Collections.IList.Contains(object item)
         {
             if (IsCompatibleObject(item))
             {
@@ -813,7 +813,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="item">The object to locate in the IList.</param>
         /// <returns>The index of item if found in the list; otherwise, –1.</returns>
-        int System.Collections.IList.IndexOf(Object item)
+        int System.Collections.IList.IndexOf(object item)
         {
             if (IsCompatibleObject(item))
             {
@@ -900,7 +900,7 @@ namespace System.Collections.Generic
         /// </summary>
         /// <param name="index">The zero-based index at which item should be inserted.</param>
         /// <param name="item">The object to insert into the IList.</param>
-        void System.Collections.IList.Insert(int index, Object item)
+        void System.Collections.IList.Insert(int index, object item)
         {
             if (item == null && !(default(T) == null))
             {
@@ -1097,7 +1097,7 @@ namespace System.Collections.Generic
         /// Removes the first occurrence of a specific object from the IList.
         /// </summary>
         /// <param name="item">The object to remove from the IList.</param>
-        void System.Collections.IList.Remove(Object item)
+        void System.Collections.IList.Remove(object item)
         {
             if (IsCompatibleObject(item))
             {
@@ -1462,7 +1462,7 @@ namespace System.Collections.Generic
             /// <summary>
             /// Gets the element at the current position of the enumerator.
             /// </summary>
-            Object System.Collections.IEnumerator.Current
+            object System.Collections.IEnumerator.Current
             {
                 get
                 {

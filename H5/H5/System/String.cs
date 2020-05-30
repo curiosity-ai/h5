@@ -12,7 +12,7 @@ namespace System
     [H5.External]
     [H5.Constructor("String")]
     [H5.Reflectable]
-    public sealed class String : IEnumerable, ICloneable, IEnumerable<char>, IComparable<String>, IEquatable<String>
+    public sealed class String : IEnumerable, ICloneable, IEnumerable<char>, IComparable<string>, IEquatable<string>
     {
         /// <summary>
         /// Gets the number of characters in the current String object.
@@ -668,7 +668,7 @@ namespace System
         /// <returns>A copy of format in which the format item or items have been replaced by the string representation of arg0.</returns>
         [H5.Template("System.String.formatProvider({provider}, {format}, [{arg0}])")]
         [H5.Unbox(false)]
-        public static extern String Format(IFormatProvider provider, String format, object arg0);
+        public static extern string Format(IFormatProvider provider, string format, object arg0);
 
         /// <summary>
         /// Replaces the format items in a specified string with the string representation of two specified objects. A parameter supplies culture-specific formatting information.
@@ -680,7 +680,7 @@ namespace System
         /// <returns>A copy of format in which format items are replaced by the string representations of arg0 and arg1.</returns>
         [H5.Template("System.String.formatProvider({provider}, {format}, {arg0}, {arg1})")]
         [H5.Unbox(false)]
-        public static extern String Format(IFormatProvider provider, String format, object arg0, object arg1);
+        public static extern string Format(IFormatProvider provider, string format, object arg0, object arg1);
 
         /// <summary>
         /// Replaces the format items in a specified string with the string representation of three specified objects. An parameter supplies culture-specific formatting information.
@@ -693,7 +693,7 @@ namespace System
         /// <returns>A copy of format in which the format items have been replaced by the string representations of arg0, arg1, and arg2.</returns>
         [H5.Template("System.String.formatProvider({provider}, {format}, {arg0}, {arg1}, {arg2})")]
         [H5.Unbox(false)]
-        public static extern String Format(IFormatProvider provider, String format, object arg0, object arg1, object arg2);
+        public static extern string Format(IFormatProvider provider, string format, object arg0, object arg1, object arg2);
 
         /// <summary>
         /// Replaces the format items in a specified string with the string representations of corresponding objects in a specified array. A parameter supplies culture-specific formatting information.
@@ -704,7 +704,7 @@ namespace System
         /// <returns>A copy of format in which the format items have been replaced by the string representation of the corresponding objects in args.</returns>
         [H5.Template("System.String.formatProvider({provider}, {format}, {args})")]
         [H5.Unbox(false)]
-        public static extern String Format(IFormatProvider provider, String format, params object[] args);
+        public static extern string Format(IFormatProvider provider, string format, params object[] args);
 
         /// <summary>
         /// Replaces one or more format items in a specified string with the string representation of a specified object.
@@ -714,7 +714,7 @@ namespace System
         /// <returns>A copy of format in which any format items are replaced by the string representation of arg0.</returns>
         [H5.Template("System.String.format({format}, [{arg0}])")]
         [H5.Unbox(false)]
-        public static extern String Format(String format, object arg0);
+        public static extern string Format(string format, object arg0);
 
         /// <summary>
         /// Replaces the format items in a specified string with the string representation of two specified objects.
@@ -725,7 +725,7 @@ namespace System
         /// <returns>A copy of format in which format items are replaced by the string representations of arg0 and arg1.</returns>
         [H5.Template("System.String.format({format}, {arg0}, {arg1})")]
         [H5.Unbox(false)]
-        public static extern String Format(String format, object arg0, object arg1);
+        public static extern string Format(string format, object arg0, object arg1);
 
         /// <summary>
         /// Replaces the format items in a specified string with the string representation of three specified objects.
@@ -737,7 +737,7 @@ namespace System
         /// <returns>A copy of format in which the format items have been replaced by the string representations of arg0, arg1, and arg2.</returns>
         [H5.Template("System.String.format({format}, {arg0}, {arg1}, {arg2})")]
         [H5.Unbox(false)]
-        public static extern String Format(String format, object arg0, object arg1, object arg2);
+        public static extern string Format(string format, object arg0, object arg1, object arg2);
 
         /// <summary>
         /// Replaces the format item in a specified string with the string representation of a corresponding object in a specified array.
@@ -961,7 +961,7 @@ namespace System
         /// </summary>
         /// <returns>This instance of String.</returns>
         [H5.Template("{this}")]
-        public extern Object Clone();
+        public extern object Clone();
 
         /// <summary>
         /// Copies a specified number of characters from a specified position in this instance to a specified position in an array of Unicode characters.

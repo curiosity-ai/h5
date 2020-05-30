@@ -6,7 +6,7 @@ namespace System
     public interface IComparable : H5.IH5Class
     {
         [H5.Template("H5.compare({this}, {obj})")]
-        int CompareTo(Object obj);
+        int CompareTo(object obj);
     }
 
     [H5.External]

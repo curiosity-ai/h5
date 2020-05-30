@@ -50,7 +50,7 @@ namespace System.IO
         private bool _exposable;   // Whether the array can be returned to the user.
         private bool _isOpen;      // Is this stream open or closed?
 
-        private const int MemStreamMaxLength = Int32.MaxValue;
+        private const int MemStreamMaxLength = int.MaxValue;
 
         public MemoryStream()
             : this(0)
@@ -431,7 +431,7 @@ namespace System.IO
         //
         public override void SetLength(long value)
         {
-            if (value < 0 || value > Int32.MaxValue)
+            if (value < 0 || value > int.MaxValue)
             {
                 throw new ArgumentOutOfRangeException("value", "ArgumentOutOfRange_StreamLength");
             }
@@ -440,8 +440,8 @@ namespace System.IO
             EnsureWriteable();
 
             // Origin wasn't publicly exposed above.
-            Contract.Assert(MemStreamMaxLength == Int32.MaxValue);  // Check parameter validation logic in this method if this fails.
-            if (value > (Int32.MaxValue - _origin))
+            Contract.Assert(MemStreamMaxLength == int.MaxValue);  // Check parameter validation logic in this method if this fails.
+            if (value > (int.MaxValue - _origin))
             {
                 throw new ArgumentOutOfRangeException("value", "ArgumentOutOfRange_StreamLength");
             }

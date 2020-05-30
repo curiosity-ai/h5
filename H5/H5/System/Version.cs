@@ -67,7 +67,7 @@ namespace System
             _Minor = minor;
         }
 
-        public Version(String version)
+        public Version(string version)
         {
             Version v = Version.Parse(version);
             _Major = v.Major;
@@ -131,7 +131,7 @@ namespace System
             }
         }
 
-        public Object Clone()
+        public object Clone()
         {
             Version v = new Version();
             v._Major = _Major;
@@ -141,7 +141,7 @@ namespace System
             return (v);
         }
 
-        public int CompareTo(Object version)
+        public int CompareTo(object version)
         {
             if (version == null)
             {
@@ -213,7 +213,7 @@ namespace System
             return 0;
         }
 
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             return Equals(obj as Version);
         }
@@ -248,20 +248,20 @@ namespace System
             return accumulator;
         }
 
-        public override String ToString()
+        public override string ToString()
         {
             if (_Build == -1) return (ToString(2));
             if (_Revision == -1) return (ToString(3));
             return (ToString(4));
         }
 
-        public String ToString(int fieldCount)
+        public string ToString(int fieldCount)
         {
             StringBuilder sb;
             switch (fieldCount)
             {
                 case 0:
-                    return (String.Empty);
+                    return (string.Empty);
 
                 case 1:
                     return (_Major.ToString());
@@ -352,14 +352,14 @@ namespace System
         {
             int major, minor, build, revision;
 
-            if ((Object)version == null)
+            if ((object)version == null)
             {
                 result.SetFailure(ParseFailureKind.ArgumentNullException);
 
                 return false;
             }
 
-            String[] parsedComponents = version.Split(SeparatorsArray);
+            string[] parsedComponents = version.Split(SeparatorsArray);
             int parsedComponentsLength = parsedComponents.Length;
 
             if ((parsedComponentsLength < 2) || (parsedComponentsLength > 4))
@@ -415,7 +415,7 @@ namespace System
 
         private static bool TryParseComponent(string component, string componentName, ref VersionResult result, out int parsedComponent)
         {
-            if (!Int32.TryParse(component, out parsedComponent))
+            if (!int.TryParse(component, out parsedComponent))
             {
                 result.SetFailure(ParseFailureKind.FormatException, component);
                 return false;
@@ -447,7 +447,7 @@ namespace System
 
         public static bool operator <(Version v1, Version v2)
         {
-            if ((Object)v1 == null)
+            if ((object)v1 == null)
                 throw new ArgumentNullException("v1");
 
             return (v1.CompareTo(v2) < 0);
@@ -455,7 +455,7 @@ namespace System
 
         public static bool operator <=(Version v1, Version v2)
         {
-            if ((Object)v1 == null)
+            if ((object)v1 == null)
                 throw new ArgumentNullException("v1");
 
             return (v1.CompareTo(v2) <= 0);
@@ -495,7 +495,7 @@ namespace System
 
             internal void SetFailure(ParseFailureKind failure)
             {
-                SetFailure(failure, String.Empty);
+                SetFailure(failure, string.Empty);
             }
 
             internal void SetFailure(ParseFailureKind failure, string argument)
@@ -525,7 +525,7 @@ namespace System
                         // Regenerate the FormatException as would be thrown by Int32.Parse()
                         try
                         {
-                            Int32.Parse(m_exceptionArgument);
+                            int.Parse(m_exceptionArgument);
                         }
                         catch (FormatException e)
                         {

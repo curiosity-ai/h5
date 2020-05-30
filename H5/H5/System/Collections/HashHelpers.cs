@@ -2,7 +2,7 @@ namespace System.Collections
 {
     internal static class HashHelpers
     {
-        private const Int32 HashPrime = 101;
+        private const int HashPrime = 101;
 
         public static readonly int RandomSeed = Guid.NewGuid().GetHashCode();
 
@@ -47,7 +47,7 @@ namespace System.Collections
                 if (prime >= min)
                     return prime;
             }
-            for (int i = (min | 1); i < Int32.MaxValue; i += 2)
+            for (int i = (min | 1); i < int.MaxValue; i += 2)
             {
                 if (IsPrime(i) && ((i - 1) % HashPrime != 0))
                     return i;

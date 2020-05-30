@@ -201,7 +201,7 @@ namespace System.Collections.Generic
             }
         }
 
-        void System.Collections.IDictionary.Add(Object key, Object value)
+        void System.Collections.IDictionary.Add(object key, object value)
         {
             if (key == null)
             {
@@ -346,7 +346,7 @@ namespace System.Collections.Generic
         }
 
         // Synchronization root for this object.
-        Object System.Collections.ICollection.SyncRoot
+        object System.Collections.ICollection.SyncRoot
         {
             get
             {
@@ -366,7 +366,7 @@ namespace System.Collections.Generic
         }
 
 
-        bool System.Collections.IDictionary.Contains(Object key)
+        bool System.Collections.IDictionary.Contains(object key)
         {
             if (IsCompatibleKey(key))
             {
@@ -546,7 +546,7 @@ namespace System.Collections.Generic
             }
             set
             {
-                if (((Object)key) == null) ThrowHelper.ThrowArgumentNullException(ExceptionArgument.key);
+                if (((object)key) == null) ThrowHelper.ThrowArgumentNullException(ExceptionArgument.key);
                 int i = Array.BinarySearch<TKey>(keys, 0, _size, key, comparer);
                 if (i >= 0)
                 {
@@ -558,7 +558,7 @@ namespace System.Collections.Generic
             }
         }
 
-        public virtual Object this[Object key]
+        public virtual object this[object key]
         {
             get
             {
@@ -684,7 +684,7 @@ namespace System.Collections.Generic
             return i >= 0;
         }
 
-        void System.Collections.IDictionary.Remove(Object key)
+        void System.Collections.IDictionary.Remove(object key)
         {
             if (IsCompatibleKey(key))
             {
@@ -750,7 +750,7 @@ namespace System.Collections.Generic
             }
 
 
-            Object System.Collections.IDictionaryEnumerator.Key
+            object System.Collections.IDictionaryEnumerator.Key
             {
                 get
                 {
@@ -802,7 +802,7 @@ namespace System.Collections.Generic
                 }
             }
 
-            Object System.Collections.IEnumerator.Current
+            object System.Collections.IEnumerator.Current
             {
                 get
                 {
@@ -822,7 +822,7 @@ namespace System.Collections.Generic
                 }
             }
 
-            Object System.Collections.IDictionaryEnumerator.Value
+            object System.Collections.IDictionaryEnumerator.Value
             {
                 get
                 {
@@ -894,7 +894,7 @@ namespace System.Collections.Generic
                 }
             }
 
-            Object System.Collections.IEnumerator.Current
+            object System.Collections.IEnumerator.Current
             {
                 get
                 {
@@ -964,7 +964,7 @@ namespace System.Collections.Generic
                 }
             }
 
-            Object System.Collections.IEnumerator.Current
+            object System.Collections.IEnumerator.Current
             {
                 get
                 {
@@ -1012,7 +1012,7 @@ namespace System.Collections.Generic
                 get { return false; }
             }
 
-            Object System.Collections.ICollection.SyncRoot
+            object System.Collections.ICollection.SyncRoot
             {
                 get { return ((ICollection)_dict).SyncRoot; }
             }
@@ -1083,7 +1083,7 @@ namespace System.Collections.Generic
 
             public int IndexOf(TKey key)
             {
-                if (((Object)key) == null)
+                if (((object)key) == null)
                     ThrowHelper.ThrowArgumentNullException(ExceptionArgument.key);
 
                 int i = Array.BinarySearch<TKey>(_dict.keys, 0,
@@ -1128,7 +1128,7 @@ namespace System.Collections.Generic
                 get { return false; }
             }
 
-            Object System.Collections.ICollection.SyncRoot
+            object System.Collections.ICollection.SyncRoot
             {
                 get { return ((ICollection)_dict).SyncRoot; }
             }

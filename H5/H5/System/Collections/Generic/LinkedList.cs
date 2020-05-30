@@ -11,9 +11,9 @@ namespace System.Collections.Generic
         internal int version;
 
         // names for serialization
-        const String VersionName = "Version";
-        const String CountName = "Count";
-        const String ValuesName = "Data";
+        const string VersionName = "Version";
+        const string CountName = "Count";
+        const string ValuesName = "Data";
 
         public LinkedList()
         {

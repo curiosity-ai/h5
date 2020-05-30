@@ -40,21 +40,21 @@ namespace System.Collections.Generic
         int count;
         int version;
 
-        private const String ComparerName = "Comparer";
-        private const String CountName = "Count";
-        private const String ItemsName = "Items";
-        private const String VersionName = "Version";
+        private const string ComparerName = "Comparer";
+        private const string CountName = "Count";
+        private const string ItemsName = "Items";
+        private const string VersionName = "Version";
         //needed for enumerator
-        private const String TreeName = "Tree";
-        private const String NodeValueName = "Item";
-        private const String EnumStartName = "EnumStarted";
-        private const String ReverseName = "Reverse";
-        private const String EnumVersionName = "EnumVersion";
+        private const string TreeName = "Tree";
+        private const string NodeValueName = "Item";
+        private const string EnumStartName = "EnumStarted";
+        private const string ReverseName = "Reverse";
+        private const string EnumVersionName = "EnumVersion";
 
-        private const String minName = "Min";
-        private const String maxName = "Max";
-        private const String lBoundActiveName = "lBoundActive";
-        private const String uBoundActiveName = "uBoundActive";
+        private const string minName = "Min";
+        private const string maxName = "Max";
+        private const string lBoundActiveName = "lBoundActive";
+        private const string uBoundActiveName = "uBoundActive";
         internal const int StackAllocThreshold = 100;
 
         #endregion
@@ -2063,7 +2063,7 @@ namespace System.Collections.Generic
                 return true;
             }
 
-            internal override bool InOrderTreeWalk(TreeWalkPredicate<T> action, Boolean reverse)
+            internal override bool InOrderTreeWalk(TreeWalkPredicate<T> action, bool reverse)
             {
                 VersionCheck();
 
@@ -2546,7 +2546,7 @@ namespace System.Collections.Generic
         }
 
         // Equals method for the comparer itself.
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             if (!(obj is SortedSetEqualityComparer<T> comparer))
             {

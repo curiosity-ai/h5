@@ -298,7 +298,7 @@
         /// <param name="startIndex">The starting position within value.</param>
         /// <param name="length">The number of array elements in value to convert.</param>
         /// <returns></returns>
-        public static String ToString(byte[] value, int startIndex, int length)
+        public static string ToString(byte[] value, int startIndex, int length)
         {
             if (value == null)
             {
@@ -325,10 +325,10 @@
                 return string.Empty;
             }
 
-            if (length > (Int32.MaxValue / 3))
+            if (length > (int.MaxValue / 3))
             {
                 // (Int32.MaxValue / 3) == 715,827,882 Bytes == 699 MB
-                throw new ArgumentOutOfRangeException("length", (Int32.MaxValue / 3).ToString());
+                throw new ArgumentOutOfRangeException("length", (int.MaxValue / 3).ToString());
             }
 
             int chArrayLength = length * 3;
@@ -346,7 +346,7 @@
             }
 
             // We don't need the last '-' character
-            return new String(chArray, 0, chArray.Length - 1);
+            return new string(chArray, 0, chArray.Length - 1);
         }
 
         /// <summary>
@@ -354,7 +354,7 @@
         /// </summary>
         /// <param name="value">An array of bytes.</param>
         /// <returns>A string of hexadecimal pairs separated by hyphens, where each pair represents the corresponding element in value; for example, "7F-2C-4A-00".</returns>
-        public static String ToString(byte[] value)
+        public static string ToString(byte[] value)
         {
             if (value == null)
             {
@@ -370,7 +370,7 @@
         /// <param name="value">An array of bytes.</param>
         /// <param name="startIndex">The starting position within value.</param>
         /// <returns>A string of hexadecimal pairs separated by hyphens, where each pair represents the corresponding element in a subarray of value; for example, "7F-2C-4A-00".</returns>
-        public static String ToString(byte[] value, int startIndex)
+        public static string ToString(byte[] value, int startIndex)
         {
             if (value == null)
             {

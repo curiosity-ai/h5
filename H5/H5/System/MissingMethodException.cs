@@ -9,17 +9,17 @@ namespace System
         {
         }
 
-        public MissingMethodException(String message)
+        public MissingMethodException(string message)
             : base(message)
         {
         }
 
-        public MissingMethodException(String message, Exception inner)
+        public MissingMethodException(string message, Exception inner)
             : base(message, inner)
         {
         }
 
-        public MissingMethodException(String className, String methodName) : base (className + "." + methodName + " Due to: Attempted to access a missing member.")
+        public MissingMethodException(string className, string methodName) : base (className + "." + methodName + " Due to: Attempted to access a missing member.")
         {
         }
     }

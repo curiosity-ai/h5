@@ -4,7 +4,7 @@ namespace System
     [H5.External]
     [H5.Constructor("Number")]
     [H5.Reflectable]
-    public struct Char : IComparable, IComparable<Char>, IEquatable<Char>, IFormattable
+    public struct Char : IComparable, IComparable<char>, IEquatable<char>, IFormattable
     {
         private extern Char(int i);
 
@@ -53,7 +53,7 @@ namespace System
         /// <param name="s">A string.</param>
         /// <param name="index">The position of the character to evaluate in s.</param>
         /// <returns>true if the character at position index in s is an uppercase letter; otherwise, false.</returns>
-        public extern static bool IsUpper(String s, int index);
+        public extern static bool IsUpper(string s, int index);
 
         [H5.Template("String.fromCharCode({0}).toLowerCase().charCodeAt(0)")]
         public static extern char ToLower(char c);
@@ -136,6 +136,6 @@ namespace System
         public override extern int GetHashCode();
 
         [H5.Template("String.fromCharCode({c})")]
-        public static extern string ToString(Char c);
+        public static extern string ToString(char c);
     }
 }

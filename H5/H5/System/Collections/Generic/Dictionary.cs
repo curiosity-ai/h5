@@ -29,10 +29,10 @@ namespace System.Collections.Generic
         private bool isSimpleKey;
 
         // constants for serialization
-        private const String VersionName = "Version";
-        private const String HashSizeName = "HashSize";  // Must save buckets.Length
-        private const String KeyValuePairsName = "KeyValuePairs";
-        private const String ComparerName = "Comparer";
+        private const string VersionName = "Version";
+        private const string HashSizeName = "HashSize";  // Must save buckets.Length
+        private const string KeyValuePairsName = "KeyValuePairs";
+        private const string ComparerName = "Comparer";
 
         public Dictionary() : this(0, null) { }
 
@@ -46,7 +46,7 @@ namespace System.Collections.Generic
             if (capacity > 0) Initialize(capacity);
             this.comparer = comparer ?? EqualityComparer<TKey>.Default;
 
-            this.isSimpleKey = ((typeof(TKey) == typeof(System.String)) || (Script.Get<bool>("TKey.$number") == true && typeof(TKey) != typeof(System.Int64) && typeof(TKey) != typeof(System.UInt64)) || (typeof(TKey) == typeof(System.Char))) && (this.comparer == EqualityComparer<TKey>.Default);
+            this.isSimpleKey = ((typeof(TKey) == typeof(string)) || (Script.Get<bool>("TKey.$number") == true && typeof(TKey) != typeof(long) && typeof(TKey) != typeof(ulong)) || (typeof(TKey) == typeof(char))) && (this.comparer == EqualityComparer<TKey>.Default);
         }
 
         public Dictionary(IDictionary<TKey, TValue> dictionary) : this(dictionary, null) { }
@@ -1015,7 +1015,7 @@ namespace System.Collections.Generic
                 get { return false; }
             }
 
-            Object ICollection.SyncRoot
+            object ICollection.SyncRoot
             {
                 get { return ((ICollection)dictionary).SyncRoot; }
             }
@@ -1071,7 +1071,7 @@ namespace System.Collections.Generic
                     }
                 }
 
-                Object System.Collections.IEnumerator.Current
+                object System.Collections.IEnumerator.Current
                 {
                     get
                     {
@@ -1240,7 +1240,7 @@ namespace System.Collections.Generic
                 get { return false; }
             }
 
-            Object ICollection.SyncRoot
+            object ICollection.SyncRoot
             {
                 get { return ((ICollection)dictionary).SyncRoot; }
             }
@@ -1295,7 +1295,7 @@ namespace System.Collections.Generic
                     }
                 }
 
-                Object System.Collections.IEnumerator.Current
+                object System.Collections.IEnumerator.Current
                 {
                     get
                     {

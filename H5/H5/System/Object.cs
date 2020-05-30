@@ -46,7 +46,7 @@ namespace System
         //[ResourceExposure(ResourceScope.None)]
         //[MethodImplAttribute(MethodImplOptions.InternalCall)]
         [H5.Template("H5.clone({this})")]
-        protected extern Object MemberwiseClone();
+        protected extern object MemberwiseClone();
 
         [H5.Convention(H5.Notation.CamelCase)]
         [H5.Template("H5.referenceEquals({a}, {b})")]

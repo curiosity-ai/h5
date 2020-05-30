@@ -8,7 +8,7 @@
     [H5.Reflectable]
     public class Match : Group
     {
-        internal extern Match(Regex regex, int capcount, String text, int begpos, int len, int startpos);
+        internal extern Match(Regex regex, int capcount, string text, int begpos, int len, int startpos);
 
         /// <summary>
         /// Gets the empty group. All failed matches return this empty match.

@@ -24,7 +24,7 @@ namespace System
     /// </summary>
     public class Random
     {
-        private const int MBIG = Int32.MaxValue;
+        private const int MBIG = int.MaxValue;
 
         private const int MSEED = 161803398;
         private const int MZ = 0;
@@ -53,7 +53,7 @@ namespace System
 
             //Initialize our Seed array.
             //This algorithm comes from Numerical Recipes in C (2nd Ed.)
-            int subtraction = (seed == Int32.MinValue) ? Int32.MaxValue : Math.Abs(seed);
+            int subtraction = (seed == int.MinValue) ? int.MaxValue : Math.Abs(seed);
             mj = MSEED - subtraction;
             SeedArray[55] = mj;
             mk = 1;
@@ -154,8 +154,8 @@ namespace System
                 result = -result;
             }
             double d = result;
-            d += (Int32.MaxValue - 1); // get a number in range [0 .. 2 * Int32MaxValue - 1)
-            d /= 2 * (uint)Int32.MaxValue - 1;
+            d += (int.MaxValue - 1); // get a number in range [0 .. 2 * Int32MaxValue - 1)
+            d /= 2 * (uint)int.MaxValue - 1;
             return d;
         }
 
@@ -174,7 +174,7 @@ namespace System
             Contract.EndContractBlock();
 
             long range = (long)maxValue - minValue;
-            if (range <= (long)Int32.MaxValue)
+            if (range <= (long)int.MaxValue)
             {
                 return ((int)(Sample() * range) + minValue);
             }
@@ -221,7 +221,7 @@ namespace System
             Contract.EndContractBlock();
             for (int i = 0; i < buffer.Length; i++)
             {
-                buffer[i] = (byte)(InternalSample() % (Byte.MaxValue + 1));
+                buffer[i] = (byte)(InternalSample() % (byte.MaxValue + 1));
             }
         }
     }

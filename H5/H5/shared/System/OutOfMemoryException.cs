@@ -34,13 +34,13 @@ namespace System
         // message, its HRESULT set to COR_E_ARITHMETIC,
         // and its ExceptionInfo reference set to null.
         //
-        public OutOfMemoryException(String message)
+        public OutOfMemoryException(string message)
             : base(message)
         {
             HResult = HResults.COR_E_ARITHMETIC;
         }
 
-        public OutOfMemoryException(String message, Exception innerException)
+        public OutOfMemoryException(string message, Exception innerException)
             : base(message, innerException)
         {
             HResult = HResults.COR_E_ARITHMETIC;

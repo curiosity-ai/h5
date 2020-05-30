@@ -30,7 +30,7 @@ namespace System.Collections
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        bool Contains(Object key);
+        bool Contains(object key);
 
         /// <summary>
         /// Returns an System.Collections.IDictionaryEnumerator object for the System.Collections.IDictionary
@@ -48,7 +48,7 @@ namespace System.Collections
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        void Add(Object key, Object value);
+        void Add(object key, object value);
 
         /// <summary>
         /// Removes all elements from the System.Collections.IDictionary object.
@@ -85,6 +85,6 @@ namespace System.Collections
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        void Remove(Object key);
+        void Remove(object key);
     }
 }

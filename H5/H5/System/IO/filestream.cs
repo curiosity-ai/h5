@@ -139,7 +139,7 @@ namespace System.IO
             }
         }
 
-        public String Name
+        public string Name
         {
             get
             {

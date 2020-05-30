@@ -4,7 +4,7 @@ namespace System
     [H5.External]
     [H5.Constructor("Number")]
     [H5.Reflectable]
-    public struct Double : IComparable, IComparable<Double>, IEquatable<Double>, IFormattable
+    public struct Double : IComparable, IComparable<double>, IEquatable<double>, IFormattable
     {
         private extern Double(int i);
 

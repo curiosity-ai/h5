@@ -64,18 +64,18 @@ namespace System.IO
     {
 
 
-        private const Int32 _DefaultBufferSize = 4096;
+        private const int _DefaultBufferSize = 4096;
 
 
         private Stream _stream;                               // Underlying stream.  Close sets _stream to null.
 
-        private Byte[] _buffer;                               // Shared read/write buffer.  Alloc on first use.
+        private byte[] _buffer;                               // Shared read/write buffer.  Alloc on first use.
 
-        private readonly Int32 _bufferSize;                   // Length of internal buffer (not counting the shadow buffer).
+        private readonly int _bufferSize;                   // Length of internal buffer (not counting the shadow buffer).
 
-        private Int32 _readPos;                               // Read pointer within shared buffer.
-        private Int32 _readLen;                               // Number of bytes read in buffer from _stream.
-        private Int32 _writePos;                              // Write pointer within shared buffer.
+        private int _readPos;                               // Read pointer within shared buffer.
+        private int _readLen;                               // Number of bytes read in buffer from _stream.
+        private int _writePos;                              // Write pointer within shared buffer.
 
         // Removing a private default constructor is a breaking change for the DataContractSerializer.
         // Because this ctor was here previously we need to keep it around.
@@ -91,7 +91,7 @@ namespace System.IO
         }
 
 
-        public BufferedStream(Stream stream, Int32 bufferSize)
+        public BufferedStream(Stream stream, int bufferSize)
         {
 
             if (stream == null)
@@ -151,7 +151,7 @@ namespace System.IO
         /// <summary><code>MaxShadowBufferSize</code> is chosed such that shadow buffers are not allocated on the Large Object Heap.
         /// Currently, an object is allocated on the LOH if it is larger than 85000 bytes. See LARGE_OBJECT_SIZE in ndp\clr\src\vm\gc.h
         /// We will go with exactly 80 KBytes, although this is somewhat arbitrary.</summary>
-        private const Int32 MaxShadowBufferSize = 81920;  // Make sure not to get to the Large Object Heap.
+        private const int MaxShadowBufferSize = 81920;  // Make sure not to get to the Large Object Heap.
         private void EnsureShadowBufferAllocated()
         {
 
@@ -162,7 +162,7 @@ namespace System.IO
             if (_buffer.Length != _bufferSize || _bufferSize >= MaxShadowBufferSize)
                 return;
 
-            Byte[] shadowBuffer = new Byte[Math.Min(_bufferSize + _bufferSize, MaxShadowBufferSize)];
+            byte[] shadowBuffer = new byte[Math.Min(_bufferSize + _bufferSize, MaxShadowBufferSize)];
             Array.Copy(_buffer, 0, shadowBuffer, 0, _writePos);
             _buffer = shadowBuffer;
         }
@@ -175,7 +175,7 @@ namespace System.IO
 
             // BufferedStream is not intended for multi-threaded use, so no worries about the get/set ---- on _buffer.
             if (_buffer == null)
-                _buffer = new Byte[_bufferSize];
+                _buffer = new byte[_bufferSize];
         }
 
 
@@ -189,7 +189,7 @@ namespace System.IO
         }
 
 
-        internal Int32 BufferSize
+        internal int BufferSize
         {
             [Pure]
             get
@@ -229,7 +229,7 @@ namespace System.IO
         }
 
 
-        public override Int64 Length
+        public override long Length
         {
             get
             {
@@ -243,7 +243,7 @@ namespace System.IO
         }
 
 
-        public override Int64 Position
+        public override long Position
         {
             get
             {
@@ -402,10 +402,10 @@ namespace System.IO
             _stream.Flush();
         }
 
-        private Int32 ReadFromBuffer(Byte[] array, Int32 offset, Int32 count)
+        private int ReadFromBuffer(byte[] array, int offset, int count)
         {
 
-            Int32 readBytes = _readLen - _readPos;
+            int readBytes = _readLen - _readPos;
             Contract.Assert(readBytes >= 0);
 
             if (readBytes == 0)
@@ -423,7 +423,7 @@ namespace System.IO
         }
 
 
-        private Int32 ReadFromBuffer(Byte[] array, Int32 offset, Int32 count, out Exception error)
+        private int ReadFromBuffer(byte[] array, int offset, int count, out Exception error)
         {
 
             try
@@ -441,7 +441,7 @@ namespace System.IO
         }
 
 
-        public override int Read([In, Out] Byte[] array, Int32 offset, Int32 count)
+        public override int Read([In, Out] byte[] array, int offset, int count)
         {
 
             if (array == null)
@@ -457,7 +457,7 @@ namespace System.IO
             EnsureNotClosed();
             EnsureCanRead();
 
-            Int32 bytesFromBuffer = ReadFromBuffer(array, offset, count);
+            int bytesFromBuffer = ReadFromBuffer(array, offset, count);
 
             // We may have read less than the number of bytes the user asked for, but that is part of the Stream contract.
 
@@ -470,7 +470,7 @@ namespace System.IO
             if (bytesFromBuffer == count)
                 return bytesFromBuffer;
 
-            Int32 alreadySatisfied = bytesFromBuffer;
+            int alreadySatisfied = bytesFromBuffer;
             if (bytesFromBuffer > 0)
             {
                 count -= bytesFromBuffer;
@@ -508,7 +508,7 @@ namespace System.IO
             return bytesFromBuffer + alreadySatisfied;
         }
 
-        public override Int32 ReadByte()
+        public override int ReadByte()
         {
 
             EnsureNotClosed();
@@ -528,15 +528,15 @@ namespace System.IO
             if (_readPos == _readLen)
                 return -1;
 
-            Int32 b = _buffer[_readPos++];
+            int b = _buffer[_readPos++];
             return b;
         }
 
 
-        private void WriteToBuffer(Byte[] array, ref Int32 offset, ref Int32 count)
+        private void WriteToBuffer(byte[] array, ref int offset, ref int count)
         {
 
-            Int32 bytesToWrite = Math.Min(_bufferSize - _writePos, count);
+            int bytesToWrite = Math.Min(_bufferSize - _writePos, count);
 
             if (bytesToWrite <= 0)
                 return;
@@ -550,7 +550,7 @@ namespace System.IO
         }
 
 
-        private void WriteToBuffer(Byte[] array, ref Int32 offset, ref Int32 count, out Exception error)
+        private void WriteToBuffer(byte[] array, ref int offset, ref int count, out Exception error)
         {
 
             try
@@ -567,7 +567,7 @@ namespace System.IO
         }
 
 
-        public override void Write(Byte[] array, Int32 offset, Int32 count)
+        public override void Write(byte[] array, int offset, int count)
         {
 
             if (array == null)
@@ -648,7 +648,7 @@ namespace System.IO
 
             Contract.Assert(_writePos < _bufferSize);
 
-            Int32 totalUserBytes;
+            int totalUserBytes;
             bool useBuffer;
             checked
             {  // We do not expect buffer sizes big enough for an overflow, but if it happens, lets fail early:
@@ -711,7 +711,7 @@ namespace System.IO
             }
         }
 
-        public override void WriteByte(Byte value)
+        public override void WriteByte(byte value)
         {
 
             EnsureNotClosed();
@@ -734,7 +734,7 @@ namespace System.IO
         }
 
 
-        public override Int64 Seek(Int64 offset, SeekOrigin origin)
+        public override long Seek(long offset, SeekOrigin origin)
         {
 
             EnsureNotClosed();
@@ -760,16 +760,16 @@ namespace System.IO
                 offset -= (_readLen - _readPos);
             }
 
-            Int64 oldPos = Position;
+            long oldPos = Position;
             Contract.Assert(oldPos == _stream.Position + (_readPos - _readLen));
 
-            Int64 newPos = _stream.Seek(offset, origin);
+            long newPos = _stream.Seek(offset, origin);
 
             // If the seek destination is still within the data currently in the buffer, we want to keep the buffer data and continue using it.
             // Otherwise we will throw away the buffer. This can only happen on READ, as we flushed WRITE data above.
 
             // The offset of the new/updated seek pointer within _buffer:
-            _readPos = (Int32)(newPos - (oldPos - _readPos));
+            _readPos = (int)(newPos - (oldPos - _readPos));
 
             // If the offset of the updated seek pointer in the buffer is still legal, then we can keep using the buffer:
             if (0 <= _readPos && _readPos < _readLen)
@@ -790,7 +790,7 @@ namespace System.IO
         }
 
 
-        public override void SetLength(Int64 value)
+        public override void SetLength(long value)
         {
 
             if (value < 0)

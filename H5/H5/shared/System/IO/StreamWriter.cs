@@ -118,26 +118,26 @@ namespace System.IO
             Init(stream, encoding, bufferSize, leaveOpen);
         }
 
-        public StreamWriter(String path)
+        public StreamWriter(string path)
             : this(path, false, UTF8NoBOM, DefaultBufferSize)
         {
         }
 
-        public StreamWriter(String path, bool append)
+        public StreamWriter(string path, bool append)
             : this(path, append, UTF8NoBOM, DefaultBufferSize)
         {
         }
 
-        public StreamWriter(String path, bool append, Encoding encoding)
+        public StreamWriter(string path, bool append, Encoding encoding)
             : this(path, append, encoding, DefaultBufferSize)
         {
         }
 
-        public StreamWriter(String path, bool append, Encoding encoding, int bufferSize) : this(path, append, encoding, bufferSize, true)
+        public StreamWriter(string path, bool append, Encoding encoding, int bufferSize) : this(path, append, encoding, bufferSize, true)
         {
         }
 
-        internal StreamWriter(String path, bool append, Encoding encoding, int bufferSize, bool checkHost)
+        internal StreamWriter(string path, bool append, Encoding encoding, int bufferSize, bool checkHost)
             : base(null)
         {
             throw new NotSupportedException();
@@ -347,7 +347,7 @@ namespace System.IO
             if (autoFlush) Flush(true, false);
         }
 
-        public override void Write(String value)
+        public override void Write(string value)
         {
             if (value != null)
             {

@@ -29,11 +29,11 @@ namespace System.IO
         {
         }
 
-        public EndOfStreamException(String message) : base(message)
+        public EndOfStreamException(string message) : base(message)
         {
         }
 
-        public EndOfStreamException(String message, Exception innerException) : base(message, innerException)
+        public EndOfStreamException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

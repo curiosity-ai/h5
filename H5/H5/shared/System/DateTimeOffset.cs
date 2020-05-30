@@ -40,8 +40,8 @@ namespace System {
                                    IComparable<DateTimeOffset>, IEquatable<DateTimeOffset> {
 
         // Constants
-        internal const Int64 MaxOffset = TimeSpan.TicksPerHour * 14;
-        internal const Int64 MinOffset = -MaxOffset;
+        internal const long MaxOffset = TimeSpan.TicksPerHour * 14;
+        internal const long MinOffset = -MaxOffset;
 
         private const long UnixEpochTicks = TimeSpan.TicksPerDay * DateTime.DaysTo1970; // 621,355,968,000,000,000
         private const long UnixEpochSeconds = UnixEpochTicks / TimeSpan.TicksPerSecond; // 62,135,596,800
@@ -53,7 +53,7 @@ namespace System {
 
         // Instance Fields
         private DateTime m_dateTime;
-        private Int16 m_offsetMinutes;
+        private short m_offsetMinutes;
 
         // Constructors
 
@@ -418,7 +418,7 @@ namespace System {
         // argument must be another DateTimeOffset, or otherwise an exception
         // occurs.  Null is considered less than any instance.
         //
-        int IComparable.CompareTo(Object obj) {
+        int IComparable.CompareTo(object obj) {
             if (obj == null) return 1;
             if (!(obj is DateTimeOffset)) {
                 throw new ArgumentException(Environment.GetResourceString("Arg_MustBeDateTimeOffset"));
@@ -446,7 +446,7 @@ namespace System {
         // otherwise.
         //
         [H5.Convention(Notation = H5.Notation.CamelCase)]
-        public override bool Equals(Object obj) {
+        public override bool Equals(object obj) {
             if (obj is DateTimeOffset) {
                 return UtcDateTime.Equals(((DateTimeOffset)obj).UtcDateTime);
             }
@@ -512,7 +512,7 @@ namespace System {
 
         // ----- SECTION: private serialization instance methods  ----------------*
 
-        void IDeserializationCallback.OnDeserialization(Object sender) {
+        void IDeserializationCallback.OnDeserialization(object sender) {
             try {
                 m_offsetMinutes = ValidateOffset(Offset);
                 m_dateTime      = ValidateDate(ClockDateTime, Offset);
@@ -557,7 +557,7 @@ namespace System {
         // date and optionally a time in a culture-specific or universal format.
         // Leading and trailing whitespace characters are allowed.
         //
-        public static DateTimeOffset Parse(String input) {
+        public static DateTimeOffset Parse(string input) {
             TimeSpan offset;
             DateTime dateResult = DateTimeParse.Parse(input,
                                                       DateTimeFormatInfo.CurrentInfo,
@@ -570,11 +570,11 @@ namespace System {
         // date and optionally a time in a culture-specific or universal format.
         // Leading and trailing whitespace characters are allowed.
         //
-        public static DateTimeOffset Parse(String input, IFormatProvider formatProvider) {
+        public static DateTimeOffset Parse(string input, IFormatProvider formatProvider) {
             return Parse(input, formatProvider, DateTimeStyles.None);
         }
 
-        public static DateTimeOffset Parse(String input, IFormatProvider formatProvider, DateTimeStyles styles) {
+        public static DateTimeOffset Parse(string input, IFormatProvider formatProvider, DateTimeStyles styles) {
             throw NotImplemented.ByDesign;
             // TODO: NotSupported [DateTimeFormatInfo]
             //styles = ValidateStyles(styles, "styles");
@@ -590,7 +590,7 @@ namespace System {
         // date and optionally a time in a culture-specific or universal format.
         // Leading and trailing whitespace characters are allowed.
         //
-        public static DateTimeOffset ParseExact(String input, String format, IFormatProvider formatProvider) {
+        public static DateTimeOffset ParseExact(string input, string format, IFormatProvider formatProvider) {
             return ParseExact(input, format, formatProvider, DateTimeStyles.None);
         }
 
@@ -598,7 +598,7 @@ namespace System {
         // date and optionally a time in a culture-specific or universal format.
         // Leading and trailing whitespace characters are allowed.
         //
-        public static DateTimeOffset ParseExact(String input, String format, IFormatProvider formatProvider, DateTimeStyles styles) {
+        public static DateTimeOffset ParseExact(string input, string format, IFormatProvider formatProvider, DateTimeStyles styles) {
             throw NotImplemented.ByDesign;
             //TODO: NotSupported [DateTimeFormatInfo]
             //styles = ValidateStyles(styles, "styles");
@@ -674,7 +674,7 @@ namespace System {
         }
 
         [H5.Convention(Notation = H5.Notation.CamelCase)]
-        public override String ToString()
+        public override string ToString()
         {
             return DateTime.SpecifyKind(ClockDateTime, DateTimeKind.Local).ToString();
 
@@ -682,7 +682,7 @@ namespace System {
             //return DateTimeFormat.Format(ClockDateTime, null, null, Offset);
         }
 
-        public String ToString(String format)
+        public string ToString(string format)
         {
             return DateTime.SpecifyKind(ClockDateTime, DateTimeKind.Local).ToString(format);
 
@@ -690,7 +690,7 @@ namespace System {
             //return DateTimeFormat.Format(ClockDateTime, format, null, Offset);
         }
 
-        public String ToString(IFormatProvider formatProvider)
+        public string ToString(IFormatProvider formatProvider)
         {
             return DateTime.SpecifyKind(ClockDateTime, DateTimeKind.Local).ToString(null, formatProvider);
 
@@ -698,7 +698,7 @@ namespace System {
             //return DateTimeFormat.Format(ClockDateTime, null, formatProvider, Offset);
         }
 
-        public String ToString(String format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider formatProvider)
         {
             return DateTime.SpecifyKind(ClockDateTime, DateTimeKind.Local).ToString(format, formatProvider);
 
@@ -710,10 +710,10 @@ namespace System {
             return new DateTimeOffset(UtcDateTime);
         }
 
-        public static Boolean TryParse(String input, out DateTimeOffset result) {
+        public static bool TryParse(string input, out DateTimeOffset result) {
             TimeSpan offset;
             DateTime dateResult;
-            Boolean parsed = DateTimeParse.TryParse(input,
+            bool parsed = DateTimeParse.TryParse(input,
                                                     DateTimeFormatInfo.CurrentInfo,
                                                     DateTimeStyles.None,
                                                     out dateResult,
@@ -769,15 +769,15 @@ namespace System {
         //}
 
         // Ensures the TimeSpan is valid to go in a DateTimeOffset.
-        private static Int16 ValidateOffset(TimeSpan offset) {
-            Int64 ticks = offset.Ticks;
+        private static short ValidateOffset(TimeSpan offset) {
+            long ticks = offset.Ticks;
             if (ticks % TimeSpan.TicksPerMinute != 0) {
                 throw new ArgumentException(Environment.GetResourceString("Argument_OffsetPrecision"), "offset");
             }
             if (ticks < MinOffset || ticks > MaxOffset) {
                 throw new ArgumentOutOfRangeException("offset", Environment.GetResourceString("Argument_OffsetOutOfRange"));
             }
-            return (Int16)(offset.Ticks / TimeSpan.TicksPerMinute);
+            return (short)(offset.Ticks / TimeSpan.TicksPerMinute);
         }
 
         // Ensures that the time and offset are in range.
@@ -787,7 +787,7 @@ namespace System {
             Contract.Assert(offset.Ticks >= MinOffset && offset.Ticks <= MaxOffset, "Offset not validated.");
             // This operation cannot overflow because offset should have already been validated to be within
             // 14 hours and the DateTime instance is more than that distance from the boundaries of Int64.
-            Int64 utcTicks = dateTime.Ticks - offset.Ticks;
+            long utcTicks = dateTime.Ticks - offset.Ticks;
             if (utcTicks < DateTime.MinTicks || utcTicks > DateTime.MaxTicks) {
                 throw new ArgumentOutOfRangeException("offset", Environment.GetResourceString("Argument_UTCOutOfRange"));
             }

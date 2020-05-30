@@ -121,16 +121,16 @@ namespace System.IO
             return n;
         }
 
-        public virtual Task<String> ReadToEndAsync()
+        public virtual Task<string> ReadToEndAsync()
         {
             return Task.FromResult(ReadToEnd());
         }
 
         // Reads all characters from the current position to the end of the
         // TextReader, and returns them as one string.
-        public virtual String ReadToEnd()
+        public virtual string ReadToEnd()
         {
-            Contract.Ensures(Contract.Result<String>() != null);
+            Contract.Ensures(Contract.Result<string>() != null);
 
             char[] chars = new char[4096];
             int len;
@@ -164,7 +164,7 @@ namespace System.IO
         // contain the terminating carriage return and/or line feed. The returned
         // value is null if the end of the input stream has been reached.
         //
-        public virtual String ReadLine()
+        public virtual string ReadLine()
         {
             StringBuilder sb = new StringBuilder();
             while (true)
@@ -205,7 +205,7 @@ namespace System.IO
                 return 0;
             }
 
-            public override String ReadLine()
+            public override string ReadLine()
             {
                 return null;
             }

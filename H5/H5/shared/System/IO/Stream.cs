@@ -200,14 +200,14 @@ namespace System.IO
         public abstract void Flush();
 
         [HostProtection(ExternalThreading = true)]
-        public virtual IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
+        public virtual IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
         {
             Contract.Ensures(Contract.Result<IAsyncResult>() != null);
             return BeginReadInternal(buffer, offset, count, callback, state, serializeAsynchronously: false);
         }
 
         [HostProtection(ExternalThreading = true)]
-        internal IAsyncResult BeginReadInternal(byte[] buffer, int offset, int count, AsyncCallback callback, Object state, bool serializeAsynchronously)
+        internal IAsyncResult BeginReadInternal(byte[] buffer, int offset, int count, AsyncCallback callback, object state, bool serializeAsynchronously)
         {
             Contract.Ensures(Contract.Result<IAsyncResult>() != null);
             if (!CanRead) __Error.ReadNotSupported();
@@ -225,14 +225,14 @@ namespace System.IO
             return BlockingEndRead(asyncResult);
         }
 
-        public virtual IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
+        public virtual IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
         {
             Contract.Ensures(Contract.Result<IAsyncResult>() != null);
             return BeginWriteInternal(buffer, offset, count, callback, state, serializeAsynchronously: false);
         }
 
         [HostProtection(ExternalThreading = true)]
-        internal IAsyncResult BeginWriteInternal(byte[] buffer, int offset, int count, AsyncCallback callback, Object state, bool serializeAsynchronously)
+        internal IAsyncResult BeginWriteInternal(byte[] buffer, int offset, int count, AsyncCallback callback, object state, bool serializeAsynchronously)
         {
             Contract.Ensures(Contract.Result<IAsyncResult>() != null);
             if (!CanWrite) __Error.WriteNotSupported();
@@ -296,7 +296,7 @@ namespace System.IO
             return stream;
         }
 
-        internal IAsyncResult BlockingBeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
+        internal IAsyncResult BlockingBeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
         {
             Contract.Ensures(Contract.Result<IAsyncResult>() != null);
 
@@ -332,7 +332,7 @@ namespace System.IO
             return SynchronousAsyncResult.EndRead(asyncResult);
         }
 
-        internal IAsyncResult BlockingBeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
+        internal IAsyncResult BlockingBeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
         {
             Contract.Ensures(Contract.Result<IAsyncResult>() != null);
 
@@ -429,7 +429,7 @@ namespace System.IO
             }
 
             [HostProtection(ExternalThreading = true)]
-            public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
+            public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
             {
                 if (!CanRead) __Error.ReadNotSupported();
 
@@ -446,7 +446,7 @@ namespace System.IO
             }
 
             [HostProtection(ExternalThreading = true)]
-            public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, Object state)
+            public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
             {
                 if (!CanWrite) __Error.WriteNotSupported();
 
@@ -495,28 +495,28 @@ namespace System.IO
         internal sealed class SynchronousAsyncResult : IAsyncResult
         {
 
-            private readonly Object _stateObject;
+            private readonly object _stateObject;
             private readonly bool _isWrite;
             //private ManualResetEvent _waitHandle;
             private Exception _exceptionInfo;
 
             private bool _endXxxCalled;
-            private Int32 _bytesRead;
+            private int _bytesRead;
 
-            internal SynchronousAsyncResult(Int32 bytesRead, Object asyncStateObject)
+            internal SynchronousAsyncResult(int bytesRead, object asyncStateObject)
             {
                 _bytesRead = bytesRead;
                 _stateObject = asyncStateObject;
                 //_isWrite = false;
             }
 
-            internal SynchronousAsyncResult(Object asyncStateObject)
+            internal SynchronousAsyncResult(object asyncStateObject)
             {
                 _stateObject = asyncStateObject;
                 _isWrite = true;
             }
 
-            internal SynchronousAsyncResult(Exception ex, Object asyncStateObject, bool isWrite)
+            internal SynchronousAsyncResult(Exception ex, object asyncStateObject, bool isWrite)
             {
                 _exceptionInfo = ex;
                 _stateObject = asyncStateObject;
@@ -538,7 +538,7 @@ namespace System.IO
                 }
             }*/
 
-            public Object AsyncState
+            public object AsyncState
             {
                 get
                 {
@@ -560,7 +560,7 @@ namespace System.IO
                     throw _exceptionInfo;
             }
 
-            internal static Int32 EndRead(IAsyncResult asyncResult)
+            internal static int EndRead(IAsyncResult asyncResult)
             {
 
                 SynchronousAsyncResult ar = asyncResult as SynchronousAsyncResult;

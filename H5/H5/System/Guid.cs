@@ -179,7 +179,7 @@ namespace System
         /// </summary>
         /// <param name="o">An object to compare to this instance.</param>
         /// <returns>true if o is equal to this instance; otherwise, false.</returns>
-        public override bool Equals(Object o)
+        public override bool Equals(object o)
         {
             if (!(o is Guid))
             {

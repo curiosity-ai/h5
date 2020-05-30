@@ -7,6 +7,8 @@ namespace H5.Contract
 {
     public interface IAssemblyInfo
     {
+        List<IPluginDependency> Dependencies{ get; set; }
+
         string FileName{ get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
@@ -39,11 +41,15 @@ namespace H5.Contract
 
         string BuildArguments{ get; set; }
 
+        string Configuration{ get; set; }
+
+        List<string> DefineConstants{ get; set; }
+
         /// <summary>
-        /// Deletes files from output directory using pattern "*.js|*.d.ts|*.css" before build (before extracting scripts after translation).
+        /// Deletes files from output directory using pattern "*.js|*.d.ts" before build (before extracting scripts after translation).
         /// It is useful to replace BeforeBuild event if it just contain commands to clean the output folder.
         /// </summary>
-        [JsonConverter(typeof(StringBoolJsonConverter), "*" + Files.Extensions.JS + "|*" + Files.Extensions.DTS + "|*" + Files.Extensions.CSS)]
+        [JsonConverter(typeof(StringBoolJsonConverter), "*" + Files.Extensions.JS + "|*" + Files.Extensions.DTS)]
         string CleanOutputFolderBeforeBuild{ get; set; }
 
         /// <summary>

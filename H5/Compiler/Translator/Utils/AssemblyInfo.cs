@@ -10,6 +10,8 @@ namespace H5.Translator
 
         public AssemblyInfo()
         {
+            Dependencies = new List<IPluginDependency>();
+            DefineConstants = new List<string>();
             Reflection = new ReflectionConfig();
             ReflectionInternal = new ReflectionConfig();
             Assembly = new AssemblyConfig();
@@ -107,6 +109,11 @@ namespace H5.Translator
         public Module Module { get; set; }
 
         /// <summary>
+        /// The list of module dependencies.
+        /// </summary>
+        public List<IPluginDependency> Dependencies { get; set; }
+
+        /// <summary>
         /// The executable file to be launched before building. The path will be concatenated with the project's root.
         /// For example, it might be used for cleaning up the output directory - "H5\\builder\\clean.bat".
         /// </summary>
@@ -155,6 +162,10 @@ namespace H5.Translator
         /// Sets pattern for cleaning output directory.
         /// </summary>
         public string CleanOutputFolderBeforeBuildPattern { get; set; }
+
+        public string Configuration { get; set; }
+
+        public List<string> DefineConstants { get; set; }
 
         public string Locales { get; set; }
 

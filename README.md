@@ -1,6 +1,9 @@
-#  h5 - C# to JavaScript compiler, now on .NET Core 3.1 🚀
+#  h5 🚀 - C# to JavaScript compiler, now on .NET Core 3.1 
+
+<a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 
 H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET Core 3.1 and .NET Standard 2.0 projects, while dropping support for legacy features and dependencies.
+
 
 H5 is under active development, and targets a more integrated and faster development experience for C# web-developers. We're also planning to experiment with new ideas to improve compilation speed (such as aggressive caching of emitted code) and possibly integrating [C# Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/)) for even faster code generation.
 

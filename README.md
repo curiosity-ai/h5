@@ -1,4 +1,4 @@
-#  h5 - C# to JavaScript compiler, now on .NET Core 3.1 🚀
+#  h5 🚀 - C# to JavaScript compiler, now on .NET Core 3.1 
 
 <a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 

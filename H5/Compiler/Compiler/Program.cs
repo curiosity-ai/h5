@@ -198,28 +198,48 @@ namespace H5.Compiler
 
         private static void SayHi()
         {
+            //void Print(string text)
+            //{
+            //    for(int i = 0; i < text.Length; i++)
+            //    {
+            //        if (text[i] == 'R')
+            //        {
+            //            Console.ForegroundColor = ConsoleColor.DarkRed;
+            //        }
+            //        else if (text[i] == 'Y')
+            //        {
+            //            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            //        }
+            //        else if (text[i] == 'W')
+            //        {
+            //            Console.ForegroundColor = ConsoleColor.Blue;
+            //        }
+            //        else
+            //        {
+            //            Console.Write(text[i]);
+            //        }
+            //    }
+            //}
+
             void Print(string text)
             {
-                for(int i = 0; i < text.Length; i++)
+                var prev = ' ';
+                for (int i = 0; i < text.Length; i++)
                 {
-                    if (text[i] == 'R')
+                    var c = text[i];
+                    if (prev != c && c== '5')
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
                     }
-                    else if (text[i] == 'Y')
+                    else if (prev != c && c == 'h')
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                     }
-                    else if (text[i] == 'W')
-                    {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                    }
-                    else
-                    {
-                        Console.Write(text[i]);
-                    }
+                    prev = c;
+                    Console.Write(text[i]);
                 }
             }
+
 
             try
             {
@@ -230,37 +250,28 @@ namespace H5.Compiler
 @"
 
 
-    Y    )                                                      
-     ( /( (  (       (                           (             
-     )\R()Y))\))(      )\           )          (   )\   (   (    
-    (R(_)Y\(R(_)Y()\   ((R(_)Y   (     (     `  )  )\ (R(_)Y ))\  )(   
-    W _R((W_R)Y(R()Y(R(_)Y  )\W___Y)  Y)\    )\  ' /(/( (R(_)Y W_Y  /(R(W_R)Y(()\  
-    W| || | | __|  Y(R(W/ __| Y(R(W_R)W _Y(R(W_R)Y) (R(W_R)W_Y\ R(W_R)W| |R(W_R)W)   (R(W_R) 
-    W| __ | |__ \   | (__ / _ \| '  \R()W/ '_ \)| || |/ -_) | '_| 
-    |_||_| |___/    \___|\___/|_|_|_| | .__/ |_||_|\___| |_|   
-                                      |_|                      
+     5555555555555555555555555555555555555555
+      5555555555555555555hhhhhhhhhhhhhhhh5555
+      555     55555555555hh             h5555 
+      555     55555555555hh             h555  
+      555     55555555555hh     hhhhhhhhh555  
+       55     55555555555hh     hhhhhhhhh555  
+       555     5555555555hh     hhhhhhhh5555  
+       555              5hh            h5555  
+       555              5hh            h555   
+        555    5555     5hhhhhhhh      h555   
+        555    5555     5hhhhhhhh      h555   
+        555     555     5hhhhhhhh     h5555   
+        555     555     5hh           h555    
+        5555555 555     5hh        hhhh555    
+         5555555555555555hhhhhhhhhhhhhh555    
+         5555555555555555hhhhhhh5555555555    
+               55555555555555555555           
+                 5555555555555555            
 
 
-");
-
-                // The above call prints the following:
-
-                //        )                                              
-                //     ( /((  (       (                      (           
-                //     )\())\))(      )\         )        (  )\  (  (    
-                //    ((_)((_)()\   (((_)  (    (    `  ) )\((_)))\ )(   
-                //     _((_|()((_)  )\___  )\   )\  '/(/(((_)_ /((_|()\  
-                //    | || || __|  ((/ __|((_)_((_))((_)_\(_) (_))  ((_) 
-                //    | __ ||__ \   | (__/ _ \ '  \() '_ \) | / -_)| '_| 
-                //    |_||_||___/    \___\___/_|_|_|| .__/|_|_\___||_|   
-                //                                  |_|                  
-
-                // Alternative:
-                //     _  _ ___    ___                _ _         
-                //    | || | __|  / __|___ _ __  _ __(_) |___ _ _ 
-                //    | __ |__ \ | (__/ _ \ '  \| '_ \ | / -_) '_|
-                //    |_||_|___/  \___\___/_|_|_| .__/_|_\___|_|  
-                //                              |_|               
+"
+                    );
 
                 Console.ResetColor();
             }

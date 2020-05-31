@@ -26,8 +26,8 @@ namespace Test.Compiler.Service
             var request = new CompilationRequest("App", settings)
                             .NoPackageResources()
                             .NoHTML()
-                            .WithPackageReference("h5",      NuGetVersion.Parse("0.0.8032"))
-                            .WithPackageReference("h5.Core", NuGetVersion.Parse("0.0.8007"))
+                            .WithPackageReference("h5",      NuGetVersion.Parse("0.0.8537"))
+                            .WithPackageReference("h5.Core", NuGetVersion.Parse("0.0.8533"))
                             .WithSourceFile("App.cs",
 @"
 using System;

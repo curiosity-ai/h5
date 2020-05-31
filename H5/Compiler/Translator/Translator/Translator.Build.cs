@@ -409,7 +409,7 @@ namespace H5.Translator
             }
             else
             {
-                return Path.GetFullPath("~/.nuget/packages/");
+                return Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages"));
             }
         }
 

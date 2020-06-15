@@ -971,9 +971,9 @@ namespace H5.Contract
 
         public static IAttribute GetInheritedAttribute(IEntity entity, string attrName)
         {
-            if (entity is IMember)
+            if (entity is IMember member)
             {
-                return GetInheritedAttribute((IMember)entity, attrName);
+                return GetInheritedAttribute(member, attrName);
             }
 
             foreach (var attr in entity.Attributes)

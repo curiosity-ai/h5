@@ -133,14 +133,14 @@ namespace H5.Translator
                     }
                 }
 
-                if(annotatedNode.Parent is BlockSyntax || !(annotatedNode is StatementSyntax))
+                if(annotatedNode.Parent is BlockSyntax || !(annotatedNode is StatementSyntax syntax))
                 {
                     root = root.InsertNodesBefore(annotatedNode, varStatements);
                 }
                 else
                 {
                     var list = new List<StatementSyntax>(varStatements);
-                    list.Add((StatementSyntax)annotatedNode);
+                    list.Add(syntax);
                     root = root.ReplaceNode(annotatedNode, SyntaxFactory.Block(list).NormalizeWhitespace());
                 }
             }

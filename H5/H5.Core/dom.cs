@@ -22001,6 +22001,12 @@ namespace H5.Core
                 set;
             }
 
+            public virtual dom.Document.onclickFn onauxclick
+            {
+                get;
+                set;
+            }
+
             public virtual dom.Document.oncontextmenuFn oncontextmenu
             {
                 get;
@@ -30242,6 +30248,12 @@ namespace H5.Core
             }
 
             public virtual dom.HTMLElement.onclickFn onclick
+            {
+                get;
+                set;
+            }
+
+            public virtual dom.HTMLElement.onclickFn onauxclick
             {
                 get;
                 set;
@@ -44582,10 +44594,6 @@ namespace H5.Core
         [FormerInterface]
         public class Notification : dom.EventTarget
         {
-
-
-
-
             public extern Notification(string title);
 
             public extern Notification(string title, dom.NotificationOptions options);

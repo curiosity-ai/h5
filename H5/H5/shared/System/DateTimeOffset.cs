@@ -447,8 +447,8 @@ namespace System {
         //
         [H5.Convention(Notation = H5.Notation.CamelCase)]
         public override bool Equals(object obj) {
-            if (obj is DateTimeOffset) {
-                return UtcDateTime.Equals(((DateTimeOffset)obj).UtcDateTime);
+            if (obj is DateTimeOffset offset) {
+                return UtcDateTime.Equals(offset.UtcDateTime);
             }
             return false;
         }

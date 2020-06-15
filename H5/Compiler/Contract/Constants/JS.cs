@@ -351,7 +351,7 @@
             public static readonly string[] Words = new string[]
             {
                 "H5", "__proto__", "abstract", "arguments", "as", "boolean", "break", "byte", "case", "catch", "char",
-                "class", "continue", "const", "constructor", "ctor", "debugger", "default", "delete", "do", "double",
+                "class", "continue", "const", "constructor", "ctor", "debugger", "default", "delete", "do", "double", "document",
                 "else", "enum", "eval", "export", "extends", "false", "final", "finally", "float", "for", "function",
                 "goto", "if", "implements", "import", "in", "instanceof", "int", "interface", "let", "long", "namespace",
                 "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super",

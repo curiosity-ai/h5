@@ -476,9 +476,8 @@ namespace H5.Contract
                     expression.Parent is VariableInitializer ||
                     expression.Parent is ForeachStatement && resolveResult is ForEachResolveResult)
                 {
-                    if (expression != null && expression.Parent is InvocationExpression)
+                    if (expression != null && expression.Parent is InvocationExpression invocationExpression)
                     {
-                        var invocationExpression = (InvocationExpression)expression.Parent;
                         if (invocationExpression.Target == expression)
                         {
                             return;

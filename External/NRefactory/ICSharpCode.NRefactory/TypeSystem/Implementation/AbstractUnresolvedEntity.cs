@@ -206,10 +206,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         public string Name {
             get { return name; }
             set {
-                if (value == null)
-                    throw new ArgumentNullException("value");
                 ThrowIfFrozen();
-                name = value;
+                name = value ?? throw new ArgumentNullException("value");
             }
         }
 

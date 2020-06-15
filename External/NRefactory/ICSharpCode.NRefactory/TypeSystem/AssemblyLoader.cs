@@ -82,9 +82,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
         public InterningProvider InterningProvider {
             get { return interningProvider; }
             set {
-                if (value == null)
-                    throw new ArgumentNullException();
-                interningProvider = value;
+                interningProvider = value ?? throw new ArgumentNullException();
             }
         }
 

@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Logging;
 using Mosaik.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -26,6 +27,17 @@ namespace H5.Translator
     public class SharpSixRewriterCachedOutput
     {
         public ConcurrentDictionary<string, (UID128 hash, string code)> CachedCompilation { get; set; } = new ConcurrentDictionary<string, (UID128 hash, string code)>();
+        
+        public UID128 ConfigHash { get; set; }
+
+        public void ClearIfConfigHashChanged(UID128 previousConfigHash, bool force = false)
+        {
+            if (ConfigHash != previousConfigHash || force)
+            {
+                ConfigHash = previousConfigHash;
+                CachedCompilation.Clear();
+            }
+        }
     }
 
     public class SharpSixRewriter : CSharpSyntaxRewriter
@@ -59,6 +71,24 @@ namespace H5.Translator
             compilation = CreateCompilation();
             isParent = true;
             _cachedRewrittenData = LoadCache();
+
+            //RFO: It's an assumption that only the config affects the end-result. Need to test what else could possibly affect it, and ignore if anything changed.
+            //     THERE IS ALSO A POSSIBLE PROBLEMATIC ISSUE WITH THE ORDER THAT TYPES METHODS ARE EMITTED.
+            //     Example: ctor vs. ctor$1, which will break this assumption and lead to bad-code being emitted when reusing cached code
+
+            var configHash = JsonConvert.SerializeObject(translator.AssemblyInfo).Hash128();
+
+            foreach (var reference in translator.References.OrderBy(r => r.MainModule.FileName))
+            {
+                var fi = new FileInfo(reference.MainModule.FileName);
+                configHash = Hashes.Combine(configHash, reference.FullName.Hash128(), $"{fi.Length}/{fi.LastWriteTime}".Hash128());
+            }
+
+            var context = translator.GetVersionContext();
+
+            configHash = Hashes.Combine(configHash, $"{context.Compiler.Version}/{context.H5.Version}".Hash128());
+
+            _cachedRewrittenData.ClearIfConfigHashChanged(configHash);
         }
 
         public SharpSixRewriter Clone()
@@ -94,6 +124,7 @@ namespace H5.Translator
                     using(var f = File.OpenRead(cf))
                     {
                         var cached =  MessagePackSerializer.Deserialize<SharpSixRewriterCachedOutput>(f);
+
                         foreach(var key in cached.CachedCompilation.Keys.Except(translator.SourceFiles).ToArray())
                         {
                             cached.CachedCompilation.TryRemove(key, out _);

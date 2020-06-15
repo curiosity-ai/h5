@@ -58,9 +58,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         /// <param name="assemblyName">Full assembly name</param>
         public DefaultUnresolvedAssembly(string assemblyName)
         {
-            if (assemblyName == null)
-                throw new ArgumentNullException("assemblyName");
-            this.fullAssemblyName = assemblyName;
+            this.fullAssemblyName = assemblyName ?? throw new ArgumentNullException("assemblyName");
             int pos = assemblyName != null ? assemblyName.IndexOf(',') : -1;
             this.assemblyName = pos < 0 ? assemblyName : assemblyName.Substring(0, pos);
             this.assemblyAttributes = new List<IUnresolvedAttribute>();
@@ -77,10 +75,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         public string AssemblyName {
             get { return assemblyName; }
             set {
-                if (value == null)
-                    throw new ArgumentNullException("value");
                 FreezableHelper.ThrowIfFrozen(this);
-                assemblyName = value;
+                assemblyName = value ?? throw new ArgumentNullException("value");
             }
         }
 
@@ -94,10 +90,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         public string FullAssemblyName {
             get { return fullAssemblyName; }
             set {
-                if (value == null)
-                    throw new ArgumentNullException("value");
                 FreezableHelper.ThrowIfFrozen(this);
-                fullAssemblyName = value;
+                fullAssemblyName = value ?? throw new ArgumentNullException("value");
             }
         }
 
@@ -524,9 +518,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public NamespaceReference(IAssemblyReference assemblyReference, string fullName)
         {
-            if (assemblyReference == null)
-                throw new ArgumentNullException("assemblyReference");
-            this.assemblyReference = assemblyReference;
+            this.assemblyReference = assemblyReference ?? throw new ArgumentNullException("assemblyReference");
             this.fullName = fullName;
         }
 

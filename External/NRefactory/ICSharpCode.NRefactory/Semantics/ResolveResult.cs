@@ -32,9 +32,7 @@ namespace ICSharpCode.NRefactory.Semantics
 
         public ResolveResult(IType type)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-            this.type = type;
+            this.type = type ?? throw new ArgumentNullException("type");
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1721:PropertyNamesShouldNotMatchGetMethods",

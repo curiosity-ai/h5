@@ -44,12 +44,8 @@ namespace ICSharpCode.NRefactory.Documentation
         /// <param name="context">Context for resolving cref attributes.</param>
         public DocumentationComment(ITextSource xml, ITypeResolveContext context)
         {
-            if (xml == null)
-                throw new ArgumentNullException("xml");
-            if (context == null)
-                throw new ArgumentNullException("context");
-            this.xml = xml;
-            this.context = context;
+            this.xml = xml ?? throw new ArgumentNullException("xml");
+            this.context = context ?? throw new ArgumentNullException("context");
         }
 
         /// <summary>
@@ -61,10 +57,8 @@ namespace ICSharpCode.NRefactory.Documentation
         {
             if (xml == null)
                 throw new ArgumentNullException("xml");
-            if (context == null)
-                throw new ArgumentNullException("context");
             this.xml = new StringTextSource(xml);
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException("context");
         }
 
         /// <summary>

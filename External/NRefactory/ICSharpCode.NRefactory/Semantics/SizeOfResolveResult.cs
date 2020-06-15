@@ -32,9 +32,7 @@ namespace ICSharpCode.NRefactory.Semantics
         public SizeOfResolveResult(IType int32, IType referencedType, int? constantValue)
             : base(int32)
         {
-            if (referencedType == null)
-                throw new ArgumentNullException("referencedType");
-            this.referencedType = referencedType;
+            this.referencedType = referencedType ?? throw new ArgumentNullException("referencedType");
             this.constantValue = constantValue;
         }
 

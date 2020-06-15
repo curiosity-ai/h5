@@ -61,9 +61,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public BlobReader(byte[] buffer, IAssembly currentResolvedAssembly)
         {
-            if (buffer == null)
-                throw new ArgumentNullException("buffer");
-            this.buffer = buffer;
+            this.buffer = buffer ?? throw new ArgumentNullException("buffer");
             this.currentResolvedAssembly = currentResolvedAssembly;
         }
 

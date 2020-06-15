@@ -37,9 +37,7 @@ namespace ICSharpCode.NRefactory.Semantics
         public UnknownMemberResolveResult(IType targetType, string memberName, IEnumerable<IType> typeArguments)
             : base(SpecialType.UnknownType)
         {
-            if (targetType == null)
-                throw new ArgumentNullException("targetType");
-            this.targetType = targetType;
+            this.targetType = targetType ?? throw new ArgumentNullException("targetType");
             this.memberName = memberName;
             this.typeArguments = new ReadOnlyCollection<IType>(typeArguments.ToArray());
         }

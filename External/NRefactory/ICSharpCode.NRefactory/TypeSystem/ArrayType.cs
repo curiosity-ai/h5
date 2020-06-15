@@ -32,11 +32,9 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public ArrayType(ICompilation compilation, IType elementType, int dimensions = 1) : base(elementType)
         {
-            if (compilation == null)
-                throw new ArgumentNullException("compilation");
             if (dimensions <= 0)
                 throw new ArgumentOutOfRangeException("dimensions", dimensions, "dimensions must be positive");
-            this.compilation = compilation;
+            this.compilation = compilation ?? throw new ArgumentNullException("compilation");
             this.dimensions = dimensions;
 
             if (elementType is ICompilationProvider p && p.Compilation != compilation)
@@ -157,11 +155,9 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public ArrayTypeReference(ITypeReference elementType, int dimensions = 1)
         {
-            if (elementType == null)
-                throw new ArgumentNullException("elementType");
             if (dimensions <= 0)
                 throw new ArgumentOutOfRangeException("dimensions", dimensions, "dimensions must be positive");
-            this.elementType = elementType;
+            this.elementType = elementType ?? throw new ArgumentNullException("elementType");
             this.dimensions = dimensions;
         }
 

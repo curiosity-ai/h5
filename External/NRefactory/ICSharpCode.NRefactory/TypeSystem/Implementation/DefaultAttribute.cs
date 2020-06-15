@@ -38,9 +38,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                                 IList<KeyValuePair<IMember, ResolveResult>> namedArguments = null,
                                 DomRegion region = default(DomRegion))
         {
-            if (attributeType == null)
-                throw new ArgumentNullException("attributeType");
-            this.attributeType = attributeType;
+            this.attributeType = attributeType ?? throw new ArgumentNullException("attributeType");
             this.positionalArguments = positionalArguments ?? EmptyList<ResolveResult>.Instance;
             this.namedArguments = namedArguments ?? EmptyList<KeyValuePair<IMember, ResolveResult>>.Instance;
             this.region = region;
@@ -50,9 +48,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
                                 IList<KeyValuePair<IMember, ResolveResult>> namedArguments = null,
                                 DomRegion region = default(DomRegion))
         {
-            if (constructor == null)
-                throw new ArgumentNullException("constructor");
-            this.constructor = constructor;
+            this.constructor = constructor ?? throw new ArgumentNullException("constructor");
             this.attributeType = constructor.DeclaringType ?? SpecialType.UnknownType;
             this.positionalArguments = positionalArguments ?? EmptyList<ResolveResult>.Instance;
             this.namedArguments = namedArguments ?? EmptyList<KeyValuePair<IMember, ResolveResult>>.Instance;

@@ -33,12 +33,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public DefaultVariable(IType type, string name)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.type = type;
-            this.name = name;
+            this.type = type ?? throw new ArgumentNullException("type");
+            this.name = name ?? throw new ArgumentNullException("name");
         }
 
         public DefaultVariable(IType type, string name, DomRegion region = default(DomRegion),
@@ -90,12 +86,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public VariableReference(ITypeReference variableTypeReference, string name, DomRegion region, bool isConst, object constantValue)
         {
-            if (variableTypeReference == null)
-                throw new ArgumentNullException("variableTypeReference");
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.variableTypeReference = variableTypeReference;
-            this.name = name;
+            this.variableTypeReference = variableTypeReference ?? throw new ArgumentNullException("variableTypeReference");
+            this.name = name ?? throw new ArgumentNullException("name");
             this.region = region;
             this.isConst = isConst;
             this.constantValue = constantValue;

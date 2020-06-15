@@ -44,11 +44,9 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public ParameterizedType(ITypeDefinition genericType, IEnumerable<IType> typeArguments)
         {
-            if (genericType == null)
-                throw new ArgumentNullException("genericType");
             if (typeArguments == null)
                 throw new ArgumentNullException("typeArguments");
-            this.genericType = genericType;
+            this.genericType = genericType ?? throw new ArgumentNullException("genericType");
             this.typeArguments = typeArguments.ToArray(); // copy input array to ensure it isn't modified
             if (this.typeArguments.Length == 0)
                 throw new ArgumentException("Cannot use ParameterizedType with 0 type arguments.");
@@ -349,11 +347,9 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public ParameterizedTypeReference(ITypeReference genericType, IEnumerable<ITypeReference> typeArguments)
         {
-            if (genericType == null)
-                throw new ArgumentNullException("genericType");
             if (typeArguments == null)
                 throw new ArgumentNullException("typeArguments");
-            this.genericType = genericType;
+            this.genericType = genericType ?? throw new ArgumentNullException("genericType");
             this.typeArguments = typeArguments.ToArray();
             for (int i = 0; i < this.typeArguments.Length; i++) {
                 if (this.typeArguments[i] == null)

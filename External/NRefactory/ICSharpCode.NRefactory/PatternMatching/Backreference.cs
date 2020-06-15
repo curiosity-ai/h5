@@ -34,9 +34,7 @@ namespace ICSharpCode.NRefactory.PatternMatching
 
         public Backreference(string referencedGroupName)
         {
-            if (referencedGroupName == null)
-                throw new ArgumentNullException("referencedGroupName");
-            this.referencedGroupName = referencedGroupName;
+            this.referencedGroupName = referencedGroupName ?? throw new ArgumentNullException("referencedGroupName");
         }
 
         public override bool DoMatch(INode other, Match match)

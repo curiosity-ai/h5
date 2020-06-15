@@ -53,13 +53,11 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public SimpleCompilation(ISolutionSnapshot solutionSnapshot, IUnresolvedAssembly mainAssembly, IEnumerable<IAssemblyReference> assemblyReferences)
         {
-            if (solutionSnapshot == null)
-                throw new ArgumentNullException("solutionSnapshot");
             if (mainAssembly == null)
                 throw new ArgumentNullException("mainAssembly");
             if (assemblyReferences == null)
                 throw new ArgumentNullException("assemblyReferences");
-            this.solutionSnapshot = solutionSnapshot;
+            this.solutionSnapshot = solutionSnapshot ?? throw new ArgumentNullException("solutionSnapshot");
             this.context = new SimpleTypeResolveContext(this);
             this.mainAssembly = mainAssembly.Resolve(context);
             List<IAssembly> assemblies = new List<IAssembly>();

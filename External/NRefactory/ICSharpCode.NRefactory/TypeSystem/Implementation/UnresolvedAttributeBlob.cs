@@ -41,15 +41,9 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public UnresolvedAttributeBlob(ITypeReference attributeType, IList<ITypeReference> ctorParameterTypes, byte[] blob)
         {
-            if (attributeType == null)
-                throw new ArgumentNullException("attributeType");
-            if (ctorParameterTypes == null)
-                throw new ArgumentNullException("ctorParameterTypes");
-            if (blob == null)
-                throw new ArgumentNullException("blob");
-            this.attributeType = attributeType;
-            this.ctorParameterTypes = ctorParameterTypes;
-            this.blob = blob;
+            this.attributeType = attributeType ?? throw new ArgumentNullException("attributeType");
+            this.ctorParameterTypes = ctorParameterTypes ?? throw new ArgumentNullException("ctorParameterTypes");
+            this.blob = blob ?? throw new ArgumentNullException("blob");
         }
 
         DomRegion IUnresolvedAttribute.Region {

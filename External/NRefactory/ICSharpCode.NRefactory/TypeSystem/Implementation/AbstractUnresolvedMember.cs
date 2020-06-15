@@ -83,10 +83,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         public ITypeReference ReturnType {
             get { return returnType; }
             set {
-                if (value == null)
-                    throw new ArgumentNullException("value");
                 ThrowIfFrozen();
-                returnType = value;
+                returnType = value ?? throw new ArgumentNullException("value");
             }
         }
 

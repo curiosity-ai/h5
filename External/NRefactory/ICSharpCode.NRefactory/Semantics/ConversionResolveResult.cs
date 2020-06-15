@@ -41,12 +41,8 @@ namespace ICSharpCode.NRefactory.Semantics
         public ConversionResolveResult(IType targetType, ResolveResult input, Conversion conversion)
             : base(targetType)
         {
-            if (input == null)
-                throw new ArgumentNullException("input");
-            if (conversion == null)
-                throw new ArgumentNullException("conversion");
-            this.Input = input;
-            this.Conversion = conversion;
+            this.Input = input ?? throw new ArgumentNullException("input");
+            this.Conversion = conversion ?? throw new ArgumentNullException("conversion");
         }
 
         public ConversionResolveResult(IType targetType, ResolveResult input, Conversion conversion, bool checkForOverflow)

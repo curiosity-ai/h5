@@ -48,9 +48,7 @@ namespace ICSharpCode.NRefactory.Editor
         /// <param name="change">Change from current version to new version</param>
         public void AppendChange(TextChangeEventArgs change)
         {
-            if (change == null)
-                throw new ArgumentNullException("change");
-            currentVersion.change = change;
+            currentVersion.change = change ?? throw new ArgumentNullException("change");
             currentVersion.next = new Version(currentVersion);
             currentVersion = currentVersion.next;
         }

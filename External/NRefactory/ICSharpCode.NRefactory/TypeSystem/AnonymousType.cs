@@ -35,11 +35,9 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public AnonymousType(ICompilation compilation, IList<IUnresolvedProperty> properties)
         {
-            if (compilation == null)
-                throw new ArgumentNullException("compilation");
             if (properties == null)
                 throw new ArgumentNullException("properties");
-            this.compilation = compilation;
+            this.compilation = compilation ?? throw new ArgumentNullException("compilation");
             this.unresolvedProperties = properties.ToArray();
             var context = new SimpleTypeResolveContext(compilation.MainAssembly);
             this.resolvedProperties = new ProjectedList<ITypeResolveContext, IUnresolvedProperty, IProperty>(context, unresolvedProperties, (c, p) => new AnonymousTypeProperty(p, c, this));
@@ -205,9 +203,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public AnonymousTypeReference(IUnresolvedProperty[] properties)
         {
-            if (properties == null)
-                throw new ArgumentNullException("properties");
-            this.unresolvedProperties = properties;
+            this.unresolvedProperties = properties ?? throw new ArgumentNullException("properties");
         }
 
         public IType Resolve(ITypeResolveContext context)

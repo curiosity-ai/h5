@@ -78,9 +78,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public ByReferenceTypeReference(ITypeReference elementType)
         {
-            if (elementType == null)
-                throw new ArgumentNullException("elementType");
-            this.elementType = elementType;
+            this.elementType = elementType ?? throw new ArgumentNullException("elementType");
         }
 
         public ITypeReference ElementType {

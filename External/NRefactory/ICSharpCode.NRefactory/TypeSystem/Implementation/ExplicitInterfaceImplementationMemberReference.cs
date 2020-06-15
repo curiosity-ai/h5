@@ -41,12 +41,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public ExplicitInterfaceImplementationMemberReference(ITypeReference typeReference, IMemberReference interfaceMemberReference)
         {
-            if (typeReference == null)
-                throw new ArgumentNullException("typeReference");
-            if (interfaceMemberReference == null)
-                throw new ArgumentNullException("interfaceMemberReference");
-            this.typeReference = typeReference;
-            this.interfaceMemberReference = interfaceMemberReference;
+            this.typeReference = typeReference ?? throw new ArgumentNullException("typeReference");
+            this.interfaceMemberReference = interfaceMemberReference ?? throw new ArgumentNullException("interfaceMemberReference");
         }
 
         public ITypeReference DeclaringTypeReference {

@@ -37,23 +37,15 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public DefaultParameter(IType type, string name)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.type = type;
-            this.name = name;
+            this.type = type ?? throw new ArgumentNullException("type");
+            this.name = name ?? throw new ArgumentNullException("name");
         }
 
         public DefaultParameter(IType type, string name, IParameterizedMember owner = null, DomRegion region = default(DomRegion), IList<IAttribute> attributes = null,
                                 bool isRef = false, bool isOut = false, bool isParams = false, bool isOptional = false, object defaultValue = null)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.type = type;
-            this.name = name;
+            this.type = type ?? throw new ArgumentNullException("type");
+            this.name = name ?? throw new ArgumentNullException("name");
             this.owner = owner;
             this.region = region;
             this.attributes = attributes;
@@ -154,9 +146,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public OwnedParameterReference(IMemberReference member, int index)
         {
-            if (member == null)
-                throw new ArgumentNullException("member");
-            this.memberReference = member;
+            this.memberReference = member ?? throw new ArgumentNullException("member");
             this.index = index;
         }
 
@@ -179,12 +169,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public ParameterReference(ITypeReference type, string name, DomRegion region, bool isRef, bool isOut, bool isParams, bool isOptional, object defaultValue)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.type = type;
-            this.name = name;
+            this.type = type ?? throw new ArgumentNullException("type");
+            this.name = name ?? throw new ArgumentNullException("name");
             this.region = region;
             this.isRef = isRef;
             this.isOut = isOut;

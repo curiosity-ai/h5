@@ -141,10 +141,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         public override string Namespace {
             get { return namespaceName; }
             set {
-                if (value == null)
-                    throw new ArgumentNullException("value");
                 ThrowIfFrozen();
-                namespaceName = value;
+                namespaceName = value ?? throw new ArgumentNullException("value");
             }
         }
 

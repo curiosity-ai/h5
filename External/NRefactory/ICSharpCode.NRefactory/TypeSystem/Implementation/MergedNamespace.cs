@@ -43,12 +43,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         /// <param name="externAlias">The extern alias for this namespace.</param>
         public MergedNamespace(ICompilation compilation, INamespace[] namespaces, string externAlias = null)
         {
-            if (compilation == null)
-                throw new ArgumentNullException("compilation");
-            if (namespaces == null)
-                throw new ArgumentNullException("namespaces");
-            this.compilation = compilation;
-            this.namespaces = namespaces;
+            this.compilation = compilation ?? throw new ArgumentNullException("compilation");
+            this.namespaces = namespaces ?? throw new ArgumentNullException("namespaces");
             this.externAlias = externAlias;
         }
 
@@ -59,12 +55,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         /// <param name="namespaces">The individual namespaces being merged.</param>
         public MergedNamespace(INamespace parentNamespace, INamespace[] namespaces)
         {
-            if (parentNamespace == null)
-                throw new ArgumentNullException("parentNamespace");
-            if (namespaces == null)
-                throw new ArgumentNullException("namespaces");
-            this.parentNamespace = parentNamespace;
-            this.namespaces = namespaces;
+            this.parentNamespace = parentNamespace ?? throw new ArgumentNullException("parentNamespace");
+            this.namespaces = namespaces ?? throw new ArgumentNullException("namespaces");
             this.compilation = parentNamespace.Compilation;
             this.externAlias = parentNamespace.ExternAlias;
         }

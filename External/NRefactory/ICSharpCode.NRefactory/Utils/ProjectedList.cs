@@ -29,12 +29,8 @@ namespace ICSharpCode.NRefactory.Utils
 
         public ProjectedList(IList<TInput> input, Func<TInput, TOutput> projection)
         {
-            if (input == null)
-                throw new ArgumentNullException("input");
-            if (projection == null)
-                throw new ArgumentNullException("projection");
-            this.input = input;
-            this.projection = projection;
+            this.input = input ?? throw new ArgumentNullException("input");
+            this.projection = projection ?? throw new ArgumentNullException("projection");
             this.items = new TOutput[input.Count];
         }
 
@@ -137,13 +133,9 @@ namespace ICSharpCode.NRefactory.Utils
 
         public ProjectedList(TContext context, IList<TInput> input, Func<TContext, TInput, TOutput> projection)
         {
-            if (input == null)
-                throw new ArgumentNullException("input");
-            if (projection == null)
-                throw new ArgumentNullException("projection");
-            this.input = input;
+            this.input = input ?? throw new ArgumentNullException("input");
             this.context = context;
-            this.projection = projection;
+            this.projection = projection ?? throw new ArgumentNullException("projection");
             this.items = new TOutput[input.Count];
         }
 

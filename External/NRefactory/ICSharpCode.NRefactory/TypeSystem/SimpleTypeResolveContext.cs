@@ -32,9 +32,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public SimpleTypeResolveContext(ICompilation compilation)
         {
-            if (compilation == null)
-                throw new ArgumentNullException("compilation");
-            this.compilation = compilation;
+            this.compilation = compilation ?? throw new ArgumentNullException("compilation");
         }
 
         public SimpleTypeResolveContext(IAssembly assembly)

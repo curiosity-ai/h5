@@ -44,12 +44,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public DefaultUnresolvedParameter(ITypeReference type, string name)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.type = type;
-            this.name = name;
+            this.type = type ?? throw new ArgumentNullException("type");
+            this.name = name ?? throw new ArgumentNullException("name");
         }
 
         void FreezeInternal()
@@ -61,20 +57,16 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         public string Name {
             get { return name; }
             set {
-                if (value == null)
-                    throw new ArgumentNullException("value");
                 FreezableHelper.ThrowIfFrozen(this);
-                name = value;
+                name = value ?? throw new ArgumentNullException("value");
             }
         }
 
         public ITypeReference Type {
             get { return type; }
             set {
-                if (value == null)
-                    throw new ArgumentNullException("value");
                 FreezableHelper.ThrowIfFrozen(this);
-                type = value;
+                type = value ?? throw new ArgumentNullException("value");
             }
         }
 

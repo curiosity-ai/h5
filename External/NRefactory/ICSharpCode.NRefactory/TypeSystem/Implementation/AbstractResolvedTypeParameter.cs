@@ -37,9 +37,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         protected AbstractTypeParameter(IEntity owner, int index, string name, VarianceModifier variance, IList<IAttribute> attributes, DomRegion region)
         {
-            if (owner == null)
-                throw new ArgumentNullException("owner");
-            this.owner = owner;
+            this.owner = owner ?? throw new ArgumentNullException("owner");
             this.compilation = owner.Compilation;
             this.ownerType = owner.SymbolKind;
             this.index = index;
@@ -51,9 +49,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         protected AbstractTypeParameter(ICompilation compilation, SymbolKind ownerType, int index, string name, VarianceModifier variance, IList<IAttribute> attributes, DomRegion region)
         {
-            if (compilation == null)
-                throw new ArgumentNullException("compilation");
-            this.compilation = compilation;
+            this.compilation = compilation ?? throw new ArgumentNullException("compilation");
             this.ownerType = ownerType;
             this.index = index;
             this.name = name ?? ((this.OwnerType == SymbolKind.Method ? "!!" : "!") + index.ToString(CultureInfo.InvariantCulture));
@@ -393,9 +389,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public OwnedTypeParameterReference(ISymbolReference owner, int index)
         {
-            if (owner == null)
-                throw new ArgumentNullException("owner");
-            this.owner = owner;
+            this.owner = owner ?? throw new ArgumentNullException("owner");
             this.index = index;
         }
 

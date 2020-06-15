@@ -36,21 +36,17 @@ namespace ICSharpCode.NRefactory.Semantics
         public OperatorResolveResult(IType resultType, ExpressionType operatorType, params ResolveResult[] operands)
             : base(resultType)
         {
-            if (operands == null)
-                throw new ArgumentNullException("operands");
             this.operatorType = operatorType;
-            this.operands = operands;
+            this.operands = operands ?? throw new ArgumentNullException("operands");
         }
 
         public OperatorResolveResult(IType resultType, ExpressionType operatorType, IMethod userDefinedOperatorMethod, bool isLiftedOperator, IList<ResolveResult> operands)
             : base(resultType)
         {
-            if (operands == null)
-                throw new ArgumentNullException("operands");
             this.operatorType = operatorType;
             this.userDefinedOperatorMethod = userDefinedOperatorMethod;
             this.isLiftedOperator = isLiftedOperator;
-            this.operands = operands;
+            this.operands = operands ?? throw new ArgumentNullException("operands");
         }
 
         /// <summary>

@@ -120,9 +120,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public SignatureComparer(StringComparer nameComparer)
         {
-            if (nameComparer == null)
-                throw new ArgumentNullException("nameComparer");
-            this.nameComparer = nameComparer;
+            this.nameComparer = nameComparer ?? throw new ArgumentNullException("nameComparer");
         }
 
         /// <summary>

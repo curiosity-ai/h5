@@ -40,9 +40,7 @@ namespace ICSharpCode.NRefactory.Editor
         /// </summary>
         public StringTextSource(string text)
         {
-            if (text == null)
-                throw new ArgumentNullException("text");
-            this.text = text;
+            this.text = text ?? throw new ArgumentNullException("text");
         }
 
         /// <summary>
@@ -50,9 +48,7 @@ namespace ICSharpCode.NRefactory.Editor
         /// </summary>
         public StringTextSource(string text, ITextSourceVersion version)
         {
-            if (text == null)
-                throw new ArgumentNullException("text");
-            this.text = text;
+            this.text = text ?? throw new ArgumentNullException("text");
             this.version = version;
         }
 

@@ -37,16 +37,12 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public DefaultUnresolvedAttribute(ITypeReference attributeType)
         {
-            if (attributeType == null)
-                throw new ArgumentNullException("attributeType");
-            this.attributeType = attributeType;
+            this.attributeType = attributeType ?? throw new ArgumentNullException("attributeType");
         }
 
         public DefaultUnresolvedAttribute(ITypeReference attributeType, IEnumerable<ITypeReference> constructorParameterTypes)
         {
-            if (attributeType == null)
-                throw new ArgumentNullException("attributeType");
-            this.attributeType = attributeType;
+            this.attributeType = attributeType ?? throw new ArgumentNullException("attributeType");
             this.ConstructorParameterTypes.AddRange(constructorParameterTypes);
         }
 

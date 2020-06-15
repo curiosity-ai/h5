@@ -35,12 +35,8 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
         public TopLevelTypeName(string namespaceName, string name, int typeParameterCount = 0)
         {
-            if (namespaceName == null)
-                throw new ArgumentNullException("namespaceName");
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.namespaceName = namespaceName;
-            this.name = name;
+            this.namespaceName = namespaceName ?? throw new ArgumentNullException("namespaceName");
+            this.name = name ?? throw new ArgumentNullException("name");
             this.typeParameterCount = typeParameterCount;
         }
 

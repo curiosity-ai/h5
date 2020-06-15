@@ -32,9 +32,7 @@ namespace ICSharpCode.NRefactory.PatternMatching
 
         public OptionalNode(INode childNode)
         {
-            if (childNode == null)
-                throw new ArgumentNullException("childNode");
-            this.childNode = childNode;
+            this.childNode = childNode ?? throw new ArgumentNullException("childNode");
         }
 
         public OptionalNode(string groupName, INode childNode) : this(new NamedNode(groupName, childNode))

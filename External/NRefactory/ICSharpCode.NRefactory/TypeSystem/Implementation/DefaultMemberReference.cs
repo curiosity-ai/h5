@@ -41,15 +41,11 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public DefaultMemberReference(SymbolKind symbolKind, ITypeReference typeReference, string name, int typeParameterCount = 0, IList<ITypeReference> parameterTypes = null)
         {
-            if (typeReference == null)
-                throw new ArgumentNullException("typeReference");
-            if (name == null)
-                throw new ArgumentNullException("name");
             if (typeParameterCount != 0 && symbolKind != SymbolKind.Method)
                 throw new ArgumentException("Type parameter count > 0 is only supported for methods.");
             this.symbolKind = symbolKind;
-            this.typeReference = typeReference;
-            this.name = name;
+            this.typeReference = typeReference ?? throw new ArgumentNullException("typeReference");
+            this.name = name ?? throw new ArgumentNullException("name");
             this.typeParameterCount = typeParameterCount;
             this.parameterTypes = parameterTypes ?? EmptyList<ITypeReference>.Instance;
         }

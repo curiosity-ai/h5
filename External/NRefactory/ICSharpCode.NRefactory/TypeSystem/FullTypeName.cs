@@ -44,9 +44,7 @@ namespace ICSharpCode.NRefactory.TypeSystem
 
             public NestedTypeName(string name, int additionalTypeParameterCount)
             {
-                if (name == null)
-                    throw new ArgumentNullException("name");
-                this.Name = name;
+                this.Name = name ?? throw new ArgumentNullException("name");
                 this.AdditionalTypeParameterCount = additionalTypeParameterCount;
             }
         }

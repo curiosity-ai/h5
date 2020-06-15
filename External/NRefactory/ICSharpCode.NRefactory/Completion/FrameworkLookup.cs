@@ -156,13 +156,9 @@ namespace ICSharpCode.NRefactory.Completion
             /// <param name="nspace">The namespace the type is in.</param>
             internal AssemblyLookup (string package, string fullName, string nspace)
             {
-                if (nspace == null)
-                    throw new ArgumentNullException ("nspace");
-                if (fullName == null)
-                    throw new ArgumentNullException ("fullName");
                 this.package = package;
-                this.fullName = fullName;
-                this.nspace = nspace;
+                this.fullName = fullName ?? throw new ArgumentNullException ("fullName");
+                this.nspace = nspace ?? throw new ArgumentNullException ("nspace");
             }
 
             public override string ToString ()

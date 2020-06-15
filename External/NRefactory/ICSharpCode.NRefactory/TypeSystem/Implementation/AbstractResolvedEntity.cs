@@ -32,12 +32,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         protected AbstractResolvedEntity(IUnresolvedEntity unresolved, ITypeResolveContext parentContext)
         {
-            if (unresolved == null)
-                throw new ArgumentNullException("unresolved");
-            if (parentContext == null)
-                throw new ArgumentNullException("parentContext");
-            this.unresolved = unresolved;
-            this.parentContext = parentContext;
+            this.unresolved = unresolved ?? throw new ArgumentNullException("unresolved");
+            this.parentContext = parentContext ?? throw new ArgumentNullException("parentContext");
             this.Attributes = unresolved.Attributes.CreateResolvedAttributes(parentContext);
         }
 

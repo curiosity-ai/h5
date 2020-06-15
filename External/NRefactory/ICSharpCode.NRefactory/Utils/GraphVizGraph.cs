@@ -145,12 +145,8 @@ namespace ICSharpCode.NRefactory.Utils
 
         public GraphVizEdge(string source, string target)
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
-            if (target == null)
-                throw new ArgumentNullException("target");
-            this.Source = source;
-            this.Target = target;
+            this.Source = source ?? throw new ArgumentNullException("source");
+            this.Target = target ?? throw new ArgumentNullException("target");
         }
 
         public GraphVizEdge(int source, int target)
@@ -193,9 +189,7 @@ namespace ICSharpCode.NRefactory.Utils
 
         public GraphVizNode(string id)
         {
-            if (id == null)
-                throw new ArgumentNullException("id");
-            this.ID = id;
+            this.ID = id ?? throw new ArgumentNullException("id");
         }
 
         public GraphVizNode(int id)

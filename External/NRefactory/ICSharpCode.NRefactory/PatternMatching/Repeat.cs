@@ -38,9 +38,7 @@ namespace ICSharpCode.NRefactory.PatternMatching
 
         public Repeat(INode childNode)
         {
-            if (childNode == null)
-                throw new ArgumentNullException("childNode");
-            this.childNode = childNode;
+            this.childNode = childNode ?? throw new ArgumentNullException("childNode");
             this.MinCount = 0;
             this.MaxCount = int.MaxValue;
         }

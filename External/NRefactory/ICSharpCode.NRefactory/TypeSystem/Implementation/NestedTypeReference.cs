@@ -42,12 +42,8 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
         /// </remarks>
         public NestedTypeReference(ITypeReference declaringTypeRef, string name, int additionalTypeParameterCount)
         {
-            if (declaringTypeRef == null)
-                throw new ArgumentNullException("declaringTypeRef");
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.declaringTypeRef = declaringTypeRef;
-            this.name = name;
+            this.declaringTypeRef = declaringTypeRef ?? throw new ArgumentNullException("declaringTypeRef");
+            this.name = name ?? throw new ArgumentNullException("name");
             this.additionalTypeParameterCount = additionalTypeParameterCount;
         }
 

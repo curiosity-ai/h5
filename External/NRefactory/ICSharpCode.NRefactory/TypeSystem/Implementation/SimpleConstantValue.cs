@@ -32,9 +32,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public SimpleConstantValue(ITypeReference type, object value)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
-            this.type = type;
+            this.type = type ?? throw new ArgumentNullException("type");
             this.value = value;
         }
 

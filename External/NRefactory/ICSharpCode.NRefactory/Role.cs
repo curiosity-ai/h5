@@ -90,19 +90,13 @@ namespace ICSharpCode.NRefactory
 
         public Role(string name)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
-            this.name = name;
+            this.name = name ?? throw new ArgumentNullException("name");
         }
 
         public Role(string name, T nullObject)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
-            if (nullObject == null)
-                throw new ArgumentNullException ("nullObject");
-            this.nullObject = nullObject;
-            this.name = name;
+            this.nullObject = nullObject ?? throw new ArgumentNullException ("nullObject");
+            this.name = name ?? throw new ArgumentNullException("name");
         }
 
         public override string ToString()

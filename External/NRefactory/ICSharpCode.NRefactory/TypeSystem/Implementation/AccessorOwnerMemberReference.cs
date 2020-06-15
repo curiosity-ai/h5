@@ -30,9 +30,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 
         public AccessorOwnerMemberReference(IMemberReference accessorReference)
         {
-            if (accessorReference == null)
-                throw new ArgumentNullException("accessorReference");
-            this.accessorReference = accessorReference;
+            this.accessorReference = accessorReference ?? throw new ArgumentNullException("accessorReference");
         }
 
         public ITypeReference DeclaringTypeReference {

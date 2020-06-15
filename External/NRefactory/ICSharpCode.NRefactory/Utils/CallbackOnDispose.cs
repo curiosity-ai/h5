@@ -35,9 +35,7 @@ namespace ICSharpCode.NRefactory.Utils
 
         public CallbackOnDispose(Action action)
         {
-            if (action == null)
-                throw new ArgumentNullException("action");
-            this.action = action;
+            this.action = action ?? throw new ArgumentNullException("action");
         }
 
         public void Dispose()

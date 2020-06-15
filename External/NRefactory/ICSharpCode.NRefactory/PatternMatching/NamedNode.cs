@@ -38,10 +38,8 @@ namespace ICSharpCode.NRefactory.PatternMatching
 
         public NamedNode(string groupName, INode childNode)
         {
-            if (childNode == null)
-                throw new ArgumentNullException("childNode");
             this.groupName = groupName;
-            this.childNode = childNode;
+            this.childNode = childNode ?? throw new ArgumentNullException("childNode");
         }
 
         public override bool DoMatch(INode other, Match match)

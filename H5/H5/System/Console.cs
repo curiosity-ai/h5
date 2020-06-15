@@ -50,6 +50,18 @@ namespace System
         public static extern void Write(bool value);
 
         /// <summary>
+        /// Writes the text representation of the specified DateTime value to the standard output stream.
+        /// </summary>
+        /// <param name="value">The value to write.</param>
+        public static void Write(DateTime value) => Write(value.ToString());
+
+        /// <summary>
+        /// Writes the text representation of the specified DateTimeOffset value to the standard output stream.
+        /// </summary>
+        /// <param name="value">The value to write.</param>
+        public static void Write(DateTimeOffset value) => Write(value.ToString());
+
+        /// <summary>
         /// Writes the specified Unicode character value to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
@@ -207,6 +219,18 @@ namespace System
         /// <param name="value">The value to write.</param>
         [H5.Template("System.Console.WriteLine(System.Boolean.toString({value}))")]
         public static extern void WriteLine(bool value);
+
+        /// <summary>
+        /// Writes the text representation of the specified DateTime value, followed by the current line terminator, to the standard output stream.
+        /// </summary>
+        /// <param name="value">The value to write.</param>
+        public static void WriteLine(DateTime value) => WriteLine(value.ToString());
+
+        /// <summary>
+        /// Writes the text representation of the specified DateTimeOffset value, followed by the current line terminator, to the standard output stream.
+        /// </summary>
+        /// <param name="value">The value to write.</param>
+        public static void WriteLine(DateTimeOffset value) => WriteLine(value.ToString());
 
         /// <summary>
         /// Writes the specified Unicode character, followed by the current line terminator, value to the standard output stream.

@@ -24915,6 +24915,8 @@ namespace H5.Core
             public virtual extern void scrollBy(double x, double y);
 
             public virtual extern void scrollIntoView();
+            
+            public virtual extern void scrollIntoViewIfNeeded();
 
             public virtual extern void scrollIntoView(Union<bool, dom.ScrollIntoViewOptions> arg);
 

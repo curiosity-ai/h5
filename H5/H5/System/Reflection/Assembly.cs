@@ -16,6 +16,12 @@ namespace System.Reflection
         }
 
         /// <summary>
+        /// Gets the version of the assembly.
+        /// </summary>
+        [H5.Name("getVersion")]
+        public extern string GetVersion();
+
+        /// <summary>
         /// Creates the name of a type qualified by the display name of its assembly.
         /// </summary>
         /// <param name="assemblyName">The display name of an assembly.</param>

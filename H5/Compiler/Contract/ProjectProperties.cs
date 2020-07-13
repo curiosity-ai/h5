@@ -10,6 +10,8 @@ namespace H5.Contract
     {
         public string AssemblyName{ get; set; }
 
+        public string AssemblyVersion { get; set; }
+
         public bool? CheckForOverflowUnderflow{ get; set; }
 
         public string Configuration{ get; set; }
@@ -36,6 +38,7 @@ namespace H5.Contract
             var r = new Dictionary<string, string>()
             {
                { WrapProperty("AssemblyName"), GetString(this.AssemblyName) },
+               { WrapProperty("AssemblyVersion"), GetString(this.AssemblyVersion) },
                { WrapProperty("CheckForOverflowUnderflow"), GetString(this.CheckForOverflowUnderflow) },
                { WrapProperty("Configuration"), GetString(this.Configuration) },
                { WrapProperty("DefineConstants"), GetString(this.DefineConstants) },
@@ -67,6 +70,9 @@ namespace H5.Contract
             {
                 case "assemblyname":
                     this.AssemblyName = value;
+                    break;
+                case "assemblyversion":
+                    this.AssemblyVersion = value;
                     break;
                 case "checkforoverflowunderflow":
                     this.CheckForOverflowUnderflow = GetNullableBool(value);

@@ -200,6 +200,15 @@ namespace H5.Translator
                                          Translator.ProjectProperties.AssemblyName;
 
                         OutputAssemblyComment(tmp);
+                        if(!string.IsNullOrEmpty(Translator.ProjectProperties.AssemblyVersion))
+                        {
+                            tmp.Append(JS.Types.H5.ASSEMBLYVERSION + "(");
+                            tmp.AppendFormat("\"{0}\"", asmName);
+                            tmp.Append(",");
+                            tmp.AppendFormat("\"{0}\"", Translator.ProjectProperties.AssemblyVersion);
+                            tmp.Append(");");
+                            WriteNewLine(tmp);
+                        }
 
                         tmp.Append(JS.Types.H5.ASSEMBLY + "(");
 

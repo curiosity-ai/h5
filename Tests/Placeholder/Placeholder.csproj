@@ -1,8 +1,9 @@
-<Project Sdk="h5.Target/0.0.8185">
+<Project Sdk="h5.Target/0.0.8194">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <DefineConstants>H5</DefineConstants>
     <AssemblyName>Placeholder</AssemblyName>
+    <AssemblyVersion>123.456.789</AssemblyVersion>
     <RootNamespace>Placeholder</RootNamespace>
     <LangVersion>7.2</LangVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>

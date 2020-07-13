@@ -1,3 +1,7 @@
+    H5.assemblyVersion = function (assemblyName, version) {
+        System.Reflection.Assembly.versions[assemblyName || "H5.$Unknown"] = version;
+    };
+
     H5.assembly = function (assemblyName, res, callback, restore) {
         if (!callback) {
             callback = res;
@@ -36,7 +40,8 @@
 
     H5.define("System.Reflection.Assembly", {
         statics: {
-            assemblies: {}
+            assemblies: {},
+            versions: {}
         },
 
         ctor: function (name, res) {
@@ -51,6 +56,10 @@
 
         toString: function () {
             return this.name;
+        },
+
+        getVersion: function () {
+            return System.Reflection.Assembly.versions[this.name] || "";
         },
 
         getManifestResourceNames: function () {

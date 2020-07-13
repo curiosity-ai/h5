@@ -276,6 +276,7 @@
                 public const string APPLY = DOTNAME + "apply";
                 public const string COPY_PROPERTIES = DOTNAME + "copyProperties";
                 public const string ASSEMBLY = DOTNAME + "assembly";
+                public const string ASSEMBLYVERSION = DOTNAME + "assemblyVersion";
                 public const string ENSURE_BASE_PROPERTY = DOTNAME + "ensureBaseProperty";
                 public const string IS = DOTNAME + "is";
                 public const string SET_METADATA = DOTNAME + "setMetadata";

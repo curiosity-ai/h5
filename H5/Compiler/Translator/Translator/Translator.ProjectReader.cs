@@ -23,6 +23,7 @@ namespace H5.Translator
         {
             public const string OUTPUT_TYPE_PROP = "OutputType";
             public const string ASSEMBLY_NAME_PROP = "AssemblyName";
+            public const string ASSEMBLY_VERSION_PROP = "AssemblyVersion";
             public const string DEFINE_CONSTANTS_PROP = "DefineConstants";
             public const string ROOT_NAMESPACE_PROP = "RootNamespace";
             public const string OUTPUT_PATH_PROP = "OutputPath";
@@ -66,6 +67,8 @@ namespace H5.Translator
             EnsureDefaultNamespace(project);
 
             EnsureAssemblyName(project);
+
+            TryReadAssemblyVersion(project);
 
             EnsureAssemblyLocation(project);
 
@@ -384,8 +387,8 @@ namespace H5.Translator
             if (ProjectProperties.AssemblyName == null && _shouldReadProjectFile)
             {
                 var property = (from n in project.AllEvaluatedProperties
-                            where n.Name == ProjectPropertyNames.ASSEMBLY_NAME_PROP
-                            select n).LastOrDefault();
+                                where n.Name == ProjectPropertyNames.ASSEMBLY_NAME_PROP
+                                select n).LastOrDefault();
 
                 if (property != null)
                 {
@@ -396,6 +399,21 @@ namespace H5.Translator
             if (string.IsNullOrWhiteSpace(ProjectProperties.AssemblyName))
             {
                 TranslatorException.Throw("Unable to determine assembly name");
+            }
+        }
+
+        protected virtual void TryReadAssemblyVersion(Project project)
+        {
+            if (ProjectProperties.AssemblyVersion == null && _shouldReadProjectFile)
+            {
+                var property = (from n in project.AllEvaluatedProperties
+                                where n.Name == ProjectPropertyNames.ASSEMBLY_VERSION_PROP
+                                select n).LastOrDefault();
+
+                if (property != null)
+                {
+                    ProjectProperties.AssemblyVersion = property.EvaluatedValue;
+                }
             }
         }
 

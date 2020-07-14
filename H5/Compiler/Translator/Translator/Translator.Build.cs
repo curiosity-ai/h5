@@ -359,7 +359,8 @@ namespace H5.Translator
         {
             if (!emitResult.Success)
             {
-                StringBuilder sb = new StringBuilder("C# Compilation Failed");
+                var sb = new StringBuilder("C# Compilation Failed");
+                sb.AppendLine();
                 sb.AppendLine();
 
                 baseDir = File.Exists(Location) ? Path.GetDirectoryName(Location) : Path.GetFullPath(Location);
@@ -367,13 +368,16 @@ namespace H5.Translator
                 foreach (var d in emitResult.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error))
                 {
                     var filePath = d.Location?.SourceTree?.FilePath ?? "";
+
                     if (filePath.StartsWith(baseDir))
                     {
                         filePath = filePath.Substring(baseDir.Length + 1);
                     }
 
                     var mapped = d.Location != null ? d.Location.GetMappedLineSpan() : default(FileLinePositionSpan);
-                    sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "\t{4}({0},{1}): {2}: {3}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, d.Id, d.GetMessage(), filePath));
+
+                    sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "\t{4}({0},{1}): error {2}: {3}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, d.Id, d.GetMessage(), filePath));
+
                     foreach (var l in d.AdditionalLocations)
                     {
                         filePath = l.SourceTree.FilePath ?? "";
@@ -382,7 +386,7 @@ namespace H5.Translator
                             filePath = filePath.Substring(baseDir.Length + 1);
                         }
                         mapped = l.GetMappedLineSpan();
-                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "\t{2}({0},{1}): (Related location)", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, filePath));
+                        sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "\t{2}({0},{1}): error (Related location)", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, filePath));
                     }
                 }
 

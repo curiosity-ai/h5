@@ -268,7 +268,7 @@ namespace System
         /// </summary>
         /// <returns>A new empty one-dimensional Array of the specified Type.</returns>
         [H5.Template("System.Array.init([], {T})")]
-        public static extern Array Empty<T>();
+        public static extern T[] Empty<T>();
 
         /// <summary>
         /// Creates a one-dimensional Array of the specified Type and length, with zero-based indexing.

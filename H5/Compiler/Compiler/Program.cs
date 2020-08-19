@@ -432,6 +432,10 @@ namespace H5.Compiler
                         hasPriorityConfiguration = true;
                         break;
 
+                    case "--assembly-version":
+                        compilationRequest.ProjectProperties.SetValue("AssemblyVersion", args[++i]);
+                        break;
+
                     case "-D":
                     case "--define":
                         defineConstants = args[++i];

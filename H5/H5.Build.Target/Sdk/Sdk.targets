@@ -459,7 +459,7 @@
         <!--This is where the h5 is finally called to compile the code -->
 
         <Message Importance="high" Text="H5 compilation begins now... " />
-        <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false">
+        <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot; --assembly-version &quot;$(AssemblyVersion)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false">
             <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
         </Exec>
 

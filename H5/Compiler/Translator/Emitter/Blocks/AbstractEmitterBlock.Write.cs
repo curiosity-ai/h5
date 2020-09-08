@@ -976,7 +976,7 @@ namespace H5.Translator
         public static bool IsReturnLast(string str)
         {
             str = str.TrimEnd();
-            return str.EndsWith("return;") || Regex.IsMatch(str, "(?m:^)return(.*)?;$");
+            return str.EndsWith("return;") || Regex.IsMatch(str, "(?m:^)return\\s(.*)?;$");
         }
 
         public static bool IsContinueLast(string str)

@@ -1,5 +1,5 @@
 variables:
-  h5json: '$(Build.SourcesDirectory)/H5/H5.Newtonsoft.Json/H5.Newtonsoft.Json.csproj'
+  h5webgl2: '$(Build.SourcesDirectory)/H5/H5.webgl2/H5.webgl2.csproj'
   buildConfiguration: 'Release'
 
 pool:
@@ -11,7 +11,7 @@ trigger:
     - master
   paths:
     include:
-    - H5/H5.Newtonsoft.Json/*
+    - H5/H5.webgl2/*
     - .devops/build-h5-json.yml
 
 pr: none
@@ -30,20 +30,20 @@ steps:
   displayName: 'restore nuget'
   inputs:
     command: 'restore'
-    projects: '$(h5json)'
+    projects: '$(h5webgl2)'
 
 - task: DotNetCoreCLI@2
   displayName: 'build'
   inputs:
     command: 'build'
-    projects: '$(h5json)'
+    projects: '$(h5webgl2)'
     arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)  /p:AllowUnsafeBlocks=True /p:LangVersion=latest'
 
 - task: DotNetCoreCLI@2
   displayName: 'pack nuget'
   inputs:
     command: 'pack'
-    packagesToPack: '$(h5json)'
+    packagesToPack: '$(h5webgl2)'
     configuration: '$(buildConfiguration)'
     versioningScheme: 'off'
     buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'
@@ -52,6 +52,6 @@ steps:
   displayName: 'push nuget'
   inputs:
     command: 'push'
-    packagesToPush: '**/h5.Newtonsoft.Json.0.0.$(build.buildId).nupkg'
+    packagesToPush: '**/h5.webgl2.0.0.$(build.buildId).nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget-curiosity'

@@ -32,7 +32,7 @@ namespace H5.Compiler
         {
             DefaultEncoding.ForceInvariantCultureAndUTF8Output();
 
-            ConfigureLogging();
+            ConfigureLogging(args);
 
             //TODO: get log level from command line
             //TODO: add options on SDK Target to set log level on command line
@@ -177,9 +177,19 @@ namespace H5.Compiler
             }
         }
 
-        private static void ConfigureLogging()
+        private static void ConfigureLogging(string[] args)
         {
-            ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(LogLevel.Information)
+            var logLevel = LogLevel.Information;
+
+            for(int i = 0; i < args.Length -1; i++)
+            {
+                if(args[i] == "--trace")
+                {
+                    logLevel = LogLevel.Trace;
+                }
+            }
+
+            ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(logLevel)
                                                                            .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1:D2}:{2:D2}:{3:D2}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))
                                                                            .AddZLoggerLogProcessor(new Logging.InMemoryPerCompilationProvider())));
         }
@@ -369,6 +379,7 @@ namespace H5.Compiler
 
 [-h|--help]                     Show this help message.
 -r --rebuild                    Force assembly rebuilding.
+--trace                         Set log level to Trace.
 -c --configuration <name>       Configuration name (Debug/Release etc)   [default: none].
 -S --settings <name:value>      Comma-delimited list of project settings
                                 I.e -S name1:value1,name2:value2)

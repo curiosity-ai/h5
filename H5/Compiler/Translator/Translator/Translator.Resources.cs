@@ -141,7 +141,8 @@ namespace H5.Translator
                 {
                     H5ResourceInfoPart[] parts = null;
 
-                    Logger.ZLogTrace("Getting output " + outputItem.FullPath.LocalPath);
+                    Logger.ZLogTrace("Getting output {0}", outputItem.FullPath.ToString());
+                    Logger.ZLogTrace("Getting output {0}", outputItem.FullPath.LocalPath);
 
                     var isCombined = outputItem.OutputKind.HasFlag(TranslatorOutputKind.Combined) && Outputs.Combined != null;
                     var isMinified = outputItem.OutputKind.HasFlag(TranslatorOutputKind.Minified);

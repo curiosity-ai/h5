@@ -170,7 +170,7 @@ namespace H5.Translator
 
             filePath = Path.GetFullPath(filePath);
 
-            item.FullPath = new Uri(filePath, UriKind.RelativeOrAbsolute);
+            item.FullPath = new Uri(filePath, UriKind.Absolute);
 
             return filePath;
         }

@@ -1,8 +1,8 @@
-#  h5 🚀 - C# to JavaScript compiler, now on .NET Core 3.1 
+#  h5 🚀 - C# to JavaScript compiler, now on .NET50
 
 <a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 
-H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET Core 3.1 and .NET Standard 2.0 projects, while dropping support for legacy features and dependencies.
+H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 5.0 and .NET Standard 2.0 projects, while dropping support for legacy features and dependencies.
 
 
 H5 is under active development, and targets a more integrated and faster development experience for C# web-developers. We're also planning to experiment with new ideas to improve compilation speed (such as aggressive caching of emitted code) and possibly integrating [C# Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/)) for even faster code generation.
@@ -23,7 +23,7 @@ H5 is under active development, and targets a more integrated and faster develop
 
 [![Gitter](https://badges.gitter.im/curiosityai/h5.svg)](https://gitter.im/curiosityai/h5?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-H5 is fully based on [netstandard2.0](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj) & [netcore3.1](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework coming from the original source-code.
+H5 is fully based on [netstandard2.0](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj) & [net5.0](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework coming from the original source-code.
 
 To get started with it, you can use the following project template  
 
@@ -51,7 +51,7 @@ dotnet tool update --global h5-compiler
 You can also install a dotnet new template (latest version:  [![Nuget](https://img.shields.io/nuget/v/h5.template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.template/)):
 
 ````bash
-dotnet new --install h5.Template::0.0.8152
+dotnet new --install h5.Template::0.0.13606
 ````
 
 And create a new project with:
@@ -77,5 +77,7 @@ To avoid any conflicts with the original Bridge ecosystem, all packages have bee
 - [H5](https://www.nuget.org/packages/h5/) (replaces the base [Bridge](https://www.nuget.org/packages/Bridge/) library) 
 - [H5.Core](https://www.nuget.org/packages/h5.core) (replaces [Retyped.Core](https://www.nuget.org/packages/Retyped.Core/), [Retyped.es5](https://www.nuget.org/packages/Retyped.es5/) and [Retyped.dom](https://www.nuget.org/packages/Retyped.dom/))
 - [H5.Newtonsoft.Json](https://www.nuget.org/packages/h5.Newtonsoft.Json/) (replaces [Bridge.Newtonsoft.Json](https://www.nuget.org/packages/Bridge.Newtonsoft.Json/))
+- [H5.WebGL2](https://www.nuget.org/packages/h5.webgl2) (replaces [Retyped.WebGl2](https://www.nuget.org/packages/Retyped.Webgl2))
 
 Other packages might be added in the future as we experiment with this fork, but we do not aim on providing any kind of Retyped replacement here.
+If you're missing any specific Retyped package, open an issue and I can take a look into publishing it derived from the Retyped ones. 

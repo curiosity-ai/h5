@@ -58,6 +58,7 @@ namespace H5.Compiler
                 ShowHelp();
                 return 0;
             }
+
             if (args.Length == 1 && args[0] == "server")
             {
                 SayHi();
@@ -94,19 +95,21 @@ namespace H5.Compiler
             else
             {
                 SayHi();
-
                 var compilationRequest = ParseRequestFromCommandLine(args);
 
                 if (compilationRequest is null) { ShowHelp(); return 0; }
 
-                var channel = new Channel("localhost", PORT, ChannelCredentials.Insecure);
-                var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
 
                 Logger.LogInformation($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
 
                 if (compilationRequest.NoCompilationServer)
                 {
                     Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
+                    foreach (var instance in Microsoft.Build.Locator.MSBuildLocator.QueryVisualStudioInstances())
+                    {
+                        Console.WriteLine($"Found {instance.MSBuildPath} version {instance.Version}");
+                    }
+
                     var resp = CompilationProcessor.Compile(compilationRequest, default, _exitToken.Token);
                     if(resp != 0)
                     {
@@ -117,6 +120,9 @@ namespace H5.Compiler
                 }
                 else
                 {
+                    var channel = new Channel("localhost", PORT, ChannelCredentials.Insecure);
+                    var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
+
                     while (true)
                     {
                         try

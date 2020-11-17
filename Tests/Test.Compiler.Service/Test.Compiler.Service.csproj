@@ -7,12 +7,12 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build" Version="16.7.0" />
-    <PackageReference Include="Microsoft.Build.Framework" Version="16.7.0" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.7.0" />
+    <PackageReference Include="Microsoft.Build" Version="16.8.0" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="16.8.0" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.8.0" />
     <PackageReference Include="Microsoft.Build.Locator" Version="1.2.6" />
-    <PackageReference Include="h5.Compiler.Service" Version="0.0.13348" />
-    <PackageReference Include="Mosaik.Core" Version="0.0.9787" />
+    <PackageReference Include="h5.Compiler.Service" Version="0.0.13622" />
+    <PackageReference Include="Mosaik.Core" Version="0.0.13791" />
     <PackageReference Include="NuGet.Resolver" Version="5.8.0" />
     <PackageReference Include="ZLogger" Version="1.3.0" />
   </ItemGroup>

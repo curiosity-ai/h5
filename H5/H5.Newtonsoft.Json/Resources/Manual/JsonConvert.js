@@ -223,6 +223,16 @@
                             for (var i = 0; i < raw.length; i++) {
                                 target.add(Newtonsoft.Json.JsonConvert.DeserializeObject(raw[i], typeElement, settings, true));
                             }
+                        } else if (H5.Reflection.isAssignableFrom(System.Collections.Generic.ISet$1, targetType)) {
+                            var typeElement = H5.Reflection.getGenericArguments(targetType)[0] || System.Object;
+
+                            if (!H5.isArray(raw)) {
+                                raw = raw.ToArray ? raw.ToArray() : H5.Collections.EnumerableHelpers.ToArray(typeElement, raw);
+                            }
+
+                            for (var i = 0; i < raw.length; i++) {
+                                target.add(Newtonsoft.Json.JsonConvert.DeserializeObject(raw[i], typeElement, settings, true));
+                            }
                         } else {
                             var camelCase = settings && H5.is(settings.ContractResolver, Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver),
                                 fields = Newtonsoft.Json.JsonConvert.getMembers(targetType, 4),

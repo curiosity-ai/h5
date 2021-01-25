@@ -23,6 +23,10 @@
     "build h5": {
       "commandName": "Project",
       "commandLineArgs": "--rebuild -p \"C:\\h5\\H5\\H5\\H5.csproj\" -c \"$(Configuration)\""
+    },
+    "Server": {
+      "commandName": "Project",
+      "commandLineArgs": "server"
     }
   }
 }

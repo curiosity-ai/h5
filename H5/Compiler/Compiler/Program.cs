@@ -16,6 +16,7 @@ using MagicOnion.Hosting;
 using MagicOnion.Server;
 using System.Diagnostics;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace H5.Compiler
 {
@@ -342,6 +343,15 @@ namespace H5.Compiler
                     if(!E.Message.Contains("Failed to bind"))
                     {
                         Console.WriteLine($"Failed to start server: " + E.Message);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to bind to port 51515.");
+                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                        {
+                            Console.WriteLine("This is sometimes caused by Windows Update (see: https://github.com/docker/for-win/issues/3171#issuecomment-739740248)");
+                            Console.WriteLine("Running 'net stop winnat' followed by 'net start winnat' as an admin usually fixes the issue.");
+                        }
                     }
                     return 1;
                 }

@@ -63879,10 +63879,29 @@ namespace H5.Core
                 set;
             }
 
-            public virtual double width
-            {
-                get;
-            }
+            public virtual double width { get; }
+
+            public virtual double actualBoundingBoxLeft { get; }
+
+            public virtual double actualBoundingBoxRight { get; }
+
+            public virtual double fontBoundingBoxAscent { get; }
+
+            public virtual double fontBoundingBoxDescent { get; }
+
+            public virtual double actualBoundingBoxAscent { get; }
+
+            public virtual double actualBoundingBoxDescent { get; }
+
+            public virtual double emHeightAscent { get; }
+
+            public virtual double emHeightDescent { get; }
+
+            public virtual double hangingBaseline { get; }
+
+            public virtual double alphabeticBaseline { get; }
+
+            public virtual double ideographicBaseline { get; }
         }
 
         [IgnoreCast]

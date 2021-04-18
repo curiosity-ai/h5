@@ -12,7 +12,7 @@ trigger:
   paths:
     include:
     - H5/Packages/H5.webgl2/*
-    - .devops/build-h5-json.yml
+    - .devops/build-h5-webgl2.yml
 
 pr: none
 

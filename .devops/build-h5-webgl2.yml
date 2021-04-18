@@ -1,5 +1,5 @@
 variables:
-  h5webgl2: '$(Build.SourcesDirectory)/H5/Packages/H5.webgl2/H5.webgl2.csproj'
+  h5webgl2: '$(Build.SourcesDirectory)/H5/H5.Packages/H5.webgl2/H5.webgl2.csproj'
   buildConfiguration: 'Release'
 
 pool:
@@ -11,7 +11,7 @@ trigger:
     - master
   paths:
     include:
-    - H5/Packages/H5.webgl2/*
+    - H5/H5.Packages/H5.webgl2/*
     - .devops/build-h5-webgl2.yml
 
 pr: none

@@ -1,5 +1,5 @@
 variables:
-  h5p2: '$(Build.SourcesDirectory)/H5/Packages/H5.p2/H5.p2.csproj'
+  h5p2: '$(Build.SourcesDirectory)/H5/H5.Packages/H5.p2/H5.p2.csproj'
   buildConfiguration: 'Release'
 
 pool:
@@ -11,7 +11,7 @@ trigger:
     - master
   paths:
     include:
-    - H5/Packages/H5.p2/*
+    - H5/H5.Packages/H5.p2/*
     - .devops/build-h5-p2.yml
 
 pr: none

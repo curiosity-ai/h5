@@ -1,0 +1,53 @@
+<Project Sdk="h5.Target/0.0.13615">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>H5.p2</AssemblyName>
+    <DebugType>None</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- Skip embedding any javascript code in this package -->
+
+    <SkipEmbeddingResources>true</SkipEmbeddingResources>
+    <SkipHtmlGeneration>true</SkipHtmlGeneration>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="h5" Version="0.0.13619" />
+    <PackageReference Include="h5.core" Version="0.0.13616" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\logo\h5.png" Link="h5.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <IncludeSymbols>false</IncludeSymbols>
+    <PackageIcon>h5.png</PackageIcon>
+    <LangVersion>latest</LangVersion>
+    <PackageId>h5.p2</PackageId>
+    <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
+    <Company></Company>
+    <Description>p2 support for H5, the .NET Core C# to JavaScript compiler 🚀</Description>
+    <Copyright>(c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.0.42</Version>
+    <IncludeReferencedProjects>true</IncludeReferencedProjects>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>true</IsPackable>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="H5.ExternalAttribute" />
+    <AssemblyAttribute Include="H5.ExternalInterfaceAttribute" />
+    <AssemblyAttribute Include="H5.VirtualAttribute" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Explicitly generate Assembly Info so the attributes above are included -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+</Project>

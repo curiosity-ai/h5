@@ -57,11 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Compiler.Service", "H5\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Compiler.Service", "Tests\Test.Compiler.Service\Test.Compiler.Service.csproj", "{C0CA9C87-C38B-4B51-BBFC-6BCB62D92DF1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.webgl2", "H5\Packages\H5.webgl2\H5.webgl2.csproj", "{80446C20-AC66-404D-B1DA-7B9F33D38140}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.webgl2", "H5\H5.Packages\H5.webgl2\H5.webgl2.csproj", "{80446C20-AC66-404D-B1DA-7B9F33D38140}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "h5.Template", "Template\h5.Template.csproj", "{C12AEC93-81A0-4E8D-9DF7-1C910B8F3FB8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.p2", "H5\Packages\H5.p2\H5.p2.csproj", "{F99CBC97-CF67-46A9-982A-11CEE40D7DBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.p2", "H5\H5.Packages\H5.p2\H5.p2.csproj", "{F99CBC97-CF67-46A9-982A-11CEE40D7DBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

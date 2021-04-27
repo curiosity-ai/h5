@@ -1,0 +1,57 @@
+variables:
+  h5howler: '$(Build.SourcesDirectory)/H5/H5.Packages/H5.howler/H5.howler.csproj'
+  buildConfiguration: 'Release'
+
+pool:
+  vmImage: 'windows-latest'
+
+trigger: 
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - H5/H5.Packages/H5.howler/*
+    - .devops/build-h5-howler.yml
+
+pr: none
+
+steps:
+- checkout: self
+  
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 5.0.100
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: DotNetCoreCLI@2
+  displayName: 'restore nuget'
+  inputs:
+    command: 'restore'
+    projects: '$(h5howler)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'build'
+  inputs:
+    command: 'build'
+    projects: '$(h5howler)'
+    arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)  /p:AllowUnsafeBlocks=True /p:LangVersion=latest'
+
+- task: DotNetCoreCLI@2
+  displayName: 'pack nuget'
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(h5howler)'
+    configuration: '$(buildConfiguration)'
+    versioningScheme: 'off'
+    buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'
+
+- task: NuGetCommand@2
+  displayName: 'push nuget'
+  inputs:
+    command: 'push'
+    packagesToPush: '**/h5.howler.0.0.$(build.buildId).nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'nuget-curiosity'

@@ -249,35 +249,39 @@ namespace ICSharpCode.NRefactory.Completion
         {
         }
 
-        IEnumerable<AssemblyLookup> GetLookup (string identifier, int[] lookupTable, int tableOffset)
+        IEnumerable<AssemblyLookup> GetLookup(string identifier, int[] lookupTable, int tableOffset)
         {
             if (lookupTable == null)
                 yield break;
 
-            int index = Array.BinarySearch (lookupTable, GetStableHashCode (identifier));
+            int index = Array.BinarySearch(lookupTable, GetStableHashCode(identifier));
             if (index < 0)
                 yield break;
 
-            using (var reader = new BinaryReader (File.Open (fileName, FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.UTF8)) {
-                reader.BaseStream.Seek (tableOffset + index * 8 + 4, SeekOrigin.Begin);
-                int listPtr = reader.ReadInt32 ();
+            using (var fileStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var reader = new BinaryReader(fileStream, Encoding.UTF8, leaveOpen: true))
+            {
+                reader.BaseStream.Seek(tableOffset + index * 8 + 4, SeekOrigin.Begin);
+                int listPtr = reader.ReadInt32();
 
-                reader.BaseStream.Seek (listPtr, SeekOrigin.Begin);
-                var b = reader.ReadInt32 ();
-                var assemblies = new List<ushort> ();
-                while (b-- > 0) {
-                    var assembly = reader.ReadUInt16 ();
+                reader.BaseStream.Seek(listPtr, SeekOrigin.Begin);
+                var b = reader.ReadInt32();
+                var assemblies = new List<ushort>();
+                while (b-- > 0)
+                {
+                    var assembly = reader.ReadUInt16();
                     if (assembly < 0 || assembly >= assemblyListTable.Length)
-                        throw new InvalidDataException ("Assembly lookup was " + assembly + " but only " + assemblyListTable.Length + " are known.");
-                    assemblies.Add (assembly);
+                        throw new InvalidDataException("Assembly lookup was " + assembly + " but only " + assemblyListTable.Length + " are known.");
+                    assemblies.Add(assembly);
                 }
-                foreach (var assembly in assemblies) {
-                    reader.BaseStream.Seek (assemblyListTable [assembly], SeekOrigin.Begin);
+                foreach (var assembly in assemblies)
+                {
+                    reader.BaseStream.Seek(assemblyListTable[assembly], SeekOrigin.Begin);
 
-                    var package = reader.ReadString ();
-                    var fullName = reader.ReadString ();
-                    var ns = reader.ReadString ();
-                    yield return new AssemblyLookup (package, fullName, ns);
+                    var package = reader.ReadString();
+                    var fullName = reader.ReadString();
+                    var ns = reader.ReadString();
+                    yield return new AssemblyLookup(package, fullName, ns);
                 }
             }
         }

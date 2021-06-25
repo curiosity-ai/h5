@@ -183,12 +183,22 @@ namespace H5.Translator.Utils
                             var parts = f.Split(new char[] { '*' }, 2);
                             if (Directory.Exists(parts[0]))
                             {
-                                foreach (var file in Directory.EnumerateFiles(parts[0], "*" + parts[1], SearchOption.AllDirectories))
+                                var fullBasePath = Path.GetFullPath(parts[0]).TrimEnd(Path.DirectorySeparatorChar);
+                                foreach (var file in Directory.EnumerateFiles(fullBasePath, "*" + parts[1], SearchOption.AllDirectories))
                                 {
-                                    var finalPath = Path.GetFullPath(file);
-                                    var outputPath = Path.GetDirectoryName(file).Replace(parts[0], item.Output);
+                                    var finalPath = Path.GetFullPath(Path.GetDirectoryName(file)).TrimEnd(Path.DirectorySeparatorChar);
+                                    string outputPath;
+                                    Logger.ZLogInformation("fullBasePath={0}   finalPath={1}", fullBasePath, finalPath);
+                                    if(fullBasePath == finalPath)
+                                    {
+                                        outputPath = item.Output;
+                                    }
+                                    else
+                                    {
+                                        outputPath = item.Output + finalPath.Replace(fullBasePath, "").TrimStart(Path.DirectorySeparatorChar);
+                                    }
                                     Logger.ZLogInformation("Found {0} when expanding {1}, to copy to {2}", file, f, outputPath);
-                                    final.Add(item.CloneWithFile(finalPath, outputPath));
+                                    final.Add(item.CloneWithFile(file, outputPath));
                                 }
                             }
                         }

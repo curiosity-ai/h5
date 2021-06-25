@@ -5,7 +5,7 @@
     <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
   </PropertyGroup>
   <PropertyGroup>
-    <DefineConstants>H5_COMPILER</DefineConstants>
+    <DefineConstants>DEBUG;H5_COMPILER</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <DebugType>full</DebugType>

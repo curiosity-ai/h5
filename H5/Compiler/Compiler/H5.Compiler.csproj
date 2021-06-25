@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
-    <DefineConstants>H5_COMPILER</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;H5_COMPILER</DefineConstants>
     <StartupObject>H5.Compiler.Program</StartupObject>
     <AssemblyName>h5</AssemblyName>
   </PropertyGroup>

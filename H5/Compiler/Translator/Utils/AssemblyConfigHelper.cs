@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using ZLogger;
 
 namespace H5.Translator.Utils
 {
@@ -112,16 +114,14 @@ namespace H5.Translator.Utils
                 foreach (var resourceItem in config.Resources.Items)
                 {
                     resourceItem.Header = helper.ApplyTokens(tokens, resourceItem.Header);
-                    resourceItem.Name = helper.ApplyTokens(tokens, resourceItem.Name);
+                    resourceItem.Name   = helper.ApplyTokens(tokens, resourceItem.Name);
                     resourceItem.Remark = helper.ApplyTokens(tokens, resourceItem.Remark);
 
-                    var files = resourceItem.Files;
-
-                    if (files != null)
+                    if (resourceItem.Files is object)
                     {
-                        for (int i = 0; i < files.Length; i++)
+                        for (int i = 0; i < resourceItem.Files.Length; i++)
                         {
-                            files[i] = helper.ApplyPathTokens(tokens, files[i]);
+                            resourceItem.Files[i] = helper.ApplyPathTokens(tokens, resourceItem.Files[i]);
                         }
                     }
                 }
@@ -152,20 +152,59 @@ namespace H5.Translator.Utils
             {
                 foreach (var resourceConfigItem in assemblyInfo.Resources.Items)
                 {
-                    var files = resourceConfigItem.Files;
-
-                    if (files != null)
+                    if (resourceConfigItem.Files is object)
                     {
-                        for (int i = 0; i < files.Length; i++)
+                        for (int i = 0; i < resourceConfigItem.Files.Length; i++)
                         {
-                            var resourceItem = files[i];
-                            files[i] = helper.ConvertPath(resourceItem);
+                            var resourceItem = resourceConfigItem.Files[i];
+                            resourceConfigItem.Files[i] = helper.ConvertPath(resourceItem);
                         }
                     }
 
                     resourceConfigItem.Output = helper.ConvertPath(resourceConfigItem.Output);
                 }
+
+                assemblyInfo.Resources.Items = ExpandGlobs(assemblyInfo.Resources.Items);
             }
         }
+
+        private static ResourceConfigItem[] ExpandGlobs(ResourceConfigItem[] inputItems)
+        {
+            var final = new List<ResourceConfigItem>();
+
+            foreach (var item in inputItems)
+            {
+                if(item.Files is object && item.Files.Any(f => f.Contains('*')))
+                {
+                    foreach (var f in item.Files)
+                    {
+                        if (f.Contains("*"))
+                        {
+                            var parts = f.Split(new char[] { '*' }, 2);
+                            if (Directory.Exists(parts[0]))
+                            {
+                                foreach (var file in Directory.EnumerateFiles(parts[0], "*" + parts[1], SearchOption.AllDirectories))
+                                {
+                                    var finalPath = Path.GetFullPath(file);
+                                    var outputPath = Path.GetDirectoryName(file).Replace(parts[0], item.Output);
+                                    Logger.ZLogInformation("Found {0} when expanding {1}, to copy to {2}", file, f, outputPath);
+                                    final.Add(item.CloneWithFile(finalPath, outputPath));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception($"Error parsing resource {item.Name}: Mixing globs and files is not supported.");
+                        }
+                    }
+                }
+                else
+                {
+                    final.Add(item);
+                }
+            }
+            return final.ToArray();
+        }
+
     }
 }

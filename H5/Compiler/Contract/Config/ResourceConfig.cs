@@ -132,6 +132,24 @@ namespace H5.Contract
         public string[] Files{ get; set; }
 
         public string Remark{ get; set; }
+
+        public ResourceConfigItem CloneWithFile(string finalPath, string outputPath)
+        {
+            return new ResourceConfigItem()
+            {
+                Header = Header,
+                Extract = Extract,
+                Inject = Inject,
+                Load = Load,
+                Silent = Silent,
+                RemoveBom = RemoveBom,
+                Name = System.IO.Path.GetFileName(finalPath),
+                Assembly = Assembly,
+                Output = outputPath,
+                Files = new[] { finalPath },
+                Remark = Remark
+            };
+        }
     }
 
     public class ResourceConfigConverter : JsonConverter

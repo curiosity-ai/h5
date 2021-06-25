@@ -15,6 +15,8 @@ namespace H5.Translator
             };
             info.WindowStyle = ProcessWindowStyle.Hidden;
 
+            Logger.ZLogInformation("Running command {0} from directory {1}", e, Directory.GetCurrentDirectory());
+
             if (!File.Exists(e))
             {
                 throw new TranslatorException($"The specified file '{e}' couldn't be found.\nWarning: Running H5 translator from directory: {Directory.GetCurrentDirectory()}");

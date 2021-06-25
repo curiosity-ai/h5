@@ -178,13 +178,13 @@ namespace H5.Translator
                     {
                         Logger.ZLogTrace("The output item does not have HasGeneratedSourceMap so we use it right from the Outputs");
                         content = outputItem.Content.GetContentAsBytes();
-                        Logger.ZLogTrace("The output is of content " + content.Length + " length");
+                        Logger.ZLogTrace("The output is of content {0} length", content.Length);
                     }
                     else
                     {
                         Logger.ZLogTrace("Reading content file as the output has HasGeneratedSourceMap");
                         content = File.ReadAllBytes(outputItem.FullPath.LocalPath);
-                        Logger.ZLogTrace("Read " + content.Length + " bytes for " + info.Name);
+                        Logger.ZLogTrace("Read {0} bytes for {1}", content.Length, info.Name);
                     }
 
                     yield return Tuple.Create(info, content);
@@ -219,7 +219,7 @@ namespace H5.Translator
 
                                 if (part.Value == null)
                                 {
-                                    Logger.ZLogTrace("Resource part " + part.Key.ResourceName + " from " + part.Key.Assembly + " is not embedded into resources as it is empty");
+                                    Logger.ZLogTrace("Resource part {0} from {1} is not embedded into resources as it is empty", part.Key.ResourceName, part.Key.Assembly);
                                     continue;
                                 }
 
@@ -268,13 +268,13 @@ namespace H5.Translator
 
         private string ReadEmbeddedResourceList(AssemblyDefinition assemblyDefinition, string listName)
         {
-            Logger.ZLogTrace("Checking if reference " + assemblyDefinition.FullName + " contains H5 Resources List " + listName);
+            Logger.ZLogTrace("Checking if reference {0} contains H5 Resources List {1}", assemblyDefinition.FullName, listName);
 
             var listRes = assemblyDefinition.MainModule.Resources.FirstOrDefault(x => x.Name == listName);
 
             if (listRes == null)
             {
-                Logger.ZLogTrace("Reference " + assemblyDefinition.FullName + " does not contain H5 Resources List");
+                Logger.ZLogTrace("Reference {0} does not contain H5 Resources List", assemblyDefinition.FullName);
 
                 return null;
             }
@@ -286,7 +286,7 @@ namespace H5.Translator
                 {
                     Logger.ZLogTrace("Reading H5 Resources List");
                     resourcesStr = reader.ReadToEnd();
-                    Logger.ZLogTrace("Read H5 Resources List: " + resourcesStr);
+                    Logger.ZLogTrace("Read H5 Resources List: {0}", resourcesStr);
                 }
             }
 
@@ -362,7 +362,7 @@ namespace H5.Translator
                 var name = r.Name;
                 var fileName = r.FileName;
 
-                Logger.ZLogTrace("Embedding resource " + name + " (fileName: " + fileName + ")");
+                Logger.ZLogTrace("Embedding resource {0} (fileName: {1})", name, fileName);
 
                 // Normalize resourse output path to always have '/' as a directory separator
                 r.Path = configHelper.ConvertPath(r.Path, '/');
@@ -398,7 +398,7 @@ namespace H5.Translator
 
                 reportResources.Add(Tuple.Create(name ?? fileName, resourceLocation, sizeInBytes));
 
-                Logger.ZLogTrace("Added resource " + name + " (fileName: " + fileName + ")");
+                Logger.ZLogTrace("Added resource {0} (fileName: {})", name, fileName);
             }
 
             Logger.ZLogTrace("PrepareResourcesForEmbedding done");
@@ -425,7 +425,7 @@ namespace H5.Translator
             var listResources = new EmbeddedResource(resourceListName, ManifestResourceAttributes.Private, OutputEncoding.GetBytes(listContent));
 
             resources.Add(listResources);
-            Logger.ZLogTrace("Added resource list " + resourceListName);
+            Logger.ZLogTrace("Added resource list {0}", resourceListName);
             Logger.ZLogTrace(listContent);
 
             // Checking if mscorlib reference added and removing if added
@@ -438,7 +438,7 @@ namespace H5.Translator
 
             var assemblyLocation = AssemblyLocation;
 
-            Logger.ZLogTrace("Writing resources into " + assemblyLocation);
+            Logger.ZLogTrace("Writing resources into {0}", assemblyLocation);
 
             using (var s = File.Open(assemblyLocation, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
@@ -446,7 +446,7 @@ namespace H5.Translator
                 s.Flush();
                 s.Close();
             }
-            Logger.ZLogTrace("Wrote resources into " + assemblyLocation);
+            Logger.ZLogTrace("Wrote resources into {0}", assemblyLocation);
 
             Logger.ZLogTrace("Done embedding resources");
         } 
@@ -456,7 +456,7 @@ namespace H5.Translator
             var existingList = resources.FirstOrDefault(r => r.Name == resourceName);
             if (existingList != null)
             {
-                Logger.ZLogTrace("Removing already existed resource " + resourceName);
+                Logger.ZLogTrace("Removing already existed resource {0}", resourceName);
                 resources.Remove(existingList);
             }
         }
@@ -475,7 +475,7 @@ namespace H5.Translator
             {
                 var fullPath = Path.GetFullPath(Path.Combine(path, fileName));
 
-                Logger.ZLogTrace("Writing resource {0}", resource.Name + " into " + fullPath);
+                Logger.ZLogTrace("Writing resource {0} into {1}", resource.Name, fullPath);
 
                 EnsureDirectoryExists(path);
 
@@ -505,13 +505,13 @@ namespace H5.Translator
             if (resourceOutputDirName == null)
             {
                 resourceOutputDirName = outputPath;
-                Logger.ZLogTrace("Using project output path " + resourceOutputDirName);
+                Logger.ZLogTrace("Using project output path {0}",  resourceOutputDirName);
             }
 
             if (string.IsNullOrWhiteSpace(resourceOutputFileName))
             {
                 resourceOutputFileName = resource.Name;
-                Logger.ZLogTrace("Using resource name as file name " + resourceOutputFileName);
+                Logger.ZLogTrace("Using resource name as file name {0}", resourceOutputFileName);
             }
 
             return Tuple.Create(resourceOutputDirName, resourceOutputFileName);
@@ -529,17 +529,17 @@ namespace H5.Translator
 
         public void GetResourceOutputPath(string basePath, string output, string name, bool? silent, ref string resourceOutputFileName, ref string resourceOutputDirName)
         {
-            Logger.ZLogTrace("Checking output path setting " + output);
+            Logger.ZLogTrace("Checking output path setting {0}", output);
 
             try
             {
                 var pathParts = FileHelper.GetDirectoryAndFilenamePathComponents(output);
 
                 resourceOutputDirName = pathParts[0];
-                Logger.ZLogTrace("Resource output setting directory relative to base path is " + resourceOutputDirName);
+                Logger.ZLogTrace("Resource output setting directory relative to base path is {0}", resourceOutputDirName);
 
                 resourceOutputFileName = pathParts[1];
-                Logger.ZLogTrace("Resource output setting file name is " + resourceOutputFileName);
+                Logger.ZLogTrace("Resource output setting file name is {0}", resourceOutputFileName);
 
                 if (resourceOutputDirName != null)
                 {
@@ -551,7 +551,7 @@ namespace H5.Translator
                 {
                     Logger.ZLogTrace("Getting absolute resource output directory");
                     resourceOutputDirName = Path.Combine(basePath, resourceOutputDirName);
-                    Logger.ZLogTrace("Resource output directory is " + resourceOutputDirName);
+                    Logger.ZLogTrace("Resource output directory is {0}", resourceOutputDirName);
 
                     if (resourceOutputFileName != null)
                     {
@@ -641,7 +641,7 @@ namespace H5.Translator
 
                 NewLine(resourceBuffer);
 
-                Logger.ZLogTrace("Wrote " + headerContent.Length + " symbols as a resource header");
+                Logger.ZLogTrace("Wrote {0} symbols as a resource header", headerContent.Length);
             }
             else
             {
@@ -711,7 +711,7 @@ namespace H5.Translator
 
             foreach (var item in info)
             {
-                Logger.ZLogTrace(string.Format("Applying {{{0}}}: {1}", item.Key, item.Value));
+                Logger.ZLogTrace("Applying {{{0}}}: {1}", item.Key, item.Value);
                 sb.Replace("{" + item.Key + "}", item.Value);
             }
 
@@ -735,13 +735,13 @@ namespace H5.Translator
                 var configHelper = new ConfigHelper();
                 convertedHeaderPath = configHelper.ConvertPath(resourceHeader);
 
-                Logger.ZLogTrace("Checking if " + convertedHeaderPath + " contains file name...");
+                Logger.ZLogTrace("Checking if {0} contains file name...", convertedHeaderPath);
                 var headerFileName = Path.GetFileName(convertedHeaderPath);
                 isFileName = !string.IsNullOrEmpty(headerFileName);
             }
             catch (ArgumentException ex)
             {
-                Logger.ZLogTrace(ex.ToString());
+                Logger.ZLogTrace(ex, "Error getting content header");
             }
 
             if (isFileName)
@@ -751,7 +751,7 @@ namespace H5.Translator
 
                 if (File.Exists(fullHeaderPath))
                 {
-                    Logger.ZLogTrace("Reading header content file at " + fullHeaderPath);
+                    Logger.ZLogTrace("Reading header content file at {0}", fullHeaderPath);
 
                     using (var m = new StreamReader(fullHeaderPath, OutputEncoding, true))
                     {
@@ -785,7 +785,7 @@ namespace H5.Translator
         /// <returns>Bool value indication whether it is a resource for SourceMap generation</returns>
         private bool ReadResourceFiles(string outputPath, MemoryStream buffer, ResourceConfigItem item)
         {
-            Logger.ZLogTrace("Reading resource with " + item.Files.Length + " items");
+            Logger.ZLogTrace("Reading resource with {0} items", item.Files.Length);
 
             var needSourceMap = false;
 
@@ -793,7 +793,7 @@ namespace H5.Translator
 
             foreach (var fileName in item.Files)
             {
-                Logger.ZLogTrace("Reading resource item(s) in location " + fileName);
+                Logger.ZLogTrace("Reading resource item(s) in location {0}", fileName);
 
                 try
                 {
@@ -807,7 +807,7 @@ namespace H5.Translator
                     if (!string.IsNullOrEmpty(dirPathInFileName))
                     {
                         directoryPath = Path.Combine(directoryPath, dirPathInFileName);
-                        Logger.ZLogTrace("Cleaned folder path part: " + dirPathInFileName + " from location: " + fileName + " and added to the directory path: " + directoryPath);
+                        Logger.ZLogTrace("Cleaned folder path part: {0} from location: {1} and added to the directory path: {2}", dirPathInFileName, fileName, directoryPath);
 
                         filePathCleaned = Path.GetFileName(filePathCleaned);
                     }
@@ -822,7 +822,7 @@ namespace H5.Translator
 
                     if (outputItem != null)
                     {
-                        Logger.ZLogTrace("Found required file for resources in Outputs " + fullFileName);
+                        Logger.ZLogTrace("Found required file for resources in Outputs {0}", fullFileName);
 
                         if (outputItem.HasGeneratedSourceMap)
                         {
@@ -843,7 +843,7 @@ namespace H5.Translator
                             throw new InvalidOperationException($"Missing resource from json config file, could not find folder: '{directory.FullName}' for resource '{item.Name}' with file name '{fileName}'");
                         }
 
-                        Logger.ZLogTrace("Searching files for resources in folder: " + directoryPath);
+                        Logger.ZLogTrace("Searching files for resources in folder: {0}", directoryPath);
 
                         var file = directory.GetFiles(filePathCleaned, SearchOption.TopDirectoryOnly).FirstOrDefault();
 
@@ -852,7 +852,7 @@ namespace H5.Translator
                             throw new InvalidOperationException($"Missing resource from json config file, could not find in folder '{directory.FullName}' the required resource '{item.Name}' with file name '{fileName}'");
                         }
 
-                        Logger.ZLogTrace("Reading resource item at " + file.FullName);
+                        Logger.ZLogTrace("Reading resource item at {0}", file.FullName);
 
                         var resourceAsOneFile = item.Header == null
                                                 && item.Remark == null
@@ -860,7 +860,7 @@ namespace H5.Translator
 
                         var content = CheckResourceOnBomAndAddToBuffer(buffer, item, file, resourceAsOneFile);
 
-                        Logger.ZLogTrace("Read " + content.Length + " bytes");
+                        Logger.ZLogTrace("Read {0} bytes", content.Length);
                     }
                 }
                 catch (Exception ex)
@@ -1087,8 +1087,10 @@ namespace H5.Translator
                 Logger.ZLogTrace("The resources config section has {0} non-default settings", resources.Count);
             }
 
-            var toEmbed = resources.Where(x => x.Files != null && x.Files.Count() > 0).ToArray();
-            var toExtract = resources.Where(x => x.Files == null || x.Files.Count() <= 0).ToArray();
+            var finalResources = Utils.AssemblyConfigHelper.ExpandGlobs(resources.ToArray());
+
+            var toEmbed = finalResources.Where(x => x.Files != null && x.Files.Count() > 0).ToArray();
+            var toExtract = finalResources.Where(x => x.Files == null || x.Files.Count() <= 0).ToArray();
 
             config.Prepare(defaultSetting, toEmbed, toExtract);
             Logger.ZLogTrace("Done preparing resources config");

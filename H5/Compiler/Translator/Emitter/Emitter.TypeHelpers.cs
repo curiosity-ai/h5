@@ -275,7 +275,7 @@ namespace H5.Translator
 
                 for (int i = 0; i < hitCounters.Length; i++)
                 {
-                    Logger.ZLogTrace("\t\tHitCounter" + i + " = " + hitCounters[i]);
+                    Logger.ZLogTrace("\t\tHitCounter{0} = {1}", i, hitCounters[i]);
                 }
 
                 Logger.ZLogTrace("\tTopological sorting first iteration done");
@@ -294,7 +294,7 @@ namespace H5.Translator
                         TopologicalSort sorted = graph.CalculateSort();
                         Logger.ZLogTrace("\t\tCalculate sorting done");
 
-                        Logger.ZLogTrace("\t\tGetting Reflection names for " + Types.Count + " types...");
+                        Logger.ZLogTrace("\t\tGetting Reflection names for {0} types...", Types.Count);
 
                         var list = new List<ITypeInfo>(Types.Count);
                         // The fix required for Mono 5.0.0.94
@@ -337,7 +337,7 @@ namespace H5.Translator
 
                         for (int i = 0; i < hitCounters.Length; i++)
                         {
-                            Logger.ZLogTrace("\t\tHitCounter" + i + " = " + hitCounters[i]);
+                            Logger.ZLogTrace("\t\tHitCounter{0} = {1}", i, hitCounters[i]);
                         }
 
                         Logger.ZLogTrace("\tTopological sorting third iteration done");

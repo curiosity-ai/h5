@@ -54,7 +54,7 @@ namespace H5.Translator
 
         internal virtual void EnsureProjectProperties()
         {
-            Logger.ZLogTrace("EnsureProjectProperties at " + (Location ?? "") + " ...");
+            Logger.ZLogTrace("EnsureProjectProperties at {0} ...", Location ?? "");
 
             UpdateSdkTargetIfNeeded(Location);
 
@@ -438,7 +438,7 @@ namespace H5.Translator
                 DefaultNamespace = DefaultRootNamespace;
             }
 
-            Logger.ZLogTrace("DefaultNamespace:" + DefaultNamespace);
+            Logger.ZLogTrace("DefaultNamespace: {0}" , DefaultNamespace);
         }
 
         protected virtual IList<string> GetSourceFiles(string location)

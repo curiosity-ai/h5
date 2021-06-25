@@ -168,7 +168,7 @@ namespace H5.Translator.Utils
             }
         }
 
-        private static ResourceConfigItem[] ExpandGlobs(ResourceConfigItem[] inputItems)
+        public static ResourceConfigItem[] ExpandGlobs(ResourceConfigItem[] inputItems)
         {
             var final = new List<ResourceConfigItem>();
 
@@ -186,9 +186,14 @@ namespace H5.Translator.Utils
                                 var fullBasePath = Path.GetFullPath(parts[0]).TrimEnd(Path.DirectorySeparatorChar);
                                 foreach (var file in Directory.EnumerateFiles(fullBasePath, "*" + parts[1], SearchOption.AllDirectories))
                                 {
+                                    if (!Path.GetFileName(file).Contains('.'))
+                                    {
+                                        throw new Exception($"Error parsing resource {item.Name}: Extensionless files not supported: {file}, add an extension and try again.");
+                                    }
+
                                     var finalPath = Path.GetFullPath(Path.GetDirectoryName(file)).TrimEnd(Path.DirectorySeparatorChar);
                                     string outputPath;
-                                    Logger.ZLogInformation("fullBasePath={0}   finalPath={1}", fullBasePath, finalPath);
+                                    Logger.ZLogTrace("fullBasePath={0}   finalPath={1}", fullBasePath, finalPath);
                                     if(fullBasePath == finalPath)
                                     {
                                         outputPath = item.Output;

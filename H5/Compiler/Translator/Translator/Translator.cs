@@ -295,7 +295,7 @@ namespace H5.Translator
 
                         foreach (var process in processes)
                         {
-                            Logger.ZLogTrace("\tHandling " + process.Name);
+                            Logger.ZLogTrace("\tHandling {0}", process.Name);
 
                             asmDef = References.FirstOrDefault(r => r.Name.Name == process.Name);
 
@@ -312,7 +312,7 @@ namespace H5.Translator
 
                     for (int i = 0; i < list.Count; i++)
                     {
-                        Logger.ZLogTrace("\t" + list[i].Name);
+                        Logger.ZLogTrace("\t {0}", list[i].Name);
                     }
                 }
                 catch (Exception ex)

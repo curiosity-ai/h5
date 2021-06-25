@@ -237,7 +237,7 @@ namespace H5.Translator
 
         protected virtual void AddReferencedOutput(string outputPath, AssemblyDefinition assembly, H5ResourceInfo resource, string fileName, Func<string, string> preHandler = null)
         {
-            Logger.ZLogTrace("Adding referenced output " + resource.Name);
+            Logger.ZLogTrace("Adding referenced output {0}", resource.Name);
 
             var currentAssembly = GetAssemblyNameForResource(assembly);
 
@@ -255,7 +255,7 @@ namespace H5.Translator
 
                 foreach (var part in resource.Parts)
                 {
-                    Logger.ZLogTrace("Handling part " + part.Assembly + " " + part.ResourceName);
+                    Logger.ZLogTrace("Handling part {0} {1}", part.Assembly, part.ResourceName);
 
                     bool needPart = true;
 
@@ -294,7 +294,7 @@ namespace H5.Translator
 
                         if (partAssemblyName == null)
                         {
-                            Logger.ZLogTrace("Using assembly " + assembly.FullName + " to search resource part " + resourcePartName);
+                            Logger.ZLogTrace("Using assembly {0} to search resource part {1}", assembly.FullName, resourcePartName);
 
                             partContent = ReadEmbeddedResource(assembly, resourcePartName, true, preHandler).Item2;
                         }
@@ -493,12 +493,12 @@ namespace H5.Translator
 
                     foreach (var resource in resources)
                     {
-                        Logger.ZLogTrace("Extracting item " + resource.Name);
+                        Logger.ZLogTrace("Extracting item {0}", resource.Name);
 
                         var fileName = resource.FileName;
                         var resName = resource.Name;
 
-                        Logger.ZLogTrace("Resource name " + resName + " and file name: " + fileName);
+                        Logger.ZLogTrace("Resource name {0} and file name: {1}", resName, fileName);
 
                         string resourceOutputDirName = null;
                         string resourceOutputFileName = null;
@@ -512,7 +512,7 @@ namespace H5.Translator
 
                         if (resourceExtractItems != null)
                         {
-                            Logger.ZLogTrace("Found resource option for resource name " + resName + " and reference " + resourceExtractItems.Assembly);
+                            Logger.ZLogTrace("Found resource option for resource name {0} and reference {1}", resName, resourceExtractItems.Assembly);
 
                             if (resourceExtractItems.Extract != true)
                             {
@@ -529,49 +529,49 @@ namespace H5.Translator
 
                             if (resourceExtractItems.Output != null)
                             {
-                                Logger.ZLogTrace("resources.output option " + resourceExtractItems.Output);
+                                Logger.ZLogTrace("resources.output option {0}", resourceExtractItems.Output);
 
                                 GetResourceOutputPath(outputPath, resourceExtractItems, ref resourceOutputFileName, ref resourceOutputDirName);
 
                                 if (resourceOutputDirName != null)
                                 {
-                                    Logger.ZLogTrace("Changing output path according to output resource setting to " + resourceOutputDirName);
+                                    Logger.ZLogTrace("Changing output path according to output resource setting to {0}", resourceOutputDirName);
                                 }
 
                                 if (resourceOutputFileName != null)
                                 {
-                                    Logger.ZLogTrace("Changing output file name according to output resource setting to " + resourceOutputFileName);
+                                    Logger.ZLogTrace("Changing output file name according to output resource setting to {0}", resourceOutputFileName);
                                 }
                             }
                             else
                             {
-                                Logger.ZLogTrace("No extract resource option affecting extraction for resource name " + resourceExtractItems.Name);
+                                Logger.ZLogTrace("No extract resource option affecting extraction for resource name {0}", resourceExtractItems.Name);
                             }
                         }
                         else
                         {
                             if (resourceOption.Default != null && resourceOption.Default.Extract != true)
                             {
-                                Logger.ZLogInformation("Skipping resource " + resName + " as it has no setting resources.extract = true and default setting is resources.extract != true");
+                                Logger.ZLogInformation("Skipping resource {0} as it has no setting resources.extract = true and default setting is resources.extract != true", resName);
                                 continue;
                             }
 
-                            Logger.ZLogTrace("Did not find extract resource option for resource name " + resName + ". Will use default embed behavior");
+                            Logger.ZLogTrace("Did not find extract resource option for resource name {0}. Will use default embed behavior", resName);
 
                             if (resource.Path != null)
                             {
-                                Logger.ZLogTrace("resource.Path option " + resource.Path);
+                                Logger.ZLogTrace("resource.Path option {0}", resource.Path);
 
                                 GetResourceOutputPath(outputPath, resource.Path, resource.Name, true, ref resourceOutputFileName, ref resourceOutputDirName);
 
                                 if (resourceOutputDirName != null)
                                 {
-                                    Logger.ZLogTrace("Changing output path according to embedded resource Path setting to " + resourceOutputDirName);
+                                    Logger.ZLogTrace("Changing output path according to embedded resource Path setting to {0}",resourceOutputDirName);
                                 }
 
                                 if (resourceOutputFileName != null)
                                 {
-                                    Logger.ZLogTrace("Changing output file name according to embedded resource Path setting to " + resourceOutputFileName);
+                                    Logger.ZLogTrace("Changing output file name according to embedded resource Path setting to {0}", resourceOutputFileName);
                                 }
                             }
                         }
@@ -853,11 +853,11 @@ namespace H5.Translator
 
         private TranslatorOutputItem Combine(TranslatorOutputItem target, List<TranslatorOutputItem> outputs, string fileName, string message, TranslatorOutputKind outputKind, TranslatorOutputType[] filter = null)
         {
-            Logger.ZLogTrace("There are " + outputs.Count + " " + message);
+            Logger.ZLogTrace("There are {0} {1}", outputs.Count, message);
 
             if (outputs.Count <= 0)
             {
-                Logger.ZLogTrace("Skipping combining " + message + " as empty.");
+                Logger.ZLogTrace("Skipping combining {0} as empty.", message);
                 return null;
             }
 
@@ -868,11 +868,11 @@ namespace H5.Translator
 
             if (target != null)
             {
-                Logger.ZLogTrace("Using exisiting target " + target.Name);
+                Logger.ZLogTrace("Using exisiting target {0}", target.Name);
             }
             else
             {
-                Logger.ZLogTrace("Using " + fileName + " as a fileName for combined " + message);
+                Logger.ZLogTrace("Using {0} as a fileName for combined {1}", fileName, message);
             }
 
             StringBuilder buffer = null;
@@ -922,7 +922,7 @@ namespace H5.Translator
                         output.MinifiedVersion.IsEmpty = true;
                     }
 
-                    Logger.ZLogTrace("Skipping " + output.Name + " as it does not have formatted content nor minified.");
+                    Logger.ZLogTrace("Skipping {0} as it does not have formatted content nor minified.", output.Name);
                     continue;
                 }
 
@@ -954,7 +954,7 @@ namespace H5.Translator
                     }
                     else
                     {
-                        Logger.ZLogWarning("Output " + output.Name + " does not contain minified version");
+                        Logger.ZLogWarning("Output {0} does not contain minified version", output.Name);
                     }
                 }
 
@@ -989,7 +989,7 @@ namespace H5.Translator
             if (adjustedFileName != fileName)
             {
                 fileName = adjustedFileName;
-                Logger.ZLogTrace("Adjusted fileName: " + fileName);
+                Logger.ZLogTrace("Adjusted fileName: {0}", fileName);
             }
 
             var checkExtentionFileName = FileHelper.CheckFileNameAndOutputType(fileName, TranslatorOutputType.JavaScript);
@@ -997,7 +997,7 @@ namespace H5.Translator
             if (checkExtentionFileName != null)
             {
                 fileName = checkExtentionFileName;
-                Logger.ZLogTrace("Extention checked fileName: " + fileName);
+                Logger.ZLogTrace("Extention checked fileName: {0}", fileName);
             }
 
             var r = new TranslatorOutputItem
@@ -1076,7 +1076,7 @@ namespace H5.Translator
 
             if (output.MinifiedVersion != null)
             {
-                Logger.ZLogTrace(output.Name + " has already a minified version " + output.MinifiedVersion.Name);
+                Logger.ZLogTrace("{0} has already a minified version {1}", output.Name, output.MinifiedVersion.Name);
                 return;
             }
 
@@ -1084,7 +1084,7 @@ namespace H5.Translator
 
             if (formatted == null)
             {
-                Logger.ZLogTrace("Content of " + output.Name + " is empty - skipping it a nothing to minifiy");
+                Logger.ZLogTrace("Content of {0} is empty - skipping it a nothing to minifiy", output.Name);
                 return;
             }
 
@@ -1119,11 +1119,11 @@ namespace H5.Translator
                 return source;
             }
 
-            Logger.ZLogTrace("Input script length is " + source.Length + " symbols...");
+            Logger.ZLogTrace("Input script length is {0} symbols...", source.Length);
 
             var contentMinified = Uglify.Js(source, settings);
 
-            Logger.ZLogTrace("Output script length is " + contentMinified.Code.Length + " symbols. Done.");
+            Logger.ZLogTrace("Output script length is {0} symbols. Done.", contentMinified.Code.Length);
 
             return contentMinified.Code;
         }
@@ -1133,7 +1133,7 @@ namespace H5.Translator
             //Different settings depending on whether a file is an internal H5 (like h5.js) or user project's file
             if (MinifierCodeSettingsInternalFileNames.Contains(fileName.ToLower()))
             {
-                Logger.ZLogTrace("Will use MinifierCodeSettingsInternal for " + fileName);
+                Logger.ZLogTrace("Will use MinifierCodeSettingsInternal for {0}", fileName);
                 return MinifierCodeSettingsInternal;
             }
 

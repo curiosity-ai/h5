@@ -327,7 +327,7 @@ namespace H5.Translator
                     {
                         cancellationToken.ThrowIfCancellationRequested();
 
-                        Logger.ZLogInformation($"NuGet: Copying lib file '{copy.source}' to '{copy.destination}'");
+                        Logger.ZLogInformation("NuGet: Copying lib file '{0}' to '{1}'", copy.source, copy.destination);
                         await CopyFileAsync(copy.source, copy.destination).ConfigureAwait(false);
                     }).ToArray());
                 }
@@ -451,12 +451,12 @@ namespace H5.Translator
                 var assemblyFileName = Path.GetFileName(refPath);
                 if (_packagedFiles.TryGetValue(assemblyFileName, out var assemblyInPackagePath) && File.Exists(assemblyInPackagePath))
                 {
-                    Logger.ZLogInformation($"Redirecting assembly {refPath} to assembly in package {assemblyInPackagePath}");
+                    Logger.ZLogInformation("Redirecting assembly {0} to assembly in package {1}", refPath, assemblyInPackagePath);
                     refPath = assemblyInPackagePath;
                 }
                 else
                 {
-                    Logger.ZLogError($"Failed to locate assembly {refPath}");
+                    Logger.ZLogError("Failed to locate assembly {0}", refPath);
                 }
             }
 

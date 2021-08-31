@@ -568,18 +568,19 @@ namespace H5.Compiler
             }
 
             // TODO: Add more checks
-            var isAzure         = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("Build.BuildId")); //From here: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
-            var isJenkis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BUILD_ID"));      //From here: https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
-            var isGitLab        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CI_BUILDS_DIR"));      //From here: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
-            var isCircleCI      = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CIRCLECI"));      //From here: https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
-            var isTravis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TRAVIS"));      //From here: https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
+            var isMacOS         = OperatingSystem.IsMacOs();
+            var isAzure         = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("Build.BuildId"));       //From here: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+            var isJenkis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BUILD_ID"));            //From here: https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
+            var isGitLab        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CI_BUILDS_DIR"));       //From here: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+            var isCircleCI      = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CIRCLECI"));            //From here: https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
+            var isTravis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TRAVIS"));              //From here: https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
             var isAppVeyor      = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("APPVEYOR"));            //From here: https://www.appveyor.com/docs/environment-variables/
             var isGitHubActions = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GITHUB_ACTIONS"));      //From here: https://help.github.com/en/articles/virtual-environments-for-github-actions#default-environment-variables
             
 
-            if (isAzure || isJenkis || isGitLab || isCircleCI || isTravis || isAppVeyor || isGitHubActions)
+            if (isMacOS || isAzure || isJenkis || isGitLab || isCircleCI || isTravis || isAppVeyor || isGitHubActions)
             {
-                Logger.LogInformation("Running on build machine, bypassing compilation server");
+                Logger.LogInformation(isMacOS ? "Running on MacOS, bypassing compilation server" : "Running on build machine, bypassing compilation server");
                 compilationRequest.NoCompilationServer = true;
             }
 

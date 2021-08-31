@@ -568,7 +568,7 @@ namespace H5.Compiler
             }
 
             // TODO: Add more checks
-            var isMacOS         = OperatingSystem.IsMacOs();
+            var isMacOS         = OperatingSystem.IsMacOS();
             var isAzure         = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("Build.BuildId"));       //From here: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
             var isJenkis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BUILD_ID"));            //From here: https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
             var isGitLab        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CI_BUILDS_DIR"));       //From here: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html

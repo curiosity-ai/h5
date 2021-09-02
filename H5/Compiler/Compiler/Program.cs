@@ -24,7 +24,7 @@ namespace H5.Compiler
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<Program>();
         
-        private const int PORT = 51515;
+        private const int PORT = 44668;
 
         private static readonly CancellationTokenSource _exitToken = new CancellationTokenSource();
         private static readonly TaskCompletionSource<object> _exitTask    = new TaskCompletionSource<object>();
@@ -346,7 +346,7 @@ namespace H5.Compiler
                     }
                     else
                     {
-                        Console.WriteLine($"Failed to bind to port 51515.");
+                        Console.WriteLine($"Failed to bind to port {PORT}.");
                         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                         {
                             Console.WriteLine("This is sometimes caused by Windows Update (see: https://github.com/docker/for-win/issues/3171#issuecomment-739740248)");

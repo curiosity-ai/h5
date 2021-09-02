@@ -24,7 +24,7 @@ namespace H5.Compiler
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<Program>();
         
-        private const int PORT = 44668;
+        private const int PORT = 44568; 
 
         private static readonly CancellationTokenSource _exitToken = new CancellationTokenSource();
         private static readonly TaskCompletionSource<object> _exitTask    = new TaskCompletionSource<object>();

@@ -61,6 +61,25 @@ namespace H5.Translator
 
         public void GenerateHtml(string outputPath)
         {
+            string RemapToCDN(string path)
+            {
+                const string cdn = "https://cdn.jsdelivr.net/npm/@h5.rocks/h5@latest/dist/";
+                
+                if (_assemblyConfig.Html?.UseCDN ?? false)
+                {
+                    switch (path)
+                    {
+                        case "h5.min.js":               return $"{cdn}h5.min.js";
+                        case "h5.meta.min.js":          return $"{cdn}h5.meta.min.js";
+                        case "newtonsoft.json.min.js":  return $"{cdn}newtonsoft.json.min.js";
+                        case "h5.js":                   return $"{cdn}h5.js";
+                        case "h5.meta.js":              return $"{cdn}h5.meta.js";
+                        case "newtonsoft.json.js":      return $"{cdn}newtonsoft.json.js";
+                    }
+                }
+                return path;
+            }
+
             Logger.LogTrace("GenerateHtml...");
             
             Logger.LogTrace("Applying default html template");
@@ -105,7 +124,7 @@ namespace H5.Translator
 
                         firstMinJs = false;
 
-                        jsMinBuffer.Append(string.Format(scriptTemplate, output.GetOutputPath(outputPath, true)));
+                        jsMinBuffer.Append(string.Format(scriptTemplate, RemapToCDN(output.GetOutputPath(outputPath, true))));
                     }
                     else
                     {
@@ -117,7 +136,7 @@ namespace H5.Translator
 
                         firstJs = false;
 
-                        jsBuffer.Append(string.Format(scriptTemplate, output.GetOutputPath(outputPath, true)));
+                        jsBuffer.Append(string.Format(scriptTemplate, RemapToCDN(output.GetOutputPath(outputPath, true))));
                     }
                 } else if (output.OutputType == TranslatorOutputType.StyleSheets && indexCss >= 0)
                 {
@@ -129,7 +148,7 @@ namespace H5.Translator
 
                     firstCss = false;
 
-                    cssBuffer.Append(string.Format(cssLinkTemplate, output.GetOutputPath(outputPath, true)));
+                    cssBuffer.Append(string.Format(cssLinkTemplate, RemapToCDN(output.GetOutputPath(outputPath, true))));
                 }
             }
 

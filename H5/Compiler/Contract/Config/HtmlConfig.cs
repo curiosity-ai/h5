@@ -13,6 +13,7 @@ namespace H5.Contract
         public string Meta { get; set; }
         public string Body { get; set; }
         public string Head { get; set; }
+        public bool UseCDN { get; set; }
     }
 
     public class HtmlConfigConverter : JsonConverter

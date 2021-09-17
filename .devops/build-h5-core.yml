@@ -1,6 +1,6 @@
 variables:
-  compilerPath:  '$(Build.SourcesDirectory)/H5/Compiler/Builder/'
-  compiler:  '$(compilerPath)H5.Builder.csproj'
+  compilerPath:  '$(Build.SourcesDirectory)/H5/Compiler/Compiler/'
+  compiler:  '$(compilerPath)H5.Compiler.csproj'
   h5base: '$(Build.SourcesDirectory)/H5/H5/H5.csproj'
   h5core: '$(Build.SourcesDirectory)/H5/H5.Core/H5.Core.csproj'
   h5json: '$(Build.SourcesDirectory)/H5/H5.Newtonsoft.Json/H5.Newtonsoft.Json.csproj'

@@ -15,17 +15,17 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lokad.ILPack" Version="0.1.6" />
-    <PackageReference Include="Mono.Cecil" Version="0.11.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Mono.Cecil" Version="0.11.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.CodeDom" Version="5.0.0" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Metadata" Version="5.0.0" />
     <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
-    <PackageReference Include="MessagePack" Version="2.2.60" />
-    <PackageReference Include="Mosaik.Core" Version="0.0.13791" />
-    <PackageReference Include="ZLogger" Version="1.3.0" />
+    <PackageReference Include="MessagePack" Version="2.3.75" />
+    <PackageReference Include="Mosaik.Core" Version="0.0.18041" />
+    <PackageReference Include="ZLogger" Version="1.5.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\External\NRefactory\ICSharpCode.NRefactory.CSharp\ICSharpCode.NRefactory.CSharp.csproj" />

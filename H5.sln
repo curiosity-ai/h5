@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30001.183
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compiler", "Compiler", "{47D6D365-36CE-43C2-91D0-5A071928C62A}"
 EndProject
@@ -39,8 +39,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".devops", ".devops", "{E9B8
 	ProjectSection(SolutionItems) = preProject
 		.devops\build-dotnet-tool.yml = .devops\build-dotnet-tool.yml
 		.devops\build-h5-core.yml = .devops\build-h5-core.yml
+		.devops\build-h5-howler.yml = .devops\build-h5-howler.yml
 		.devops\build-h5-json.yml = .devops\build-h5-json.yml
 		.devops\build-h5-lib.yml = .devops\build-h5-lib.yml
+		.devops\build-h5-p2.yml = .devops\build-h5-p2.yml
+		.devops\build-h5-target.yml = .devops\build-h5-target.yml
+		.devops\build-h5-webgl2.yml = .devops\build-h5-webgl2.yml
 		.devops\build-template.yml = .devops\build-template.yml
 	EndProjectSection
 EndProject

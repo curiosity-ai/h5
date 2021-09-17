@@ -1,6 +1,4 @@
 variables:
-  compilerPath:  '$(Build.SourcesDirectory)/H5/Compiler/Compiler/'
-  compiler:  '$(compilerPath)H5.Compiler.csproj'
   h5base: '$(Build.SourcesDirectory)/H5/H5/H5.csproj'
   h5core: '$(Build.SourcesDirectory)/H5/H5.Core/H5.Core.csproj'
   h5json: '$(Build.SourcesDirectory)/H5/H5.Newtonsoft.Json/H5.Newtonsoft.Json.csproj'
@@ -31,6 +29,11 @@ steps:
     packageType: sdk
     version: 6.0.100-rc.1.21458.32
     installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: CmdLine@2
+  displayName: 'Install h5 compiler'
+  inputs:
+    script: 'dotnet tool install --global h5-compiler'
 
 - task: DotNetCoreCLI@2
   displayName: 'restore nuget'

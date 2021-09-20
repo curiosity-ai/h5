@@ -8,15 +8,15 @@ H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bri
 H5 is under active development, and targets a more integrated and faster development experience for C# web-developers. We're also planning to experiment with new ideas to improve compilation speed (such as aggressive caching of emitted code) and possibly integrating [C# Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/)) for even faster code generation.
 
 
-|  Package | NuGet           |  Azure DevOps   |
-| -------------: |:-------------:| :-----:|
-| Compiler | [![Nuget](https://img.shields.io/nuget/v/h5-compiler.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5-compiler/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5-compiler?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=38&branchName=master) |
-| Base Library | [![Nuget](https://img.shields.io/nuget/v/h5.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5/) | [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5-base-nuget?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=39&branchName=master) |
-| Core Library | [![Nuget](https://img.shields.io/nuget/v/h5.core.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.core/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.core?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=40&branchName=master) |
-| SDK Target | [![Nuget](https://img.shields.io/nuget/v/h5.target.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.target/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.target?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=43&branchName=master) |
-| Json Library | [![Nuget](https://img.shields.io/nuget/v/h5.Newtonsoft.Json.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.Newtonsoft.Json/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.json?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=41&branchName=master) |
-| dotnet template | [![Nuget](https://img.shields.io/nuget/v/h5.template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.template/) | [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.template?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=44&branchName=master) |
-| Tesserae UI toolkit | [![Nuget](https://img.shields.io/nuget/v/tesserae.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/tesserae/) | [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.tesserae?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=42&branchName=master) |
+|  Package | NuGet           | 
+| -------------: |:-------------:|
+| Compiler | [![Nuget](https://img.shields.io/nuget/v/h5-compiler.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5-compiler/) |
+| Base Library | [![Nuget](https://img.shields.io/nuget/v/h5.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5/) |
+| Core Library | [![Nuget](https://img.shields.io/nuget/v/h5.core.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.core/) |
+| SDK Target | [![Nuget](https://img.shields.io/nuget/v/h5.target.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.target/) |
+| Json Library | [![Nuget](https://img.shields.io/nuget/v/h5.Newtonsoft.Json.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.Newtonsoft.Json/) |
+| Template | [![Nuget](https://img.shields.io/nuget/v/h5.template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.template/) |
+| UI Toolkit | [![Nuget](https://img.shields.io/nuget/v/tesserae.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/tesserae/)|
 
 
 ##  Getting Started ⚡
@@ -51,7 +51,7 @@ dotnet tool update --global h5-compiler
 You can also install a dotnet new template (latest version:  [![Nuget](https://img.shields.io/nuget/v/h5.template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.template/)):
 
 ````bash
-dotnet new --install h5.Template::0.0.13606
+dotnet new --install h5.Template::0.0.21601
 ````
 
 And create a new project with:

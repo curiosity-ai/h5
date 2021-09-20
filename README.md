@@ -2,7 +2,7 @@
 
 <a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 
-H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 5.0 and .NET Standard 2.0 projects, while dropping support for legacy features and dependencies.
+H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 6.0 and .NET Standard 2.0 projects, while dropping support for legacy features and dependencies.
 
 
 H5 is under active development, and targets a more integrated and faster development experience for C# web-developers. We're also planning to experiment with new ideas to improve compilation speed (such as aggressive caching of emitted code) and possibly integrating [C# Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/)) for even faster code generation.
@@ -23,7 +23,7 @@ H5 is under active development, and targets a more integrated and faster develop
 
 [![Gitter](https://badges.gitter.im/curiosityai/h5.svg)](https://gitter.im/curiosityai/h5?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-H5 is fully based on [netstandard2.0](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj) & [net5.0](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework coming from the original source-code.
+H5 is fully based on [netstandard2.0](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj) & [net6.0](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework coming from the original source-code.
 
 To get started with it, you can use the following project template  
 

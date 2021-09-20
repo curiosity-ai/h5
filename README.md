@@ -1,4 +1,4 @@
-#  h5 🚀 - C# to JavaScript compiler, now on .NET50
+#  h5 🚀 - C# to JavaScript compiler, now on .NET6.0
 
 <a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 

@@ -119,6 +119,7 @@
     <DebugSymbols>false</DebugSymbols>
     <!-- Projects can set this flag to true to enable auto-install / update of the H5 compiler-->
     <UpdateH5 Condition="'$(UpdateH5)' == ''">false</UpdateH5>
+    <UseLocalH5 Condition="'$(UseLocalH5)' == ''">false</UseLocalH5>
   </PropertyGroup>
 
 
@@ -141,7 +142,7 @@
   </ItemGroup>
 
   <Target Name="_ComputePackageReferencePublish">
-    <Message Importance="high" Text="Running _ComputePackageReferencePublish for $(AssemblyName)" />
+    <Message Importance="normal" Text="Running _ComputePackageReferencePublish for $(AssemblyName)" />
     <ItemGroup>
 
       <!-- PrivateAssets="All" means exclude from publish, unless Publish metadata is specified separately -->
@@ -159,7 +160,7 @@
     This will differ from the conflict resolution at publish time if the publish assets differ from build.
   -->
   <Target Name="_HandlePackageFileConflicts" DependsOnTargets="GetFrameworkPaths;GetReferenceAssemblyPaths;ResolveTargetingPackAssets">
-    <Message Importance="high" Text="Running _HandlePackageFileConflicts" />
+    <Message Importance="normal" Text="Running _HandlePackageFileConflicts" />
 
     <ItemGroup>
       <!--
@@ -205,7 +206,7 @@
           Inputs="$(ProjectAssetsFile);$(ProjectAssetsCacheFile);$(MSBuildAllProjects)"
           Outputs="$(ProjectDepsFilePath)">
 
-    <Message Importance="high" Text="Running GenerateBuildDependencyFile" />
+    <Message Importance="normal" Text="Running GenerateBuildDependencyFile" />
 
     <!-- Set a dummy Version if it hasn't been set by DefaultAssemblyInfo.targets -->
     <PropertyGroup Condition="'$(UsingNETSdkDefaults)' != 'true'">
@@ -262,7 +263,7 @@
           Inputs="@(GenerateRuntimeConfigurationFilesInputs)"
           Outputs="$(ProjectRuntimeConfigFilePath);$(ProjectRuntimeConfigDevFilePath)">
 
-    <Message Importance="high" Text="Running GenerateBuildRuntimeConfigurationFiles" />
+    <Message Importance="normal" Text="Running GenerateBuildRuntimeConfigurationFiles" />
 
     <GenerateRuntimeConfigurationFiles AssetsFilePath="$(ProjectAssetsFile)"
                                            TargetFrameworkMoniker="$(TargetFrameworkMoniker)"
@@ -295,7 +296,7 @@
          And the cache file's timestamp will be later, and it then triggers the incremental build.-->
 
   <Target Name="_GenerateRuntimeConfigurationFilesInputCache">
-    <Message Importance="high" Text="Running _GenerateRuntimeConfigurationFilesInputCache" />
+    <Message Importance="normal" Text="Running _GenerateRuntimeConfigurationFilesInputCache" />
 
     <ItemGroup>
       <GenerateRuntimeConfigurationFilesInputs Include="$(_GenerateRuntimeConfigurationPropertyInputsCache)" />
@@ -327,7 +328,7 @@
   </Target>
 
   <Target Name="_SdkBeforeClean">
-    <Message Importance="high" Text="Running _SdkBeforeClean" />
+    <Message Importance="normal" Text="Running _SdkBeforeClean" />
     <ItemGroup>
       <_FilesToDeleteO Include="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)"/>
     </ItemGroup>
@@ -340,7 +341,7 @@
   </Target>
 
   <Target Name="_SdkBeforeRebuild">
-    <Message Importance="high" Text="Running _SdkBeforeRebuild" />
+    <Message Importance="normal" Text="Running _SdkBeforeRebuild" />
     <PropertyGroup>
       <_CleaningWithoutRebuilding>false</_CleaningWithoutRebuilding>
     </PropertyGroup>
@@ -374,7 +375,7 @@
 
   <Target Name="_ComputeReferenceAssemblies" DependsOnTargets="ResolveAssemblyReferences">
 
-    <Message Importance="high" Text="Running _ComputeReferenceAssemblies" />
+    <Message Importance="normal" Text="Running _ComputeReferenceAssemblies" />
 
     <ItemGroup>
       <_FrameworkReferenceAssemblies Include="@(ReferencePath)"
@@ -414,7 +415,7 @@
           DependsOnTargets="_ComputeReferenceAssemblies"
           AfterTargets="CopyFilesToOutputDirectory">
 
-    <Message Importance="high" Text="Running _CopyReferenceOnlyAssembliesForBuild" />
+    <Message Importance="normal" Text="Running _CopyReferenceOnlyAssembliesForBuild" />
 
     <Copy SourceFiles="@(_ReferenceOnlyAssemblies)"
           DestinationFolder="$(OutDir)$(RefAssembliesFolderName)"
@@ -457,7 +458,6 @@
   <Target Name="_CheckForH5">
     <!-- If the compiler is not running, or if not found, set the flag to update it -->
 
-
     <Exec Command="h5 check-if-online" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="false">
       <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
     </Exec>
@@ -465,6 +465,19 @@
     <PropertyGroup  Condition="'$(MSBuildLastTaskResult)' == 'False' OR '$(ExitCode)' == '1'">
       <UpdateH5>true</UpdateH5>
     </PropertyGroup>
+
+    <!--Check for local compiler-->
+    <Exec Command="dotnet tool run h5 check-if-online" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="false" Condition="!$(UseLocalH5)">
+      <Output TaskParameter="ExitCode" PropertyName="ExitCodeLocal" />
+    </Exec>
+    
+    <PropertyGroup  Condition="'UseLocalH5'=='true' OR '$(ExitCodeLocal)' == '0'">
+      <UpdateH5>false</UpdateH5>
+      <UseLocalH5>true</UseLocalH5>
+    </PropertyGroup>
+
+    <Message Importance="high" Text="Using h5 as a local tool" Condition="$(UseLocalH5)"/>
+
   </Target>
 
 
@@ -474,7 +487,7 @@
       Outputs="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)">
 
     <Message Importance="high" Text="Installing (or updating) the h5 compiler." Condition="$(UpdateH5)" />
-    <Message Importance="high" Text="Skipping updating the h5 compiler. You can always install/update it by calling dotnet tool update --global h5-compiler" Condition="!$(UpdateH5)" />
+    <Message Importance="high" Text="Skipping updating the h5 compiler. You can always install/update it by calling dotnet tool update --global h5-compiler" Condition="!$(UpdateH5) AND !$(UseLocalH5)" />
     <Exec Command="dotnet tool update --global h5-compiler" Condition="$(UpdateH5)"  ContinueOnError="WarnAndContinue"/>
 
     <Message Importance="high" Text="Deleting previous assembly: $(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)"/>
@@ -483,7 +496,12 @@
     <!--This is where the h5 is finally called to compile the code -->
 
     <Message Importance="high" Text="H5 compilation begins now... " />
-    <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot; --assembly-version &quot;$(AssemblyVersion)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false">
+
+    <Exec Command="h5 --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot; --assembly-version &quot;$(AssemblyVersion)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false" Condition="!$(UseLocalH5)">
+      <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
+    </Exec>
+
+    <Exec Command="dotnet tool run h5 --no-server --project &quot;$(ProjectPath)&quot; --configuration &quot;$(Configuration)&quot; --assembly-version &quot;$(AssemblyVersion)&quot;" ConsoleToMsBuild="True" WorkingDirectory="$(ProjectDir)" ContinueOnError="ErrorAndStop" IgnoreExitCode="false" Condition="$(UseLocalH5)">
       <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
     </Exec>
 

@@ -1,29 +1,29 @@
-#  h5 🚀 - C# to JavaScript compiler, now on .NET50
+#  h5 🚀 - C# to JavaScript compiler
 
 <a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 
-H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 5.0 and .NET Standard 2.0 projects, while dropping support for legacy features and dependencies.
+H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 6.0 and .NET Standard 2.0 projects, while dropping support for legacy features and dependencies.
 
 
 H5 is under active development, and targets a more integrated and faster development experience for C# web-developers. We're also planning to experiment with new ideas to improve compilation speed (such as aggressive caching of emitted code) and possibly integrating [C# Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/)) for even faster code generation.
 
 
-|  Package | NuGet           |  Azure DevOps   |
-| -------------: |:-------------:| :-----:|
-| Compiler | [![Nuget](https://img.shields.io/nuget/v/h5-compiler.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5-compiler/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5-compiler?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=38&branchName=master) |
-| Base Library | [![Nuget](https://img.shields.io/nuget/v/h5.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5/) | [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5-base-nuget?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=39&branchName=master) |
-| Core Library | [![Nuget](https://img.shields.io/nuget/v/h5.core.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.core/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.core?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=40&branchName=master) |
-| SDK Target | [![Nuget](https://img.shields.io/nuget/v/h5.target.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.target/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.target?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=43&branchName=master) |
-| Json Library | [![Nuget](https://img.shields.io/nuget/v/h5.Newtonsoft.Json.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.Newtonsoft.Json/) |  [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.json?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=41&branchName=master) |
-| dotnet template | [![Nuget](https://img.shields.io/nuget/v/h5.template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.template/) | [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.template?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=44&branchName=master) |
-| Tesserae UI toolkit | [![Nuget](https://img.shields.io/nuget/v/tesserae.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/tesserae/) | [![Build Status](https://dev.azure.com/curiosity-ai/mosaik/_apis/build/status/h5.tesserae?branchName=master)](https://dev.azure.com/curiosity-ai/mosaik/_build/latest?definitionId=42&branchName=master) |
+|  Package | NuGet           | 
+| -------------: |:-------------:|
+| Compiler | [![Nuget](https://img.shields.io/nuget/v/h5-compiler.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5-compiler/) |
+| Base Library | [![Nuget](https://img.shields.io/nuget/v/h5.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5/) |
+| Core Library | [![Nuget](https://img.shields.io/nuget/v/h5.core.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.core/) |
+| SDK Target | [![Nuget](https://img.shields.io/nuget/v/h5.target.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.target/) |
+| Json Library | [![Nuget](https://img.shields.io/nuget/v/h5.Newtonsoft.Json.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.Newtonsoft.Json/) |
+| Template | [![Nuget](https://img.shields.io/nuget/v/h5.template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.template/) |
+| UI Toolkit | [![Nuget](https://img.shields.io/nuget/v/tesserae.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/tesserae/)|
 
 
 ##  Getting Started ⚡
 
 [![Gitter](https://badges.gitter.im/curiosityai/h5.svg)](https://gitter.im/curiosityai/h5?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-H5 is fully based on [netstandard2.0](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj) & [net5.0](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Builder/H5.Builder.csproj), and removes all dependencies on the legacy .NET Framework coming from the original source-code.
+H5 is fully based on [netstandard2.0](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj) & [net6.0](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Compiler/H5.Compiler.csproj), and removes all dependencies on the legacy .NET Framework coming from the original Bridge source-code.
 
 To get started with it, you can use the following project template  
 
@@ -51,7 +51,7 @@ dotnet tool update --global h5-compiler
 You can also install a dotnet new template (latest version:  [![Nuget](https://img.shields.io/nuget/v/h5.template.svg?maxAge=0&colorB=brightgreen)](https://www.nuget.org/packages/h5.template/)):
 
 ````bash
-dotnet new --install h5.Template::0.0.13606
+dotnet new --install h5.Template::0.0.21601
 ````
 
 And create a new project with:

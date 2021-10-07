@@ -60,7 +60,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Mono.Cecil" Version="0.11.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NUglify" Version="1.16.0" />
+    <PackageReference Include="NUglify" Version="1.16.1" />
     <PackageReference Include="System.CodeDom" Version="6.0.0-rc.1.21451.13" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="System.ComponentModel.Composition" Version="6.0.0-rc.1.21451.13" />

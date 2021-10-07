@@ -26,7 +26,7 @@ namespace H5.Translator
         public const string H5ResourcesPlusSeparatedFormatList = "H5.Resources.list";
         public const string H5ResourcesJsonFormatList = "H5.Resources.json";
         public const string H5ResourcesCombinedPrefix = "H5.Resources.Parts.";
-        public const string LocalesPrefix = "H5.Resources.Locales.";
+        public const string LocalesPrefix = "H5.Translator.Resources.Locales.";
         public const string DefaultLocalesOutputName = "H5.Locales.js";
         public const string H5ConsoleName = "h5.console.js";
         public const string SupportedProjectType = "Library";

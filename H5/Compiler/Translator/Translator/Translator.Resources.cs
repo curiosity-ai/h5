@@ -27,11 +27,11 @@ namespace H5.Translator
             }
         }
 
-        internal virtual string ReadEmbeddedResource(EmbeddedResource resource)
+        internal virtual string ReadEmbeddedResource(string resourceName)
         {
-            using (var resourcesStream = resource.GetResourceStream())
+            using (Stream stream = typeof(Translator).Assembly.GetManifestResourceStream(resourceName))
             {
-                using (StreamReader reader = new StreamReader(resourcesStream))
+                using (StreamReader reader = new StreamReader(stream))
                 {
                     return reader.ReadToEnd();
                 }

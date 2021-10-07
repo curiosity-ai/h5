@@ -213,23 +213,23 @@ namespace H5.Translator
             Outputs.Main.AddRange(outputs);
         }
 
-        protected virtual void AddLocaleOutput(EmbeddedResource resource, string outputPath)
+        protected virtual void AddLocaleOutput(string resourceName, string outputPath)
         {
-            var fileName = resource.Name.Substring(LocalesPrefix.Length);
+            var fileName = resourceName.Substring(LocalesPrefix.Length);
 
             if (!string.IsNullOrWhiteSpace(AssemblyInfo.LocalesOutput))
             {
                 outputPath = Path.Combine(outputPath, AssemblyInfo.LocalesOutput);
             }
 
-            var content = ReadEmbeddedResource(resource);
+            var content = ReadEmbeddedResource(resourceName);
 
             Emitter.AddOutputItem(Outputs.Locales, fileName, new StringBuilder(content), TranslatorOutputKind.Locale, location: outputPath);
         }
 
-        protected virtual void AddLocaleOutputs(IEnumerable<EmbeddedResource> resources, string outputPath)
+        protected virtual void AddLocaleOutputs(IEnumerable<string> resourceNames, string outputPath)
         {
-            foreach (var resource in resources)
+            foreach (var resource in resourceNames)
             {
                 AddLocaleOutput(resource, outputPath);
             }
@@ -609,7 +609,7 @@ namespace H5.Translator
             {
 
                 var h5Assembly = References.FirstOrDefault(r => r.Name.Name == CS.NS.H5);
-                var localesResources = h5Assembly.MainModule.Resources.Where(r => r.Name.StartsWith(LocalesPrefix)).Cast<EmbeddedResource>();
+                var localesResources = typeof(Translator).Assembly.GetManifestResourceNames().Where(r => r.StartsWith(LocalesPrefix)).ToArray();
                 var locales = AssemblyInfo.Locales.Split(';');
 
                 if (locales.Any(x => x == "all"))
@@ -623,15 +623,14 @@ namespace H5.Translator
                         if (locale.Contains("*"))
                         {
                             var name = LocalesPrefix + locale.SubstringUpToFirst('*');
-                            var maskedResources = localesResources.Where(r => r.Name.StartsWith(name));
+                            var maskedResources = localesResources.Where(r => r.StartsWith(name));
 
                             AddLocaleOutputs(maskedResources, outputPath);
                         }
                         else
                         {
                             var name = LocalesPrefix + locale + Files.Extensions.JS;
-                            var maskedResource = localesResources.First(r => r.Name == name);
-
+                            var maskedResource = localesResources.First(r => r == name);
                             AddLocaleOutput(maskedResource, outputPath);
                         }
                     }

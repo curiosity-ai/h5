@@ -17,12 +17,12 @@
     <PackageReference Include="Lokad.ILPack" Version="0.1.6" />
     <PackageReference Include="Mono.Cecil" Version="0.11.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.CodeDom" Version="6.0.0-rc.1.21451.13" />
+    <PackageReference Include="System.CodeDom" Version="6.0.0-rc.2.21480.5" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-    <PackageReference Include="System.Reflection.Metadata" Version="6.0.0-rc.1.21451.13" />
-    <PackageReference Include="System.Security.Permissions" Version="6.0.0-rc.1.21451.13" />
+    <PackageReference Include="System.Reflection.Metadata" Version="6.0.0-rc.2.21480.5" />
+    <PackageReference Include="System.Security.Permissions" Version="6.0.0-rc.2.21480.5" />
     <PackageReference Include="MessagePack" Version="2.3.85" />
     <PackageReference Include="Mosaik.Core" Version="0.0.21635" />
     <PackageReference Include="ZLogger" Version="1.6.0" />

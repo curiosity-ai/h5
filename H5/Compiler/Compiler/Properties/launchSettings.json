@@ -1,10 +1,5 @@
 {
   "profiles": {
-    "H5.Builder": {
-      "commandName": "Project",
-      "commandLineArgs": "-p \"C:\\h5\\Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -c \"$(Configuration)\" --no-server",
-      "workingDirectory": "C:\\h5\\Tesserae\\Tesserae.Tests\\"
-    },
     "build H5.Core": {
       "commandName": "Project",
       "commandLineArgs": "--rebuild -p \"C:\\h5\\H5\\H5.Core\\H5.Core.csproj\" -c \"$(Configuration)\"",
@@ -18,7 +13,8 @@
     "Placeholder": {
       "commandName": "Project",
       "commandLineArgs": "--rebuild -p \"C:\\h5\\Tests\\Placeholder\\Placeholder.csproj\" -c \"$(Configuration)\" --no-server",
-      "workingDirectory": "C:\\h5\\Tests\\Placeholder\\"
+      "workingDirectory": "C:\\h5\\Tests\\Placeholder\\",
+      "hotReloadEnabled": false
     },
     "build h5": {
       "commandName": "Project",
@@ -27,6 +23,11 @@
     "Server": {
       "commandName": "Project",
       "commandLineArgs": "server"
+    },
+    "H5.Compiler": {
+      "commandName": "Project",
+      "commandLineArgs": "-p \"C:\\h5\\Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -c \"$(Configuration)\" --no-server",
+      "workingDirectory": "C:\\h5\\Tesserae\\Tesserae.Tests\\"
     }
   }
 }

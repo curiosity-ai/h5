@@ -1,6 +1,6 @@
-<Project Sdk="h5.Target/0.0.13615">
+<Project Sdk="h5.Target/0.0.21664">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>H5</AssemblyName>
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>

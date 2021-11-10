@@ -4,7 +4,6 @@ using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using MessagePack;
 using MessagePack.Formatters;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.Extensions.Logging;
 using Mosaik.Core;
 using Newtonsoft.Json;

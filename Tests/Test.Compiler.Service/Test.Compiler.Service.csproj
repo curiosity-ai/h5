@@ -11,7 +11,7 @@
     <PackageReference Include="Microsoft.Build.Framework" Version="17.0.0" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.0.0" />
     <PackageReference Include="Microsoft.Build.Locator" Version="1.4.1" />
-    <PackageReference Include="h5.Compiler.Service" Version="0.0.22504" />
+    <PackageReference Include="h5.Compiler.Service" Version="0.0.23262" />
     <PackageReference Include="Mosaik.Core" Version="0.0.23249" />
     <PackageReference Include="NuGet.Resolver" Version="6.0.0" />
     <PackageReference Include="ZLogger" Version="1.6.1" />

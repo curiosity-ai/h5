@@ -1343,8 +1343,34 @@
                                     }
                                 }
                             }
-
                             return dictionary;
+                        } else if (H5.Reflection.isGenericType(type) && H5.Reflection.isAssignableFrom(System.Collections.Generic.HashSet$1, H5.Reflection.getGenericTypeDefinition(type))) {
+
+                            var typeName = raw["$type"];
+
+                            if (typeName != null) {
+                                type = Newtonsoft.Json.JsonConvert.BindToType(settings, typeName, type);
+                                raw = raw["$values"];
+                            }
+
+                            var typeElement = H5.Reflection.getGenericArguments(type)[0] || System.Object;
+
+                            var list = instance ? {value: instance} : Newtonsoft.Json.JsonConvert.createInstance(type, raw, settings);
+
+                            if (list && list.$list) {
+                                return list.value;
+                            }
+
+                            list = list.value;
+
+                            if (raw.length === undefined) {
+                                return list;
+                            }
+
+                            for (var i = 0; i < raw.length; i++) {
+                                list.add(Newtonsoft.Json.JsonConvert.DeserializeObject(raw[i], typeElement, settings, true));
+                            }
+                            return list;
                         } else {
                             var typeName = raw["$type"];
 

@@ -578,7 +578,32 @@
                             obj = dict;
                         } else if (H5.Reflection.isAssignableFrom(System.Collections.IEnumerable, type)) {
                             var typeElement = Newtonsoft.Json.JsonConvert.getEnumerableElementType(type),
-                                enumerator = H5.getEnumerator(obj, typeElement);
+                                 enumerator = H5.getEnumerator(obj, typeElement);
+
+                            arr = [];
+
+                            while (enumerator.moveNext()) {
+                                var item = enumerator.Current;
+                                arr.push(Newtonsoft.Json.JsonConvert.SerializeObject(item, formatting, settings, true, typeElement));
+                            }
+
+                            obj = arr;
+
+                            if (settings && settings._typeNameHandling) {
+                                var handling = settings._typeNameHandling,
+                                    writeType = handling == 2 || handling == 3 || (handling == 4 && possibleType && possibleType !== objType);
+
+                                if (writeType) {
+                                    obj = {
+                                        "$type": Newtonsoft.Json.JsonConvert.BindToName(settings, type),
+                                        "$values": arr
+                                    };
+                                }
+                            }
+                        } else if (H5.Reflection.isGenericType(type) && H5.Reflection.isAssignableFrom(System.Collections.Generic.HashSet$1, H5.Reflection.getGenericTypeDefinition(type))) {
+
+                            var typeElement = H5.Reflection.getGenericArguments(type)[0] || System.Object,
+                                 enumerator = H5.getEnumerator(obj, typeElement);
 
                             arr = [];
 

@@ -1,0 +1,41 @@
+<Project Sdk="h5.Target/0.0.21664">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>H5.p2</AssemblyName>
+    <DebugType>None</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- Skip embedding any javascript code in this package -->
+
+    <SkipEmbeddingResources>true</SkipEmbeddingResources>
+    <SkipHtmlGeneration>true</SkipHtmlGeneration>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="h5" Version="0.0.22518" />
+    <PackageReference Include="h5.core" Version="0.0.22512" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\logo\h5.png" Link="h5.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <IncludeSymbols>false</IncludeSymbols>
+    <PackageIcon>h5.png</PackageIcon>
+    <LangVersion>latest</LangVersion>
+    <PackageId>h5.httpclient</PackageId>
+    <Authors>Rafael Oliveira</Authors>
+    <Company></Company>
+    <Description>HttpClient-like for H5, the .NET C# to JavaScript compiler 🚀</Description>
+    <Copyright>(c) Copyright  2021, Rafael Oliveira. All rights reserved.</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.0.42</Version>
+    <IncludeReferencedProjects>true</IncludeReferencedProjects>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>true</IsPackable>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+</Project>

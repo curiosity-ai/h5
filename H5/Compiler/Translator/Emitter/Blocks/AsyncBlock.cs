@@ -265,7 +265,7 @@ namespace H5.Translator
             WriteNewLine();
 
             Indent();
-            Write(JS.Funcs.ASYNC_BODY + " = " + JS.Funcs.H5_BIND + "(this, ");
+            Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + " = " + JS.Funcs.H5_BIND + "(this, ");
             WriteFunction();
             Write("() ");
 
@@ -294,7 +294,7 @@ namespace H5.Translator
                 Write("return ");
             }
 
-            Write(JS.Funcs.ASYNC_BODY + "();");
+            Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + "();");
 
             if (IsTaskReturn)
             {
@@ -445,7 +445,7 @@ namespace H5.Translator
                             Write(JS.Vars.ASYNC_STEP + " = " + step + ";");
 
                             WriteNewLine();
-                            Write(JS.Funcs.ASYNC_BODY + "();");
+                            Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + "();");
                             WriteNewLine();
                             Write("return;");
                         }
@@ -479,7 +479,7 @@ namespace H5.Translator
                             Write(JS.Vars.ASYNC_STEP + " = " + step + ";");
 
                             WriteNewLine();
-                            Write(JS.Funcs.ASYNC_BODY + "();");
+                            Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + "();");
                             WriteNewLine();
                             Write("return;");
                             WriteNewLine();
@@ -511,7 +511,7 @@ namespace H5.Translator
                     Write(JS.Vars.ASYNC_STEP + " = " + info.FinallyStep + ";");
 
                     WriteNewLine();
-                    Write(JS.Funcs.ASYNC_BODY + "();");
+                    Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + "();");
                     WriteNewLine();
                     Write("return;");
 

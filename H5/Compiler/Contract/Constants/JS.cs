@@ -79,6 +79,7 @@
             public const string GET_TYPE = "$getType";
 
             public const string ASYNC_BODY = "$asyncBody";
+            public const string SHORTEN_ASYNC_BODY = "$ab";
             public const string ASYNC_YIELD_BODY = "moveNext";
             
             public const string GET_AWAITED_RESULT = "getAwaitedResult";

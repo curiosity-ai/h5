@@ -798,10 +798,6 @@
 
     System.Threading.CancellationToken.none = new System.Threading.CancellationToken();
 
-    function TCS() { return new System.Threading.Tasks.TaskCompletionSource(); }
-    function STEP(steps, currentStep) { return System.Array.min(steps, currentStep); }
-
-
     H5.define("System.Threading.CancellationTokenRegistration", {
         inherits: function () {
             return [System.IDisposable, System.IEquatable$1(System.Threading.CancellationTokenRegistration)];

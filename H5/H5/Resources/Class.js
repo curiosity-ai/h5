@@ -1113,3 +1113,9 @@
     H5.define = H5.Class.define;
     H5.definei = H5.Class.definei;
     H5.init = H5.Class.init;
+
+    function TCS() { return new System.Threading.Tasks.TaskCompletionSource(); }
+    function STEP(steps, currentStep) { return System.Array.min(steps, currentStep); }
+
+    H5.TCS = TCS;
+    H5.STEP = STEP;

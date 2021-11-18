@@ -160,7 +160,7 @@
             public const string SYSTEM_DECIMAL = "System.Decimal";
             public const string SYSTEM_NULLABLE = "System.Nullable";
             public const string TASK_COMPLETION_SOURCE = "System.Threading.Tasks.TaskCompletionSource";
-            public const string SHORTEN_TASK_COMPLETION_SOURCE = "TCS"; //Was "System.Threading.Tasks.TaskCompletionSource"
+            public const string SHORTEN_TASK_COMPLETION_SOURCE = "H5.TCS"; //Was "System.Threading.Tasks.TaskCompletionSource"
             public const string H5_IH5Class = "H5.IH5Class";
             public const string H5_INT = "H5.Int";
             public const string H5_ANONYMOUS = "$AnonymousType$";
@@ -219,7 +219,7 @@
                     public const string INDEX = DOTNAME + "index";
                     public const string INIT = DOTNAME + "init";
                     public const string MIN = DOTNAME + "min";
-                    public const string SHORTEN_MIN = "STEP"; // Was DOTNAME + "min"
+                    public const string SHORTEN_MIN = "H5.STEP"; // Was DOTNAME + "min"
                     public const string TYPE = DOTNAME + "type";
                     public const string TO_ENUMERATOR = DOTNAME + "toEnumerator";
                     public const string TO_ENUMERABLE = DOTNAME + "toEnumerable";

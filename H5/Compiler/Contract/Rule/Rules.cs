@@ -148,6 +148,11 @@ namespace H5.Contract
                     resultRule.Integer = rule.Integer;
                 }
 
+                if (rule.UseShortForms.HasValue)
+                {
+                    resultRule.UseShortForms = rule.UseShortForms;
+                }
+
                 if (rule.ArrayIndex.HasValue)
                 {
                     resultRule.ArrayIndex = rule.ArrayIndex;

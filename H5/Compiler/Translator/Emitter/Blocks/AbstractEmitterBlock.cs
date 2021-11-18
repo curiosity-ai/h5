@@ -207,7 +207,7 @@ namespace H5.Translator
             WriteIf();
             WriteOpenParentheses();
 
-            Write(JS.Vars.ASYNC_TASK + index + ".isCompleted()");
+            Write(JS.Vars.ASYNC_TASK + index + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_IS_COMPLETED : JS.Funcs.IS_COMPLETED) + "()");
 
             WriteCloseParentheses();
 
@@ -215,7 +215,7 @@ namespace H5.Translator
 
             WriteBlock("continue;");
 
-            Write(JS.Vars.ASYNC_TASK + index + "." + JS.Funcs.CONTINUE_WITH + "(" + JS.Funcs.ASYNC_BODY + ");");
+            Write(JS.Vars.ASYNC_TASK + index + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_CONTINUE_WITH : JS.Funcs.CONTINUE_WITH) + "(" + JS.Funcs.ASYNC_BODY + ");");
 
             WriteNewLine();
 

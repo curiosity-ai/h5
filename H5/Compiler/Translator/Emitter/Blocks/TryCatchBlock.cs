@@ -128,7 +128,7 @@ namespace H5.Translator
 
                 if (Emitter.AsyncBlock.IsTaskReturn)
                 {
-                    Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_EXCEPTION + "(" + JS.Vars.ASYNC_E + ");");
+                    Write(JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_EXCEPTION : JS.Funcs.SET_EXCEPTION) + "(" + JS.Vars.ASYNC_E + ");");
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace H5.Translator
                 }
                 else
                 {
-                    Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_RESULT + "(" + JS.Vars.ASYNC_RETURN_VALUE + ");");
+                    Write(JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_RESULT : JS.Funcs.SET_RESULT) + "(" + JS.Vars.ASYNC_RETURN_VALUE + ");");
                     WriteNewLine();
                     WriteReturn(false);
                     WriteSemiColon();

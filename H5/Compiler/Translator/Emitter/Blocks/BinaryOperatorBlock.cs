@@ -616,7 +616,7 @@ namespace H5.Translator
                 {
                     Write("!");
                 }
-                Write(JS.Funcs.H5_REFERENCEEQUALS);
+                Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_H5_REFERENCEEQUALS : JS.Funcs.H5_REFERENCEEQUALS) );
                 special = true;
             }
 

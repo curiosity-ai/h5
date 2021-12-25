@@ -407,6 +407,13 @@ namespace H5.Translator
                 }
             }
 
+            var nugetPackageFromEnvironment = Environment.GetEnvironmentVariable("NUGET_PACKAGES");
+
+            if (!string.IsNullOrEmpty(nugetPackageFromEnvironment) && Directory.Exists(nugetPackageFromEnvironment))
+            {
+                return Path.GetFullPath(Path.Combine(nugetPackageFromEnvironment, "packages"));
+            }
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 return Path.GetFullPath(Environment.ExpandEnvironmentVariables(@"%userprofile%\.nuget\packages\"));

@@ -1,45 +1,33 @@
 ﻿{
-  "output": "Resources/.generated",
-  "cleanOutputFolderBeforeBuild": true,
-  "outputFormatting": "Formatted",
-  "outputBy": "ClassPath",
-  "generateDocumentation": "None",
-  "logging": {
-    "level": "None"
+  "sourceMap": {
+    "enabled": false
   },
-  "html": {
-    "disabled": true
-  },
-  "assembly": {
-    "disableInitAssembly": true,
-    "enableReservedNamespaces": true
-  },
-  "fileName": "generated.js",
-  "combineScripts": false,
   "resources": [
     {
-      "name": "h5.js",
-      "extract": false
+      "name": "h5.httpclient.js",
+      "files": [ "$(OutDir)h5/h5.httpclient.js" ]
     },
     {
-      "name": "h5.meta.js",
-      "extract": false
-    },
-    {
-      "name": "h5.console.js",
-      "extract": false
-    },
-    {
-      // File paths relative to project root
-      "name": "newtonsoft.json.js",
-      "header": "Resources/.auxiliary/Header.js",
-      "remark": "\n\n// @source @{name}\n",
-      "files": [
-        "Resources/.auxiliary/AssemblyBegin.js",
-        "Resources/.generated/generated.js",
-        "Resources/Manual/JsonConvert.js",
-        "Resources/.auxiliary/AssemblyEnd.js"
-      ]
+      "name": "h5.httpclient.min.js",
+      "files": [ "$(OutDir)h5/h5.httpclient.min.js" ]
     }
-  ]
+  ],
+  // Always build both minified and non-minified versions of the code so that resource for both versions are always included
+  // in the binary and so referencing projects can decide whether to use the minified versions or the non-minified versions
+  "outputFormatting": "Both",
+  "cleanOutputFolderBeforeBuildPattern": "*.*",
+  "loader": {
+    "type": "Global"
+  },
+  "rules": {
+    "anonymousType": "Plain",
+    "arrayIndex": "Managed",
+    "autoProperty": "Plain",
+    "boxing": "Managed",
+    "externalCast": "Plain",
+    "inlineComment": "Plain",
+    "integer": "Managed",
+    "lambda": "Plain",
+    "useShortForms": true
+  }
 }

@@ -235,10 +235,10 @@ namespace System.Net.Http
         }
 
         public Task<HttpResponseMessage> GetAsync(string requestUri) =>
-            GetAsync(CreateUri(requestUri));
+            GetAsync(CreateUri(requestUri), CancellationToken.None);
 
         public Task<HttpResponseMessage> GetAsync(Uri requestUri) =>
-            GetAsync(requestUri);
+            GetAsync(requestUri, CancellationToken.None);
 
         public Task<HttpResponseMessage> GetAsync(string requestUri, CancellationToken cancellationToken) =>
             GetAsync(CreateUri(requestUri), cancellationToken);
@@ -247,7 +247,7 @@ namespace System.Net.Http
             SendAsync(CreateRequestMessage(HttpMethod.Get, requestUri), cancellationToken);
 
         public Task<HttpResponseMessage> PostAsync(string requestUri, HttpContent content) =>
-            PostAsync(CreateUri(requestUri), content);
+            PostAsync(CreateUri(requestUri), content, CancellationToken.None);
 
         public Task<HttpResponseMessage> PostAsync(Uri requestUri, HttpContent content) =>
             PostAsync(requestUri, content, CancellationToken.None);
@@ -263,7 +263,7 @@ namespace System.Net.Http
         }
 
         public Task<HttpResponseMessage> PutAsync(string requestUri, HttpContent content) =>
-            PutAsync(CreateUri(requestUri), content);
+            PutAsync(CreateUri(requestUri), content, CancellationToken.None);
 
         public Task<HttpResponseMessage> PutAsync(Uri requestUri, HttpContent content) =>
             PutAsync(requestUri, content, CancellationToken.None);
@@ -279,7 +279,7 @@ namespace System.Net.Http
         }
 
         public Task<HttpResponseMessage> PatchAsync(string requestUri, HttpContent content) =>
-            PatchAsync(CreateUri(requestUri), content);
+            PatchAsync(CreateUri(requestUri), content, CancellationToken.None);
 
         public Task<HttpResponseMessage> PatchAsync(Uri requestUri, HttpContent content) =>
             PatchAsync(requestUri, content, CancellationToken.None);
@@ -295,7 +295,7 @@ namespace System.Net.Http
         }
 
         public Task<HttpResponseMessage> DeleteAsync(string requestUri) =>
-            DeleteAsync(CreateUri(requestUri));
+            DeleteAsync(CreateUri(requestUri), CancellationToken.None);
 
         public Task<HttpResponseMessage> DeleteAsync(Uri requestUri) =>
             DeleteAsync(requestUri, CancellationToken.None);

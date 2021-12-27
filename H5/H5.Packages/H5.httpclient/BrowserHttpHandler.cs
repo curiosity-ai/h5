@@ -44,7 +44,7 @@ namespace System.Net.Http
 
             var tcs = new TaskCompletionSource<HttpResponseMessage>();
 
-            requestObject.onreadystatechange = e =>
+            requestObject.onreadystatechange = (e) =>
             {
                 if (requestObject.readyState == 0)
                 {

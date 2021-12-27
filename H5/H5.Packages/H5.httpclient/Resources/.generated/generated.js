@@ -106,38 +106,38 @@
                 return this.GetEnumerator();
             },
             GetEnumeratorCore: function () {
-                var $step = 0,
-                    $jumpFromFinally,
-                    $returnValue,
+                var $s = 0,
+                    $jff,
+                    $rv,
                     $t,
                     header,
-                    $async_e;
+                    $ae;
 
-                var $enumerator = new (H5.GeneratorEnumerator$1(System.Collections.Generic.KeyValuePair$2(System.String,System.String)))(H5.fn.bind(this, function () {
+                var $en = new (H5.GeneratorEnumerator$1(System.Collections.Generic.KeyValuePair$2(System.String,System.String)))(H5.fn.bind(this, function () {
                     try {
                         for (;;) {
-                            switch ($step) {
+                            switch ($s) {
                                 case 0: {
                                     $t = H5.getEnumerator(this._headerStore);
-                                        $step = 1;
+                                        $s = 1;
                                         continue;
                                 }
                                 case 1: {
                                     if ($t.moveNext()) {
                                             header = $t.Current;
-                                            $step = 2;
+                                            $s = 2;
                                             continue;
                                         }
-                                    $step = 4;
+                                    $s = 4;
                                     continue;
                                 }
                                 case 2: {
-                                    $enumerator.current = header;
-                                        $step = 3;
+                                    $en.current = header;
+                                        $s = 3;
                                         return true;
                                 }
                                 case 3: {
-                                    $step = 1;
+                                    $s = 1;
                                     continue;
                                 }
                                 case 4: {
@@ -148,12 +148,12 @@
                                 }
                             }
                         }
-                    } catch($async_e1) {
-                        $async_e = System.Exception.create($async_e1);
-                        throw $async_e;
+                    } catch($ae1) {
+                        $ae = System.Exception.create($ae1);
+                        throw $ae;
                     }
                 }));
-                return $enumerator;
+                return $en;
             },
             SetOrRemoveParsedValue: function (descriptor, value) {
                 if (value == null) {
@@ -1031,24 +1031,24 @@
                 return this.SendAsync$1(request, this.MaxAutomaticRedirections, cancellationToken);
             },
             SendAsync$1: function (request, redirectCount, cancellationToken) {
-                var $step = 0,
-                    $task1, 
-                    $taskResult1, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $tr1, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
+                    $rv, 
                     requestObject, 
                     abortCts, 
                     abortRegistration, 
                     tcs, 
                     stringContent, 
                     formContent, 
-                    $async_e, 
+                    $ae, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1], $s);
+                                switch ($s) {
                                     case 0: {
                                         if (request == null) {
                                             throw new System.ArgumentNullException.$ctor1("request");
@@ -1083,45 +1083,45 @@
                                                     if (redirectCount > 0) {
                                                         redirectCount = (redirectCount - 1) | 0;
                                                         System.Threading.Tasks.Task.run(H5.fn.bind(this, function () {
-                                                            var $step = 0,
-                                                                $task1, 
-                                                                $taskResult1, 
-                                                                $jumpFromFinally, 
+                                                            var $s = 0,
+                                                                $t1, 
+                                                                $tr1, 
+                                                                $jff, 
                                                                 $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                                                                $returnValue, 
+                                                                $rv, 
                                                                 location, 
                                                                 response, 
                                                                 E, 
-                                                                $async_e, 
-                                                                $async_e1, 
+                                                                $ae, 
+                                                                $ae1, 
                                                                 $asyncBody = H5.fn.bind(this, function () {
                                                                     try {
                                                                         for (;;) {
-                                                                            $step = System.Array.min([1,2,3,4], $step);
-                                                                            switch ($step) {
+                                                                            $s = System.Array.min([1,2,3,4], $s);
+                                                                            switch ($s) {
 
                                                                                 case 1: {
                                                                                     request.MarkAsRedirected();
                                                                                     location = requestObject.getResponseHeader("Location");
-                                                                                    $task1 = this.SendAsync$1(request, redirectCount, cancellationToken);
-                                                                                    $step = 2;
-                                                                                    if ($task1.isCompleted()) {
+                                                                                    $t1 = this.SendAsync$1(request, redirectCount, cancellationToken);
+                                                                                    $s = 2;
+                                                                                    if ($t1.isCompleted()) {
                                                                                         continue;
                                                                                     }
-                                                                                    $task1.continue($asyncBody);
+                                                                                    $t1.continue($asyncBody);
                                                                                     return;
                                                                                 }
                                                                                 case 2: {
-                                                                                    $taskResult1 = $task1.getAwaitedResult();
-                                                                                    response = $taskResult1;
+                                                                                    $tr1 = $t1.getAwaitedResult();
+                                                                                    response = $tr1;
                                                                                     tcs.trySetResult(response);
-                                                                                    $step = 4;
+                                                                                    $s = 4;
                                                                                     continue;
                                                                                 }
                                                                                 case 3: {
                                                                                     tcs.trySetException(E);
-                                                                                    $async_e = null;
-                                                                                    $step = 4;
+                                                                                    $ae = null;
+                                                                                    $s = 4;
                                                                                     continue;
                                                                                 }
                                                                                 case 4: {
@@ -1134,15 +1134,15 @@
                                                                                 }
                                                                             }
                                                                         }
-                                                                    } catch($async_e1) {
-                                                                        $async_e = System.Exception.create($async_e1);
-                                                                        if ( $step >= 1 && $step <= 2 ) {
-                                                                            E = $async_e;
-                                                                            $step = 3;
+                                                                    } catch($ae1) {
+                                                                        $ae = System.Exception.create($ae1);
+                                                                        if ( $s >= 1 && $s <= 2 ) {
+                                                                            E = $ae;
+                                                                            $s = 3;
                                                                             $asyncBody();
                                                                             return;
                                                                         }
-                                                                        $tcs.setException($async_e);
+                                                                        $tcs.setException($ae);
                                                                     }
                                                                 }, arguments);
 
@@ -1175,17 +1175,17 @@
                                             requestObject.send();
                                         }
 
-                                        $task1 = tcs.task;
-                                        $step = 1;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = tcs.task;
+                                        $s = 1;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 1: {
-                                        $taskResult1 = $task1.getAwaitedResult();
-                                        $tcs.setResult($taskResult1);
+                                        $tr1 = $t1.getAwaitedResult();
+                                        $tcs.setResult($tr1);
                                         return;
                                     }
                                     default: {
@@ -1194,9 +1194,9 @@
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            $tcs.setException($async_e);
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 
@@ -1400,66 +1400,66 @@
                 return this.GetStringAsyncCore(request, cancellationToken);
             },
             GetStringAsyncCore: function (request, cancellationToken) {
-                var $step = 0,
-                    $task1, 
-                    $taskResult1, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $tr1, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
+                    $rv, 
                     cts, 
                     disposeCts, 
                     pendingRequestsCts, 
                     response, 
-                    $async_e, 
-                    $async_e1, 
+                    $ae, 
+                    $ae1, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1,2,3,4], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1,2,3,4], $s);
+                                switch ($s) {
                                     case 0: {
                                         cts = { };
                                         disposeCts = { };
                                         pendingRequestsCts = { };
                                         H5.Deconstruct(this.PrepareCancellationTokenSource(cancellationToken).$clone(), cts, disposeCts, pendingRequestsCts);
                                         response = null;
-                                        $step = 1;
+                                        $s = 1;
                                         continue;
                                     }
                                     case 1: {
                                         // Wait for the response message and make sure it completed successfully.
                                         request.ResponseType = "text";
-                                        $task1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
-                                        $step = 2;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
+                                        $s = 2;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
-                                        $taskResult1 = $task1.getAwaitedResult();
-                                        response = $taskResult1;
+                                        $tr1 = $t1.getAwaitedResult();
+                                        response = $tr1;
                                         System.Net.Http.HttpClient.ThrowForNullResponse(response);
                                         response.EnsureSuccessStatusCode();
-                                        $returnValue = response.Content.ReadAsString();
-                                        $step = 3;
+                                        $rv = response.Content.ReadAsString();
+                                        $s = 3;
                                         continue;
                                     }
                                     case 3: {
                                         System.Net.Http.HttpClient.FinishSend(cts.v, disposeCts.v);
 
-                                        if ($jumpFromFinally > -1) {
-                                            $step = $jumpFromFinally;
-                                            $jumpFromFinally = null;
-                                        } else if ($async_e) {
-                                            $tcs.setException($async_e);
+                                        if ($jff > -1) {
+                                            $s = $jff;
+                                            $jff = null;
+                                        } else if ($ae) {
+                                            $tcs.setException($ae);
                                             return;
-                                        } else if (H5.isDefined($returnValue)) {
-                                            $tcs.setResult($returnValue);
+                                        } else if (H5.isDefined($rv)) {
+                                            $tcs.setResult($rv);
                                             return;
                                         }
-                                        $step = 4;
+                                        $s = 4;
                                         continue;
                                     }
                                     case 4: {
@@ -1472,14 +1472,14 @@
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            if ($step >= 1 && $step <= 2) {
-                                $step = 3;
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            if ($s >= 1 && $s <= 2) {
+                                $s = 3;
                                 $asyncBody();
                                 return;
                             }
-                            $tcs.setException($async_e);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 
@@ -1504,66 +1504,66 @@
                 return this.GetByteArrayAsyncCore(request, cancellationToken);
             },
             GetByteArrayAsyncCore: function (request, cancellationToken) {
-                var $step = 0,
-                    $task1, 
-                    $taskResult1, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $tr1, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
+                    $rv, 
                     cts, 
                     disposeCts, 
                     pendingRequestsCts, 
                     response, 
-                    $async_e, 
-                    $async_e1, 
+                    $ae, 
+                    $ae1, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1,2,3,4], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1,2,3,4], $s);
+                                switch ($s) {
                                     case 0: {
                                         cts = { };
                                         disposeCts = { };
                                         pendingRequestsCts = { };
                                         H5.Deconstruct(this.PrepareCancellationTokenSource(cancellationToken).$clone(), cts, disposeCts, pendingRequestsCts);
                                         response = null;
-                                        $step = 1;
+                                        $s = 1;
                                         continue;
                                     }
                                     case 1: {
                                         request.ResponseType = "arraybuffer";
                                         // Wait for the response message and make sure it completed successfully.
-                                        $task1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
-                                        $step = 2;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
+                                        $s = 2;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
-                                        $taskResult1 = $task1.getAwaitedResult();
-                                        response = $taskResult1;
+                                        $tr1 = $t1.getAwaitedResult();
+                                        response = $tr1;
                                         System.Net.Http.HttpClient.ThrowForNullResponse(response);
                                         response.EnsureSuccessStatusCode();
-                                        $returnValue = response.Content.ReadAsArrayBuffer();
-                                        $step = 3;
+                                        $rv = response.Content.ReadAsArrayBuffer();
+                                        $s = 3;
                                         continue;
                                     }
                                     case 3: {
                                         System.Net.Http.HttpClient.FinishSend(cts.v, disposeCts.v);
 
-                                        if ($jumpFromFinally > -1) {
-                                            $step = $jumpFromFinally;
-                                            $jumpFromFinally = null;
-                                        } else if ($async_e) {
-                                            $tcs.setException($async_e);
+                                        if ($jff > -1) {
+                                            $s = $jff;
+                                            $jff = null;
+                                        } else if ($ae) {
+                                            $tcs.setException($ae);
                                             return;
-                                        } else if (H5.isDefined($returnValue)) {
-                                            $tcs.setResult($returnValue);
+                                        } else if (H5.isDefined($rv)) {
+                                            $tcs.setResult($rv);
                                             return;
                                         }
-                                        $step = 4;
+                                        $s = 4;
                                         continue;
                                     }
                                     case 4: {
@@ -1576,14 +1576,14 @@
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            if ($step >= 1 && $step <= 2) {
-                                $step = 3;
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            if ($s >= 1 && $s <= 2) {
+                                $s = 3;
                                 $asyncBody();
                                 return;
                             }
-                            $tcs.setException($async_e);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 
@@ -1608,66 +1608,66 @@
                 return this.GetBlobAsyncCore(request, cancellationToken);
             },
             GetBlobAsyncCore: function (request, cancellationToken) {
-                var $step = 0,
-                    $task1, 
-                    $taskResult1, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $tr1, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
+                    $rv, 
                     cts, 
                     disposeCts, 
                     pendingRequestsCts, 
                     response, 
-                    $async_e, 
-                    $async_e1, 
+                    $ae, 
+                    $ae1, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1,2,3,4], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1,2,3,4], $s);
+                                switch ($s) {
                                     case 0: {
                                         cts = { };
                                         disposeCts = { };
                                         pendingRequestsCts = { };
                                         H5.Deconstruct(this.PrepareCancellationTokenSource(cancellationToken).$clone(), cts, disposeCts, pendingRequestsCts);
                                         response = null;
-                                        $step = 1;
+                                        $s = 1;
                                         continue;
                                     }
                                     case 1: {
                                         // Wait for the response message and make sure it completed successfully.
                                         request.ResponseType = "blob";
-                                        $task1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
-                                        $step = 2;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
+                                        $s = 2;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
-                                        $taskResult1 = $task1.getAwaitedResult();
-                                        response = $taskResult1;
+                                        $tr1 = $t1.getAwaitedResult();
+                                        response = $tr1;
                                         System.Net.Http.HttpClient.ThrowForNullResponse(response);
                                         response.EnsureSuccessStatusCode();
-                                        $returnValue = response.Content.ReadAsBlob();
-                                        $step = 3;
+                                        $rv = response.Content.ReadAsBlob();
+                                        $s = 3;
                                         continue;
                                     }
                                     case 3: {
                                         System.Net.Http.HttpClient.FinishSend(cts.v, disposeCts.v);
 
-                                        if ($jumpFromFinally > -1) {
-                                            $step = $jumpFromFinally;
-                                            $jumpFromFinally = null;
-                                        } else if ($async_e) {
-                                            $tcs.setException($async_e);
+                                        if ($jff > -1) {
+                                            $s = $jff;
+                                            $jff = null;
+                                        } else if ($ae) {
+                                            $tcs.setException($ae);
                                             return;
-                                        } else if (H5.isDefined($returnValue)) {
-                                            $tcs.setResult($returnValue);
+                                        } else if (H5.isDefined($rv)) {
+                                            $tcs.setResult($rv);
                                             return;
                                         }
-                                        $step = 4;
+                                        $s = 4;
                                         continue;
                                     }
                                     case 4: {
@@ -1680,14 +1680,14 @@
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            if ($step >= 1 && $step <= 2) {
-                                $step = 3;
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            if ($s >= 1 && $s <= 2) {
+                                $s = 3;
                                 $asyncBody();
                                 return;
                             }
-                            $tcs.setException($async_e);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 
@@ -1712,66 +1712,66 @@
                 return this.GetObjectLiteralAsyncCore(T, request, cancellationToken);
             },
             GetObjectLiteralAsyncCore: function (T, request, cancellationToken) {
-                var $step = 0,
-                    $task1, 
-                    $taskResult1, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $tr1, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
+                    $rv, 
                     cts, 
                     disposeCts, 
                     pendingRequestsCts, 
                     response, 
-                    $async_e, 
-                    $async_e1, 
+                    $ae, 
+                    $ae1, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1,2,3,4], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1,2,3,4], $s);
+                                switch ($s) {
                                     case 0: {
                                         cts = { };
                                         disposeCts = { };
                                         pendingRequestsCts = { };
                                         H5.Deconstruct(this.PrepareCancellationTokenSource(cancellationToken).$clone(), cts, disposeCts, pendingRequestsCts);
                                         response = null;
-                                        $step = 1;
+                                        $s = 1;
                                         continue;
                                     }
                                     case 1: {
                                         request.ResponseType = "json";
                                         // Wait for the response message and make sure it completed successfully.
-                                        $task1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
-                                        $step = 2;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
+                                        $s = 2;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
-                                        $taskResult1 = $task1.getAwaitedResult();
-                                        response = $taskResult1;
+                                        $tr1 = $t1.getAwaitedResult();
+                                        response = $tr1;
                                         System.Net.Http.HttpClient.ThrowForNullResponse(response);
                                         response.EnsureSuccessStatusCode();
-                                        $returnValue = response.Content.ReadAsObjectLiteral(T);
-                                        $step = 3;
+                                        $rv = response.Content.ReadAsObjectLiteral(T);
+                                        $s = 3;
                                         continue;
                                     }
                                     case 3: {
                                         System.Net.Http.HttpClient.FinishSend(cts.v, disposeCts.v);
 
-                                        if ($jumpFromFinally > -1) {
-                                            $step = $jumpFromFinally;
-                                            $jumpFromFinally = null;
-                                        } else if ($async_e) {
-                                            $tcs.setException($async_e);
+                                        if ($jff > -1) {
+                                            $s = $jff;
+                                            $jff = null;
+                                        } else if ($ae) {
+                                            $tcs.setException($ae);
                                             return;
-                                        } else if (H5.isDefined($returnValue)) {
-                                            $tcs.setResult($returnValue);
+                                        } else if (H5.isDefined($rv)) {
+                                            $tcs.setResult($rv);
                                             return;
                                         }
-                                        $step = 4;
+                                        $s = 4;
                                         continue;
                                     }
                                     case 4: {
@@ -1784,14 +1784,14 @@
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            if ($step >= 1 && $step <= 2) {
-                                $step = 3;
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            if ($s >= 1 && $s <= 2) {
+                                $s = 3;
                                 $asyncBody();
                                 return;
                             }
-                            $tcs.setException($async_e);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 
@@ -1876,53 +1876,53 @@
                 var pendingRequestsCts = { };
                 H5.Deconstruct(this.PrepareCancellationTokenSource(cancellationToken).$clone(), cts, disposeCts, pendingRequestsCts);
                 Core = H5.fn.bind(this, function () {
-                    var $step = 0,
-                        $task1, 
-                        $taskResult1, 
-                        $jumpFromFinally, 
+                    var $s = 0,
+                        $t1, 
+                        $tr1, 
+                        $jff, 
                         $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                        $returnValue, 
+                        $rv, 
                         response, 
-                        $async_e, 
-                        $async_e1, 
+                        $ae, 
+                        $ae1, 
                         $asyncBody = H5.fn.bind(this, function () {
                             try {
                                 for (;;) {
-                                    $step = System.Array.min([1,2,3,4], $step);
-                                    switch ($step) {
+                                    $s = System.Array.min([1,2,3,4], $s);
+                                    switch ($s) {
 
                                         case 1: {
                                             // Wait for the send request to complete, getting back the response.
-                                            $task1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
-                                            $step = 2;
-                                            if ($task1.isCompleted()) {
+                                            $t1 = System.Net.Http.HttpMessageInvoker.prototype.SendAsync.call(this, request, cts.v.token);
+                                            $s = 2;
+                                            if ($t1.isCompleted()) {
                                                 continue;
                                             }
-                                            $task1.continue($asyncBody);
+                                            $t1.continue($asyncBody);
                                             return;
                                         }
                                         case 2: {
-                                            $taskResult1 = $task1.getAwaitedResult();
-                                            response = $taskResult1;
+                                            $tr1 = $t1.getAwaitedResult();
+                                            response = $tr1;
                                             System.Net.Http.HttpClient.ThrowForNullResponse(response);
-                                            $returnValue = response;
-                                            $step = 3;
+                                            $rv = response;
+                                            $s = 3;
                                             continue;
                                         }
                                         case 3: {
                                             System.Net.Http.HttpClient.FinishSend(cts.v, disposeCts.v);
 
-                                            if ($jumpFromFinally > -1) {
-                                                $step = $jumpFromFinally;
-                                                $jumpFromFinally = null;
-                                            } else if ($async_e) {
-                                                $tcs.setException($async_e);
+                                            if ($jff > -1) {
+                                                $s = $jff;
+                                                $jff = null;
+                                            } else if ($ae) {
+                                                $tcs.setException($ae);
                                                 return;
-                                            } else if (H5.isDefined($returnValue)) {
-                                                $tcs.setResult($returnValue);
+                                            } else if (H5.isDefined($rv)) {
+                                                $tcs.setResult($rv);
                                                 return;
                                             }
-                                            $step = 4;
+                                            $s = 4;
                                             continue;
                                         }
                                         case 4: {
@@ -1935,14 +1935,14 @@
                                         }
                                     }
                                 }
-                            } catch($async_e1) {
-                                $async_e = System.Exception.create($async_e1);
-                                if ($step >= 1 && $step <= 2) {
-                                    $step = 3;
+                            } catch($ae1) {
+                                $ae = System.Exception.create($ae1);
+                                if ($s >= 1 && $s <= 2) {
+                                    $s = 3;
                                     $asyncBody();
                                     return;
                                 }
-                                $tcs.setException($async_e);
+                                $tcs.setException($ae);
                             }
                         }, arguments);
 

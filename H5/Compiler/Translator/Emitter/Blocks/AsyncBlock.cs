@@ -121,7 +121,7 @@ namespace H5.Translator
 
             PreviousIsAync = Emitter.IsAsync;
             Emitter.IsAsync = true;
-
+            
             PreviousAsyncVariables = Emitter.AsyncVariables;
             Emitter.AsyncVariables = new List<string>();
 
@@ -265,7 +265,7 @@ namespace H5.Translator
             WriteNewLine();
 
             Indent();
-            Write(JS.Funcs.ASYNC_BODY + " = " + JS.Funcs.H5_BIND + "(this, ");
+            Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + " = " + JS.Funcs.H5_BIND + "(this, ");
             WriteFunction();
             Write("() ");
 
@@ -294,7 +294,7 @@ namespace H5.Translator
                 Write("return ");
             }
 
-            Write(JS.Funcs.ASYNC_BODY + "();");
+            Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + "();");
 
             if (IsTaskReturn)
             {
@@ -320,7 +320,9 @@ namespace H5.Translator
             {
                 if (IsTaskReturn)
                 {
-                    Emitter.AsyncVariables.Add(JS.Vars.ASYNC_TCS + " = new " + JS.Types.TASK_COMPLETION_SOURCE + "()");
+                    Emitter.AsyncVariables.Add(JS.Vars.ASYNC_TCS + " = new " +
+                         ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Types.SHORTEN_TASK_COMPLETION_SOURCE : JS.Types.TASK_COMPLETION_SOURCE)
+                         + "()");
                 }
 
                 Emitter.AsyncVariables.Add(JS.Vars.ASYNC_RETURN_VALUE);
@@ -403,7 +405,9 @@ namespace H5.Translator
                 list.Add(i);
             }
 
-            Emitter.Output.Insert(pos, JS.Vars.ASYNC_STEP + " = " + JS.Types.System.Array.MIN + "(" + Emitter.ToJavaScript(list.ToArray()) + ", " + JS.Vars.ASYNC_STEP + ");");
+            Emitter.Output.Insert(pos, JS.Vars.ASYNC_STEP + " = " +
+                ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Types.System.Array.SHORTEN_MIN : JS.Types.System.Array.MIN)
+                 + "(" + Emitter.ToJavaScript(list.ToArray()) + ", " + JS.Vars.ASYNC_STEP + ");");
         }
 
         protected void InjectCatchHandlers()
@@ -441,7 +445,7 @@ namespace H5.Translator
                             Write(JS.Vars.ASYNC_STEP + " = " + step + ";");
 
                             WriteNewLine();
-                            Write(JS.Funcs.ASYNC_BODY + "();");
+                            Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + "();");
                             WriteNewLine();
                             Write("return;");
                         }
@@ -475,7 +479,7 @@ namespace H5.Translator
                             Write(JS.Vars.ASYNC_STEP + " = " + step + ";");
 
                             WriteNewLine();
-                            Write(JS.Funcs.ASYNC_BODY + "();");
+                            Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + "();");
                             WriteNewLine();
                             Write("return;");
                             WriteNewLine();
@@ -507,7 +511,7 @@ namespace H5.Translator
                     Write(JS.Vars.ASYNC_STEP + " = " + info.FinallyStep + ";");
 
                     WriteNewLine();
-                    Write(JS.Funcs.ASYNC_BODY + "();");
+                    Write(((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_ASYNC_BODY : JS.Funcs.ASYNC_BODY) + "();");
                     WriteNewLine();
                     Write("return;");
 
@@ -519,7 +523,7 @@ namespace H5.Translator
 
             if (IsTaskReturn)
             {
-                Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_EXCEPTION + "(" + JS.Vars.ASYNC_E + ");");
+                Write(JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_EXCEPTION : JS.Funcs.SET_EXCEPTION) + "(" + JS.Vars.ASYNC_E + ");");
             }
             else
             {
@@ -564,11 +568,13 @@ namespace H5.Translator
 
                     if (IsTaskResult(expression))
                     {
-                        Write(string.Format("{0}{1} = {2}{1}.{3}();", JS.Vars.ASYNC_TASK_RESULT, step.FromTaskNumber, JS.Vars.ASYNC_TASK, JS.Funcs.GET_AWAITED_RESULT));
+                        Write(string.Format("{0}{1} = {2}{1}.{3}();", JS.Vars.ASYNC_TASK_RESULT, step.FromTaskNumber, JS.Vars.ASYNC_TASK,
+                            ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_GET_AWAITED_RESULT : JS.Funcs.GET_AWAITED_RESULT)
+                            ));
                     }
                     else
                     {
-                        Write(string.Format("{0}{1}.{2}();", JS.Vars.ASYNC_TASK, step.FromTaskNumber, JS.Funcs.GET_AWAITED_RESULT));
+                        Write(string.Format("{0}{1}.{2}();", JS.Vars.ASYNC_TASK, step.FromTaskNumber, ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_GET_AWAITED_RESULT : JS.Funcs.GET_AWAITED_RESULT)));
                     }
 
                     addNewLine = true;
@@ -622,7 +628,7 @@ namespace H5.Translator
 
                     if (IsTaskReturn)
                     {
-                        Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_RESULT + "(null);");
+                        Write(JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_RESULT : JS.Funcs.SET_RESULT) + "(null);");
                         WriteNewLine();
                     }
 
@@ -639,7 +645,7 @@ namespace H5.Translator
 
             if (IsTaskReturn)
             {
-                Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_RESULT + "(null);");
+                Write(JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_RESULT : JS.Funcs.SET_RESULT) + "(null);");
                 WriteNewLine();
             }
 

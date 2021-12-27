@@ -56,6 +56,7 @@
             public const string H5_GETHASHCODE = "H5.getHashCode";
             public const string H5_ADDHASH = "H5.addHash";
             public const string H5_REFERENCEEQUALS = "H5.referenceEquals";
+            public const string SHORTEN_H5_REFERENCEEQUALS = "H5.rE"; //Was "H5.referenceEquals"
             public const string H5_REF = "H5.ref";
             public const string H5_GETDEFAULTVALUE = "H5." + GETDEFAULTVALUE;
             public const string H5_EVENT = "H5.event";
@@ -78,11 +79,19 @@
             public const string GET_TYPE = "$getType";
 
             public const string ASYNC_BODY = "$asyncBody";
+            public const string SHORTEN_ASYNC_BODY = "$ab";
             public const string ASYNC_YIELD_BODY = "moveNext";
+            
             public const string GET_AWAITED_RESULT = "getAwaitedResult";
+            public const string SHORTEN_GET_AWAITED_RESULT = "gAR";     //Was: getAwaitedResult
             public const string CONTINUE_WITH = "continue";
-            public const string SET_RESULT = "setResult";
-            public const string SET_EXCEPTION = "setException";
+            public const string SHORTEN_CONTINUE_WITH = "c";            //Was: continue
+            public const string IS_COMPLETED = "isCompleted";
+            public const string SHORTEN_IS_COMPLETED = "isC";            //Was: isCompleted
+            public const string SET_RESULT = "setResult";               
+            public const string SHORTEN_SET_RESULT = "sR";              //Was: setResult
+            public const string SET_EXCEPTION = "setException";         
+            public const string SHORTEN_SET_EXCEPTION = "sE";           //Was: setException
 
             public const string CONSTRUCTOR = "ctor";
             public const string ENTRY_POINT_NAME = "main";
@@ -151,6 +160,7 @@
             public const string SYSTEM_DECIMAL = "System.Decimal";
             public const string SYSTEM_NULLABLE = "System.Nullable";
             public const string TASK_COMPLETION_SOURCE = "System.Threading.Tasks.TaskCompletionSource";
+            public const string SHORTEN_TASK_COMPLETION_SOURCE = "H5.TCS"; //Was "System.Threading.Tasks.TaskCompletionSource"
             public const string H5_IH5Class = "H5.IH5Class";
             public const string H5_INT = "H5.Int";
             public const string H5_ANONYMOUS = "$AnonymousType$";
@@ -209,6 +219,7 @@
                     public const string INDEX = DOTNAME + "index";
                     public const string INIT = DOTNAME + "init";
                     public const string MIN = DOTNAME + "min";
+                    public const string SHORTEN_MIN = "H5.STEP"; // Was DOTNAME + "min"
                     public const string TYPE = DOTNAME + "type";
                     public const string TO_ENUMERATOR = DOTNAME + "toEnumerator";
                     public const string TO_ENUMERABLE = DOTNAME + "toEnumerable";
@@ -327,20 +338,20 @@
             public const string E = "$e";
             public const string V = "$v";
             public const string YIELD = "$yield";
-            public const string ENUMERATOR = "$enumerator";
+            public const string ENUMERATOR = "$en"; // Was $enumerator
             public const string EXPORTS = "$exports";
             public const string SCOPE = "$scope";
             public const string MODULE = "$module";
             public const string ITERATOR = "$i";
 
-            public const string ASYNC_TASK = "$task";
-            public const string ASYNC_TASK_RESULT = "$taskResult";
-            public const string ASYNC_STEP = "$step";
-            public const string ASYNC_TCS = "$tcs";
-            public const string ASYNC_E = "$async_e";
-            public const string ASYNC_E1 = "$async_e1";
-            public const string ASYNC_JUMP = "$jumpFromFinally";
-            public const string ASYNC_RETURN_VALUE = "$returnValue";
+            public const string ASYNC_TCS = "$tcs";             
+            public const string ASYNC_TASK = "$t";              //Was $task
+            public const string ASYNC_TASK_RESULT = "$tr";      //Was $taskResult
+            public const string ASYNC_STEP = "$s";              //Was $step
+            public const string ASYNC_E = "$ae";                //Was $async_e
+            public const string ASYNC_E1 = "$ae1";              //Was $async_e1
+            public const string ASYNC_JUMP = "$jff";            //Was $jumpFromFinally
+            public const string ASYNC_RETURN_VALUE = "$rv";     //Was $returnValue
 
             public const string FIX_ARGUMENT_NAME = "__autofix__";
             public const string ARGUMENTS = "arguments";

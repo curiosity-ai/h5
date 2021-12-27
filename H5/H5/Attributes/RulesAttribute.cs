@@ -23,7 +23,8 @@ namespace H5
                 ExternalCast = ExternalCastRule.Plain,
                 InlineComment = InlineCommentRule.Plain,
                 Integer = IntegerRule.Managed,
-                Lambda = LambdaRule.Plain
+                Lambda = LambdaRule.Plain,
+                UseShortForms = false
             };
         }
 
@@ -76,6 +77,15 @@ namespace H5
             AnonymousTypeRule
 #endif
         AnonymousType
+        { get; set; }
+
+        public
+#if H5_COMPILER
+            bool?
+#else
+            bool
+#endif
+        UseShortForms
         { get; set; }
 
         public

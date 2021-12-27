@@ -1337,6 +1337,10 @@
             return H5.hasValue(a) ? a === b : !H5.hasValue(b);
         },
 
+        rE: function (a, b) {
+            return H5.hasValue(a) ? a === b : !H5.hasValue(b);
+        },
+
         staticEquals: function (a, b) {
             if (!H5.hasValue(a)) {
                 return !H5.hasValue(b);

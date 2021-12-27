@@ -356,6 +356,15 @@
             return tcs.task;
         },
 
+        c: function (continuationAction) {
+            if (this.isCompleted()) {
+                System.Threading.Tasks.Task.queue.push(continuationAction);
+                System.Threading.Tasks.Task.runQueue();
+            } else {
+                this.callbacks.push(continuationAction);
+            }
+        },
+
         continue: function (continuationAction) {
             if (this.isCompleted()) {
                 System.Threading.Tasks.Task.queue.push(continuationAction);
@@ -466,6 +475,10 @@
             return this.status === System.Threading.Tasks.TaskStatus.ranToCompletion || this.status === System.Threading.Tasks.TaskStatus.canceled || this.status === System.Threading.Tasks.TaskStatus.faulted;
         },
 
+        isC: function () {
+            return this.status === System.Threading.Tasks.TaskStatus.ranToCompletion || this.status === System.Threading.Tasks.TaskStatus.canceled || this.status === System.Threading.Tasks.TaskStatus.faulted;
+        },
+
         isFaulted: function () {
             return this.status === System.Threading.Tasks.TaskStatus.faulted;
         },
@@ -500,7 +513,12 @@
 
         getAwaitedResult: function () {
             return this._getResult(true);
+        },
+
+        gAR: function () {
+            return this._getResult(true);
         }
+
     });
 
     H5.define("System.Threading.Tasks.Task$1", function (T) {
@@ -540,6 +558,12 @@
             }
         },
 
+        sR: function (result) {
+            if (!this.task.complete(result)) {
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
+            }
+        },
+
         setResult: function (result) {
             if (!this.task.complete(result)) {
                 throw new System.InvalidOperationException.$ctor1("Task was already completed.");
@@ -547,6 +571,12 @@
         },
 
         setException: function (exception) {
+            if (!this.trySetException(exception)) {
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
+            }
+        },
+
+        sE: function (exception) {
             if (!this.trySetException(exception)) {
                 throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }

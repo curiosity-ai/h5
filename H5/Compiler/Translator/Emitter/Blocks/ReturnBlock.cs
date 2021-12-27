@@ -51,7 +51,7 @@ namespace H5.Translator
                     }
                     else
                     {
-                        Write(JS.Vars.ASYNC_TCS + "." + JS.Funcs.SET_RESULT + "(");
+                        Write(JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_RESULT : JS.Funcs.SET_RESULT) + "(");
                     }
 
                     if (!expression.IsNull)

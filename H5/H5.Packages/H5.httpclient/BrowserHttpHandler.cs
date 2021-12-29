@@ -84,10 +84,7 @@ namespace System.Net.Http
                     var httpResponse = new HttpResponseMessage((HttpStatusCode)requestObject.status, requestObject);
                     httpResponse.Content = new BrowserHttpContent(requestObject);
 
-                    if (requestObject.status >= 200 && requestObject.status < 300)
-                    {
-                        tcs.TrySetResult(httpResponse);
-                    }
+                    tcs.TrySetResult(httpResponse);
                 }
             };
 

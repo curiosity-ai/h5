@@ -569,6 +569,7 @@ namespace H5.Compiler
 
             // TODO: Add more checks
             var isMacOS         = OperatingSystem.IsMacOS();
+            var isLinux         = OperatingSystem.IsLinux();
             var isAzure         = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("Build.BuildId"));       //From here: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
             var isJenkis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BUILD_ID"));            //From here: https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
             var isGitLab        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CI_BUILDS_DIR"));       //From here: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
@@ -578,9 +579,11 @@ namespace H5.Compiler
             var isGitHubActions = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GITHUB_ACTIONS"));      //From here: https://help.github.com/en/articles/virtual-environments-for-github-actions#default-environment-variables
             
 
-            if (isMacOS || isAzure || isJenkis || isGitLab || isCircleCI || isTravis || isAppVeyor || isGitHubActions)
+            if (isMacOS || isLinux || isAzure || isJenkis || isGitLab || isCircleCI || isTravis || isAppVeyor || isGitHubActions)
             {
-                Logger.LogInformation(isMacOS ? "Running on MacOS, bypassing compilation server" : "Running on build machine, bypassing compilation server");
+                Logger.LogInformation( isMacOS ? "Running on MacOS, bypassing compilation server" : 
+                                      (isLinux ? "Running on Linux, bypassing compilation server" : 
+                                                "Running on build machine, bypassing compilation server"));
                 compilationRequest.NoCompilationServer = true;
             }
 

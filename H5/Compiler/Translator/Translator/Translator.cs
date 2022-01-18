@@ -67,6 +67,16 @@ namespace H5.Translator
             AlwaysEscapeNonAscii = true
         };
 
+        private static readonly CodeSettings MinifierCodeSettingsSafeCrunchLocal = new CodeSettings
+        {
+            EvalTreatment = EvalTreatment.MakeAllSafe,
+            LocalRenaming = LocalRenaming.CrunchAll,
+            TermSemicolons = true,
+            StrictMode = false,
+            RemoveUnneededCode = false,
+            AlwaysEscapeNonAscii = true
+        };
+
         private static readonly CodeSettings MinifierCodeSettingsInternal = new CodeSettings
         {
             TermSemicolons = true,

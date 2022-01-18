@@ -8,7 +8,10 @@ namespace Placeholder
     {
         private static void Main()
         {
-            HTMLStyleElement styleElement = (HTMLStyleElement)document.createElement("style");
+            var hello = "Hello";
+            var world = World();
+            document.body.innerHTML = $"{hello} {world}!";
+            string World() => "World";
         }
     }
 }

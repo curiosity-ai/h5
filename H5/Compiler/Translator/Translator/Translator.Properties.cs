@@ -105,6 +105,11 @@ namespace H5.Translator
         /// </summary>
         public bool NoStrictMode { get; set; }
 
+        /// <summary>
+        /// Indicates whether local variables within functions should be minified
+        /// </summary>
+        public bool MinifyLocalVariables { get; set; }
+
         public string[] SkipPluginAssemblies { get; set; }
 
         public OverflowMode? OverflowMode { get; set; }

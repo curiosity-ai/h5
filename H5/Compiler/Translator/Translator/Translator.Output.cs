@@ -1136,7 +1136,8 @@ namespace H5.Translator
                 return MinifierCodeSettingsInternal;
             }
 
-            var settings = MinifierCodeSettingsSafe;
+            var settings = MinifyLocalVariables ? MinifierCodeSettingsSafeCrunchLocal : MinifierCodeSettingsSafe;
+            
             if (NoStrictMode)
             {
                 settings = settings.Clone();

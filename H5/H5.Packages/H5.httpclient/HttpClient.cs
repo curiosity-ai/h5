@@ -36,7 +36,7 @@ namespace System.Net.Http
 
                 if (_defaultRequestHeaders is null)
                 {
-                    _defaultRequestHeaders = new HttpRequestHeaders(null);
+                    _defaultRequestHeaders = new HttpRequestHeaders();
                 }
                 return _defaultRequestHeaders;
             }

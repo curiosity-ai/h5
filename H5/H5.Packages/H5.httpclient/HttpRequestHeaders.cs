@@ -8,8 +8,7 @@ namespace System.Net.Http.Headers
 {
     public sealed class HttpRequestHeaders : HttpHeaders
     {
-        internal HttpRequestHeaders(XMLHttpRequest request)
-            : base(request)
+        internal HttpRequestHeaders() : base(null)
         {
         }
 

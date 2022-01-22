@@ -84,7 +84,7 @@ namespace System.Net.Http
         {
             get
             {
-                if (_headers is null) _headers = new HttpRequestHeaders(_request);
+                if (_headers is null) _headers = new HttpRequestHeaders();
                 return _headers;
             }
         }

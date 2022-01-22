@@ -21,18 +21,21 @@ namespace System.Net.Http.Headers
         internal Dictionary<string, string> HeaderStore => _headerStore;
 
 
+        internal void ApplyHeadersToRequest(XMLHttpRequest request)
+        {
+            if (_headerStore is object)
+            {
+                foreach(var kv in _headerStore)
+                {
+                    request.setRequestHeader(kv.Key, kv.Value);
+                }
+            }
+        }
+
         public void Add(string descriptor, string value)
         {
-            //TODO: How to handle the case where we override something?
-            if (_request is object)
-            {
-                _request.setRequestHeader(descriptor, value);
-            }
-            else
-            {
-                if (_headerStore is null) _headerStore = new Dictionary<string, string>();
-                _headerStore.Add(descriptor, value);
-            }
+            if (_headerStore is null) _headerStore = new Dictionary<string, string>();
+            _headerStore.Add(descriptor, value);
         }
 
         public void Clear() => _headerStore?.Clear();

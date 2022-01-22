@@ -26,9 +26,12 @@ namespace System.Net.Http
             }
 
             var requestObject = request._request;
-
+            
             requestObject.open(request.Method.Method, request.RequestUri.AbsoluteUri);
-
+            
+            //We can only apply the headers after the request has been opened
+            request.Headers.ApplyHeadersToRequest(requestObject);
+            
             if (request.Content != null)
             {
                 request.Headers.AddHeaders(request.Content.Headers);

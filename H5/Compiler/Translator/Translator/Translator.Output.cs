@@ -1119,10 +1119,12 @@ namespace H5.Translator
             }
 
             Logger.ZLogTrace("Input script length is {0} symbols...", source.Length);
+            
+            UglifyResult contentMinified;
 
             try
             {
-                var contentMinified = Uglify.Js(source, settings);
+                contentMinified = Uglify.Js(source, settings);
             }
             catch(Exception ex)
             {

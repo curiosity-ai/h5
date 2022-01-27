@@ -1120,7 +1120,17 @@ namespace H5.Translator
 
             Logger.ZLogTrace("Input script length is {0} symbols...", source.Length);
 
-            var contentMinified = Uglify.Js(source, settings);
+            try
+            {
+                var contentMinified = Uglify.Js(source, settings);
+            }
+            catch(Exception ex)
+            {
+                var tempFile = Path.GetTempFileName();
+                File.WriteAllText(tempFile, source);
+                Logger.LogError(ex, $"Error minifiying code. Saved output to {tempFile}");
+                throw;
+            }
 
             Logger.ZLogTrace("Output script length is {0} symbols. Done.", contentMinified.Code.Length);
 

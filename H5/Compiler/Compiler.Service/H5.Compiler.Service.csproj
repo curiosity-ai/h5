@@ -47,7 +47,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.0.1" />
-    <PackageReference Include="NUglify" Version="1.16.1" />
+    <PackageReference Include="NUglify" Version="1.17.10" />
     <PackageReference Include="Lokad.ILPack" Version="0.1.7" />
     <PackageReference Include="MagicOnion.Hosting" Version="3.0.13" />
     <PackageReference Include="Microsoft.Build" Version="17.0.0" />

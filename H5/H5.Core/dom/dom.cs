@@ -23870,6 +23870,18 @@ namespace H5.Core
             public virtual extern void addListener(dom.MediaQueryListListener listener);
 
             public virtual extern void removeListener(dom.MediaQueryListListener listener);
+
+            public virtual extern void addEventListener(string eventType, es5.Function callback);
+
+            public virtual extern void addEventListener(string eventType, Action callback);
+
+            public virtual extern void addEventListener(string eventType, dom.MediaQueryListListener callback);
+
+            public virtual extern void removeEventListener(string eventType, es5.Function callback);
+
+            public virtual extern void removeEventListener(string eventType, Action callback);
+
+            public virtual extern void removeEventListener(string eventType, dom.MediaQueryListListener callback);
         }
 
         [CombinedClass]

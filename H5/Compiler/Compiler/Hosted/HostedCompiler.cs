@@ -14,17 +14,17 @@ namespace H5.Compiler.Hosted
 {
     public class HostedCompiler : ServiceBase<IHostedCompiler>, IHostedCompiler
     {
-        private static readonly ILogger Logger = ApplicationLogging.CreateLogger<HostedCompiler>();
+        private static readonly ILogger _logger = ApplicationLogging.CreateLogger<HostedCompiler>();
 
         public HostedCompiler()
         {
         }
 
-        public async UnaryResult<Nil> AbortAsync(UID128 compilationUID)
+        public UnaryResult<Nil> AbortAsync(UID128 compilationUID)
         {
-            Logger.ZLogInformation("==== ABORT {0}", compilationUID);
+            _logger.ZLogInformation("==== ABORT {0}", compilationUID);
             CompilationProcessor.Abort(compilationUID);
-            return Nil.Default;
+            return new UnaryResult<Nil>(Nil.Default);
         }
 
         public async UnaryResult<CompilationResult> GetStatusAsync(UID128 compilationUID)
@@ -39,7 +39,7 @@ namespace H5.Compiler.Hosted
 
         public UnaryResult<Nil> Ping()
         {
-            Logger.ZLogInformation("==== PING");
+            _logger.ZLogInformation("==== PING");
             return new UnaryResult<Nil>(Nil.Default);
         }
 

@@ -210,172 +210,172 @@ namespace H5.Contract
 
         private OverloadsCollection(IEmitter emitter, FieldDeclaration fieldDeclaration)
         {
-            this.Emitter = emitter;
-            this.Name = emitter.GetFieldName(fieldDeclaration);
-            this.JsName = this.Emitter.GetEntityName(fieldDeclaration);
-            this.Inherit = !fieldDeclaration.HasModifier(Modifiers.Static);
-            this.Static = fieldDeclaration.HasModifier(Modifiers.Static);
-            this.Member = this.FindMember(fieldDeclaration);
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.InitMembers();
-            this.Emitter.Cache.AddNode(fieldDeclaration, false, this);
+            Emitter = emitter;
+            Name = emitter.GetFieldName(fieldDeclaration);
+            JsName = Emitter.GetEntityName(fieldDeclaration);
+            Inherit = !fieldDeclaration.HasModifier(Modifiers.Static);
+            Static = fieldDeclaration.HasModifier(Modifiers.Static);
+            Member = FindMember(fieldDeclaration);
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            InitMembers();
+            Emitter.Cache.AddNode(fieldDeclaration, false, this);
         }
 
         private OverloadsCollection(IEmitter emitter, EventDeclaration eventDeclaration)
         {
-            this.Emitter = emitter;
-            this.Name = emitter.GetEventName(eventDeclaration);
-            this.JsName = this.Emitter.GetEntityName(eventDeclaration);
-            this.Inherit = !eventDeclaration.HasModifier(Modifiers.Static);
-            this.Static = eventDeclaration.HasModifier(Modifiers.Static);
-            this.Member = this.FindMember(eventDeclaration);
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.InitMembers();
-            this.Emitter.Cache.AddNode(eventDeclaration, false, this);
+            Emitter = emitter;
+            Name = emitter.GetEventName(eventDeclaration);
+            JsName = Emitter.GetEntityName(eventDeclaration);
+            Inherit = !eventDeclaration.HasModifier(Modifiers.Static);
+            Static = eventDeclaration.HasModifier(Modifiers.Static);
+            Member = FindMember(eventDeclaration);
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            InitMembers();
+            Emitter.Cache.AddNode(eventDeclaration, false, this);
         }
 
         private OverloadsCollection(IEmitter emitter, CustomEventDeclaration eventDeclaration, bool remove)
         {
-            this.Emitter = emitter;
-            this.Name = eventDeclaration.Name;
-            this.JsName = Helpers.GetEventRef(eventDeclaration, emitter, remove, true);
-            this.AltJsName = Helpers.GetEventRef(eventDeclaration, emitter, !remove, true);
-            this.FieldJsName = emitter.GetEntityName(eventDeclaration);
-            this.Inherit = !eventDeclaration.HasModifier(Modifiers.Static);
-            this.IsSetter = remove;
-            this.Static = eventDeclaration.HasModifier(Modifiers.Static);
-            this.Member = this.FindMember(eventDeclaration);
-            this.FieldJsName = Helpers.GetEventRef(this.Member, emitter, true, true, true, false, true); ;
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.InitMembers();
-            this.Emitter.Cache.AddNode(eventDeclaration, remove, this);
+            Emitter = emitter;
+            Name = eventDeclaration.Name;
+            JsName = Helpers.GetEventRef(eventDeclaration, emitter, remove, true);
+            AltJsName = Helpers.GetEventRef(eventDeclaration, emitter, !remove, true);
+            FieldJsName = emitter.GetEntityName(eventDeclaration);
+            Inherit = !eventDeclaration.HasModifier(Modifiers.Static);
+            IsSetter = remove;
+            Static = eventDeclaration.HasModifier(Modifiers.Static);
+            Member = FindMember(eventDeclaration);
+            FieldJsName = Helpers.GetEventRef(Member, emitter, true, true, true, false, true); ;
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            InitMembers();
+            Emitter.Cache.AddNode(eventDeclaration, remove, this);
         }
 
         private OverloadsCollection(IEmitter emitter, MethodDeclaration methodDeclaration)
         {
-            this.Emitter = emitter;
-            this.Name = methodDeclaration.Name;
-            this.JsName = this.Emitter.GetEntityName(methodDeclaration);
-            this.Inherit = !methodDeclaration.HasModifier(Modifiers.Static);
-            this.Static = methodDeclaration.HasModifier(Modifiers.Static);
-            this.Member = this.FindMember(methodDeclaration);
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.InitMembers();
-            this.Emitter.Cache.AddNode(methodDeclaration, false, this);
+            Emitter = emitter;
+            Name = methodDeclaration.Name;
+            JsName = Emitter.GetEntityName(methodDeclaration);
+            Inherit = !methodDeclaration.HasModifier(Modifiers.Static);
+            Static = methodDeclaration.HasModifier(Modifiers.Static);
+            Member = FindMember(methodDeclaration);
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            InitMembers();
+            Emitter.Cache.AddNode(methodDeclaration, false, this);
         }
 
         private OverloadsCollection(IEmitter emitter, ConstructorDeclaration constructorDeclaration)
         {
-            this.Emitter = emitter;
-            this.Name = constructorDeclaration.Name;
-            this.JsName = this.Emitter.GetEntityName(constructorDeclaration);
-            this.Inherit = false;
-            this.Constructor = true;
-            this.Static = constructorDeclaration.HasModifier(Modifiers.Static);
-            this.Member = this.FindMember(constructorDeclaration);
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.InitMembers();
-            this.Emitter.Cache.AddNode(constructorDeclaration, false, this);
+            Emitter = emitter;
+            Name = constructorDeclaration.Name;
+            JsName = Emitter.GetEntityName(constructorDeclaration);
+            Inherit = false;
+            Constructor = true;
+            Static = constructorDeclaration.HasModifier(Modifiers.Static);
+            Member = FindMember(constructorDeclaration);
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            InitMembers();
+            Emitter.Cache.AddNode(constructorDeclaration, false, this);
         }
 
         private OverloadsCollection(IEmitter emitter, PropertyDeclaration propDeclaration, bool isSetter, bool isField)
         {
-            this.Emitter = emitter;
-            this.IsField = isField;
-            this.Name = propDeclaration.Name;
-            this.JsName = Helpers.GetPropertyRef(propDeclaration, emitter, isSetter, true, true);
-            this.AltJsName = Helpers.GetPropertyRef(propDeclaration, emitter, !isSetter, true, true);
-            this.FieldJsName = propDeclaration.Getter != null && propDeclaration.Getter.Body.IsNull ? emitter.GetEntityName(propDeclaration) : null;
-            this.Inherit = !propDeclaration.HasModifier(Modifiers.Static);
-            this.Static = propDeclaration.HasModifier(Modifiers.Static);
-            this.IsSetter = isSetter;
-            this.Member = this.FindMember(propDeclaration);
-            var p = (IProperty)this.Member;
-            this.FieldJsName = this.Emitter.GetEntityName(p);
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.InitMembers();
-            this.Emitter.Cache.AddNode(propDeclaration, isSetter, this);
+            Emitter = emitter;
+            IsField = isField;
+            Name = propDeclaration.Name;
+            JsName = Helpers.GetPropertyRef(propDeclaration, emitter, isSetter, true, true);
+            AltJsName = Helpers.GetPropertyRef(propDeclaration, emitter, !isSetter, true, true);
+            FieldJsName = propDeclaration.Getter != null && propDeclaration.Getter.Body.IsNull ? emitter.GetEntityName(propDeclaration) : null;
+            Inherit = !propDeclaration.HasModifier(Modifiers.Static);
+            Static = propDeclaration.HasModifier(Modifiers.Static);
+            IsSetter = isSetter;
+            Member = FindMember(propDeclaration);
+            var p = (IProperty)Member;
+            FieldJsName = Emitter.GetEntityName(p);
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            InitMembers();
+            Emitter.Cache.AddNode(propDeclaration, isSetter, this);
         }
 
         private OverloadsCollection(IEmitter emitter, IndexerDeclaration indexerDeclaration, bool isSetter)
         {
-            this.Emitter = emitter;
-            this.Name = indexerDeclaration.Name;
-            this.JsName = Helpers.GetPropertyRef(indexerDeclaration, emitter, isSetter, true, true);
-            this.AltJsName = Helpers.GetPropertyRef(indexerDeclaration, emitter, !isSetter, true, true);
-            this.Inherit = true;
-            this.Static = false;
-            this.IsSetter = isSetter;
-            this.Member = this.FindMember(indexerDeclaration);
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.InitMembers();
-            this.Emitter.Cache.AddNode(indexerDeclaration, isSetter, this);
+            Emitter = emitter;
+            Name = indexerDeclaration.Name;
+            JsName = Helpers.GetPropertyRef(indexerDeclaration, emitter, isSetter, true, true);
+            AltJsName = Helpers.GetPropertyRef(indexerDeclaration, emitter, !isSetter, true, true);
+            Inherit = true;
+            Static = false;
+            IsSetter = isSetter;
+            Member = FindMember(indexerDeclaration);
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            InitMembers();
+            Emitter.Cache.AddNode(indexerDeclaration, isSetter, this);
         }
 
         private OverloadsCollection(IEmitter emitter, OperatorDeclaration operatorDeclaration)
         {
-            this.Emitter = emitter;
-            this.Name = operatorDeclaration.Name;
-            this.JsName = this.Emitter.GetEntityName(operatorDeclaration);
-            this.Inherit = !operatorDeclaration.HasModifier(Modifiers.Static);
-            this.Static = operatorDeclaration.HasModifier(Modifiers.Static);
-            this.Member = this.FindMember(operatorDeclaration);
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.InitMembers();
-            this.Emitter.Cache.AddNode(operatorDeclaration, false, this);
+            Emitter = emitter;
+            Name = operatorDeclaration.Name;
+            JsName = Emitter.GetEntityName(operatorDeclaration);
+            Inherit = !operatorDeclaration.HasModifier(Modifiers.Static);
+            Static = operatorDeclaration.HasModifier(Modifiers.Static);
+            Member = FindMember(operatorDeclaration);
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            InitMembers();
+            Emitter.Cache.AddNode(operatorDeclaration, false, this);
         }
 
         private OverloadsCollection(IEmitter emitter, IMember member, bool isSetter = false, bool includeInline = false, bool isField = false)
         {
             if (member is IMethod method)
             {
-                this.Inherit = !method.IsConstructor && !method.IsStatic;
-                this.Static = method.IsStatic;
-                this.Constructor = method.IsConstructor;
+                Inherit = !method.IsConstructor && !method.IsStatic;
+                Static = method.IsStatic;
+                Constructor = method.IsConstructor;
             }
             else if (member is IEntity entity)
             {
-                this.Inherit = !entity.IsStatic;
-                this.Static = entity.IsStatic;
+                Inherit = !entity.IsStatic;
+                Static = entity.IsStatic;
             }
 
-            this.Emitter = emitter;
-            this.Name = member.Name;
-            this.IsField = isField;
+            Emitter = emitter;
+            Name = member.Name;
+            IsField = isField;
 
             if (member is IProperty)
             {
-                this.JsName = Helpers.GetPropertyRef(member, emitter, isSetter, true, true);
-                this.AltJsName = Helpers.GetPropertyRef(member, emitter, !isSetter, true, true);
+                JsName = Helpers.GetPropertyRef(member, emitter, isSetter, true, true);
+                AltJsName = Helpers.GetPropertyRef(member, emitter, !isSetter, true, true);
                 var p = (IProperty) member;
-                this.FieldJsName = this.Emitter.GetEntityName(p);
+                FieldJsName = Emitter.GetEntityName(p);
             }
             else if (member is IEvent)
             {
-                this.JsName = Helpers.GetEventRef(member, emitter, isSetter, true, true);
-                this.AltJsName = Helpers.GetEventRef(member, emitter, !isSetter, true, true);
-                this.FieldJsName = Helpers.GetEventRef(member, emitter, true, true, true, false, true);
+                JsName = Helpers.GetEventRef(member, emitter, isSetter, true, true);
+                AltJsName = Helpers.GetEventRef(member, emitter, !isSetter, true, true);
+                FieldJsName = Helpers.GetEventRef(member, emitter, true, true, true, false, true);
             }
             else
             {
-                this.JsName = this.Emitter.GetEntityName(member);
+                JsName = Emitter.GetEntityName(member);
             }
 
-            this.IncludeInline = includeInline;
-            this.Member = member;
-            this.TypeDefinition = this.Member.DeclaringTypeDefinition;
-            this.Type = this.Member.DeclaringType;
-            this.IsSetter = isSetter;
-            this.InitMembers();
-            this.Emitter.Cache.AddMember(member, isSetter, includeInline, this);
+            IncludeInline = includeInline;
+            Member = member;
+            TypeDefinition = Member.DeclaringTypeDefinition;
+            Type = Member.DeclaringType;
+            IsSetter = isSetter;
+            InitMembers();
+            Emitter.Cache.AddMember(member, isSetter, includeInline, this);
         }
 
         public bool IsField { get; set; }
@@ -408,7 +408,7 @@ namespace H5.Contract
         {
             get
             {
-                return this.Members.Count > 1;
+                return Members.Count > 1;
             }
         }
 
@@ -416,7 +416,7 @@ namespace H5.Contract
         {
             var originalMember = member;
 
-            while (member != null && member.IsOverride && !this.IsTemplateOverride(member))
+            while (member != null && member.IsOverride && !IsTemplateOverride(member))
             {
                 member = InheritanceHelper.GetBaseMember(member);
             }
@@ -426,7 +426,7 @@ namespace H5.Contract
                 member = originalMember;
             }
 
-            return this.Members.IndexOf(member.MemberDefinition);
+            return Members.IndexOf(member.MemberDefinition);
         }
 
         private List<IMember> members;
@@ -435,33 +435,33 @@ namespace H5.Contract
         {
             get
             {
-                this.InitMembers();
-                return this.members;
+                InitMembers();
+                return members;
             }
         }
 
         protected virtual void InitMembers()
         {
-            if (this.members == null)
+            if (members == null)
             {
-                this.Properties = this.GetPropertyOverloads();
-                this.Events = this.GetEventOverloads();
-                this.Methods = this.GetMethodOverloads();
-                this.Fields = this.GetFieldOverloads();
+                Properties = GetPropertyOverloads();
+                Events = GetEventOverloads();
+                Methods = GetMethodOverloads();
+                Fields = GetFieldOverloads();
 
-                this.members = new List<IMember>();
-                this.members.AddRange(this.Methods);
-                this.members.AddRange(this.Properties);
-                this.members.AddRange(this.Fields);
-                this.members.AddRange(this.Events);
+                members = new List<IMember>();
+                members.AddRange(Methods);
+                members.AddRange(Properties);
+                members.AddRange(Fields);
+                members.AddRange(Events);
 
-                this.SortMembersOverloads();
+                SortMembersOverloads();
             }
         }
 
         protected virtual void SortMembersOverloads()
         {
-            this.Members.Sort((m1, m2) =>
+            Members.Sort((m1, m2) =>
             {
                 if (m1.DeclaringType != m2.DeclaringType)
                 {
@@ -520,11 +520,11 @@ namespace H5.Contract
                 if ((method1 != null && method1.IsConstructor) &&
                     (method2 != null && method2.IsConstructor))
                 {
-                    return string.Compare(this.MemberToString(m1), this.MemberToString(m2));
+                    return string.Compare(MemberToString(m1), MemberToString(m2));
                 }
 
-                var a1 = this.GetAccessibilityWeight(m1.Accessibility);
-                var a2 = this.GetAccessibilityWeight(m2.Accessibility);
+                var a1 = GetAccessibilityWeight(m1.Accessibility);
+                var a2 = GetAccessibilityWeight(m2.Accessibility);
                 if (a1 != a2)
                 {
                     return a1.CompareTo(a2);
@@ -538,8 +538,8 @@ namespace H5.Contract
                     return v1.CompareTo(v2);
                 }
 
-                var name1 = this.MemberToString(m1);
-                var name2 = this.MemberToString(m2);
+                var name1 = MemberToString(m1);
+                var name2 = MemberToString(m2);
 
                 return string.Compare(name1, name2);
             });
@@ -586,7 +586,7 @@ namespace H5.Contract
         {
             if (member is IMethod)
             {
-                return this.MethodToString((IMethod)member);
+                return MethodToString((IMethod)member);
             }
 
             return member.Name;
@@ -616,13 +616,13 @@ namespace H5.Contract
 
                 if (member != null)
                 {
-                    var inline = this.Emitter.GetInline(member);
+                    var inline = Emitter.GetInline(member);
                     bool isInline = !string.IsNullOrWhiteSpace(inline);
                     if (isInline)
                     {
                         if (member.IsOverride)
                         {
-                            return this.IsTemplateOverride(member);
+                            return IsTemplateOverride(member);
                         }
                         return true;
                     }
@@ -634,31 +634,31 @@ namespace H5.Contract
 
         protected virtual List<IMethod> GetMethodOverloads(List<IMethod> list = null, ITypeDefinition typeDef = null)
         {
-            typeDef = typeDef ?? this.TypeDefinition;
+            typeDef = typeDef ?? TypeDefinition;
 
             bool isTop = list == null;
             list = list ?? new List<IMethod>();
-            var toStringOverride = (this.JsName == "toString" && this.Member is IMethod && ((IMethod)this.Member).Parameters.Count == 0);
-            if (this.Member != null && this.Member.IsOverride && (!this.IsTemplateOverride(this.Member) || toStringOverride))
+            var toStringOverride = (JsName == "toString" && Member is IMethod && ((IMethod)Member).Parameters.Count == 0);
+            if (Member != null && Member.IsOverride && (!IsTemplateOverride(Member) || toStringOverride))
             {
-                if (this.OriginalMember == null)
+                if (OriginalMember == null)
                 {
-                    this.OriginalMember = this.Member;
+                    OriginalMember = Member;
                 }
 
-                this.Member = InheritanceHelper.GetBaseMember(this.Member);
-                typeDef = this.Member.DeclaringTypeDefinition;
+                Member = InheritanceHelper.GetBaseMember(Member);
+                typeDef = Member.DeclaringTypeDefinition;
             }
 
             if (typeDef != null)
             {
-                var isExternalType = this.Emitter.Validator.IsExternalType(typeDef);
+                var isExternalType = Emitter.Validator.IsExternalType(typeDef);
                 bool externalFound = false;
 
-                var oldIncludeInline = this.IncludeInline;
+                var oldIncludeInline = IncludeInline;
                 if (toStringOverride)
                 {
-                    this.IncludeInline = true;
+                    IncludeInline = true;
                 }
 
                 var methods = typeDef.Methods.Where(m =>
@@ -668,32 +668,32 @@ namespace H5.Contract
                         return false;
                     }
 
-                    if (!this.IncludeInline)
+                    if (!IncludeInline)
                     {
-                        var inline = this.Emitter.GetInline(m);
+                        var inline = Emitter.GetInline(m);
                         if (!string.IsNullOrWhiteSpace(inline) && !(m.Name == "ToString" && m.Parameters.Count == 0 && !m.IsOverride))
                         {
                             return false;
                         }
                     }
 
-                    var name = this.Emitter.GetEntityName(m);
-                    if ((name == this.JsName || name == this.AltJsName || name == this.FieldJsName) && m.IsStatic == this.Static &&
-                        (m.IsConstructor && this.JsName == JS.Funcs.CONSTRUCTOR || m.IsConstructor == this.Constructor))
+                    var name = Emitter.GetEntityName(m);
+                    if ((name == JsName || name == AltJsName || name == FieldJsName) && m.IsStatic == Static &&
+                        (m.IsConstructor && JsName == JS.Funcs.CONSTRUCTOR || m.IsConstructor == Constructor))
                     {
-                        if (m.IsConstructor != this.Constructor && (m.Parameters.Count > 0 || m.DeclaringTypeDefinition != this.TypeDefinition))
+                        if (m.IsConstructor != Constructor && (m.Parameters.Count > 0 || m.DeclaringTypeDefinition != TypeDefinition))
                         {
                             return false;
                         }
 
-                        if (m.IsOverride && (!this.IsTemplateOverride(m) || m.Name == "ToString" && m.Parameters.Count == 0))
+                        if (m.IsOverride && (!IsTemplateOverride(m) || m.Name == "ToString" && m.Parameters.Count == 0))
                         {
                             return false;
                         }
 
                         if (!isExternalType)
                         {
-                            var isExtern = !m.HasBody && !m.IsAbstract || this.Emitter.Validator.IsExternalType(m);
+                            var isExtern = !m.HasBody && !m.IsAbstract || Emitter.Validator.IsExternalType(m);
                             if (isExtern)
                             {
                                 return false;
@@ -715,17 +715,17 @@ namespace H5.Contract
                     return false;
                 });
 
-                this.IncludeInline = oldIncludeInline;
+                IncludeInline = oldIncludeInline;
 
                 list.AddRange(methods);
 
-                if (this.Inherit)
+                if (Inherit)
                 {
                     var baseTypeDefinitions = typeDef.DirectBaseTypes.Where(t => t.Kind == typeDef.Kind || (typeDef.Kind == TypeKind.Struct && t.Kind == TypeKind.Class));
 
                     foreach (var baseTypeDef in baseTypeDefinitions)
                     {
-                        list = this.GetMethodOverloads(list, baseTypeDef.GetDefinition());
+                        list = GetMethodOverloads(list, baseTypeDef.GetDefinition());
                     }
                 }
             }
@@ -736,25 +736,25 @@ namespace H5.Contract
 
         protected virtual List<IProperty> GetPropertyOverloads(List<IProperty> list = null, ITypeDefinition typeDef = null)
         {
-            typeDef = typeDef ?? this.TypeDefinition;
+            typeDef = typeDef ?? TypeDefinition;
 
             bool isTop = list == null;
             list = list ?? new List<IProperty>();
 
-            if (this.Member != null && this.Member.IsOverride && !this.IsTemplateOverride(this.Member))
+            if (Member != null && Member.IsOverride && !IsTemplateOverride(Member))
             {
-                if (this.OriginalMember == null)
+                if (OriginalMember == null)
                 {
-                    this.OriginalMember = this.Member;
+                    OriginalMember = Member;
                 }
 
-                this.Member = InheritanceHelper.GetBaseMember(this.Member);
-                typeDef = this.Member.DeclaringTypeDefinition;
+                Member = InheritanceHelper.GetBaseMember(Member);
+                typeDef = Member.DeclaringTypeDefinition;
             }
 
             if (typeDef != null)
             {
-                bool isMember = this.Member is IMethod;
+                bool isMember = Member is IMethod;
                 var properties = typeDef.Properties.Where(p =>
                 {
                     if (p.IsExplicitInterfaceImplementation)
@@ -765,15 +765,15 @@ namespace H5.Contract
                     var canGet = p.CanGet && p.Getter != null;
                     var canSet = p.CanSet && p.Setter != null;
 
-                    if (!this.IncludeInline)
+                    if (!IncludeInline)
                     {
-                        var inline = canGet ? this.Emitter.GetInline(p.Getter) : null;
+                        var inline = canGet ? Emitter.GetInline(p.Getter) : null;
                         if (!string.IsNullOrWhiteSpace(inline))
                         {
                             return false;
                         }
 
-                        inline = canSet ? this.Emitter.GetInline(p.Setter) : null;
+                        inline = canSet ? Emitter.GetInline(p.Setter) : null;
                         if (!string.IsNullOrWhiteSpace(inline))
                         {
                             return false;
@@ -788,28 +788,28 @@ namespace H5.Contract
                     bool eq = false;
                     bool? equalsByGetter = null;
 
-                    if (p.IsStatic == this.Static)
+                    if (p.IsStatic == Static)
                     {
-                        var fieldName = this.Emitter.GetEntityName(p);
+                        var fieldName = Emitter.GetEntityName(p);
 
-                        if (fieldName != null && (fieldName == this.JsName || fieldName == this.AltJsName || fieldName == this.FieldJsName))
+                        if (fieldName != null && (fieldName == JsName || fieldName == AltJsName || fieldName == FieldJsName))
                         {
                             eq = true;
                         }
 
                         if (!eq && p.IsIndexer)
                         {
-                            var getterIgnore = canGet && this.Emitter.Validator.IsExternalType(p.Getter);
-                            var setterIgnore = canSet && this.Emitter.Validator.IsExternalType(p.Setter);
-                            var getterName = canGet ? Helpers.GetPropertyRef(p, this.Emitter, false, true, true) : null;
-                            var setterName = canSet ? Helpers.GetPropertyRef(p, this.Emitter, true, true, true) : null;
+                            var getterIgnore = canGet && Emitter.Validator.IsExternalType(p.Getter);
+                            var setterIgnore = canSet && Emitter.Validator.IsExternalType(p.Setter);
+                            var getterName = canGet ? Helpers.GetPropertyRef(p, Emitter, false, true, true) : null;
+                            var setterName = canSet ? Helpers.GetPropertyRef(p, Emitter, true, true, true) : null;
 
-                            if (!getterIgnore && getterName != null && (getterName == this.JsName || getterName == this.AltJsName || getterName == this.FieldJsName))
+                            if (!getterIgnore && getterName != null && (getterName == JsName || getterName == AltJsName || getterName == FieldJsName))
                             {
                                 eq = true;
                                 equalsByGetter = true;
                             }
-                            else if (!setterIgnore && setterName != null && (setterName == this.JsName || setterName == this.AltJsName || setterName == this.FieldJsName))
+                            else if (!setterIgnore && setterName != null && (setterName == JsName || setterName == AltJsName || setterName == FieldJsName))
                             {
                                 eq = true;
                                 equalsByGetter = false;
@@ -819,14 +819,14 @@ namespace H5.Contract
 
                     if (eq)
                     {
-                        if (p.IsOverride && !this.IsTemplateOverride(p))
+                        if (p.IsOverride && !IsTemplateOverride(p))
                         {
                             return false;
                         }
 
-                        if (equalsByGetter.HasValue && isMember && this.AltJsName == null)
+                        if (equalsByGetter.HasValue && isMember && AltJsName == null)
                         {
-                            this.AltJsName = Helpers.GetPropertyRef(p, this.Emitter, equalsByGetter.Value, true, true);
+                            AltJsName = Helpers.GetPropertyRef(p, Emitter, equalsByGetter.Value, true, true);
                         }
 
                         return true;
@@ -837,13 +837,13 @@ namespace H5.Contract
 
                 list.AddRange(properties);
 
-                if (this.Inherit)
+                if (Inherit)
                 {
                     var baseTypeDefinitions = typeDef.DirectBaseTypes.Where(t => t.Kind == typeDef.Kind || (typeDef.Kind == TypeKind.Struct && t.Kind == TypeKind.Class));
 
                     foreach (var baseTypeDef in baseTypeDefinitions)
                     {
-                        list = this.GetPropertyOverloads(list, baseTypeDef.GetDefinition());
+                        list = GetPropertyOverloads(list, baseTypeDef.GetDefinition());
                     }
                 }
             }
@@ -854,7 +854,7 @@ namespace H5.Contract
 
         protected virtual List<IField> GetFieldOverloads(List<IField> list = null, ITypeDefinition typeDef = null)
         {
-            typeDef = typeDef ?? this.TypeDefinition;
+            typeDef = typeDef ?? TypeDefinition;
 
             bool isTop = list == null;
             list = list ?? new List<IField>();
@@ -868,14 +868,14 @@ namespace H5.Contract
                         return false;
                     }
 
-                    var inline = this.Emitter.GetInline(f);
+                    var inline = Emitter.GetInline(f);
                     if (!string.IsNullOrWhiteSpace(inline))
                     {
                         return false;
                     }
 
-                    var name = this.Emitter.GetEntityName(f);
-                    if ((name == this.JsName || name == this.AltJsName || name == this.FieldJsName) && f.IsStatic == this.Static)
+                    var name = Emitter.GetEntityName(f);
+                    if ((name == JsName || name == AltJsName || name == FieldJsName) && f.IsStatic == Static)
                     {
                         return true;
                     }
@@ -885,13 +885,13 @@ namespace H5.Contract
 
                 list.AddRange(fields);
 
-                if (this.Inherit)
+                if (Inherit)
                 {
                     var baseTypeDefinitions = typeDef.DirectBaseTypes.Where(t => t.Kind == typeDef.Kind || (typeDef.Kind == TypeKind.Struct && t.Kind == TypeKind.Class));
 
                     foreach (var baseTypeDef in baseTypeDefinitions)
                     {
-                        list = this.GetFieldOverloads(list, baseTypeDef.GetDefinition());
+                        list = GetFieldOverloads(list, baseTypeDef.GetDefinition());
                     }
                 }
             }
@@ -902,7 +902,7 @@ namespace H5.Contract
 
         protected virtual List<IEvent> GetEventOverloads(List<IEvent> list = null, ITypeDefinition typeDef = null)
         {
-            typeDef = typeDef ?? this.TypeDefinition;
+            typeDef = typeDef ?? TypeDefinition;
 
             bool isTop = list == null;
             list = list ?? new List<IEvent>();
@@ -916,13 +916,13 @@ namespace H5.Contract
                         return false;
                     }
 
-                    var inline = e.AddAccessor != null ? this.Emitter.GetInline(e.AddAccessor) : null;
+                    var inline = e.AddAccessor != null ? Emitter.GetInline(e.AddAccessor) : null;
                     if (!string.IsNullOrWhiteSpace(inline))
                     {
                         return false;
                     }
 
-                    inline = e.RemoveAccessor != null ? this.Emitter.GetInline(e.RemoveAccessor) : null;
+                    inline = e.RemoveAccessor != null ? Emitter.GetInline(e.RemoveAccessor) : null;
                     if (!string.IsNullOrWhiteSpace(inline))
                     {
                         return false;
@@ -930,22 +930,22 @@ namespace H5.Contract
 
                     bool eq = false;
                     bool? equalsByAdd = null;
-                    if (e.IsStatic == this.Static)
+                    if (e.IsStatic == Static)
                     {
-                        var addName = e.AddAccessor != null && e.CanAdd ? Helpers.GetEventRef(e, this.Emitter, false, true, true) : null;
-                        var removeName = e.RemoveAccessor != null && e.CanRemove ? Helpers.GetEventRef(e, this.Emitter, true, true, true) : null;
-                        var fieldName = Helpers.GetEventRef(e, this.Emitter, true, true, true, false, true);
-                        if (addName != null && (addName == this.JsName || addName == this.AltJsName || addName == this.FieldJsName))
+                        var addName = e.AddAccessor != null && e.CanAdd ? Helpers.GetEventRef(e, Emitter, false, true, true) : null;
+                        var removeName = e.RemoveAccessor != null && e.CanRemove ? Helpers.GetEventRef(e, Emitter, true, true, true) : null;
+                        var fieldName = Helpers.GetEventRef(e, Emitter, true, true, true, false, true);
+                        if (addName != null && (addName == JsName || addName == AltJsName || addName == FieldJsName))
                         {
                             eq = true;
                             equalsByAdd = true;
                         }
-                        else if (removeName != null && (removeName == this.JsName || removeName == this.AltJsName || removeName == this.FieldJsName))
+                        else if (removeName != null && (removeName == JsName || removeName == AltJsName || removeName == FieldJsName))
                         {
                             eq = true;
                             equalsByAdd = false;
                         }
-                        else if (fieldName != null && (fieldName == this.JsName || fieldName == this.AltJsName || fieldName == this.FieldJsName))
+                        else if (fieldName != null && (fieldName == JsName || fieldName == AltJsName || fieldName == FieldJsName))
                         {
                             eq = true;
                         }
@@ -953,14 +953,14 @@ namespace H5.Contract
 
                     if (eq)
                     {
-                        if (e.IsOverride && !this.IsTemplateOverride(e))
+                        if (e.IsOverride && !IsTemplateOverride(e))
                         {
                             return false;
                         }
 
-                        if (equalsByAdd.HasValue && this.Member is IMethod && this.AltJsName == null)
+                        if (equalsByAdd.HasValue && Member is IMethod && AltJsName == null)
                         {
-                            this.AltJsName = Helpers.GetEventRef(e, this.Emitter, equalsByAdd.Value, true, true);
+                            AltJsName = Helpers.GetEventRef(e, Emitter, equalsByAdd.Value, true, true);
                         }
 
                         return true;
@@ -971,13 +971,13 @@ namespace H5.Contract
 
                 list.AddRange(events);
 
-                if (this.Inherit)
+                if (Inherit)
                 {
                     var baseTypeDefinitions = typeDef.DirectBaseTypes.Where(t => t.Kind == typeDef.Kind || (typeDef.Kind == TypeKind.Struct && t.Kind == TypeKind.Class));
 
                     foreach (var baseTypeDef in baseTypeDefinitions)
                     {
-                        list = this.GetEventOverloads(list, baseTypeDef.GetDefinition());
+                        list = GetEventOverloads(list, baseTypeDef.GetDefinition());
                     }
                 }
             }
@@ -990,29 +990,29 @@ namespace H5.Contract
 
         public string GetOverloadName(bool skipInterfaceName = false, string prefix = null, bool withoutTypeParams = false, bool isObjectLiteral = false, bool excludeTypeOnly = false)
         {
-            if (this.Member == null)
+            if (Member == null)
             {
-                if (this.Members.Count == 1)
+                if (Members.Count == 1)
                 {
-                    this.Member = this.Members[0];
+                    Member = Members[0];
                 }
                 else
                 {
-                    return this.JsName;
+                    return JsName;
                 }
             }
 
             var key = new Tuple<bool, string, bool, bool>(skipInterfaceName, prefix, withoutTypeParams, isObjectLiteral);
             string name = null;
-            var contains = this.overloadName.ContainsKey(key);
-            if (!contains && this.Member != null)
+            var contains = overloadName.ContainsKey(key);
+            if (!contains && Member != null)
             {
-                name = this.GetOverloadName(this.Member, skipInterfaceName, prefix, withoutTypeParams, isObjectLiteral, excludeTypeOnly);
-                this.overloadName[key] = name;
+                name = GetOverloadName(Member, skipInterfaceName, prefix, withoutTypeParams, isObjectLiteral, excludeTypeOnly);
+                overloadName[key] = name;
             }
             else if (contains)
             {
-                name = this.overloadName[key];
+                name = overloadName[key];
             }
 
             return name;
@@ -1110,12 +1110,12 @@ namespace H5.Contract
                 interfaceMember = definition;
             }
 
-            if (interfaceMember != null && !skipInterfaceName && !this.Emitter.Validator.IsObjectLiteral(interfaceMember.DeclaringTypeDefinition))
+            if (interfaceMember != null && !skipInterfaceName && !Emitter.Validator.IsObjectLiteral(interfaceMember.DeclaringTypeDefinition))
             {
-                return OverloadsCollection.GetInterfaceMemberName(this.Emitter, interfaceMember, null, prefix, withoutTypeParams, this.IsSetter, excludeTypeOnly);
+                return OverloadsCollection.GetInterfaceMemberName(Emitter, interfaceMember, null, prefix, withoutTypeParams, IsSetter, excludeTypeOnly);
             }
 
-            string name = isObjectLiteral ? this.Emitter.GetLiteralEntityName(definition) : this.Emitter.GetEntityName(definition);
+            string name = isObjectLiteral ? Emitter.GetLiteralEntityName(definition) : Emitter.GetEntityName(definition);
             if (name.StartsWith("." + JS.Funcs.CONSTRUCTOR))
             {
                 name = JS.Funcs.CONSTRUCTOR;
@@ -1127,7 +1127,7 @@ namespace H5.Contract
 
             if (attr == null && iProperty != null && !IsField)
             {
-                var acceessor = this.IsSetter ? iProperty.Setter : iProperty.Getter;
+                var acceessor = IsSetter ? iProperty.Setter : iProperty.Getter;
 
                 if (acceessor != null)
                 {
@@ -1135,7 +1135,7 @@ namespace H5.Contract
 
                     if (attr != null)
                     {
-                        name = this.Emitter.GetEntityName(acceessor);
+                        name = Emitter.GetEntityName(acceessor);
                     }
                 }
             }
@@ -1150,7 +1150,7 @@ namespace H5.Contract
 
             if (attr != null && definition.ImplementedInterfaceMembers.Count > 0)
             {
-                if (this.Members.Where(member => member.ImplementedInterfaceMembers.Count > 0)
+                if (Members.Where(member => member.ImplementedInterfaceMembers.Count > 0)
                         .Any(member => definition.ImplementedInterfaceMembers.Any(implementedInterfaceMember => member.ImplementedInterfaceMembers.Any(m => m.DeclaringTypeDefinition == implementedInterfaceMember.DeclaringTypeDefinition))))
                 {
                     attr = null;
@@ -1159,7 +1159,7 @@ namespace H5.Contract
 
             bool skipSuffix = false;
             if (definition.DeclaringTypeDefinition != null &&
-                this.Emitter.Validator.IsExternalType(definition.DeclaringTypeDefinition))
+                Emitter.Validator.IsExternalType(definition.DeclaringTypeDefinition))
             {
                 if (definition.DeclaringTypeDefinition.Kind == TypeKind.Interface)
                 {
@@ -1183,7 +1183,7 @@ namespace H5.Contract
                 name = JS.Funcs.CONSTRUCTOR;
             }
 
-            var index = this.GetIndex(definition);
+            var index = GetIndex(definition);
 
             if (index > 0)
             {
@@ -1203,7 +1203,7 @@ namespace H5.Contract
 
         protected virtual IMember FindMember(EntityDeclaration entity)
         {
-            if (this.Emitter.Resolver.ResolveNode(entity) is MemberResolveResult rr)
+            if (Emitter.Resolver.ResolveNode(entity) is MemberResolveResult rr)
             {
                 return rr.Member;
             }

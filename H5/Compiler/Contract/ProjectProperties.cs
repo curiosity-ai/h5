@@ -37,15 +37,15 @@ namespace H5.Contract
         {
             var r = new Dictionary<string, string>()
             {
-               { WrapProperty("AssemblyName"), GetString(this.AssemblyName) },
-               { WrapProperty("AssemblyVersion"), GetString(this.AssemblyVersion) },
-               { WrapProperty("CheckForOverflowUnderflow"), GetString(this.CheckForOverflowUnderflow) },
-               { WrapProperty("Configuration"), GetString(this.Configuration) },
-               { WrapProperty("DefineConstants"), GetString(this.DefineConstants) },
-               { WrapProperty("OutDir"), GetString(this.OutDir) },
-               { WrapProperty("OutputPath"), GetString(this.OutputPath) },
-               { WrapProperty("OutputType"), GetString(this.OutputType) },
-               { WrapProperty("RootNamespace"), GetString(this.RootNamespace) },
+               { WrapProperty("AssemblyName"), GetString(AssemblyName) },
+               { WrapProperty("AssemblyVersion"), GetString(AssemblyVersion) },
+               { WrapProperty("CheckForOverflowUnderflow"), GetString(CheckForOverflowUnderflow) },
+               { WrapProperty("Configuration"), GetString(Configuration) },
+               { WrapProperty("DefineConstants"), GetString(DefineConstants) },
+               { WrapProperty("OutDir"), GetString(OutDir) },
+               { WrapProperty("OutputPath"), GetString(OutputPath) },
+               { WrapProperty("OutputType"), GetString(OutputType) },
+               { WrapProperty("RootNamespace"), GetString(RootNamespace) },
             };
 
             return r;
@@ -69,31 +69,31 @@ namespace H5.Contract
             switch (key.ToLowerInvariant())
             {
                 case "assemblyname":
-                    this.AssemblyName = value;
+                    AssemblyName = value;
                     break;
                 case "assemblyversion":
-                    this.AssemblyVersion = value;
+                    AssemblyVersion = value;
                     break;
                 case "checkforoverflowunderflow":
-                    this.CheckForOverflowUnderflow = GetNullableBool(value);
+                    CheckForOverflowUnderflow = GetNullableBool(value);
                     break;
                 case "configuration":
-                    this.Configuration = value;
+                    Configuration = value;
                     break;
                 case "defineconstants":
-                    this.DefineConstants = value;
+                    DefineConstants = value;
                     break;
                 case "outdir":
-                    this.OutDir = value;
+                    OutDir = value;
                     break;
                 case "outputpath":
-                    this.OutputPath = value;
+                    OutputPath = value;
                     break;
                 case "outputtype":
-                    this.OutputType = value;
+                    OutputType = value;
                     break;
                 case "rootnamespace":
-                    this.RootNamespace = value;
+                    RootNamespace = value;
                     break;
                 default:
                     break;

@@ -26,22 +26,22 @@ namespace H5.Contract
 
         public string GetName(IEmitter emitter, bool withoutTypeParams = false)
         {
-            string fieldName = this.Name;
+            string fieldName = Name;
 
-            if (this.VarInitializer != null)
+            if (VarInitializer != null)
             {
-                var rr = emitter.Resolver.ResolveNode(this.VarInitializer) as MemberResolveResult;
+                var rr = emitter.Resolver.ResolveNode(VarInitializer) as MemberResolveResult;
                 fieldName = OverloadsCollection.Create(emitter, rr.Member).GetOverloadName(false, null, withoutTypeParams);
             }
-            else if (this.Entity is PropertyDeclaration)
+            else if (Entity is PropertyDeclaration)
             {
-                fieldName = OverloadsCollection.Create(emitter, (PropertyDeclaration)this.Entity, isField: true).GetOverloadName(false, null, withoutTypeParams);
+                fieldName = OverloadsCollection.Create(emitter, (PropertyDeclaration)Entity, isField: true).GetOverloadName(false, null, withoutTypeParams);
             }
             else
             {
-                if (this.Entity != null)
+                if (Entity != null)
                 {
-                    if (emitter.Resolver.ResolveNode(this.Entity) is MemberResolveResult rr)
+                    if (emitter.Resolver.ResolveNode(Entity) is MemberResolveResult rr)
                     {
                         fieldName = OverloadsCollection.Create(emitter, rr.Member).GetOverloadName(false, null, withoutTypeParams);
                     }
@@ -55,18 +55,18 @@ namespace H5.Contract
     {
         public TypeConfigInfo()
         {
-            this.Fields = new List<TypeConfigItem>();
-            this.Events = new List<TypeConfigItem>();
-            this.Properties = new List<TypeConfigItem>();
-            this.Alias = new List<TypeConfigItem>();
-            this.AutoPropertyInitializers = new List<TypeConfigItem>();
+            Fields = new List<TypeConfigItem>();
+            Events = new List<TypeConfigItem>();
+            Properties = new List<TypeConfigItem>();
+            Alias = new List<TypeConfigItem>();
+            AutoPropertyInitializers = new List<TypeConfigItem>();
         }
 
         public bool HasMembers
         {
             get
             {
-                return this.Fields.Count > 0 || this.Events.Count > 0 || this.Properties.Count > 0 || this.Alias.Count > 0;
+                return Fields.Count > 0 || Events.Count > 0 || Properties.Count > 0 || Alias.Count > 0;
             }
         }
 
@@ -74,7 +74,7 @@ namespace H5.Contract
         {
             get
             {
-                return this.Events.Count > 0 || this.Properties.Count > 0 || this.Alias.Count > 0;
+                return Events.Count > 0 || Properties.Count > 0 || Alias.Count > 0;
             }
         }
 

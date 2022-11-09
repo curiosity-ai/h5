@@ -8,19 +8,19 @@ namespace H5.Contract
         public EmitterException(AstNode node)
             : base()
         {
-            this.Node = node;
+            Node = node;
         }
 
         public EmitterException(AstNode node, string message)
             : base(message)
         {
-            this.Node = node;
+            Node = node;
         }
 
         public EmitterException(AstNode node, string message, Exception innerException)
             : base(message, innerException)
         {
-            this.Node = node;
+            Node = node;
         }
 
         public AstNode Node
@@ -33,13 +33,13 @@ namespace H5.Contract
         {
             get
             {
-                if (this.Node != null)
+                if (Node != null)
                 {
-                    var parent = this.Node.GetParent<SyntaxTree>();
+                    var parent = Node.GetParent<SyntaxTree>();
 
                     if (parent != null)
                     {
-                        return this.Node.GetParent<SyntaxTree>().FileName;
+                        return Node.GetParent<SyntaxTree>().FileName;
                     }
 
 
@@ -57,9 +57,9 @@ namespace H5.Contract
         {
             get
             {
-                if (this.Node != null)
+                if (Node != null)
                 {
-                    return this.Node.StartLocation.Line;
+                    return Node.StartLocation.Line;
                 }
                 return 0;
             }
@@ -69,9 +69,9 @@ namespace H5.Contract
         {
             get
             {
-                if (this.Node != null)
+                if (Node != null)
                 {
-                    return this.Node.StartLocation.Column;
+                    return Node.StartLocation.Column;
                 }
                 return 0;
             }
@@ -81,9 +81,9 @@ namespace H5.Contract
         {
             get
             {
-                if (this.Node != null)
+                if (Node != null)
                 {
-                    return this.Node.EndLocation.Line;
+                    return Node.EndLocation.Line;
                 }
                 return 0;
             }
@@ -93,9 +93,9 @@ namespace H5.Contract
         {
             get
             {
-                if (this.Node != null)
+                if (Node != null)
                 {
-                    return this.Node.EndLocation.Column;
+                    return Node.EndLocation.Column;
                 }
                 return 0;
             }

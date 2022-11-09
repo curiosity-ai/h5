@@ -801,7 +801,7 @@ namespace H5.Contract
         {
             public DocumentationCommentVisitor()
             {
-                this.Comments = new List<Comment>();
+                Comments = new List<Comment>();
             }
 
             public List<Comment> Comments
@@ -818,7 +818,7 @@ namespace H5.Contract
             {
                 if (comment.CommentType == CommentType.Documentation)
                 {
-                    this.Comments.Add(comment);
+                    Comments.Add(comment);
                 }
             }
         }
@@ -830,13 +830,13 @@ namespace H5.Contract
 
         public JsDocComment()
         {
-            this.Descriptions = new List<string>();
-            this.Parameters = new List<JsDocParam>();
-            this.Remarks = new List<string>();
-            this.Returns = new List<JsDocParam>();
-            this.Examples = new List<Tuple<string, string>>();
-            this.Throws = new List<Tuple<string, string>>();
-            this.SeeAlso = new List<string>();
+            Descriptions = new List<string>();
+            Parameters = new List<JsDocParam>();
+            Remarks = new List<string>();
+            Returns = new List<JsDocParam>();
+            Examples = new List<Tuple<string, string>>();
+            Throws = new List<Tuple<string, string>>();
+            SeeAlso = new List<string>();
         }
 
         public List<string> SeeAlso { get; set; }
@@ -899,7 +899,7 @@ namespace H5.Contract
 
             if (!string.IsNullOrEmpty((Namespace)))
             {
-                comment.Append("/** @namespace " + this.Namespace + " */" + newLine + newLine);
+                comment.Append("/** @namespace " + Namespace + " */" + newLine + newLine);
             }
 
             comment.Append("/**" + newLine);
@@ -907,8 +907,8 @@ namespace H5.Contract
             var nameColumnWidth = 0;
             var typeColumnWidth = 0;
 
-            var tmp = new List<JsDocParam>(this.Parameters);
-            tmp.AddRange(this.Returns);
+            var tmp = new List<JsDocParam>(Parameters);
+            tmp.AddRange(Returns);
             foreach (JsDocParam param in tmp)
             {
                 if (param.Type != null && param.Type.Length > typeColumnWidth)
@@ -925,73 +925,73 @@ namespace H5.Contract
             typeColumnWidth += 4;
             nameColumnWidth += 4;
 
-            if (this.Descriptions.Count > 0 && this.Descriptions.Any(v => !string.IsNullOrWhiteSpace(v)))
+            if (Descriptions.Count > 0 && Descriptions.Any(v => !string.IsNullOrWhiteSpace(v)))
             {
-                comment.Append(" * " + string.Join(newLine + " * ", this.Descriptions.ToArray()) + newLine + " *" + newLine);
+                comment.Append(" * " + string.Join(newLine + " * ", Descriptions.ToArray()) + newLine + " *" + newLine);
             }
 
-            if (this.Remarks.Count > 0 && this.Remarks.Any(v => !string.IsNullOrWhiteSpace(v)))
+            if (Remarks.Count > 0 && Remarks.Any(v => !string.IsNullOrWhiteSpace(v)))
             {
-                comment.Append(" * " + string.Join(newLine + " * ", this.Remarks) + newLine + " *" + newLine);
+                comment.Append(" * " + string.Join(newLine + " * ", Remarks) + newLine + " *" + newLine);
             }
 
-            if (this.IsStatic)
+            if (IsStatic)
             {
                 comment.Append(" * @static" + newLine);
             }
-            else if (string.IsNullOrEmpty(this.Class) && string.IsNullOrEmpty(this.Callback))
+            else if (string.IsNullOrEmpty(Class) && string.IsNullOrEmpty(Callback))
             {
                 comment.Append(" * @instance" + newLine);
             }
 
-            if (this.IsAbstract)
+            if (IsAbstract)
             {
                 comment.Append(" * @abstract" + newLine);
             }
 
-            if (this.IsPublic)
+            if (IsPublic)
             {
                 comment.Append(" * @public" + newLine);
             }
 
-            if (this.IsProtected)
+            if (IsProtected)
             {
                 comment.Append(" * @protected" + newLine);
             }
 
-            if (this.IsPrivate)
+            if (IsPrivate)
             {
                 comment.Append(" * @private" + newLine);
             }
 
-            if (this.Override)
+            if (Override)
             {
                 comment.Append(" * @override" + newLine);
             }
 
-            if (this.ReadOnly)
+            if (ReadOnly)
             {
                 comment.Append(" * @readonly" + newLine);
             }
 
-            if (!string.IsNullOrEmpty(this.This))
+            if (!string.IsNullOrEmpty(This))
             {
-                comment.Append(" * @this ").Append(this.This + newLine);
+                comment.Append(" * @this ").Append(This + newLine);
             }
 
-            if (!string.IsNullOrEmpty(this.MemberOf))
+            if (!string.IsNullOrEmpty(MemberOf))
             {
-                comment.Append(" * @memberof ").Append(this.MemberOf + newLine);
+                comment.Append(" * @memberof ").Append(MemberOf + newLine);
             }
 
-            if (!string.IsNullOrEmpty(this.Class))
+            if (!string.IsNullOrEmpty(Class))
             {
-                comment.Append(" * @class " + this.Class + newLine);
+                comment.Append(" * @class " + Class + newLine);
             }
 
-            if (!string.IsNullOrEmpty(this.Event))
+            if (!string.IsNullOrEmpty(Event))
             {
-                comment.Append(" * @event " + this.Event + newLine);
+                comment.Append(" * @event " + Event + newLine);
             }
 
             /*if (!string.IsNullOrEmpty(this.Constructs))
@@ -1004,34 +1004,34 @@ namespace H5.Contract
                 comment.Append(" * @enum {number}" + els);
             }*/
 
-            if (this.Const)
+            if (Const)
             {
                 comment.Append(" * @constant" + newLine);
             }
 
-            if (this.Default != null)
+            if (Default != null)
             {
-                comment.Append(" * @default " + JsonConvert.SerializeObject(this.Default) + newLine);
+                comment.Append(" * @default " + JsonConvert.SerializeObject(Default) + newLine);
             }
 
-            if (!string.IsNullOrEmpty(this.Callback))
+            if (!string.IsNullOrEmpty(Callback))
             {
-                comment.Append(" * @callback " + this.Callback + newLine);
+                comment.Append(" * @callback " + Callback + newLine);
             }
 
-            if (!string.IsNullOrEmpty(this.Function))
+            if (!string.IsNullOrEmpty(Function))
             {
-                comment.Append(" * @function " + this.Function + newLine);
+                comment.Append(" * @function " + Function + newLine);
             }
 
-            if (!string.IsNullOrEmpty(this.MemberType))
+            if (!string.IsNullOrEmpty(MemberType))
             {
-                comment.Append(" * @type " + this.MemberType + newLine);
+                comment.Append(" * @type " + MemberType + newLine);
             }
 
-            if (this.Augments != null && this.Augments.Length > 0)
+            if (Augments != null && Augments.Length > 0)
             {
-                foreach (var augment in this.Augments)
+                foreach (var augment in Augments)
                 {
                     if (augment.StartsWith("+"))
                     {
@@ -1044,7 +1044,7 @@ namespace H5.Contract
                 }
             }
 
-            foreach (var example in this.Examples)
+            foreach (var example in Examples)
             {
                 if (!string.IsNullOrEmpty(example.Item1))
                 {
@@ -1058,7 +1058,7 @@ namespace H5.Contract
                 comment.Append(" *" + string.Join(newLine + " *", example.Item2.Split(newLine)) + newLine + " *" + newLine);
             }
 
-            foreach (var exception in this.Throws)
+            foreach (var exception in Throws)
             {
                 if (!string.IsNullOrEmpty(exception.Item2))
                 {
@@ -1073,7 +1073,7 @@ namespace H5.Contract
             }
 
             int argCount = 0;
-            foreach (JsDocParam param in this.Parameters)
+            foreach (JsDocParam param in Parameters)
             {
                 comment.Append(" * @param   {" + param.Type + "}");
 
@@ -1088,7 +1088,7 @@ namespace H5.Contract
 
                 // If we are not in the last parameter argument or description exists
                 // (for last argument), then print whitespaces after param name.
-                if (++argCount < this.Parameters.Count() || desc != null)
+                if (++argCount < Parameters.Count() || desc != null)
                 {
                     comment.Append(new String(' ', nameColumnWidth - param.Name.Length));
                 }
@@ -1097,7 +1097,7 @@ namespace H5.Contract
             }
 
             argCount = 0;
-            foreach (JsDocParam param in this.Returns)
+            foreach (JsDocParam param in Returns)
             {
                 comment.Append(" * @return  {" + param.Type + "}");
 
@@ -1109,7 +1109,7 @@ namespace H5.Contract
 
                 // If we are not in the last parameter argument or description exists
                 // (for last argument), then print whitespaces after param name.
-                if (++argCount < this.Returns.Count() || desc != null)
+                if (++argCount < Returns.Count() || desc != null)
                 {
                     comment.Append(new String(' ', typeColumnWidth - (param.Type != null ? param.Type.Length : 0)));
                     comment.Append(new String(' ', nameColumnWidth));
@@ -1118,7 +1118,7 @@ namespace H5.Contract
                 comment.Append(desc + newLine);
             }
 
-            foreach (var see in this.SeeAlso)
+            foreach (var see in SeeAlso)
             {
                 comment.Append(" * @see {@link " + see + "}" + newLine);
             }

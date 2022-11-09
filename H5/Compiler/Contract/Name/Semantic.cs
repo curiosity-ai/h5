@@ -25,16 +25,16 @@ namespace H5.Contract
         {
             get
             {
-                return this.isObjectLiteral;
+                return isObjectLiteral;
             }
             set
             {
-                if (value != this.isObjectLiteral)
+                if (value != isObjectLiteral)
                 {
-                    this.ClearCache();
+                    ClearCache();
                 }
 
-                this.isObjectLiteral = value;
+                isObjectLiteral = value;
             }
         }
 
@@ -43,11 +43,11 @@ namespace H5.Contract
         {
             get
             {
-                if (this.name != null)
+                if (name != null)
                 {
-                    return this.name;
+                    return name;
                 }
-                return this.name = NameConvertor.Convert(this);
+                return name = NameConvertor.Convert(this);
             }
         }
 
@@ -67,7 +67,7 @@ namespace H5.Contract
                     if (TypeDefinition != null)
                     {
                         name = TypeDefinition.Name;
-                        if (Helpers.IsIgnoreGeneric(TypeDefinition) && typeDef.ParentAssembly.AssemblyName != CS.NS.H5 && this.Emitter.Validator.IsExternalType(TypeDefinition))
+                        if (Helpers.IsIgnoreGeneric(TypeDefinition) && typeDef.ParentAssembly.AssemblyName != CS.NS.H5 && Emitter.Validator.IsExternalType(TypeDefinition))
                         {
                             name = name.LeftOfRightmostOf("`");
                         }
@@ -76,7 +76,7 @@ namespace H5.Contract
                     {
                         name = typeDef.Name;
 
-                        if (typeDef.TypeParameterCount > 0 && !(Helpers.IsIgnoreGeneric(typeDef) && typeDef.ParentAssembly.AssemblyName != CS.NS.H5 && this.Emitter.Validator.IsExternalType(typeDef)))
+                        if (typeDef.TypeParameterCount > 0 && !(Helpers.IsIgnoreGeneric(typeDef) && typeDef.ParentAssembly.AssemblyName != CS.NS.H5 && Emitter.Validator.IsExternalType(typeDef)))
                         {
                             name += "$" + typeDef.TypeParameterCount;
                         }
@@ -93,7 +93,7 @@ namespace H5.Contract
 
         public void ClearCache()
         {
-            this.name = null;
+            name = null;
         }
 
         public static NameSemantic Create(IEntity entity, IEmitter emitter)

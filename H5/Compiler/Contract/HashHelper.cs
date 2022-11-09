@@ -60,14 +60,14 @@ namespace H5.Contract
 
             if (throwOnError)
             {
-                nameHash = this.GetDeterministicHash(s, m);
+                nameHash = GetDeterministicHash(s, m);
             }
             else
             {
                 try
                 {
                     // Just in case
-                    nameHash = this.GetDeterministicHash(s, m);
+                    nameHash = GetDeterministicHash(s, m);
                 }
                 catch
                 {

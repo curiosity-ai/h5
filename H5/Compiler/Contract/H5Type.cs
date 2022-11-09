@@ -20,7 +20,7 @@ namespace H5.Contract
     {
         public H5Type(string key)
         {
-            this.Key = key;
+            Key = key;
         }
 
         public virtual IEmitter Emitter { get; set; }
@@ -51,7 +51,7 @@ namespace H5.Contract
         {
             Logger.LogTrace("Initializing items for H5 types...");
 
-            this.Emitter = emitter;
+            Emitter = emitter;
             byType = new Dictionary<IType, H5Type>();
             foreach (var item in this)
             {
@@ -63,7 +63,7 @@ namespace H5.Contract
 
                 if (type.TypeInfo != null && emitter.TypeInfoDefinitions.ContainsKey(type.TypeInfo.Key))
                 {
-                    var typeInfo = this.Emitter.TypeInfoDefinitions[type.Key];
+                    var typeInfo = Emitter.TypeInfoDefinitions[type.Key];
 
                     type.TypeInfo.Module = typeInfo.Module;
                     type.TypeInfo.FileName = typeInfo.FileName;
@@ -103,7 +103,7 @@ namespace H5.Contract
         {
             H5Type bType;
 
-            if (this.byTypeRef.TryGetValue(type, out bType))
+            if (byTypeRef.TryGetValue(type, out bType))
             {
                 return bType;
             }
@@ -111,7 +111,7 @@ namespace H5.Contract
             var name = type.FullName;
             if (type.IsGenericInstance)
             {
-                if (this.byTypeRef.TryGetValue(type.GetElementType(), out bType))
+                if (byTypeRef.TryGetValue(type.GetElementType(), out bType))
                 {
                     return bType;
                 }
@@ -123,10 +123,10 @@ namespace H5.Contract
             {
                 if (item.Value.TypeDefinition.FullName == name)
                 {
-                    this.byTypeRef[type] = item.Value;
+                    byTypeRef[type] = item.Value;
                     if (type.IsGenericInstance && type != type.GetElementType())
                     {
-                        this.byTypeRef[type.GetElementType()] = item.Value;
+                        byTypeRef[type.GetElementType()] = item.Value;
                     }
 
                     return item.Value;
@@ -145,7 +145,7 @@ namespace H5.Contract
         {
             H5Type bType;
 
-            if (this.byType.TryGetValue(type, out bType))
+            if (byType.TryGetValue(type, out bType))
             {
                 return bType;
             }
@@ -153,7 +153,7 @@ namespace H5.Contract
             var originalType = type;
             if (type.IsParameterized)
             {
-                type = ((ParameterizedTypeReference)type.ToTypeReference()).GenericType.Resolve(this.Emitter.Resolver.Resolver.TypeResolveContext);
+                type = ((ParameterizedTypeReference)type.ToTypeReference()).GenericType.Resolve(Emitter.Resolver.Resolver.TypeResolveContext);
             }
 
             if (type is ByReferenceType)
@@ -161,7 +161,7 @@ namespace H5.Contract
                 type = ((ByReferenceType)type).ElementType;
             }
 
-            if (this.byType.TryGetValue(type, out bType))
+            if (byType.TryGetValue(type, out bType))
             {
                 return bType;
             }
@@ -170,11 +170,11 @@ namespace H5.Contract
             {
                 if (item.Value.Type.Equals(type))
                 {
-                    this.byType[type] = item.Value;
+                    byType[type] = item.Value;
 
                     if (!type.Equals(originalType))
                     {
-                        this.byType[originalType] = item.Value;
+                        byType[originalType] = item.Value;
                     }
 
                     return item.Value;
@@ -193,16 +193,16 @@ namespace H5.Contract
         {
             H5Type bType;
 
-            if (this.byTypeInfo.TryGetValue(type, out bType))
+            if (byTypeInfo.TryGetValue(type, out bType))
             {
                 return bType;
             }
 
             foreach (var item in this)
             {
-                if (this.Emitter.GetReflectionName(item.Value.Type) == type.Key)
+                if (Emitter.GetReflectionName(item.Value.Type) == type.Key)
                 {
-                    this.byTypeInfo[type] = item.Value;
+                    byTypeInfo[type] = item.Value;
                     return item.Value;
                 }
             }
@@ -217,7 +217,7 @@ namespace H5.Contract
 
         public IType ToType(AstType type)
         {
-            var resolveResult = this.Emitter.Resolver.ResolveNode(type);
+            var resolveResult = Emitter.Resolver.ResolveNode(type);
             return resolveResult.Type;
         }
 

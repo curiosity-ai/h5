@@ -24,17 +24,17 @@ namespace H5.Contract
 
         public TranslatorOutputItemContent(StringBuilder content)
         {
-            this.Builder = content;
+            Builder = content;
         }
 
         public TranslatorOutputItemContent(string content)
         {
-            this.String = content;
+            String = content;
         }
 
         public TranslatorOutputItemContent(byte[] content)
         {
-            this.Buffer = content;
+            Buffer = content;
         }
 
         public void SetContent(string s)

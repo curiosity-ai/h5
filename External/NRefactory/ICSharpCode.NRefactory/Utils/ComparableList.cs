@@ -153,8 +153,10 @@ namespace ICSharpCode.NRefactory.Utils
         }
 
         public static bool operator==(ComparableList<T> item1, ComparableList<T> item2) {
-            if (object.ReferenceEquals (item1, null))
-                return object.ReferenceEquals (item2, null);
+            if (item1 is null)
+            {
+                return item2 is null;
+            }
             return item1.Equals (item2);
         }
 

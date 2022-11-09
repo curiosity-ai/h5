@@ -161,8 +161,7 @@ namespace ICSharpCode.NRefactory.CSharp.Analysis
             }
 
             public static bool operator ==(VariableStatusInfo obj1, VariableStatusInfo obj2) {
-                return object.ReferenceEquals(obj1, null) ?
-                    object.ReferenceEquals(obj2, null) : obj1.Equals(obj2);
+                return obj1 is null ? obj2 is null : obj1.Equals(obj2);
             }
 
             public static bool operator !=(VariableStatusInfo obj1, VariableStatusInfo obj2) {

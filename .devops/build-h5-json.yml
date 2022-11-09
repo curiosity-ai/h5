@@ -20,10 +20,11 @@ steps:
 - checkout: self
   
 - task: UseDotNet@2
-  displayName: 'Use .NET Core sdk'
+  displayName: 'Use .NET 7.0 SDK'
   inputs:
     packageType: sdk
-    version: 6.0.100
+    version: 7.x
+    includePreviewVersions: true
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: CmdLine@2

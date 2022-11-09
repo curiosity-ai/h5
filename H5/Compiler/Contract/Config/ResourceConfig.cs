@@ -9,19 +9,19 @@ namespace H5.Contract
     {
         public ResourceConfig()
         {
-            this.Items = new ResourceConfigItem[] { };
+            Items = new ResourceConfigItem[] { };
         }
 
         public ResourceConfigItem[] Items{ get; set; }
 
         public bool HasExtractResources()
         {
-            return this.ExtractItems!= null && this.ExtractItems.Length > 0;
+            return ExtractItems!= null && ExtractItems.Length > 0;
         }
 
         public bool HasEmbedResources()
         {
-            return this.EmbedItems != null && this.EmbedItems.Length > 0;
+            return EmbedItems != null && EmbedItems.Length > 0;
         }
 
         public bool IsPrepared { get; private set; }
@@ -73,7 +73,7 @@ namespace H5.Contract
             this.@default = @default;
             this.extractItems = extractItems;
             this.embedItems = embedItems;
-            this.IsPrepared = true;
+            IsPrepared = true;
         }
     }
 
@@ -85,29 +85,29 @@ namespace H5.Contract
 
         public void SetDefaulValues()
         {
-            if (!this.Extract.HasValue)
+            if (!Extract.HasValue)
             {
-                this.Extract = true;
+                Extract = true;
             }
 
-            if (!this.Inject.HasValue)
+            if (!Inject.HasValue)
             {
-                this.Inject = true;
+                Inject = true;
             }
 
-            if (!this.Load.HasValue)
+            if (!Load.HasValue)
             {
-                this.Load = true;
+                Load = true;
             }
 
-            if (!this.Silent.HasValue)
+            if (!Silent.HasValue)
             {
-                this.Silent = true;
+                Silent = true;
             }
 
-            if (!this.RemoveBom.HasValue)
+            if (!RemoveBom.HasValue)
             {
-                this.RemoveBom = true;
+                RemoveBom = true;
             }
         }
 

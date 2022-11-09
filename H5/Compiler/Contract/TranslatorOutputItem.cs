@@ -26,7 +26,7 @@ namespace H5.Contract
                 {
                     throw new InvalidOperationException(
                         "Cannot get FullPath of output item as it has not been set ("
-                        + string.Format("[{0}, {1}, {2}]", this.Location, this.Name, this.OutputType)
+                        + string.Format("[{0}, {1}, {2}]", Location, Name, OutputType)
                         + ")");
                 }
 

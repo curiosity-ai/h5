@@ -2,7 +2,7 @@
 
 <a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 
-H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 6.0 and .NET Standard 2.1 projects, while dropping support for legacy features and dependencies.
+H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 7.0 and .NET Standard 2.1 projects, while dropping support for legacy features and dependencies.
 
 
 H5 is under active development, and targets a more integrated and faster development experience for C# web-developers. We're also planning to experiment with new ideas to improve compilation speed (such as aggressive caching of emitted code) and possibly integrating [C# Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/)) for even faster code generation.
@@ -69,7 +69,7 @@ This fork introduces a series of breaking changes as part of the modernization e
 - Projects must explicitly target ``netstandard2.0``.
 - Drop support to the legacy *.csproj* format (only SDK-style projects are supported)
 - Drop support for legacy (and unused) command line arguments (check h5 -h for the current supported arguments)
-- Compiler is now distributed as a ``dotnet global`` tool and have it's own versioning and auto-update on build (this can be disable by setting `<UpdateH5>false<UpdateH5/>` on your project file.
+- Compiler is now distributed as a ``dotnet global`` tool and have it's own versioning and auto-update on build (this can be disable by setting `<UpdateH5>false</UpdateH5>` on your project file.
 - **Retyped packages are not supported** (as those are maintained by the Bridge authors, and cannot be built separately or consumed without the Bridge NuGet package).
 - Logging and Report options have been removed from the h5.json config file. Logging settings will be available only as a command line argument (and exposed as a Project file option in the future)
 - Hosted Compiler process (to speed up compilation and avoiding reloading assemblies that don't change often (like nuget packages), h5 introduces an off-process compiler server. *For now, this process will open a terminal with the compilation logs - but this will be hidden in the future)*

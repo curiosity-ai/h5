@@ -31,7 +31,7 @@ steps:
   displayName: 'Use .NET 7.0 SDK'
   inputs:
     packageType: sdk
-    version: 7.
+    version: 7.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: PowerShell@2

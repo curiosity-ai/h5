@@ -1,4 +1,4 @@
-﻿<Project Sdk="h5.Target/0.0.13613">
+﻿<Project Sdk="h5.Target/22.11.34319">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>H5.Newtonsoft.Json</AssemblyName>

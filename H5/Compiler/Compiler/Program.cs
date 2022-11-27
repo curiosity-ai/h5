@@ -345,6 +345,7 @@ namespace H5.Compiler
                 {
                     h.AllowAnyClientCertificate();
                 });
+                k.ConfigureEndpointDefaults(h => h.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2);
                 k.AddServerHeader = false;
             });
 

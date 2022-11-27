@@ -47,7 +47,8 @@
 
   <ItemGroup>
     <PackageReference Include="Lokad.ILPack" Version="0.2.0" />
-    <PackageReference Include="MagicOnion.Hosting" Version="3.0.13" />
+    <PackageReference Include="MagicOnion.Client" Version="4.5.2" />
+    <PackageReference Include="MagicOnion.Server" Version="4.5.2" />
     <PackageReference Include="Microsoft.Build" Version="17.4.0" />
     <PackageReference Include="Microsoft.Build.Framework" Version="17.4.0" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.4.0" />

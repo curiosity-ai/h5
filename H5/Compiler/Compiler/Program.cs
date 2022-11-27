@@ -12,11 +12,15 @@ using System.Linq;
 using System.Reflection;
 using ZLogger;
 using System.Threading.Tasks;
-using MagicOnion.Hosting;
 using MagicOnion.Server;
 using System.Diagnostics;
 using System.Threading;
 using System.Runtime.InteropServices;
+using Grpc.Net.Client;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace H5.Compiler
 {
@@ -79,7 +83,7 @@ namespace H5.Compiler
             }
             else if(args.Length == 1 && args[0] == "check-if-online")
             {
-                var channel = new Channel("localhost", PORT, ChannelCredentials.Insecure);
+                var channel = GrpcChannel.ForAddress($"http://localhost:{PORT}", new GrpcChannelOptions() { Credentials = ChannelCredentials.Insecure });
                 var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
                 try
                 {
@@ -121,7 +125,7 @@ namespace H5.Compiler
                 }
                 else
                 {
-                    var channel = new Channel("localhost", PORT, ChannelCredentials.Insecure);
+                    var channel = GrpcChannel.ForAddress($"http://localhost:{PORT}", new GrpcChannelOptions() { Credentials = ChannelCredentials.Insecure });
                     var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
 
                     while (true)
@@ -328,15 +332,41 @@ namespace H5.Compiler
 
         private static async Task<int> RunCompilationServerAsync()
         {
-            using (var host = MagicOnionHost.CreateDefaultBuilder()
-                                      .UseMagicOnion(new MagicOnionOptions(isReturnExceptionStackTraceInErrorDetail: true),
-                                                     new ServerPort("localhost", PORT, ServerCredentials.Insecure))
-                                      .Build())
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+            var builder = WebApplication.CreateBuilder();
+            builder.Services.AddGrpc();
+            builder.Services.AddMagicOnion();
+
+            builder.WebHost.ConfigureKestrel(k =>
+            {
+                var appServices = k.ApplicationServices;
+                k.ConfigureHttpsDefaults(h =>
+                {
+                    h.AllowAnyClientCertificate();
+                });
+                k.AddServerHeader = false;
+            });
+
+            var app = builder.Build();
+            app.Urls.Clear();
+            app.Urls.Add($"http://localhost:{PORT}");
+            app.UseRouting();
+            app.MapMagicOnionService();
+            app.MapGet("/", async context =>
+            {
+                await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+            });
+
+            //using (var host = MagicOnionHost.CreateDefaultBuilder()
+            //                          .UseMagicOnion(new MagicOnionOptions(isReturnExceptionStackTraceInErrorDetail: true),
+            //                                         new ServerPort("localhost", PORT, ServerCredentials.Insecure))
+            //                          .Build())
             {
                 Logger.LogInformation("==== HOST Starting");
                 try
                 {
-                    await host.StartAsync();
+                    await app.StartAsync();
                 }
                 catch (Exception E)
                 {
@@ -362,7 +392,7 @@ namespace H5.Compiler
                 Logger.LogInformation("==== HOST Exit requested");
                 await CompilationProcessor.StopAsync();
                 Logger.LogInformation("==== HOST Compilation stopped");
-                await host.StopAsync();
+                await app.StopAsync();
                 Logger.LogInformation("==== HOST Onion Server stopped");
             }
             return 0;

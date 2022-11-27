@@ -13,7 +13,7 @@ namespace H5.Compiler.Hosted
     {
         public readonly TimeSpan _timeout;
 
-        public RemoteCompiler(Channel channel, TimeSpan timeout)
+        public RemoteCompiler(ChannelBase channel, TimeSpan timeout)
         {
             _client = MagicOnionClient.Create<IHostedCompiler>(channel);
             _timeout = timeout;

@@ -70,7 +70,7 @@ namespace H5.Compiler
                 TrySetConsoleTitle();
                 Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
 
-                return await RunCompilationServerAsync();
+                return await RunCompilationServerAsync(args);
             }
             else if (args.Length == 1 && args[0] == "startserver")
             {
@@ -190,15 +190,7 @@ namespace H5.Compiler
 
         private static void ConfigureLogging(string[] args)
         {
-            var logLevel = LogLevel.Information;
-
-            for(int i = 0; i < args.Length -1; i++)
-            {
-                if(args[i] == "--trace")
-                {
-                    logLevel = LogLevel.Trace;
-                }
-            }
+            var logLevel = GetLogLevel(args);
 
             ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(logLevel)
                                                                            .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1:D2}:{2:D2}:{3:D2}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))
@@ -330,13 +322,16 @@ namespace H5.Compiler
             process.Start();
         }
 
-        private static async Task<int> RunCompilationServerAsync()
+        private static async Task<int> RunCompilationServerAsync(string[] args)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             var builder = WebApplication.CreateBuilder();
+            
             builder.Services.AddGrpc();
             builder.Services.AddMagicOnion();
+
+            builder.WebHost.SuppressStatusMessages(true);
 
             builder.WebHost.ConfigureKestrel(k =>
             {
@@ -349,6 +344,14 @@ namespace H5.Compiler
                 k.AddServerHeader = false;
             });
 
+            var logLevel = GetLogLevel(args);
+
+            builder.Logging.ClearProviders();
+            builder.Logging.AddFilter("Microsoft.AspNetCore.Routing.EndpointMiddleware", LogLevel.Warning);
+            builder.Logging.AddFilter("Microsoft.AspNetCore.Hosting.Diagnostics", LogLevel.Warning);
+            builder.Logging.SetMinimumLevel(logLevel)
+                           .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1:D2}:{2:D2}:{3:D2}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second));
+
             var app = builder.Build();
             app.Urls.Clear();
             app.Urls.Add($"http://localhost:{PORT}");
@@ -359,44 +362,58 @@ namespace H5.Compiler
                 await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
             });
 
-            //using (var host = MagicOnionHost.CreateDefaultBuilder()
-            //                          .UseMagicOnion(new MagicOnionOptions(isReturnExceptionStackTraceInErrorDetail: true),
-            //                                         new ServerPort("localhost", PORT, ServerCredentials.Insecure))
-            //                          .Build())
+            Logger.LogInformation("==== HOST Starting");
+            try
             {
-                Logger.LogInformation("==== HOST Starting");
-                try
-                {
-                    await app.StartAsync();
-                }
-                catch (Exception E)
-                {
-                    if(!E.Message.Contains("Failed to bind"))
-                    {
-                        Console.WriteLine($"Failed to start server: " + E.Message);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to bind to port {PORT}.");
-                        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                        {
-                            Console.WriteLine("This is sometimes caused by Windows Update (see: https://github.com/docker/for-win/issues/3171#issuecomment-739740248)");
-                            Console.WriteLine("Running 'net stop winnat' followed by 'net start winnat' as an admin usually fixes the issue.");
-                        }
-                    }
-                    return 1;
-                }
-
-                Logger.LogInformation("==== HOST Started Onion Server");
-                CompilationProcessor.CompileForever(_exitToken.Token);
-                await _exitTask.Task;
-                Logger.LogInformation("==== HOST Exit requested");
-                await CompilationProcessor.StopAsync();
-                Logger.LogInformation("==== HOST Compilation stopped");
-                await app.StopAsync();
-                Logger.LogInformation("==== HOST Onion Server stopped");
+                await app.StartAsync();
+                Logger.LogInformation("==== HOST Started");
             }
+            catch (Exception E)
+            {
+                if (!E.Message.Contains("Failed to bind"))
+                {
+                    Console.WriteLine($"Failed to start server: " + E.Message);
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to bind to port {PORT}.");
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        Console.WriteLine("This is sometimes caused by Windows Update (see: https://github.com/docker/for-win/issues/3171#issuecomment-739740248)");
+                        Console.WriteLine("Running 'net stop winnat' followed by 'net start winnat' as an admin usually fixes the issue.");
+                    }
+                }
+                return 1;
+            }
+            
+            CompilationProcessor.CompileForever(_exitToken.Token);
+            Logger.LogInformation("==== HOST Compilation Processor Started");
+
+            await _exitTask.Task;
+            Logger.LogInformation("==== HOST Exit Requested");
+            
+            await CompilationProcessor.StopAsync();
+            Logger.LogInformation("==== HOST Compilation Processor Stopped");
+            
+            await app.StopAsync();
+            Logger.LogInformation("==== HOST Stopped");
+
             return 0;
+        }
+
+        private static LogLevel GetLogLevel(string[] args)
+        {
+            var logLevel = LogLevel.Information;
+
+            for (int i = 0; i < args.Length - 1; i++)
+            {
+                if (args[i] == "--trace")
+                {
+                    logLevel = LogLevel.Trace;
+                }
+            }
+
+            return logLevel;
         }
 
         internal static string GetLogLevelString(LogLevel logLevel)

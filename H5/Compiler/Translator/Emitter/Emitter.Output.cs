@@ -35,18 +35,18 @@ namespace H5.Translator
             return dest;
         }
 
-        protected virtual void WriteNewLine(StringBuilder sb)
+        protected void WriteNewLine(StringBuilder sb)
         {
             sb.Append(NEW_LINE);
         }
 
-        protected virtual void WriteNewLine(StringBuilder sb, string text)
+        protected void WriteNewLine(StringBuilder sb, string text)
         {
             sb.Append(text);
             sb.Append(NEW_LINE);
         }
 
-        public virtual void WriteIndented(string s, int? position = null)
+        public void WriteIndented(string s, int? position = null)
         {
             var level = position.HasValue && position.Value == 0 ? InitialLevel : Level;
 
@@ -57,7 +57,7 @@ namespace H5.Translator
             Write(Output, indented.ToString(), position);
         }
 
-        protected virtual void WriteIndent(StringBuilder sb, int level, int? position = null)
+        protected void WriteIndent(StringBuilder sb, int level, int? position = null)
         {
             for (var i = 0; i < level; i++)
             {
@@ -65,7 +65,7 @@ namespace H5.Translator
             }
         }
 
-        protected virtual List<TranslatorOutputItem> TransformOutputs()
+        protected List<TranslatorOutputItem> TransformOutputs()
         {
             using(new Measure(Logger, "Transforming outputs", logLevel: LogLevel.Trace))
             {
@@ -75,7 +75,7 @@ namespace H5.Translator
             }
         }
 
-        protected virtual List<TranslatorOutputItem> CombineOutputs()
+        protected List<TranslatorOutputItem> CombineOutputs()
         {
             using (var m = new Measure(Logger, "Combining outputs", logLevel: LogLevel.Trace))
             {

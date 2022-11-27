@@ -16,7 +16,7 @@ namespace H5.Translator
 {
     public partial class Emitter
     {
-        public virtual int CompareTypeInfosByName(ITypeInfo x, ITypeInfo y)
+        public int CompareTypeInfosByName(ITypeInfo x, ITypeInfo y)
         {
             if (x == y)
             {
@@ -49,7 +49,7 @@ namespace H5.Translator
             return xTypeDefinition.FullName.CompareTo(yTypeDefinition.FullName);
         }
 
-        public virtual int CompareTypeInfosByPriority(ITypeInfo x, ITypeInfo y)
+        public int CompareTypeInfosByPriority(ITypeInfo x, ITypeInfo y)
         {
             if (x == y)
             {
@@ -77,7 +77,7 @@ namespace H5.Translator
             return -xPriority.CompareTo(yPriority);
         }
 
-        public virtual bool IsInheritedFrom(ITypeInfo x, ITypeInfo y)
+        public bool IsInheritedFrom(ITypeInfo x, ITypeInfo y)
         {
             if (x == y)
             {
@@ -125,7 +125,7 @@ namespace H5.Translator
             return sortable;
         }
 
-        public virtual void SortTypesByInheritance()
+        public void SortTypesByInheritance()
         {
             using (new Measure(Logger, "Sorting types by inheritance", logLevel: LogLevel.Trace))
             {
@@ -225,7 +225,7 @@ namespace H5.Translator
         }
 
         private Dictionary<IType, string> nameCache = new Dictionary<IType, string>();
-        public virtual void TopologicalSort()
+        public void TopologicalSort()
         {
             using (new Measure(Logger, "Topological Sorting", logLevel: LogLevel.Trace))
             {
@@ -352,29 +352,29 @@ namespace H5.Translator
             }
         }
 
-        public virtual TypeDefinition GetTypeDefinition()
+        public TypeDefinition GetTypeDefinition()
         {
             return TypeDefinitions[TypeInfo.Key];
         }
 
-        public virtual TypeDefinition GetTypeDefinition(IType type)
+        public TypeDefinition GetTypeDefinition(IType type)
         {
             return H5Types.Get(type).TypeDefinition;
         }
 
-        public virtual TypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
+        public TypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
         {
             var resolveResult = Resolver.ResolveNode(reference) as TypeResolveResult;
             var type = H5Types.Get(resolveResult.Type, safe);
             return type?.TypeDefinition;
         }
 
-        public virtual TypeDefinition GetBaseTypeDefinition()
+        public TypeDefinition GetBaseTypeDefinition()
         {
             return GetBaseTypeDefinition(GetTypeDefinition());
         }
 
-        public virtual TypeDefinition GetBaseTypeDefinition(TypeDefinition type)
+        public TypeDefinition GetBaseTypeDefinition(TypeDefinition type)
         {
             var reference = type.BaseType;
 
@@ -386,7 +386,7 @@ namespace H5.Translator
             return H5Types.Get(reference).TypeDefinition;
         }
 
-        public virtual TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount)
+        public TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount)
         {
             TypeDefinition type = GetBaseTypeDefinition();
 
@@ -406,7 +406,7 @@ namespace H5.Translator
             }
         }
 
-        public virtual string GetTypeHierarchy()
+        public string GetTypeHierarchy()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("[");
@@ -449,7 +449,7 @@ namespace H5.Translator
         }
 
         private Dictionary<TypeDefinition, int> priorityMap = new Dictionary<TypeDefinition, int>();
-        public virtual int GetPriority(TypeDefinition type)
+        public int GetPriority(TypeDefinition type)
         {
             if (priorityMap.ContainsKey(type))
             {

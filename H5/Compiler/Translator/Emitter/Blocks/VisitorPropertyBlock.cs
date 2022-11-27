@@ -22,8 +22,8 @@ namespace H5.Translator
         protected override void BeginEmit()
         {
             base.BeginEmit();
+            
             OldRules = Emitter.Rules;
-
 
             if (Emitter.Resolver.ResolveNode(PropertyDeclaration) is MemberResolveResult rr)
             {

@@ -60,9 +60,10 @@ namespace H5.Contract
 
         IWriterInfo SaveWriter();
 
-        void Write(params object[] values);
-
+        void Write(string value);
         void Write(object value);
+        void Write(params string[] values);
+        void Write(params object[] values);
 
         void WriteCatch();
 
@@ -126,7 +127,7 @@ namespace H5.Contract
 
         void WriteReturn(bool addSpace);
 
-        void WriteScript(object value);
+        void WriteScript<T>(T value);
 
         void WriteSemiColon();
 

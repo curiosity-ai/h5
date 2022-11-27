@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "H5.Build.Target", "H5\H5.Bu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FE41DF3B-9430-41A1-852A-727182C0FC75}"
 	ProjectSection(SolutionItems) = preProject
+		ACKNOWLEDGMENTS = ACKNOWLEDGMENTS
+		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject

@@ -5,12 +5,12 @@
     <Version>1.0</Version>
     <PackageId>h5.Template</PackageId>
     <Title>h5 Template</Title>
-    <Authors>Rafael Oliveira</Authors>
+    <Authors>Curiosity GmbH</Authors>
+    <Company>Curiosity GmbH</Company>
     <Description>Templates to use when creating an h5 based- application.</Description>
+    <Copyright>Copyright (c) 2019-2022, Curiosity GmbH. All rights reserved.</Copyright>
     <PackageTags>dotnet-new;templates;c#;javascript;h5</PackageTags>
-
     <TargetFramework>netstandard2.0</TargetFramework>
-
     <IncludeContentInPack>true</IncludeContentInPack>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <ContentTargetFolders>content</ContentTargetFolders>

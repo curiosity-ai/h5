@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="h5" Version="0.0.23543" />
-    <PackageReference Include="h5.core" Version="0.0.22512" />
+    <PackageReference Include="h5" Version="22.11.34330" />
+    <PackageReference Include="h5.core" Version="22.11.34329" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,15 +23,16 @@
     <PackageIcon>h5.png</PackageIcon>
     <LangVersion>latest</LangVersion>
     <PackageId>h5.httpclient</PackageId>
-    <Authors>Rafael Oliveira, .NET Foundation and Contributors</Authors>
-    <Company></Company>
+    <Authors>Curiosity GmbH, .NET Foundation and Contributors</Authors>
+    <Company>Curiosity GmbH</Company>
     <Description>HttpClient-like for H5, the .NET C# to JavaScript compiler 🚀</Description>
-    <Copyright>(c) Copyright  2021, Rafael Oliveira. Copyright (c) .NET Foundation and Contributors.</Copyright>
+    <Copyright>Copyright (c) 2019-2022, Curiosity GmbH. Copyright (c) .NET Foundation and Contributors.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>0.0.42</Version>
     <IncludeReferencedProjects>true</IncludeReferencedProjects>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>http://h5.rocks/</PackageProjectUrl>
   </PropertyGroup>
 </Project>

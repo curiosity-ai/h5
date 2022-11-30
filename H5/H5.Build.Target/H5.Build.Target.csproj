@@ -6,9 +6,9 @@
     <ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
     <PackageType>MSBuildSdk</PackageType>
     <PackageId>h5.Target</PackageId>
-    <Company>Rafael Oliveira</Company>
-    <Authors>Rafael Oliveira</Authors>
-    <Copyright>(c) Copyright  2020, Rafael Oliveira. All rights reserved.</Copyright>    
+    <Company>Curiosity GmbH</Company>
+    <Authors>Curiosity GmbH</Authors>
+    <Copyright>Copyright (c) 2019-2022, Curiosity GmbH. All rights reserved.</Copyright>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>

@@ -93,6 +93,7 @@ namespace H5.Translator
                 if (unaryOperatorExpression.Operator == UnaryOperatorType.Minus && SyntaxHelper.IsNumeric(constantValue.GetType()) && Convert.ToDouble(constantValue) == 0)
                 {
                     Write("-");
+                    constantValue = 0; //Fixes https://github.com/theolivenbaum/h5/issues/68
                 }
 
                 WriteScript(constantValue);

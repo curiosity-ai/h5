@@ -16,7 +16,7 @@ namespace H5.Translator
 {
     public partial class Emitter
     {
-        protected virtual void WrapToModules()
+        protected void WrapToModules()
         {
             using (var m = new Measure(Logger, "Wrapping to modules", logLevel: LogLevel.Trace))
             {
@@ -56,7 +56,7 @@ namespace H5.Translator
             }
         }
 
-        protected virtual void WrapToAMD(StringBuilder moduleOutput, Module module, IEmitterOutput output)
+        protected void WrapToAMD(StringBuilder moduleOutput, Module module, IEmitterOutput output)
         {
             var str = moduleOutput.ToString();
             moduleOutput.Length = 0;
@@ -128,7 +128,7 @@ namespace H5.Translator
             return new List<IModuleDependency>();
         }
 
-        protected virtual void WrapToCommonJS(StringBuilder moduleOutput, Module module, IEmitterOutput output)
+        protected void WrapToCommonJS(StringBuilder moduleOutput, Module module, IEmitterOutput output)
         {
             var str = moduleOutput.ToString();
             moduleOutput.Length = 0;
@@ -176,7 +176,7 @@ namespace H5.Translator
             WriteNewLine(moduleOutput, ");");
         }
 
-        protected virtual void WrapToUMD(StringBuilder moduleOutput, Module module, IEmitterOutput output)
+        protected void WrapToUMD(StringBuilder moduleOutput, Module module, IEmitterOutput output)
         {
             var str = moduleOutput.ToString();
             moduleOutput.Length = 0;
@@ -276,7 +276,7 @@ namespace H5.Translator
             WriteNewLine(moduleOutput, "}));");
         }
 
-        protected virtual void WrapToES6(StringBuilder moduleOutput, Module module, IEmitterOutput output)
+        protected void WrapToES6(StringBuilder moduleOutput, Module module, IEmitterOutput output)
         {
             var str = moduleOutput.ToString();
             moduleOutput.Length = 0;

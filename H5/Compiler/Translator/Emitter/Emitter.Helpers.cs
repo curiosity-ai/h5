@@ -10,12 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace H5.Translator
 {
-    public partial class Emitter
+    public sealed partial class Emitter
     {
-        protected virtual HashSet<string> CreateNamespaces()
+        protected HashSet<string> CreateNamespaces()
         {
             var result = new HashSet<string>();
 
@@ -32,7 +33,7 @@ namespace H5.Translator
             return result;
         }
 
-        protected virtual void RegisterNamespace(string ns, ICollection<string> repository)
+        protected void RegisterNamespace(string ns, ICollection<string> repository)
         {
             if (String.IsNullOrEmpty(ns) || repository.Contains(ns))
             {
@@ -82,12 +83,14 @@ namespace H5.Translator
             return value;
         }
 
-        public virtual string ToJavaScript(object value)
+        public string ToJavaScript(object value)
         {
-            return JsonConvert.SerializeObject(value, new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeNonAscii });
+            return JsonConvert.SerializeObject(value, _settings);
         }
 
-        protected virtual ICSharpCode.NRefactory.CSharp.Attribute GetAttribute(AstNodeCollection<AttributeSection> attributes, string name)
+        private static readonly JsonSerializerSettings _settings = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeNonAscii };
+
+        protected ICSharpCode.NRefactory.CSharp.Attribute GetAttribute(AstNodeCollection<AttributeSection> attributes, string name)
         {
             string fullName = name + "Attribute";
             foreach (var i in attributes)
@@ -110,7 +113,7 @@ namespace H5.Translator
             return null;
         }
 
-        public virtual CustomAttribute GetAttribute(IEnumerable<CustomAttribute> attributes, string name)
+        public CustomAttribute GetAttribute(IEnumerable<CustomAttribute> attributes, string name)
         {
             foreach (var attr in attributes)
             {
@@ -123,7 +126,7 @@ namespace H5.Translator
             return null;
         }
 
-        public virtual IAttribute GetAttribute(IEnumerable<IAttribute> attributes, string name)
+        public IAttribute GetAttribute(IEnumerable<IAttribute> attributes, string name)
         {
             foreach (var attr in attributes)
             {
@@ -136,12 +139,12 @@ namespace H5.Translator
             return null;
         }
 
-        protected virtual bool HasDelegateAttribute(MethodDeclaration method)
+        protected bool HasDelegateAttribute(MethodDeclaration method)
         {
             return GetAttribute(method.Attributes, "Delegate") != null;
         }
 
-        public virtual Tuple<bool, bool, string> GetInlineCode(MemberReferenceExpression node)
+        public Tuple<bool, bool, string> GetInlineCode(MemberReferenceExpression node)
         {
             var member = LiftNullableMember(node);
             var info = GetInlineCodeFromMember(member, node);
@@ -149,7 +152,7 @@ namespace H5.Translator
             return WrapNullableMember(info, member, node);
         }
 
-        public virtual Tuple<bool, bool, string> GetInlineCode(InvocationExpression node)
+        public Tuple<bool, bool, string> GetInlineCode(InvocationExpression node)
         {
             IMember member = null;
             if (node.Target is MemberReferenceExpression target)
@@ -270,7 +273,7 @@ namespace H5.Translator
             return member;
         }
 
-        public virtual bool IsForbiddenInvocation(InvocationExpression node)
+        public bool IsForbiddenInvocation(InvocationExpression node)
         {
             var resolveResult = Resolver.ResolveNode(node);
 
@@ -311,14 +314,14 @@ namespace H5.Translator
             return false;
         }
 
-        public virtual IEnumerable<string> GetScript(EntityDeclaration method)
+        public IEnumerable<string> GetScript(EntityDeclaration method)
         {
             var attr = GetAttribute(method.Attributes, H5.Translator.Translator.H5_ASSEMBLY + ".Script");
 
             return GetScriptArguments(attr);
         }
 
-        public virtual string GetEntityNameFromAttr(IEntity member, bool setter = false)
+        public string GetEntityNameFromAttr(IEntity member, bool setter = false)
         {
             if (member is IProperty prop)
             {
@@ -359,7 +362,7 @@ namespace H5.Translator
         }
 
         Dictionary<IEntity, NameSemantic> entityNameCache = new Dictionary<IEntity, NameSemantic>();
-        public virtual NameSemantic GetNameSemantic(IEntity member)
+        public NameSemantic GetNameSemantic(IEntity member)
         {
             NameSemantic result;
             if (entityNameCache.TryGetValue(member, out result))
@@ -394,7 +397,7 @@ namespace H5.Translator
             return semantic.Name;
         }
 
-        public virtual string GetEntityName(EntityDeclaration entity)
+        public string GetEntityName(EntityDeclaration entity)
         {
             if (Resolver.ResolveNode(entity) is MemberResolveResult rr)
             {
@@ -404,7 +407,7 @@ namespace H5.Translator
             return null;
         }
 
-        public virtual string GetParameterName(ParameterDeclaration entity)
+        public string GetParameterName(ParameterDeclaration entity)
         {
             var name = entity.Name;
 
@@ -436,7 +439,7 @@ namespace H5.Translator
             return name;
         }
 
-        public virtual string GetFieldName(FieldDeclaration field)
+        public string GetFieldName(FieldDeclaration field)
         {
             if (!string.IsNullOrEmpty(field.Name))
             {
@@ -451,7 +454,7 @@ namespace H5.Translator
             return null;
         }
 
-        public virtual string GetEventName(EventDeclaration evt)
+        public string GetEventName(EventDeclaration evt)
         {
             if (!string.IsNullOrEmpty(evt.Name))
             {
@@ -473,7 +476,7 @@ namespace H5.Translator
             return attr != null ? new Tuple<bool, string>(true, (string)attr.PositionalArguments.First().ConstantValue) : null;
         }
 
-        public virtual string GetInline(EntityDeclaration method)
+        public string GetInline(EntityDeclaration method)
         {
             if (Resolver.ResolveNode(method) is MemberResolveResult mrr)
             {
@@ -485,7 +488,7 @@ namespace H5.Translator
             return attr != null && attr.Arguments.Count > 0 ? ((string)((PrimitiveExpression)attr.Arguments.First()).Value) : null;
         }
 
-        public virtual string GetInline(IEntity entity)
+        public string GetInline(IEntity entity)
         {
             string attrName = H5.Translator.Translator.H5_ASSEMBLY + ".TemplateAttribute";
             // Moving these two `is` into the end of the methos (where it's actually used) leads
@@ -542,9 +545,9 @@ namespace H5.Translator
             return null;
         }
 
-        protected virtual bool IsInlineMethod(IEntity entity)
+        protected bool IsInlineMethod(IEntity entity)
         {
-            string attrName = H5.Translator.Translator.H5_ASSEMBLY + ".TemplateAttribute";
+            const string attrName = H5.Translator.Translator.H5_ASSEMBLY + ".TemplateAttribute";
 
             if (entity != null)
             {
@@ -559,7 +562,7 @@ namespace H5.Translator
             return false;
         }
 
-        protected virtual IEnumerable<string> GetScriptArguments(ICSharpCode.NRefactory.CSharp.Attribute attr)
+        protected IEnumerable<string> GetScriptArguments(ICSharpCode.NRefactory.CSharp.Attribute attr)
         {
             if (attr == null)
             {
@@ -589,12 +592,12 @@ namespace H5.Translator
             return result;
         }
 
-        public virtual bool IsNativeMember(string fullName)
+        public bool IsNativeMember(string fullName)
         {
             return fullName.StartsWith(H5.Translator.Translator.H5_ASSEMBLY_DOT, StringComparison.Ordinal) || fullName.StartsWith("System.", StringComparison.Ordinal);
         }
 
-        public virtual bool IsMemberConst(IMember member)
+        public bool IsMemberConst(IMember member)
         {
             if (member is IField field)
             {
@@ -604,7 +607,7 @@ namespace H5.Translator
             return false;
         }
 
-        public virtual bool IsInlineConst(IMember member)
+        public bool IsInlineConst(IMember member)
         {
             bool isConst = IsMemberConst(member);
 
@@ -621,7 +624,7 @@ namespace H5.Translator
             return false;
         }
 
-        public virtual void InitEmitter()
+        public void InitEmitter()
         {
             Output = new StringBuilder();
             Locals = null;
@@ -637,7 +640,7 @@ namespace H5.Translator
             CurrentDependencies = new List<IModuleDependency>();
         }
 
-        public virtual bool ContainsOnlyOrEmpty(StringBuilder sb, params char[] c)
+        public bool ContainsOnlyOrEmpty(StringBuilder sb, params char[] c)
         {
             if (sb == null || sb.Length == 0)
             {

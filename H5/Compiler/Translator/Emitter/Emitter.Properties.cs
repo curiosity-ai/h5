@@ -105,7 +105,7 @@ namespace H5.Translator
 
         private HashSet<string> namespaces;
 
-        protected virtual HashSet<string> Namespaces
+        protected HashSet<string> Namespaces
         {
             get
             {
@@ -117,13 +117,13 @@ namespace H5.Translator
             }
         }
 
-        public virtual IReadOnlyList<AssemblyDefinition> References { get; set; }
+        public IReadOnlyList<AssemblyDefinition> References { get; set; }
 
-        public virtual IList<string> SourceFiles { get; set; }
+        public IList<string> SourceFiles { get; set; }
 
         private List<IAssemblyReference> list;
 
-        protected virtual IReadOnlyList<IAssemblyReference> AssemblyReferences
+        protected IReadOnlyList<IAssemblyReference> AssemblyReferences
         {
             get
             {

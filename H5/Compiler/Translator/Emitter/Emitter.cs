@@ -44,7 +44,7 @@ namespace H5.Translator
             ClassCompilerRuleCache = new Dictionary<ITypeDefinition, CompilerRule[]>();
         }
 
-        public virtual List<TranslatorOutputItem> Emit()
+        public List<TranslatorOutputItem> Emit()
         {
             using (new Measure(Logger, "Emitting JavaScript code"))
             {

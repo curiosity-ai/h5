@@ -1,7 +1,7 @@
 //
 // IntroduceQueryExpressions.cs
 //
-// Modified by Luís Reis <luiscubal@gmail.com> (Copyright (C) 2013)
+// Modified by Luís Reis <luiscubal@gmail.com> Copyright (c) 2013)
 //
 // Copyright header of the original version follows:
 //

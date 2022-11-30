@@ -1,6 +1,7 @@
 variables:
   project: '$(Build.SourcesDirectory)/Template/h5.Template.csproj'
   buildConfiguration: 'Release'
+  targetVersion: yy.M.$(build.buildId)
 
 pool:
   vmImage: 'windows-latest'
@@ -18,6 +19,9 @@ pr: none
 
 steps:
 - checkout: self
+
+- script: |
+    echo "Commit message: $(Build.SourceVersionMessage)"
   
 - task: UseDotNet@2
   displayName: 'Use .NET 7.0 SDK'
@@ -25,6 +29,17 @@ steps:
     packageType: sdk
     version: 7.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: PowerShell@2
+  displayName: 'Create CalVer Version'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $dottedDate = (Get-Date).ToString("yy.M")
+      $buildID = $($env:BUILD_BUILDID) 
+      $newTargetVersion = "$dottedDate.$buildID"
+      Write-Host "##vso[task.setvariable variable=targetVersion;]$newTargetVersion"
+      Write-Host "Updated targetVersion to '$newTargetVersion'"
 
 - task: DotNetCoreCLI@2
   displayName: 'restore nuget'
@@ -37,7 +52,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(project)'
-    arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)'
+    arguments: '-c $(buildConfiguration) /p:Version=$(targetVersion)'
 
 - task: DotNetCoreCLI@2
   displayName: 'pack nuget'
@@ -46,12 +61,12 @@ steps:
     configuration: '$(buildConfiguration)'
     packagesToPack: '$(project)'
     versioningScheme: 'off'
-    buildProperties: 'Version="0.0.$(build.buildId)"'
+    buildProperties: 'Version="$(targetVersion)"'
 
 - task: NuGetCommand@2
   displayName: 'push nuget'
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/h5.Template.0.0.$(build.buildId).nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/h5.Template.$(targetVersion).nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget-curiosity'

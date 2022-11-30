@@ -1,6 +1,7 @@
 variables:
   h5p2: '$(Build.SourcesDirectory)/H5/H5.Packages/H5.p2/H5.p2.csproj'
   buildConfiguration: 'Release'
+  targetVersion: yy.M.$(build.buildId)
 
 pool:
   vmImage: 'windows-latest'
@@ -19,12 +20,26 @@ pr: none
 steps:
 - checkout: self
   
+- script: |
+    echo "Commit message: $(Build.SourceVersionMessage)"
+
 - task: UseDotNet@2
   displayName: 'Use .NET 7.0 SDK'
   inputs:
     packageType: sdk
     version: 7.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: PowerShell@2
+  displayName: 'Create CalVer Version'
+  inputs:
+    targetType: 'inline'
+    script: |
+      $dottedDate = (Get-Date).ToString("yy.M")
+      $buildID = $($env:BUILD_BUILDID) 
+      $newTargetVersion = "$dottedDate.$buildID"
+      Write-Host "##vso[task.setvariable variable=targetVersion;]$newTargetVersion"
+      Write-Host "Updated targetVersion to '$newTargetVersion'"
 
 - task: CmdLine@2
   displayName: 'Install h5 compiler'
@@ -42,7 +57,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(h5p2)'
-    arguments: '-c $(buildConfiguration) /p:Version=0.0.$(build.buildId)  /p:AllowUnsafeBlocks=True /p:LangVersion=latest'
+    arguments: '-c $(buildConfiguration) /p:Version=$(targetVersion)  /p:AllowUnsafeBlocks=True /p:LangVersion=latest'
 
 - task: DotNetCoreCLI@2
   displayName: 'pack nuget'
@@ -51,12 +66,12 @@ steps:
     packagesToPack: '$(h5p2)'
     configuration: '$(buildConfiguration)'
     versioningScheme: 'off'
-    buildProperties: 'Version="0.0.$(build.buildId)";AllowUnsafeBlocks="True";LangVersion="latest"'
+    buildProperties: 'Version="$(targetVersion)";AllowUnsafeBlocks="True";LangVersion="latest"'
 
 - task: NuGetCommand@2
   displayName: 'push nuget'
   inputs:
     command: 'push'
-    packagesToPush: '**/h5.p2.0.0.$(build.buildId).nupkg'
+    packagesToPush: '**/h5.p2.$(targetVersion).nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'nuget-curiosity'

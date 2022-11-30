@@ -1,4 +1,4 @@
-<Project Sdk="h5.Target/0.0.21664">
+<Project Sdk="h5.Target/22.11.34319">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>H5</AssemblyName>
@@ -13,16 +13,17 @@
     <IncludeSymbols>false</IncludeSymbols>
     <PackageIcon>h5.png</PackageIcon>
     <PackageId>h5</PackageId>
-    <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
-    <Company>Rafael Oliveira</Company>
-    <Description>Base library used by the .NET Core C# to JavaScript compiler 🚀</Description>
-    <Copyright>(c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
+    <Authors>Curiosity GmbH, Object.NET, Inc.</Authors>
+    <Company>Curiosity GmbH, Object.NET, Inc.</Company>
+    <Description>Base library used by the C# to JavaScript compiler 🚀</Description>
+    <Copyright>Copyright (c) 2008-2019, Object.NET, Inc. Copyright (c) 2019-2022, Curiosity GmbH. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>0.0.42</Version>
     <IncludeReferencedProjects>true</IncludeReferencedProjects>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>http://h5.rocks/</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

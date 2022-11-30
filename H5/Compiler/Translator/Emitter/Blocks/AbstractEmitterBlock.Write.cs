@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.CSharp;
+using Newtonsoft.Json;
 
 namespace H5.Translator
 {
@@ -134,14 +135,19 @@ namespace H5.Translator
                 WriteNewLine();
             }
         }
-
-        public virtual void Write(object value)
+        public void Write(string value)
         {
             WriteIndent();
             Emitter.Output.Append(value);
         }
 
-        public virtual void Write(params object[] values)
+        public void Write(object value)
+        {
+            WriteIndent();
+            Emitter.Output.Append(value);
+        }
+
+        public void Write(params string[] values)
         {
             foreach (var item in values)
             {
@@ -149,84 +155,120 @@ namespace H5.Translator
             }
         }
 
-        public virtual void WriteScript(object value)
+        public void Write(params object[] values)
+        {
+            foreach (var item in values)
+            {
+                Write(item);
+            }
+        }
+
+        public void WriteScript(string value)
         {
             WriteIndent();
+
+            var s = Emitter.ToJavaScript(value);
+
+            Emitter.Output.Append(s);
+        }
+
+        public void WriteScript<T>(T value)
+        {
+            WriteIndent();
+
             var s = ToJavaScript(value, Emitter);
 
             Emitter.Output.Append(s);
         }
 
-        public static string ToJavaScript(object value, IEmitter emitter)
+        public static string ToJavaScript<T>(T value, IEmitter emitter)
         {
             string s = null;
 
-            if (value is double d)
+            switch (value)
             {
-                if (double.IsNaN(d))
+                case double d:
+                    if (double.IsNaN(d))
+                    {
+                        s = JS.Types.Number.NaN;
+                    }
+                    else if (double.IsPositiveInfinity(d))
+                    {
+                        s = JS.Types.Number.Infinity;
+                    }
+                    else if (double.IsNegativeInfinity(d))
+                    {
+                        s = JS.Types.Number.InfinityNegative;
+                    }
+                    else
+                    {
+                        s = JsonConvert.ToString(d);
+                        //s = emitter.ToJavaScript(value);
+                    }
+                    break;
+                case float f:
+                    if (float.IsNaN(f))
+                    {
+                        s = JS.Types.Number.NaN;
+                    }
+                    else if (float.IsPositiveInfinity(f))
+                    {
+                        s = JS.Types.Number.Infinity;
+                    }
+                    else if (float.IsNegativeInfinity(f))
+                    {
+                        s = JS.Types.Number.InfinityNegative;
+                    }
+                    else
+                    {
+                        s = JsonConvert.ToString(f);
+                        //s = emitter.ToJavaScript(value);
+                    }
+                    break;
+                case char ch:
+                    s = JsonConvert.ToString((int)ch);
+                    //s = emitter.ToJavaScript((int)ch);
+                    break;
+                case decimal dec:
                 {
-                    s = JS.Types.Number.NaN;
-                }
-                else if (double.IsPositiveInfinity(d))
-                {
-                    s = JS.Types.Number.Infinity;
-                }
-                else if (double.IsNegativeInfinity(d))
-                {
-                    s = JS.Types.Number.InfinityNegative;
-                }
-                else
-                {
-                    s = emitter.ToJavaScript(value);
-                }
-            }
-            else if (value is float f)
-            {
-                if (float.IsNaN(f))
-                {
-                    s = JS.Types.Number.NaN;
-                }
-                else if (float.IsPositiveInfinity(f))
-                {
-                    s = JS.Types.Number.Infinity;
-                }
-                else if (float.IsNegativeInfinity(f))
-                {
-                    s = JS.Types.Number.InfinityNegative;
-                }
-                else
-                {
-                    s = emitter.ToJavaScript(value);
-                }
-            }
-            else if (value is char ch)
-            {
-                s = emitter.ToJavaScript((int)ch);
-            }
-            else if (value is decimal dec)
-            {
-                var tmp = dec.ToString(CultureInfo.InvariantCulture);
-                s = JS.Types.SYSTEM_DECIMAL + "(" + DecimalConstant(dec, emitter);
+                    var tmp = dec.ToString(CultureInfo.InvariantCulture);
+                    s = JS.Types.SYSTEM_DECIMAL + "(" + DecimalConstant(dec, emitter);
 
-                int dot;
-                if ((dot = tmp.IndexOf(".")) >= 0)
-                {
-                    s += ", " + tmp.Substring(dot + 1).Length;
+                    int dot;
+                    if ((dot = tmp.IndexOf(".")) >= 0)
+                    {
+                        s += ", " + tmp.Substring(dot + 1).Length;
+                    }
+
+                    s += ")";
+                    break;
                 }
 
-                s += ")";
-            }
-            else if (value is long l)
-            {
-                s = JS.Types.System.Int64.NAME + "(" + LongConstant(l, emitter) + ")";
-            }
-            else if (value is ulong ul)
-            {
-                s = JS.Types.SYSTEM_UInt64 + "(" + ULongConstant(ul, emitter) + ")";
-            }
-            else
-            {
-                s = emitter.ToJavaScript(value);
+                case long l:
+                    s = JS.Types.System.Int64.NAME + "(" + LongConstant(l, emitter) + ")";
+                    break;
+                case ulong ul:
+                    s = JS.Types.SYSTEM_UInt64 + "(" + ULongConstant(ul, emitter) + ")";
+                    break;
+                case int i:
+                    s = JsonConvert.ToString(i);
+                    //s = emitter.ToJavaScript((int)ch);
+                    break;
+                case uint ui:
+                    s = JsonConvert.ToString(ui);
+                    //s = emitter.ToJavaScript((int)ch);
+                    break;
+                case bool b:
+                    s = b ? "true" : "false";
+                    //s = emitter.ToJavaScript((int)ch);
+                    break;
+                case string str:
+                    s = JsonConvert.ToString(str, '"', StringEscapeHandling.EscapeNonAscii);
+                    //s = emitter.ToJavaScript((int)ch);
+                    break;
+                default:
+                    s = emitter.ToJavaScript(value);
+                    break;
             }
             return s;
         }

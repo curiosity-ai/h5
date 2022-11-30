@@ -1,15 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>net5.0;net6.0;net7.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
     <DefineConstants>H5_COMPILER</DefineConstants>
     <AssemblyName>h5</AssemblyName>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
-  </PropertyGroup>
-
-  <!-- There is an annoying bug with PackAsTool that throws an error (https://github.com/NuGet/Home/issues/7001), so for debugging we disable this -->
-  <PropertyGroup Condition=" '$(BuildingInsideVisualStudio)' != 'true' ">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -25,7 +21,7 @@
     <Authors>Rafael Oliveira, Object.NET, Inc.</Authors>
     <Company />
     <Description>C# to JavaScript compiler-as-a-service 🚀</Description>
-    <Copyright>(c) Copyright  2008-2019, Object.NET, Inc. (http://object.net/). All rights reserved.</Copyright>
+    <Copyright>Copyright (c) 2008-2019, Object.NET, Inc. Copyright (c) 2019-2022, Curiosity GmbH. All rights reserved.</Copyright>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>0.0.42</Version>
     <IncludeReferencedProjects>true</IncludeReferencedProjects>
@@ -46,17 +42,17 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.3.1" />
-    <PackageReference Include="NUglify" Version="1.20.2" />
+    <PackageReference Include="MagicOnion.Server" Version="4.5.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.4.0" />
+    <PackageReference Include="NUglify" Version="1.20.3" />
     <PackageReference Include="Lokad.ILPack" Version="0.2.0" />
-    <PackageReference Include="MagicOnion.Hosting" Version="3.0.13" />
-    <PackageReference Include="Microsoft.Build" Version="17.3.2" />
-    <PackageReference Include="Microsoft.Build.Framework" Version="17.3.2" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.3.2" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" />
+    <PackageReference Include="Microsoft.Build" Version="17.4.0" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.4.0" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.4.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Mono.Cecil" Version="0.11.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.CodeDom" Version="7.0.0" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />

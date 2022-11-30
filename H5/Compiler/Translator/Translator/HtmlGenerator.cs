@@ -106,9 +106,7 @@ namespace H5.Translator
                 outputForHtml = outputForHtml.Concat(_translatorOutputs.ResourcesForHtml);
             }
 
-            var firstJs = true;
-            var firstMinJs = true;
-            var firstCss = true;
+            var alreadyOutputedToMin = new HashSet<string>();
 
             foreach (var output in outputForHtml.Where(o => o.LoadInHtml))
             {
@@ -116,38 +114,36 @@ namespace H5.Translator
                 {
                     if (output.IsMinified)
                     {
-                        if (!firstMinJs)
+                        var path = output.GetOutputPath(outputPath, true);
+                        if (alreadyOutputedToMin.Add(path))
                         {
                             jsMinBuffer.Append(Emitter.NEW_LINE);
                             jsMinBuffer.Append(indentScript);
+                            jsMinBuffer.Append(string.Format(scriptTemplate, RemapToCDN(path)));
                         }
-
-                        firstMinJs = false;
-
-                        jsMinBuffer.Append(string.Format(scriptTemplate, RemapToCDN(output.GetOutputPath(outputPath, true))));
                     }
                     else
                     {
-                        if (!firstJs)
-                        {
-                            jsBuffer.Append(Emitter.NEW_LINE);
-                            jsBuffer.Append(indentScript);
-                        }
-
-                        firstJs = false;
-
+                        jsBuffer.Append(Emitter.NEW_LINE);
+                        jsBuffer.Append(indentScript);
                         jsBuffer.Append(string.Format(scriptTemplate, RemapToCDN(output.GetOutputPath(outputPath, true))));
+
+                        if (!output.IsEmpty && output.MinifiedVersion is object && output.MinifiedVersion.OutputType == TranslatorOutputType.JavaScript)
+                        {
+                            var path = output.MinifiedVersion.GetOutputPath(outputPath, true);
+                            if (alreadyOutputedToMin.Add(path))
+                            {
+                                jsMinBuffer.Append(Emitter.NEW_LINE);
+                                jsMinBuffer.Append(indentScript);
+                                jsMinBuffer.Append(string.Format(scriptTemplate, RemapToCDN(path)));
+                            }
+                        }
                     }
-                } else if (output.OutputType == TranslatorOutputType.StyleSheets && indexCss >= 0)
+                } 
+                else if (output.OutputType == TranslatorOutputType.StyleSheets && indexCss >= 0)
                 {
-                    if (!firstCss)
-                    {
-                        cssBuffer.Append(Emitter.NEW_LINE);
-                        cssBuffer.Append(indentCss);
-                    }
-
-                    firstCss = false;
-
+                    cssBuffer.Append(Emitter.NEW_LINE);
+                    cssBuffer.Append(indentCss);
                     cssBuffer.Append(string.Format(cssLinkTemplate, RemapToCDN(output.GetOutputPath(outputPath, true))));
                 }
             }

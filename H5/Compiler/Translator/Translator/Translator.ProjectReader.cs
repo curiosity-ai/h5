@@ -112,7 +112,7 @@ namespace H5.Translator
             SkipEmbeddingResources  = ReadProperty(project, ProjectPropertyNames.H5_Specific.SkipEmbeddingResources, true, configHelper) is string s ? bool.Parse(s) : false;
             SkipResourcesExtraction = ReadProperty(project, ProjectPropertyNames.H5_Specific.SkipResourcesExtraction, true, configHelper) is string s2 ? bool.Parse(s2) : false;
             SkipHtmlGeneration      = ReadProperty(project, ProjectPropertyNames.H5_Specific.SkipHtmlGeneration, true, configHelper) is string s3 ? bool.Parse(s3) : false;
-            MinifyLocalVariables       = ReadProperty(project, ProjectPropertyNames.H5_Specific.MinifyLocalVariables, true, configHelper) is string s4 ? bool.Parse(s4) : false;
+            MinifyLocalVariables    = ReadProperty(project, ProjectPropertyNames.H5_Specific.MinifyLocalVariables, true, configHelper) is string s4 ? bool.Parse(s4) : false;
         }
 
         /// <summary>

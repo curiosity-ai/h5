@@ -2,8 +2,7 @@
         statics: {
             fields: {
                 ArgumentException_ValueTupleIncorrectType: null,
-                ArgumentException_ValueTupleLastArgumentNotAValueTuple: null,
-                _lock: null
+                ArgumentException_ValueTupleLastArgumentNotAValueTuple: null
             },
             props: {
                 ResourceManager: null
@@ -12,7 +11,6 @@
                 init: function () {
                     this.ArgumentException_ValueTupleIncorrectType = "Argument must be of type {0}.";
                     this.ArgumentException_ValueTupleLastArgumentNotAValueTuple = "The last element of an eight element ValueTuple must be a ValueTuple.";
-                    this._lock = { };
                 }
             },
             methods: {
@@ -20,7 +18,7 @@
                     return false;
                 },
                 GetResourceString: function (resourceKey) {
-                    return System.SR.GetResourceString$1(resourceKey, "");
+                    return System.SR.GetResourceString$1(resourceKey, null);
                 },
                 GetResourceString$1: function (resourceKey, defaultString) {
                     var resourceString = null;
@@ -47,16 +45,6 @@
                     }
 
                     return key;
-
-
-
-
-
-
-
-
-
-
                 },
                 Format$3: function (resourceFormat, args) {
                     if (args === void 0) { args = []; }

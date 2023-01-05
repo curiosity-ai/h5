@@ -1418,37 +1418,37 @@
             },
             Reverse: function () {
                 return new (H5.GeneratorEnumerable$1(T))(H5.fn.bind(this, function ()  {
-                    var $step = 0,
-                        $jumpFromFinally,
-                        $returnValue,
+                    var $s = 0,
+                        $jff,
+                        $rv,
                         e,
-                        $async_e;
+                        $ae;
 
-                    var $enumerator = new (H5.GeneratorEnumerator$1(T))(H5.fn.bind(this, function () {
+                    var $en = new (H5.GeneratorEnumerator$1(T))(H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                switch ($step) {
+                                switch ($s) {
                                     case 0: {
                                         e = new (System.Collections.Generic.SortedSet$1.Enumerator(T)).$ctor2(this, true);
-                                        $step = 1;
+                                        $s = 1;
                                         continue;
                                     }
                                     case 1: {
                                         if ( e.moveNext() ) {
-                                                $step = 2;
+                                                $s = 2;
                                                 continue;
                                             } 
-                                            $step = 4;
+                                            $s = 4;
                                             continue;
                                     }
                                     case 2: {
-                                        $enumerator.current = e.Current;
-                                            $step = 3;
+                                        $en.current = e.Current;
+                                            $s = 3;
                                             return true;
                                     }
                                     case 3: {
                                         
-                                            $step = 1;
+                                            $s = 1;
                                             continue;
                                     }
                                     case 4: {
@@ -1459,12 +1459,12 @@
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            throw $async_e;
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            throw $ae;
                         }
                     }));
-                    return $enumerator;
+                    return $en;
                 }));
             },
             GetViewBetween: function (lowerValue, upperValue) {

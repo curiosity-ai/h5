@@ -1,8 +1,8 @@
 /**
  * @version   :  - H5.NET
- * @author    : Object.NET, Inc. http://h5.net/
- * @copyright : Copyright 2008-2020 Object.NET, Inc. http://object.net/
- * @license   : See license.txt and https://github.com/bridgedotnet/Bridge.NET/blob/master/LICENSE.
+ * @author    : Object.NET, Inc., Curiosity GmbH.
+ * @copyright : Copyright 2008-2019 Object.NET, Inc., Copyright 2019-2023 Curiosity GmbH
+ * @license   : See https://github.com/theolivenbaum/h5/blob/master/LICENSE.
  */
 
 
@@ -1353,6 +1353,10 @@
         },
 
         referenceEquals: function (a, b) {
+            return H5.hasValue(a) ? a === b : !H5.hasValue(b);
+        },
+
+        rE: function (a, b) {
             return H5.hasValue(a) ? a === b : !H5.hasValue(b);
         },
 
@@ -3403,7 +3407,17 @@
     H5.definei = H5.Class.definei;
     H5.init = H5.Class.init;
 
+    function TCS() { return new System.Threading.Tasks.TaskCompletionSource(); }
+    function STEP(steps, currentStep) { return System.Array.min(steps, currentStep); }
+
+    H5.TCS = TCS;
+    H5.STEP = STEP;
+
     // @source ReflectionAssembly.js
+
+    H5.assemblyVersion = function (assemblyName, version) {
+        System.Reflection.Assembly.versions[assemblyName || "H5.$Unknown"] = version;
+    };
 
     H5.assembly = function (assemblyName, res, callback, restore) {
         if (!callback) {
@@ -3443,7 +3457,8 @@
 
     H5.define("System.Reflection.Assembly", {
         statics: {
-            assemblies: {}
+            assemblies: {},
+            versions: {}
         },
 
         ctor: function (name, res) {
@@ -3458,6 +3473,10 @@
 
         toString: function () {
             return this.name;
+        },
+
+        getVersion: function () {
+            return System.Reflection.Assembly.versions[this.name] || "";
         },
 
         getManifestResourceNames: function () {
@@ -17824,37 +17843,37 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             Reverse: function () {
                 return new (H5.GeneratorEnumerable$1(T))(H5.fn.bind(this, function ()  {
-                    var $step = 0,
-                        $jumpFromFinally,
-                        $returnValue,
+                    var $s = 0,
+                        $jff,
+                        $rv,
                         e,
-                        $async_e;
+                        $ae;
 
-                    var $enumerator = new (H5.GeneratorEnumerator$1(T))(H5.fn.bind(this, function () {
+                    var $en = new (H5.GeneratorEnumerator$1(T))(H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                switch ($step) {
+                                switch ($s) {
                                     case 0: {
                                         e = new (System.Collections.Generic.SortedSet$1.Enumerator(T)).$ctor2(this, true);
-                                        $step = 1;
+                                        $s = 1;
                                         continue;
                                     }
                                     case 1: {
                                         if ( e.moveNext() ) {
-                                                $step = 2;
+                                                $s = 2;
                                                 continue;
                                             } 
-                                            $step = 4;
+                                            $s = 4;
                                             continue;
                                     }
                                     case 2: {
-                                        $enumerator.current = e.Current;
-                                            $step = 3;
+                                        $en.current = e.Current;
+                                            $s = 3;
                                             return true;
                                     }
                                     case 3: {
                                         
-                                            $step = 1;
+                                            $s = 1;
                                             continue;
                                     }
                                     case 4: {
@@ -17865,12 +17884,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            throw $async_e;
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            throw $ae;
                         }
                     }));
-                    return $enumerator;
+                    return $en;
                 }));
             },
             GetViewBetween: function (lowerValue, upperValue) {
@@ -20955,10 +20974,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
     H5.define("System.Collections.Generic.CollectionExtensions", {
         statics: {
             methods: {
-                GetValueOrDefault: function (TKey, TValue, dictionary, key) {
-                    return System.Collections.Generic.CollectionExtensions.GetValueOrDefault$1(TKey, TValue, dictionary, key, H5.getDefaultValue(TValue));
+                GetValueOrDefault$1: function (TKey, TValue, dictionary, key) {
+                    return System.Collections.Generic.CollectionExtensions.GetValueOrDefault(TKey, TValue, dictionary, key, H5.getDefaultValue(TValue));
                 },
-                GetValueOrDefault$1: function (TKey, TValue, dictionary, key, defaultValue) {
+                GetValueOrDefault: function (TKey, TValue, dictionary, key, defaultValue) {
                     if (dictionary == null) {
                         throw new System.ArgumentNullException.$ctor1("dictionary");
                     }
@@ -22704,6 +22723,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             return tcs.task;
         },
 
+        c: function (continuationAction) {
+            if (this.isCompleted()) {
+                System.Threading.Tasks.Task.queue.push(continuationAction);
+                System.Threading.Tasks.Task.runQueue();
+            } else {
+                this.callbacks.push(continuationAction);
+            }
+        },
+
         continue: function (continuationAction) {
             if (this.isCompleted()) {
                 System.Threading.Tasks.Task.queue.push(continuationAction);
@@ -22814,6 +22842,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             return this.status === System.Threading.Tasks.TaskStatus.ranToCompletion || this.status === System.Threading.Tasks.TaskStatus.canceled || this.status === System.Threading.Tasks.TaskStatus.faulted;
         },
 
+        isC: function () {
+            return this.status === System.Threading.Tasks.TaskStatus.ranToCompletion || this.status === System.Threading.Tasks.TaskStatus.canceled || this.status === System.Threading.Tasks.TaskStatus.faulted;
+        },
+
         isFaulted: function () {
             return this.status === System.Threading.Tasks.TaskStatus.faulted;
         },
@@ -22848,7 +22880,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
         getAwaitedResult: function () {
             return this._getResult(true);
+        },
+
+        gAR: function () {
+            return this._getResult(true);
         }
+
     });
 
     H5.define("System.Threading.Tasks.Task$1", function (T) {
@@ -22888,6 +22925,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
         },
 
+        sR: function (result) {
+            if (!this.task.complete(result)) {
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
+            }
+        },
+
         setResult: function (result) {
             if (!this.task.complete(result)) {
                 throw new System.InvalidOperationException.$ctor1("Task was already completed.");
@@ -22895,6 +22938,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         },
 
         setException: function (exception) {
+            if (!this.trySetException(exception)) {
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
+            }
+        },
+
+        sE: function (exception) {
             if (!this.trySetException(exception)) {
                 throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
@@ -39203,6 +39252,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
     H5.define("System.Console", {
         statics: {
             methods: {
+                write: function (value) {
+                    System.Console.Write(System.DateTime.format(value));
+                },
+                write$1: function (value) {
+                    System.Console.Write(value.toString());
+                },
                 Write: function (value) {
                     var con = H5.global.console;
 
@@ -39210,11 +39265,24 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         con.log(!H5.isDefined(H5.unbox(value)) ? "" : H5.unbox(value));
                     }
                 },
+                writeLine: function (value) {
+                    System.Console.WriteLine(System.DateTime.format(value));
+                },
+                writeLine$1: function (value) {
+                    System.Console.WriteLine(value.toString());
+                },
                 WriteLine: function (value) {
                     var con = H5.global.console;
 
                     if (con && con.log) {
                         con.log(!H5.isDefined(H5.unbox(value)) ? "" : H5.unbox(value));
+                    }
+                },
+                Log: function (value) {
+                    var con = H5.global.console;
+
+                    if (con && con.log) {
+                        con.log(H5.unbox(value));
                     }
                 },
                 TransformChars: function (buffer, all, index, count) {
@@ -39685,8 +39753,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return 0;
             },
             equals: function (obj) {
-                if (H5.is(obj, System.DateTimeOffset)) {
-                    return H5.equalsT(this.UtcDateTime, System.Nullable.getValue(H5.cast(H5.unbox(obj, System.DateTimeOffset), System.DateTimeOffset)).UtcDateTime);
+                var offset = new System.DateTimeOffset();
+                if (System.Nullable.liftne(System.DateTimeOffset.op_Inequality, ((offset = H5.is(obj, System.DateTimeOffset) ? System.Nullable.getValue(H5.cast(H5.unbox(obj, System.DateTimeOffset), System.DateTimeOffset)) : null)), null)) {
+                    return H5.equalsT(this.UtcDateTime, offset.UtcDateTime);
                 }
                 return false;
             },
@@ -45757,39 +45826,39 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return this._buffer;
             },
             EnsureBufferAsync: function () {
-                var $step = 0,
-                    $task1, 
-                    $taskResult1, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $tr1, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
-                    $async_e, 
+                    $rv, 
+                    $ae, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1,2,3], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1,2,3], $s);
+                                switch ($s) {
                                     case 0: {
                                         if (this._buffer == null) {
-                                            $step = 1;
+                                            $s = 1;
                                             continue;
                                         } 
-                                        $step = 3;
+                                        $s = 3;
                                         continue;
                                     }
                                     case 1: {
-                                        $task1 = System.IO.FileStream.ReadBytesAsync(this.name);
-                                        $step = 2;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = System.IO.FileStream.ReadBytesAsync(this.name);
+                                        $s = 2;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
-                                        $taskResult1 = $task1.getAwaitedResult();
-                                        this._buffer = $taskResult1;
-                                        $step = 3;
+                                        $tr1 = $t1.getAwaitedResult();
+                                        this._buffer = $tr1;
+                                        $s = 3;
                                         continue;
                                     }
                                     case 3: {
@@ -45802,9 +45871,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            $tcs.setException($async_e);
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 
@@ -47006,53 +47075,53 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return charsRead;
             },
             ReadToEndAsync: function () {
-                var $step = 0,
-                    $task1, 
-                    $task2, 
-                    $taskResult2, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $t2, 
+                    $tr2, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
-                    $async_e, 
+                    $rv, 
+                    $ae, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1,2,3,4], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1,2,3,4], $s);
+                                switch ($s) {
                                     case 0: {
                                         if (H5.is(this.stream, System.IO.FileStream)) {
-                                            $step = 1;
+                                            $s = 1;
                                             continue;
                                         } 
-                                        $step = 3;
+                                        $s = 3;
                                         continue;
                                     }
                                     case 1: {
-                                        $task1 = this.stream.EnsureBufferAsync();
-                                        $step = 2;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = this.stream.EnsureBufferAsync();
+                                        $s = 2;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
-                                        $task1.getAwaitedResult();
-                                        $step = 3;
+                                        $t1.getAwaitedResult();
+                                        $s = 3;
                                         continue;
                                     }
                                     case 3: {
-                                        $task2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
-                                        $step = 4;
-                                        if ($task2.isCompleted()) {
+                                        $t2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
+                                        $s = 4;
+                                        if ($t2.isCompleted()) {
                                             continue;
                                         }
-                                        $task2.continue($asyncBody);
+                                        $t2.continue($asyncBody);
                                         return;
                                     }
                                     case 4: {
-                                        $taskResult2 = $task2.getAwaitedResult();
-                                        $tcs.setResult($taskResult2);
+                                        $tr2 = $t2.getAwaitedResult();
+                                        $tcs.setResult($tr2);
                                         return;
                                     }
                                     default: {
@@ -47061,9 +47130,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            $tcs.setException($async_e);
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 
@@ -48795,8 +48864,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         statics: {
             fields: {
                 ArgumentException_ValueTupleIncorrectType: null,
-                ArgumentException_ValueTupleLastArgumentNotAValueTuple: null,
-                _lock: null
+                ArgumentException_ValueTupleLastArgumentNotAValueTuple: null
             },
             props: {
                 ResourceManager: null
@@ -48805,7 +48873,6 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 init: function () {
                     this.ArgumentException_ValueTupleIncorrectType = "Argument must be of type {0}.";
                     this.ArgumentException_ValueTupleLastArgumentNotAValueTuple = "The last element of an eight element ValueTuple must be a ValueTuple.";
-                    this._lock = { };
                 }
             },
             methods: {
@@ -48813,7 +48880,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     return false;
                 },
                 GetResourceString: function (resourceKey) {
-                    return System.SR.GetResourceString$1(resourceKey, "");
+                    return System.SR.GetResourceString$1(resourceKey, null);
                 },
                 GetResourceString$1: function (resourceKey, defaultString) {
                     var resourceString = null;
@@ -48840,16 +48907,6 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
 
                     return key;
-
-
-
-
-
-
-
-
-
-
                 },
                 Format$3: function (resourceFormat, args) {
                     if (args === void 0) { args = []; }
@@ -51238,4 +51295,4 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
     // @source Finally.js
 
-})(this);
+})(this ? this : self);

@@ -342,8 +342,9 @@
                 return 0;
             },
             equals: function (obj) {
-                if (H5.is(obj, System.DateTimeOffset)) {
-                    return H5.equalsT(this.UtcDateTime, System.Nullable.getValue(H5.cast(H5.unbox(obj, System.DateTimeOffset), System.DateTimeOffset)).UtcDateTime);
+                var offset = new System.DateTimeOffset();
+                if (System.Nullable.liftne(System.DateTimeOffset.op_Inequality, ((offset = H5.is(obj, System.DateTimeOffset) ? System.Nullable.getValue(H5.cast(H5.unbox(obj, System.DateTimeOffset), System.DateTimeOffset)) : null)), null)) {
+                    return H5.equalsT(this.UtcDateTime, offset.UtcDateTime);
                 }
                 return false;
             },

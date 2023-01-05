@@ -1,1 +1,1 @@
-})(this);
+})(this ? this : self);

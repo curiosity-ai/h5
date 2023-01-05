@@ -1,10 +1,10 @@
     H5.define("System.Collections.Generic.CollectionExtensions", {
         statics: {
             methods: {
-                GetValueOrDefault: function (TKey, TValue, dictionary, key) {
-                    return System.Collections.Generic.CollectionExtensions.GetValueOrDefault$1(TKey, TValue, dictionary, key, H5.getDefaultValue(TValue));
+                GetValueOrDefault$1: function (TKey, TValue, dictionary, key) {
+                    return System.Collections.Generic.CollectionExtensions.GetValueOrDefault(TKey, TValue, dictionary, key, H5.getDefaultValue(TValue));
                 },
-                GetValueOrDefault$1: function (TKey, TValue, dictionary, key, defaultValue) {
+                GetValueOrDefault: function (TKey, TValue, dictionary, key, defaultValue) {
                     if (dictionary == null) {
                         throw new System.ArgumentNullException.$ctor1("dictionary");
                     }

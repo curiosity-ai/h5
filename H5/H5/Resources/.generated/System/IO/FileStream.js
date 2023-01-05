@@ -148,39 +148,39 @@
                 return this._buffer;
             },
             EnsureBufferAsync: function () {
-                var $step = 0,
-                    $task1, 
-                    $taskResult1, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $tr1, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
-                    $async_e, 
+                    $rv, 
+                    $ae, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1,2,3], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1,2,3], $s);
+                                switch ($s) {
                                     case 0: {
                                         if (this._buffer == null) {
-                                            $step = 1;
+                                            $s = 1;
                                             continue;
                                         } 
-                                        $step = 3;
+                                        $s = 3;
                                         continue;
                                     }
                                     case 1: {
-                                        $task1 = System.IO.FileStream.ReadBytesAsync(this.name);
-                                        $step = 2;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = System.IO.FileStream.ReadBytesAsync(this.name);
+                                        $s = 2;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
-                                        $taskResult1 = $task1.getAwaitedResult();
-                                        this._buffer = $taskResult1;
-                                        $step = 3;
+                                        $tr1 = $t1.getAwaitedResult();
+                                        this._buffer = $tr1;
+                                        $s = 3;
                                         continue;
                                     }
                                     case 3: {
@@ -193,9 +193,9 @@
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            $tcs.setException($async_e);
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 

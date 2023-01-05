@@ -251,53 +251,53 @@
                 return charsRead;
             },
             ReadToEndAsync: function () {
-                var $step = 0,
-                    $task1, 
-                    $task2, 
-                    $taskResult2, 
-                    $jumpFromFinally, 
+                var $s = 0,
+                    $t1, 
+                    $t2, 
+                    $tr2, 
+                    $jff, 
                     $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
-                    $async_e, 
+                    $rv, 
+                    $ae, 
                     $asyncBody = H5.fn.bind(this, function () {
                         try {
                             for (;;) {
-                                $step = System.Array.min([0,1,2,3,4], $step);
-                                switch ($step) {
+                                $s = System.Array.min([0,1,2,3,4], $s);
+                                switch ($s) {
                                     case 0: {
                                         if (H5.is(this.stream, System.IO.FileStream)) {
-                                            $step = 1;
+                                            $s = 1;
                                             continue;
                                         } 
-                                        $step = 3;
+                                        $s = 3;
                                         continue;
                                     }
                                     case 1: {
-                                        $task1 = this.stream.EnsureBufferAsync();
-                                        $step = 2;
-                                        if ($task1.isCompleted()) {
+                                        $t1 = this.stream.EnsureBufferAsync();
+                                        $s = 2;
+                                        if ($t1.isCompleted()) {
                                             continue;
                                         }
-                                        $task1.continue($asyncBody);
+                                        $t1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
-                                        $task1.getAwaitedResult();
-                                        $step = 3;
+                                        $t1.getAwaitedResult();
+                                        $s = 3;
                                         continue;
                                     }
                                     case 3: {
-                                        $task2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
-                                        $step = 4;
-                                        if ($task2.isCompleted()) {
+                                        $t2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
+                                        $s = 4;
+                                        if ($t2.isCompleted()) {
                                             continue;
                                         }
-                                        $task2.continue($asyncBody);
+                                        $t2.continue($asyncBody);
                                         return;
                                     }
                                     case 4: {
-                                        $taskResult2 = $task2.getAwaitedResult();
-                                        $tcs.setResult($taskResult2);
+                                        $tr2 = $t2.getAwaitedResult();
+                                        $tcs.setResult($tr2);
                                         return;
                                     }
                                     default: {
@@ -306,9 +306,9 @@
                                     }
                                 }
                             }
-                        } catch($async_e1) {
-                            $async_e = System.Exception.create($async_e1);
-                            $tcs.setException($async_e);
+                        } catch($ae1) {
+                            $ae = System.Exception.create($ae1);
+                            $tcs.setException($ae);
                         }
                     }, arguments);
 

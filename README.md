@@ -68,7 +68,7 @@ This fork introduces a series of breaking changes as part of the modernization e
 - Projects must explicitly target ``netstandard2.1``.
 - Drop support to the legacy *.csproj* format (only SDK-style projects are supported)
 - Drop support for legacy (and unused) command line arguments (check h5 -h for supported arguments)
-- Compiler is distributed as a ``dotnet global`` tool and have it's own versioning and auto-update on build (this can be disable by setting `<UpdateH5>false<UpdateH5/>` on your project file.
+- Compiler is distributed as a ``dotnet global`` tool and have it's own versioning and auto-update on build (this can be disable by setting `<UpdateH5>false</UpdateH5>` on your project file.
 - **Retyped packages are not supported** (as those are maintained by the Bridge authors, and cannot be built separately or consumed without the Bridge NuGet package).
 - Logging and Report options have been removed from the h5.json config file.
 - Hosted Compiler process (to speed up compilation and avoiding reloading assemblies that don't change often (like NuGet packages).

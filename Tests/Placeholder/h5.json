@@ -1,4 +1,4 @@
-// See all h5.json configuration options at https://github.com/h5dotnet/Bridge/wiki/global-configuration
+// See all h5.json configuration options at https://web.archive.org/web/20200929021729/https://github.com/bridgedotnet/Bridge/wiki/global-configuration
 {
   "output": "$(OutDir)/h5/",
   "fileName": "app.js",

@@ -133,15 +133,15 @@
                     }
 
                     if ((required === Newtonsoft.Json.Required.AllowNull || required === Newtonsoft.Json.Required.Always) && value === undefined) {
-                        throw new Newtonsoft.Json.JsonSerializationException("Required property '" + cfg.member.n + "' not found in JSON.");
+                        throw new Newtonsoft.Json.JsonSerializationException.$ctor1("Required property '" + cfg.member.n + "' not found in JSON.");
                     }
 
                     if (required === Newtonsoft.Json.Required.Always && value === null) {
-                        throw new Newtonsoft.Json.JsonSerializationException("Required property '" + cfg.member.n + "' expects a value but got null.");
+                        throw new Newtonsoft.Json.JsonSerializationException.$ctor1("Required property '" + cfg.member.n + "' expects a value but got null.");
                     }
 
                     if (required === Newtonsoft.Json.Required.DisallowNull && value === null) {
-                        throw new Newtonsoft.Json.JsonSerializationException("Property '" + cfg.member.n + "' expects a value but got null.");
+                        throw new Newtonsoft.Json.JsonSerializationException.$ctor1("Property '" + cfg.member.n + "' expects a value but got null.");
                     }
 
                     return { value: value };
@@ -353,11 +353,11 @@
                     }
 
                     if (!type) {
-                        throw new Newtonsoft.Json.JsonSerializationException("Type specified in JSON '" + fullName + "' was not resolved."); 
+                        throw new Newtonsoft.Json.JsonSerializationException.$ctor1("Type specified in JSON '" + fullName + "' was not resolved."); 
                     }
 
                     if (objectType && !H5.Reflection.isAssignableFrom(objectType, type)) {
-                        throw new Newtonsoft.Json.JsonSerializationException("Type specified in JSON '" + H5.Reflection.getTypeQName(type) + "' is not compatible with '" + H5.Reflection.getTypeQName(objectType) + "'."); 
+                        throw new Newtonsoft.Json.JsonSerializationException.$ctor1("Type specified in JSON '" + H5.Reflection.getTypeQName(type) + "' is not compatible with '" + H5.Reflection.getTypeQName(objectType) + "'."); 
                     }
 
                     return type;
@@ -848,7 +848,7 @@
 
                         if (!hasDefault && ctors.length > 0) {
                             if (publicCtors.length !== 1 && jsonCtor == null) {
-                                throw new Newtonsoft.Json.JsonSerializationException("Unable to find a constructor to use for type " + H5.getTypeName(type) + ". A class should either have a default constructor or one constructor with arguments.");
+                                throw new Newtonsoft.Json.JsonSerializationException.$ctor1("Unable to find a constructor to use for type " + H5.getTypeName(type) + ". A class should either have a default constructor or one constructor with arguments.");
                             }
 
                             if (jsonCtor == null) {

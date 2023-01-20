@@ -2094,39 +2094,156 @@
     };
 
     if (!globals.setImmediate) {
-        core.setImmediate = (function () {
-            var head = {},
-                tail = head;
+        if (typeof window !== "undefined") {
+            core.setImmediate = (function () {
+                var head = {},
+                    tail = head;
 
-            var id = Math.random();
+                var id = Math.random();
 
-            function onmessage (e) {
-                if (e.data != id) {
+                function onmessage(e) {
+                    if (e.data != id) {
+                        return;
+                    }
+
+                    head = head.next;
+                    var func = head.func;
+                    delete head.func;
+                    func();
+                }
+
+                if (typeof window !== "undefined") {
+                    if (window.addEventListener) {
+                        window.addEventListener("message", onmessage);
+                    } else {
+                        window.attachEvent("onmessage", onmessage);
+                    }
+                }
+
+                return function (func) {
+                    tail = tail.next = {func: func};
+
+                    if (typeof window !== "undefined") {
+                        window.postMessage(id, "*");
+                    }
+                };
+            }());
+        } else if (typeof self !== "undefined"){
+
+            (function (global, undefined) {
+                "use strict";
+
+                if (global.setImmediate) {
                     return;
                 }
 
-                head = head.next;
-                var func = head.func;
-                delete head.func;
-                func();
-            }
+                var nextHandle = 1; // Spec says greater than zero
+                var tasksByHandle = {};
+                var currentlyRunningATask = false;
+                var registerImmediate;
 
-            if (typeof window !== "undefined") {
-                if (window.addEventListener) {
-                    window.addEventListener("message", onmessage);
+                function setImmediate(callback) {
+                    // Callback can either be a function or a string
+                    if (typeof callback !== "function") {
+                        callback = new Function("" + callback);
+                    }
+                    // Copy function arguments
+                    var args = new Array(arguments.length - 1);
+                    for (var i = 0; i < args.length; i++) {
+                        args[i] = arguments[i + 1];
+                    }
+                    // Store and register the task
+                    var task = {callback: callback, args: args};
+                    tasksByHandle[nextHandle] = task;
+                    registerImmediate(nextHandle);
+                    return nextHandle++;
+                }
+
+                function clearImmediate(handle) {
+                    delete tasksByHandle[handle];
+                }
+
+                function run(task) {
+                    var callback = task.callback;
+                    var args = task.args;
+                    switch (args.length) {
+                        case 0:
+                            callback();
+                            break;
+                        case 1:
+                            callback(args[0]);
+                            break;
+                        case 2:
+                            callback(args[0], args[1]);
+                            break;
+                        case 3:
+                            callback(args[0], args[1], args[2]);
+                            break;
+                        default:
+                            callback.apply(undefined, args);
+                            break;
+                    }
+                }
+
+                function runIfPresent(handle) {
+                    // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+                    // So if we're currently running a task, we'll need to delay this invocation.
+                    if (currentlyRunningATask) {
+                        // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+                        // "too much recursion" error.
+                        setTimeout(runIfPresent, 0, handle);
+                    } else {
+                        var task = tasksByHandle[handle];
+                        if (task) {
+                            currentlyRunningATask = true;
+                            try {
+                                run(task);
+                            } finally {
+                                clearImmediate(handle);
+                                currentlyRunningATask = false;
+                            }
+                        }
+                    }
+                }
+
+                function installMessageChannelImplementation() {
+                    var channel = new MessageChannel();
+                    channel.port1.onmessage = function (event) {
+                        var handle = event.data;
+                        runIfPresent(handle);
+                    };
+
+                    registerImmediate = function (handle) {
+                        channel.port2.postMessage(handle);
+                    };
+                }
+
+                function installSetTimeoutImplementation() {
+                    registerImmediate = function (handle) {
+                        setTimeout(runIfPresent, 0, handle);
+                    };
+                }
+
+                // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+                var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+                attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+                // Don't get fooled by e.g. browserify environments.
+                if (global.MessageChannel) {
+                    // For web workers, where supported
+                    installMessageChannelImplementation();
+
                 } else {
-                    window.attachEvent("onmessage", onmessage);
+                    // For older browsers
+                    installSetTimeoutImplementation();
                 }
-            }
 
-            return function (func) {
-                tail = tail.next = { func: func };
+                attachTo.setImmediate = setImmediate;
+                attachTo.clearImmediate = clearImmediate;
+            }(self));
 
-                if (typeof window !== "undefined") {
-                    window.postMessage(id, "*");
-                }
-            };
-        }());
+            core.setImmediate = self.setImmediate.bind(globals);
+        }
     } else {
         core.setImmediate = globals.setImmediate.bind(globals);
     }

@@ -481,9 +481,10 @@
   </Target>
 
 
+  <!-- RFO 2023.02.03: Removing $(ProjectRuntimeConfigFilePath);$(ProjectRuntimeConfigDevFilePath) from Inputs seems to fix the incremental compilation not working correctly -->
   <Target Name="_H5Build"
       DependsOnTargets="SourceFilesProjectOutputGroup;GenerateBuildDependencyFile;GenerateBuildRuntimeConfigurationFiles;_ComputeReferenceAssemblies;_ComputeUserRuntimeAssemblies;_CopyReferenceOnlyAssembliesForBuild"
-      Inputs="@(UserRuntimeAssembly);@(_ReferenceAssemblies);@(SourceFilesProjectOutputGroupOutput);$(MSBuildAllProjects);$(ProjectDepsFilePath);$(ProjectRuntimeConfigFilePath);$(ProjectRuntimeConfigDevFilePath)"
+      Inputs="@(UserRuntimeAssembly);@(_ReferenceAssemblies);@(SourceFilesProjectOutputGroupOutput);$(MSBuildAllProjects);$(ProjectDepsFilePath)"
       Outputs="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)">
 
     <Message Importance="high" Text="Installing (or updating) the h5 compiler." Condition="$(UpdateH5)" />

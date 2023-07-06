@@ -117,7 +117,7 @@
                 d1 = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds()));
 
                 d1.kind = 2;
-                d1.ticks = ticks;
+                d1.ticks = ticks.sub(this.$getTzOffset(d));
 
                 // Check if Ticks are out of range
                 if (d1.ticks.gt(this.getMaxTicks()) || d1.ticks.lt(0)) {

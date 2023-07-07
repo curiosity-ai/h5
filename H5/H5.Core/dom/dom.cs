@@ -40587,6 +40587,17 @@ namespace H5.Core
               double target,
               double level,
               double internalformat,
+              double width,
+              double height,
+              double border,
+              double format,
+              double type,
+              Union<es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Float32Array> pixels);              
+
+            public virtual extern void texImage2D(
+              double target,
+              double level,
+              double internalformat,
               double format,
               double type,
               Union<dom.ImageBitmap, dom.ImageData, dom.HTMLVideoElement, dom.HTMLImageElement, dom.HTMLCanvasElement> pixels);
@@ -40645,6 +40656,18 @@ namespace H5.Core
               double format,
               double type,
               es5.ArrayBufferView pixels);
+
+            public virtual extern void texSubImage2D(
+              double target,
+              double level,
+              double xoffset,
+              double yoffset,
+              double width,
+              double height,
+              double format,
+              double type,
+              Union<es5.Uint8Array, es5.Uint16Array, es5.Uint32Array, es5.Float32Array> pixels);
+                           
 
             public virtual extern void texSubImage2D(
               double target,

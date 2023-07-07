@@ -155,6 +155,11 @@ namespace H5.Translator
 
         private bool TryGetFromCache(int index, out string cached)
         {
+#if DEBUG
+            cached = null;
+            return false;
+
+#endif
             var fileName = translator.SourceFiles[index];
             var hashedSource = File.ReadAllText(fileName).Hash128();
 

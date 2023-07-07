@@ -19,6 +19,11 @@ namespace H5.Translator
             root = tuple.Item1.GetRoot();
             model = tuple.Item2;
 
+            //root = ReplaceDefaultDeconstructions(root, model);
+            //tuple = updater(root);
+            //root = tuple.Item1.GetRoot();
+            //model = tuple.Item2;
+
             root = ReplaceDeconstructions(root, model);
             tuple = updater(root);
             root = tuple.Item1.GetRoot();
@@ -245,6 +250,182 @@ namespace H5.Translator
 
             return root;
         }
+
+        public SyntaxNode ReplaceDefaultDeconstructions(SyntaxNode root, SemanticModel model)
+        {
+            throw new NotImplementedException("Finish implementing replacing logic");
+
+
+            var assignments = root
+                                .DescendantNodes()
+                                .OfType<VariableDeclarationSyntax>()
+                                .Where(vds =>
+                                {
+                                    if (vds.Type is TupleTypeSyntax)
+                                    {
+                                        var variables = vds.Variables.ToArray();
+
+                                        if (variables is object && variables.Length == 1 && vds.Variables[0] is VariableDeclaratorSyntax vds2)
+                                        {
+                                            var childNodes = vds2.ChildNodes().ToArray();
+
+                                            if (childNodes.Length == 1 && childNodes[0] is EqualsValueClauseSyntax evcs && evcs.Value is LiteralExpressionSyntax les && les.Token.Value.ToString() == "default")
+                                            {
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                    return false;
+                                });
+
+            var infos = new Dictionary<VariableDeclarationSyntax, TupleTypeSyntax>();
+            var nodes = new List<VariableDeclarationSyntax>();
+
+            foreach (var assignment in assignments)
+            {
+                try
+                {
+                    infos.Add(assignment, (TupleTypeSyntax)assignment.Type);
+                    nodes.Add(assignment);
+                }
+                catch (Exception e)
+                {
+                    throw new ReplacerException(assignment, e);
+                }
+            }
+
+
+            if (nodes.Count > 0)
+            {
+                //TODO: Need to replace this:
+                // (double data1, string data2) t1 = default;
+                //TupleExpression(
+                //    SeparatedList<ArgumentSyntax>(
+                //        new SyntaxNodeOrToken[]{
+                //            Argument(
+                //                DeclarationExpression(
+                //                    PredefinedType(
+                //                        Token(SyntaxKind.DoubleKeyword)),
+                //                    SingleVariableDesignation(
+                //                        Identifier("data1")))),
+                //            Token(SyntaxKind.CommaToken),
+                //            Argument(
+                //                DeclarationExpression(
+                //                    PredefinedType(
+                //                        Token(SyntaxKind.StringKeyword)),
+                //                    SingleVariableDesignation(
+                //                        Identifier("data2"))))}))
+                //.WithCloseParenToken(
+                //    Token(
+                //        TriviaList(),
+                //        SyntaxKind.CloseParenToken,
+                //        TriviaList(
+                //            new[]{
+                //                Trivia(
+                //                    SkippedTokensTrivia()
+                //                    .WithTokens(
+                //                        TokenList(
+                //                            Identifier("t1")))),
+                //                Trivia(
+                //                    SkippedTokensTrivia()
+                //                    .WithTokens(
+                //                        TokenList(
+                //                            Token(SyntaxKind.EqualsToken)))),
+                //                Trivia(
+                //                    SkippedTokensTrivia()
+                //                    .WithTokens(
+                //                        TokenList(
+                //                            Token(SyntaxKind.DefaultKeyword)))),
+                //                Trivia(
+                //                    SkippedTokensTrivia()
+                //                    .WithTokens(
+                //                        TokenList(
+                //                            Token(SyntaxKind.SemicolonToken))))})))
+
+                //With this:
+                // (double a, string b) = new System.Tuple<double,string>(default, default); 
+                //AssignmentExpression(
+                //            SyntaxKind.SimpleAssignmentExpression,
+                //TupleExpression(
+                //    SeparatedList<ArgumentSyntax>(
+                //        new SyntaxNodeOrToken[]{
+                //            Argument(
+                //                DeclarationExpression(
+                //                    PredefinedType(
+                //                        Token(SyntaxKind.DoubleKeyword)),
+                //                    SingleVariableDesignation(
+                //                        Identifier("a")))),
+                //            Token(SyntaxKind.CommaToken),
+                //            Argument(
+                //                DeclarationExpression(
+                //                    PredefinedType(
+                //                        Token(SyntaxKind.StringKeyword)),
+                //                    SingleVariableDesignation(
+                //                        Identifier("b"))))})),
+                //ObjectCreationExpression(
+                //    QualifiedName(
+                //        IdentifierName("System"),
+                //        GenericName(
+                //            Identifier("Tuple"))
+                //        .WithTypeArgumentList(
+                //            TypeArgumentList(
+                //                SeparatedList<TypeSyntax>(
+                //                    new SyntaxNodeOrToken[]{
+                //                        PredefinedType(
+                //                            Token(SyntaxKind.DoubleKeyword)),
+                //                        Token(SyntaxKind.CommaToken),
+                //                        PredefinedType(
+                //                            Token(SyntaxKind.StringKeyword))})))))
+                //.WithArgumentList(
+                //    ArgumentList(
+                //        SeparatedList<ArgumentSyntax>(
+                //            new SyntaxNodeOrToken[]{
+                //                Argument(
+                //                    LiteralExpression(
+                //                        SyntaxKind.DefaultLiteralExpression,
+                //                        Token(SyntaxKind.DefaultKeyword))),
+                //                Token(SyntaxKind.CommaToken),
+                //                Argument(
+                //                    LiteralExpression(
+                //                        SyntaxKind.DefaultLiteralExpression,
+                //                        Token(SyntaxKind.DefaultKeyword)))}))
+                //    .WithCloseParenToken(
+                //        Token(
+                //            TriviaList(),
+                //            SyntaxKind.CloseParenToken,
+                //            TriviaList(
+                //                Trivia(
+                //                    SkippedTokensTrivia()
+                //                    .WithTokens(
+                //                        TokenList(
+                //                            Token(SyntaxKind.SemicolonToken)))))))))
+
+
+                //root = root.ReplaceNodes(nodes, (n1, n2) =>
+                //{
+                //    var assignment = n2;
+                //    var tupleTypeInfo = infos[n1];
+                //    var variable = n1.Variables[0];
+
+                //    return SyntaxFactory.VariableDeclaration(n1.Type,
+                //                                   SyntaxFactory.SeparatedList(new VariableDeclaratorSyntax[] 
+                //                                   {
+                //                                            SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(variable.Identifier.Text))
+                //                                                         .WithInitializer(SyntaxFactory.EqualsValueClause(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)))
+                //                                   }));
+
+                //    //(SyntaxKind.TrueLiteralExpression, SyntaxFactory.Token(SyntaxKind.TrueKeyword));
+
+                //    return null;
+                //});
+            }
+
+            return root;
+            //[45]: VariableDeclaratorSyntax VariableDeclarator t1 = default
+            //[46]: EqualsValueClauseSyntax EqualsValueClause = default
+            //[47]: LiteralExpressionSyntax DefaultLiteralExpression default
+        }
+
 
         public SyntaxNode ReplaceDeconstructions(SyntaxNode root, SemanticModel model)
         {

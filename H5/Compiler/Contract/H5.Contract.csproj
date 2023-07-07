@@ -15,15 +15,15 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Lokad.ILPack" Version="0.2.0" />
-    <PackageReference Include="Mono.Cecil" Version="0.11.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Mono.Cecil" Version="0.11.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.CodeDom" Version="7.0.0" />
     <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-    <PackageReference Include="System.Reflection.Metadata" Version="7.0.0" />
+    <PackageReference Include="System.Reflection.Metadata" Version="7.0.2" />
     <PackageReference Include="System.Security.Permissions" Version="7.0.0" />
-    <PackageReference Include="MessagePack" Version="2.4.59" />
+    <PackageReference Include="MessagePack" Version="2.5.124" />
     <PackageReference Include="Mosaik.Core" Version="0.0.23249" />
     <PackageReference Include="ZLogger" Version="1.7.0" />
   </ItemGroup>

@@ -13,8 +13,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="h5" Version="23.1.35060" />
-    <PackageReference Include="h5.core" Version="22.11.34396" />
+    <PackageReference Include="h5" Version="23.7.39854" />
+    <PackageReference Include="h5.core" Version="23.7.39855" />
   </ItemGroup>
 
   <ItemGroup>

@@ -644,9 +644,12 @@
                                 if (obj.toJSON) {
                                     raw = obj.toJSON();
                                 } else {
+                                    var camelCase = settings && H5.is(settings.ContractResolver, Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver);
+
                                     for (var key in obj) {
                                         if (obj.hasOwnProperty(key)) {
-                                            raw[key] = Newtonsoft.Json.JsonConvert.SerializeObject(obj[key], formatting, settings, true);
+                                            var name = camelCase ? key.charAt(0).toLowerCase() + key.substr(1) : key;
+                                            raw[name] = Newtonsoft.Json.JsonConvert.SerializeObject(obj[key], formatting, settings, true);
                                         }
                                     }
                                 }

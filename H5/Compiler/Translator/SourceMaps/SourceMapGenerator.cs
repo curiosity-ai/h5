@@ -47,10 +47,10 @@ namespace H5.Translator
 
         internal static Regex tokenRegex = new Regex(@"/\*##\|(.+?),(\d+?),(\d+?)\|##\*/", RegexOptions.Compiled);
 
-        public static void Generate(string scriptFileName, string basePath, ref string content, Action<SourceMapBuilder> beforeGenerate, Func<string, string> sourceContent, string[] names, IList<string> sourceFiles, UnicodeNewline? forceEols)
+        public static void Generate(string scriptFileName, string sourceRoot, string basePath, ref string content, Action<SourceMapBuilder> beforeGenerate, Func<string, string> sourceContent, string[] names, IList<string> sourceFiles, UnicodeNewline? forceEols)
         {
             var fileName = Path.GetFileName(scriptFileName);
-            var generator = new SourceMapGenerator(fileName, "", basePath, forceEols);
+            var generator = new SourceMapGenerator(fileName, sourceRoot, basePath, forceEols);
             StringLocation location = null;
             string script = content;
             int offset = 0;

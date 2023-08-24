@@ -483,6 +483,7 @@
                             type !== System.Decimal &&
                             type !== System.DateTime &&
                             type !== System.DateTimeOffset &&
+                            type !== System.TimeSpan &&
                             type !== System.Char &&
                             !H5.Reflection.isEnum(type)) {
                             H5.$jsonGuard.push(obj);

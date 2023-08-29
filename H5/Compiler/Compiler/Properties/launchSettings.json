@@ -7,8 +7,8 @@
     },
     "Test": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\work\\curiosity\\mosaik\\FrontEnd\\Mosaik.UI.Default\\Mosaik.UI.Default.csproj\" -c \"Debug\"",
-      "workingDirectory": "C:\\work\\curiosity\\mosaik\\FrontEnd\\Mosaik.UI.Default\\"
+      "commandLineArgs": "--rebuild -p \"C:\\work\\curiosity\\mosaik\\FrontEnd\\Mosaik.FrontEnd.Desktop\\Mosaik.FrontEnd.Desktop.csproj\" -c \"Debug\"  --no-server",
+      "workingDirectory": "C:\\work\\curiosity\\mosaik\\FrontEnd\\Mosaik.FrontEnd.Desktop"
     },
     "Placeholder": {
       "commandName": "Project",

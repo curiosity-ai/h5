@@ -191,6 +191,8 @@ namespace H5.Translator.Utils
                                         throw new Exception($"Error parsing resource {item.Name}: Extensionless files not supported: {file}, add an extension and try again.");
                                     }
 
+                                    if (file.EndsWith(".DS_Store", StringComparison.OrdinalIgnoreCase)) continue;
+
                                     var finalPath = Path.GetFullPath(Path.GetDirectoryName(file)).TrimEnd(Path.DirectorySeparatorChar);
                                     string outputPath;
                                     Logger.ZLogTrace("fullBasePath={0}   finalPath={1}", fullBasePath, finalPath);

@@ -2,7 +2,7 @@
 
 <a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 
-H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 7.0 for the compiler and .NET Standard 2.1 for H5 projects, while dropping support for legacy features and dependencies.
+H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 8.0 for the compiler and .NET Standard 2.1 for H5 projects, while dropping support for legacy features and dependencies.
 
 
 H5 is under active development, and targets a more integrated and faster development experience for C# web-developers.

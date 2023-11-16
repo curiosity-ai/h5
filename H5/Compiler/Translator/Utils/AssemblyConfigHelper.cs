@@ -192,6 +192,8 @@ namespace H5.Translator.Utils
                                     }
 
                                     if (file.EndsWith(".DS_Store", StringComparison.OrdinalIgnoreCase)) continue;
+                                    if (file.EndsWith("desktop.ini", StringComparison.OrdinalIgnoreCase)) continue;
+                                    if (file.EndsWith("thumbs.db", StringComparison.OrdinalIgnoreCase)) continue;
 
                                     var finalPath = Path.GetFullPath(Path.GetDirectoryName(file)).TrimEnd(Path.DirectorySeparatorChar);
                                     string outputPath;

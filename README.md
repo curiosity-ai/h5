@@ -23,7 +23,7 @@ H5 is under active development, and targets a more integrated and faster develop
 
 [![Gitter](https://badges.gitter.im/curiosityai/h5.svg)](https://gitter.im/curiosityai/h5?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-H5 projects are based on [netstandard2.1](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj), and the compiler on [net7.0](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Compiler/H5.Compiler.csproj), and removes legacy dependencies coming from the original Bridge source-code.
+H5 projects are based on [netstandard2.1](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj), and the compiler on [net8.0](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Compiler/H5.Compiler.csproj), and removes legacy dependencies coming from the original Bridge source-code.
 
 To get started with it, you can use the following project template (replace h5.Target/* with the latest version from [h5.target](https://www.nuget.org/packages/h5.target/)).
 

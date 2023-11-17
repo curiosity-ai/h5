@@ -40,7 +40,7 @@ namespace H5.Core
               Func<T, es5.PromiseLike<TResult1>> onfulfilled,
               Func<object, es5.PromiseLike<TResult2>> onrejected);
 
-            [Template("System.Threading.Tasks.Task.fromPromise({this})")]
+            [Template("System.Threading.Tasks.Task.fromPromise({this}, 0)")]
             public extern Task<T> ToTask();
         }
     }

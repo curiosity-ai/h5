@@ -68,7 +68,7 @@ namespace H5.Core
             public extern es5.Promise<Union<T, TResult>> @catch<TResult>(
               Func<object, es5.PromiseLike<TResult>> onrejected);
 
-            [Template("System.Threading.Tasks.Task.fromPromise({this})")]
+            [Template("System.Threading.Tasks.Task.fromPromise({this}, 0)")]
             public extern Task<T> ToTask();
 
             [Template("{0}")]

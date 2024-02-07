@@ -52,7 +52,7 @@
                                 delete H5.$jsonGuard;
                             }
 
-                            throw new System.InvalidOperationException(H5.getTypeName(type) + " is not reflectable and cannot be serialized.");
+                            throw new System.InvalidOperationException.$ctor1(H5.getTypeName(type) + " is not reflectable and cannot be serialized.");
                         }
                         type = ignoreMetaData ? null : H5.Reflection.getBaseType(type);
                     } while (!ignoreMetaData && type != null)

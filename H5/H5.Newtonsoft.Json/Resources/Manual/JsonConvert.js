@@ -17,10 +17,10 @@
                             try {
                                 return eval('(' + value + ')');
                             } catch (e) {
-                                throw new Newtonsoft.Json.JsonException(e.message);
+                                throw new Newtonsoft.Json.JsonException.$ctor1(e.message);
                             }
                         }
-                        throw new Newtonsoft.Json.JsonException(e.message);
+                        throw new Newtonsoft.Json.JsonException.$ctor1(e.message);
                     }
                 },
 
@@ -52,7 +52,7 @@
                                 delete H5.$jsonGuard;
                             }
 
-                            throw new System.InvalidOperationException(H5.getTypeName(type) + " is not reflectable and cannot be serialized.");
+                            throw new System.InvalidOperationException.$ctor1(H5.getTypeName(type) + " is not reflectable and cannot be serialized.");
                         }
                         type = ignoreMetaData ? null : H5.Reflection.getBaseType(type);
                     } while (!ignoreMetaData && type != null)
@@ -788,7 +788,7 @@
 
                                 if (hasAttribute) {
                                     if (jsonCtor != null) {
-                                        throw new Newtonsoft.Json.JsonException("Multiple constructors with the JsonConstructorAttribute.");
+                                        throw new Newtonsoft.Json.JsonException.$ctor1("Multiple constructors with the JsonConstructorAttribute.");
                                     }
 
                                     jsonCtor = c;
@@ -1139,7 +1139,7 @@
                         if (type.$number && !type.$is(raw)) {
                             if ((type !== System.Decimal || !type.tryParse(raw, null, {})) &&
                                 (!System.Int64.is64BitType(type) || !type.tryParse(raw.toString(), {}))) {
-                                throw new Newtonsoft.Json.JsonException(System.String.format("Input string '{0}' is not a valid {1}", raw, H5.getTypeName(type)));
+                                throw new Newtonsoft.Json.JsonException.$ctor1(System.String.format("Input string '{0}' is not a valid {1}", raw, H5.getTypeName(type)));
                             }
                         }
 
@@ -1193,12 +1193,12 @@
                         var isDecimal = type === System.Decimal,
                             isSpecial = isDecimal || System.Int64.is64BitType(type);
                         if (isSpecial && (isDecimal ? !type.tryParse(raw, null, {}) : !type.tryParse(raw, {}))) {
-                            throw new Newtonsoft.Json.JsonException(System.String.format("Input string '{0}' is not a valid {1}", raw, H5.getTypeName(type)));
+                            throw new Newtonsoft.Json.JsonException.$ctor1(System.String.format("Input string '{0}' is not a valid {1}", raw, H5.getTypeName(type)));
                         }
 
                         var isFloat = type == System.Double || type == System.Single;
                         if (!isSpecial && type.$number && (isFloat ? !type.tryParse(raw, null, {}) : !type.tryParse(raw, {}))) {
-                            throw new Newtonsoft.Json.JsonException(System.String.format("Could not convert {0} to {1}: {2}", H5.getTypeName(raw), H5.getTypeName(type), raw));
+                            throw new Newtonsoft.Json.JsonException.$ctor1(System.String.format("Could not convert {0} to {1}: {2}", H5.getTypeName(raw), H5.getTypeName(type), raw));
                         }
 
                         if (type === Function || type == System.Type) {

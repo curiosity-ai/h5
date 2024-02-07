@@ -483,6 +483,7 @@
                             type !== System.Decimal &&
                             type !== System.DateTime &&
                             type !== System.DateTimeOffset &&
+                            type !== System.TimeSpan &&
                             type !== System.Char &&
                             !H5.Reflection.isEnum(type)) {
                             H5.$jsonGuard.push(obj);
@@ -644,9 +645,12 @@
                                 if (obj.toJSON) {
                                     raw = obj.toJSON();
                                 } else {
+                                    var camelCase = settings && H5.is(settings.ContractResolver, Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver);
+
                                     for (var key in obj) {
                                         if (obj.hasOwnProperty(key)) {
-                                            raw[key] = Newtonsoft.Json.JsonConvert.SerializeObject(obj[key], formatting, settings, true);
+                                            var name = camelCase ? key.charAt(0).toLowerCase() + key.substr(1) : key;
+                                            raw[name] = Newtonsoft.Json.JsonConvert.SerializeObject(obj[key], formatting, settings, true);
                                         }
                                     }
                                 }

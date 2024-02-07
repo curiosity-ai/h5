@@ -693,7 +693,8 @@ namespace H5.Translator
                            (member_rr.TargetResult is ThisResolveResult ||
                             member_rr.TargetResult is LocalResolveResult ||
                             member_rr.TargetResult is TypeResolveResult ||
-                            member_rr.TargetResult is ConstantResolveResult));
+                            member_rr.TargetResult is ConstantResolveResult ||
+                            member_rr.TargetResult is ArrayAccessResolveResult));
 
             if (isSimple)
             {

@@ -25,10 +25,10 @@ steps:
     echo "Commit message: $(Build.SourceVersionMessage)"
 
 - task: UseDotNet@2
-  displayName: 'Use .NET 7.0 SDK'
+  displayName: 'Use .NET 8.0 SDK'
   inputs:
     packageType: sdk
-    version: 7.x
+    version: 8.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: PowerShell@2

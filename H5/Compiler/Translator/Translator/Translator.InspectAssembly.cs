@@ -379,7 +379,7 @@ namespace H5.Translator
 
         private string[] Rewrite()
         {
-            using (var m = new Measure(Logger, "Rewritting code"))
+            using (var m = new Measure(Logger, $"Rewritting code for {SourceFiles.Count} files"))
             {
                 var rewriter = new SharpSixRewriter(this);
                 var result = new string[SourceFiles.Count];
@@ -393,6 +393,7 @@ namespace H5.Translator
                         {
                             while (queue.TryDequeue(out var index))
                             {
+                                Logger.LogTrace("Rewriting {0} using thread {1}", SourceFiles[index], Thread.CurrentThread.ManagedThreadId);
                                 try
                                 {
                                     result[index] = rewriter.Clone().Rewrite(index);
@@ -410,7 +411,6 @@ namespace H5.Translator
                     }).ToArray();
 
                 Array.ForEach(threads, t => t.Join());
-
 
                 if (exceptions.Any())
                 {

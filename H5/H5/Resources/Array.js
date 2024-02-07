@@ -305,9 +305,13 @@
                 return obj.length;
             } else if (T && H5.isFunction(obj[name = "System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$getCount"])) {
                 return obj[name]();
+            } else if (T && H5.isFunction(obj[name = "System$Collections$Generic$IReadOnlyCollection$1$" + H5.getTypeAlias(T) + "$getCount"])) {
+                return obj[name]();
             } else if (H5.isFunction(obj[name = "System$Collections$ICollection$getCount"])) {
                 return obj[name]();
             } else if (T && (v = obj["System$Collections$Generic$ICollection$1$" + H5.getTypeAlias(T) + "$Count"]) !== undefined) {
+                return v;
+            } else if (T && (v = obj["System$Collections$Generic$IReadOnlyCollection$1$" + H5.getTypeAlias(T) + "$Count"]) !== undefined) {
                 return v;
             } else if ((v = obj["System$Collections$ICollection$Count"]) !== undefined) {
                 return v;

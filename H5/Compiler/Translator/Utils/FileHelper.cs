@@ -221,7 +221,7 @@ namespace H5.Translator
             var fileNameWithoutExtention = Path.GetFileNameWithoutExtension(path);
             var fileExtention = Path.GetExtension(path);
 
-            if (string.IsNullOrEmpty(fileNameWithoutExtention) || string.IsNullOrEmpty(fileExtention))
+            if (!string.IsNullOrEmpty(directory) && (string.IsNullOrEmpty(fileNameWithoutExtention) || string.IsNullOrEmpty(fileExtention)))
             {
                 r[0] = Path.Combine(directory, fileNameWithoutExtention, fileExtention);
                 r[1] = null;

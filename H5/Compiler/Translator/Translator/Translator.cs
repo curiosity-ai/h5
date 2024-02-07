@@ -398,8 +398,8 @@ namespace H5.Translator
             if (AssemblyInfo.SourceMap.Enabled)
             {
                 var projectPath = Path.GetDirectoryName(Location);
-
-                SourceMapGenerator.Generate(fileName, projectPath, ref content,
+                var sourceRoot = projectPath;
+                SourceMapGenerator.Generate(fileName, sourceRoot, projectPath, ref content,
                     before,
                     (sourceRelativePath) =>
                     {

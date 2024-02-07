@@ -45,6 +45,7 @@ namespace H5.Contract
         private static ILogger Logger = ApplicationLogging.CreateLogger<H5Types>();
 
         private Dictionary<IType, H5Type> byType = new Dictionary<IType, H5Type>();
+        private Dictionary<TypeDefinition, H5Type> byTypeDef = new Dictionary<TypeDefinition, H5Type>();
         private Dictionary<TypeReference, H5Type> byTypeRef = new Dictionary<TypeReference, H5Type>();
         private Dictionary<ITypeInfo, H5Type> byTypeInfo = new Dictionary<ITypeInfo, H5Type>();
         public void InitItems(IEmitter emitter)
@@ -81,25 +82,26 @@ namespace H5.Contract
             return this[key];
         }
 
-        public H5Type Get(TypeDefinition type, bool safe = false)
+        public H5Type Get(TypeDefinition type)
         {
+            if (byTypeDef.TryGetValue(type, out var cachedType))
+            {
+                return cachedType;
+            }
+
             foreach (var item in this)
             {
                 if (item.Value.TypeDefinition == type)
                 {
+                    byTypeDef[type] = item.Value;
                     return item.Value;
                 }
             }
 
-            if (!safe)
-            {
-                throw new Exception("Cannot find type: " + type.FullName);
-            }
-
-            return null;
+            throw new Exception("Cannot find type: " + type.FullName);
         }
 
-        public H5Type Get(TypeReference type, bool safe = false)
+        public H5Type Get(TypeReference type)
         {
             H5Type bType;
 
@@ -133,12 +135,7 @@ namespace H5.Contract
                 }
             }
 
-            if (!safe)
-            {
-                throw new Exception("Cannot find type: " + type.FullName);
-            }
-
-            return null;
+            throw new Exception("Cannot find type: " + type.FullName);
         }
 
         public H5Type Get(IType type, bool safe = false)

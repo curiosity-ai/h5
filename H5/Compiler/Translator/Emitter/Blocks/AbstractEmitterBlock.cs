@@ -290,7 +290,7 @@ namespace H5.Translator
             }
         }
 
-        public AstNode GetParentFinallyBlock(AstNode node, bool stopOnLoops)
+        public AstNode GetParentFinallyBlock(AstNode node, bool stopOnLoops, bool fromBreakBlock = false)
         {
             var insideTryFinally = false;
 
@@ -302,6 +302,11 @@ namespace H5.Translator
                 }
 
                 if (stopOnLoops && (n is WhileStatement || n is ForeachStatement || n is ForStatement || n is DoWhileStatement))
+                {
+                    return true;
+                }
+
+                if (stopOnLoops && fromBreakBlock && n is SwitchStatement)
                 {
                     return true;
                 }

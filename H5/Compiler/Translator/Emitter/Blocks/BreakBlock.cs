@@ -28,7 +28,7 @@ namespace H5.Translator
         {
             if (Emitter.JumpStatements != null)
             {
-                var finallyNode = GetParentFinallyBlock(BreakStatement ?? (AstNode)YieldBreakStatement, true);
+                var finallyNode = GetParentFinallyBlock(BreakStatement ?? (AstNode)YieldBreakStatement, true, fromBreakBlock: true);
 
                 if (finallyNode != null)
                 {

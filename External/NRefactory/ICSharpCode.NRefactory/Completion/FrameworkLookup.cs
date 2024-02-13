@@ -227,44 +227,45 @@ namespace ICSharpCode.NRefactory.Completion
             result.fileName = fileName;
             var fs = File.OpenRead(fileName);
 
-            using (var reader = new BinaryReader(fs, Encoding.UTF8))
-            {
-                var major   = reader.ReadByte();
-                var minor   = reader.ReadByte();
-                var build   = reader.ReadByte();
-                var version = new Version(major, minor, build);
-
-                if (version != CurrentVersion)
-                    return null;
-                int typeLookupListCount = reader.ReadInt32();
-                int extLookupListCount  = reader.ReadInt32();
-                int assemblyLookupCount = reader.ReadInt32();
-
-                result.assemblyListTable = new int[assemblyLookupCount];
-
-                for (int i = 0; i < assemblyLookupCount; i++)
+            using (fs)
+                using (var reader = new BinaryReader(fs, Encoding.UTF8))
                 {
-                    result.assemblyListTable[i] = reader.ReadInt32();
+                    var major   = reader.ReadByte();
+                    var minor   = reader.ReadByte();
+                    var build   = reader.ReadByte();
+                    var version = new Version(major, minor, build);
+
+                    if (version != CurrentVersion)
+                        return null;
+                    int typeLookupListCount = reader.ReadInt32();
+                    int extLookupListCount  = reader.ReadInt32();
+                    int assemblyLookupCount = reader.ReadInt32();
+
+                    result.assemblyListTable = new int[assemblyLookupCount];
+
+                    for (int i = 0; i < assemblyLookupCount; i++)
+                    {
+                        result.assemblyListTable[i] = reader.ReadInt32();
+                    }
+
+                    result.typeLookupTable = new int[typeLookupListCount];
+
+                    for (int i = 0; i < typeLookupListCount; i++)
+                    {
+                        result.typeLookupTable[i] = reader.ReadInt32();
+                        // skip list offset
+                        reader.ReadInt32();
+                    }
+
+                    result.extLookupTable = new int[extLookupListCount];
+
+                    for (int i = 0; i < extLookupListCount; i++)
+                    {
+                        result.extLookupTable[i] = reader.ReadInt32();
+                        // skip list offset
+                        reader.ReadInt32();
+                    }
                 }
-
-                result.typeLookupTable = new int[typeLookupListCount];
-
-                for (int i = 0; i < typeLookupListCount; i++)
-                {
-                    result.typeLookupTable[i] = reader.ReadInt32();
-                    // skip list offset
-                    reader.ReadInt32();
-                }
-
-                result.extLookupTable = new int[extLookupListCount];
-
-                for (int i = 0; i < extLookupListCount; i++)
-                {
-                    result.extLookupTable[i] = reader.ReadInt32();
-                    // skip list offset
-                    reader.ReadInt32();
-                }
-            }
             return result;
         }
 

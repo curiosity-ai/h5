@@ -152,7 +152,7 @@ namespace H5.Translator
 
                     if (string.Compare(newPath, path, true) != 0)
                     {
-                        CopyFileAsync(path, newPath).Wait();
+                        CopyFileAsync(path, newPath).Wait(cancellationToken);
                     }
 
                     if (updateH5Location && string.Compare(Path.GetFileName(path), "h5.dll", true) == 0)

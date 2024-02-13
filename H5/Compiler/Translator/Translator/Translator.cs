@@ -110,27 +110,28 @@ namespace H5.Translator
                 return path.Contains(".nuget");
             }
 
-            foreach (var path in _loadedAssemblies.Keys.ToArray())
+            lock (_loadedAssembliesLock)
             {
-                if (!ShouldCacheAssembly(path))
+                foreach (var path in _loadedAssemblies.Keys.ToArray())
                 {
-                    if (_loadedAssemblies.TryGetValue(path, out var oldAssembly))
+                    if (!ShouldCacheAssembly(path))
                     {
-                        _loadedAssemblies.Remove(path);
-                        oldAssembly.assembly.Dispose();
+                        if (_loadedAssemblies.Remove(path, out var oldAssembly))
+                        {
+                            oldAssembly.assembly.Dispose();
+                        }
                     }
                 }
-            }
 
-            foreach (var path in _loadedAssemblieStreams.Keys.ToArray())
-            {
-                if (!ShouldCacheAssembly(path))
+                foreach (var path in _loadedAssemblieStreams.Keys.ToArray())
                 {
-                    if (_loadedAssemblieStreams.TryGetValue(path, out var oldStream))
+                    if (!ShouldCacheAssembly(path))
                     {
-                        _loadedAssemblieStreams.Remove(path);
-                        oldStream.Close();
-                        oldStream.Dispose();
+                        if (_loadedAssemblieStreams.Remove(path, out var oldStream))
+                        {
+                            oldStream.Close();
+                            oldStream.Dispose();
+                        }
                     }
                 }
             }

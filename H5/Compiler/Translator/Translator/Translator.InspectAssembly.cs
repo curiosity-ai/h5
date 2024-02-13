@@ -92,9 +92,8 @@ namespace H5.Translator
             {
                 if (!_loadedAssemblies.TryGetValue(path, out var assemblyData) || (assemblyData.size != fileInfo.Length || assemblyData.timestamp != fileInfo.LastWriteTimeUtc))
                 {
-                    if (_loadedAssemblieStreams.TryGetValue(path, out var oldStream))
+                    if (_loadedAssemblieStreams.Remove(path, out var oldStream))
                     {
-                        _loadedAssemblieStreams.Remove(path);
                         oldStream.Close();
                         oldStream.Dispose();
                     }

@@ -21,19 +21,19 @@ namespace H5.Translator
 {
     public partial class Translator : ITranslator
     {
-        public const string H5_ASSEMBLY = CS.NS.H5;
-        public const string H5_ASSEMBLY_DOT = H5_ASSEMBLY + ".";
+        public const string H5_ASSEMBLY                        = CS.NS.H5;
+        public const string H5_ASSEMBLY_DOT                    = H5_ASSEMBLY + ".";
         public const string H5ResourcesPlusSeparatedFormatList = "H5.Resources.list";
-        public const string H5ResourcesJsonFormatList = "H5.Resources.json";
-        public const string H5ResourcesCombinedPrefix = "H5.Resources.Parts.";
-        public const string LocalesPrefix = "H5.Translator.Resources.Locales.";
-        public const string DefaultLocalesOutputName = "H5.Locales.js";
-        public const string H5ConsoleName = "h5.console.js";
-        public const string SupportedProjectType = "Library";
-        public const string DefaultRootNamespace = "ClassLibrary";
-        public const string SystemAssemblyName = "mscorlib";
+        public const string H5ResourcesJsonFormatList          = "H5.Resources.json";
+        public const string H5ResourcesCombinedPrefix          = "H5.Resources.Parts.";
+        public const string LocalesPrefix                      = "H5.Translator.Resources.Locales.";
+        public const string DefaultLocalesOutputName           = "H5.Locales.js";
+        public const string H5ConsoleName                      = "h5.console.js";
+        public const string SupportedProjectType               = "Library";
+        public const string DefaultRootNamespace               = "ClassLibrary";
+        public const string SystemAssemblyName                 = "mscorlib";
 
-        public static readonly Encoding OutputEncoding = new UTF8Encoding(false);
+        public static readonly  Encoding OutputEncoding                        = new UTF8Encoding(false);
         private static readonly string[] MinifierCodeSettingsInternalFileNames = new string[] { "h5.js", "h5.min.js", "h5.collections.js", "h5.collections.min.js" };
 
         private char[] invalidPathChars;
@@ -54,52 +54,53 @@ namespace H5.Translator
 
         public FileHelper FileHelper
         {
-            get; private set;
+            get;
+            private set;
         }
 
         private static readonly CodeSettings MinifierCodeSettingsSafe = new CodeSettings
         {
-            EvalTreatment = EvalTreatment.MakeAllSafe,
-            LocalRenaming = LocalRenaming.KeepAll,
-            TermSemicolons = true,
-            StrictMode = false,
-            RemoveUnneededCode = false,
+            EvalTreatment        = EvalTreatment.MakeAllSafe,
+            LocalRenaming        = LocalRenaming.KeepAll,
+            TermSemicolons       = true,
+            StrictMode           = false,
+            RemoveUnneededCode   = false,
             AlwaysEscapeNonAscii = true
         };
 
         private static readonly CodeSettings MinifierCodeSettingsSafeCrunchLocal = new CodeSettings
         {
-            EvalTreatment = EvalTreatment.MakeAllSafe,
-            LocalRenaming = LocalRenaming.CrunchAll,
-            TermSemicolons = true,
-            StrictMode = false,
-            RemoveUnneededCode = false,
+            EvalTreatment        = EvalTreatment.MakeAllSafe,
+            LocalRenaming        = LocalRenaming.CrunchAll,
+            TermSemicolons       = true,
+            StrictMode           = false,
+            RemoveUnneededCode   = false,
             AlwaysEscapeNonAscii = true
         };
 
         private static readonly CodeSettings MinifierCodeSettingsInternal = new CodeSettings
         {
-            TermSemicolons = true,
-            StrictMode = false,
-            RemoveUnneededCode = false,
+            TermSemicolons       = true,
+            StrictMode           = false,
+            RemoveUnneededCode   = false,
             AlwaysEscapeNonAscii = true
         };
 
         private static readonly CodeSettings MinifierCodeSettingsLocales = new CodeSettings
         {
-            TermSemicolons = true,
-            RemoveUnneededCode = false,
+            TermSemicolons       = true,
+            RemoveUnneededCode   = false,
             AlwaysEscapeNonAscii = true
         };
 
         public Translator(string location)
         {
-            Location = location;
-            Validator = CreateValidator();
-            DefineConstants = new List<string>() { "H5" };
+            Location          = location;
+            Validator         = CreateValidator();
+            DefineConstants   = new List<string>() { "H5" };
             ProjectProperties = new ProjectProperties();
-            FileHelper = new FileHelper();
-            Outputs = new TranslatorOutput();
+            FileHelper        = new FileHelper();
+            Outputs           = new TranslatorOutput();
         }
 
         public void PostBuildStreamCacheCleanup()
@@ -109,27 +110,28 @@ namespace H5.Translator
                 return path.Contains(".nuget");
             }
 
-            foreach (var path in _loadedAssemblies.Keys.ToArray())
+            lock (_loadedAssembliesLock)
             {
-                if (!ShouldCacheAssembly(path))
+                foreach (var path in _loadedAssemblies.Keys.ToArray())
                 {
-                    if (_loadedAssemblies.TryGetValue(path, out var oldAssembly))
+                    if (!ShouldCacheAssembly(path))
                     {
-                        _loadedAssemblies.Remove(path);
-                        oldAssembly.assembly.Dispose();
+                        if (_loadedAssemblies.Remove(path, out var oldAssembly))
+                        {
+                            oldAssembly.assembly.Dispose();
+                        }
                     }
                 }
-            }
 
-            foreach (var path in _loadedAssemblieStreams.Keys.ToArray())
-            {
-                if (!ShouldCacheAssembly(path))
+                foreach (var path in _loadedAssemblieStreams.Keys.ToArray())
                 {
-                    if (_loadedAssemblieStreams.TryGetValue(path, out var oldStream))
+                    if (!ShouldCacheAssembly(path))
                     {
-                        _loadedAssemblieStreams.Remove(path);
-                        oldStream.Close();
-                        oldStream.Dispose();
+                        if (_loadedAssemblieStreams.Remove(path, out var oldStream))
+                        {
+                            oldStream.Close();
+                            oldStream.Dispose();
+                        }
                     }
                 }
             }
@@ -190,10 +192,10 @@ namespace H5.Translator
                     AssemblyInfo.OverflowMode = OverflowMode;
                 }
 
-                emitter.Translator = this;
+                emitter.Translator   = this;
                 emitter.AssemblyInfo = AssemblyInfo;
-                emitter.References = references;
-                emitter.SourceFiles = SourceFiles;
+                emitter.References   = references;
+                emitter.SourceFiles  = SourceFiles;
                 emitter.InitialLevel = 1;
 
                 if (AssemblyInfo.Module != null)
@@ -219,23 +221,24 @@ namespace H5.Translator
         protected virtual MemberResolver Preconvert(MemberResolver resolver, IH5DotJson_AssemblySettings config, CancellationToken cancellationToken)
         {
             bool needRecompile = false;
+
             foreach (var sourceFile in ParsedSourceFiles)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
                 Logger.ZLogTrace("Preconvert {0}", sourceFile.ParsedFile.FileName);
-                var syntaxTree = sourceFile.SyntaxTree;
+                var syntaxTree  = sourceFile.SyntaxTree;
                 var tempEmitter = new TempEmitter { AssemblyInfo = config };
-                var detecter = new PreconverterDetecter(resolver, tempEmitter);
+                var detecter    = new PreconverterDetecter(resolver, tempEmitter);
                 syntaxTree.AcceptVisitor(detecter);
 
                 if (detecter.Found)
                 {
-                    var fixer = new PreconverterFixer(resolver, tempEmitter);
+                    var fixer   = new PreconverterFixer(resolver, tempEmitter);
                     var astNode = syntaxTree.AcceptVisitor(fixer);
-                    syntaxTree = astNode != null ? (SyntaxTree)astNode : syntaxTree;
+                    syntaxTree            = astNode != null ? (SyntaxTree)astNode : syntaxTree;
                     sourceFile.SyntaxTree = syntaxTree;
-                    needRecompile = true;
+                    needRecompile         = true;
                 }
             }
 
@@ -357,13 +360,13 @@ namespace H5.Translator
         public bool CheckIfRequiresSourceMap(TranslatorOutputItem output)
         {
             return !output.IsEmpty
-                && output.OutputType == TranslatorOutputType.JavaScript
-                && output.OutputKind.HasFlag(TranslatorOutputKind.ProjectOutput)
-                && !output.OutputKind.HasFlag(TranslatorOutputKind.Locale)
-                && !output.OutputKind.HasFlag(TranslatorOutputKind.PluginOutput)
-                && !output.OutputKind.HasFlag(TranslatorOutputKind.Reference)
-                && !output.OutputKind.HasFlag(TranslatorOutputKind.Resource)
-                && !output.OutputKind.HasFlag(TranslatorOutputKind.Metadata);
+             && output.OutputType == TranslatorOutputType.JavaScript
+             && output.OutputKind.HasFlag(TranslatorOutputKind.ProjectOutput)
+             && !output.OutputKind.HasFlag(TranslatorOutputKind.Locale)
+             && !output.OutputKind.HasFlag(TranslatorOutputKind.PluginOutput)
+             && !output.OutputKind.HasFlag(TranslatorOutputKind.Reference)
+             && !output.OutputKind.HasFlag(TranslatorOutputKind.Resource)
+             && !output.OutputKind.HasFlag(TranslatorOutputKind.Metadata);
         }
 
         public bool CheckIfRequiresSourceMap(H5ResourceInfoPart resourcePart)
@@ -371,8 +374,8 @@ namespace H5.Translator
             var fileHelper = new FileHelper();
 
             return resourcePart != null
-                && resourcePart.Assembly == null // i.e. this assembly output
-                && fileHelper.IsJS(resourcePart.Name);
+             && resourcePart.Assembly == null // i.e. this assembly output
+             && fileHelper.IsJS(resourcePart.Name);
         }
 
         public TranslatorOutputItem FindTranslatorOutputItem(string filePath)
@@ -398,17 +401,18 @@ namespace H5.Translator
             if (AssemblyInfo.SourceMap.Enabled)
             {
                 var projectPath = Path.GetDirectoryName(Location);
-                var sourceRoot = projectPath;
+                var sourceRoot  = projectPath;
+
                 SourceMapGenerator.Generate(fileName, sourceRoot, projectPath, ref content,
                     before,
                     (sourceRelativePath) =>
                     {
-                        string path = null;
+                        string           path       = null;
                         ParsedSourceFile sourceFile = null;
 
                         try
                         {
-                            path = Path.Combine(projectPath, sourceRelativePath);
+                            path       = Path.Combine(projectPath, sourceRelativePath);
                             sourceFile = ParsedSourceFiles.First(pf => pf.ParsedFile.FileName == path);
 
                             return sourceFile.SyntaxTree.TextSource ?? sourceFile.SyntaxTree.ToString(GetFormatter());
@@ -431,16 +435,16 @@ namespace H5.Translator
         private static CSharpFormattingOptions GetFormatter()
         {
             var formatter = FormattingOptionsFactory.CreateSharpDevelop();
-            formatter.AnonymousMethodBraceStyle = BraceStyle.NextLine;
-            formatter.MethodBraceStyle = BraceStyle.NextLine;
-            formatter.StatementBraceStyle = BraceStyle.NextLine;
-            formatter.PropertyBraceStyle = BraceStyle.NextLine;
-            formatter.ConstructorBraceStyle = BraceStyle.NextLine;
+            formatter.AnonymousMethodBraceStyle               = BraceStyle.NextLine;
+            formatter.MethodBraceStyle                        = BraceStyle.NextLine;
+            formatter.StatementBraceStyle                     = BraceStyle.NextLine;
+            formatter.PropertyBraceStyle                      = BraceStyle.NextLine;
+            formatter.ConstructorBraceStyle                   = BraceStyle.NextLine;
             formatter.NewLineAfterConstructorInitializerColon = NewLinePlacement.NewLine;
-            formatter.NewLineAferMethodCallOpenParentheses = NewLinePlacement.NewLine;
-            formatter.ClassBraceStyle = BraceStyle.NextLine;
-            formatter.ArrayInitializerBraceStyle = BraceStyle.NextLine;
-            formatter.IndentPreprocessorDirectives = false;
+            formatter.NewLineAferMethodCallOpenParentheses    = NewLinePlacement.NewLine;
+            formatter.ClassBraceStyle                         = BraceStyle.NextLine;
+            formatter.ArrayInitializerBraceStyle              = BraceStyle.NextLine;
+            formatter.IndentPreprocessorDirectives            = false;
 
             return formatter;
         }

@@ -40,28 +40,28 @@ namespace H5.Translator
         {
             var baseDir = Path.GetDirectoryName(Location);
 
-            XDocument projDefinition = XDocument.Load(Location);
-            XNamespace rootNs = projDefinition.Root.Name.Namespace;
-            var helper = new ConfigHelper<H5DotJson_AssemblySettings>();
-            var tokens = ProjectProperties.GetValues();
+            XDocument  projDefinition = XDocument.Load(Location);
+            XNamespace rootNs         = projDefinition.Root.Name.Namespace;
+            var        helper         = new ConfigHelper<H5DotJson_AssemblySettings>();
+            var        tokens         = ProjectProperties.GetValues();
 
             var referencesPathes = projDefinition
-                .Element(rootNs + "Project")
-                .Elements(rootNs + "ItemGroup")
-                .Elements(rootNs + "Reference")
-                .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
-                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                .ToList();
+               .Element(rootNs + "Project")
+               .Elements(rootNs + "ItemGroup")
+               .Elements(rootNs + "Reference")
+               .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+               .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+               .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+               .ToList();
 
             var projectReferences = projDefinition
-                .Element(rootNs + "Project")
-                .Elements(rootNs + "ItemGroup")
-                .Elements(rootNs + "ProjectReference")
-                .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
-                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                .ToArray();
+               .Element(rootNs + "Project")
+               .Elements(rootNs + "ItemGroup")
+               .Elements(rootNs + "ProjectReference")
+               .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
+               .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+               .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+               .ToArray();
 
             if (projectReferences.Length > 0)
             {
@@ -81,9 +81,9 @@ namespace H5.Translator
 
                     var processor = new TranslatorProcessor(new CompilationOptions
                     {
-                        Rebuild = Rebuild,
+                        Rebuild         = Rebuild,
                         ProjectLocation = projectRef,
-                        H5Location = H5Location,
+                        H5Location      = H5Location,
                         ProjectProperties = new ProjectProperties
                         {
                             BuildProjects = ProjectProperties.BuildProjects,
@@ -127,17 +127,18 @@ namespace H5.Translator
                 }
 
                 IList<SyntaxTree> trees = new List<SyntaxTree>(SourceFiles.Count);
+
                 foreach (var file in SourceFiles)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    var filePath = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
+                    var filePath   = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
                     var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
                     trees.Add(syntaxTree);
                 }
 
                 var references = new List<MetadataReference>();
-                var outputDir = Path.GetDirectoryName(AssemblyLocation);
-                var di = new DirectoryInfo(outputDir);
+                var outputDir  = Path.GetDirectoryName(AssemblyLocation);
+                var di         = new DirectoryInfo(outputDir);
 
                 if (!di.Exists) { di.Create(); }
 
@@ -148,9 +149,10 @@ namespace H5.Translator
                     cancellationToken.ThrowIfCancellationRequested();
 
                     var newPath = Path.GetFullPath(new Uri(Path.Combine(outputDir, Path.GetFileName(path))).LocalPath);
+
                     if (string.Compare(newPath, path, true) != 0)
                     {
-                        CopyFileAsync(path, newPath).Wait();
+                        CopyFileAsync(path, newPath).Wait(cancellationToken);
                     }
 
                     if (updateH5Location && string.Compare(Path.GetFileName(path), "h5.dll", true) == 0)
@@ -172,35 +174,35 @@ namespace H5.Translator
         private void ProcessProjectReferences(string baseDir, out List<string> pathToReferencesInProject, out List<PackageReference> referencedPackages, out string[] projectReferences)
         {
             var projDefinition = XDocument.Load(Location);
-            var rootNs = projDefinition.Root.Name.Namespace;
-            var helper = new ConfigHelper<H5DotJson_AssemblySettings>();
-            var tokens = ProjectProperties.GetValues();
+            var rootNs         = projDefinition.Root.Name.Namespace;
+            var helper         = new ConfigHelper<H5DotJson_AssemblySettings>();
+            var tokens         = ProjectProperties.GetValues();
 
             pathToReferencesInProject = projDefinition
-                .Element(rootNs + "Project")
-                .Elements(rootNs + "ItemGroup")
-                .Elements(rootNs + "Reference")
-                .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
-                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                .ToList();
+               .Element(rootNs + "Project")
+               .Elements(rootNs + "ItemGroup")
+               .Elements(rootNs + "Reference")
+               .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+               .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+               .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+               .ToList();
 
             referencedPackages = projDefinition
-                .Element(rootNs + "Project")
-                .Elements(rootNs + "ItemGroup")
-                .Elements(rootNs + "PackageReference")
-                .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
-                .Select(refElem => new PackageReference(new PackageIdentity(refElem.Attribute("Include").Value, new NuGetVersion(refElem.Attribute("Version").Value)), NuGetFramework.Parse("netstandard2.0")))
-                .ToList();
+               .Element(rootNs + "Project")
+               .Elements(rootNs + "ItemGroup")
+               .Elements(rootNs + "PackageReference")
+               .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+               .Select(refElem => new PackageReference(new PackageIdentity(refElem.Attribute("Include").Value, new NuGetVersion(refElem.Attribute("Version").Value)), NuGetFramework.Parse("netstandard2.0")))
+               .ToList();
 
             projectReferences = projDefinition
-                .Element(rootNs + "Project")
-                .Elements(rootNs + "ItemGroup")
-                .Elements(rootNs + "ProjectReference")
-                .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
-                .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
-                .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
-                .ToArray();
+               .Element(rootNs + "Project")
+               .Elements(rootNs + "ItemGroup")
+               .Elements(rootNs + "ProjectReference")
+               .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
+               .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+               .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+               .ToArray();
         }
 
         private void BuildReferencedProjectsIfNeeded(List<string> pathToReferencesInProject, string[] projectReferences, CancellationToken cancellationToken)
@@ -223,9 +225,9 @@ namespace H5.Translator
 
                     var processor = new TranslatorProcessor(new CompilationOptions
                     {
-                        Rebuild = Rebuild,
+                        Rebuild         = Rebuild,
                         ProjectLocation = projectRef,
-                        H5Location = H5Location,
+                        H5Location      = H5Location,
                         ProjectProperties = new ProjectProperties
                         {
                             BuildProjects = ProjectProperties.BuildProjects,
@@ -248,7 +250,7 @@ namespace H5.Translator
             }
         }
 
-        private void ProcessPackagedReferences(List<PackageReference> referencedPackages, out List<MetadataReference> referencesFromPackages, out Dictionary<string, string> packageDiscoveredPaths,  CancellationToken cancellationToken)
+        private void ProcessPackagedReferences(List<PackageReference> referencedPackages, out List<MetadataReference> referencesFromPackages, out Dictionary<string, string> packageDiscoveredPaths, CancellationToken cancellationToken)
         {
             //RFO: need to do the package discover first so it populates the 
             referencesFromPackages = new List<MetadataReference>();
@@ -284,6 +286,7 @@ namespace H5.Translator
                         Logger.ZLogInformation($"NuGet: Importing package {rp.PackageIdentity.Id} version {rp.PackageIdentity.Version}");
 
                         var foundLibs = new List<string>();
+
                         foreach (var file in Directory.EnumerateFiles(Path.Combine(packageBasePath, "lib", rp.TargetFramework.GetShortFolderName()), "*.dll", SearchOption.AllDirectories))
                         {
                             referencesFromPackages.Add(MetadataReference.CreateFromFile(file));
@@ -298,6 +301,7 @@ namespace H5.Translator
                         }
 
                         var contentFolder = Path.Combine(packageBasePath, "content");
+
                         if (Directory.Exists(contentFolder))
                         {
                             foreach (var source in Directory.EnumerateFiles(contentFolder, "*.*", SearchOption.AllDirectories))
@@ -337,8 +341,8 @@ namespace H5.Translator
         private EmitResult CompileAndEmit(List<MetadataReference> referencesFromPackages, IList<SyntaxTree> trees, List<MetadataReference> references, CancellationToken cancellationToken)
         {
             var compilation = CSharpCompilation.Create(ProjectProperties.AssemblyName ?? new DirectoryInfo(Location).Name, trees, null, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-                                .AddReferences(references)
-                                .AddReferences(referencesFromPackages);
+               .AddReferences(references)
+               .AddReferences(referencesFromPackages);
 
             EmitResult emitResult;
 
@@ -381,6 +385,7 @@ namespace H5.Translator
                     foreach (var l in d.AdditionalLocations)
                     {
                         filePath = l.SourceTree.FilePath ?? "";
+
                         if (filePath.StartsWith(baseDir))
                         {
                             filePath = filePath.Substring(baseDir.Length + 1);
@@ -401,6 +406,7 @@ namespace H5.Translator
             if (!string.IsNullOrWhiteSpace(overridePath))
             {
                 overridePath = Path.GetFullPath(Environment.ExpandEnvironmentVariables(overridePath));
+
                 if (Directory.Exists(overridePath))
                 {
                     return overridePath;
@@ -456,6 +462,7 @@ namespace H5.Translator
             if (!File.Exists(refPath))
             {
                 var assemblyFileName = Path.GetFileName(refPath);
+
                 if (_packagedFiles.TryGetValue(assemblyFileName, out var assemblyInPackagePath) && File.Exists(assemblyInPackagePath))
                 {
                     Logger.ZLogInformation("Redirecting assembly {0} to assembly in package {1}", refPath, assemblyInPackagePath);
@@ -469,7 +476,7 @@ namespace H5.Translator
 
             var asm = AssemblyDefinition.ReadAssembly(refPath, new ReaderParameters()
             {
-                ReadingMode = ReadingMode.Deferred,
+                ReadingMode      = ReadingMode.Deferred,
                 AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
             });
 
@@ -500,14 +507,14 @@ namespace H5.Translator
             var sfi = new FileInfo(sourceFile);
             var dfi = new FileInfo(destinationFile);
 
-            if(!sfi.Exists)
+            if (!sfi.Exists)
             {
                 throw new FileNotFoundException($"File {sourceFile} not found");
             }
 
             if (dfi.Exists)
             {
-                if(dfi.Length == sfi.Length && dfi.LastWriteTimeUtc == sfi.LastWriteTimeUtc)
+                if (dfi.Length == sfi.Length && dfi.LastWriteTimeUtc == sfi.LastWriteTimeUtc)
                 {
                     //We can assume it's the same file, so skip copying
                     return;
@@ -516,35 +523,40 @@ namespace H5.Translator
                 {
                     lock (_loadedAssembliesLock)
                     {
-                        if (_loadedAssemblies.TryGetValue(destinationFile, out var previouslyLoaded))
+                        if (_loadedAssemblies.Remove(destinationFile, out var previouslyLoaded))
                         {
-                            _loadedAssemblies.Remove(destinationFile);
                             previouslyLoaded.assembly.Dispose();
                         }
 
-                        if (_loadedAssemblieStreams.TryGetValue(destinationFile, out var stream))
+                        if (_loadedAssemblieStreams.Remove(destinationFile, out var stream))
                         {
-                            _loadedAssemblieStreams.Remove(destinationFile);
                             stream.Close();
                             stream.Dispose();
                         }
                     }
 
-                    await Task.Delay(50);
+                    await Task.Delay(150);
+                    
+                    
+                    // There is a bug somewhere where the destination file stream is not properly closed. Forcing it here...
+                    System.GC.Collect();
+                    System.GC.WaitForPendingFinalizers();
+                    File.Delete(destinationFile);
                 }
             }
 
             var fileOptions = FileOptions.Asynchronous | FileOptions.SequentialScan;
-            var bufferSize = 4096;
+            var bufferSize  = 4096;
+
             using (var sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, fileOptions))
-            using (var destinationStream = new FileStream(destinationFile, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, bufferSize, fileOptions))
-            {
-                destinationStream.SetLength(0);
-                await sourceStream.CopyToAsync(destinationStream, bufferSize).ConfigureAwait(false);
-                await destinationStream.FlushAsync().ConfigureAwait(false);
-                sourceStream.Close();
-                destinationStream.Close();
-            }
+                using (var destinationStream = new FileStream(destinationFile, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, bufferSize, fileOptions))
+                {
+                    destinationStream.SetLength(0);
+                    await sourceStream.CopyToAsync(destinationStream, bufferSize).ConfigureAwait(false);
+                    await destinationStream.FlushAsync().ConfigureAwait(false);
+                    sourceStream.Close();
+                    destinationStream.Close();
+                }
 
             File.SetLastWriteTimeUtc(destinationFile, sfi.LastWriteTimeUtc);
         }

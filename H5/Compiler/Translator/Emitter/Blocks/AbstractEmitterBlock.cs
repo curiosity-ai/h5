@@ -13,8 +13,8 @@ namespace H5.Translator
 
         public AbstractEmitterBlock(IEmitter emitter, AstNode node)
         {
-            Emitter = emitter;
-            previousNode = Emitter.Translator.EmitNode;
+            Emitter                     = emitter;
+            previousNode                = Emitter.Translator.EmitNode;
             Emitter.Translator.EmitNode = node;
         }
 
@@ -37,8 +37,8 @@ namespace H5.Translator
             EndEmit();
         }
 
-        private int startPos;
-        private int checkPos;
+        private int           startPos;
+        private int           checkPos;
         private StringBuilder checkedOutput;
 
         protected virtual void BeginEmit()
@@ -47,7 +47,7 @@ namespace H5.Translator
             {
                 startPos = Emitter.Output.Length;
                 WriteSequencePoint(Emitter.Translator.EmitNode.Region);
-                checkPos = Emitter.Output.Length;
+                checkPos      = Emitter.Output.Length;
                 checkedOutput = Emitter.Output;
             }
         }
@@ -177,7 +177,7 @@ namespace H5.Translator
 
             Write(JS.Vars.ASYNC_TASK + index + " = ");
             bool customAwaiter = false;
-            var oldValue = Emitter.ReplaceAwaiterByVar;
+            var  oldValue      = Emitter.ReplaceAwaiterByVar;
             Emitter.ReplaceAwaiterByVar = true;
 
             if (node.Parent is UnaryOperatorExpression unaryExpr && unaryExpr.Operator == UnaryOperatorType.Await)
@@ -290,9 +290,10 @@ namespace H5.Translator
             }
         }
 
-        public AstNode GetParentFinallyBlock(AstNode node, bool stopOnLoops)
+        public AstNode GetParentFinallyBlock(AstNode node, bool stopOnLoops, bool fromBreakBlock = false)
         {
             var insideTryFinally = false;
+
             var target = node.GetParent(n =>
             {
                 if (n is LambdaExpression || n is AnonymousMethodExpression || n is MethodDeclaration)
@@ -301,6 +302,11 @@ namespace H5.Translator
                 }
 
                 if (stopOnLoops && (n is WhileStatement || n is ForeachStatement || n is ForStatement || n is DoWhileStatement))
+                {
+                    return true;
+                }
+
+                if (stopOnLoops && fromBreakBlock && n is SwitchStatement)
                 {
                     return true;
                 }
@@ -320,6 +326,7 @@ namespace H5.Translator
         public CatchClause GetParentCatchBlock(AstNode node, bool stopOnLoops)
         {
             var insideCatch = false;
+
             var target = node.GetParent(n =>
             {
                 if (n is LambdaExpression || n is AnonymousMethodExpression || n is MethodDeclaration)
@@ -362,6 +369,7 @@ namespace H5.Translator
                 {
                     --Emitter.Output.Length;
                     Write("[");
+
                     if (script)
                     {
                         WriteScript(name);

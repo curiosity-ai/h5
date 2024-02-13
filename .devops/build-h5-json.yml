@@ -75,4 +75,4 @@ steps:
     command: 'push'
     packagesToPush: '**/h5.Newtonsoft.Json.$(targetVersion).nupkg'
     nuGetFeedType: 'external'
-    publishFeedCredentials: 'nuget-curiosity'
+    publishFeedCredentials: 'nuget-curiosity-org'

@@ -422,7 +422,7 @@ namespace H5.Compiler
         {
             var logLevel = LogLevel.Information;
 
-            for (int i = 0; i < args.Length - 1; i++)
+            for (int i = 0; i < args.Length; i++)
             {
                 if (args[i] == "--trace")
                 {
@@ -555,7 +555,8 @@ namespace H5.Compiler
                         }
 
                         break;
-
+                    case "--trace":
+                        break;
                     case "-h":
                     case "--help":
                         return null;

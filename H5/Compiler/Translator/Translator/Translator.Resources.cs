@@ -67,7 +67,7 @@ namespace H5.Translator
         private IEnumerable<Tuple<H5ResourceInfo, byte[]>> PrepareAndExtractResources(string outputPath, string projectPath)
         {
             if (AssemblyInfo.Resources.HasEmbedResources())
-            { 
+            {
                 // There are resources defined in the config so let's grab files
                 // Find all items and put in the order
                 Logger.ZLogTrace("Preparing resources specified in config...");
@@ -111,16 +111,16 @@ namespace H5.Translator
 
                             var info = new H5ResourceInfo
                             {
-                                Name = resource.Name,
+                                Name     = resource.Name,
                                 FileName = resource.Name,
-                                Path = string.IsNullOrWhiteSpace(resource.Output) ? null : resource.Output
+                                Path     = string.IsNullOrWhiteSpace(resource.Output) ? null : resource.Output
                             };
 
                             yield return Tuple.Create(info, code);
                         }
                         else
                         {
-                            Logger.ZLogError("No files found for resource {0}",  resource.Name);
+                            Logger.ZLogError("No files found for resource {0}", resource.Name);
                         }
                     }
 
@@ -135,7 +135,7 @@ namespace H5.Translator
                 Logger.ZLogTrace("Preparing outputs for resources");
 
                 var nonMinifiedCombinedPartsDone = false;
-                var minifiedCombinedPartsDone = false;
+                var minifiedCombinedPartsDone    = false;
 
                 foreach (var outputItem in Outputs.GetOutputs(true))
                 {
@@ -166,10 +166,10 @@ namespace H5.Translator
 
                     var info = new H5ResourceInfo
                     {
-                        Name = outputItem.Name,
+                        Name     = outputItem.Name,
                         FileName = outputItem.Name,
-                        Path = null,
-                        Parts = parts
+                        Path     = null,
+                        Parts    = parts
                     };
 
                     byte[] content;
@@ -225,10 +225,10 @@ namespace H5.Translator
 
                                 var partResource = new H5ResourceInfo
                                 {
-                                    Name = null,
+                                    Name     = null,
                                     FileName = part.Key.ResourceName,
-                                    Path = null,
-                                    Parts = null
+                                    Path     = null,
+                                    Parts    = null
                                 };
 
                                 var partContent = new byte[0];
@@ -280,6 +280,7 @@ namespace H5.Translator
             }
 
             string resourcesStr = null;
+
             using (var resourcesStream = ((EmbeddedResource)listRes).GetResourceStream())
             {
                 using (StreamReader reader = new StreamReader(resourcesStream))
@@ -329,15 +330,15 @@ namespace H5.Translator
 
             foreach (var resourcePair in resources)
             {
-                var parts = resourcePair.Split(':');
+                var parts    = resourcePair.Split(':');
                 var fileName = parts[0].Trim();
-                var resName = parts[1].Trim();
+                var resName  = parts[1].Trim();
 
                 r.Add(new H5ResourceInfo
                 {
-                    Name = resName,
+                    Name     = resName,
                     FileName = fileName,
-                    Path = null
+                    Path     = null
                 });
             }
 
@@ -348,8 +349,8 @@ namespace H5.Translator
         {
             Logger.ZLogTrace("PrepareResourcesForEmbedding...");
 
-            var assemblyDef = AssemblyDefinition;
-            var resources = assemblyDef.MainModule.Resources;
+            var assemblyDef  = AssemblyDefinition;
+            var resources    = assemblyDef.MainModule.Resources;
             var resourceList = new List<H5ResourceInfo>();
 
             var configHelper = new ConfigHelper();
@@ -358,8 +359,8 @@ namespace H5.Translator
 
             foreach (var item in resourcesToEmbed)
             {
-                var r = item.Item1;
-                var name = r.Name;
+                var r        = item.Item1;
+                var name     = r.Name;
                 var fileName = r.FileName;
 
                 Logger.ZLogTrace("Embedding resource {0} (fileName: {1})", name, fileName);
@@ -387,6 +388,7 @@ namespace H5.Translator
                 var sizeInBytes = Utils.ByteSizeHelper.ToSizeInBytes(item.Item2 != null ? item.Item2.Length : 0, "0.000 KB", true);
 
                 var resourceLocation = name ?? fileName;
+
                 if (!string.IsNullOrEmpty(r.Path) && !string.IsNullOrEmpty(resourceLocation))
                 {
                     resourceLocation = Path.Combine(
@@ -410,8 +412,8 @@ namespace H5.Translator
         {
             Logger.ZLogTrace("Embedding resources...");
 
-            var assemblyDef = AssemblyDefinition;
-            var resources = assemblyDef.MainModule.Resources;
+            var assemblyDef  = AssemblyDefinition;
+            var resources    = assemblyDef.MainModule.Resources;
             var configHelper = new ConfigHelper();
 
             CheckIfResourceExistsAndRemove(resources, H5ResourcesPlusSeparatedFormatList);
@@ -419,7 +421,7 @@ namespace H5.Translator
             var resourceListName = H5ResourcesJsonFormatList;
             CheckIfResourceExistsAndRemove(resources, resourceListName);
 
-            var listArray = resourcesToEmbed.ToArray();
+            var listArray   = resourcesToEmbed.ToArray();
             var listContent = Newtonsoft.Json.JsonConvert.SerializeObject(listArray, Newtonsoft.Json.Formatting.Indented);
 
             var listResources = new EmbeddedResource(resourceListName, ManifestResourceAttributes.Private, OutputEncoding.GetBytes(listContent));
@@ -430,6 +432,7 @@ namespace H5.Translator
 
             // Checking if mscorlib reference added and removing if added
             var mscorlib = assemblyDef.MainModule.AssemblyReferences.FirstOrDefault(r => r.Name == SystemAssemblyName);
+
             if (mscorlib != null)
             {
                 Logger.ZLogTrace("Removing mscorlib reference");
@@ -449,11 +452,12 @@ namespace H5.Translator
             Logger.ZLogTrace("Wrote resources into {0}", assemblyLocation);
 
             Logger.ZLogTrace("Done embedding resources");
-        } 
+        }
 
         private void CheckIfResourceExistsAndRemove(Mono.Collections.Generic.Collection<Resource> resources, string resourceName)
         {
             var existingList = resources.FirstOrDefault(r => r.Name == resourceName);
+
             if (existingList != null)
             {
                 Logger.ZLogTrace("Removing already existed resource {0}", resourceName);
@@ -495,7 +499,7 @@ namespace H5.Translator
         private Tuple<string, string> GetFullPathForResource(string outputPath, ResourceConfigItem resource)
         {
             string resourceOutputFileName = null;
-            string resourceOutputDirName = null;
+            string resourceOutputDirName  = null;
 
             if (resource.Output != null)
             {
@@ -505,7 +509,7 @@ namespace H5.Translator
             if (resourceOutputDirName == null)
             {
                 resourceOutputDirName = outputPath;
-                Logger.ZLogTrace("Using project output path {0}",  resourceOutputDirName);
+                Logger.ZLogTrace("Using project output path {0}", resourceOutputDirName);
             }
 
             if (string.IsNullOrWhiteSpace(resourceOutputFileName))
@@ -580,7 +584,7 @@ namespace H5.Translator
                     throw;
                 }
 
-                resourceOutputDirName = null;
+                resourceOutputDirName  = null;
                 resourceOutputFileName = null;
             }
         }
@@ -600,9 +604,9 @@ namespace H5.Translator
             if (s.Select(x => invalidChars.Contains(x)).Where(x => x).Any())
             {
                 var message = "There is invalid path character contained in resource.output setting = "
-                        + s
-                        + " for resource "
-                        + name;
+                  + s
+                  + " for resource "
+                  + name;
 
                 if (silent != true)
                 {
@@ -657,10 +661,10 @@ namespace H5.Translator
 
             var nowDate = DateTime.Now;
 
-            string version = null;
-            string author = null;
-            string date = nowDate.ToString("yyyy-MM-dd");
-            string year = nowDate.Year.ToString();
+            string version   = null;
+            string author    = null;
+            string date      = nowDate.ToString("yyyy-MM-dd");
+            string year      = nowDate.Year.ToString();
             string copyright = null;
 
             if (assemblyInfo == null)
@@ -669,17 +673,17 @@ namespace H5.Translator
             }
             else
             {
-                version = assemblyInfo.Version;
-                author = assemblyInfo.CompanyName;
+                version   = assemblyInfo.Version;
+                author    = assemblyInfo.CompanyName;
                 copyright = assemblyInfo.Copyright;
             }
 
             var headerInfo = new Dictionary<string, string>
             {
-                ["version"] = version,
-                ["author"] = author,
-                ["date"] = date,
-                ["year"] = year,
+                ["version"]   = version,
+                ["author"]    = author,
+                ["date"]      = date,
+                ["year"]      = year,
                 ["copyright"] = copyright
             };
 
@@ -722,7 +726,7 @@ namespace H5.Translator
         {
             Logger.ZLogTrace("Getting header content...");
 
-            var isFileName = false;
+            var    isFileName          = false;
             string convertedHeaderPath = null;
 
             string resourceHeader = resource.Header;
@@ -762,7 +766,7 @@ namespace H5.Translator
                             Logger.ZLogTrace("Converting resource header file {0} from encoding {1} to encoding {2}", fullHeaderPath, m.CurrentEncoding.EncodingName, OutputEncoding.EncodingName);
                         }
 
-                        Logger.ZLogTrace("Read {0} symbols from the header file {1}", sb.Length , fullHeaderPath);
+                        Logger.ZLogTrace("Read {0} symbols from the header file {1}", sb.Length, fullHeaderPath);
 
                         return sb;
                     }
@@ -804,6 +808,7 @@ namespace H5.Translator
                     var dirPathInFileName = FileHelper.GetDirectoryAndFilenamePathComponents(fileName)[0];
 
                     var filePathCleaned = fileName;
+
                     if (!string.IsNullOrEmpty(dirPathInFileName))
                     {
                         directoryPath = Path.Combine(directoryPath, dirPathInFileName);
@@ -855,8 +860,8 @@ namespace H5.Translator
                         Logger.ZLogTrace("Reading resource item at {0}", file.FullName);
 
                         var resourceAsOneFile = item.Header == null
-                                                && item.Remark == null
-                                                && item.Files.Length <= 1;
+                         && item.Remark == null
+                         && item.Files.Length <= 1;
 
                         var content = CheckResourceOnBomAndAddToBuffer(buffer, item, file, resourceAsOneFile);
 
@@ -963,6 +968,7 @@ namespace H5.Translator
                     // UTF-16LE
                     return 2;
                 }
+
                 if (buffer[0] == 0xfe && buffer[1] == 0xff)
                 {
                     // UTF-16BE
@@ -1016,6 +1022,7 @@ namespace H5.Translator
                 remarkBuffer.Replace(Emitter.CRLF, Emitter.NEW_LINE);
 
                 var remarkLines = remarkBuffer.ToString().Split(new[] { Emitter.NEW_LINE }, StringSplitOptions.None);
+
                 foreach (var remarkLine in remarkLines)
                 {
                     var b = OutputEncoding.GetBytes(remarkLine);
@@ -1033,7 +1040,7 @@ namespace H5.Translator
 
             var rawResources = config.Items;
 
-            var resources = new List<ResourceConfigItem>();
+            var                resources      = new List<ResourceConfigItem>();
             ResourceConfigItem defaultSetting = null;
 
             if (rawResources != null)
@@ -1047,7 +1054,7 @@ namespace H5.Translator
                         if (parts.Length > 1)
                         {
                             x.Assembly = parts[0];
-                            x.Name = parts[1];
+                            x.Name     = parts[1];
                         }
                     }
                 });
@@ -1089,7 +1096,7 @@ namespace H5.Translator
 
             var finalResources = Utils.AssemblyConfigHelper.ExpandGlobs(resources.ToArray());
 
-            var toEmbed = finalResources.Where(x => x.Files != null && x.Files.Count() > 0).ToArray();
+            var toEmbed   = finalResources.Where(x => x.Files != null && x.Files.Count() > 0).ToArray();
             var toExtract = finalResources.Where(x => x.Files == null || x.Files.Count() <= 0).ToArray();
 
             config.Prepare(defaultSetting, toEmbed, toExtract);
@@ -1101,8 +1108,9 @@ namespace H5.Translator
         private void ValidateResourceSettings(ResourceConfigItem defaultSetting, IEnumerable<ResourceConfigItem> rawNonDefaultResources)
         {
             var defaultExtract = defaultSetting.Extract ?? false;
+
             var rawNonDefaultResourcesWithExtractAndNoOutput = rawNonDefaultResources
-                .Where(x => x.Output == null && (x.Extract == true || defaultExtract));
+               .Where(x => x.Output == null && (x.Extract == true || defaultExtract));
 
             if (defaultSetting.Output != null && rawNonDefaultResourcesWithExtractAndNoOutput.Count() > 1)
             {
@@ -1178,6 +1186,7 @@ namespace H5.Translator
 
             if (stream.Position != 0)
                 stream.Seek(0, SeekOrigin.Begin);
+
             using (memoryStream = new MemoryStream())
             {
                 stream.CopyTo(memoryStream);

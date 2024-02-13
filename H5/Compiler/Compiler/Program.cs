@@ -27,11 +27,11 @@ namespace H5.Compiler
     public class Program
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<Program>();
-        
-        private const int PORT = 44568; 
 
-        private static readonly CancellationTokenSource _exitToken = new CancellationTokenSource();
-        private static readonly TaskCompletionSource<object> _exitTask    = new TaskCompletionSource<object>();
+        private const int PORT = 44568;
+
+        private static readonly CancellationTokenSource      _exitToken = new CancellationTokenSource();
+        private static readonly TaskCompletionSource<object> _exitTask  = new TaskCompletionSource<object>();
 
         private static async Task<int> Main(string[] args)
         {
@@ -45,6 +45,7 @@ namespace H5.Compiler
             Console.CancelKeyPress += (sender, e) =>
             {
                 Console.WriteLine("Ctrl+C received");
+
                 if (_exitToken.IsCancellationRequested) //Called twice, so just kill the entire process
                 {
                     Environment.Exit(1);
@@ -81,10 +82,12 @@ namespace H5.Compiler
                 ActuallyStartCompilationServer();
                 return 0;
             }
-            else if(args.Length == 1 && args[0] == "check-if-online")
+            else if (args.Length == 1 && args[0] == "check-if-online")
             {
-                var channel = GrpcChannel.ForAddress($"http://localhost:{PORT}", new GrpcChannelOptions() { Credentials = ChannelCredentials.Insecure });
-                var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
+                var channel        = GrpcChannel.ForAddress($"http://localhost:{PORT}", new GrpcChannelOptions() { Credentials = ChannelCredentials.Insecure });
+                var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000));
+                ;
+
                 try
                 {
                     await remoteCompiler.Ping(_exitToken.Token);
@@ -102,7 +105,11 @@ namespace H5.Compiler
                 SayHi();
                 var compilationRequest = ParseRequestFromCommandLine(args);
 
-                if (compilationRequest is null) { ShowHelp(); return 0; }
+                if (compilationRequest is null)
+                {
+                    ShowHelp();
+                    return 0;
+                }
 
 
                 Logger.LogInformation($"Executing h5 compiler with arguments: '{string.Join(" ", args)}'");
@@ -110,13 +117,15 @@ namespace H5.Compiler
                 if (compilationRequest.NoCompilationServer)
                 {
                     Microsoft.Build.Locator.MSBuildLocator.RegisterDefaults();
+
                     foreach (var instance in Microsoft.Build.Locator.MSBuildLocator.QueryVisualStudioInstances())
                     {
                         Console.WriteLine($"Found {instance.MSBuildPath} version {instance.Version}");
                     }
 
                     var resp = CompilationProcessor.Compile(compilationRequest, default, _exitToken.Token);
-                    if(resp != 0)
+
+                    if (resp != 0)
                     {
                         //Gives some time for the logs to flush
                         await Task.Delay(1000);
@@ -125,8 +134,9 @@ namespace H5.Compiler
                 }
                 else
                 {
-                    var channel = GrpcChannel.ForAddress($"http://localhost:{PORT}", new GrpcChannelOptions() { Credentials = ChannelCredentials.Insecure });
-                    var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000)); ;
+                    var channel        = GrpcChannel.ForAddress($"http://localhost:{PORT}", new GrpcChannelOptions() { Credentials = ChannelCredentials.Insecure });
+                    var remoteCompiler = new RemoteCompiler(channel, TimeSpan.FromMilliseconds(10_000));
+                    ;
 
                     while (true)
                     {
@@ -193,8 +203,8 @@ namespace H5.Compiler
             var logLevel = GetLogLevel(args);
 
             ApplicationLogging.SetLoggerFactory(LoggerFactory.Create(l => l.SetMinimumLevel(logLevel)
-                                                                           .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1:D2}:{2:D2}:{3:D2}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))
-                                                                           .AddZLoggerLogProcessor(new Logging.InMemoryPerCompilationProvider())));
+               .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1:D2}:{2:D2}:{3:D2}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second))
+               .AddZLoggerLogProcessor(new Logging.InMemoryPerCompilationProvider())));
         }
 
         private static void TrySetConsoleTitle()
@@ -214,10 +224,12 @@ namespace H5.Compiler
             void Print(string text)
             {
                 var prev = ' ';
+
                 for (int i = 0; i < text.Length; i++)
                 {
                     var c = text[i];
-                    if (prev != c && c== '5')
+
+                    if (prev != c && c == '5')
                     {
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
                     }
@@ -237,7 +249,7 @@ namespace H5.Compiler
                 Console.ResetColor();
 
                 Print(
-@"
+                    @"
 
 
      5555555555555555555555555555555555555555
@@ -261,7 +273,7 @@ namespace H5.Compiler
 
 
 "
-                    );
+                );
 
                 Console.ResetColor();
             }
@@ -277,9 +289,9 @@ namespace H5.Compiler
 
             var pInfo = new ProcessStartInfo()
             {
-                FileName = self.MainModule.FileName,
-                UseShellExecute = true,
-                CreateNoWindow = false,
+                FileName         = self.MainModule.FileName,
+                UseShellExecute  = true,
+                CreateNoWindow   = false,
                 WorkingDirectory = Directory.GetCurrentDirectory(),
             };
 
@@ -304,9 +316,9 @@ namespace H5.Compiler
 
             var pInfo = new ProcessStartInfo()
             {
-                FileName = self.MainModule.FileName,
-                UseShellExecute = true,
-                CreateNoWindow = false,
+                FileName         = self.MainModule.FileName,
+                UseShellExecute  = true,
+                CreateNoWindow   = false,
                 WorkingDirectory = Directory.GetCurrentDirectory(),
             };
 
@@ -327,7 +339,7 @@ namespace H5.Compiler
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             var builder = WebApplication.CreateBuilder();
-            
+
             builder.Services.AddGrpc();
             builder.Services.AddMagicOnion();
 
@@ -336,6 +348,7 @@ namespace H5.Compiler
             builder.WebHost.ConfigureKestrel(k =>
             {
                 var appServices = k.ApplicationServices;
+
                 k.ConfigureHttpsDefaults(h =>
                 {
                     h.AllowAnyClientCertificate();
@@ -349,20 +362,23 @@ namespace H5.Compiler
             builder.Logging.ClearProviders();
             builder.Logging.AddFilter("Microsoft.AspNetCore.Routing.EndpointMiddleware", LogLevel.Warning);
             builder.Logging.AddFilter("Microsoft.AspNetCore.Hosting.Diagnostics", LogLevel.Warning);
+
             builder.Logging.SetMinimumLevel(logLevel)
-                           .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1:D2}:{2:D2}:{3:D2}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second));
+               .AddZLoggerConsole(options => options.PrefixFormatter = (buf, info) => ZString.Utf8Format(buf, "[{0}] [{1:D2}:{2:D2}:{3:D2}] ", GetLogLevelString(info.LogLevel), info.Timestamp.LocalDateTime.Hour, info.Timestamp.LocalDateTime.Minute, info.Timestamp.LocalDateTime.Second));
 
             var app = builder.Build();
             app.Urls.Clear();
             app.Urls.Add($"http://localhost:{PORT}");
             app.UseRouting();
             app.MapMagicOnionService();
+
             app.MapGet("/", async context =>
             {
                 await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
             });
 
             Logger.LogInformation("==== HOST Starting");
+
             try
             {
                 await app.StartAsync();
@@ -377,6 +393,7 @@ namespace H5.Compiler
                 else
                 {
                     Console.WriteLine($"Failed to bind to port {PORT}.");
+
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     {
                         Console.WriteLine("This is sometimes caused by Windows Update (see: https://github.com/docker/for-win/issues/3171#issuecomment-739740248)");
@@ -385,16 +402,16 @@ namespace H5.Compiler
                 }
                 return 1;
             }
-            
+
             CompilationProcessor.CompileForever(_exitToken.Token);
             Logger.LogInformation("==== HOST Compilation Processor Started");
 
             await _exitTask.Task;
             Logger.LogInformation("==== HOST Exit Requested");
-            
+
             await CompilationProcessor.StopAsync();
             Logger.LogInformation("==== HOST Compilation Processor Stopped");
-            
+
             await app.StopAsync();
             Logger.LogInformation("==== HOST Stopped");
 
@@ -420,17 +437,17 @@ namespace H5.Compiler
         {
             switch (logLevel)
             {
-                case LogLevel.Trace: return "trce";
-                case LogLevel.Debug: return "dbug";
+                case LogLevel.Trace:       return "trce";
+                case LogLevel.Debug:       return "dbug";
                 case LogLevel.Information: return "info";
-                case LogLevel.Warning: return "warn";
-                case LogLevel.Error: return "fail";
-                case LogLevel.Critical: return "crit";
-                case LogLevel.None: return "none";
-                default: throw new ArgumentOutOfRangeException(nameof(logLevel));
+                case LogLevel.Warning:     return "warn";
+                case LogLevel.Error:       return "fail";
+                case LogLevel.Critical:    return "crit";
+                case LogLevel.None:        return "none";
+                default:                   throw new ArgumentOutOfRangeException(nameof(logLevel));
             }
         }
-        
+
         /// <summary>
         /// Commandline arguments based on http://docopt.org/
         /// </summary>
@@ -476,10 +493,10 @@ namespace H5.Compiler
             compilationRequest.WorkingDirectory = Environment.CurrentDirectory;
 
             // options -c, -P and -D have priority over -S
-            string configuration = null;
-            var hasPriorityConfiguration = false;
-            string defineConstants = null;
-            var hasPriorityDefineConstants = false;
+            string configuration              = null;
+            var    hasPriorityConfiguration   = false;
+            string defineConstants            = null;
+            var    hasPriorityDefineConstants = false;
 
             int i = 0;
 
@@ -503,7 +520,7 @@ namespace H5.Compiler
 
                     case "-c":
                     case "--configuration":
-                        configuration = args[++i];
+                        configuration            = args[++i];
                         hasPriorityConfiguration = true;
                         break;
 
@@ -513,7 +530,7 @@ namespace H5.Compiler
 
                     case "-D":
                     case "--define":
-                        defineConstants = args[++i];
+                        defineConstants            = args[++i];
                         hasPriorityDefineConstants = true;
                         break;
 
@@ -618,20 +635,18 @@ namespace H5.Compiler
             // TODO: Add more checks
             var isMacOS         = OperatingSystem.IsMacOS();
             var isLinux         = OperatingSystem.IsLinux();
-            var isAzure         = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("Build.BuildId"));       //From here: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
-            var isJenkis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BUILD_ID"));            //From here: https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
-            var isGitLab        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CI_BUILDS_DIR"));       //From here: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
-            var isCircleCI      = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CIRCLECI"));            //From here: https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
-            var isTravis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TRAVIS"));              //From here: https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
-            var isAppVeyor      = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("APPVEYOR"));            //From here: https://www.appveyor.com/docs/environment-variables/
-            var isGitHubActions = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GITHUB_ACTIONS"));      //From here: https://help.github.com/en/articles/virtual-environments-for-github-actions#default-environment-variables
-            
+            var isAzure         = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("Build.BuildId")); //From here: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+            var isJenkis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BUILD_ID")); //From here: https://wiki.jenkins.io/display/JENKINS/Building+a+software+project
+            var isGitLab        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CI_BUILDS_DIR")); //From here: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+            var isCircleCI      = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CIRCLECI")); //From here: https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
+            var isTravis        = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TRAVIS")); //From here: https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
+            var isAppVeyor      = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("APPVEYOR")); //From here: https://www.appveyor.com/docs/environment-variables/
+            var isGitHubActions = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GITHUB_ACTIONS")); //From here: https://help.github.com/en/articles/virtual-environments-for-github-actions#default-environment-variables
+
 
             if (isMacOS || isLinux || isAzure || isJenkis || isGitLab || isCircleCI || isTravis || isAppVeyor || isGitHubActions)
             {
-                Logger.LogInformation( isMacOS ? "Running on MacOS, bypassing compilation server" : 
-                                      (isLinux ? "Running on Linux, bypassing compilation server" : 
-                                                "Running on build machine, bypassing compilation server"));
+                Logger.LogInformation(isMacOS ? "Running on MacOS, bypassing compilation server" : (isLinux ? "Running on Linux, bypassing compilation server" : "Running on build machine, bypassing compilation server"));
                 compilationRequest.NoCompilationServer = true;
             }
 
@@ -662,6 +677,7 @@ namespace H5.Compiler
                 }
 
                 var parts = pair.Split(new char[] { ':' }, 2);
+
                 if (parts.Length < 2)
                 {
                     Logger.LogWarning("Skipped " + pair + " when parsing --settings as it is not well-formed like name:value");

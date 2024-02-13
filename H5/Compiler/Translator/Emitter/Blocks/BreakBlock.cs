@@ -1,6 +1,5 @@
 using H5.Contract;
 using H5.Contract.Constants;
-
 using ICSharpCode.NRefactory.CSharp;
 
 namespace H5.Translator
@@ -10,14 +9,14 @@ namespace H5.Translator
         public BreakBlock(IEmitter emitter, BreakStatement breakStatement)
             : base(emitter, breakStatement)
         {
-            Emitter = emitter;
+            Emitter        = emitter;
             BreakStatement = breakStatement;
         }
 
         public BreakBlock(IEmitter emitter, YieldBreakStatement breakStatement)
             : base(emitter, breakStatement)
         {
-            Emitter = emitter;
+            Emitter             = emitter;
             YieldBreakStatement = breakStatement;
         }
 
@@ -34,9 +33,10 @@ namespace H5.Translator
                 if (finallyNode != null)
                 {
                     var hashcode = finallyNode.GetHashCode();
+
                     Emitter.AsyncBlock.JumpLabels.Add(new AsyncJumpLabel
                     {
-                        Node = finallyNode,
+                        Node   = finallyNode,
                         Output = Emitter.Output
                     });
                     Write(JS.Vars.ASYNC_STEP + " = " + Helpers.PrefixDollar("{", hashcode, "};"));
@@ -62,6 +62,7 @@ namespace H5.Translator
                 if (Emitter.ReplaceJump)
                 {
                     var found = false;
+
                     BreakStatement.GetParent(n =>
                     {
                         if (n is SwitchStatement)

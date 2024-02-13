@@ -92,7 +92,7 @@ steps:
     command: 'push'
     packagesToPush: '**/h5-compiler.$(targetVersion).nupkg'
     nuGetFeedType: 'external'
-    publishFeedCredentials: 'nuget-curiosity'
+    publishFeedCredentials: 'nuget-curiosity-org'
 
 - task: NuGetCommand@2
   displayName: 'push nuget'
@@ -100,4 +100,4 @@ steps:
     command: 'push'
     packagesToPush: '**/h5.Compiler.Service.$(targetVersion).nupkg'
     nuGetFeedType: 'external'
-    publishFeedCredentials: 'nuget-curiosity'
+    publishFeedCredentials: 'nuget-curiosity-org'

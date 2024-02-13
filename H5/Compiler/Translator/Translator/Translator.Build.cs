@@ -523,21 +523,25 @@ namespace H5.Translator
                 {
                     lock (_loadedAssembliesLock)
                     {
-                        if (_loadedAssemblies.TryGetValue(destinationFile, out var previouslyLoaded))
+                        if (_loadedAssemblies.Remove(destinationFile, out var previouslyLoaded))
                         {
-                            _loadedAssemblies.Remove(destinationFile);
                             previouslyLoaded.assembly.Dispose();
                         }
 
-                        if (_loadedAssemblieStreams.TryGetValue(destinationFile, out var stream))
+                        if (_loadedAssemblieStreams.Remove(destinationFile, out var stream))
                         {
-                            _loadedAssemblieStreams.Remove(destinationFile);
                             stream.Close();
                             stream.Dispose();
                         }
                     }
 
-                    await Task.Delay(50);
+                    await Task.Delay(150);
+                    
+                    
+                    // There is a bug somewhere where the destination file stream is not properly closed. Forcing it here...
+                    System.GC.Collect();
+                    System.GC.WaitForPendingFinalizers();
+                    File.Delete(destinationFile);
                 }
             }
 

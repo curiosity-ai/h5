@@ -15,12 +15,12 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Lokad.ILPack" Version="0.2.0" />
-		<PackageReference Include="System.CodeDom" Version="7.0.0" />
+		<PackageReference Include="System.CodeDom" Version="8.0.0" />
 		<PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
 		<PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
 		<PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-		<PackageReference Include="System.Reflection.Metadata" Version="7.0.2" />
-		<PackageReference Include="System.Security.Permissions" Version="7.0.0" />
+		<PackageReference Include="System.Reflection.Metadata" Version="8.0.0" />
+		<PackageReference Include="System.Security.Permissions" Version="8.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" />

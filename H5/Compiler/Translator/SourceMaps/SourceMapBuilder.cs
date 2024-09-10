@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace H5.Translator
 {
@@ -87,20 +88,24 @@ namespace H5.Translator
 
             var nl = Emitter.NEW_LINE;
 
-            buffer.Append("{" + nl);
-            buffer.Append("  \"version\": 3," + nl);
-            buffer.AppendFormat("  \"file\": \"{0}\"," + nl, _scriptFileName);
-            buffer.Append("  \"sourceRoot\": \"" + _sourceRoot + "\"," + nl);
-            buffer.Append("  \"sources\": ");
-            PrintStringListOn(SourceUrlList, true, buffer);
-            buffer.Append("," + nl);
-            buffer.Append("  \"names\": ");
-            PrintStringListOn(SourceNameList, false, buffer);
-            buffer.Append("," + nl);
-            buffer.Append("  \"mappings\": \"");
-            buffer.Append(mappingsBuffer);
-            buffer.Append("\"");
+            JObject json = new JObject {
+                { "version", 3 },
+                { "file", _scriptFileName },
+                { "sourceRoot", _sourceRoot }
+            };
 
+            // Add 'sources' array
+            JArray sourcesArray = new JArray(SourceUrlList.Select(url => (JToken)url));
+            json.Add("sources", sourcesArray);
+
+            // Add 'names' array
+            JArray namesArray = new JArray(SourceNameList.Select(name => (JToken)name));
+            json.Add("names", namesArray);
+
+            // Add 'mappings'
+            json.Add("mappings", mappingsBuffer.ToString());
+
+            // Optionally add 'sourcesContent' array
             if (sourcesContent != null)
             {
                 if (forceEol.HasValue)
@@ -108,12 +113,16 @@ namespace H5.Translator
                     sourcesContent = sourcesContent.Select(x => TextHelper.NormilizeEols(x, forceEol.Value)).ToArray();
                 }
 
-                buffer.Append("," + nl);
-                buffer.Append("  \"sourcesContent\": ");
-                buffer.Append(JsonConvert.SerializeObject(sourcesContent));
+                JArray sourcesContentArray = new JArray(sourcesContent.Select(content => (JToken)content));
+                json.Add("sourcesContent", sourcesContentArray);
             }
 
-            buffer.Append(nl + "}" + nl);
+            // Convert JObject to string with intended formatting (if needed)
+            string jsonString = json.ToString();
+
+            // Append final JSON string to the buffer
+            buffer.Append(jsonString);
+            
             return buffer.ToString();
         }
 

@@ -23,7 +23,7 @@
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
     <PackageReference Include="System.Reflection.Metadata" Version="8.0.0" />
     <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
-    <PackageReference Include="MessagePack" Version="2.5.172" />
+    <PackageReference Include="MessagePack" Version="2.5.187" />
     <PackageReference Include="Mosaik.Core" Version="24.8.51117" />
     <PackageReference Include="ZLogger" Version="1.7.1" />
   </ItemGroup>

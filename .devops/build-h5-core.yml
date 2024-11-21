@@ -78,4 +78,4 @@ steps:
     command: 'push'
     packagesToPush: '**/h5.core.$(targetVersion).nupkg'
     nuGetFeedType: 'external'
-    publishFeedCredentials: 'nuget-curiosity'
+    publishFeedCredentials: 'nuget-curiosity-org'

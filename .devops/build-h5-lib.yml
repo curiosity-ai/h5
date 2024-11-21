@@ -28,10 +28,10 @@ steps:
     echo "Commit message: $(Build.SourceVersionMessage)"
   
 - task: UseDotNet@2
-  displayName: 'Use .NET 8.0 SDK'
+  displayName: 'Use .NET 9.0 SDK'
   inputs:
     packageType: sdk
-    version: 8.x
+    version: 9.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: PowerShell@2

@@ -7,11 +7,11 @@
 		<Compile Remove="Overrides\GetClassTypeReference.cs" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Mono.Cecil" Version="0.11.5" />
-		<PackageReference Include="System.CodeDom" Version="8.0.0" />
+		<PackageReference Include="Mono.Cecil" Version="0.11.6" />
+		<PackageReference Include="System.CodeDom" Version="9.0.0" />
 		<PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
 		<PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-		<PackageReference Include="System.Security.Permissions" Version="8.0.0" />
+		<PackageReference Include="System.Security.Permissions" Version="9.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Overrides\" />

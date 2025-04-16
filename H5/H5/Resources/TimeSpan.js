@@ -194,10 +194,6 @@
             return this.ticks.toNumberDivided(1e7);
         },
 
-        get12HourHour: function () {
-            return (this.getHours() > 12) ? this.getHours() - 12 : (this.getHours() === 0) ? 12 : this.getHours();
-        },
-
         add: function (ts) {
             return new System.TimeSpan(this.ticks.add(ts.ticks));
         },
@@ -245,7 +241,7 @@
                 isNeg = ticks < 0;
 
             if (formatStr) {
-                return formatStr.replace(/(\\.|'[^']*'|"[^"]*"|dd?|HH?|hh?|mm?|ss?|tt?|f{1,7}|\:|\/)/g,
+                return formatStr.replace(/(\\.|'[^']*'|"[^"]*"|dd?|hh?|mm?|ss?|f{1,7}|\:|\/)/g,
                     function (match, group, index) {
                         var part = match;
 
@@ -254,14 +250,10 @@
                                 return me.getDays();
                             case "dd":
                                 return format(me.getDays());
-                            case "H":
-                                return me.getHours();
-                            case "HH":
-                                return format(me.getHours());
                             case "h":
-                                return me.get12HourHour();
+                                return me.getHours();
                             case "hh":
-                                return format(me.get12HourHour());
+                                return format(me.getHours());
                             case "m":
                                 return me.getMinutes();
                             case "mm":
@@ -270,10 +262,6 @@
                                 return me.getSeconds();
                             case "ss":
                                 return format(me.getSeconds());
-                            case "t":
-                                return ((me.getHours() < 12) ? dtInfo.amDesignator : dtInfo.pmDesignator).substring(0, 1);
-                            case "tt":
-                                return (me.getHours() < 12) ? dtInfo.amDesignator : dtInfo.pmDesignator;
                             case "f":
                             case "ff":
                             case "fff":
@@ -282,6 +270,8 @@
                             case "ffffff":
                             case "fffffff":
                                 return format(me.getMilliseconds(), match.length, 1, true);
+                            case ":":
+                                return ":";
                             default:
                                 return match.substr(1, match.length - 1 - (match.charAt(0) !== "\\"));
                         }

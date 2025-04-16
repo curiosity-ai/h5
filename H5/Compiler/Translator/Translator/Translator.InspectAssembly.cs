@@ -235,6 +235,14 @@ namespace H5.Translator
                 {
                     continue;
                 }
+                if (type.FullName.Equals("Microsoft.CodeAnalysis.EmbeddedAttribute"))
+                {
+                    continue;
+                }
+                if (type.FullName.Equals("System.Runtime.CompilerServices.NullableAttribute"))
+                {
+                    continue;
+                }
 
                 Validator.CheckType(type, this);
 

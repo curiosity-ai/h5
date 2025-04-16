@@ -92,3 +92,7 @@
     H5.define("System.IAsyncResult", {
         $kind: "interface"
     });
+
+    H5.define("System.IServiceProvider", {
+        $kind: "interface"
+    });

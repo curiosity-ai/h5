@@ -26,8 +26,8 @@
     },
     "H5.Compiler": {
       "commandName": "Project",
-      "commandLineArgs": "-p \"C:\\h5\\Tesserae\\Tesserae.Tests\\Tesserae.Tests.csproj\" -c \"$(Configuration)\" --no-server",
-      "workingDirectory": "C:\\h5\\Tesserae\\Tesserae.Tests\\"
+      "commandLineArgs": "-p \"E:\\Apps\\LivingThing\\KitchenSink\\WebUISharp.Core\\WebUISharp.Core.csproj\" -c \"$(Configuration)\" --no-server",
+      "workingDirectory": "E:\\Apps\\LivingThing\\KitchenSink\\WebUISharp.Core"
     }
   }
 }

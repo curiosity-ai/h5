@@ -1,4 +1,4 @@
-<Project Sdk="h5.Target/22.11.34319">
+<Project Sdk="h5.Target/23.2.35852">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>H5</AssemblyName>
@@ -25,6 +25,12 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>http://h5.rocks/</PackageProjectUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="System\ComponentModel\DataAnnotations\**" />
+    <EmbeddedResource Remove="System\ComponentModel\DataAnnotations\**" />
+    <None Remove="System\ComponentModel\DataAnnotations\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\logo\h5.png" Link="h5.png" Pack="true" PackagePath="\" />

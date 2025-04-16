@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Provides targets for H5-based projects that compile C# to Javascript</Description>
     <PackageTags>MSBuild MSBuildSdk h5 javascript compiler</PackageTags>
-    <ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>
+    <!--<ArtifactsPath>$(BaseArtifactsPath)$(MSBuildProjectName)\</ArtifactsPath>-->
     <PackageType>MSBuildSdk</PackageType>
     <PackageId>h5.Target</PackageId>
     <Company>Curiosity GmbH</Company>

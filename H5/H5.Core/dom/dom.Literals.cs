@@ -1864,9 +1864,9 @@ namespace H5.Core
                 }
 
                 [Name("System.String")]
-                public class required : LiteralType<string>
+                public class @required : LiteralType<string>
                 {
-                    private extern required();
+                    private extern @required();
                 }
 
                 [Name("System.String")]

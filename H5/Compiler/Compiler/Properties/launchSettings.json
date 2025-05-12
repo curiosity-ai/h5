@@ -26,8 +26,7 @@
     },
     "H5.Compiler": {
       "commandName": "Project",
-      "commandLineArgs": "-p \"E:\\Apps\\LivingThing\\KitchenSink\\WebUISharp.Core\\WebUISharp.Core.csproj\" -c \"$(Configuration)\" --no-server",
-      "workingDirectory": "E:\\Apps\\LivingThing\\KitchenSink\\WebUISharp.Core"
+      "commandLineArgs": "server"
     }
   }
 }

@@ -132,7 +132,7 @@ namespace H5.Translator
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     var filePath   = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
-                    var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(LanguageVersion.CSharp12, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
+                    var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
                     trees.Add(syntaxTree);
                 }
 

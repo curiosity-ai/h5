@@ -96,6 +96,15 @@
                 return t;
             },
 
+            fromException: function (exception, T) {
+                var t = new (System.Threading.Tasks.Task$1(T || System.Object))();
+
+                t.status = System.Threading.Tasks.TaskStatus.faulted;
+                t.exception = exception;
+
+                return t;
+            },            
+
             run: function (fn) {
                 var tcs = new System.Threading.Tasks.TaskCompletionSource();
 

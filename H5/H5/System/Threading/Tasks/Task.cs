@@ -112,6 +112,12 @@ namespace System.Threading.Tasks
         [H5.Template("System.Threading.Tasks.Task.fromResult({result}, {TResult})")]
         public static extern Task<TResult> FromResult<TResult>(TResult result);
 
+        [H5.Template("System.Threading.Tasks.Task.fromException({exception}, null)")]
+        public static extern Task FromException(Exception exception);        
+
+        [H5.Template("System.Threading.Tasks.Task.fromException({exception}, {TResult})")]
+        public static extern Task<TResult> FromException<TResult>(Exception exception);        
+
         public static extern Task Run(Action action);
 
         public static extern Task<TResult> Run<TResult>(Func<TResult> function);

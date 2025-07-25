@@ -467,7 +467,7 @@
     </PropertyGroup>
 
     <!--Check for local compiler-->
-    <Exec Command="dotnet tool run h5 check-if-online" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="true" Condition="!$(UseLocalH5)">
+    <Exec Command="dotnet tool run h5 check-if-online" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="true" Condition="'$(UseLocalH5)' == 'true'">
       <Output TaskParameter="ExitCode" PropertyName="ExitCodeLocal" />
     </Exec>
     
@@ -476,7 +476,7 @@
       <UseLocalH5>true</UseLocalH5>
     </PropertyGroup>
 
-    <Message Importance="high" Text="Using h5 as a local tool" Condition="$(UseLocalH5)"/>
+    <Message Importance="high" Text="Using h5 as a local tool" Condition="'$(UseLocalH5)' == 'true'"/>
 
   </Target>
 
@@ -487,9 +487,9 @@
       Inputs="@(UserRuntimeAssembly);@(_ReferenceAssemblies);@(SourceFilesProjectOutputGroupOutput);$(MSBuildAllProjects);$(ProjectDepsFilePath)"
       Outputs="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)">
 
-    <Message Importance="high" Text="Installing (or updating) the h5 compiler." Condition="$(UpdateH5)" />
-    <Message Importance="high" Text="Skipping updating the h5 compiler. You can always install/update it by calling dotnet tool update --global h5-compiler" Condition="!$(UpdateH5) AND !$(UseLocalH5)" />
-    <Exec Command="dotnet tool update --global h5-compiler" Condition="$(UpdateH5)" ContinueOnError="WarnAndContinue"/>
+    <Message Importance="high" Text="Installing (or updating) the h5 compiler." Condition="'$(UpdateH5)' == 'true'" />
+    <Message Importance="high" Text="Skipping updating the h5 compiler. You can always install/update it by calling dotnet tool update --global h5-compiler" Condition="('$(UpdateH5)' == 'false') AND ('$(UseLocalH5)' == 'false')" />
+    <Exec Command="dotnet tool update --global h5-compiler" Condition="'$(UpdateH5)' == 'true'" ContinueOnError="WarnAndContinue"/>
 
     <Message Importance="high" Text="Deleting previous assembly: $(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)"/>
     <Delete Files="$(ProjectDir)$(OutputPath)$(TargetName)$(TargetExt)"/>
@@ -506,7 +506,7 @@
       <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
     </Exec>
 
-    <Error Text="H5 compilation failed, see logs for error message" Condition="$(ExitCode) != 0"/>
+    <Error Text="H5 compilation failed, see logs for error message" Condition="'$(ExitCode)' != '0'"/>
 
     <Message Importance="high" Text="... H5 compilation finished!" />
   </Target>

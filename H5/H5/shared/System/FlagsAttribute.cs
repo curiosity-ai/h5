@@ -11,7 +11,7 @@ namespace System
     // should be treated as a bitfield (or set of flags).
     // An IDE may use this information to provide a richer
     // development experience.
-    [H5.NonScriptable]
+    //[H5.NonScriptable]
     [AttributeUsage(AttributeTargets.Enum, Inherited = false)]
     public class FlagsAttribute : Attribute
     {

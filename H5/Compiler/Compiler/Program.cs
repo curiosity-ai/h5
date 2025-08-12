@@ -29,7 +29,7 @@ namespace H5.Compiler
         private static ILogger Logger = ApplicationLogging.CreateLogger<Program>();
 
         private const int PORT = 44568;
-
+        private static bool DisableLogo = false;
         private static readonly CancellationTokenSource      _exitToken = new CancellationTokenSource();
         private static readonly TaskCompletionSource<object> _exitTask  = new TaskCompletionSource<object>();
 
@@ -57,7 +57,13 @@ namespace H5.Compiler
 
             // We need the logic for compiler -> startserver -> server because otherwise the server process is marked as a child of the compiler process
             // Which MSBUILD keeps track of, so it would kill the server on a canceled build
-
+            
+            if (args.Any(v => v == "--no-logo") || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("H5_NO_LOGO")))
+            {
+                DisableLogo = true;
+                args = args.Where(v => v != "--no-logo").ToArray();
+            }
+            
             if (args.Length == 0)
             {
                 SayHi();
@@ -221,6 +227,8 @@ namespace H5.Compiler
 
         private static void SayHi()
         {
+            if(DisableLogo) return;
+            
             void Print(string text)
             {
                 var prev = ' ';

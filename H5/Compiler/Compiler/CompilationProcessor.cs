@@ -162,7 +162,7 @@ namespace H5.Compiler
             }
             finally
             {
-                processor.Translator.PostBuildStreamCacheCleanup();
+                processor.Translator?.PostBuildStreamCacheCleanup();
             }
         }
 

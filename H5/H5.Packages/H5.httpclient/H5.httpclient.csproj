@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="h5" Version="23.11.43678" />
-    <PackageReference Include="h5.core" Version="23.11.43674" />
+    <PackageReference Include="h5" Version="25.5.58366" />
+    <PackageReference Include="h5.core" Version="24.11.53879" />
   </ItemGroup>
 
   <ItemGroup>

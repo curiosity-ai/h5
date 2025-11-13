@@ -7,7 +7,7 @@
     <ItemGroup>
         <PackageReference Include="h5" Version="25.11.62743" />
         <PackageReference Include="h5.core" Version="25.11.62746" />
-        <PackageReference Include="h5.Newtonsoft.Json" Version="22.11.34331" />
-        <PackageReference Include="Tesserae" Version="2022.11.34246" />
+        <PackageReference Include="h5.Newtonsoft.Json" Version="25.11.62749" />
+        <PackageReference Include="Tesserae" Version="2025.10.62416" />
     </ItemGroup>
 </Project>

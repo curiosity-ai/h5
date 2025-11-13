@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-	</PropertyGroup>
-	<ItemGroup>
-		<Compile Remove="CompressionUtils.cs" />
-		<Compile Remove="ControlUtils.cs" />
-		<Compile Remove="DateTimeUtils.cs" />
-		<Compile Remove="ReflectionUtils.cs" />
-	</ItemGroup>
-	<PropertyGroup>
-		<DebugType>full</DebugType>
-		<DebugSymbols>true</DebugSymbols>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Remove="CompressionUtils.cs" />
+        <Compile Remove="ControlUtils.cs" />
+        <Compile Remove="DateTimeUtils.cs" />
+        <Compile Remove="ReflectionUtils.cs" />
+    </ItemGroup>
+    <PropertyGroup>
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
 </Project>

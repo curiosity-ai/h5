@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
+      <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <DefineConstants>DEBUG;H5_COMPILER</DefineConstants>

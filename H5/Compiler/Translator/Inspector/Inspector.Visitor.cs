@@ -154,7 +154,9 @@ namespace H5.Translator
             var type = Resolver.ResolveNode(typeDeclaration).Type;
             var interfaces = type.DirectBaseTypes.Where(t => t.Kind == TypeKind.Interface).ToArray();
             var members = type.GetMembers(null, GetMemberOptions.IgnoreInheritedMembers).ToArray();
-            var baseTypes = type.GetNonInterfaceBaseTypes().ToArray().Reverse();
+            var baseTypes = type.GetNonInterfaceBaseTypes().ToArray();
+            
+            baseTypes.Reverse();
 
             if (interfaces.Length > 0)
             {

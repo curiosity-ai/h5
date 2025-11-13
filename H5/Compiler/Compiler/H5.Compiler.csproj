@@ -8,6 +8,7 @@
     <StartupObject>H5.Compiler.Program</StartupObject>
     <AssemblyName>h5</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

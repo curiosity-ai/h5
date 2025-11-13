@@ -1,4 +1,4 @@
-<Project Sdk="h5.Target/22.11.34319">
+<Project Sdk="h5.Target/25.11.62684">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>H5.Core</AssemblyName>

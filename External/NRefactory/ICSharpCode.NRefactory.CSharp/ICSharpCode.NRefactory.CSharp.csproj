@@ -14,13 +14,13 @@
 		<Compile Remove="Refactoring\CodeActions\RemoveFieldRefactoryActionRefactoringAction.cs" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Lokad.ILPack" Version="0.2.0" />
-		<PackageReference Include="System.CodeDom" Version="9.0.0" />
+		<PackageReference Include="Lokad.ILPack" Version="0.3.0" />
+		<PackageReference Include="System.CodeDom" Version="10.0.0" />
 		<PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
 		<PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
 		<PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-		<PackageReference Include="System.Reflection.Metadata" Version="9.0.0" />
-		<PackageReference Include="System.Security.Permissions" Version="9.0.0" />
+		<PackageReference Include="System.Reflection.Metadata" Version="10.0.0" />
+		<PackageReference Include="System.Security.Permissions" Version="10.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" />

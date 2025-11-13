@@ -120,6 +120,7 @@
     <!-- Projects can set this flag to true to enable auto-install / update of the H5 compiler-->
     <UpdateH5 Condition="'$(UpdateH5)' == ''">false</UpdateH5>
     <UseLocalH5 Condition="'$(UseLocalH5)' == ''">false</UseLocalH5>
+    <SkipOnlineCheck Condition="'$(SkipOnlineCheck)' == ''">false</SkipOnlineCheck>
   </PropertyGroup>
 
 
@@ -458,11 +459,11 @@
   <Target Name="_CheckForH5">
     <!-- If the compiler is not running, or if not found, set the flag to update it -->
 
-    <Exec Command="h5 check-if-online" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="true">
+    <Exec Command="h5 check-if-online" ConsoleToMsBuild="false" WorkingDirectory="$(ProjectDir)" ContinueOnError="true" IgnoreExitCode="true" Condition="'$(SkipOnlineCheck)' == 'false'">
       <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
     </Exec>
 
-    <PropertyGroup  Condition="'$(ExitCode)' == '1'">
+    <PropertyGroup  Condition="'$(ExitCode)' == '1'" Condition="'$(SkipOnlineCheck)' == 'false'">
       <UpdateH5>true</UpdateH5>
     </PropertyGroup>
 

@@ -12,8 +12,8 @@
     },
     "Placeholder": {
       "commandName": "Project",
-      "commandLineArgs": "--rebuild -p \"C:\\work\\h5\\Tests\\Placeholder\\Placeholder.csproj\" -c \"$(Configuration)\" --no-server",
-      "workingDirectory": "C:\\work\\h5\\Tests\\Placeholder\\",
+      "commandLineArgs": "--rebuild -p \"d:\\work\\h5\\Tests\\Placeholder\\Placeholder.csproj\" -c \"$(Configuration)\" --no-server",
+      "workingDirectory": "d:\\work\\h5\\Tests\\Placeholder\\",
       "hotReloadEnabled": false
     },
     "build h5": {

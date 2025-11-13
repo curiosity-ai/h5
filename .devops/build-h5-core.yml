@@ -28,10 +28,11 @@ steps:
     echo "Commit message: $(Build.SourceVersionMessage)"
 
 - task: UseDotNet@2
-  displayName: 'Use .NET 9.0 SDK'
+  displayName: 'Use .NET 10.0 SDK'
   inputs:
     packageType: sdk
-    version: 9.x
+    version: 10.x
+    includePreviewVersions: true
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: PowerShell@2
@@ -61,7 +62,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(h5core)'
-    arguments: '-c $(buildConfiguration) /p:Version=$(targetVersion)  /p:AllowUnsafeBlocks=True /p:LangVersion=latest'
+    arguments: '-c $(buildConfiguration) /p:Version=$(targetVersion)'
 
 - task: DotNetCoreCLI@2
   displayName: 'pack nuget'

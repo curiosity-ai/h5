@@ -29,7 +29,7 @@ steps:
   inputs:
     packageType: sdk
     version: 10.x
-    includePreviewVersions: true
+    includePreviewVersions: false
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: PowerShell@2

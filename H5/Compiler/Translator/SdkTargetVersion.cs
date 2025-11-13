@@ -7,6 +7,6 @@ namespace H5.Translator
 {
     public static class SdkTargetVersion
     {
-        public static readonly NuGetVersion Latest = NuGetVersion.Parse("25.11.62684");
+        public static readonly NuGetVersion Latest = NuGetVersion.Parse("25.11.62725");
     }
 }

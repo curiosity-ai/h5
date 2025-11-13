@@ -698,12 +698,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             AttributeUsageAttribute usage_attribute = new AttributeUsageAttribute ((AttributeTargets) ((Constant) pos_args[0].Expr).GetValue ());
 
-            if (GetNamedValue("AllowMultiple") is BoolConstant field)
-                usage_attribute.AllowMultiple = field.Value;
+            if (GetNamedValue("AllowMultiple") is BoolConstant boolField)
+                usage_attribute.AllowMultiple = boolField.Value;
 
-            field = GetNamedValue ("Inherited") as BoolConstant;
-            if (field != null)
-                usage_attribute.Inherited = field.Value;
+            boolField = GetNamedValue ("Inherited") as BoolConstant;
+            if (boolField != null)
+                usage_attribute.Inherited = boolField.Value;
 
             return usage_attribute;
         }
@@ -1586,13 +1586,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         //
         // Encodes single field named argument per call
         //
-        public void EncodeNamedFieldArgument (FieldSpec field, Constant value)
+        public void EncodeNamedFieldArgument (FieldSpec fieldSpec, Constant value)
         {
             Encode ((ushort) 1);    // length
             Encode ((byte) 0x53); // field
-            Encode (field.MemberType);
-            Encode (field.Name);
-            value.EncodeAttributeValue (null, this, field.MemberType, field.MemberType);
+            Encode (fieldSpec.MemberType);
+            Encode (fieldSpec.Name);
+            value.EncodeAttributeValue (null, this, fieldSpec.MemberType, fieldSpec.MemberType);
         }
 
         public void EncodeNamedArguments<T> (T[] members, Constant[] values) where T : MemberSpec, IInterfaceMemberSpec

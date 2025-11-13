@@ -39,7 +39,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public Await (Expression expr, Location loc)
         {
             this.expr = expr;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public Expression Expr {
@@ -81,18 +81,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         protected override Expression DoResolve (ResolveContext rc)
         {
             if (rc.HasSet (ResolveContext.Options.LockScope)) {
-                rc.Report.Error (1996, loc,
+                rc.Report.Error (1996, _loc,
                     "The `await' operator cannot be used in the body of a lock statement");
             }
 
             if (rc.IsUnsafe) {
-                rc.Report.Error (4004, loc,
+                rc.Report.Error (4004, _loc,
                     "The `await' operator cannot be used in an unsafe context");
             }
 
             var bc = (BlockContext) rc;
 
-            stmt = new AwaitStatement (expr, loc);
+            stmt = new AwaitStatement (expr, _loc);
             if (!stmt.Resolve (bc))
                 return null;
 
@@ -116,10 +116,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             return stmt.GetResultExpression (ec);
         }
 
-        public void EmitAssign (EmitContext ec, FieldExpr field)
+        public void EmitAssign (EmitContext ec, FieldExpr ffield)
         {
             stmt.EmitPrologue (ec);
-            field.InstanceExpression.Emit (ec);
+            ffield.InstanceExpression.Emit (ec);
             stmt.Emit (ec);
         }
 
@@ -163,12 +163,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                 if (LeftExpression is Invocation invocation && invocation.MethodGroup != null && (invocation.MethodGroup.BestCandidate.Modifiers & Modifiers.ASYNC) != 0)
                 {
-                    rc.Report.Error(4008, loc, "Cannot await void method `{0}'. Consider changing method return type to `Task'",
+                    rc.Report.Error(4008, _loc, "Cannot await void method `{0}'. Consider changing method return type to `Task'",
                         invocation.GetSignatureForError());
                 }
                 else if (type != InternalType.ErrorType)
                 {
-                    rc.Report.Error(4001, loc, "Cannot await `{0}' expression", type.GetSignatureForError());
+                    rc.Report.Error(4001, _loc, "Cannot await `{0}' expression", type.GetSignatureForError());
                 }
             }
         }
@@ -580,16 +580,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
             }
 
-            var field = AddCompilerGeneratedField ("$awaiter" + awaiters++.ToString ("X"), new TypeExpression (type, Location), true);
-            field.Define ();
+            var ffield = AddCompilerGeneratedField ("$awaiter" + awaiters++.ToString ("X"), new TypeExpression (type, Location), true);
+            ffield.Define ();
 
             if (existing_fields == null) {
                 existing_fields = new List<Field> ();
                 awaiter_fields.Add (type, existing_fields);
             }
 
-            existing_fields.Add (field);
-            return field;
+            existing_fields.Add (ffield);
+            return ffield;
         }
 
         public Field AddCapturedLocalVariable (TypeSpec type, bool requiresUninitialized = false)
@@ -609,17 +609,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
             }
 
-            var field = AddCompilerGeneratedField ("$stack" + locals_captured++.ToString ("X"), new TypeExpression (type, Location), true);
-            field.Define ();
+            var ffield = AddCompilerGeneratedField ("$stack" + locals_captured++.ToString ("X"), new TypeExpression (type, Location), true);
+            ffield.Define ();
 
             if (existing_fields == null) {
                 existing_fields = new List<Field> ();
                 stack_fields.Add (type, existing_fields);
             }
 
-            existing_fields.Add (field);
+            existing_fields.Add (ffield);
 
-            return field;
+            return ffield;
         }
 
         protected override bool DoDefineMembers ()
@@ -948,19 +948,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
     public class StackFieldExpr : FieldExpr, IExpressionCleanup
     {
-        public StackFieldExpr (Field field)
-            : base (field, Location.Null)
+        public StackFieldExpr (Field ffield)
+            : base (ffield, Location.Null)
         {
         }
 
         public bool IsAvailableForReuse {
             get {
-                var field = (Field) spec.MemberDefinition;
-                return field.IsAvailableForReuse;
+                var ffield = (Field) spec.MemberDefinition;
+                return ffield.IsAvailableForReuse;
             }
             set {
-                var field = (Field) spec.MemberDefinition;
-                field.IsAvailableForReuse = value;
+                var ffield = (Field) spec.MemberDefinition;
+                ffield.IsAvailableForReuse = value;
             }
         }
 
@@ -1000,7 +1000,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         void IExpressionCleanup.EmitCleanup (EmitContext ec)
         {
-            EmitAssign (ec, new NullConstant (type, loc), false, false);
+            EmitAssign (ec, new NullConstant (type, _loc), false, false);
         }
     }
 }

@@ -513,9 +513,9 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
         {
             ITypeDefinition enumDefinition = type.GetDefinition();
             TypeCode enumBaseTypeCode = ReflectionHelper.GetTypeCode(enumDefinition.EnumUnderlyingType);
-            foreach (IField field in enumDefinition.Fields) {
-                if (field.IsConst && object.Equals(CSharpPrimitiveCast.Cast(TypeCode.Int64, field.ConstantValue, false), val))
-                    return ConvertType(type).Member(field.Name);
+            foreach (IField ifield in enumDefinition.Fields) {
+                if (ifield.IsConst && object.Equals(CSharpPrimitiveCast.Cast(TypeCode.Int64, ifield.ConstantValue, false), val))
+                    return ConvertType(type).Member(ifield.Name);
             }
             if (IsFlagsEnum(enumDefinition)) {
                 long enumValue = val;
@@ -537,13 +537,13 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                         break;
                 }
                 Expression negatedExpr = null;
-                foreach (IField field in enumDefinition.Fields.Where(fld => fld.IsConst)) {
-                    long fieldValue = (long)CSharpPrimitiveCast.Cast(TypeCode.Int64, field.ConstantValue, false);
+                foreach (IField ifield in enumDefinition.Fields.Where(fld => fld.IsConst)) {
+                    long fieldValue = (long)CSharpPrimitiveCast.Cast(TypeCode.Int64, ifield.ConstantValue, false);
                     if (fieldValue == 0)
                         continue;    // skip None enum value
 
                     if ((fieldValue & enumValue) == fieldValue) {
-                        var fieldExpression = ConvertType(type).Member(field.Name);
+                        var fieldExpression = ConvertType(type).Member(ifield.Name);
                         if (expr == null)
                             expr = fieldExpression;
                         else
@@ -552,7 +552,7 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
                         enumValue &= ~fieldValue;
                     }
                     if ((fieldValue & negatedEnumValue) == fieldValue) {
-                        var fieldExpression = ConvertType(type).Member(field.Name);
+                        var fieldExpression = ConvertType(type).Member(ifield.Name);
                         if (negatedExpr == null)
                             negatedExpr = fieldExpression;
                         else
@@ -776,32 +776,32 @@ namespace ICSharpCode.NRefactory.CSharp.Refactoring
             return decl;
         }
 
-        FieldDeclaration ConvertField(IField field)
+        FieldDeclaration ConvertField(IField ifield)
         {
             FieldDeclaration decl = new FieldDeclaration();
             if (ShowModifiers) {
-                Modifiers m = GetMemberModifiers(field);
-                if (field.IsConst) {
+                Modifiers m = GetMemberModifiers(ifield);
+                if (ifield.IsConst) {
                     m &= ~Modifiers.Static;
                     m |= Modifiers.Const;
-                } else if (field.IsReadOnly) {
+                } else if (ifield.IsReadOnly) {
                     m |= Modifiers.Readonly;
-                } else if (field.IsVolatile) {
+                } else if (ifield.IsVolatile) {
                     m |= Modifiers.Volatile;
                 }
                 decl.Modifiers = m;
             }
             if (ShowAttributes) {
-                decl.Attributes.AddRange (field.Attributes.Select ((a) => new AttributeSection (ConvertAttribute (a))));
+                decl.Attributes.AddRange (ifield.Attributes.Select ((a) => new AttributeSection (ConvertAttribute (a))));
             }
             if (AddResolveResultAnnotations) {
-                decl.AddAnnotation(new MemberResolveResult(null, field));
+                decl.AddAnnotation(new MemberResolveResult(null, ifield));
             }
-            decl.ReturnType = ConvertType(field.ReturnType);
+            decl.ReturnType = ConvertType(ifield.ReturnType);
             Expression initializer = null;
-            if (field.IsConst && this.ShowConstantValues)
-                initializer = ConvertConstantValue(field.Type, field.ConstantValue);
-            decl.Variables.Add(new VariableInitializer(field.Name, initializer));
+            if (ifield.IsConst && this.ShowConstantValues)
+                initializer = ConvertConstantValue(ifield.Type, ifield.ConstantValue);
+            decl.Variables.Add(new VariableInitializer(ifield.Name, initializer));
             return decl;
         }
 

@@ -483,13 +483,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            MemberAccess ma = new MemberAccess (new MemberAccess (new QualifiedAliasMember ("global", "System", loc), "Delegate", loc), "CreateDelegate", loc);
+            MemberAccess ma = new MemberAccess (new MemberAccess (new QualifiedAliasMember ("global", "System", _loc), "Delegate", _loc), "CreateDelegate", _loc);
 
             Arguments args = new Arguments (3);
-            args.Add (new Argument (new TypeOf (type, loc)));
+            args.Add (new Argument (new TypeOf (type, _loc)));
 
             if (method_group.InstanceExpression == null)
-                args.Add (new Argument (new NullLiteral (loc)));
+                args.Add (new Argument (new NullLiteral (_loc)));
             else
                 args.Add (new Argument (method_group.InstanceExpression));
 
@@ -498,7 +498,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (e == null)
                 return null;
 
-            e = Convert.ExplicitConversion (ec, e, type, loc);
+            e = Convert.ExplicitConversion (ec, e, type, _loc);
             if (e == null)
                 return null;
 
@@ -518,7 +518,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 }
             }
 
-            Arguments arguments = CreateDelegateMethodArguments (ec, invoke_method.Parameters, invoke_method.Parameters.Types, loc);
+            Arguments arguments = CreateDelegateMethodArguments (ec, invoke_method.Parameters, invoke_method.Parameters.Types, _loc);
             method_group = method_group.OverloadResolve (ec, ref arguments, this, OverloadResolver.Restrictions.CovariantDelegate);
 
             if (conditional_access_receiver)
@@ -530,13 +530,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             var delegate_method = method_group.BestCandidate;
 
             if (delegate_method.DeclaringType.IsNullableType) {
-                ec.Report.Error (1728, loc, "Cannot create delegate from method `{0}' because it is a member of System.Nullable<T> type",
+                ec.Report.Error (1728, _loc, "Cannot create delegate from method `{0}' because it is a member of System.Nullable<T> type",
                     delegate_method.GetSignatureForError ());
                 return null;
             }
 
             if (!AllowSpecialMethodsInvocation)
-                Invocation.IsSpecialMethodInvocation (ec, delegate_method, loc);
+                Invocation.IsSpecialMethodInvocation (ec, delegate_method, _loc);
 
             if (method_group is ExtensionMethodGroupExpr emg)
             {
@@ -544,7 +544,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 TypeSpec e_type = emg.ExtensionExpression.Type;
                 if (TypeSpec.IsValueType(e_type))
                 {
-                    ec.Report.Error(1113, loc, "Extension method `{0}' of value type `{1}' cannot be used to create delegates",
+                    ec.Report.Error(1113, _loc, "Extension method `{0}' of value type `{1}' cannot be used to create delegates",
                         delegate_method.GetSignatureForError(), e_type.GetSignatureForError());
                 }
             }
@@ -554,7 +554,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 rt = ec.BuiltinTypes.Object;
 
             if (!Delegate.IsTypeCovariant (ec, rt, invoke_method.ReturnType)) {
-                Expression ret_expr = new TypeExpression (delegate_method.ReturnType, loc);
+                Expression ret_expr = new TypeExpression (delegate_method.ReturnType, _loc);
                 Error_ConversionFailed (ec, delegate_method, ret_expr);
             }
 
@@ -562,12 +562,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 ec.Report.SymbolRelatedToPreviousError (delegate_method);
                 if (delegate_method.MemberDefinition is MethodOrOperator m && m.IsPartialDefinition)
                 {
-                    ec.Report.Error(762, loc, "Cannot create delegate from partial method declaration `{0}'",
+                    ec.Report.Error(762, _loc, "Cannot create delegate from partial method declaration `{0}'",
                         delegate_method.GetSignatureForError());
                 }
                 else
                 {
-                    ec.Report.Error(1618, loc, "Cannot create delegate with `{0}' because it has a Conditional attribute",
+                    ec.Report.Error(1618, _loc, "Cannot create delegate with `{0}' because it has a Conditional attribute",
                         TypeManager.CSharpSignature(delegate_method));
                 }
             }
@@ -627,19 +627,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             ec.Report.SymbolRelatedToPreviousError (type);
             ec.Report.SymbolRelatedToPreviousError (method);
             if (ec.Module.Compiler.Settings.Version == LanguageVersion.ISO_1) {
-                ec.Report.Error (410, loc, "A method or delegate `{0} {1}' parameters and return type must be same as delegate `{2} {3}' parameters and return type",
+                ec.Report.Error (410, _loc, "A method or delegate `{0} {1}' parameters and return type must be same as delegate `{2} {3}' parameters and return type",
                     method.ReturnType.GetSignatureForError (), member_name,
                     invoke_method.ReturnType.GetSignatureForError (), Delegate.FullDelegateDesc (invoke_method));
                 return;
             }
 
             if (return_type == null) {
-                ec.Report.Error (123, loc, "A method or delegate `{0}' parameters do not match delegate `{1}' parameters",
+                ec.Report.Error (123, _loc, "A method or delegate `{0}' parameters do not match delegate `{1}' parameters",
                     member_name, Delegate.FullDelegateDesc (invoke_method));
                 return;
             }
 
-            ec.Report.Error (407, loc, "A method or delegate `{0} {1}' return type does not match delegate `{2} {3}' return type",
+            ec.Report.Error (407, _loc, "A method or delegate `{0} {1}' return type does not match delegate `{2} {3}' return type",
                 return_type.GetSignatureForError (), member_name,
                 invoke_method.ReturnType.GetSignatureForError (), Delegate.FullDelegateDesc (invoke_method));
         }
@@ -694,7 +694,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             type = delegateType;
             this.method_group = mg;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         //
@@ -766,9 +766,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             var parent = ec.CurrentMemberDefinition.Parent.PartialContainer;
             int id = parent.MethodGroupsCounter++;
 
-            mg_cache = new Field (parent, new TypeExpression (type, loc),
+            mg_cache = new Field (parent, new TypeExpression (type, _loc),
                 Modifiers.STATIC | Modifiers.PRIVATE | Modifiers.COMPILER_GENERATED,
-                new MemberName (CompilerGeneratedContainer.MakeName (null, "f", "mg$cache", id), loc), null);
+                new MemberName (CompilerGeneratedContainer.MakeName (null, "f", "mg$cache", id), _loc), null);
             mg_cache.Define ();
             parent.AddField (mg_cache);
 
@@ -808,13 +808,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             this.type = type;
             this.Arguments = Arguments;
-            this.loc  = loc; 
+            this._loc  = loc; 
         }
 
         protected override Expression DoResolve (ResolveContext ec)
         {
             if (Arguments == null || Arguments.Count != 1) {
-                ec.Report.Error (149, loc, "Method name expected");
+                ec.Report.Error (149, _loc, "Method name expected");
                 return null;
             }
 
@@ -836,16 +836,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             method_group = e as MethodGroupExpr;
             if (method_group == null) {
                 if (e.Type.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
-                    e = Convert.ImplicitConversionRequired (ec, e, type, loc);
+                    e = Convert.ImplicitConversionRequired (ec, e, type, _loc);
                 } else if (!e.Type.IsDelegate) {
-                    e.Error_UnexpectedKind (ec, ResolveFlags.MethodGroup | ResolveFlags.Type, loc);
+                    e.Error_UnexpectedKind (ec, ResolveFlags.MethodGroup | ResolveFlags.Type, _loc);
                     return null;
                 }
 
                 //
                 // An argument is not a method but another delegate
                 //
-                method_group = new MethodGroupExpr (Delegate.GetInvokeMethod (e.Type), e.Type, loc);
+                method_group = new MethodGroupExpr (Delegate.GetInvokeMethod (e.Type), e.Type, _loc);
                 method_group.InstanceExpression = e;
             }
 
@@ -868,7 +868,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             this.InstanceExpr = instance_expr;
             this.arguments = args;
             this.conditionalAccessReceiver = conditionalAccessReceiver;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override bool ContainsEmitWithAwait ()
@@ -902,7 +902,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // done on primary expression
             //
             method = Delegate.GetInvokeMethod (del_type);
-            var res = new OverloadResolver (new MemberSpec[] { method }, OverloadResolver.Restrictions.DelegateInvoke, loc);
+            var res = new OverloadResolver (new MemberSpec[] { method }, OverloadResolver.Restrictions.DelegateInvoke, _loc);
             var valid = res.ResolveMember<MethodSpec> (ec, ref arguments);
             if (valid == null && !res.BestCandidateIsDynamic)
                 return null;
@@ -927,7 +927,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             //
             var call = new CallEmitter ();
             call.InstanceExpression = InstanceExpr;
-            call.Emit (ec, method, arguments, loc);
+            call.Emit (ec, method, arguments, _loc);
 
             if (conditionalAccessReceiver)
                 ec.CloseConditionalAccess (type.IsNullableType && type !=  method.ReturnType ? type : null);
@@ -943,7 +943,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             var call = new CallEmitter ();
             call.InstanceExpression = InstanceExpr;
-            call.EmitStatement (ec, method, arguments, loc);
+            call.EmitStatement (ec, method, arguments, _loc);
 
             if (conditionalAccessReceiver)
                 ec.CloseConditionalAccess (null);

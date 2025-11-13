@@ -30,7 +30,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
         public NullableType (TypeSpec type, Location loc)
         {
             this.underlying = type;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override TypeSpec ResolveAsType (IMemberContext ec, bool allowUnboundTypeArguments = false)
@@ -41,8 +41,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             if (otype == null)
                 return null;
 
-            TypeArguments args = new TypeArguments (new TypeExpression (underlying, loc));
-            GenericTypeExpr ctype = new GenericTypeExpr (otype, args, loc);
+            TypeArguments args = new TypeArguments (new TypeExpression (underlying, _loc));
+            GenericTypeExpr ctype = new GenericTypeExpr (otype, args, _loc);
 
             type = ctype.ResolveAsType (ec);
             return type;
@@ -107,7 +107,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
         public Unwrap (Expression expr, bool useDefaultValue = true)
         {
             this.expr = expr;
-            this.loc = expr.Location;
+            this._loc = expr.Location;
             this.useDefaultValue = useDefaultValue;
 
             type = NullableInfo.GetUnderlyingType (expr.Type);
@@ -422,7 +422,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
         {
             this.expr = expr;
             this.unwrap = unwrap;
-            this.loc = expr.Location;
+            this._loc = expr.Location;
             this.type = type;
         }
 
@@ -469,11 +469,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
                         return null;
                 }
 
-                null_value = LiftedNull.Create (type, loc);
+                null_value = LiftedNull.Create (type, _loc);
             } else if (TypeSpec.IsValueType (type)) {
-                null_value = LiftedNull.Create (type, loc);
+                null_value = LiftedNull.Create (type, _loc);
             } else {
-                null_value = new NullConstant (type, loc);
+                null_value = new NullConstant (type, _loc);
             }
 
             eclass = ExprClass.Value;
@@ -543,7 +543,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
 
             Expression res = base.ResolveOperator (ec, unwrap);
             if (res == null) {
-                Error_OperatorCannotBeApplied (ec, loc, OperName (Oper), Expr.Type);
+                Error_OperatorCannotBeApplied (ec, _loc, OperName (Oper), Expr.Type);
                 return null;
             }
 
@@ -580,7 +580,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             ec.Emit (OpCodes.Br_S, end_label);
 
             ec.MarkLabel (is_null_label);
-            LiftedNull.Create (type, loc).Emit (ec);
+            LiftedNull.Create (type, _loc).Emit (ec);
 
             ec.MarkLabel (end_label);
         }
@@ -631,7 +631,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
         public LiftedBinaryOperator (Binary b)
         {
             this.Binary = b;
-            this.loc = b.Location;
+            this._loc = b.Location;
         }
 
         public Binary Binary { get; private set; }
@@ -666,7 +666,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
                 args.Add (new Argument (Binary.Left));
                 args.Add (new Argument (Binary.Right));
 
-                var method = new UserOperatorCall (UserOperator, args, Binary.CreateExpressionTree, loc);
+                var method = new UserOperatorCall (UserOperator, args, Binary.CreateExpressionTree, _loc);
                 return method.CreateExpressionTree (rc);
             }
 
@@ -773,7 +773,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             if ((Binary.Oper & Binary.Operator.ComparisonMask) != 0) {
                 ec.EmitInt (0);
             } else {
-                LiftedNull.Create (type, loc).Emit (ec);
+                LiftedNull.Create (type, _loc).Emit (ec);
             }
 
             ec.MarkLabel (end_label);
@@ -856,7 +856,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
                     ec.Emit(OpCodes.Br_S, end_label);
 
                     ec.MarkLabel(is_null_label);
-                    LiftedNull.Create(type, loc).Emit(ec);
+                    LiftedNull.Create(type, _loc).Emit(ec);
                 }
                 else
                 {
@@ -896,7 +896,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
                     ec.Emit(OpCodes.Br_S, end_label);
 
                     ec.MarkLabel(is_null_label);
-                    LiftedNull.Create(type, loc).Emit(ec);
+                    LiftedNull.Create(type, _loc).Emit(ec);
                 }
                 else
                 {
@@ -1082,7 +1082,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
         {
             this.left = left;
             this.right = right;
-            this.loc = left.Location;
+            this._loc = left.Location;
         }
 
         public Expression LeftExpression {
@@ -1100,7 +1100,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
             if (left is NullLiteral)
-                ec.Report.Error (845, loc, "An expression tree cannot contain a coalescing operator with null left side");
+                ec.Report.Error (845, _loc, "An expression tree cannot contain a coalescing operator with null left side");
 
             Expression conversion = null;
             if (left is UserCast uc) {
@@ -1153,7 +1153,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
                         return this;
                     }
                 } else {
-                    conv = Convert.ImplicitConversion (ec, right, unwrap.Type, loc);
+                    conv = Convert.ImplicitConversion (ec, right, unwrap.Type, _loc);
                     if (conv != null) {
                         left = unwrap;
                         ltype = left.Type;
@@ -1204,7 +1204,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
                         return ReducedExpression.Create (lc != null ? right : left, this, false);
                     }
 
-                    right = Convert.ImplicitConversion (ec, right, ltype, loc);
+                    right = Convert.ImplicitConversion (ec, right, ltype, _loc);
                     type = ltype;
                     return this;
                 }
@@ -1222,7 +1222,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             if (left.IsNull)
                 return ReducedExpression.Create (right, this, false).Resolve (ec);
 
-            left = Convert.ImplicitConversion (ec, unwrap ?? left, rtype, loc);
+            left = Convert.ImplicitConversion (ec, unwrap ?? left, rtype, _loc);
             type = rtype;
             return this;
         }
@@ -1247,7 +1247,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
 
             Expression e = ConvertExpression (ec);
             if (e == null) {
-                Binary.Error_OperatorCannotBeApplied (ec, left, right, "??", loc);
+                Binary.Error_OperatorCannotBeApplied (ec, left, right, "??", _loc);
                 return null;
             }
 
@@ -1409,7 +1409,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Nullable
             ec.Emit (OpCodes.Br_S, end_label);
 
             ec.MarkLabel (is_null_label);
-            LiftedNull.Create (type, loc).Emit (ec);
+            LiftedNull.Create (type, _loc).Emit (ec);
 
             ec.MarkLabel (end_label);
         }

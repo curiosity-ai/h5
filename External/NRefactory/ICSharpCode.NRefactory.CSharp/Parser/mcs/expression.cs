@@ -45,7 +45,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             type = oper.ReturnType;
             eclass = ExprClass.Value;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override bool ContainsEmitWithAwait ()
@@ -56,11 +56,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
             if (expr_tree != null)
-                return expr_tree (ec, new TypeOfMethod (oper, loc));
+                return expr_tree (ec, new TypeOfMethod (oper, _loc));
 
             Arguments args = Arguments.CreateForExpressionTree (ec, arguments,
-                new NullLiteral (loc),
-                new TypeOfMethod (oper, loc));
+                new NullLiteral (_loc),
+                new TypeOfMethod (oper, _loc));
 
             return CreateExpressionFactoryCall (ec, "Call", args);
         }
@@ -81,7 +81,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override void Emit (EmitContext ec)
         {
             var call = new CallEmitter ();
-            call.Emit (ec, oper, arguments, loc);
+            call.Emit (ec, oper, arguments, _loc);
         }
 
         public override void FlowAnalysis (FlowAnalysisContext fc)
@@ -104,7 +104,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public ParenthesizedExpression (Expression expr, Location loc)
             : base (expr)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         protected override Expression DoResolve (ResolveContext ec)
@@ -145,7 +145,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             Oper = op;
             Expr = expr;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         // <summary>
@@ -213,7 +213,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     int ivalue = ((IntConstant) e).Value;
                     if (ivalue == int.MinValue) {
                         if (ec.ConstantCheckState) {
-                            ConstantFold.Error_CompileTimeOverflow (ec, loc);
+                            ConstantFold.Error_CompileTimeOverflow (ec, _loc);
                             return null;
                         }
                         return e;
@@ -224,7 +224,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     long lvalue = ((LongConstant) e).Value;
                     if (lvalue == long.MinValue) {
                         if (ec.ConstantCheckState) {
-                            ConstantFold.Error_CompileTimeOverflow (ec, loc);
+                            ConstantFold.Error_CompileTimeOverflow (ec, _loc);
                             return null;
                         }
                         return e;
@@ -494,11 +494,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (Expr.Type.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
                 Arguments args = new Arguments (1);
                 args.Add (new Argument (Expr));
-                return new DynamicUnaryConversion (GetOperatorExpressionTypeName (), args, loc).Resolve (ec);
+                return new DynamicUnaryConversion (GetOperatorExpressionTypeName (), args, _loc).Resolve (ec);
             }
 
             if (Expr.Type.IsNullableType)
-                return new Nullable.LiftedUnaryOperator (Oper, Expr, loc).Resolve (ec);
+                return new Nullable.LiftedUnaryOperator (Oper, Expr, _loc).Resolve (ec);
 
             //
             // Attempt to use a constant folding operation.
@@ -512,7 +512,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             Expression expr = ResolveOperator (ec, Expr);
             if (expr == null)
-                Error_OperatorCannotBeApplied (ec, loc, OperName (Oper), Expr.Type);
+                Error_OperatorCannotBeApplied (ec, _loc, OperName (Oper), Expr.Type);
 
             //
             // Reduce unary operator on predefined types
@@ -703,15 +703,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         Expression ResolveAddressOf (ResolveContext ec)
         {
             if (!ec.IsUnsafe)
-                UnsafeError (ec, loc);
+                UnsafeError (ec, _loc);
 
             Expr = Expr.DoResolveLValue (ec, EmptyExpression.UnaryAddress);
             if (Expr == null || Expr.eclass != ExprClass.Variable) {
-                ec.Report.Error (211, loc, "Cannot take the address of the given expression");
+                ec.Report.Error (211, _loc, "Cannot take the address of the given expression");
                 return null;
             }
 
-            if (!TypeManager.VerifyUnmanaged (ec.Module, Expr.Type, loc)) {
+            if (!TypeManager.VerifyUnmanaged (ec.Module, Expr.Type, _loc)) {
                 return null;
             }
 
@@ -721,14 +721,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 vr.SetHasAddressTaken ();
 
                 if (vr.IsHoisted) {
-                    AnonymousMethodExpression.Error_AddressOfCapturedVar (ec, vr, loc);
+                    AnonymousMethodExpression.Error_AddressOfCapturedVar (ec, vr, _loc);
                 }
             } else {
                 is_fixed = Expr is IFixedExpression fe && fe.IsFixed;
             }
 
             if (!is_fixed && !ec.HasSet (ResolveContext.Options.FixedInitializerScope)) {
-                ec.Report.Error (212, loc, "You can only take the address of unfixed expression inside of a fixed statement initializer");
+                ec.Report.Error (212, _loc, "You can only take the address of unfixed expression inside of a fixed statement initializer");
             }
 
             type = PointerContainer.MakeType (ec.Module, Expr.Type);
@@ -773,7 +773,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Arguments args = new Arguments (1);
             args.Add (new Argument (expr));
 
-            var res = new OverloadResolver (methods, OverloadResolver.Restrictions.BaseMembersIncluded | OverloadResolver.Restrictions.NoBaseMembers, loc);
+            var res = new OverloadResolver (methods, OverloadResolver.Restrictions.BaseMembersIncluded | OverloadResolver.Restrictions.NoBaseMembers, _loc);
             var oper = res.ResolveOperator (ec, ref args);
 
             if (oper == null)
@@ -819,9 +819,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 int result = OverloadResolver.BetterTypeConversion (ec, best_expr.Type, t);
                 if (result == 0) {
                     if ((oper_expr is UserOperatorCall || oper_expr is UserCast) && (best_expr is UserOperatorCall || best_expr is UserCast)) {
-                        Error_Ambiguous (ec, OperName (Oper), expr.Type, loc);
+                        Error_Ambiguous (ec, OperName (Oper), expr.Type, _loc);
                     } else {
-                        Error_OperatorCannotBeApplied (ec, loc, OperName (Oper), expr.Type);
+                        Error_OperatorCannotBeApplied (ec, _loc, OperName (Oper), expr.Type);
                     }
 
                     break;
@@ -872,7 +872,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public Indirection (Expression expr, Location l)
         {
             this.expr = expr;
-            loc = l;
+            _loc = l;
         }
 
         public Expression Expr {
@@ -967,12 +967,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return null;
 
             if (!ec.IsUnsafe)
-                UnsafeError (ec, loc);
+                UnsafeError (ec, _loc);
 
 
             if (!(expr.Type is PointerContainer pc))
             {
-                ec.Report.Error(193, loc, "The * or -> operator must be applied to a pointer");
+                ec.Report.Error(193, _loc, "The * or -> operator must be applied to a pointer");
                 return null;
             }
 
@@ -1018,7 +1018,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             {
                 this.expr = expr;
                 this.type = expr.Type;
-                this.loc = expr.Location;
+                this._loc = expr.Location;
             }
 
             public override Expression CreateExpressionTree (ResolveContext ec)
@@ -1094,7 +1094,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public UnaryMutator (Mode m, Expression e, Location loc)
         {
             mode = m;
-            this.loc = loc;
+            this._loc = loc;
             expr = e;
         }
 
@@ -1112,7 +1112,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override Location StartLocation {
             get {
-                return (mode & Mode.IsPost) != 0 ? expr.Location : loc;
+                return (mode & Mode.IsPost) != 0 ? expr.Location : _loc;
             }
         }
 
@@ -1165,11 +1165,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                 Arguments args = new Arguments (1);
                 args.Add (new Argument (expr));
-                return new SimpleAssign (expr, new DynamicUnaryConversion (GetOperatorExpressionTypeName (), args, loc)).Resolve (ec);
+                return new SimpleAssign (expr, new DynamicUnaryConversion (GetOperatorExpressionTypeName (), args, _loc)).Resolve (ec);
             }
 
             if (expr.Type.IsNullableType)
-                return new Nullable.LiftedUnaryMutator (mode, expr, loc).Resolve (ec);
+                return new Nullable.LiftedUnaryMutator (mode, expr, _loc).Resolve (ec);
 
             return DoResolveOperation (ec);
         }
@@ -1195,7 +1195,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (expr.eclass == ExprClass.Variable || expr.eclass == ExprClass.IndexerAccess || expr.eclass == ExprClass.PropertyAccess) {
                 expr = expr.ResolveLValue (ec, expr);
             } else {
-                ec.Report.Error (1059, loc, "The operand of an increment or decrement operator must be a variable, property or indexer");
+                ec.Report.Error (1059, _loc, "The operand of an increment or decrement operator must be a variable, property or indexer");
             }
 
             //
@@ -1208,14 +1208,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 Arguments args = new Arguments (1);
                 args.Add (new Argument (expr));
 
-                var res = new OverloadResolver (methods, OverloadResolver.Restrictions.BaseMembersIncluded | OverloadResolver.Restrictions.NoBaseMembers, loc);
+                var res = new OverloadResolver (methods, OverloadResolver.Restrictions.BaseMembersIncluded | OverloadResolver.Restrictions.NoBaseMembers, _loc);
                 var method = res.ResolveOperator (ec, ref args);
                 if (method == null)
                     return null;
 
                 args[0].Expr = operation;
-                operation = new UserOperatorCall (method, args, null, loc);
-                operation = Convert.ImplicitConversionRequired (ec, operation, type, loc);
+                operation = new UserOperatorCall (method, args, null, _loc);
+                operation = Convert.ImplicitConversionRequired (ec, operation, type, _loc);
                 return this;
             }
 
@@ -1262,7 +1262,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 } else {
                     Expression best_source = null;
                     foreach (var t in ec.BuiltinTypes.OperatorsUnaryMutator) {
-                        source = Convert.ImplicitUserConversion (ec, operation, t, loc);
+                        source = Convert.ImplicitUserConversion (ec, operation, t, _loc);
 
                         // LAMESPEC: It should error on ambiguous operators but that would make us incompatible
                         if (source == null)
@@ -1282,7 +1282,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                             continue;
                         }
 
-                        Unary.Error_Ambiguous (ec, OperName (mode), type, loc);
+                        Unary.Error_Ambiguous (ec, OperName (mode), type, _loc);
                         break;
                     }
 
@@ -1294,14 +1294,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     source = operation;
 
                 if (source == null) {
-                    expr.Error_OperatorCannotBeApplied (ec, loc, Operator.GetName (user_op), type);
+                    expr.Error_OperatorCannotBeApplied (ec, _loc, Operator.GetName (user_op), type);
                     return null;
                 }
 
                 break;
             }
 
-            var one = new IntConstant (ec.BuiltinTypes, 1, loc);
+            var one = new IntConstant (ec.BuiltinTypes, 1, _loc);
             var op = IsDecrement ? Binary.Operator.Subtraction : Binary.Operator.Addition;
             operation = new Binary (op, source, one);
             operation = operation.Resolve (ec);
@@ -1312,7 +1312,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (primitive_type)
                     operation = Convert.ExplicitNumericConversion (ec, operation, type);
                 else
-                    operation = Convert.ImplicitConversionRequired (ec, operation, type, loc);
+                    operation = Convert.ImplicitConversionRequired (ec, operation, type, _loc);
             }
 
             return this;
@@ -1412,7 +1412,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         protected Probe (Expression expr, Expression probe_type, Location l)
         {
             ProbeType = probe_type;
-            loc = l;
+            _loc = l;
             this.expr = expr;
         }
 
@@ -1438,19 +1438,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return this;
 
             if (probe_type_expr.IsStatic) {
-                rc.Report.Error (7023, loc, "The second operand of `is' or `as' operator cannot be static type `{0}'",
+                rc.Report.Error (7023, _loc, "The second operand of `is' or `as' operator cannot be static type `{0}'",
                     probe_type_expr.GetSignatureForError ());
                 return null;
             }
 
             if (expr.Type.IsPointer || probe_type_expr.IsPointer) {
-                rc.Report.Error (244, loc, "The `{0}' operator cannot be applied to an operand of pointer type",
+                rc.Report.Error (244, _loc, "The `{0}' operator cannot be applied to an operand of pointer type",
                     OperatorName);
                 return null;
             }
 
             if (expr.Type == InternalType.AnonymousMethod || expr.Type == InternalType.MethodGroup) {
-                rc.Report.Error (837, loc, "The `{0}' operator cannot be applied to a lambda expression, anonymous method, or method group",
+                rc.Report.Error (837, _loc, "The `{0}' operator cannot be applied to a lambda expression, anonymous method, or method group",
                     OperatorName);
                 return null;
             }
@@ -1512,7 +1512,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             Arguments args = Arguments.CreateForExpressionTree (ec, null,
                 expr.CreateExpressionTree (ec),
-                new TypeOf (probe_type_expr, loc));
+                new TypeOf (probe_type_expr, _loc));
 
             return CreateExpressionFactoryCall (ec, "TypeIs", args);
         }
@@ -1520,16 +1520,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         Expression CreateConstantResult (ResolveContext rc, bool result)
         {
             if (result)
-                rc.Report.Warning (183, 1, loc, "The given expression is always of the provided (`{0}') type",
+                rc.Report.Warning (183, 1, _loc, "The given expression is always of the provided (`{0}') type",
                     probe_type_expr.GetSignatureForError ());
             else
-                rc.Report.Warning (184, 1, loc, "The given expression is never of the provided (`{0}') type",
+                rc.Report.Warning (184, 1, _loc, "The given expression is never of the provided (`{0}') type",
                     probe_type_expr.GetSignatureForError ());
 
-            var c = new BoolConstant (rc.BuiltinTypes, result, loc);
+            var c = new BoolConstant (rc.BuiltinTypes, result, _loc);
             return expr.IsSideEffectFree ?
                 ReducedExpression.Create (c, this) :
-                new SideEffectConstant (c, this, loc);
+                new SideEffectConstant (c, this, _loc);
         }
 
         public override void Emit (EmitContext ec)
@@ -1590,7 +1590,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (number_args != null && number_args.Count == 3) {
                 var ce = new CallEmitter ();
-                ce.Emit (ec, number_mg, number_args, loc);
+                ce.Emit (ec, number_mg, number_args, _loc);
                 return;
             }
 
@@ -1608,7 +1608,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (number_mg != null) {
                 var ce = new CallEmitter ();
-                ce.Emit (ec, number_mg, number_args, loc);
+                ce.Emit (ec, number_mg, number_args, _loc);
             } else {
                 if (TypeSpec.IsValueType (probe_type))
                     ec.Emit (OpCodes.Unbox_Any, probe_type);
@@ -1777,7 +1777,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                 if (Expr is Constant c)
                 {
-                    c = ConstantFold.BinaryFold(rc, Binary.Operator.Equality, c, mc, loc);
+                    c = ConstantFold.BinaryFold(rc, Binary.Operator.Equality, c, mc, _loc);
                     if (c != null)
                         return c;
                 }
@@ -1786,12 +1786,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 {
                     expr_unwrap = new Nullable.Unwrap(Expr);
                     expr_unwrap.Resolve(rc);
-                    ProbeType = Convert.ImplicitConversion(rc, ProbeType, expr_unwrap.Type, loc);
+                    ProbeType = Convert.ImplicitConversion(rc, ProbeType, expr_unwrap.Type, _loc);
                 }
                 else if (ProbeType.Type == Expr.Type)
                 {
                     // TODO: Better error handling
-                    return new Binary(Binary.Operator.Equality, Expr, mc, loc).Resolve(rc);
+                    return new Binary(Binary.Operator.Equality, Expr, mc, _loc).Resolve(rc);
                 }
                 else if (ProbeType.Type.IsEnum || (ProbeType.Type.BuiltinType >= BuiltinTypeSpec.Type.Byte && ProbeType.Type.BuiltinType <= BuiltinTypeSpec.Type.Decimal))
                 {
@@ -1805,8 +1805,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     if (!ProbeType.Type.IsEnum)
                         number_args.Add(new Argument(Expr));
 
-                    number_args.Add(new Argument(Convert.ImplicitConversion(rc, ProbeType, rc.BuiltinTypes.Object, loc)));
-                    number_args.Add(new Argument(new BoolLiteral(rc.BuiltinTypes, ProbeType.Type.IsEnum, loc)));
+                    number_args.Add(new Argument(Convert.ImplicitConversion(rc, ProbeType, rc.BuiltinTypes.Object, _loc)));
+                    number_args.Add(new Argument(new BoolLiteral(rc.BuiltinTypes, ProbeType.Type.IsEnum, _loc)));
                 }
 
                 return this;
@@ -1890,7 +1890,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     return ResolveGenericParameter(ec, d, tps);
 
                 if (t.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
-                    ec.Report.Warning (1981, 3, loc,
+                    ec.Report.Warning (1981, 3, _loc,
                         "Using `{0}' to test compatibility with `{1}' is identical to testing compatibility with `object'",
                         OperatorName, t.GetSignatureForError ());
                 }
@@ -1927,7 +1927,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         // Turn is check into simple null check for implicitly convertible reference types
                         //
                         return ReducedExpression.Create (
-                            new Binary (Binary.Operator.Inequality, expr, new NullLiteral (loc)).Resolve (ec),
+                            new Binary (Binary.Operator.Inequality, expr, new NullLiteral (_loc)).Resolve (ec),
                             this).Resolve (ec);
                     }
 
@@ -2062,7 +2062,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 comparisons [arg_comp_index] = ResolveComparison (rc, expr, lt);
             }
 
-            operator_mg = MethodGroupExpr.CreatePredefined (op, type, loc);
+            operator_mg = MethodGroupExpr.CreatePredefined (op, type, _loc);
 
             eclass = ExprClass.Value;
             return this;
@@ -2196,11 +2196,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             for (int i = 0; i < Members.Count; i++) {
                 var lookup = Members [i];
 
-                var member = MemberLookup (rc, false, type, lookup.Name, 0, Expression.MemberLookupRestrictions.ExactArity, loc);
+                var member = MemberLookup (rc, false, type, lookup.Name, 0, Expression.MemberLookupRestrictions.ExactArity, _loc);
                 if (member == null) {
-                    member = MemberLookup (rc, true, type, lookup.Name, 0, Expression.MemberLookupRestrictions.ExactArity, loc);
+                    member = MemberLookup (rc, true, type, lookup.Name, 0, Expression.MemberLookupRestrictions.ExactArity, _loc);
                     if (member != null) {
-                        Expression.ErrorIsInaccesible (rc, member.GetSignatureForError (), loc);
+                        Expression.ErrorIsInaccesible (rc, member.GetSignatureForError (), _loc);
                         continue;
                     }
                 }
@@ -2271,7 +2271,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
     {
         protected PatternExpression (Location loc)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override Expression CreateExpressionTree (ResolveContext ec)
@@ -2325,7 +2325,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             Arguments args = Arguments.CreateForExpressionTree (ec, null,
                 expr.CreateExpressionTree (ec),
-                new TypeOf (probe_type_expr, loc));
+                new TypeOf (probe_type_expr, _loc));
 
             return CreateExpressionFactoryCall (ec, "TypeAs", args);
         }
@@ -2351,11 +2351,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (!TypeSpec.IsReferenceType (type) && !type.IsNullableType) {
                 if (TypeManager.IsGenericParameter (type)) {
-                    ec.Report.Error (413, loc,
+                    ec.Report.Error (413, _loc,
                         "The `as' operator cannot be used with a non-reference type parameter `{0}'. Consider adding `class' or a reference type constraint",
                         probe_type_expr.GetSignatureForError ());
                 } else {
-                    ec.Report.Error (77, loc,
+                    ec.Report.Error (77, _loc,
                         "The `as' operator cannot be used with a non-nullable value type `{0}'",
                         type.GetSignatureForError ());
                 }
@@ -2371,7 +2371,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return this;
             }
 
-            Expression e = Convert.ImplicitConversionStandard (ec, expr, type, loc);
+            Expression e = Convert.ImplicitConversionStandard (ec, expr, type, _loc);
             if (e != null) {
                 e = EmptyCast.Create (e, type);
                 return ReducedExpression.Create (e, this).Resolve (ec);
@@ -2390,7 +2390,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             if (etype != InternalType.ErrorType) {
-                ec.Report.Error (39, loc, "Cannot convert type `{0}' to `{1}' via a built-in conversion",
+                ec.Report.Error (39, _loc, "Cannot convert type `{0}' to `{1}' via a built-in conversion",
                     etype.GetSignatureForError (), type.GetSignatureForError ());
             }
 
@@ -2413,7 +2413,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             : base (expr)
         {
             this.target_type = cast_type;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public Expression TargetType {
@@ -2431,12 +2431,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return null;
 
             if (type.IsStatic) {
-                ec.Report.Error (716, loc, "Cannot convert to static type `{0}'", type.GetSignatureForError ());
+                ec.Report.Error (716, _loc, "Cannot convert to static type `{0}'", type.GetSignatureForError ());
                 return null;
             }
 
             if (type.IsPointer && !ec.IsUnsafe) {
-                UnsafeError (ec, loc);
+                UnsafeError (ec, _loc);
             }
 
             eclass = ExprClass.Value;
@@ -2448,7 +2448,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     return c;
             }
 
-            var res = Convert.ExplicitConversion (ec, expr, type, loc);
+            var res = Convert.ExplicitConversion (ec, expr, type, _loc);
             if (res == expr)
                 return EmptyCast.Create (res, type);
 
@@ -2476,7 +2476,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public ImplicitCast (Expression expr, TypeSpec target, bool arrayAccess)
             : base (expr)
         {
-            this.loc = expr.Location;
+            this._loc = expr.Location;
             this.type = target;
             this.arrayAccess = arrayAccess;
         }
@@ -2490,7 +2490,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (arrayAccess)
                 expr = ConvertExpressionToArrayIndex (ec, expr);
             else
-                expr = Convert.ImplicitConversionRequired (ec, expr, type, loc);
+                expr = Convert.ImplicitConversionRequired (ec, expr, type, _loc);
 
             return expr;
         }
@@ -2504,7 +2504,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             VariableType = variableType;
             Variable = variable;
-            this.loc = variable.Location;
+            this._loc = variable.Location;
         }
 
         public LocalVariable Variable { get; set; }
@@ -2534,7 +2534,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override Expression CreateExpressionTree (ResolveContext rc)
         {
-            rc.Report.Error (8046, loc, "An expression tree cannot contain a declaration expression");
+            rc.Report.Error (8046, _loc, "An expression tree cannot contain a declaration expression");
             return null;
         }
 
@@ -2558,7 +2558,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             Variable.Type = type;
-            lvr = new LocalVariableReference (Variable, loc);
+            lvr = new LocalVariableReference (Variable, _loc);
 
             eclass = ExprClass.Variable;
             return true;
@@ -2596,7 +2596,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public DefaultValueExpression (Expression expr, Location loc)
         {
             this.expr = expr;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public Expression Expr {
@@ -2620,7 +2620,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             Arguments args = new Arguments (2);
             args.Add (new Argument (this));
-            args.Add (new Argument (new TypeOf (type, loc)));
+            args.Add (new Argument (new TypeOf (type, _loc)));
             return CreateExpressionFactoryCall (ec, "Constant", args);
         }
 
@@ -2631,14 +2631,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return null;
 
             if (type.IsStatic) {
-                ec.Report.Error (-244, loc, "The `default value' operator cannot be applied to an operand of a static type");
+                ec.Report.Error (-244, _loc, "The `default value' operator cannot be applied to an operand of a static type");
             }
 
             if (type.IsPointer)
                 return new NullLiteral (Location).ConvertImplicitly (type);
 
             if (TypeSpec.IsReferenceType (type))
-                return new NullConstant (type, loc);
+                return new NullConstant (type, _loc);
 
             Constant c = New.Constantify (type, expr.Location);
             if (c != null)
@@ -2997,7 +2997,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 //
                 // Start a new concat expression using converted expression
                 //
-                return StringConcat.Create (ec, b.left, b.right, b.loc);
+                return StringConcat.Create (ec, b.left, b.right, b._loc);
             }
         }
 
@@ -3025,9 +3025,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (b.oper == Operator.Equality) {
                     if (equal_method == null) {
                         if (left.BuiltinType == BuiltinTypeSpec.Type.String)
-                            equal_method = ec.Module.PredefinedMembers.StringEqual.Resolve (b.loc);
+                            equal_method = ec.Module.PredefinedMembers.StringEqual.Resolve (b._loc);
                         else if (left.BuiltinType == BuiltinTypeSpec.Type.Delegate)
-                            equal_method = ec.Module.PredefinedMembers.DelegateEqual.Resolve (b.loc);
+                            equal_method = ec.Module.PredefinedMembers.DelegateEqual.Resolve (b._loc);
                         else
                             throw new NotImplementedException (left.GetSignatureForError ());
                     }
@@ -3036,9 +3036,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 } else {
                     if (inequal_method == null) {
                         if (left.BuiltinType == BuiltinTypeSpec.Type.String)
-                            inequal_method = ec.Module.PredefinedMembers.StringInequal.Resolve (b.loc);
+                            inequal_method = ec.Module.PredefinedMembers.StringInequal.Resolve (b._loc);
                         else if (left.BuiltinType == BuiltinTypeSpec.Type.Delegate)
-                            inequal_method = ec.Module.PredefinedMembers.DelegateInequal.Resolve (b.loc);
+                            inequal_method = ec.Module.PredefinedMembers.DelegateInequal.Resolve (b._loc);
                         else
                             throw new NotImplementedException (left.GetSignatureForError ());
                     }
@@ -3046,7 +3046,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     method = inequal_method;
                 }
 
-                return new UserOperatorCall (method, args, b.CreateExpressionTree, b.loc);
+                return new UserOperatorCall (method, args, b.CreateExpressionTree, b._loc);
             }
         }
 
@@ -3113,7 +3113,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     right_arg = b.right;
                 }
 
-                return new PointerArithmetic (b.oper, left_arg, right_arg, r_type, b.loc).Resolve (ec);
+                return new PointerArithmetic (b.oper, left_arg, right_arg, r_type, b._loc).Resolve (ec);
             }
         }
 
@@ -3189,7 +3189,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             this.oper = oper;
             this.left = left;
             this.right = right;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         #region Properties
@@ -3318,7 +3318,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         void Error_OperatorCannotBeApplied (ResolveContext ec, Expression left, Expression right)
         {
-            Error_OperatorCannotBeApplied (ec, left, right, OperName (oper), loc);
+            Error_OperatorCannotBeApplied (ec, left, right, OperName (oper), _loc);
         }
 
         public override void FlowAnalysis (FlowAnalysisContext fc)
@@ -3811,7 +3811,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // FIXME: consider constants
 
             var ltype = lcast != null ? lcast.UnderlyingType : rcast.UnderlyingType;
-            ec.Report.Warning (675, 3, loc,
+            ec.Report.Warning (675, 3, _loc,
                 "The operator `|' used on the sign-extended type `{0}'. Consider casting to a smaller unsigned type first",
                 ltype.GetSignatureForError ());
         }
@@ -4116,7 +4116,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     return null;
 
                 if (left.eclass == ExprClass.Type) {
-                    ec.Report.Error (75, loc, "To cast a negative value, you must enclose the value in parentheses");
+                    ec.Report.Error (75, _loc, "To cast a negative value, you must enclose the value in parentheses");
                     return null;
                 }
             } else
@@ -4141,7 +4141,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (rc != null && lc != null) {
                 int prev_e = ec.Report.Errors;
-                Expression e = ConstantFold.BinaryFold (ec, oper, lc, rc, loc);
+                Expression e = ConstantFold.BinaryFold (ec, oper, lc, rc, _loc);
                 if (e != null || ec.Report.Errors != prev_e)
                     return e;
             }
@@ -4149,7 +4149,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // Comparison warnings
             if ((oper & Operator.ComparisonMask) != 0) {
                 if (left.Equals (right)) {
-                    ec.Report.Warning (1718, 3, loc, "A comparison made to same variable. Did you mean to compare something else?");
+                    ec.Report.Warning (1718, 3, _loc, "A comparison made to same variable. Did you mean to compare something else?");
                 }
                 CheckOutOfRangeComparison (ec, lc, right.Type);
                 CheckOutOfRangeComparison (ec, rc, left.Type);
@@ -4183,40 +4183,40 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 args = new Arguments (2);
 
                 if (lt.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
-                    LocalVariable temp = LocalVariable.CreateCompilerGenerated (lt, rc.CurrentBlock, loc);
+                    LocalVariable temp = LocalVariable.CreateCompilerGenerated (lt, rc.CurrentBlock, _loc);
 
                     var cond_args = new Arguments (1);
-                    cond_args.Add (new Argument (new SimpleAssign (temp.CreateReferenceExpression (rc, loc), left).Resolve (rc)));
+                    cond_args.Add (new Argument (new SimpleAssign (temp.CreateReferenceExpression (rc, _loc), left).Resolve (rc)));
 
                     //
                     // dynamic && bool => IsFalse (temp = left) ? temp : temp && right;
                     // dynamic || bool => IsTrue (temp = left) ? temp : temp || right;
                     //
-                    left = temp.CreateReferenceExpression (rc, loc);
+                    left = temp.CreateReferenceExpression (rc, _loc);
                     if (oper == Operator.LogicalAnd) {
-                        expr = DynamicUnaryConversion.CreateIsFalse (rc, cond_args, loc);
+                        expr = DynamicUnaryConversion.CreateIsFalse (rc, cond_args, _loc);
                         cond_left = left;
                     } else {
-                        expr = DynamicUnaryConversion.CreateIsTrue (rc, cond_args, loc);
+                        expr = DynamicUnaryConversion.CreateIsTrue (rc, cond_args, _loc);
                         cond_left = left;
                     }
 
                     args.Add (new Argument (left));
                     args.Add (new Argument (right));
-                    cond_right = new DynamicExpressionStatement (this, args, loc);
+                    cond_right = new DynamicExpressionStatement (this, args, _loc);
                 } else {
-                    LocalVariable temp = LocalVariable.CreateCompilerGenerated (rc.BuiltinTypes.Bool, rc.CurrentBlock, loc);
+                    LocalVariable temp = LocalVariable.CreateCompilerGenerated (rc.BuiltinTypes.Bool, rc.CurrentBlock, _loc);
 
-                    if (!Convert.ImplicitConversionExists (rc, left, temp.Type) && (oper == Operator.LogicalAnd ? GetOperatorFalse (rc, left, loc) : GetOperatorTrue (rc, left, loc)) == null) {
+                    if (!Convert.ImplicitConversionExists (rc, left, temp.Type) && (oper == Operator.LogicalAnd ? GetOperatorFalse (rc, left, _loc) : GetOperatorTrue (rc, left, _loc)) == null) {
                         rc.Report.Error (7083, left.Location,
                             "Expression must be implicitly convertible to Boolean or its type `{0}' must define operator `{1}'",
                             lt.GetSignatureForError (), oper == Operator.LogicalAnd ? "false" : "true");
                         return null;
                     }
 
-                    args.Add (new Argument (temp.CreateReferenceExpression (rc, loc).Resolve (rc)));
+                    args.Add (new Argument (temp.CreateReferenceExpression (rc, _loc).Resolve (rc)));
                     args.Add (new Argument (right));
-                    right = new DynamicExpressionStatement (this, args, loc);
+                    right = new DynamicExpressionStatement (this, args, _loc);
 
                     //
                     // bool && dynamic => (temp = left) ? temp && right : temp;
@@ -4224,22 +4224,22 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     //
                     if (oper == Operator.LogicalAnd) {
                         cond_left = right;
-                        cond_right = temp.CreateReferenceExpression (rc, loc);
+                        cond_right = temp.CreateReferenceExpression (rc, _loc);
                     } else {
-                        cond_left = temp.CreateReferenceExpression (rc, loc);
+                        cond_left = temp.CreateReferenceExpression (rc, _loc);
                         cond_right = right;
                     }
 
-                    expr = new BooleanExpression (new SimpleAssign (temp.CreateReferenceExpression (rc, loc), left));
+                    expr = new BooleanExpression (new SimpleAssign (temp.CreateReferenceExpression (rc, _loc), left));
                 }
 
-                return new Conditional (expr, cond_left, cond_right, loc).Resolve (rc);
+                return new Conditional (expr, cond_left, cond_right, _loc).Resolve (rc);
             }
 
             args = new Arguments (2);
             args.Add (new Argument (left));
             args.Add (new Argument (right));
-            return new DynamicExpressionStatement (this, args, loc).Resolve (rc);
+            return new DynamicExpressionStatement (this, args, _loc).Resolve (rc);
         }
 
         Expression DoResolveCore (ResolveContext ec, Expression left_orig, Expression right_orig)
@@ -4319,13 +4319,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (l != r && !TypeSpecComparer.Variant.IsEqual (r, l)) {
                 Expression tmp;
                 if (right.eclass == ExprClass.MethodGroup || r == InternalType.AnonymousMethod || r == InternalType.NullLiteral) {
-                    tmp = Convert.ImplicitConversionRequired (ec, right, l, loc);
+                    tmp = Convert.ImplicitConversionRequired (ec, right, l, _loc);
                     if (tmp == null)
                         return null;
                     right = tmp;
                     r = right.Type;
                 } else if (left.eclass == ExprClass.MethodGroup || (l == InternalType.AnonymousMethod || l == InternalType.NullLiteral)) {
-                    tmp = Convert.ImplicitConversionRequired (ec, left, r, loc);
+                    tmp = Convert.ImplicitConversionRequired (ec, left, r, _loc);
                     if (tmp == null)
                         return null;
                     left = tmp;
@@ -4341,15 +4341,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             args.Add (new Argument (right));
 
             if (oper == Operator.Addition) {
-                method = ec.Module.PredefinedMembers.DelegateCombine.Resolve (loc);
+                method = ec.Module.PredefinedMembers.DelegateCombine.Resolve (_loc);
             } else if (oper == Operator.Subtraction) {
-                method = ec.Module.PredefinedMembers.DelegateRemove.Resolve (loc);
+                method = ec.Module.PredefinedMembers.DelegateRemove.Resolve (_loc);
             }
 
             if (method == null)
                 return new EmptyExpression (ec.BuiltinTypes.Decimal);
 
-            Expression expr = new UserOperatorCall (method, args, CreateExpressionTree, loc);
+            Expression expr = new UserOperatorCall (method, args, CreateExpressionTree, _loc);
             return new ClassCast (expr, l);
         }
 
@@ -4395,13 +4395,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             if (renum && !ltype.IsNullableType) {
-                expr = Convert.ImplicitConversion (rc, left, rtype, loc);
+                expr = Convert.ImplicitConversion (rc, left, rtype, _loc);
                 if (expr != null) {
                     left = expr;
                     return this;
                 }
             } else if (lenum && !rtype.IsNullableType) {
-                expr = Convert.ImplicitConversion (rc, right, ltype, loc);
+                expr = Convert.ImplicitConversion (rc, right, ltype, _loc);
                 if (expr != null) {
                     right = expr;
                     return this;
@@ -4416,10 +4416,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (renum && !ltype.IsNullableType) {
                     var lifted_type = nullable_type.MakeGenericType (rc.Module, new[] { rtype });
 
-                    expr = Convert.ImplicitConversion (rc, left, lifted_type, loc);
+                    expr = Convert.ImplicitConversion (rc, left, lifted_type, _loc);
                     if (expr != null) {
                         left = expr;
-                        right = Convert.ImplicitConversion (rc, right, lifted_type, loc);
+                        right = Convert.ImplicitConversion (rc, right, lifted_type, _loc);
                     }
 
                     if ((oper & Operator.BitwiseMask) != 0)
@@ -4441,10 +4441,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 } else if (lenum && !rtype.IsNullableType) {
                     var lifted_type = nullable_type.MakeGenericType (rc.Module, new[] { ltype });
 
-                    expr = Convert.ImplicitConversion (rc, right, lifted_type, loc);
+                    expr = Convert.ImplicitConversion (rc, right, lifted_type, _loc);
                     if (expr != null) {
                         right = expr;
-                        left = Convert.ImplicitConversion (rc, left, lifted_type, loc);
+                        left = Convert.ImplicitConversion (rc, left, lifted_type, _loc);
                     }
 
                     if ((oper & Operator.BitwiseMask) != 0)
@@ -4482,7 +4482,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         expr = left;
                         unwrap = new Nullable.Unwrap (right);
                     } else {
-                        expr = Convert.ImplicitConversion (rc, left, Nullable.NullableInfo.GetUnderlyingType (rtype), loc);
+                        expr = Convert.ImplicitConversion (rc, left, Nullable.NullableInfo.GetUnderlyingType (rtype), _loc);
                         if (expr == null)
                             return null;
                     }
@@ -4513,7 +4513,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         expr = right;
                         unwrap = new Nullable.Unwrap (left);
                     } else {
-                        expr = Convert.ImplicitConversion (rc, right, Nullable.NullableInfo.GetUnderlyingType (ltype), loc);
+                        expr = Convert.ImplicitConversion (rc, right, Nullable.NullableInfo.GetUnderlyingType (ltype), _loc);
                         if (expr == null)
                             return null;
                     }
@@ -4756,7 +4756,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 //
                 if (l.IsDelegate) {
                     if (right.eclass == ExprClass.MethodGroup) {
-                        result = Convert.ImplicitConversion (ec, right, l, loc);
+                        result = Convert.ImplicitConversion (ec, right, l, _loc);
                         if (result == null)
                             return null;
 
@@ -4766,7 +4766,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         return null;
                     }
                 } else if (left.eclass == ExprClass.MethodGroup && r.IsDelegate) {
-                    result = Convert.ImplicitConversionRequired (ec, left, r, loc);
+                    result = Convert.ImplicitConversionRequired (ec, left, r, _loc);
                     if (result == null)
                         return null;
 
@@ -4844,12 +4844,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return null;
 
             if (l.BuiltinType == BuiltinTypeSpec.Type.String || l.BuiltinType == BuiltinTypeSpec.Type.Delegate || l.IsDelegate || MemberCache.GetUserOperator (l, MonoCSharp.Operator.OpType.Equality, false) != null)
-                ec.Report.Warning (253, 2, loc,
+                ec.Report.Warning (253, 2, _loc,
                     "Possible unintended reference comparison. Consider casting the right side expression to type `{0}' to get value comparison",
                     l.GetSignatureForError ());
 
             if (r.BuiltinType == BuiltinTypeSpec.Type.String || r.BuiltinType == BuiltinTypeSpec.Type.Delegate || r.IsDelegate || MemberCache.GetUserOperator (r, MonoCSharp.Operator.OpType.Equality, false) != null)
-                ec.Report.Warning (252, 2, loc,
+                ec.Report.Warning (252, 2, _loc,
                     "Possible unintended reference comparison. Consider casting the left side expression to type `{0}' to get value comparison",
                     r.GetSignatureForError ());
 
@@ -4923,7 +4923,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 best_operator = po.ResolveBetterOperator (ec, best_operator);
 
                 if (best_operator == null) {
-                    ec.Report.Error (34, loc, "Operator `{0}' is ambiguous on operands of type `{1}' and `{2}'",
+                    ec.Report.Error (34, _loc, "Operator `{0}' is ambiguous on operands of type `{1}' and `{2}'",
                         OperName (oper), l.GetSignatureForError (), r.GetSignatureForError ());
 
                     best_operator = po;
@@ -4949,8 +4949,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 // The result is a constant with side-effect
                 //
                 Constant side_effect = rc == null ?
-                    new SideEffectConstant (lc, right, loc) :
-                    new SideEffectConstant (rc, left, loc);
+                    new SideEffectConstant (lc, right, _loc) :
+                    new SideEffectConstant (rc, left, _loc);
 
                 return ReducedExpression.Create (side_effect, expr);
             }
@@ -4970,13 +4970,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             // FIXME: Handle side effect constants
-            Constant c = new BoolConstant (rc.BuiltinTypes, Oper == Operator.Inequality, loc);
+            Constant c = new BoolConstant (rc.BuiltinTypes, Oper == Operator.Inequality, _loc);
 
             if ((Oper & Operator.EqualityMask) != 0) {
-                rc.Report.Warning (472, 2, loc, "The result of comparing value type `{0}' with null is always `{1}'",
+                rc.Report.Warning (472, 2, _loc, "The result of comparing value type `{0}' with null is always `{1}'",
                     valueType.GetSignatureForError (), c.GetValueAsLiteral ());
             } else {
-                rc.Report.Warning (464, 2, loc, "The result of comparing type `{0}' with null is always `{1}'",
+                rc.Report.Warning (464, 2, _loc, "The result of comparing type `{0}' with null is always `{1}'",
                     valueType.GetSignatureForError (), c.GetValueAsLiteral ());
             }
 
@@ -5028,7 +5028,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             const OverloadResolver.Restrictions restr = OverloadResolver.Restrictions.ProbingOnly |
                 OverloadResolver.Restrictions.NoBaseMembers | OverloadResolver.Restrictions.BaseMembersIncluded;
 
-            var res = new OverloadResolver (left_operators, restr, loc);
+            var res = new OverloadResolver (left_operators, restr, _loc);
 
             var oper_method = res.ResolveOperator (rc, ref args);
             if (oper_method == null) {
@@ -5050,7 +5050,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (lifted_methods == null)
                     return null;
 
-                res = new OverloadResolver (lifted_methods, restr | OverloadResolver.Restrictions.ProbingOnly, loc);
+                res = new OverloadResolver (lifted_methods, restr | OverloadResolver.Restrictions.ProbingOnly, _loc);
 
                 oper_method = res.ResolveOperator (rc, ref args);
                 if (oper_method == null)
@@ -5121,9 +5121,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if ((oper & Operator.LogicalMask) != 0) {
                 // TODO: CreateExpressionTree is allocated every time
                 oper_expr = new ConditionalLogicalOperator (oper_method, args, CreateExpressionTree,
-                    oper == Operator.LogicalAnd, loc).Resolve (rc);
+                    oper == Operator.LogicalAnd, _loc).Resolve (rc);
             } else {
-                oper_expr = new UserOperatorCall (oper_method, args, CreateExpressionTree, loc);
+                oper_expr = new UserOperatorCall (oper_method, args, CreateExpressionTree, _loc);
             }
 
             this.left = larg.Expr;
@@ -5250,7 +5250,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 try {
                     c.ConvertExplicitly (true, type);
                 } catch (OverflowException) {
-                    ec.Report.Warning (652, 2, loc,
+                    ec.Report.Warning (652, 2, _loc,
                         "A comparison between a constant and a variable is useless. The constant is out of the range of the variable type `{0}'",
                         type.GetSignatureForError ());
                 }
@@ -5530,7 +5530,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Arguments binder_args = new Arguments (4);
 
             MemberAccess sle = new MemberAccess (new MemberAccess (
-                new QualifiedAliasMember (QualifiedAliasMember.GlobalAlias, "System", loc), "Linq", loc), "Expressions", loc);
+                new QualifiedAliasMember (QualifiedAliasMember.GlobalAlias, "System", _loc), "Linq", _loc), "Expressions", _loc);
 
             CSharpBinderFlags flags = 0;
             if (ec.HasSet (ResolveContext.Options.CheckedScope))
@@ -5539,12 +5539,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if ((oper & Operator.LogicalMask) != 0)
                 flags |= CSharpBinderFlags.BinaryOperationLogical;
 
-            binder_args.Add (new Argument (new EnumConstant (new IntLiteral (ec.BuiltinTypes, (int) flags, loc), ec.Module.PredefinedTypes.BinderFlags.Resolve ())));
-            binder_args.Add (new Argument (new MemberAccess (new MemberAccess (sle, "ExpressionType", loc), GetOperatorExpressionTypeName (), loc)));
-            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, loc)));
-            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), loc)));
+            binder_args.Add (new Argument (new EnumConstant (new IntLiteral (ec.BuiltinTypes, (int) flags, _loc), ec.Module.PredefinedTypes.BinderFlags.Resolve ())));
+            binder_args.Add (new Argument (new MemberAccess (new MemberAccess (sle, "ExpressionType", _loc), GetOperatorExpressionTypeName (), _loc)));
+            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, _loc)));
+            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), _loc)));
 
-            return new Invocation (new MemberAccess (new TypeExpression (ec.Module.PredefinedTypes.Binder.TypeSpec, loc), "BinaryOperation", loc), binder_args);
+            return new Invocation (new MemberAccess (new TypeExpression (ec.Module.PredefinedTypes.Binder.TypeSpec, _loc), "BinaryOperation", _loc), binder_args);
         }
 
         public override Expression CreateExpressionTree (ResolveContext ec)
@@ -5637,7 +5637,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             args.Add (new Argument (right.CreateExpressionTree (ec)));
             if (method != null) {
                 if (lift_arg)
-                    args.Add (new Argument (new BoolLiteral (ec.BuiltinTypes, false, loc)));
+                    args.Add (new Argument (new BoolLiteral (ec.BuiltinTypes, false, _loc)));
 
                 args.Add (new Argument (method));
             }
@@ -5662,7 +5662,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         StringConcat (Location loc)
         {
-            this.loc = loc;
+            this._loc = loc;
             arguments = new Arguments (2);
         }
 
@@ -5709,12 +5709,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (methods == null)
                 return null;
 
-            var res = new OverloadResolver (methods, OverloadResolver.Restrictions.NoBaseMembers, loc);
+            var res = new OverloadResolver (methods, OverloadResolver.Restrictions.NoBaseMembers, _loc);
             var method = res.ResolveMember<MethodSpec> (ec, ref concat_args);
             if (method == null)
                 return null;
 
-            add_args.Add (new Argument (new TypeOfMethod (method, loc)));
+            add_args.Add (new Argument (new TypeOfMethod (method, _loc)));
 
             Expression expr = CreateExpressionFactoryCall (ec, "Add", add_args);
             if (++pos == arguments.Count)
@@ -5775,7 +5775,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             var members = GetConcatMethodCandidates ();
-            var res = new OverloadResolver (members, OverloadResolver.Restrictions.NoBaseMembers, loc);
+            var res = new OverloadResolver (members, OverloadResolver.Restrictions.NoBaseMembers, _loc);
             var method = res.ResolveMember<MethodSpec> (new ResolveContext (ec.MemberContext), ref arguments);
             if (method != null) {
                 var call = new CallEmitter ();
@@ -5817,17 +5817,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             AParametersCollection pd = oper.Parameters;
             if (!TypeSpecComparer.IsEqual (type, pd.Types[0]) || !TypeSpecComparer.IsEqual (type, pd.Types[1])) {
-                ec.Report.Error (217, loc,
+                ec.Report.Error (217, _loc,
                     "A user-defined operator `{0}' must have each parameter type and return type of the same type in order to be applicable as a short circuit operator",
                     oper.GetSignatureForError ());
                 return null;
             }
 
             Expression left_dup = new EmptyExpression (type);
-            Expression op_true = GetOperatorTrue (ec, left_dup, loc);
-            Expression op_false = GetOperatorFalse (ec, left_dup, loc);
+            Expression op_true = GetOperatorTrue (ec, left_dup, _loc);
+            Expression op_false = GetOperatorFalse (ec, left_dup, _loc);
             if (op_true == null || op_false == null) {
-                ec.Report.Error (218, loc,
+                ec.Report.Error (218, _loc,
                     "The type `{0}' must have operator `true' and operator `false' defined when `{1}' is used as a short circuit operator",
                     type.GetSignatureForError (), oper.GetSignatureForError ());
                 return null;
@@ -5885,7 +5885,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public PointerArithmetic (Binary.Operator op, Expression l, Expression r, TypeSpec t, Location loc)
         {
             type = t;
-            this.loc = loc;
+            this._loc = loc;
             left = l;
             right = r;
             this.op = op;
@@ -6032,7 +6032,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public BooleanExpression (Expression expr)
             : base (expr)
         {
-            this.loc = expr.Location;
+            this._loc = expr.Location;
         }
 
         public override Expression CreateExpressionTree (ResolveContext ec)
@@ -6054,7 +6054,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (expr is Assign ass && ass.Source is Constant)
             {
-                ec.Report.Warning(665, 3, loc,
+                ec.Report.Warning(665, 3, _loc,
                     "Assignment in conditional expression is always constant. Did you mean to use `==' instead ?");
             }
 
@@ -6064,18 +6064,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (expr.Type.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
                 Arguments args = new Arguments (1);
                 args.Add (new Argument (expr));
-                return DynamicUnaryConversion.CreateIsTrue (ec, args, loc).Resolve (ec);
+                return DynamicUnaryConversion.CreateIsTrue (ec, args, _loc).Resolve (ec);
             }
 
             type = ec.BuiltinTypes.Bool;
-            Expression converted = Convert.ImplicitConversion (ec, expr, type, loc);
+            Expression converted = Convert.ImplicitConversion (ec, expr, type, _loc);
             if (converted != null)
                 return converted;
 
             //
             // If no implicit conversion to bool exists, try using `operator true'
             //
-            converted = GetOperatorTrue (ec, expr, loc);
+            converted = GetOperatorTrue (ec, expr, _loc);
             if (converted == null) {
                 expr.Error_ValueCannotBeConverted (ec, type, false);
                 return null;
@@ -6099,7 +6099,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         protected override Expression ResolveOperator (ResolveContext ec, Expression expr)
         {
-            return GetOperatorFalse (ec, expr, loc) ?? base.ResolveOperator (ec, expr);
+            return GetOperatorFalse (ec, expr, _loc) ?? base.ResolveOperator (ec, expr);
         }
     }
 
@@ -6114,7 +6114,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             this.expr = expr;
             this.true_expr = true_expr;
             this.false_expr = false_expr;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         #region Properties
@@ -6172,7 +6172,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             // to false_expr, then the result type is of type false_expr.Type
             //
             if (!TypeSpecComparer.IsEqual (true_type, false_type)) {
-                Expression conv = Convert.ImplicitConversion (ec, true_expr, false_type, loc);
+                Expression conv = Convert.ImplicitConversion (ec, true_expr, false_type, _loc);
                 if (conv != null && true_type.BuiltinType != BuiltinTypeSpec.Type.Dynamic) {
                     //
                     // Check if both can convert implicitly to each other's type
@@ -6180,7 +6180,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     type = false_type;
 
                     if (false_type.BuiltinType != BuiltinTypeSpec.Type.Dynamic) {
-                        var conv_false_expr = Convert.ImplicitConversion (ec, false_expr, true_type, loc);
+                        var conv_false_expr = Convert.ImplicitConversion (ec, false_expr, true_type, _loc);
                         //
                         // LAMESPEC: There seems to be hardcoded promotition to int type when
                         // both sides are numeric constants and one side is int constant and
@@ -6210,7 +6210,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     true_expr = conv;
                     if (true_expr.Type != type)
                         true_expr = EmptyCast.Create (true_expr, type);
-                } else if ((conv = Convert.ImplicitConversion (ec, false_expr, true_type, loc)) != null) {
+                } else if ((conv = Convert.ImplicitConversion (ec, false_expr, true_type, _loc)) != null) {
                     false_expr = conv;
                 } else {
                     if (false_type != InternalType.ErrorType) {
@@ -6375,7 +6375,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override Expression DoResolveLValue (ResolveContext rc, Expression right_side)
         {
             if (IsLockedByStatement) {
-                rc.Report.Warning (728, 2, loc,
+                rc.Report.Warning (728, 2, _loc,
                     "Possibly incorrect assignment to `{0}' which is the argument to a using or lock statement",
                     Name);
             }
@@ -6521,7 +6521,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public LocalVariableReference (LocalVariable li, Location l)
         {
             this.local_info = li;
-            loc = l;
+            _loc = l;
         }
 
         public override VariableInfo VariableInfo {
@@ -6572,7 +6572,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (fc.IsDefinitelyAssigned (variable_info))
                 return;
 
-            fc.Report.Error (165, loc, "Use of unassigned local variable `{0}'", Name);
+            fc.Report.Error (165, _loc, "Use of unassigned local variable `{0}'", Name);
             variable_info.SetAssigned (fc.DefiniteAssignment, true);
         }
 
@@ -6592,9 +6592,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             //
             if (ec.MustCaptureVariable (local_info)) {
                 if (local_info.AddressTaken) {
-                    AnonymousMethodExpression.Error_AddressOfCapturedVar (ec, this, loc);
+                    AnonymousMethodExpression.Error_AddressOfCapturedVar (ec, this, _loc);
                 } else if (local_info.IsFixed) {
-                    ec.Report.Error (1764, loc,
+                    ec.Report.Error (1764, _loc,
                         "Cannot use fixed local `{0}' inside an anonymous method, lambda expression or query expression",
                         GetSignatureForError ());
                 }
@@ -6613,7 +6613,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             DoResolveBase (ec);
 
             if (local_info.Type == InternalType.VarOutType) {
-                ec.Report.Error (8048, loc, "Cannot use uninitialized variable `{0}'",
+                ec.Report.Error (8048, _loc, "Cannot use uninitialized variable `{0}'",
                     GetSignatureForError ());
 
                 type = InternalType.ErrorType;
@@ -6646,7 +6646,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     } else {
                         code = 1656; msg = "Cannot assign to `{0}' because it is a `{1}'";
                     }
-                    ec.Report.Error (code, loc, msg, Name, local_info.GetReadOnlyContext ());
+                    ec.Report.Error (code, _loc, msg, Name, local_info.GetReadOnlyContext ());
                 }
             }
 
@@ -6675,7 +6675,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override string ToString ()
         {
-            return String.Format ("{0} ({1}:{2})", GetType (), Name, loc);
+            return String.Format ("{0} ({1}:{2})", GetType (), Name, _loc);
         }
 
         protected override void CloneTo (CloneContext clonectx, Expression t)
@@ -6700,7 +6700,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public ParameterReference (ParametersBlock.ParameterInfo pi, Location loc)
         {
             this.pi = pi;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         #region Properties
@@ -6785,10 +6785,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             //
             if (ec.MustCaptureVariable (pi)) {
                 if (Parameter.HasAddressTaken)
-                    AnonymousMethodExpression.Error_AddressOfCapturedVar (ec, this, loc);
+                    AnonymousMethodExpression.Error_AddressOfCapturedVar (ec, this, _loc);
 
                 if (IsRef) {
-                    ec.Report.Error (1628, loc,
+                    ec.Report.Error (1628, _loc,
                         "Parameter `{0}' cannot be used inside `{1}' when using `ref' or `out' modifier",
                         Name, ec.CurrentAnonymousMethod.ContainerType);
                 }
@@ -6858,7 +6858,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (fc.IsDefinitelyAssigned (variable_info))
                 return;
 
-            fc.Report.Error (269, loc, "Use of unassigned out parameter `{0}'", Name);
+            fc.Report.Error (269, _loc, "Use of unassigned out parameter `{0}'", Name);
             fc.SetVariableAssigned (variable_info);
         }
     }
@@ -6882,7 +6882,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     var member = mg.BestCandidate;
                     ObsoleteAttribute oa = member.GetAttributeObsolete ();
                     if (oa != null)
-                        AttributeTester.Report_ObsoleteMessage (oa, member.GetSignatureForError (), loc, rc.Report);
+                        AttributeTester.Report_ObsoleteMessage (oa, member.GetSignatureForError (), _loc, rc.Report);
                 }
 
                 return mg;
@@ -6899,7 +6899,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             this.expr = expr;
             this.arguments = arguments;
             if (expr != null) {
-                loc = expr.Location;
+                _loc = expr.Location;
             }
         }
 
@@ -6997,7 +6997,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             Expression instance = mg.IsInstance ?
                 mg.InstanceExpression.CreateExpressionTree (ec) :
-                new NullLiteral (loc);
+                new NullLiteral (_loc);
 
             var args = Arguments.CreateForExpressionTree (ec, arguments,
                 instance,
@@ -7060,24 +7060,24 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (mg == null) {
                 if (expr_type != null && expr_type.IsDelegate) {
-                    invoke = new DelegateInvocation (member_expr, arguments, conditional_access_receiver, loc);
+                    invoke = new DelegateInvocation (member_expr, arguments, conditional_access_receiver, _loc);
                     invoke = invoke.Resolve (ec);
                     if (invoke == null || !dynamic_arg)
                         return invoke;
                 } else {
                     if (member_expr is RuntimeValueExpression) {
-                        ec.Report.Error (Report.RuntimeErrorId, loc, "Cannot invoke a non-delegate type `{0}'",
+                        ec.Report.Error (Report.RuntimeErrorId, _loc, "Cannot invoke a non-delegate type `{0}'",
                             member_expr.Type.GetSignatureForError ());
                         return null;
                     }
 
                     if (!(member_expr is MemberExpr me))
                     {
-                        member_expr.Error_UnexpectedKind(ec, ResolveFlags.MethodGroup, loc);
+                        member_expr.Error_UnexpectedKind(ec, ResolveFlags.MethodGroup, _loc);
                         return null;
                     }
 
-                    ec.Report.Error (1955, loc, "The member `{0}' cannot be used as method or delegate",
+                    ec.Report.Error (1955, _loc, "The member `{0}' cannot be used as method or delegate",
                             member_expr.GetSignatureForError ());
                     return null;
                 }
@@ -7099,13 +7099,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (arguments == null && method.DeclaringType.BuiltinType == BuiltinTypeSpec.Type.Object && method.Name == Destructor.MetadataName) {
                 if (mg.IsBase)
-                    ec.Report.Error (250, loc, "Do not directly call your base class Finalize method. It is called automatically from your destructor");
+                    ec.Report.Error (250, _loc, "Do not directly call your base class Finalize method. It is called automatically from your destructor");
                 else
-                    ec.Report.Error (245, loc, "Destructors and object.Finalize cannot be called directly. Consider calling IDisposable.Dispose if available");
+                    ec.Report.Error (245, _loc, "Destructors and object.Finalize cannot be called directly. Consider calling IDisposable.Dispose if available");
                 return null;
             }
 
-            IsSpecialMethodInvocation (ec, method, loc);
+            IsSpecialMethodInvocation (ec, method, _loc);
 
             eclass = ExprClass.Value;
             return this;
@@ -7134,7 +7134,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             {
                 if (mg.IsBase)
                 {
-                    ec.Report.Error(1971, loc,
+                    ec.Report.Error(1971, _loc,
                         "The base call to method `{0}' cannot be dynamically dispatched. Consider casting the dynamic arguments or eliminating the base access",
                         mg.Name);
                     return null;
@@ -7150,7 +7150,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     var inst = mg.InstanceExpression;
                     if (inst is TypeExpr left_type)
                     {
-                        args.Insert(0, new Argument(new TypeOf(left_type.Type, loc).Resolve(ec), Argument.AType.DynamicTypeName));
+                        args.Insert(0, new Argument(new TypeOf(left_type.Type, _loc).Resolve(ec), Argument.AType.DynamicTypeName));
                     }
                     else if (inst != null)
                     {
@@ -7167,16 +7167,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 {    // is SimpleName
                     if (ec.IsStatic)
                     {
-                        args.Insert(0, new Argument(new TypeOf(ec.CurrentType, loc).Resolve(ec), Argument.AType.DynamicTypeName));
+                        args.Insert(0, new Argument(new TypeOf(ec.CurrentType, _loc).Resolve(ec), Argument.AType.DynamicTypeName));
                     }
                     else
                     {
-                        args.Insert(0, new Argument(new This(loc).Resolve(ec)));
+                        args.Insert(0, new Argument(new This(_loc).Resolve(ec)));
                     }
                 }
             }
 
-            return new DynamicInvocation (expr as ATypeNameExpression, args, loc).Resolve (ec);
+            return new DynamicInvocation (expr as ATypeNameExpression, args, _loc).Resolve (ec);
         }
 
         protected virtual MethodGroupExpr DoResolveOverload (ResolveContext ec)
@@ -7304,7 +7304,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             RequestedType = requested_type;
             this.arguments = arguments;
-            loc = l;
+            _loc = l;
         }
 
         #region Properties
@@ -7403,8 +7403,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (real_class == null)
                 return null;
 
-            New proxy = new New (new TypeExpression (real_class, loc), arguments, loc);
-            Cast cast = new Cast (new TypeExpression (type, loc), proxy, loc);
+            New proxy = new New (new TypeExpression (real_class, _loc), arguments, _loc);
+            Cast cast = new Cast (new TypeExpression (type, _loc), proxy, _loc);
             return cast.Resolve (ec);
         }
 
@@ -7413,10 +7413,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Arguments args;
             if (method == null) {
                 args = new Arguments (1);
-                args.Add (new Argument (new TypeOf (type, loc)));
+                args.Add (new Argument (new TypeOf (type, _loc)));
             } else {
                 args = Arguments.CreateForExpressionTree (ec,
-                    arguments, new TypeOfMethod (method, loc));
+                    arguments, new TypeOfMethod (method, _loc));
             }
 
             return CreateExpressionFactoryCall (ec, "New", args);
@@ -7431,7 +7431,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             eclass = ExprClass.Value;
 
             if (type.IsPointer) {
-                ec.Report.Error (1919, loc, "Unsafe type `{0}' cannot be used in an object creation expression",
+                ec.Report.Error (1919, _loc, "Unsafe type `{0}' cannot be used in an object creation expression",
                     type.GetSignatureForError ());
                 return null;
             }
@@ -7443,7 +7443,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             if (type.IsDelegate) {
-                return (new NewDelegate (type, arguments, loc)).Resolve (ec);
+                return (new NewDelegate (type, arguments, _loc)).Resolve (ec);
             }
 
             if (type is TypeParameterSpec tparam)
@@ -7454,14 +7454,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 //
                 if ((tparam.SpecialConstraint & (SpecialConstraint.Struct | SpecialConstraint.Constructor)) == 0 && !TypeSpec.IsValueType(tparam))
                 {
-                    ec.Report.Error(304, loc,
+                    ec.Report.Error(304, _loc,
                         "Cannot create an instance of the variable type `{0}' because it does not have the new() constraint",
                         type.GetSignatureForError());
                 }
 
                 if ((arguments != null) && (arguments.Count != 0))
                 {
-                    ec.Report.Error(417, loc,
+                    ec.Report.Error(417, _loc,
                         "`{0}': cannot provide arguments when creating an instance of a variable type",
                         type.GetSignatureForError());
                 }
@@ -7471,7 +7471,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (type.IsStatic) {
                 ec.Report.SymbolRelatedToPreviousError (type);
-                ec.Report.Error (712, loc, "Cannot create an instance of the static class `{0}'", type.GetSignatureForError ());
+                ec.Report.Error (712, _loc, "Cannot create an instance of the static class `{0}'", type.GetSignatureForError ());
                 return null;
             }
 
@@ -7483,7 +7483,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
 
                 ec.Report.SymbolRelatedToPreviousError (type);
-                ec.Report.Error (144, loc, "Cannot create an instance of the abstract class or interface `{0}'", type.GetSignatureForError ());
+                ec.Report.Error (144, _loc, "Cannot create an instance of the abstract class or interface `{0}'", type.GetSignatureForError ());
                 return null;
             }
 
@@ -7494,11 +7494,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 dynamic = false;
             }
 
-            method = ConstructorLookup (ec, type, ref arguments, loc);
+            method = ConstructorLookup (ec, type, ref arguments, _loc);
 
             if (dynamic) {
-                arguments.Insert (0, new Argument (new TypeOf (type, loc).Resolve (ec), Argument.AType.DynamicTypeName));
-                return new DynamicConstructorBinder (type, arguments, loc).Resolve (ec);
+                arguments.Insert (0, new Argument (new TypeOf (type, _loc).Resolve (ec), Argument.AType.DynamicTypeName));
+                return new DynamicConstructorBinder (type, arguments, _loc).Resolve (ec);
             }
 
             return this;
@@ -7506,7 +7506,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         void DoEmitTypeParameter (EmitContext ec)
         {
-            var m = ec.Module.PredefinedMembers.ActivatorCreateInstance.Resolve (loc);
+            var m = ec.Module.PredefinedMembers.ActivatorCreateInstance.Resolve (_loc);
             if (m == null)
                 return;
 
@@ -7566,7 +7566,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
 
                 if (vr != null) {
-                    ec.MarkCallEntry (loc);
+                    ec.MarkCallEntry (_loc);
                     ec.Emit (OpCodes.Call, method);
                     return false;
                 }
@@ -7577,7 +7577,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return true;
             }
 
-            ec.MarkCallEntry (loc);
+            ec.MarkCallEntry (_loc);
             ec.Emit (OpCodes.Newobj, method);
             return true;
         }
@@ -7682,7 +7682,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public ArrayInitializer (List<Expression> init, Location loc)
         {
             elements = init;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public ArrayInitializer (int count, Location loc)
@@ -7754,7 +7754,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 type = new TypeExpression (current_field.MemberType, current_field.Location);
             } else if (variable != null) {
                 if (variable.TypeExpression is VarExpr) {
-                    rc.Report.Error (820, loc, "An implicitly typed local variable declarator cannot use an array initializer");
+                    rc.Report.Error (820, _loc, "An implicitly typed local variable declarator cannot use an array initializer");
                     return EmptyExpression.Null;
                 }
 
@@ -7834,7 +7834,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             this.requested_base_type = requested_base_type;
             this.rank = rank;
             this.initializers = initializers;
-            this.loc = loc;
+            this._loc = loc;
 
             if (rank != null)
                 num_arguments = rank.Dimension;
@@ -7921,7 +7921,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                     // TODO: probe.Count does not fit ulong in
                     if (value != probe.Count) {
-                        ec.Report.Error (847, loc, "An array initializer of length `{0}' was expected", value.ToString ());
+                        ec.Report.Error (847, _loc, "An array initializer of length `{0}' was expected", value.ToString ());
                         return false;
                     }
 
@@ -7937,7 +7937,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (o is ArrayInitializer) {
                     var sub_probe = o as ArrayInitializer;
                     if (idx + 1 >= dimensions){
-                        ec.Report.Error (623, loc, "Array initializers can only be used in a variable or field initializer. Try using a new expression instead");
+                        ec.Report.Error (623, _loc, "Array initializers can only be used in a variable or field initializer. Try using a new expression instead");
                         return false;
                     }
 
@@ -7993,7 +7993,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (array_data == null) {
                 args = new Arguments (arguments.Count + 1);
-                args.Add (new Argument (new TypeOf (array_element_type, loc)));
+                args.Add (new Argument (new TypeOf (array_element_type, _loc)));
                 foreach (Expression a in arguments)
                     args.Add (new Argument (a.CreateExpressionTree (ec)));
 
@@ -8001,12 +8001,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             if (dimensions > 1) {
-                ec.Report.Error (838, loc, "An expression tree cannot contain a multidimensional array initializer");
+                ec.Report.Error (838, _loc, "An expression tree cannot contain a multidimensional array initializer");
                 return null;
             }
 
             args = new Arguments (array_data == null ? 1 : array_data.Count + 1);
-            args.Add (new Argument (new TypeOf (array_element_type, loc)));
+            args.Add (new Argument (new TypeOf (array_element_type, _loc)));
             if (array_data != null) {
                 for (int i = 0; i < array_data.Count; ++i) {
                     Expression e = array_data [i];
@@ -8078,7 +8078,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             return Convert.ImplicitConversionRequired (
-                ec, element, array_element_type, loc);
+                ec, element, array_element_type, _loc);
         }
 
         protected bool ResolveInitializers (ResolveContext ec)
@@ -8129,7 +8129,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (!(type is ArrayContainer ac))
             {
-                ec.Report.Error(622, loc, "Can only use array initializer expressions to assign to array types. Try using a new expression instead");
+                ec.Report.Error(622, _loc, "Can only use array initializer expressions to assign to array types. Try using a new expression instead");
                 return false;
             }
 
@@ -8473,7 +8473,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
 
                 if (enc.Encode (type) == AttributeEncoder.EncodedTypeProperties.DynamicType) {
-                    Attribute.Error_AttributeArgumentIsDynamic (rc, loc);
+                    Attribute.Error_AttributeArgumentIsDynamic (rc, _loc);
                     return;
                 }
             }
@@ -8557,7 +8557,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (array_element_type == null ||
                 array_element_type == InternalType.NullLiteral || array_element_type == InternalType.MethodGroup || array_element_type == InternalType.AnonymousMethod ||
                 arguments.Count != rank.Dimension) {
-                ec.Report.Error (826, loc,
+                ec.Report.Error (826, _loc,
                     "The type of an implicitly typed array cannot be inferred from the initializer. Try specifying array type explicitly");
                 return null;
             }
@@ -8660,7 +8660,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public This (Location loc)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         #region Properties
@@ -8713,19 +8713,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (fc.IsDefinitelyAssigned (variable_info))
                 return;
 
-            fc.Report.Error (188, loc, "The `this' object cannot be used before all of its fields are assigned to");
+            fc.Report.Error (188, _loc, "The `this' object cannot be used before all of its fields are assigned to");
         }
 
         protected virtual void Error_ThisNotAvailable (ResolveContext ec)
         {
             if (ec.IsStatic && !ec.HasSet (ResolveContext.Options.ConstantScope)) {
-                ec.Report.Error (26, loc, "Keyword `this' is not valid in a static property, static method, or static field initializer");
+                ec.Report.Error (26, _loc, "Keyword `this' is not valid in a static property, static method, or static field initializer");
             } else if (ec.CurrentAnonymousMethod != null) {
-                ec.Report.Error (1673, loc,
+                ec.Report.Error (1673, _loc,
                     "Anonymous methods inside structs cannot access instance members of `this'. " +
                     "Consider copying `this' to a local variable outside the anonymous method and using the local instead");
             } else {
-                ec.Report.Error (27, loc, "Keyword `this' is not available in the current context");
+                ec.Report.Error (27, _loc, "Keyword `this' is not available in the current context");
             }
         }
 
@@ -8801,11 +8801,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (type.IsClass){
                 if (right_side == EmptyExpression.UnaryAddress)
-                    ec.Report.Error (459, loc, "Cannot take the address of `this' because it is read-only");
+                    ec.Report.Error (459, _loc, "Cannot take the address of `this' because it is read-only");
                 else if (right_side == EmptyExpression.OutAccess)
-                    ec.Report.Error (1605, loc, "Cannot pass `this' as a ref or out argument because it is read-only");
+                    ec.Report.Error (1605, _loc, "Cannot pass `this' as a ref or out argument because it is read-only");
                 else
-                    ec.Report.Error (1604, loc, "Cannot assign to `this' because it is read-only");
+                    ec.Report.Error (1604, _loc, "Cannot assign to `this' because it is read-only");
             }
 
             return this;
@@ -8847,7 +8847,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
     {
         public ArglistAccess (Location loc)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         protected override void CloneTo (CloneContext clonectx, Expression target)
@@ -8871,7 +8871,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             type = ec.Module.PredefinedTypes.RuntimeArgumentHandle.Resolve ();
 
             if (ec.HasSet (ResolveContext.Options.FieldInitializerScope) || !ec.CurrentBlock.ParametersBlock.Parameters.HasArglist) {
-                ec.Report.Error (190, loc,
+                ec.Report.Error (190, _loc,
                     "The __arglist construct is valid only within a variable argument method");
             }
 
@@ -8904,7 +8904,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public Arglist (Arguments args, Location l)
         {
             arguments = args;
-            loc = l;
+            _loc = l;
         }
 
         public Arguments Arguments {
@@ -8933,7 +8933,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            ec.Report.Error (1952, loc, "An expression tree cannot contain a method with variable arguments");
+            ec.Report.Error (1952, _loc, "An expression tree cannot contain a method with variable arguments");
             return null;
         }
 
@@ -8981,7 +8981,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             : base (expr)
         {
             this.texpr = texpr;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public FullNamedExpression TypeExpression {
@@ -9008,7 +9008,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (expr == null || type == null)
                 return null;
 
-            expr = Convert.ImplicitConversionRequired (rc, expr, rc.Module.PredefinedTypes.TypedReference.Resolve (), loc);
+            expr = Convert.ImplicitConversionRequired (rc, expr, rc.Module.PredefinedTypes.TypedReference.Resolve (), _loc);
             eclass = ExprClass.Variable;
             return this;
         }
@@ -9062,7 +9062,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public RefTypeExpr (Expression expr, Location loc)
             : base (expr)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         protected override Expression DoResolve (ResolveContext rc)
@@ -9071,7 +9071,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (expr == null)
                 return null;
 
-            expr = Convert.ImplicitConversionRequired (rc, expr, rc.Module.PredefinedTypes.TypedReference.Resolve (), loc);
+            expr = Convert.ImplicitConversionRequired (rc, expr, rc.Module.PredefinedTypes.TypedReference.Resolve (), _loc);
             if (expr == null)
                 return null;
 
@@ -9084,7 +9084,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             expr.Emit (ec);
             ec.Emit (OpCodes.Refanytype);
-            var m = ec.Module.PredefinedMembers.TypeGetTypeFromHandle.Resolve (loc);
+            var m = ec.Module.PredefinedMembers.TypeGetTypeFromHandle.Resolve (_loc);
             if (m != null)
                 ec.Emit (OpCodes.Call, m);
         }
@@ -9100,7 +9100,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public MakeRefExpr (Expression expr, Location loc)
             : base (expr)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override bool ContainsEmitWithAwait ()
@@ -9138,7 +9138,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public TypeOf (FullNamedExpression queried_type, Location l)
         {
             QueriedType = queried_type;
-            loc = l;
+            _loc = l;
         }
 
         //
@@ -9147,7 +9147,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public TypeOf (TypeSpec type, Location loc)
         {
             this.typearg = type;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         #region Properties
@@ -9189,7 +9189,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             Arguments args = new Arguments (2);
             args.Add (new Argument (this));
-            args.Add (new Argument (new TypeOf (new TypeExpression (type, loc), loc)));
+            args.Add (new Argument (new TypeOf (new TypeExpression (type, _loc), _loc)));
             return CreateExpressionFactoryCall (ec, "Constant", args);
         }
 
@@ -9251,7 +9251,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 var gt = typearg;
                 do {
                     if (InflatedTypeSpec.ContainsTypeParameter (gt)) {
-                        rc.Module.Compiler.Report.Error (416, loc, "`{0}': an attribute argument cannot use type parameters",
+                        rc.Module.Compiler.Report.Error (416, _loc, "`{0}': an attribute argument cannot use type parameters",
                             typearg.GetSignatureForError ());
                         return;
                     }
@@ -9261,7 +9261,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             if (ContainsDynamicType (typearg)) {
-                Attribute.Error_AttributeArgumentIsDynamic (rc, loc);
+                Attribute.Error_AttributeArgumentIsDynamic (rc, _loc);
                 return;
             }
 
@@ -9271,7 +9271,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override void Emit (EmitContext ec)
         {
             ec.Emit (OpCodes.Ldtoken, typearg);
-            var m = ec.Module.PredefinedMembers.TypeGetTypeFromHandle.Resolve (loc);
+            var m = ec.Module.PredefinedMembers.TypeGetTypeFromHandle.Resolve (_loc);
             if (m != null)
                 ec.Emit (OpCodes.Call, m);
         }
@@ -9329,7 +9329,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         protected TypeOfMember (T member, Location loc)
         {
             this.member = member;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override bool IsSideEffectFree {
@@ -9347,7 +9347,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             Arguments args = new Arguments (2);
             args.Add (new Argument (this));
-            args.Add (new Argument (new TypeOf (type, loc)));
+            args.Add (new Argument (new TypeOf (type, _loc)));
             return CreateExpressionFactoryCall (ec, "Constant", args);
         }
 
@@ -9368,7 +9368,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 p = GetTypeFromHandle (ec);
             }
 
-            var mi = p.Resolve (loc);
+            var mi = p.Resolve (_loc);
             if (mi != null)
                 ec.Emit (OpCodes.Call, mi);
         }
@@ -9420,7 +9420,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public SizeOf (Expression queried_type, Location l)
         {
             this.texpr = queried_type;
-            loc = l;
+            _loc = l;
         }
 
         public override bool IsSideEffectFree {
@@ -9457,15 +9457,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             int size_of = BuiltinTypeSpec.GetSize (type_queried);
             if (size_of > 0) {
-                return new IntConstant (ec.BuiltinTypes, size_of, loc);
+                return new IntConstant (ec.BuiltinTypes, size_of, _loc);
             }
 
-            if (!TypeManager.VerifyUnmanaged (ec.Module, type_queried, loc)){
+            if (!TypeManager.VerifyUnmanaged (ec.Module, type_queried, _loc)){
                 return null;
             }
 
             if (!ec.IsUnsafe) {
-                ec.Report.Error (233, loc,
+                ec.Report.Error (233, _loc,
                     "`{0}' does not have a predefined size, therefore sizeof can only be used in an unsafe context (consider using System.Runtime.InteropServices.Marshal.SizeOf)",
                     type_queried.GetSignatureForError ());
             }
@@ -9525,13 +9525,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public FullNamedExpression CreateExpressionFromAlias (IMemberContext mc)
         {
             if (alias == GlobalAlias)
-                return new NamespaceExpression (mc.Module.GlobalRootNamespace, loc);
+                return new NamespaceExpression (mc.Module.GlobalRootNamespace, _loc);
 
             int errors = mc.Module.Compiler.Report.Errors;
             var expr = mc.LookupNamespaceAlias (alias);
             if (expr == null) {
                 if (errors == mc.Module.Compiler.Report.Errors)
-                    mc.Module.Compiler.Report.Error (432, loc, "Alias `{0}' not found", alias);
+                    mc.Module.Compiler.Report.Error (432, _loc, "Alias `{0}' not found", alias);
 
                 return null;
             }
@@ -9571,7 +9571,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override Expression LookupNameExpression (ResolveContext rc, MemberLookupRestrictions restrictions)
         {
             if ((restrictions & MemberLookupRestrictions.InvocableOnly) != 0) {
-                rc.Module.Compiler.Report.Error (687, loc,
+                rc.Module.Compiler.Report.Error (687, _loc,
                     "The namespace alias qualifier `::' cannot be used to invoke a method. Consider using `.' instead",
                     GetSignatureForError ());
 
@@ -9631,7 +9631,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override Location StartLocation {
             get {
-                return expr == null ? loc : expr.StartLocation;
+                return expr == null ? _loc : expr.StartLocation;
             }
         }
 
@@ -9649,7 +9649,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             var e = LookupNameExpression (rc, MemberLookupRestrictions.None);
 
             if (e is TypeExpr) {
-                e.Error_UnexpectedKind (rc, ResolveFlags.VariableOrValue, loc);
+                e.Error_UnexpectedKind (rc, ResolveFlags.VariableOrValue, _loc);
                 return null;
             }
 
@@ -9662,9 +9662,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         protected virtual void Error_OperatorCannotBeApplied (ResolveContext rc, TypeSpec type)
         {
             if (type == InternalType.NullLiteral && rc.IsRuntimeBinder)
-                rc.Report.Error (Report.RuntimeErrorId, loc, "Cannot perform member binding on `null' value");
+                rc.Report.Error (Report.RuntimeErrorId, _loc, "Cannot perform member binding on `null' value");
             else
-                expr.Error_OperatorCannotBeApplied (rc, loc, ".", type);
+                expr.Error_OperatorCannotBeApplied (rc, _loc, ".", type);
         }
 
         public override bool HasConditionalAccess ()
@@ -9710,18 +9710,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (expr is NamespaceExpression ns)
             {
-                var retval = ns.LookupTypeOrNamespace(rc, Name, Arity, LookupMode.Normal, loc);
+                var retval = ns.LookupTypeOrNamespace(rc, Name, Arity, LookupMode.Normal, _loc);
 
                 if (retval == null)
                 {
-                    ns.Error_NamespaceDoesNotExist(rc, Name, Arity, loc);
+                    ns.Error_NamespaceDoesNotExist(rc, Name, Arity, _loc);
                     return null;
                 }
 
                 if (Arity > 0)
                 {
                     if (HasTypeArguments)
-                        return new GenericTypeExpr(retval.Type, targs, loc);
+                        return new GenericTypeExpr(retval.Type, targs, _loc);
 
                     targs.Resolve(rc, false);
                 }
@@ -9738,13 +9738,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                 Arguments args = new Arguments (1);
                 args.Add (new Argument (expr));
-                return new DynamicMemberBinder (Name, args, loc);
+                return new DynamicMemberBinder (Name, args, _loc);
             }
 
             var cma = this as ConditionalMemberAccess;
             if (cma != null) {
                 if (!IsNullPropagatingValid (expr.Type)) {
-                    expr.Error_OperatorCannotBeApplied (rc, loc, "?", expr.Type);
+                    expr.Error_OperatorCannotBeApplied (rc, _loc, "?", expr.Type);
                     return null;
                 }
 
@@ -9763,7 +9763,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             bool errorMode = false;
             Expression member_lookup;
             while (true) {
-                member_lookup = MemberLookup (rc, errorMode, expr_type, Name, lookup_arity, restrictions, loc);
+                member_lookup = MemberLookup (rc, errorMode, expr_type, Name, lookup_arity, restrictions, _loc);
                 if (member_lookup == null) {
                     //
                     // Try to look for extension method when member lookup failed
@@ -9771,7 +9771,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     if (MethodGroupExpr.IsExtensionMethodArgument (expr)) {
                         var methods = rc.LookupExtensionMethod (Name, lookup_arity);
                         if (methods != null) {
-                            var emg = new ExtensionMethodGroupExpr (methods, expr, loc);
+                            var emg = new ExtensionMethodGroupExpr (methods, expr, _loc);
                             if (HasTypeArguments) {
                                 if (!targs.Resolve (rc, false))
                                     return null;
@@ -9792,7 +9792,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     if (member_lookup == null) {
                         var dep = expr_type.GetMissingDependencies ();
                         if (dep != null) {
-                            ImportedTypeDefinition.Error_MissingDependency (rc, dep, loc);
+                            ImportedTypeDefinition.Error_MissingDependency (rc, dep, _loc);
                         } else if (expr is TypeExpr) {
                             base.Error_TypeDoesNotContainDefinition (rc, expr_type, Name);
                         } else {
@@ -9806,7 +9806,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         // Leave it to overload resolution to report correct error
                     } else if (!(member_lookup is TypeExpr)) {
                         // TODO: rc.SymbolRelatedToPreviousError
-                        ErrorIsInaccesible (rc, member_lookup.GetSignatureForError (), loc);
+                        ErrorIsInaccesible (rc, member_lookup.GetSignatureForError (), _loc);
                     }
                     break;
                 }
@@ -9823,20 +9823,20 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             {
                 if (!(expr is TypeExpr) && (sn == null || expr.ProbeIdenticalTypeName(rc, expr, sn) == expr))
                 {
-                    rc.Report.Error(572, loc, "`{0}': cannot reference a type through an expression. Consider using `{1}' instead",
+                    rc.Report.Error(572, _loc, "`{0}': cannot reference a type through an expression. Consider using `{1}' instead",
                         Name, texpr.GetSignatureForError());
                 }
 
                 if (!texpr.Type.IsAccessible(rc))
                 {
                     rc.Report.SymbolRelatedToPreviousError(member_lookup.Type);
-                    ErrorIsInaccesible(rc, member_lookup.Type.GetSignatureForError(), loc);
+                    ErrorIsInaccesible(rc, member_lookup.Type.GetSignatureForError(), _loc);
                     return null;
                 }
 
                 if (HasTypeArguments)
                 {
-                    return new GenericTypeExpr(member_lookup.Type, targs, loc);
+                    return new GenericTypeExpr(member_lookup.Type, targs, _loc);
                 }
 
                 return member_lookup;
@@ -9879,17 +9879,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (expr_resolved is NamespaceExpression ns)
             {
-                FullNamedExpression retval = ns.LookupTypeOrNamespace(rc, Name, Arity, LookupMode.Normal, loc);
+                FullNamedExpression retval = ns.LookupTypeOrNamespace(rc, Name, Arity, LookupMode.Normal, _loc);
 
                 if (retval == null)
                 {
-                    ns.Error_NamespaceDoesNotExist(rc, Name, Arity, loc);
+                    ns.Error_NamespaceDoesNotExist(rc, Name, Arity, _loc);
                 }
                 else if (Arity > 0)
                 {
                     if (HasTypeArguments)
                     {
-                        retval = new GenericTypeExpr(retval.Type, targs, loc);
+                        retval = new GenericTypeExpr(retval.Type, targs, _loc);
                         if (retval.ResolveAsType(rc) == null)
                             return null;
                     }
@@ -9897,7 +9897,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     {
                         targs.Resolve(rc, allowUnboundTypeArguments);
 
-                        retval = new GenericOpenTypeExpr(retval.Type, loc);
+                        retval = new GenericOpenTypeExpr(retval.Type, _loc);
                     }
                 }
 
@@ -9910,14 +9910,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             TypeSpec expr_type = tnew_expr;
             if (TypeManager.IsGenericParameter (expr_type)) {
-                rc.Module.Compiler.Report.Error (704, loc, "A nested type cannot be specified through a type parameter `{0}'",
+                rc.Module.Compiler.Report.Error (704, _loc, "A nested type cannot be specified through a type parameter `{0}'",
                     tnew_expr.GetSignatureForError ());
                 return null;
             }
 
             if (this is QualifiedAliasMember qam)
             {
-                rc.Module.Compiler.Report.Error(431, loc,
+                rc.Module.Compiler.Report.Error(431, _loc,
                     "Alias `{0}' cannot be used with `::' since it denotes a type. Consider replacing `::' with `.'",
                     qam.Alias);
 
@@ -9934,7 +9934,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                     expr_type = tnew_expr;
                     nested = MemberCache.FindNestedType (expr_type, Name, Arity);
-                    ErrorIsInaccesible (rc, nested.GetSignatureForError (), loc);
+                    ErrorIsInaccesible (rc, nested.GetSignatureForError (), _loc);
                     break;
                 }
 
@@ -9954,16 +9954,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             TypeExpr texpr;
             if (Arity > 0) {
                 if (HasTypeArguments) {
-                    texpr = new GenericTypeExpr (nested, targs, loc);
+                    texpr = new GenericTypeExpr (nested, targs, _loc);
                 } else {
                     targs.Resolve (rc, allowUnboundTypeArguments && !(expr_resolved is GenericTypeExpr));
 
-                    texpr = new GenericOpenTypeExpr (nested, loc);
+                    texpr = new GenericOpenTypeExpr (nested, _loc);
                 }
             } else if (expr_resolved is GenericOpenTypeExpr) {
-                texpr = new GenericOpenTypeExpr (nested, loc);
+                texpr = new GenericOpenTypeExpr (nested, _loc);
             } else {
-                texpr = new TypeExpression (nested, loc);
+                texpr = new TypeExpression (nested, _loc);
             }
 
             if (texpr.ResolveAsType (rc) == null)
@@ -9981,13 +9981,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return;
             }
 
-            var any_other_member = MemberLookup (rc, false, expr_type, Name, 0, MemberLookupRestrictions.None, loc);
+            var any_other_member = MemberLookup (rc, false, expr_type, Name, 0, MemberLookupRestrictions.None, _loc);
             if (any_other_member != null) {
-                Error_UnexpectedKind (rc, any_other_member, "type", any_other_member.ExprClassName, loc);
+                Error_UnexpectedKind (rc, any_other_member, "type", any_other_member.ExprClassName, _loc);
                 return;
             }
 
-            rc.Module.Compiler.Report.Error (426, loc, "The nested type `{0}' does not exist in the type `{1}'",
+            rc.Module.Compiler.Report.Error (426, _loc, "The nested type `{0}' does not exist in the type `{1}'",
                 Name, expr_type.GetSignatureForError ());
         }
 
@@ -10010,7 +10010,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     missing = "an assembly reference";
                 }
 
-                ec.Report.Error (1061, loc,
+                ec.Report.Error (1061, _loc,
                     "Type `{0}' does not contain a definition for `{1}' and no extension method `{1}' of type `{0}' could be found. Are you missing {2}?",
                     type.GetSignatureForError (), name, missing);
                 return;
@@ -10060,7 +10060,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public CheckedExpr (Expression e, Location l)
         {
             Expr = e;
-            loc = l;
+            _loc = l;
         }
 
         public override bool ContainsEmitWithAwait ()
@@ -10137,7 +10137,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public UnCheckedExpr (Expression e, Location l)
         {
             Expr = e;
-            loc = l;
+            _loc = l;
         }
 
         public override bool ContainsEmitWithAwait ()
@@ -10211,7 +10211,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public ElementAccess (Expression e, Arguments args, Location loc)
         {
             Expr = e;
-            this.loc = loc;
+            this._loc = loc;
             this.Arguments = args;
         }
 
@@ -10241,12 +10241,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             type = Expr.Type;
 
             if (ConditionalAccess && !IsNullPropagatingValid (type)) {
-                Error_OperatorCannotBeApplied (ec, loc, "?", type);
+                Error_OperatorCannotBeApplied (ec, _loc, "?", type);
                 return null;
             }
 
             if (type.IsArray)
-                return new ArrayAccess (this, loc) {
+                return new ArrayAccess (this, _loc) {
                     ConditionalAccess = ConditionalAccess,
                     ConditionalAccessReceiver = conditionalAccessReceiver
                 };
@@ -10274,7 +10274,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return indexer;
             }
 
-            Error_CannotApplyIndexing (ec, type, loc);
+            Error_CannotApplyIndexing (ec, type, _loc);
 
             return null;
         }
@@ -10303,7 +10303,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         Expression MakePointerAccess (ResolveContext rc, TypeSpec type)
         {
             if (Arguments.Count != 1){
-                rc.Report.Error (196, loc, "A pointer must be indexed by only one value");
+                rc.Report.Error (196, _loc, "A pointer must be indexed by only one value");
                 return null;
             }
 
@@ -10317,8 +10317,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             index = ConvertExpressionToArrayIndex (rc, index, true);
 
-            Expression p = new PointerArithmetic (Binary.Operator.Addition, Expr, index, type, loc);
-            return new Indirection (p, loc);
+            Expression p = new PointerArithmetic (Binary.Operator.Addition, Expr, index, type, _loc);
+            return new Indirection (p, _loc);
         }
 
         protected override Expression DoResolve (ResolveContext rc)
@@ -10408,7 +10408,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public ArrayAccess (ElementAccess ea_data, Location l)
         {
             ea = ea_data;
-            loc = l;
+            _loc = l;
         }
 
         public bool ConditionalAccess { get; set; }
@@ -10742,7 +10742,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             Arguments args = Arguments.CreateForExpressionTree (ec, arguments,
                 InstanceExpression.CreateExpressionTree (ec),
-                new TypeOfMethod (Getter, loc));
+                new TypeOfMethod (Getter, _loc));
 
             return CreateExpressionFactoryCall (ec, "Call", args);
         }
@@ -10800,7 +10800,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (arguments == null)
                 call.InstanceExpressionOnStack = true;
 
-            call.Emit (ec, Setter, arguments, loc);
+            call.Emit (ec, Setter, arguments, _loc);
 
             if (temp != null) {
                 temp.Emit (ec);
@@ -10868,7 +10868,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (indexers == null && InstanceExpression.Type.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
                 dynamic = true;
             } else {
-                var res = new OverloadResolver (indexers, OverloadResolver.Restrictions.None, loc);
+                var res = new OverloadResolver (indexers, OverloadResolver.Restrictions.None, _loc);
                 res.BaseMembersProvider = this;
                 res.InstanceQualifier = this;
 
@@ -10886,7 +10886,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (dynamic) {
                 Arguments args = new Arguments (arguments.Count + 1);
                 if (IsBase) {
-                    rc.Report.Error (1972, loc,
+                    rc.Report.Error (1972, _loc,
                         "The indexer base access cannot be dynamically dispatched. Consider casting the dynamic arguments or eliminating the base access");
                 } else {
                     args.Add (new Argument (InstanceExpression));
@@ -10894,7 +10894,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 args.AddRange (arguments);
 
                 best_candidate = null;
-                return new DynamicIndexBinder (args, loc);
+                return new DynamicIndexBinder (args, _loc);
             }
 
             //
@@ -10921,7 +10921,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override void SetTypeArguments (ResolveContext ec, TypeArguments ta)
         {
-            Error_TypeArgumentsCannotBeUsed (ec, "indexer", GetSignatureForError (), loc);
+            Error_TypeArgumentsCannotBeUsed (ec, "indexer", GetSignatureForError (), _loc);
         }
 
         #region IBaseMembersProvider Members
@@ -10977,7 +10977,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            ec.Report.Error (831, loc, "An expression tree may not contain a base access");
+            ec.Report.Error (831, _loc, "An expression tree may not contain a base access");
             return base.CreateExpressionTree (ec);
         }
 
@@ -10995,9 +10995,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         protected override void Error_ThisNotAvailable (ResolveContext ec)
         {
             if (ec.IsStatic) {
-                ec.Report.Error (1511, loc, "Keyword `base' is not available in a static method");
+                ec.Report.Error (1511, _loc, "Keyword `base' is not available in a static method");
             } else {
-                ec.Report.Error (1512, loc, "Keyword `base' is not available in the current context");
+                ec.Report.Error (1512, _loc, "Keyword `base' is not available in the current context");
             }
         }
 
@@ -11054,7 +11054,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             type = t;
             eclass = ExprClass.Value;
-            loc = Location.Null;
+            _loc = Location.Null;
         }
 
         protected override void CloneTo (CloneContext clonectx, Expression target)
@@ -11117,7 +11117,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         private EmptyExpressionStatement ()
         {
-            loc = Location.Null;
+            _loc = Location.Null;
         }
 
         public override bool ContainsEmitWithAwait ()
@@ -11168,7 +11168,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             : base (InternalType.ErrorType)
         {
             this.ErrorCode = errorCode;
-            base.loc = location;
+            base._loc = location;
             this.Error = error;
         }
 
@@ -11221,7 +11221,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             this.method = method;
             this.source = source;
             type = method.ReturnType;
-            loc = l;
+            _loc = l;
         }
 
         public Expression Source {
@@ -11242,8 +11242,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             Arguments args = new Arguments (3);
             args.Add (new Argument (source.CreateExpressionTree (ec)));
-            args.Add (new Argument (new TypeOf (type, loc)));
-            args.Add (new Argument (new TypeOfMethod (method, loc)));
+            args.Add (new Argument (new TypeOf (type, _loc)));
+            args.Add (new Argument (new TypeOfMethod (method, _loc)));
             return CreateExpressionFactoryCall (ec, "Convert", args);
         }
 
@@ -11251,7 +11251,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             ObsoleteAttribute oa = method.GetAttributeObsolete ();
             if (oa != null)
-                AttributeTester.Report_ObsoleteMessage (oa, GetSignatureForError (), loc, ec.Report);
+                AttributeTester.Report_ObsoleteMessage (oa, GetSignatureForError (), _loc, ec.Report);
 
             eclass = ExprClass.Value;
             return this;
@@ -11260,7 +11260,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override void Emit (EmitContext ec)
         {
             source.Emit (ec);
-            ec.MarkCallEntry (loc);
+            ec.MarkCallEntry (_loc);
             ec.Emit (OpCodes.Call, method);
         }
 
@@ -11370,7 +11370,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             this.left = left;
             this.spec = spec;
-            this.loc = left.Location;
+            this._loc = left.Location;
         }
 
         public override TypeSpec ResolveAsType (IMemberContext ec, bool allowUnboundTypeArguments)
@@ -11384,17 +11384,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             var single_spec = spec;
 
             if (single_spec.IsNullable) {
-                type = new Nullable.NullableType (type, loc).ResolveAsType (ec);
+                type = new Nullable.NullableType (type, _loc).ResolveAsType (ec);
                 if (type == null)
                     return null;
 
                 single_spec = single_spec.Next;
             } else if (single_spec.IsPointer) {
-                if (!TypeManager.VerifyUnmanaged (ec.Module, type, loc))
+                if (!TypeManager.VerifyUnmanaged (ec.Module, type, _loc))
                     return null;
 
                 if (!ec.IsUnsafe) {
-                    UnsafeError (ec.Module.Compiler.Report, loc);
+                    UnsafeError (ec.Module.Compiler.Report, _loc);
                 }
 
                 do {
@@ -11405,10 +11405,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             if (single_spec != null && single_spec.Dimension > 0) {
                 if (type.IsSpecialRuntimeType) {
-                    ec.Module.Compiler.Report.Error (611, loc, "Array elements cannot be of type `{0}'", type.GetSignatureForError ());
+                    ec.Module.Compiler.Report.Error (611, _loc, "Array elements cannot be of type `{0}'", type.GetSignatureForError ());
                 } else if (type.IsStatic) {
                     ec.Module.Compiler.Report.SymbolRelatedToPreviousError (type);
-                    ec.Module.Compiler.Report.Error (719, loc, "Array elements cannot be of static type `{0}'",
+                    ec.Module.Compiler.Report.Error (719, _loc, "Array elements cannot be of static type `{0}'",
                         type.GetSignatureForError ());
                 } else {
                     MakeArray (ec.Module, single_spec);
@@ -11445,7 +11445,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             this.type = array_type;
             this.array = array;
-            this.loc = l;
+            this._loc = l;
         }
 
         public override bool ContainsEmitWithAwait ()
@@ -11545,7 +11545,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             t = type;
             this.count = count;
-            loc = l;
+            _loc = l;
         }
 
         public Expression TypeExpression {
@@ -11577,25 +11577,25 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return null;
 
             if (count.Type.BuiltinType != BuiltinTypeSpec.Type.UInt){
-                count = Convert.ImplicitConversionRequired (ec, count, ec.BuiltinTypes.Int, loc);
+                count = Convert.ImplicitConversionRequired (ec, count, ec.BuiltinTypes.Int, _loc);
                 if (count == null)
                     return null;
             }
 
             if (count is Constant c && c.IsNegative)
             {
-                ec.Report.Error(247, loc, "Cannot use a negative size with stackalloc");
+                ec.Report.Error(247, _loc, "Cannot use a negative size with stackalloc");
             }
 
             if (ec.HasAny (ResolveContext.Options.CatchScope | ResolveContext.Options.FinallyScope)) {
-                ec.Report.Error (255, loc, "Cannot use stackalloc in finally or catch");
+                ec.Report.Error (255, _loc, "Cannot use stackalloc in finally or catch");
             }
 
             otype = t.ResolveAsType (ec);
             if (otype == null)
                 return null;
 
-            if (!TypeManager.VerifyUnmanaged (ec.Module, otype, loc))
+            if (!TypeManager.VerifyUnmanaged (ec.Module, otype, _loc))
                 return null;
 
             type = PointerContainer.MakeType (ec.Module, otype);
@@ -11720,22 +11720,22 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (t.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
                 Arguments args = new Arguments (1);
                 args.Add (new Argument (rc.CurrentInitializerVariable));
-                target = new DynamicMemberBinder (Name, args, loc);
+                target = new DynamicMemberBinder (Name, args, _loc);
             } else {
 
-                var member = MemberLookup (rc, false, t, Name, 0, MemberLookupRestrictions.ExactArity, loc);
+                var member = MemberLookup (rc, false, t, Name, 0, MemberLookupRestrictions.ExactArity, _loc);
                 if (member == null) {
-                    member = Expression.MemberLookup (rc, true, t, Name, 0, MemberLookupRestrictions.ExactArity, loc);
+                    member = Expression.MemberLookup (rc, true, t, Name, 0, MemberLookupRestrictions.ExactArity, _loc);
 
                     if (member != null) {
                         // TODO: ec.Report.SymbolRelatedToPreviousError (member);
-                        ErrorIsInaccesible (rc, member.GetSignatureForError (), loc);
+                        ErrorIsInaccesible (rc, member.GetSignatureForError (), _loc);
                         return false;
                     }
                 }
 
                 if (member == null) {
-                    Error_TypeDoesNotContainDefinition (rc, loc, t, Name);
+                    Error_TypeDoesNotContainDefinition (rc, _loc, t, Name);
                     return false;
                 }
 
@@ -11743,7 +11743,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (me is EventExpr) {
                     me = me.ResolveMemberAccess (rc, null, null);
                 } else if (!(member is PropertyExpr || member is FieldExpr)) {
-                    rc.Report.Error (1913, loc,
+                    rc.Report.Error (1913, _loc,
                         "Member `{0}' cannot be initialized. An object initializer may only be used for fields, or properties",
                         member.GetSignatureForError ());
 
@@ -11751,7 +11751,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 }
 
                 if (me.IsStatic) {
-                    rc.Report.Error (1914, loc,
+                    rc.Report.Error (1914, _loc,
                         "Static field or property `{0}' cannot be assigned in an object initializer",
                         me.GetSignatureForError ());
                 }
@@ -11801,7 +11801,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             IsSingle = true;
             base.arguments.Add (new ElementInitializerArgument (argument));
-            this.loc = argument.Location;
+            this._loc = argument.Location;
         }
 
         public CollectionElementInitializer (List<Expression> arguments, Location loc)
@@ -11811,13 +11811,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             foreach (Expression e in arguments)
                 base.arguments.Add (new ElementInitializerArgument (e));
 
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public CollectionElementInitializer (Location loc)
             : base (null, null)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override Expression CreateExpressionTree (ResolveContext ec)
@@ -11825,12 +11825,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Arguments args = new Arguments (2);
             args.Add (new Argument (mg.CreateExpressionTree (ec)));
 
-            var expr_initializers = new ArrayInitializer (arguments.Count, loc);
+            var expr_initializers = new ArrayInitializer (arguments.Count, _loc);
             foreach (Argument a in arguments)
                 expr_initializers.Add (a.CreateExpressionTree (ec));
 
             args.Add (new Argument (new ArrayCreation (
-                CreateExpressionTypeExpression (ec, loc), expr_initializers, loc)));
+                CreateExpressionTypeExpression (ec, _loc), expr_initializers, _loc)));
             return CreateExpressionFactoryCall (ec, "ElementInit", args);
         }
 
@@ -11843,7 +11843,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         protected override Expression DoResolve (ResolveContext ec)
         {
-            base.expr = new AddMemberAccess (ec.CurrentInitializerVariable, loc);
+            base.expr = new AddMemberAccess (ec.CurrentInitializerVariable, _loc);
 
             return base.DoResolve (ec);
         }
@@ -11863,7 +11863,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            ec.Report.Error (8074, loc, "Expression tree cannot contain a dictionary initializer");
+            ec.Report.Error (8074, _loc, "Expression tree cannot contain a dictionary initializer");
             return null;
         }
 
@@ -11873,17 +11873,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             var type = init.Type;
 
             if (type.IsArray) {
-                target = new ArrayAccess (new ElementAccess (init, args, loc), loc);
+                target = new ArrayAccess (new ElementAccess (init, args, _loc), _loc);
                 return true;
             }
 
             var indexers = MemberCache.FindMembers (type, MemberCache.IndexerNameAlias, false);
             if (indexers == null && type.BuiltinType != BuiltinTypeSpec.Type.Dynamic) {
-                ElementAccess.Error_CannotApplyIndexing (rc, type, loc);
+                ElementAccess.Error_CannotApplyIndexing (rc, type, _loc);
                 return false;
             }
 
-            target = new IndexerExpr (indexers, type, init, args, loc).Resolve (rc);
+            target = new IndexerExpr (indexers, type, init, args, _loc).Resolve (rc);
             return true;
         }
     }
@@ -11904,7 +11904,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public CollectionOrObjectInitializers (IList<Expression> initializers, Location loc)
         {
             this.initializers = initializers;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public bool IsEmpty {
@@ -11951,7 +11951,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public Expression CreateExpressionTree (ResolveContext ec, bool inferType)
         {
-            var expr_initializers = new ArrayInitializer (initializers.Count, loc);
+            var expr_initializers = new ArrayInitializer (initializers.Count, _loc);
             foreach (Expression e in initializers) {
                 Expression expr = e.CreateExpressionTree (ec);
                 if (expr != null)
@@ -11959,9 +11959,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             }
 
             if (inferType)
-                return new ImplicitlyTypedArrayCreation (expr_initializers, loc);
+                return new ImplicitlyTypedArrayCreation (expr_initializers, _loc);
 
-            return new ArrayCreation (new TypeExpression (ec.Module.PredefinedTypes.MemberBinding.Resolve (), loc), expr_initializers, loc); 
+            return new ArrayCreation (new TypeExpression (ec.Module.PredefinedTypes.MemberBinding.Resolve (), _loc), expr_initializers, _loc); 
         }
 
         protected override Expression DoResolve (ResolveContext ec)
@@ -11983,7 +11983,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                         var t = ec.CurrentInitializerVariable.Type;
                         // LAMESPEC: The collection must implement IEnumerable only, no dynamic support
                         if (!t.ImplementsInterface (ec.BuiltinTypes.IEnumerable, false) && t.BuiltinType != BuiltinTypeSpec.Type.Dynamic) {
-                            ec.Report.Error (1922, loc, "A field or property `{0}' cannot be initialized with a collection " +
+                            ec.Report.Error (1922, _loc, "A field or property `{0}' cannot be initialized with a collection " +
                                 "object initializer because type `{1}' does not implement `{2}' interface",
                                 ec.CurrentInitializerVariable.GetSignatureForError (),
                                 ec.CurrentInitializerVariable.Type.GetSignatureForError (),
@@ -12020,7 +12020,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             type = ec.CurrentInitializerVariable.Type;
             if (is_collection_initialization) {
                 if (TypeManager.HasElementType (type)) {
-                    ec.Report.Error (1925, loc, "Cannot initialize object of type `{0}' with a collection initializer",
+                    ec.Report.Error (1925, _loc, "Cannot initialize object of type `{0}' with a collection initializer",
                         type.GetSignatureForError ());
                 }
             }
@@ -12069,7 +12069,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             public InitializerTargetExpression (NewInitialize newInstance)
             {
                 this.type = newInstance.type;
-                this.loc = newInstance.loc;
+                this._loc = newInstance._loc;
                 this.eclass = newInstance.eclass;
                 this.new_instance = newInstance;
             }
@@ -12308,7 +12308,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (type != null)
                 return type;
 
-            type = AnonymousTypeClass.Create (parent, parameters, loc);
+            type = AnonymousTypeClass.Create (parent, parameters, _loc);
             if (type == null)
                 return null;
 
@@ -12329,20 +12329,20 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (parameters == null)
                 return base.CreateExpressionTree (ec);
 
-            var init = new ArrayInitializer (parameters.Count, loc);
+            var init = new ArrayInitializer (parameters.Count, _loc);
             foreach (var m in anonymous_type.Members) {
                 if (m is Property p)
-                    init.Add(new TypeOfMethod(MemberCache.GetMember(type, p.Get.Spec), loc));
+                    init.Add(new TypeOfMethod(MemberCache.GetMember(type, p.Get.Spec), _loc));
             }
 
-            var ctor_args = new ArrayInitializer (arguments.Count, loc);
+            var ctor_args = new ArrayInitializer (arguments.Count, _loc);
             foreach (Argument a in arguments)
                 ctor_args.Add (a.CreateExpressionTree (ec));
 
             Arguments args = new Arguments (3);
-            args.Add (new Argument (new TypeOfMethod (method, loc)));
-            args.Add (new Argument (new ArrayCreation (CreateExpressionTypeExpression (ec, loc), ctor_args, loc)));
-            args.Add (new Argument (new ImplicitlyTypedArrayCreation (init, loc)));
+            args.Add (new Argument (new TypeOfMethod (method, _loc)));
+            args.Add (new Argument (new ArrayCreation (CreateExpressionTypeExpression (ec, _loc), ctor_args, _loc)));
+            args.Add (new Argument (new ImplicitlyTypedArrayCreation (init, _loc)));
 
             return CreateExpressionFactoryCall (ec, "New", args);
         }
@@ -12350,13 +12350,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         protected override Expression DoResolve (ResolveContext ec)
         {
             if (ec.HasSet (ResolveContext.Options.ConstantScope)) {
-                ec.Report.Error (836, loc, "Anonymous types cannot be used in this expression");
+                ec.Report.Error (836, _loc, "Anonymous types cannot be used in this expression");
                 return null;
             }
 
             if (parameters == null) {
                 anonymous_type = CreateAnonymousType (ec, EmptyParameters);
-                RequestedType = new TypeExpression (anonymous_type.Definition, loc);
+                RequestedType = new TypeExpression (anonymous_type.Definition, _loc);
                 return base.DoResolve (ec);
             }
 
@@ -12401,14 +12401,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             : base (initializer)
         {
             this.Name = name;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public AnonymousTypeParameter (Parameter parameter)
             : base (new SimpleName (parameter.Name, parameter.Location))
         {
             this.Name = parameter.Name;
-            this.loc = parameter.Location;
+            this._loc = parameter.Location;
         }
 
         public override bool Equals (object o)
@@ -12443,7 +12443,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         protected virtual void Error_InvalidInitializer (ResolveContext ec, string initializer)
         {
-            ec.Report.Error (828, loc, "An anonymous type property `{0}' cannot be initialized with `{1}'",
+            ec.Report.Error (828, _loc, "An anonymous type property `{0}' cannot be initialized with `{1}'",
                 Name, initializer);
         }
     }
@@ -12453,7 +12453,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public CatchFilterExpression (Expression expr, Location loc)
             : base (expr)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
     }
 
@@ -12468,7 +12468,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             this.start = start;
             this.end = end;
             this.interpolations = interpolations;
-            loc = start.Location;
+            _loc = start.Location;
         }
 
         public Expression ConvertTo (ResolveContext rc, TypeSpec type)
@@ -12477,10 +12477,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (factory == null)
                 return null;
 
-            var ma = new MemberAccess (new TypeExpression (factory, loc), "Create", loc);
+            var ma = new MemberAccess (new TypeExpression (factory, _loc), "Create", _loc);
             var res = new Invocation (ma, arguments).Resolve (rc);
             if (res != null && res.Type != type)
-                res = Convert.ExplicitConversion (rc, res, type, loc);
+                res = Convert.ExplicitConversion (rc, res, type, _loc);
 
             return res;
         }
@@ -12504,8 +12504,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (best == null)
                 return null;
 
-            Expression instance = new NullLiteral (loc);
-            var args = Arguments.CreateForExpressionTree (rc, arguments, instance, new TypeOfMethod (best, loc));
+            Expression instance = new NullLiteral (_loc);
+            var args = Arguments.CreateForExpressionTree (rc, arguments, instance, new TypeOfMethod (best, _loc));
             return CreateExpressionFactoryCall (rc, "Call", args);
         }
 
@@ -12565,7 +12565,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (interpolations == null) {
                 var str = start.Value.Replace ("{{", "{").Replace ("}}", "}");
                 if (str != start.Value)
-                    new StringConstant (ec.BuiltinTypes, str, loc).Emit (ec);
+                    new StringConstant (ec.BuiltinTypes, str, _loc).Emit (ec);
                 else
                     start.Emit (ec);
 
@@ -12577,13 +12577,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 return;
 
             var ca = new CallEmitter ();
-            ca.Emit (ec, best, arguments, loc);
+            ca.Emit (ec, best, arguments, _loc);
         }
 
         MethodSpec ResolveBestFormatOverload (ResolveContext rc)
         {
             var members = MemberCache.FindMembers (rc.BuiltinTypes.String, "Format", true);
-            var res = new OverloadResolver (members, OverloadResolver.Restrictions.NoBaseMembers, loc);
+            var res = new OverloadResolver (members, OverloadResolver.Restrictions.NoBaseMembers, _loc);
             return res.ResolveMember<MethodSpec> (rc, ref arguments);
         }
     }

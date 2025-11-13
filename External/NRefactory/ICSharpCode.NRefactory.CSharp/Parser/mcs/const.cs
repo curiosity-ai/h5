@@ -148,13 +148,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
     public class ConstInitializer : ShimExpression
     {
         bool in_transit;
-        readonly FieldBase field;
+        readonly FieldBase _field;
 
-        public ConstInitializer (FieldBase field, Expression value, Location loc)
+        public ConstInitializer (FieldBase ffield, Expression value, Location loc)
             : base (value)
         {
-            this.loc = loc;
-            this.field = field;
+            this._loc = loc;
+            this._field = ffield;
         }
 
         public string Name { get; set; }
@@ -165,14 +165,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return expr;
 
             var opt = ResolveContext.Options.ConstantScope;
-            if (field is EnumMember)
+            if (_field is EnumMember)
                 opt |= ResolveContext.Options.EnumScope;
 
             //
             // Use a context in which the constant was declared and
             // not the one in which is referenced
             //
-            var rc = new ResolveContext (field, opt);
+            var rc = new ResolveContext (_field, opt);
             expr = DoResolveInitializer (rc);
             type = expr.Type;
 
@@ -182,7 +182,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected virtual Expression DoResolveInitializer (ResolveContext rc)
         {
             if (in_transit) {
-                field.Compiler.Report.Error (110, expr.Location,
+                _field.Compiler.Report.Error (110, expr.Location,
                     "The evaluation of the constant value for `{0}' involves a circular definition",
                     GetSignatureForError ());
 
@@ -197,24 +197,24 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (expr != null) {
                 Constant c = expr as Constant;
                 if (c != null)
-                    c = field.ConvertInitializer (rc, c);
+                    c = _field.ConvertInitializer (rc, c);
 
                 if (c == null) {
-                    if (TypeSpec.IsReferenceType (field.MemberType))
-                        Error_ConstantCanBeInitializedWithNullOnly (rc, field.MemberType, expr.Location, GetSignatureForError ());
+                    if (TypeSpec.IsReferenceType (_field.MemberType))
+                        Error_ConstantCanBeInitializedWithNullOnly (rc, _field.MemberType, expr.Location, GetSignatureForError ());
                     else if (!(expr is Constant))
                         Error_ExpressionMustBeConstant (rc, expr.Location, GetSignatureForError ());
                     else
-                        expr.Error_ValueCannotBeConverted (rc, field.MemberType, false);
+                        expr.Error_ValueCannotBeConverted (rc, _field.MemberType, false);
                 }
 
                 expr = c;
             }
 
             if (expr == null) {
-                expr = New.Constantify (field.MemberType, Location);
+                expr = New.Constantify (_field.MemberType, Location);
                 if (expr == null)
-                    expr = Constant.CreateConstantFromValue (field.MemberType, null, Location);
+                    expr = Constant.CreateConstantFromValue (_field.MemberType, null, Location);
                 expr = expr.Resolve (rc);
             }
 
@@ -224,9 +224,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public override string GetSignatureForError ()
         {
             if (Name == null)
-                return field.GetSignatureForError ();
+                return _field.GetSignatureForError ();
 
-            return field.Parent.GetSignatureForError () + "." + Name;
+            return _field.Parent.GetSignatureForError () + "." + Name;
         }
 
         public override object Accept (StructuralVisitor visitor)

@@ -129,7 +129,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
     public abstract class Expression {
         public ExprClass eclass;
         protected TypeSpec type;
-        protected Location loc;
+        protected Location _loc;
 
         public TypeSpec Type {
             get { return type; }
@@ -143,7 +143,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         }
 
         public Location Location {
-            get { return loc; }
+            get { return _loc; }
         }
 
         public virtual bool IsNull {
@@ -158,7 +158,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         //
         public virtual Location StartLocation {
             get {
-                return loc;
+                return _loc;
             }
         }
 
@@ -233,7 +233,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             var rc = mc as ResolveContext ?? new ResolveContext (mc);
             Expression e = Resolve (rc);
             if (e != null)
-                e.Error_UnexpectedKind (rc, ResolveFlags.Type, loc);
+                e.Error_UnexpectedKind (rc, ResolveFlags.Type, _loc);
 
             return null;
         }
@@ -261,12 +261,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public void Error_InvalidExpressionStatement (BlockContext bc)
         {
-            Error_InvalidExpressionStatement (bc.Report, loc);
+            Error_InvalidExpressionStatement (bc.Report, _loc);
         }
 
         public void Error_InvalidExpressionStatement (Report report)
         {
-            Error_InvalidExpressionStatement (report, loc);
+            Error_InvalidExpressionStatement (report, _loc);
         }
 
         public static void Error_VoidInvalidInTheContext (Location loc, Report Report)
@@ -276,7 +276,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public virtual void Error_ValueCannotBeConverted (ResolveContext ec, TypeSpec target, bool expl)
         {
-            Error_ValueCannotBeConvertedCore (ec, loc, target, expl);
+            Error_ValueCannotBeConvertedCore (ec, _loc, target, expl);
         }
 
         protected void Error_ValueCannotBeConvertedCore (ResolveContext ec, Location loc, TypeSpec target, bool expl)
@@ -347,7 +347,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public virtual void Error_TypeDoesNotContainDefinition (ResolveContext ec, TypeSpec type, string name)
         {
-            Error_TypeDoesNotContainDefinition (ec, loc, type, name);
+            Error_TypeDoesNotContainDefinition (ec, _loc, type, name);
         }
 
         public static void Error_TypeDoesNotContainDefinition (ResolveContext ec, Location loc, TypeSpec type, string name)
@@ -362,15 +362,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (rhs == EmptyExpression.LValueMemberAccess || rhs == EmptyExpression.LValueMemberOutAccess) {
                 // Already reported as CS1612
             } else if (rhs == EmptyExpression.OutAccess) {
-                rc.Report.Error (1510, loc, "A ref or out argument must be an assignable variable");
+                rc.Report.Error (1510, _loc, "A ref or out argument must be an assignable variable");
             } else {
-                rc.Report.Error (131, loc, "The left-hand side of an assignment must be a variable, a property or an indexer");
+                rc.Report.Error (131, _loc, "The left-hand side of an assignment must be a variable, a property or an indexer");
             }
         }
 
         protected void Error_VoidPointerOperation (ResolveContext rc)
         {
-            rc.Report.Error (242, loc, "The operation in question is undefined on void pointers");
+            rc.Report.Error (242, _loc, "The operation in question is undefined on void pointers");
         }
 
         public static void Warning_UnreachableExpression (ResolveContext rc, Location loc)
@@ -399,7 +399,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     return ResolveFlags.VariableOrValue;
 
                 default:
-                    throw new InternalErrorException (loc.ToString () + " " +  GetType () + " ExprClass is Invalid after resolve");
+                    throw new InternalErrorException (_loc.ToString () + " " +  GetType () + " ExprClass is Invalid after resolve");
                 }
             }
         }
@@ -417,7 +417,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // a constant, field, property, local variable, or parameter with the same type as the meaning of E as a type-name
 
             if (left is MemberExpr || left is VariableReference) {
-                if (rc.LookupNamespaceOrType(name.Name, 0, LookupMode.Probing, loc) is TypeExpr identical_type && identical_type.Type == left.Type)
+                if (rc.LookupNamespaceOrType(name.Name, 0, LookupMode.Probing, _loc) is TypeExpr identical_type && identical_type.Type == left.Type)
                     return identical_type;
             }
 
@@ -485,7 +485,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             if (eclass != ExprClass.Unresolved) {
                 if ((flags & ExprClassToResolveFlags) == 0) {
-                    Error_UnexpectedKind (ec, flags, loc);
+                    Error_UnexpectedKind (ec, flags, _loc);
                     return null;
                 }
 
@@ -500,7 +500,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     return null;
 
                 if ((flags & e.ExprClassToResolveFlags) == 0) {
-                    e.Error_UnexpectedKind (ec, flags, loc);
+                    e.Error_UnexpectedKind (ec, flags, _loc);
                     return null;
                 }
 
@@ -509,11 +509,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                 return e;
             } catch (Exception ex) {
-                if (loc.IsNull || ec.Module.Compiler.Settings.BreakOnInternalError || ex is CompletionResult || ec.Report.IsDisabled || ex is FatalException ||
+                if (_loc.IsNull || ec.Module.Compiler.Settings.BreakOnInternalError || ex is CompletionResult || ec.Report.IsDisabled || ex is FatalException ||
                     ec.Report.Printer is NullReportPrinter)
                     throw;
 
-                ec.Report.Error (584, loc, "Internal compiler error: {0}", ex.Message);
+                ec.Report.Error (584, _loc, "Internal compiler error: {0}", ex.Message);
                 return ErrorExpression.Instance;    // TODO: Add location
             }
         }
@@ -586,10 +586,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public virtual void EncodeAttributeValue (IMemberContext rc, AttributeEncoder enc, TypeSpec targetType, TypeSpec parameterType)
         {
             if (Attribute.IsValidArgumentType (parameterType)) {
-                rc.Module.Compiler.Report.Error (182, loc,
+                rc.Module.Compiler.Report.Error (182, _loc,
                     "An attribute argument must be a constant expression, typeof expression or array creation expression");
             } else {
-                rc.Module.Compiler.Report.Error (181, loc,
+                rc.Module.Compiler.Report.Error (181, _loc,
                     "Attribute constructor parameter has type `{0}', which is not a valid attribute parameter type",
                     targetType.GetSignatureForError ());
             }
@@ -668,13 +668,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 ec.EmitThis ();
 
             // Emit original code
-            var field = EmitToFieldSource (ec);
-            if (field == null) {
+            var fieldSource = EmitToFieldSource (ec);
+            if (fieldSource == null) {
                 //
                 // Store the result to temporary field when we
                 // cannot load `this' directly
                 //
-                field = ec.GetTemporaryField (type);
+                fieldSource = ec.GetTemporaryField (type);
                 if (needs_temporary) {
                     //
                     // Create temporary local (we cannot load `this' before Emit)
@@ -684,15 +684,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                     ec.EmitThis ();
                     ec.Emit (OpCodes.Ldloc, temp);
-                    field.EmitAssignFromStack (ec);
+                    fieldSource.EmitAssignFromStack (ec);
 
                     ec.FreeTemporaryLocal (temp, type);
                 } else {
-                    field.EmitAssignFromStack (ec);
+                    fieldSource.EmitAssignFromStack (ec);
                 }
             }
 
-            return field;
+            return fieldSource;
         }
 
         protected virtual FieldExpr EmitToFieldSource (EmitContext ec)
@@ -1009,12 +1009,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected void Error_PointerInsideExpressionTree (ResolveContext ec)
         {
-            ec.Report.Error (1944, loc, "An expression tree cannot contain an unsafe pointer operation");
+            ec.Report.Error (1944, _loc, "An expression tree cannot contain an unsafe pointer operation");
         }
 
         protected void Error_NullShortCircuitInsideExpressionTree (ResolveContext rc)
         {
-            rc.Report.Error (8072, loc, "An expression tree cannot contain a null propagating operator");
+            rc.Report.Error (8072, _loc, "An expression tree cannot contain a null propagating operator");
         }
 
         public virtual void FlowAnalysis (FlowAnalysisContext fc)
@@ -1166,19 +1166,19 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (source.type.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
                 Arguments args = new Arguments (1);
                 args.Add (new Argument (source));
-                return new DynamicConversion (btypes.Int, CSharpBinderFlags.ConvertArrayIndex, args, loc).Resolve (ec);
+                return new DynamicConversion (btypes.Int, CSharpBinderFlags.ConvertArrayIndex, args, _loc).Resolve (ec);
             }
 
             Expression converted;
 
             using (ec.Set (ResolveContext.Options.CheckedScope)) {
-                converted = Convert.ImplicitConversion (ec, source, btypes.Int, source.loc);
+                converted = Convert.ImplicitConversion (ec, source, btypes.Int, source._loc);
                 if (converted == null)
-                    converted = Convert.ImplicitConversion (ec, source, btypes.UInt, source.loc);
+                    converted = Convert.ImplicitConversion (ec, source, btypes.UInt, source._loc);
                 if (converted == null)
-                    converted = Convert.ImplicitConversion (ec, source, btypes.Long, source.loc);
+                    converted = Convert.ImplicitConversion (ec, source, btypes.Long, source._loc);
                 if (converted == null)
-                    converted = Convert.ImplicitConversion (ec, source, btypes.ULong, source.loc);
+                    converted = Convert.ImplicitConversion (ec, source, btypes.ULong, source._loc);
 
                 if (converted == null) {
                     source.Error_ValueCannotBeConverted (ec, btypes.Int, false);
@@ -1193,7 +1193,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // Only positive constants are allowed at compile time
             //
             if (converted is Constant c && c.IsNegative)
-                Error_NegativeArrayIndex(ec, source.loc);
+                Error_NegativeArrayIndex(ec, source._loc);
 
             // No conversion needed to array index
             if (converted.Type.BuiltinType == BuiltinTypeSpec.Type.Int)
@@ -1242,12 +1242,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected Expression CreateExpressionFactoryCall (ResolveContext ec, string name, Arguments args)
         {
-            return CreateExpressionFactoryCall (ec, name, null, args, loc);
+            return CreateExpressionFactoryCall (ec, name, null, args, _loc);
         }
 
         protected Expression CreateExpressionFactoryCall (ResolveContext ec, string name, TypeArguments typeArguments, Arguments args)
         {
-            return CreateExpressionFactoryCall (ec, name, typeArguments, args, loc);
+            return CreateExpressionFactoryCall (ec, name, typeArguments, args, _loc);
         }
 
         public static Expression CreateExpressionFactoryCall (ResolveContext ec, string name, TypeArguments typeArguments, Arguments args, Location loc)
@@ -1386,7 +1386,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected TypeCast (Expression child, TypeSpec return_type)
         {
             eclass = child.eclass;
-            loc = child.Location;
+            _loc = child.Location;
             type = return_type;
             this.child = child;
         }
@@ -1406,7 +1406,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             Arguments args = new Arguments (2);
             args.Add (new Argument (child.CreateExpressionTree (ec)));
-            args.Add (new Argument (new TypeOf (type, loc)));
+            args.Add (new Argument (new TypeOf (type, _loc)));
 
             if (type.IsPointer || child.Type.IsPointer)
                 Error_PointerInsideExpressionTree (ec);
@@ -1573,7 +1573,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             Arguments args = Arguments.CreateForExpressionTree (ec, null,
                 child.CreateExpressionTree (ec),
-                new TypeOf (type, loc));
+                new TypeOf (type, _loc));
 
             if (type.IsPointer)
                 Error_PointerInsideExpressionTree (ec);
@@ -2235,7 +2235,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 this.eclass = stm.eclass;
                 this.type = stm.Type;
 
-                this.loc = orig.Location;
+                this._loc = orig.Location;
             }
 
             public override bool ContainsEmitWithAwait ()
@@ -2277,7 +2277,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             this.eclass = expr.eclass;
             this.type = expr.Type;
             this.orig_expr = orig_expr;
-            this.loc = orig_expr.Location;
+            this._loc = orig_expr.Location;
         }
 
         #region Properties
@@ -2389,7 +2389,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected CompositeExpression (Expression expr)
         {
             this.expr = expr;
-            this.loc = expr.Location;
+            this._loc = expr.Location;
         }
 
         public override bool ContainsEmitWithAwait ()
@@ -2474,7 +2474,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
     {
         public UnreachableExpression (Expression expr)
         {
-            this.loc = expr.Location;
+            this._loc = expr.Location;
         }
 
         public override Expression CreateExpressionTree (ResolveContext ec)
@@ -2490,7 +2490,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override void FlowAnalysis (FlowAnalysisContext fc)
         {
-            fc.Report.Warning (429, 4, loc, "Unreachable expression code detected");
+            fc.Report.Warning (429, 4, _loc, "Unreachable expression code detected");
         }
 
         public override void Emit (EmitContext ec)
@@ -2513,14 +2513,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected ATypeNameExpression (string name, Location l)
         {
             this.name = name;
-            loc = l;
+            _loc = l;
         }
 
         protected ATypeNameExpression (string name, TypeArguments targs, Location l)
         {
             this.name = name;
             this.targs = targs;
-            loc = l;
+            _loc = l;
         }
 
         protected ATypeNameExpression (string name, int arity, Location l)
@@ -2624,7 +2624,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public SimpleName GetMethodGroup ()
         {
-            return new SimpleName (Name, targs, loc);
+            return new SimpleName (Name, targs, _loc);
         }
 
         protected override Expression DoResolve (ResolveContext rc)
@@ -2639,48 +2639,48 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public void Error_NameDoesNotExist (ResolveContext rc)
         {
-            rc.Report.Error (103, loc, "The name `{0}' does not exist in the current context", Name);
+            rc.Report.Error (103, _loc, "The name `{0}' does not exist in the current context", Name);
         }
 
         protected virtual void Error_TypeOrNamespaceNotFound (IMemberContext ctx)
         {
             if (ctx.CurrentType != null) {
-                if (MemberLookup(ctx, false, ctx.CurrentType, Name, 0, MemberLookupRestrictions.ExactArity, loc) is MemberExpr member)
+                if (MemberLookup(ctx, false, ctx.CurrentType, Name, 0, MemberLookupRestrictions.ExactArity, _loc) is MemberExpr member)
                 {
-                    Error_UnexpectedKind(ctx, member, "type", member.KindName, loc);
+                    Error_UnexpectedKind(ctx, member, "type", member.KindName, _loc);
                     return;
                 }
             }
 
             var report = ctx.Module.Compiler.Report;
 
-            var retval = ctx.LookupNamespaceOrType (Name, Arity, LookupMode.IgnoreAccessibility, loc);
+            var retval = ctx.LookupNamespaceOrType (Name, Arity, LookupMode.IgnoreAccessibility, _loc);
             if (retval != null) {
                 report.SymbolRelatedToPreviousError (retval.Type);
-                ErrorIsInaccesible (ctx, retval.GetSignatureForError (), loc);
+                ErrorIsInaccesible (ctx, retval.GetSignatureForError (), _loc);
                 return;
             }
 
-            retval = ctx.LookupNamespaceOrType (Name, -System.Math.Max (1, Arity), LookupMode.Probing, loc);
+            retval = ctx.LookupNamespaceOrType (Name, -System.Math.Max (1, Arity), LookupMode.Probing, _loc);
             if (retval != null) {
-                Error_TypeArgumentsCannotBeUsed (ctx, retval.Type, loc);
+                Error_TypeArgumentsCannotBeUsed (ctx, retval.Type, _loc);
                 return;
             }
 
             var ns_candidates = ctx.Module.GlobalRootNamespace.FindTypeNamespaces (ctx, Name, Arity);
             if (ns_candidates != null) {
                 if (ctx is UsingAliasNamespace.AliasContext) {
-                    report.Error (246, loc,
+                    report.Error (246, _loc,
                         "The type or namespace name `{1}' could not be found. Consider using fully qualified name `{0}.{1}'",
                         ns_candidates[0], Name);
                 } else {
                     string usings = string.Join ("' or `", ns_candidates.ToArray ());
-                    report.Error (246, loc,
+                    report.Error (246, _loc,
                         "The type or namespace name `{0}' could not be found. Are you missing `{1}' using directive?",
                         Name, usings);
                 }
             } else {
-                report.Error (246, loc,
+                report.Error (246, _loc,
                     "The type or namespace name `{0}' could not be found. Are you missing an assembly reference?",
                     Name);
             }
@@ -2688,12 +2688,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override FullNamedExpression ResolveAsTypeOrNamespace (IMemberContext mc, bool allowUnboundTypeArguments)
         {
-            FullNamedExpression fne = mc.LookupNamespaceOrType (Name, Arity, LookupMode.Normal, loc);
+            FullNamedExpression fne = mc.LookupNamespaceOrType (Name, Arity, LookupMode.Normal, _loc);
 
             if (fne != null) {
                 if (fne.Type != null && Arity > 0) {
                     if (HasTypeArguments) {
-                        GenericTypeExpr ct = new GenericTypeExpr (fne.Type, targs, loc);
+                        GenericTypeExpr ct = new GenericTypeExpr (fne.Type, targs, _loc);
                         if (ct.ResolveAsType (mc) == null)
                             return null;
 
@@ -2702,7 +2702,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                     targs.Resolve (mc, allowUnboundTypeArguments);
 
-                    return new GenericOpenTypeExpr (fne.Type, loc);
+                    return new GenericOpenTypeExpr (fne.Type, _loc);
                 }
 
                 //
@@ -2719,7 +2719,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         mc.Module.PredefinedAttributes.Dynamic.GetSignatureForError ());
                 }
 
-                fne = new DynamicTypeExpr (loc);
+                fne = new DynamicTypeExpr (_loc);
                 fne.ResolveAsType (mc);
             }
 
@@ -2732,7 +2732,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public bool IsPossibleTypeOrNamespace (IMemberContext mc)
         {
-            return mc.LookupNamespaceOrType (Name, Arity, LookupMode.Probing, loc) != null;
+            return mc.LookupNamespaceOrType (Name, Arity, LookupMode.Probing, _loc) != null;
         }
 
         public override Expression LookupNameExpression (ResolveContext rc, MemberLookupRestrictions restrictions)
@@ -2758,10 +2758,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             errorMode = true;
                             variable_found = true;
                         } else {
-                            e = variable.CreateReferenceExpression (rc, loc);
+                            e = variable.CreateReferenceExpression (rc, _loc);
                             if (e != null) {
                                 if (Arity > 0)
-                                    Error_TypeArgumentsCannotBeUsed (rc, "variable", Name, loc);
+                                    Error_TypeArgumentsCannotBeUsed (rc, "variable", Name, _loc);
 
                                 return e;
                             }
@@ -2774,7 +2774,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 //
                 TypeSpec member_type = rc.CurrentType;
                 for (; member_type != null; member_type = member_type.DeclaringType) {
-                    e = MemberLookup (rc, errorMode, member_type, Name, lookup_arity, restrictions, loc);
+                    e = MemberLookup (rc, errorMode, member_type, Name, lookup_arity, restrictions, _loc);
                     if (e == null)
                         continue;
 
@@ -2790,7 +2790,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     if (errorMode) {
                         if (variable != null) {
                             if (me is FieldExpr || me is ConstantExpr || me is EventExpr || me is PropertyExpr) {
-                                rc.Report.Error (844, loc,
+                                rc.Report.Error (844, _loc,
                                     "A local variable `{0}' cannot be used before it is declared. Consider renaming the local variable when it hides the member `{1}'",
                                     Name, me.GetSignatureForError ());
                             } else {
@@ -2800,13 +2800,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             // Leave it to overload resolution to report correct error
                         } else {
                             // TODO: rc.Report.SymbolRelatedToPreviousError ()
-                            ErrorIsInaccesible (rc, me.GetSignatureForError (), loc);
+                            ErrorIsInaccesible (rc, me.GetSignatureForError (), _loc);
                         }
                     } else {
                         // LAMESPEC: again, ignores InvocableOnly
                         if (variable != null) {
                             rc.Report.SymbolRelatedToPreviousError (variable.Location, Name);
-                            rc.Report.Error (135, loc, "`{0}' conflicts with a declaration in a child block", Name);
+                            rc.Report.Error (135, _loc, "`{0}' conflicts with a declaration in a child block", Name);
                         }
 
                         //
@@ -2852,14 +2852,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     if (IsPossibleTypeOrNamespace (rc)) {
                         if (variable != null) {
                             rc.Report.SymbolRelatedToPreviousError (variable.Location, Name);
-                            rc.Report.Error (135, loc, "`{0}' conflicts with a declaration in a child block", Name);
+                            rc.Report.Error (135, _loc, "`{0}' conflicts with a declaration in a child block", Name);
                         }
 
                         return ResolveAsTypeOrNamespace (rc, false);
                     }
                 }
 
-                var expr = NamespaceContainer.LookupStaticUsings (rc, Name, Arity, loc);
+                var expr = NamespaceContainer.LookupStaticUsings (rc, Name, Arity, _loc);
                 if (expr != null) {
                     if (Arity > 0) {
                         targs.Resolve (rc, false);
@@ -2875,13 +2875,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                 if (errorMode) {
                     if (variable_found) {
-                        rc.Report.Error (841, loc, "A local variable `{0}' cannot be used before it is declared", Name);
+                        rc.Report.Error (841, _loc, "A local variable `{0}' cannot be used before it is declared", Name);
                     } else {
                         if (Arity > 0) {
                             var tparams = rc.CurrentTypeParameters;
                             if (tparams != null) {
                                 if (tparams.Find (Name) != null) {
-                                    Error_TypeArgumentsCannotBeUsed (rc, "type parameter", Name, loc);
+                                    Error_TypeArgumentsCannotBeUsed (rc, "type parameter", Name, _loc);
                                     return null;
                                 }
                             }
@@ -2891,7 +2891,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                                 if (ct.MemberDefinition.TypeParametersCount > 0) {
                                     foreach (var ctp in ct.MemberDefinition.TypeParameters) {
                                         if (ctp.Name == Name) {
-                                            Error_TypeArgumentsCannotBeUsed (rc, "type parameter", Name, loc);
+                                            Error_TypeArgumentsCannotBeUsed (rc, "type parameter", Name, _loc);
                                             return null;
                                         }
                                     }
@@ -2902,31 +2902,31 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         }
 
                         if ((restrictions & MemberLookupRestrictions.InvocableOnly) == 0) {
-                            e = rc.LookupNamespaceOrType (Name, Arity, LookupMode.IgnoreAccessibility, loc);
+                            e = rc.LookupNamespaceOrType (Name, Arity, LookupMode.IgnoreAccessibility, _loc);
                             if (e != null) {
                                 rc.Report.SymbolRelatedToPreviousError (e.Type);
-                                ErrorIsInaccesible (rc, e.GetSignatureForError (), loc);
+                                ErrorIsInaccesible (rc, e.GetSignatureForError (), _loc);
                                 return e;
                             }
                         } else {
-                            if (MemberLookup(rc, false, rc.CurrentType, Name, Arity, restrictions & ~MemberLookupRestrictions.InvocableOnly, loc) is MemberExpr me)
+                            if (MemberLookup(rc, false, rc.CurrentType, Name, Arity, restrictions & ~MemberLookupRestrictions.InvocableOnly, _loc) is MemberExpr me)
                             {
-                                Error_UnexpectedKind(rc, me, "method group", me.KindName, loc);
+                                Error_UnexpectedKind(rc, me, "method group", me.KindName, _loc);
                                 return ErrorExpression.Instance;
                             }
                         }
 
-                        e = rc.LookupNamespaceOrType (Name, -System.Math.Max (1, Arity), LookupMode.Probing, loc);
+                        e = rc.LookupNamespaceOrType (Name, -System.Math.Max (1, Arity), LookupMode.Probing, _loc);
                         if (e != null) {
                             if (e.Type.Arity != Arity && (restrictions & MemberLookupRestrictions.IgnoreArity) == 0) {
-                                Error_TypeArgumentsCannotBeUsed (rc, e.Type, loc);
+                                Error_TypeArgumentsCannotBeUsed (rc, e.Type, _loc);
                                 return e;
                             }
 
                             if (e is TypeExpr) {
                                 // TypeExpression does not have correct location
                                 if (e is TypeExpression)
-                                    e = new TypeExpression (e.Type, loc);
+                                    e = new TypeExpression (e.Type, _loc);
 
                                 return e;
                             }
@@ -2941,7 +2941,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (rc.Module.Evaluator != null) {
                     var fi = rc.Module.Evaluator.LookupField (Name);
                     if (fi != null)
-                        return new FieldExpr (fi.Item1, loc);
+                        return new FieldExpr (fi.Item1, _loc);
                 }
 
                 lookup_arity = 0;
@@ -2957,7 +2957,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return null;
 
             if (e is FullNamedExpression && e.eclass != ExprClass.Unresolved) {
-                Error_UnexpectedKind (ec, e, "variable", e.ExprClassName, loc);
+                Error_UnexpectedKind (ec, e, "variable", e.ExprClassName, _loc);
                 return e;
             }
 
@@ -3014,21 +3014,21 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (!(fne is TypeExpr te))
             {
-                Error_UnexpectedKind(mc, fne, "type", fne.ExprClassName, loc);
+                Error_UnexpectedKind(mc, fne, "type", fne.ExprClassName, _loc);
                 return null;
             }
 
-            te.loc = loc;
+            te._loc = _loc;
 
             type = te.Type;
 
             var dep = type.GetMissingDependencies ();
             if (dep != null) {
-                ImportedTypeDefinition.Error_MissingDependency (mc, dep, loc);
+                ImportedTypeDefinition.Error_MissingDependency (mc, dep, _loc);
             }
 
             if (type.Kind == MemberKind.Void) {
-                mc.Module.Compiler.Report.Error (673, loc, "System.Void cannot be used from C#. Consider using `void'");
+                mc.Module.Compiler.Report.Error (673, _loc, "System.Void cannot be used from C#. Consider using `void'");
             }
 
             //
@@ -3093,7 +3093,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             Type = t;
             eclass = ExprClass.Type;
-            loc = l;
+            _loc = l;
         }
 
         public sealed override TypeSpec ResolveAsType (IMemberContext mc, bool allowUnboundTypeArguments = false)
@@ -3116,7 +3116,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             this.ns = ns;
             this.Type = InternalType.Namespace;
             this.eclass = ExprClass.Namespace;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public Namespace Namespace {
@@ -3346,7 +3346,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     // would be of 'this' and not 'base' because we share InstanceExpression for get/set
                     // FIXME: The async check is another hack but will probably fail with mutators
                     if (rc.CurrentType.IsStruct || rc.CurrentAnonymousMethod.Storey is AsyncTaskStorey)
-                        InstanceExpression = new This (loc).Resolve (rc);
+                        InstanceExpression = new This (_loc).Resolve (rc);
                 }
 
                 if (targs != null)
@@ -3371,7 +3371,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if ((member.Modifiers & Modifiers.PROTECTED) != 0 && !(InstanceExpression is This)) {
                 if (!CheckProtectedMemberAccess (rc, member, InstanceExpression.Type)) {
-                    Error_ProtectedMemberAccess (rc, member, InstanceExpression.Type, loc);
+                    Error_ProtectedMemberAccess (rc, member, InstanceExpression.Type, _loc);
                 }
             }
         }
@@ -3433,18 +3433,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
 
             if (member.MemberType.IsPointer && !rc.IsUnsafe) {
-                UnsafeError (rc, loc);
+                UnsafeError (rc, _loc);
             }
 
             var dep = member.GetMissingDependencies ();
             if (dep != null) {
-                ImportedTypeDefinition.Error_MissingDependency (rc, dep, loc);
+                ImportedTypeDefinition.Error_MissingDependency (rc, dep, _loc);
             }
 
             if (!rc.IsObsolete) {
                 ObsoleteAttribute oa = member.GetAttributeObsolete ();
                 if (oa != null)
-                    AttributeTester.Report_ObsoleteMessage (oa, member.GetSignatureForError (), loc, rc.Report);
+                    AttributeTester.Report_ObsoleteMessage (oa, member.GetSignatureForError (), _loc, rc.Report);
             }
 
             if (!(member is FieldSpec))
@@ -3453,7 +3453,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected virtual void Error_CannotCallAbstractBase (ResolveContext rc, string name)
         {
-            rc.Report.Error (205, loc, "Cannot call an abstract base member `{0}'", name);
+            rc.Report.Error (205, _loc, "Cannot call an abstract base member `{0}'", name);
         }
 
         public static void Error_ProtectedMemberAccess (ResolveContext rc, MemberSpec member, TypeSpec qualifier, Location loc)
@@ -3501,12 +3501,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                     if (fexpr.IsStatic)
                     {
-                        rc.Report.Error(1650, loc, "Fields of static readonly field `{0}' cannot be assigned to (except in a static constructor or a variable initializer)",
+                        rc.Report.Error(1650, _loc, "Fields of static readonly field `{0}' cannot be assigned to (except in a static constructor or a variable initializer)",
                             fexpr.GetSignatureForError());
                     }
                     else
                     {
-                        rc.Report.Error(1648, loc, "Members of readonly field `{0}' cannot be modified (except in a constructor or a variable initializer)",
+                        rc.Report.Error(1648, _loc, "Members of readonly field `{0}' cannot be modified (except in a constructor or a variable initializer)",
                             fexpr.GetSignatureForError());
                     }
 
@@ -3515,10 +3515,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                 if (InstanceExpression is PropertyExpr || InstanceExpression is IndexerExpr || InstanceExpression is Invocation) {
                     if (rc.CurrentInitializerVariable != null) {
-                        rc.Report.Error (1918, loc, "Members of value type `{0}' cannot be assigned using a property `{1}' object initializer",
+                        rc.Report.Error (1918, _loc, "Members of value type `{0}' cannot be assigned using a property `{1}' object initializer",
                             InstanceExpression.Type.GetSignatureForError (), InstanceExpression.GetSignatureForError ());
                     } else {
-                        rc.Report.Error (1612, loc,
+                        rc.Report.Error (1612, _loc,
                             "Cannot modify a value type return value of `{0}'. Consider storing the value in a temporary variable",
                             InstanceExpression.GetSignatureForError ());
                     }
@@ -3532,7 +3532,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     if (!lvr.local_info.IsReadonly)
                         return true;
 
-                    rc.Report.Error(1654, loc, "Cannot assign to members of `{0}' because it is a `{1}'",
+                    rc.Report.Error(1654, _loc, "Cannot assign to members of `{0}' because it is a `{1}'",
                         InstanceExpression.GetSignatureForError(), lvr.local_info.GetReadOnlyContext());
                 }
             }
@@ -3549,7 +3549,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         do {
                             ObsoleteAttribute oa = t.GetAttributeObsolete ();
                             if (oa != null && !rc.IsObsolete) {
-                                AttributeTester.Report_ObsoleteMessage (oa, t.GetSignatureForError (), loc, rc.Report);
+                                AttributeTester.Report_ObsoleteMessage (oa, t.GetSignatureForError (), _loc, rc.Report);
                             }
 
                             t = t.DeclaringType;
@@ -3557,7 +3557,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     } else {
                         if (!(InstanceExpression is RuntimeValueExpression runtime_expr) || !runtime_expr.IsSuggestionOnly)
                         {
-                            rc.Report.Error(176, loc,
+                            rc.Report.Error(176, _loc,
                                 "Static member `{0}' cannot be accessed with an instance reference, qualify it with a type name instead",
                                 GetSignatureForError());
                         }
@@ -3572,7 +3572,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (InstanceExpression == null || InstanceExpression is TypeExpr) {
                 if (InstanceExpression != null || !This.IsThisAvailable (rc, true)) {
                     if (rc.HasSet (ResolveContext.Options.FieldInitializerScope)) {
-                        rc.Report.Error (236, loc,
+                        rc.Report.Error (236, _loc,
                             "A field initializer cannot reference the nonstatic field, method, or property `{0}'",
                             GetSignatureForError ());
                     } else {
@@ -3580,33 +3580,33 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         {
                             if (rc.HasSet(ResolveContext.Options.BaseInitializer))
                             {
-                                rc.Report.Error(9005, loc, "Constructor initializer cannot access primary constructor parameters");
+                                rc.Report.Error(9005, _loc, "Constructor initializer cannot access primary constructor parameters");
                             }
                             else
                             {
-                                rc.Report.Error(9006, loc, "An object reference is required to access primary constructor parameter `{0}'",
+                                rc.Report.Error(9006, _loc, "An object reference is required to access primary constructor parameter `{0}'",
                                     fe.Name);
                             }
                         }
                         else
                         {
-                            rc.Report.Error(120, loc,
+                            rc.Report.Error(120, _loc,
                                 "An object reference is required to access non-static member `{0}'",
                                 GetSignatureForError());
                         }
                     }
 
-                    InstanceExpression = new CompilerGeneratedThis (rc.CurrentType, loc).Resolve (rc);
+                    InstanceExpression = new CompilerGeneratedThis (rc.CurrentType, _loc).Resolve (rc);
                     return false;
                 }
 
                 if (!TypeManager.IsFamilyAccessible (rc.CurrentType, DeclaringType)) {
-                    rc.Report.Error (38, loc,
+                    rc.Report.Error (38, _loc,
                         "Cannot access a nonstatic member of outer type `{0}' via nested type `{1}'",
                         DeclaringType.GetSignatureForError (), rc.CurrentType.GetSignatureForError ());
                 }
 
-                InstanceExpression = new This (loc).Resolve (rc);
+                InstanceExpression = new This (_loc).Resolve (rc);
                 return false;
             }
 
@@ -3617,7 +3617,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (me is FieldExpr fe && fe.IsMarshalByRefAccess(rc))
                 {
                     rc.Report.SymbolRelatedToPreviousError(me.DeclaringType);
-                    rc.Report.Warning(1690, 1, loc,
+                    rc.Report.Warning(1690, 1, _loc,
                         "Cannot call methods, properties, or indexers on `{0}' because it is a value type member of a marshal-by-reference class",
                         me.GetSignatureForError());
                 }
@@ -3835,11 +3835,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             rc.Report.SymbolRelatedToPreviousError (best);
 
             if (index == 0) {
-                rc.Report.Error (1929, loc,
+                rc.Report.Error (1929, _loc,
                     "Type `{0}' does not contain a member `{1}' and the best extension method overload `{2}' requires an instance of type `{3}'",
                     queried_type.GetSignatureForError (), Name, best.GetSignatureForError (), ((MethodSpec)best).Parameters.ExtensionMethodType.GetSignatureForError ());
             } else {
-                rc.Report.Error (1928, loc,
+                rc.Report.Error (1928, _loc,
                     "Type `{0}' does not contain a member `{1}' and the best extension method overload `{2}' has some invalid arguments",
                     queried_type.GetSignatureForError (), Name, best.GetSignatureForError ());
             }
@@ -3879,7 +3879,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public MethodGroupExpr (IList<MemberSpec> mi, TypeSpec type, Location loc)
         {
             Methods = mi;
-            this.loc = loc;
+            this._loc = loc;
             this.type = InternalType.MethodGroup;
 
             eclass = ExprClass.MethodGroup;
@@ -3988,18 +3988,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
             if (best_candidate == null) {
-                ec.Report.Error (1953, loc, "An expression tree cannot contain an expression with method group");
+                ec.Report.Error (1953, _loc, "An expression tree cannot contain an expression with method group");
                 return null;
             }
 
             if (IsConditionallyExcluded)
-                ec.Report.Error (765, loc,
+                ec.Report.Error (765, _loc,
                     "Partial methods with only a defining declaration or removed conditional methods cannot be used in an expression tree");
 
             if (ConditionalAccess)
                 Error_NullShortCircuitInsideExpressionTree (ec);
 
-            return new TypeOfMethod (best_candidate, loc);
+            return new TypeOfMethod (best_candidate, _loc);
         }
 
         protected override Expression DoResolve (ResolveContext ec)
@@ -4027,9 +4027,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             call.ConditionalAccess = ConditionalAccess;
 
             if (statement)
-                call.EmitStatement (ec, best_candidate, arguments, loc);
+                call.EmitStatement (ec, best_candidate, arguments, _loc);
             else
-                call.Emit (ec, best_candidate, arguments, loc);
+                call.Emit (ec, best_candidate, arguments, _loc);
         }
 
         public void EmitCall (EmitContext ec, Arguments arguments, TypeSpec conditionalAccessReceiver, bool statement)
@@ -4045,7 +4045,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override void Error_ValueCannotBeConverted (ResolveContext ec, TypeSpec target, bool expl)
         {
-            ec.Report.Error (428, loc, "Cannot convert method group `{0}' to non-delegate type `{1}'. Consider using parentheses to invoke the method",
+            ec.Report.Error (428, _loc, "Cannot convert method group `{0}' to non-delegate type `{1}'. Consider using parentheses to invoke the method",
                 Name, target.GetSignatureForError ());
         }
 
@@ -4089,7 +4089,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (best_candidate != null && best_candidate.Kind == MemberKind.Destructor)
                 return this;
 
-            var r = new OverloadResolver (Methods, type_arguments, restr, loc);
+            var r = new OverloadResolver (Methods, type_arguments, restr, _loc);
             if ((restr & OverloadResolver.Restrictions.NoBaseMembers) == 0) {
                 r.BaseMembersProvider = this;
                 r.InstanceQualifier = this;
@@ -4140,7 +4140,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (best_candidate.IsGeneric && (restr & OverloadResolver.Restrictions.ProbingOnly) == 0 && TypeParameterSpec.HasAnyTypeParameterConstrained (best_candidate.GenericDefinition)) {
                 ConstraintChecker cc = new ConstraintChecker (ec);
-                cc.CheckAll (best_candidate.GetGenericMethodDefinition (), best_candidate.TypeArguments, best_candidate.Constraints, loc);
+                cc.CheckAll (best_candidate.GetGenericMethodDefinition (), best_candidate.TypeArguments, best_candidate.Constraints, _loc);
             }
 
             //
@@ -4150,7 +4150,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (best_candidate.IsVirtual && (best_candidate.DeclaringType.Modifiers & Modifiers.PROTECTED) != 0 &&
                 best_candidate.MemberDefinition.IsImported && !best_candidate.DeclaringType.IsAccessible (ec)) {
                 ec.Report.SymbolRelatedToPreviousError (best_candidate);
-                ErrorIsInaccesible (ec, best_candidate.GetSignatureForError (), loc);
+                ErrorIsInaccesible (ec, best_candidate.GetSignatureForError (), _loc);
             }
 
             // Speed up the check by not doing it on disallowed targets
@@ -4212,7 +4212,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (methods == null)
                 return null;
 
-            var emg = new ExtensionMethodGroupExpr (methods, InstanceExpression, loc);
+            var emg = new ExtensionMethodGroupExpr (methods, InstanceExpression, _loc);
             emg.SetTypeArguments (rc, type_arguments);
             return emg;
         }
@@ -6003,7 +6003,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public ConstantExpr (ConstSpec constant, Location loc)
         {
             this.constant = constant;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override string Name {
@@ -6039,7 +6039,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             var c = constant.GetConstant (rc);
 
             // Creates reference expression to the constant value
-            return Constant.CreateConstantFromValue (constant.MemberType, c.GetValue (), loc);
+            return Constant.CreateConstantFromValue (constant.MemberType, c.GetValue (), _loc);
         }
 
         public override void Emit (EmitContext ec)
@@ -6054,7 +6054,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override void SetTypeArguments (ResolveContext ec, TypeArguments ta)
         {
-            Error_TypeArgumentsCannotBeUsed (ec, "constant", GetSignatureForError (), loc);
+            Error_TypeArgumentsCannotBeUsed (ec, "constant", GetSignatureForError (), _loc);
         }
     }
 
@@ -6071,13 +6071,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected FieldExpr (Location l)
         {
-            loc = l;
+            _loc = l;
         }
 
         public FieldExpr (FieldSpec spec, Location loc)
         {
             this.spec = spec;
-            this.loc = loc;
+            this._loc = loc;
 
             type = spec.MemberType;
         }
@@ -6181,7 +6181,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             Expression instance;
 
             if (InstanceExpression == null) {
-                instance = new NullLiteral (loc);
+                instance = new NullLiteral (_loc);
             } else if (convertInstance) {
                 instance = InstanceExpression.CreateExpressionTree (ec);
             } else {
@@ -6199,7 +6199,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public Expression CreateTypeOfExpression ()
         {
-            return new TypeOfField (spec, loc);
+            return new TypeOfField (spec, _loc);
         }
 
         protected override Expression DoResolve (ResolveContext ec)
@@ -6247,18 +6247,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (spec is FixedFieldSpec fb) {
                 IFixedExpression fe = InstanceExpression as IFixedExpression;
                 if (!ec.HasSet (ResolveContext.Options.FixedInitializerScope) && (fe == null || !fe.IsFixed)) {
-                    ec.Report.Error (1666, loc, "You cannot use fixed size buffers contained in unfixed expressions. Try using the fixed statement");
+                    ec.Report.Error (1666, _loc, "You cannot use fixed size buffers contained in unfixed expressions. Try using the fixed statement");
                 }
 
                 if (InstanceExpression.eclass != ExprClass.Variable) {
                     ec.Report.SymbolRelatedToPreviousError (spec);
-                    ec.Report.Error (1708, loc, "`{0}': Fixed size buffers can only be accessed through locals or fields",
+                    ec.Report.Error (1708, _loc, "`{0}': Fixed size buffers can only be accessed through locals or fields",
                         TypeManager.GetFullNameSignature (spec));
                 } else if (var != null && var.IsHoisted) {
-                    AnonymousMethodExpression.Error_AddressOfCapturedVar (ec, var, loc);
+                    AnonymousMethodExpression.Error_AddressOfCapturedVar (ec, var, _loc);
                 }
 
-                return new FixedBufferPtr (this, fb.ElementType, loc).Resolve (ec);
+                return new FixedBufferPtr (this, fb.ElementType, _loc).Resolve (ec);
             }
 
             //
@@ -6274,7 +6274,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     type = LiftMemberType (ec, type);
 
                 if (InstanceExpression.IsNull)
-                    return Constant.CreateConstantFromValue (type, null, loc);
+                    return Constant.CreateConstantFromValue (type, null, _loc);
             }
 
             eclass = ExprClass.Variable;
@@ -6309,7 +6309,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             if (InstanceExpression is IVariableReference var && var.VariableInfo == null)
                             {
                                 if (!(instance is IVariableReference var_inst) || (var_inst.VariableInfo != null && !fc.IsDefinitelyAssigned(var_inst.VariableInfo)))
-                                    fc.Report.Warning(1060, 1, fe.loc, "Use of possibly unassigned field `{0}'", fe.Name);
+                                    fc.Report.Warning(1060, 1, fe._loc, "Use of possibly unassigned field `{0}'", fe.Name);
                             }
                         }
 
@@ -6339,10 +6339,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (right_side == EmptyExpression.OutAccess) {
                 if (IsStatic) {
-                    rc.Report.Error (199, loc, "A static readonly field `{0}' cannot be passed ref or out (except in a static constructor)",
+                    rc.Report.Error (199, _loc, "A static readonly field `{0}' cannot be passed ref or out (except in a static constructor)",
                         GetSignatureForError ());
                 } else {
-                    rc.Report.Error (192, loc, "A readonly field `{0}' cannot be passed ref or out (except in a constructor)",
+                    rc.Report.Error (192, _loc, "A readonly field `{0}' cannot be passed ref or out (except in a constructor)",
                         GetSignatureForError ());
                 }
 
@@ -6356,20 +6356,20 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (right_side == EmptyExpression.LValueMemberOutAccess) {
                 if (IsStatic) {
-                    rc.Report.Error (1651, loc, "Fields of static readonly field `{0}' cannot be passed ref or out (except in a static constructor)",
+                    rc.Report.Error (1651, _loc, "Fields of static readonly field `{0}' cannot be passed ref or out (except in a static constructor)",
                         GetSignatureForError ());
                 } else {
-                    rc.Report.Error (1649, loc, "Members of readonly field `{0}' cannot be passed ref or out (except in a constructor)",
+                    rc.Report.Error (1649, _loc, "Members of readonly field `{0}' cannot be passed ref or out (except in a constructor)",
                         GetSignatureForError ());
                 }
                 return null;
             }
 
             if (IsStatic) {
-                rc.Report.Error (198, loc, "A static readonly field `{0}' cannot be assigned to (except in a static constructor or a variable initializer)",
+                rc.Report.Error (198, _loc, "A static readonly field `{0}' cannot be assigned to (except in a static constructor or a variable initializer)",
                     GetSignatureForError ());
             } else {
-                rc.Report.Error (191, loc, "A readonly field `{0}' cannot be assigned to (except in a constructor or a variable initializer)",
+                rc.Report.Error (191, _loc, "A readonly field `{0}' cannot be assigned to (except in a constructor or a variable initializer)",
                     GetSignatureForError ());
             }
 
@@ -6395,7 +6395,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if ((right_side == EmptyExpression.UnaryAddress || right_side == EmptyExpression.OutAccess) &&
                     (spec.Modifiers & Modifiers.VOLATILE) != 0) {
-                ec.Report.Warning (420, 1, loc,
+                ec.Report.Warning (420, 1, _loc,
                     "`{0}': A volatile field references will not be treated as volatile",
                     spec.GetSignatureForError ());
             }
@@ -6421,7 +6421,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (right_side == EmptyExpression.OutAccess && IsMarshalByRefAccess (ec)) {
                 ec.Report.SymbolRelatedToPreviousError (spec.DeclaringType);
-                ec.Report.Warning (197, 1, loc,
+                ec.Report.Warning (197, 1, _loc,
                         "Passing `{0}' as ref or out or taking its address may cause a runtime exception because it is a field of a marshal-by-reference class",
                         GetSignatureForError ());
             }
@@ -6437,7 +6437,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 var vi = var.VariableInfo;
                 if (vi != null && !fc.IsStructFieldDefinitelyAssigned(vi, Name))
                 {
-                    fc.Report.Error(170, loc, "Use of possibly unassigned field `{0}'", Name);
+                    fc.Report.Error(170, _loc, "Use of possibly unassigned field `{0}'", Name);
                     return;
                 }
 
@@ -6575,7 +6575,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (leave_copy)
                     ec.Emit (OpCodes.Dup);
 
-                ec.Module.Evaluator.EmitValueChangedCallback (ec, Name, type, loc);
+                ec.Module.Evaluator.EmitValueChangedCallback (ec, Name, type, _loc);
             }
 
             if (temp != null) {
@@ -6670,7 +6670,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override void SetTypeArguments (ResolveContext ec, TypeArguments ta)
         {
-            Error_TypeArgumentsCannotBeUsed (ec, "field", GetSignatureForError (), loc);
+            Error_TypeArgumentsCannotBeUsed (ec, "field", GetSignatureForError (), _loc);
         }
     }
 
@@ -6755,7 +6755,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (args_count != body.Parameters.Count && args_count == 0)
                 return null;
 
-            var mg = MethodGroupExpr.CreatePredefined (best_candidate.Get, DeclaringType, loc);
+            var mg = MethodGroupExpr.CreatePredefined (best_candidate.Get, DeclaringType, _loc);
             mg.InstanceExpression = InstanceExpression;
 
             return mg;
@@ -6784,17 +6784,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             args = new Arguments (2);
             if (InstanceExpression == null)
-                args.Add (new Argument (new NullLiteral (loc)));
+                args.Add (new Argument (new NullLiteral (_loc)));
             else
                 args.Add (new Argument (InstanceExpression.CreateExpressionTree (ec)));
-            args.Add (new Argument (new TypeOfMethod (Getter, loc)));
+            args.Add (new Argument (new TypeOfMethod (Getter, _loc)));
             return CreateExpressionFactoryCall (ec, "Property", args);
         }
 
         public Expression CreateSetterTypeOfExpression (ResolveContext rc)
         {
             DoResolveLValue (rc, null);
-            return new TypeOfMethod (Setter, loc);
+            return new TypeOfMethod (Setter, _loc);
         }
 
         public override string GetSignatureForError ()
@@ -6823,7 +6823,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         void Error_PropertyNotValid (ResolveContext ec)
         {
             ec.Report.SymbolRelatedToPreviousError (best_candidate);
-            ec.Report.Error (1546, loc, "Property or event `{0}' is not supported by the C# language",
+            ec.Report.Error (1546, _loc, "Property or event `{0}' is not supported by the C# language",
                 GetSignatureForError ());
         }
 
@@ -6920,9 +6920,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
 
             if (leave_copy)
-                call.Emit (ec, Setter, args, loc);
+                call.Emit (ec, Setter, args, _loc);
             else
-                call.EmitStatement (ec, Setter, args, loc);
+                call.EmitStatement (ec, Setter, args, _loc);
 
             if (temp != null) {
                 temp.Emit (ec);
@@ -6943,7 +6943,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     var vi = var.VariableInfo;
                     if (vi != null && !fc.IsStructFieldDefinitelyAssigned(vi, prop.BackingField.Name))
                     {
-                        fc.Report.Error(8079, loc, "Use of possibly unassigned auto-implemented property `{0}'", Name);
+                        fc.Report.Error(8079, _loc, "Use of possibly unassigned auto-implemented property `{0}'", Name);
                         return;
                     }
 
@@ -6983,13 +6983,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 var p = best_candidate.Get.Parameters;
                 arguments = new Arguments (p.Count);
                 for (int i = 0; i < p.Count; ++i) {
-                    arguments.Add (new Argument (OverloadResolver.ResolveDefaultValueArgument (rc, p.Types [i], p.FixedParameters [i].DefaultValue, loc)));
+                    arguments.Add (new Argument (OverloadResolver.ResolveDefaultValueArgument (rc, p.Types [i], p.FixedParameters [i].DefaultValue, _loc)));
                 }
             } else if (best_candidate.HasSet && best_candidate.Set.Parameters.Count > 1) {
                 var p = best_candidate.Set.Parameters;
                 arguments = new Arguments (p.Count - 1);
                 for (int i = 0; i < p.Count - 1; ++i) {
-                    arguments.Add (new Argument (OverloadResolver.ResolveDefaultValueArgument (rc, p.Types [i], p.FixedParameters [i].DefaultValue, loc)));
+                    arguments.Add (new Argument (OverloadResolver.ResolveDefaultValueArgument (rc, p.Types [i], p.FixedParameters [i].DefaultValue, _loc)));
                 }
             }
 
@@ -7014,7 +7014,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (!spec.IsStatic && (!(InstanceExpression is This) || InstanceExpression is BaseThis))
                 return false;
 
-            backing_field = new FieldExpr (prop.BackingField, loc);
+            backing_field = new FieldExpr (prop.BackingField, _loc);
             backing_field.ResolveLValue (rc, rhs);
             return true;
         }
@@ -7044,7 +7044,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override void SetTypeArguments (ResolveContext ec, TypeArguments ta)
         {
-            Error_TypeArgumentsCannotBeUsed (ec, "property", GetSignatureForError (), loc);
+            Error_TypeArgumentsCannotBeUsed (ec, "property", GetSignatureForError (), _loc);
         }
     }
 
@@ -7060,7 +7060,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected PropertyOrIndexerExpr (Location l)
         {
-            loc = l;
+            _loc = l;
         }
 
         #region Properties
@@ -7120,7 +7120,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // TODO: best_candidate can be null at this point
                 INamedBlockVariable variable = null;
                 if (best_candidate != null && rc.CurrentBlock.ParametersBlock.TopBlock.GetLocalName (best_candidate.Name, rc.CurrentBlock, ref variable) && variable is Linq.RangeVariable) {
-                    rc.Report.Error (1939, loc, "A range variable `{0}' may not be passes as `ref' or `out' parameter",
+                    rc.Report.Error (1939, _loc, "A range variable `{0}' may not be passes as `ref' or `out' parameter",
                         best_candidate.Name);
                 } else {
                     right_side.DoResolveLValue (rc, this);
@@ -7143,7 +7143,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (ResolveAutopropertyAssignment (rc, right_side))
                     return this;
 
-                rc.Report.Error (200, loc, "Property or indexer `{0}' cannot be assigned to (it is read-only)",
+                rc.Report.Error (200, _loc, "Property or indexer `{0}' cannot be assigned to (it is read-only)",
                     GetSignatureForError ());
                 return null;
             }
@@ -7151,11 +7151,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (!best_candidate.Set.IsAccessible (rc) || !best_candidate.Set.DeclaringType.IsAccessible (rc)) {
                 if (best_candidate.HasDifferentAccessibility) {
                     rc.Report.SymbolRelatedToPreviousError (best_candidate.Set);
-                    rc.Report.Error (272, loc, "The property or indexer `{0}' cannot be used in this context because the set accessor is inaccessible",
+                    rc.Report.Error (272, _loc, "The property or indexer `{0}' cannot be used in this context because the set accessor is inaccessible",
                         GetSignatureForError ());
                 } else {
                     rc.Report.SymbolRelatedToPreviousError (best_candidate.Set);
-                    ErrorIsInaccesible (rc, best_candidate.GetSignatureForError (), loc);
+                    ErrorIsInaccesible (rc, best_candidate.GetSignatureForError (), _loc);
                 }
             }
 
@@ -7170,7 +7170,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             ec.ConditionalAccess = new ConditionalAccessContext (type, ec.DefineLabel ());
 
-            call.Emit (ec, method, arguments, loc);
+            call.Emit (ec, method, arguments, _loc);
 
             ec.CloseConditionalAccess (method.ReturnType != type && type.IsNullableType ? type : null);
         }
@@ -7191,7 +7191,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (conditional_access_receiver)
                 EmitConditionalAccess (ec, ref call, Getter, Arguments);
             else
-                call.Emit (ec, Getter, Arguments, loc);
+                call.Emit (ec, Getter, Arguments, _loc);
 
             if (call.HasAwaitArguments) {
                 InstanceExpression = call.InstanceExpression;
@@ -7229,18 +7229,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (!best_candidate.HasGet) {
                 if (InstanceExpression != EmptyExpression.Null) {
                     rc.Report.SymbolRelatedToPreviousError (best_candidate);
-                    rc.Report.Error (154, loc, "The property or indexer `{0}' cannot be used in this context because it lacks the `get' accessor",
+                    rc.Report.Error (154, _loc, "The property or indexer `{0}' cannot be used in this context because it lacks the `get' accessor",
                         best_candidate.GetSignatureForError ());
                     return false;
                 }
             } else if (!best_candidate.Get.IsAccessible (rc) || !best_candidate.Get.DeclaringType.IsAccessible (rc)) {
                 if (best_candidate.HasDifferentAccessibility) {
                     rc.Report.SymbolRelatedToPreviousError (best_candidate.Get);
-                    rc.Report.Error (271, loc, "The property or indexer `{0}' cannot be used in this context because the get accessor is inaccessible",
+                    rc.Report.Error (271, _loc, "The property or indexer `{0}' cannot be used in this context because the get accessor is inaccessible",
                         TypeManager.CSharpSignature (best_candidate));
                 } else {
                     rc.Report.SymbolRelatedToPreviousError (best_candidate.Get);
-                    ErrorIsInaccesible (rc, best_candidate.Get.GetSignatureForError (), loc);
+                    ErrorIsInaccesible (rc, best_candidate.Get.GetSignatureForError (), _loc);
                 }
             }
 
@@ -7269,7 +7269,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public EventExpr (EventSpec spec, Location loc)
         {
             this.spec = spec;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         #region Properties
@@ -7324,13 +7324,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     if (!ec.IsObsolete) {
                         ObsoleteAttribute oa = spec.GetAttributeObsolete ();
                         if (oa != null)
-                            AttributeTester.Report_ObsoleteMessage (oa, spec.GetSignatureForError (), loc, ec.Report);
+                            AttributeTester.Report_ObsoleteMessage (oa, spec.GetSignatureForError (), _loc, ec.Report);
                     }
 
                     if ((spec.Modifiers & (Modifiers.ABSTRACT | Modifiers.EXTERN)) != 0)
                         Error_AssignmentEventOnly (ec);
 
-                    FieldExpr ml = new FieldExpr (spec.BackingField, loc);
+                    FieldExpr ml = new FieldExpr (spec.BackingField, _loc);
 
                     InstanceExpression = null;
 
@@ -7407,7 +7407,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             var call = new CallEmitter ();
             call.InstanceExpression = InstanceExpression;
             call.ConditionalAccess = ConditionalAccess;
-            call.EmitStatement (ec, op, args, loc);
+            call.EmitStatement (ec, op, args, _loc);
 
 //            if (NullShortCircuit)
 //                ec.CloseConditionalAccess (null);
@@ -7418,11 +7418,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         void Error_AssignmentEventOnly (ResolveContext ec)
         {
             if (spec.DeclaringType == ec.CurrentType || TypeManager.IsNestedChildOf (ec.CurrentType, spec.DeclaringType.MemberDefinition)) {
-                ec.Report.Error (79, loc,
+                ec.Report.Error (79, _loc,
                     "The event `{0}' can only appear on the left hand side of `+=' or `-=' operator",
                     GetSignatureForError ());
             } else {
-                ec.Report.Error (70, loc,
+                ec.Report.Error (70, _loc,
                     "The event `{0}' can only appear on the left hand side of += or -= when used outside of the type `{1}'",
                     GetSignatureForError (), spec.DeclaringType.GetSignatureForError ());
             }
@@ -7441,7 +7441,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override void SetTypeArguments (ResolveContext ec, TypeArguments ta)
         {
-            Error_TypeArgumentsCannotBeUsed (ec, "event", GetSignatureForError (), loc);
+            Error_TypeArgumentsCannotBeUsed (ec, "event", GetSignatureForError (), _loc);
         }
     }
 
@@ -7454,7 +7454,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             public Declarator (TemporaryVariableReference variable)
             {
                 this.variable = variable;
-                loc = variable.loc;
+                loc = variable._loc;
             }
 
             protected override void DoEmit (EmitContext ec)
@@ -7485,7 +7485,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             this.li = li;
             this.type = li.Type;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override bool IsLockedByStatement {
@@ -7594,7 +7594,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             type = right_side.Type;
             if (type == InternalType.NullLiteral || type.Kind == MemberKind.Void || type == InternalType.AnonymousMethod || type == InternalType.MethodGroup) {
-                ec.Report.Error (815, loc,
+                ec.Report.Error (815, _loc,
                     "An implicitly typed local variable declaration cannot be initialized with `{0}'",
                     type.GetSignatureForError ());
                 return false;
@@ -7609,7 +7609,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (ec.Module.Compiler.Settings.Version < LanguageVersion.V_3)
                 base.Error_TypeOrNamespaceNotFound (ec);
             else
-                ec.Module.Compiler.Report.Error (825, loc, "The contextual keyword `var' may only appear within a local variable declaration");
+                ec.Module.Compiler.Report.Error (825, _loc, "The contextual keyword `var' may only appear within a local variable declaration");
         }
     }
 

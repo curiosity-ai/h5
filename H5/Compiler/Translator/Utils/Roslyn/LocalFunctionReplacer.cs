@@ -116,7 +116,7 @@ namespace H5.Translator
                     }
 
                     var returnType = fn.ReturnType.WithoutLeadingTrivia().WithoutTrailingTrivia();
-                    var isVoid = returnType is PredefinedTypeSyntax ptsInstance && ptsInstance.Keyword.Kind() == SyntaxKind.VoidKeyword;
+                    var isVoid = returnType is PredefinedTypeSyntax ptsInstance && ptsInstance.Keyword.IsKind(SyntaxKind.VoidKeyword);
 
                     TypeSyntax varType;
 

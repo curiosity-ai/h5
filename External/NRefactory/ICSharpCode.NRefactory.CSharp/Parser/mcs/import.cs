@@ -1538,8 +1538,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (t == null)
                 return null;
 
-            var field = t.GetField (AssemblyAttributesPlaceholder.AssemblyFieldName, BindingFlags.NonPublic | BindingFlags.Static);
-            if (field == null)
+            var f = t.GetField (AssemblyAttributesPlaceholder.AssemblyFieldName, BindingFlags.NonPublic | BindingFlags.Static);
+            if (f == null)
                 return null;
 
             // TODO: implement, the idea is to fabricate specil Attribute class and

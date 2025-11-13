@@ -213,10 +213,10 @@ namespace ICSharpCode.NRefactory.CSharp
 
             if (expr.Parent is VariableInitializer initializer)
             {
-                var field = initializer.GetParent<FieldDeclaration>();
-                if (field != null)
+                var fieldDecl = initializer.GetParent<FieldDeclaration>();
+                if (fieldDecl != null)
                 {
-                    var rr = resolver.Resolve(field.ReturnType);
+                    var rr = resolver.Resolve(fieldDecl.ReturnType);
                     if (!rr.IsError)
                         return new[] { rr.Type };
                 }

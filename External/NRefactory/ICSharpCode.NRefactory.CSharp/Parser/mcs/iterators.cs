@@ -442,17 +442,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         class DynamicFieldExpr : FieldExpr
         {
-            readonly Field field;
+            readonly Field _field;
 
             public DynamicFieldExpr (Field field, Location loc)
                 : base (loc)
             {
-                this.field = field;
+                this._field = field;
             }
 
             protected override Expression DoResolve (ResolveContext ec)
             {
-                spec = field.Spec;
+                spec = _field.Spec;
                 type = spec.MemberType;
                 InstanceExpression = new CompilerGeneratedThis (type, Location);
                 return base.DoResolve (ec);
@@ -798,7 +798,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Block.Resolve (ctx);
 
             if (!rc.IsInProbingMode) {
-                var move_next = new StateMachineMethod (storey, this, new TypeExpression (ReturnType, loc), Modifiers.PUBLIC, new MemberName ("MoveNext", loc), 0);
+                var move_next = new StateMachineMethod (storey, this, new TypeExpression (ReturnType, _loc), Modifiers.PUBLIC, new MemberName ("MoveNext", _loc), 0);
                 move_next.Block.AddStatement (new MoveNextBodyStatement (this));
                 storey.AddEntryMethod (move_next);
             }
@@ -1053,11 +1053,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public Method CreateFinallyHost (TryFinallyBlock block)
         {
-            var method = new Method (storey, new TypeExpression (storey.Compiler.BuiltinTypes.Void, loc),
-                Modifiers.COMPILER_GENERATED, new MemberName (CompilerGeneratedContainer.MakeName (null, null, "Finally", finally_hosts_counter++), loc),
+            var method = new Method (storey, new TypeExpression (storey.Compiler.BuiltinTypes.Void, _loc),
+                Modifiers.COMPILER_GENERATED, new MemberName (CompilerGeneratedContainer.MakeName (null, null, "Finally", finally_hosts_counter++), _loc),
                 ParametersCompiled.EmptyReadOnlyParameters, null);
 
-            method.Block = new ToplevelBlock (method.Compiler, method.ParameterInfo, loc,
+            method.Block = new ToplevelBlock (method.Compiler, method.ParameterInfo, _loc,
                 ToplevelBlock.Flags.CompilerGenerated | ToplevelBlock.Flags.NoFlowAnalysis);
             method.Block.AddStatement (new TryFinallyBlockProxyStatement (this, block));
 
@@ -1091,12 +1091,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 ec.Emit (OpCodes.Dup);
                 ec.EmitInt ((int)IteratorStorey.State.Uninitialized);
 
-                var field = storey.PC.Spec;
+                var f = storey.PC.Spec;
                 if (storey.MemberName.IsGeneric) {
-                    field = MemberCache.GetMember (Storey.Instance.Type, field);
+                    f = MemberCache.GetMember (Storey.Instance.Type, f);
                 }
 
-                ec.Emit (OpCodes.Stfld, field);
+                ec.Emit (OpCodes.Stfld, f);
             }
         }
 
@@ -1158,8 +1158,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override void InjectYield (EmitContext ec, Expression expr, int resume_pc, bool unwind_protect, Label resume_point)
         {
             // Store the new value into current
-            var fe = new FieldExpr (((IteratorStorey) storey).CurrentField, loc);
-            fe.InstanceExpression = new CompilerGeneratedThis (storey.CurrentType, loc);
+            var fe = new FieldExpr (((IteratorStorey) storey).CurrentField, _loc);
+            fe.InstanceExpression = new CompilerGeneratedThis (storey.CurrentType, _loc);
             fe.EmitAssign (ec, expr, false, false);
 
             base.InjectYield (ec, expr, resume_pc, unwind_protect, resume_point);

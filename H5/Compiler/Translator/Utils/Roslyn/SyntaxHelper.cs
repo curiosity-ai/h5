@@ -712,7 +712,7 @@ namespace H5.Translator
 
         public static bool IsAutoProperty(this PropertyDeclarationSyntax propertyDeclaration)
         {
-            if (propertyDeclaration.Modifiers.Any(m => m.Kind() == SyntaxKind.AbstractKeyword || m.Kind() == SyntaxKind.ExternKeyword))
+            if (propertyDeclaration.Modifiers.Any(m => m.IsKind(SyntaxKind.AbstractKeyword) || m.IsKind(SyntaxKind.ExternKeyword)))
             {
                 return false;
             }
@@ -722,14 +722,14 @@ namespace H5.Translator
                 return false;
             }
 
-            var getter = propertyDeclaration.AccessorList.Accessors.SingleOrDefault(a => a.Keyword.Kind() == SyntaxKind.GetKeyword);
+            var getter = propertyDeclaration.AccessorList.Accessors.SingleOrDefault(a => a.Keyword.IsKind(SyntaxKind.GetKeyword));
 
             if (getter == null || getter.Body != null)
             {
                 return false;
             }
 
-            var setter = propertyDeclaration.AccessorList.Accessors.SingleOrDefault(a => a.Keyword.Kind() == SyntaxKind.SetKeyword);
+            var setter = propertyDeclaration.AccessorList.Accessors.SingleOrDefault(a => a.Keyword.IsKind(SyntaxKind.SetKeyword));
 
             if (setter != null && setter.Body != null)
             {
@@ -741,7 +741,7 @@ namespace H5.Translator
 
         public static T RemoveSemicolon<T>(T node, SyntaxToken semicolonToken, Func<SyntaxToken, T> withSemicolonToken) where T : SyntaxNode
         {
-            if (semicolonToken.Kind() != SyntaxKind.None)
+            if (!semicolonToken.IsKind(SyntaxKind.None))
             {
                 var leadingTrivia = semicolonToken.LeadingTrivia;
                 var trailingTrivia = semicolonToken.TrailingTrivia;
@@ -753,7 +753,7 @@ namespace H5.Translator
 
                 bool addNewline = semicolonToken.HasTrailingTrivia
                   && trailingTrivia.Count() == 1
-                  && trailingTrivia.First().Kind() == SyntaxKind.EndOfLineTrivia;
+                  && trailingTrivia.First().IsKind(SyntaxKind.EndOfLineTrivia);
 
                 var newNode = withSemicolonToken(newToken);
 
@@ -797,7 +797,7 @@ namespace H5.Translator
         public static MethodDeclarationSyntax ToStatementBody(MethodDeclarationSyntax method)
         {
             var isVoid = false;
-            if (method.ReturnType is PredefinedTypeSyntax predefined && predefined.Keyword.Kind() == SyntaxKind.VoidKeyword)
+            if (method.ReturnType is PredefinedTypeSyntax predefined && predefined.Keyword.IsKind(SyntaxKind.VoidKeyword))
             {
                 isVoid = true;
             }
@@ -832,7 +832,7 @@ namespace H5.Translator
 
         public static AccessorDeclarationSyntax ToStatementBody(AccessorDeclarationSyntax method)
         {
-            var needReturn = method.Keyword.Kind() == SyntaxKind.GetKeyword;
+            var needReturn = method.Keyword.IsKind(SyntaxKind.GetKeyword);
 
             var body = method.ExpressionBody.Expression.WithLeadingTrivia(SyntaxFactory.Space);
 
@@ -845,7 +845,7 @@ namespace H5.Translator
         public static OperatorDeclarationSyntax ToStatementBody(OperatorDeclarationSyntax method)
         {
             var isVoid = false;
-            if (method.ReturnType is PredefinedTypeSyntax predefined && predefined.Keyword.Kind() == SyntaxKind.VoidKeyword)
+            if (method.ReturnType is PredefinedTypeSyntax predefined && predefined.Keyword.IsKind(SyntaxKind.VoidKeyword))
             {
                 isVoid = true;
             }

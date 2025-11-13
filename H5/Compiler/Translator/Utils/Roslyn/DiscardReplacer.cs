@@ -21,7 +21,7 @@ namespace H5.Translator
             var outVars = root
                 .DescendantNodes()
                 .OfType<ArgumentSyntax>()
-                .Where(arg => arg.Expression is DeclarationExpressionSyntax && arg.RefOrOutKeyword.Kind() == SyntaxKind.OutKeyword);
+                .Where(arg => arg.Expression is DeclarationExpressionSyntax && arg.RefOrOutKeyword.IsKind(SyntaxKind.OutKeyword));
 
             var outDiscardVars = root
                 .DescendantNodes()
@@ -290,7 +290,7 @@ namespace H5.Translator
             outVars = root
                .DescendantNodes()
                .OfType<ArgumentSyntax>()
-               .Where(arg => arg.Expression is DeclarationExpressionSyntax && arg.RefOrOutKeyword.Kind() == SyntaxKind.OutKeyword);
+               .Where(arg => arg.Expression is DeclarationExpressionSyntax && arg.RefOrOutKeyword.IsKind(SyntaxKind.OutKeyword));
 
             root = root.ReplaceNodes(outVars, (n1, n2) =>
             {

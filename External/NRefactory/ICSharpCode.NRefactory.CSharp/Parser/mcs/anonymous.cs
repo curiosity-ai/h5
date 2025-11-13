@@ -176,10 +176,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             public readonly AnonymousMethodStorey Storey;
             public readonly Field Field;
 
-            public StoreyFieldPair (AnonymousMethodStorey storey, Field field)
+            public StoreyFieldPair (AnonymousMethodStorey storey, Field ffield)
             {
                 this.Storey = storey;
-                this.Field = field;
+                this.Field = ffield;
             }
         }
 
@@ -516,13 +516,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // too late in the pipeline and standart assign cannot be used either due to
                 // recursive nature of GetStoreyInstanceExpression
                 //
-                var field = ec.CurrentAnonymousMethod.Storey.AddCompilerGeneratedField (
+                var ffield = ec.CurrentAnonymousMethod.Storey.AddCompilerGeneratedField (
                     LocalVariable.GetCompilerGeneratedName (block), storey_type_expr, true);
 
-                field.Define ();
-                field.Emit ();
+                ffield.Define ();
+                ffield.Emit ();
 
-                var fexpr = new FieldExpr (field, Location);
+                var fexpr = new FieldExpr (ffield, Location);
                 fexpr.InstanceExpression = new CompilerGeneratedThis (ec.CurrentType, Location);
                 fexpr.EmitAssign (ec, source, false, false);
                 Instance = fexpr;
@@ -736,7 +736,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         }
 
         protected readonly AnonymousMethodStorey storey;
-        protected Field field;
+        protected Field _field;
         Dictionary<AnonymousExpression, FieldExpr> cached_inner_access; // TODO: Hashtable is too heavyweight
         FieldExpr cached_outer_access;
 
@@ -748,12 +748,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected HoistedVariable (AnonymousMethodStorey storey, Field field)
         {
             this.storey = storey;
-            this.field = field;
+            this._field = field;
         }
 
         public Field Field {
             get {
-                return field;
+                return _field;
             }
         }
 
@@ -797,10 +797,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // change storey generic types to method generic types (VAR -> MVAR)
                 //
                 if (storey.Instance.Type.IsGenericOrParentIsGeneric) {
-                    var fs = MemberCache.GetMember (storey.Instance.Type, field.Spec);
-                    cached_outer_access = new FieldExpr (fs, field.Location);
+                    var fs = MemberCache.GetMember (storey.Instance.Type, _field.Spec);
+                    cached_outer_access = new FieldExpr (fs, _field.Location);
                 } else {
-                    cached_outer_access = new FieldExpr (field, field.Location);
+                    cached_outer_access = new FieldExpr (_field, _field.Location);
                 }
 
                 cached_outer_access.InstanceExpression = storey.GetStoreyInstanceExpression (ec);
@@ -817,11 +817,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
 
             if (inner_access == null) {
-                if (field.Parent.IsGenericOrParentIsGeneric) {
-                    var fs = MemberCache.GetMember (field.Parent.CurrentType, field.Spec);
-                    inner_access = new FieldExpr (fs, field.Location);
+                if (_field.Parent.IsGenericOrParentIsGeneric) {
+                    var fs = MemberCache.GetMember (_field.Parent.CurrentType, _field.Spec);
+                    inner_access = new FieldExpr (fs, _field.Location);
                 } else {
-                    inner_access = new FieldExpr (field, field.Location);
+                    inner_access = new FieldExpr (_field, _field.Location);
                 }
 
                 inner_access.InstanceExpression = storey.GetStoreyInstanceExpression (ec);
@@ -958,7 +958,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public AnonymousMethodExpression (Location loc)
         {
-            this.loc = loc;
+            this._loc = loc;
             this.compatibles = new Dictionary<TypeSpec, Expression> ();
         }
 
@@ -1028,12 +1028,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (delegate_type.IsDelegate)
                     return delegate_type;
 
-                ec.Report.Error (835, loc, "Cannot convert `{0}' to an expression tree of non-delegate type `{1}'",
+                ec.Report.Error (835, _loc, "Cannot convert `{0}' to an expression tree of non-delegate type `{1}'",
                     GetSignatureForError (), delegate_type.GetSignatureForError ());
                 return null;
             }
 
-            ec.Report.Error (1660, loc, "Cannot convert `{0}' to non-delegate type `{1}'",
+            ec.Report.Error (1660, _loc, "Cannot convert `{0}' to non-delegate type `{1}'",
                       GetSignatureForError (), delegate_type.GetSignatureForError ());
             return null;
         }
@@ -1044,7 +1044,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return true;
 
             if (!ec.IsInProbingMode)
-                ec.Report.Error (1661, loc,
+                ec.Report.Error (1661, _loc,
                     "Cannot convert `{0}' to delegate type `{1}' since there is a parameter mismatch",
                     GetSignatureForError (), delegate_type.GetSignatureForError ());
 
@@ -1057,7 +1057,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 if (ignore_errors)
                     return false;
 
-                ec.Report.Error (1593, loc, "Delegate `{0}' does not take `{1}' arguments",
+                ec.Report.Error (1593, _loc, "Delegate `{0}' does not take `{1}' arguments",
                           delegate_type.GetSignatureForError (), Parameters.Count.ToString ());
                 return false;
             }
@@ -1238,7 +1238,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         int errors = ec.Report.Errors;
 
                         if (Block.IsAsync) {
-                            ec.Report.Error (1989, loc, "Async lambda expressions cannot be converted to expression trees");
+                            ec.Report.Error (1989, _loc, "Async lambda expressions cannot be converted to expression trees");
                         }
 
                         using (ec.Set (ResolveContext.Options.ExpressionTreeConversion)) {
@@ -1257,7 +1257,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     if (body.DirectMethodGroupConversion != null) {
                         var errors_printer = new SessionReportPrinter ();
                         var old = ec.Report.SetPrinter (errors_printer);
-                        var expr = new ImplicitDelegateCreation (delegate_type, body.DirectMethodGroupConversion, loc) {
+                        var expr = new ImplicitDelegateCreation (delegate_type, body.DirectMethodGroupConversion, _loc) {
                             AllowSpecialMethodsInvocation = true
                         }.Resolve (ec);
                         ec.Report.SetPrinter (old);
@@ -1270,7 +1270,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             } catch (FatalException) {
                 throw;
             } catch (Exception e) {
-                throw new InternalErrorException (e, loc);
+                throw new InternalErrorException (e, _loc);
             }
 
             if (!ec.IsInProbingMode && !etree_conversion) {
@@ -1287,7 +1287,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            ec.Report.Error (1946, loc, "An anonymous method cannot be converted to an expression tree");
+            ec.Report.Error (1946, _loc, "An anonymous method cannot be converted to an expression tree");
             return null;
         }
 
@@ -1305,7 +1305,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     Parameter.Modifier i_mod = delegate_parameters.FixedParameters [i].ModFlags;
                     if ((i_mod & Parameter.Modifier.OUT) != 0) {
                         if (!ec.IsInProbingMode) {
-                            ec.Report.Error (1688, loc,
+                            ec.Report.Error (1688, _loc,
                                 "Cannot convert anonymous method block without a parameter list to delegate type `{0}' because it has one or more `out' parameters",
                                 delegate_type.GetSignatureForError ());
                         }
@@ -1313,8 +1313,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                         return null;
                     }
                     fixedpars[i] = new Parameter (
-                        new TypeExpression (delegate_parameters.Types [i], loc), null,
-                        delegate_parameters.FixedParameters [i].ModFlags, null, loc);
+                        new TypeExpression (delegate_parameters.Types [i], _loc), null,
+                        delegate_parameters.FixedParameters [i].ModFlags, null, _loc);
                 }
 
                 return ParametersCompiled.CreateFullyResolved (fixedpars, delegate_parameters.Types);
@@ -1330,7 +1330,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected override Expression DoResolve (ResolveContext rc)
         {
             if (rc.HasSet (ResolveContext.Options.ConstantScope)) {
-                rc.Report.Error (1706, loc, "Anonymous methods and lambda expressions cannot be used in the current context");
+                rc.Report.Error (1706, _loc, "Anonymous methods and lambda expressions cannot be used in the current context");
                 return null;
             }
 
@@ -1401,13 +1401,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (b.IsAsync) {
                 var rt = return_type;
                 if (rt != null && rt.Kind != MemberKind.Void && rt != ec.Module.PredefinedTypes.Task.TypeSpec && !rt.IsGenericTask) {
-                    ec.Report.Error (4010, loc, "Cannot convert async {0} to delegate type `{1}'",
+                    ec.Report.Error (4010, _loc, "Cannot convert async {0} to delegate type `{1}'",
                         GetSignatureForError (), delegate_type.GetSignatureForError ());
 
                     return null;
                 }
 
-                b = b.ConvertToAsyncTask (ec, ec.CurrentMemberDefinition.Parent.PartialContainer, p, return_type, delegate_type, loc);
+                b = b.ConvertToAsyncTask (ec, ec.CurrentMemberDefinition.Parent.PartialContainer, p, return_type, delegate_type, _loc);
             }
 
             return CompatibleMethodFactory (return_type ?? InternalType.ErrorType, delegate_type, p, b);
@@ -1415,7 +1415,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected virtual AnonymousMethodBody CompatibleMethodFactory (TypeSpec return_type, TypeSpec delegate_type, ParametersCompiled p, ParametersBlock b)
         {
-            return new AnonymousMethodBody (p, b, return_type, delegate_type, loc);
+            return new AnonymousMethodBody (p, b, return_type, delegate_type, _loc);
         }
 
         protected override void CloneTo (CloneContext clonectx, Expression t)
@@ -1503,7 +1503,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             this.ReturnType = return_type;
             this.block = block;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public abstract string ContainerType { get; }
@@ -1711,7 +1711,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            ec.Report.Error (1945, loc, "An expression tree cannot contain an anonymous method expression");
+            ec.Report.Error (1945, _loc, "An expression tree cannot contain an anonymous method expression");
             return null;
         }
 
@@ -1865,9 +1865,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     int id = parent.AnonymousMethodsCounter++;
                     var cache_type = storey != null && storey.Mutator != null ? storey.Mutator.Mutate (type) : type;
 
-                    am_cache = new Field (parent, new TypeExpression (cache_type, loc),
+                    am_cache = new Field (parent, new TypeExpression (cache_type, _loc),
                         Modifiers.STATIC | Modifiers.PRIVATE | Modifiers.COMPILER_GENERATED,
-                        new MemberName (CompilerGeneratedContainer.MakeName (null, "f", "am$cache", id), loc), null);
+                        new MemberName (CompilerGeneratedContainer.MakeName (null, "f", "am$cache", id), _loc), null);
                     am_cache.Define ();
                     parent.AddField (am_cache);
                 } else {

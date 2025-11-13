@@ -728,7 +728,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             {
                 this.parameter = parameter;
                 eclass = ExprClass.Type;
-                loc = parameter.Location;
+                _loc = parameter.Location;
             }
 
             public override TypeSpec ResolveAsType (IMemberContext mc, bool allowUnboundTypeArguments)

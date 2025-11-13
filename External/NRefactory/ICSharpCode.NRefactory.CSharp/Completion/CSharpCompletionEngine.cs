@@ -1200,11 +1200,11 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                                 if (data != null)
                                     data.DisplayFlags |= DisplayFlags.NamedArgument;
                             }
-                            foreach (var field in initalizerResult.Result.Type.GetFields ()) {
-                                if (!field.IsPublic) {
+                            foreach (var ffield in initalizerResult.Result.Type.GetFields ()) {
+                                if (!ffield.IsPublic) {
                                     continue;
                                 }
-                                var data = contextList.AddMember(field);
+                                var data = contextList.AddMember(ffield);
                                 if (data != null)
                                     data.DisplayFlags |= DisplayFlags.NamedArgument;
                             }
@@ -1673,8 +1673,8 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 if (data != null)
                     data.DisplayFlags |= DisplayFlags.NamedArgument;
             }
-            foreach (var field in resolved.Type.GetFields (p => p.Accessibility == Accessibility.Public)) {
-                var data = wrapper.AddMember(field);
+            foreach (var ffield in resolved.Type.GetFields (p => p.Accessibility == Accessibility.Public)) {
+                var data = wrapper.AddMember(ffield);
                 if (data != null)
                     data.DisplayFlags |= DisplayFlags.NamedArgument;
             }
@@ -3036,10 +3036,10 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 }
             }
             if (resolveResult is TypeResolveResult && type.Kind == TypeKind.Enum) {
-                foreach (var field in type.GetFields ()) {
-                    if (!lookup.IsAccessible(field, false))
+                foreach (var ffield in type.GetFields ()) {
+                    if (!lookup.IsAccessible(ffield, false))
                         continue;
-                    result.AddMember(field);
+                    result.AddMember(ffield);
                 }
                 return result.Result;
             }
@@ -3061,9 +3061,9 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                         skipNonStaticMembers = true;
 
                         if (trr.Type.Kind == TypeKind.Enum) {
-                            foreach (var field in trr.Type.GetFields ()) {
-                                if (lookup.IsAccessible(field, false))
-                                    result.AddMember(field);
+                            foreach (var ffield in trr.Type.GetFields ()) {
+                                if (lookup.IsAccessible(ffield, false))
+                                    result.AddMember(ffield);
                             }
                             return result.Result;
                         }
@@ -3132,9 +3132,9 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                         continue;
                     }
 
-                    if (member is IField field)
+                    if (member is IField ifield)
                     {
-                        memberIsStatic |= field.IsConst;
+                        memberIsStatic |= ifield.IsConst;
                     }
                     if (!memberIsStatic && skipNonStaticMembers) {
                         continue;

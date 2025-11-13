@@ -1002,26 +1002,26 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             members.Add(c);
         }
 
-        public bool AddField(FieldBase field)
+        public bool AddField(FieldBase fieldBase)
         {
-            AddMember(field);
+            AddMember(fieldBase);
 
-            if ((field.ModFlags & Modifiers.STATIC) != 0)
+            if ((fieldBase.ModFlags & Modifiers.STATIC) != 0)
                 return true;
 
             var first_field = PartialContainer.first_nonstatic_field;
             if (first_field == null)
             {
-                PartialContainer.first_nonstatic_field = field;
+                PartialContainer.first_nonstatic_field = fieldBase;
                 return true;
             }
 
-            if (Kind == MemberKind.Struct && first_field.Parent != field.Parent)
+            if (Kind == MemberKind.Struct && first_field.Parent != fieldBase.Parent)
             {
                 Report.SymbolRelatedToPreviousError(first_field.Parent);
-                Report.Warning(282, 3, field.Location,
+                Report.Warning(282, 3, fieldBase.Location,
                     "struct instance field `{0}' found in different declaration from instance field `{1}'",
-                    field.GetSignatureForError(), first_field.GetSignatureForError());
+                    fieldBase.GetSignatureForError(), first_field.GetSignatureForError());
             }
             return true;
         }
@@ -3482,10 +3482,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             InTransit = true;
             foreach (var member in Members)
             {
-                if (!(member is Field field))
+                if (!(member is Field ffield))
                     continue;
 
-                TypeSpec ftype = field.Spec.MemberType;
+                TypeSpec ftype = ffield.Spec.MemberType;
                 if (!ftype.IsStruct)
                     continue;
 
@@ -3496,9 +3496,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 {
                     if (!CheckFieldTypeCycle(targ))
                     {
-                        Report.Error(523, field.Location,
+                        Report.Error(523, ffield.Location,
                             "Struct member `{0}' of type `{1}' causes a cycle in the struct layout",
-                            field.GetSignatureForError(), ftype.GetSignatureForError());
+                            ffield.GetSignatureForError(), ftype.GetSignatureForError());
                         break;
                     }
                 }
@@ -3506,14 +3506,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 //
                 // Static fields of exactly same type are allowed
                 //
-                if (field.IsStatic && ftype == CurrentType)
+                if (ffield.IsStatic && ftype == CurrentType)
                     continue;
 
                 if (!CheckFieldTypeCycle(ftype))
                 {
-                    Report.Error(523, field.Location,
+                    Report.Error(523, ffield.Location,
                         "Struct member `{0}' of type `{1}' causes a cycle in the struct layout",
-                        field.GetSignatureForError(), ftype.GetSignatureForError());
+                        ffield.GetSignatureForError(), ftype.GetSignatureForError());
                     break;
                 }
             }

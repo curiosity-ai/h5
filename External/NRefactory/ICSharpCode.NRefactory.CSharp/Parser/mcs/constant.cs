@@ -30,7 +30,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected Constant (Location loc)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         override public string ToString ()
@@ -63,7 +63,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (!expl && IsLiteral && type.BuiltinType != BuiltinTypeSpec.Type.Double &&
                 BuiltinTypeSpec.IsPrimitiveTypeOrDecimal (target) &&
                 BuiltinTypeSpec.IsPrimitiveTypeOrDecimal (type)) {
-                ec.Report.Error (31, loc, "Constant value `{0}' cannot be converted to a `{1}'",
+                ec.Report.Error (31, _loc, "Constant value `{0}' cannot be converted to a `{1}'",
                     GetValueAsLiteral (), target.GetSignatureForError ());
             } else {
                 base.Error_ValueCannotBeConverted (ec, target, expl);
@@ -103,7 +103,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                  Type.GetSignatureForError (), type.GetSignatureForError ());
             }
 
-            return CreateConstantFromValue (type, constant_value, loc);
+            return CreateConstantFromValue (type, constant_value, _loc);
         }
 
         //
@@ -248,7 +248,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             Arguments args = new Arguments (2);
             args.Add (new Argument (this));
-            args.Add (new Argument (new TypeOf (type, loc)));
+            args.Add (new Argument (new TypeOf (type, _loc)));
 
             return CreateExpressionFactoryCall (ec, "Constant", args);
         }
@@ -338,14 +338,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return TryReduceConstant (ec, target_type);
             } catch (OverflowException) {
                 if (ec.ConstantCheckState && Type.BuiltinType != BuiltinTypeSpec.Type.Decimal) {
-                    ec.Report.Error (221, loc,
+                    ec.Report.Error (221, _loc,
                         "Constant value `{0}' cannot be converted to a `{1}' (use `unchecked' syntax to override)",
                         GetValueAsLiteral (), target_type.GetSignatureForError ());
                 } else {
                     Error_ValueCannotBeConverted (ec, target_type, false);
                 }
 
-                return New.Constantify (target_type, loc);
+                return New.Constantify (target_type, _loc);
             }
         }
 
@@ -365,7 +365,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // Reducing literal value produces a new constant. Syntactically 10 is not same as (int)10 
                 //
                 if (IsLiteral)
-                    return CreateConstantFromValue (target_type, GetValue (), loc);
+                    return CreateConstantFromValue (target_type, GetValue (), _loc);
 
                 return this;
             }
@@ -482,7 +482,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
             catch
             {
-                ec.Report.Error (31, loc, "Constant value `{0}' cannot be converted to a `{1}'",
+                ec.Report.Error (31, _loc, "Constant value `{0}' cannot be converted to a `{1}'",
                     GetValue ().ToString (), target.GetSignatureForError ());
             }
         }
@@ -600,7 +600,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Constant Increment ()
         {
-            return new ByteConstant (type, checked ((byte)(Value + 1)), loc);
+            return new ByteConstant (type, checked ((byte)(Value + 1)), _loc);
         }
 
         public override bool IsDefaultValue {
@@ -828,7 +828,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Constant Increment ()
         {
-            return new SByteConstant (type, checked((sbyte)(Value + 1)), loc);
+            return new SByteConstant (type, checked((sbyte)(Value + 1)), _loc);
         }
 
         public override bool IsDefaultValue {
@@ -931,7 +931,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Constant Increment ()
         {
-            return new ShortConstant (type, checked((short)(Value + 1)), loc);
+            return new ShortConstant (type, checked((short)(Value + 1)), _loc);
         }
 
         public override bool IsDefaultValue {
@@ -1044,7 +1044,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Constant Increment ()
         {
-            return new UShortConstant (type, checked((ushort)(Value + 1)), loc);
+            return new UShortConstant (type, checked((ushort)(Value + 1)), _loc);
         }
 
         public override bool IsDefaultValue {
@@ -1153,7 +1153,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Constant Increment ()
         {
-            return new IntConstant (type, checked(Value + 1), loc);
+            return new IntConstant (type, checked(Value + 1), _loc);
         }
 
         public override bool IsDefaultValue {
@@ -1256,23 +1256,23 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             switch (target_type.BuiltinType) {
             case BuiltinTypeSpec.Type.SByte:
                 if (Value >= SByte.MinValue && Value <= SByte.MaxValue)
-                    return new SByteConstant (target_type, (sbyte) Value, loc);
+                    return new SByteConstant (target_type, (sbyte) Value, _loc);
                 break;
             case BuiltinTypeSpec.Type.Byte:
                 if (Value >= Byte.MinValue && Value <= Byte.MaxValue)
-                    return new ByteConstant (target_type, (byte) Value, loc);
+                    return new ByteConstant (target_type, (byte) Value, _loc);
                 break;
             case BuiltinTypeSpec.Type.Short:
                 if (Value >= Int16.MinValue && Value <= Int16.MaxValue)
-                    return new ShortConstant (target_type, (short) Value, loc);
+                    return new ShortConstant (target_type, (short) Value, _loc);
                 break;
             case BuiltinTypeSpec.Type.UShort:
                 if (Value >= UInt16.MinValue && Value <= UInt16.MaxValue)
-                    return new UShortConstant (target_type, (ushort) Value, loc);
+                    return new UShortConstant (target_type, (ushort) Value, _loc);
                 break;
             case BuiltinTypeSpec.Type.UInt:
                 if (Value >= 0)
-                    return new UIntConstant (target_type, (uint) Value, loc);
+                    return new UIntConstant (target_type, (uint) Value, _loc);
                 break;
             case BuiltinTypeSpec.Type.ULong:
                 //
@@ -1281,12 +1281,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 // to do it.
                 //
                 if (Value >= 0)
-                    return new ULongConstant (target_type, (ulong) Value, loc);
+                    return new ULongConstant (target_type, (ulong) Value, _loc);
                 break;
             case BuiltinTypeSpec.Type.Double:
-                return new DoubleConstant (target_type, (double) Value, loc);
+                return new DoubleConstant (target_type, (double) Value, _loc);
             case BuiltinTypeSpec.Type.Float:
-                return new FloatConstant (target_type, (float) Value, loc);
+                return new FloatConstant (target_type, (float) Value, _loc);
             }
 
             return null;
@@ -1329,7 +1329,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Constant Increment ()
         {
-            return new UIntConstant (type, checked(Value + 1), loc);
+            return new UIntConstant (type, checked(Value + 1), _loc);
         }
 
         public override bool IsDefaultValue {
@@ -1446,7 +1446,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Constant Increment ()
         {
-            return new LongConstant (type, checked(Value + 1), loc);
+            return new LongConstant (type, checked(Value + 1), _loc);
         }
 
         public override bool IsDefaultValue {
@@ -1534,7 +1534,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public override Constant ConvertImplicitly (TypeSpec type)
         {
             if (Value >= 0 && type.BuiltinType == BuiltinTypeSpec.Type.ULong) {
-                return new ULongConstant (type, (ulong) Value, loc);
+                return new ULongConstant (type, (ulong) Value, _loc);
             }
 
             return base.ConvertImplicitly (type);
@@ -1577,7 +1577,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Constant Increment ()
         {
-            return new ULongConstant (type, checked(Value + 1), loc);
+            return new ULongConstant (type, checked(Value + 1), _loc);
         }
 
         public override bool IsDefaultValue {
@@ -1674,7 +1674,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public override Constant ConvertImplicitly (TypeSpec type)
         {
             if (type.BuiltinType == BuiltinTypeSpec.Type.Double)
-                return new DoubleConstant (type, DoubleValue, loc);
+                return new DoubleConstant (type, DoubleValue, _loc);
 
             return base.ConvertImplicitly (type);
         }
@@ -1939,7 +1939,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (power == 0) {
                 if (Value <= int.MaxValue && Value >= int.MinValue) {
-                    m = ec.Module.PredefinedMembers.DecimalCtorInt.Resolve (loc);
+                    m = ec.Module.PredefinedMembers.DecimalCtorInt.Resolve (_loc);
                     if (m == null) {
                         return;
                     }
@@ -1950,7 +1950,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 }
 
                 if (Value <= long.MaxValue && Value >= long.MinValue) {
-                    m = ec.Module.PredefinedMembers.DecimalCtorLong.Resolve (loc);
+                    m = ec.Module.PredefinedMembers.DecimalCtorLong.Resolve (_loc);
                     if (m == null) {
                         return;
                     }
@@ -1971,7 +1971,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // power
             ec.EmitInt (power);
 
-            m = ec.Module.PredefinedMembers.DecimalCtor.Resolve (loc);
+            m = ec.Module.PredefinedMembers.DecimalCtor.Resolve (_loc);
             if (m != null) {
                 ec.Emit (OpCodes.Newobj, m);
             }
@@ -1993,27 +1993,27 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             switch (target_type.BuiltinType) {
             case BuiltinTypeSpec.Type.SByte:
-                return new SByteConstant (target_type, (sbyte) Value, loc);
+                return new SByteConstant (target_type, (sbyte) Value, _loc);
             case BuiltinTypeSpec.Type.Byte:
-                return new ByteConstant (target_type, (byte) Value, loc);
+                return new ByteConstant (target_type, (byte) Value, _loc);
             case BuiltinTypeSpec.Type.Short:
-                return new ShortConstant (target_type, (short) Value, loc);
+                return new ShortConstant (target_type, (short) Value, _loc);
             case BuiltinTypeSpec.Type.UShort:
-                return new UShortConstant (target_type, (ushort) Value, loc);
+                return new UShortConstant (target_type, (ushort) Value, _loc);
             case BuiltinTypeSpec.Type.Int:
-                return new IntConstant (target_type, (int) Value, loc);
+                return new IntConstant (target_type, (int) Value, _loc);
             case BuiltinTypeSpec.Type.UInt:
-                return new UIntConstant (target_type, (uint) Value, loc);
+                return new UIntConstant (target_type, (uint) Value, _loc);
             case BuiltinTypeSpec.Type.Long:
-                return new LongConstant (target_type, (long) Value, loc);
+                return new LongConstant (target_type, (long) Value, _loc);
             case BuiltinTypeSpec.Type.ULong:
-                return new ULongConstant (target_type, (ulong) Value, loc);
+                return new ULongConstant (target_type, (ulong) Value, _loc);
             case BuiltinTypeSpec.Type.Char:
-                return new CharConstant (target_type, (char) Value, loc);
+                return new CharConstant (target_type, (char) Value, _loc);
             case BuiltinTypeSpec.Type.Float:
-                return new FloatConstant (target_type, (float) Value, loc);
+                return new FloatConstant (target_type, (float) Value, _loc);
             case BuiltinTypeSpec.Type.Double:
-                return new DoubleConstant (target_type, (double) Value, loc);
+                return new DoubleConstant (target_type, (double) Value, _loc);
             }
 
             return null;
@@ -2133,7 +2133,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public override Constant ConvertImplicitly (TypeSpec type)
         {
             if (IsDefaultValue && type.BuiltinType == BuiltinTypeSpec.Type.Object)
-                return new NullConstant (type, loc);
+                return new NullConstant (type, _loc);
 
             return base.ConvertImplicitly (type);
         }
@@ -2193,7 +2193,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                 if (ma is QualifiedAliasMember)
                 {
-                    rc.Report.Error(8083, loc, "An alias-qualified name is not an expression");
+                    rc.Report.Error(8083, _loc, "An alias-qualified name is not an expression");
                     return false;
                 }
 
@@ -2212,7 +2212,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                     if (!mg.HasAccessibleCandidate(rc))
                     {
-                        ErrorIsInaccesible(rc, ma.GetSignatureForError(), loc);
+                        ErrorIsInaccesible(rc, ma.GetSignatureForError(), _loc);
                     }
 
                     if (ma.HasTypeArguments)
@@ -2225,7 +2225,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return true;
             }
 
-            rc.Report.Error (8081, loc, "Expression does not have a name");
+            rc.Report.Error (8081, _loc, "Expression does not have a name");
             return false;
         }
 
@@ -2338,7 +2338,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             if (targetType.IsPointer) {
                 if (IsLiteral || this is NullPointer)
-                    return new NullPointer (targetType, loc);
+                    return new NullPointer (targetType, _loc);
 
                 return null;
             }
@@ -2351,10 +2351,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return null;
 
             if (TypeSpec.IsReferenceType (targetType))
-                return new NullConstant (targetType, loc);
+                return new NullConstant (targetType, _loc);
 
             if (targetType.IsNullableType)
-                return Nullable.LiftedNull.Create (targetType, loc);
+                return Nullable.LiftedNull.Create (targetType, _loc);
 
             return null;
         }

@@ -1446,7 +1446,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         protected ConstructorInitializer (Arguments argument_list, Location loc)
         {
             this.argument_list = argument_list;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public Arguments Arguments {
@@ -1481,7 +1481,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     argument_list.Resolve (ec, out dynamic);
 
                     if (dynamic) {
-                        ec.Report.Error (1975, loc,
+                        ec.Report.Error (1975, _loc,
                             "The constructor call cannot be dynamically dispatched within constructor initializer");
 
                         return null;
@@ -1495,17 +1495,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
                     type = ec.CurrentType.BaseType;
                     if (ec.CurrentType.IsStruct) {
-                        ec.Report.Error (522, loc,
+                        ec.Report.Error (522, _loc,
                             "`{0}': Struct constructors cannot call base constructors", caller_builder.GetSignatureForError ());
                         return this;
                     }
                 }
 
-                base_ctor = ConstructorLookup (ec, type, ref argument_list, loc);
+                base_ctor = ConstructorLookup (ec, type, ref argument_list, _loc);
             }
 
             if (base_ctor != null && base_ctor.MemberDefinition == caller_builder.Spec.MemberDefinition) {
-                ec.Report.Error (516, loc, "Constructor `{0}' cannot call itself",
+                ec.Report.Error (516, _loc, "Constructor `{0}' cannot call itself",
                     caller_builder.GetSignatureForError ());
             }
 
@@ -1527,7 +1527,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
 
             var call = new CallEmitter ();
-            call.InstanceExpression = new CompilerGeneratedThis (type, loc); 
+            call.InstanceExpression = new CompilerGeneratedThis (type, _loc); 
             call.EmitPredefined (ec, base_ctor, argument_list, false);
         }
 

@@ -381,7 +381,7 @@ namespace H5.Translator
             var symbol = semanticModel.GetSymbolInfo(node.Right).Symbol;
             var newNode = base.VisitBinaryExpression(node);
             node = newNode as BinaryExpressionSyntax;
-            if (node != null && node.OperatorToken.Kind() == SyntaxKind.IsKeyword && !(symbol is ITypeSymbol))
+            if (node != null && node.OperatorToken.IsKind(SyntaxKind.IsKeyword) && !(symbol is ITypeSymbol))
             {
                 //node = node.WithOperatorToken(SyntaxFactory.Token(SyntaxKind.EqualsEqualsToken));
                 newNode = SyntaxFactory.InvocationExpression(SyntaxFactory.MemberAccessExpression(
@@ -751,7 +751,7 @@ namespace H5.Translator
                 node = node.WithNameColon(SyntaxFactory.NameColon(SyntaxFactory.IdentifierName(parameter.Name)));
             }
 
-            if (node.RefKindKeyword.Kind() == SyntaxKind.InKeyword || node.RefKindKeyword.Kind() == SyntaxKind.RefKeyword && node.Expression is InvocationExpressionSyntax)
+            if (node.RefKindKeyword.IsKind(SyntaxKind.InKeyword) || node.RefKindKeyword.IsKind(SyntaxKind.RefKeyword) && node.Expression is InvocationExpressionSyntax)
             {
                 node = node.WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.None));
             }
@@ -804,7 +804,7 @@ namespace H5.Translator
 
             if (method != null && method.ReturnsByRef && (node.Parent is AssignmentExpressionSyntax aes && aes.Left == node ||
                 node.Parent is MemberAccessExpressionSyntax ||
-                node.Parent is ArgumentSyntax arg && arg.RefKindKeyword.Kind() != SyntaxKind.RefKeyword ||
+                node.Parent is ArgumentSyntax arg && !arg.RefKindKeyword.IsKind(SyntaxKind.RefKeyword) ||
                 node.Parent is EqualsValueClauseSyntax && node.Parent.Parent is VariableDeclaratorSyntax && node.Parent.Parent.Parent is VariableDeclarationSyntax vs && vs.Type.IsVar))
             {
                 isRef = true;
@@ -1328,11 +1328,11 @@ namespace H5.Translator
 
             if (node.IsAutoProperty() && node.AccessorList != null)
             {
-                var setter = node.AccessorList.Accessors.SingleOrDefault(a => a.Keyword.Kind() == SyntaxKind.SetKeyword);
+                var setter = node.AccessorList.Accessors.SingleOrDefault(a => a.Keyword.IsKind(SyntaxKind.SetKeyword));
 
                 if (setter == null)
                 {
-                    var getter = node.AccessorList.Accessors.Single(a => a.Keyword.Kind() == SyntaxKind.GetKeyword);
+                    var getter = node.AccessorList.Accessors.Single(a => a.Keyword.IsKind(SyntaxKind.GetKeyword));
                     setter = SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
                             .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PrivateKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
                             .WithBody(null)
@@ -1347,7 +1347,7 @@ namespace H5.Translator
                 {
                     var modifiers = SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PrivateKeyword).WithTrailingTrivia(SyntaxFactory.Space));
 
-                    if (node.Modifiers.Any(m => m.Kind() == SyntaxKind.StaticKeyword))
+                    if (node.Modifiers.Any(m => m.IsKind(SyntaxKind.StaticKeyword)))
                     {
                         modifiers = modifiers.Add(SyntaxFactory.Token(SyntaxKind.StaticKeyword).WithTrailingTrivia(SyntaxFactory.Space));
                     }
@@ -2059,7 +2059,7 @@ namespace H5.Translator
             if (catchItem.Filter != null)
             {
                 var methodIdentifier = SyntaxFactory.IdentifierName("global::H5.Script.SafeFunc");
-                var lambda = SyntaxFactory.ParenthesizedLambdaExpression(SyntaxFactory.ParameterList(), catchItem.Declaration.Identifier.Kind() != SyntaxKind.None ? new IdentifierReplacer(catchItem.Declaration.Identifier.Value.ToString(), SyntaxFactory.CastExpression(catchItem.Declaration.Type, SyntaxFactory.IdentifierName(varName))).Replace(catchItem.Filter.FilterExpression) : catchItem.Filter.FilterExpression);
+                var lambda = SyntaxFactory.ParenthesizedLambdaExpression(SyntaxFactory.ParameterList(), !catchItem.Declaration.Identifier.IsKind(SyntaxKind.None) ? new IdentifierReplacer(catchItem.Declaration.Identifier.Value.ToString(), SyntaxFactory.CastExpression(catchItem.Declaration.Type, SyntaxFactory.IdentifierName(varName))).Replace(catchItem.Filter.FilterExpression) : catchItem.Filter.FilterExpression);
                 var invocation = SyntaxFactory.InvocationExpression(methodIdentifier, SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Argument(
                     lambda
                     ) })));
@@ -2069,7 +2069,7 @@ namespace H5.Translator
 
             BlockSyntax block = catchItem.Block.WithoutTrivia();
 
-            if (catchItem.Declaration.Identifier.Kind() != SyntaxKind.None)
+            if (!catchItem.Declaration.Identifier.IsKind(SyntaxKind.None))
             {
                 var variableStatement = SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(catchItem.Declaration.Type,
                     SyntaxFactory.SeparatedList(new[] { SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(catchItem.Declaration.Identifier.Text)).WithInitializer(

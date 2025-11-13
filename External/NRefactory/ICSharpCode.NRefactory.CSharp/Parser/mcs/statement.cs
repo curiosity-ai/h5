@@ -5383,12 +5383,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             }
 
             var ctype = ec.CurrentMemberDefinition.Parent.PartialContainer;
-            Field field = new Field (ctype, string_dictionary_type,
+            Field ffield = new Field (ctype, string_dictionary_type,
                 Modifiers.STATIC | Modifiers.PRIVATE | Modifiers.COMPILER_GENERATED,
                 new MemberName (CompilerGeneratedContainer.MakeName (null, "f", "switch$map", ec.Module.CounterSwitchTypes++), loc), null);
-            if (!field.Define ())
+            if (!ffield.Define ())
                 return;
-            ctype.AddField (field);
+            ctype.AddField (ffield);
 
             var init = new List<Expression> ();
             int counter = -1;
@@ -5418,7 +5418,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             Expression initializer = new NewInitialize (string_dictionary_type, args,
                 new CollectionOrObjectInitializers (init, loc), loc);
 
-            switch_cache_field = new FieldExpr (field, loc);
+            switch_cache_field = new FieldExpr (ffield, loc);
             string_dictionary = new SimpleAssign (switch_cache_field, initializer.Resolve (ec));
         }
 
@@ -6303,7 +6303,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 pinned_string.Emit (ec);
                 ec.Emit (OpCodes.Conv_I);
 
-                var m = ec.Module.PredefinedMembers.RuntimeHelpersOffsetToStringData.Resolve (loc);
+                var m = ec.Module.PredefinedMembers.RuntimeHelpersOffsetToStringData.Resolve (_loc);
                 if (m == null)
                     return;
 

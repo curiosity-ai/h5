@@ -1190,7 +1190,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         protected override FieldExpr GetFieldExpression (EmitContext ec)
         {
-            return new FieldExpr (field, field.Location);
+            return new FieldExpr (_field, _field.Location);
         }
     }
 

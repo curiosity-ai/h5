@@ -680,12 +680,12 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
                 return new AmbiguousMemberResolveResult(targetResolveResult, resultGroup.NonMethod);
             } else {
                 if (isInEnumMemberInitializer) {
-                    if (resultGroup.NonMethod is IField field && field.DeclaringTypeDefinition != null && field.DeclaringTypeDefinition.Kind == TypeKind.Enum)
+                    if (resultGroup.NonMethod is IField ifield && ifield.DeclaringTypeDefinition != null && ifield.DeclaringTypeDefinition.Kind == TypeKind.Enum)
                     {
                         return new MemberResolveResult(
-                            targetResolveResult, field,
-                            field.DeclaringTypeDefinition.EnumUnderlyingType,
-                            field.IsConst, field.ConstantValue);
+                            targetResolveResult, ifield,
+                            ifield.DeclaringTypeDefinition.EnumUnderlyingType,
+                            ifield.IsConst, ifield.ConstantValue);
                     }
                 }
                 return new MemberResolveResult(targetResolveResult, resultGroup.NonMethod);

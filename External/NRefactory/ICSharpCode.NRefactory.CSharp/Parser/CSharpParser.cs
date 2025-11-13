@@ -4106,9 +4106,9 @@ namespace ICSharpCode.NRefactory.CSharp
         public AstType ParseTypeReference(string code)
         {
             var members = ParseTypeMembers(code + " a;");
-            if (members.FirstOrDefault() is FieldDeclaration field)
+            if (members.FirstOrDefault() is FieldDeclaration fieldDecl)
             {
-                AstType type = field.ReturnType;
+                AstType type = fieldDecl.ReturnType;
                 type.Remove();
                 return type;
             }

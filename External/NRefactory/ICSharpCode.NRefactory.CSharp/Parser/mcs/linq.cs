@@ -71,7 +71,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
 
             public override void Error_TypeDoesNotContainDefinition (ResolveContext ec, TypeSpec type, string name)
             {
-                ec.Report.Error (1935, loc, "An implementation of `{0}' query expression pattern could not be found. " +
+                ec.Report.Error (1935, _loc, "An implementation of `{0}' query expression pattern could not be found. " +
                     "Are you missing `System.Linq' using directive or `System.Core.dll' assembly reference?",
                     name);
             }
@@ -92,7 +92,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
 
             protected override Expression DoResolveDynamic (ResolveContext ec, Expression memberExpr)
             {
-                ec.Report.Error (1979, loc,
+                ec.Report.Error (1979, _loc,
                     "Query expressions with a source or join sequence of type `dynamic' are not allowed");
                 return null;
             }
@@ -103,7 +103,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
             {
                 ec.Report.SymbolRelatedToPreviousError (best);
                 ec.Report.SymbolRelatedToPreviousError (ambiguous);
-                ec.Report.Error (1940, loc, "Ambiguous implementation of the query pattern `{0}' for source type `{1}'",
+                ec.Report.Error (1940, _loc, "Ambiguous implementation of the query pattern `{0}' for source type `{1}'",
                     best.Name, mg.InstanceExpression.GetSignatureForError ());
                 return true;
             }
@@ -134,18 +134,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
                     }
 
                     if (!Convert.ImplicitConversionExists (rc, a.Expr, source_type)) {
-                        rc.Report.Error (1936, loc, "An implementation of `{0}' query expression pattern for source type `{1}' could not be found",
+                        rc.Report.Error (1936, _loc, "An implementation of `{0}' query expression pattern for source type `{1}' could not be found",
                             best.Name, a.Type.GetSignatureForError ());
                         return true;
                     }
                 }
 
                 if (best.Name == "SelectMany") {
-                    rc.Report.Error (1943, loc,
+                    rc.Report.Error (1943, _loc,
                         "An expression type is incorrect in a subsequent `from' clause in a query expression with source type `{0}'",
                         arguments[0].GetSignatureForError ());
                 } else {
-                    rc.Report.Error (1942, loc,
+                    rc.Report.Error (1942, _loc,
                         "An expression type in `{0}' clause is incorrect. Type inference failed in the call to `{1}'",
                         best.Name.ToLowerInvariant (), best.Name);
                 }
@@ -163,7 +163,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
              : base (expr)
         {
             this.block = block;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         protected override void CloneTo (CloneContext clonectx, Expression target)
@@ -213,7 +213,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
         {
             args = new Arguments (2);
 
-            LambdaExpression selector = new LambdaExpression (loc);
+            LambdaExpression selector = new LambdaExpression (_loc);
 
             block.SetParameter (parameter);
             selector.Block = block;
@@ -225,7 +225,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
         protected Invocation CreateQueryExpression (Expression lSide, Arguments arguments)
         {
             return new QueryExpressionInvocation (
-                new QueryExpressionAccess (lSide, MethodName, loc), arguments);
+                new QueryExpressionAccess (lSide, MethodName, _loc), arguments);
         }
 
         protected abstract string MethodName { get; }
@@ -257,7 +257,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
 
             protected override void Error_InvalidInitializer (ResolveContext ec, string initializer)
             {
-                ec.Report.Error (1932, loc, "A range variable `{0}' cannot be initialized with `{1}'",
+                ec.Report.Error (1932, _loc, "A range variable `{0}' cannot be initialized with `{1}'",
                     Name, initializer);
             }
         }
@@ -304,7 +304,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
         protected Invocation CreateCastExpression (Expression lSide)
         {
             return new QueryExpressionInvocation (
-                new QueryExpressionAccess (lSide, "Cast", new TypeArguments (IdentifierType), loc), null);
+                new QueryExpressionAccess (lSide, "Cast", new TypeArguments (IdentifierType), _loc), null);
         }
 
         protected override Parameter CreateChildrenParameters (Parameter parameter)
@@ -892,7 +892,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp.Linq
 
         public override Expression DoResolveLValue (ResolveContext rc, Expression right_side)
         {
-            rc.Report.Error (1947, loc,
+            rc.Report.Error (1947, _loc,
                 "A range variable `{0}' cannot be assigned to. Consider using `let' clause to store the value",
                 Name);
 

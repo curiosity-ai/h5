@@ -136,17 +136,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             bool ok = true;
             for (int i = 0; i < struct_info.Count; i++) {
-                var field = struct_info.Fields[i];
+                var ffield = struct_info.Fields[i];
 
-                if (!fc.IsStructFieldDefinitelyAssigned (vi, field.Name)) {
-                    if (field.MemberDefinition is Property.BackingFieldDeclaration bf)
+                if (!fc.IsStructFieldDefinitelyAssigned (vi, ffield.Name)) {
+                    if (ffield.MemberDefinition is Property.BackingFieldDeclaration bf)
                     {
                         if (bf.Initializer != null)
                             continue;
 
                         fc.Report.Error(843, loc,
                             "An automatically implemented property `{0}' must be fully assigned before control leaves the constructor. Consider calling the default struct contructor from a constructor initializer",
-                            field.GetSignatureForError());
+                            ffield.GetSignatureForError());
 
                         ok = false;
                         continue;
@@ -154,7 +154,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
                     fc.Report.Error (171, loc,
                         "Field `{0}' must be fully assigned before control leaves the constructor",
-                        field.GetSignatureForError ());
+                        ffield.GetSignatureForError ());
                     ok = false;
                 }
             }
@@ -199,13 +199,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 InTransit = true;
 
                 for (int i = 0; i < fields.Count; i++) {
-                    var field = fields [i];
+                    var f = fields [i];
 
-                    if (field.MemberType.IsStruct)
-                        sinfo [i] = GetStructInfo (field.MemberType, context);
+                    if (f.MemberType.IsStruct)
+                        sinfo [i] = GetStructInfo (f.MemberType, context);
 
                     if (sinfo [i] == null)
-                        field_hash.Add (field.Name, ++Length);
+                        field_hash.Add (f.Name, ++Length);
                     else if (sinfo [i].InTransit) {
                         sinfo [i] = null;
                         return;

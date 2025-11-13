@@ -297,7 +297,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         {
             this.target = target;
             this.source = source;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public Expression Target {
@@ -323,7 +323,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            ec.Report.Error (832, loc, "An expression tree cannot contain an assignment operator");
+            ec.Report.Error (832, _loc, "An expression tree cannot contain an assignment operator");
             return null;
         }
 
@@ -474,7 +474,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return e;
 
             if (CheckEqualAssign (target))
-                ec.Report.Warning (1717, 3, loc, "Assignment made to same variable; did you mean to assign something else?");
+                ec.Report.Warning (1717, 3, _loc, "Assignment made to same variable; did you mean to assign something else?");
 
             return this;
         }
@@ -614,7 +614,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public override Location StartLocation {
             get {
-                return loc;
+                return _loc;
             }
         }
 
@@ -646,7 +646,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             //
             if (ec.HasSet (BuilderContext.Options.OmitDebugInfo) && ec.HasMethodSymbolBuilder) {
                 using (ec.With (BuilderContext.Options.OmitDebugInfo, false)) {
-                    ec.Mark (loc);
+                    ec.Mark (_loc);
                 }
             }
 
@@ -693,8 +693,8 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected override Expression DoResolve (ResolveContext rc)
         {
-            target = new FieldExpr (field, loc);
-            source = rc.CurrentBlock.ParametersBlock.GetParameterInfo (parameter).CreateReferenceExpression (rc, loc);
+            target = new FieldExpr (field, _loc);
+            source = rc.CurrentBlock.ParametersBlock.GetParameterInfo (parameter).CreateReferenceExpression (rc, _loc);
             return base.DoResolve (rc);
         }
 
@@ -719,7 +719,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             public TargetExpression (Expression child)
             {
                 this.child = child;
-                this.loc = child.Location;
+                this._loc = child.Location;
             }
 
             public override bool ContainsEmitWithAwait ()
@@ -795,7 +795,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 return null;
 
             if (target is MethodGroupExpr){
-                ec.Report.Error (1656, loc,
+                ec.Report.Error (1656, _loc,
                     "Cannot assign to `{0}' because it is a `{1}'",
                     ((MethodGroupExpr)target).Name, target.ExprClassName);
                 return null;
@@ -803,7 +803,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             if (target is EventExpr event_expr)
             {
-                source = Convert.ImplicitConversionRequired(ec, right, target.Type, loc);
+                source = Convert.ImplicitConversionRequired(ec, right, target.Type, _loc);
                 if (source == null)
                     return null;
 
@@ -852,7 +852,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                     binder_flags |= CSharpBinderFlags.CheckedContext;
 
                 if (target is DynamicMemberBinder) {
-                    source = new DynamicMemberBinder (ma.Name, binder_flags, args, loc).Resolve (ec);
+                    source = new DynamicMemberBinder (ma.Name, binder_flags, args, _loc).Resolve (ec);
 
                     // Handles possible event addition/subtraction
                     if (op == Binary.Operator.Addition || op == Binary.Operator.Subtraction) {
@@ -863,15 +863,15 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                             Event.AEventAccessor.AddPrefix : Event.AEventAccessor.RemovePrefix;
 
                         var invoke = DynamicInvocation.CreateSpecialNameInvoke (
-                            new MemberAccess (right, method_prefix + ma.Name, loc), args, loc).Resolve (ec);
+                            new MemberAccess (right, method_prefix + ma.Name, _loc), args, _loc).Resolve (ec);
 
                         args = new Arguments (targs.Count);
                         args.AddRange (targs);
                         source = new DynamicEventCompoundAssign (ma.Name, args,
-                            (ExpressionStatement) source, (ExpressionStatement) invoke, loc).Resolve (ec);
+                            (ExpressionStatement) source, (ExpressionStatement) invoke, _loc).Resolve (ec);
                     }
                 } else {
-                    source = new DynamicIndexBinder (binder_flags, args, loc).Resolve (ec);
+                    source = new DynamicIndexBinder (binder_flags, args, _loc).Resolve (ec);
                 }
 
                 return source;
@@ -902,7 +902,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             // 1. the return type is implicitly convertible to the type of target
             //
             if (Convert.ImplicitConversionExists (ec, source, target_type)) {
-                source = Convert.ImplicitConversion (ec, source, target_type, loc);
+                source = Convert.ImplicitConversion (ec, source, target_type, _loc);
                 return this;
             }
 
@@ -935,7 +935,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 //
                 if ((b.Oper & Binary.Operator.ShiftMask) != 0 ||
                     Convert.ImplicitConversionExists (ec, right, target_type)) {
-                    source = Convert.ExplicitConversion (ec, source, target_type, loc);
+                    source = Convert.ExplicitConversion (ec, source, target_type, _loc);
                     return this;
                 }
             }
@@ -943,7 +943,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             if (source.Type.BuiltinType == BuiltinTypeSpec.Type.Dynamic) {
                 Arguments arg = new Arguments (1);
                 arg.Add (new Argument (source));
-                return new SimpleAssign (target, new DynamicConversion (target_type, CSharpBinderFlags.ConvertExplicit, arg, loc), loc).Resolve (ec);
+                return new SimpleAssign (target, new DynamicConversion (target_type, CSharpBinderFlags.ConvertExplicit, arg, _loc), _loc).Resolve (ec);
             }
 
             right.Error_ValueCannotBeConverted (ec, target_type, false);

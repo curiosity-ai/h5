@@ -304,9 +304,9 @@ namespace ICSharpCode.NRefactory.CSharp.Completion
                 return null;
             addedEnums.Add (resolvedType);
             var result = AddType(resolvedType, true);
-            foreach (var field in resolvedType.GetFields ()) {
-                if (field.IsPublic && (field.IsConst || field.IsStatic)) {
-                    Result.Add(Factory.CreateMemberCompletionData(resolvedType, field));
+            foreach (var ffield in resolvedType.GetFields ()) {
+                if (ffield.IsPublic && (ffield.IsConst || ffield.IsStatic)) {
+                    Result.Add(Factory.CreateMemberCompletionData(resolvedType, ffield));
                 }
             }
             return result;

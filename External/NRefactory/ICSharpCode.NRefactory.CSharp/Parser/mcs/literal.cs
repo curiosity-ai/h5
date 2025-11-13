@@ -53,14 +53,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override void Error_ValueCannotBeConverted (ResolveContext ec, TypeSpec t, bool expl)
         {
             if (t.IsGenericParameter) {
-                ec.Report.Error(403, loc,
+                ec.Report.Error(403, _loc,
                     "Cannot convert null to the type parameter `{0}' because it could be a value " +
                     "type. Consider using `default ({0})' instead", t.Name);
                 return;
             }
 
             if (TypeSpec.IsValueType (t)) {
-                ec.Report.Error(37, loc, "Cannot convert null to `{0}' because it is a value type",
+                ec.Report.Error(37, _loc, "Cannot convert null to `{0}' because it is a value type",
                     t.GetSignatureForError ());
                 return;
             }
@@ -256,12 +256,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override void Error_ValueCannotBeConverted (ResolveContext ec, TypeSpec target, bool expl)
         {
             if (target.BuiltinType == BuiltinTypeSpec.Type.Float) {
-                Error_664 (ec, loc, "float", "f");
+                Error_664 (ec, _loc, "float", "f");
                 return;
             }
 
             if (target.BuiltinType == BuiltinTypeSpec.Type.Decimal) {
-                Error_664 (ec, loc, "decimal", "m");
+                Error_664 (ec, _loc, "decimal", "m");
                 return;
             }
 

@@ -70,7 +70,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         public CompletionSimpleName (string prefix, Location l)
         {
-            this.loc = l;
+            this._loc = l;
             this.Prefix = prefix;
         }
 
@@ -97,14 +97,14 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public CompletionMemberAccess (Expression e, string partial_name, Location l)
         {
             this.expr = e;
-            this.loc = l;
+            this._loc = l;
             this.partial_name = partial_name;
         }
 
         public CompletionMemberAccess (Expression e, string partial_name, TypeArguments targs, Location l)
         {
             this.expr = e;
-            this.loc = l;
+            this._loc = l;
             this.partial_name = partial_name;
             this.targs = targs;
         }
@@ -136,7 +136,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
             TypeSpec expr_type = expr.Type;
             if (expr_type.IsPointer || expr_type.Kind == MemberKind.Void || expr_type == InternalType.NullLiteral || expr_type == InternalType.AnonymousMethod) {
-                expr.Error_OperatorCannotBeApplied (rc, loc, ".", expr_type);
+                expr.Error_OperatorCannotBeApplied (rc, _loc, ".", expr_type);
                 return null;
             }
 
@@ -185,7 +185,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public CompletionElementInitializer (string partial_name, Location l)
         {
             this.partial_name = partial_name;
-            this.loc = l;
+            this._loc = l;
         }
 
         protected override Expression DoResolve (ResolveContext ec)

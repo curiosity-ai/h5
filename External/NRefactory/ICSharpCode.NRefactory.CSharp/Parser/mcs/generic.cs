@@ -95,7 +95,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
     {
         public SpecialContraintExpr (SpecialConstraint constraint, Location loc)
         {
-            this.loc = loc;
+            this._loc = loc;
             this.Constraint = constraint;
         }
 
@@ -2445,7 +2445,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public GenericTypeExpr (TypeSpec open_type, TypeArguments args, Location l)
         {
             this.open_type = open_type;
-            loc = l;
+            _loc = l;
             this.args = args;
         }
 
@@ -2480,7 +2480,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 var constraints = inflated.Constraints;
                 if (constraints != null) {
                     var cc = new ConstraintChecker (mc);
-                    if (cc.CheckAll (open_type, atypes, constraints, loc)) {
+                    if (cc.CheckAll (open_type, atypes, constraints, _loc)) {
                         inflated.HasConstraintsChecked = true;
                     }
                 }

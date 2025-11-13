@@ -348,91 +348,91 @@ namespace ICSharpCode.NRefactory.CSharp.TypeSystem
         {
             bool isSingleField = fieldDeclaration.Variables.Count == 1;
             Modifiers modifiers = fieldDeclaration.Modifiers;
-            DefaultUnresolvedField field = null;
+            DefaultUnresolvedField unresolvedField = null;
             foreach (VariableInitializer vi in fieldDeclaration.Variables) {
-                field = new DefaultUnresolvedField(currentTypeDefinition, vi.Name);
+                unresolvedField = new DefaultUnresolvedField(currentTypeDefinition, vi.Name);
 
-                field.Region = isSingleField ? MakeRegion(fieldDeclaration) : MakeRegion(vi);
-                field.BodyRegion = MakeRegion(vi);
-                ConvertAttributes(field.Attributes, fieldDeclaration.Attributes);
-                AddXmlDocumentation(field, fieldDeclaration);
+                unresolvedField.Region = isSingleField ? MakeRegion(fieldDeclaration) : MakeRegion(vi);
+                unresolvedField.BodyRegion = MakeRegion(vi);
+                ConvertAttributes(unresolvedField.Attributes, fieldDeclaration.Attributes);
+                AddXmlDocumentation(unresolvedField, fieldDeclaration);
 
-                ApplyModifiers(field, modifiers);
-                field.IsVolatile = (modifiers & Modifiers.Volatile) != 0;
-                field.IsReadOnly = (modifiers & Modifiers.Readonly) != 0;
+                ApplyModifiers(unresolvedField, modifiers);
+                unresolvedField.IsVolatile = (modifiers & Modifiers.Volatile) != 0;
+                unresolvedField.IsReadOnly = (modifiers & Modifiers.Readonly) != 0;
 
-                field.ReturnType = ConvertTypeReference(fieldDeclaration.ReturnType);
+                unresolvedField.ReturnType = ConvertTypeReference(fieldDeclaration.ReturnType);
 
                 if ((modifiers & Modifiers.Const) != 0) {
-                    field.ConstantValue = ConvertConstantValue(field.ReturnType, vi.Initializer);
-                    field.IsStatic = true;
+                    unresolvedField.ConstantValue = ConvertConstantValue(unresolvedField.ReturnType, vi.Initializer);
+                    unresolvedField.IsStatic = true;
                 }
 
-                currentTypeDefinition.Members.Add(field);
-                field.ApplyInterningProvider(interningProvider);
+                currentTypeDefinition.Members.Add(unresolvedField);
+                unresolvedField.ApplyInterningProvider(interningProvider);
             }
-            return isSingleField ? field : null;
+            return isSingleField ? unresolvedField : null;
         }
 
         public override IUnresolvedEntity VisitFixedFieldDeclaration(FixedFieldDeclaration fixedFieldDeclaration)
         {
             bool isSingleField = fixedFieldDeclaration.Variables.Count == 1;
             Modifiers modifiers = fixedFieldDeclaration.Modifiers;
-            DefaultUnresolvedField field = null;
+            DefaultUnresolvedField unresolvedField = null;
             foreach (var vi in fixedFieldDeclaration.Variables) {
-                field = new DefaultUnresolvedField(currentTypeDefinition, vi.Name);
+                unresolvedField = new DefaultUnresolvedField(currentTypeDefinition, vi.Name);
 
-                field.Region = isSingleField ? MakeRegion(fixedFieldDeclaration) : MakeRegion(vi);
-                field.BodyRegion = MakeRegion(vi);
-                ConvertAttributes(field.Attributes, fixedFieldDeclaration.Attributes);
-                AddXmlDocumentation(field, fixedFieldDeclaration);
+                unresolvedField.Region = isSingleField ? MakeRegion(fixedFieldDeclaration) : MakeRegion(vi);
+                unresolvedField.BodyRegion = MakeRegion(vi);
+                ConvertAttributes(unresolvedField.Attributes, fixedFieldDeclaration.Attributes);
+                AddXmlDocumentation(unresolvedField, fixedFieldDeclaration);
 
-                ApplyModifiers(field, modifiers);
+                ApplyModifiers(unresolvedField, modifiers);
 
-                field.ReturnType = ConvertTypeReference(fixedFieldDeclaration.ReturnType);
-                field.IsFixed = true;
-                field.ConstantValue = ConvertConstantValue(field.ReturnType, vi.CountExpression);
+                unresolvedField.ReturnType = ConvertTypeReference(fixedFieldDeclaration.ReturnType);
+                unresolvedField.IsFixed = true;
+                unresolvedField.ConstantValue = ConvertConstantValue(unresolvedField.ReturnType, vi.CountExpression);
 
-                currentTypeDefinition.Members.Add(field);
-                field.ApplyInterningProvider(interningProvider);
+                currentTypeDefinition.Members.Add(unresolvedField);
+                unresolvedField.ApplyInterningProvider(interningProvider);
             }
-            return isSingleField ? field : null;
+            return isSingleField ? unresolvedField : null;
         }
 
         public override IUnresolvedEntity VisitEnumMemberDeclaration(EnumMemberDeclaration enumMemberDeclaration)
         {
-            DefaultUnresolvedField field = new DefaultUnresolvedField(currentTypeDefinition, enumMemberDeclaration.Name);
-            field.Region = field.BodyRegion = MakeRegion(enumMemberDeclaration);
-            ConvertAttributes(field.Attributes, enumMemberDeclaration.Attributes);
-            AddXmlDocumentation(field, enumMemberDeclaration);
+            DefaultUnresolvedField unresolvedField = new DefaultUnresolvedField(currentTypeDefinition, enumMemberDeclaration.Name);
+            unresolvedField.Region = unresolvedField.BodyRegion = MakeRegion(enumMemberDeclaration);
+            ConvertAttributes(unresolvedField.Attributes, enumMemberDeclaration.Attributes);
+            AddXmlDocumentation(unresolvedField, enumMemberDeclaration);
 
             if (currentTypeDefinition.TypeParameters.Count == 0) {
-                field.ReturnType = currentTypeDefinition;
+                unresolvedField.ReturnType = currentTypeDefinition;
             } else {
                 ITypeReference[] typeArgs = new ITypeReference[currentTypeDefinition.TypeParameters.Count];
                 for (int i = 0; i < typeArgs.Length; i++) {
                     typeArgs[i] = TypeParameterReference.Create(SymbolKind.TypeDefinition, i);
                 }
-                field.ReturnType = interningProvider.Intern(new ParameterizedTypeReference(currentTypeDefinition, typeArgs));
+                unresolvedField.ReturnType = interningProvider.Intern(new ParameterizedTypeReference(currentTypeDefinition, typeArgs));
             }
-            field.Accessibility = Accessibility.Public;
-            field.IsStatic = true;
+            unresolvedField.Accessibility = Accessibility.Public;
+            unresolvedField.IsStatic = true;
             if (!enumMemberDeclaration.Initializer.IsNull) {
-                field.ConstantValue = ConvertConstantValue(field.ReturnType, enumMemberDeclaration.Initializer);
+                unresolvedField.ConstantValue = ConvertConstantValue(unresolvedField.ReturnType, enumMemberDeclaration.Initializer);
             } else {
                 if (!(currentTypeDefinition.Members.LastOrDefault() is DefaultUnresolvedField prevField) || prevField.ConstantValue == null)
                 {
-                    field.ConstantValue = ConvertConstantValue(field.ReturnType, new PrimitiveExpression(0));
+                    unresolvedField.ConstantValue = ConvertConstantValue(unresolvedField.ReturnType, new PrimitiveExpression(0));
                 }
                 else
                 {
-                    field.ConstantValue = interningProvider.Intern(new IncrementConstantValue(prevField.ConstantValue));
+                    unresolvedField.ConstantValue = interningProvider.Intern(new IncrementConstantValue(prevField.ConstantValue));
                 }
             }
 
-            currentTypeDefinition.Members.Add(field);
-            field.ApplyInterningProvider(interningProvider);
-            return field;
+            currentTypeDefinition.Members.Add(unresolvedField);
+            unresolvedField.ApplyInterningProvider(interningProvider);
+            return unresolvedField;
         }
         #endregion
 

@@ -38,7 +38,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
                 CurrentAnonymousMethod = ec.CurrentAnonymousMethod
             };
 
-            Expression args = Parameters.CreateExpressionTree (bc, loc);
+            Expression args = Parameters.CreateExpressionTree (bc, _loc);
             Expression expr = Block.CreateExpressionTree (ec);
             if (expr == null)
                 return null;
@@ -47,7 +47,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             arguments.Add (new Argument (expr));
             arguments.Add (new Argument (args));
             return CreateExpressionFactoryCall (ec, "Lambda",
-                new TypeArguments (new TypeExpression (delegate_type, loc)),
+                new TypeArguments (new TypeExpression (delegate_type, _loc)),
                 arguments);
         }
 
@@ -105,7 +105,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 
         protected override AnonymousMethodBody CompatibleMethodFactory (TypeSpec returnType, TypeSpec delegateType, ParametersCompiled p, ParametersBlock b)
         {
-            return new LambdaMethod (p, b, returnType, delegateType, loc);
+            return new LambdaMethod (p, b, returnType, delegateType, _loc);
         }
 
         protected override bool DoResolveParameters (ResolveContext rc)
@@ -158,7 +158,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
             BlockContext bc = new BlockContext (ec.MemberContext, Block, ReturnType);
-            Expression args = parameters.CreateExpressionTree (bc, loc);
+            Expression args = parameters.CreateExpressionTree (bc, _loc);
             Expression expr = Block.CreateExpressionTree (ec);
             if (expr == null)
                 return null;
@@ -167,7 +167,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
             arguments.Add (new Argument (expr));
             arguments.Add (new Argument (args));
             return CreateExpressionFactoryCall (ec, "Lambda",
-                new TypeArguments (new TypeExpression (type, loc)),
+                new TypeArguments (new TypeExpression (type, _loc)),
                 arguments);
         }
     }

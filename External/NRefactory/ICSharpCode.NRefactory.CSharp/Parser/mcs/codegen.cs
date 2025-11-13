@@ -465,12 +465,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             ig.Emit (opcode, type.GetMetaInfo ());
         }
 
-        public void Emit (OpCode opcode, FieldSpec field)
+        public void Emit (OpCode opcode, FieldSpec ffield)
         {
             if (IsAnonymousStoreyMutateRequired)
-                field = field.Mutate (CurrentAnonymousMethod.Storey.Mutator);
+                ffield = ffield.Mutate (CurrentAnonymousMethod.Storey.Mutator);
 
-            ig.Emit (opcode, field.GetMetaInfo ());
+            ig.Emit (opcode, ffield.GetMetaInfo ());
         }
 
         public void Emit (OpCode opcode, MethodSpec method)

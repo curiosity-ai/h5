@@ -45,7 +45,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
     {
         public DynamicTypeExpr (Location loc)
         {
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override TypeSpec ResolveAsType (IMemberContext ec, bool allowUnboundTypeArguments)
@@ -228,7 +228,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             readonly CSharpBinderFlags flags;
 
             public BinderFlags (CSharpBinderFlags flags, DynamicExpressionStatement statement)
-                : base (statement.loc)
+                : base (statement._loc)
             {
                 this.flags = flags;
                 this.statement = statement;
@@ -237,7 +237,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             protected override Expression DoResolve (ResolveContext ec)
             {
-                Child = new IntConstant (ec.BuiltinTypes, (int) (flags | statement.flags), statement.loc);
+                Child = new IntConstant (ec.BuiltinTypes, (int) (flags | statement.flags), statement._loc);
 
                 type = ec.Module.PredefinedTypes.BinderFlags.Resolve ();
                 eclass = Child.eclass;
@@ -259,7 +259,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         {
             this.binder = binder;
             this.arguments = args;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public Arguments Arguments {
@@ -275,7 +275,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
         public override Expression CreateExpressionTree (ResolveContext ec)
         {
-            ec.Report.Error (1963, loc, "An expression tree cannot contain a dynamic operation");
+            ec.Report.Error (1963, _loc, "An expression tree cannot contain a dynamic operation");
             return null;
         }
 
@@ -314,7 +314,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (rc.Report.Errors == errors)
                 return true;
 
-            rc.Report.Error (1969, loc,
+            rc.Report.Error (1969, _loc,
                 "Dynamic operation cannot be compiled without `Microsoft.CSharp.dll' assembly reference");
             return false;
         }
@@ -348,7 +348,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             bool has_ref_out_argument = false;
             var targs = new TypeExpression[dyn_args_count + default_args];
-            targs[0] = new TypeExpression (module.PredefinedTypes.CallSite.TypeSpec, loc);
+            targs[0] = new TypeExpression (module.PredefinedTypes.CallSite.TypeSpec, _loc);
 
             TypeExpression[] targs_for_instance = null;
             TypeParameterMutator mutator;
@@ -385,12 +385,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     t = ec.BuiltinTypes.Object;
 
                 if (targs_for_instance != null)
-                    targs_for_instance[i + 1] = new TypeExpression (t, loc);
+                    targs_for_instance[i + 1] = new TypeExpression (t, _loc);
 
                 if (mutator != null)
                     t = t.Mutate (mutator);
 
-                targs[i + 1] = new TypeExpression (t, loc);
+                targs[i + 1] = new TypeExpression (t, _loc);
             }
 
             TypeExpr del_type = null;
@@ -401,7 +401,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 TypeSpec te = null;
                 Namespace type_ns = module.GlobalRootNamespace.GetNamespace ("System", true);
                 if (type_ns != null) {
-                    te = type_ns.LookupType (module, d_name, dyn_args_count + default_args, LookupMode.Normal, loc);
+                    te = type_ns.LookupType (module, d_name, dyn_args_count + default_args, LookupMode.Normal, _loc);
                 }
 
                 if (te != null) {
@@ -411,17 +411,17 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                             t = ec.BuiltinTypes.Object;
 
                         if (targs_for_instance != null)
-                            targs_for_instance[targs_for_instance.Length - 1] = new TypeExpression (t, loc);
+                            targs_for_instance[targs_for_instance.Length - 1] = new TypeExpression (t, _loc);
 
                         if (mutator != null)
                             t = t.Mutate (mutator);
 
-                        targs[targs.Length - 1] = new TypeExpression (t, loc);
+                        targs[targs.Length - 1] = new TypeExpression (t, _loc);
                     }
 
-                    del_type = new GenericTypeExpr (te, new TypeArguments (targs), loc);
+                    del_type = new GenericTypeExpr (te, new TypeArguments (targs), _loc);
                     if (targs_for_instance != null)
-                        del_type_instance_access = new GenericTypeExpr (te, new TypeArguments (targs_for_instance), loc);
+                        del_type_instance_access = new GenericTypeExpr (te, new TypeArguments (targs_for_instance), _loc);
                     else
                         del_type_instance_access = del_type;
                 }
@@ -434,7 +434,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (del_type == null) {
                 TypeSpec rt = isStatement ? ec.BuiltinTypes.Void : type;
                 Parameter[] p = new Parameter[dyn_args_count + 1];
-                p[0] = new Parameter (targs[0], "p0", Parameter.Modifier.NONE, null, loc);
+                p[0] = new Parameter (targs[0], "p0", Parameter.Modifier.NONE, null, _loc);
 
                 var site = ec.CreateDynamicSite ();
                 int index = site.Containers == null ? 0 : site.Containers.Count;
@@ -443,10 +443,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     rt = mutator.Mutate (rt);
 
                 for (int i = 1; i < dyn_args_count + 1; ++i) {
-                    p[i] = new Parameter (targs[i], "p" + i.ToString ("X"), arguments[i - 1].Modifier, null, loc);
+                    p[i] = new Parameter (targs[i], "p" + i.ToString ("X"), arguments[i - 1].Modifier, null, _loc);
                 }
 
-                d = new Delegate (site, new TypeExpression (rt, loc),
+                d = new Delegate (site, new TypeExpression (rt, _loc),
                     Modifiers.INTERNAL | Modifiers.COMPILER_GENERATED,
                     new MemberName ("Container" + index.ToString ("X")),
                     new ParametersCompiled (p), null);
@@ -465,7 +465,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 if (site.CurrentType is InflatedTypeSpec && index > 0)
                     site.CurrentType.MemberCache.AddMember (d.CurrentType);
 
-                del_type = new TypeExpression (d.CurrentType, loc);
+                del_type = new TypeExpression (d.CurrentType, _loc);
                 if (targs_for_instance != null) {
                     del_type_instance_access = null;
                 } else {
@@ -475,18 +475,18 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 d = null;
             }
 
-            var site_type_decl = new GenericTypeExpr (module.PredefinedTypes.CallSiteGeneric.TypeSpec, new TypeArguments (del_type), loc);
-            var field = site_container.CreateCallSiteField (site_type_decl, loc);
-            if (field == null)
+            var site_type_decl = new GenericTypeExpr (module.PredefinedTypes.CallSiteGeneric.TypeSpec, new TypeArguments (del_type), _loc);
+            var siteField = site_container.CreateCallSiteField (site_type_decl, _loc);
+            if (siteField == null)
                 return;
 
             if (del_type_instance_access == null) {
                 var dt = d.CurrentType.DeclaringType.MakeGenericType (module, context_mvars.Types);
-                del_type_instance_access = new TypeExpression (MemberCache.GetMember (dt, d.CurrentType), loc);
+                del_type_instance_access = new TypeExpression (MemberCache.GetMember (dt, d.CurrentType), _loc);
             }
 
             var instanceAccessExprType = new GenericTypeExpr (module.PredefinedTypes.CallSiteGeneric.TypeSpec,
-                new TypeArguments (del_type_instance_access), loc);
+                new TypeArguments (del_type_instance_access), _loc);
 
             if (instanceAccessExprType.ResolveAsType (ec.MemberContext) == null)
                 return;
@@ -505,10 +505,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (gt is InflatedTypeSpec && site_container.AnonymousMethodsCounter > 1) {
                 var tparams = gt.MemberDefinition.TypeParametersCount > 0 ? gt.MemberDefinition.TypeParameters : TypeParameterSpec.EmptyTypes;
                 var inflator = new TypeParameterInflator (module, gt, tparams, gt.TypeArguments);
-                gt.MemberCache.AddMember (field.InflateMember (inflator));
+                gt.MemberCache.AddMember (siteField.InflateMember (inflator));
             }
 
-            FieldExpr site_field_expr = new FieldExpr (MemberCache.GetMember (gt, field), loc);
+            FieldExpr site_field_expr = new FieldExpr (MemberCache.GetMember (gt, siteField), _loc);
 
             BlockContext bc = new BlockContext (ec.MemberContext, null, ec.BuiltinTypes.Void);
 
@@ -518,7 +518,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 
             using (ec.With (BuilderContext.Options.OmitDebugInfo, true)) {
                 if (s.Resolve (bc)) {
-                    Statement init = new If (new Binary (Binary.Operator.Equality, site_field_expr, new NullLiteral (loc)), s, loc);
+                    Statement init = new If (new Binary (Binary.Operator.Equality, site_field_expr, new NullLiteral (_loc)), s, _loc);
                     init.Emit (ec);
                 }
 
@@ -541,7 +541,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     }
                 }
 
-                Expression target = new DelegateInvocation (new MemberAccess (site_field_expr, "Target", loc).Resolve (bc), args, false, loc).Resolve (bc);
+                Expression target = new DelegateInvocation (new MemberAccess (site_field_expr, "Target", _loc).Resolve (bc), args, false, _loc).Resolve (bc);
                 if (target != null)
                     target.Emit (ec);
             }
@@ -587,10 +587,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                 Arguments binder_args = new Arguments (3);
 
                 binder_args.Add (new Argument (new BinderFlags (0, this)));
-                binder_args.Add (new Argument (new StringLiteral (ec.BuiltinTypes, name, loc)));
-                binder_args.Add (new Argument (new TypeOf (ec.CurrentType, loc)));
+                binder_args.Add (new Argument (new StringLiteral (ec.BuiltinTypes, name, _loc)));
+                binder_args.Add (new Argument (new TypeOf (ec.CurrentType, _loc)));
 
-                return new Invocation (GetBinder ("IsEvent", loc), binder_args);
+                return new Invocation (GetBinder ("IsEvent", _loc), binder_args);
             }
         }
 
@@ -602,7 +602,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             condition = new IsEvent (name, args, loc);
             this.invoke = invoke;
             this.assign = assignment;
-            this.loc = loc;
+            this._loc = loc;
         }
 
         public override Expression CreateExpressionTree (ResolveContext ec)
@@ -621,13 +621,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
         public override void Emit (EmitContext ec)
         {
             var rc = new ResolveContext (ec.MemberContext);
-            var expr = new Conditional (new BooleanExpression (condition), invoke, assign, loc).Resolve (rc);
+            var expr = new Conditional (new BooleanExpression (condition), invoke, assign, _loc).Resolve (rc);
             expr.Emit (ec);
         }
 
         public override void EmitStatement (EmitContext ec)
         {
-            var stmt = new If (condition, new StatementExpression (invoke), new StatementExpression (assign), loc);
+            var stmt = new If (condition, new StatementExpression (invoke), new StatementExpression (assign), _loc);
             using (ec.With (BuilderContext.Options.OmitDebugInfo, true)) {
                 stmt.Emit (ec);
             }
@@ -656,9 +656,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             flags |= ec.HasSet (ResolveContext.Options.CheckedScope) ? CSharpBinderFlags.CheckedContext : 0;
 
             binder_args.Add (new Argument (new BinderFlags (flags, this)));
-            binder_args.Add (new Argument (new TypeOf (type, loc)));
-            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, loc)));
-            return new Invocation (GetBinder ("Convert", loc), binder_args);
+            binder_args.Add (new Argument (new TypeOf (type, _loc)));
+            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, _loc)));
+            return new Invocation (GetBinder ("Convert", _loc), binder_args);
         }
     }
 
@@ -676,10 +676,10 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Arguments binder_args = new Arguments (3);
 
             binder_args.Add (new Argument (new BinderFlags (0, this)));
-            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, loc)));
-            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), loc)));
+            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, _loc)));
+            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), _loc)));
 
-            return new Invocation (GetBinder ("InvokeConstructor", loc), binder_args);
+            return new Invocation (GetBinder ("InvokeConstructor", _loc), binder_args);
         }
     }
 
@@ -709,11 +709,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Arguments binder_args = new Arguments (3);
 
             binder_args.Add (new Argument (new BinderFlags (flags, this)));
-            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, loc)));
-            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), loc)));
+            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, _loc)));
+            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), _loc)));
 
             isSet |= (flags & CSharpBinderFlags.ValueFromCompoundAssignment) != 0;
-            return new Invocation (GetBinder (isSet ? "SetIndex" : "GetIndex", loc), binder_args);
+            return new Invocation (GetBinder (isSet ? "SetIndex" : "GetIndex", _loc), binder_args);
         }
 
         protected override Arguments CreateSetterArguments (ResolveContext rc, Expression rhs)
@@ -738,7 +738,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
                     continue;
                 }
 
-                LocalVariable temp = LocalVariable.CreateCompilerGenerated (expr.Type, rc.CurrentBlock, loc);
+                LocalVariable temp = LocalVariable.CreateCompilerGenerated (expr.Type, rc.CurrentBlock, _loc);
                 expr = new SimpleAssign (temp.CreateReferenceExpression (rc, expr.Location), expr).Resolve (rc);
                 Arguments[i].Expr = temp.CreateReferenceExpression (rc, expr.Location).Resolve (rc);
                 setter_args.Add (Arguments [i].Clone (expr));
@@ -788,31 +788,31 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             if (member != null && member.HasTypeArguments) {
                 TypeArguments ta = member.TypeArguments;
                 if (ta.Resolve (ec, false)) {
-                    var targs = new ArrayInitializer (ta.Count, loc);
+                    var targs = new ArrayInitializer (ta.Count, _loc);
                     foreach (TypeSpec t in ta.Arguments)
-                        targs.Add (new TypeOf (t, loc));
+                        targs.Add (new TypeOf (t, _loc));
 
-                    binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (targs, loc)));
+                    binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (targs, _loc)));
                 }
             } else if (is_member_access) {
-                binder_args.Add (new Argument (new NullLiteral (loc)));
+                binder_args.Add (new Argument (new NullLiteral (_loc)));
             }
 
-            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, loc)));
+            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, _loc)));
 
             Expression real_args;
             if (args == null) {
                 // Cannot be null because .NET trips over
                 real_args = new ArrayCreation (
-                    new MemberAccess (GetBinderNamespace (loc), "CSharpArgumentInfo", loc),
-                    new ArrayInitializer (0, loc), loc);
+                    new MemberAccess (GetBinderNamespace (_loc), "CSharpArgumentInfo", _loc),
+                    new ArrayInitializer (0, _loc), _loc);
             } else {
-                real_args = new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), loc);
+                real_args = new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), _loc);
             }
 
             binder_args.Add (new Argument (real_args));
 
-            return new Invocation (GetBinder (is_member_access ? "InvokeMember" : "Invoke", loc), binder_args);
+            return new Invocation (GetBinder (is_member_access ? "InvokeMember" : "Invoke", _loc), binder_args);
         }
 
         public override void EmitStatement (EmitContext ec)
@@ -843,12 +843,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Arguments binder_args = new Arguments (4);
 
             binder_args.Add (new Argument (new BinderFlags (flags, this)));
-            binder_args.Add (new Argument (new StringLiteral (ec.BuiltinTypes, name, loc)));
-            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, loc)));
-            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), loc)));
+            binder_args.Add (new Argument (new StringLiteral (ec.BuiltinTypes, name, _loc)));
+            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, _loc)));
+            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), _loc)));
 
             isSet |= (flags & CSharpBinderFlags.ValueFromCompoundAssignment) != 0;
-            return new Invocation (GetBinder (isSet ? "SetMember" : "GetMember", loc), binder_args);
+            return new Invocation (GetBinder (isSet ? "SetMember" : "GetMember", _loc), binder_args);
         }
     }
 
@@ -959,16 +959,16 @@ namespace ICSharpCode.NRefactory.MonoCSharp
             Arguments binder_args = new Arguments (4);
 
             MemberAccess sle = new MemberAccess (new MemberAccess (
-                new QualifiedAliasMember (QualifiedAliasMember.GlobalAlias, "System", loc), "Linq", loc), "Expressions", loc);
+                new QualifiedAliasMember (QualifiedAliasMember.GlobalAlias, "System", _loc), "Linq", _loc), "Expressions", _loc);
 
             var flags = ec.HasSet (ResolveContext.Options.CheckedScope) ? CSharpBinderFlags.CheckedContext : 0;
 
             binder_args.Add (new Argument (new BinderFlags (flags, this)));
-            binder_args.Add (new Argument (new MemberAccess (new MemberAccess (sle, "ExpressionType", loc), name, loc)));
-            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, loc)));
-            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), loc)));
+            binder_args.Add (new Argument (new MemberAccess (new MemberAccess (sle, "ExpressionType", _loc), name, _loc)));
+            binder_args.Add (new Argument (new TypeOf (ec.CurrentType, _loc)));
+            binder_args.Add (new Argument (new ImplicitlyTypedArrayCreation (args.CreateDynamicBinderArguments (ec), _loc)));
 
-            return new Invocation (GetBinder ("UnaryOperation", loc), binder_args);
+            return new Invocation (GetBinder ("UnaryOperation", _loc), binder_args);
         }
     }
 

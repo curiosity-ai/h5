@@ -2,6 +2,10 @@
 
 The H5 Compiler (`h5.exe`) is a command-line tool that translates C# code into JavaScript. It allows for compiling entire projects, leveraging the `.csproj` file format.
 
+It is available as a .NET Tool and can be installed via NuGet:
+
+[h5-compiler on NuGet](https://www.nuget.org/packages/h5-compiler)
+
 ## Modes of Operation
 
 The compiler can operate in several modes:

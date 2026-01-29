@@ -126,15 +126,15 @@ namespace H5.Translator
                     AddNestedReferences(pathToReferencesInProject, refPath);
                 }
 
-                IList<SyntaxTree> trees = new List<SyntaxTree>(SourceFiles.Count);
+                var trees = new SyntaxTree[SourceFiles.Count];
 
-                foreach (var file in SourceFiles)
+                Parallel.For(0, SourceFiles.Count, new ParallelOptions { CancellationToken = cancellationToken }, (i) =>
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
+                    var file = SourceFiles[i];
                     var filePath   = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
                     var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
-                    trees.Add(syntaxTree);
-                }
+                    trees[i] = syntaxTree;
+                });
 
                 var references = new List<MetadataReference>();
                 var outputDir  = Path.GetDirectoryName(AssemblyLocation);
@@ -143,6 +143,7 @@ namespace H5.Translator
                 if (!di.Exists) { di.Create(); }
 
                 var updateH5Location = string.IsNullOrWhiteSpace(H5Location) || !File.Exists(H5Location);
+                var copyTasks = new List<Task>();
 
                 foreach (var path in pathToReferencesInProject)
                 {
@@ -152,7 +153,7 @@ namespace H5.Translator
 
                     if (string.Compare(newPath, path, true) != 0)
                     {
-                        CopyFileAsync(path, newPath).Wait(cancellationToken);
+                        copyTasks.Add(CopyFileAsync(path, newPath));
                     }
 
                     if (updateH5Location && string.Compare(Path.GetFileName(path), "h5.dll", true) == 0)
@@ -161,6 +162,11 @@ namespace H5.Translator
                     }
 
                     references.Add(MetadataReference.CreateFromFile(path, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
+                }
+
+                if(copyTasks.Count > 0)
+                {
+                    Task.WaitAll(copyTasks.ToArray(), cancellationToken);
                 }
 
                 var emitResult = CompileAndEmit(referencesFromPackages, trees, references, cancellationToken);

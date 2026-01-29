@@ -80,39 +80,58 @@ namespace H5.Translator
 
         private AssemblyDefinition LoadOrGetFromCache(string path)
         {
-            AssemblyDefinition assemblyDefinition;
-            var                fileInfo = new FileInfo(path);
+            var fileInfo = new FileInfo(path);
 
             if (!fileInfo.Exists)
             {
                 throw new FileNotFoundException(path);
             }
 
+            AssemblyDefinition assemblyDefinition = null;
+
             lock (_loadedAssembliesLock)
             {
-                if (!_loadedAssemblies.TryGetValue(path, out var assemblyData) || (assemblyData.size != fileInfo.Length || assemblyData.timestamp != fileInfo.LastWriteTimeUtc))
+                if (_loadedAssemblies.TryGetValue(path, out var assemblyData) && (assemblyData.size == fileInfo.Length && assemblyData.timestamp == fileInfo.LastWriteTimeUtc))
                 {
-                    if (_loadedAssemblieStreams.Remove(path, out var oldStream))
+                    return assemblyData.assembly;
+                }
+            }
+
+            var stream = LoadAssemblyAsFileStream(path);
+
+            try
+            {
+                assemblyDefinition = AssemblyDefinition.ReadAssembly(stream,
+                    new ReaderParameters()
                     {
-                        oldStream.Close();
-                        oldStream.Dispose();
+                        ReadingMode      = ReadingMode.Deferred,
+                        AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
                     }
+                );
+            }
+            catch
+            {
+                stream.Dispose();
+                throw;
+            }
 
-                    assemblyDefinition = AssemblyDefinition.ReadAssembly(LoadAssemblyAsFileStream(path),
-                        new ReaderParameters()
-                        {
-                            ReadingMode      = ReadingMode.Deferred,
-                            AssemblyResolver = new CecilAssemblyResolver(AssemblyLocation)
-                        }
-                    );
-
-
-                    _loadedAssemblies[path] = (assemblyDefinition, fileInfo.LastWriteTimeUtc, fileInfo.Length);
-                }
-                else
+            lock (_loadedAssembliesLock)
+            {
+                if (_loadedAssemblies.TryGetValue(path, out var assemblyData) && (assemblyData.size == fileInfo.Length && assemblyData.timestamp == fileInfo.LastWriteTimeUtc))
                 {
-                    assemblyDefinition = assemblyData.assembly;
+                    assemblyDefinition.Dispose();
+                    stream.Dispose();
+                    return assemblyData.assembly;
                 }
+
+                if (_loadedAssemblieStreams.Remove(path, out var oldStream))
+                {
+                    oldStream.Close();
+                    oldStream.Dispose();
+                }
+
+                _loadedAssemblieStreams[path] = stream;
+                _loadedAssemblies[path] = (assemblyDefinition, fileInfo.LastWriteTimeUtc, fileInfo.Length);
             }
 
             return assemblyDefinition;
@@ -204,9 +223,6 @@ namespace H5.Translator
 
             if (stream is object)
             {
-                //Always add the stream to the Cache, so it gets disposed after
-                _loadedAssemblieStreams.Add(location, stream); //Should throw in case it's already there - but should never happen as this method is only called from within a locked section
-
                 return stream;
             }
             else
@@ -385,39 +401,11 @@ namespace H5.Translator
                 var rewriter = new SharpSixRewriter(this);
                 var result   = new string[SourceFiles.Count];
 
-                var queue      = new ConcurrentQueue<int>(Enumerable.Range(0, SourceFiles.Count));
-                var exceptions = new ConcurrentStack<Exception>();
-
-                var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
+                Parallel.For(0, SourceFiles.Count, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, (index) =>
                 {
-                    var t = new Thread(() =>
-                    {
-                        while (queue.TryDequeue(out var index))
-                        {
-                            Logger.LogTrace("Rewriting {0} using thread {1}", SourceFiles[index], Thread.CurrentThread.ManagedThreadId);
-
-                            try
-                            {
-                                result[index] = rewriter.Clone().Rewrite(index);
-                            }
-                            catch (Exception ex)
-                            {
-                                exceptions.Push(ex);
-                                return;
-                            }
-                        }
-                    });
-                    t.IsBackground = true;
-                    t.Start();
-                    return t;
-                }).ToArray();
-
-                Array.ForEach(threads, t => t.Join());
-
-                if (exceptions.Any())
-                {
-                    throw new AggregateException("Compilation failed", exceptions);
-                }
+                    Logger.LogTrace("Rewriting {0} using thread {1}", SourceFiles[index], Thread.CurrentThread.ManagedThreadId);
+                    result[index] = rewriter.Clone().Rewrite(index);
+                });
 
                 rewriter.CommitCache();
 
@@ -433,40 +421,10 @@ namespace H5.Translator
 
             using (var m = new Measure(Logger, "Building syntax tree"))
             {
-                var queue = new ConcurrentQueue<int>(Enumerable.Range(0, rewriten.Length));
-
-                var exceptions = new ConcurrentStack<Exception>();
-
-                var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
+                Parallel.For(0, rewriten.Length, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount, CancellationToken = cancellationToken }, (index) =>
                 {
-                    var t = new Thread(() =>
-                    {
-                        while (queue.TryDequeue(out var index) && !cancellationToken.IsCancellationRequested)
-                        {
-                            try
-                            {
-                                BuildSyntaxTreeForFile(index, ref rewriten);
-                            }
-                            catch (Exception ex)
-                            {
-                                exceptions.Push(ex);
-                                return;
-                            }
-                        }
-                    });
-                    t.IsBackground = true;
-                    t.Start();
-                    return t;
-                }).ToArray();
-
-                Array.ForEach(threads, t => t.Join());
-
-                cancellationToken.ThrowIfCancellationRequested();
-
-                if (exceptions.Any())
-                {
-                    throw new AggregateException("Compilation failed", exceptions);
-                }
+                    BuildSyntaxTreeForFile(index, ref rewriten);
+                });
 
                 m.SetOperations(rewriten.Length);
             }

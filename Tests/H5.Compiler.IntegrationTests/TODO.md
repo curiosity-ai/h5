@@ -24,15 +24,15 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **Jumps**: `break`, `continue`, `return`, `goto` (basic label usage).
 
 ### Object-Oriented Programming
-- [ ] **Classes**: Fields, Methods (instance/static), Constructors (default/parameterized), `this` keyword. Reference: `H5/H5/System/Object.cs`.
-- [ ] **Inheritance**: Base classes, `virtual`/`override`/`abstract`/`sealed` methods, polymorphism, `base` keyword.
-- [ ] **Interfaces**: Definition, implementation (implicit/explicit), interface inheritance.
-- [ ] **Structs**: Value semantics, constructors, methods. Reference: `H5/H5/System/ValueType.cs`.
-- [ ] **Properties**: Getters, Setters, computed properties.
-- [ ] **Indexers**: `this[...]` implementation and usage.
-- [ ] **Events**: Declaration, subscription (`+=`), unsubscription (`-=`), invocation. Reference: `H5/H5/System/Delegate.cs`.
-- [ ] **Delegates**: Definition, instantiation, invocation, multicast delegates. Reference: `H5/H5/System/Delegate.cs`.
-- [ ] **Operators**: Overloading binary/unary operators, implicit/explicit conversions.
+- [x] **Classes**: Fields, Methods (instance/static), Constructors (default/parameterized), `this` keyword. Reference: `H5/H5/System/Object.cs`.
+- [x] **Inheritance**: Base classes, `virtual`/`override`/`abstract`/`sealed` methods, polymorphism, `base` keyword.
+- [x] **Interfaces**: Definition, implementation (implicit/explicit), interface inheritance.
+- [x] **Structs**: Value semantics, constructors, methods. Reference: `H5/H5/System/ValueType.cs`.
+- [x] **Properties**: Getters, Setters, computed properties.
+- [x] **Indexers**: `this[...]` implementation and usage.
+- [x] **Events**: Declaration, subscription (`+=`), unsubscription (`-=`), invocation. Reference: `H5/H5/System/Delegate.cs`.
+- [x] **Delegates**: Definition, instantiation, invocation, multicast delegates. Reference: `H5/H5/System/Delegate.cs`.
+- [x] **Operators**: Overloading binary/unary operators, implicit/explicit conversions.
 
 ### C# 2.0 Specifics
 - [ ] **Generics**: Generic classes (`Class<T>`), methods (`Method<T>`), interfaces, constraints (`where T : class, new()`, etc.).

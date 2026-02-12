@@ -8,17 +8,27 @@ namespace H5.Compiler.IntegrationTests
 {
     public static class PlaywrightRunner
     {
-        public static async Task<string> RunJs(string jsCode)
+        public static async Task<string> RunJs(string jsCode, string? waitForOutput = null)
         {
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
             var page = await browser.NewPageAsync();
 
             var consoleOutput = new StringBuilder();
+            var outputComplete = new TaskCompletionSource<bool>();
+
             page.Console += (_, msg) =>
             {
                 if (msg.Type == "log")
-                    consoleOutput.AppendLine(msg.Text);
+                {
+                    var text = msg.Text;
+                    consoleOutput.AppendLine(text);
+
+                    if (waitForOutput != null && text.Contains(waitForOutput))
+                    {
+                        outputComplete.TrySetResult(true);
+                    }
+                }
             };
 
             // Wrap in try-catch to report script errors
@@ -37,6 +47,16 @@ namespace H5.Compiler.IntegrationTests
             try
             {
                 await page.EvaluateAsync(jsCode);
+
+                if (waitForOutput != null)
+                {
+                    // Wait for the specific output or a timeout (e.g., 30 seconds)
+                    var completedTask = await Task.WhenAny(outputComplete.Task, Task.Delay(30000));
+                    if (completedTask != outputComplete.Task)
+                    {
+                        consoleOutput.AppendLine("PLAYWRIGHT_TIMEOUT: Did not receive expected output.");
+                    }
+                }
             }
             catch (Exception e)
             {

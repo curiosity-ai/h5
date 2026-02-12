@@ -69,8 +69,8 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 5.0: Async/Await
 
-- [ ] **Async/Await**: `async Task Method()`, `await Task.Delay()`, `await Task.WhenAll()`. Reference: `H5/H5/System/Threading/Tasks/Task.cs`.
-- [ ] **Task<T>**: Returning values from async methods.
+- [x] **Async/Await**: `async Task Method()`, `await Task.Delay()`, `await Task.WhenAll()`. Reference: `H5/H5/System/Threading/Tasks/Task.cs`.
+- [x] **Task<T>**: Returning values from async methods.
 - [ ] **Caller Info Attributes**: `[CallerMemberName]`, `[CallerFilePath]`, `[CallerLineNumber]` (if supported).
 
 ## C# 6.0: Syntactic Sugar

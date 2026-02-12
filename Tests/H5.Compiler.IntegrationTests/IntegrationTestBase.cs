@@ -11,7 +11,7 @@ namespace H5.Compiler.IntegrationTests
         {
         }
 
-        protected async Task RunTest(string csharpCode)
+        protected async Task RunTest(string csharpCode, string? waitForOutput = null)
         {
             string roslynOutput = "";
 
@@ -37,7 +37,7 @@ namespace H5.Compiler.IntegrationTests
             string playwrightOutput = "";
             try
             {
-                playwrightOutput = await PlaywrightRunner.RunJs(h5Js);
+                playwrightOutput = await PlaywrightRunner.RunJs(h5Js, waitForOutput);
             }
             catch (Exception ex)
             {

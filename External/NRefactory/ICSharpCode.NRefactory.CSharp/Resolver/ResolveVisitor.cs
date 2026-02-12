@@ -865,7 +865,45 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
 
         ResolveResult IAstVisitor<ResolveResult>.VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
+            if (methodDeclaration.Parent is BlockStatement)
+                return VisitLocalFunctionDeclaration(methodDeclaration);
             return VisitMethodMember(methodDeclaration);
+        }
+
+        ResolveResult VisitLocalFunctionDeclaration(MethodDeclaration methodDeclaration)
+        {
+            // Register local function as a variable so it can be resolved inside its body (recursion)
+            // and in the subsequent statements of the outer block.
+            // Using Dynamic type as a fallback since NRefactory 5 doesn't fully support local functions/method groups as variables.
+            IVariable v = MakeVariable(SpecialType.Dynamic, methodDeclaration.NameToken);
+            var resolverWithFunction = resolver.AddVariable(v);
+
+            // Analyze the body in a new scope
+            resolver = resolverWithFunction.PushBlock();
+
+            foreach (var pd in methodDeclaration.Parameters) {
+                IType type = ResolveType(pd.Type);
+                if (pd.ParameterModifier == ParameterModifier.Ref || pd.ParameterModifier == ParameterModifier.Out)
+                    type = new ByReferenceType(type);
+
+                IParameter p = new DefaultParameter(type, pd.Name,
+                                                    region: MakeRegion(pd),
+                                                    isRef: pd.ParameterModifier == ParameterModifier.Ref,
+                                                    isOut: pd.ParameterModifier == ParameterModifier.Out);
+
+                StoreCurrentState(pd);
+                StoreResult(pd, new LocalResolveResult(p));
+                ScanChildren(pd);
+
+                resolver = resolver.AddVariable(p);
+            }
+
+            Scan(methodDeclaration.Body);
+
+            // Restore resolver to the state containing the function variable, but popping the parameters/body scope.
+            resolver = resolverWithFunction;
+
+            return voidResult;
         }
 
         ResolveResult IAstVisitor<ResolveResult>.VisitOperatorDeclaration(OperatorDeclaration operatorDeclaration)

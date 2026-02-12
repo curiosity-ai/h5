@@ -550,17 +550,12 @@ namespace H5.Translator
             }
 
             bool nullable = orr != null && orr.IsLiftedOperator;
-            bool isCoalescing = (Emitter.AssemblyInfo.StrictNullChecks ||
-                                 NullableType.IsNullable(leftResolverResult.Type) ||
-                                 leftResolverResult.Type.IsKnownType(KnownTypeCode.String) ||
-                                 leftResolverResult.Type.IsKnownType(KnownTypeCode.Object)
-                                ) && binaryOperatorExpression.Operator == BinaryOperatorType.NullCoalescing;
             string root = JS.Types.SYSTEM_NULLABLE + ".";
             bool special = nullable;
             bool rootSpecial = nullable;
             bool isBool = NullableType.IsNullable(resolveOperator.Type) ? NullableType.GetUnderlyingType(resolveOperator.Type).IsKnownType(KnownTypeCode.Boolean) : resolveOperator.Type.IsKnownType(KnownTypeCode.Boolean);
             bool toBool = isBool && !rootSpecial && !delegateOperator && (binaryOperatorExpression.Operator == BinaryOperatorType.BitwiseAnd || binaryOperatorExpression.Operator == BinaryOperatorType.BitwiseOr);
-            bool isRefEquals = !isCoalescing && !strictNullChecks &&
+            bool isRefEquals = !strictNullChecks &&
                     (binaryOperatorExpression.Operator == BinaryOperatorType.InEquality || binaryOperatorExpression.Operator == BinaryOperatorType.Equality) &&
                     leftExpected.IsReferenceType.HasValue && leftExpected.IsReferenceType.Value &&
                     rightExpected.IsReferenceType.HasValue && rightExpected.IsReferenceType.Value;
@@ -571,14 +566,7 @@ namespace H5.Translator
             }
             else if (!isRefEquals)
             {
-                if (isCoalescing)
-                {
-                    Write("(");
-                    variable = GetTempVarName();
-                    Write(variable);
-                    Write(" = ");
-                }
-                else if (charToString == 0)
+                if (charToString == 0)
                 {
                     Write(JS.Funcs.STRING_FROMCHARCODE + "(");
                 }
@@ -588,23 +576,9 @@ namespace H5.Translator
                     Write("!!(");
                 }
 
-                WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult, isCoalescing);
+                WritePart(binaryOperatorExpression.Left, toStringForLeft, leftResolverResult);
 
-                if (isCoalescing)
-                {
-                    Write(", ");
-                    Write(variable);
-
-                    Write(strictNullChecks ? " !== null" : " != null");
-
-                    Write(" ? ");
-
-                    expressionMap.Add(binaryOperatorExpression.Left, variable);
-                    //this.Write(variable);
-                    binaryOperatorExpression.Left.AcceptVisitor(Emitter);
-                    expressionMap.Remove(binaryOperatorExpression.Left);
-                }
-                else if (charToString == 0)
+                if (charToString == 0)
                 {
                     Write(")");
                 }
@@ -661,7 +635,7 @@ namespace H5.Translator
                         break;
 
                     case BinaryOperatorType.NullCoalescing:
-                        Write(isCoalescing ? ":" : "||");
+                        Write("??");
                         break;
 
                     case BinaryOperatorType.ConditionalOr:
@@ -778,7 +752,7 @@ namespace H5.Translator
                 WriteCloseParentheses();
             }
 
-            if (charToString == 1 || isCoalescing)
+            if (charToString == 1)
             {
                 WriteCloseParentheses();
             }

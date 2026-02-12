@@ -51,6 +51,14 @@ steps:
   inputs:
     script: 'dotnet tool install --global h5-compiler'
 
+- task: CmdLine@2
+  displayName: 'print variables'
+  inputs:
+    script: 'set'
+
+
+
+
 - task: DotNetCoreCLI@2
   displayName: 'restore nuget'
   inputs:

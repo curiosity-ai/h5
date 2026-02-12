@@ -170,3 +170,55 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [ ] **Unsafe Code**: `unsafe`, `fixed`, pointers `*`.
 - [ ] **Native Interop**: `DllImport`, `extern`.
 - [ ] **Garbage Collection**: `GC.Collect()`, finalizers (JS GC is non-deterministic and not controllable).
+
+## Detailed Test Scenarios (Extracted from Old Tests)
+
+### System.DateTime
+- [ ] **Constructors**: `DateTime(long ticks, DateTimeKind kind)`, `DateTime(y, m, d, h, m, s, ms, DateTimeKind kind)`.
+- [ ] **Kind**: verify `Kind` property propagation and `SpecifyKind`.
+- [ ] **Arithmetic**: `AddDays` (DST transitions), `AddMonths` (end of month adjustments), `AddYears` (leap years).
+- [ ] **Comparison**: behavior of operators `<`, `<=`, `>`, `>=` with different `DateTimeKind`.
+- [ ] **Parsing**: `Parse` and `ParseExact` with standard and custom format strings (e.g., "o", "r", "u").
+- [ ] **Output**: `ToString` with various formats ("yyyy-MM-dd", "o", etc.).
+
+### System.TimeSpan
+- [ ] **Factories**: `FromDays`, `FromHours`, `FromMinutes`, `FromSeconds`, `FromMilliseconds`, `FromTicks`.
+- [ ] **Arithmetic**: `Add`, `Subtract`, `Duration`, `Negate`, `+`, `-`.
+- [ ] **Parsing**: `Parse` with formats like "d.hh:mm:ss", "hh:mm:ss.fff".
+- [ ] **Properties**: `TotalDays`, `TotalHours`, etc. precision.
+
+### System.Text.StringBuilder
+- [ ] **Chaining**: `sb.Append().AppendLine().Append()`.
+- [ ] **Capacity**: behavior when exceeding capacity, explicit capacity in constructor.
+- [ ] **Modification**: `Insert`, `Remove`, `Replace` (string and char), `Length` (truncating or expanding with nulls).
+- [ ] **Indexer**: read and write access `sb[i]`.
+
+### System.Text.RegularExpressions
+- [ ] **Syntax**: Anchors (`^`, `$`, `\b`), Character Classes (`\d`, `\w`, `[a-z]`), Quantifiers (`*`, `+`, `?`, `{n,m}`), Alternation (`|`), Groups (`(...)`).
+- [ ] **Methods**: `IsMatch`, `Match`, `Matches`, `Replace` (string and `MatchEvaluator`), `Split`.
+- [ ] **Options**: `IgnoreCase`, `Multiline`, `Singleline`.
+
+### System.Collections.Generic
+- [ ] **SortedList<TKey, TValue>**: Add, Remove, Indexer, Keys, Values.
+- [ ] **SortedSet<T>**: Add, Remove, Set operations (Union, Intersect).
+- [ ] **IReadOnlyInterfaces**: `IReadOnlyList<T>`, `IReadOnlyDictionary<TKey, TValue>`.
+- [ ] **Comparers**: `EqualityComparer<T>.Default`, `Comparer<T>.Default`.
+
+### System.Linq
+- [ ] **Set Operators**: `Distinct`, `Union`, `Intersect`, `Except`.
+- [ ] **Partitioning**: `Take`, `Skip`, `TakeWhile`, `SkipWhile`.
+- [ ] **Grouping**: `GroupBy` with various overloads (key selector, element selector, result selector).
+- [ ] **Joins**: `Join`, `GroupJoin`.
+- [ ] **Generation**: `Range`, `Repeat`, `Empty`.
+
+### System.Globalization
+- [ ] **CultureInfo**: `GetCultureInfo`, `CurrentCulture`, `InvariantCulture`.
+- [ ] **Formats**: `DateTimeFormat`, `NumberFormat` access.
+
+### System.Guid
+- [ ] **Formats**: "N", "D", "B", "P", "X".
+- [ ] **Parsing**: `Parse`, `TryParse`, `ParseExact`, `TryParseExact`.
+
+### System.Version
+- [ ] **Parsing**: "Major.Minor", "Major.Minor.Build", "Major.Minor.Build.Revision".
+- [ ] **Comparison**: `CompareTo` and operators.

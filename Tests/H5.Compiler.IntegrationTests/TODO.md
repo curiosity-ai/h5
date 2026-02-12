@@ -51,15 +51,15 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 3.0: LINQ & Functional Features
 
-- [ ] **Auto-Implemented Properties**: `public int Prop { get; set; }`.
-- [ ] **Object Initializers**: `new Person { Name = "X", Age = 10 }`.
-- [ ] **Collection Initializers**: `new List<int> { 1, 2, 3 }`.
-- [ ] **Anonymous Types**: `new { Name = "X", Value = 1 }`.
-- [ ] **Implicitly Typed Locals**: `var x = 10;`.
-- [ ] **Extension Methods**: Defining and calling extension methods on types. Reference: `H5/H5/System/Runtime/CompilerServices/ExtensionAttribute.cs`.
-- [ ] **Lambda Expressions**: `x => x + 1`, `(x, y) => { return x + y; }`.
-- [ ] **LINQ to Objects**: `Where`, `Select`, `OrderBy`, `GroupBy`, `Any`, `All`, `First`, `FirstOrDefault`. Reference: `H5/H5/System/Linq/Enumerable.cs`.
-- [ ] **Query Expressions**: `from x in list where x > 5 select x`.
+- [x] **Auto-Implemented Properties**: `public int Prop { get; set; }`.
+- [x] **Object Initializers**: `new Person { Name = "X", Age = 10 }`.
+- [x] **Collection Initializers**: `new List<int> { 1, 2, 3 }`.
+- [x] **Anonymous Types**: `new { Name = "X", Value = 1 }`.
+- [x] **Implicitly Typed Locals**: `var x = 10;`.
+- [x] **Extension Methods**: Defining and calling extension methods on types. Reference: `H5/H5/System/Runtime/CompilerServices/ExtensionAttribute.cs`.
+- [x] **Lambda Expressions**: `x => x + 1`, `(x, y) => { return x + y; }`.
+- [x] **LINQ to Objects**: `Where`, `Select`, `OrderBy`, `GroupBy`, `Any`, `All`, `First`, `FirstOrDefault`. Reference: `H5/H5/System/Linq/Enumerable.cs`.
+- [x] **Query Expressions**: `from x in list where x > 5 select x`.
 
 ## C# 4.0: Dynamic & Named Arguments
 

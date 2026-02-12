@@ -557,7 +557,7 @@ namespace H5.Translator
 
         public virtual void WriteVar(bool ignoreAsync = false)
         {
-            if (!Emitter.IsAsync || ignoreAsync)
+            if (!Emitter.IsAsync || ignoreAsync || Emitter.IsNativeAsync)
             {
                 Write("var ");
             }

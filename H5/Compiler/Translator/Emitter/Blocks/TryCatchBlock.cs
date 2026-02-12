@@ -329,6 +329,7 @@ namespace H5.Translator
                     {
                         writeVar = true;
                         WriteVar(true);
+                        Emitter.Comma = false;
                     }
 
                     EnsureComma(false);

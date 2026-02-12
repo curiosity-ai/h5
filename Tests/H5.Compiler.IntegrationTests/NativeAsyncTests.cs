@@ -184,5 +184,71 @@ public class Program
 """;
             await RunTest(code, "<<DONE>>");
         }
+
+        [TestMethod]
+        public async Task AsyncMultipleCatch()
+        {
+            var code = """
+using System;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public static async Task Main()
+    {
+        Console.WriteLine("Start");
+        try
+        {
+            await Task.Delay(1);
+            throw new InvalidOperationException("Test");
+        }
+        catch (InvalidOperationException ex)
+        {
+            Console.WriteLine("Caught InvalidOperationException: " + ex.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Caught Exception: " + e.Message);
+        }
+        Console.WriteLine("End");
+        Console.WriteLine("<<DONE>>");
+    }
+}
+""";
+            await RunTest(code, "<<DONE>>");
+        }
+
+        [TestMethod]
+        public async Task AsyncLocals()
+        {
+            var code = """
+using System;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public static async Task Main()
+    {
+        var t1 = Process(10);
+        var t2 = Process(20);
+
+        int r1 = await t1;
+        int r2 = await t2;
+
+        Console.WriteLine(r1);
+        Console.WriteLine(r2);
+        Console.WriteLine("<<DONE>>");
+    }
+
+    public static async Task<int> Process(int val)
+    {
+        int x = val;
+        await Task.Delay(10);
+        return x;
+    }
+}
+""";
+            await RunTest(code, "<<DONE>>");
+        }
     }
 }

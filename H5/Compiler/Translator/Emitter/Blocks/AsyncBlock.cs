@@ -124,7 +124,24 @@ namespace H5.Translator
             PreviousIsAync = Emitter.IsAsync;
             PreviousIsNativeAsync = Emitter.IsNativeAsync;
             Emitter.IsAsync = true;
-            Emitter.IsNativeAsync = true;
+
+            bool isExplicitlyAsync = false;
+            if (MethodDeclaration != null)
+            {
+                isExplicitlyAsync = MethodDeclaration.HasModifier(Modifiers.Async);
+            }
+            else if (LambdaExpression != null)
+            {
+                isExplicitlyAsync = LambdaExpression.IsAsync;
+            }
+            else if (AnonymousMethodExpression != null)
+            {
+                isExplicitlyAsync = AnonymousMethodExpression.IsAsync;
+            }
+
+            bool hasGoto = HasGoto(Body);
+
+            Emitter.IsNativeAsync = isExplicitlyAsync && !hasGoto;
 
             PreviousAsyncVariables = Emitter.AsyncVariables;
             Emitter.AsyncVariables = new List<string>();

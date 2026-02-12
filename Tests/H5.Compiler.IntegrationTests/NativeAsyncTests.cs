@@ -150,5 +150,39 @@ public class Program
 """;
             await RunTest(code, "<<DONE>>");
         }
+
+        [TestMethod]
+        public async Task AsyncWithGoto()
+        {
+            var code = """
+using System;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public static async Task Main()
+    {
+        Console.WriteLine("Start");
+        await RunWithGoto();
+        Console.WriteLine("End");
+        Console.WriteLine("<<DONE>>");
+    }
+
+    public static async Task RunWithGoto()
+    {
+        Console.WriteLine("Step 1");
+        await Task.Delay(10);
+        goto JumpHere;
+
+        Console.WriteLine("Skipped");
+
+        JumpHere:
+        Console.WriteLine("Step 2");
+        await Task.Delay(10);
+    }
+}
+""";
+            await RunTest(code, "<<DONE>>");
+        }
     }
 }

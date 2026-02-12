@@ -6,11 +6,11 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 ## C# 1.0 - 2.0: Core Language Features
 
 ### Basic Types & Operations
-- [ ] **Integers**: `byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong` (arithmetic, bitwise, overflow checking `checked`/`unchecked` where applicable). Reference: `H5/H5/System/Int32.cs`, etc.
-- [ ] **Floating Point**: `float`, `double`, `decimal` (precision, rounding, special values like NaN/Infinity). Reference: `H5/H5/System/Double.cs`, `Decimal.cs`.
-- [ ] **Booleans**: `bool` (logical operators, short-circuiting). Reference: `H5/H5/System/Boolean.cs`.
-- [ ] **Characters & Strings**: `char` operations, `string` concatenation, indexing, comparison, escaping sequences. Reference: `H5/H5/System/String.cs`.
-- [ ] **Enumerations**: `enum` definition, underlying types, flags attribute, conversion to/from int/string. Reference: `H5/H5/System/Enum.cs`.
+- [x] **Integers**: `byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong` (arithmetic, bitwise, overflow checking `checked`/`unchecked` where applicable). Reference: `H5/H5/System/Int32.cs`, etc.
+- [x] **Floating Point**: `float`, `double`, `decimal` (precision, rounding, special values like NaN/Infinity). Reference: `H5/H5/System/Double.cs`, `Decimal.cs`.
+- [x] **Booleans**: `bool` (logical operators, short-circuiting). Reference: `H5/H5/System/Boolean.cs`.
+- [x] **Characters & Strings**: `char` operations, `string` concatenation, indexing, comparison, escaping sequences. Reference: `H5/H5/System/String.cs`.
+- [x] **Enumerations**: `enum` definition, underlying types, flags attribute, conversion to/from int/string. Reference: `H5/H5/System/Enum.cs`.
 
 ### Arrays & Collections
 - [ ] **Single-dimensional Arrays**: Creation, indexing, length, iteration (`foreach`). Reference: `H5/H5/System/Array.cs`.

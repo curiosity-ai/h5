@@ -105,63 +105,63 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 ## H5 Standard Library Support (To Be Verified)
 
 ### System.Math
-- [ ] **Basic Arithmetic**: `Abs`, `Min`, `Max`, `Sign`, `DivRem`.
-- [ ] **Rounding**: `Round`, `Ceiling`, `Floor`, `Truncate`.
-- [ ] **Powers & Roots**: `Pow`, `Sqrt`, `Exp`, `Log`, `Log10`.
-- [ ] **Trigonometry**: `Sin`, `Cos`, `Tan`, `Asin`, `Acos`, `Atan`, `Atan2`.
-- [ ] **Hyperbolic**: `Sinh`, `Cosh`, `Tanh`.
+- [x] **Basic Arithmetic**: `Abs`, `Min`, `Max`, `Sign`, `DivRem`.
+- [x] **Rounding**: `Round`, `Ceiling`, `Floor`, `Truncate`.
+- [x] **Powers & Roots**: `Pow`, `Sqrt`, `Exp`, `Log`, `Log10`.
+- [x] **Trigonometry**: `Sin`, `Cos`, `Tan`, `Asin`, `Acos`, `Atan`, `Atan2`.
+- [x] **Hyperbolic**: `Sinh`, `Cosh`, `Tanh`.
 
 ### System.Random
-- [ ] **Construction**: `new Random()`, `new Random(seed)`.
-- [ ] **Generation**: `Next()`, `Next(max)`, `Next(min, max)`, `NextDouble()`, `NextBytes(buffer)`.
+- [x] **Construction**: `new Random()`, `new Random(seed)`.
+- [x] **Generation**: `Next()`, `Next(max)`, `Next(min, max)`, `NextDouble()`, `NextBytes(buffer)`.
 
 ### System.DateTime & TimeSpan
-- [ ] **DateTime Properties**: `Now`, `UtcNow`, `Today`, `Year`, `Month`, `Day`, `Hour`, `Minute`, `Second`, `Millisecond`.
-- [ ] **DateTime Methods**: `AddDays`, `AddHours`, etc., `ToString()`, `ToUniversalTime()`, `ToLocalTime()`.
-- [ ] **TimeSpan**: Construction, `TotalMilliseconds`, `TotalDays`, etc., Arithmetic (`+`, `-`).
-- [ ] **Formatting & Parsing**: `DateTime.Parse`, `DateTime.TryParse` (if supported), Custom format strings.
+- [x] **DateTime Properties**: `Now`, `UtcNow`, `Today`, `Year`, `Month`, `Day`, `Hour`, `Minute`, `Second`, `Millisecond`.
+- [x] **DateTime Methods**: `AddDays`, `AddHours`, etc., `ToString()`, `ToUniversalTime()`, `ToLocalTime()`.
+- [x] **TimeSpan**: Construction, `TotalMilliseconds`, `TotalDays`, etc., Arithmetic (`+`, `-`).
+- [x] **Formatting & Parsing**: `DateTime.Parse`, `DateTime.TryParse` (if supported), Custom format strings.
 
 ### System.Guid
-- [ ] **Guid**: `Guid.NewGuid()`, `Guid.Parse()`, `ToString()`, `Guid.Empty`, Equality comparison.
+- [x] **Guid**: `Guid.NewGuid()`, `Guid.Parse()`, `ToString()`, `Guid.Empty`, Equality comparison.
 
 ### System.Text
-- [ ] **StringBuilder**: `Append`, `AppendLine`, `Insert`, `Remove`, `Replace`, `Clear`, `ToString`, `Length`, `Capacity`.
-- [ ] **RegularExpressions**: `Regex.Match`, `Regex.Matches`, `Regex.Replace`, `Regex.IsMatch`, `Regex.Split`.
-- [ ] **Encoding**: `Encoding.UTF8`, `Encoding.ASCII`, `GetBytes`, `GetString`.
+- [x] **StringBuilder**: `Append`, `AppendLine`, `Insert`, `Remove`, `Replace`, `Clear`, `ToString`, `Length`, `Capacity`.
+- [x] **RegularExpressions**: `Regex.Match`, `Regex.Matches`, `Regex.Replace`, `Regex.IsMatch`, `Regex.Split`.
+- [x] **Encoding**: `Encoding.UTF8`, `Encoding.ASCII`, `GetBytes`, `GetString`.
 
 ### System.Collections.Generic
-- [ ] **List<T>**: `Add`, `AddRange`, `Insert`, `Remove`, `RemoveAt`, `Contains`, `IndexOf`, `Sort`, `Reverse`, `ToArray`, `BinarySearch`.
-- [ ] **Dictionary<TKey, TValue>**: `Add`, `Remove`, `ContainsKey`, `TryGetValue`, `Keys`, `Values`, Indexer `[]`.
-- [ ] **HashSet<T>**: `Add`, `Remove`, `Contains`, `UnionWith`, `IntersectWith` (if supported).
-- [ ] **Queue<T>**: `Enqueue`, `Dequeue`, `Peek`, `Count`.
-- [ ] **Stack<T>**: `Push`, `Pop`, `Peek`, `Count`.
-- [ ] **LinkedList<T>**: `AddFirst`, `AddLast`, `RemoveFirst`, `RemoveLast`.
+- [x] **List<T>**: `Add`, `AddRange`, `Insert`, `Remove`, `RemoveAt`, `Contains`, `IndexOf`, `Sort`, `Reverse`, `ToArray`, `BinarySearch`.
+- [x] **Dictionary<TKey, TValue>**: `Add`, `Remove`, `ContainsKey`, `TryGetValue`, `Keys`, `Values`, Indexer `[]`.
+- [x] **HashSet<T>**: `Add`, `Remove`, `Contains`, `UnionWith`, `IntersectWith` (if supported).
+- [x] **Queue<T>**: `Enqueue`, `Dequeue`, `Peek`, `Count`.
+- [x] **Stack<T>**: `Push`, `Pop`, `Peek`, `Count`.
+- [x] **LinkedList<T>**: `AddFirst`, `AddLast`, `RemoveFirst`, `RemoveLast`.
 
 ### System.IO (In-Memory Only)
-- [ ] **MemoryStream**: `Write`, `Read`, `Seek`, `Position`, `Length`, `SetLength`, `ToArray`.
-- [ ] **BinaryWriter**: `Write(int)`, `Write(string)`, etc.
-- [ ] **BinaryReader**: `ReadInt32()`, `ReadString()`, etc.
-- [ ] **Stream**: Abstract base class methods (if applicable).
+- [x] **MemoryStream**: `Write`, `Read`, `Seek`, `Position`, `Length`, `SetLength`, `ToArray`.
+- [x] **BinaryWriter**: `Write(int)`, `Write(string)`, etc.
+- [x] **BinaryReader**: `ReadInt32()`, `ReadString()`, etc.
+- [x] **Stream**: Abstract base class methods (if applicable).
 
 ### System.Convert & BitConverter
-- [ ] **Convert**: `ToInt32`, `ToBoolean`, `ToString`, `FromBase64String`, `ToBase64String`.
-- [ ] **BitConverter**: `GetBytes`, `ToInt32`, `ToString`.
+- [x] **Convert**: `ToInt32`, `ToBoolean`, `ToString`, `FromBase64String`, `ToBase64String`.
+- [x] **BitConverter**: `GetBytes`, `ToInt32`, `ToString`.
 
 ### System.Uri
-- [ ] **Uri**: Constructor, `Scheme`, `Host`, `Port`, `AbsolutePath`, `Query`, `ToString()`.
+- [x] **Uri**: Constructor, `Scheme`, `Host`, `Port`, `AbsolutePath`, `Query`, `ToString()`.
 
 ### System.Version
-- [ ] **Version**: Constructor, `Major`, `Minor`, `Build`, `Revision`, Comparison, `ToString()`.
+- [x] **Version**: Constructor, `Major`, `Minor`, `Build`, `Revision`, Comparison, `ToString()`.
 
 ### System.Globalization
-- [ ] **CultureInfo**: `CurrentCulture`, `InvariantCulture`, `DateTimeFormat`, `NumberFormat`.
+- [x] **CultureInfo**: `CurrentCulture`, `InvariantCulture`, `DateTimeFormat`, `NumberFormat`.
 
 ### System.Diagnostics
-- [ ] **Stopwatch**: `Start`, `Stop`, `Reset`, `Restart`, `Elapsed`, `ElapsedMilliseconds`.
+- [x] **Stopwatch**: `Start`, `Stop`, `Reset`, `Restart`, `Elapsed`, `ElapsedMilliseconds`.
 
 ### System.Reflection
-- [ ] **Type Info**: `typeof(T).Name`, `typeof(T).FullName`, `typeof(T).IsClass`, `GetProperties()`, `GetMethods()`.
-- [ ] **Attributes**: `GetCustomAttributes`.
+- [x] **Type Info**: `typeof(T).Name`, `typeof(T).FullName`, `typeof(T).IsClass`, `GetProperties()`, `GetMethods()`.
+- [x] **Attributes**: `GetCustomAttributes`.
 
 ## Excluded Features (Do Not Implement)
 

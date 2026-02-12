@@ -75,15 +75,15 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 6.0: Syntactic Sugar
 
-- [ ] **String Interpolation**: `$"Value: {x}"`, formatting `$"Date: {d:yyyy-MM-dd}"`.
-- [ ] **Null-Conditional Operator**: `obj?.Property`, `list?[0]`.
-- [ ] **Expression-Bodied Members**: Methods `=>`, Properties `=>`.
-- [ ] **Exception Filters**: `catch (Exception ex) when (ex.Message == "X")`.
-- [ ] **Nameof Operator**: `nameof(variable)`, `nameof(Class.Property)`.
-- [ ] **Auto-Property Initializers**: `public int Prop { get; set; } = 10;`.
-- [ ] **Getter-Only Auto-Properties**: `public int Prop { get; } = 10;`.
-- [ ] **Index Initializers**: `new Dictionary<int, string> { [1] = "One" }`.
-- [ ] **Static Imports**: `using static System.Math;` then `Sqrt(4)`.
+- [x] **String Interpolation**: `$"Value: {x}"`, formatting `$"Date: {d:yyyy-MM-dd}"`.
+- [x] **Null-Conditional Operator**: `obj?.Property`, `list?[0]`.
+- [x] **Expression-Bodied Members**: Methods `=>`, Properties `=>`.
+- [x] **Exception Filters**: `catch (Exception ex) when (ex.Message == "X")`. (Note: Property access in filter is buggy, see FINDINGS.md)
+- [x] **Nameof Operator**: `nameof(variable)`, `nameof(Class.Property)`.
+- [x] **Auto-Property Initializers**: `public int Prop { get; set; } = 10;`.
+- [x] **Getter-Only Auto-Properties**: `public int Prop { get; } = 10;`.
+- [x] **Index Initializers**: `new Dictionary<int, string> { [1] = "One" }`.
+- [x] **Static Imports**: `using static System.Math;` then `Sqrt(4)`.
 
 ## C# 7.0 / 7.1 / 7.2: Modern Features
 

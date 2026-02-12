@@ -268,13 +268,6 @@ namespace System
         public static void WriteLine(long value) => WriteLine(value.ToString());
 
         /// <summary>
-        /// Writes the text representation of the specified 64-bit unsigned integer value, followed by the current line terminator, to the standard output stream.
-        /// </summary>
-        /// <param name="value">The value to write.</param>
-        [H5.Name("WriteLine")]
-        public static void WriteLine(ulong value) => WriteLine(value.ToString());
-
-        /// <summary>
         /// Writes the text representation of the specified object, followed by the current line terminator, to the standard output stream.
         /// </summary>
         /// <param name="value">The value to write.</param>
@@ -384,8 +377,8 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [H5.Name("WriteLine")]
-        
-        public static extern void WriteLine(ulong value);
+
+        public static void WriteLine(ulong value) => WriteLine(value.ToString());
 
         /// <summary>
         /// Writes the specified array of Unicode characters, followed by the current line terminator, to the standard output stream.

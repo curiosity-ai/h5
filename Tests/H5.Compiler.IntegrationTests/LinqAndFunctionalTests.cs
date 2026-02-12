@@ -134,7 +134,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Extension methods cannot be defined in Roslyn Scripting (CS1109)")]
         public async Task ExtensionMethods()
         {
             var code = """

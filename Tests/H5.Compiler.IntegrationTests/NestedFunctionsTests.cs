@@ -35,7 +35,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Fails due to compiler bug with nested local functions. See FINDINGS.md.")]
         public async Task MinimumFailing_LocalLambdaLocal()
         {
              var code = """
@@ -70,7 +69,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Fails due to compiler bug with nested local functions (depth >= 3). See FINDINGS.md.")]
         public async Task MinimumFailing_DeeplyNestedLocals()
         {
             var code = """
@@ -139,7 +137,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Fails due to compiler bug with nested sync local functions (depth >= 3). See FINDINGS.md.")]
         public async Task DeeplyNestedSyncLocals()
         {
              var code = """
@@ -230,7 +227,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Fails due to compiler bug with nested local functions. See FINDINGS.md.")]
         public async Task DeeplyNestedFunctions()
         {
             var code = """

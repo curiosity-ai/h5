@@ -87,19 +87,19 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 7.0 / 7.1 / 7.2: Modern Features
 
-- [ ] **Out Variables**: `int.TryParse("123", out int result);`.
-- [ ] **Tuples (ValueTuple)**: `(int, string) t = (1, "A");`, naming elements `(Val: 1, Name: "A")`. Reference: `H5/H5/System/ValueTuple.cs`.
-- [ ] **Deconstruction**: `(var x, var y) = t;`.
-- [ ] **Pattern Matching**: `if (obj is int i)`, `switch` with type patterns and `when` clauses.
-- [ ] **Local Functions**: Defining functions inside methods.
-- [ ] **Discards**: `_ = Method();`.
-- [ ] **Literal Improvements**: Binary literals `0b101`, Digit separators `1_000`.
-- [ ] **Throw Expressions**: `int x = val ?? throw new Exception();`.
-- [ ] **Default Literal**: `int x = default;`.
-- [ ] **Private Protected**: `private protected` accessibility modifier.
-- [ ] **Non-Trailing Named Arguments**: `Method(1, arg2: 2)`.
-- [ ] **In Parameters**: `void Method(in int x)` (verify basic behavior).
-- [ ] **ReadOnly Structs**: `readonly struct Point { ... }`.
+- [x] **Out Variables**: `int.TryParse("123", out int result);`.
+- [x] **Tuples (ValueTuple)**: `(int, string) t = (1, "A");`, naming elements `(Val: 1, Name: "A")`. Reference: `H5/H5/System/ValueTuple.cs`.
+- [x] **Deconstruction**: `(var x, var y) = t;`.
+- [x] **Pattern Matching**: `if (obj is int i)`, `switch` with type patterns and `when` clauses.
+- [x] **Local Functions**: Defining functions inside methods.
+- [x] **Discards**: `_ = Method();`.
+- [x] **Literal Improvements**: Binary literals `0b101`, Digit separators `1_000`.
+- [x] **Throw Expressions**: `int x = val ?? throw new Exception();`.
+- [x] **Default Literal**: `int x = default;`.
+- [x] **Private Protected**: `private protected` accessibility modifier.
+- [x] **Non-Trailing Named Arguments**: `Method(1, arg2: 2)`.
+- [x] **In Parameters**: `void Method(in int x)` (verify basic behavior).
+- [x] **ReadOnly Structs**: `readonly struct Point { ... }`.
 
 ## Excluded Features (Do Not Implement)
 

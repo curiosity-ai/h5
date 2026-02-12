@@ -63,9 +63,9 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 4.0: Dynamic & Named Arguments
 
-- [ ] **Named Arguments**: `Method(arg2: 10, arg1: 5)`.
-- [ ] **Optional Arguments**: `void Method(int x = 10)`.
-- [ ] **Dynamic Binding**: Basic usage of `dynamic` (if supported by H5 runtime, otherwise skip or verify compilation error/runtime behavior). Note: Might rely on `System.Dynamic` support.
+- [x] **Named Arguments**: `Method(arg2: 10, arg1: 5)`.
+- [x] **Optional Arguments**: `void Method(int x = 10)`.
+- [x] **Dynamic Binding**: Basic usage of `dynamic` (if supported by H5 runtime, otherwise skip or verify compilation error/runtime behavior). Note: Might rely on `System.Dynamic` support.
 
 ## C# 5.0: Async/Await
 

@@ -215,7 +215,7 @@ public class Program
     public static void Main()
     {
         Colors c = Colors.Green;
-        Console.WriteLine(c);
+        Console.WriteLine(c.ToString()); //We call ToString() because the H5 Console implementation will output the object. This is a deviation from the C# Console behavior, but helpful for JavaScript development.
     }
 }
 """;
@@ -236,7 +236,7 @@ public class Program
     public static void Main()
     {
         Permissions p = Permissions.Read | Permissions.Write;
-        Console.WriteLine(p);
+        Console.WriteLine(p.ToString()); //We call ToString() because the H5 Console implementation will output the object. This is a deviation from the C# Console behavior, but helpful for JavaScript development.
     }
 }
 """;

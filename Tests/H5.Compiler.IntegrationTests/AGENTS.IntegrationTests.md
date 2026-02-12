@@ -42,6 +42,12 @@ public class Program
 -   Refer to `TODO.md` in this directory for a list of pending tests and feature coverage requirements.
 -   When implementing a test from `TODO.md`, check it off or remove it from the list.
 
+### 4. Handling Failures
+-   If a test fails, do not simply comment it out or delete it.
+-   Attempt to split the test code into the **minimum failing test** and the **minimum passing test**.
+-   This isolation helps identify exactly what part of the feature is broken while ensuring the working parts are still tested.
+-   Report the failure in a `FINDINGS.md` file (create if it doesn't exist) with details of the failure.
+
 ## Scope & Limitations
 -   **Supported Features**: Basic C# language constructs (up to C# 7.2), core .NET types (System.String, System.Int32, etc.), LINQ to Objects, Async/Await (Task-based).
 -   **Unsupported/Excluded Features**:

@@ -43,11 +43,11 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **Partial Types**: Partial classes (compiler feature).
 
 ### Exceptions
-- [ ] **Try-Catch-Finally**: `try`, `catch` (specific/general), `finally` blocks.
-- [ ] **Throw**: `throw new Exception("...")`.
-- [ ] **Re-throw**: `throw;` inside catch block.
-- [ ] **Custom Exceptions**: Inheriting from `System.Exception`.
-- [ ] **Properties**: `Message`, `InnerException`, `StackTrace` (basic verification).
+- [x] **Try-Catch-Finally**: `try`, `catch` (specific/general), `finally` blocks.
+- [x] **Throw**: `throw new Exception("...")`.
+- [x] **Re-throw**: `throw;` inside catch block.
+- [x] **Custom Exceptions**: Inheriting from `System.Exception`.
+- [x] **Properties**: `Message`, `InnerException`, `StackTrace` (basic verification).
 
 ## C# 3.0: LINQ & Functional Features
 

@@ -22,6 +22,7 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **Switch**: `switch` on integral types, strings, enums; `default` case; fall-through behavior (should be error in C# unless empty).
 - [x] **Loops**: `for`, `foreach` (arrays, collections), `while`, `do-while`.
 - [x] **Jumps**: `break`, `continue`, `return`, `goto` (basic label usage).
+- [x] **Deeply nested functions**: 20 layers of mixed constructs (local functions, lambdas, nested classes, async/await).
 
 ### Object-Oriented Programming
 - [x] **Classes**: Fields, Methods (instance/static), Constructors (default/parameterized), `this` keyword. Reference: `H5/H5/System/Object.cs`.

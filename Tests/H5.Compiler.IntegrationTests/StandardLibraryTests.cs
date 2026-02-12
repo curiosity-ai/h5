@@ -527,8 +527,8 @@ public class Program
         var ms = new MemoryStream();
         var data = new byte[] { 1, 2, 3 };
         ms.Write(data, 0, 3);
-        // Console.WriteLine(ms.Length);
-        // Console.WriteLine(ms.Position);
+        Console.WriteLine(ms.Length);
+        Console.WriteLine(ms.Position);
 
         ms.Position = 0;
         Console.WriteLine(ms.ReadByte()); // 1

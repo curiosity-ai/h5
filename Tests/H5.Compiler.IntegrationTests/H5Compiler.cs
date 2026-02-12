@@ -141,7 +141,15 @@ namespace H5.Compiler.IntegrationTests
         {
             var latestVersion = await GetLatestVersionAsync();
 
-            var settings = new H5DotJson_AssemblySettings();
+            var settings = new H5DotJson_AssemblySettings()
+            {
+                Reflection = new ReflectionConfig()
+                {
+                    Disabled = false,
+                    Target = Contract.MetadataTarget.Inline, 
+                }
+            }
+            ;
             var request = new CompilationRequest("App", settings)
                             //.NoPackageResources() // Comment this out to get resources
                             .NoHTML()

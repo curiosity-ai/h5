@@ -69,9 +69,9 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 5.0: Async/Await
 
-- [x] **Async/Await**: `async Task Method()`, `await Task.Delay()`, `await Task.WhenAll()`. Reference: `H5/H5/System/Threading/Tasks/Task.cs`.
+- [x] **Async/Await**: `async Task Method()`, `await Task.Delay()`, `await Task.WhenAll()`, `Task.Run()`, `TaskCompletionSource`. Reference: `H5/H5/System/Threading/Tasks/Task.cs`.
 - [x] **Task<T>**: Returning values from async methods.
-- [ ] **Caller Info Attributes**: `[CallerMemberName]`, `[CallerFilePath]`, `[CallerLineNumber]` (if supported).
+- [ ] **Caller Info Attributes**: `[CallerMemberName]`, `[CallerFilePath]`, `[CallerLineNumber]`.
 
 ## C# 6.0: Syntactic Sugar
 
@@ -100,6 +100,68 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **Non-Trailing Named Arguments**: `Method(1, arg2: 2)`.
 - [x] **In Parameters**: `void Method(in int x)` (verify basic behavior).
 - [x] **ReadOnly Structs**: `readonly struct Point { ... }`.
+- [ ] **Ref Returns and Locals**: `ref int Method()`, `ref var x = ref y;`.
+
+## H5 Standard Library Support (To Be Verified)
+
+### System.Math
+- [ ] **Basic Arithmetic**: `Abs`, `Min`, `Max`, `Sign`, `DivRem`.
+- [ ] **Rounding**: `Round`, `Ceiling`, `Floor`, `Truncate`.
+- [ ] **Powers & Roots**: `Pow`, `Sqrt`, `Exp`, `Log`, `Log10`.
+- [ ] **Trigonometry**: `Sin`, `Cos`, `Tan`, `Asin`, `Acos`, `Atan`, `Atan2`.
+- [ ] **Hyperbolic**: `Sinh`, `Cosh`, `Tanh`.
+
+### System.Random
+- [ ] **Construction**: `new Random()`, `new Random(seed)`.
+- [ ] **Generation**: `Next()`, `Next(max)`, `Next(min, max)`, `NextDouble()`, `NextBytes(buffer)`.
+
+### System.DateTime & TimeSpan
+- [ ] **DateTime Properties**: `Now`, `UtcNow`, `Today`, `Year`, `Month`, `Day`, `Hour`, `Minute`, `Second`, `Millisecond`.
+- [ ] **DateTime Methods**: `AddDays`, `AddHours`, etc., `ToString()`, `ToUniversalTime()`, `ToLocalTime()`.
+- [ ] **TimeSpan**: Construction, `TotalMilliseconds`, `TotalDays`, etc., Arithmetic (`+`, `-`).
+- [ ] **Formatting & Parsing**: `DateTime.Parse`, `DateTime.TryParse` (if supported), Custom format strings.
+
+### System.Guid
+- [ ] **Guid**: `Guid.NewGuid()`, `Guid.Parse()`, `ToString()`, `Guid.Empty`, Equality comparison.
+
+### System.Text
+- [ ] **StringBuilder**: `Append`, `AppendLine`, `Insert`, `Remove`, `Replace`, `Clear`, `ToString`, `Length`, `Capacity`.
+- [ ] **RegularExpressions**: `Regex.Match`, `Regex.Matches`, `Regex.Replace`, `Regex.IsMatch`, `Regex.Split`.
+- [ ] **Encoding**: `Encoding.UTF8`, `Encoding.ASCII`, `GetBytes`, `GetString`.
+
+### System.Collections.Generic
+- [ ] **List<T>**: `Add`, `AddRange`, `Insert`, `Remove`, `RemoveAt`, `Contains`, `IndexOf`, `Sort`, `Reverse`, `ToArray`, `BinarySearch`.
+- [ ] **Dictionary<TKey, TValue>**: `Add`, `Remove`, `ContainsKey`, `TryGetValue`, `Keys`, `Values`, Indexer `[]`.
+- [ ] **HashSet<T>**: `Add`, `Remove`, `Contains`, `UnionWith`, `IntersectWith` (if supported).
+- [ ] **Queue<T>**: `Enqueue`, `Dequeue`, `Peek`, `Count`.
+- [ ] **Stack<T>**: `Push`, `Pop`, `Peek`, `Count`.
+- [ ] **LinkedList<T>**: `AddFirst`, `AddLast`, `RemoveFirst`, `RemoveLast`.
+
+### System.IO (In-Memory Only)
+- [ ] **MemoryStream**: `Write`, `Read`, `Seek`, `Position`, `Length`, `SetLength`, `ToArray`.
+- [ ] **BinaryWriter**: `Write(int)`, `Write(string)`, etc.
+- [ ] **BinaryReader**: `ReadInt32()`, `ReadString()`, etc.
+- [ ] **Stream**: Abstract base class methods (if applicable).
+
+### System.Convert & BitConverter
+- [ ] **Convert**: `ToInt32`, `ToBoolean`, `ToString`, `FromBase64String`, `ToBase64String`.
+- [ ] **BitConverter**: `GetBytes`, `ToInt32`, `ToString`.
+
+### System.Uri
+- [ ] **Uri**: Constructor, `Scheme`, `Host`, `Port`, `AbsolutePath`, `Query`, `ToString()`.
+
+### System.Version
+- [ ] **Version**: Constructor, `Major`, `Minor`, `Build`, `Revision`, Comparison, `ToString()`.
+
+### System.Globalization
+- [ ] **CultureInfo**: `CurrentCulture`, `InvariantCulture`, `DateTimeFormat`, `NumberFormat`.
+
+### System.Diagnostics
+- [ ] **Stopwatch**: `Start`, `Stop`, `Reset`, `Restart`, `Elapsed`, `ElapsedMilliseconds`.
+
+### System.Reflection
+- [ ] **Type Info**: `typeof(T).Name`, `typeof(T).FullName`, `typeof(T).IsClass`, `GetProperties()`, `GetMethods()`.
+- [ ] **Attributes**: `GetCustomAttributes`.
 
 ## Excluded Features (Do Not Implement)
 

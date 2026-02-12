@@ -65,3 +65,44 @@ Caught other error
 ### Action
 I have split the test into `ExceptionFilters_Passing` (which works) and `ExceptionFilters_Failing` (which fails).
 I have marked `ExceptionFilters_Failing` as `[Ignore]` to prevent blocking the build, while documenting the issue here.
+
+## Synchronous Local Functions inside Async Lambdas with Outer Local Functions
+
+The H5 compiler fails to generate valid JavaScript when a **synchronous** local function is defined inside an **async lambda**, AND there is another local function defined in the outer scope (whether hoisted or not).
+
+The generated JavaScript produces a `SyntaxError: Unexpected identifier 'LocalName'`, suggesting that the inner local function is not being emitted correctly or its scope is being mishandled during the async state machine generation or closure lifting.
+
+### Minimal Failing Case
+```csharp
+public static async Task Main()
+{
+    Func<Task> lambda = async () =>
+    {
+        void InnerLocal() { } // Synchronous local function inside async lambda
+        InnerLocal();
+        await Task.Delay(1);
+    };
+    await lambda();
+
+    void OuterLocal() { } // Presence of this outer local function triggers the bug
+}
+```
+
+### Minimal Passing Case
+Removing `OuterLocal` makes the test pass.
+```csharp
+public static async Task Main()
+{
+    Func<Task> lambda = async () =>
+    {
+        void InnerLocal() { }
+        InnerLocal();
+        await Task.Delay(1);
+    };
+    await lambda();
+}
+```
+
+### Affected Test Cases
+- `H5.Compiler.IntegrationTests.NestedFunctionsTests.ComplexNestingAndHoisting` (Ignored)
+- `H5.Compiler.IntegrationTests.NestedFunctionsTests.SyncLocalFunctionInsideAsyncLambda_WithOuterLocalFunction` (Ignored)

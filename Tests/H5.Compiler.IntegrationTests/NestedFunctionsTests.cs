@@ -381,5 +381,183 @@ public class Program
 """;
             await RunTest(code, "<<DONE>>");
         }
+
+        [TestMethod]
+        [Ignore("Fails due to H5 compiler bug with synchronous local functions inside async lambdas when outer local functions exist.")]
+        public async Task ComplexNestingAndHoisting()
+        {
+            var code = """
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public class ShareState
+    {
+        public bool MakePrivate { get; set; }
+        public List<string> Members { get; set; } = new List<string>();
+        public ShareState Clone()
+        {
+            return new ShareState { MakePrivate = MakePrivate, Members = new List<string>(Members) };
+        }
+    }
+
+    public static async Task Main()
+    {
+        Console.WriteLine("Start");
+        await ShowShareModal();
+        Console.WriteLine("<<DONE>>");
+    }
+
+    public static async Task ShowShareModal()
+    {
+        var shareState = new ShareState { Members = new List<string> { "User1", "Public" } };
+
+        Func<string> makePrivateButton = () =>
+        {
+            Console.WriteLine("makePrivateButton: " + shareState.MakePrivate);
+            return "Button";
+        };
+
+        Func<ShareState, Task> applyChanges = async (state) =>
+        {
+            Console.WriteLine("applyChanges: " + state.MakePrivate);
+            await Task.Delay(1);
+        };
+
+        Func<Task> currentMemberDisplay = async () =>
+        {
+            Console.WriteLine("currentMemberDisplay");
+
+            void MemberList()
+            {
+                Console.WriteLine("MemberList");
+                foreach (var m in shareState.Members)
+                {
+                     var (item, btn) = MemberLabel(m);
+                     Console.WriteLine("Member: " + item + ", " + btn);
+                }
+            }
+
+            void GetPublicAccessGroupComponent()
+            {
+                 Console.WriteLine("GetPublicAccessGroupComponent");
+                 var (item, btn) = MemberLabel("PublicGroup");
+                 Console.WriteLine("Public: " + item);
+            }
+
+            if (shareState.Members.Contains("Public"))
+            {
+                GetPublicAccessGroupComponent();
+            }
+
+            MemberList();
+
+            await Task.Delay(1);
+        };
+
+        Func<Task> makePublicButton = async () =>
+        {
+             Console.WriteLine("makePublicButton");
+             await Task.Run(async () =>
+             {
+                 Console.WriteLine("makePublicButton Task.Run");
+                 await Task.Delay(1);
+                 var tempState = shareState.Clone();
+                 tempState.Members.Add("NewUser");
+                 Console.WriteLine("NewUser added in Task.Run");
+             });
+        };
+
+        Console.WriteLine(makePrivateButton());
+        await currentMemberDisplay();
+        await makePublicButton();
+        await applyChanges(shareState);
+
+        shareState.MakePrivate = true;
+        shareState.Members.Remove("Public");
+
+        Console.WriteLine("--- State Changed ---");
+        Console.WriteLine(makePrivateButton());
+        await currentMemberDisplay();
+        await applyChanges(shareState);
+
+        (string, string) MemberLabel(string member)
+        {
+             return ("Item_" + member, "Btn_" + member);
+        }
+    }
+}
+""";
+            await RunTest(code, "<<DONE>>");
+        }
+
+        [TestMethod]
+        [Ignore("Fails due to H5 compiler bug with synchronous local functions inside async lambdas when outer local functions exist.")]
+        public async Task SyncLocalFunctionInsideAsyncLambda_WithOuterLocalFunction()
+        {
+            var code = """
+using System;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public static async Task Main()
+    {
+        Console.WriteLine("Start");
+        Func<Task> lambda = async () =>
+        {
+            void Local()
+            {
+                Console.WriteLine("Local");
+            }
+            Local();
+            await Task.Delay(1);
+        };
+        await lambda();
+
+        int Outer()
+        {
+            return 1;
+        }
+
+        Console.WriteLine("<<DONE>>");
+    }
+}
+""";
+            await RunTest(code, "<<DONE>>");
+        }
+
+        [TestMethod]
+        public async Task SyncLocalFunctionInsideAsyncLambda_NoOuter()
+        {
+            var code = """
+using System;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public static async Task Main()
+    {
+        Console.WriteLine("Start");
+        Func<Task> lambda = async () =>
+        {
+            void Local()
+            {
+                Console.WriteLine("Local");
+            }
+            Local();
+            await Task.Delay(1);
+        };
+        await lambda();
+
+        Console.WriteLine("<<DONE>>");
+    }
+}
+""";
+            await RunTest(code, "<<DONE>>");
+        }
     }
 }

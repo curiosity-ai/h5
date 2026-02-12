@@ -56,8 +56,10 @@ namespace H5.Translator
                                .Select(x => x.Node);
 
             var updatedBlocks = new Dictionary<SyntaxNode, List<StatementSyntax>>();
-            var initForBlocks = new Dictionary<SyntaxNode, List<StatementSyntax>>();
             var updatedClasses = new Dictionary<TypeDeclarationSyntax, List<DelegateDeclarationSyntax>>();
+
+            // Capture init vars with their original position to ensure declaration order is preserved.
+            var tempInits = new Dictionary<SyntaxNode, List<(StatementSyntax Init, int Position)>>();
 
             foreach (var fn in localFns)
             {
@@ -232,9 +234,10 @@ namespace H5.Translator
                         {
                             lambdaBodyBlock = lambdaBodyBlock.ReplaceNodes(descendantBlocks, (b1, b2) => {
                                 var stmts = updatedBlocks[b1];
-                                if (initForBlocks.ContainsKey(b1)) {
-                                    stmts = initForBlocks[b1].Concat(stmts).ToList();
-                                    initForBlocks.Remove(b1);
+                                if (tempInits.ContainsKey(b1)) {
+                                    var sortedInits = tempInits[b1].OrderBy(x => x.Position).Select(x => x.Init);
+                                    stmts = sortedInits.Concat(stmts).ToList();
+                                    tempInits.Remove(b1);
                                 }
 
                                 if (b2 is BlockSyntax) return ((BlockSyntax)b2).WithStatements(SyntaxFactory.List(stmts));
@@ -245,13 +248,14 @@ namespace H5.Translator
                             foreach(var k in descendantBlocks) updatedBlocks.Remove(k);
                         }
 
-                        if (updatedBlocks.ContainsKey(fn.Body) || initForBlocks.ContainsKey(fn.Body))
+                        if (updatedBlocks.ContainsKey(fn.Body) || tempInits.ContainsKey(fn.Body))
                         {
                             var stmts = updatedBlocks.ContainsKey(fn.Body) ? updatedBlocks[fn.Body] : lambdaBodyBlock.Statements.ToList();
-                            if (initForBlocks.ContainsKey(fn.Body))
+                            if (tempInits.ContainsKey(fn.Body))
                             {
-                                stmts.InsertRange(0, initForBlocks[fn.Body]);
-                                initForBlocks.Remove(fn.Body);
+                                var sortedInits = tempInits[fn.Body].OrderBy(x => x.Position).Select(x => x.Init);
+                                stmts.InsertRange(0, sortedInits);
+                                tempInits.Remove(fn.Body);
                             }
                             updatedBlocks.Remove(fn.Body);
                             lambdaBodyBlock = lambdaBodyBlock.WithStatements(SyntaxFactory.List(stmts));
@@ -294,10 +298,12 @@ namespace H5.Translator
                     statements.Insert(beforeStatement != null ? statements.IndexOf(beforeStatement) : Math.Max(0, fnIdx), assignment);
                     updatedBlocks[parentNode] = statements;
 
-                    statements = initForBlocks.ContainsKey(parentNode) ? initForBlocks[parentNode] : new List<StatementSyntax>();
-                    // Append new initVar to the end of init list to preserve order
-                    statements.Add(initVar);
-                    initForBlocks[parentNode] = statements;
+                    // Collect inits with position
+                    if (!tempInits.ContainsKey(parentNode))
+                    {
+                        tempInits[parentNode] = new List<(StatementSyntax, int)>();
+                    }
+                    tempInits[parentNode].Add((initVar, fn.SpanStart));
                 }
                 catch (Exception e)
                 {
@@ -305,9 +311,20 @@ namespace H5.Translator
                 }
             }
 
-            foreach (var key in initForBlocks.Keys)
+            // Populate remaining inits
+            foreach (var key in tempInits.Keys)
             {
-                updatedBlocks[key] = initForBlocks[key].Concat(updatedBlocks[key]).ToList();
+                var sortedInits = tempInits[key].OrderBy(x => x.Position).Select(x => x.Init).ToList();
+                if (updatedBlocks.ContainsKey(key))
+                {
+                    updatedBlocks[key] = sortedInits.Concat(updatedBlocks[key]).ToList();
+                }
+                else
+                {
+                    // This case should theoretically not be hit if updatedBlocks always has parentNode from assignments
+                    // but for safety, if we have inits for a block not otherwise updated, we should handle it
+                    // although technically every fn adds an assignment to updatedBlocks.
+                }
             }
 
             if (updatedClasses.Count > 0)

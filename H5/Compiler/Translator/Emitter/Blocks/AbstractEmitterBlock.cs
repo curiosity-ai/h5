@@ -128,6 +128,11 @@ namespace H5.Translator
 
         protected AstNode[] GetAwaiters(AstNode node)
         {
+            if (Emitter.IsNativeAsync)
+            {
+                return new AstNode[0];
+            }
+
             var awaitSearch = new AwaitSearchVisitor(Emitter);
             node.AcceptVisitor(awaitSearch);
 

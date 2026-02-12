@@ -847,3 +847,55 @@
             }
         }
     });
+
+    H5.toPromise = function (awaitable) {
+        if (!awaitable) {
+            return Promise.resolve(awaitable);
+        }
+
+        if (awaitable instanceof Promise || typeof awaitable.then === 'function') {
+            return awaitable;
+        }
+
+        if (H5.is(awaitable, System.Threading.Tasks.Task) || (awaitable && typeof awaitable.continueWith === 'function')) {
+            return new Promise(function (resolve, reject) {
+                awaitable.continueWith(function (t) {
+                    if (t.isFaulted()) {
+                        var ex = t.exception;
+                        if (ex && ex.innerExceptions && ex.innerExceptions.Count > 0) {
+                             reject(ex.innerExceptions.getItem(0));
+                        } else {
+                             reject(ex);
+                        }
+                    } else if (t.isCanceled()) {
+                         reject(new System.Threading.Tasks.TaskCanceledException.$ctor3(t));
+                    } else {
+                        resolve(t.getAwaitedResult ? t.getAwaitedResult() : t.getResult());
+                    }
+                });
+            });
+        }
+
+        if (typeof awaitable.getAwaiter === 'function') {
+             var awaiter = awaitable.getAwaiter();
+             if (awaiter.isCompleted()) {
+                 return Promise.resolve(awaiter.getResult());
+             }
+             return new Promise(function(resolve, reject) {
+                 var onCompleted = awaiter.onCompleted || awaiter.continueWith;
+                 if (typeof onCompleted === 'function') {
+                     onCompleted.call(awaiter, function() {
+                         try {
+                             resolve(awaiter.getResult());
+                         } catch(e) {
+                             reject(e);
+                         }
+                     });
+                 } else {
+                     resolve(awaiter);
+                 }
+             });
+        }
+
+        return Promise.resolve(awaitable);
+    };

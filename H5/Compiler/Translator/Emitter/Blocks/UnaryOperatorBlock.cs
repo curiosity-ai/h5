@@ -340,7 +340,13 @@ namespace H5.Translator
                         break;
 
                     case UnaryOperatorType.Await:
-                        if (Emitter.ReplaceAwaiterByVar)
+                        if (Emitter.IsNativeAsync)
+                        {
+                            Write("(await H5.toPromise(");
+                            unaryOperatorExpression.Expression.AcceptVisitor(Emitter);
+                            Write("))");
+                        }
+                        else if (Emitter.ReplaceAwaiterByVar)
                         {
                             var index = Array.IndexOf(Emitter.AsyncBlock.AwaitExpressions, unaryOperatorExpression.Expression) + 1;
                             Write(JS.Vars.ASYNC_TASK_RESULT + index);

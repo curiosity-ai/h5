@@ -14,7 +14,7 @@ namespace H5.Translator
             Emitter = emitter;
             BlockStatement = blockStatement;
 
-            if (blockStatement.Parent is BlockStatement && Emitter.IsAsync)
+            if (blockStatement.Parent is BlockStatement && Emitter.IsAsync && !Emitter.IsNativeAsync)
             {
                 Emitter.IgnoreBlock = blockStatement;
             }
@@ -244,7 +244,7 @@ namespace H5.Translator
                 Emitter.WrapRestCounter = OldWrapRestCounter;
             }
 
-            if (!NoBraces && (!Emitter.IsAsync || (!AsyncNoBraces && BlockStatement.Parent != Emitter.AsyncBlock.Node)))
+            if (!NoBraces && (!Emitter.IsAsync || Emitter.IsNativeAsync || (!AsyncNoBraces && BlockStatement.Parent != Emitter.AsyncBlock.Node)))
             {
                 if (IsMethodBlock && BeginPosition == Emitter.Output.Length)
                 {
@@ -274,7 +274,7 @@ namespace H5.Translator
                 WriteNewLine();
             }
 
-            if (IsMethodBlock && !Emitter.IsAsync)
+            if (IsMethodBlock && (!Emitter.IsAsync || Emitter.IsNativeAsync))
             {
                 EmitTempVars(BeginPosition);
             }
@@ -286,10 +286,15 @@ namespace H5.Translator
         {
             PushLocals();
 
-            if (!NoBraces && (!Emitter.IsAsync || (!AsyncNoBraces && BlockStatement.Parent != Emitter.AsyncBlock.Node)))
+            bool emitBraces = !NoBraces && (!Emitter.IsAsync || Emitter.IsNativeAsync || (!AsyncNoBraces && BlockStatement.Parent != Emitter.AsyncBlock.Node));
+            if (emitBraces)
             {
                 SignaturePosition = Emitter.Output.Length;
                 BeginBlock();
+            }
+            else
+            {
+                 // Write("/* NO BRACES */");
             }
 
             BeginPosition = Emitter.Output.Length;

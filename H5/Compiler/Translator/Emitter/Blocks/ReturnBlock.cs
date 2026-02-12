@@ -35,7 +35,7 @@ namespace H5.Translator
             ReturnStatement returnStatement = ReturnStatement;
             Expression expression = Expression;
 
-            if (Emitter.IsAsync && (Emitter.AsyncBlock.MethodDeclaration == null || Emitter.AsyncBlock.MethodDeclaration.HasModifier(Modifiers.Async)))
+            if (Emitter.IsAsync && !Emitter.IsNativeAsync && (Emitter.AsyncBlock.MethodDeclaration == null || Emitter.AsyncBlock.MethodDeclaration.HasModifier(Modifiers.Async)))
             {
                 var finallyNode = GetParentFinallyBlock(returnStatement ?? (AstNode)expression, false);
                 var catchNode = GetParentCatchBlock(returnStatement ?? (AstNode)expression, false);

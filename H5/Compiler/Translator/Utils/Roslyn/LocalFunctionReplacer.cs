@@ -46,7 +46,15 @@ namespace H5.Translator
 
         public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
-            var localFns = root.DescendantNodes().OfType<LocalFunctionStatementSyntax>().Reverse();
+            // Sort by depth descending (innermost first) to handle nesting,
+            // then by start position (top to bottom) to handle siblings in order.
+            var localFns = root.DescendantNodes()
+                               .OfType<LocalFunctionStatementSyntax>()
+                               .Select(node => new { Node = node, Depth = node.Ancestors().Count() })
+                               .OrderByDescending(x => x.Depth)
+                               .ThenBy(x => x.Node.SpanStart)
+                               .Select(x => x.Node);
+
             var updatedBlocks = new Dictionary<SyntaxNode, List<StatementSyntax>>();
             var initForBlocks = new Dictionary<SyntaxNode, List<StatementSyntax>>();
             var updatedClasses = new Dictionary<TypeDeclarationSyntax, List<DelegateDeclarationSyntax>>();
@@ -287,7 +295,8 @@ namespace H5.Translator
                     updatedBlocks[parentNode] = statements;
 
                     statements = initForBlocks.ContainsKey(parentNode) ? initForBlocks[parentNode] : new List<StatementSyntax>();
-                    statements.Insert(0, initVar);
+                    // Append new initVar to the end of init list to preserve order
+                    statements.Add(initVar);
                     initForBlocks[parentNode] = statements;
                 }
                 catch (Exception e)
@@ -299,38 +308,6 @@ namespace H5.Translator
             foreach (var key in initForBlocks.Keys)
             {
                 updatedBlocks[key] = initForBlocks[key].Concat(updatedBlocks[key]).ToList();
-            }
-
-            if (updatedBlocks.Count > 1)
-            {
-                var orderedKeys = new List<SyntaxNode>();
-                orderedKeys.AddRange(updatedBlocks.Keys);
-
-                orderedKeys.Sort((a, b) =>
-                {
-                    if (b.Contains(a)) return -1;
-                    return 1;
-                });
-
-                for (int i = 0; i < orderedKeys.Count; i++)
-                {
-                    SyntaxNode parentKey = orderedKeys[i];
-                    var parentBlocks = updatedBlocks[parentKey];
-                    for (int j = i - 1; j >= 0; j--)
-                    {
-                        SyntaxNode candidateChildKey = orderedKeys[j];
-                        var childBlocks = updatedBlocks[candidateChildKey];
-
-                        var child = parentBlocks.FirstOrDefault(n => n.Contains(candidateChildKey));
-
-                        if (child != null)
-                        {
-                            SyntaxNode result = candidateChildKey is SwitchSectionSyntax sss ? sss.WithStatements(SyntaxFactory.List(childBlocks)) : (SyntaxNode)(((BlockSyntax)candidateChildKey).WithStatements(SyntaxFactory.List(childBlocks)));
-                            var newChild = child.ReplaceNode(candidateChildKey, result);
-                            parentBlocks[parentBlocks.IndexOf(child)] = (StatementSyntax)newChild;
-                        }
-                    }
-                }
             }
 
             if (updatedClasses.Count > 0)

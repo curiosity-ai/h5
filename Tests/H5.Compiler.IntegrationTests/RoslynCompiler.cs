@@ -131,8 +131,9 @@ public class Console
                 MetadataReference.CreateFromFile(typeof(Console).Assembly.Location), // System.Console
                 MetadataReference.CreateFromFile(typeof(TestConsole).Assembly.Location), // This assembly
                 MetadataReference.CreateFromFile(Assembly.Load("System.Runtime").Location),
+                MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location), // System.Linq
+                MetadataReference.CreateFromFile(typeof(List<>).Assembly.Location) // System.Collections
                 MetadataReference.CreateFromFile(Assembly.Load("Microsoft.CSharp").Location), // Dynamic support
-                MetadataReference.CreateFromFile(Assembly.Load("System.Linq.Expressions").Location),
                 MetadataReference.CreateFromFile(Assembly.Load("System.Dynamic.Runtime").Location)
             };
 

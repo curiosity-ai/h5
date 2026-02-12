@@ -13,9 +13,9 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **Enumerations**: `enum` definition, underlying types, flags attribute, conversion to/from int/string. Reference: `H5/H5/System/Enum.cs`.
 
 ### Arrays & Collections
-- [ ] **Single-dimensional Arrays**: Creation, indexing, length, iteration (`foreach`). Reference: `H5/H5/System/Array.cs`.
-- [ ] **Multi-dimensional Arrays**: Rectangular arrays (`[,]`), nested loops access.
-- [ ] **Jagged Arrays**: Arrays of arrays (`[][]`), initialization, access.
+- [x] **Single-dimensional Arrays**: Creation, indexing, length, iteration (`foreach`). Reference: `H5/H5/System/Array.cs`.
+- [x] **Multi-dimensional Arrays**: Rectangular arrays (`[,]`), nested loops access.
+- [x] **Jagged Arrays**: Arrays of arrays (`[][]`), initialization, access.
 
 ### Control Flow
 - [ ] **Conditionals**: `if`, `else if`, `else`, nested `if`.

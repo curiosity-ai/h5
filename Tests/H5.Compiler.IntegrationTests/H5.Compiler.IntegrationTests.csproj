@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.58.0" />
+    <PackageReference Include="MSTest" Version="4.0.1" />
+    <PackageReference Include="NuGet.Versioning" Version="7.3.0" />
+    <PackageReference Include="h5" Version="25.11.62743" ExcludeAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\H5\Compiler\Compiler.Service\H5.Compiler.Service.csproj" />
+    <ProjectReference Include="..\..\H5\Compiler\Translator\H5.Translator.csproj" />
+    <ProjectReference Include="..\..\H5\Compiler\Contract\H5.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

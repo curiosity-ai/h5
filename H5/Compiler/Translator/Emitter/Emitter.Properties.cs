@@ -179,6 +179,8 @@ namespace H5.Translator
 
         public bool IsAsync { get; set; }
 
+        public bool IsNativeAsync { get; set; }
+
         public bool IsYield { get; set; }
 
         public List<string> AsyncVariables { get; set; }

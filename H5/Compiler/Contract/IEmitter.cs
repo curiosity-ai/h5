@@ -93,6 +93,8 @@ namespace H5.Contract
 
         bool IsAsync { get; set; }
 
+        bool IsNativeAsync { get; set; }
+
         bool IsYield { get; set; }
 
         bool IsInlineConst(IMember member);

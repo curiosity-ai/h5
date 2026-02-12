@@ -90,6 +90,8 @@ namespace H5.Translator
 
         protected bool PreviousIsAync { get; set; }
 
+        protected bool PreviousIsNativeAsync { get; set; }
+
         protected List<string> PreviousAsyncVariables { get; set; }
 
         protected IAsyncBlock PreviousAsyncBlock { get; set; }
@@ -120,8 +122,10 @@ namespace H5.Translator
             Emitter.AsyncExpressionHandling = false;
 
             PreviousIsAync = Emitter.IsAsync;
+            PreviousIsNativeAsync = Emitter.IsNativeAsync;
             Emitter.IsAsync = true;
-            
+            Emitter.IsNativeAsync = true;
+
             PreviousAsyncVariables = Emitter.AsyncVariables;
             Emitter.AsyncVariables = new List<string>();
 
@@ -234,6 +238,7 @@ namespace H5.Translator
         protected void FinishAsyncBlock()
         {
             Emitter.IsAsync = PreviousIsAync;
+            Emitter.IsNativeAsync = PreviousIsNativeAsync;
             Emitter.AsyncVariables = PreviousAsyncVariables;
             Emitter.AsyncBlock = PreviousAsyncBlock;
             Emitter.ReplaceAwaiterByVar = ReplaceAwaiterByVar;
@@ -252,8 +257,68 @@ namespace H5.Translator
                 InitAsyncBlock();
             }
 
-            EmitAsyncBlock();
+            if (Emitter.IsNativeAsync)
+            {
+                EmitNativeAsyncBlock();
+            }
+            else
+            {
+                EmitAsyncBlock();
+            }
+
             FinishAsyncBlock();
+        }
+
+        protected void EmitNativeAsyncBlock()
+        {
+            BeginBlock();
+
+            if (IsTaskReturn)
+            {
+                Write("var " + JS.Vars.ASYNC_TCS + " = new " + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Types.SHORTEN_TASK_COMPLETION_SOURCE : JS.Types.TASK_COMPLETION_SOURCE) + "();");
+                WriteNewLine();
+            }
+
+            Write("(async () => ");
+
+            bool needsBraces = true;
+            if (Body is BlockStatement)
+            {
+                // We wrap BlockStatement in braces because Block visitor might skip them based on logic in Block.cs
+                // Even if Block visitor emits braces, double braces are valid.
+                // If Block visitor skips braces (e.g. if we messed up logic), this ensures we have them for the arrow function.
+                BeginBlock();
+                Body.AcceptVisitor(Emitter);
+                EndBlock();
+            }
+            else if (Body is Expression && !(Body.Parent is LambdaExpression))
+            {
+                BeginBlock();
+                Body.AcceptVisitor(Emitter);
+                EndBlock();
+            }
+            else
+            {
+                // Expression body
+                Body.AcceptVisitor(Emitter);
+            }
+
+            Write(")()");
+
+            if (IsTaskReturn)
+            {
+                Write(".then(");
+                Write("function (r) { " + JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_RESULT : JS.Funcs.SET_RESULT) + "(r); }");
+                Write(", ");
+                Write("function (e) { " + JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_EXCEPTION : JS.Funcs.SET_EXCEPTION) + "(e); }");
+                Write(");");
+
+                WriteNewLine();
+                Write("return " + JS.Vars.ASYNC_TCS + "." + JS.Fields.ASYNC_TASK + ";");
+            }
+
+            WriteNewLine();
+            EndBlock();
         }
 
         protected void EmitAsyncBlock()

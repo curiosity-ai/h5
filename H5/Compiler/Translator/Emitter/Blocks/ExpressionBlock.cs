@@ -24,7 +24,7 @@ namespace H5.Translator
 
             var oldSemiColon = Emitter.EnableSemicolon;
 
-            if (Emitter.IsAsync)
+            if (Emitter.IsAsync && !Emitter.IsNativeAsync)
             {
                 var awaitSearch = new AwaitSearchVisitor(Emitter);
                 ExpressionStatement.Expression.AcceptVisitor(awaitSearch);
@@ -34,7 +34,7 @@ namespace H5.Translator
 
             ExpressionStatement.Expression.AcceptVisitor(Emitter);
 
-            if (Emitter.EnableSemicolon && !isAwaiter)
+            if (Emitter.EnableSemicolon && (!isAwaiter || Emitter.IsNativeAsync))
             {
                 WriteSemiColon(true);
             }

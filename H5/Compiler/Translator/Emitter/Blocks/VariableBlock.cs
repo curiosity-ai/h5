@@ -28,7 +28,7 @@ namespace H5.Translator
         {
             bool needVar = true;
             bool needComma = false;
-            bool addSemicolon = !Emitter.IsAsync;
+            bool addSemicolon = !Emitter.IsAsync || Emitter.IsNativeAsync;
 
             var oldSemiColon = Emitter.EnableSemicolon;
             var asyncExpressionHandling = Emitter.AsyncExpressionHandling;
@@ -71,9 +71,9 @@ namespace H5.Translator
                     }
                 }
 
-                if ((!Emitter.IsAsync || hasInitializer || isReferenceLocal) && needComma)
+                if ((!Emitter.IsAsync || Emitter.IsNativeAsync || hasInitializer || isReferenceLocal) && needComma)
                 {
-                    if (Emitter.IsAsync)
+                    if (Emitter.IsAsync && !Emitter.IsNativeAsync)
                     {
                         WriteSemiColon(true);
                     }
@@ -87,7 +87,7 @@ namespace H5.Translator
 
                 WriteAwaiters(variable.Initializer);
 
-                if (!Emitter.IsAsync || hasInitializer || isReferenceLocal)
+                if (!Emitter.IsAsync || Emitter.IsNativeAsync || hasInitializer || isReferenceLocal)
                 {
                     Write(varName);
                 }

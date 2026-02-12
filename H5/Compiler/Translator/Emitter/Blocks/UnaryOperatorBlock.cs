@@ -342,9 +342,9 @@ namespace H5.Translator
                     case UnaryOperatorType.Await:
                         if (Emitter.IsNativeAsync)
                         {
-                            Write("await H5.toPromise(");
+                            Write("(await H5.toPromise(");
                             unaryOperatorExpression.Expression.AcceptVisitor(Emitter);
-                            Write(")");
+                            Write("))");
                         }
                         else if (Emitter.ReplaceAwaiterByVar)
                         {

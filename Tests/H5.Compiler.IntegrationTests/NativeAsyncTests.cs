@@ -250,5 +250,48 @@ public class Program
 """;
             await RunTest(code, "<<DONE>>");
         }
+
+        [TestMethod]
+        public async Task AsyncStructReturn()
+        {
+            var code = """
+using System;
+using System.Threading.Tasks;
+
+public struct MyStruct
+{
+    public int Value;
+}
+
+public class Program
+{
+    public static async Task Main()
+    {
+        Console.WriteLine("Start");
+        var res = await GetStruct();
+        Console.WriteLine(res.Value);
+
+        // This triggers cloning on assignment for mutable structs
+        MyStruct s2 = await GetStruct();
+        s2.Value = 100;
+        Console.WriteLine(s2.Value);
+
+        // Force boxing/cloning to reproduce precedence issue
+        object o = await GetStruct();
+        Console.WriteLine(((MyStruct)o).Value);
+
+        Console.WriteLine("End");
+        Console.WriteLine("<<DONE>>");
+    }
+
+    public static async Task<MyStruct> GetStruct()
+    {
+        await Task.Delay(1);
+        return new MyStruct { Value = 42 };
+    }
+}
+""";
+            await RunTest(code, "<<DONE>>");
+        }
     }
 }

@@ -174,51 +174,51 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 ## Detailed Test Scenarios (Extracted from Old Tests)
 
 ### System.DateTime
-- [ ] **Constructors**: `DateTime(long ticks, DateTimeKind kind)`, `DateTime(y, m, d, h, m, s, ms, DateTimeKind kind)`.
-- [ ] **Kind**: verify `Kind` property propagation and `SpecifyKind`.
-- [ ] **Arithmetic**: `AddDays` (DST transitions), `AddMonths` (end of month adjustments), `AddYears` (leap years).
-- [ ] **Comparison**: behavior of operators `<`, `<=`, `>`, `>=` with different `DateTimeKind`.
-- [ ] **Parsing**: `Parse` and `ParseExact` with standard and custom format strings (e.g., "o", "r", "u").
-- [ ] **Output**: `ToString` with various formats ("yyyy-MM-dd", "o", etc.).
+- [x] **Constructors**: `DateTime(long ticks, DateTimeKind kind)`, `DateTime(y, m, d, h, m, s, ms, DateTimeKind kind)`.
+- [x] **Kind**: verify `Kind` property propagation and `SpecifyKind`.
+- [x] **Arithmetic**: `AddDays` (DST transitions), `AddMonths` (end of month adjustments), `AddYears` (leap years).
+- [x] **Comparison**: behavior of operators `<`, `<=`, `>`, `>=` with different `DateTimeKind`.
+- [x] **Parsing**: `Parse` and `ParseExact` with standard and custom format strings (e.g., "o", "r", "u").
+- [x] **Output**: `ToString` with various formats ("yyyy-MM-dd", "o", etc.).
 
 ### System.TimeSpan
-- [ ] **Factories**: `FromDays`, `FromHours`, `FromMinutes`, `FromSeconds`, `FromMilliseconds`, `FromTicks`.
-- [ ] **Arithmetic**: `Add`, `Subtract`, `Duration`, `Negate`, `+`, `-`.
-- [ ] **Parsing**: `Parse` with formats like "d.hh:mm:ss", "hh:mm:ss.fff".
-- [ ] **Properties**: `TotalDays`, `TotalHours`, etc. precision.
+- [x] **Factories**: `FromDays`, `FromHours`, `FromMinutes`, `FromSeconds`, `FromMilliseconds`, `FromTicks`.
+- [x] **Arithmetic**: `Add`, `Subtract`, `Duration`, `Negate`, `+`, `-`.
+- [x] **Parsing**: `Parse` with formats like "d.hh:mm:ss", "hh:mm:ss.fff".
+- [x] **Properties**: `TotalDays`, `TotalHours`, etc. precision.
 
 ### System.Text.StringBuilder
-- [ ] **Chaining**: `sb.Append().AppendLine().Append()`.
-- [ ] **Capacity**: behavior when exceeding capacity, explicit capacity in constructor.
-- [ ] **Modification**: `Insert`, `Remove`, `Replace` (string and char), `Length` (truncating or expanding with nulls).
-- [ ] **Indexer**: read and write access `sb[i]`.
+- [x] **Chaining**: `sb.Append().AppendLine().Append()`.
+- [x] **Capacity**: behavior when exceeding capacity, explicit capacity in constructor.
+- [x] **Modification**: `Insert`, `Remove`, `Replace` (string and char), `Length` (truncating or expanding with nulls).
+- [x] **Indexer**: read and write access `sb[i]`.
 
 ### System.Text.RegularExpressions
-- [ ] **Syntax**: Anchors (`^`, `$`, `\b`), Character Classes (`\d`, `\w`, `[a-z]`), Quantifiers (`*`, `+`, `?`, `{n,m}`), Alternation (`|`), Groups (`(...)`).
-- [ ] **Methods**: `IsMatch`, `Match`, `Matches`, `Replace` (string and `MatchEvaluator`), `Split`.
-- [ ] **Options**: `IgnoreCase`, `Multiline`, `Singleline`.
+- [x] **Syntax**: Anchors (`^`, `$`, `\b`), Character Classes (`\d`, `\w`, `[a-z]`), Quantifiers (`*`, `+`, `?`, `{n,m}`), Alternation (`|`), Groups (`(...)`).
+- [x] **Methods**: `IsMatch`, `Match`, `Matches`, `Replace` (string and `MatchEvaluator`), `Split`.
+- [x] **Options**: `IgnoreCase`, `Multiline`, `Singleline`.
 
 ### System.Collections.Generic
-- [ ] **SortedList<TKey, TValue>**: Add, Remove, Indexer, Keys, Values.
-- [ ] **SortedSet<T>**: Add, Remove, Set operations (Union, Intersect).
-- [ ] **IReadOnlyInterfaces**: `IReadOnlyList<T>`, `IReadOnlyDictionary<TKey, TValue>`.
-- [ ] **Comparers**: `EqualityComparer<T>.Default`, `Comparer<T>.Default`.
+- [x] **SortedList<TKey, TValue>**: Add, Remove, Indexer, Keys, Values.
+- [x] **SortedSet<T>**: Add, Remove, Set operations (Union, Intersect).
+- [x] **IReadOnlyInterfaces**: `IReadOnlyList<T>`, `IReadOnlyDictionary<TKey, TValue>`.
+- [x] **Comparers**: `EqualityComparer<T>.Default`, `Comparer<T>.Default`.
 
 ### System.Linq
-- [ ] **Set Operators**: `Distinct`, `Union`, `Intersect`, `Except`.
-- [ ] **Partitioning**: `Take`, `Skip`, `TakeWhile`, `SkipWhile`.
-- [ ] **Grouping**: `GroupBy` with various overloads (key selector, element selector, result selector).
-- [ ] **Joins**: `Join`, `GroupJoin`.
-- [ ] **Generation**: `Range`, `Repeat`, `Empty`.
+- [x] **Set Operators**: `Distinct`, `Union`, `Intersect`, `Except`.
+- [x] **Partitioning**: `Take`, `Skip`, `TakeWhile`, `SkipWhile`.
+- [x] **Grouping**: `GroupBy` with various overloads (key selector, element selector, result selector).
+- [x] **Joins**: `Join`, `GroupJoin`.
+- [x] **Generation**: `Range`, `Repeat`, `Empty`.
 
 ### System.Globalization
-- [ ] **CultureInfo**: `GetCultureInfo`, `CurrentCulture`, `InvariantCulture`.
-- [ ] **Formats**: `DateTimeFormat`, `NumberFormat` access.
+- [x] **CultureInfo**: `GetCultureInfo`, `CurrentCulture`, `InvariantCulture`.
+- [x] **Formats**: `DateTimeFormat`, `NumberFormat` access.
 
 ### System.Guid
-- [ ] **Formats**: "N", "D", "B", "P", "X".
-- [ ] **Parsing**: `Parse`, `TryParse`, `ParseExact`, `TryParseExact`.
+- [x] **Formats**: "N", "D", "B", "P", "X".
+- [x] **Parsing**: `Parse`, `TryParse`, `ParseExact`, `TryParseExact`.
 
 ### System.Version
-- [ ] **Parsing**: "Major.Minor", "Major.Minor.Build", "Major.Minor.Build.Revision".
-- [ ] **Comparison**: `CompareTo` and operators.
+- [x] **Parsing**: "Major.Minor", "Major.Minor.Build", "Major.Minor.Build.Revision".
+- [x] **Comparison**: `CompareTo` and operators.

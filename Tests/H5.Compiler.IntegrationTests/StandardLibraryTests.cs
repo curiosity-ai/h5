@@ -715,5 +715,645 @@ public class Program
 """;
         await RunTest(code);
     }
+
+    [TestMethod]
+    public async Task DateTime_Constructors_And_Kind()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var dt1 = new DateTime(2023, 10, 5, 12, 0, 0, DateTimeKind.Utc);
+        Console.WriteLine(dt1.Kind == DateTimeKind.Utc);
+
+        var dt2 = new DateTime(2023, 10, 5, 12, 0, 0, DateTimeKind.Local);
+        Console.WriteLine(dt2.Kind == DateTimeKind.Local);
+
+        var dt3 = DateTime.SpecifyKind(dt1, DateTimeKind.Unspecified);
+        Console.WriteLine(dt3.Kind == DateTimeKind.Unspecified);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task DateTime_Arithmetic()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var dt = new DateTime(2023, 1, 31);
+        Console.WriteLine(dt.AddMonths(1).Month);
+        Console.WriteLine(dt.AddMonths(1).Day); // 28
+
+        var leapYear = new DateTime(2024, 2, 28);
+        Console.WriteLine(leapYear.AddDays(1).Day); // 29
+
+        var nonLeapYear = new DateTime(2023, 2, 28);
+        Console.WriteLine(nonLeapYear.AddDays(1).Day); // 1
+
+        Console.WriteLine(new DateTime(2020, 2, 29).AddYears(1).Day); // 28
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task DateTime_Comparison()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var dt1 = new DateTime(2023, 1, 1);
+        var dt2 = new DateTime(2023, 1, 2);
+        Console.WriteLine(dt1 < dt2);
+        Console.WriteLine(dt1 <= dt2);
+        Console.WriteLine(dt2 > dt1);
+        Console.WriteLine(dt2 >= dt1);
+        Console.WriteLine(dt1 == dt2); // False
+        Console.WriteLine(dt1 != dt2); // True
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task DateTime_Parsing()
+    {
+        var code = """
+using System;
+using System.Globalization;
+public class Program
+{
+    public static void Main()
+    {
+        // Use simpler format that is likely supported across platforms/locales or specify InvariantCulture
+        var dt = DateTime.Parse("2023-10-05T14:30:00", CultureInfo.InvariantCulture);
+        Console.WriteLine(dt.Year);
+        Console.WriteLine(dt.Hour);
+
+        var dt2 = DateTime.ParseExact("20231005", "yyyyMMdd", CultureInfo.InvariantCulture);
+        Console.WriteLine(dt2.Month);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task DateTime_Output()
+    {
+        var code = """
+using System;
+using System.Globalization;
+public class Program
+{
+    public static void Main()
+    {
+        var dt = new DateTime(2023, 10, 5, 14, 30, 15);
+        Console.WriteLine(dt.ToString("yyyy-MM-dd HH:mm:ss"));
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task TimeSpan_Factories()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var ts1 = TimeSpan.FromDays(1);
+        Console.WriteLine(ts1.TotalHours);
+
+        var ts2 = TimeSpan.FromHours(1.5);
+        Console.WriteLine(ts2.TotalMinutes);
+
+        var ts3 = TimeSpan.FromMinutes(120);
+        Console.WriteLine(ts3.TotalHours);
+
+        var ts4 = TimeSpan.FromSeconds(60);
+        Console.WriteLine(ts4.TotalMinutes);
+
+        var ts5 = TimeSpan.FromMilliseconds(1000);
+        Console.WriteLine(ts5.TotalSeconds);
+
+        var ts6 = TimeSpan.FromTicks(10000000);
+        Console.WriteLine(ts6.TotalSeconds);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task TimeSpan_Arithmetic()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var ts1 = new TimeSpan(1, 0, 0);
+        var ts2 = new TimeSpan(0, 30, 0);
+
+        var sum = ts1.Add(ts2);
+        Console.WriteLine(sum.TotalMinutes); // 90
+
+        var diff = ts1.Subtract(ts2);
+        Console.WriteLine(diff.TotalMinutes); // 30
+
+        var duration = new TimeSpan(-1, 0, 0).Duration();
+        Console.WriteLine(duration.TotalHours); // 1
+
+        var negated = ts1.Negate();
+        Console.WriteLine(negated.TotalHours); // -1
+
+        Console.WriteLine((ts1 + ts2).TotalMinutes); // 90
+        Console.WriteLine((ts1 - ts2).TotalMinutes); // 30
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task TimeSpan_Parsing()
+    {
+        var code = """
+using System;
+using System.Globalization;
+public class Program
+{
+    public static void Main()
+    {
+        var ts = TimeSpan.Parse("01:02:03", CultureInfo.InvariantCulture);
+        Console.WriteLine(ts.Hours); // 1
+        Console.WriteLine(ts.Minutes); // 2
+        Console.WriteLine(ts.Seconds); // 3
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task TimeSpan_Properties()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var ts = new TimeSpan(1, 12, 0, 0, 0); // 1 day, 12 hours
+        Console.WriteLine(ts.TotalDays); // 1.5
+        Console.WriteLine(ts.TotalHours); // 36
+        Console.WriteLine(ts.TotalMinutes); // 2160
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task StringBuilder_Chaining()
+    {
+        var code = """
+using System;
+using System.Text;
+public class Program
+{
+    public static void Main()
+    {
+        var sb = new StringBuilder();
+        sb.Append("A").Append("B").AppendLine("C").Append("D");
+        // Normalize newline for comparison as Environment.NewLine differs
+        var s = sb.ToString();
+        var normalized = s.Replace("\r\n", "|").Replace("\n", "|");
+        Console.WriteLine(normalized);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task StringBuilder_Capacity()
+    {
+        var code = """
+using System;
+using System.Text;
+public class Program
+{
+    public static void Main()
+    {
+        var sb = new StringBuilder(10);
+        Console.WriteLine(sb.Capacity >= 10);
+
+        sb.Append("12345678901");
+        Console.WriteLine(sb.Capacity > 10);
+        Console.WriteLine(sb.Length); // 11
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task StringBuilder_Modification()
+    {
+        var code = """
+using System;
+using System.Text;
+public class Program
+{
+    public static void Main()
+    {
+        var sb = new StringBuilder("Hello World");
+
+        sb.Remove(6, 5); // "Hello "
+        Console.WriteLine(sb.ToString());
+
+        sb.Insert(6, "C#"); // "Hello C#"
+        Console.WriteLine(sb.ToString());
+
+        sb.Replace("C#", "H5");
+        Console.WriteLine(sb.ToString());
+
+        sb.Length = 5;
+        Console.WriteLine(sb.ToString()); // "Hello"
+
+        sb.Length = 10;
+        Console.WriteLine(sb.Length);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task StringBuilder_Indexer()
+    {
+        var code = """
+using System;
+using System.Text;
+public class Program
+{
+    public static void Main()
+    {
+        var sb = new StringBuilder("abc");
+        Console.WriteLine(sb[0]);
+        Console.WriteLine(sb[2]);
+
+        sb[1] = 'z';
+        Console.WriteLine(sb.ToString());
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Regex_Syntax()
+    {
+        var code = """
+using System;
+using System.Text.RegularExpressions;
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine(Regex.IsMatch("hello", "^h.*o$"));
+        Console.WriteLine(Regex.IsMatch("123", @"^\d+$"));
+        Console.WriteLine(Regex.IsMatch("a", @"[a-z]"));
+        Console.WriteLine(Regex.IsMatch("a", @"[0-9]"));
+        Console.WriteLine(Regex.IsMatch("aaa", @"a{3}"));
+        Console.WriteLine(Regex.IsMatch("ab", @"a|b"));
+
+        var match = Regex.Match("value=123", @"value=(\d+)");
+        Console.WriteLine(match.Success);
+        Console.WriteLine(match.Groups[1].Value);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Regex_Methods()
+    {
+        var code = """
+using System;
+using System.Text.RegularExpressions;
+public class Program
+{
+    public static void Main()
+    {
+        var matches = Regex.Matches("abc 123 def 456", @"\d+");
+        Console.WriteLine(matches.Count); // 2
+        Console.WriteLine(matches[0].Value); // 123
+        Console.WriteLine(matches[1].Value); // 456
+
+        var replaced = Regex.Replace("foo bar foo", "foo", "baz");
+        Console.WriteLine(replaced); // baz bar baz
+
+        var evalReplaced = Regex.Replace("1 2 3", @"\d", m => (int.Parse(m.Value) * 2).ToString());
+        Console.WriteLine(evalReplaced); // 2 4 6
+
+        var parts = Regex.Split("a,b;c", @"[,;]");
+        Console.WriteLine(parts.Length); // 3
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Regex_Options()
+    {
+        var code = """
+using System;
+using System.Text.RegularExpressions;
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine(Regex.IsMatch("A", "a", RegexOptions.IgnoreCase));
+
+        var multiLine = "Line1\nLine2";
+        Console.WriteLine(Regex.IsMatch(multiLine, "^Line2", RegexOptions.Multiline));
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task SortedList_Tests()
+    {
+        var code = """
+using System;
+using System.Collections.Generic;
+public class Program
+{
+    public static void Main()
+    {
+        var sl = new SortedList<int, string>();
+        sl.Add(3, "Three");
+        sl.Add(1, "One");
+        sl.Add(2, "Two");
+
+        Console.WriteLine(sl.Keys[0]); // 1
+        Console.WriteLine(sl.Values[2]); // Three
+        Console.WriteLine(sl.ContainsKey(2));
+
+        sl.Remove(1);
+        Console.WriteLine(sl.Count); // 2
+        Console.WriteLine(sl.Keys[0]); // 2
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task SortedSet_Tests()
+    {
+        var code = """
+using System;
+using System.Collections.Generic;
+public class Program
+{
+    public static void Main()
+    {
+        var set = new SortedSet<int> { 3, 1, 2 };
+        Console.WriteLine(set.Min); // 1
+        Console.WriteLine(set.Max); // 3
+
+        foreach(var item in set) {
+            Console.WriteLine(item);
+        }
+
+        set.Add(0);
+        Console.WriteLine(set.Min); // 0
+
+        var other = new[] { 4, 5 };
+        set.UnionWith(other);
+        Console.WriteLine(set.Contains(4)); // True
+        Console.WriteLine(set.Max); // 5
+
+        var other2 = new[] { 1, 3, 5 };
+        set.IntersectWith(other2);
+        Console.WriteLine(set.Contains(1)); // True
+        Console.WriteLine(set.Contains(2)); // False
+        Console.WriteLine(set.Contains(4)); // False
+        Console.WriteLine(set.Contains(5)); // True
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task ReadOnlyInterfaces_Tests()
+    {
+        var code = """
+using System;
+using System.Collections.Generic;
+public class Program
+{
+    public static void Main()
+    {
+        var list = new List<int> { 1, 2, 3 };
+        IReadOnlyList<int> roList = list;
+        Console.WriteLine(roList.Count);
+        Console.WriteLine(roList[0]);
+
+        var dict = new Dictionary<int, string> { { 1, "One" } };
+        IReadOnlyDictionary<int, string> roDict = dict;
+        Console.WriteLine(roDict.Count);
+        Console.WriteLine(roDict.ContainsKey(1));
+        Console.WriteLine(roDict[1]);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Comparers_Tests()
+    {
+        var code = """
+using System;
+using System.Collections.Generic;
+public class Program
+{
+    public static void Main()
+    {
+        var eq = EqualityComparer<int>.Default;
+        Console.WriteLine(eq.Equals(1, 1));
+        Console.WriteLine(eq.GetHashCode(1) == 1.GetHashCode());
+
+        var cmp = Comparer<string>.Default;
+        Console.WriteLine(cmp.Compare("a", "b") < 0);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Globalization_CultureInfo()
+    {
+        var code = """
+using System;
+using System.Globalization;
+public class Program
+{
+    public static void Main()
+    {
+        var current = CultureInfo.CurrentCulture;
+        Console.WriteLine(current != null);
+
+        var invariant = CultureInfo.InvariantCulture;
+        Console.WriteLine(invariant != null);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Globalization_Formats()
+    {
+        var code = """
+using System;
+using System.Globalization;
+public class Program
+{
+    public static void Main()
+    {
+        var culture = CultureInfo.InvariantCulture;
+        Console.WriteLine(culture.DateTimeFormat.ShortDatePattern.Length > 0);
+        Console.WriteLine(culture.NumberFormat.NumberDecimalSeparator); // "."
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Guid_Formats()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var g = new Guid("e849312b-3151-409e-8367-6286c476566d");
+
+        // Use ToLower() on output to normalize if platforms differ
+        Console.WriteLine(g.ToString("N").Length); // 32
+        Console.WriteLine(g.ToString("D").Length); // 36
+        Console.WriteLine(g.ToString("B").Length); // 38
+        Console.WriteLine(g.ToString("P").Length); // 38
+
+        // X format is not supported in H5 (returns D format), so we skip comparing it against Roslyn
+
+        Console.WriteLine(g.ToString("N").ToLower() == "e849312b3151409e83676286c476566d");
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Guid_Parsing()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var g = Guid.Parse("e849312b3151409e83676286c476566d");
+        Console.WriteLine(g != Guid.Empty);
+
+        Guid g2;
+        if (Guid.TryParse("invalid", out g2)) {
+             Console.WriteLine("Parsed Invalid");
+        } else {
+             Console.WriteLine("Failed Invalid"); // Expected
+        }
+
+        if (Guid.TryParse("e849312b-3151-409e-8367-6286c476566d", out g2)) {
+             Console.WriteLine("Parsed Valid"); // Expected
+        }
+
+        try {
+            var g3 = Guid.ParseExact("e849312b3151409e83676286c476566d", "N");
+            Console.WriteLine("Parsed Exact N");
+        } catch {
+             Console.WriteLine("ParseExact N failed");
+        }
+
+        Guid g4;
+        if (Guid.TryParseExact("e849312b3151409e83676286c476566d", "N", out g4)) {
+            Console.WriteLine("TryParseExact N Valid");
+        } else {
+            Console.WriteLine("TryParseExact N Failed");
+        }
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task Version_Parsing_And_Comparison()
+    {
+        var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        var v1 = Version.Parse("1.2");
+        Console.WriteLine(v1.Major == 1);
+        Console.WriteLine(v1.Minor == 2);
+        Console.WriteLine(v1.Build == -1);
+
+        var v2 = Version.Parse("1.2.3.4");
+        Console.WriteLine(v2.Build == 3);
+        Console.WriteLine(v2.Revision == 4);
+
+        Console.WriteLine(v1.CompareTo(v2) < 0);
+        Console.WriteLine(v2 > v1);
+
+        Console.WriteLine(v2.ToString()); // 1.2.3.4
+        Console.WriteLine(v2.ToString(2)); // 1.2
+    }
+}
+""";
+        await RunTest(code);
+    }
 }
 }

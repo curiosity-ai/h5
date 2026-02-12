@@ -251,5 +251,164 @@ public class Program
 """;
             await RunTest(code);
         }
+
+        [TestMethod]
+        public async Task Linq_SetOperators()
+        {
+            var code = """
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Program
+{
+    public static void Main()
+    {
+        var list1 = new[] { 1, 2, 2, 3 };
+        var list2 = new[] { 3, 4, 5 };
+
+        var distinct = list1.Distinct();
+        Console.WriteLine(distinct.Count()); // 3 (1, 2, 3)
+
+        var union = list1.Union(list2);
+        Console.WriteLine(union.Count()); // 5 (1, 2, 3, 4, 5)
+
+        var intersect = list1.Intersect(list2);
+        Console.WriteLine(intersect.Single()); // 3
+
+        var except = list1.Except(list2);
+        Console.WriteLine(except.Contains(3)); // False
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task Linq_Partitioning()
+        {
+            var code = """
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Program
+{
+    public static void Main()
+    {
+        var list = new[] { 1, 2, 3, 4, 5 };
+
+        var take = list.Take(2);
+        Console.WriteLine(take.Count()); // 2
+        Console.WriteLine(take.Last()); // 2
+
+        var skip = list.Skip(3);
+        Console.WriteLine(skip.First()); // 4
+
+        var takeWhile = list.TakeWhile(x => x < 3);
+        Console.WriteLine(takeWhile.Count()); // 2
+
+        var skipWhile = list.SkipWhile(x => x < 3);
+        Console.WriteLine(skipWhile.First()); // 3
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task Linq_Grouping()
+        {
+            var code = """
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Program
+{
+    public static void Main()
+    {
+        var list = new[] {
+            new { K = "A", V = 1 },
+            new { K = "A", V = 2 },
+            new { K = "B", V = 3 }
+        };
+
+        var groups = list.GroupBy(x => x.K);
+        Console.WriteLine(groups.Count()); // 2
+
+        foreach(var g in groups) {
+            Console.WriteLine(g.Key);
+            Console.WriteLine(g.Count());
+        }
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task Linq_Joins()
+        {
+            var code = """
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Program
+{
+    public static void Main()
+    {
+        var outer = new[] {
+            new { Id = 1, Name = "One" },
+            new { Id = 2, Name = "Two" }
+        };
+
+        var inner = new[] {
+            new { Id = 1, Val = "X" },
+            new { Id = 1, Val = "Y" },
+            new { Id = 3, Val = "Z" }
+        };
+
+        var join = outer.Join(inner, o => o.Id, i => i.Id, (o, i) => o.Name + "-" + i.Val);
+        Console.WriteLine(join.Count()); // 2
+        // Sorting needed for deterministic output order if platform varies
+        foreach(var item in join.OrderBy(x => x)) Console.WriteLine(item);
+
+        var groupJoin = outer.GroupJoin(inner, o => o.Id, i => i.Id, (o, matches) => new { o.Name, Count = matches.Count() });
+        foreach(var item in groupJoin.OrderBy(x => x.Name)) Console.WriteLine(item.Name + ": " + item.Count);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task Linq_Generation()
+        {
+            var code = """
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Program
+{
+    public static void Main()
+    {
+        var range = Enumerable.Range(1, 5);
+        Console.WriteLine(range.Count()); // 5
+        Console.WriteLine(range.First()); // 1
+
+        var repeat = Enumerable.Repeat("A", 3);
+        Console.WriteLine(repeat.Count()); // 3
+        Console.WriteLine(repeat.Last()); // A
+
+        var empty = Enumerable.Empty<int>();
+        Console.WriteLine(empty.Count()); // 0
+    }
+}
+""";
+            await RunTest(code);
+        }
     }
 }

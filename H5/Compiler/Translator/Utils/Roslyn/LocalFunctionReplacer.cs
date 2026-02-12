@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,7 +46,7 @@ namespace H5.Translator
 
         public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
-            var localFns = root.DescendantNodes().OfType<LocalFunctionStatementSyntax>();
+            var localFns = root.DescendantNodes().OfType<LocalFunctionStatementSyntax>().Reverse();
             var updatedBlocks = new Dictionary<SyntaxNode, List<StatementSyntax>>();
             var initForBlocks = new Dictionary<SyntaxNode, List<StatementSyntax>>();
             var updatedClasses = new Dictionary<TypeDeclarationSyntax, List<DelegateDeclarationSyntax>>();
@@ -215,7 +215,42 @@ namespace H5.Translator
                         )
                     )).NormalizeWhitespace().WithTrailingTrivia(SyntaxFactory.Whitespace(Emitter.NEW_LINE));
 
-                    var lambda = SyntaxFactory.ParenthesizedLambdaExpression(fn.Body ?? (CSharpSyntaxNode)fn.ExpressionBody.Expression).WithParameterList(
+                    BlockSyntax lambdaBodyBlock = fn.Body;
+                    if (fn.Body != null)
+                    {
+                        var descendantBlocks = updatedBlocks.Keys.Where(k => k.Ancestors().Contains(fn.Body)).ToList();
+
+                        if (descendantBlocks.Count > 0)
+                        {
+                            lambdaBodyBlock = lambdaBodyBlock.ReplaceNodes(descendantBlocks, (b1, b2) => {
+                                var stmts = updatedBlocks[b1];
+                                if (initForBlocks.ContainsKey(b1)) {
+                                    stmts = initForBlocks[b1].Concat(stmts).ToList();
+                                    initForBlocks.Remove(b1);
+                                }
+
+                                if (b2 is BlockSyntax) return ((BlockSyntax)b2).WithStatements(SyntaxFactory.List(stmts));
+                                if (b2 is SwitchSectionSyntax) return ((SwitchSectionSyntax)b2).WithStatements(SyntaxFactory.List(stmts));
+                                return b2;
+                            });
+
+                            foreach(var k in descendantBlocks) updatedBlocks.Remove(k);
+                        }
+
+                        if (updatedBlocks.ContainsKey(fn.Body) || initForBlocks.ContainsKey(fn.Body))
+                        {
+                            var stmts = updatedBlocks.ContainsKey(fn.Body) ? updatedBlocks[fn.Body] : lambdaBodyBlock.Statements.ToList();
+                            if (initForBlocks.ContainsKey(fn.Body))
+                            {
+                                stmts.InsertRange(0, initForBlocks[fn.Body]);
+                                initForBlocks.Remove(fn.Body);
+                            }
+                            updatedBlocks.Remove(fn.Body);
+                            lambdaBodyBlock = lambdaBodyBlock.WithStatements(SyntaxFactory.List(stmts));
+                        }
+                    }
+
+                    var lambda = SyntaxFactory.ParenthesizedLambdaExpression(lambdaBodyBlock ?? (CSharpSyntaxNode)fn.ExpressionBody.Expression).WithParameterList(
                             SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(prms))
                         );
 
@@ -266,6 +301,38 @@ namespace H5.Translator
                 updatedBlocks[key] = initForBlocks[key].Concat(updatedBlocks[key]).ToList();
             }
 
+            if (updatedBlocks.Count > 1)
+            {
+                var orderedKeys = new List<SyntaxNode>();
+                orderedKeys.AddRange(updatedBlocks.Keys);
+
+                orderedKeys.Sort((a, b) =>
+                {
+                    if (b.Contains(a)) return -1;
+                    return 1;
+                });
+
+                for (int i = 0; i < orderedKeys.Count; i++)
+                {
+                    SyntaxNode parentKey = orderedKeys[i];
+                    var parentBlocks = updatedBlocks[parentKey];
+                    for (int j = i - 1; j >= 0; j--)
+                    {
+                        SyntaxNode candidateChildKey = orderedKeys[j];
+                        var childBlocks = updatedBlocks[candidateChildKey];
+
+                        var child = parentBlocks.FirstOrDefault(n => n.Contains(candidateChildKey));
+
+                        if (child != null)
+                        {
+                            SyntaxNode result = candidateChildKey is SwitchSectionSyntax sss ? sss.WithStatements(SyntaxFactory.List(childBlocks)) : (SyntaxNode)(((BlockSyntax)candidateChildKey).WithStatements(SyntaxFactory.List(childBlocks)));
+                            var newChild = child.ReplaceNode(candidateChildKey, result);
+                            parentBlocks[parentBlocks.IndexOf(child)] = (StatementSyntax)newChild;
+                        }
+                    }
+                }
+            }
+
             if (updatedClasses.Count > 0)
             {
                 root = root.ReplaceNodes(updatedClasses.Keys, (t1, t2) =>
@@ -292,68 +359,6 @@ namespace H5.Translator
             }
             else if (updatedBlocks.Count > 0)
             {
-                if (updatedBlocks.Count > 1) //If we have nested blocks, we need to replace all children with their new replaced nodes before finally replacing the parent node with the replaced node
-                {
-
-                    //Example of the kind of code where this can happen:
-                    //  if (true)
-                    //  {
-                    //      void Test() { }
-                    //      if (true)
-                    //      {
-                    //          void Test1() { }
-                    //          Test1();
-                    //          if (true)
-                    //          {
-                    //              void Test2() { }
-                    //              Test2();
-                    //              if (true)
-                    //              {
-                    //                  void Test3() { }
-                    //                  Test3();
-                    //                  if (true)
-                    //                  {
-                    //                      void Test4() { }
-                    //                      Test4();
-                    //                  }
-                    //              }
-                    //          }
-                    //      }
-                    //  }
-
-
-                    var orderedKeys = new List<SyntaxNode>();
-                    orderedKeys.AddRange(updatedBlocks.Keys);
-
-                    orderedKeys.Sort((a, b) =>
-                    {
-                        if (b.Contains(a)) return -1;
-                        return 1;
-                    });
-
-                    // orderedKeys is sorted from the inner-most node to the outer-most node
-
-                    for (int i = 0; i < orderedKeys.Count; i++)
-                    {
-                        SyntaxNode parentKey = orderedKeys[i];
-                        var parentBlocks = updatedBlocks[parentKey];
-                        for (int j = i-1; j >= 0; j--)
-                        {
-                            SyntaxNode candidateChildKey = orderedKeys[j];
-                            var childBlocks = updatedBlocks[candidateChildKey];
-
-                            var child = parentBlocks.FirstOrDefault(n => n.Contains(candidateChildKey));
-
-                            if (child != null)
-                            {
-                                SyntaxNode result = candidateChildKey is SwitchSectionSyntax sss ? sss.WithStatements(SyntaxFactory.List(childBlocks)) : (SyntaxNode)(((BlockSyntax)candidateChildKey).WithStatements(SyntaxFactory.List(childBlocks)));
-                                var newChild = child.ReplaceNode(candidateChildKey, result);
-                                parentBlocks[parentBlocks.IndexOf(child)] = newChild;
-                            }
-                        }
-                    }
-                }
-
                 root = root.ReplaceNodes(updatedBlocks.Keys, (b1, b2) =>
                 {
                     SyntaxNode result = b2 is SwitchSectionSyntax sss ? sss.WithStatements(SyntaxFactory.List(updatedBlocks[b1])) : (SyntaxNode)(((BlockSyntax)b2).WithStatements(SyntaxFactory.List(updatedBlocks[b1])));

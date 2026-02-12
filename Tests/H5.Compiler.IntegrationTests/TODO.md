@@ -43,11 +43,11 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **Partial Types**: Partial classes (compiler feature).
 
 ### Exceptions
-- [ ] **Try-Catch-Finally**: `try`, `catch` (specific/general), `finally` blocks.
-- [ ] **Throw**: `throw new Exception("...")`.
-- [ ] **Re-throw**: `throw;` inside catch block.
-- [ ] **Custom Exceptions**: Inheriting from `System.Exception`.
-- [ ] **Properties**: `Message`, `InnerException`, `StackTrace` (basic verification).
+- [x] **Try-Catch-Finally**: `try`, `catch` (specific/general), `finally` blocks.
+- [x] **Throw**: `throw new Exception("...")`.
+- [x] **Re-throw**: `throw;` inside catch block.
+- [x] **Custom Exceptions**: Inheriting from `System.Exception`.
+- [x] **Properties**: `Message`, `InnerException`, `StackTrace` (basic verification).
 
 ## C# 3.0: LINQ & Functional Features
 
@@ -63,43 +63,43 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 4.0: Dynamic & Named Arguments
 
-- [ ] **Named Arguments**: `Method(arg2: 10, arg1: 5)`.
-- [ ] **Optional Arguments**: `void Method(int x = 10)`.
-- [ ] **Dynamic Binding**: Basic usage of `dynamic` (if supported by H5 runtime, otherwise skip or verify compilation error/runtime behavior). Note: Might rely on `System.Dynamic` support.
+- [x] **Named Arguments**: `Method(arg2: 10, arg1: 5)`.
+- [x] **Optional Arguments**: `void Method(int x = 10)`.
+- [x] **Dynamic Binding**: Basic usage of `dynamic` (if supported by H5 runtime, otherwise skip or verify compilation error/runtime behavior). Note: Might rely on `System.Dynamic` support.
 
 ## C# 5.0: Async/Await
 
-- [ ] **Async/Await**: `async Task Method()`, `await Task.Delay()`, `await Task.WhenAll()`. Reference: `H5/H5/System/Threading/Tasks/Task.cs`.
-- [ ] **Task<T>**: Returning values from async methods.
+- [x] **Async/Await**: `async Task Method()`, `await Task.Delay()`, `await Task.WhenAll()`. Reference: `H5/H5/System/Threading/Tasks/Task.cs`.
+- [x] **Task<T>**: Returning values from async methods.
 - [ ] **Caller Info Attributes**: `[CallerMemberName]`, `[CallerFilePath]`, `[CallerLineNumber]` (if supported).
 
 ## C# 6.0: Syntactic Sugar
 
-- [ ] **String Interpolation**: `$"Value: {x}"`, formatting `$"Date: {d:yyyy-MM-dd}"`.
-- [ ] **Null-Conditional Operator**: `obj?.Property`, `list?[0]`.
-- [ ] **Expression-Bodied Members**: Methods `=>`, Properties `=>`.
-- [ ] **Exception Filters**: `catch (Exception ex) when (ex.Message == "X")`.
-- [ ] **Nameof Operator**: `nameof(variable)`, `nameof(Class.Property)`.
-- [ ] **Auto-Property Initializers**: `public int Prop { get; set; } = 10;`.
-- [ ] **Getter-Only Auto-Properties**: `public int Prop { get; } = 10;`.
-- [ ] **Index Initializers**: `new Dictionary<int, string> { [1] = "One" }`.
-- [ ] **Static Imports**: `using static System.Math;` then `Sqrt(4)`.
+- [x] **String Interpolation**: `$"Value: {x}"`, formatting `$"Date: {d:yyyy-MM-dd}"`.
+- [x] **Null-Conditional Operator**: `obj?.Property`, `list?[0]`.
+- [x] **Expression-Bodied Members**: Methods `=>`, Properties `=>`.
+- [x] **Exception Filters**: `catch (Exception ex) when (ex.Message == "X")`. (Note: Property access in filter is buggy, see FINDINGS.md)
+- [x] **Nameof Operator**: `nameof(variable)`, `nameof(Class.Property)`.
+- [x] **Auto-Property Initializers**: `public int Prop { get; set; } = 10;`.
+- [x] **Getter-Only Auto-Properties**: `public int Prop { get; } = 10;`.
+- [x] **Index Initializers**: `new Dictionary<int, string> { [1] = "One" }`.
+- [x] **Static Imports**: `using static System.Math;` then `Sqrt(4)`.
 
 ## C# 7.0 / 7.1 / 7.2: Modern Features
 
-- [ ] **Out Variables**: `int.TryParse("123", out int result);`.
-- [ ] **Tuples (ValueTuple)**: `(int, string) t = (1, "A");`, naming elements `(Val: 1, Name: "A")`. Reference: `H5/H5/System/ValueTuple.cs`.
-- [ ] **Deconstruction**: `(var x, var y) = t;`.
-- [ ] **Pattern Matching**: `if (obj is int i)`, `switch` with type patterns and `when` clauses.
-- [ ] **Local Functions**: Defining functions inside methods.
-- [ ] **Discards**: `_ = Method();`.
-- [ ] **Literal Improvements**: Binary literals `0b101`, Digit separators `1_000`.
-- [ ] **Throw Expressions**: `int x = val ?? throw new Exception();`.
-- [ ] **Default Literal**: `int x = default;`.
-- [ ] **Private Protected**: `private protected` accessibility modifier.
-- [ ] **Non-Trailing Named Arguments**: `Method(1, arg2: 2)`.
-- [ ] **In Parameters**: `void Method(in int x)` (verify basic behavior).
-- [ ] **ReadOnly Structs**: `readonly struct Point { ... }`.
+- [x] **Out Variables**: `int.TryParse("123", out int result);`.
+- [x] **Tuples (ValueTuple)**: `(int, string) t = (1, "A");`, naming elements `(Val: 1, Name: "A")`. Reference: `H5/H5/System/ValueTuple.cs`.
+- [x] **Deconstruction**: `(var x, var y) = t;`.
+- [x] **Pattern Matching**: `if (obj is int i)`, `switch` with type patterns and `when` clauses.
+- [x] **Local Functions**: Defining functions inside methods.
+- [x] **Discards**: `_ = Method();`.
+- [x] **Literal Improvements**: Binary literals `0b101`, Digit separators `1_000`.
+- [x] **Throw Expressions**: `int x = val ?? throw new Exception();`.
+- [x] **Default Literal**: `int x = default;`.
+- [x] **Private Protected**: `private protected` accessibility modifier.
+- [x] **Non-Trailing Named Arguments**: `Method(1, arg2: 2)`.
+- [x] **In Parameters**: `void Method(in int x)` (verify basic behavior).
+- [x] **ReadOnly Structs**: `readonly struct Point { ... }`.
 
 ## Excluded Features (Do Not Implement)
 

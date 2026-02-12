@@ -35,12 +35,19 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **Operators**: Overloading binary/unary operators, implicit/explicit conversions.
 
 ### C# 2.0 Specifics
-- [ ] **Generics**: Generic classes (`Class<T>`), methods (`Method<T>`), interfaces, constraints (`where T : class, new()`, etc.).
-- [ ] **Nullable Types**: `int?`, `bool?`, `HasValue`, `Value`, null coalescing (`??`). Reference: `H5/H5/System/Nullable.cs`.
-- [ ] **Anonymous Methods**: `delegate { ... }` syntax.
-- [ ] **Iterators**: `yield return`, `yield break` in methods returning `IEnumerable` or `IEnumerator`. Reference: `H5/H5/System/Collections/IEnumerator.cs`.
-- [ ] **Static Classes**: Classes declared as `static` with only static members.
-- [ ] **Partial Types**: Partial classes (compiler feature).
+- [x] **Generics**: Generic classes (`Class<T>`), methods (`Method<T>`), interfaces, constraints (`where T : class, new()`, etc.).
+- [x] **Nullable Types**: `int?`, `bool?`, `HasValue`, `Value`, null coalescing (`??`). Reference: `H5/H5/System/Nullable.cs`.
+- [x] **Anonymous Methods**: `delegate { ... }` syntax.
+- [x] **Iterators**: `yield return`, `yield break` in methods returning `IEnumerable` or `IEnumerator`. Reference: `H5/H5/System/Collections/IEnumerator.cs`.
+- [x] **Static Classes**: Classes declared as `static` with only static members.
+- [x] **Partial Types**: Partial classes (compiler feature).
+
+### Exceptions
+- [ ] **Try-Catch-Finally**: `try`, `catch` (specific/general), `finally` blocks.
+- [ ] **Throw**: `throw new Exception("...")`.
+- [ ] **Re-throw**: `throw;` inside catch block.
+- [ ] **Custom Exceptions**: Inheriting from `System.Exception`.
+- [ ] **Properties**: `Message`, `InnerException`, `StackTrace` (basic verification).
 
 ## C# 3.0: LINQ & Functional Features
 

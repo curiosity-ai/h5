@@ -18,10 +18,10 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **Jagged Arrays**: Arrays of arrays (`[][]`), initialization, access.
 
 ### Control Flow
-- [ ] **Conditionals**: `if`, `else if`, `else`, nested `if`.
-- [ ] **Switch**: `switch` on integral types, strings, enums; `default` case; fall-through behavior (should be error in C# unless empty).
-- [ ] **Loops**: `for`, `foreach` (arrays, collections), `while`, `do-while`.
-- [ ] **Jumps**: `break`, `continue`, `return`, `goto` (basic label usage).
+- [x] **Conditionals**: `if`, `else if`, `else`, nested `if`.
+- [x] **Switch**: `switch` on integral types, strings, enums; `default` case; fall-through behavior (should be error in C# unless empty).
+- [x] **Loops**: `for`, `foreach` (arrays, collections), `while`, `do-while`.
+- [x] **Jumps**: `break`, `continue`, `return`, `goto` (basic label usage).
 
 ### Object-Oriented Programming
 - [ ] **Classes**: Fields, Methods (instance/static), Constructors (default/parameterized), `this` keyword. Reference: `H5/H5/System/Object.cs`.

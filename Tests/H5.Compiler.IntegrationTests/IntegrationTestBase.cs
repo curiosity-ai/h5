@@ -7,8 +7,6 @@ namespace H5.Compiler.IntegrationTests
 {
     public class IntegrationTestBase
     {
-        private static readonly System.Threading.SemaphoreSlim _lock = new System.Threading.SemaphoreSlim(1, 1);
-
         public IntegrationTestBase()
         {
         }
@@ -17,21 +15,13 @@ namespace H5.Compiler.IntegrationTests
         {
             string roslynOutput = "";
 
-            await _lock.WaitAsync();
             try
             {
-                try
-                {
-                    roslynOutput = RoslynCompiler.CompileAndRun(csharpCode);
-                }
-                catch (Exception ex)
-                {
-                    Assert.Fail($"Roslyn compilation/execution failed:\n{ex}");
-                }
+                roslynOutput = await RoslynCompiler.CompileAndRunAsync(csharpCode);
             }
-            finally
+            catch (Exception ex)
             {
-                _lock.Release();
+                Assert.Fail($"Roslyn compilation/execution failed:\n{ex}");
             }
 
             string h5Js = "";

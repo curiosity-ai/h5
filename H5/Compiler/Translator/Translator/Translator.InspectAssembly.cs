@@ -382,7 +382,6 @@ namespace H5.Translator
         {
             using (var m = new Measure(Logger, $"Rewritting code for {SourceFiles.Count} files"))
             {
-                // TODO: Modern Rewriter step should be added here. It should only activate if the target compilation language is > 7.2 and run before the existing rewriter.
                 var rewriter = new SharpSixRewriter(this);
                 var result   = new string[SourceFiles.Count];
 

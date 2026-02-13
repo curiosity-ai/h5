@@ -46,7 +46,7 @@ namespace H5.Translator
             using (var sha256 = SHA256.Create())
             {
                 var hashBytes = sha256.ComputeHash(stream);
-                var hashString = BitConverter.ToString(hashBytes).Replace("-", "");
+                var hashString = BitConverter.ToString(hashBytes);
                 return hashString.Hash128();
             }
         }
@@ -417,7 +417,7 @@ namespace H5.Translator
             using (var sha256 = SHA256.Create())
             {
                 var hashBytes = sha256.ComputeHash(stream);
-                var hashString = BitConverter.ToString(hashBytes).Replace("-", "");
+                var hashString = BitConverter.ToString(hashBytes);
                 return hashString.Hash128();
             }
         }

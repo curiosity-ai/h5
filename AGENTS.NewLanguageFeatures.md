@@ -11,7 +11,7 @@ This document outlines the workflow for implementing new C# language features in
 2.  **Rewriter Implementation**
     -   New code transformation steps should be done using Roslyn in order to support all new language features.
     -   This transformation should occur in the `SharpSixRewriter`-based step (see Rewrite in `Translator.InspectAssembly.cs` and `SharpSixRewriter`).
-    -   The new rewrite rules should only activate only if the target compilation language is > 7.2 and runs before the existing rewriter.
+    -   The new rewrite rules should only activate if the target compilation language is > 7.2 and runs before the existing rewriter.
 
 3.  **Implementation Strategy**
     -   Feature support can be implemented in two ways:
@@ -20,5 +20,5 @@ This document outlines the workflow for implementing new C# language features in
 
 ## Reference to Codebase
 
--   **Rewriter Reference**: Start at `H5/Compiler/Translator/Utils/Roslyn/SharpSixRewriter.cs` to understand how code rewrite happens.
+-   **Modern Rewriter Placeholder**: A comment has been added to `H5/Compiler/Translator/Translator/Translator.InspectAssembly.cs` indicating where the Modern Rewriter step should be integrated.
 -   **Pending Features**: See [Tests/H5.Compiler.IntegrationTests/TODO.md](Tests/H5.Compiler.IntegrationTests/TODO.md) for the list of pending language features and their priorities.

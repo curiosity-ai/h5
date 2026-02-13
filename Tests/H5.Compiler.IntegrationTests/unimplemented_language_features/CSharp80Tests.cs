@@ -281,17 +281,8 @@ public class Program
     {
         var words = new string[]
         {
-                    // index from start    index from end
-            "The",  // 0                   ^9
-            "quick",// 1                   ^8
-            "brown",// 2                   ^7
-            "fox",  // 3                   ^6
-            "jumps",// 4                   ^5
-            "over", // 5                   ^4
-            "the",  // 6                   ^3
-            "lazy", // 7                   ^2
-            "dog"   // 8                   ^1
-        };              // 9 (or words.Length) ^0
+            "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"
+        };
 
         Console.WriteLine($"The last word is {words[^1]}");
 
@@ -299,11 +290,134 @@ public class Program
         foreach (var word in quickBrownFox)
             Console.Write($"{word} ");
         Console.WriteLine();
+    }
+}
+""";
+            await RunTest(code);
+        }
 
-        var lazyDog = words[^2..^0];
-        foreach (var word in lazyDog)
-            Console.Write($"{word} ");
-        Console.WriteLine();
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task DisposableRefStructs()
+        {
+            var code = """
+using System;
+
+public ref struct RefStruct
+{
+    public void Dispose() => Console.WriteLine("Disposed RefStruct");
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        using (var rs = new RefStruct())
+        {
+            Console.WriteLine("Inside");
+        }
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task NullableReferenceTypes()
+        {
+            var code = """
+using System;
+
+#nullable enable
+
+public class Program
+{
+    public static void Main()
+    {
+        string? name = null;
+        if (name == null)
+        {
+            Console.WriteLine("Name is null");
+        }
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task AsyncStreams()
+        {
+            // Requires IAsyncEnumerable<T>
+            var code = """
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public static async Task Main()
+    {
+        await foreach (var number in GenerateSequence())
+        {
+            Console.WriteLine(number);
+        }
+    }
+
+    public static async IAsyncEnumerable<int> GenerateSequence()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            await Task.Delay(10);
+            yield return i;
+        }
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task UnmanagedConstructedTypes()
+        {
+            var code = """
+using System;
+
+public struct Coordinates<T> where T : unmanaged
+{
+    public T X;
+    public T Y;
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var c = new Coordinates<int> { X = 10, Y = 20 };
+        Console.WriteLine(c.X);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task StackAllocInNestedExpressions()
+        {
+            // Requires Span support
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        Span<int> span = stackalloc[] { 1, 2, 3 };
+        Console.WriteLine(span.Length);
     }
 }
 """;

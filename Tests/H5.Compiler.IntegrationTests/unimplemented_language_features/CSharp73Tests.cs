@@ -103,6 +103,32 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task FixedSizedBuffers()
+        {
+            // Requires unsafe code
+            var code = """
+using System;
+
+public unsafe struct Buffer
+{
+    public fixed int Data[10];
+}
+
+public class Program
+{
+    public static unsafe void Main()
+    {
+        Buffer b = new Buffer();
+        b.Data[0] = 123; // Indexing without pinning in C# 7.3+
+        Console.WriteLine(b.Data[0]);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
         public async Task ExpressionVariablesInInitializers()
         {
             var code = """

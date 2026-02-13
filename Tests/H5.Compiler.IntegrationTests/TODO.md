@@ -108,7 +108,7 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **StackAlloc Initializers**: `Span<int> x = stackalloc[] { 1, 2, 3 };`. (Placeholder test)
 - [x] **ignored** **In Method Overload Resolution**: Tiebreaker for `in` parameters.
 - [x] **Attributes on Backing Fields**: `[field: NonSerialized] public int X { get; set; }`.
-- [ ] **Fixed Sized Buffers**: Indexing without pinning.
+- [x] **ignored** **Fixed Sized Buffers**: Indexing without pinning.
 - [x] **Expression Variables**: In initializers and queries.
 - [x] **ignored** **Unmanaged Constraint**: `where T : unmanaged`.
 - [x] **ignored** **Delegate Constraint**: `where T : Delegate`.
@@ -125,19 +125,19 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
     - [x] **ignored** **Positional Patterns**: `Deconstruct` based.
 - [x] **ignored** **Using Declarations**: `using var x = ...`.
 - [x] **Static Local Functions**: `static void Local()`.
-- [ ] **Disposable Ref Structs**: `ref struct` with `Dispose`.
-- [ ] **Nullable Reference Types**: `string?`, `notnull` constraint.
-- [ ] **Async Streams**: `await foreach`, `IAsyncEnumerable`.
+- [x] **ignored** **Disposable Ref Structs**: `ref struct` with `Dispose`.
+- [x] **ignored** **Nullable Reference Types**: `string?`, `notnull` constraint.
+- [x] **ignored** **Async Streams**: `await foreach`, `IAsyncEnumerable`.
 - [x] **ignored** **Indices and Ranges**: `^1`, `1..5`.
 - [x] **ignored** **Null-Coalescing Assignment**: `x ??= y`.
-- [ ] **Unmanaged Constructed Types**: `struct S<T> where T : unmanaged`.
-- [ ] **StackAlloc in Nested Expressions**: Inside other expressions.
+- [x] **ignored** **Unmanaged Constructed Types**: `struct S<T> where T : unmanaged`.
+- [x] **ignored** **StackAlloc in Nested Expressions**: Inside other expressions.
 
 ## C# 9.0: Records & More
 
 - [x] **ignored** **Records**: `public record Person(string Name);`.
 - [x] **ignored** **Init Only Setters**: `public int X { get; init; }`.
-- [ ] **Top-Level Statements**: `System.Console.WriteLine("Hello");`.
+- [x] **ignored** **Top-Level Statements**: `System.Console.WriteLine("Hello");`.
 - [x] **ignored** **Pattern Matching Enhancements**:
     - [x] **ignored** **Type Patterns**: `is Type`.
     - [x] **ignored** **Parenthesized Patterns**: `(pattern)`.
@@ -151,15 +151,15 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **ignored** **Covariant Return Types**: Override with derived return type.
 - [x] **ignored** **Extension GetEnumerator**: `foreach` on types with extension `GetEnumerator`.
 - [x] **ignored** **Lambda Discard Parameters**: `(_, _) => 0`.
-- [ ] **Attributes on Local Functions**: `[Attr] void Local()`.
+- [x] **ignored** **Attributes on Local Functions**: `[Attr] void Local()`.
 - [x] **ignored** **Native Sized Integers**: `nint`, `nuint`.
-- [ ] **Module Initializers**: `[ModuleInitializer]`.
+- [x] **ignored** **Module Initializers**: `[ModuleInitializer]`.
 
 ## C# 10.0: Structs & Interpolation
 
 - [x] **ignored** **Record Structs**: `public record struct Point(int X, int Y);`.
 - [x] **ignored** **Struct Improvements**: Parameterless constructors, field initializers.
-- [ ] **Global Usings**: `global using System;`.
+- [x] **ignored** **Global Usings**: `global using System;`.
 - [x] **ignored** **File-Scoped Namespaces**: `namespace MyNamespace;`.
 - [x] **ignored** **Extended Property Patterns**: `{ Prop.Child: 1 }`.
 - [x] **Constant Interpolated Strings**: `const string s = $"{c}..."`.
@@ -167,24 +167,24 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **ignored** **Sealed ToString in Records**: `sealed override ToString()`.
 - [x] **Deconstruction Mix**: `(x, var y) = ...`.
 - [x] **ignored** **CallerArgumentExpression**: `[CallerArgumentExpression("p")]`.
-- [ ] **AsyncMethodBuilder Attribute**: On methods.
+- [x] **ignored** **AsyncMethodBuilder Attribute**: On methods.
 
 ## C# 11.0: Raw Strings & Generics
 
 - [x] **ignored** **Raw String Literals**: `"""..."""`.
-- [ ] **Generic Math**: `static abstract` interface members (syntax support).
+- [x] **ignored** **Generic Math**: `static abstract` interface members (syntax support).
 - [x] **ignored** **Generic Attributes**: `class Attr<T> : Attribute`.
-- [ ] **UTF-8 String Literals**: `"text"u8`.
+- [x] **ignored** **UTF-8 String Literals**: `"text"u8`.
 - [x] **Newlines in Interpolation**: Inside `{...}`.
 - [x] **ignored** **List Patterns**: `[1, .., 5]`.
 - [x] **ignored** **File-Local Types**: `file class Local`.
 - [x] **ignored** **Required Members**: `required public int X { get; set; }`.
 - [x] **Auto-Default Structs**: Compiler sets unassigned fields to default.
-- [ ] **Pattern Match Span<char>**: Constant string.
-- [ ] **Extended Nameof**: `nameof` parameter in attribute.
-- [ ] **Numeric IntPtr**: `nint` as alias for `System.IntPtr` (unification).
-- [ ] **Ref Fields**: `ref int x` in `ref struct`.
-- [ ] **Scoped Ref**: `scoped ref` parameters/locals.
+- [x] **ignored** **Pattern Match Span<char>**: Constant string.
+- [x] **ignored** **Extended Nameof**: `nameof` parameter in attribute.
+- [x] **ignored** **Numeric IntPtr**: `nint` as alias for `System.IntPtr` (unification).
+- [x] **ignored** **Ref Fields**: `ref int x` in `ref struct`.
+- [x] **ignored** **Scoped Ref**: `scoped ref` parameters/locals.
 
 ## C# 12.0: Collection Expressions & Primary Constructors
 
@@ -194,7 +194,7 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 - [x] **ignored** **Optional Params in Lambdas**: `(int x = 1) => x`.
 - [x] **ignored** **Ref Readonly Parameters**: `ref readonly int`.
 - [x] **Alias Any Type**: `using IntList = System.Collections.Generic.List<int>;`.
-- [ ] **Experimental Attribute**: `[Experimental("ID")]`.
+- [x] **ignored** **Experimental Attribute**: `[Experimental("ID")]`.
 
 ## C# 13.0: Refinements (Preview/Latest)
 

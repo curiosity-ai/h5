@@ -198,5 +198,178 @@ public class Program
 """;
             await RunTest(code);
         }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task GenericMath()
+        {
+            var code = """
+using System;
+
+public interface IAdd<T> where T : IAdd<T>
+{
+    static abstract T operator +(T left, T right);
+}
+
+public struct MyInt : IAdd<MyInt>
+{
+    public int Value;
+    public MyInt(int v) => Value = v;
+    public static MyInt operator +(MyInt left, MyInt right) => new MyInt(left.Value + right.Value);
+}
+
+public class Program
+{
+    public static T Add<T>(T a, T b) where T : IAdd<T> => a + b;
+
+    public static void Main()
+    {
+        var res = Add(new MyInt(1), new MyInt(2));
+        Console.WriteLine(res.Value);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task Utf8StringLiterals()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        ReadOnlySpan<byte> utf8 = "Hello"u8;
+        Console.WriteLine(utf8.Length);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task PatternMatchSpanChar()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        ReadOnlySpan<char> s = "Hello";
+        if (s is "Hello")
+        {
+            Console.WriteLine("Matched");
+        }
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task ExtendedNameof()
+        {
+            var code = """
+using System;
+
+[AttributeUsage(AttributeTargets.Parameter)]
+public class ParamInfoAttribute : Attribute
+{
+    public ParamInfoAttribute(string name) { Name = name; }
+    public string Name { get; }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Print(10);
+    }
+
+    static void Print([ParamInfo(nameof(x))] int x)
+    {
+        Console.WriteLine(nameof(x));
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task NumericIntPtr()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        IntPtr x = 10; // Implicit conversion from int now standard? Or just via nint aliasing.
+        nint y = 20;
+        Console.WriteLine(x + y);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task RefFields()
+        {
+            var code = """
+using System;
+
+public ref struct RefContainer
+{
+    public ref int Field;
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        int x = 10;
+        var c = new RefContainer { Field = ref x };
+        c.Field = 20;
+        Console.WriteLine(x);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task ScopedRef()
+        {
+            var code = """
+using System;
+
+public ref struct S
+{
+    public void Method(scoped ref int x) { }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine("Scoped ref compiled");
+    }
+}
+""";
+            await RunTest(code);
+        }
     }
 }

@@ -283,5 +283,67 @@ public class Program
 """;
             await RunTest(code);
         }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task TopLevelStatements()
+        {
+            var code = """
+using System;
+Console.WriteLine("Hello, Top-Level Statements!");
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task AttributesOnLocalFunctions()
+        {
+            var code = """
+using System;
+using System.Diagnostics;
+
+public class Program
+{
+    public static void Main()
+    {
+        [Conditional("DEBUG")]
+        void LocalFunc()
+        {
+            Console.WriteLine("Debug");
+        }
+        LocalFunc();
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task ModuleInitializers()
+        {
+            var code = """
+using System;
+using System.Runtime.CompilerServices;
+
+public class Program
+{
+    public static bool Initialized = false;
+
+    [ModuleInitializer]
+    public static void Init()
+    {
+        Initialized = true;
+    }
+
+    public static void Main()
+    {
+        Console.WriteLine(Initialized);
+    }
+}
+""";
+            await RunTest(code);
+        }
     }
 }

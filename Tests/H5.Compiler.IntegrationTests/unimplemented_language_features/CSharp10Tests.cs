@@ -216,5 +216,70 @@ public class Program
 """;
             await RunTest(code);
         }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task GlobalUsings()
+        {
+            var code = """
+global using System;
+global using static System.Math;
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine(Abs(-10));
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        [Ignore("Not implemented yet")]
+        public async Task AsyncMethodBuilderAttribute()
+        {
+            var code = """
+using System;
+using System.Runtime.CompilerServices;
+
+[AsyncMethodBuilder(typeof(MyAsyncMethodBuilder))]
+public class MyTask
+{
+    public MyAsyncMethodBuilder GetAwaiter() => new MyAsyncMethodBuilder();
+}
+
+public class MyAsyncMethodBuilder
+{
+    public static MyAsyncMethodBuilder Create() => new MyAsyncMethodBuilder();
+    public void Start<TStateMachine>(ref TStateMachine stateMachine) where TStateMachine : IAsyncStateMachine => stateMachine.MoveNext();
+    public void SetStateMachine(IAsyncStateMachine stateMachine) { }
+    public void SetResult() { }
+    public void SetException(Exception exception) { }
+    public MyTask Task => new MyTask();
+    public void AwaitOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine) where TAwaiter : INotifyCompletion where TStateMachine : IAsyncStateMachine { }
+    public void AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine) where TAwaiter : ICriticalNotifyCompletion where TStateMachine : IAsyncStateMachine { }
+    public bool IsCompleted => true;
+    public void GetResult() { }
+}
+
+
+public class Program
+{
+    public static async MyTask Method()
+    {
+        await System.Threading.Tasks.Task.Delay(1);
+    }
+
+    public static void Main()
+    {
+        Method();
+        Console.WriteLine("Custom Builder");
+    }
+}
+""";
+            await RunTest(code);
+        }
     }
 }

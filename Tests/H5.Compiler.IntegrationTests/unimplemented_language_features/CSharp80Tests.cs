@@ -193,7 +193,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task UsingDeclarations()
         {
             var code = """
@@ -244,7 +243,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task NullCoalescingAssignment()
         {
             var code = """

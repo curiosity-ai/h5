@@ -23,12 +23,12 @@ This file tracks the implementation status of pending C# language features.
     - [ ] **Property Patterns**: `{ P: 1 }`. (Priority: High)
     - [ ] **Tuple Patterns**: `(1, 2)`. (Priority: High)
     - [ ] **Positional Patterns**: `Deconstruct` based. (Priority: High)
-- [ ] **Using Declarations**: `using var x = ...`. (Priority: High)
+- [x] **Using Declarations**: `using var x = ...`. (Priority: High)
 - [ ] **Disposable Ref Structs**: `ref struct` with `Dispose`. (Priority: Low)
 - [ ] **Nullable Reference Types**: `string?`, `notnull` constraint. (Priority: High)
 - [ ] **Async Streams**: `await foreach`, `IAsyncEnumerable`. (Priority: High)
 - [ ] **Indices and Ranges**: `^1`, `1..5`. (Priority: High)
-- [ ] **Null-Coalescing Assignment**: `x ??= y`. (Priority: High)
+- [x] **Null-Coalescing Assignment**: `x ??= y`. (Priority: High)
 - [ ] **Unmanaged Constructed Types**: `struct S<T> where T : unmanaged`. (Priority: Not Important)
 - [ ] **StackAlloc in Nested Expressions**: Inside other expressions. (Priority: Low)
 
@@ -68,7 +68,7 @@ This file tracks the implementation status of pending C# language features.
 
 ## C# 11.0
 
-- [ ] **Raw String Literals**: `"""..."""`. (Priority: High)
+- [x] **Raw String Literals**: `"""..."""`. (Priority: High)
 - [ ] **Generic Math**: `static abstract` interface members (syntax support). (Priority: Low)
 - [ ] **Generic Attributes**: `class Attr<T> : Attribute`. (Priority: Medium)
 - [ ] **UTF-8 String Literals**: `"text"u8`. (Priority: Low)

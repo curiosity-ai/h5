@@ -272,7 +272,7 @@ namespace H5.Translator
         // from there (so this might become public/static).
         private CSharpParseOptions GetParseOptions()
         {
-            return new CSharpParseOptions(LanguageVersion.CSharp7, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
+            return new CSharpParseOptions(LanguageVersion.Latest, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
         }
 
         private CSharpCompilation CreateCompilation()
@@ -498,6 +498,14 @@ namespace H5.Translator
 
         public override SyntaxNode VisitLiteralExpression(LiteralExpressionSyntax node)
         {
+            if (node.Token.IsKind(SyntaxKind.SingleLineRawStringLiteralToken) ||
+                node.Token.IsKind(SyntaxKind.MultiLineRawStringLiteralToken))
+            {
+                return SyntaxFactory.LiteralExpression(
+                    SyntaxKind.StringLiteralExpression,
+                    SyntaxFactory.Literal(node.Token.ValueText));
+            }
+
             var spanStart = node.SpanStart;
             var pos = node.GetLocation().SourceSpan.Start;
             node =  (LiteralExpressionSyntax)base.VisitLiteralExpression(node);
@@ -598,6 +606,53 @@ namespace H5.Translator
             return base.VisitIsPatternExpression(node);
         }
 
+        public override SyntaxNode VisitBlock(BlockSyntax node)
+        {
+            var newStatements = ProcessBlockStatements(node.Statements);
+            return node.WithStatements(newStatements);
+        }
+
+        private SyntaxList<StatementSyntax> ProcessBlockStatements(IEnumerable<StatementSyntax> statementsEnumerable)
+        {
+            var statements = statementsEnumerable.ToList();
+            var newStatements = new List<StatementSyntax>();
+            for (int i = 0; i < statements.Count; i++)
+            {
+                var stmt = statements[i];
+                var visitedStmt = Visit(stmt) as StatementSyntax;
+
+                if (visitedStmt == null)
+                {
+                    continue;
+                }
+
+                if (visitedStmt is LocalDeclarationStatementSyntax localDecl && localDecl.UsingKeyword.IsKind(SyntaxKind.UsingKeyword))
+                {
+                    var remaining = new List<StatementSyntax>();
+                    for (int j = i + 1; j < statements.Count; j++)
+                    {
+                        remaining.Add(statements[j]);
+                    }
+
+                    var processedRest = ProcessBlockStatements(remaining);
+                    var newBody = SyntaxFactory.Block(processedRest);
+
+                    var usingStmt = SyntaxFactory.UsingStatement(
+                        SyntaxFactory.List<AttributeListSyntax>(),
+                        localDecl.Declaration,
+                        null,
+                        newBody
+                    ).WithLeadingTrivia(localDecl.GetLeadingTrivia());
+
+                    newStatements.Add(usingStmt);
+                    return SyntaxFactory.List(newStatements);
+                }
+
+                newStatements.Add(visitedStmt);
+            }
+            return SyntaxFactory.List(newStatements);
+        }
+
         public override SyntaxNode VisitAssignmentExpression(AssignmentExpressionSyntax node)
         {
             if (node.Left is IdentifierNameSyntax identifier)
@@ -610,7 +665,23 @@ namespace H5.Translator
                     hasChainingAssigment = true;
                 }
             }
-            return base.VisitAssignmentExpression(node);
+
+            var newNode = base.VisitAssignmentExpression(node);
+
+            if (node.IsKind(SyntaxKind.CoalesceAssignmentExpression) && newNode is AssignmentExpressionSyntax assignment)
+            {
+                return SyntaxFactory.AssignmentExpression(
+                    SyntaxKind.SimpleAssignmentExpression,
+                    assignment.Left,
+                    SyntaxFactory.BinaryExpression(
+                        SyntaxKind.CoalesceExpression,
+                        assignment.Left,
+                        assignment.Right
+                    )
+                ).NormalizeWhitespace().WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+
+            return newNode;
         }
 
         public override SyntaxNode VisitParameter(ParameterSyntax node)
@@ -792,6 +863,12 @@ namespace H5.Translator
 
         public override SyntaxNode VisitInvocationExpression(InvocationExpressionSyntax node)
         {
+            if (node.SyntaxTree == null)
+            {
+                // This node is detached (e.g. from a rewrite), so semantic model won't work.
+                return base.VisitInvocationExpression(node);
+            }
+
             var method = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
             
             var isRef = false;

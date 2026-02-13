@@ -644,6 +644,11 @@ namespace H5.Translator
                         newBody
                     ).WithLeadingTrivia(localDecl.GetLeadingTrivia());
 
+                    if (localDecl.AwaitKeyword.IsKind(SyntaxKind.AwaitKeyword))
+                    {
+                        usingStmt = usingStmt.WithAwaitKeyword(localDecl.AwaitKeyword);
+                    }
+
                     newStatements.Add(usingStmt);
                     return SyntaxFactory.List(newStatements);
                 }

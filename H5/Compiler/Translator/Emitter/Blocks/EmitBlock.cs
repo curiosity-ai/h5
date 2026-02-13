@@ -405,7 +405,7 @@ namespace H5.Translator
             var invalidationList = new HashSet<string>();
             var changedFiles = new HashSet<string>();
             
-            if (true) //RFO: Disabled for now till we figure out the possible bug bellow
+            if (Emitter.AssemblyInfo.EnableCache)
             {
                 cachedEmittedData = LoadCache();
 

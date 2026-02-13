@@ -43,6 +43,7 @@ namespace H5.Compiler.Service.Tests
             var assemblyName = "TestApp";
 
             var settings = new H5DotJson_AssemblySettings();
+            settings.EnableCache = true;
             var request = new CompilationRequest(assemblyName, settings);
             request.WithLanguageVersion("Latest");
 
@@ -111,11 +112,9 @@ namespace H5.Compiler.Service.Tests
             outputProp.SetValue(output, dict);
 
             // Populate Stats if available
-            var statsProp = output.GetType().GetProperty("Stats");
-            var translatorStatsProp = processor.Translator.GetType().GetProperty("Stats");
-            if (statsProp != null && translatorStatsProp != null)
+            if (processor.Translator.Stats != null)
             {
-                statsProp.SetValue(output, translatorStatsProp.GetValue(processor.Translator));
+                output.Stats = processor.Translator.Stats;
             }
 
             return output;

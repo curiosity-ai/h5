@@ -14,6 +14,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using UID;
@@ -39,6 +40,17 @@ namespace H5.Translator
 
         [IgnoreMember] private Dictionary<string, bool> _alreadyCheckedFiles = new Dictionary<string, bool>();
 
+        private UID128 ComputeFileHash(string filePath)
+        {
+            using (var stream = File.OpenRead(filePath))
+            using (var sha256 = SHA256.Create())
+            {
+                var hashBytes = sha256.ComputeHash(stream);
+                var hashString = BitConverter.ToString(hashBytes).Replace("-", "");
+                return hashString.Hash128();
+            }
+        }
+
         public void ClearIfConfigHashChanged(UID128 previousConfigHash, bool force = false)
         {
             if(ConfigHash != previousConfigHash || force)
@@ -62,7 +74,7 @@ namespace H5.Translator
             else
             {
                 var fileInfo = new FileInfo(fileName);
-                var hash = File.ReadAllText(fileName).Hash128();
+                var hash = ComputeFileHash(fileName);
 
                 if (FileInfo.TryGetValue(fileName, out var previousInfo))
                 {
@@ -399,6 +411,17 @@ namespace H5.Translator
             return Path.GetFileNameWithoutExtension(defaultFileName);
         }
 
+        private UID128 ComputeFileHash(string filePath)
+        {
+            using (var stream = File.OpenRead(filePath))
+            using (var sha256 = SHA256.Create())
+            {
+                var hashBytes = sha256.ComputeHash(stream);
+                var hashString = BitConverter.ToString(hashBytes).Replace("-", "");
+                return hashString.Hash128();
+            }
+        }
+
         protected override void DoEmit()
         {
             EmitBlockCachedOutput cachedEmittedData = null;
@@ -438,7 +461,7 @@ namespace H5.Translator
                     foreach(var file in Emitter.SourceFiles)
                     {
                         var fileInfo = new FileInfo(file);
-                        var hash = File.ReadAllText(file).Hash128();
+                        var hash = ComputeFileHash(file);
 
                         if (cachedEmittedData.FileInfo.TryGetValue(file, out var prevInfo))
                         {
@@ -498,7 +521,7 @@ namespace H5.Translator
                     foreach(var file in Emitter.SourceFiles)
                     {
                          var fileInfo = new FileInfo(file);
-                         var hash = File.ReadAllText(file).Hash128();
+                         var hash = ComputeFileHash(file);
                          cachedEmittedData.FileInfo[file] = new CacheFileInfo { Hash = hash, Size = fileInfo.Length, Timestamp = (DateTimeOffset)fileInfo.LastWriteTimeUtc };
                     }
                 }

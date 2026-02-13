@@ -20,5 +20,5 @@ This document outlines the workflow for implementing new C# language features in
 
 ## Reference to Codebase
 
--   **Modern Rewriter Placeholder**: A comment has been added to `H5/Compiler/Translator/Translator/Translator.InspectAssembly.cs` indicating where the Modern Rewriter step should be integrated.
+-   **Rewriter Reference**: Start at `H5/Compiler/Translator/Utils/Roslyn/SharpSixRewriter.cs` to understand how code rewrite happens.
 -   **Pending Features**: See [Tests/H5.Compiler.IntegrationTests/TODO.md](Tests/H5.Compiler.IntegrationTests/TODO.md) for the list of pending language features and their priorities.

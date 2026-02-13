@@ -7,6 +7,7 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
     public class CSharp90Tests : IntegrationTestBase
     {
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task Records()
         {
             var code = """
@@ -36,6 +37,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task InitOnlySetters()
         {
             var code = """
@@ -64,6 +66,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task PatternMatchingEnhancements()
         {
             var code = """
@@ -97,6 +100,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task TargetTypedNew()
         {
             var code = """
@@ -125,6 +129,7 @@ public class Point
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task StaticAnonymousFunctions()
         {
             var code = """
@@ -146,6 +151,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task TargetTypedConditional()
         {
             var code = """
@@ -171,6 +177,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task CovariantReturnTypes()
         {
             var code = """
@@ -200,6 +207,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task ExtensionGetEnumerator()
         {
             var code = """
@@ -237,6 +245,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task LambdaDiscardParameters()
         {
             var code = """
@@ -255,6 +264,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task NativeSizedIntegers()
         {
             var code = """

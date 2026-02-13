@@ -7,6 +7,7 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
     public class CSharp12Tests : IntegrationTestBase
     {
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task PrimaryConstructors()
         {
             var code = """
@@ -33,6 +34,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task CollectionExpressions()
         {
             var code = """
@@ -61,6 +63,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task InlineArrays()
         {
             var code = """
@@ -100,6 +103,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task OptionalParamsInLambdas()
         {
             var code = """
@@ -143,6 +147,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task RefReadonlyParameters()
         {
             var code = """

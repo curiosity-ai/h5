@@ -128,11 +128,25 @@ namespace H5.Translator
 
                 IList<SyntaxTree> trees = new List<SyntaxTree>(SourceFiles.Count);
 
+                LanguageVersion languageVersion = LanguageVersion.CSharp7_2;
+
+                if (!string.IsNullOrWhiteSpace(ProjectProperties.LanguageVersion))
+                {
+                    if (string.Equals(ProjectProperties.LanguageVersion, "latest", StringComparison.OrdinalIgnoreCase))
+                    {
+                        languageVersion = LanguageVersion.Latest;
+                    }
+                    else if (Enum.TryParse<LanguageVersion>(ProjectProperties.LanguageVersion.Replace(".", "_"), true, out var version))
+                    {
+                        languageVersion = version;
+                    }
+                }
+
                 foreach (var file in SourceFiles)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     var filePath   = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
-                    var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(LanguageVersion.CSharp7_2, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
+                    var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(languageVersion, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
                     trees.Add(syntaxTree);
                 }
 

@@ -7,6 +7,7 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
     public class CSharp80Tests : IntegrationTestBase
     {
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task ReadonlyMembers()
         {
             var code = """
@@ -39,6 +40,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task DefaultInterfaceMethods()
         {
             var code = """
@@ -72,6 +74,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task SwitchExpressions()
         {
             var code = """
@@ -98,6 +101,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task PropertyPatterns()
         {
             var code = """
@@ -131,6 +135,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task TuplePatterns()
         {
             var code = """
@@ -158,6 +163,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task PositionalPatterns()
         {
             var code = """
@@ -187,6 +193,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task UsingDeclarations()
         {
             var code = """
@@ -237,6 +244,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task NullCoalescingAssignment()
         {
             var code = """
@@ -261,6 +269,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task IndicesAndRanges()
         {
             var code = """

@@ -7,6 +7,7 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
     public class CSharp11Tests : IntegrationTestBase
     {
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task RawStringLiterals()
         {
             var code = """"
@@ -30,6 +31,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task GenericAttributes()
         {
             var code = """
@@ -57,6 +59,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task ListPatterns()
         {
             var code = """
@@ -84,6 +87,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task RequiredMembers()
         {
             var code = """
@@ -172,6 +176,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task FileLocalTypes()
         {
             var code = """

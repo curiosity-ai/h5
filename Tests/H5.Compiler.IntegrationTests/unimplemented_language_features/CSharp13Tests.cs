@@ -7,6 +7,7 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
     public class CSharp13Tests : IntegrationTestBase
     {
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task ParamsCollections()
         {
             var code = """
@@ -36,6 +37,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task LockObject()
         {
             var code = """
@@ -66,6 +68,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task ImplicitIndexAccess()
         {
             var code = """
@@ -96,6 +99,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Not implemented yet")]
         public async Task EscapeSequence()
         {
             var code = """

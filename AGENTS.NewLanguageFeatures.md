@@ -1,6 +1,6 @@
 # Safe Workflow for Implementing New Language Features
 
-This document outlines the workflow for implementing new C# language features in H5, specifically targeting those listed in [Tests/H5.Compiler.IntegrationTests/TODO.md](Tests/H5.Compiler.IntegrationTests/TODO.md).
+This document outlines the workflow for implementing new C# language features in H5, specifically targeting those listed in [TODO.NewLanguageFeatures.md](TODO.NewLanguageFeatures.md).
 
 ## Workflow Steps
 
@@ -21,4 +21,28 @@ This document outlines the workflow for implementing new C# language features in
 ## Reference to Codebase
 
 -   **Rewriter Reference**: Start at `H5/Compiler/Translator/Utils/Roslyn/SharpSixRewriter.cs` to understand how code rewrite happens.
--   **Pending Features**: See [Tests/H5.Compiler.IntegrationTests/TODO.md](Tests/H5.Compiler.IntegrationTests/TODO.md) for the list of pending language features and their priorities.
+-   **Pending Features**: See [TODO.NewLanguageFeatures.md](TODO.NewLanguageFeatures.md) for the list of pending language features and their priorities.
+
+## Tracking Progress
+
+When working on a new language feature, follow this process to avoid conflicts and track status:
+
+1.  **Check Status**:
+    -   Review `WIP.NewLanguageFeatures.md` to ensure no other agent is currently working on the same or a conflicting feature.
+    -   If the file is not empty, verify if the task is stale (check the Start Date).
+
+2.  **Select Feature**:
+    -   Choose a feature from `TODO.NewLanguageFeatures.md` that is unchecked (`[ ]`).
+
+3.  **Update WIP**:
+    -   Move the feature details (Name, Priority, Description) to `WIP.NewLanguageFeatures.md`.
+    -   Fill in the **Start Date** and set **Status** to "In Progress".
+
+4.  **Implement**:
+    -   Perform the implementation following the "Workflow Steps" above.
+    -   Update the **Notes** section in `WIP.NewLanguageFeatures.md` with any findings or sub-tasks.
+
+5.  **Complete**:
+    -   Once the feature is fully implemented and all integration tests pass:
+        1.  Mark the feature as completed in `TODO.NewLanguageFeatures.md` (change `[ ]` to `[x]`).
+        2.  Clear the content of `WIP.NewLanguageFeatures.md` or reset it to the empty template.

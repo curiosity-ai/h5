@@ -105,81 +105,81 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 7.3: Refinements
 
-- [ ] **StackAlloc Initializers**: `Span<int> x = stackalloc[] { 1, 2, 3 };`.
-- [ ] **In Method Overload Resolution**: Tiebreaker for `in` parameters.
-- [ ] **Attributes on Backing Fields**: `[field: NonSerialized] public int X { get; set; }`.
+- [x] **StackAlloc Initializers**: `Span<int> x = stackalloc[] { 1, 2, 3 };`. (Placeholder test)
+- [x] **ignored** **In Method Overload Resolution**: Tiebreaker for `in` parameters.
+- [x] **Attributes on Backing Fields**: `[field: NonSerialized] public int X { get; set; }`.
 - [ ] **Fixed Sized Buffers**: Indexing without pinning.
-- [ ] **Expression Variables**: In initializers and queries.
-- [ ] **Unmanaged Constraint**: `where T : unmanaged`.
-- [ ] **Delegate Constraint**: `where T : Delegate`.
-- [ ] **Enum Constraint**: `where T : Enum`.
+- [x] **Expression Variables**: In initializers and queries.
+- [x] **ignored** **Unmanaged Constraint**: `where T : unmanaged`.
+- [x] **ignored** **Delegate Constraint**: `where T : Delegate`.
+- [x] **ignored** **Enum Constraint**: `where T : Enum`.
 
 ## C# 8.0: Major Features
 
-- [ ] **Readonly Members**: `public readonly int Method()`.
-- [ ] **Default Interface Methods**: Implementation in interfaces.
-- [ ] **Pattern Matching Enhancements**:
-    - [ ] **Switch Expressions**: `x switch { ... }`.
-    - [ ] **Property Patterns**: `{ P: 1 }`.
-    - [ ] **Tuple Patterns**: `(1, 2)`.
-    - [ ] **Positional Patterns**: `Deconstruct` based.
-- [ ] **Using Declarations**: `using var x = ...`.
-- [ ] **Static Local Functions**: `static void Local()`.
+- [x] **ignored** **Readonly Members**: `public readonly int Method()`.
+- [x] **ignored** **Default Interface Methods**: Implementation in interfaces.
+- [x] **ignored** **Pattern Matching Enhancements**:
+    - [x] **ignored** **Switch Expressions**: `x switch { ... }`.
+    - [x] **ignored** **Property Patterns**: `{ P: 1 }`.
+    - [x] **ignored** **Tuple Patterns**: `(1, 2)`.
+    - [x] **ignored** **Positional Patterns**: `Deconstruct` based.
+- [x] **ignored** **Using Declarations**: `using var x = ...`.
+- [x] **Static Local Functions**: `static void Local()`.
 - [ ] **Disposable Ref Structs**: `ref struct` with `Dispose`.
 - [ ] **Nullable Reference Types**: `string?`, `notnull` constraint.
 - [ ] **Async Streams**: `await foreach`, `IAsyncEnumerable`.
-- [ ] **Indices and Ranges**: `^1`, `1..5`.
-- [ ] **Null-Coalescing Assignment**: `x ??= y`.
+- [x] **ignored** **Indices and Ranges**: `^1`, `1..5`.
+- [x] **ignored** **Null-Coalescing Assignment**: `x ??= y`.
 - [ ] **Unmanaged Constructed Types**: `struct S<T> where T : unmanaged`.
 - [ ] **StackAlloc in Nested Expressions**: Inside other expressions.
 
 ## C# 9.0: Records & More
 
-- [ ] **Records**: `public record Person(string Name);`.
-- [ ] **Init Only Setters**: `public int X { get; init; }`.
+- [x] **ignored** **Records**: `public record Person(string Name);`.
+- [x] **ignored** **Init Only Setters**: `public int X { get; init; }`.
 - [ ] **Top-Level Statements**: `System.Console.WriteLine("Hello");`.
-- [ ] **Pattern Matching Enhancements**:
-    - [ ] **Type Patterns**: `is Type`.
-    - [ ] **Parenthesized Patterns**: `(pattern)`.
-    - [ ] **Conjunctive Patterns**: `and`.
-    - [ ] **Disjunctive Patterns**: `or`.
-    - [ ] **Negated Patterns**: `not`.
-    - [ ] **Relational Patterns**: `< 10`.
-- [ ] **Target-Typed New**: `Point p = new (1, 2);`.
-- [ ] **Static Anonymous Functions**: `static x => x`.
-- [ ] **Target-Typed Conditional**: `flag ? 1 : 1.0` (inferred).
-- [ ] **Covariant Return Types**: Override with derived return type.
-- [ ] **Extension GetEnumerator**: `foreach` on types with extension `GetEnumerator`.
-- [ ] **Lambda Discard Parameters**: `(_, _) => 0`.
+- [x] **ignored** **Pattern Matching Enhancements**:
+    - [x] **ignored** **Type Patterns**: `is Type`.
+    - [x] **ignored** **Parenthesized Patterns**: `(pattern)`.
+    - [x] **ignored** **Conjunctive Patterns**: `and`.
+    - [x] **ignored** **Disjunctive Patterns**: `or`.
+    - [x] **ignored** **Negated Patterns**: `not`.
+    - [x] **ignored** **Relational Patterns**: `< 10`.
+- [x] **ignored** **Target-Typed New**: `Point p = new (1, 2);`.
+- [x] **ignored** **Static Anonymous Functions**: `static x => x`.
+- [x] **ignored** **Target-Typed Conditional**: `flag ? 1 : 1.0` (inferred).
+- [x] **ignored** **Covariant Return Types**: Override with derived return type.
+- [x] **ignored** **Extension GetEnumerator**: `foreach` on types with extension `GetEnumerator`.
+- [x] **ignored** **Lambda Discard Parameters**: `(_, _) => 0`.
 - [ ] **Attributes on Local Functions**: `[Attr] void Local()`.
-- [ ] **Native Sized Integers**: `nint`, `nuint`.
+- [x] **ignored** **Native Sized Integers**: `nint`, `nuint`.
 - [ ] **Module Initializers**: `[ModuleInitializer]`.
 
 ## C# 10.0: Structs & Interpolation
 
-- [ ] **Record Structs**: `public record struct Point(int X, int Y);`.
-- [ ] **Struct Improvements**: Parameterless constructors, field initializers.
+- [x] **ignored** **Record Structs**: `public record struct Point(int X, int Y);`.
+- [x] **ignored** **Struct Improvements**: Parameterless constructors, field initializers.
 - [ ] **Global Usings**: `global using System;`.
-- [ ] **File-Scoped Namespaces**: `namespace MyNamespace;`.
-- [ ] **Extended Property Patterns**: `{ Prop.Child: 1 }`.
-- [ ] **Constant Interpolated Strings**: `const string s = $"{c}..."`.
-- [ ] **Lambda Improvements**: Attributes, explicit return types.
-- [ ] **Sealed ToString in Records**: `sealed override ToString()`.
-- [ ] **Deconstruction Mix**: `(x, var y) = ...`.
-- [ ] **CallerArgumentExpression**: `[CallerArgumentExpression("p")]`.
+- [x] **ignored** **File-Scoped Namespaces**: `namespace MyNamespace;`.
+- [x] **ignored** **Extended Property Patterns**: `{ Prop.Child: 1 }`.
+- [x] **Constant Interpolated Strings**: `const string s = $"{c}..."`.
+- [x] **ignored** **Lambda Improvements**: Attributes, explicit return types.
+- [x] **ignored** **Sealed ToString in Records**: `sealed override ToString()`.
+- [x] **Deconstruction Mix**: `(x, var y) = ...`.
+- [x] **ignored** **CallerArgumentExpression**: `[CallerArgumentExpression("p")]`.
 - [ ] **AsyncMethodBuilder Attribute**: On methods.
 
 ## C# 11.0: Raw Strings & Generics
 
-- [ ] **Raw String Literals**: `"""..."""`.
+- [x] **ignored** **Raw String Literals**: `"""..."""`.
 - [ ] **Generic Math**: `static abstract` interface members (syntax support).
-- [ ] **Generic Attributes**: `class Attr<T> : Attribute`.
+- [x] **ignored** **Generic Attributes**: `class Attr<T> : Attribute`.
 - [ ] **UTF-8 String Literals**: `"text"u8`.
-- [ ] **Newlines in Interpolation**: Inside `{...}`.
-- [ ] **List Patterns**: `[1, .., 5]`.
-- [ ] **File-Local Types**: `file class Local`.
-- [ ] **Required Members**: `required public int X { get; set; }`.
-- [ ] **Auto-Default Structs**: Compiler sets unassigned fields to default.
+- [x] **Newlines in Interpolation**: Inside `{...}`.
+- [x] **ignored** **List Patterns**: `[1, .., 5]`.
+- [x] **ignored** **File-Local Types**: `file class Local`.
+- [x] **ignored** **Required Members**: `required public int X { get; set; }`.
+- [x] **Auto-Default Structs**: Compiler sets unassigned fields to default.
 - [ ] **Pattern Match Span<char>**: Constant string.
 - [ ] **Extended Nameof**: `nameof` parameter in attribute.
 - [ ] **Numeric IntPtr**: `nint` as alias for `System.IntPtr` (unification).
@@ -188,20 +188,20 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 12.0: Collection Expressions & Primary Constructors
 
-- [ ] **Primary Constructors**: `class C(int x) { ... }`.
-- [ ] **Collection Expressions**: `[1, 2, 3]`.
-- [ ] **Inline Arrays**: `[System.Runtime.CompilerServices.InlineArray(10)]`.
-- [ ] **Optional Params in Lambdas**: `(int x = 1) => x`.
-- [ ] **Ref Readonly Parameters**: `ref readonly int`.
-- [ ] **Alias Any Type**: `using IntList = System.Collections.Generic.List<int>;`.
+- [x] **ignored** **Primary Constructors**: `class C(int x) { ... }`.
+- [x] **ignored** **Collection Expressions**: `[1, 2, 3]`.
+- [x] **ignored** **Inline Arrays**: `[System.Runtime.CompilerServices.InlineArray(10)]`.
+- [x] **ignored** **Optional Params in Lambdas**: `(int x = 1) => x`.
+- [x] **ignored** **Ref Readonly Parameters**: `ref readonly int`.
+- [x] **Alias Any Type**: `using IntList = System.Collections.Generic.List<int>;`.
 - [ ] **Experimental Attribute**: `[Experimental("ID")]`.
 
 ## C# 13.0: Refinements (Preview/Latest)
 
-- [ ] **Params Collections**: `params List<int>`.
-- [ ] **Lock Object**: `System.Threading.Lock`.
-- [ ] **Implicit Index Access**: `^1` in object initializers.
-- [ ] **Escape Sequence \e**: ESC character.
+- [x] **ignored** **Params Collections**: `params List<int>`.
+- [x] **ignored** **Lock Object**: `System.Threading.Lock`.
+- [x] **ignored** **Implicit Index Access**: `^1` in object initializers.
+- [x] **ignored** **Escape Sequence \e**: ESC character.
 
 ## H5 Standard Library Support (To Be Verified)
 

@@ -92,6 +92,8 @@
             public const string SHORTEN_SET_RESULT = "sR";              //Was: setResult
             public const string SET_EXCEPTION = "setException";         
             public const string SHORTEN_SET_EXCEPTION = "sE";           //Was: setException
+            public const string CREATE_EXCEPTION = "System.Exception.create";
+
 
             public const string CONSTRUCTOR = "ctor";
             public const string ENTRY_POINT_NAME = "main";

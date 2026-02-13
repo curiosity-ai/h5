@@ -151,5 +151,37 @@ public class Program
 """;
             await RunTest(code, "<<DONE>>");
         }
+
+        [TestMethod]
+        public async Task AsyncTaskException()
+        {
+            var code = """
+using System;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public static async Task Main()
+    {
+        try
+        {
+           await Run();
+        }
+        catch (Exception E)
+        {
+            Console.WriteLine(E.Message);    
+        }
+        Console.WriteLine("<<DONE>>");
+    }
+
+    public static async Task Run()
+    {
+        throw new Exception("<<THROW>>");
+        Console.WriteLine("This should not happen");
+    }
+}
+""";
+            await RunTest(code, "<<DONE>>");
+        }
     }
 }

@@ -105,103 +105,103 @@ Each test must demonstrate side-effects (e.g., `Console.WriteLine`) to be verifi
 
 ## C# 7.3: Refinements
 
-- [x] **StackAlloc Initializers**: `Span<int> x = stackalloc[] { 1, 2, 3 };`. (Placeholder test)
-- [x] **ignored** **In Method Overload Resolution**: Tiebreaker for `in` parameters.
-- [x] **Attributes on Backing Fields**: `[field: NonSerialized] public int X { get; set; }`.
-- [x] **ignored** **Fixed Sized Buffers**: Indexing without pinning.
-- [x] **Expression Variables**: In initializers and queries.
-- [x] **ignored** **Unmanaged Constraint**: `where T : unmanaged`.
-- [x] **ignored** **Delegate Constraint**: `where T : Delegate`.
-- [x] **ignored** **Enum Constraint**: `where T : Enum`.
+- [x] *low prio* **StackAlloc Initializers**: `Span<int> x = stackalloc[] { 1, 2, 3 };`. (Placeholder test)
+- [x] **ignored** *medium prio* **In Method Overload Resolution**: Tiebreaker for `in` parameters.
+- [x] *medium prio* **Attributes on Backing Fields**: `[field: NonSerialized] public int X { get; set; }`.
+- [x] **ignored** *not important* **Fixed Sized Buffers**: Indexing without pinning.
+- [x] *medium prio* **Expression Variables**: In initializers and queries.
+- [x] **ignored** *not important* **Unmanaged Constraint**: `where T : unmanaged`.
+- [x] **ignored** *low prio* **Delegate Constraint**: `where T : Delegate`.
+- [x] **ignored** *low prio* **Enum Constraint**: `where T : Enum`.
 
 ## C# 8.0: Major Features
 
-- [x] **ignored** **Readonly Members**: `public readonly int Method()`.
-- [x] **ignored** **Default Interface Methods**: Implementation in interfaces.
-- [x] **ignored** **Pattern Matching Enhancements**:
-    - [x] **ignored** **Switch Expressions**: `x switch { ... }`.
-    - [x] **ignored** **Property Patterns**: `{ P: 1 }`.
-    - [x] **ignored** **Tuple Patterns**: `(1, 2)`.
-    - [x] **ignored** **Positional Patterns**: `Deconstruct` based.
-- [x] **ignored** **Using Declarations**: `using var x = ...`.
-- [x] **Static Local Functions**: `static void Local()`.
-- [x] **ignored** **Disposable Ref Structs**: `ref struct` with `Dispose`.
-- [x] **ignored** **Nullable Reference Types**: `string?`, `notnull` constraint.
-- [x] **ignored** **Async Streams**: `await foreach`, `IAsyncEnumerable`.
-- [x] **ignored** **Indices and Ranges**: `^1`, `1..5`.
-- [x] **ignored** **Null-Coalescing Assignment**: `x ??= y`.
-- [x] **ignored** **Unmanaged Constructed Types**: `struct S<T> where T : unmanaged`.
-- [x] **ignored** **StackAlloc in Nested Expressions**: Inside other expressions.
+- [x] **ignored** *medium prio* **Readonly Members**: `public readonly int Method()`.
+- [x] **ignored** *high prio* **Default Interface Methods**: Implementation in interfaces.
+- [x] **ignored** *high prio* **Pattern Matching Enhancements**:
+    - [x] **ignored** *high prio* **Switch Expressions**: `x switch { ... }`.
+    - [x] **ignored** *high prio* **Property Patterns**: `{ P: 1 }`.
+    - [x] **ignored** *high prio* **Tuple Patterns**: `(1, 2)`.
+    - [x] **ignored** *high prio* **Positional Patterns**: `Deconstruct` based.
+- [x] **ignored** *high prio* **Using Declarations**: `using var x = ...`.
+- [x] *medium prio* **Static Local Functions**: `static void Local()`.
+- [x] **ignored** *low prio* **Disposable Ref Structs**: `ref struct` with `Dispose`.
+- [x] **ignored** *high prio* **Nullable Reference Types**: `string?`, `notnull` constraint.
+- [x] **ignored** *high prio* **Async Streams**: `await foreach`, `IAsyncEnumerable`.
+- [x] **ignored** *high prio* **Indices and Ranges**: `^1`, `1..5`.
+- [x] **ignored** *high prio* **Null-Coalescing Assignment**: `x ??= y`.
+- [x] **ignored** *not important* **Unmanaged Constructed Types**: `struct S<T> where T : unmanaged`.
+- [x] **ignored** *low prio* **StackAlloc in Nested Expressions**: Inside other expressions.
 
 ## C# 9.0: Records & More
 
-- [x] **ignored** **Records**: `public record Person(string Name);`.
-- [x] **ignored** **Init Only Setters**: `public int X { get; init; }`.
-- [x] **ignored** **Top-Level Statements**: `System.Console.WriteLine("Hello");`.
-- [x] **ignored** **Pattern Matching Enhancements**:
-    - [x] **ignored** **Type Patterns**: `is Type`.
-    - [x] **ignored** **Parenthesized Patterns**: `(pattern)`.
-    - [x] **ignored** **Conjunctive Patterns**: `and`.
-    - [x] **ignored** **Disjunctive Patterns**: `or`.
-    - [x] **ignored** **Negated Patterns**: `not`.
-    - [x] **ignored** **Relational Patterns**: `< 10`.
-- [x] **ignored** **Target-Typed New**: `Point p = new (1, 2);`.
-- [x] **ignored** **Static Anonymous Functions**: `static x => x`.
-- [x] **ignored** **Target-Typed Conditional**: `flag ? 1 : 1.0` (inferred).
-- [x] **ignored** **Covariant Return Types**: Override with derived return type.
-- [x] **ignored** **Extension GetEnumerator**: `foreach` on types with extension `GetEnumerator`.
-- [x] **ignored** **Lambda Discard Parameters**: `(_, _) => 0`.
-- [x] **ignored** **Attributes on Local Functions**: `[Attr] void Local()`.
-- [x] **ignored** **Native Sized Integers**: `nint`, `nuint`.
-- [x] **ignored** **Module Initializers**: `[ModuleInitializer]`.
+- [x] **ignored** *high prio* **Records**: `public record Person(string Name);`.
+- [x] **ignored** *high prio* **Init Only Setters**: `public int X { get; init; }`.
+- [x] **ignored** *medium prio* **Top-Level Statements**: `System.Console.WriteLine("Hello");`.
+- [x] **ignored** *high prio* **Pattern Matching Enhancements**:
+    - [x] **ignored** *high prio* **Type Patterns**: `is Type`.
+    - [x] **ignored** *high prio* **Parenthesized Patterns**: `(pattern)`.
+    - [x] **ignored** *high prio* **Conjunctive Patterns**: `and`.
+    - [x] **ignored** *high prio* **Disjunctive Patterns**: `or`.
+    - [x] **ignored** *high prio* **Negated Patterns**: `not`.
+    - [x] **ignored** *high prio* **Relational Patterns**: `< 10`.
+- [x] **ignored** *medium prio* **Target-Typed New**: `Point p = new (1, 2);`.
+- [x] **ignored** *low prio* **Static Anonymous Functions**: `static x => x`.
+- [x] **ignored** *medium prio* **Target-Typed Conditional**: `flag ? 1 : 1.0` (inferred).
+- [x] **ignored** *medium prio* **Covariant Return Types**: Override with derived return type.
+- [x] **ignored** *medium prio* **Extension GetEnumerator**: `foreach` on types with extension `GetEnumerator`.
+- [x] **ignored** *medium prio* **Lambda Discard Parameters**: `(_, _) => 0`.
+- [x] **ignored** *low prio* **Attributes on Local Functions**: `[Attr] void Local()`.
+- [x] **ignored** *low prio* **Native Sized Integers**: `nint`, `nuint`.
+- [x] **ignored** *medium prio* **Module Initializers**: `[ModuleInitializer]`.
 
 ## C# 10.0: Structs & Interpolation
 
-- [x] **ignored** **Record Structs**: `public record struct Point(int X, int Y);`.
-- [x] **ignored** **Struct Improvements**: Parameterless constructors, field initializers.
-- [x] **ignored** **Global Usings**: `global using System;`.
-- [x] **ignored** **File-Scoped Namespaces**: `namespace MyNamespace;`.
-- [x] **ignored** **Extended Property Patterns**: `{ Prop.Child: 1 }`.
-- [x] **Constant Interpolated Strings**: `const string s = $"{c}..."`.
-- [x] **ignored** **Lambda Improvements**: Attributes, explicit return types.
-- [x] **ignored** **Sealed ToString in Records**: `sealed override ToString()`.
-- [x] **Deconstruction Mix**: `(x, var y) = ...`.
-- [x] **ignored** **CallerArgumentExpression**: `[CallerArgumentExpression("p")]`.
-- [x] **ignored** **AsyncMethodBuilder Attribute**: On methods.
+- [x] **ignored** *medium prio* **Record Structs**: `public record struct Point(int X, int Y);`.
+- [x] **ignored** *medium prio* **Struct Improvements**: Parameterless constructors, field initializers.
+- [x] **ignored** *medium prio* **Global Usings**: `global using System;`.
+- [x] **ignored** *high prio* **File-Scoped Namespaces**: `namespace MyNamespace;`.
+- [x] **ignored** *high prio* **Extended Property Patterns**: `{ Prop.Child: 1 }`.
+- [x] *medium prio* **Constant Interpolated Strings**: `const string s = $"{c}..."`.
+- [x] **ignored** *medium prio* **Lambda Improvements**: Attributes, explicit return types.
+- [x] **ignored** *low prio* **Sealed ToString in Records**: `sealed override ToString()`.
+- [x] *medium prio* **Deconstruction Mix**: `(x, var y) = ...`.
+- [x] **ignored** *high prio* **CallerArgumentExpression**: `[CallerArgumentExpression("p")]`.
+- [x] **ignored** *not important* **AsyncMethodBuilder Attribute**: On methods.
 
 ## C# 11.0: Raw Strings & Generics
 
-- [x] **ignored** **Raw String Literals**: `"""..."""`.
-- [x] **ignored** **Generic Math**: `static abstract` interface members (syntax support).
-- [x] **ignored** **Generic Attributes**: `class Attr<T> : Attribute`.
-- [x] **ignored** **UTF-8 String Literals**: `"text"u8`.
-- [x] **Newlines in Interpolation**: Inside `{...}`.
-- [x] **ignored** **List Patterns**: `[1, .., 5]`.
-- [x] **ignored** **File-Local Types**: `file class Local`.
-- [x] **ignored** **Required Members**: `required public int X { get; set; }`.
-- [x] **Auto-Default Structs**: Compiler sets unassigned fields to default.
-- [x] **ignored** **Pattern Match Span<char>**: Constant string.
-- [x] **ignored** **Extended Nameof**: `nameof` parameter in attribute.
-- [x] **ignored** **Numeric IntPtr**: `nint` as alias for `System.IntPtr` (unification).
-- [x] **ignored** **Ref Fields**: `ref int x` in `ref struct`.
-- [x] **ignored** **Scoped Ref**: `scoped ref` parameters/locals.
+- [x] **ignored** *high prio* **Raw String Literals**: `"""..."""`.
+- [x] **ignored** *low prio* **Generic Math**: `static abstract` interface members (syntax support).
+- [x] **ignored** *medium prio* **Generic Attributes**: `class Attr<T> : Attribute`.
+- [x] **ignored** *low prio* **UTF-8 String Literals**: `"text"u8`.
+- [x] *medium prio* **Newlines in Interpolation**: Inside `{...}`.
+- [x] **ignored** *high prio* **List Patterns**: `[1, .., 5]`.
+- [x] **ignored** *medium prio* **File-Local Types**: `file class Local`.
+- [x] **ignored** *high prio* **Required Members**: `required public int X { get; set; }`.
+- [x] *medium prio* **Auto-Default Structs**: Compiler sets unassigned fields to default.
+- [x] **ignored** *medium prio* **Pattern Match Span<char>**: Constant string.
+- [x] **ignored** *medium prio* **Extended Nameof**: `nameof` parameter in attribute.
+- [x] **ignored** *low prio* **Numeric IntPtr**: `nint` as alias for `System.IntPtr` (unification).
+- [x] **ignored** *low prio* **Ref Fields**: `ref int x` in `ref struct`.
+- [x] **ignored** *low prio* **Scoped Ref**: `scoped ref` parameters/locals.
 
 ## C# 12.0: Collection Expressions & Primary Constructors
 
-- [x] **ignored** **Primary Constructors**: `class C(int x) { ... }`.
-- [x] **ignored** **Collection Expressions**: `[1, 2, 3]`.
-- [x] **ignored** **Inline Arrays**: `[System.Runtime.CompilerServices.InlineArray(10)]`.
-- [x] **ignored** **Optional Params in Lambdas**: `(int x = 1) => x`.
-- [x] **ignored** **Ref Readonly Parameters**: `ref readonly int`.
-- [x] **Alias Any Type**: `using IntList = System.Collections.Generic.List<int>;`.
-- [x] **ignored** **Experimental Attribute**: `[Experimental("ID")]`.
+- [x] **ignored** *high prio* **Primary Constructors**: `class C(int x) { ... }`.
+- [x] **ignored** *high prio* **Collection Expressions**: `[1, 2, 3]`.
+- [x] **ignored** *not important* **Inline Arrays**: `[System.Runtime.CompilerServices.InlineArray(10)]`.
+- [x] **ignored** *medium prio* **Optional Params in Lambdas**: `(int x = 1) => x`.
+- [x] **ignored** *low prio* **Ref Readonly Parameters**: `ref readonly int`.
+- [x] *medium prio* **Alias Any Type**: `using IntList = System.Collections.Generic.List<int>;`.
+- [x] **ignored** *low prio* **Experimental Attribute**: `[Experimental("ID")]`.
 
 ## C# 13.0: Refinements (Preview/Latest)
 
-- [x] **ignored** **Params Collections**: `params List<int>`.
-- [x] **ignored** **Lock Object**: `System.Threading.Lock`.
-- [x] **ignored** **Implicit Index Access**: `^1` in object initializers.
-- [x] **ignored** **Escape Sequence \e**: ESC character.
+- [x] **ignored** *medium prio* **Params Collections**: `params List<int>`.
+- [x] **ignored** *not important* **Lock Object**: `System.Threading.Lock`.
+- [x] **ignored** *medium prio* **Implicit Index Access**: `^1` in object initializers.
+- [x] **ignored** *low prio* **Escape Sequence \e**: ESC character.
 
 ## H5 Standard Library Support (To Be Verified)
 

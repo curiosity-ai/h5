@@ -153,6 +153,7 @@ namespace H5.Compiler.IntegrationTests
             var request = new CompilationRequest("App", settings)
                             //.NoPackageResources() // Comment this out to get resources
                             .NoHTML()
+                            .WithLanguageVersion("Latest")
                             .WithPackageReference("h5", latestVersion)
                             .WithSourceFile("App.cs", csharpCode);
 

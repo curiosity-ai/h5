@@ -39,6 +39,12 @@ namespace H5.Compiler.Hosted
             return this;
         }
 
+        public CompilationRequest WithLanguageVersion(string languageVersion)
+        {
+            ProjectProperties.LanguageVersion = languageVersion;
+            return this;
+        }
+
         public CompilationRequest NoHTML()
         {
             SkipHtmlGeneration = true;

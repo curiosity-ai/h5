@@ -36,6 +36,8 @@ namespace H5.Translator
             }
         }
 
+        public bool IsNativeAsync { get; set; }
+
         public Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache { get; set; }
 
         public IH5DotJson_AssemblySettings AssemblyInfo { get; set; }

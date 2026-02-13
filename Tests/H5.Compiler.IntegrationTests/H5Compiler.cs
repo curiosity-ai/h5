@@ -153,6 +153,7 @@ namespace H5.Compiler.IntegrationTests
             var request = new CompilationRequest("App", settings)
                             //.NoPackageResources() // Comment this out to get resources
                             .NoHTML()
+                            .WithLanguageVersion("Latest")
                             .WithPackageReference("h5", latestVersion)
                             .WithSourceFile("App.cs", csharpCode);
 
@@ -193,11 +194,73 @@ namespace H5.Compiler.IntegrationTests
             }).ToList();
 
             var sb = new System.Text.StringBuilder();
+            bool polyfillWritten = false;
             foreach (var file in sortedFiles)
             {
                 sb.AppendLine($"// File: {file.Key}");
                 sb.AppendLine(file.Value);
                 sb.AppendLine();
+
+                var name = System.IO.Path.GetFileName(file.Key).ToLowerInvariant();
+                if (!polyfillWritten && (name == "h5.js" || name == "h5.core.js"))
+                {
+                    // Inject H5.toPromise polyfill because tests run against NuGet version of h5.js which lacks it.
+                    // We inject it after the library is loaded but before user code (which comes later in sortedFiles).
+                    sb.AppendLine(@"
+    H5.toPromise = function (awaitable) {
+        if (!awaitable) {
+            return Promise.resolve(awaitable);
+        }
+
+        if (awaitable instanceof Promise || typeof awaitable.then === 'function') {
+            return awaitable;
+        }
+
+        if (H5.is(awaitable, System.Threading.Tasks.Task) || (awaitable && typeof awaitable.continueWith === 'function')) {
+            return new Promise(function (resolve, reject) {
+                awaitable.continueWith(function (t) {
+                    if (t.isFaulted()) {
+                        var ex = t.exception;
+                        if (ex && ex.innerExceptions && ex.innerExceptions.Count > 0) {
+                             reject(ex.innerExceptions.getItem(0));
+                        } else {
+                             reject(ex);
+                        }
+                    } else if (t.isCanceled()) {
+                         reject(new System.Threading.Tasks.TaskCanceledException.$ctor3(t));
+                    } else {
+                        resolve(t.getAwaitedResult ? t.getAwaitedResult() : t.getResult());
+                    }
+                });
+            });
+        }
+
+        if (typeof awaitable.getAwaiter === 'function') {
+             var awaiter = awaitable.getAwaiter();
+             if (awaiter.isCompleted()) {
+                 return Promise.resolve(awaiter.getResult());
+             }
+             return new Promise(function(resolve, reject) {
+                 var onCompleted = awaiter.onCompleted || awaiter.continueWith;
+                 if (typeof onCompleted === 'function') {
+                     onCompleted.call(awaiter, function() {
+                         try {
+                             resolve(awaiter.getResult());
+                         } catch(e) {
+                             reject(e);
+                         }
+                     });
+                 } else {
+                     resolve(awaiter);
+                 }
+             });
+        }
+
+        return Promise.resolve(awaitable);
+    };
+");
+                    polyfillWritten = true;
+                }
             }
 
             return sb.ToString();

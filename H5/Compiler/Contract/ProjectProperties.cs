@@ -26,6 +26,8 @@ namespace H5.Contract
 
         public string RootNamespace{ get; set; }
 
+        public string LanguageVersion { get; set; }
+
         public override string ToString()
         {
             return string.Join(", ", GetValues().Select(x => x.Key + ":" + x.Value));
@@ -46,6 +48,7 @@ namespace H5.Contract
                { WrapProperty("OutputPath"), GetString(OutputPath) },
                { WrapProperty("OutputType"), GetString(OutputType) },
                { WrapProperty("RootNamespace"), GetString(RootNamespace) },
+               { WrapProperty("LangVersion"), GetString(LanguageVersion) },
             };
 
             return r;
@@ -94,6 +97,9 @@ namespace H5.Contract
                     break;
                 case "rootnamespace":
                     RootNamespace = value;
+                    break;
+                case "langversion":
+                    LanguageVersion = value;
                     break;
                 default:
                     break;

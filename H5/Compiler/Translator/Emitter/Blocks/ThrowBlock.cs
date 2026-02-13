@@ -24,7 +24,7 @@ namespace H5.Translator
         {
             var oldValue = Emitter.ReplaceAwaiterByVar;
 
-            if (Emitter.IsAsync)
+            if (Emitter.IsAsync && !Emitter.IsNativeAsync)
             {
                 WriteAwaiters(ThrowStatement.Expression);
                 Emitter.ReplaceAwaiterByVar = true;

@@ -124,7 +124,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Known bug: Exception filters with property access fail")]
         public async Task ExceptionFilters_Failing()
         {
             var code = """

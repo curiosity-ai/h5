@@ -228,6 +228,10 @@ namespace H5.Translator
 
                             updatedPatterns[pattern] = newExpr.NormalizeWhitespace();
                         }
+                        else if (pattern.Pattern is RecursivePatternSyntax recursivePattern)
+                        {
+                            updatedPatterns[pattern] = MakeCheck(pattern.Expression, recursivePattern).NormalizeWhitespace();
+                        }
                     }
                 }
                 catch (Exception e)
@@ -242,6 +246,52 @@ namespace H5.Translator
             }
 
             return root;
+        }
+
+        private ExpressionSyntax MakeCheck(ExpressionSyntax expression, PatternSyntax pattern)
+        {
+            if (pattern is ConstantPatternSyntax constPattern)
+            {
+                if (constPattern.Expression.IsKind(SyntaxKind.NullLiteralExpression))
+                {
+                    return SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, expression, constPattern.Expression);
+                }
+
+                return SyntaxFactory.InvocationExpression(
+                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expression, SyntaxFactory.IdentifierName("Equals")),
+                    SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(constPattern.Expression)))
+                );
+            }
+            else if (pattern is RecursivePatternSyntax recursivePattern)
+            {
+                var condition = (ExpressionSyntax)SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, expression, SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+
+                if (recursivePattern.Type != null)
+                {
+                    var typeCheck = SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, recursivePattern.Type);
+                    condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, typeCheck);
+                }
+
+                if (recursivePattern.PropertyPatternClause != null)
+                {
+                    foreach (var sub in recursivePattern.PropertyPatternClause.Subpatterns)
+                    {
+                        var propAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expression, sub.NameColon.Name);
+                        var subCheck = MakeCheck(propAccess, sub.Pattern);
+                        condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, subCheck);
+                    }
+                }
+
+                return condition;
+            }
+            else if (pattern is DeclarationPatternSyntax declPattern)
+            {
+                // Partial support: Type check only (variables ignored for now)
+                return SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, declPattern.Type);
+            }
+
+            // Discard or Var matches everything (checked non-null by parent RecursivePattern usually, but here we assume true)
+            return SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression);
         }
     }
 }

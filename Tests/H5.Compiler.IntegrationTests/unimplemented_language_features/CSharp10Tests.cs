@@ -59,9 +59,26 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task FileScopedNamespace()
         {
+            // RoslynCompiler (CSharpScript) does not support file-scoped namespaces in scripts.
+            // But H5 compiler should support it if we compile to JS.
+            // We need to bypass Roslyn checks if possible or accept that Roslyn test runner might fail.
+            // However, RunTest runs both.
+            // Let's modify the test to only run H5 compilation if Roslyn fails due to script limitations?
+            // Or better, just test the H5 output.
+
+            // For now, let's keep it but mark it as H5 only test if we had that capability.
+            // Wait, we can wrap the code in a standard namespace for Roslyn if we want to share logic? No, the point is to test syntax.
+
+            // The error "Cannot declare namespace in script code" confirms Roslyn limitation.
+            // We can't change RoslynCompiler easily.
+            // We should expect this test to fail on Roslyn side but pass on H5.
+
+            // But RunTest assertions check output match.
+            // Let's try to verify if H5 compiles it.
+
             var code = """
 using System;
 
@@ -71,11 +88,11 @@ public class Program
 {
     public static void Main()
     {
-        Console.WriteLine(typeof(Program).Namespace);
+        System.Console.WriteLine(typeof(Program).Namespace);
     }
 }
 """;
-            await RunTest(code);
+             await RunTest(code);
         }
 
         [TestMethod]

@@ -139,6 +139,17 @@ namespace H5.Compiler.IntegrationTests
 
         public static async Task<string> CompileToJs(string csharpCode)
         {
+            // Clear SharpSixRewriter cache to prevent stale rewrite issues
+            try
+            {
+                var files = Directory.GetFiles(Environment.CurrentDirectory, "*.h5.rewriter.cache", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    File.Delete(file);
+                }
+            }
+            catch { /* Ignore */ }
+
             var latestVersion = await GetLatestVersionAsync();
 
             var settings = new H5DotJson_AssemblySettings()

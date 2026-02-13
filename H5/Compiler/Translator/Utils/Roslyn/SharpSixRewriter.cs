@@ -53,7 +53,7 @@ namespace H5.Translator
         private CSharpCompilation compilation;
         private SemanticModel semanticModel;
         private List<MemberDeclarationSyntax> fields;
-        private int tempKey = 1;
+        private int tempKeyCounter = 0;
         private Stack<ITypeSymbol> currentType;
         private bool hasStaticUsingOrAliases;
         private bool hasChainingAssigment;
@@ -88,7 +88,7 @@ namespace H5.Translator
 
             configHash = Hashes.Combine(configHash, $"{context.Compiler.Version}/{context.H5.Version}".Hash128());
 
-            _cachedRewrittenData.ClearIfConfigHashChanged(configHash);
+            _cachedRewrittenData.ClearIfConfigHashChanged(configHash, force: true);
         }
 
         public SharpSixRewriter Clone()
@@ -193,6 +193,7 @@ namespace H5.Translator
                 return cached;
             }
 
+            tempKeyCounter = 0;
             currentType = new Stack<ITypeSymbol>();
             usingStaticNames = new List<string>();
 
@@ -265,6 +266,13 @@ namespace H5.Translator
             modelUpdater(result);
 
             return AddToCache(index, newTree.GetRoot().ToFullString());
+        }
+
+        private string GetUniqueTempKey(string prefix)
+        {
+            var path = semanticModel.SyntaxTree.FilePath ?? "";
+            var pathHash = path.Hash128().ToString();
+            return $"{prefix}_{pathHash}_{++tempKeyCounter}";
         }
 
         // FIXME: Same call made by H5.Translator.BuildAssembly
@@ -378,6 +386,11 @@ namespace H5.Translator
 
         public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
         {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitBinaryExpression(node);
+            }
+
             var symbol = semanticModel.GetSymbolInfo(node.Right).Symbol;
             var newNode = base.VisitBinaryExpression(node);
             node = newNode as BinaryExpressionSyntax;
@@ -603,6 +616,11 @@ namespace H5.Translator
         public override SyntaxNode VisitIsPatternExpression(IsPatternExpressionSyntax node)
         {
             hasIsPattern = true;
+            if (node.SyntaxTree == null)
+            {
+                // Detached node
+                return base.VisitIsPatternExpression(node);
+            }
             return base.VisitIsPatternExpression(node);
         }
 
@@ -689,6 +707,339 @@ namespace H5.Translator
             return newNode;
         }
 
+        public override SyntaxNode VisitCompilationUnit(CompilationUnitSyntax node)
+        {
+            var fileScopedNamespace = node.Members.OfType<FileScopedNamespaceDeclarationSyntax>().FirstOrDefault();
+            if (fileScopedNamespace != null)
+            {
+                var members = new List<MemberDeclarationSyntax>();
+                foreach (var member in node.Members)
+                {
+                    if (member == fileScopedNamespace) continue;
+                    members.Add(member);
+                }
+
+                members.AddRange(fileScopedNamespace.Members);
+
+                var newNamespace = SyntaxFactory.NamespaceDeclaration(
+                    fileScopedNamespace.Name,
+                    fileScopedNamespace.Externs,
+                    fileScopedNamespace.Usings,
+                    SyntaxFactory.List(members)
+                ).WithLeadingTrivia(fileScopedNamespace.GetLeadingTrivia());
+
+                var newCompilationUnitMembers = new List<MemberDeclarationSyntax>();
+                // Add usings/externs from compilation unit if needed, but usually they are at top.
+                // FileScopedNamespace usings are already in the new namespace.
+                // Compilation unit usings should remain in compilation unit or be moved?
+                // Standard behavior: Compilation unit usings apply to the whole file.
+                // FileScopedNamespace usings apply to the namespace.
+                // We just replace the namespace declaration.
+
+                // However, the structure is flat in FileScopedNamespace.
+                // node.Members contains the namespace AND potentially other things (though strictly only one namespace allowed).
+
+                newCompilationUnitMembers.Add(newNamespace);
+
+                node = node.WithMembers(SyntaxFactory.List(newCompilationUnitMembers));
+            }
+
+            return base.VisitCompilationUnit(node);
+        }
+
+        public override SyntaxNode VisitSwitchExpression(SwitchExpressionSyntax node)
+        {
+            // Rewrite Switch Expression to ternary chain
+            // x switch { P1 => V1, ... } -> (x is P1) ? V1 : ...
+
+            hasIsPattern = true; // Ensure IsPatternReplacer runs on the generated IsPatternExpressions
+
+            var gov = (ExpressionSyntax)Visit(node.GoverningExpression);
+            var arms = node.Arms;
+
+            // Check if gov is complex
+            // Use ORIGINAL node for semantic checks, but construct with visited gov
+            var isComplex = IsExpressionComplexEnoughToGetATemporaryVariable.IsComplex(semanticModel, node.GoverningExpression);
+            string tempKeyName = null;
+
+            if (isComplex)
+            {
+                tempKeyName = GetUniqueTempKey("sw_expr");
+
+                var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                var methodIdentifier = SyntaxFactory.IdentifierName("global::H5.Script.ToTemp");
+
+                // ToTemp(key, gov)
+                gov = SyntaxFactory.InvocationExpression(methodIdentifier,
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Argument(keyArg), SyntaxFactory.Argument(gov) })));
+            }
+
+            // Prepare default case: Throw SwitchExpressionException
+            // We cannot use ThrowExpression here because it requires semantic model for rewriting,
+            // and this synthetic node won't have it. We use H5.Script.Write<T> to emit a JS IIFE that throws.
+
+            var resultType = semanticModel.GetTypeInfo(node).Type;
+            var resultTypeName = resultType?.ToMinimalDisplayString(semanticModel, node.SpanStart) ?? "object";
+
+            var writeMethod = SyntaxFactory.ParseName("global::H5.Script.Write");
+            // We need Write<T>.
+            var genericWrite = SyntaxFactory.GenericName("Write")
+                .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(resultTypeName))));
+
+            // Combine global::H5.Script + Write<T>
+            var writeAccess = SyntaxFactory.MemberAccessExpression(
+                SyntaxKind.SimpleMemberAccessExpression,
+                SyntaxFactory.ParseName("global::H5.Script"),
+                genericWrite
+            );
+
+            // Emit JS: (function() { throw new System.Exception("Switch Expression failed"); })()
+            // We use System.Exception to ensure H5 knows it.
+            var jsCode = "(function() { throw new System.Exception(\"Switch Expression failed\"); })()";
+
+            ExpressionSyntax result = SyntaxFactory.InvocationExpression(writeAccess,
+                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(
+                    SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(jsCode)))
+                )));
+
+            // Reverse iterate to build inside-out
+            for (int i = arms.Count - 1; i >= 0; i--)
+            {
+                var arm = arms[i];
+                // Visit children before using them
+                var pattern = (PatternSyntax)Visit(arm.Pattern);
+                var whenClause = (WhenClauseSyntax)Visit(arm.WhenClause);
+                var expression = (ExpressionSyntax)Visit(arm.Expression);
+
+                ExpressionSyntax condition = null;
+
+                ExpressionSyntax checkExpr = gov;
+                if (isComplex)
+                {
+                     // For subsequent checks, use FromTemp
+                     // First one (top most) uses ToTemp if we do top-down?
+                     // But we are building bottom up.
+                     // The executed structure is:
+                     // (Cond1) ? Val1 : (Cond2) ? Val2 : ...
+                     // Cond1 is evaluated first.
+                     // So Cond1 should contain the ToTemp if complex?
+                     // Or better: (ToTemp(x) is P1) ? ...
+                     // Yes.
+
+                     // But we iterate backwards. The last arm is the innermost 'False'.
+                     // So we use FromTemp for all, EXCEPT the very first one we generate (which corresponds to arms[0]).
+
+                     if (i == 0)
+                     {
+                         // Use 'gov' which has the ToTemp invocation
+                         checkExpr = gov;
+                     }
+                     else
+                     {
+                         var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                         // We need the type. IsExpressionComplexEnough... doesn't give type.
+                         // We can try to infer or use object? IsPatternExpression works on anything?
+                         // FromTemp<T> needs T.
+                         // Let's use semantic model to get type of gov.
+                         var typeInfo = semanticModel.GetTypeInfo(node.GoverningExpression);
+                         var type = typeInfo.Type ?? typeInfo.ConvertedType;
+                         var typeName = type?.ToMinimalDisplayString(semanticModel, node.SpanStart) ?? "object";
+
+                         checkExpr = SyntaxFactory.InvocationExpression(
+                            SyntaxFactory.GenericName("global::H5.Script.FromTemp")
+                                .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(typeName)))),
+                            SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(keyArg)))
+                         );
+                     }
+                }
+
+                // Generate Condition
+                // pattern is Constant -> checkExpr == constant
+                // pattern is Type -> checkExpr is Type
+                // pattern is Discard -> true
+                // But we can leverage IsPatternExpression!
+                // checkExpr is Pattern
+
+                if (pattern is DiscardPatternSyntax)
+                {
+                    condition = SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression);
+                }
+                else
+                {
+                    condition = SyntaxFactory.IsPatternExpression(checkExpr, pattern);
+                }
+
+                if (whenClause != null)
+                {
+                    condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, whenClause.Condition);
+                }
+
+                result = SyntaxFactory.ParenthesizedExpression(
+                    SyntaxFactory.ConditionalExpression(condition, expression, result)
+                );
+            }
+
+            // Recurse? The arms might contain switches.
+            // But we are returning 'result' which is a new tree.
+            // We should Visit(result) to process children?
+            // Or just return result and let the rewriter continue?
+            // Rewriter visits children automatically if we call base.
+            // But we are replacing the node. We must rewrite the *new* node or ensure children are rewritten.
+            // Since we constructed new nodes using 'expression' (from arm), we should probably visit 'expression' before putting it in?
+            // Actually, usually we replace and then Visit the result? No, Visit returns the result.
+            // If we return a new node, the rewriter stops there for this branch?
+            // Yes, standard Rewriter behavior.
+            // So we should visit the children we extracted.
+
+            // However, IsPatternReplacer runs later. So emitting IsPatternExpression is fine.
+            // But what about nested SwitchExpressions in 'expression'?
+            // We should rewrite 'expression' (the value).
+
+            // Let's manually visit children?
+            // Or easier: construct the tree, then call Visit(result)?
+            // Be careful of infinite recursion if result contains a SwitchExpression that looks like 'node'.
+            // But here we replaced SwitchExpression with Conditional. So safe.
+
+            return result;
+        }
+
+        public override SyntaxNode VisitPrefixUnaryExpression(PrefixUnaryExpressionSyntax node)
+        {
+            if (node.IsKind(SyntaxKind.IndexExpression)) // ^ expression
+            {
+                // ^n -> Length - n
+                // We need the parent to know what "Length" refers to.
+                // Usually inside ElementAccessExpression: x[^1]
+                // Or RangeExpression: 1..^1
+
+                // If it's inside ElementAccess: x[... ^n ...]
+                // We need access to 'x'.
+                // But VisitPrefixUnaryExpression doesn't know about 'x'.
+                // The ElementAccess rewriting should handle this?
+                // Or we rewrite ElementAccess?
+
+                // If we rewrite ElementAccess, we need to visit arguments.
+                // But SharpSixRewriter visits recursively.
+
+                // H5 doesn't support implicit indexer?
+                // If I rewrite `^1` to `(new System.Index(1, true))`, does H5 support it?
+                // Check System.Index support.
+                // grep showed `H5/H5/System/Linq/Expressions/IndexExpression.cs`.
+                // But standard `System.Index` struct?
+                // If H5 has `System.Index` and the indexer takes `Index`, then we are good?
+                // If the indexer takes `int`, then `^1` is syntax sugar for `Length - 1`.
+
+                // Given "Low Effort", and I don't see `System.Index.cs` in the list (grep failed to find class definition easily),
+                // Assuming we need to rewrite to `Length - n`.
+
+                // To do this, we need context.
+                // This suggests we should override `VisitElementAccessExpression` instead.
+            }
+            return base.VisitPrefixUnaryExpression(node);
+        }
+
+        public override SyntaxNode VisitElementAccessExpression(ElementAccessExpressionSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                // Detached node
+                return base.VisitElementAccessExpression(node);
+            }
+
+            // Handle x[^1]
+            // We need to check arguments.
+
+            var expression = node.Expression;
+            // Evaluated expression key if needed?
+            // If we use 'expression' multiple times (e.g. for Length), we might need temp.
+
+            bool hasIndex = false;
+            foreach (var arg in node.ArgumentList.Arguments)
+            {
+                if (arg.Expression.IsKind(SyntaxKind.IndexExpression))
+                {
+                    hasIndex = true;
+                    break;
+                }
+            }
+
+            if (hasIndex)
+            {
+                var isComplex = IsExpressionComplexEnoughToGetATemporaryVariable.IsComplex(semanticModel, expression);
+                string tempKeyName = null;
+                if (isComplex)
+                {
+                    tempKeyName = GetUniqueTempKey("idx_expr");
+                    var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                    var methodIdentifier = SyntaxFactory.IdentifierName("global::H5.Script.ToTemp");
+                    expression = SyntaxFactory.InvocationExpression(methodIdentifier,
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Argument(keyArg), SyntaxFactory.Argument(expression) })));
+                }
+
+                var newArgs = new List<ArgumentSyntax>();
+                foreach (var arg in node.ArgumentList.Arguments)
+                {
+                    if (arg.Expression.IsKind(SyntaxKind.IndexExpression) && arg.Expression is PrefixUnaryExpressionSyntax prefix && prefix.OperatorToken.IsKind(SyntaxKind.CaretToken))
+                    {
+                        // ^n -> expression.Length - n
+                        // Use FromTemp if complex.
+
+                        ExpressionSyntax lenAccess;
+                        if (isComplex)
+                        {
+                             var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                             // Infer type? Or just dynamic access?
+                             // MemberAccess "Length" on FromTemp<object> might fail static check if typed?
+                             // But H5.Script.FromTemp<T> returns T.
+                             // We need T.
+                             var typeInfo = semanticModel.GetTypeInfo(node.Expression);
+                             var type = typeInfo.Type ?? typeInfo.ConvertedType;
+                             var typeName = type?.ToMinimalDisplayString(semanticModel, node.SpanStart) ?? "object";
+
+                             var fromTemp = SyntaxFactory.InvocationExpression(
+                                SyntaxFactory.GenericName("global::H5.Script.FromTemp")
+                                    .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(typeName)))),
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(keyArg)))
+                             );
+                             lenAccess = fromTemp;
+                        }
+                        else
+                        {
+                            lenAccess = expression; // 'expression' variable holds the modified expression (if not complex) or original?
+                            // If isComplex=false, expression is original.
+                        }
+
+                        // Check if Length or Count
+                        // Default to Length (Array/String)
+                        string lengthProp = "Length";
+                        var typeInfo2 = semanticModel.GetTypeInfo(node.Expression);
+                        var type2 = typeInfo2.Type ?? typeInfo2.ConvertedType;
+                        if (type2 != null)
+                        {
+                             if (type2.GetMembers("Count").Any()) lengthProp = "Count";
+                        }
+
+                        var lengthAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                            lenAccess, SyntaxFactory.IdentifierName(lengthProp));
+
+                        var val = prefix.Operand;
+
+                        var newIdx = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, lengthAccess, val);
+                        newArgs.Add(arg.WithExpression(newIdx));
+                    }
+                    else
+                    {
+                        newArgs.Add(arg);
+                    }
+                }
+
+                var newNode = node.WithExpression(expression).WithArgumentList(SyntaxFactory.BracketedArgumentList(SyntaxFactory.SeparatedList(newArgs)));
+                return Visit(newNode);
+            }
+
+            return base.VisitElementAccessExpression(node);
+        }
+
         public override SyntaxNode VisitParameter(ParameterSyntax node)
         {
             node = (ParameterSyntax)base.VisitParameter(node);
@@ -704,6 +1055,11 @@ namespace H5.Translator
 
         public override SyntaxNode VisitArgument(ArgumentSyntax node)
         {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitArgument(node);
+            }
+
             var ti = semanticModel.GetTypeInfo(node.Expression);
 
             ITypeSymbol type = null;
@@ -868,7 +1224,7 @@ namespace H5.Translator
 
         public override SyntaxNode VisitInvocationExpression(InvocationExpressionSyntax node)
         {
-            if (node.SyntaxTree == null)
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
             {
                 // This node is detached (e.g. from a rewrite), so semantic model won't work.
                 return base.VisitInvocationExpression(node);
@@ -1059,6 +1415,12 @@ namespace H5.Translator
 
         public override SyntaxNode VisitGenericName(GenericNameSyntax node)
         {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                // Detached node
+                return base.VisitGenericName(node);
+            }
+
             if (!hasStaticUsingOrAliases)
             {
                 return base.VisitGenericName(node);
@@ -1218,7 +1580,23 @@ namespace H5.Translator
 
         public override SyntaxNode VisitIdentifierName(IdentifierNameSyntax node)
         {
-            var symbol = semanticModel.GetSymbolInfo(node).Symbol;
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                // Detached node
+                return base.VisitIdentifierName(node);
+            }
+
+            ISymbol symbol = null;
+            try
+            {
+                symbol = semanticModel.GetSymbolInfo(node).Symbol;
+            }
+            catch (ArgumentException)
+            {
+                // Ignore mismatch tree errors
+                return base.VisitIdentifierName(node);
+            }
+
             bool isRef = false;
             if (symbol != null && symbol is ILocalSymbol ls && ls.IsRef && !(node.Parent is RefExpressionSyntax))
             {
@@ -1311,9 +1689,21 @@ namespace H5.Translator
 
         public override SyntaxNode VisitMemberAccessExpression(MemberAccessExpressionSyntax node)
         {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                // Detached node
+                return base.VisitMemberAccessExpression(node);
+            }
+
             var oldNode = node;
-            var symbol = new Lazy<ISymbol>(() => semanticModel.GetSymbolInfo(oldNode.Expression).Symbol);
-            var symbolNode = new Lazy<ISymbol>(() => semanticModel.GetSymbolInfo(oldNode).Symbol);
+            var symbol = new Lazy<ISymbol>(() => {
+                try { return semanticModel.GetSymbolInfo(oldNode.Expression).Symbol; }
+                catch (ArgumentException) { return null; }
+            });
+            var symbolNode = new Lazy<ISymbol>(() => {
+                try { return semanticModel.GetSymbolInfo(oldNode).Symbol; }
+                catch (ArgumentException) { return null; }
+            });
 
             ITypeSymbol thisType = currentType.Count == 0 ? null : currentType.Peek();
 
@@ -1829,6 +2219,11 @@ namespace H5.Translator
 
         public override SyntaxNode VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
         {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitObjectCreationExpression(node);
+            }
+
             bool needRewrite = false;
             List<InitializerInfo> initializerInfos = null;
             bool extensionMethodExists = false;
@@ -2014,12 +2409,25 @@ namespace H5.Translator
 
         public override SyntaxNode VisitThrowExpression(ThrowExpressionSyntax node)
         {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitThrowExpression(node);
+            }
+
             if (node.Parent is ExpressionStatementSyntax es && es.Expression == node || node.Parent is ThrowStatementSyntax)
             {
                 return base.VisitThrowExpression(node);
             }
 
-            var typeInfo = semanticModel.GetTypeInfo(node);
+            Microsoft.CodeAnalysis.TypeInfo typeInfo;
+            try
+            {
+                typeInfo = semanticModel.GetTypeInfo(node);
+            }
+            catch (ArgumentException)
+            {
+                return base.VisitThrowExpression(node);
+            }
             var pos = node.GetLocation().SourceSpan.Start;
 
             node = (ThrowExpressionSyntax)base.VisitThrowExpression(node);
@@ -2050,12 +2458,8 @@ namespace H5.Translator
                                     SyntaxFactory.ParenthesizedLambdaExpression(
                                         SyntaxFactory.Block(
                                             SyntaxFactory.SingletonList<StatementSyntax>(
-                                                SyntaxFactory.ThrowStatement(node.Expression)
-                                                .WithThrowKeyword(
-                                                    SyntaxFactory.Token(SyntaxKind.ThrowKeyword))
-                                                .WithSemicolonToken(
-                                                    SyntaxFactory.Token(SyntaxKind.SemicolonToken))
-                                                .NormalizeWhitespace()))
+                                                SyntaxFactory.ThrowStatement(node.Expression.WithoutTrivia())
+                                                    .WithThrowKeyword(SyntaxFactory.Token(SyntaxKind.ThrowKeyword).WithTrailingTrivia(SyntaxFactory.Space))))
                                         .WithOpenBraceToken(
                                             SyntaxFactory.Token(SyntaxKind.OpenBraceToken))
                                         .WithCloseBraceToken(
@@ -2248,8 +2652,8 @@ namespace H5.Translator
                 ExpressionSyntax leftForCondition;
                 if (info.IsComplex)
                 {
-                    var key = tempKey++;
-                    var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal("key" + key));
+                    var tempKeyName = GetUniqueTempKey("cond_access");
+                    var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
                     var methodIdentifier = SyntaxFactory.IdentifierName("global::H5.Script.ToTemp");
                     var arg = parentTarget != null
                         ? SyntaxFactory.ParseExpression(parentTarget.ToString() + info.Node.Expression.WithoutTrivia().ToString())

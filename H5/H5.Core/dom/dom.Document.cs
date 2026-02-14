@@ -17,7 +17,7 @@ namespace H5.Core
 
         [CombinedClass]
         [FormerInterface]
-        public class Document : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ParentNode.Interface, dom.DocumentEvent.Interface
+        public partial class Document : dom.Node, dom.GlobalEventHandlers.Interface, IObject, dom.ParentNode.Interface, dom.DocumentEvent.Interface
         {
 
             public static dom.Document prototype

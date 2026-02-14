@@ -44146,7 +44146,7 @@ namespace H5.Core
 
         [CombinedClass]
         [FormerInterface]
-        public class Window : dom.EventTarget, dom.WindowTimers.Interface, dom.WindowTimersExtension.Interface, IObject, dom.WindowSessionStorage.Interface, dom.WindowLocalStorage.Interface, dom.WindowConsole.Interface, dom.GlobalEventHandlers.Interface, dom.IDBEnvironment.Interface, dom.WindowBase64.Interface, dom.GlobalFetch.Interface
+        public partial class Window : dom.EventTarget, dom.WindowTimers.Interface, dom.WindowTimersExtension.Interface, IObject, dom.WindowSessionStorage.Interface, dom.WindowLocalStorage.Interface, dom.WindowConsole.Interface, dom.GlobalEventHandlers.Interface, dom.IDBEnvironment.Interface, dom.WindowBase64.Interface, dom.GlobalFetch.Interface
         {
 
 

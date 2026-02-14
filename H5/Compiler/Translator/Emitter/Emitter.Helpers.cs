@@ -629,6 +629,7 @@ namespace H5.Translator
             Output = new StringBuilder();
             Locals = null;
             LocalsStack = null;
+            RefLocals = null;
             IteratorCount = 0;
             ThisRefCounter = 0;
             Writers = new Stack<IWriter>();
@@ -738,6 +739,98 @@ namespace H5.Translator
             target.Add(output);
 
             return true;
+        }
+
+        public void Write(string s)
+        {
+            if (IsNewLine)
+            {
+                for (var i = 0; i < Level; i++)
+                {
+                    Output.Append(INDENT);
+                }
+                IsNewLine = false;
+            }
+            Output.Append(s);
+        }
+
+        public void EmitReference(Expression expression)
+        {
+            if (expression is IndexerExpression indexerExpression)
+            {
+                // (function($t, $i) { var $r = {}; Object.defineProperty($r, 'v', { get: function() { return $t[$i]; }, set: function($v) { $t[$i] = $v; }, enumerable: true }); return $r; })(target, index)
+                Write("(function($t, $i) { var $r = {}; Object.defineProperty($r, 'v', { get: function() { return ");
+
+                var rr = Resolver.ResolveNode(indexerExpression);
+
+                if (rr is ArrayAccessResolveResult)
+                {
+                     Write("$t[$i]; }, set: function($v) { $t[$i] = $v; }, enumerable: true }); return $r; })(");
+                     indexerExpression.Target.AcceptVisitor(this);
+                     Write(", ");
+                     if (indexerExpression.Arguments.Count == 1)
+                     {
+                        indexerExpression.Arguments.First().AcceptVisitor(this);
+                     }
+                     else
+                     {
+                         throw new EmitterException(indexerExpression, "Multidimensional array ref return not supported yet");
+                     }
+                     Write(")");
+                     return;
+                }
+            }
+            else if (expression is MemberReferenceExpression memberReferenceExpression)
+            {
+                 var rr = Resolver.ResolveNode(memberReferenceExpression);
+                 if (rr is MemberResolveResult mrr && mrr.Member is IField)
+                 {
+                     string memberName = OverloadsCollection.Create(this, mrr.Member).GetOverloadName();
+
+                     Write("(function($t) { var $r = {}; Object.defineProperty($r, 'v', { get: function() { return $t.");
+                     Write(memberName);
+                     Write("; }, set: function($v) { return $t.");
+                     Write(memberName);
+                     Write(" = $v; }, enumerable: true }); return $r; })(");
+                     memberReferenceExpression.Target.AcceptVisitor(this);
+                     Write(")");
+                     return;
+                 }
+            }
+            else if (expression is IdentifierExpression identifierExpression)
+            {
+                var rr = Resolver.ResolveNode(identifierExpression);
+                if (RefLocals != null && rr is LocalResolveResult lrr)
+                {
+                     string name = null;
+                     if (LocalsMap != null && LocalsMap.ContainsKey(lrr.Variable))
+                         name = LocalsMap[lrr.Variable];
+                     else if (LocalsNamesMap != null && LocalsNamesMap.ContainsKey(lrr.Variable.Name))
+                         name = LocalsNamesMap[lrr.Variable.Name];
+                     else
+                         name = identifierExpression.Identifier;
+
+                     if (RefLocals.Contains(name))
+                     {
+                         Write(name);
+                         return;
+                     }
+                }
+
+                 Write("(function() { var $r = {}; Object.defineProperty($r, 'v', { get: function() { return ");
+                 identifierExpression.AcceptVisitor(this);
+                 Write("; }, set: function($v) { ");
+                 identifierExpression.AcceptVisitor(this);
+                 Write(" = $v; }, enumerable: true }); return $r; })()");
+                 return;
+            }
+            else if (expression is DirectionExpression directionExpression)
+            {
+                EmitReference(directionExpression.Expression);
+                return;
+            }
+
+            expression.AcceptVisitor(this);
         }
     }
 }

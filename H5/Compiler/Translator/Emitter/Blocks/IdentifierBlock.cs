@@ -50,17 +50,26 @@ namespace H5.Translator
             if (Emitter.Locals != null && Emitter.Locals.ContainsKey(id) && resolveResult is LocalResolveResult)
             {
                 var lrr = (LocalResolveResult)resolveResult;
+                string name;
+
                 if (Emitter.LocalsMap != null && Emitter.LocalsMap.ContainsKey(lrr.Variable) && !(identifierExpression.Parent is DirectionExpression))
                 {
-                    Write(Emitter.LocalsMap[lrr.Variable]);
+                    name = Emitter.LocalsMap[lrr.Variable];
                 }
                 else if (Emitter.LocalsNamesMap != null && Emitter.LocalsNamesMap.ContainsKey(id))
                 {
-                    Write(Emitter.LocalsNamesMap[id]);
+                    name = Emitter.LocalsNamesMap[id];
                 }
                 else
                 {
-                    Write(id);
+                    name = id;
+                }
+
+                Write(name);
+
+                if (Emitter.RefLocals != null && Emitter.RefLocals.Contains(name) && !(identifierExpression.Parent is DirectionExpression))
+                {
+                    Write(".v");
                 }
 
                 Helpers.CheckValueTypeClone(resolveResult, identifierExpression, this, pos);

@@ -13,6 +13,7 @@
     <IncludeSymbols>false</IncludeSymbols>
     <PackageIcon>h5.png</PackageIcon>
     <PackageId>h5</PackageId>
+    <LangVersion>7.2</LangVersion>
     <Authors>Curiosity GmbH, Object.NET, Inc.</Authors>
     <Company>Curiosity GmbH, Object.NET, Inc.</Company>
     <Description>Base library used by the C# to JavaScript compiler 🚀</Description>

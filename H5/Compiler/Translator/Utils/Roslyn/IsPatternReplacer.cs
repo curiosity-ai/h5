@@ -223,10 +223,11 @@ namespace H5.Translator
                         {
                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, recursivePattern).NormalizeWhitespace();
                         }
-                        // Fallback for all other patterns (Unary, Binary, Relational, Type, Parenthesized)
                         else
                         {
-                            updatedPatterns[pattern] = MakeCheck(pattern.Expression, pattern.Pattern).NormalizeWhitespace();
+                             // Fallback for other patterns (Relational, Binary, Unary, Type, Parenthesized)
+                             // which are handled by MakeCheck but were missing here.
+                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, pattern.Pattern).NormalizeWhitespace();
                         }
                     }
                 }

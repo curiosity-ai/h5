@@ -148,7 +148,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task TuplePatterns()
         {
             var code = """
@@ -176,7 +175,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task PositionalPatterns()
         {
             var code = """

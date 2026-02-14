@@ -2,6 +2,7 @@ using System.Linq;
 using H5.Contract;
 using H5.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
+using ICSharpCode.NRefactory.TypeSystem;
 
 namespace H5.Translator
 {
@@ -103,7 +104,12 @@ namespace H5.Translator
                 WriteReturn(false);
                 expression = returnStatement != null ? returnStatement.Expression : expression;
 
-                if (Emitter.ReplaceJump && Emitter.JumpStatements == null)
+                if (Emitter.ReturnType != null && Emitter.ReturnType.Kind == TypeKind.ByReference && !expression.IsNull)
+                {
+                    WriteSpace();
+                    Emitter.EmitReference(expression);
+                }
+                else if (Emitter.ReplaceJump && Emitter.JumpStatements == null)
                 {
                     WriteSpace();
                     Write("{jump: 3");

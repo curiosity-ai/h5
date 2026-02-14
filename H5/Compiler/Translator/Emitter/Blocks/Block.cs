@@ -187,10 +187,20 @@ namespace H5.Translator
                 }
                 else if (role == "Getter")
                 {
-                    var methodDeclaration = (Accessor)BlockStatement.Parent;
-                    if (!methodDeclaration.ReturnType.IsNull)
+                    var accessor = (Accessor)BlockStatement.Parent;
+                    if (!accessor.ReturnType.IsNull)
                     {
-                        var rr = Emitter.Resolver.ResolveNode(methodDeclaration.ReturnType);
+                        var rr = Emitter.Resolver.ResolveNode(accessor.ReturnType);
+                        ReturnType = rr.Type;
+                    }
+                    else if (accessor.Parent is IndexerDeclaration indexer)
+                    {
+                        var rr = Emitter.Resolver.ResolveNode(indexer.ReturnType);
+                        ReturnType = rr.Type;
+                    }
+                    else if (accessor.Parent is PropertyDeclaration property)
+                    {
+                        var rr = Emitter.Resolver.ResolveNode(property.ReturnType);
                         ReturnType = rr.Type;
                     }
                 }

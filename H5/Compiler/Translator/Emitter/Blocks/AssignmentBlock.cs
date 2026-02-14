@@ -193,6 +193,7 @@ namespace H5.Translator
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                             memberTargetrr.TargetResult is LocalResolveResult)) || leftResolverResult is ThisResolveResult || leftResolverResult is LocalResolveResult || leftResolverResult is ConstantResolveResult;
 
+
             var rightMemberTargetrr = rightResolverResult as MemberResolveResult;
             bool isRightSimple = (rightMemberTargetrr != null && rightMemberTargetrr.Member is IField &&
                            (rightMemberTargetrr.TargetResult is ThisResolveResult ||

@@ -123,6 +123,8 @@ namespace H5.Contract
 
         Dictionary<IVariable, string> LocalsMap { get; set; }
 
+        HashSet<string> RefLocals { get; set; }
+
         Dictionary<string, string> LocalsNamesMap { get; set; }
 
         Stack<Dictionary<string, AstType>> LocalsStack { get; set; }
@@ -231,6 +233,8 @@ namespace H5.Contract
 
         bool DisableDependencyTracking { get; set; }
 
+        void Write(string s);
+        void EmitReference(Expression expression);
         void WriteIndented(string s, int? position = null);
         string GetReflectionName(IType type);
         bool ForbidLifting { get; set; }

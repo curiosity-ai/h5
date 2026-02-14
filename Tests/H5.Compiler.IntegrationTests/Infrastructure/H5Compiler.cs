@@ -161,7 +161,8 @@ namespace H5.Compiler.IntegrationTests
                 {
                     Disabled = false,
                     Target = Contract.MetadataTarget.Inline, 
-                }
+                },
+                IgnoreDuplicateTypes = true // Allow shadowing polyfilled types
             };
 
             var request = new CompilationRequest("App", settings)
@@ -170,6 +171,15 @@ namespace H5.Compiler.IntegrationTests
                             .WithLanguageVersion("Latest")
                             .WithPackageReference("h5", latestVersion)
                             .WithSourceFile("App.cs", csharpCode);
+
+            // Inject local implementations of C# 8.0 types
+            var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
+            request.WithSourceFile("H5/H5/System/Index.cs", File.ReadAllText(Path.Combine(root, "H5/H5/System/Index.cs")));
+            request.WithSourceFile("H5/H5/System/Range.cs", File.ReadAllText(Path.Combine(root, "H5/H5/System/Range.cs")));
+            request.WithSourceFile("H5/H5/System/Span.cs", File.ReadAllText(Path.Combine(root, "H5/H5/System/Span.cs")));
+            request.WithSourceFile("H5/H5/System/ReadOnlySpan.cs", File.ReadAllText(Path.Combine(root, "H5/H5/System/ReadOnlySpan.cs")));
+            request.WithSourceFile("H5/H5/System/Runtime/CompilerServices/RuntimeHelpers.cs", File.ReadAllText(Path.Combine(root, "H5/H5/System/Runtime/CompilerServices/RuntimeHelpers.cs")));
+
 
             var compiledJavascript = await CompilationProcessor.CompileAsync(request);
 

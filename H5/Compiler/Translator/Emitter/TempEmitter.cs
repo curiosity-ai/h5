@@ -36,6 +36,8 @@ namespace H5.Translator
             }
         }
 
+        public HashSet<string> RefLocals { get; set; }
+
         public bool IsNativeAsync { get; set; }
 
         public Dictionary<IAssembly, CompilerRule[]> AssemblyCompilerRuleCache { get; set; }
@@ -753,6 +755,16 @@ namespace H5.Translator
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public void Write(string s)
+        {
+            Output.Append(s);
+        }
+
+        public void EmitReference(Expression expression)
+        {
+            throw new NotImplementedException();
         }
 
         public CompilerRule Rules

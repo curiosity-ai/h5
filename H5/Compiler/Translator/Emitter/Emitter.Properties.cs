@@ -37,6 +37,8 @@ namespace H5.Translator
 
         public Dictionary<IVariable, string> LocalsMap { get; set; }
 
+        public HashSet<string> RefLocals { get; set; }
+
         public Dictionary<string, string> LocalsNamesMap { get; set; }
 
         public Stack<Dictionary<string, AstType>> LocalsStack { get; set; }

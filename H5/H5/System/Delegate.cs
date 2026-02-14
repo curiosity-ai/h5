@@ -32,6 +32,9 @@ namespace System
 
         public virtual extern object Call();
 
+        [H5.Template("{this}.apply(null, {args})")]
+        public virtual extern object DynamicInvoke(params object[] args);
+
         [H5.Template("H5.fn.combine({0}, {1})")]
         public static extern Delegate Combine(Delegate a, Delegate b);
 

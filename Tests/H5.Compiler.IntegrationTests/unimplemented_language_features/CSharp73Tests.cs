@@ -155,7 +155,6 @@ public class Point
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task EnumConstraint()
         {
             var code = """
@@ -178,7 +177,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task DelegateConstraint()
         {
             var code = """

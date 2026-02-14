@@ -134,7 +134,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("This test is not supported by Roslyn due to error CS1109: Extension methods must be defined in a top level static class; StringExtensions is a nested class")]
         public async Task ExtensionMethods()
         {
             var code = """
@@ -142,8 +141,9 @@ using System;
 
 public static class StringExtensions
 {
-    public static string Reverse(this string s)
+    public static string ReverseText(this string s)
     {
+        Console.WriteLine($"Reversing text: {s}");
         char[] charArray = s.ToCharArray();
         Array.Reverse(charArray);
         return new string(charArray);
@@ -155,11 +155,34 @@ public class Program
     public static void Main()
     {
         string s = "Hello";
-        Console.WriteLine(s.Reverse());
+        Console.WriteLine(s.ReverseText());
     }
 }
 """;
-            await RunTest(code);
+
+            //For Rosyln we don't wrap it in a static class as the code already is compiled as a "static class"
+            var rosylnCode = """
+using System;
+
+public static string ReverseText(this string s)
+{
+    Console.WriteLine($"Reversing text: {s}");
+    char[] charArray = s.ToCharArray();
+    Array.Reverse(charArray);
+    return new string(charArray);
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        string s = "Hello";
+        Console.WriteLine(s.ReverseText());
+    }
+}
+""";
+
+            await RunTest(code, overrideRoslynCode: rosylnCode);
         }
 
         [TestMethod]

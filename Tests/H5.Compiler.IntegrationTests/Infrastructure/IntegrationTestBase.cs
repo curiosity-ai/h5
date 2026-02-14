@@ -11,7 +11,7 @@ namespace H5.Compiler.IntegrationTests
         {
         }
 
-        protected async Task<string> RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false)
+        protected async Task<string> RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false, string overrideRoslynCode = null)
         {
             string roslynOutput = "";
 
@@ -19,7 +19,7 @@ namespace H5.Compiler.IntegrationTests
             {
                 try
                 {
-                    roslynOutput = await RoslynCompiler.CompileAndRunAsync(csharpCode);
+                    roslynOutput = await RoslynCompiler.CompileAndRunAsync(overrideRoslynCode ?? csharpCode);
                 }
                 catch (Exception ex)
                 {

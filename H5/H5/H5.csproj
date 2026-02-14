@@ -24,7 +24,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>http://h5.rocks/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/curiosity-ai/h5</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -120,6 +120,8 @@ namespace H5.Core
             public virtual dom.XRSystem xr { get; }
             public virtual dom.HID hid { get; }
             public virtual dom.Serial serial { get; }
+            public virtual dom.MediaCapabilities mediaCapabilities { get; }
+            public virtual dom.MediaSession mediaSession { get; }
 
             public virtual extern es5.Promise<H5.Core.Void> share(dom.ShareData data);
             public virtual extern es5.Promise<H5.Core.Void> setAppBadge(double contents);

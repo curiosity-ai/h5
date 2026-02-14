@@ -53,9 +53,21 @@ namespace H5.Translator
 
                 bool isReferenceLocal = false;
 
-                if (Emitter.LocalsMap != null && Emitter.Resolver.ResolveNode(variable) is LocalResolveResult lrr && Emitter.LocalsMap.ContainsKey(lrr.Variable))
+                if (Emitter.Resolver.ResolveNode(variable) is LocalResolveResult lrr)
                 {
-                    isReferenceLocal = Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
+                    if (lrr.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.ByReference)
+                    {
+                        if (Emitter.RefLocals == null)
+                        {
+                             Emitter.RefLocals = new System.Collections.Generic.HashSet<string>();
+                        }
+                        Emitter.RefLocals.Add(varName);
+                    }
+
+                    if (Emitter.LocalsMap != null && Emitter.LocalsMap.ContainsKey(lrr.Variable))
+                    {
+                        isReferenceLocal = Emitter.LocalsMap[lrr.Variable].EndsWith(".v");
+                    }
                 }
 
                 lastIsReferenceLocal = isReferenceLocal;

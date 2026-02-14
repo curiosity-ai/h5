@@ -166,7 +166,8 @@ namespace H5.Compiler.IntegrationTests
                 {
                     Disabled = false,
                     Target = Contract.MetadataTarget.Inline, 
-                }
+                },
+                IgnoreDuplicateTypes = true // Allow shadowing polyfilled types
             };
 
             var request = new CompilationRequest("App", settings)
@@ -175,6 +176,8 @@ namespace H5.Compiler.IntegrationTests
                             .WithLanguageVersion("Latest")
                             .WithPackageReference("h5", latestVersion)
                             .WithSourceFile("App.cs", csharpCode);
+
+
 
             var compiledJavascript = await CompilationProcessor.CompileAsync(request);
 

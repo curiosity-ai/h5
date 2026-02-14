@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Xml.Linq;
 using System.Linq;
 using System.IO;
@@ -147,6 +148,14 @@ namespace H5.Translator
                     cancellationToken.ThrowIfCancellationRequested();
                     var filePath   = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
                     var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(languageVersion, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
+
+                    var rewriter = new StackAllocRewriter();
+                    var newRoot = rewriter.Visit(syntaxTree.GetRoot());
+                    if (newRoot != syntaxTree.GetRoot())
+                    {
+                        syntaxTree = syntaxTree.WithRootAndOptions(newRoot, syntaxTree.Options);
+                    }
+
                     trees.Add(syntaxTree);
                 }
 
@@ -573,6 +582,27 @@ namespace H5.Translator
                 }
 
             File.SetLastWriteTimeUtc(destinationFile, sfi.LastWriteTimeUtc);
+        }
+
+        internal class StackAllocRewriter : CSharpSyntaxRewriter
+        {
+            public override SyntaxNode VisitStackAllocArrayCreationExpression(StackAllocArrayCreationExpressionSyntax node)
+            {
+                node = (StackAllocArrayCreationExpressionSyntax)base.VisitStackAllocArrayCreationExpression(node);
+                return SyntaxFactory.ArrayCreationExpression((ArrayTypeSyntax)node.Type, node.Initializer)
+                    .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                    .WithLeadingTrivia(node.GetLeadingTrivia())
+                    .WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+
+            public override SyntaxNode VisitImplicitStackAllocArrayCreationExpression(ImplicitStackAllocArrayCreationExpressionSyntax node)
+            {
+                node = (ImplicitStackAllocArrayCreationExpressionSyntax)base.VisitImplicitStackAllocArrayCreationExpression(node);
+                return SyntaxFactory.ImplicitArrayCreationExpression(node.Initializer)
+                    .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                    .WithLeadingTrivia(node.GetLeadingTrivia())
+                    .WithTrailingTrivia(node.GetTrailingTrivia());
+            }
         }
     }
 }

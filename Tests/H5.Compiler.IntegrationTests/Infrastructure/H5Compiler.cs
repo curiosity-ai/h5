@@ -54,6 +54,10 @@ namespace H5.Compiler.IntegrationTests
                     throw new Exception("No versions found for h5 package.");
                 }
 
+                versions.RemoveAll(v => v.ToString() == "26.2.64338");
+                versions.RemoveAll(v => v.ToString() == "26.2.64336");
+
+
                 // Get the latest version (Max)
                 _cachedLatestVersion = versions.Max();
                 Console.WriteLine($"Resolved latest H5 version: {_cachedLatestVersion}");

@@ -25,7 +25,7 @@
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <IncludeSymbols>false</IncludeSymbols>
     <PackageIcon>h5.png</PackageIcon>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <PackageId>h5.core</PackageId>
     <Authors>Curiosity GmbH, Object.NET, Inc.</Authors>
     <Company>Curiosity GmbH, Object.NET, Inc.</Company>

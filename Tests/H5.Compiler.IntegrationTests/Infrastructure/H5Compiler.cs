@@ -258,6 +258,32 @@ namespace H5.Compiler.IntegrationTests
 
         return Promise.resolve(awaitable);
     };
+
+    // Fix for Task.WhenAny to match .NET behavior (return completed task instead of faulting)
+    if (System && System.Threading && System.Threading.Tasks && System.Threading.Tasks.Task) {
+        System.Threading.Tasks.Task.whenAny = function (tasks) {
+            if (H5.is(tasks, System.Collections.IEnumerable)) {
+                tasks = H5.toArray(tasks);
+            } else if (!H5.isArray(tasks)) {
+                tasks = Array.prototype.slice.call(arguments, 0);
+            }
+
+            if (!tasks.length) {
+                throw new System.ArgumentException.$ctor1('At least one task is required');
+            }
+
+            var tcs = new System.Threading.Tasks.TaskCompletionSource(),
+                i;
+
+            for (i = 0; i < tasks.length; i++) {
+                tasks[i].continueWith(function (t) {
+                    tcs.trySetResult(t);
+                });
+            }
+
+            return tcs.task;
+        };
+    }
 ");
                     polyfillWritten = true;
                 }

@@ -280,7 +280,25 @@ namespace H5.Translator
         // from there (so this might become public/static).
         private CSharpParseOptions GetParseOptions()
         {
-            return new CSharpParseOptions(LanguageVersion.Latest, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
+            LanguageVersion languageVersion = LanguageVersion.CSharp7_2;
+
+            if (translator?.ProjectProperties?.LanguageVersion != null)
+            {
+                if (string.Equals(translator.ProjectProperties.LanguageVersion, "latest", StringComparison.OrdinalIgnoreCase))
+                {
+                    languageVersion = LanguageVersion.Latest;
+                }
+                else if (Enum.TryParse<LanguageVersion>(translator.ProjectProperties.LanguageVersion.Replace(".", ""), true, out var version))
+                {
+                    languageVersion = version;
+                }
+                else if (Enum.TryParse<LanguageVersion>("CSharp" + translator.ProjectProperties.LanguageVersion.Replace(".", "_"), true, out var version2))
+                {
+                    languageVersion = version2;
+                }
+            }
+
+            return new CSharpParseOptions(languageVersion, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
         }
 
         private CSharpCompilation CreateCompilation()

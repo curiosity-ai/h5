@@ -6,6 +6,12 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
     [TestClass]
     public class CSharp80Tests : IntegrationTestBase
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            H5Compiler.ClearRewriterCache();
+        }
+
         [TestMethod]
         [Ignore("Not implemented yet")]
         public async Task ReadonlyMembers()

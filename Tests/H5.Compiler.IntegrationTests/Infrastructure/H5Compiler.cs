@@ -137,7 +137,7 @@ namespace H5.Compiler.IntegrationTests
             }
         }
 
-        public static async Task<string> CompileToJs(string csharpCode)
+        public static void ClearRewriterCache()
         {
             // Clear SharpSixRewriter cache to prevent stale rewrite issues
             try
@@ -149,7 +149,10 @@ namespace H5.Compiler.IntegrationTests
                 }
             }
             catch { /* Ignore */ }
+        }
 
+        public static async Task<string> CompileToJs(string csharpCode)
+        {
             var latestVersion = await GetLatestVersionAsync();
 
             var settings = new H5DotJson_AssemblySettings()

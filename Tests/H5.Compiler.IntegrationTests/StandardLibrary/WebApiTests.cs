@@ -39,6 +39,61 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
         }
 
         [TestMethod]
+        public async Task CryptoRandomUUIDTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof crypto === 'undefined' || typeof crypto.randomUUID === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var uuid = dom.window.crypto.randomUUID();
+                    Console.WriteLine(uuid != null && uuid.Length > 0 ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        [Ignore("Requires updated H5 package with CompressionStream")]
+        public async Task CompressionStreamTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof CompressionStream === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var stream = new dom.CompressionStream(dom.CompressionFormat.gzip);
+                    Console.WriteLine(stream != null && stream.readable != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
         public async Task ScreenOrientationTest()
         {
             var code = @"

@@ -517,7 +517,7 @@ namespace H5.Translator
                     result.Add("dv",
                         typeParam.OwnerType == SymbolKind.Method
                             ? new JRaw(emitter.ToJavaScript(p.ConstantValue))
-                            : new JRaw(string.Format("{0}({1})", JS.Funcs.H5_GETDEFAULTVALUE, typeParam.Name)));
+                            : new JRaw($"{JS.Funcs.H5_GETDEFAULTVALUE}({typeParam.Name})"));
                 }
                 else
                 {
@@ -604,7 +604,7 @@ namespace H5.Translator
 
                     if (!method.IsStatic && !isSelf && !inline.Contains("{this}"))
                     {
-                        inline = "this." + inline;
+                        inline = $"this.{inline}";
                     }
 
                     var block = new InlineArgumentsBlock(emitter, new ArgumentsInfo(emitter, method), inline, method);
@@ -794,10 +794,10 @@ namespace H5.Translator
 
             if (needBox)
             {
-                StringBuilder sb = new StringBuilder("function (" + JS.Vars.V + ") { return ");
+                StringBuilder sb = new StringBuilder($"function ({JS.Vars.V}) {{ return ");
 
                 sb.Append(JS.Types.H5.BOX);
-                sb.Append("(" + JS.Vars.V + ", ");
+                sb.Append($"({JS.Vars.V}, ");
                 sb.Append(ConversionBlock.GetBoxedType(m.ReturnType, emitter));
 
                 var inlineMethod = ConversionBlock.GetInlineMethod(emitter, CS.Methods.TOSTRING,
@@ -805,7 +805,7 @@ namespace H5.Translator
 
                 if (inlineMethod != null)
                 {
-                    sb.Append(", " + inlineMethod);
+                    sb.Append($", {inlineMethod}");
                 }
 
                 inlineMethod = ConversionBlock.GetInlineMethod(emitter, CS.Methods.GETHASHCODE,
@@ -813,7 +813,7 @@ namespace H5.Translator
 
                 if (inlineMethod != null)
                 {
-                    sb.Append(", " + inlineMethod);
+                    sb.Append($", {inlineMethod}");
                 }
 
                 sb.Append(");");
@@ -916,7 +916,7 @@ namespace H5.Translator
                 {
                     var names = constructor.Parameters.Select(p => p.Name);
 
-                    StringBuilder sb = new StringBuilder("function (" + string.Join(", ", names.ToArray()) + ") { return {");
+                    StringBuilder sb = new StringBuilder($"function ({string.Join(", ", names.ToArray())}) {{ return {{");
 
                     bool needComma = false;
                     foreach (var name in names)
@@ -928,7 +928,7 @@ namespace H5.Translator
 
                         needComma = true;
 
-                        sb.Append(name + ": " + name);
+                        sb.Append($"{name}: {name}");
                     }
                     sb.Append("};}");
                     properties.Add("def", new JRaw(sb.ToString()));
@@ -1045,7 +1045,7 @@ namespace H5.Translator
                     emitter.NamespacesCache.Add(type.Namespace, key);
                 }
 
-                name = string.Concat("$n[", key, "]", name.Substring(type.Namespace.Length));
+                name = $"$n[{key}]{name.Substring(type.Namespace.Length)}";
             }
 
             return name;

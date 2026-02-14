@@ -386,7 +386,7 @@ namespace H5.Translator
 
             while (parent != null && curIterations++ < maxIterations)
             {
-                fullClassName = parent.Name + "." + fullClassName;
+                fullClassName = $"{parent.Name}.{fullClassName}";
                 parent = parent.ParentType;
             }
 
@@ -819,11 +819,11 @@ namespace H5.Translator
                     if (!string.IsNullOrWhiteSpace(Emitter.AssemblyInfo.FileName) &&
                         Emitter.AssemblyInfo.FileName != H5DotJson_AssemblySettings.DEFAULT_FILENAME)
                     {
-                        output = Path.GetFileNameWithoutExtension(Emitter.AssemblyInfo.FileName) + ".meta.js";
+                        output = $"{Path.GetFileNameWithoutExtension(Emitter.AssemblyInfo.FileName)}.meta.js";
                     }
                     else
                     {
-                        output = Emitter.Translator.ProjectProperties.AssemblyName + ".meta.js";
+                        output = $"{Emitter.Translator.ProjectProperties.AssemblyName}.meta.js";
                     }
                 }
 
@@ -854,7 +854,7 @@ namespace H5.Translator
                         }
                         else
                         {
-                            outputName = outputName + ".meta.js";
+                            outputName = $"{outputName}.meta.js";
                         }
 
                         Emitter.Output = GetOutputForType(null, outputName, true);
@@ -872,9 +872,9 @@ namespace H5.Translator
                     int pos = 0;
                     if (metaInfo.Value.Count > 0)
                     {
-                        Write("var $m = " + JS.Types.H5.SET_METADATA + ",");
+                        Write($"var $m = {JS.Types.H5.SET_METADATA},");
                         WriteNewLine();
-                        Write(H5.Translator.Emitter.INDENT + "$n = ");
+                        Write($"{H5.Translator.Emitter.INDENT}$n = ");
                         pos = Emitter.Output.Length;
                         Write(";");
                         WriteNewLine();
@@ -905,7 +905,7 @@ namespace H5.Translator
                             typeArgs = arr_sb.ToString();
                         }
 
-                        Write(string.Format("$m(\"{0}\", function ({2}) {{ return {1}; }}, $n);", MetadataUtils.GetTypeName(meta.Key, Emitter, false, true, false), metaData.ToString(Formatting.None), typeArgs));
+                        Write($"$m(\"{MetadataUtils.GetTypeName(meta.Key, Emitter, false, true, false)}\", function ({typeArgs}) {{ return {metaData.ToString(Formatting.None)}; }}, $n);");
                         WriteNewLine();
                     }
 
@@ -927,7 +927,7 @@ namespace H5.Translator
                     attrArr.Add(MetadataUtils.ConstructAttribute(a, null, Emitter));
                 }
 
-                Write(string.Format("$asm.attr= {0};", attrArr.ToString(Formatting.None)));
+                Write($"$asm.attr= {attrArr.ToString(Formatting.None)};");
                 WriteNewLine();
             }
 
@@ -964,7 +964,7 @@ namespace H5.Translator
                 Emitter.Comma = false;
 
                 WriteNewLine();
-                Write("var " + JS.Vars.DBOX_ + " = { };");
+                Write($"var {JS.Vars.DBOX_} = {{ }};");
                 WriteNewLine();
 
                 foreach (var boxedFunction in Emitter.NamedBoxedFunctions)
@@ -975,12 +975,12 @@ namespace H5.Translator
                     Write(JS.Funcs.H5_NS);
                     WriteOpenParentheses();
                     WriteScript(name);
-                    Write(", " + JS.Vars.DBOX_ + ")");
+                    Write($", {JS.Vars.DBOX_})");
                     WriteSemiColon();
 
                     WriteNewLine();
                     WriteNewLine();
-                    Write(JS.Types.H5.APPLY + "(" + JS.Vars.DBOX_ + ".");
+                    Write($"{JS.Types.H5.APPLY}({JS.Vars.DBOX_}.");
                     Write(name);
                     Write(", ");
                     BeginBlock();
@@ -989,7 +989,7 @@ namespace H5.Translator
                     foreach (KeyValuePair<string, string> namedFunction in boxedFunction.Value)
                     {
                         EnsureComma();
-                        Write(namedFunction.Key.ToLowerCamelCase() + ": " + namedFunction.Value);
+                        Write($"{namedFunction.Key.ToLowerCamelCase()}: {namedFunction.Value}");
                         Emitter.Comma = true;
                     }
 
@@ -1250,7 +1250,7 @@ namespace H5.Translator
                     }
                     else
                     {
-                        pattern = "^" + Regex.Escape(filter).Replace("\\*", ".*").Replace("\\?", ".") + "$";
+                        pattern = $"^{Regex.Escape(filter).Replace("\\*", ".*").Replace("\\?", ".")}$";
                     }
 
                     if (Regex.IsMatch(fullName, pattern))

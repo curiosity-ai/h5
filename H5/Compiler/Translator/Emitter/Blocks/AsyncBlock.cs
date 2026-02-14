@@ -325,9 +325,9 @@ namespace H5.Translator
             if (IsTaskReturn)
             {
                 Write(".then(");
-                Write("function (r) { " + JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_RESULT : JS.Funcs.SET_RESULT) + "(r); }");
+                Write("function ($r) { " + JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_RESULT : JS.Funcs.SET_RESULT) + "($r); }");
                 Write(", ");
-                Write("function (e) { " + JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_EXCEPTION : JS.Funcs.SET_EXCEPTION) + "(e); }");
+                Write("function ($e) { " + JS.Vars.ASYNC_TCS + "." + ((Emitter.AssemblyInfo.Rules.UseShortForms ?? false) ? JS.Funcs.SHORTEN_SET_EXCEPTION : JS.Funcs.SET_EXCEPTION) + "(" + JS.Funcs.CREATE_EXCEPTION + "($e)); }");
                 Write(");");
 
                 WriteNewLine();

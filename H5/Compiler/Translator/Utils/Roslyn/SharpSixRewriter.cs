@@ -1913,9 +1913,14 @@ namespace H5.Translator
             node = (PropertyDeclarationSyntax)base.VisitPropertyDeclaration(node);
             var newNode = node;
 
-            if (node.ExpressionBody != null)
+            if (newNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
             {
-                newNode = SyntaxHelper.ToStatementBody(node);
+                newNode = newNode.WithModifiers(newNode.Modifiers.RemoveAt(newNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+            }
+
+            if (newNode.ExpressionBody != null)
+            {
+                newNode = SyntaxHelper.ToStatementBody(newNode);
             }
 
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
@@ -2159,6 +2164,11 @@ namespace H5.Translator
 
             node = base.VisitMethodDeclaration(node) as MethodDeclarationSyntax;
 
+            if (node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
+            {
+                node = node.WithModifiers(node.Modifiers.RemoveAt(node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+            }
+
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 node = node.WithModifiers(node.Modifiers.Replace(node.Modifiers[node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2193,6 +2203,14 @@ namespace H5.Translator
             }
 
             var result = base.VisitAccessorDeclaration(node);
+
+            if (result is AccessorDeclarationSyntax accessorResult)
+            {
+                if (accessorResult.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
+                {
+                    result = accessorResult.WithModifiers(accessorResult.Modifiers.RemoveAt(accessorResult.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+                }
+            }
 
             IndexInstance = oldIndex;
             return result;
@@ -2463,6 +2481,12 @@ namespace H5.Translator
         public override SyntaxNode VisitIndexerDeclaration(IndexerDeclarationSyntax node)
         {
             node = (IndexerDeclarationSyntax)base.VisitIndexerDeclaration(node);
+
+            if (node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
+            {
+                node = node.WithModifiers(node.Modifiers.RemoveAt(node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+            }
+
             if (node.ExpressionBody != null)
             {
                 return SyntaxHelper.ToStatementBody(node);

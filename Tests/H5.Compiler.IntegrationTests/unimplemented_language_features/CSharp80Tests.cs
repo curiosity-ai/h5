@@ -176,7 +176,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task PositionalPatterns()
         {
             var code = """
@@ -280,7 +279,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Missing System.Index type in H5 environment")]
         public async Task IndicesAndRanges()
         {
             var code = """
@@ -297,7 +295,7 @@ public class Program
 
         Console.WriteLine($"The last word is {words[^1]}");
 
-        // Ranges not yet implemented
+        // Range syntax not supported by parser
         // var quickBrownFox = words[1..4];
         // foreach (var word in quickBrownFox)
         //    Console.Write($"{word} ");

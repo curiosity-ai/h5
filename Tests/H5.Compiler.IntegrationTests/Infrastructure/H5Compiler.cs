@@ -151,12 +151,64 @@ namespace H5.Compiler.IntegrationTests
             catch { /* Ignore */ }
         }
 
+        private static Dictionary<string, string> GetExtraSourceFiles()
+        {
+            var files = new Dictionary<string, string>();
+
+            // Try to find the H5/H5/System directory
+            string root = null;
+
+            var candidates = new[]
+            {
+                Path.Combine(Environment.CurrentDirectory, "H5", "H5", "System"), // From repo root
+                Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "..", "H5", "H5", "System"), // From bin/Debug/netX.X/
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "..", "H5", "H5", "System") // From BaseDirectory
+            };
+
+            foreach (var c in candidates)
+            {
+                if (Directory.Exists(c))
+                {
+                    root = c;
+                    break;
+                }
+            }
+
+            if (root == null)
+            {
+                Console.WriteLine($"Warning: Could not find H5/H5/System directory. Current Directory: {Environment.CurrentDirectory}");
+                return files;
+            }
+
+            void AddFile(string relativePath)
+            {
+                var fullPath = Path.Combine(root, relativePath);
+                if (File.Exists(fullPath))
+                {
+                    files.Add(Path.GetFileName(fullPath), File.ReadAllText(fullPath));
+                }
+                else
+                {
+                    Console.WriteLine($"Warning: Could not find file {fullPath}");
+                }
+            }
+
+            AddFile("Index.cs");
+            AddFile("Range.cs");
+            AddFile("Span.cs");
+            AddFile("ReadOnlySpan.cs");
+            AddFile("Runtime/CompilerServices/RuntimeHelpers.cs");
+
+            return files;
+        }
+
         public static async Task<string> CompileToJs(string csharpCode)
         {
             var latestVersion = await GetLatestVersionAsync();
 
             var settings = new H5DotJson_AssemblySettings()
             {
+                IgnoreDuplicateTypes = true,
                 Reflection = new ReflectionConfig()
                 {
                     Disabled = false,
@@ -170,6 +222,11 @@ namespace H5.Compiler.IntegrationTests
                             .WithLanguageVersion("Latest")
                             .WithPackageReference("h5", latestVersion)
                             .WithSourceFile("App.cs", csharpCode);
+
+            foreach (var extraFile in GetExtraSourceFiles())
+            {
+                request.WithSourceFile(extraFile.Key, extraFile.Value);
+            }
 
             var compiledJavascript = await CompilationProcessor.CompileAsync(request);
 

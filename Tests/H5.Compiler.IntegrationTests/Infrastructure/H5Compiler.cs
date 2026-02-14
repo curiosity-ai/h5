@@ -54,6 +54,7 @@ namespace H5.Compiler.IntegrationTests
                     throw new Exception("No versions found for h5 package.");
                 }
 
+                versions.RemoveAll(v => v.ToString() == "26.2.64348");
                 versions.RemoveAll(v => v.ToString() == "26.2.64338");
                 versions.RemoveAll(v => v.ToString() == "26.2.64336");
 

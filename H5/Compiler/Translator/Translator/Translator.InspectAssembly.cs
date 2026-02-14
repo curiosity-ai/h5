@@ -236,6 +236,11 @@ namespace H5.Translator
                     continue;
                 }
 
+                if (type.FullName == "Microsoft.CodeAnalysis.EmbeddedAttribute")
+                {
+                    continue;
+                }
+
                 Validator.CheckType(type, this);
 
                 string key = H5Types.GetTypeDefinitionKey(type);

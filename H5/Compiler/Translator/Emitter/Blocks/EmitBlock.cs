@@ -557,6 +557,11 @@ namespace H5.Translator
                 {
                     Emitter.CancellationToken.ThrowIfCancellationRequested();
 
+                    if (type.Type.FullName == "Microsoft.CodeAnalysis.EmbeddedAttribute")
+                    {
+                        continue;
+                    }
+
                     Emitter.Translator.EmitNode = type.TypeDeclaration;
                     var typeDef = type.Type.GetDefinition();
                     Emitter.Rules = Rules.Get(Emitter, typeDef);

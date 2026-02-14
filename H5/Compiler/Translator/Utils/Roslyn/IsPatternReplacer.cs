@@ -19,6 +19,68 @@ namespace H5.Translator
             return ReplacePatterns(root, model);
         }
 
+        private void GetVariables(PatternSyntax pattern, SemanticModel model, List<(SingleVariableDesignationSyntax Designation, TypeSyntax Type, bool IsValueType)> variables)
+        {
+            if (pattern is DeclarationPatternSyntax decl)
+            {
+                if (decl.Designation is SingleVariableDesignationSyntax single)
+                {
+                    var type = decl.Type;
+                    var typeInfo = model.GetTypeInfo(type);
+                    bool isValueType = typeInfo.Type?.IsValueType ?? false;
+                    variables.Add((single, type, isValueType));
+                }
+            }
+            else if (pattern is VarPatternSyntax varPattern)
+            {
+                if (varPattern.Designation is SingleVariableDesignationSyntax single)
+                {
+                    var symbol = model.GetDeclaredSymbol(single) as ILocalSymbol;
+                    if (symbol != null)
+                    {
+                        var typeSyntax = SyntaxFactory.ParseTypeName(symbol.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat));
+                        bool isValueType = symbol.Type.IsValueType;
+                        variables.Add((single, typeSyntax, isValueType));
+                    }
+                }
+            }
+            else if (pattern is RecursivePatternSyntax recursive)
+            {
+                if (recursive.PropertyPatternClause != null)
+                {
+                    foreach (var sub in recursive.PropertyPatternClause.Subpatterns)
+                    {
+                        GetVariables(sub.Pattern, model, variables);
+                    }
+                }
+                if (recursive.PositionalPatternClause != null)
+                {
+                    foreach (var sub in recursive.PositionalPatternClause.Subpatterns)
+                    {
+                        GetVariables(sub.Pattern, model, variables);
+                    }
+                }
+            }
+            else if (pattern is ListPatternSyntax listPattern)
+            {
+                foreach (var p in listPattern.Patterns)
+                {
+                    GetVariables(p, model, variables);
+                }
+            }
+            else if (pattern is SlicePatternSyntax slicePattern)
+            {
+                if (slicePattern.Pattern != null)
+                {
+                    GetVariables(slicePattern.Pattern, model, variables);
+                }
+            }
+            else if (pattern is ParenthesizedPatternSyntax paren)
+            {
+                GetVariables(paren.Pattern, model, variables);
+            }
+        }
+
         public SyntaxNode InsertVariables(SyntaxNode root, SemanticModel model)
         {
             var patterns = root
@@ -34,41 +96,42 @@ namespace H5.Translator
                     SyntaxNode lambdaExpr = pattern.Ancestors().OfType<LambdaExpressionSyntax>().FirstOrDefault();
                     SyntaxNode beforeStatement = pattern.Ancestors().OfType<StatementSyntax>().FirstOrDefault();
 
-                    if (pattern.Pattern is DeclarationPatternSyntax declarationPattern)
+                    if (lambdaExpr != null && !SyntaxHelper.IsChildOf(beforeStatement, lambdaExpr))
                     {
-                        if (lambdaExpr != null && !SyntaxHelper.IsChildOf(beforeStatement, lambdaExpr))
+                        if (lambdaExpr is ParenthesizedLambdaExpressionSyntax pl && !(pl.Body is BlockSyntax))
                         {
-                            if (lambdaExpr is ParenthesizedLambdaExpressionSyntax pl && !(pl.Body is BlockSyntax))
-                            {
-                                beforeStatement = lambdaExpr;
-                            }
-                            else if (lambdaExpr is SimpleLambdaExpressionSyntax sl && !(sl.Body is BlockSyntax))
-                            {
-                                beforeStatement = lambdaExpr;
-                            }
+                            beforeStatement = lambdaExpr;
                         }
-
-                        if (beforeStatement != null)
+                        else if (lambdaExpr is SimpleLambdaExpressionSyntax sl && !(sl.Body is BlockSyntax))
                         {
-                            if (declarationPattern.Designation is SingleVariableDesignationSyntax designation)
+                            beforeStatement = lambdaExpr;
+                        }
+                    }
+
+                    if (beforeStatement != null)
+                    {
+                        var vars = new List<(SingleVariableDesignationSyntax Designation, TypeSyntax Type, bool IsValueType)>();
+                        GetVariables(pattern.Pattern, model, vars);
+
+                        if (vars.Count > 0)
+                        {
+                            var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
+
+                            foreach (var v in vars)
                             {
-                                if (!typesInfo.Keys.Contains(declarationPattern.Type.ToString()))
+                                if (!typesInfo.ContainsKey(v.Type.ToString()))
                                 {
-                                    var ti = model.GetTypeInfo(declarationPattern.Type);
-                                    var isValueType = ti.Type != null ? ti.Type.IsValueType : false;
-                                    typesInfo[declarationPattern.Type.ToString()] = isValueType;
+                                    typesInfo[v.Type.ToString()] = v.IsValueType;
                                 }
 
-                                var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
-
-                                var varDecl = SyntaxFactory.VariableDeclaration(declarationPattern.Type).WithVariables(SyntaxFactory.SingletonSeparatedList(
-                                    SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
+                                var varDecl = SyntaxFactory.VariableDeclaration(v.Type).WithVariables(SyntaxFactory.SingletonSeparatedList(
+                                    SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(v.Designation.Identifier.ValueText))
                                 ));
 
                                 locals.Add(SyntaxFactory.LocalDeclarationStatement(varDecl).WithTrailingTrivia(SyntaxFactory.Whitespace("\n")).NormalizeWhitespace());
-
-                                updatedStatements[beforeStatement] = locals;
                             }
+
+                            updatedStatements[beforeStatement] = locals;
                         }
                     }
                 }
@@ -307,8 +370,143 @@ namespace H5.Translator
             }
             else if (pattern is DeclarationPatternSyntax declPattern)
             {
-                // Partial support: Type check only (variables ignored for now, handled by InsertVariables if top-level)
-                return SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, declPattern.Type);
+                var isCheck = SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, declPattern.Type);
+
+                if (declPattern.Designation is SingleVariableDesignationSyntax designation)
+                {
+                    var varName = SyntaxFactory.IdentifierName(designation.Identifier.ValueText);
+                    var castExpr = SyntaxFactory.CastExpression(declPattern.Type, expression);
+
+                    var assignmentHelper = SyntaxFactory.InvocationExpression(
+                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("H5.Script"), SyntaxFactory.GenericName("Write").AddTypeArgumentListArguments(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword)))),
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                            SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal("({0} = {1}, true)"))),
+                            SyntaxFactory.Argument(varName),
+                            SyntaxFactory.Argument(castExpr)
+                        }))
+                    );
+
+                    return SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, isCheck, assignmentHelper);
+                }
+
+                return isCheck;
+            }
+            else if (pattern is VarPatternSyntax varPattern)
+            {
+                if (varPattern.Designation is SingleVariableDesignationSyntax designation)
+                {
+                    var varName = SyntaxFactory.IdentifierName(designation.Identifier.ValueText);
+
+                    var assignmentHelper = SyntaxFactory.InvocationExpression(
+                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("H5.Script"), SyntaxFactory.GenericName("Write").AddTypeArgumentListArguments(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword)))),
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                            SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal("({0} = {1}, true)"))),
+                            SyntaxFactory.Argument(varName),
+                            SyntaxFactory.Argument(expression)
+                        }))
+                    );
+                    return assignmentHelper;
+                }
+                return SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression);
+            }
+            else if (pattern is ListPatternSyntax listPattern)
+            {
+                var condition = (ExpressionSyntax)SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, expression, SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+
+                int patternCount = listPattern.Patterns.Count;
+                int sliceIndex = -1;
+                for (int i = 0; i < patternCount; i++)
+                {
+                    if (listPattern.Patterns[i] is SlicePatternSyntax)
+                    {
+                        sliceIndex = i;
+                        break;
+                    }
+                }
+
+                ExpressionSyntax lengthCheck;
+                var lengthAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expression, SyntaxFactory.IdentifierName("Length"));
+
+                if (sliceIndex == -1)
+                {
+                    lengthCheck = SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, lengthAccess, SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(patternCount)));
+                }
+                else
+                {
+                    lengthCheck = SyntaxFactory.BinaryExpression(SyntaxKind.GreaterThanOrEqualExpression, lengthAccess, SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(patternCount - 1)));
+                }
+                condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, lengthCheck);
+
+                for (int i = 0; i < patternCount; i++)
+                {
+                    var p = listPattern.Patterns[i];
+                    if (i == sliceIndex)
+                    {
+                        if (p is SlicePatternSyntax slice)
+                        {
+                            if (slice.Pattern != null)
+                            {
+                                var start = SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(i));
+                                var endFromEnd = SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(patternCount - 1 - i));
+
+                                int endVal = patternCount - 1 - i;
+                                string format;
+                                var args = new List<ArgumentSyntax>();
+
+                                args.Add(null);
+                                args.Add(SyntaxFactory.Argument(expression));
+                                args.Add(SyntaxFactory.Argument(start));
+
+                                if (endVal == 0)
+                                {
+                                    format = "{0}.slice({1})";
+                                }
+                                else
+                                {
+                                    format = "{0}.slice({1}, -{2})";
+                                    args.Add(SyntaxFactory.Argument(endFromEnd));
+                                }
+
+                                args[0] = SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(format)));
+
+                                var getSubArray = SyntaxFactory.InvocationExpression(
+                                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                        SyntaxFactory.IdentifierName("H5.Script"),
+                                        SyntaxFactory.GenericName("Write").AddTypeArgumentListArguments(SyntaxFactory.ParseTypeName("dynamic"))))
+                                    .WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(args)));
+
+                                var subCheck = MakeCheck(getSubArray, slice.Pattern, model);
+                                condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, subCheck);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ExpressionSyntax elementAccess;
+                        if (sliceIndex == -1 || i < sliceIndex)
+                        {
+                            elementAccess = SyntaxFactory.ElementAccessExpression(expression)
+                               .WithArgumentList(SyntaxFactory.BracketedArgumentList(SyntaxFactory.SingletonSeparatedList(
+                                   SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(i)))
+                               )));
+                        }
+                        else
+                        {
+                            var offset = patternCount - i;
+                            var indexCalc = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, lengthAccess, SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(offset)));
+
+                            elementAccess = SyntaxFactory.ElementAccessExpression(expression)
+                               .WithArgumentList(SyntaxFactory.BracketedArgumentList(SyntaxFactory.SingletonSeparatedList(
+                                   SyntaxFactory.Argument(indexCalc)
+                               )));
+                        }
+
+                        var elementCheck = MakeCheck(elementAccess, p, model);
+                        condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, elementCheck);
+                    }
+                }
+
+                return condition;
             }
             else if (pattern is UnaryPatternSyntax unaryPattern)
             {

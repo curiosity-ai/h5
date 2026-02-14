@@ -193,6 +193,13 @@ namespace H5.Translator
                            (memberTargetrr.TargetResult is ThisResolveResult ||
                             memberTargetrr.TargetResult is LocalResolveResult)) || leftResolverResult is ThisResolveResult || leftResolverResult is LocalResolveResult || leftResolverResult is ConstantResolveResult;
 
+            if (leftResolverResult.Type.Kind == TypeKind.ByReference && !(leftResolverResult is LocalResolveResult) && assignmentExpression.Operator == AssignmentOperatorType.Assign)
+            {
+                 AcceptLeftExpression(assignmentExpression.Left, memberTargetrr);
+                 Write(".v = ");
+                 assignmentExpression.Right.AcceptVisitor(Emitter);
+                 return;
+            }
 
             var rightMemberTargetrr = rightResolverResult as MemberResolveResult;
             bool isRightSimple = (rightMemberTargetrr != null && rightMemberTargetrr.Member is IField &&

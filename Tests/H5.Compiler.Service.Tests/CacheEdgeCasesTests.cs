@@ -168,5 +168,110 @@ namespace H5.Compiler.Service.Tests
                 Assert.AreEqual(0, stats["ReusedFiles"]);
             }
         }
+
+        [TestMethod]
+        public void TestCacheReuse_ConstField_Propagate()
+        {
+            using (var compiler = new TestCompiler())
+            {
+                var sources = new Dictionary<string, string>
+                {
+                    { "Lib.cs", "public class Lib { public const int Val = 1; }" },
+                    { "App.cs", "public class App { public void Run() { System.Console.WriteLine(Lib.Val); } }" }
+                };
+
+                compiler.Compile(sources, rebuild: true);
+
+                // Modify Lib constant
+                sources["Lib.cs"] = "public class Lib { public const int Val = 2; }";
+
+                var result2 = compiler.Compile(sources, rebuild: false);
+                var stats = result2.GetType().GetProperty("Stats")?.GetValue(result2) as Dictionary<string, int>;
+
+                // Lib changed. App uses Lib.Val (inlined). App must be invalidated.
+                Assert.AreEqual(0, stats["ReusedFiles"], "App should be invalidated because it uses a changed const.");
+
+                var js = string.Join(Environment.NewLine, result2.Output.Values);
+                Assert.IsTrue(js.Contains("2"), "Output should contain the new const value '2'.");
+            }
+        }
+
+        [TestMethod]
+        public void TestCacheReuse_Enum_Propagate()
+        {
+            using (var compiler = new TestCompiler())
+            {
+                var sources = new Dictionary<string, string>
+                {
+                    { "Lib.cs", "public enum E { V1 = 1 }" },
+                    { "App.cs", "public class App { public void Run() { System.Console.WriteLine((int)E.V1); } }" }
+                };
+
+                compiler.Compile(sources, rebuild: true);
+
+                // Modify Enum value
+                sources["Lib.cs"] = "public enum E { V1 = 2 }";
+
+                var result2 = compiler.Compile(sources, rebuild: false);
+                var stats = result2.GetType().GetProperty("Stats")?.GetValue(result2) as Dictionary<string, int>;
+
+                // Enum changed. App uses E.V1. App must be invalidated.
+                Assert.AreEqual(0, stats["ReusedFiles"], "App should be invalidated because it uses a changed enum value.");
+
+                var js = string.Join(Environment.NewLine, result2.Output.Values);
+                Assert.IsTrue(js.Contains("2"), "Output should contain the new enum value '2'.");
+            }
+        }
+
+        [TestMethod]
+        public void TestCacheReuse_InlineMethod_Template_Change()
+        {
+            using (var compiler = new TestCompiler())
+            {
+                var sources = new Dictionary<string, string>
+                {
+                    { "Lib.cs", "using H5; public class Lib { [Template(\"console.log('Old')\")] public static void Foo() {} }" },
+                    { "App.cs", "public class App { public void Run() { Lib.Foo(); } }" }
+                };
+
+                compiler.Compile(sources, rebuild: true);
+
+                // Modify Template
+                sources["Lib.cs"] = "using H5; public class Lib { [Template(\"console.log('New')\")] public static void Foo() {} }";
+
+                var result2 = compiler.Compile(sources, rebuild: false);
+                var stats = result2.GetType().GetProperty("Stats")?.GetValue(result2) as Dictionary<string, int>;
+
+                // Template changed. App uses Lib.Foo (inlined). App must be invalidated.
+                Assert.AreEqual(0, stats["ReusedFiles"], "App should be invalidated because it uses a method with changed [Template].");
+
+                var js = string.Join(Environment.NewLine, result2.Output.Values);
+                Assert.IsTrue(js.Contains("New"), "Output should contain the new template content 'New'.");
+            }
+        }
+
+        [TestMethod]
+        public void TestCacheReuse_Struct_Change()
+        {
+            using (var compiler = new TestCompiler())
+            {
+                var sources = new Dictionary<string, string>
+                {
+                    { "Struct.cs", "public struct S { public int X; }" },
+                    { "App.cs", "public class App { public void Run() { var s = new S(); s.X = 1; } }" }
+                };
+
+                compiler.Compile(sources, rebuild: true);
+
+                // Modify Struct
+                sources["Struct.cs"] = "public struct S { public int X; public int Y; }";
+
+                var result2 = compiler.Compile(sources, rebuild: false);
+                var stats = result2.GetType().GetProperty("Stats")?.GetValue(result2) as Dictionary<string, int>;
+
+                // Struct changed. App depends on it. Should invalidate.
+                Assert.AreEqual(0, stats["ReusedFiles"], "App should be invalidated because struct changed.");
+            }
+        }
     }
 }

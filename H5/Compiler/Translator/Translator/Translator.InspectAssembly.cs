@@ -236,7 +236,7 @@ namespace H5.Translator
                     continue;
                 }
 
-                if (type.FullName == "Microsoft.CodeAnalysis.EmbeddedAttribute")
+                if (CompilerBuiltInTypes.IsBuiltIn(type.FullName))
                 {
                     continue;
                 }

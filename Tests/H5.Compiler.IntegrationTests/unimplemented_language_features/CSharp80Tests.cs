@@ -80,7 +80,6 @@ public class Program
         }
 
         [TestMethod]
-        // [Ignore("Not implemented yet")]
         public async Task SwitchExpressions()
         {
             var code = """
@@ -114,7 +113,6 @@ public enum ConsoleColor
         }
 
         [TestMethod]
-        // [Ignore("Not implemented yet")]
         public async Task PropertyPatterns()
         {
             var code = """
@@ -414,7 +412,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task StackAllocInNestedExpressions()
         {
             // Requires Span support

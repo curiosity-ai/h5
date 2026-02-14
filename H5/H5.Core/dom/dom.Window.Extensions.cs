@@ -63,6 +63,18 @@ namespace H5.Core
             public virtual extern object structuredClone(object value);
 
             public virtual extern object structuredClone(object value, dom.StructuredSerializeOptions options);
+
+            public virtual extern es5.Promise<dom.FileSystemFileHandle[]> showOpenFilePicker();
+
+            public virtual extern es5.Promise<dom.FileSystemFileHandle[]> showOpenFilePicker(dom.OpenFilePickerOptions options);
+
+            public virtual extern es5.Promise<dom.FileSystemFileHandle> showSaveFilePicker();
+
+            public virtual extern es5.Promise<dom.FileSystemFileHandle> showSaveFilePicker(dom.SaveFilePickerOptions options);
+
+            public virtual extern es5.Promise<dom.FileSystemDirectoryHandle> showDirectoryPicker();
+
+            public virtual extern es5.Promise<dom.FileSystemDirectoryHandle> showDirectoryPicker(dom.DirectoryPickerOptions options);
         }
     }
 }

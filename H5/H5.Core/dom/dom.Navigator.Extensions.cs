@@ -34,6 +34,7 @@ namespace H5.Core
             public virtual extern es5.Promise<bool> persisted();
             public virtual extern es5.Promise<bool> persist();
             public virtual extern es5.Promise<object> estimate();
+            public virtual extern es5.Promise<dom.FileSystemDirectoryHandle> getDirectory();
         }
 
         [CombinedClass]
@@ -113,8 +114,19 @@ namespace H5.Core
             public virtual dom.WakeLock wakeLock { get; }
             public virtual dom.UserActivation userActivation { get; }
             public virtual dom.NetworkInformation connection { get; }
+            // clipboard is already defined in dom.Navigator.cs
+            public virtual dom.Bluetooth bluetooth { get; }
+            public virtual dom.USB usb { get; }
+            public virtual dom.XRSystem xr { get; }
+            public virtual dom.HID hid { get; }
+            public virtual dom.Serial serial { get; }
 
             public virtual extern es5.Promise<H5.Core.Void> share(dom.ShareData data);
+            public virtual extern es5.Promise<H5.Core.Void> setAppBadge(double contents);
+            public virtual extern es5.Promise<H5.Core.Void> setAppBadge();
+            public virtual extern es5.Promise<H5.Core.Void> clearAppBadge();
+            public virtual extern es5.Promise<dom.MIDIAccess> requestMIDIAccess();
+            public virtual extern es5.Promise<dom.MIDIAccess> requestMIDIAccess(dom.MIDIOptions options);
             public virtual extern bool canShare(dom.ShareData data);
         }
     }

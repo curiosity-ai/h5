@@ -88,7 +88,7 @@ namespace H5.Translator
 
             configHash = Hashes.Combine(configHash, $"{context.Compiler.Version}/{context.H5.Version}".Hash128());
 
-            _cachedRewrittenData.ClearIfConfigHashChanged(configHash, force: true);
+            _cachedRewrittenData.ClearIfConfigHashChanged(configHash, force: !translator.AssemblyInfo.EnableCache);
         }
 
         public SharpSixRewriter Clone()

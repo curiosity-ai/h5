@@ -162,8 +162,8 @@ namespace H5.Compiler.IntegrationTests
                     Disabled = false,
                     Target = Contract.MetadataTarget.Inline, 
                 }
-            }
-            ;
+            };
+
             var request = new CompilationRequest("App", settings)
                             //.NoPackageResources() // Comment this out to get resources
                             .NoHTML()

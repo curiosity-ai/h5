@@ -14243,7 +14243,7 @@ namespace H5.Core
 
         [CombinedClass]
         [FormerInterface]
-        public class Crypto : IObject
+        public partial class Crypto : IObject
         {
 
             public static dom.Crypto prototype

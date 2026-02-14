@@ -931,6 +931,17 @@ namespace H5.Translator
                 WriteNewLine();
             }
 
+            if (Emitter.AssemblyInfo.EnableCache)
+            {
+                System.Console.WriteLine("----------------------");
+                System.Console.WriteLine("Compilation Summary:");
+                System.Console.WriteLine($"  - Total files: {Emitter.SourceFiles.Count}");
+                System.Console.WriteLine($"  - Reused files: {reusedFiles}");
+                System.Console.WriteLine($"  - Invalidated files: {invalidationList.Count}");
+                System.Console.WriteLine($"  - Emitted files: {emittedFiles.Count}");
+                System.Console.WriteLine("----------------------");
+            }
+
             if (cachedEmittedData is object)
             {
                 CommitCache(cachedEmittedData); 

@@ -58,6 +58,8 @@ namespace H5.Translator
             private set;
         }
 
+        public Dictionary<string, int> Stats { get; set; } = new Dictionary<string, int>();
+
         private static readonly CodeSettings MinifierCodeSettingsSafe = new CodeSettings
         {
             EvalTreatment        = EvalTreatment.MakeAllSafe,

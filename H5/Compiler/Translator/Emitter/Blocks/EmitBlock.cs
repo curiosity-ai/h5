@@ -14,6 +14,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using UID;
@@ -22,13 +23,33 @@ using ZLogger;
 namespace H5.Translator
 {
     [MessagePackObject(keyAsPropertyName: true)]
+    public class CacheFileInfo
+    {
+        public UID128 Hash { get; set; }
+        public long Size { get; set; }
+        public DateTimeOffset Timestamp { get; set; }
+    }
+
+    [MessagePackObject(keyAsPropertyName: true)]
     public class EmitBlockCachedOutput
     {
         public UID128 ConfigHash { get; set; }
-        public Dictionary<string, (UID128 hash, long size, DateTimeOffset timestamp)> FileInfo { get; set; } = new Dictionary<string, (UID128 hash, long size, DateTimeOffset timestamp)>();
+        public Dictionary<string, CacheFileInfo> FileInfo { get; set; } = new Dictionary<string, CacheFileInfo>();
         public Dictionary<string, Dictionary<string, string>> CachedEmittedTypesPerFile { get; set; } = new Dictionary<string, Dictionary<string, string>>();
+        public Dictionary<string, HashSet<string>> Dependencies { get; set; } = new Dictionary<string, HashSet<string>>();
 
         [IgnoreMember] private Dictionary<string, bool> _alreadyCheckedFiles = new Dictionary<string, bool>();
+
+        private UID128 ComputeFileHash(string filePath)
+        {
+            using (var stream = File.OpenRead(filePath))
+            using (var sha256 = SHA256.Create())
+            {
+                var hashBytes = sha256.ComputeHash(stream);
+                var hashString = BitConverter.ToString(hashBytes);
+                return hashString.Hash128();
+            }
+        }
 
         public void ClearIfConfigHashChanged(UID128 previousConfigHash, bool force = false)
         {
@@ -37,6 +58,7 @@ namespace H5.Translator
                 ConfigHash = previousConfigHash;
                 FileInfo.Clear();
                 CachedEmittedTypesPerFile.Clear();
+                Dependencies.Clear();
             }
         }
 
@@ -52,29 +74,37 @@ namespace H5.Translator
             else
             {
                 var fileInfo = new FileInfo(fileName);
-                var hash = File.ReadAllText(fileName).Hash128();
+                var hash = ComputeFileHash(fileName);
 
                 if (FileInfo.TryGetValue(fileName, out var previousInfo))
                 {
                     if (!fileInfo.Exists) throw new Exception($"File {fileName} was deleted since compilation started");
 
-                    if(previousInfo.timestamp == fileInfo.LastWriteTimeUtc && previousInfo.size == fileInfo.Length && hash == previousInfo.hash)
+                    if(hash == previousInfo.Hash)
                     {
+                        if (previousInfo.Timestamp != fileInfo.LastWriteTimeUtc || previousInfo.Size != fileInfo.Length)
+                        {
+                            previousInfo.Timestamp = fileInfo.LastWriteTimeUtc;
+                            previousInfo.Size = fileInfo.Length;
+                        }
+
                         _alreadyCheckedFiles[fileName] = false; //did not change
                         return CachedEmittedTypesPerFile.TryGetValue(fileName, out var previousEmitCodeForFile) && previousEmitCodeForFile.TryGetValue(typeName, out previousEmitCodeForType);
                     }
                     else
                     {
-                        FileInfo[fileName] = (hash, fileInfo.Length, (DateTimeOffset)fileInfo.LastWriteTimeUtc);
+                        FileInfo[fileName] = new CacheFileInfo { Hash = hash, Size = fileInfo.Length, Timestamp = (DateTimeOffset)fileInfo.LastWriteTimeUtc };
                         CachedEmittedTypesPerFile.Remove(fileName);
+                        Dependencies.Remove(fileName);
                         _alreadyCheckedFiles[fileName] = true; //Changed since last time
                         return false;
                     }
                 }
                 else
                 {
-                    FileInfo[fileName] = (hash, fileInfo.Length, (DateTimeOffset)fileInfo.LastWriteTimeUtc);
+                    FileInfo[fileName] = new CacheFileInfo { Hash = hash, Size = fileInfo.Length, Timestamp = (DateTimeOffset)fileInfo.LastWriteTimeUtc };
                     CachedEmittedTypesPerFile.Remove(fileName);
+                    Dependencies.Remove(fileName);
                     _alreadyCheckedFiles[fileName] = true; //Changed since last time
                     return false;
                 }
@@ -98,6 +128,7 @@ namespace H5.Translator
                 if (!File.Exists(fn))
                 {
                     CachedEmittedTypesPerFile.Remove(fn);
+                    Dependencies.Remove(fn);
                 }
             }
         }
@@ -380,11 +411,24 @@ namespace H5.Translator
             return Path.GetFileNameWithoutExtension(defaultFileName);
         }
 
+        private UID128 ComputeFileHash(string filePath)
+        {
+            using (var stream = File.OpenRead(filePath))
+            using (var sha256 = SHA256.Create())
+            {
+                var hashBytes = sha256.ComputeHash(stream);
+                var hashString = BitConverter.ToString(hashBytes);
+                return hashString.Hash128();
+            }
+        }
+
         protected override void DoEmit()
         {
             EmitBlockCachedOutput cachedEmittedData = null;
+            var invalidationList = new HashSet<string>();
+            var changedFiles = new HashSet<string>();
             
-            if (false) //RFO: Disabled for now till we figure out the possible bug bellow
+            if (Emitter.AssemblyInfo.EnableCache)
             {
                 cachedEmittedData = LoadCache();
 
@@ -401,7 +445,7 @@ namespace H5.Translator
                     configHash = Hashes.Combine(configHash, reference.FullName.Hash128(), $"{fi.Length}/{fi.LastWriteTime}".Hash128());
                 }
 
-                foreach (var f in Emitter.SourceFiles) //Change in order could be problematic due to whatever SourceFileNameIndex is used for - TBD, but for now we check here
+                foreach (var f in Emitter.SourceFiles.OrderBy(x => x)) //Change in order could be problematic due to whatever SourceFileNameIndex is used for - TBD, but for now we check here
                 {
                     configHash = Hashes.Combine(configHash, f.Hash128());
                 }
@@ -411,10 +455,82 @@ namespace H5.Translator
                 configHash = Hashes.Combine(configHash, $"{context.Compiler.Version}/{context.H5.Version}".Hash128());
 
                 cachedEmittedData.ClearIfConfigHashChanged(configHash);
+
+                if (cachedEmittedData.ConfigHash == configHash)
+                {
+                    foreach(var file in Emitter.SourceFiles)
+                    {
+                        var fileInfo = new FileInfo(file);
+                        var hash = ComputeFileHash(file);
+
+                        if (cachedEmittedData.FileInfo.TryGetValue(file, out var prevInfo))
+                        {
+                            if (prevInfo.Hash != hash)
+                            {
+                                changedFiles.Add(file);
+                            }
+                        }
+                        else
+                        {
+                            changedFiles.Add(file);
+                        }
+                    }
+
+                    var reverseDeps = new Dictionary<string, HashSet<string>>();
+                    foreach(var kvp in cachedEmittedData.Dependencies)
+                    {
+                        var dependentFile = kvp.Key;
+                        foreach(var referencedFile in kvp.Value)
+                        {
+                            if (!reverseDeps.TryGetValue(referencedFile, out var set))
+                            {
+                                set = new HashSet<string>();
+                                reverseDeps[referencedFile] = set;
+                            }
+                            set.Add(dependentFile);
+                        }
+                    }
+
+                    var queue = new Queue<string>(changedFiles);
+                    while(queue.Count > 0)
+                    {
+                        var changed = queue.Dequeue();
+                        invalidationList.Add(changed);
+
+                        if (reverseDeps.TryGetValue(changed, out var dependents))
+                        {
+                            foreach(var dep in dependents)
+                            {
+                                if (!invalidationList.Contains(dep) && !changedFiles.Contains(dep))
+                                {
+                                    invalidationList.Add(dep);
+                                    queue.Enqueue(dep);
+                                }
+                            }
+                        }
+                    }
+
+                    foreach(var file in invalidationList)
+                    {
+                        System.Console.WriteLine("Invalidating file: " + file);
+                        cachedEmittedData.CachedEmittedTypesPerFile.Remove(file);
+                        cachedEmittedData.Dependencies.Remove(file);
+                    }
+
+                    // Update FileInfo for all source files to current state so next run has correct info
+                    foreach(var file in Emitter.SourceFiles)
+                    {
+                         var fileInfo = new FileInfo(file);
+                         var hash = ComputeFileHash(file);
+                         cachedEmittedData.FileInfo[file] = new CacheFileInfo { Hash = hash, Size = fileInfo.Length, Timestamp = (DateTimeOffset)fileInfo.LastWriteTimeUtc };
+                    }
+                }
             }
 
 
             Emitter.Tag = "JS";
+            var trackingResolver = new DependencyTrackingResolver(Emitter.Resolver, Emitter);
+            Emitter.Resolver = trackingResolver;
             Emitter.Writers = new Stack<IWriter>();
             Emitter.Outputs = new EmitterOutputs();
             
@@ -425,6 +541,9 @@ namespace H5.Translator
             var nsCache = new Dictionary<string, Dictionary<string, int>>();
 
             var reflectedTypes = Emitter.ReflectableTypes = GetReflectableTypes();
+
+            int reusedFiles = 0;
+            var emittedFiles = new HashSet<string>();
 
             using (new Measure(Logger, "Emitting types to javascript"))
             {
@@ -489,12 +608,13 @@ namespace H5.Translator
 
                     var currentOutput = Emitter.Output; Emitter.Output = tmpBuffer;
 
-                    if (cachedEmittedData is object && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.JsName, out var cachedCode))
+                    if (cachedEmittedData is object && !invalidationList.Contains(Emitter.SourceFileName) && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.JsName, out var cachedCode))
                     {
                         tmpBuffer.Append(cachedCode);
                     }
                     else
                     {
+                        emittedFiles.Add(Emitter.SourceFileName);
                         if (Emitter.TypeInfo.Module is object)
                         {
                             Indent();
@@ -510,12 +630,31 @@ namespace H5.Translator
                     }
 
                     var finalCode = tmpBuffer.ToString();
+
+                    if (cachedEmittedData != null)
+                    {
+                        cachedEmittedData.AddToCache(Emitter.SourceFileName, type.JsName, finalCode);
+                    }
                     
                     currentOutput.Append(finalCode);
 
                     //Switch back the emitter output to the previous StringBuilder
                     Emitter.Output = currentOutput;
                 }
+
+                if (cachedEmittedData != null)
+                {
+                    foreach(var kvp in trackingResolver.Dependencies)
+                    {
+                        cachedEmittedData.Dependencies[kvp.Key] = kvp.Value;
+                    }
+                }
+
+                reusedFiles = Emitter.SourceFiles.Count - emittedFiles.Count;
+
+                if (Emitter.Translator.Stats == null) Emitter.Translator.Stats = new Dictionary<string, int>();
+                Emitter.Translator.Stats["ReusedFiles"] = reusedFiles;
+                Emitter.Translator.Stats["InvalidatedFiles"] = invalidationList.Count;
 
                 Emitter.DisableDependencyTracking = true;
                 EmitNamedBoxedFunctions();

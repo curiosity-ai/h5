@@ -63,7 +63,7 @@ namespace H5.Compiler.Hosted
             return this;
         }
 
-        internal CompilationOptions ToOptions(string sourceDirectory, NuGetVersion sdkTargetVersion)
+        public CompilationOptions ToOptions(string sourceDirectory, NuGetVersion sdkTargetVersion)
         {
             foreach(var (file, code) in SourceCode)
             {

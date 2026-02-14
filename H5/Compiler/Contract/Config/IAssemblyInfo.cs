@@ -91,5 +91,7 @@ namespace H5.Contract
         string[] References { get; set; }
 
         bool IgnoreDuplicateTypes { get; set; }
+
+        bool EnableCache { get; set; }
     }
  }

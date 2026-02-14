@@ -108,7 +108,9 @@ namespace H5.Compiler
                     processor.PreProcess(compilationRequest.Settings);
                     processor.Process();
                     processor.PostProcess();
-                    output.SetResult(CompilationOutput.FromOutputLocation(processor.Translator.AssemblyInfo.Output));
+                    var compilationOutput = CompilationOutput.FromOutputLocation(processor.Translator.AssemblyInfo.Output);
+                    compilationOutput.Stats = processor.Translator.Stats;
+                    output.SetResult(compilationOutput);
                 }
             }
             catch (OperationCanceledException)

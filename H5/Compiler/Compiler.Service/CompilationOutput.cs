@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -7,6 +7,8 @@ namespace H5.Compiler
     public class CompilationOutput
     {
         public Dictionary<string,string> Output { get; private set; }
+
+        public Dictionary<string, int> Stats { get; set; }
 
         internal static CompilationOutput FromOutputLocation(string outputLocation)
         {

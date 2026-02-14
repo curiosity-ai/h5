@@ -232,6 +232,12 @@ namespace H5.Translator
                         {
                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, recursivePattern).NormalizeWhitespace();
                         }
+                        else
+                        {
+                             // Fallback for other patterns (Relational, Binary, Unary, Type, Parenthesized)
+                             // which are handled by MakeCheck but were missing here.
+                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, pattern.Pattern).NormalizeWhitespace();
+                        }
                     }
                 }
                 catch (Exception e)
@@ -288,6 +294,42 @@ namespace H5.Translator
             {
                 // Partial support: Type check only (variables ignored for now)
                 return SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, declPattern.Type);
+            }
+            else if (pattern is RelationalPatternSyntax relational)
+            {
+                var op = relational.OperatorToken.Kind() switch
+                {
+                    SyntaxKind.LessThanToken => SyntaxKind.LessThanExpression,
+                    SyntaxKind.LessThanEqualsToken => SyntaxKind.LessThanOrEqualExpression,
+                    SyntaxKind.GreaterThanToken => SyntaxKind.GreaterThanExpression,
+                    SyntaxKind.GreaterThanEqualsToken => SyntaxKind.GreaterThanOrEqualExpression,
+                    _ => SyntaxKind.None
+                };
+
+                if (op != SyntaxKind.None)
+                {
+                    return SyntaxFactory.BinaryExpression(op, expression, relational.Expression);
+                }
+            }
+            else if (pattern is BinaryPatternSyntax binary)
+            {
+                 var left = MakeCheck(expression, binary.Left);
+                 var right = MakeCheck(expression, binary.Right);
+                 var op = binary.OperatorToken.IsKind(SyntaxKind.AndKeyword) ? SyntaxKind.LogicalAndExpression : SyntaxKind.LogicalOrExpression;
+                 return SyntaxFactory.BinaryExpression(op, left, right);
+            }
+            else if (pattern is UnaryPatternSyntax unary)
+            {
+                 var check = MakeCheck(expression, unary.Pattern);
+                 return SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(check));
+            }
+            else if (pattern is TypePatternSyntax typePattern)
+            {
+                 return SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, typePattern.Type);
+            }
+            else if (pattern is ParenthesizedPatternSyntax parenthesized)
+            {
+                 return MakeCheck(expression, parenthesized.Pattern);
             }
 
             // Discard or Var matches everything (checked non-null by parent RecursivePattern usually, but here we assume true)

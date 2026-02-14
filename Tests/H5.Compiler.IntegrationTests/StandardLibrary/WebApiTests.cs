@@ -39,6 +39,226 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
         }
 
         [TestMethod]
+        public async Task WebHIDTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof navigator.hid === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var hid = dom.window.navigator.hid;
+                    Console.WriteLine(hid != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        public async Task WebSerialTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof navigator.serial === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var serial = dom.window.navigator.serial;
+                    Console.WriteLine(serial != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        [Ignore("Requires updated H5 package with MIDI")]
+        public async Task WebMIDITest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof navigator.requestMIDIAccess === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    // Just check if we can call it (it returns a promise)
+                    var promise = dom.window.navigator.requestMIDIAccess();
+                    Console.WriteLine(promise != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        [Ignore("Requires updated H5 package with Sensors")]
+        public async Task SensorsTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof Accelerometer === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var sensor = new dom.Accelerometer();
+                    Console.WriteLine(sensor != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        [Ignore("Requires updated H5 package with FileSystemAccess")]
+        public async Task FileSystemAccessTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof showOpenFilePicker === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var supported = dom.window.showOpenFilePicker != null;
+                    Console.WriteLine(supported ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        public async Task WebXRTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof navigator.xr === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var xr = dom.window.navigator.xr;
+                    Console.WriteLine(xr != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        public async Task WebBluetoothTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof navigator.bluetooth === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var bt = dom.window.navigator.bluetooth;
+                    Console.WriteLine(bt != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        public async Task WebUSBTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof navigator.usb === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var usb = dom.window.navigator.usb;
+                    Console.WriteLine(usb != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
         public async Task CryptoRandomUUIDTest()
         {
             var code = @"

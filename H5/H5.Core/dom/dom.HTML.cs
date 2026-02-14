@@ -10928,7 +10928,7 @@ namespace H5.Core
 
         [CombinedClass]
         [FormerInterface]
-        public class HTMLVideoElement : dom.HTMLMediaElement
+        public partial class HTMLVideoElement : dom.HTMLMediaElement
         {
 
 

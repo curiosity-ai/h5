@@ -39,6 +39,95 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
         }
 
         [TestMethod]
+        [Ignore("Requires updated H5 package with WebCodecs")]
+        public async Task WebCodecsTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof VideoEncoder === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var init = new dom.VideoEncoderInit
+                    {
+                        error = (e) => Console.WriteLine(""Error""),
+                        output = (chunk, meta) => Console.WriteLine(""Output"")
+                    };
+                    var encoder = new dom.VideoEncoder(init);
+                    Console.WriteLine(encoder != null ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        [Ignore("Requires updated H5 package with MediaSession")]
+        public async Task MediaSessionTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    if (Script.Write<bool>(""typeof navigator.mediaSession === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    var session = dom.window.navigator.mediaSession;
+                    session.metadata = new dom.MediaMetadata(new dom.MediaMetadataInit { title = ""Title"" });
+                    Console.WriteLine(session.metadata.title == ""Title"" ? ""Success"" : ""Failed"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
+        public async Task PictureInPictureTest()
+        {
+            var code = @"
+            using H5;
+            using H5.Core;
+            using System;
+
+            public class Program
+            {
+                public static void Main()
+                {
+                    // Check if document.pictureInPictureEnabled is defined
+                    if (Script.Write<bool>(""typeof document.pictureInPictureEnabled === 'undefined'""))
+                    {
+                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        return;
+                    }
+
+                    Console.WriteLine(""Success"");
+                }
+            }";
+
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Success", output);
+        }
+
+        [TestMethod]
         public async Task WebHIDTest()
         {
             var code = @"

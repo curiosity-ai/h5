@@ -32,6 +32,11 @@ namespace H5.Translator
                 return true;
             }
 
+            if (type.FullName == "Microsoft.CodeAnalysis.EmbeddedAttribute")
+            {
+                return true;
+            }
+
             return false;
         }
 

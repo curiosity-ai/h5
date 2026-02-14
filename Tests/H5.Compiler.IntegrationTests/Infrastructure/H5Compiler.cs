@@ -56,6 +56,8 @@ namespace H5.Compiler.IntegrationTests
 
                 versions.RemoveAll(v => v.ToString() == "26.2.64338");
                 versions.RemoveAll(v => v.ToString() == "26.2.64336");
+                versions.RemoveAll(v => v.ToString() == "26.2.64348");
+                versions.RemoveAll(v => v.ToString() == "26.2.64351");
 
 
                 // Get the latest version (Max)
@@ -143,10 +145,16 @@ namespace H5.Compiler.IntegrationTests
 
         public static void ClearRewriterCache()
         {
-            // Clear SharpSixRewriter cache to prevent stale rewrite issues
+            // Clear SharpSixRewriter and Emitter cache to prevent stale rewrite issues
             try
             {
                 var files = Directory.GetFiles(Environment.CurrentDirectory, "*.h5.rewriter.cache", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    File.Delete(file);
+                }
+
+                files = Directory.GetFiles(Environment.CurrentDirectory, "*.h5.emittedJS.cache", SearchOption.AllDirectories);
                 foreach (var file in files)
                 {
                     File.Delete(file);

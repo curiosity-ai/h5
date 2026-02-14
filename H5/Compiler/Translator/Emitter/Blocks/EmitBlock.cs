@@ -512,7 +512,7 @@ namespace H5.Translator
 
                     foreach(var file in invalidationList)
                     {
-                        System.Console.WriteLine("Invalidating file: " + file);
+                        Logger.ZLogInformation("Invalidating file: {0}", file);
                         cachedEmittedData.CachedEmittedTypesPerFile.Remove(file);
                         cachedEmittedData.Dependencies.Remove(file);
                     }

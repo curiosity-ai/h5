@@ -60,6 +60,19 @@ namespace H5.Translator
                     block.Emit();
                 }
 
+                if (AssemblyInfo.EnableCache && Translator.Stats is object)
+                {
+                    var reusedFiles = Translator.Stats.ContainsKey("ReusedFiles") ? Translator.Stats["ReusedFiles"] : 0;
+                    var invalidatedFiles = Translator.Stats.ContainsKey("InvalidatedFiles") ? Translator.Stats["InvalidatedFiles"] : 0;
+                    var emittedFiles = SourceFiles.Count - reusedFiles;
+
+                    Logger.ZLogInformation("Compilation Summary:");
+                    Logger.ZLogInformation("  - Total files: {0}", SourceFiles.Count);
+                    Logger.ZLogInformation("  - Reused files: {0}", reusedFiles);
+                    Logger.ZLogInformation("  - Invalidated files: {0}", invalidatedFiles);
+                    Logger.ZLogInformation("  - Emitted files: {0}", emittedFiles);
+                }
+
                 if (AutoStartupMethods.Count > 1)
                 {
                     var autoMethods = string.Join(", ", AutoStartupMethods);

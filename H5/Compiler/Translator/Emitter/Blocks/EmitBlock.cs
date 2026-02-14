@@ -608,21 +608,7 @@ namespace H5.Translator
 
                     var currentOutput = Emitter.Output; Emitter.Output = tmpBuffer;
 
-                    var isInvalidated = invalidationList.Contains(Emitter.SourceFileName);
-
-                    if (!isInvalidated && typeDef != null)
-                    {
-                        foreach (var part in typeDef.Parts)
-                        {
-                            if (part.UnresolvedFile != null && invalidationList.Contains(part.UnresolvedFile.FileName))
-                            {
-                                isInvalidated = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (cachedEmittedData is object && !isInvalidated && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.JsName, out var cachedCode))
+                    if (cachedEmittedData is object && !invalidationList.Contains(Emitter.SourceFileName) && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.JsName, out var cachedCode))
                     {
                         tmpBuffer.Append(cachedCode);
                     }

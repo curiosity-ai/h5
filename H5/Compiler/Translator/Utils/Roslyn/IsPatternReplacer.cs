@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -161,64 +161,73 @@ namespace H5.Translator
 
                     if (block != null)
                     {
-                        // Handle Declaration Pattern with Assignment
-                        if (pattern.Pattern is DeclarationPatternSyntax declarationPattern &&
-                            declarationPattern.Designation is SingleVariableDesignationSyntax designation)
+                        if (pattern.Pattern is DeclarationPatternSyntax declarationPattern)
                         {
                             var beforeStatement = pattern.Ancestors().OfType<StatementSyntax>().FirstOrDefault(ss => ss.Parent == block);
 
-                            var key = declarationPattern.Type.ToString();
-                            BinaryExpressionSyntax newExpr;
-                            if (typesInfo.Keys.Contains(key) && typesInfo[key])
+                            if (declarationPattern.Designation is SingleVariableDesignationSyntax designation)
                             {
-                                newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.ParenthesizedExpression(SyntaxFactory.AssignmentExpression(
-                                    SyntaxKind.SimpleAssignmentExpression,
-                                    SyntaxFactory.IdentifierName(designation.Identifier.ValueText),
-                                    SyntaxFactory.ConditionalExpression(SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, pattern.Expression, declarationPattern.Type),
-                                        SyntaxFactory.CastExpression(declarationPattern.Type, pattern.Expression),
-                                        SyntaxFactory.InvocationExpression(
-                                            SyntaxFactory.MemberAccessExpression(
-                                                SyntaxKind.SimpleMemberAccessExpression,
-                                                SyntaxFactory.IdentifierName("H5.Script"),
-                                                SyntaxFactory.GenericName(
-                                                    SyntaxFactory.Identifier("Write"))
-                                                .WithTypeArgumentList(
-                                                    SyntaxFactory.TypeArgumentList(
-                                                        SyntaxFactory.SingletonSeparatedList(declarationPattern.Type)))))
-                                        .WithArgumentList(
-                                            SyntaxFactory.ArgumentList(
-                                                SyntaxFactory.SingletonSeparatedList(
-                                                    SyntaxFactory.Argument(
-                                                        SyntaxFactory.LiteralExpression(
-                                                            SyntaxKind.StringLiteralExpression,
-                                                            SyntaxFactory.Literal("null"))))))
-                                    )
-                                )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+                                var key = declarationPattern.Type.ToString();
+                                BinaryExpressionSyntax newExpr;
+                                if (typesInfo.Keys.Contains(key) && typesInfo[key])
+                                {
+                                    newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.ParenthesizedExpression(SyntaxFactory.AssignmentExpression(
+                                        SyntaxKind.SimpleAssignmentExpression,
+                                        SyntaxFactory.IdentifierName(designation.Identifier.ValueText),
+                                        SyntaxFactory.ConditionalExpression(SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, pattern.Expression, declarationPattern.Type),
+                                            SyntaxFactory.CastExpression(declarationPattern.Type, pattern.Expression),
+                                            SyntaxFactory.InvocationExpression(
+                                                SyntaxFactory.MemberAccessExpression(
+                                                    SyntaxKind.SimpleMemberAccessExpression,
+                                                    SyntaxFactory.IdentifierName("H5.Script"),
+                                                    SyntaxFactory.GenericName(
+                                                        SyntaxFactory.Identifier("Write"))
+                                                    .WithTypeArgumentList(
+                                                        SyntaxFactory.TypeArgumentList(
+                                                            SyntaxFactory.SingletonSeparatedList(declarationPattern.Type)))))
+                                            .WithArgumentList(
+                                                SyntaxFactory.ArgumentList(
+                                                    SyntaxFactory.SingletonSeparatedList(
+                                                        SyntaxFactory.Argument(
+                                                            SyntaxFactory.LiteralExpression(
+                                                                SyntaxKind.StringLiteralExpression,
+                                                                SyntaxFactory.Literal("null"))))))
+                                        )
+                                    )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+                                }
+                                else
+                                {
+                                    newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.ParenthesizedExpression(SyntaxFactory.AssignmentExpression(
+                                        SyntaxKind.SimpleAssignmentExpression,
+                                        SyntaxFactory.IdentifierName(designation.Identifier.ValueText),
+                                        SyntaxFactory.BinaryExpression(SyntaxKind.AsExpression, pattern.Expression, declarationPattern.Type)
+                                    )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+                                }
+
+                                updatedPatterns[pattern] = newExpr.NormalizeWhitespace();
+                            }
+                        }
+                        else if (pattern.Pattern is ConstantPatternSyntax cps)
+                        {
+                            ExpressionSyntax newExpr;
+
+                            if (cps.Expression.Kind() == SyntaxKind.NullLiteralExpression)
+                            {
+                                newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, pattern.Expression, cps.Expression);
                             }
                             else
                             {
-                                newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.ParenthesizedExpression(SyntaxFactory.AssignmentExpression(
-                                    SyntaxKind.SimpleAssignmentExpression,
-                                    SyntaxFactory.IdentifierName(designation.Identifier.ValueText),
-                                    SyntaxFactory.BinaryExpression(SyntaxKind.AsExpression, pattern.Expression, declarationPattern.Type)
-                                )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+                                newExpr = SyntaxFactory.InvocationExpression(SyntaxFactory.MemberAccessExpression(
+                                       SyntaxKind.SimpleMemberAccessExpression,
+                                       pattern.Expression,
+                                       SyntaxFactory.IdentifierName("Equals")), SyntaxFactory.ArgumentList(
+                                       SyntaxFactory.SingletonSeparatedList(
+                                           SyntaxFactory.Argument(
+                                               cps.Expression))));
                             }
 
                             updatedPatterns[pattern] = newExpr.NormalizeWhitespace();
                         }
-                        // Handle Constant Pattern (Top-level optimization/legacy handling)
-                        else if (pattern.Pattern is ConstantPatternSyntax cps)
-                        {
-                             // Use MakeCheck logic directly or keep existing special handling if strictly needed.
-                             // Existing logic for top-level constant pattern seems identical to what MakeCheck should do,
-                             // except MakeCheck is cleaner. Let's reuse MakeCheck logic here too for consistency,
-                             // unless there is a reason not to.
-                             // Actually, the existing logic handles null specifically. MakeCheck also does.
-                             // So we can fallback to MakeCheck for everything else.
-
-                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, pattern.Pattern).NormalizeWhitespace();
-                        }
-                        // Handle Recursive Pattern
                         else if (pattern.Pattern is RecursivePatternSyntax recursivePattern)
                         {
                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, recursivePattern).NormalizeWhitespace();
@@ -283,71 +292,47 @@ namespace H5.Translator
             }
             else if (pattern is DeclarationPatternSyntax declPattern)
             {
-                // Partial support: Type check only (variables ignored for now, handled by InsertVariables if top-level)
+                // Partial support: Type check only (variables ignored for now)
                 return SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, declPattern.Type);
             }
-            else if (pattern is UnaryPatternSyntax unaryPattern)
+            else if (pattern is RelationalPatternSyntax relational)
             {
-                // pattern is not pattern
-                if (unaryPattern.OperatorToken.IsKind(SyntaxKind.NotKeyword))
+                var op = relational.OperatorToken.Kind() switch
                 {
-                    // Special case for 'not null' -> '!= null'
-                    if (unaryPattern.Pattern is ConstantPatternSyntax innerConst && innerConst.Expression.IsKind(SyntaxKind.NullLiteralExpression))
-                    {
-                         return SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, expression, innerConst.Expression);
-                    }
+                    SyntaxKind.LessThanToken => SyntaxKind.LessThanExpression,
+                    SyntaxKind.LessThanEqualsToken => SyntaxKind.LessThanOrEqualExpression,
+                    SyntaxKind.GreaterThanToken => SyntaxKind.GreaterThanExpression,
+                    SyntaxKind.GreaterThanEqualsToken => SyntaxKind.GreaterThanOrEqualExpression,
+                    _ => SyntaxKind.None
+                };
 
-                    return SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(MakeCheck(expression, unaryPattern.Pattern)));
+                if (op != SyntaxKind.None)
+                {
+                    return SyntaxFactory.BinaryExpression(op, expression, relational.Expression);
                 }
             }
-            else if (pattern is BinaryPatternSyntax binaryPattern)
+            else if (pattern is BinaryPatternSyntax binary)
             {
-                // pattern is left and right
-                // pattern is left or right
-                var leftCheck = MakeCheck(expression, binaryPattern.Left);
-                var rightCheck = MakeCheck(expression, binaryPattern.Right);
-
-                if (binaryPattern.OperatorToken.IsKind(SyntaxKind.AndKeyword))
-                {
-                    return SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, leftCheck, rightCheck);
-                }
-                else if (binaryPattern.OperatorToken.IsKind(SyntaxKind.OrKeyword))
-                {
-                    return SyntaxFactory.BinaryExpression(SyntaxKind.LogicalOrExpression, leftCheck, rightCheck);
-                }
+                 var left = MakeCheck(expression, binary.Left);
+                 var right = MakeCheck(expression, binary.Right);
+                 var op = binary.OperatorToken.IsKind(SyntaxKind.AndKeyword) ? SyntaxKind.LogicalAndExpression : SyntaxKind.LogicalOrExpression;
+                 return SyntaxFactory.BinaryExpression(op, left, right);
             }
-            else if (pattern is ParenthesizedPatternSyntax parenPattern)
+            else if (pattern is UnaryPatternSyntax unary)
             {
-                return MakeCheck(expression, parenPattern.Pattern);
-            }
-            else if (pattern is RelationalPatternSyntax relPattern)
-            {
-                // pattern is < 10
-                SyntaxKind opKind = SyntaxKind.None;
-                switch (relPattern.OperatorToken.Kind())
-                {
-                    case SyntaxKind.LessThanToken: opKind = SyntaxKind.LessThanExpression; break;
-                    case SyntaxKind.LessThanEqualsToken: opKind = SyntaxKind.LessThanOrEqualExpression; break;
-                    case SyntaxKind.GreaterThanToken: opKind = SyntaxKind.GreaterThanExpression; break;
-                    case SyntaxKind.GreaterThanEqualsToken: opKind = SyntaxKind.GreaterThanOrEqualExpression; break;
-                }
-
-                if (opKind != SyntaxKind.None)
-                {
-                    return SyntaxFactory.BinaryExpression(opKind, expression, relPattern.Expression);
-                }
+                 var check = MakeCheck(expression, unary.Pattern);
+                 return SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(check));
             }
             else if (pattern is TypePatternSyntax typePattern)
             {
-                return SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, typePattern.Type);
+                 return SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, typePattern.Type);
             }
-            else if (pattern is DiscardPatternSyntax || pattern is VarPatternSyntax)
+            else if (pattern is ParenthesizedPatternSyntax parenthesized)
             {
-                 return SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression);
+                 return MakeCheck(expression, parenthesized.Pattern);
             }
 
-            // Fallback: Discard or Var matches everything (checked non-null by parent RecursivePattern usually, but here we assume true)
-            // Or unknown pattern type
+            // Discard or Var matches everything (checked non-null by parent RecursivePattern usually, but here we assume true)
             return SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression);
         }
     }

@@ -11,7 +11,7 @@ namespace H5.Compiler.IntegrationTests
         {
         }
 
-        protected async Task RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false)
+        protected async Task<string> RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false)
         {
             string roslynOutput = "";
 
@@ -54,6 +54,8 @@ namespace H5.Compiler.IntegrationTests
                 roslynOutput = NormalizeOutput(roslynOutput);
                 Assert.AreEqual(roslynOutput, playwrightOutput, $"Output mismatch.\nExpected (Roslyn):\n{roslynOutput}\nActual (H5/Playwright):\n{playwrightOutput}");
             }
+
+            return playwrightOutput;
         }
 
         private string NormalizeOutput(string output)

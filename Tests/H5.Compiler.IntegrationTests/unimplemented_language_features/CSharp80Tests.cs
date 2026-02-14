@@ -387,11 +387,14 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task UnmanagedConstructedTypes()
         {
             var code = """
 using System;
+
+namespace System.Runtime.InteropServices {
+    public enum UnmanagedType { }
+}
 
 public struct Coordinates<T> where T : unmanaged
 {
@@ -408,7 +411,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTestExpectingError(code, "Unmanaged constraint is not supported");
         }
 
         [TestMethod]

@@ -41,8 +41,24 @@ namespace H5.Translator
             Namespace = prevNamespace;
         }
 
+        private void CheckUnmanagedConstraint(IEnumerable<Constraint> constraints)
+        {
+            foreach (var constraint in constraints)
+            {
+                foreach (var baseType in constraint.BaseTypes)
+                {
+                    if (baseType is SimpleType simpleType && simpleType.Identifier == "unmanaged")
+                    {
+                        throw new EmitterException(baseType, "Unmanaged constraint is not supported");
+                    }
+                }
+            }
+        }
+
         public override void VisitTypeDeclaration(TypeDeclaration typeDeclaration)
         {
+            CheckUnmanagedConstraint(typeDeclaration.Constraints);
+
             if (CurrentType != null)
             {
                 NestedTypes = NestedTypes ?? new List<Tuple<TypeDeclaration, ITypeInfo>>();
@@ -382,6 +398,8 @@ namespace H5.Translator
 
         public override void VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
+            CheckUnmanagedConstraint(methodDeclaration.Constraints);
+
             if (methodDeclaration.HasModifier(Modifiers.Abstract) || HasTemplate(methodDeclaration))
             {
                 return;
@@ -602,6 +620,7 @@ namespace H5.Translator
 
         public override void VisitDelegateDeclaration(DelegateDeclaration delegateDeclaration)
         {
+            CheckUnmanagedConstraint(delegateDeclaration.Constraints);
         }
 
         public override void VisitEnumMemberDeclaration(EnumMemberDeclaration enumMemberDeclaration)

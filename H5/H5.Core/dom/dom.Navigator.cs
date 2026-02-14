@@ -61,7 +61,7 @@ namespace H5.Core
 
         [CombinedClass]
         [FormerInterface]
-        public class Navigator : dom.NavigatorID, dom.NavigatorOnLine.Interface, IObject, dom.NavigatorContentUtils.Interface, dom.NavigatorStorageUtils.Interface, dom.MSNavigatorDoNotTrack.Interface, dom.MSFileSaver.Interface, dom.NavigatorBeacon.Interface, dom.NavigatorConcurrentHardware.Interface, dom.NavigatorUserMedia.Interface, dom.NavigatorLanguage.Interface
+        public partial class Navigator : dom.NavigatorID, dom.NavigatorOnLine.Interface, IObject, dom.NavigatorContentUtils.Interface, dom.NavigatorStorageUtils.Interface, dom.MSNavigatorDoNotTrack.Interface, dom.MSFileSaver.Interface, dom.NavigatorBeacon.Interface, dom.NavigatorConcurrentHardware.Interface, dom.NavigatorUserMedia.Interface, dom.NavigatorLanguage.Interface
         {
             public static dom.Navigator prototype
             {

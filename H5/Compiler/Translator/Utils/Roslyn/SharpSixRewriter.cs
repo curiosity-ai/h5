@@ -1744,6 +1744,21 @@ namespace H5.Translator
 
             var isAlias = semanticModel.GetAliasInfo(node) != null;
 
+            if (isAlias)
+            {
+                var aliasSymbol = semanticModel.GetAliasInfo(node);
+                var target = aliasSymbol.Target;
+
+                if (target is INamespaceSymbol ns)
+                {
+                    return SyntaxFactory.ParseName(ns.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                }
+                else if (target is ITypeSymbol ts)
+                {
+                    return SyntaxHelper.GenerateTypeSyntax(ts).WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                }
+            }
+
             ITypeSymbol thisType = currentType.Count == 0 ? null : currentType.Peek();
 
             bool needHandle = !isAlias &&

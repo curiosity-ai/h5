@@ -124,7 +124,7 @@ public class Program
         }
 
         [TestMethod]
-        public async Task ExceptionFilters_Failing()
+        public async Task ExceptionFilters_PropertyCheck()
         {
             var code = """
 using System;

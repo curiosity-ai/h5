@@ -203,17 +203,7 @@
 
                 for (i = 0; i < tasks.length; i++) {
                     tasks[i].continueWith(function (t) {
-                        switch (t.status) {
-                            case System.Threading.Tasks.TaskStatus.ranToCompletion:
-                                tcs.trySetResult(t);
-                                break;
-                            case System.Threading.Tasks.TaskStatus.canceled:
-                            case System.Threading.Tasks.TaskStatus.faulted:
-                                tcs.trySetException(t.exception.innerExceptions);
-                                break;
-                            default:
-                                throw new System.InvalidOperationException.$ctor1("Invalid task status: " + t.status);
-                        }
+                        tcs.trySetResult(t);
                     });
                 }
 

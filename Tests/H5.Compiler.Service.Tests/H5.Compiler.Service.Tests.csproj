@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <DisableMSBuildAssemblyCopyCheck>True</DisableMSBuildAssemblyCopyCheck>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest" Version="3.0.2" />
+    <PackageReference Include="NuGet.Versioning" Version="7.3.0" />
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../H5/Compiler/Compiler.Service/H5.Compiler.Service.csproj" />
+    <ProjectReference Include="../../H5/Compiler/Translator/H5.Translator.csproj" />
+    <ProjectReference Include="../../H5/Compiler/Contract/H5.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

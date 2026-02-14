@@ -54,6 +54,8 @@ namespace H5.Contract
         /// </summary>
         bool NoStrictMode { get; set; }
 
+        Dictionary<string, int> Stats { get; set; }
+
         VersionContext GetVersionContext();
     }
 }

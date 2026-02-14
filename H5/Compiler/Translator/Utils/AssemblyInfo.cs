@@ -210,5 +210,7 @@ namespace H5.Translator
         /// one assembly.
         /// </summary>
         public bool IgnoreDuplicateTypes { get; set; }
+
+        public bool EnableCache { get; set; }
     }
 }

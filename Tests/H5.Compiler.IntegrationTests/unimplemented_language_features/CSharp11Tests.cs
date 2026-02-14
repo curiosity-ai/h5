@@ -273,7 +273,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task ExtendedNameof()
         {
             var code = """
@@ -296,6 +295,65 @@ public class Program
     static void Print([ParamInfo(nameof(x))] int x)
     {
         Console.WriteLine(nameof(x));
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task ExtendedNameof_MethodAttribute()
+        {
+            var code = """
+using System;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class MethodInfoAttribute : Attribute
+{
+    public MethodInfoAttribute(string paramName) { ParamName = paramName; }
+    public string ParamName { get; }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Test(5);
+    }
+
+    [MethodInfo(nameof(p))]
+    public static void Test(int p)
+    {
+        Console.WriteLine(nameof(p));
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task ExtendedNameof_Qualified()
+        {
+            var code = """
+using System;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class MyAttr : Attribute
+{
+    public MyAttr(string name) { Name = name; }
+    public string Name { get; }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine("Qualified nameof works");
+    }
+
+    [MyAttr(nameof(System.Int32))]
+    public void Test()
+    {
     }
 }
 """;

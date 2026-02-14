@@ -213,6 +213,9 @@ namespace H5.Translator
             var result = new ExpressionBodyToStatementRewriter(semanticModel).Visit(syntaxTree.GetRoot());
             modelUpdater(result);
 
+            result = new NameofReplacer(semanticModel).Visit(syntaxTree.GetRoot());
+            modelUpdater(result);
+
             result = new DiscardReplacer().Replace(syntaxTree.GetRoot(), semanticModel, modelUpdater, this);
             modelUpdater(result);
 

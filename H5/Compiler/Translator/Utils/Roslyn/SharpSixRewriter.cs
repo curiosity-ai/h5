@@ -2309,6 +2309,36 @@ namespace H5.Translator
             return VisitClassDeclaration(classDecl);
         }
 
+        public override SyntaxNode VisitStackAllocArrayCreationExpression(StackAllocArrayCreationExpressionSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitStackAllocArrayCreationExpression(node);
+            }
+
+            node = (StackAllocArrayCreationExpressionSyntax)base.VisitStackAllocArrayCreationExpression(node);
+
+            return SyntaxFactory.ArrayCreationExpression((ArrayTypeSyntax)node.Type, node.Initializer)
+                .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                .WithLeadingTrivia(node.GetLeadingTrivia())
+                .WithTrailingTrivia(node.GetTrailingTrivia());
+        }
+
+        public override SyntaxNode VisitImplicitStackAllocArrayCreationExpression(ImplicitStackAllocArrayCreationExpressionSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitImplicitStackAllocArrayCreationExpression(node);
+            }
+
+            node = (ImplicitStackAllocArrayCreationExpressionSyntax)base.VisitImplicitStackAllocArrayCreationExpression(node);
+
+            return SyntaxFactory.ImplicitArrayCreationExpression(node.Initializer)
+                .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                .WithLeadingTrivia(node.GetLeadingTrivia())
+                .WithTrailingTrivia(node.GetTrailingTrivia());
+        }
+
         public override SyntaxNode VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node)
         {
              if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)

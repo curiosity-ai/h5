@@ -216,18 +216,18 @@ namespace H5.Translator
                              // Actually, the existing logic handles null specifically. MakeCheck also does.
                              // So we can fallback to MakeCheck for everything else.
 
-                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, pattern.Pattern).NormalizeWhitespace();
+                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, pattern.Pattern, model).NormalizeWhitespace();
                         }
                         // Handle Recursive Pattern
                         else if (pattern.Pattern is RecursivePatternSyntax recursivePattern)
                         {
-                            updatedPatterns[pattern] = MakeCheck(pattern.Expression, recursivePattern).NormalizeWhitespace();
+                            updatedPatterns[pattern] = MakeCheck(pattern.Expression, recursivePattern, model).NormalizeWhitespace();
                         }
                         else
                         {
                              // Fallback for other patterns (Relational, Binary, Unary, Type, Parenthesized)
                              // which are handled by MakeCheck but were missing here.
-                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, pattern.Pattern).NormalizeWhitespace();
+                             updatedPatterns[pattern] = MakeCheck(pattern.Expression, pattern.Pattern, model).NormalizeWhitespace();
                         }
                     }
                 }
@@ -245,7 +245,7 @@ namespace H5.Translator
             return root;
         }
 
-        private ExpressionSyntax MakeCheck(ExpressionSyntax expression, PatternSyntax pattern)
+        private ExpressionSyntax MakeCheck(ExpressionSyntax expression, PatternSyntax pattern, SemanticModel model)
         {
             if (pattern is ConstantPatternSyntax constPattern)
             {
@@ -274,8 +274,32 @@ namespace H5.Translator
                     foreach (var sub in recursivePattern.PropertyPatternClause.Subpatterns)
                     {
                         var propAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expression, sub.NameColon.Name);
-                        var subCheck = MakeCheck(propAccess, sub.Pattern);
+                        var subCheck = MakeCheck(propAccess, sub.Pattern, model);
                         condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, subCheck);
+                    }
+                }
+
+                if (recursivePattern.PositionalPatternClause != null)
+                {
+                    var typeInfo = model.GetTypeInfo(expression);
+                    var type = typeInfo.Type ?? typeInfo.ConvertedType;
+
+                    if (type != null && (type.IsTupleType || type.Name == "ValueTuple" || type.Name == "System.ValueTuple"))
+                    {
+                        int index = 0;
+                        foreach (var subPattern in recursivePattern.PositionalPatternClause.Subpatterns)
+                        {
+                            var fieldName = $"Item{index + 1}";
+                            var memberAccess = SyntaxFactory.MemberAccessExpression(
+                                SyntaxKind.SimpleMemberAccessExpression,
+                                expression,
+                                SyntaxFactory.IdentifierName(fieldName)
+                            );
+
+                            var subCheck = MakeCheck(memberAccess, subPattern.Pattern, model);
+                            condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, subCheck);
+                            index++;
+                        }
                     }
                 }
 
@@ -297,15 +321,15 @@ namespace H5.Translator
                          return SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, expression, innerConst.Expression);
                     }
 
-                    return SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(MakeCheck(expression, unaryPattern.Pattern)));
+                    return SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression, SyntaxFactory.ParenthesizedExpression(MakeCheck(expression, unaryPattern.Pattern, model)));
                 }
             }
             else if (pattern is BinaryPatternSyntax binaryPattern)
             {
                 // pattern is left and right
                 // pattern is left or right
-                var leftCheck = MakeCheck(expression, binaryPattern.Left);
-                var rightCheck = MakeCheck(expression, binaryPattern.Right);
+                var leftCheck = MakeCheck(expression, binaryPattern.Left, model);
+                var rightCheck = MakeCheck(expression, binaryPattern.Right, model);
 
                 if (binaryPattern.OperatorToken.IsKind(SyntaxKind.AndKeyword))
                 {
@@ -318,7 +342,7 @@ namespace H5.Translator
             }
             else if (pattern is ParenthesizedPatternSyntax parenPattern)
             {
-                return MakeCheck(expression, parenPattern.Pattern);
+                return MakeCheck(expression, parenPattern.Pattern, model);
             }
             else if (pattern is RelationalPatternSyntax relPattern)
             {

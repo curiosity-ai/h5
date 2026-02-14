@@ -2059,7 +2059,7 @@ namespace H5.Translator
             if (catchItem.Filter != null)
             {
                 var methodIdentifier = SyntaxFactory.IdentifierName("global::H5.Script.SafeFunc");
-                var lambda = SyntaxFactory.ParenthesizedLambdaExpression(SyntaxFactory.ParameterList(), !catchItem.Declaration.Identifier.IsKind(SyntaxKind.None) ? new IdentifierReplacer(catchItem.Declaration.Identifier.Value.ToString(), SyntaxFactory.CastExpression(catchItem.Declaration.Type, SyntaxFactory.IdentifierName(varName))).Replace(catchItem.Filter.FilterExpression) : catchItem.Filter.FilterExpression);
+                var lambda = SyntaxFactory.ParenthesizedLambdaExpression(SyntaxFactory.ParameterList(), !catchItem.Declaration.Identifier.IsKind(SyntaxKind.None) ? new IdentifierReplacer(catchItem.Declaration.Identifier.Value.ToString(), SyntaxFactory.ParenthesizedExpression(SyntaxFactory.CastExpression(catchItem.Declaration.Type, SyntaxFactory.IdentifierName(varName)))).Replace(catchItem.Filter.FilterExpression) : catchItem.Filter.FilterExpression);
                 var invocation = SyntaxFactory.InvocationExpression(methodIdentifier, SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Argument(
                     lambda
                     ) })));

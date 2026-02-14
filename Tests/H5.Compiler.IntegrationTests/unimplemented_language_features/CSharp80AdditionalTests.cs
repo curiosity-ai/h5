@@ -32,6 +32,48 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("Ref return write-back not supported by H5 for custom structs")]
+        public async Task Span_Ref_Modifies_Original()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        var array = new int[] { 1, 2, 3 };
+        Span<int> span = new Span<int>(array);
+        ref int first = ref span[0];
+        first = 10;
+        Console.WriteLine(array[0]); // Should be 10
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task ReadOnlySpan_Ref_Read()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        var array = new int[] { 1, 2, 3 };
+        ReadOnlySpan<int> span = new ReadOnlySpan<int>(array);
+        ref readonly int first = ref span[0];
+        Console.WriteLine(first); // 1
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
         public async Task RangeType_Works()
         {
             var code = """

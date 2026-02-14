@@ -40,31 +40,15 @@ True
 False
 ```
 
-## C# 6.0 Exception Filters Failure
+## C# 6.0 Exception Filters Failure (FIXED)
 
-The `ExceptionFilters` test in `CSharp60Tests.cs` failed.
+The `ExceptionFilters` test in `CSharp60Tests.cs` was failing due to improper casting in the rewritten filter expression.
 
-### Expected Output (Roslyn)
-```
-Caught Error 1
-```
+### Fix
+The `SharpSixRewriter` was generating `(Exception)ex.Message`, which was interpreted as `(Exception)(ex.Message)` due to operator precedence, resulting in `H5.cast(ex.Message, Exception)`. This caused the filter to fail as it tried to cast a string to an Exception. The fix involved wrapping the cast expression in parentheses to ensure `((Exception)ex).Message` is generated.
 
-### Actual Output (H5)
-```
-Caught other error
-```
-(Or `Caught other error: Error 1` when debugged)
-
-### Analysis
-1.  The `catch (Exception ex) when (ex.Message == "Error 1")` block was skipped.
-2.  The exception was caught by the general `catch (Exception ex)` block.
-3.  Debugging confirmed that `ex.Message` IS "Error 1" inside the catch block.
-4.  This indicates that the `when` filter expression `ex.Message == "Error 1"` evaluated to false or was ignored by the runtime/compiler logic, despite the property being correct.
-5.  A simpler filter `catch (Exception ex) when (true)` works correctly, as verified by `ExceptionFilters_Passing`.
-
-### Action
-I have split the test into `ExceptionFilters_Passing` (which works) and `ExceptionFilters_Failing` (which fails).
-I have marked `ExceptionFilters_Failing` as `[Ignore]` to prevent blocking the build, while documenting the issue here.
+### Status
+The test `ExceptionFilters_Failing` has been renamed to `ExceptionFilters_PropertyCheck` and now passes.
 
 ## Synchronous Local Functions inside Async Lambdas with Outer Local Functions
 

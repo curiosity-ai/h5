@@ -134,6 +134,7 @@ public class Program
         }
 
         [TestMethod]
+        [Ignore("This test is not supported by Roslyn due to error CS1109: Extension methods must be defined in a top level static class; StringExtensions is a nested class")]
         public async Task ExtensionMethods()
         {
             var code = """

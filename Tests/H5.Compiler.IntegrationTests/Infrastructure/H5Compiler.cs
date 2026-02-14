@@ -137,6 +137,20 @@ namespace H5.Compiler.IntegrationTests
             }
         }
 
+        public static void ClearRewriterCache()
+        {
+            // Clear SharpSixRewriter cache to prevent stale rewrite issues
+            try
+            {
+                var files = Directory.GetFiles(Environment.CurrentDirectory, "*.h5.rewriter.cache", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    File.Delete(file);
+                }
+            }
+            catch { /* Ignore */ }
+        }
+
         public static async Task<string> CompileToJs(string csharpCode)
         {
             var latestVersion = await GetLatestVersionAsync();
@@ -148,8 +162,8 @@ namespace H5.Compiler.IntegrationTests
                     Disabled = false,
                     Target = Contract.MetadataTarget.Inline, 
                 }
-            }
-            ;
+            };
+
             var request = new CompilationRequest("App", settings)
                             //.NoPackageResources() // Comment this out to get resources
                             .NoHTML()

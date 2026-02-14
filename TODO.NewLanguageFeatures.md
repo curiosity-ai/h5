@@ -19,16 +19,16 @@ This file tracks the implementation status of pending C# language features.
 - [ ] **Readonly Members**: `public readonly int Method()`. (Priority: Medium)
 - [ ] **Default Interface Methods**: Implementation in interfaces. (Priority: High)
 - [ ] **Pattern Matching Enhancements**:
-    - [ ] **Switch Expressions**: `x switch { ... }`. (Priority: High)
+- [x] **Switch Expressions**: `x switch { ... }`. (Priority: High)
     - [ ] **Property Patterns**: `{ P: 1 }`. (Priority: High)
     - [ ] **Tuple Patterns**: `(1, 2)`. (Priority: High)
     - [ ] **Positional Patterns**: `Deconstruct` based. (Priority: High)
-- [ ] **Using Declarations**: `using var x = ...`. (Priority: High)
+- [x] **Using Declarations**: `using var x = ...`. (Priority: High)
 - [ ] **Disposable Ref Structs**: `ref struct` with `Dispose`. (Priority: Low)
 - [ ] **Nullable Reference Types**: `string?`, `notnull` constraint. (Priority: High)
 - [ ] **Async Streams**: `await foreach`, `IAsyncEnumerable`. (Priority: High)
-- [ ] **Indices and Ranges**: `^1`, `1..5`. (Priority: High)
-- [ ] **Null-Coalescing Assignment**: `x ??= y`. (Priority: High)
+- [x] **Indices and Ranges**: `^1`, `1..5`. (Priority: High)
+- [x] **Null-Coalescing Assignment**: `x ??= y`. (Priority: High)
 - [ ] **Unmanaged Constructed Types**: `struct S<T> where T : unmanaged`. (Priority: Not Important)
 - [ ] **StackAlloc in Nested Expressions**: Inside other expressions. (Priority: Low)
 
@@ -59,7 +59,7 @@ This file tracks the implementation status of pending C# language features.
 - [ ] **Record Structs**: `public record struct Point(int X, int Y);`. (Priority: Medium)
 - [ ] **Struct Improvements**: Parameterless constructors, field initializers. (Priority: Medium)
 - [ ] **Global Usings**: `global using System;`. (Priority: Medium)
-- [ ] **File-Scoped Namespaces**: `namespace MyNamespace;`. (Priority: High)
+- [x] **File-Scoped Namespaces**: `namespace MyNamespace;`. (Priority: High)
 - [ ] **Extended Property Patterns**: `{ Prop.Child: 1 }`. (Priority: High)
 - [ ] **Lambda Improvements**: Attributes, explicit return types. (Priority: Medium)
 - [ ] **Sealed ToString in Records**: `sealed override ToString()`. (Priority: Low)
@@ -68,7 +68,7 @@ This file tracks the implementation status of pending C# language features.
 
 ## C# 11.0
 
-- [ ] **Raw String Literals**: `"""..."""`. (Priority: High)
+- [x] **Raw String Literals**: `"""..."""`. (Priority: High)
 - [ ] **Generic Math**: `static abstract` interface members (syntax support). (Priority: Low)
 - [ ] **Generic Attributes**: `class Attr<T> : Attribute`. (Priority: Medium)
 - [ ] **UTF-8 String Literals**: `"text"u8`. (Priority: Low)

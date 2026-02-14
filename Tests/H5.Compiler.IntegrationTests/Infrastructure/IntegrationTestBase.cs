@@ -11,17 +11,20 @@ namespace H5.Compiler.IntegrationTests
         {
         }
 
-        protected async Task RunTest(string csharpCode, string? waitForOutput = null)
+        protected async Task RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false)
         {
             string roslynOutput = "";
 
-            try
+            if (!skipRoslyn)
             {
-                roslynOutput = await RoslynCompiler.CompileAndRunAsync(csharpCode);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail($"Roslyn compilation/execution failed:\n{ex}");
+                try
+                {
+                    roslynOutput = await RoslynCompiler.CompileAndRunAsync(csharpCode);
+                }
+                catch (Exception ex)
+                {
+                    Assert.Fail($"Roslyn compilation/execution failed:\n{ex}");
+                }
             }
 
             string h5Js = "";
@@ -44,10 +47,13 @@ namespace H5.Compiler.IntegrationTests
                 Assert.Fail($"Playwright execution failed:\n{ex}");
             }
 
-            roslynOutput = NormalizeOutput(roslynOutput);
             playwrightOutput = NormalizeOutput(playwrightOutput);
 
-            Assert.AreEqual(roslynOutput, playwrightOutput, $"Output mismatch.\nExpected (Roslyn):\n{roslynOutput}\nActual (H5/Playwright):\n{playwrightOutput}");
+            if (!skipRoslyn)
+            {
+                roslynOutput = NormalizeOutput(roslynOutput);
+                Assert.AreEqual(roslynOutput, playwrightOutput, $"Output mismatch.\nExpected (Roslyn):\n{roslynOutput}\nActual (H5/Playwright):\n{playwrightOutput}");
+            }
         }
 
         private string NormalizeOutput(string output)

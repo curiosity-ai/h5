@@ -31411,7 +31411,7 @@ namespace H5.Core
 
         [CombinedClass]
         [FormerInterface]
-        public class Screen : dom.EventTarget
+        public partial class Screen : dom.EventTarget
         {
 
 

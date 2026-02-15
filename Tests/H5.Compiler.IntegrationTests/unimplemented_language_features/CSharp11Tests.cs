@@ -277,6 +277,7 @@ public class Program
         {
             var code = """
 using System;
+using System.Reflection;
 
 [AttributeUsage(AttributeTargets.Parameter)]
 public class ParamInfoAttribute : Attribute
@@ -289,12 +290,14 @@ public class Program
 {
     public static void Main()
     {
-        Print(10);
+        var method = typeof(Program).GetMethod("Print", BindingFlags.Static | BindingFlags.NonPublic);
+        var param = method.GetParameters()[0];
+        var attr = (ParamInfoAttribute)param.GetCustomAttributes(typeof(ParamInfoAttribute), false)[0];
+        Console.WriteLine(attr.Name);
     }
 
     static void Print([ParamInfo(nameof(x))] int x)
     {
-        Console.WriteLine(nameof(x));
     }
 }
 """;
@@ -306,6 +309,7 @@ public class Program
         {
             var code = """
 using System;
+using System.Reflection;
 
 [AttributeUsage(AttributeTargets.Method)]
 public class MethodInfoAttribute : Attribute
@@ -318,13 +322,14 @@ public class Program
 {
     public static void Main()
     {
-        Test(5);
+        var method = typeof(Program).GetMethod("Test", BindingFlags.Static | BindingFlags.Public);
+        var attr = (MethodInfoAttribute)method.GetCustomAttributes(typeof(MethodInfoAttribute), false)[0];
+        Console.WriteLine(attr.ParamName);
     }
 
     [MethodInfo(nameof(p))]
     public static void Test(int p)
     {
-        Console.WriteLine(nameof(p));
     }
 }
 """;
@@ -336,6 +341,7 @@ public class Program
         {
             var code = """
 using System;
+using System.Reflection;
 
 [AttributeUsage(AttributeTargets.Method)]
 public class MyAttr : Attribute
@@ -348,7 +354,9 @@ public class Program
 {
     public static void Main()
     {
-        Console.WriteLine("Qualified nameof works");
+        var method = typeof(Program).GetMethod("Test", BindingFlags.Instance | BindingFlags.Public);
+        var attr = (MyAttr)method.GetCustomAttributes(typeof(MyAttr), false)[0];
+        Console.WriteLine(attr.Name);
     }
 
     [MyAttr(nameof(System.Int32))]

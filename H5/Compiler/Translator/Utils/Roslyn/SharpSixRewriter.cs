@@ -65,7 +65,7 @@ namespace H5.Translator
         private SharpSixRewriterCachedOutput _cachedRewrittenData;
         private bool isParent;
 
-        public SharpSixRewriter(ITranslator translator)
+        public SharpSixRewriter(ITranslator translator) : base(visitIntoStructuredTrivia: true)
         {
             this.translator = translator;
             compilation = CreateCompilation();
@@ -96,7 +96,7 @@ namespace H5.Translator
             return new SharpSixRewriter(this);
         }
 
-        private SharpSixRewriter(SharpSixRewriter rewriter)
+        private SharpSixRewriter(SharpSixRewriter rewriter) : base(visitIntoStructuredTrivia: true)
         {
             translator = rewriter.translator;
             compilation = rewriter.compilation;
@@ -283,7 +283,7 @@ namespace H5.Translator
         // from there (so this might become public/static).
         private CSharpParseOptions GetParseOptions()
         {
-            LanguageVersion languageVersion = LanguageVersion.CSharp7_2;
+            LanguageVersion languageVersion = LanguageVersion.Latest;
 
             if (translator?.ProjectProperties?.LanguageVersion != null)
             {
@@ -306,7 +306,7 @@ namespace H5.Translator
 
         private CSharpCompilation CreateCompilation()
         {
-            var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
+            var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary).WithAllowUnsafe(true);
 
             var parseOptions = GetParseOptions();
 
@@ -527,6 +527,18 @@ namespace H5.Translator
             return node;
         }
 
+        public override SyntaxNode VisitUnsafeStatement(UnsafeStatementSyntax node)
+        {
+            var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+            throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Unsafe blocks are not supported", semanticModel.SyntaxTree.FilePath, node.ToString()));
+        }
+
+        public override SyntaxNode VisitPointerType(PointerTypeSyntax node)
+        {
+            var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+            throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Pointers are not supported", semanticModel.SyntaxTree.FilePath, node.ToString()));
+        }
+
         private static Regex binaryLiteral = new Regex(@"[_Bb]", RegexOptions.Compiled);
         private bool markAsAsync;
 
@@ -645,6 +657,85 @@ namespace H5.Translator
             return base.VisitIsPatternExpression(node);
         }
 
+        public override SyntaxNode VisitForEachStatement(ForEachStatementSyntax node)
+        {
+            if (node.AwaitKeyword.IsKind(SyntaxKind.AwaitKeyword))
+            {
+                markAsAsync = true;
+
+                var expression = (ExpressionSyntax)Visit(node.Expression);
+                var loopBody = (StatementSyntax)Visit(node.Statement);
+                var variableType = (TypeSyntax)Visit(node.Type);
+                var variableName = node.Identifier;
+
+                var enumeratorVarName = SyntaxFactory.Identifier(GetUniqueTempKey("async_enum"));
+
+                var getEnumeratorCall = SyntaxFactory.InvocationExpression(
+                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expression, SyntaxFactory.IdentifierName("GetAsyncEnumerator"))
+                );
+
+                var enumeratorDecl = SyntaxFactory.LocalDeclarationStatement(
+                    SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName("var"))
+                    .WithVariables(SyntaxFactory.SingletonSeparatedList(
+                        SyntaxFactory.VariableDeclarator(enumeratorVarName).WithInitializer(SyntaxFactory.EqualsValueClause(getEnumeratorCall))
+                    ))
+                );
+
+                var moveNextCall = SyntaxFactory.AwaitExpression(
+                    SyntaxFactory.InvocationExpression(
+                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(enumeratorVarName), SyntaxFactory.IdentifierName("MoveNextAsync"))
+                    )
+                );
+
+                var currentAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(enumeratorVarName), SyntaxFactory.IdentifierName("Current"));
+                var varDecl = SyntaxFactory.LocalDeclarationStatement(
+                    SyntaxFactory.VariableDeclaration(variableType)
+                    .WithVariables(SyntaxFactory.SingletonSeparatedList(
+                        SyntaxFactory.VariableDeclarator(variableName).WithInitializer(SyntaxFactory.EqualsValueClause(currentAccess))
+                    ))
+                );
+
+                if (loopBody is BlockSyntax block)
+                {
+                    loopBody = block.WithStatements(block.Statements.Insert(0, varDecl));
+                }
+                else
+                {
+                    loopBody = SyntaxFactory.Block(varDecl, loopBody);
+                }
+
+                var whileLoop = SyntaxFactory.WhileStatement(moveNextCall, loopBody);
+
+                var disposeCall = SyntaxFactory.AwaitExpression(
+                    SyntaxFactory.InvocationExpression(
+                         SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(enumeratorVarName), SyntaxFactory.IdentifierName("DisposeAsync"))
+                    )
+                );
+
+                var finallyBlock = SyntaxFactory.Block(
+                    SyntaxFactory.IfStatement(
+                        SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.IdentifierName(enumeratorVarName), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)),
+                        SyntaxFactory.ExpressionStatement(disposeCall)
+                    )
+                );
+
+                var tryFinally = SyntaxFactory.TryStatement(
+                    SyntaxFactory.Block(whileLoop),
+                    SyntaxFactory.List<CatchClauseSyntax>(),
+                    SyntaxFactory.FinallyClause(finallyBlock)
+                );
+
+                return SyntaxFactory.Block(enumeratorDecl, tryFinally);
+            }
+
+            return base.VisitForEachStatement(node);
+        }
+
+        public override SyntaxNode VisitNullableDirectiveTrivia(NullableDirectiveTriviaSyntax node)
+        {
+            return null;
+        }
+
         public override SyntaxNode VisitBlock(BlockSyntax node)
         {
             var newStatements = ProcessBlockStatements(node.Statements);
@@ -758,32 +849,30 @@ namespace H5.Translator
                 foreach (var member in node.Members)
                 {
                     if (member == fileScopedNamespace) continue;
-                    members.Add(member);
+                    // Need to visit members first because we are creating a new structure
+                    members.Add((MemberDeclarationSyntax)Visit(member));
                 }
 
-                members.AddRange(fileScopedNamespace.Members);
+                foreach (var member in fileScopedNamespace.Members)
+                {
+                    members.Add((MemberDeclarationSyntax)Visit(member));
+                }
 
                 var newNamespace = SyntaxFactory.NamespaceDeclaration(
                     fileScopedNamespace.Name,
                     fileScopedNamespace.Externs,
                     fileScopedNamespace.Usings,
                     SyntaxFactory.List(members)
-                ).WithLeadingTrivia(fileScopedNamespace.GetLeadingTrivia());
+                ).WithLeadingTrivia(fileScopedNamespace.GetLeadingTrivia())
+                 .NormalizeWhitespace();
 
                 var newCompilationUnitMembers = new List<MemberDeclarationSyntax>();
-                // Add usings/externs from compilation unit if needed, but usually they are at top.
-                // FileScopedNamespace usings are already in the new namespace.
-                // Compilation unit usings should remain in compilation unit or be moved?
-                // Standard behavior: Compilation unit usings apply to the whole file.
-                // FileScopedNamespace usings apply to the namespace.
-                // We just replace the namespace declaration.
-
-                // However, the structure is flat in FileScopedNamespace.
-                // node.Members contains the namespace AND potentially other things (though strictly only one namespace allowed).
-
                 newCompilationUnitMembers.Add(newNamespace);
 
                 node = node.WithMembers(SyntaxFactory.List(newCompilationUnitMembers));
+
+                // Return the new node directly, do not call base.VisitCompilationUnit as the structure changed
+                return node;
             }
 
             return base.VisitCompilationUnit(node);
@@ -1177,7 +1266,7 @@ namespace H5.Translator
             var idx = node.Modifiers.IndexOf(SyntaxKind.InKeyword);
             if (idx > -1)
             {
-                node = node.WithModifiers(node.Modifiers.RemoveAt(idx));
+                node = node.WithModifiers(node.Modifiers.Replace(node.Modifiers[idx], SyntaxFactory.Token(SyntaxKind.RefKeyword).WithTrailingTrivia(SyntaxFactory.Space)));
             }
 
             return node;
@@ -1313,7 +1402,11 @@ namespace H5.Translator
                 node = node.WithNameColon(SyntaxFactory.NameColon(SyntaxFactory.IdentifierName(parameter.Name)));
             }
 
-            if (node.RefKindKeyword.IsKind(SyntaxKind.InKeyword) || node.RefKindKeyword.IsKind(SyntaxKind.RefKeyword) && node.Expression is InvocationExpressionSyntax)
+            if (node.RefKindKeyword.IsKind(SyntaxKind.InKeyword))
+            {
+                node = node.WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.RefKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+            }
+            else if (node.RefKindKeyword.IsKind(SyntaxKind.RefKeyword) && node.Expression is InvocationExpressionSyntax)
             {
                 node = node.WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.None));
             }
@@ -1323,6 +1416,14 @@ namespace H5.Translator
 
         public override SyntaxNode VisitConstructorDeclaration(ConstructorDeclarationSyntax node)
         {
+            if (node.Parent.IsKind(SyntaxKind.StructDeclaration) && node.ParameterList.Parameters.Count == 0 && !node.Modifiers.Any(SyntaxKind.StaticKeyword))
+            {
+                var dummyParam = SyntaxFactory.Parameter(SyntaxFactory.Identifier("_dummy").WithLeadingTrivia(SyntaxFactory.Space))
+                    .WithType(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.IntKeyword)));
+
+                node = node.AddParameterListParameters(dummyParam);
+            }
+
             node = (ConstructorDeclarationSyntax)base.VisitConstructorDeclaration(node);
 
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
@@ -1531,6 +1632,11 @@ namespace H5.Translator
 
         public override SyntaxNode VisitUsingDirective(UsingDirectiveSyntax node)
         {
+            if (node.GlobalKeyword.IsKind(SyntaxKind.GlobalKeyword))
+            {
+                node = node.WithGlobalKeyword(SyntaxFactory.Token(SyntaxKind.None));
+            }
+
             if (node.StaticKeyword.RawKind == (int)SyntaxKind.StaticKeyword)
             {
                 hasStaticUsingOrAliases = true;
@@ -1617,6 +1723,38 @@ namespace H5.Translator
             }
 
             return node;
+        }
+
+        public override SyntaxNode VisitPredefinedType(PredefinedTypeSyntax node)
+        {
+            if (node.Keyword.Text == "nint")
+            {
+                return SyntaxFactory.ParseTypeName("System.IntPtr").WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+            if (node.Keyword.Text == "nuint")
+            {
+                return SyntaxFactory.ParseTypeName("System.UIntPtr").WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+            return base.VisitPredefinedType(node);
+        }
+
+        public override SyntaxNode VisitNullableType(NullableTypeSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitNullableType(node);
+            }
+
+            var typeInfo = semanticModel.GetTypeInfo(node.ElementType);
+            var type = typeInfo.Type ?? typeInfo.ConvertedType;
+
+            if (type != null && !type.IsValueType)
+            {
+                // Reference type T? -> T
+                return Visit(node.ElementType);
+            }
+
+            return base.VisitNullableType(node);
         }
 
         public override SyntaxNode VisitEqualsValueClause(EqualsValueClauseSyntax node)
@@ -2107,6 +2245,11 @@ namespace H5.Translator
                 c = c.WithModifiers(c.Modifiers.RemoveAt(c.Modifiers.IndexOf(SyntaxKind.RefKeyword)));
             }
 
+            if (c != null && c.Modifiers.Any(SyntaxKind.UnsafeKeyword))
+            {
+                c = c.WithModifiers(c.Modifiers.RemoveAt(c.Modifiers.IndexOf(SyntaxKind.UnsafeKeyword)));
+            }
+
             if (c.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && c.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 c = c.WithModifiers(c.Modifiers.Replace(c.Modifiers[c.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2140,6 +2283,11 @@ namespace H5.Translator
                 c = c.WithCloseBraceToken(c.CloseBraceToken.WithLeadingTrivia(null));
                 list.AddRange(arr);
                 c = c.WithMembers(SyntaxFactory.List(list));
+            }
+
+            if (c != null && c.Modifiers.Any(SyntaxKind.UnsafeKeyword))
+            {
+                c = c.WithModifiers(c.Modifiers.RemoveAt(c.Modifiers.IndexOf(SyntaxKind.UnsafeKeyword)));
             }
 
             if (c.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && c.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
@@ -2185,6 +2333,11 @@ namespace H5.Translator
             if (node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
             {
                 node = node.WithModifiers(node.Modifiers.RemoveAt(node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+            }
+
+            if (node.Modifiers.Any(SyntaxKind.UnsafeKeyword))
+            {
+                node = node.WithModifiers(node.Modifiers.RemoveAt(node.Modifiers.IndexOf(SyntaxKind.UnsafeKeyword)));
             }
 
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
@@ -2236,26 +2389,46 @@ namespace H5.Translator
 
         public override SyntaxNode VisitRecordDeclaration(RecordDeclarationSyntax node)
         {
-            // Rewrite record to class
-            // 1. Convert to ClassDeclaration
-            // 2. Add constructor for positional parameters
-            // 3. Add Deconstruct method if positional
-            // 4. Add Properties for positional parameters
-            // 5. Synthesize PrintMembers, ToString, Equals, GetHashCode, op_Equality, op_Inequality if not present (simplified for H5)
+            currentType.Push(semanticModel.GetDeclaredSymbol(node));
 
-            // For H5, we can just treat it as a class with auto-props for now to get basic support.
-            // Positional records: record Person(string Name, int Age);
-            // -> class Person { public string Name { get; init; } public int Age { get; init; } ... ctor ... }
+            // Rewrite record to class or struct
+            // Visit members first to ensure they are rewritten in context
+            var visitedMembers = node.Members.Select(m => (MemberDeclarationSyntax)Visit(m)).ToList();
 
-            var classDecl = SyntaxFactory.ClassDeclaration(node.Identifier)
+            TypeDeclarationSyntax typeDecl;
+
+            if (node.ClassOrStructKeyword.IsKind(SyntaxKind.StructKeyword))
+            {
+                typeDecl = SyntaxFactory.StructDeclaration(node.Identifier)
+                    .WithKeyword(SyntaxFactory.Token(SyntaxKind.StructKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+            }
+            else
+            {
+                typeDecl = SyntaxFactory.ClassDeclaration(node.Identifier)
+                     .WithKeyword(SyntaxFactory.Token(SyntaxKind.ClassKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+            }
+
+            typeDecl = typeDecl
                 .WithModifiers(node.Modifiers)
                 .WithTypeParameterList(node.TypeParameterList)
                 .WithBaseList(node.BaseList)
                 .WithConstraintClauses(node.ConstraintClauses)
-                .WithAttributeLists(node.AttributeLists)
-                .WithOpenBraceToken(node.OpenBraceToken)
-                .WithCloseBraceToken(node.CloseBraceToken)
-                .WithMembers(node.Members);
+                .WithAttributeLists(node.AttributeLists);
+
+            if (node.OpenBraceToken.IsKind(SyntaxKind.None))
+            {
+                typeDecl = typeDecl
+                    .WithOpenBraceToken(SyntaxFactory.Token(SyntaxKind.OpenBraceToken).WithLeadingTrivia(SyntaxFactory.Space).WithTrailingTrivia(SyntaxFactory.ElasticCarriageReturnLineFeed))
+                    .WithCloseBraceToken(SyntaxFactory.Token(SyntaxKind.CloseBraceToken).WithLeadingTrivia(SyntaxFactory.ElasticCarriageReturnLineFeed));
+            }
+            else
+            {
+                typeDecl = typeDecl
+                    .WithOpenBraceToken(node.OpenBraceToken)
+                    .WithCloseBraceToken(node.CloseBraceToken);
+            }
+
+            typeDecl = typeDecl.WithMembers(SyntaxFactory.List(visitedMembers));
 
             if (node.ParameterList != null)
             {
@@ -2266,44 +2439,23 @@ namespace H5.Translator
 
                 foreach (var param in node.ParameterList.Parameters)
                 {
-                    var propName = param.Identifier.ValueText;
-                    // UpperCamelCase for property? No, records keep case usually?
-                    // Actually standard C# records use the parameter name exactly for the property, usually PascalCase is convention but if param is camelCase, property is PascalCase?
-                    // No, record Person(string name) -> property Name?
-                    // Verify C# behavior: record R(int x) -> public int X { get; init; } ?
-                    // Actually yes, it uppercases the first letter if it's not.
-                    // Wait, standard convention says positional params should be PascalCase.
-                    // If I write record R(int x), the property is named 'x'. It does NOT auto-capitalize.
-
-                    var property = SyntaxFactory.PropertyDeclaration(param.Type, param.Identifier)
-                        .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword)))
+                    var property = SyntaxFactory.PropertyDeclaration(param.Type.WithoutTrivia().WithTrailingTrivia(SyntaxFactory.Space), param.Identifier.WithoutTrivia())
+                        .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
                         .WithAccessorList(SyntaxFactory.AccessorList(SyntaxFactory.List(new[]
                         {
                             SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
-                            SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithKeyword(SyntaxFactory.Token(SyntaxKind.InitKeyword)).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
+                            SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithKeyword(SyntaxFactory.Token(SyntaxKind.SetKeyword)).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
                         })));
 
                     properties.Add(property);
 
                     ctorParams.Add(param);
-                    ctorBody.Add(SyntaxFactory.ExpressionStatement(
-                        SyntaxFactory.AssignmentExpression(
-                            SyntaxKind.SimpleAssignmentExpression,
-                            SyntaxFactory.IdentifierName(param.Identifier), // This might be ambiguous with param name, usually this.Name = Name
-                            SyntaxFactory.IdentifierName(param.Identifier)
-                        )
-                    ));
-                    // To avoid ambiguity: this.Prop = param
-                    // But we used same name.
-                    // So: this.x = x.
                 }
 
-                // Add properties to class members (at start)
-                classDecl = classDecl.WithMembers(classDecl.Members.InsertRange(0, properties));
+                typeDecl = typeDecl.WithMembers(typeDecl.Members.InsertRange(0, properties));
 
-                // Add constructor
                 var ctor = SyntaxFactory.ConstructorDeclaration(node.Identifier)
-                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword)))
+                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
                     .WithParameterList(SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(ctorParams)))
                     .WithBody(SyntaxFactory.Block(
                          ctorParams.Select(p =>
@@ -2317,10 +2469,9 @@ namespace H5.Translator
                          )
                     ));
 
-                classDecl = classDecl.AddMembers(ctor);
+                typeDecl = typeDecl.AddMembers(ctor);
 
-                // Add Deconstruct
-                 var deconstructParams = ctorParams.Select(p =>
+                var deconstructParams = ctorParams.Select(p =>
                     SyntaxFactory.Parameter(p.Identifier).WithType(p.Type).AddModifiers(SyntaxFactory.Token(SyntaxKind.OutKeyword))
                 );
 
@@ -2334,15 +2485,29 @@ namespace H5.Translator
                     )
                 );
 
-                var deconstruct = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), "Deconstruct")
-                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword)))
+                var deconstruct = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword).WithTrailingTrivia(SyntaxFactory.Space)), "Deconstruct")
+                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
                     .WithParameterList(SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(deconstructParams)))
                     .WithBody(SyntaxFactory.Block(deconstructBody));
 
-                classDecl = classDecl.AddMembers(deconstruct);
+                typeDecl = typeDecl.AddMembers(deconstruct);
             }
 
-            return VisitClassDeclaration(classDecl);
+            // Manually apply VisitClassDeclaration logic for unsafe/privateprotected
+            if (typeDecl.Modifiers.Any(SyntaxKind.UnsafeKeyword))
+            {
+                typeDecl = typeDecl.WithModifiers(typeDecl.Modifiers.RemoveAt(typeDecl.Modifiers.IndexOf(SyntaxKind.UnsafeKeyword)));
+            }
+
+            if (typeDecl.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && typeDecl.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
+            {
+                typeDecl = typeDecl.WithModifiers(typeDecl.Modifiers.Replace(typeDecl.Modifiers[typeDecl.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
+                typeDecl = typeDecl.WithModifiers(typeDecl.Modifiers.Replace(typeDecl.Modifiers[typeDecl.Modifiers.IndexOf(SyntaxKind.PrivateKeyword)], SyntaxFactory.Token(SyntaxKind.ProtectedKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
+                typeDecl = typeDecl.WithAttributeLists(typeDecl.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("H5.PrivateProtectedAttribute"))))));
+            }
+
+            currentType.Pop();
+            return typeDecl;
         }
 
         public override SyntaxNode VisitStackAllocArrayCreationExpression(StackAllocArrayCreationExpressionSyntax node)
@@ -2671,6 +2836,13 @@ namespace H5.Translator
             if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
             {
                 return base.VisitObjectCreationExpression(node);
+            }
+
+            var symbol = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
+            if (symbol != null && symbol.ContainingType.IsValueType && symbol.Parameters.Length == 0 && !symbol.IsImplicitlyDeclared && !symbol.IsStatic)
+            {
+                var arg = SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(0)));
+                node = node.AddArgumentListArguments(arg);
             }
 
             bool needRewrite = false;

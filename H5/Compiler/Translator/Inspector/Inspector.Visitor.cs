@@ -55,9 +55,25 @@ namespace H5.Translator
             }
         }
 
+        private void CheckAsyncMethodBuilderAttribute(IEnumerable<AttributeSection> attributes)
+        {
+            foreach (var section in attributes)
+            {
+                foreach (var attr in section.Attributes)
+                {
+                    var rr = Resolver.ResolveNode(attr);
+                    if (rr != null && rr.Type != null && rr.Type.FullName == "System.Runtime.CompilerServices.AsyncMethodBuilderAttribute")
+                    {
+                        throw new EmitterException(attr, "AsyncMethodBuilderAttribute is not supported");
+                    }
+                }
+            }
+        }
+
         public override void VisitTypeDeclaration(TypeDeclaration typeDeclaration)
         {
             CheckUnmanagedConstraint(typeDeclaration.Constraints);
+            CheckAsyncMethodBuilderAttribute(typeDeclaration.Attributes);
 
             if (CurrentType != null)
             {
@@ -221,6 +237,11 @@ namespace H5.Translator
                     }
                 }
             }
+        }
+
+        public override void VisitFixedFieldDeclaration(FixedFieldDeclaration fixedFieldDeclaration)
+        {
+            throw new EmitterException(fixedFieldDeclaration, "Fixed size buffers are not supported");
         }
 
         public override void VisitFieldDeclaration(FieldDeclaration fieldDeclaration)
@@ -399,6 +420,7 @@ namespace H5.Translator
         public override void VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
             CheckUnmanagedConstraint(methodDeclaration.Constraints);
+            CheckAsyncMethodBuilderAttribute(methodDeclaration.Attributes);
 
             if (methodDeclaration.HasModifier(Modifiers.Abstract) || HasTemplate(methodDeclaration))
             {

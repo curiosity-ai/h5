@@ -414,5 +414,41 @@ public class Program
 """;
             await RunTest(code);
         }
+
+        [TestMethod]
+        public async Task LambdaDiscards()
+        {
+            var code = """
+using System;
+
+public class CommandBarItem { }
+
+public class Program
+{
+    public static void Main()
+    {
+        var p = new Program();
+        bool called = false;
+        p.OnClick(() => { called = true; });
+        if (called)
+        {
+            Console.WriteLine("Success");
+        }
+    }
+
+    public CommandBarItem OnClick(Action action)
+    {
+        return OnClick((_, __) => action?.Invoke());
+    }
+
+    public CommandBarItem OnClick(Action<object, object> action)
+    {
+        action(null, null);
+        return new CommandBarItem();
+    }
+}
+""";
+            await RunTest(code);
+        }
     }
 }

@@ -2527,26 +2527,6 @@ namespace H5.Translator
                 node = node.WithModifiers(node.Modifiers.RemoveAt(idx));
             }
 
-            // Handle discards
-            if (node.ParameterList.Parameters.Any(p => p.Identifier.Text == "_"))
-            {
-                var newParams = new List<ParameterSyntax>();
-                var discardCount = 0;
-                foreach (var p in node.ParameterList.Parameters)
-                {
-                    if (p.Identifier.Text == "_")
-                    {
-                        discardCount++;
-                        newParams.Add(p.WithIdentifier(SyntaxFactory.Identifier("__discard_" + discardCount)));
-                    }
-                    else
-                    {
-                        newParams.Add(p);
-                    }
-                }
-                node = node.WithParameterList(node.ParameterList.WithParameters(SyntaxFactory.SeparatedList(newParams)));
-            }
-
             if (ti.Type != null && ti.Type.IsExpressionOfT() ||
                 ti.ConvertedType != null && ti.ConvertedType.IsExpressionOfT())
             {
@@ -2555,12 +2535,36 @@ namespace H5.Translator
 
             var newNode = base.VisitParenthesizedLambdaExpression(node);
 
+            if (newNode is ParenthesizedLambdaExpressionSyntax ple)
+            {
+                // Handle discards
+                if (ple.ParameterList.Parameters.Any(p => p.Identifier.Text == "_"))
+                {
+                    var newParams = new List<ParameterSyntax>();
+                    var discardCount = 0;
+                    foreach (var p in ple.ParameterList.Parameters)
+                    {
+                        if (p.Identifier.Text == "_")
+                        {
+                            discardCount++;
+                            newParams.Add(p.WithIdentifier(SyntaxFactory.Identifier("__discard_" + discardCount)));
+                        }
+                        else
+                        {
+                            newParams.Add(p);
+                        }
+                    }
+                    ple = ple.WithParameterList(ple.ParameterList.WithParameters(SyntaxFactory.SeparatedList(newParams)));
+                    newNode = ple;
+                }
+            }
+
             IsExpressionOfT = oldValue;
 
-            if (markAsAsync && newNode is ParenthesizedLambdaExpressionSyntax ple)
+            if (markAsAsync && newNode is ParenthesizedLambdaExpressionSyntax pleAsync)
             {
-                ple = ple.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
-                newNode = ple;
+                pleAsync = pleAsync.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
+                newNode = pleAsync;
             }
 
             markAsAsync = oldMarkAsAsync;

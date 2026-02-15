@@ -16,30 +16,34 @@ namespace H5.Compiler.IntegrationTests
     public static class H5Compiler
     {
         private static readonly HttpClient _httpClient = new HttpClient();
-        private static NuGetVersion? _cachedLatestVersion;
+        private static Dictionary<string, NuGetVersion> _cachedLatestVersion = new Dictionary<string, NuGetVersion>();
 
-        private static async Task<NuGetVersion> GetLatestVersionAsync()
+        private static async Task<NuGetVersion> GetLatestVersionAsync(string package = "h5")
         {
-            if (_cachedLatestVersion != null)
+            if (_cachedLatestVersion.TryGetValue(package, out var cachedVersion))
             {
-                return _cachedLatestVersion;
+                return cachedVersion;
             }
 
             try
             {
-                var repoRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
-                var localPackagePath = Path.Combine(repoRoot, "H5/H5/bin/Debug/h5.0.0.42.nupkg");
-
-                if (File.Exists(localPackagePath))
+                if (package == "h5")
                 {
-                    Console.WriteLine($"Found local H5 build at {localPackagePath}. Using version 0.0.42.");
-                    _cachedLatestVersion = new NuGetVersion("0.0.42");
-                    await EnsurePackageRestored(_cachedLatestVersion!, repoRoot);
-                    return _cachedLatestVersion!;
+                    var repoRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
+                    var localPackagePath = Path.Combine(repoRoot, "H5/H5/bin/Debug/h5.0.0.42.nupkg");
+
+                    if (File.Exists(localPackagePath))
+                    {
+                        Console.WriteLine($"Found local H5 build at {localPackagePath}. Using version 0.0.42.");
+                        var localVersion = new NuGetVersion("0.0.42");
+                        _cachedLatestVersion[package] = localVersion;
+                        await EnsurePackageRestored(localVersion, package, repoRoot);
+                        return localVersion;
+                    }
                 }
 
                 // Fetch the list of versions from the official NuGet API
-                var json = await _httpClient.GetStringAsync("https://api.nuget.org/v3-flatcontainer/h5/index.json");
+                var json = await _httpClient.GetStringAsync($"https://api.nuget.org/v3-flatcontainer/{package.ToLower()}/index.json");
                 var versions = new List<NuGetVersion>();
 
                 using (var doc = JsonDocument.Parse(json))
@@ -51,9 +55,9 @@ namespace H5.Compiler.IntegrationTests
                             if (v.ValueKind == JsonValueKind.String)
                             {
                                 var versionString = v.GetString();
-                                if (!string.IsNullOrEmpty(versionString) && NuGetVersion.TryParse(versionString, out var version))
+                                if (!string.IsNullOrEmpty(versionString) && NuGetVersion.TryParse(versionString, out var candidateVersion))
                                 {
-                                    versions.Add(version);
+                                    versions.Add(candidateVersion);
                                 }
                             }
                         }
@@ -62,22 +66,17 @@ namespace H5.Compiler.IntegrationTests
 
                 if (versions.Count == 0)
                 {
-                    throw new Exception("No versions found for h5 package.");
+                    throw new Exception($"No versions found for {package} package.");
                 }
 
-                versions.RemoveAll(v => v.ToString() == "26.2.64348");
-                versions.RemoveAll(v => v.ToString() == "26.2.64338");
-                versions.RemoveAll(v => v.ToString() == "26.2.64336");
-
-
                 // Get the latest version (Max)
-                _cachedLatestVersion = versions.Max();
-                Console.WriteLine($"Resolved latest H5 version: {_cachedLatestVersion}");
+                var version = _cachedLatestVersion[package] = versions.Max();
+                Console.WriteLine($"Resolved latest H5 version: {version}");
 
                 // Ensure the package is available in the global NuGet cache
-                await EnsurePackageRestored(_cachedLatestVersion!);
+                await EnsurePackageRestored(version, package);
 
-                return _cachedLatestVersion!;
+                return version;
             }
             catch (Exception ex)
             {
@@ -85,10 +84,10 @@ namespace H5.Compiler.IntegrationTests
             }
         }
 
-        private static async Task EnsurePackageRestored(NuGetVersion version, string repoRoot = null)
+        private static async Task EnsurePackageRestored(NuGetVersion version, string package, string repoRoot = null)
         {
             var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var packagePath = Path.Combine(userProfile, ".nuget", "packages", "h5", version.ToString());
+            var packagePath = Path.Combine(userProfile, ".nuget", "packages", package, version.ToString());
 
             if (repoRoot != null && Directory.Exists(packagePath))
             {
@@ -114,7 +113,7 @@ namespace H5.Compiler.IntegrationTests
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include=""h5"" Version=""{version}"" />
+    <PackageReference Include=""{package}"" Version=""{version}"" />
   </ItemGroup>
 </Project>";
 
@@ -161,7 +160,7 @@ namespace H5.Compiler.IntegrationTests
                     }
                 }
 
-                Console.WriteLine($"Successfully restored h5 version {version}.");
+                Console.WriteLine($"Successfully restored {package} version {version}.");
             }
             finally
             {
@@ -193,7 +192,7 @@ namespace H5.Compiler.IntegrationTests
             catch { /* Ignore */ }
         }
 
-        public static async Task<string> CompileToJs(string csharpCode)
+        public static async Task<string> CompileToJs(string csharpCode, bool includeCorePackages)
         {
             var latestVersion = await GetLatestVersionAsync();
 
@@ -214,6 +213,14 @@ namespace H5.Compiler.IntegrationTests
                             .WithPackageReference("h5", latestVersion)
                             .WithSourceFile("App.cs", csharpCode);
 
+            if (includeCorePackages)
+            {
+                var h5CoreVer = await GetLatestVersionAsync("h5.core");
+                var h5JsonVer = await GetLatestVersionAsync("h5.Newtonsoft.Json");
+                
+                request.WithPackageReference("h5.core", h5CoreVer);
+                request.WithPackageReference("h5.Newtonsoft.Json", h5JsonVer);
+            }
 
 
             var compiledJavascript = await CompilationProcessor.CompileAsync(request);

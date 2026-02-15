@@ -11,7 +11,7 @@ namespace H5.Compiler.IntegrationTests
         {
         }
 
-        protected async Task<string> RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false, string overrideRoslynCode = null)
+        protected async Task<string> RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false, string overrideRoslynCode = null, bool includeCorePackages = false)
         {
             string roslynOutput = "";
 
@@ -30,7 +30,7 @@ namespace H5.Compiler.IntegrationTests
             string h5Js = "";
             try
             {
-                h5Js = await H5Compiler.CompileToJs(csharpCode);
+                h5Js = await H5Compiler.CompileToJs(csharpCode, includeCorePackages);
             }
             catch (Exception ex)
             {
@@ -64,11 +64,11 @@ namespace H5.Compiler.IntegrationTests
             return string.Join("\n", output.Trim().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).Select(s => s.TrimEnd()));
         }
 
-        protected async Task RunTestExpectingError(string csharpCode, string expectedErrorMessage)
+        protected async Task RunTestExpectingError(string csharpCode, string expectedErrorMessage, bool includeCorePackages = false)
         {
             try
             {
-                await H5Compiler.CompileToJs(csharpCode);
+                await H5Compiler.CompileToJs(csharpCode, includeCorePackages: includeCorePackages);
             }
             catch (Exception ex)
             {

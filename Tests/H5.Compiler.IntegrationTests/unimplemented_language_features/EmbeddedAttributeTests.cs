@@ -25,7 +25,7 @@ namespace Test
     public class MyClass { }
 }
 ";
-            var js = await H5Compiler.CompileToJs(csharpCode);
+            var js = await H5Compiler.CompileToJs(csharpCode, includeCorePackages: false);
 
             Assert.DoesNotContain("EmbeddedAttribute", js, "Output should not contain EmbeddedAttribute");
         }

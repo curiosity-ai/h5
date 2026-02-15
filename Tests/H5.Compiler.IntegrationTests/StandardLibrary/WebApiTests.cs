@@ -7,7 +7,6 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
     public class WebApiTests : IntegrationTestBase
     {
         [TestMethod]
-        [Ignore("Requires updated H5 package with ResizeObserver")]
         public async Task ResizeObserverTest()
         {
             var code = @"
@@ -33,13 +32,12 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            // skipRoslyn: true because ResizeObserver is not available in .NET
-            var output = await RunTest(code, skipRoslyn: true);
+            // skipRoslyn: true, includeCorePackages: true because ResizeObserver is not available in .NET
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
         [TestMethod]
-        [Ignore("Requires updated H5 package with WebCodecs")]
         public async Task WebCodecsTest()
         {
             var code = @"
@@ -67,12 +65,11 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
         [TestMethod]
-        [Ignore("Requires updated H5 package with MediaSession")]
         public async Task MediaSessionTest()
         {
             var code = @"
@@ -96,7 +93,7 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
@@ -123,7 +120,7 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
@@ -150,7 +147,7 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
@@ -177,12 +174,11 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
         [TestMethod]
-        [Ignore("Requires updated H5 package with MIDI")]
         public async Task WebMIDITest()
         {
             var code = @"
@@ -206,12 +202,11 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
         [TestMethod]
-        [Ignore("Requires updated H5 package with Sensors")]
         public async Task SensorsTest()
         {
             var code = @"
@@ -234,17 +229,17 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
         [TestMethod]
-        [Ignore("Requires updated H5 package with FileSystemAccess")]
         public async Task FileSystemAccessTest()
         {
             var code = @"
             using H5;
             using H5.Core;
+            using static H5.Core.dom;
             using System;
 
             public class Program
@@ -253,16 +248,23 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 {
                     if (Script.Write<bool>(""typeof showOpenFilePicker === 'undefined'""))
                     {
-                        Console.WriteLine(""Success""); // Skip if not supported in test env
+                        System.Console.WriteLine(""Success""); // Skip if not supported in test env
                         return;
                     }
 
-                    var supported = dom.window.showOpenFilePicker != null;
-                    Console.WriteLine(supported ? ""Success"" : ""Failed"");
+                    try
+                    {
+                        window.showOpenFilePicker();
+                        System.Console.WriteLine(""Success"");
+                    }
+                    catch
+                    {
+                        System.Console.WriteLine(""Failed"");
+                    }
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
@@ -289,7 +291,7 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
@@ -316,7 +318,7 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
@@ -343,7 +345,7 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
@@ -370,12 +372,11 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
         [TestMethod]
-        [Ignore("Requires updated H5 package with CompressionStream")]
         public async Task CompressionStreamTest()
         {
             var code = @"
@@ -398,7 +399,7 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
@@ -425,12 +426,11 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
         [TestMethod]
-        [Ignore("Requires updated H5 package with PerformanceObserver")]
         public async Task PerformanceObserverTest()
         {
             var code = @"
@@ -456,12 +456,11 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
 
         [TestMethod]
-        [Ignore("Requires updated H5 package with ReportingObserver")]
         public async Task ReportingObserverTest()
         {
             var code = @"
@@ -487,7 +486,7 @@ namespace H5.Compiler.IntegrationTests.StandardLibrary
                 }
             }";
 
-            var output = await RunTest(code, skipRoslyn: true);
+            var output = await RunTest(code, skipRoslyn: true, includeCorePackages: true);
             Assert.AreEqual("Success", output);
         }
     }

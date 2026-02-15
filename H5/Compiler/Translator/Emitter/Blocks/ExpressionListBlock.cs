@@ -132,8 +132,15 @@ namespace H5.Translator
                     continue;
                 }
 
-                Emitter.Translator.EmitNode = expr;
-                var isParamsArg = expr == paramArg;
+                var expressionToEmit = expr;
+
+                if (expr is NamedArgumentExpression namedArg)
+                {
+                    expressionToEmit = namedArg.Expression;
+                }
+
+                Emitter.Translator.EmitNode = expressionToEmit;
+                var isParamsArg = expressionToEmit == paramArg;
 
                 if (needComma && !(isParamsArg && isApply))
                 {
@@ -147,9 +154,9 @@ namespace H5.Translator
 
                 needComma = true;
 
-                if (expr is DirectionExpression directExpr)
+                if (expressionToEmit is DirectionExpression directExpr)
                 {
-                    var resolveResult = Emitter.Resolver.ResolveNode(expr);
+                    var resolveResult = Emitter.Resolver.ResolveNode(expressionToEmit);
 
                     if (resolveResult is ByReferenceResolveResult byReferenceResolveResult && !(byReferenceResolveResult.ElementResult is LocalResolveResult))
                     {
@@ -162,7 +169,7 @@ namespace H5.Translator
                             Write(JS.Funcs.H5_REF + "(");
 
                             Emitter.IsRefArg = true;
-                            expr.AcceptVisitor(Emitter);
+                            expressionToEmit.AcceptVisitor(Emitter);
                             Emitter.IsRefArg = false;
 
                             if (Emitter.Writers.Count != count)
@@ -192,13 +199,13 @@ namespace H5.Translator
 
                 int pos = Emitter.Output.Length;
 
-                if (expandParams && isParamsArg && expr is ArrayCreateExpression)
+                if (expandParams && isParamsArg && expressionToEmit is ArrayCreateExpression)
                 {
-                    new ExpressionListBlock(Emitter, ((ArrayCreateExpression)expr).Initializer.Elements, null, null, 0).DoEmit();
+                    new ExpressionListBlock(Emitter, ((ArrayCreateExpression)expressionToEmit).Initializer.Elements, null, null, 0).DoEmit();
                 }
                 else
                 {
-                    expr.AcceptVisitor(Emitter);
+                    expressionToEmit.AcceptVisitor(Emitter);
 
                     if (isParamsArg && isApply)
                     {
@@ -212,9 +219,9 @@ namespace H5.Translator
                     count = Emitter.Writers.Count;
                 }
 
-                if (expr is AssignmentExpression)
+                if (expressionToEmit is AssignmentExpression)
                 {
-                    Helpers.CheckValueTypeClone(Emitter.Resolver.ResolveNode(expr), expr, this, pos);
+                    Helpers.CheckValueTypeClone(Emitter.Resolver.ResolveNode(expressionToEmit), expressionToEmit, this, pos);
                 }
             }
 

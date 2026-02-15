@@ -239,6 +239,11 @@ namespace H5.Translator
             }
         }
 
+        public override void VisitFixedFieldDeclaration(FixedFieldDeclaration fixedFieldDeclaration)
+        {
+            throw new EmitterException(fixedFieldDeclaration, "Fixed size buffers are not supported");
+        }
+
         public override void VisitFieldDeclaration(FieldDeclaration fieldDeclaration)
         {
             bool isStatic = CurrentType.ClassType == ClassType.Enum

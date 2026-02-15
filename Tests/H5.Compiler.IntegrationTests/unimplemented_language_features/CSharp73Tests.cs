@@ -112,7 +112,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code, skipRoslyn: true);
+            await RunTestExpectingError(code, "Unsafe code may only appear if compiling with /unsafe");
         }
 
         [TestMethod]

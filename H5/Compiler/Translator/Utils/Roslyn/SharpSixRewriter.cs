@@ -2546,8 +2546,8 @@ namespace H5.Translator
                     {
                         if (p.Identifier.Text == "_")
                         {
+                            newParams.Add(p.WithIdentifier(SyntaxFactory.Identifier($"$_{discardCount}")));
                             discardCount++;
-                            newParams.Add(p.WithIdentifier(SyntaxFactory.Identifier("__discard_" + discardCount)));
                         }
                         else
                         {

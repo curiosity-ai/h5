@@ -13,7 +13,6 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task ReadonlyMembers()
         {
             var code = """

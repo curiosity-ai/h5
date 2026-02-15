@@ -13,13 +13,12 @@ namespace H5.Translator
     {
         public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
-            var unit = root as CompilationUnitSyntax;
             var removingUsings = new List<UsingDirectiveSyntax>();
-            foreach (var u in unit.Usings)
+            foreach (var u in root.DescendantNodes().OfType<UsingDirectiveSyntax>())
             {
                 try
                 {
-                    if (u.StaticKeyword.RawKind == (int)SyntaxKind.StaticKeyword)
+                    if (u.StaticKeyword.IsKind(SyntaxKind.StaticKeyword) || u.Alias != null)
                     {
                         removingUsings.Add(u);
                     }

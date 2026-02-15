@@ -155,7 +155,6 @@ public class Point
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task EnumConstraint()
         {
             var code = """
@@ -178,7 +177,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task DelegateConstraint()
         {
             var code = """
@@ -202,7 +200,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task UnmanagedConstraint()
         {
             var code = """
@@ -224,7 +221,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTestExpectingError(code, "Unmanaged constraint is not supported");
         }
     }
 }

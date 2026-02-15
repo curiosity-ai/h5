@@ -374,7 +374,7 @@ namespace H5.Translator
                 }
 
                 AssemblyInfo = inspector.AssemblyInfo;
-                Types        = inspector.Types;
+                Types        = inspector.Types.Where(t => !CompilerBuiltInTypes.IsBuiltIn(t.Type.FullName)).ToList();
             }
         }
 

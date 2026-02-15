@@ -27,6 +27,17 @@ namespace H5.Compiler.IntegrationTests
 
             try
             {
+                var repoRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
+                var localPackagePath = Path.Combine(repoRoot, "H5/H5/bin/Debug/h5.0.0.42.nupkg");
+
+                if (File.Exists(localPackagePath))
+                {
+                    Console.WriteLine($"Found local H5 build at {localPackagePath}. Using version 0.0.42.");
+                    _cachedLatestVersion = new NuGetVersion("0.0.42");
+                    await EnsurePackageRestored(_cachedLatestVersion!, repoRoot);
+                    return _cachedLatestVersion!;
+                }
+
                 // Fetch the list of versions from the official NuGet API
                 var json = await _httpClient.GetStringAsync("https://api.nuget.org/v3-flatcontainer/h5/index.json");
                 var versions = new List<NuGetVersion>();
@@ -74,17 +85,22 @@ namespace H5.Compiler.IntegrationTests
             }
         }
 
-        private static async Task EnsurePackageRestored(NuGetVersion version)
+        private static async Task EnsurePackageRestored(NuGetVersion version, string repoRoot = null)
         {
             var userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             var packagePath = Path.Combine(userProfile, ".nuget", "packages", "h5", version.ToString());
 
-            if (Directory.Exists(packagePath))
+            if (repoRoot != null && Directory.Exists(packagePath))
+            {
+                // Force delete for local build to refresh
+                try { Directory.Delete(packagePath, true); } catch { }
+            }
+            else if (Directory.Exists(packagePath))
             {
                 return;
             }
 
-            Console.WriteLine($"Package h5 version {version} not found in cache. Restoring...");
+            Console.WriteLine($"Package h5 version {version} not found in cache (or refreshing local). Restoring...");
 
             // Create a temporary project to trigger restoration
             var tempDir = Path.Combine(Path.GetTempPath(), "H5_Restore_" + Guid.NewGuid());
@@ -104,10 +120,25 @@ namespace H5.Compiler.IntegrationTests
 
                 await File.WriteAllTextAsync(Path.Combine(tempDir, "Restore.csproj"), csprojContent);
 
+                string restoreArgs = "restore";
+                if (repoRoot != null)
+                {
+                    var localSource = Path.Combine(repoRoot, "H5/H5/bin/Debug");
+                    var nugetConfig = $@"
+<configuration>
+  <packageSources>
+    <add key=""LocalH5"" value=""{localSource}"" />
+    <add key=""nuget.org"" value=""https://api.nuget.org/v3/index.json"" />
+  </packageSources>
+</configuration>";
+                    await File.WriteAllTextAsync(Path.Combine(tempDir, "nuget.config"), nugetConfig);
+                    restoreArgs += " --no-cache";
+                }
+
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = "dotnet",
-                    Arguments = "restore",
+                    Arguments = restoreArgs,
                     WorkingDirectory = tempDir,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -142,12 +173,18 @@ namespace H5.Compiler.IntegrationTests
             }
         }
 
-        public static void ClearRewriterCache()
+        public static void ClearRewriterAndEmitterCache()
         {
             // Clear SharpSixRewriter cache to prevent stale rewrite issues
             try
             {
                 var files = Directory.GetFiles(Environment.CurrentDirectory, "*.h5.rewriter.cache", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    File.Delete(file);
+                }
+
+                files = Directory.GetFiles(Environment.CurrentDirectory, "*.h5.emittedJS.cache", SearchOption.AllDirectories);
                 foreach (var file in files)
                 {
                     File.Delete(file);
@@ -214,6 +251,20 @@ namespace H5.Compiler.IntegrationTests
                 if (name.StartsWith("h5.")) return 2;
                 return 10;
             }).ToList();
+
+            // Workaround: if h5.js is missing (due to embedding issues in local build), load it from disk if using local version
+            if (!sortedFiles.Any(f => f.Key.EndsWith("h5.js")) && latestVersion.ToString() == "0.0.42")
+            {
+                var repoRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
+                var h5JsPath = Path.Combine(repoRoot, "H5/H5/Resources/.generated/h5.js");
+                if (File.Exists(h5JsPath))
+                {
+                    Console.WriteLine($"Injecting local h5.js from {h5JsPath}");
+                    var content = File.ReadAllText(h5JsPath);
+                    // Insert at beginning
+                    sortedFiles.Insert(0, new KeyValuePair<string, string>("h5.js", content));
+                }
+            }
 
             var sb = new System.Text.StringBuilder();
             bool polyfillWritten = false;

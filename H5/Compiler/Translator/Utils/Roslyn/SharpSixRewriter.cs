@@ -2550,6 +2550,10 @@ namespace H5.Translator
                             {
                                 newParams.Add(p.WithIdentifier(SyntaxFactory.Identifier($"_{discardCount}")));
                             }
+                            else
+                            {
+                                newParams.Add(p);
+                            }
                             discardCount++;
                         }
                         else

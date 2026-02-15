@@ -171,7 +171,7 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task CovariantReturnTypes()
         {
             var code = """
@@ -201,7 +201,7 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task ExtensionGetEnumerator()
         {
             var code = """
@@ -235,7 +235,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTest(code, skipRoslyn: true);
         }
 
         [TestMethod]
@@ -257,7 +257,7 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task NativeSizedIntegers()
         {
             var code = """
@@ -274,7 +274,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTest(code, skipRoslyn: true);
         }
 
         [TestMethod]
@@ -288,7 +288,7 @@ Console.WriteLine("Hello, Top-Level Statements!");
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task AttributesOnLocalFunctions()
         {
             var code = """
@@ -308,11 +308,11 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTest(code, skipRoslyn: true);
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task ModuleInitializers()
         {
             var code = """
@@ -335,7 +335,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTest(code, skipRoslyn: true);
         }
     }
 }

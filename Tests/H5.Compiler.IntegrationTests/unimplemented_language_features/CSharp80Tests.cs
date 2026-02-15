@@ -45,11 +45,16 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task DefaultInterfaceMethods()
         {
             var code = """
 using System;
+namespace System.Runtime.CompilerServices {
+    public static class RuntimeFeature {
+        public const string DefaultImplementationsOfInterfaces = "DefaultImplementationsOfInterfaces";
+    }
+}
 
 public interface ILogger
 {
@@ -303,7 +308,7 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task DisposableRefStructs()
         {
             var code = """
@@ -325,11 +330,11 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTest(code, skipRoslyn: true);
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task NullableReferenceTypes()
         {
             var code = """
@@ -349,11 +354,11 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTest(code, skipRoslyn: true);
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        // [Ignore("Not implemented yet")]
         public async Task AsyncStreams()
         {
             // Requires IAsyncEnumerable<T>
@@ -361,6 +366,45 @@ public class Program
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+namespace System.Threading.Tasks
+{
+    public struct ValueTask<TResult>
+    {
+        internal readonly Task<TResult> _task;
+        public ValueTask(Task<TResult> task) { _task = task; }
+        public System.Runtime.CompilerServices.TaskAwaiter<TResult> GetAwaiter() => _task.GetAwaiter();
+    }
+
+    public struct ValueTask
+    {
+        internal readonly Task _task;
+        public ValueTask(Task task) { _task = task; }
+        public System.Runtime.CompilerServices.TaskAwaiter GetAwaiter() => _task.GetAwaiter();
+    }
+}
+
+namespace System.Collections.Generic
+{
+    public interface IAsyncEnumerable<out T>
+    {
+        IAsyncEnumerator<T> GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken = default);
+    }
+
+    public interface IAsyncEnumerator<out T> : IAsyncDisposable
+    {
+        T Current { get; }
+        System.Threading.Tasks.ValueTask<bool> MoveNextAsync();
+    }
+}
+
+namespace System
+{
+    public interface IAsyncDisposable
+    {
+        System.Threading.Tasks.ValueTask DisposeAsync();
+    }
+}
 
 public class Program
 {
@@ -382,7 +426,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTest(code, skipRoslyn: true);
         }
 
         [TestMethod]

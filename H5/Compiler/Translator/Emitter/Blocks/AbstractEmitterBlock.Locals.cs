@@ -285,7 +285,7 @@ namespace H5.Translator
                                         }
                                         else
                                         {
-                                            WriteScript(prm.ConstantValue);
+                                            WriteScript(prm.ConstantValue ?? Inspector.GetDefaultFieldValue(prm.Type, (AstType)null, false));
                                         }
                                     }
                                     else

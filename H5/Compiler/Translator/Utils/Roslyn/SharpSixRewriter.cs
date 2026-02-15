@@ -306,7 +306,7 @@ namespace H5.Translator
 
         private CSharpCompilation CreateCompilation()
         {
-            var compilationOptions = new CSharpCompilationOptions(OutputKind.ConsoleApplication);
+            var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary).WithAllowUnsafe(true);
 
             var parseOptions = GetParseOptions();
 
@@ -525,6 +525,18 @@ namespace H5.Translator
         {
             ThrowRefNotSupported(node);
             return node;
+        }
+
+        public override SyntaxNode VisitUnsafeStatement(UnsafeStatementSyntax node)
+        {
+            var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+            throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Unsafe blocks are not supported", semanticModel.SyntaxTree.FilePath, node.ToString()));
+        }
+
+        public override SyntaxNode VisitPointerType(PointerTypeSyntax node)
+        {
+            var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+            throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Pointers are not supported", semanticModel.SyntaxTree.FilePath, node.ToString()));
         }
 
         private static Regex binaryLiteral = new Regex(@"[_Bb]", RegexOptions.Compiled);
@@ -837,32 +849,30 @@ namespace H5.Translator
                 foreach (var member in node.Members)
                 {
                     if (member == fileScopedNamespace) continue;
-                    members.Add(member);
+                    // Need to visit members first because we are creating a new structure
+                    members.Add((MemberDeclarationSyntax)Visit(member));
                 }
 
-                members.AddRange(fileScopedNamespace.Members);
+                foreach (var member in fileScopedNamespace.Members)
+                {
+                    members.Add((MemberDeclarationSyntax)Visit(member));
+                }
 
                 var newNamespace = SyntaxFactory.NamespaceDeclaration(
                     fileScopedNamespace.Name,
                     fileScopedNamespace.Externs,
                     fileScopedNamespace.Usings,
                     SyntaxFactory.List(members)
-                ).WithLeadingTrivia(fileScopedNamespace.GetLeadingTrivia());
+                ).WithLeadingTrivia(fileScopedNamespace.GetLeadingTrivia())
+                 .NormalizeWhitespace();
 
                 var newCompilationUnitMembers = new List<MemberDeclarationSyntax>();
-                // Add usings/externs from compilation unit if needed, but usually they are at top.
-                // FileScopedNamespace usings are already in the new namespace.
-                // Compilation unit usings should remain in compilation unit or be moved?
-                // Standard behavior: Compilation unit usings apply to the whole file.
-                // FileScopedNamespace usings apply to the namespace.
-                // We just replace the namespace declaration.
-
-                // However, the structure is flat in FileScopedNamespace.
-                // node.Members contains the namespace AND potentially other things (though strictly only one namespace allowed).
-
                 newCompilationUnitMembers.Add(newNamespace);
 
                 node = node.WithMembers(SyntaxFactory.List(newCompilationUnitMembers));
+
+                // Return the new node directly, do not call base.VisitCompilationUnit as the structure changed
+                return node;
             }
 
             return base.VisitCompilationUnit(node);
@@ -1406,6 +1416,14 @@ namespace H5.Translator
 
         public override SyntaxNode VisitConstructorDeclaration(ConstructorDeclarationSyntax node)
         {
+            if (node.Parent.IsKind(SyntaxKind.StructDeclaration) && node.ParameterList.Parameters.Count == 0 && !node.Modifiers.Any(SyntaxKind.StaticKeyword))
+            {
+                var dummyParam = SyntaxFactory.Parameter(SyntaxFactory.Identifier("_dummy").WithLeadingTrivia(SyntaxFactory.Space))
+                    .WithType(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.IntKeyword)));
+
+                node = node.AddParameterListParameters(dummyParam);
+            }
+
             node = (ConstructorDeclarationSyntax)base.VisitConstructorDeclaration(node);
 
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
@@ -2818,6 +2836,13 @@ namespace H5.Translator
             if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
             {
                 return base.VisitObjectCreationExpression(node);
+            }
+
+            var symbol = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
+            if (symbol != null && symbol.ContainingType.IsValueType && symbol.Parameters.Length == 0 && !symbol.IsImplicitlyDeclared && !symbol.IsStatic)
+            {
+                var arg = SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(0)));
+                node = node.AddArgumentListArguments(arg);
             }
 
             bool needRewrite = false;

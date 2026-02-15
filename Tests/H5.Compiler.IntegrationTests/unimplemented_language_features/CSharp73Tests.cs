@@ -13,6 +13,21 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
             var code = """
 using System;
 
+namespace System
+{
+    public struct Span<T>
+    {
+        private T[] _array;
+        public Span(T[] array)
+        {
+            _array = array;
+        }
+        public T this[int index] => _array[index];
+        public int Length => _array != null ? _array.Length : 0;
+        public static implicit operator Span<T>(T[] array) => new Span<T>(array);
+    }
+}
+
 public class Program
 {
     public static void Main()
@@ -24,7 +39,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code, skipRoslyn: true);
+            await RunTest(code, waitForOutput: "1\n2\n3", skipRoslyn: true);
         }
 
         [TestMethod]
@@ -54,7 +69,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code, skipRoslyn: true);
+            await RunTest(code);
         }
 
         [TestMethod]
@@ -112,7 +127,7 @@ public class Program
     }
 }
 """;
-            await RunTestExpectingError(code, "Unsafe code may only appear if compiling with /unsafe");
+            await RunTestExpectingError(code, "Unsafe code is not supported");
         }
 
         [TestMethod]

@@ -20,9 +20,11 @@ public class Program
     public static void Main()
     {
         var p = new Point(1, 2);
-        // var p2 = p with { X = 3 }; // With expression on structs might be tricky without full support
+        var p2 = p with { X = 3 };
         Console.WriteLine(p.X);
         Console.WriteLine(p.Y);
+        Console.WriteLine(p2.X);
+        Console.WriteLine(p2.Y);
     }
 }
 """;
@@ -30,7 +32,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Struct parameterless constructor not supported in NRefactory/Emitter")]
         public async Task StructParameterlessConstructor()
         {
             var code = """
@@ -58,7 +59,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Rewriting failed or NRefactory parse error")]
         public async Task FileScopedNamespace()
         {
             var code = """

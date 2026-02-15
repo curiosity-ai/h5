@@ -134,5 +134,22 @@ public class Program
 }";
             await RunTest(code);
         }
+
+        [TestMethod]
+        public async Task NamedArguments_OnDynamic_ShouldNotCrash()
+        {
+            var code = @"
+public class Program
+{
+    public static void Main()
+    {
+        dynamic d = new System.Object();
+        try {
+            d.Foo(a: 1);
+        } catch { }
+    }
+}";
+            await RunTest(code, skipRoslyn: true);
+        }
     }
 }

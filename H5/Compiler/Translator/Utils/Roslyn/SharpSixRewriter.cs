@@ -213,6 +213,9 @@ namespace H5.Translator
             var result = new ExpressionBodyToStatementRewriter(semanticModel).Visit(syntaxTree.GetRoot());
             modelUpdater(result);
 
+            result = new NameofReplacer(semanticModel).Visit(syntaxTree.GetRoot());
+            modelUpdater(result);
+
             result = new DiscardReplacer().Replace(syntaxTree.GetRoot(), semanticModel, modelUpdater, this);
             modelUpdater(result);
 
@@ -1744,6 +1747,21 @@ namespace H5.Translator
 
             var isAlias = semanticModel.GetAliasInfo(node) != null;
 
+            if (isAlias)
+            {
+                var aliasSymbol = semanticModel.GetAliasInfo(node);
+                var target = aliasSymbol.Target;
+
+                if (target is INamespaceSymbol ns)
+                {
+                    return SyntaxFactory.ParseName(ns.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                }
+                else if (target is ITypeSymbol ts)
+                {
+                    return SyntaxHelper.GenerateTypeSyntax(ts).WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                }
+            }
+
             ITypeSymbol thisType = currentType.Count == 0 ? null : currentType.Peek();
 
             bool needHandle = !isAlias &&
@@ -1913,9 +1931,14 @@ namespace H5.Translator
             node = (PropertyDeclarationSyntax)base.VisitPropertyDeclaration(node);
             var newNode = node;
 
-            if (node.ExpressionBody != null)
+            if (newNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
             {
-                newNode = SyntaxHelper.ToStatementBody(node);
+                newNode = newNode.WithModifiers(newNode.Modifiers.RemoveAt(newNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+            }
+
+            if (newNode.ExpressionBody != null)
+            {
+                newNode = SyntaxHelper.ToStatementBody(newNode);
             }
 
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
@@ -2159,6 +2182,11 @@ namespace H5.Translator
 
             node = base.VisitMethodDeclaration(node) as MethodDeclarationSyntax;
 
+            if (node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
+            {
+                node = node.WithModifiers(node.Modifiers.RemoveAt(node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+            }
+
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 node = node.WithModifiers(node.Modifiers.Replace(node.Modifiers[node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2193,6 +2221,14 @@ namespace H5.Translator
             }
 
             var result = base.VisitAccessorDeclaration(node);
+
+            if (result is AccessorDeclarationSyntax accessorResult)
+            {
+                if (accessorResult.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
+                {
+                    result = accessorResult.WithModifiers(accessorResult.Modifiers.RemoveAt(accessorResult.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+                }
+            }
 
             IndexInstance = oldIndex;
             return result;
@@ -2463,6 +2499,12 @@ namespace H5.Translator
         public override SyntaxNode VisitIndexerDeclaration(IndexerDeclarationSyntax node)
         {
             node = (IndexerDeclarationSyntax)base.VisitIndexerDeclaration(node);
+
+            if (node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
+            {
+                node = node.WithModifiers(node.Modifiers.RemoveAt(node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+            }
+
             if (node.ExpressionBody != null)
             {
                 return SyntaxHelper.ToStatementBody(node);

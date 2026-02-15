@@ -63,5 +63,24 @@ namespace H5.Compiler.IntegrationTests
             if (string.IsNullOrEmpty(output)) return "";
             return string.Join("\n", output.Trim().Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).Select(s => s.TrimEnd()));
         }
+
+        protected async Task RunTestExpectingError(string csharpCode, string expectedErrorMessage)
+        {
+            try
+            {
+                await H5Compiler.CompileToJs(csharpCode);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains(expectedErrorMessage) || ex.ToString().Contains(expectedErrorMessage))
+                {
+                    return;
+                }
+
+                Assert.Fail($"Expected error '{expectedErrorMessage}' but got:\n{ex}");
+            }
+
+            Assert.Fail("Compilation should have failed but succeeded.");
+        }
     }
 }

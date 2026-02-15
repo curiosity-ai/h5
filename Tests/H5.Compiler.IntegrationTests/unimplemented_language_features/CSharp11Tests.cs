@@ -349,11 +349,11 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task ExtendedNameof()
         {
             var code = """
 using System;
+using System.Reflection;
 
 [AttributeUsage(AttributeTargets.Parameter)]
 public class ParamInfoAttribute : Attribute
@@ -366,12 +366,78 @@ public class Program
 {
     public static void Main()
     {
-        Print(10);
+        var method = typeof(Program).GetMethod("Print", BindingFlags.Static | BindingFlags.NonPublic);
+        var param = method.GetParameters()[0];
+        var attr = (ParamInfoAttribute)param.GetCustomAttributes(typeof(ParamInfoAttribute), false)[0];
+        Console.WriteLine(attr.Name);
     }
 
     static void Print([ParamInfo(nameof(x))] int x)
     {
-        Console.WriteLine(nameof(x));
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task ExtendedNameof_MethodAttribute()
+        {
+            var code = """
+using System;
+using System.Reflection;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class MethodInfoAttribute : Attribute
+{
+    public MethodInfoAttribute(string paramName) { ParamName = paramName; }
+    public string ParamName { get; }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var method = typeof(Program).GetMethod("Test", BindingFlags.Static | BindingFlags.Public);
+        var attr = (MethodInfoAttribute)method.GetCustomAttributes(typeof(MethodInfoAttribute), false)[0];
+        Console.WriteLine(attr.ParamName);
+    }
+
+    [MethodInfo(nameof(p))]
+    public static void Test(int p)
+    {
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task ExtendedNameof_Qualified()
+        {
+            var code = """
+using System;
+using System.Reflection;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class MyAttr : Attribute
+{
+    public MyAttr(string name) { Name = name; }
+    public string Name { get; }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var method = typeof(Program).GetMethod("Test", BindingFlags.Instance | BindingFlags.Public);
+        var attr = (MyAttr)method.GetCustomAttributes(typeof(MyAttr), false)[0];
+        Console.WriteLine(attr.Name);
+    }
+
+    [MyAttr(nameof(System.Int32))]
+    public void Test()
+    {
     }
 }
 """;

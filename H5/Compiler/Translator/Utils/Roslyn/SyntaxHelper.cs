@@ -326,7 +326,8 @@ namespace H5.Translator
 
             if (type.OriginalDefinition != null && type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T)
             {
-                return SyntaxFactory.IdentifierName(type.ToDisplayString(new SymbolDisplayFormat(genericsOptions: SymbolDisplayGenericsOptions.None)));
+                var underlying = ((INamedTypeSymbol)type).TypeArguments[0];
+                return SyntaxFactory.NullableType(GenerateTypeSyntax(underlying));
             }
 
             if (type is INamedTypeSymbol namedType && namedType.IsGenericType)
@@ -338,10 +339,39 @@ namespace H5.Translator
                     types.Add(GenerateTypeSyntax(el));
                 }
 
-                return SyntaxFactory.GenericName(SyntaxFactory.Identifier(type.ToDisplayString(new SymbolDisplayFormat(genericsOptions: SymbolDisplayGenericsOptions.None))), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
+                var format = new SymbolDisplayFormat(
+                    globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
+                    typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+                    genericsOptions: SymbolDisplayGenericsOptions.None,
+                    miscellaneousOptions: SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers
+                );
+                var openName = type.ToDisplayString(format);
+                var openTypeSyntax = SyntaxFactory.ParseTypeName(openName);
+
+                if (openTypeSyntax is QualifiedNameSyntax qns)
+                {
+                    var right = qns.Right;
+                    var genericRight = SyntaxFactory.GenericName(right.Identifier, SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
+                    return qns.WithRight(genericRight);
+                }
+                else if (openTypeSyntax is AliasQualifiedNameSyntax aqns)
+                {
+                    var right = aqns.Name;
+                    if (right is IdentifierNameSyntax id)
+                    {
+                        var genericRight = SyntaxFactory.GenericName(id.Identifier, SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
+                        return aqns.WithName(genericRight);
+                    }
+                }
+                else if (openTypeSyntax is IdentifierNameSyntax id)
+                {
+                    return SyntaxFactory.GenericName(id.Identifier, SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
+                }
+
+                return SyntaxFactory.GenericName(SyntaxFactory.Identifier(openName), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
             }
 
-            return SyntaxFactory.IdentifierName(type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithoutTrivia();
+            return SyntaxFactory.ParseTypeName(type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithoutTrivia();
         }
 
         public static TypeSyntax GenerateTypeSyntax(ITypeSymbol type, SemanticModel model, int pos, SharpSixRewriter rewriter)

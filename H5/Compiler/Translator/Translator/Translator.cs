@@ -332,7 +332,7 @@ namespace H5.Translator
                 }
                 catch (Exception ex)
                 {
-                    Logger.ZLogWarning("Topological sort failed {0} with error {1}", asmDef != null ? "at reference " + asmDef.FullName : string.Empty, ex);
+                    Logger.ZLogWarning("Topological sort failed {0} with error {1}", asmDef != null ? $"at reference {asmDef.FullName}" : string.Empty, ex);
                 }
             }
         }
@@ -464,7 +464,7 @@ namespace H5.Translator
                     }
                     catch (Exception ex)
                     {
-                        var message = "Error: Unable to run afterBuild event command: " + ex.ToString();
+                        var message = $"Error: Unable to run afterBuild event command: {ex}";
 
                         Logger.ZLogError(message);
                         throw new TranslatorException(message);

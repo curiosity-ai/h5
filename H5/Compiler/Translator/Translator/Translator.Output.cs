@@ -71,12 +71,12 @@ namespace H5.Translator
 
                         if (addNoLibReference)
                         {
-                            sb.Append("/// <reference no-default-lib=\"true\"/>" + nl);
+                            sb.Append($"/// <reference no-default-lib=\"true\"/>{nl}");
                         }
 
                         foreach (var reference in dtsReferences)
                         {
-                            sb.Append($"/// <reference path=\"{reference}\" />" + nl);
+                            sb.Append($"/// <reference path=\"{reference}\" />{nl}");
                         }
 
                         if (sb.Length > 0 && !content.StartsWith("/// <reference path="))
@@ -425,7 +425,7 @@ namespace H5.Translator
 
             if (res == null)
             {
-                throw new InvalidOperationException("Could not read resource " + resourceName + " in " + assembly.FullName);
+                throw new InvalidOperationException($"Could not read resource {resourceName} in {assembly.FullName}");
             }
 
             using (var resourcesStream = ((EmbeddedResource)res).GetResourceStream())

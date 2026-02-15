@@ -98,7 +98,7 @@ namespace H5.Contract
                 }
             }
 
-            throw new Exception("Cannot find type: " + type.FullName);
+            throw new Exception($"Cannot find type: {type.FullName}");
         }
 
         public H5Type Get(TypeReference type)
@@ -135,7 +135,7 @@ namespace H5.Contract
                 }
             }
 
-            throw new Exception("Cannot find type: " + type.FullName);
+            throw new Exception($"Cannot find type: {type.FullName}");
         }
 
         public H5Type Get(IType type, bool safe = false)
@@ -180,7 +180,7 @@ namespace H5.Contract
 
             if (!safe)
             {
-                throw new Exception("Cannot find type: " + type.ReflectionName);
+                throw new Exception($"Cannot find type: {type.ReflectionName}");
             }
 
             return null;
@@ -206,7 +206,7 @@ namespace H5.Contract
 
             if (!safe)
             {
-                throw new Exception("Cannot find type: " + type.Key);
+                throw new Exception($"Cannot find type: {type.Key}");
             }
 
             return null;
@@ -274,7 +274,7 @@ namespace H5.Contract
 
                     if (string.IsNullOrEmpty(globalTarget))
                     {
-                        throw new EmitterException(node, string.Format("The argument to the [MixinAttribute] for the type {0} must not be null or empty.", typeDefinition.FullName));
+                        throw new EmitterException(node, $"The argument to the [MixinAttribute] for the type {typeDefinition.FullName} must not be null or empty.");
                     }
                 }
             }
@@ -304,7 +304,7 @@ namespace H5.Contract
 
             if (itypeDef != null && itypeDef.Attributes.Any(a => a.AttributeType.FullName == "H5.NonScriptableAttribute"))
             {
-                throw new EmitterException(emitter.Translator.EmitNode, "Type " + type.FullName + " is marked as not usable from script");
+                throw new EmitterException(emitter.Translator.EmitNode, $"Type {type.FullName} is marked as not usable from script");
             }
 
             if (type.Kind == TypeKind.Array)
@@ -326,9 +326,9 @@ namespace H5.Contract
 
                     if (arrayType.Dimensions > 1)
                     {
-                        return string.Format(JS.Types.System.Array.TYPE + "({0}, {1})", elementAlias, arrayType.Dimensions);
+                        return $"{JS.Types.System.Array.TYPE}({elementAlias}, {arrayType.Dimensions})";
                     }
-                    return string.Format(JS.Types.System.Array.TYPE + "({0})", elementAlias);
+                    return $"{JS.Types.System.Array.TYPE}({elementAlias})";
                 }
 
                 return JS.Types.ARRAY;
@@ -394,7 +394,7 @@ namespace H5.Contract
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(emitter.GetTypeName(itypeDef, typeDef));
+                name = $"{(string.IsNullOrEmpty(name) ? "" : $"{name}.")}{H5Types.ConvertName(emitter.GetTypeName(itypeDef, typeDef))}";
             }
             else
             {
@@ -404,7 +404,7 @@ namespace H5.Contract
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(type.Name);
+                name = $"{(string.IsNullOrEmpty(name) ? "" : $"{name}.")}{H5Types.ConvertName(type.Name)}";
             }
 
             bool isCustomName = false;
@@ -469,7 +469,7 @@ namespace H5.Contract
                                 sb.Insert(0, "\"");
                                 isStr = true;
                             }
-                            sb.Append("\" + " + JS.Types.H5.GET_TYPE_ALIAS + "(");
+                            sb.Append($"\" + {JS.Types.H5.GET_TYPE_ALIAS}(");
                         }
 
                         var typeArgName = H5Types.ToJsName(typeArg, emitter, asDefinition, false, true, skipMethodTypeParam, ignoreVirtual:true, excludeTypeOnly: excludeTypeOnly);
@@ -541,14 +541,14 @@ namespace H5.Contract
                 if (td != null && emitter.Validator.IsVirtualType(td) && !IsGlobalType(td))
                 {
                     string fnName = td.Kind == TypeKind.Interface ? JS.Types.H5.GET_INTERFACE : JS.Types.H5.GET_CLASS;
-                    name = fnName + "(\"" + name + "\")";
+                    name = $"{fnName}(\"{name}\")";
                 }
                 else if (!isAlias && itypeDef != null && itypeDef.Kind == TypeKind.Interface && !IsGlobalType(itypeDef))
                 {
                     var externalInterface = emitter.Validator.IsExternalInterface(itypeDef);
                     if (externalInterface != null && externalInterface.IsVirtual)
                     {
-                        name = JS.Types.H5.GET_INTERFACE + "(\"" + name + "\")";
+                        name = $"{JS.Types.H5.GET_INTERFACE}(\"{name}\")";
                     }
                 }
             }
@@ -614,7 +614,7 @@ namespace H5.Contract
 
             if (name != CS.NS.H5 && !IsTypeFromH5ButNotFromH5Core(name) && astType.ToString().StartsWith(CS.NS.GLOBAL))
             {
-                return JS.Types.H5.Global.DOTNAME + name;
+                return $"{JS.Types.H5.Global.DOTNAME}{name}";
             }
 
             return name;
@@ -800,7 +800,7 @@ namespace H5.Contract
 
             if (!String.IsNullOrEmpty(moduleName) && (!isNested || isCustomName))
             {
-                name = string.IsNullOrWhiteSpace(name) ? moduleName : (moduleName + "." + name);
+                name = string.IsNullOrWhiteSpace(name) ? moduleName : $"{moduleName}.{name}";
             }
 
             return name;
@@ -873,7 +873,7 @@ namespace H5.Contract
 
             if (astType is ComposedType composedType && composedType.ArraySpecifiers != null && composedType.ArraySpecifiers.Count > 0)
             {
-                return H5Types.ToTypeScriptName(composedType.BaseType, emitter) + string.Concat(Enumerable.Repeat("[]", composedType.ArraySpecifiers.Count));
+                return $"{H5Types.ToTypeScriptName(composedType.BaseType, emitter)}{string.Concat(Enumerable.Repeat("[]", composedType.ArraySpecifiers.Count))}";
             }
 
             if (astType is SimpleType simpleType && simpleType.Identifier == "dynamic")
@@ -963,10 +963,10 @@ namespace H5.Contract
 
                     if (p.IsOut || p.IsRef)
                     {
-                        ptype = "{v: " + ptype + "}";
+                        ptype = $"{{v: {ptype}}}";
                     }
 
-                    sb.Append(p.Name + ": " + ptype);
+                    sb.Append($"{p.Name}: {ptype}");
                     if (p != last)
                     {
                         sb.Append(", ");
@@ -1024,7 +1024,7 @@ namespace H5.Contract
             if (type.Kind == TypeKind.Array)
             {
                 ICSharpCode.NRefactory.TypeSystem.ArrayType arrayType = (ICSharpCode.NRefactory.TypeSystem.ArrayType)type;
-                return H5Types.ToTypeScriptName(arrayType.ElementType, emitter, asDefinition, excludens, guard: guard) + "[]";
+                return $"{H5Types.ToTypeScriptName(arrayType.ElementType, emitter, asDefinition, excludens, guard: guard)}[]";
             }
 
             if (type.Kind == TypeKind.Dynamic || type.IsKnownType(KnownTypeCode.Object))
@@ -1060,7 +1060,7 @@ namespace H5.Contract
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(emitter.GetTypeName(h5Type.Type.GetDefinition(), typeDef));
+                name = $"{(string.IsNullOrEmpty(name) ? "" : $"{name}.")}{H5Types.ConvertName(emitter.GetTypeName(h5Type.Type.GetDefinition(), typeDef))}";
             }
             else
             {
@@ -1076,7 +1076,7 @@ namespace H5.Contract
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(type.Name);
+                name = $"{(string.IsNullOrEmpty(name) ? "" : $"{name}.")}{H5Types.ConvertName(type.Name)}";
             }
 
             bool isCustomName = false;
@@ -1185,7 +1185,7 @@ namespace H5.Contract
 
                 if (!String.IsNullOrEmpty(moduleName))
                 {
-                    ns = string.IsNullOrWhiteSpace(ns) ? moduleName : (moduleName + "." + ns);
+                    ns = string.IsNullOrWhiteSpace(ns) ? moduleName : $"{moduleName}.{ns}";
                 }
                 else
                 {

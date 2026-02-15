@@ -326,17 +326,21 @@ namespace H5.Translator
             {
                 var condition = (ExpressionSyntax)SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, expression, SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
 
+                ExpressionSyntax typedExpression = expression;
+
                 if (recursivePattern.Type != null)
                 {
                     var typeCheck = SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expression, recursivePattern.Type);
                     condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, typeCheck);
+
+                    typedExpression = SyntaxFactory.ParenthesizedExpression(SyntaxFactory.CastExpression(recursivePattern.Type, expression));
                 }
 
                 if (recursivePattern.PropertyPatternClause != null)
                 {
                     foreach (var sub in recursivePattern.PropertyPatternClause.Subpatterns)
                     {
-                        var propAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expression, sub.NameColon.Name);
+                        var propAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, typedExpression, sub.NameColon.Name);
                         var subCheck = MakeCheck(propAccess, sub.Pattern, model);
                         condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, subCheck);
                     }
@@ -347,6 +351,15 @@ namespace H5.Translator
                     var typeInfo = model.GetTypeInfo(expression);
                     var type = typeInfo.Type ?? typeInfo.ConvertedType;
 
+                    if (recursivePattern.Type != null)
+                    {
+                         var ti = model.GetTypeInfo(recursivePattern.Type);
+                         if (ti.Type != null)
+                         {
+                             type = ti.Type;
+                         }
+                    }
+
                     if (type != null && (type.IsTupleType || type.Name == "ValueTuple" || type.Name == "System.ValueTuple"))
                     {
                         int index = 0;
@@ -355,7 +368,7 @@ namespace H5.Translator
                             var fieldName = $"Item{index + 1}";
                             var memberAccess = SyntaxFactory.MemberAccessExpression(
                                 SyntaxKind.SimpleMemberAccessExpression,
-                                expression,
+                                typedExpression,
                                 SyntaxFactory.IdentifierName(fieldName)
                             );
 

@@ -85,6 +85,83 @@ public class Program
         }
 
         [TestMethod]
+        public async Task ListPatternsExtended()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        // 1. Empty List
+        int[] empty = { };
+        Console.WriteLine(empty is []); // True
+        Console.WriteLine(empty is [1]); // False
+
+        // 2. Single Element
+        int[] single = { 10 };
+        Console.WriteLine(single is [10]); // True
+        Console.WriteLine(single is [1]); // False
+        Console.WriteLine(single is [_, ..]); // True
+
+        // 3. Exact Match & Wildcards
+        int[] exact = { 1, 2, 3 };
+        Console.WriteLine(exact is [1, 2, 3]); // True
+        Console.WriteLine(exact is [1, _, 3]); // True
+        Console.WriteLine(exact is [1, 2]); // False
+
+        // 4. Var Pattern inside Element
+        if (exact is [var first, 2, var last])
+        {
+            Console.WriteLine($"{first}-{last}"); // 1-3
+        }
+
+        // 5. Slice Variations
+        int[] list = { 1, 2, 3, 4, 5 };
+
+        // Slice at start
+        if (list is [.. var start, 4, 5])
+        {
+            Console.WriteLine($"Start: {start.Length}"); // 3
+            Console.WriteLine(start[0]); // 1
+        }
+
+        // Slice at end
+        if (list is [1, 2, .. var end])
+        {
+            Console.WriteLine($"End: {end.Length}"); // 3
+            Console.WriteLine(end[2]); // 5
+        }
+
+        // Slice in middle
+        if (list is [1, .. var middle, 5])
+        {
+            Console.WriteLine($"Middle: {middle.Length}"); // 3
+            Console.WriteLine(middle[1]); // 3
+        }
+
+        // Slice without variable
+        Console.WriteLine(list is [1, .., 5]); // True
+        Console.WriteLine(list is [1, .., 4]); // False
+
+        // 6. Nested Patterns (Recursive)
+        // Note: Generic nested list patterns might depend on specific implementation details,
+        // but let's test a simple object check if possible or strict values.
+        object[] objects = { new int[] { 1, 2 }, new int[] { 3, 4 } };
+        // This is complex because objects[0] is dynamic/object at runtime unless cast.
+        // Let's rely on simple recursion if supported.
+        if (objects is [int[] { Length: 2 } a, int[] b])
+        {
+             Console.WriteLine("Nested Array Matched");
+        }
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
         [Ignore("Not implemented yet")]
         public async Task RequiredMembers()
         {

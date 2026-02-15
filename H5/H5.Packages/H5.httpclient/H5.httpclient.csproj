@@ -33,6 +33,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <IsPackable>true</IsPackable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>http://h5.rocks/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/curiosity-ai/h5</PackageProjectUrl>
   </PropertyGroup>
 </Project>

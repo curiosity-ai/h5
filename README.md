@@ -1,6 +1,6 @@
 #  h5 🚀 - C# to JavaScript compiler
 
-<a href="https://h5.rocks"><img src="https://raw.githubusercontent.com/theolivenbaum/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
+<a href="https://github.com/curiosity-ai/h5"><img src="https://raw.githubusercontent.com/curiosity-ai/h5/master/logo/h5.svg" width="120" height="120" align="right" /></a>
 
 H5 is a modern fork of the original [Bridge](https://github.com/bridgedotnet/bridge) C# to Javascript compiler, updated to support multi-platform development using .NET 8.0 for the compiler and .NET Standard 2.1 for H5 projects, while dropping support for legacy features and dependencies.
 
@@ -23,7 +23,7 @@ H5 is under active development, and targets a more integrated and faster develop
 
 [![Gitter](https://badges.gitter.im/curiosityai/h5.svg)](https://gitter.im/curiosityai/h5?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-H5 projects are based on [netstandard2.1](https://github.com/theolivenbaum/h5/blob/master/H5/H5/H5.csproj), and the compiler on [net10.0](https://github.com/theolivenbaum/h5/blob/master/H5/Compiler/Compiler/H5.Compiler.csproj), and removes legacy dependencies coming from the original Bridge source-code.
+H5 projects are based on [netstandard2.1](https://github.com/curiosity-ai/h5/blob/master/H5/H5/H5.csproj), and the compiler on [net10.0](https://github.com/curiosity-ai/h5/blob/master/H5/Compiler/Compiler/H5.Compiler.csproj), and removes legacy dependencies coming from the original Bridge source-code.
 
 To get started with it, you can use the following project template (replace h5.Target/* with the latest version from [h5.target](https://www.nuget.org/packages/h5.target/)).
 
@@ -60,7 +60,7 @@ dotnet new h5
 ```` 
 
 ## Samples
-The easiest way to get started is to check out some of the examples of using h5 in [this repository](https://github.com/theolivenbaum/h5-samples). 
+The easiest way to get started is to check out some of the examples of using h5 in [this repository](https://github.com/curiosity-ai/h5-samples).
 
 ##  Breaking Changes 💥
 

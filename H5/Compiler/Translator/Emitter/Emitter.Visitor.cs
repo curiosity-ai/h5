@@ -122,6 +122,11 @@ namespace H5.Translator
             new NameBlock(this, namedExpression).Emit();
         }
 
+        public override void VisitNamedArgumentExpression(NamedArgumentExpression namedArgumentExpression)
+        {
+            namedArgumentExpression.Expression.AcceptVisitor(this);
+        }
+
         public override void VisitArrayInitializerExpression(ArrayInitializerExpression arrayInitializerExpression)
         {
             new ArrayInitializerBlock(this, arrayInitializerExpression).Emit();

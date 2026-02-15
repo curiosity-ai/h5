@@ -142,12 +142,18 @@ namespace H5.Compiler.IntegrationTests
             }
         }
 
-        public static void ClearRewriterCache()
+        public static void ClearRewriterAndEmitterCache()
         {
             // Clear SharpSixRewriter cache to prevent stale rewrite issues
             try
             {
                 var files = Directory.GetFiles(Environment.CurrentDirectory, "*.h5.rewriter.cache", SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    File.Delete(file);
+                }
+
+                files = Directory.GetFiles(Environment.CurrentDirectory, "*.h5.emittedJS.cache", SearchOption.AllDirectories);
                 foreach (var file in files)
                 {
                     File.Delete(file);

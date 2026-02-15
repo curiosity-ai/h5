@@ -236,7 +236,7 @@ namespace H5.Translator
                     continue;
                 }
 
-                if (type.FullName == "Microsoft.CodeAnalysis.EmbeddedAttribute")
+                if (CompilerBuiltInTypes.IsBuiltIn(type.FullName))
                 {
                     continue;
                 }
@@ -374,7 +374,7 @@ namespace H5.Translator
                 }
 
                 AssemblyInfo = inspector.AssemblyInfo;
-                Types        = inspector.Types;
+                Types        = inspector.Types.Where(t => !CompilerBuiltInTypes.IsBuiltIn(t.Type.FullName)).ToList();
             }
         }
 

@@ -32,7 +32,7 @@ namespace H5.Translator
                 return true;
             }
 
-            if (type.FullName == "Microsoft.CodeAnalysis.EmbeddedAttribute")
+            if (CompilerBuiltInTypes.IsBuiltIn(type.FullName))
             {
                 return true;
             }

@@ -9,7 +9,7 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
         [TestInitialize]
         public void TestInitialize()
         {
-            H5Compiler.ClearRewriterCache();
+            H5Compiler.ClearRewriterAndEmitterCache();
         }
 
         [TestMethod]
@@ -80,7 +80,6 @@ public class Program
         }
 
         [TestMethod]
-        // [Ignore("Not implemented yet")]
         public async Task SwitchExpressions()
         {
             var code = """
@@ -114,7 +113,6 @@ public enum ConsoleColor
         }
 
         [TestMethod]
-        // [Ignore("Not implemented yet")]
         public async Task PropertyPatterns()
         {
             var code = """
@@ -417,12 +415,25 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task StackAllocInNestedExpressions()
         {
             // Requires Span support
             var code = """
 using System;
+
+namespace System
+{
+    public struct Span<T>
+    {
+        private T[] _array;
+        public Span(T[] array)
+        {
+            _array = array;
+        }
+        public int Length => _array != null ? _array.Length : 0;
+        public static implicit operator Span<T>(T[] array) => new Span<T>(array);
+    }
+}
 
 public class Program
 {
@@ -433,7 +444,79 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTest(code, waitForOutput: "3", skipRoslyn: true);
+        }
+
+        [TestMethod]
+        public async Task ExplicitStackAlloc()
+        {
+            var code = """
+using System;
+
+namespace System
+{
+    public struct Span<T>
+    {
+        private T[] _array;
+        public Span(T[] array)
+        {
+            _array = array;
+        }
+        public int Length => _array != null ? _array.Length : 0;
+        public static implicit operator Span<T>(T[] array) => new Span<T>(array);
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Span<int> span = stackalloc int[] { 1, 2, 3 };
+        Console.WriteLine(span.Length);
+
+        Span<int> span2 = stackalloc int[4];
+        Console.WriteLine(span2.Length);
+    }
+}
+""";
+            await RunTest(code, waitForOutput: "3\n4", skipRoslyn: true);
+        }
+
+        [TestMethod]
+        public async Task StackAllocWithCustomSpan()
+        {
+            var code = """
+using System;
+
+public class CustomSpan<T>
+{
+    private T[] _array;
+    public CustomSpan(T[] array)
+    {
+        _array = array;
+    }
+
+    public int Length => _array.Length;
+
+    public static implicit operator CustomSpan<T>(T[] array) => new CustomSpan<T>(array);
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        CustomSpan<int> span = stackalloc int[] { 1, 2, 3 };
+        Console.WriteLine(span.Length);
+
+        CustomSpan<int> span2 = stackalloc[] { 4, 5 };
+        Console.WriteLine(span2.Length);
+
+        CustomSpan<int> span3 = stackalloc int[10];
+        Console.WriteLine(span3.Length);
+    }
+}
+""";
+            await RunTest(code, waitForOutput: "3\n2\n10", skipRoslyn: true);
         }
     }
 }

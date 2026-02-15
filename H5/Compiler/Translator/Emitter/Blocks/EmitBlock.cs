@@ -557,7 +557,7 @@ namespace H5.Translator
                 {
                     Emitter.CancellationToken.ThrowIfCancellationRequested();
 
-                    if (type.Type.FullName == "Microsoft.CodeAnalysis.EmbeddedAttribute")
+                    if (CompilerBuiltInTypes.IsBuiltIn(type.Type.FullName))
                     {
                         continue;
                     }

@@ -9,7 +9,7 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
         [TestInitialize]
         public void TestInitialize()
         {
-            H5Compiler.ClearRewriterCache();
+            H5Compiler.ClearRewriterAndEmitterCache();
         }
 
         [TestMethod]

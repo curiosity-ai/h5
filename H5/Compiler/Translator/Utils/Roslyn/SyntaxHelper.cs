@@ -612,30 +612,11 @@ namespace H5.Translator
                 var ti = semanticModel.GetSpeculativeTypeInfo(position, SyntaxFactory.ParseTypeName(name), SpeculativeBindingOption.BindAsTypeOrNamespace);
                 var type = ti.Type ?? ti.ConvertedType;
 
-                if (type == null || type.Kind == SymbolKind.ErrorType)
-                {
-                    ti = semanticModel.GetSpeculativeTypeInfo(position, SyntaxFactory.ParseTypeName(CS.NS.GLOBAL + name), SpeculativeBindingOption.BindAsTypeOrNamespace);
-                    type = ti.Type ?? ti.ConvertedType;
-
-                    if (type != null && type.Kind != SymbolKind.ErrorType)
-                    {
-                        name = CS.NS.GLOBAL + name;
-                    }
-                }
             }
             else
             {
                 var si = semanticModel.GetSpeculativeSymbolInfo(position, SyntaxFactory.ParseExpression(name), SpeculativeBindingOption.BindAsExpression);
 
-                if (si.Symbol == null || si.Symbol.Kind == SymbolKind.ErrorType)
-                {
-                    si = semanticModel.GetSpeculativeSymbolInfo(position, SyntaxFactory.ParseExpression(CS.NS.GLOBAL + name), SpeculativeBindingOption.BindAsExpression);
-
-                    if (si.Symbol != null && si.Symbol.Kind != SymbolKind.ErrorType)
-                    {
-                        name = CS.NS.GLOBAL + name;
-                    }
-                }
             }
 
             return name;

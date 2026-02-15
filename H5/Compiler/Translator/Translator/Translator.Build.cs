@@ -394,6 +394,11 @@ namespace H5.Translator
 
                 foreach (var d in emitResult.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error))
                 {
+                    if (d.Id == "CS0518" && d.GetMessage().Contains("System.Runtime.InteropServices.UnmanagedType"))
+                    {
+                        throw new TranslatorException("Unmanaged constraint is not supported");
+                    }
+
                     var filePath = d.Location?.SourceTree?.FilePath ?? "";
 
                     if (filePath.StartsWith(baseDir))

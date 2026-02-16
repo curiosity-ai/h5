@@ -29,33 +29,6 @@ public class Program
             await RunTest(code);
         }
 
-        [TestMethod]
-        [Ignore("Not implemented yet")]
-        public async Task GenericAttributes()
-        {
-            var code = """
-using System;
-
-[AttributeUsage(AttributeTargets.Class)]
-public class GenericAttribute<T> : Attribute
-{
-    public string TypeName => typeof(T).Name;
-}
-
-[GenericAttribute<int>]
-public class MyClass { }
-
-public class Program
-{
-    public static void Main()
-    {
-        var attr = (GenericAttribute<int>)Attribute.GetCustomAttribute(typeof(MyClass), typeof(GenericAttribute<int>));
-        Console.WriteLine(attr.TypeName);
-    }
-}
-""";
-            await RunTest(code);
-        }
 
         [TestMethod]
         public async Task ListPatterns()
@@ -155,44 +128,6 @@ public class Program
         {
              Console.WriteLine("Nested Array Matched");
         }
-    }
-}
-""";
-            await RunTest(code);
-        }
-
-        [TestMethod]
-        [Ignore("Not implemented yet")]
-        public async Task RequiredMembers()
-        {
-            var code = """
-using System;
-using System.Runtime.CompilerServices;
-
-// Polyfills might be needed if not in reference assemblies
-/*
-namespace System.Runtime.CompilerServices
-{
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    internal sealed class RequiredMemberAttribute : Attribute {}
-    [AttributeUsage(AttributeTargets.Constructor, AllowMultiple = false, Inherited = false)]
-    internal sealed class SetsRequiredMembersAttribute : Attribute {}
-}
-*/
-
-public class Person
-{
-    public required string Name { get; set; }
-}
-
-public class Program
-{
-    public static void Main()
-    {
-        var p = new Person { Name = "Alice" };
-        Console.WriteLine(p.Name);
-
-        // new Person(); // Error
     }
 }
 """;

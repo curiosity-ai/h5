@@ -102,7 +102,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task FixedSizedBuffers()
         {
             // Requires unsafe code
@@ -124,7 +123,26 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTestExpectingError(code, "Unsafe code is not supported");
+        }
+
+        [TestMethod]
+        public async Task PointerTypes()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static unsafe void Main()
+    {
+        int value = 10;
+        int* p = &value;
+        Console.WriteLine(*p);
+    }
+}
+""";
+            await RunTestExpectingError(code, "Pointers are not supported");
         }
 
         [TestMethod]

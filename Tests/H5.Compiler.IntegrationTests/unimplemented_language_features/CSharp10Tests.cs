@@ -6,28 +6,6 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
     [TestClass]
     public class CSharp10Tests : IntegrationTestBase
     {
-        [TestMethod]
-        public async Task RecordStructs()
-        {
-            var code = """
-using System;
-
-public record struct Point(int X, int Y);
-
-public class Program
-{
-    public static void Main()
-    {
-        var p = new Point(1, 2);
-        var p2 = p with { X = 3 };
-        Console.WriteLine(p.ToString());
-        Console.WriteLine(p2.ToString());
-        Console.WriteLine(p.X);
-    }
-}
-""";
-            await RunTest(code);
-        }
 
         [TestMethod]
         public async Task StructParameterlessConstructor()
@@ -229,24 +207,6 @@ public class Program
 }
 """;
             await RunTest(code);
-        }
-
-        [TestMethod]
-        public async Task GlobalUsings()
-        {
-            var code = """
-global using System;
-global using static System.Math;
-
-public class Program
-{
-    public static void Main()
-    {
-        Console.WriteLine(Abs(-10));
-    }
-}
-""";
-            await RunTestExpectingError(code, "Global usings are not supported");
         }
 
         [TestMethod]

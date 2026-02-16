@@ -373,7 +373,7 @@ public class Program
 
     static void Print(in int val)
     {
-        Console.WriteLine(val);
+        Console.WriteLine(val.ToString()); //ToString because the semantics of Console.WriteLine are not the same
         // val = 20; // Error if uncommented
     }
 }

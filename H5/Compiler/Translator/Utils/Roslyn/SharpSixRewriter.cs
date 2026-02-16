@@ -64,6 +64,7 @@ namespace H5.Translator
 
         private SharpSixRewriterCachedOutput _cachedRewrittenData;
         private bool isParent;
+        private Stack<Dictionary<ISymbol, string>> _primaryConstructorCaptures = new Stack<Dictionary<ISymbol, string>>();
 
         public SharpSixRewriter(ITranslator translator)
         {
@@ -442,11 +443,65 @@ namespace H5.Translator
             return node;
         }
 
+        public override SyntaxNode VisitCastExpression(CastExpressionSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitCastExpression(node);
+            }
+
+            var methodSymbol = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
+
+            if (methodSymbol != null && (methodSymbol.MethodKind == MethodKind.Conversion) && methodSymbol.Name.StartsWith("op_Checked"))
+            {
+                var expression = (ExpressionSyntax)Visit(node.Expression);
+
+                var typeSyntax = SyntaxHelper.GenerateTypeSyntax(methodSymbol.ContainingType, semanticModel, node.SpanStart, this);
+
+                var memberAccess = SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    typeSyntax,
+                    SyntaxFactory.IdentifierName(methodSymbol.Name));
+
+                return SyntaxFactory.InvocationExpression(memberAccess,
+                    SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(
+                        SyntaxFactory.Argument(expression)
+                    )))
+                    .WithLeadingTrivia(node.GetLeadingTrivia())
+                    .WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+
+            return base.VisitCastExpression(node);
+        }
+
         public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
         {
             if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
             {
                 return base.VisitBinaryExpression(node);
+            }
+
+            var methodSymbol = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
+
+            if (methodSymbol != null && methodSymbol.MethodKind == MethodKind.UserDefinedOperator && methodSymbol.Name.StartsWith("op_Checked"))
+            {
+                var left = (ExpressionSyntax)Visit(node.Left);
+                var right = (ExpressionSyntax)Visit(node.Right);
+
+                var typeSyntax = SyntaxHelper.GenerateTypeSyntax(methodSymbol.ContainingType, semanticModel, node.SpanStart, this);
+
+                var memberAccess = SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    typeSyntax,
+                    SyntaxFactory.IdentifierName(methodSymbol.Name));
+
+                return SyntaxFactory.InvocationExpression(memberAccess,
+                    SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                        SyntaxFactory.Argument(left),
+                        SyntaxFactory.Argument(right)
+                    })))
+                    .WithLeadingTrivia(node.GetLeadingTrivia())
+                    .WithTrailingTrivia(node.GetTrailingTrivia());
             }
 
             var symbol = semanticModel.GetSymbolInfo(node.Right).Symbol;
@@ -490,6 +545,23 @@ namespace H5.Translator
             throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Ref returns and locals are not supported", semanticModel.SyntaxTree.FilePath, node.ToString()));
         }
 
+        public override SyntaxNode VisitForEachStatement(ForEachStatementSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitForEachStatement(node);
+            }
+
+            var info = semanticModel.GetForEachStatementInfo(node);
+            if (info.GetEnumeratorMethod != null && info.GetEnumeratorMethod.IsExtensionMethod)
+            {
+                var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+                throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Extension GetEnumerator is not supported", semanticModel.SyntaxTree.FilePath, node.ToString()));
+            }
+
+            return base.VisitForEachStatement(node);
+        }
+
         public override SyntaxNode VisitRefType(RefTypeSyntax node)
         {
             node = (RefTypeSyntax)base.VisitRefType(node);
@@ -506,7 +578,9 @@ namespace H5.Translator
 
             node = (RefExpressionSyntax)base.VisitRefExpression(node);
 
-            if (symbol is ILocalSymbol ls && ls.IsRef || symbol is IMethodSymbol ms && ms.ReturnsByRef)
+            if (symbol is ILocalSymbol ls && ls.IsRef ||
+                symbol is IMethodSymbol ms && ms.ReturnsByRef ||
+                symbol is IPropertySymbol ps && ps.RefKind != RefKind.None)
             {
                 return node.Expression.NormalizeWhitespace().WithTrailingTrivia(node.GetTrailingTrivia()).WithLeadingTrivia(node.GetLeadingTrivia());
             }
@@ -645,7 +719,7 @@ namespace H5.Translator
 
             if (type.IsTupleType)
             {
-                var createExpression = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types))));
+                var createExpression = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.QualifiedName(SyntaxFactory.IdentifierName("System"), SyntaxFactory.GenericName(SyntaxFactory.Identifier("ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)))));
                 var argExpressions = new List<ArgumentSyntax>();
 
                 foreach (var arg in node.Arguments)
@@ -670,7 +744,7 @@ namespace H5.Translator
                 types.Add(el.Type);
             }
 
-            var newType = SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types)));
+            var newType = SyntaxFactory.QualifiedName(SyntaxFactory.IdentifierName("System"), SyntaxFactory.GenericName(SyntaxFactory.Identifier("ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types))));
 
             return newType.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia()); ;
         }
@@ -793,18 +867,101 @@ namespace H5.Translator
 
             if (node.IsKind(SyntaxKind.CoalesceAssignmentExpression) && newNode is AssignmentExpressionSyntax assignment)
             {
+                var (stabilizedLeft, accessLeft) = StabilizeLValue(node.Left, assignment.Left);
+
                 return SyntaxFactory.AssignmentExpression(
                     SyntaxKind.SimpleAssignmentExpression,
-                    assignment.Left,
+                    stabilizedLeft,
                     SyntaxFactory.BinaryExpression(
                         SyntaxKind.CoalesceExpression,
-                        assignment.Left,
+                        accessLeft,
                         assignment.Right
                     )
                 ).NormalizeWhitespace().WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
             }
 
             return newNode;
+        }
+
+        private (ExpressionSyntax stabilized, ExpressionSyntax access) StabilizeLValue(ExpressionSyntax original, ExpressionSyntax rewritten)
+        {
+            if (original is IdentifierNameSyntax || !IsExpressionComplexEnoughToGetATemporaryVariable.IsComplex(semanticModel, original))
+            {
+                return (rewritten, rewritten);
+            }
+
+            if (original is MemberAccessExpressionSyntax maeOriginal && rewritten is MemberAccessExpressionSyntax maeRewritten)
+            {
+                var (stabilizedExpr, accessExpr) = StabilizeLValue(maeOriginal.Expression, maeRewritten.Expression);
+                return (maeRewritten.WithExpression(stabilizedExpr), maeRewritten.WithExpression(accessExpr));
+            }
+
+            if (original is ElementAccessExpressionSyntax eaeOriginal && rewritten is ElementAccessExpressionSyntax eaeRewritten)
+            {
+                var (stabilizedExpr, accessExpr) = StabilizeLValue(eaeOriginal.Expression, eaeRewritten.Expression);
+
+                if (eaeOriginal.ArgumentList.Arguments.Count == eaeRewritten.ArgumentList.Arguments.Count)
+                {
+                    var stabilizedArgs = new List<SyntaxNodeOrToken>();
+                    var accessArgs = new List<SyntaxNodeOrToken>();
+
+                    for (int i = 0; i < eaeOriginal.ArgumentList.Arguments.Count; i++)
+                    {
+                        var argOriginal = eaeOriginal.ArgumentList.Arguments[i];
+                        var argRewritten = eaeRewritten.ArgumentList.Arguments[i];
+
+                        var (sArg, aArg) = StabilizeRValue(argOriginal.Expression, argRewritten.Expression);
+
+                        if (i > 0)
+                        {
+                            stabilizedArgs.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
+                            accessArgs.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
+                        }
+
+                        stabilizedArgs.Add(argRewritten.WithExpression(sArg));
+                        accessArgs.Add(argRewritten.WithExpression(aArg));
+                    }
+
+                    return (eaeRewritten.WithExpression(stabilizedExpr).WithArgumentList(SyntaxFactory.BracketedArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(stabilizedArgs))),
+                            eaeRewritten.WithExpression(accessExpr).WithArgumentList(SyntaxFactory.BracketedArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(accessArgs))));
+                }
+            }
+
+            return StabilizeRValue(original, rewritten);
+        }
+
+        private (ExpressionSyntax stabilized, ExpressionSyntax access) StabilizeRValue(ExpressionSyntax original, ExpressionSyntax rewritten)
+        {
+            if (!IsExpressionComplexEnoughToGetATemporaryVariable.IsComplex(semanticModel, original))
+            {
+                return (rewritten, rewritten);
+            }
+
+            var tempKey = GetUniqueTempKey("coal");
+            var typeInfo = semanticModel.GetTypeInfo(original);
+            var type = typeInfo.Type ?? typeInfo.ConvertedType;
+            var typeName = type?.ToMinimalDisplayString(semanticModel, original.SpanStart) ?? "object";
+
+            // H5.Script.ToTemp(key, value)
+            var toTempArgs = new List<SyntaxNodeOrToken>();
+            toTempArgs.Add(SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKey))));
+            toTempArgs.Add(SyntaxFactory.Token(SyntaxKind.CommaToken));
+            toTempArgs.Add(SyntaxFactory.Argument(rewritten));
+
+            var toTemp = SyntaxFactory.InvocationExpression(
+                SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ParseName("global::H5.Script"), SyntaxFactory.IdentifierName("ToTemp")),
+                SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(toTempArgs))
+            );
+
+            // H5.Script.FromTemp<T>(key)
+            var fromTemp = SyntaxFactory.InvocationExpression(
+                SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ParseName("global::H5.Script"),
+                    SyntaxFactory.GenericName("FromTemp").WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(typeName))))
+                ),
+                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKey)))))
+            );
+
+            return (toTemp, fromTemp);
         }
 
         public override SyntaxNode VisitCompilationUnit(CompilationUnitSyntax node)
@@ -1109,38 +1266,97 @@ namespace H5.Translator
             return result;
         }
 
+        public override SyntaxNode VisitRangeExpression(RangeExpressionSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitRangeExpression(node);
+            }
+
+            ExpressionSyntax start = null;
+            ExpressionSyntax end = null;
+
+            if (node.LeftOperand != null)
+            {
+                start = (ExpressionSyntax)Visit(node.LeftOperand);
+            }
+            else
+            {
+                start = SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    SyntaxFactory.ParseTypeName("System.Index"),
+                    SyntaxFactory.IdentifierName("Start"));
+            }
+
+            if (node.RightOperand != null)
+            {
+                end = (ExpressionSyntax)Visit(node.RightOperand);
+            }
+            else
+            {
+                end = SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    SyntaxFactory.ParseTypeName("System.Index"),
+                    SyntaxFactory.IdentifierName("End"));
+            }
+
+            return SyntaxFactory.ObjectCreationExpression(SyntaxFactory.ParseTypeName("System.Range"))
+                .WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                    SyntaxFactory.Argument(start),
+                    SyntaxFactory.Argument(end)
+                })))
+                .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                .WithLeadingTrivia(node.GetLeadingTrivia())
+                .WithTrailingTrivia(node.GetTrailingTrivia());
+        }
+
         public override SyntaxNode VisitPrefixUnaryExpression(PrefixUnaryExpressionSyntax node)
         {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitPrefixUnaryExpression(node);
+            }
+
+            var methodSymbol = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
+
+            if (methodSymbol != null && methodSymbol.MethodKind == MethodKind.UserDefinedOperator && methodSymbol.Name.StartsWith("op_Checked"))
+            {
+                if (methodSymbol.Name == "op_CheckedIncrement" || methodSymbol.Name == "op_CheckedDecrement")
+                {
+                    throw new NotSupportedException("Checked increment/decrement operators are not supported.");
+                }
+
+                var operand = (ExpressionSyntax)Visit(node.Operand);
+
+                var typeSyntax = SyntaxHelper.GenerateTypeSyntax(methodSymbol.ContainingType, semanticModel, node.SpanStart, this);
+
+                var memberAccess = SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    typeSyntax,
+                    SyntaxFactory.IdentifierName(methodSymbol.Name));
+
+                return SyntaxFactory.InvocationExpression(memberAccess,
+                    SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(
+                        SyntaxFactory.Argument(operand)
+                    )))
+                    .WithLeadingTrivia(node.GetLeadingTrivia())
+                    .WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+
             if (node.IsKind(SyntaxKind.IndexExpression)) // ^ expression
             {
-                // ^n -> Length - n
-                // We need the parent to know what "Length" refers to.
-                // Usually inside ElementAccessExpression: x[^1]
-                // Or RangeExpression: 1..^1
+                var operand = (ExpressionSyntax)Visit(node.Operand);
 
-                // If it's inside ElementAccess: x[... ^n ...]
-                // We need access to 'x'.
-                // But VisitPrefixUnaryExpression doesn't know about 'x'.
-                // The ElementAccess rewriting should handle this?
-                // Or we rewrite ElementAccess?
-
-                // If we rewrite ElementAccess, we need to visit arguments.
-                // But SharpSixRewriter visits recursively.
-
-                // H5 doesn't support implicit indexer?
-                // If I rewrite `^1` to `(new System.Index(1, true))`, does H5 support it?
-                // Check System.Index support.
-                // grep showed `H5/H5/System/Linq/Expressions/IndexExpression.cs`.
-                // But standard `System.Index` struct?
-                // If H5 has `System.Index` and the indexer takes `Index`, then we are good?
-                // If the indexer takes `int`, then `^1` is syntax sugar for `Length - 1`.
-
-                // Given "Low Effort", and I don't see `System.Index.cs` in the list (grep failed to find class definition easily),
-                // Assuming we need to rewrite to `Length - n`.
-
-                // To do this, we need context.
-                // This suggests we should override `VisitElementAccessExpression` instead.
+                return SyntaxFactory.ObjectCreationExpression(SyntaxFactory.ParseTypeName("System.Index"))
+                    .WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                        SyntaxFactory.Argument(operand),
+                        SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression))
+                    })))
+                    .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                    .WithLeadingTrivia(node.GetLeadingTrivia())
+                    .WithTrailingTrivia(node.GetTrailingTrivia());
             }
+
             return base.VisitPrefixUnaryExpression(node);
         }
 
@@ -1148,107 +1364,356 @@ namespace H5.Translator
         {
             if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
             {
-                // Detached node
                 return base.VisitElementAccessExpression(node);
             }
 
-            // Handle x[^1]
-            // We need to check arguments.
-
-            var expression = node.Expression;
-            // Evaluated expression key if needed?
-            // If we use 'expression' multiple times (e.g. for Length), we might need temp.
-
-            bool hasIndex = false;
+            bool hasIndexOrRange = false;
             foreach (var arg in node.ArgumentList.Arguments)
             {
-                if (arg.Expression.IsKind(SyntaxKind.IndexExpression))
+                if (arg.Expression.IsKind(SyntaxKind.IndexExpression) || arg.Expression.IsKind(SyntaxKind.RangeExpression))
                 {
-                    hasIndex = true;
+                    hasIndexOrRange = true;
+                    break;
+                }
+
+                var argTypeInfo = semanticModel.GetTypeInfo(arg.Expression);
+                var argType = argTypeInfo.Type ?? argTypeInfo.ConvertedType;
+                if (argType != null && argType.ContainingNamespace?.Name == "System" && (argType.Name == "Index" || argType.Name == "Range"))
+                {
+                    hasIndexOrRange = true;
                     break;
                 }
             }
 
-            if (hasIndex)
+            if (!hasIndexOrRange)
             {
-                var isComplex = IsExpressionComplexEnoughToGetATemporaryVariable.IsComplex(semanticModel, expression);
-                string tempKeyName = null;
-                if (isComplex)
+                return base.VisitElementAccessExpression(node);
+            }
+
+            var symbolInfo = semanticModel.GetSymbolInfo(node);
+            var indexerSymbol = symbolInfo.Symbol as IPropertySymbol;
+
+            if (indexerSymbol == null && symbolInfo.CandidateSymbols.Length > 0)
+            {
+                indexerSymbol = symbolInfo.CandidateSymbols[0] as IPropertySymbol;
+            }
+
+            if (indexerSymbol != null && indexerSymbol.Parameters.Length == node.ArgumentList.Arguments.Count)
+            {
+                // Check if target indexer expects Index or Range
+                bool targetExpectsIndexOrRange = false;
+                foreach (var param in indexerSymbol.Parameters)
                 {
-                    tempKeyName = GetUniqueTempKey("idx_expr");
-                    var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
-                    var methodIdentifier = SyntaxFactory.IdentifierName("global::H5.Script.ToTemp");
-                    expression = SyntaxFactory.InvocationExpression(methodIdentifier,
-                        SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Argument(keyArg), SyntaxFactory.Argument(expression) })));
+                     if ((param.Type.Name == "Index" || param.Type.Name == "Range") && param.Type.ContainingNamespace?.Name == "System")
+                     {
+                         targetExpectsIndexOrRange = true;
+                         break;
+                     }
                 }
 
-                var newArgs = new List<ArgumentSyntax>();
-                foreach (var arg in node.ArgumentList.Arguments)
+                if (targetExpectsIndexOrRange)
                 {
-                    if (arg.Expression.IsKind(SyntaxKind.IndexExpression) && arg.Expression is PrefixUnaryExpressionSyntax prefix && prefix.OperatorToken.IsKind(SyntaxKind.CaretToken))
+                    // Do not rewrite to Length-n or Slice. Just visit arguments to rewrite syntax.
+                    var newArgs = new List<ArgumentSyntax>();
+                    foreach (var arg in node.ArgumentList.Arguments)
                     {
-                        // ^n -> expression.Length - n
-                        // Use FromTemp if complex.
+                        newArgs.Add((ArgumentSyntax)Visit(arg));
+                    }
+                    return node.WithArgumentList(SyntaxFactory.BracketedArgumentList(SyntaxFactory.SeparatedList(newArgs)));
+                }
+            }
 
-                        ExpressionSyntax lenAccess;
-                        if (isComplex)
-                        {
-                             var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
-                             // Infer type? Or just dynamic access?
-                             // MemberAccess "Length" on FromTemp<object> might fail static check if typed?
-                             // But H5.Script.FromTemp<T> returns T.
-                             // We need T.
-                             var typeInfo = semanticModel.GetTypeInfo(node.Expression);
-                             var type = typeInfo.Type ?? typeInfo.ConvertedType;
-                             var typeName = type?.ToMinimalDisplayString(semanticModel, node.SpanStart) ?? "object";
+            var expression = (ExpressionSyntax)Visit(node.Expression);
+            var isComplex = IsExpressionComplexEnoughToGetATemporaryVariable.IsComplex(semanticModel, node.Expression);
+            string tempKeyName = null;
 
-                             var fromTemp = SyntaxFactory.InvocationExpression(
-                                SyntaxFactory.GenericName("global::H5.Script.FromTemp")
-                                    .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(typeName)))),
-                                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(keyArg)))
-                             );
-                             lenAccess = fromTemp;
-                        }
-                        else
-                        {
-                            lenAccess = expression; // 'expression' variable holds the modified expression (if not complex) or original?
-                            // If isComplex=false, expression is original.
-                        }
+            if (isComplex)
+            {
+                tempKeyName = GetUniqueTempKey("idx_expr");
+                var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                var methodIdentifier = SyntaxFactory.IdentifierName("global::H5.Script.ToTemp");
+                expression = SyntaxFactory.InvocationExpression(methodIdentifier,
+                    SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] { SyntaxFactory.Argument(keyArg), SyntaxFactory.Argument(expression) })));
+            }
 
-                        // Check if Length or Count
-                        // Default to Length (Array/String)
-                        string lengthProp = "Length";
-                        var typeInfo2 = semanticModel.GetTypeInfo(node.Expression);
-                        var type2 = typeInfo2.Type ?? typeInfo2.ConvertedType;
-                        if (type2 != null)
-                        {
-                             if (type2.GetMembers("Count").Any()) lengthProp = "Count";
-                        }
+            var newArgsList = new List<ArgumentSyntax>();
+            var typeInfo = semanticModel.GetTypeInfo(node.Expression);
+            var type = typeInfo.Type ?? typeInfo.ConvertedType;
 
-                        var lengthAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
-                            lenAccess, SyntaxFactory.IdentifierName(lengthProp));
-
-                        var val = prefix.Operand;
-
-                        var newIdx = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, lengthAccess, val);
-                        newArgs.Add(arg.WithExpression(newIdx));
+            foreach (var arg in node.ArgumentList.Arguments)
+            {
+                if (arg.Expression.IsKind(SyntaxKind.IndexExpression) && arg.Expression is PrefixUnaryExpressionSyntax prefix && prefix.OperatorToken.IsKind(SyntaxKind.CaretToken))
+                {
+                    ExpressionSyntax lenAccess;
+                    if (isComplex)
+                    {
+                        var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                        var typeName = type?.ToMinimalDisplayString(semanticModel, node.SpanStart) ?? "object";
+                        var fromTemp = SyntaxFactory.InvocationExpression(
+                           SyntaxFactory.GenericName("global::H5.Script.FromTemp")
+                               .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(typeName)))),
+                           SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(keyArg)))
+                        );
+                        lenAccess = fromTemp;
                     }
                     else
                     {
-                        newArgs.Add(arg);
+                        lenAccess = expression;
+                    }
+
+                    string lengthProp = "Length";
+                    if (type != null && type.GetMembers("Count").Any()) lengthProp = "Count";
+
+                    var lengthAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                        lenAccess, SyntaxFactory.IdentifierName(lengthProp));
+
+                    var val = (ExpressionSyntax)Visit(prefix.Operand);
+
+                    var newIdx = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, lengthAccess, val);
+                    newArgsList.Add(arg.WithExpression(newIdx));
+                }
+                else if (arg.Expression.IsKind(SyntaxKind.RangeExpression) && arg.Expression is RangeExpressionSyntax range)
+                {
+                    bool isString = type != null && type.SpecialType == SpecialType.System_String;
+                    bool isArray = type != null && type.TypeKind == TypeKind.Array;
+
+                    if (isArray || isString)
+                    {
+                        ExpressionSyntax lenAccess;
+                        if (isComplex)
+                        {
+                            var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                            var typeName = type?.ToMinimalDisplayString(semanticModel, node.SpanStart) ?? "object";
+                            var fromTemp = SyntaxFactory.InvocationExpression(
+                               SyntaxFactory.GenericName("global::H5.Script.FromTemp")
+                                   .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(typeName)))),
+                               SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(keyArg)))
+                            );
+                            lenAccess = fromTemp;
+                        }
+                        else
+                        {
+                            lenAccess = expression;
+                        }
+
+                        string lengthProp = "Length";
+                        var lengthAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                            lenAccess, SyntaxFactory.IdentifierName(lengthProp));
+
+                        ExpressionSyntax GetOffset(ExpressionSyntax e)
+                        {
+                            if (e == null) return null;
+                            if (e.IsKind(SyntaxKind.IndexExpression) && e is PrefixUnaryExpressionSyntax p && p.OperatorToken.IsKind(SyntaxKind.CaretToken))
+                            {
+                                var op = (ExpressionSyntax)Visit(p.Operand);
+                                return SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, lengthAccess, op);
+                            }
+                            return (ExpressionSyntax)Visit(e);
+                        }
+
+                        var startExpr = GetOffset(range.LeftOperand);
+                        var endExpr = GetOffset(range.RightOperand);
+
+                        if (startExpr == null) startExpr = SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(0));
+
+                        if (isString)
+                        {
+                             ExpressionSyntax lengthExpr;
+                             if (endExpr == null)
+                             {
+                                 lengthExpr = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, lengthAccess, startExpr);
+                             }
+                             else
+                             {
+                                 lengthExpr = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, endExpr, startExpr);
+                             }
+
+                             var memberAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                 expression, SyntaxFactory.IdentifierName("Substring"));
+
+                             var invocation = SyntaxFactory.InvocationExpression(memberAccess,
+                                 SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                                     SyntaxFactory.Argument(startExpr),
+                                     SyntaxFactory.Argument(lengthExpr)
+                                 })));
+
+                             return invocation;
+                        }
+                        else
+                        {
+                             var memberAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                 expression, SyntaxFactory.IdentifierName("Slice"));
+
+                             var args = new List<ArgumentSyntax>();
+                             args.Add(SyntaxFactory.Argument(startExpr));
+                             if (endExpr != null)
+                             {
+                                 args.Add(SyntaxFactory.Argument(endExpr));
+                             }
+
+                             var invocation = SyntaxFactory.InvocationExpression(memberAccess,
+                                 SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(args)));
+
+                             return invocation;
+                        }
+                    }
+                    else
+                    {
+                        newArgsList.Add((ArgumentSyntax)Visit(arg));
                     }
                 }
+                else
+                {
+                    var argTypeInfo = semanticModel.GetTypeInfo(arg.Expression);
+                    var argType = argTypeInfo.Type ?? argTypeInfo.ConvertedType;
+                    bool isString = type != null && type.SpecialType == SpecialType.System_String;
+                    bool isArray = type != null && type.TypeKind == TypeKind.Array;
 
-                var newNode = node.WithExpression(expression).WithArgumentList(SyntaxFactory.BracketedArgumentList(SyntaxFactory.SeparatedList(newArgs)));
-                return Visit(newNode);
+                    if ((isArray || isString) && argType != null && argType.ContainingNamespace?.Name == "System")
+                    {
+                        if (argType.Name == "Index")
+                        {
+                            // Rewrite arr[idx] -> arr[idx.GetOffset(Length)]
+                            ExpressionSyntax lenAccess;
+                            if (isComplex)
+                            {
+                                var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                                var typeName = type?.ToMinimalDisplayString(semanticModel, node.SpanStart) ?? "object";
+                                var fromTemp = SyntaxFactory.InvocationExpression(
+                                   SyntaxFactory.GenericName("global::H5.Script.FromTemp")
+                                       .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(typeName)))),
+                                   SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(keyArg)))
+                                );
+                                lenAccess = fromTemp;
+                            }
+                            else
+                            {
+                                lenAccess = expression;
+                            }
+                            string lengthProp = "Length";
+                            var lengthAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                lenAccess, SyntaxFactory.IdentifierName(lengthProp));
+
+                            var idxExpr = (ExpressionSyntax)Visit(arg.Expression);
+                            var getOffsetCall = SyntaxFactory.InvocationExpression(
+                                SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, idxExpr, SyntaxFactory.IdentifierName("GetOffset")),
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(lengthAccess))));
+
+                            newArgsList.Add(arg.WithExpression(getOffsetCall));
+                            continue;
+                        }
+                        else if (argType.Name == "Range")
+                        {
+                            // Rewrite arr[range] -> arr.Slice(range.Start.GetOffset(Length), range.End.GetOffset(Length))
+                            ExpressionSyntax lenAccess;
+                            if (isComplex)
+                            {
+                                var keyArg = SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(tempKeyName));
+                                var typeName = type?.ToMinimalDisplayString(semanticModel, node.SpanStart) ?? "object";
+                                var fromTemp = SyntaxFactory.InvocationExpression(
+                                   SyntaxFactory.GenericName("global::H5.Script.FromTemp")
+                                       .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.ParseTypeName(typeName)))),
+                                   SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(keyArg)))
+                                );
+                                lenAccess = fromTemp;
+                            }
+                            else
+                            {
+                                lenAccess = expression;
+                            }
+                            string lengthProp = "Length";
+                            var lengthAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                lenAccess, SyntaxFactory.IdentifierName(lengthProp));
+
+                            var rangeExpr = (ExpressionSyntax)Visit(arg.Expression); // Visiting rewrites .. to new Range() if needed
+
+                            var startExpr = SyntaxFactory.InvocationExpression(
+                                SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, rangeExpr, SyntaxFactory.IdentifierName("Start")),
+                                    SyntaxFactory.IdentifierName("GetOffset")),
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(lengthAccess))));
+
+                            var endExpr = SyntaxFactory.InvocationExpression(
+                                SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, rangeExpr, SyntaxFactory.IdentifierName("End")),
+                                    SyntaxFactory.IdentifierName("GetOffset")),
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(lengthAccess))));
+
+                            if (isString)
+                            {
+                                 // Substring(start, end - start)
+                                 var lengthExpr = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, endExpr, startExpr);
+                                 var memberAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                     expression, SyntaxFactory.IdentifierName("Substring"));
+
+                                 var invocation = SyntaxFactory.InvocationExpression(memberAccess,
+                                     SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                                         SyntaxFactory.Argument(startExpr),
+                                         SyntaxFactory.Argument(lengthExpr)
+                                     })));
+                                 return invocation;
+                            }
+                            else
+                            {
+                                 var memberAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                     expression, SyntaxFactory.IdentifierName("Slice"));
+
+                                 var invocation = SyntaxFactory.InvocationExpression(memberAccess,
+                                     SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new [] { SyntaxFactory.Argument(startExpr), SyntaxFactory.Argument(endExpr) })));
+
+                                 return invocation;
+                            }
+                        }
+                    }
+
+                    newArgsList.Add((ArgumentSyntax)Visit(arg));
+                }
             }
 
-            return base.VisitElementAccessExpression(node);
+            return node.WithExpression(expression).WithArgumentList(SyntaxFactory.BracketedArgumentList(SyntaxFactory.SeparatedList(newArgsList)));
         }
 
         public override SyntaxNode VisitParameter(ParameterSyntax node)
         {
+            var originalNode = node;
             node = (ParameterSyntax)base.VisitParameter(node);
+
+            // Fix for C# 13/14 inferred type for ref/out parameters in lambdas: (ref x) => ...
+            // NRefactory 5 requires explicit type: (ref int x) => ...
+            if (node.Type == null && originalNode.Parent is ParameterListSyntax && originalNode.Parent.Parent is LambdaExpressionSyntax)
+            {
+                bool hasRef = node.Modifiers.Any(m => m.IsKind(SyntaxKind.RefKeyword));
+                bool hasOut = node.Modifiers.Any(m => m.IsKind(SyntaxKind.OutKeyword));
+                // 'in' is handled below, but we need the type for it too if it's missing
+                bool hasIn = node.Modifiers.Any(m => m.IsKind(SyntaxKind.InKeyword));
+
+                if (hasRef || hasOut || hasIn)
+                {
+                    var symbol = semanticModel.GetDeclaredSymbol(originalNode);
+                    if (symbol != null)
+                    {
+                        var typeSyntax = SyntaxHelper.GenerateTypeSyntax(symbol.Type, semanticModel, originalNode.SpanStart, this);
+                        node = node.WithType(typeSyntax).WithIdentifier(node.Identifier.WithLeadingTrivia(SyntaxFactory.Space));
+                    }
+                }
+            }
+
+            bool hasRefModifier = node.Modifiers.Any(m => m.IsKind(SyntaxKind.RefKeyword));
+            bool hasReadOnlyModifier = node.Modifiers.Any(m => m.IsKind(SyntaxKind.ReadOnlyKeyword));
+
+            if (hasRefModifier && hasReadOnlyModifier)
+            {
+                var newModifiers = node.Modifiers.Where(m => !m.IsKind(SyntaxKind.RefKeyword) && !m.IsKind(SyntaxKind.ReadOnlyKeyword));
+                node = node.WithModifiers(SyntaxFactory.TokenList(newModifiers));
+
+                var type = node.Type;
+                var refType = SyntaxFactory.QualifiedName(
+                   SyntaxFactory.ParseName("global::H5"),
+                   SyntaxFactory.GenericName(
+                       SyntaxFactory.Identifier("Ref"),
+                       SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(type))));
+                node = node.WithType(refType.NormalizeWhitespace());
+            }
 
             var idx = node.Modifiers.IndexOf(SyntaxKind.InKeyword);
             if (idx > -1)
@@ -1354,6 +1819,7 @@ namespace H5.Translator
                     }
                 }
             }
+
             var isParam = parameter != null && !SyntaxHelper.IsAnonymous(parameter.Type);
             var parent = isParam && parameter.IsParams ? (InvocationExpressionSyntax)node.Parent.Parent : null;
             var pos = node.Expression.GetLocation().SourceSpan.Start;
@@ -1401,14 +1867,14 @@ namespace H5.Translator
             bool isRefInvocation = node.RefKindKeyword.IsKind(SyntaxKind.RefKeyword) && node.Expression is InvocationExpressionSyntax;
             bool isIn = node.RefKindKeyword.IsKind(SyntaxKind.InKeyword);
 
-            if (!isIn && parameter != null && parameter.RefKind == RefKind.In)
+            if (!isIn && parameter != null && (parameter.RefKind == RefKind.In || parameter.RefKind == RefKind.RefReadOnly))
             {
                 isIn = true;
             }
 
             if (isIn)
             {
-                if (expressionSymbol is IParameterSymbol ps && ps.RefKind == RefKind.In)
+                if (expressionSymbol is IParameterSymbol ps && (ps.RefKind == RefKind.In || ps.RefKind == RefKind.RefReadOnly))
                 {
                     node = node.WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.None));
                 }
@@ -1957,6 +2423,31 @@ namespace H5.Translator
                 return base.VisitIdentifierName(node);
             }
 
+            // Check if nint/nuint are used as identifiers (variables/members)
+            if (node.Identifier.ValueText == "nint" || node.Identifier.ValueText == "nuint")
+            {
+                var sym = semanticModel.GetSymbolInfo(node).Symbol;
+                if (sym == null || !(sym.Kind == SymbolKind.Local || sym.Kind == SymbolKind.Field || sym.Kind == SymbolKind.Parameter || sym.Kind == SymbolKind.Property || sym.Kind == SymbolKind.Method))
+                {
+                    if (node.Identifier.ValueText == "nint")
+                    {
+                        return SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.IntKeyword))
+                            .WithLeadingTrivia(node.GetLeadingTrivia())
+                            .WithTrailingTrivia(node.GetTrailingTrivia());
+                    }
+                    else if (node.Identifier.ValueText == "nuint")
+                    {
+                        return SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.UIntKeyword))
+                            .WithLeadingTrivia(node.GetLeadingTrivia())
+                            .WithTrailingTrivia(node.GetTrailingTrivia());
+                    }
+                }
+            }
+            {
+                // Detached node
+                return base.VisitIdentifierName(node);
+            }
+
             ISymbol symbol = null;
             try
             {
@@ -1966,6 +2457,17 @@ namespace H5.Translator
             {
                 // Ignore mismatch tree errors
                 return base.VisitIdentifierName(node);
+            }
+
+            if (IsCapturedPrimaryConstructorParameter(symbol, out var fieldName) && ShouldUseFieldForCapturedParameter(node))
+            {
+                return SyntaxFactory.MemberAccessExpression(
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    SyntaxFactory.ThisExpression(),
+                    SyntaxFactory.IdentifierName(fieldName))
+                .NormalizeWhitespace()
+                .WithLeadingTrivia(node.GetLeadingTrivia())
+                .WithTrailingTrivia(node.GetTrailingTrivia());
             }
 
             bool isRef = false;
@@ -2169,8 +2671,45 @@ namespace H5.Translator
 
         public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
         {
+            if (node.Modifiers.Any(m => m.IsKind(SyntaxKind.PartialKeyword)))
+            {
+                var isDefining = true;
+
+                if (node.ExpressionBody != null)
+                {
+                    isDefining = false;
+                }
+                else if (node.AccessorList != null)
+                {
+                    foreach (var accessor in node.AccessorList.Accessors)
+                    {
+                        if (accessor.Body != null || accessor.ExpressionBody != null)
+                        {
+                            isDefining = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (isDefining)
+                {
+                    return null;
+                }
+
+                var idx = node.Modifiers.IndexOf(SyntaxKind.PartialKeyword);
+                if (idx > -1)
+                {
+                    node = node.WithModifiers(node.Modifiers.RemoveAt(idx));
+                }
+            }
+
             node = (PropertyDeclarationSyntax)base.VisitPropertyDeclaration(node);
             var newNode = node;
+
+            if (newNode.Modifiers.IndexOf(SyntaxKind.RequiredKeyword) > -1)
+            {
+                newNode = newNode.WithModifiers(newNode.Modifiers.RemoveAt(newNode.Modifiers.IndexOf(SyntaxKind.RequiredKeyword)));
+            }
 
             if (newNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
             {
@@ -2263,6 +2802,11 @@ namespace H5.Translator
         {
             node = base.VisitFieldDeclaration(node) as FieldDeclarationSyntax;
 
+            if (node.Modifiers.IndexOf(SyntaxKind.RequiredKeyword) > -1)
+            {
+                node = node.WithModifiers(node.Modifiers.RemoveAt(node.Modifiers.IndexOf(SyntaxKind.RequiredKeyword)));
+            }
+
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 node = node.WithModifiers(node.Modifiers.Replace(node.Modifiers[node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2317,6 +2861,8 @@ namespace H5.Translator
 
         public override SyntaxNode VisitStructDeclaration(StructDeclarationSyntax node)
         {
+            ProcessPrimaryConstructor(node);
+
             currentType.Push(semanticModel.GetDeclaredSymbol(node));
 
             var old = fields;
@@ -2336,6 +2882,12 @@ namespace H5.Translator
                 list.AddRange(arr);
                 c = c.WithMembers(SyntaxFactory.List(list));
             }
+
+            if (node.ParameterList != null && c != null)
+            {
+                c = (StructDeclarationSyntax)SynthesizePrimaryConstructor(node, c);
+            }
+            _primaryConstructorCaptures.Pop();
 
             if (c != null && isReadOnly)
             {
@@ -2363,6 +2915,8 @@ namespace H5.Translator
 
         public override SyntaxNode VisitClassDeclaration(ClassDeclarationSyntax node)
         {
+            ProcessPrimaryConstructor(node);
+
             currentType.Push(semanticModel.GetDeclaredSymbol(node));
             var oldIndex = IndexInstance;
             IndexInstance = 0;
@@ -2382,6 +2936,12 @@ namespace H5.Translator
                 list.AddRange(arr);
                 c = c.WithMembers(SyntaxFactory.List(list));
             }
+
+            if (node.ParameterList != null && c != null)
+            {
+                c = (ClassDeclarationSyntax)SynthesizePrimaryConstructor(node, c);
+            }
+            _primaryConstructorCaptures.Pop();
 
             if (c.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && c.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
@@ -2796,6 +3356,252 @@ namespace H5.Translator
                 classDecl = classDecl.WithBaseList(classDecl.BaseList.AddTypes(cloneableType));
             }
 
+            // Synthesize Equality Members
+            bool synthesizeEquals = !node.Members.OfType<MethodDeclarationSyntax>().Any(m => m.Identifier.ValueText == "Equals" && m.ParameterList.Parameters.Count == 1);
+            if (synthesizeEquals)
+            {
+                TypeSyntax currentTypeSyntax;
+                if (node.TypeParameterList != null && node.TypeParameterList.Parameters.Count > 0)
+                {
+                    currentTypeSyntax = SyntaxFactory.GenericName(
+                        node.Identifier,
+                        SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(
+                            node.TypeParameterList.Parameters.Select(p => SyntaxFactory.IdentifierName(p.Identifier))
+                        )));
+                }
+                else
+                {
+                    currentTypeSyntax = SyntaxFactory.IdentifierName(node.Identifier);
+                }
+
+                var typeWithSpace = currentTypeSyntax.WithTrailingTrivia(SyntaxFactory.Space);
+
+                // Add System.IEquatable<T>
+                var equatableType = SyntaxFactory.SimpleBaseType(
+                    SyntaxFactory.QualifiedName(
+                        SyntaxFactory.ParseName("global::System"),
+                        SyntaxFactory.GenericName("IEquatable").WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(currentTypeSyntax)))
+                    ));
+
+                if (classDecl.BaseList == null)
+                {
+                    classDecl = classDecl.WithBaseList(SyntaxFactory.BaseList(SyntaxFactory.SingletonSeparatedList<BaseTypeSyntax>(equatableType)));
+                }
+                else
+                {
+                    classDecl = classDecl.WithBaseList(classDecl.BaseList.AddTypes(equatableType));
+                }
+
+                // Equals(object obj)
+                var equalsObjBody = SyntaxFactory.Block(
+                    SyntaxFactory.LocalDeclarationStatement(
+                        SyntaxFactory.VariableDeclaration(typeWithSpace)
+                        .WithVariables(SyntaxFactory.SingletonSeparatedList(
+                            SyntaxFactory.VariableDeclarator("other").WithInitializer(
+                                SyntaxFactory.EqualsValueClause(
+                                    SyntaxFactory.BinaryExpression(SyntaxKind.AsExpression, SyntaxFactory.IdentifierName("obj"), currentTypeSyntax)
+                                    .WithOperatorToken(SyntaxFactory.Token(SyntaxKind.AsKeyword).WithLeadingTrivia(SyntaxFactory.Space).WithTrailingTrivia(SyntaxFactory.Space))
+                                )
+                            )
+                        ))
+                    ),
+                    SyntaxFactory.ReturnStatement(
+                        SyntaxFactory.BinaryExpression(
+                            SyntaxKind.LogicalAndExpression,
+                            SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.IdentifierName("other"), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)),
+                            SyntaxFactory.InvocationExpression(
+                                SyntaxFactory.IdentifierName("Equals"),
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("other"))))
+                            )
+                        )
+                    )
+                    .WithReturnKeyword(SyntaxFactory.Token(SyntaxKind.ReturnKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                );
+
+                var equalsObj = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword).WithTrailingTrivia(SyntaxFactory.Space)), "Equals")
+                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)).Add(SyntaxFactory.Token(SyntaxKind.OverrideKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
+                    .WithParameterList(SyntaxFactory.ParameterList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Parameter(SyntaxFactory.Identifier("obj")).WithType(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.ObjectKeyword).WithTrailingTrivia(SyntaxFactory.Space))))))
+                    .WithBody(equalsObjBody);
+
+                classDecl = classDecl.AddMembers(equalsObj);
+
+                // Equals(T other)
+                var equalsTBodyStatements = new List<StatementSyntax>();
+                // if (ReferenceEquals(null, other)) return false;
+                equalsTBodyStatements.Add(SyntaxFactory.IfStatement(
+                    SyntaxFactory.InvocationExpression(
+                         SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ParseName("global::System.Object"), SyntaxFactory.IdentifierName("ReferenceEquals")),
+                         SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(new SyntaxNodeOrToken[] {
+                             SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)),
+                             SyntaxFactory.Token(SyntaxKind.CommaToken),
+                             SyntaxFactory.Argument(SyntaxFactory.IdentifierName("other"))
+                         }))
+                    ),
+                    SyntaxFactory.ReturnStatement(SyntaxFactory.LiteralExpression(SyntaxKind.FalseLiteralExpression)).WithReturnKeyword(SyntaxFactory.Token(SyntaxKind.ReturnKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                )
+                .WithIfKeyword(SyntaxFactory.Token(SyntaxKind.IfKeyword).WithTrailingTrivia(SyntaxFactory.Space)));
+
+                 // if (ReferenceEquals(this, other)) return true;
+                equalsTBodyStatements.Add(SyntaxFactory.IfStatement(
+                    SyntaxFactory.InvocationExpression(
+                         SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ParseName("global::System.Object"), SyntaxFactory.IdentifierName("ReferenceEquals")),
+                         SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(new SyntaxNodeOrToken[] {
+                             SyntaxFactory.Argument(SyntaxFactory.ThisExpression()),
+                             SyntaxFactory.Token(SyntaxKind.CommaToken),
+                             SyntaxFactory.Argument(SyntaxFactory.IdentifierName("other"))
+                         }))
+                    ),
+                    SyntaxFactory.ReturnStatement(SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression)).WithReturnKeyword(SyntaxFactory.Token(SyntaxKind.ReturnKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                )
+                .WithIfKeyword(SyntaxFactory.Token(SyntaxKind.IfKeyword).WithTrailingTrivia(SyntaxFactory.Space)));
+
+                ExpressionSyntax expr = SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression);
+
+                foreach (var param in node.ParameterList?.Parameters ?? SyntaxFactory.SeparatedList<ParameterSyntax>())
+                {
+                    var propName = param.Identifier.ValueText;
+                    var propType = param.Type;
+
+                    // EqualityComparer<PropType>.Default.Equals(this.Prop, other.Prop)
+                    var comparer = SyntaxFactory.MemberAccessExpression(
+                        SyntaxKind.SimpleMemberAccessExpression,
+                        SyntaxFactory.QualifiedName(
+                            SyntaxFactory.ParseName("global::System.Collections.Generic"),
+                            SyntaxFactory.GenericName("EqualityComparer").WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(propType)))
+                        ),
+                        SyntaxFactory.IdentifierName("Default")
+                    );
+
+                    var equalsCall = SyntaxFactory.InvocationExpression(
+                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, comparer, SyntaxFactory.IdentifierName("Equals")),
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(new SyntaxNodeOrToken[] {
+                            SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ThisExpression(), SyntaxFactory.IdentifierName(propName))),
+                            SyntaxFactory.Token(SyntaxKind.CommaToken),
+                            SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("other"), SyntaxFactory.IdentifierName(propName)))
+                        }))
+                    );
+
+                    expr = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, expr, equalsCall);
+                }
+
+                equalsTBodyStatements.Add(SyntaxFactory.ReturnStatement(expr).WithReturnKeyword(SyntaxFactory.Token(SyntaxKind.ReturnKeyword).WithTrailingTrivia(SyntaxFactory.Space)));
+
+                var equalsT = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword).WithTrailingTrivia(SyntaxFactory.Space)), "Equals")
+                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
+                    .WithParameterList(SyntaxFactory.ParameterList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Parameter(SyntaxFactory.Identifier("other")).WithType(typeWithSpace))))
+                    .WithBody(SyntaxFactory.Block(equalsTBodyStatements));
+
+                classDecl = classDecl.AddMembers(equalsT);
+
+                // GetHashCode
+                var hashCodeBodyStatements = new List<StatementSyntax>();
+                // var hashCode = -987654321;
+
+                hashCodeBodyStatements.Add(SyntaxFactory.LocalDeclarationStatement(
+                    SyntaxFactory.VariableDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.IntKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
+                    .WithVariables(SyntaxFactory.SingletonSeparatedList(
+                        SyntaxFactory.VariableDeclarator("hashCode").WithInitializer(SyntaxFactory.EqualsValueClause(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(-987654321))))
+                    ))
+                ));
+
+                foreach (var param in node.ParameterList?.Parameters ?? SyntaxFactory.SeparatedList<ParameterSyntax>())
+                {
+                    var propName = param.Identifier.ValueText;
+                    var propType = param.Type;
+
+                    var comparer = SyntaxFactory.MemberAccessExpression(
+                        SyntaxKind.SimpleMemberAccessExpression,
+                        SyntaxFactory.QualifiedName(
+                            SyntaxFactory.ParseName("global::System.Collections.Generic"),
+                            SyntaxFactory.GenericName("EqualityComparer").WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(propType)))
+                        ),
+                        SyntaxFactory.IdentifierName("Default")
+                    );
+
+                    var getHashCodeCall = SyntaxFactory.InvocationExpression(
+                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, comparer, SyntaxFactory.IdentifierName("GetHashCode")),
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(
+                            SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ThisExpression(), SyntaxFactory.IdentifierName(propName)))
+                        ))
+                    );
+
+                    // hashCode = (hashCode * -1521134295) + getHashCodeCall;
+                    var calc = SyntaxFactory.BinaryExpression(
+                        SyntaxKind.AddExpression,
+                        SyntaxFactory.ParenthesizedExpression(
+                            SyntaxFactory.BinaryExpression(
+                                SyntaxKind.MultiplyExpression,
+                                SyntaxFactory.IdentifierName("hashCode"),
+                                SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(-1521134295))
+                            )
+                        ),
+                        getHashCodeCall
+                    );
+
+                    hashCodeBodyStatements.Add(SyntaxFactory.ExpressionStatement(
+                        SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, SyntaxFactory.IdentifierName("hashCode"), calc)
+                    ));
+                }
+
+                hashCodeBodyStatements.Add(SyntaxFactory.ReturnStatement(SyntaxFactory.IdentifierName("hashCode")).WithReturnKeyword(SyntaxFactory.Token(SyntaxKind.ReturnKeyword).WithTrailingTrivia(SyntaxFactory.Space)));
+
+                var getHashCode = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.IntKeyword).WithTrailingTrivia(SyntaxFactory.Space)), "GetHashCode")
+                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)).Add(SyntaxFactory.Token(SyntaxKind.OverrideKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
+                    .WithBody(SyntaxFactory.Block(hashCodeBodyStatements));
+
+                classDecl = classDecl.AddMembers(getHashCode);
+
+                // Operators
+                var opEq = SyntaxFactory.OperatorDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword).WithTrailingTrivia(SyntaxFactory.Space)), SyntaxFactory.Token(SyntaxKind.EqualsEqualsToken).WithTrailingTrivia(SyntaxFactory.Space))
+                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)).Add(SyntaxFactory.Token(SyntaxKind.StaticKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
+                    .WithParameterList(SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList<ParameterSyntax>(new SyntaxNodeOrToken[] {
+                        SyntaxFactory.Parameter(SyntaxFactory.Identifier("left")).WithType(typeWithSpace),
+                        SyntaxFactory.Token(SyntaxKind.CommaToken),
+                        SyntaxFactory.Parameter(SyntaxFactory.Identifier("right")).WithType(typeWithSpace)
+                    })))
+                    .WithBody(SyntaxFactory.Block(
+                        SyntaxFactory.ReturnStatement(
+                            SyntaxFactory.InvocationExpression(
+                                SyntaxFactory.MemberAccessExpression(
+                                    SyntaxKind.SimpleMemberAccessExpression,
+                                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                                        SyntaxFactory.QualifiedName(
+                                            SyntaxFactory.ParseName("global::System.Collections.Generic"),
+                                            SyntaxFactory.GenericName("EqualityComparer").WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(currentTypeSyntax)))
+                                        ),
+                                        SyntaxFactory.IdentifierName("Default")),
+                                    SyntaxFactory.IdentifierName("Equals")),
+                                SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList<ArgumentSyntax>(new SyntaxNodeOrToken[] {
+                                    SyntaxFactory.Argument(SyntaxFactory.IdentifierName("left")),
+                                    SyntaxFactory.Token(SyntaxKind.CommaToken),
+                                    SyntaxFactory.Argument(SyntaxFactory.IdentifierName("right"))
+                                }))
+                            )
+                        )
+                        .WithReturnKeyword(SyntaxFactory.Token(SyntaxKind.ReturnKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                    ));
+
+                 var opNeq = SyntaxFactory.OperatorDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword).WithTrailingTrivia(SyntaxFactory.Space)), SyntaxFactory.Token(SyntaxKind.ExclamationEqualsToken).WithTrailingTrivia(SyntaxFactory.Space))
+                    .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)).Add(SyntaxFactory.Token(SyntaxKind.StaticKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
+                    .WithParameterList(SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList<ParameterSyntax>(new SyntaxNodeOrToken[] {
+                        SyntaxFactory.Parameter(SyntaxFactory.Identifier("left")).WithType(typeWithSpace),
+                        SyntaxFactory.Token(SyntaxKind.CommaToken),
+                        SyntaxFactory.Parameter(SyntaxFactory.Identifier("right")).WithType(typeWithSpace)
+                    })))
+                    .WithBody(SyntaxFactory.Block(
+                        SyntaxFactory.ReturnStatement(
+                            SyntaxFactory.PrefixUnaryExpression(SyntaxKind.LogicalNotExpression,
+                                SyntaxFactory.ParenthesizedExpression(
+                                    SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, SyntaxFactory.IdentifierName("left"), SyntaxFactory.IdentifierName("right"))
+                                )
+                            )
+                        )
+                        .WithReturnKeyword(SyntaxFactory.Token(SyntaxKind.ReturnKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                    ));
+
+                classDecl = classDecl.AddMembers(opEq, opNeq);
+            }
+
             // return VisitClassDeclaration(classDecl);
             // We cannot call VisitClassDeclaration because classDecl is a synthesized node
             // and semanticModel.GetDeclaredSymbol(classDecl) would fail.
@@ -2974,7 +3780,30 @@ namespace H5.Translator
 
         public override SyntaxNode VisitOperatorDeclaration(OperatorDeclarationSyntax node)
         {
+            var originalNode = node;
             node = (OperatorDeclarationSyntax)base.VisitOperatorDeclaration(node);
+
+            if (originalNode.CheckedKeyword.IsKind(SyntaxKind.CheckedKeyword))
+            {
+                var methodName = GetCheckedOperatorName(node.OperatorToken, node.ParameterList.Parameters.Count);
+                var method = SyntaxFactory.MethodDeclaration(
+                    node.ReturnType,
+                    methodName)
+                    .WithModifiers(node.Modifiers)
+                    .WithParameterList(node.ParameterList)
+                    .WithBody(node.Body)
+                    .WithExpressionBody(node.ExpressionBody)
+                    .WithAttributeLists(node.AttributeLists)
+                    .WithTypeParameterList(null)
+                    .WithConstraintClauses(default);
+
+                if (method.ExpressionBody != null)
+                {
+                    return SyntaxHelper.ToStatementBody(method);
+                }
+                return method;
+            }
+
             if (node.ExpressionBody != null)
             {
                 return SyntaxHelper.ToStatementBody(node);
@@ -2985,13 +3814,50 @@ namespace H5.Translator
 
         public override SyntaxNode VisitConversionOperatorDeclaration(ConversionOperatorDeclarationSyntax node)
         {
+            var originalNode = node;
             node = (ConversionOperatorDeclarationSyntax)base.VisitConversionOperatorDeclaration(node);
+
+            if (originalNode.CheckedKeyword.IsKind(SyntaxKind.CheckedKeyword))
+            {
+                var methodName = "op_CheckedExplicit";
+                var method = SyntaxFactory.MethodDeclaration(
+                    node.Type,
+                    methodName)
+                    .WithModifiers(node.Modifiers)
+                    .WithParameterList(node.ParameterList)
+                    .WithBody(node.Body)
+                    .WithExpressionBody(node.ExpressionBody)
+                    .WithAttributeLists(node.AttributeLists)
+                    .WithTypeParameterList(null)
+                    .WithConstraintClauses(default);
+
+                if (method.ExpressionBody != null)
+                {
+                    return SyntaxHelper.ToStatementBody(method);
+                }
+                return method;
+            }
+
             if (node.ExpressionBody != null)
             {
                 return SyntaxHelper.ToStatementBody(node);
             }
 
             return node;
+        }
+
+        private string GetCheckedOperatorName(SyntaxToken operatorToken, int parameterCount)
+        {
+            switch (operatorToken.Kind())
+            {
+                case SyntaxKind.PlusToken: return "op_CheckedAddition";
+                case SyntaxKind.MinusToken: return parameterCount == 2 ? "op_CheckedSubtraction" : "op_CheckedUnaryNegation";
+                case SyntaxKind.AsteriskToken: return "op_CheckedMultiply";
+                case SyntaxKind.SlashToken: return "op_CheckedDivision";
+                // case SyntaxKind.PlusPlusToken: return "op_CheckedIncrement";
+                // case SyntaxKind.MinusMinusToken: return "op_CheckedDecrement";
+                default: throw new NotSupportedException("Checked operator not supported: " + operatorToken.Text);
+            }
         }
 
         public override SyntaxNode VisitIndexerDeclaration(IndexerDeclarationSyntax node)
@@ -3017,6 +3883,8 @@ namespace H5.Translator
             {
                 return base.VisitParenthesizedLambdaExpression(node);
             }
+
+            var hasOptionalParameters = node.ParameterList.Parameters.Any(p => p.Default != null);
 
             var oldMarkAsAsync = markAsAsync;
             markAsAsync = false;
@@ -3078,6 +3946,67 @@ namespace H5.Translator
             }
 
             markAsAsync = oldMarkAsAsync;
+
+            if (hasOptionalParameters && !IsExpressionOfT && newNode is ParenthesizedLambdaExpressionSyntax lambdaWithOptional)
+            {
+                var symbol = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
+
+                if (symbol != null)
+                {
+                    var delegateName = GetUniqueTempKey("Delegate_L");
+                    var typeParameters = new List<TypeParameterSyntax>();
+                    var typeArguments = new List<TypeSyntax>();
+                    var constraints = new List<TypeParameterConstraintClauseSyntax>();
+
+                    var current = symbol.ContainingSymbol;
+                    while (current is IMethodSymbol method)
+                    {
+                        if (method.IsGenericMethod)
+                        {
+                            foreach (var tp in method.TypeParameters.Reverse())
+                            {
+                                typeParameters.Insert(0, SyntaxFactory.TypeParameter(tp.Name));
+                                typeArguments.Insert(0, SyntaxFactory.ParseTypeName(tp.Name));
+
+                                var constraint = GetConstraint(tp, node.SpanStart);
+                                if (constraint != null)
+                                {
+                                    constraints.Insert(0, constraint);
+                                }
+                            }
+                        }
+                        current = current.ContainingSymbol;
+                    }
+
+                    var returnType = SyntaxHelper.GenerateTypeSyntax(symbol.ReturnType, semanticModel, node.SpanStart, this);
+
+                    var delegateDecl = SyntaxFactory.DelegateDeclaration(
+                        SyntaxFactory.List<AttributeListSyntax>(),
+                        SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PrivateKeyword).WithTrailingTrivia(SyntaxFactory.Space)),
+                        SyntaxFactory.Token(SyntaxKind.DelegateKeyword).WithTrailingTrivia(SyntaxFactory.Space),
+                        returnType,
+                        SyntaxFactory.Identifier(delegateName).WithLeadingTrivia(SyntaxFactory.Space),
+                        typeParameters.Count > 0 ? SyntaxFactory.TypeParameterList(SyntaxFactory.SeparatedList(typeParameters)) : null,
+                        lambdaWithOptional.ParameterList,
+                        SyntaxFactory.List(constraints),
+                        SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
+                    fields.Add(delegateDecl);
+
+                    var newParams = new List<ParameterSyntax>();
+                    foreach (var p in lambdaWithOptional.ParameterList.Parameters)
+                    {
+                        newParams.Add(p.WithDefault(null));
+                    }
+
+                    newNode = SyntaxFactory.CastExpression(
+                        typeArguments.Count > 0
+                            ? SyntaxFactory.GenericName(SyntaxFactory.Identifier(delegateName), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(typeArguments)))
+                            : SyntaxFactory.ParseTypeName(delegateName),
+                        SyntaxFactory.ParenthesizedExpression(lambdaWithOptional.WithParameterList(SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(newParams))))
+                    );
+                }
+            }
 
             if (newNode is ParenthesizedLambdaExpressionSyntax lambda && lambda.ReturnType != null)
             {
@@ -3183,6 +4112,7 @@ namespace H5.Translator
         private class InitializerInfo
         {
             public IMethodSymbol method;
+            public IPropertySymbol indexer;
             public List<InitializerInfo> nested;
         }
 
@@ -3196,6 +4126,12 @@ namespace H5.Translator
                 var ae = init as AssignmentExpressionSyntax;
                 if (ae?.Right is InitializerExpressionSyntax)
                 {
+                    if (ae.Left is ImplicitElementAccessSyntax implicitSyntax)
+                    {
+                        var symInfo = semanticModel.GetSymbolInfo(implicitSyntax);
+                        info.indexer = symInfo.Symbol as IPropertySymbol ?? symInfo.CandidateSymbols.FirstOrDefault() as IPropertySymbol;
+                    }
+
                     info.nested = new List<InitializerInfo>();
                     if (NeedRewriteInitializer((InitializerExpressionSyntax)ae.Right, info.nested, ref extensionMethodExists, ref isImplicitElementAccessSyntax))
                     {
@@ -3226,8 +4162,11 @@ namespace H5.Translator
                     if (init.Kind() == SyntaxKind.SimpleAssignmentExpression)
                     {
                         var be = (AssignmentExpressionSyntax)init;
-                        if (be.Left is ImplicitElementAccessSyntax)
+                        if (be.Left is ImplicitElementAccessSyntax implicitSyntax)
                         {
+                            var symInfo = semanticModel.GetSymbolInfo(implicitSyntax);
+                            info.indexer = symInfo.Symbol as IPropertySymbol ?? symInfo.CandidateSymbols.FirstOrDefault() as IPropertySymbol;
+
                             isImplicitElementAccessSyntax = true;
                             need = true;
                         }
@@ -3408,10 +4347,17 @@ namespace H5.Translator
                         }
                         else if (be.Left is ImplicitElementAccessSyntax implicitSyntax)
                         {
+                            bool targetExpectsIndex = false;
+                            if (info.indexer != null && info.indexer.Parameters.Length > 0)
+                            {
+                                var pType = info.indexer.Parameters[0].Type;
+                                if ((pType.Name == "Index" || pType.Name == "Range") && pType.ContainingNamespace?.Name == "System") targetExpectsIndex = true;
+                            }
+
                             var newArgs = new List<ArgumentSyntax>();
                             foreach (var arg in implicitSyntax.ArgumentList.Arguments)
                             {
-                                if (arg.Expression is PrefixUnaryExpressionSyntax prefix && prefix.OperatorToken.IsKind(SyntaxKind.CaretToken))
+                                if (!targetExpectsIndex && arg.Expression is PrefixUnaryExpressionSyntax prefix && prefix.OperatorToken.IsKind(SyntaxKind.CaretToken))
                                 {
                                     string lengthProp = "Length";
                                     if (type != null)
@@ -3453,10 +4399,17 @@ namespace H5.Translator
                     {
                         if (be.Left is ImplicitElementAccessSyntax indexerKeys)
                         {
+                            bool targetExpectsIndex = false;
+                            if (info.indexer != null && info.indexer.Parameters.Length > 0)
+                            {
+                                var pType = info.indexer.Parameters[0].Type;
+                                if ((pType.Name == "Index" || pType.Name == "Range") && pType.ContainingNamespace?.Name == "System") targetExpectsIndex = true;
+                            }
+
                             var newArgs = new List<ArgumentSyntax>();
                             foreach (var arg in indexerKeys.ArgumentList.Arguments)
                             {
-                                if (arg.Expression is PrefixUnaryExpressionSyntax prefix && prefix.OperatorToken.IsKind(SyntaxKind.CaretToken))
+                                if (!targetExpectsIndex && arg.Expression is PrefixUnaryExpressionSyntax prefix && prefix.OperatorToken.IsKind(SyntaxKind.CaretToken))
                                 {
                                     string lengthProp = "Length";
                                     if (type != null)
@@ -3806,6 +4759,331 @@ namespace H5.Translator
             return newNode.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
         }
 
+        public override SyntaxNode VisitCollectionExpression(CollectionExpressionSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitCollectionExpression(node);
+            }
+
+            var typeInfo = semanticModel.GetTypeInfo(node);
+            var targetType = typeInfo.ConvertedType;
+
+            if (targetType == null || targetType.TypeKind == TypeKind.Error)
+            {
+                return base.VisitCollectionExpression(node);
+            }
+
+            // Check for spread elements
+            if (node.Elements.Any(e => e is SpreadElementSyntax))
+            {
+                 return RewriteCollectionExpressionWithSpread(node, targetType);
+            }
+
+            var visitedElements = new List<SyntaxNodeOrToken>();
+            for (int i = 0; i < node.Elements.Count; i++)
+            {
+                var element = node.Elements[i];
+                if (element is ExpressionElementSyntax expr)
+                {
+                    visitedElements.Add((ExpressionSyntax)Visit(expr.Expression));
+                    if (i < node.Elements.Count - 1)
+                    {
+                        visitedElements.Add(SyntaxFactory.Token(SyntaxKind.CommaToken).WithTrailingTrivia(SyntaxFactory.Space));
+                    }
+                }
+            }
+
+            var initializer = SyntaxFactory.InitializerExpression(
+                SyntaxKind.ArrayInitializerExpression,
+                SyntaxFactory.SeparatedList<ExpressionSyntax>(visitedElements));
+
+            // Determine concrete type to instantiate
+            // 1. Array
+            if (targetType is IArrayTypeSymbol arrayType)
+            {
+                var elementTypeSyntax = SyntaxHelper.GenerateTypeSyntax(arrayType.ElementType, semanticModel, node.SpanStart, this);
+                var newArray = SyntaxFactory.ArrayCreationExpression(
+                    SyntaxFactory.ArrayType(elementTypeSyntax)
+                        .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression())))))
+                    .WithInitializer(initializer)
+                    .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+
+                return newArray.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+
+            // 2. Named Type (List, Span, IEnumerable, etc.)
+            if (targetType is INamedTypeSymbol namedType)
+            {
+                // Check if it's Span/ReadOnlySpan -> Array
+                 if ((namedType.Name == "Span" || namedType.Name == "ReadOnlySpan") &&
+                    namedType.ContainingNamespace?.ToDisplayString() == "System" && namedType.TypeArguments.Length == 1)
+                {
+                    var elementTypeSyntax = SyntaxHelper.GenerateTypeSyntax(namedType.TypeArguments[0], semanticModel, node.SpanStart, this);
+                    var newArray = SyntaxFactory.ArrayCreationExpression(
+                        SyntaxFactory.ArrayType(elementTypeSyntax)
+                            .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression())))))
+                        .WithInitializer(initializer)
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+
+                    return newArray.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                }
+
+                // Check for List<T> or interfaces implemented by List<T> or T[]
+                bool useList = false;
+                bool useArray = false;
+
+                var specialType = namedType.OriginalDefinition.SpecialType;
+                if (specialType == SpecialType.System_Collections_Generic_IEnumerable_T ||
+                    specialType == SpecialType.System_Collections_Generic_IReadOnlyList_T ||
+                    specialType == SpecialType.System_Collections_Generic_IReadOnlyCollection_T)
+                {
+                    useArray = true;
+                }
+                else if (specialType == SpecialType.System_Collections_Generic_IList_T ||
+                         specialType == SpecialType.System_Collections_Generic_ICollection_T ||
+                         (namedType.Name == "List" && namedType.ContainingNamespace?.ToDisplayString() == "System.Collections.Generic"))
+                {
+                    useList = true;
+                }
+
+                if (useArray)
+                {
+                     var elementTypeSyntax = SyntaxHelper.GenerateTypeSyntax(namedType.TypeArguments[0], semanticModel, node.SpanStart, this);
+                    var newArray = SyntaxFactory.ArrayCreationExpression(
+                        SyntaxFactory.ArrayType(elementTypeSyntax)
+                            .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression())))))
+                        .WithInitializer(initializer)
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+
+                    return newArray.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                }
+
+                if (useList)
+                {
+                    var elementType = namedType.TypeArguments[0];
+                    var elementTypeSyntax = SyntaxHelper.GenerateTypeSyntax(elementType, semanticModel, node.SpanStart, this);
+                    TypeSyntax typeSyntax;
+
+                    if (namedType.TypeKind == TypeKind.Interface)
+                    {
+                         typeSyntax = SyntaxFactory.QualifiedName(
+                            SyntaxFactory.ParseName("System.Collections.Generic"),
+                            SyntaxFactory.GenericName(
+                                SyntaxFactory.Identifier("List"),
+                                SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(elementTypeSyntax))));
+                    }
+                    else
+                    {
+                        typeSyntax = SyntaxHelper.GenerateTypeSyntax(namedType, semanticModel, node.SpanStart, this);
+                    }
+
+                    var arrayInitializer = SyntaxFactory.InitializerExpression(
+                        SyntaxKind.ArrayInitializerExpression,
+                        SyntaxFactory.SeparatedList<ExpressionSyntax>(visitedElements));
+
+                    var newArray = SyntaxFactory.ArrayCreationExpression(
+                        SyntaxFactory.ArrayType(elementTypeSyntax)
+                            .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression())))))
+                        .WithInitializer(arrayInitializer)
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+
+                    var newList = SyntaxFactory.ObjectCreationExpression(typeSyntax)
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                        .WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(newArray))));
+
+                    return newList.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                }
+
+                // Fallback: Try `new Type { elements }`
+                var fallbackTypeSyntax = SyntaxHelper.GenerateTypeSyntax(namedType, semanticModel, node.SpanStart, this);
+                 var fallbackInitializer = SyntaxFactory.InitializerExpression(
+                        SyntaxKind.CollectionInitializerExpression,
+                        SyntaxFactory.SeparatedList<ExpressionSyntax>(visitedElements));
+
+                 var fallbackObj = SyntaxFactory.ObjectCreationExpression(fallbackTypeSyntax)
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                        .WithArgumentList(SyntaxFactory.ArgumentList())
+                        .WithInitializer(fallbackInitializer);
+
+                 return fallbackObj.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+
+            return base.VisitCollectionExpression(node);
+
+        }
+
+        private SyntaxNode RewriteCollectionExpressionWithSpread(CollectionExpressionSyntax node, ITypeSymbol targetType)
+        {
+            var elementType = GetCollectionElementType(targetType);
+
+            if (elementType == null)
+            {
+                var mapped = semanticModel.SyntaxTree.GetLineSpan(node.Span);
+                throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "{2} - {3}({0},{1}): {4}", mapped.StartLinePosition.Line + 1, mapped.StartLinePosition.Character + 1, "Cannot determine element type for collection expression with spread elements", semanticModel.SyntaxTree.FilePath, node.ToString()));
+            }
+
+            var elementTypeSyntax = SyntaxHelper.GenerateTypeSyntax(elementType, semanticModel, node.SpanStart, this);
+            var listTypeSyntax = SyntaxFactory.QualifiedName(
+                SyntaxFactory.ParseName("global::System.Collections.Generic"),
+                SyntaxFactory.GenericName(SyntaxFactory.Identifier("List"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(elementTypeSyntax))));
+
+            var statements = new List<StatementSyntax>();
+            var listVarName = GetUniqueTempKey("list");
+
+            var creation = SyntaxFactory.ObjectCreationExpression(listTypeSyntax)
+                .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                .WithArgumentList(SyntaxFactory.ArgumentList());
+
+            statements.Add(SyntaxFactory.LocalDeclarationStatement(
+                SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName("var"))
+                .WithVariables(SyntaxFactory.SingletonSeparatedList(
+                    SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(listVarName))
+                    .WithInitializer(SyntaxFactory.EqualsValueClause(creation)))))
+                .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+
+            foreach (var element in node.Elements)
+            {
+                if (element is ExpressionElementSyntax expr)
+                {
+                    var visitedExpr = (ExpressionSyntax)Visit(expr.Expression);
+                    var addCall = SyntaxFactory.InvocationExpression(
+                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(listVarName), SyntaxFactory.IdentifierName("Add")),
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(visitedExpr))));
+
+                    statements.Add(SyntaxFactory.ExpressionStatement(addCall).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+                }
+                else if (element is SpreadElementSyntax spread)
+                {
+                    var visitedExpr = (ExpressionSyntax)Visit(spread.Expression);
+                    var tempVarName = GetUniqueTempKey("spread");
+
+                    // Assign spread expression to temp variable
+                    var typeInfo = semanticModel.GetTypeInfo(spread.Expression);
+                    var spreadType = typeInfo.Type ?? typeInfo.ConvertedType;
+                    var spreadTypeSyntax = SyntaxHelper.GenerateTypeSyntax(spreadType, semanticModel, spread.SpanStart, this);
+
+                    statements.Add(SyntaxFactory.LocalDeclarationStatement(
+                        SyntaxFactory.VariableDeclaration(spreadTypeSyntax)
+                        .WithVariables(SyntaxFactory.SingletonSeparatedList(
+                            SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(tempVarName))
+                            .WithInitializer(SyntaxFactory.EqualsValueClause(visitedExpr)))))
+                        .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+
+                    // if (temp != null) list.AddRange(temp)
+                    var addRangeCall = SyntaxFactory.InvocationExpression(
+                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(listVarName), SyntaxFactory.IdentifierName("AddRange")),
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName(tempVarName)))));
+
+                    var ifStatement = SyntaxFactory.IfStatement(
+                        SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.IdentifierName(tempVarName), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)),
+                        SyntaxFactory.ExpressionStatement(addRangeCall).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+
+                    statements.Add(ifStatement);
+                }
+            }
+
+            ExpressionSyntax resultExpr = SyntaxFactory.IdentifierName(listVarName);
+
+            bool targetIsList = false;
+            if (targetType is INamedTypeSymbol named &&
+                (named.OriginalDefinition.SpecialType == SpecialType.System_Collections_Generic_IList_T ||
+                 named.OriginalDefinition.SpecialType == SpecialType.System_Collections_Generic_ICollection_T ||
+                 (named.Name == "List" && named.ContainingNamespace?.ToDisplayString() == "System.Collections.Generic")))
+            {
+                targetIsList = true;
+            }
+
+            if (!targetIsList)
+            {
+                resultExpr = SyntaxFactory.InvocationExpression(
+                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, resultExpr, SyntaxFactory.IdentifierName("ToArray")),
+                    SyntaxFactory.ArgumentList());
+            }
+
+            statements.Add(SyntaxFactory.ReturnStatement(resultExpr).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+
+            var block = SyntaxFactory.Block(statements);
+            var lambda = SyntaxFactory.ParenthesizedLambdaExpression(SyntaxFactory.ParameterList(), block);
+
+            var isAsync = AwaitersCollector.HasAwaiters(semanticModel, node);
+            if (isAsync)
+            {
+                lambda = lambda.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
+            }
+
+            TypeSyntax returnTypeSyntax;
+            if (targetIsList)
+            {
+                returnTypeSyntax = listTypeSyntax;
+            }
+            else
+            {
+                returnTypeSyntax = SyntaxFactory.ArrayType(elementTypeSyntax)
+                    .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression()))));
+            }
+
+            TypeSyntax funcTypeSyntax;
+            if (isAsync)
+            {
+                var taskType = SyntaxFactory.QualifiedName(
+                    SyntaxFactory.ParseName("global::System.Threading.Tasks"),
+                    SyntaxFactory.GenericName(SyntaxFactory.Identifier("Task"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(returnTypeSyntax))));
+
+                funcTypeSyntax = SyntaxFactory.QualifiedName(
+                    SyntaxFactory.IdentifierName("global::System"),
+                    SyntaxFactory.GenericName(SyntaxFactory.Identifier("Func"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList<TypeSyntax>(taskType))));
+            }
+            else
+            {
+                funcTypeSyntax = SyntaxFactory.QualifiedName(
+                    SyntaxFactory.IdentifierName("global::System"),
+                    SyntaxFactory.GenericName(SyntaxFactory.Identifier("Func"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(returnTypeSyntax))));
+            }
+
+            var cast = SyntaxFactory.CastExpression(funcTypeSyntax, SyntaxFactory.ParenthesizedExpression(lambda));
+            var invocation = SyntaxFactory.InvocationExpression(SyntaxFactory.ParenthesizedExpression(cast));
+
+            if (isAsync)
+            {
+                return SyntaxFactory.AwaitExpression(invocation).NormalizeWhitespace();
+            }
+
+            return invocation.NormalizeWhitespace();
+        }
+
+        private TypeParameterConstraintClauseSyntax GetConstraint(ITypeParameterSymbol tp, int pos)
+        {
+            var constraints = new List<TypeParameterConstraintSyntax>();
+
+            if (tp.HasReferenceTypeConstraint)
+            {
+                constraints.Add(SyntaxFactory.ClassOrStructConstraint(SyntaxKind.ClassConstraint));
+            }
+            else if (tp.HasValueTypeConstraint)
+            {
+                constraints.Add(SyntaxFactory.ClassOrStructConstraint(SyntaxKind.StructConstraint));
+            }
+
+            if (tp.HasConstructorConstraint)
+            {
+                constraints.Add(SyntaxFactory.ConstructorConstraint());
+            }
+
+            foreach (var type in tp.ConstraintTypes)
+            {
+                constraints.Add(SyntaxFactory.TypeConstraint(SyntaxHelper.GenerateTypeSyntax(type, semanticModel, pos, this)));
+            }
+
+            if (constraints.Count > 0)
+            {
+                return SyntaxFactory.TypeParameterConstraintClause(SyntaxFactory.IdentifierName(tp.Name), SyntaxFactory.SeparatedList(constraints))
+                    .WithWhereKeyword(SyntaxFactory.Token(SyntaxKind.WhereKeyword).WithLeadingTrivia(SyntaxFactory.Space).WithTrailingTrivia(SyntaxFactory.Space));
+            }
+
+            return null;
+        }
+
         private ArgumentListSyntax ProcessCallerArgumentExpression(ArgumentListSyntax argumentList, SyntaxNode originalNode, IMethodSymbol method, SemanticModel semanticModel)
         {
             if (method == null || argumentList == null)
@@ -3913,6 +5191,349 @@ namespace H5.Translator
             }
 
             return argumentList;
+        }
+
+        private bool IsCapturedPrimaryConstructorParameter(ISymbol symbol, out string fieldName)
+        {
+            fieldName = null;
+            if (_primaryConstructorCaptures.Count == 0 || symbol == null)
+            {
+                return false;
+            }
+
+            var captures = _primaryConstructorCaptures.Peek();
+            return captures != null && captures.TryGetValue(symbol, out fieldName);
+        }
+
+        private bool ShouldUseFieldForCapturedParameter(SyntaxNode node)
+        {
+            var parent = node.Parent;
+            while (parent != null)
+            {
+                if (parent is MethodDeclarationSyntax ||
+                    parent is AccessorDeclarationSyntax)
+                {
+                    return true;
+                }
+
+                // If in arrow expression body, check if it belongs to something that should use the field
+                if (parent is ArrowExpressionClauseSyntax)
+                {
+                    var arrowParent = parent.Parent;
+                    if (arrowParent is MethodDeclarationSyntax ||
+                        arrowParent is LocalFunctionStatementSyntax ||
+                        arrowParent is AccessorDeclarationSyntax ||
+                        arrowParent is PropertyDeclarationSyntax ||
+                        arrowParent is IndexerDeclarationSyntax)
+                    {
+                        // Expression-bodied members use captured fields
+                        return true;
+                    }
+                    // What else uses arrow?
+                }
+
+                if (parent is VariableDeclaratorSyntax && parent.Parent is VariableDeclarationSyntax && parent.Parent.Parent is FieldDeclarationSyntax)
+                {
+                    // Inside field initializer - use parameter
+                    return false;
+                }
+
+                if (parent is PropertyDeclarationSyntax && (parent as PropertyDeclarationSyntax).Initializer != null)
+                {
+                    // Inside property initializer - use parameter
+                    return false;
+                }
+
+                if (parent is BaseListSyntax || parent is ConstructorInitializerSyntax)
+                {
+                    // Inside base call - use parameter
+                    return false;
+                }
+
+                if (parent is TypeDeclarationSyntax)
+                {
+                    // Reached class/struct level without finding method/accessor
+                    // This implies we are in some other member like attribute?
+                    // Attributes on members?
+                    // [Attr(param)] void M() -> attribute arguments must be constant, so param usage is invalid anyway.
+                    // So return false (don't rewrite).
+                    return false;
+                }
+
+                parent = parent.Parent;
+            }
+
+            return false;
+        }
+
+        private void ProcessPrimaryConstructor(TypeDeclarationSyntax node)
+        {
+            Dictionary<ISymbol, string> captures = new Dictionary<ISymbol, string>(SymbolEqualityComparer.Default);
+
+            if (node.ParameterList != null)
+            {
+                // Identify captured parameters
+                var parameterSymbols = new Dictionary<string, IParameterSymbol>();
+                foreach (var param in node.ParameterList.Parameters)
+                {
+                    var symbol = semanticModel.GetDeclaredSymbol(param);
+                    if (symbol != null)
+                    {
+                        parameterSymbols[param.Identifier.ValueText] = symbol;
+                    }
+                }
+
+                if (parameterSymbols.Count > 0)
+                {
+                    // Scan usages in the class
+                    // We need to look for IdentifierNameSyntax that resolves to one of our parameters
+                    // And is inside a location that requires capturing (method, property body)
+
+                    // Optimization: We can just scan all descendant identifiers.
+                    // But we must exclude the ParameterList itself.
+
+                    foreach (var member in node.Members)
+                    {
+                         // Visit all identifiers in members
+                         foreach (var identifier in member.DescendantNodes().OfType<IdentifierNameSyntax>())
+                         {
+                             var symbolInfo = semanticModel.GetSymbolInfo(identifier);
+                             var symbol = symbolInfo.Symbol;
+
+                             if (symbol != null && symbol is IParameterSymbol ps && parameterSymbols.ContainsValue(ps))
+                             {
+                                 // Found usage. Check if it's a capture scenario.
+                                 if (ShouldUseFieldForCapturedParameter(identifier))
+                                 {
+                                     if (!captures.ContainsKey(ps))
+                                     {
+                                         // Create unique field name
+                                         // Usually just the name, but to avoid collision with other members?
+                                         // Primary constructor parameters share scope with class members.
+                                         // If class has 'int x', and primary ctor has 'int x',
+                                         // then 'x' inside method refers to 'this.x' (field) not param 'x' (shadowed).
+                                         // C# rules say:
+                                         // Simple names look up parameters first in scope of class?
+                                         // No, parameters are in scope throughout class body.
+                                         // But they can be shadowed by members.
+                                         // If 'x' resolves to ParameterSymbol, it means it was NOT shadowed.
+
+                                         // So we generate a backing field.
+                                         // Use a name that won't conflict. "<p>Name" or similar.
+                                         // Or just use the name if we assume H5 handles private fields okay?
+                                         // Let's use a safe name.
+                                         captures[ps] = "_ctor_param_" + ps.Name;
+                                     }
+                                 }
+                             }
+                         }
+                    }
+                }
+            }
+
+            _primaryConstructorCaptures.Push(captures);
+        }
+
+        private TypeDeclarationSyntax SynthesizePrimaryConstructor(TypeDeclarationSyntax originalNode, TypeDeclarationSyntax rewrittenNode)
+        {
+            var captures = _primaryConstructorCaptures.Peek();
+
+            // 1. Remove ParameterList
+            rewrittenNode = rewrittenNode.WithParameterList(null);
+
+            // 2. Extract Base Constructor Arguments
+            ArgumentListSyntax baseArgs = null;
+            if (originalNode.BaseList != null)
+            {
+                var newTypes = new List<BaseTypeSyntax>();
+                bool changed = false;
+                foreach (var baseType in originalNode.BaseList.Types)
+                {
+                    if (baseType is PrimaryConstructorBaseTypeSyntax pcbt)
+                    {
+                        baseArgs = pcbt.ArgumentList;
+                        // Keep the type, but convert to SimpleBaseType
+                        var newBase = SyntaxFactory.SimpleBaseType(pcbt.Type)
+                            .WithLeadingTrivia(pcbt.GetLeadingTrivia())
+                            .WithTrailingTrivia(pcbt.GetTrailingTrivia());
+                        newTypes.Add(newBase);
+                        changed = true;
+                    }
+                    else
+                    {
+                        newTypes.Add(baseType);
+                    }
+                }
+
+                if (changed)
+                {
+                    var rewrittenBaseList = rewrittenNode.BaseList;
+                    var rewrittenTypes = new List<BaseTypeSyntax>();
+                    int idx = 0;
+                    foreach (var bt in rewrittenBaseList.Types)
+                    {
+                        if (idx < originalNode.BaseList.Types.Count && originalNode.BaseList.Types[idx] is PrimaryConstructorBaseTypeSyntax)
+                        {
+                            if (bt is PrimaryConstructorBaseTypeSyntax btpc)
+                            {
+                                rewrittenTypes.Add(SyntaxFactory.SimpleBaseType(btpc.Type).WithLeadingTrivia(bt.GetLeadingTrivia()).WithTrailingTrivia(bt.GetTrailingTrivia()));
+                            }
+                            else
+                            {
+                                rewrittenTypes.Add(bt);
+                            }
+                        }
+                        else
+                        {
+                            rewrittenTypes.Add(bt);
+                        }
+                        idx++;
+                    }
+                    rewrittenNode = rewrittenNode.WithBaseList(rewrittenBaseList.WithTypes(SyntaxFactory.SeparatedList(rewrittenTypes)));
+                }
+            }
+
+            // 3. Extract Field Initializers
+            var newMembers = new List<MemberDeclarationSyntax>();
+            var movedInitializers = new List<StatementSyntax>();
+
+            foreach (var member in rewrittenNode.Members)
+            {
+                if (member is FieldDeclarationSyntax fd && !fd.Modifiers.Any(m => m.IsKind(SyntaxKind.StaticKeyword) || m.IsKind(SyntaxKind.ConstKeyword)))
+                {
+                    // Instance field
+                    var newVars = new List<VariableDeclaratorSyntax>();
+                    bool changed = false;
+                    foreach (var v in fd.Declaration.Variables)
+                    {
+                        if (v.Initializer != null)
+                        {
+                            string targetName = v.Identifier.ValueText;
+                            if (targetName.StartsWith(AutoInitFieldPrefix))
+                            {
+                                // It's a property backing field generated by VisitPropertyDeclaration
+                                // We remove the field and assign to the property instead
+                                targetName = targetName.Substring(AutoInitFieldPrefix.Length);
+                                var assign = SyntaxFactory.AssignmentExpression(
+                                    SyntaxKind.SimpleAssignmentExpression,
+                                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ThisExpression(), SyntaxFactory.IdentifierName(targetName)),
+                                    v.Initializer.Value
+                                );
+                                movedInitializers.Add(SyntaxFactory.ExpressionStatement(assign));
+                                // Do not add to newVars (remove the field)
+                                changed = true;
+                            }
+                            else
+                            {
+                                // Move initializer to statement: this.v = init;
+                                var assign = SyntaxFactory.AssignmentExpression(
+                                    SyntaxKind.SimpleAssignmentExpression,
+                                    SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ThisExpression(), SyntaxFactory.IdentifierName(targetName)),
+                                    v.Initializer.Value
+                                );
+                                movedInitializers.Add(SyntaxFactory.ExpressionStatement(assign));
+                                newVars.Add(v.WithInitializer(null));
+                                changed = true;
+                            }
+                        }
+                        else
+                        {
+                            newVars.Add(v);
+                        }
+                    }
+                    if (changed)
+                    {
+                        if (newVars.Count > 0)
+                        {
+                            newMembers.Add(fd.WithDeclaration(fd.Declaration.WithVariables(SyntaxFactory.SeparatedList(newVars))));
+                        }
+                    }
+                    else
+                    {
+                        newMembers.Add(fd);
+                    }
+                }
+                else if (member is PropertyDeclarationSyntax pd && !pd.Modifiers.Any(m => m.IsKind(SyntaxKind.StaticKeyword)))
+                {
+                    if (pd.Initializer != null)
+                    {
+                        // Instance property with initializer
+                        // Should have been handled by VisitPropertyDeclaration but if not:
+                        var assign = SyntaxFactory.AssignmentExpression(
+                                SyntaxKind.SimpleAssignmentExpression,
+                                SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ThisExpression(), SyntaxFactory.IdentifierName(pd.Identifier)),
+                                pd.Initializer.Value
+                            );
+                        movedInitializers.Add(SyntaxFactory.ExpressionStatement(assign));
+                        newMembers.Add(pd.WithInitializer(null).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.None)));
+                    }
+                    else
+                    {
+                        newMembers.Add(pd);
+                    }
+                }
+                else
+                {
+                    newMembers.Add(member);
+                }
+            }
+
+            // 4. Synthesize Fields for Captures
+            if (captures != null)
+            {
+                foreach (var kvp in captures)
+                {
+                    var symbol = kvp.Key as IParameterSymbol;
+                    var fieldName = kvp.Value;
+
+                    var typeSyntax = SyntaxHelper.GenerateTypeSyntax(symbol.Type, semanticModel, originalNode.SpanStart, this);
+
+                    // Use ParseMemberDeclaration to ensure valid syntax structure including trivia
+                    var fieldCode = $"private {typeSyntax.ToString()} {fieldName};" + Environment.NewLine;
+                    var fieldDecl = (FieldDeclarationSyntax)SyntaxFactory.ParseMemberDeclaration(fieldCode);
+
+                    newMembers.Insert(0, fieldDecl);
+                }
+            }
+
+            // 5. Synthesize Constructor
+            var ctorParams = originalNode.ParameterList.Parameters;
+
+            var ctorBodyStatements = new List<StatementSyntax>();
+
+            // Assign captures: this._field = param;
+            if (captures != null)
+            {
+                foreach (var kvp in captures)
+                {
+                    var symbol = kvp.Key as IParameterSymbol;
+                    var fieldName = kvp.Value;
+                    var paramName = symbol.Name;
+
+                    var assign = SyntaxFactory.AssignmentExpression(
+                        SyntaxKind.SimpleAssignmentExpression,
+                        SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.ThisExpression(), SyntaxFactory.IdentifierName(fieldName)),
+                        SyntaxFactory.IdentifierName(paramName)
+                    );
+                    ctorBodyStatements.Add(SyntaxFactory.ExpressionStatement(assign));
+                }
+            }
+
+            ctorBodyStatements.AddRange(movedInitializers);
+
+            var ctor = SyntaxFactory.ConstructorDeclaration(originalNode.Identifier)
+                .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PublicKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
+                .WithParameterList(originalNode.ParameterList)
+                .WithBody(SyntaxFactory.Block(ctorBodyStatements));
+
+            if (baseArgs != null)
+            {
+                ctor = ctor.WithInitializer(SyntaxFactory.ConstructorInitializer(SyntaxKind.BaseConstructorInitializer, baseArgs));
+            }
+
+            newMembers.Add(ctor);
+
+            return rewrittenNode.WithMembers(SyntaxFactory.List(newMembers));
         }
     }
 }

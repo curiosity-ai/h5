@@ -107,7 +107,24 @@ namespace System
 
             if (con && con.log)
             {
-                con.log(!H5.Script.IsDefined(value) ? "" : value.As<dynamic>());
+                if (!H5.Script.IsDefined(value))
+                {
+                    con.log("");
+                    return;
+                }
+
+                var d = value.As<dynamic>();
+
+                if (H5.Script.IsDefined(d.constructor) &&
+                    H5.Script.IsDefined(d.constructor["$$name"]) &&
+                    H5.Script.IsDefined(d.toString))
+                {
+                    con.log(value.ToString());
+                }
+                else
+                {
+                    con.log(d);
+                }
             }
         }
 

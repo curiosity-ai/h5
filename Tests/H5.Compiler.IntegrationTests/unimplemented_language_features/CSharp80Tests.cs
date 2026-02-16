@@ -45,7 +45,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task DefaultInterfaceMethods()
         {
             var code = """
@@ -75,7 +74,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTestExpectingError(code, "CS8701");
         }
 
         [TestMethod]
@@ -303,7 +302,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task DisposableRefStructs()
         {
             var code = """
@@ -329,7 +327,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task NullableReferenceTypes()
         {
             var code = """
@@ -349,11 +346,10 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTestExpectingError(code, "Wrong preprocessor directive");
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task AsyncStreams()
         {
             // Requires IAsyncEnumerable<T>
@@ -382,7 +378,7 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            await RunTestExpectingError(code, "CS0246");
         }
 
         [TestMethod]

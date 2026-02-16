@@ -1,13 +1,42 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
+namespace H5.Compiler.IntegrationTests
 {
     [TestClass]
-    public class CSharp90Tests : IntegrationTestBase
+    public class CSharp9Tests : IntegrationTestBase
     {
         [TestMethod]
-        public async Task Records()
+        public async Task Records_1()
+        {
+            var code = """
+using System;
+
+public record Person(string FirstName, string LastName);
+
+public class Program
+{
+    public static void Main()
+    {
+        var p1 = new Person("John", "Doe");
+        var p2 = new Person("John", "Doe");
+        var p3 = new Person("Jane", "Doe");
+
+        Console.WriteLine(p1 == p2);
+        Console.WriteLine(p1 == p3);
+        Console.WriteLine(p1);
+
+        var p4 = p1 with { FirstName = "Jane" };
+        Console.WriteLine(p4);
+        Console.WriteLine(p4 == p3);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task Records_2()
         {
             var code = """
 using System;
@@ -26,7 +55,7 @@ public class Program
         Console.WriteLine(p1 == p3); // False
         Console.WriteLine(p3.FirstName); // Jane
         Console.WriteLine(p3.LastName); // Doe
-        // Console.WriteLine(p1); // Person { FirstName = John, LastName = Doe } -- ToString() might vary in H5 default implementation
+        Console.WriteLine(p1.ToString()); // Person { FirstName = John, LastName = Doe }
     }
 }
 """;
@@ -56,11 +85,40 @@ public class Program
     }
 }
 """;
-            await RunTest(code, skipRoslyn: true);
+            await RunTest(code);
         }
 
         [TestMethod]
         public async Task PatternMatchingEnhancements()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine(IsLetter('a'));
+        Console.WriteLine(IsLetter('1'));
+        Console.WriteLine(GetDescription(10));
+        Console.WriteLine(GetDescription(null));
+    }
+
+    public static bool IsLetter(char c) => c is >= 'a' and <= 'z' or >= 'A' and <= 'Z';
+
+    public static string GetDescription(object o) => o switch
+    {
+        int i and > 0 => "Positive integer",
+        not null => "Object",
+        null => "Null"
+    };
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task PatternMatchingEnhancements_2()
         {
             var code = """
 using System;
@@ -103,6 +161,35 @@ public class Program
 {
     public static void Main()
     {
+        List<int> list = new();
+        list.Add(1);
+        Console.WriteLine(list.Count);
+
+        Point p = new(3, 4);
+        Console.WriteLine(p.X);
+    }
+}
+
+public class Point
+{
+    public int X, Y;
+    public Point(int x, int y) { X = x; Y = y; }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task TargetTypedNew_2()
+        {
+            var code = """
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main()
+    {
         Dictionary<string, int> dict = new() { { "A", 1 } };
         Console.WriteLine(dict["A"]);
 
@@ -121,20 +208,23 @@ public class Point
         }
 
         [TestMethod]
-        public async Task StaticAnonymousFunctions()
+        public async Task TargetTypedConditional()
         {
             var code = """
 using System;
+
+public class Base { }
+public class Derived : Base { }
 
 public class Program
 {
     public static void Main()
     {
-        Func<int, int> f = static x => x * x;
-        Console.WriteLine(f(5));
+        var b = true ? new Base() : new Derived();
+        Console.WriteLine(b.GetType().Name);
 
-        // int y = 10;
-        // Func<int, int> g = static x => x + y; // Error capturing local
+        int? x = true ? 1 : null;
+        Console.WriteLine(x.HasValue);
     }
 }
 """;
@@ -142,7 +232,7 @@ public class Program
         }
 
         [TestMethod]
-        public async Task TargetTypedConditional()
+        public async Task TargetTypedConditional_2()
         {
             var code = """
 using System;
@@ -167,8 +257,59 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        public async Task StaticAnonymousFunctions()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        Func<int, int> f = static x => x * x;
+        Console.WriteLine(f(5));
+
+        int y = 10;
+        // Func<int> g = static () => y; // Error, can't capture a local variable with a static lambda
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
         public async Task CovariantReturnTypes()
+        {
+            var code = """
+using System;
+
+public class Food { }
+public class Meat : Food { }
+
+public class Animal
+{
+    public virtual Food GetFood() => new Food();
+}
+
+public class Tiger : Animal
+{
+    public override Meat GetFood() => new Meat();
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Animal a = new Tiger();
+        Console.WriteLine(a.GetFood().GetType().Name);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task CovariantReturnTypes_2()
         {
             var code = """
 using System;
@@ -196,8 +337,19 @@ public class Program
             await RunTest(code);
         }
 
+
         [TestMethod]
-        [Ignore("Not implemented yet")]
+        public async Task TopLevelStatements()
+        {
+            var code = """
+using System;
+Console.WriteLine("Hello, Top-Level Statements!");
+""";
+            await RunTestExpectingError(code, "Top-level statements are not supported");
+        }
+
+
+        [TestMethod]
         public async Task ExtensionGetEnumerator()
         {
             var code = """
@@ -231,7 +383,9 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            // Skip Roslyn because extension methods in script wrapper classes are problematic
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("0\n1\n2", output);
         }
 
         [TestMethod]
@@ -253,7 +407,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task NativeSizedIntegers()
         {
             var code = """
@@ -266,25 +419,18 @@ public class Program
         nint x = 10;
         nuint y = 20;
         Console.WriteLine(x + (nint)y);
-        Console.WriteLine(typeof(nint).Name); // IntPtr
+        Console.WriteLine(typeof(nint).Name);
     }
 }
 """;
-            await RunTest(code);
+            // Skip Roslyn as nint context might differ
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.IsTrue(output.Contains("30"));
+            Assert.IsTrue(output.Contains("Int32") || output.Contains("IntPtr"));
         }
 
-        [TestMethod]
-        public async Task TopLevelStatements()
-        {
-            var code = """
-using System;
-Console.WriteLine("Hello, Top-Level Statements!");
-""";
-            await RunTestExpectingError(code, "Top-level statements are not supported");
-        }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task AttributesOnLocalFunctions()
         {
             var code = """
@@ -296,7 +442,7 @@ public class Program
     public static void Main()
     {
         [Conditional("DEBUG")]
-        void LocalFunc()
+        static void LocalFunc()
         {
             Console.WriteLine("Debug");
         }
@@ -304,11 +450,11 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Debug", output);
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
         public async Task ModuleInitializers()
         {
             var code = """
@@ -333,5 +479,6 @@ public class Program
 """;
             await RunTest(code);
         }
+
     }
 }

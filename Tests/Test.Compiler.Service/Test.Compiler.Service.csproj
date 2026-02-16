@@ -7,13 +7,13 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build" Version="18.0.2" />
-    <PackageReference Include="Microsoft.Build.Framework" Version="18.0.2" />
-    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.0.2" />
-    <PackageReference Include="Microsoft.Build.Locator" Version="1.10.12" />
-    <PackageReference Include="h5.Compiler.Service" Version="25.8.60248" />
+    <PackageReference Include="Microsoft.Build" Version="18.3.3" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="18.3.3" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.3.3" />
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
+    <PackageReference Include="h5.Compiler.Service" Version="26.2.64453" />
     <PackageReference Include="Mosaik.Core" Version="25.10.62118" />
-    <PackageReference Include="NuGet.Resolver" Version="7.0.0" />
+    <PackageReference Include="NuGet.Resolver" Version="7.3.0" />
     <PackageReference Include="ZLogger" Version="1.7.1" />
   </ItemGroup>
 </Project>

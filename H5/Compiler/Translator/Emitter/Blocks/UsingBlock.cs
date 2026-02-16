@@ -4,6 +4,7 @@ using ICSharpCode.NRefactory.CSharp;
 using System.Collections.Generic;
 using System.Linq;
 using ICSharpCode.NRefactory.Semantics;
+using ICSharpCode.NRefactory.TypeSystem;
 
 namespace H5.Translator
 {
@@ -40,6 +41,37 @@ namespace H5.Translator
             string temp = null;
             string name = null;
             bool isReferenceLocal = false;
+            string disposeMethodName = JS.Funcs.DISPOSE;
+
+            IType type = null;
+            if (expression is VariableInitializer initializer)
+            {
+                if (initializer.Initializer != null && !initializer.Initializer.IsNull)
+                {
+                    var rr = Emitter.Resolver.ResolveNode(initializer.Initializer);
+                    type = rr.Type;
+                }
+            }
+            else
+            {
+                var rr = Emitter.Resolver.ResolveNode(expression);
+                type = rr.Type;
+            }
+
+            if (type != null && type.Kind != TypeKind.Unknown)
+            {
+                bool implementsIDisposable = type.GetAllBaseTypes().Any(t => t.FullName == "System.IDisposable");
+
+                if (!implementsIDisposable)
+                {
+                    var disposeMethod = type.GetMethods(m => m.Name == "Dispose" && m.Parameters.Count == 0).FirstOrDefault();
+
+                    if (disposeMethod != null)
+                    {
+                        disposeMethodName = Emitter.GetEntityName(disposeMethod);
+                    }
+                }
+            }
 
             PushLocals();
 
@@ -132,7 +164,7 @@ namespace H5.Translator
             BeginBlock();
             Write(name);
             Write(".");
-            Write(JS.Funcs.DISPOSE);
+            Write(disposeMethodName);
             Write("();");
             WriteNewLine();
             EndBlock();

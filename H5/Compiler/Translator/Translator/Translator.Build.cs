@@ -164,6 +164,16 @@ namespace H5.Translator
                         throw new TranslatorException("AsyncMethodBuilder attribute is not supported");
                     }
 
+                    if (syntaxTree.GetRoot().DescendantNodes().OfType<AttributeSyntax>().Any(a => a.Name.ToString().Contains("InlineArray")))
+                    {
+                        throw new TranslatorException("Inline arrays are not supported");
+                    }
+
+                    if (syntaxTree.GetRoot().DescendantNodes().OfType<PointerTypeSyntax>().Any())
+                    {
+                        throw new TranslatorException("Pointers are not supported");
+                    }
+
                     var rewriter = new StackAllocRewriter();
                     var newRoot = rewriter.Visit(syntaxTree.GetRoot());
                     if (newRoot != syntaxTree.GetRoot())
@@ -199,6 +209,85 @@ namespace H5.Translator
                     }
 
                     references.Add(MetadataReference.CreateFromFile(path, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
+                }
+
+                // Rewriting Covariant Return Types
+                if (trees.Count > 0)
+                {
+                    var tempCompilation = CSharpCompilation.Create(ProjectProperties.AssemblyName ?? "Temp", trees, references.Concat(referencesFromPackages), new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+
+                    var covariantSymbols = new HashSet<ISymbol>(SymbolEqualityComparer.Default);
+
+                    foreach (var tree in trees)
+                    {
+                        var model = tempCompilation.GetSemanticModel(tree);
+                        var root = tree.GetRoot();
+                        foreach (var node in root.DescendantNodes())
+                        {
+                             if (node is MethodDeclarationSyntax methodDecl)
+                             {
+                                 var symbol = model.GetDeclaredSymbol(methodDecl);
+                                 if (symbol != null && symbol.IsOverride && symbol.OverriddenMethod != null)
+                                 {
+                                     if (!SymbolEqualityComparer.Default.Equals(symbol.ReturnType, symbol.OverriddenMethod.ReturnType))
+                                     {
+                                         covariantSymbols.Add(symbol);
+                                         Logger.ZLogInformation("Found covariant override: {0}", symbol.ToDisplayString());
+                                     }
+                                 }
+                             }
+                             else if (node is PropertyDeclarationSyntax propDecl)
+                             {
+                                 var symbol = model.GetDeclaredSymbol(propDecl);
+                                 if (symbol != null && symbol.IsOverride && symbol.OverriddenProperty != null)
+                                 {
+                                     if (!SymbolEqualityComparer.Default.Equals(symbol.Type, symbol.OverriddenProperty.Type))
+                                     {
+                                         covariantSymbols.Add(symbol);
+                                     }
+                                 }
+                             }
+                             else if (node is IndexerDeclarationSyntax indexerDecl)
+                             {
+                                 var symbol = model.GetDeclaredSymbol(indexerDecl);
+                                 if (symbol != null && symbol.IsOverride && symbol.OverriddenProperty != null)
+                                 {
+                                     if (!SymbolEqualityComparer.Default.Equals(symbol.Type, symbol.OverriddenProperty.Type))
+                                     {
+                                         covariantSymbols.Add(symbol);
+                                     }
+                                 }
+                             }
+                        }
+                    }
+
+                    if (covariantSymbols.Count > 0)
+                    {
+                        var newTrees = new List<SyntaxTree>();
+                        bool anyRewritten = false;
+
+                        foreach (var tree in trees)
+                        {
+                            var model = tempCompilation.GetSemanticModel(tree);
+                            var rewriter = new CovariantReturnTypeRewriter(model, covariantSymbols);
+                            var newRoot = rewriter.Visit(tree.GetRoot());
+
+                            if (newRoot != tree.GetRoot())
+                            {
+                                newTrees.Add(tree.WithRootAndOptions(newRoot, tree.Options));
+                                anyRewritten = true;
+                            }
+                            else
+                            {
+                                newTrees.Add(tree);
+                            }
+                        }
+
+                        if (anyRewritten)
+                        {
+                            trees = newTrees;
+                        }
+                    }
                 }
 
                 var emitResult = CompileAndEmit(referencesFromPackages, trees, references, cancellationToken);
@@ -414,6 +503,11 @@ namespace H5.Translator
                         throw new TranslatorException("Unmanaged constraint is not supported");
                     }
 
+                    if (d.Id == "CS0227")
+                    {
+                        throw new TranslatorException("Unsafe code is not supported");
+                    }
+
                     var filePath = d.Location?.SourceTree?.FilePath ?? "";
 
                     if (filePath.StartsWith(baseDir))
@@ -622,6 +716,145 @@ namespace H5.Translator
                     .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
                     .WithLeadingTrivia(node.GetLeadingTrivia())
                     .WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+        }
+
+        internal class CovariantReturnTypeRewriter : CSharpSyntaxRewriter
+        {
+            private readonly SemanticModel _semanticModel;
+            private readonly HashSet<ISymbol> _covariantSymbols;
+
+            public CovariantReturnTypeRewriter(SemanticModel semanticModel, HashSet<ISymbol> covariantSymbols)
+            {
+                _semanticModel = semanticModel;
+                _covariantSymbols = covariantSymbols;
+            }
+
+            public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
+            {
+                var symbol = _semanticModel.GetDeclaredSymbol(node);
+                if (symbol != null && _covariantSymbols.Contains(symbol))
+                {
+                    var baseReturnType = symbol.OverriddenMethod.ReturnType;
+                    var newReturnType = SyntaxFactory.ParseTypeName(baseReturnType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat))
+                        .WithLeadingTrivia(node.ReturnType.GetLeadingTrivia())
+                        .WithTrailingTrivia(node.ReturnType.GetTrailingTrivia());
+
+                    return node.WithReturnType(newReturnType);
+                }
+
+                return base.VisitMethodDeclaration(node);
+            }
+
+            public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
+            {
+                var symbol = _semanticModel.GetDeclaredSymbol(node);
+                if (symbol != null && _covariantSymbols.Contains(symbol))
+                {
+                    var baseReturnType = symbol.OverriddenProperty.Type;
+                    var newReturnType = SyntaxFactory.ParseTypeName(baseReturnType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat))
+                       .WithLeadingTrivia(node.Type.GetLeadingTrivia())
+                       .WithTrailingTrivia(node.Type.GetTrailingTrivia());
+
+                    return node.WithType(newReturnType);
+                }
+                return base.VisitPropertyDeclaration(node);
+            }
+
+            public override SyntaxNode VisitIndexerDeclaration(IndexerDeclarationSyntax node)
+            {
+                var symbol = _semanticModel.GetDeclaredSymbol(node);
+                if (symbol != null && _covariantSymbols.Contains(symbol))
+                {
+                    var baseReturnType = symbol.OverriddenProperty.Type;
+                    var newReturnType = SyntaxFactory.ParseTypeName(baseReturnType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat))
+                       .WithLeadingTrivia(node.Type.GetLeadingTrivia())
+                       .WithTrailingTrivia(node.Type.GetTrailingTrivia());
+
+                    return node.WithType(newReturnType);
+                }
+                return base.VisitIndexerDeclaration(node);
+            }
+
+            public override SyntaxNode VisitInvocationExpression(InvocationExpressionSyntax node)
+            {
+                // Visit children first
+                var newNode = base.VisitInvocationExpression(node) as InvocationExpressionSyntax;
+
+                var symbol = _semanticModel.GetSymbolInfo(node).Symbol;
+                if (symbol != null && _covariantSymbols.Contains(symbol))
+                {
+                    var methodSymbol = (IMethodSymbol)symbol;
+                    var returnType = methodSymbol.ReturnType;
+
+                    var cast = SyntaxFactory.CastExpression(
+                        SyntaxFactory.ParseTypeName(returnType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)),
+                        SyntaxFactory.ParenthesizedExpression(newNode)
+                    );
+                    return cast;
+                }
+                return newNode;
+            }
+
+            public override SyntaxNode VisitMemberAccessExpression(MemberAccessExpressionSyntax node)
+            {
+                // Check if this is an assignment target
+                if (node.Parent is AssignmentExpressionSyntax assign && assign.Left == node)
+                {
+                    return base.VisitMemberAccessExpression(node);
+                }
+
+                var newNode = base.VisitMemberAccessExpression(node) as MemberAccessExpressionSyntax;
+
+                var symbol = _semanticModel.GetSymbolInfo(node).Symbol;
+                if (symbol != null && _covariantSymbols.Contains(symbol))
+                {
+                    ITypeSymbol returnType = null;
+                    if (symbol is IPropertySymbol prop) returnType = prop.Type;
+
+                    if (returnType != null)
+                    {
+                        var cast = SyntaxFactory.CastExpression(
+                            SyntaxFactory.ParseTypeName(returnType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)),
+                            SyntaxFactory.ParenthesizedExpression(newNode)
+                        );
+                        return cast;
+                    }
+                }
+                return newNode;
+            }
+
+            public override SyntaxNode VisitIdentifierName(IdentifierNameSyntax node)
+            {
+                 // Check if this is an assignment target
+                if (node.Parent is AssignmentExpressionSyntax assign && assign.Left == node)
+                {
+                    return base.VisitIdentifierName(node);
+                }
+                if (node.Parent is MemberAccessExpressionSyntax ma && ma.Name == node)
+                {
+                    // Covered by VisitMemberAccessExpression
+                    return base.VisitIdentifierName(node);
+                }
+
+                var newNode = base.VisitIdentifierName(node) as IdentifierNameSyntax;
+
+                var symbol = _semanticModel.GetSymbolInfo(node).Symbol;
+                if (symbol != null && _covariantSymbols.Contains(symbol))
+                {
+                    ITypeSymbol returnType = null;
+                    if (symbol is IPropertySymbol prop) returnType = prop.Type;
+
+                    if (returnType != null)
+                    {
+                        var cast = SyntaxFactory.CastExpression(
+                            SyntaxFactory.ParseTypeName(returnType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)),
+                            SyntaxFactory.ParenthesizedExpression(newNode)
+                        );
+                        return cast;
+                    }
+                }
+                return newNode;
             }
         }
     }

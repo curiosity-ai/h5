@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest" Version="3.0.2" />
+    <PackageReference Include="MSTest" Version="4.1.0" />
     <PackageReference Include="NuGet.Versioning" Version="7.3.0" />
     <PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
   </ItemGroup>

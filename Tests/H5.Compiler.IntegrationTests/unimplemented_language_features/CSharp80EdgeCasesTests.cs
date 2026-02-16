@@ -7,28 +7,10 @@ namespace H5.Compiler.IntegrationTests.UnimplementedLanguageFeatures
     public class CSharp80EdgeCasesTests : IntegrationTestBase
     {
         [TestMethod]
-        [Ignore("Known limitation: Side effects in left-hand side evaluated twice in H5 implementation")]
         public async Task NullCoalescingAssignment_SideEffects()
         {
-            var code = """
-using System;
-
-public class Program
-{
-    public static void Main()
-    {
-        int i = 0;
-        int[] arr = new int[5];
-
-        // i starts at 0
-        arr[i++] ??= 42; // i becomes 1. arr[0] is 0 (not null), so assignment happens (0 is not null? Wait, int is not nullable).
-                         // Wait, for int?, ??= works. For int, ??= is invalid.
-                         // Let's use int? or object.
-    }
-}
-""";
             // Correct logic:
-            code = """
+            var code = """
 using System;
 
 public class Program
@@ -56,6 +38,61 @@ public class Program
         arr[i++] ??= 100;
         Console.WriteLine(i); // Should be 2
         Console.WriteLine(arr[1]); // Should be 100
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task NullCoalescingAssignment_ComplexChain()
+        {
+            var code = """
+using System;
+
+public class C { public int? Val; }
+public class B { public C GetC() { Console.WriteLine("GetC"); return new C(); } }
+public class A { public B GetB() { Console.WriteLine("GetB"); return new B(); } }
+
+public class Program
+{
+    public static void Main()
+    {
+        var a = new A();
+        Console.WriteLine("Start");
+        // a.GetB().GetC().Val ??= 42;
+        // Side effects (GetB, GetC) should happen exactly once.
+        a.GetB().GetC().Val ??= 42;
+        Console.WriteLine("End");
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task NullCoalescingAssignment_MultiDimArray()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        int? ஒப்பு = null; // Unused
+        int?[,] arr = new int?[2, 2];
+        int i = 0, j = 0;
+
+        // arr[i++, j++] ??= 42;
+        // i becomes 1, j becomes 1. arr[0,0] becomes 42.
+
+        arr[i++, j++] ??= 42;
+
+        Console.WriteLine(i); // 1
+        Console.WriteLine(j); // 1
+        Console.WriteLine(arr[0, 0]); // 42
+        Console.WriteLine(arr[1, 1] == null); // True
     }
 }
 """;

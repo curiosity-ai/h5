@@ -156,5 +156,80 @@ public class Program
 """;
             await RunTest(code);
         }
+
+        [TestMethod]
+        public async Task PrimaryConstructors_EdgeCases()
+        {
+            var code = """
+using System;
+
+public class Base(int x)
+{
+    public int X = x;
+}
+
+public class Derived(int x, int y) : Base(x + 1)
+{
+    public int Y = y;
+    public int Z { get; } = x + y; // Uses params in initializer
+    public int W => x * y; // Uses params in expression body (capture)
+
+    public void Print()
+    {
+        Console.WriteLine($"{X}, {Y}, {Z}, {W}");
+    }
+}
+
+public struct Point(int x, int y)
+{
+    public int X = x;
+    public int Y = y;
+    public void Print() => Console.WriteLine($"Point({X}, {Y})");
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var d = new Derived(10, 20);
+        d.Print(); // Should print: 11, 20, 30, 200
+
+        var pt = new Point(5, 6);
+        pt.Print(); // Should print: Point(5, 6)
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task GenericOptionalParamsInLambdas()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        Run<MyClass>(new MyClass());
+    }
+
+    public static void Run<T>(T val) where T : class, new()
+    {
+        var f = (T x = null) => x ?? new T();
+
+        var v1 = f(); // null -> new T()
+        Console.WriteLine(v1 != null);
+
+        var v2 = f(val); // val
+        Console.WriteLine(v2 == val);
+    }
+}
+
+public class MyClass { }
+""";
+            await RunTest(code);
+        }
     }
 }

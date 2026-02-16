@@ -24,13 +24,42 @@ public class Program
 
     public static void Print(params IEnumerable<int> numbers)
     {
-        foreach (var n in numbers) Console.Write(n + " ");
-        Console.WriteLine();
+        Console.WriteLine(string.Join(" ", numbers));
     }
 }
 """;
             await RunTest(code);
         }
+
+        [TestMethod]
+        public async Task ParamsCollections2()
+        {
+            var code = """
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main()
+    {
+        PrintList(1, 2, 3);
+        PrintSpan(4, 5, 6);
+    }
+
+    static void PrintList(params List<int> list)
+    {
+        Console.WriteLine(list.Count);
+    }
+
+    static void PrintSpan(params ReadOnlySpan<int> span)
+    {
+        Console.WriteLine(span.Length);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
 
         [TestMethod]
         public async Task LockObject()

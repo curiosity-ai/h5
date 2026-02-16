@@ -103,26 +103,6 @@ public class Program
         }
 
         [TestMethod]
-        [Ignore("Not implemented yet")]
-        public async Task OptionalParamsInLambdas()
-        {
-            var code = """
-using System;
-
-public class Program
-{
-    public static void Main()
-    {
-        var f = (int x = 10) => x * 2;
-        Console.WriteLine(f()); // 20
-        Console.WriteLine(f(5)); // 10
-    }
-}
-""";
-            await RunTest(code);
-        }
-
-        [TestMethod]
         public async Task AliasAnyType()
         {
             var code = """

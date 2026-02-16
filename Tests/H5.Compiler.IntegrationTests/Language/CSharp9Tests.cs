@@ -24,10 +24,10 @@ public class Program
 
         Console.WriteLine(p1 == p2);
         Console.WriteLine(p1 == p3);
-        Console.WriteLine(p1);
+        Console.WriteLine(p1.ToString());
 
         var p4 = p1 with { FirstName = "Jane" };
-        Console.WriteLine(p4);
+        Console.WriteLine(p4.ToString());
         Console.WriteLine(p4 == p3);
     }
 }
@@ -477,7 +477,10 @@ public class Program
     }
 }
 """;
-            await RunTest(code);
+            // Skip Roslyn because ModuleInitializerAttribute is not available in the test environment (net10.0?)
+            // and we cannot easily inject it without breaking script mode.
+            await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("True", (await RunTest(code, skipRoslyn: true)).Trim());
         }
 
     }

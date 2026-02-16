@@ -559,8 +559,12 @@ namespace H5.Translator
                         var namedParam = parameters.First(p => p.Name == namedArg.Name);
                         var index = parameters.IndexOf(namedParam) - shift;
 
-                        result[index] = namedArg.Expression;
-                        names[index] = namedArg.Name;
+                        if (index >= 0 && index < result.Length)
+                        {
+                            result[index] = namedArg.Expression;
+                            names[index] = namedArg.Name;
+                        }
+
                         named = true;
 
                         if (paramsArg == null && parameters.FirstOrDefault(p => p.Name == namedArg.Name).IsParams)

@@ -284,23 +284,11 @@ namespace H5.Translator
         // from there (so this might become public/static).
         private CSharpParseOptions GetParseOptions()
         {
-            LanguageVersion languageVersion = LanguageVersion.CSharp7_2;
+            // Always parse with Latest to ensure all modern syntax is recognized by the rewriter.
+            // The rewriter's job is to lower it to C# 5 compatibility.
+            LanguageVersion languageVersion = LanguageVersion.Latest;
 
-            if (translator?.ProjectProperties?.LanguageVersion != null)
-            {
-                if (string.Equals(translator.ProjectProperties.LanguageVersion, "latest", StringComparison.OrdinalIgnoreCase))
-                {
-                    languageVersion = LanguageVersion.Latest;
-                }
-                else if (Enum.TryParse<LanguageVersion>(translator.ProjectProperties.LanguageVersion.Replace(".", ""), true, out var version))
-                {
-                    languageVersion = version;
-                }
-                else if (Enum.TryParse<LanguageVersion>("CSharp" + translator.ProjectProperties.LanguageVersion.Replace(".", "_"), true, out var version2))
-                {
-                    languageVersion = version2;
-                }
-            }
+            // if (translator?.ProjectProperties?.LanguageVersion != null) ... (Ignore configured version for parsing)
 
             return new CSharpParseOptions(languageVersion, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
         }
@@ -386,6 +374,33 @@ namespace H5.Translator
             }
 
             return null;
+        }
+
+        private bool IsNativeInt(ITypeSymbol type)
+        {
+            if (type == null) return false;
+            return type.SpecialType == SpecialType.System_IntPtr || type.SpecialType == SpecialType.System_UIntPtr ||
+                   type.Name == "IntPtr" && type.ContainingNamespace?.ToString() == "System" ||
+                   type.Name == "UIntPtr" && type.ContainingNamespace?.ToString() == "System";
+        }
+
+        private bool IsInteger(ITypeSymbol type)
+        {
+            if (type == null) return false;
+            switch (type.SpecialType)
+            {
+                case SpecialType.System_SByte:
+                case SpecialType.System_Byte:
+                case SpecialType.System_Int16:
+                case SpecialType.System_UInt16:
+                case SpecialType.System_Int32:
+                case SpecialType.System_UInt32:
+                case SpecialType.System_Int64:
+                case SpecialType.System_UInt64:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         private static bool IsExpandedForm(SemanticModel semanticModel, InvocationExpressionSyntax node, IMethodSymbol method)
@@ -566,6 +581,38 @@ namespace H5.Translator
             return node;
         }
 
+        public override SyntaxNode VisitPredefinedType(PredefinedTypeSyntax node)
+        {
+            if (node.Keyword.IsKind((SyntaxKind)8438)) // NIntKeyword
+            {
+                return SyntaxFactory.IdentifierName("System.IntPtr").WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+            if (node.Keyword.IsKind((SyntaxKind)8439)) // NUIntKeyword
+            {
+                return SyntaxFactory.IdentifierName("System.UIntPtr").WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+            return base.VisitPredefinedType(node);
+        }
+
+        public override SyntaxNode VisitAttribute(AttributeSyntax node)
+        {
+            if (node.Name is GenericNameSyntax)
+            {
+                throw new TranslatorException("Generic attributes are not supported");
+            }
+            return base.VisitAttribute(node);
+        }
+
+        public override SyntaxNode VisitLocalDeclarationStatement(LocalDeclarationStatementSyntax node)
+        {
+            if (node.Modifiers.Any((SyntaxKind)8436)) // ScopedKeyword
+            {
+                var idx = node.Modifiers.IndexOf((SyntaxKind)8436); // ScopedKeyword
+                node = node.WithModifiers(node.Modifiers.RemoveAt(idx));
+            }
+            return base.VisitLocalDeclarationStatement(node);
+        }
+
         private static Regex binaryLiteral = new Regex(@"[_Bb]", RegexOptions.Compiled);
         private bool markAsAsync;
 
@@ -582,6 +629,28 @@ namespace H5.Translator
                 return SyntaxFactory.LiteralExpression(
                     SyntaxKind.StringLiteralExpression,
                     SyntaxFactory.Literal(node.Token.ValueText));
+            }
+
+            if (node.Token.IsKind((SyntaxKind)8519)) // Utf8StringLiteralToken
+            {
+                var text = node.Token.ValueText;
+                var bytes = System.Text.Encoding.UTF8.GetBytes(text);
+                var values = bytes.Select(b => SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(b)));
+
+                var arrayType = SyntaxFactory.ArrayType(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.ByteKeyword)))
+                    .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression()))));
+
+                var arrayCreation = SyntaxFactory.ArrayCreationExpression(arrayType)
+                    .WithInitializer(SyntaxFactory.InitializerExpression(SyntaxKind.ArrayInitializerExpression, SyntaxFactory.SeparatedList<ExpressionSyntax>(values)))
+                    .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+
+                var spanType = SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ReadOnlySpan"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList<TypeSyntax>(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.ByteKeyword)))));
+
+                var spanCreation = SyntaxFactory.ObjectCreationExpression(spanType)
+                    .WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(arrayCreation))))
+                    .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+
+                return spanCreation.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
             }
 
             var spanStart = node.SpanStart;
@@ -788,6 +857,24 @@ namespace H5.Translator
                 if (local != null && local.Declaration.Variables.Any(v => v.Identifier.ValueText == name))
                 {
                     hasChainingAssigment = true;
+                }
+            }
+
+            if (node.Kind() == SyntaxKind.SimpleAssignmentExpression)
+            {
+                var leftType = semanticModel.GetTypeInfo(node.Left).Type;
+                if (IsNativeInt(leftType))
+                {
+                    var rightType = semanticModel.GetTypeInfo(node.Right).Type;
+                    if (IsInteger(rightType))
+                    {
+                        var right = (ExpressionSyntax)Visit(node.Right);
+                        var cast = SyntaxFactory.CastExpression(
+                            SyntaxHelper.GenerateTypeSyntax(leftType, semanticModel, node.SpanStart, this),
+                            right
+                        );
+                        node = node.WithRight(cast.NormalizeWhitespace());
+                    }
                 }
             }
 
@@ -1251,6 +1338,12 @@ namespace H5.Translator
         public override SyntaxNode VisitParameter(ParameterSyntax node)
         {
             node = (ParameterSyntax)base.VisitParameter(node);
+
+            var scopedIdx = node.Modifiers.IndexOf((SyntaxKind)8436); // ScopedKeyword
+            if (scopedIdx > -1)
+            {
+                node = node.WithModifiers(node.Modifiers.RemoveAt(scopedIdx));
+            }
 
             var idx = node.Modifiers.IndexOf(SyntaxKind.InKeyword);
             if (idx > -1)
@@ -1864,8 +1957,39 @@ namespace H5.Translator
                 return base.VisitEqualsValueClause(node);
             }
 
+            ITypeSymbol targetType = null;
+            if (node.Parent is VariableDeclaratorSyntax vd)
+            {
+                var symbol = semanticModel.GetDeclaredSymbol(vd);
+                if (symbol is ILocalSymbol local) targetType = local.Type;
+                else if (symbol is IFieldSymbol field) targetType = field.Type;
+            }
+            else if (node.Parent is PropertyDeclarationSyntax pd)
+            {
+                var symbol = semanticModel.GetDeclaredSymbol(pd);
+                if (symbol is IPropertySymbol prop) targetType = prop.Type;
+            }
+            else if (node.Parent is ParameterSyntax param)
+            {
+                var symbol = semanticModel.GetDeclaredSymbol(param);
+                if (symbol is IParameterSymbol p) targetType = p.Type;
+            }
+
             var value = semanticModel.GetConstantValue(node.Value);
             var newNode = base.VisitEqualsValueClause(node);
+
+            if (IsNativeInt(targetType))
+            {
+                var valueType = semanticModel.GetTypeInfo(node.Value).Type;
+                if (IsInteger(valueType) && newNode is EqualsValueClauseSyntax evc2)
+                {
+                    var cast = SyntaxFactory.CastExpression(
+                        SyntaxHelper.GenerateTypeSyntax(targetType, semanticModel, node.SpanStart, this),
+                        evc2.Value
+                    );
+                    newNode = evc2.WithValue(cast.NormalizeWhitespace());
+                }
+            }
 
             if (value.HasValue && value.Value != null && newNode is EqualsValueClauseSyntax evc && !(node.Value is CastExpressionSyntax) && !(node.Value is LiteralExpressionSyntax))
             {
@@ -2174,6 +2298,11 @@ namespace H5.Translator
             node = (PropertyDeclarationSyntax)base.VisitPropertyDeclaration(node);
             var newNode = node;
 
+            if (newNode.Modifiers.IndexOf((SyntaxKind)8435) > -1) // RequiredKeyword
+            {
+                newNode = newNode.WithModifiers(newNode.Modifiers.RemoveAt(newNode.Modifiers.IndexOf((SyntaxKind)8435)));
+            }
+
             if (newNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1)
             {
                 newNode = newNode.WithModifiers(newNode.Modifiers.RemoveAt(newNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
@@ -2251,6 +2380,11 @@ namespace H5.Translator
         {
             node = base.VisitEnumDeclaration(node) as EnumDeclarationSyntax;
 
+            if (node.Modifiers.IndexOf((SyntaxKind)8440) > -1) // FileKeyword
+            {
+                throw new TranslatorException("File-local types are not supported");
+            }
+
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 node = node.WithModifiers(node.Modifiers.Replace(node.Modifiers[node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2263,6 +2397,16 @@ namespace H5.Translator
 
         public override SyntaxNode VisitFieldDeclaration(FieldDeclarationSyntax node)
         {
+            if (node.Declaration.Type is RefTypeSyntax)
+            {
+                throw new TranslatorException("Ref fields are not supported");
+            }
+
+            if (node.Modifiers.IndexOf((SyntaxKind)8435) > -1) // RequiredKeyword
+            {
+                node = node.WithModifiers(node.Modifiers.RemoveAt(node.Modifiers.IndexOf((SyntaxKind)8435)));
+            }
+
             node = base.VisitFieldDeclaration(node) as FieldDeclarationSyntax;
 
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
@@ -2307,6 +2451,11 @@ namespace H5.Translator
         {
             node = base.VisitDelegateDeclaration(node) as DelegateDeclarationSyntax;
 
+            if (node.Modifiers.IndexOf((SyntaxKind)8440) > -1) // FileKeyword
+            {
+                throw new TranslatorException("File-local types are not supported");
+            }
+
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 node = node.WithModifiers(node.Modifiers.Replace(node.Modifiers[node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2350,6 +2499,11 @@ namespace H5.Translator
                 c = c.WithModifiers(c.Modifiers.RemoveAt(c.Modifiers.IndexOf(SyntaxKind.RefKeyword)));
             }
 
+            if (c.Modifiers.IndexOf((SyntaxKind)8440) > -1) // FileKeyword
+            {
+                throw new TranslatorException("File-local types are not supported");
+            }
+
             if (c.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && c.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 c = c.WithModifiers(c.Modifiers.Replace(c.Modifiers[c.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2385,6 +2539,11 @@ namespace H5.Translator
                 c = c.WithMembers(SyntaxFactory.List(list));
             }
 
+            if (c.Modifiers.IndexOf((SyntaxKind)8440) > -1) // FileKeyword
+            {
+                c = c.WithModifiers(c.Modifiers.RemoveAt(c.Modifiers.IndexOf((SyntaxKind)8440)));
+            }
+
             if (c.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && c.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 c = c.WithModifiers(c.Modifiers.Replace(c.Modifiers[c.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2405,6 +2564,11 @@ namespace H5.Translator
             node = base.VisitInterfaceDeclaration(node) as InterfaceDeclarationSyntax;
             currentType.Pop();
 
+            if (node.Modifiers.IndexOf((SyntaxKind)8440) > -1) // FileKeyword
+            {
+                throw new TranslatorException("File-local types are not supported");
+            }
+
             if (node.Modifiers.IndexOf(SyntaxKind.PrivateKeyword) > -1 && node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword) > -1)
             {
                 node = node.WithModifiers(node.Modifiers.Replace(node.Modifiers[node.Modifiers.IndexOf(SyntaxKind.ProtectedKeyword)], SyntaxFactory.Token(SyntaxKind.InternalKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" "))));
@@ -2417,6 +2581,11 @@ namespace H5.Translator
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
+            if (node.Modifiers.Any(SyntaxKind.StaticKeyword) && node.Modifiers.Any(SyntaxKind.AbstractKeyword) && node.Parent is InterfaceDeclarationSyntax)
+            {
+                throw new TranslatorException("Static abstract members in interfaces are not supported");
+            }
+
             var oldMarkAsAsync = markAsAsync;
             markAsAsync = false;
 

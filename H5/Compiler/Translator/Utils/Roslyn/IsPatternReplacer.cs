@@ -477,6 +477,26 @@ namespace H5.Translator
                     return SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, expression, constPattern.Expression);
                 }
 
+                if (expressionType is INamedTypeSymbol namedType &&
+                    (namedType.Name == "ReadOnlySpan" || namedType.Name == "Span") &&
+                    namedType.ContainingNamespace?.ToDisplayString() == "System" &&
+                    namedType.TypeArguments.Length == 1 &&
+                    namedType.TypeArguments[0].SpecialType == SpecialType.System_Char)
+                {
+                    return SyntaxFactory.InvocationExpression(
+                        SyntaxFactory.MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            SyntaxFactory.ParseName("global::H5.Script"),
+                            SyntaxFactory.GenericName("Write").AddTypeArgumentListArguments(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword)))
+                        ),
+                        SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                            SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal("H5.equals({0}, {1})"))),
+                            SyntaxFactory.Argument(expression),
+                            SyntaxFactory.Argument(constPattern.Expression)
+                        }))
+                    );
+                }
+
                 return SyntaxFactory.InvocationExpression(
                     SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, expression, SyntaxFactory.IdentifierName("Equals")),
                     SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(constPattern.Expression)))

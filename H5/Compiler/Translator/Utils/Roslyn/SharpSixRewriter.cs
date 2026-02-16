@@ -284,7 +284,7 @@ namespace H5.Translator
         // from there (so this might become public/static).
         private CSharpParseOptions GetParseOptions()
         {
-            LanguageVersion languageVersion = LanguageVersion.CSharp7_2;
+            LanguageVersion languageVersion = LanguageVersion.Latest;
 
             if (translator?.ProjectProperties?.LanguageVersion != null)
             {
@@ -349,7 +349,9 @@ namespace H5.Translator
             {
                 using (var rdr = new StreamReader(path))
                 {
-                    return SyntaxFactory.ParseSyntaxTree(rdr.ReadToEnd(), options, path);
+                    var text = rdr.ReadToEnd();
+                    text = Regex.Replace(text, @"([\(\,]\s*)ref\s+readonly\s+", "$1in ");
+                    return SyntaxFactory.ParseSyntaxTree(text, options, path);
                 }
             }
             catch (IOException ex)

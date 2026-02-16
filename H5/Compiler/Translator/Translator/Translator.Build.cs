@@ -28,6 +28,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.CodeAnalysis.Emit;
+using System.Text.RegularExpressions;
 
 namespace H5.Translator
 {
@@ -147,7 +148,9 @@ namespace H5.Translator
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     var filePath   = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
-                    var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(languageVersion, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
+                    var text = File.ReadAllText(filePath);
+                    text = Regex.Replace(text, @"([\(\,]\s*)ref\s+readonly\s+", "$1in ");
+                    var syntaxTree = SyntaxFactory.ParseSyntaxTree(text, new CSharpParseOptions(languageVersion, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
 
                     if (syntaxTree.GetRoot().DescendantNodes().OfType<GlobalStatementSyntax>().Any())
                     {

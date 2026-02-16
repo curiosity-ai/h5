@@ -950,6 +950,181 @@ namespace H5.Translator
             return invocation;
         }
 
+        public override SyntaxNode VisitCollectionExpression(CollectionExpressionSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitCollectionExpression(node);
+            }
+
+            var typeInfo = semanticModel.GetTypeInfo(node);
+            var targetType = typeInfo.ConvertedType;
+
+            if (targetType == null || targetType.TypeKind == TypeKind.Error)
+            {
+                return base.VisitCollectionExpression(node);
+            }
+
+            var elementType = GetCollectionElementType(targetType);
+            if (elementType == null)
+            {
+                return base.VisitCollectionExpression(node);
+            }
+
+            var elementTypeSyntax = SyntaxHelper.GenerateTypeSyntax(elementType, semanticModel, node.SpanStart, this);
+
+            bool hasSpread = node.Elements.Any(e => e is SpreadElementSyntax);
+
+            if (!hasSpread)
+            {
+                var expressions = new List<ExpressionSyntax>();
+                foreach (var e in node.Elements)
+                {
+                    if (e is ExpressionElementSyntax exprElement)
+                    {
+                        expressions.Add((ExpressionSyntax)Visit(exprElement.Expression));
+                    }
+                }
+
+                if (targetType.TypeKind == TypeKind.Array ||
+                    (targetType.Name == "Span" || targetType.Name == "ReadOnlySpan"))
+                {
+                    var arrayType = SyntaxFactory.ArrayType(elementTypeSyntax)
+                        .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression()))));
+
+                    var arrayCreation = SyntaxFactory.ArrayCreationExpression(arrayType)
+                        .WithInitializer(SyntaxFactory.InitializerExpression(SyntaxKind.ArrayInitializerExpression, SyntaxFactory.SeparatedList(expressions)))
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+
+                    return Visit(arrayCreation.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia()));
+                }
+                else
+                {
+                    TypeSyntax targetTypeSyntax = SyntaxHelper.GenerateTypeSyntax(targetType, semanticModel, node.SpanStart, this);
+
+                    if (targetType.TypeKind == TypeKind.Interface && targetType is INamedTypeSymbol namedTarget && namedTarget.IsGenericType)
+                    {
+                         var ns = namedTarget.ContainingNamespace?.ToDisplayString();
+                         if (ns == "System.Collections.Generic" &&
+                            (namedTarget.Name == "IEnumerable" ||
+                             namedTarget.Name == "ICollection" ||
+                             namedTarget.Name == "IList" ||
+                             namedTarget.Name == "IReadOnlyCollection" ||
+                             namedTarget.Name == "IReadOnlyList"))
+                         {
+                              targetTypeSyntax = SyntaxFactory.QualifiedName(
+                                  SyntaxFactory.ParseName("global::System.Collections.Generic"),
+                                  SyntaxFactory.GenericName("List").WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(elementTypeSyntax))));
+                         }
+                    }
+
+                    var arrayType = SyntaxFactory.ArrayType(elementTypeSyntax)
+                        .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression()))));
+
+                    var arrayCreation = SyntaxFactory.ArrayCreationExpression(arrayType)
+                        .WithInitializer(SyntaxFactory.InitializerExpression(SyntaxKind.ArrayInitializerExpression, SyntaxFactory.SeparatedList(expressions)))
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+
+                    var objectCreation = SyntaxFactory.ObjectCreationExpression(targetTypeSyntax)
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                        .WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(arrayCreation))));
+
+                    return Visit(objectCreation.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia()));
+                }
+            }
+            else
+            {
+                ExpressionSyntax concatChain = null;
+
+                ExpressionSyntax WrapInArray(ExpressionSyntax expr)
+                {
+                    var arrayType = SyntaxFactory.ArrayType(elementTypeSyntax)
+                        .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.OmittedArraySizeExpression()))));
+
+                    return SyntaxFactory.ArrayCreationExpression(arrayType)
+                        .WithInitializer(SyntaxFactory.InitializerExpression(SyntaxKind.ArrayInitializerExpression, SyntaxFactory.SingletonSeparatedList(expr)))
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+                }
+
+                foreach (var element in node.Elements)
+                {
+                    ExpressionSyntax part = null;
+                    if (element is SpreadElementSyntax spread)
+                    {
+                        part = (ExpressionSyntax)Visit(spread.Expression);
+                    }
+                    else if (element is ExpressionElementSyntax exprElement)
+                    {
+                        part = WrapInArray((ExpressionSyntax)Visit(exprElement.Expression));
+                    }
+
+                    if (concatChain == null)
+                    {
+                        concatChain = part;
+                    }
+                    else
+                    {
+                        var concatMethod = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                           SyntaxFactory.ParseName("global::System.Linq.Enumerable"),
+                           SyntaxFactory.GenericName("Concat")
+                               .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(elementTypeSyntax))));
+
+                        concatChain = SyntaxFactory.InvocationExpression(concatMethod,
+                           SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[] {
+                               SyntaxFactory.Argument(concatChain),
+                               SyntaxFactory.Argument(part)
+                           })));
+                    }
+                }
+
+                if (concatChain == null)
+                {
+                    var arrayType = SyntaxFactory.ArrayType(elementTypeSyntax)
+                        .WithRankSpecifiers(SyntaxFactory.SingletonList(SyntaxFactory.ArrayRankSpecifier(SyntaxFactory.SingletonSeparatedList<ExpressionSyntax>(SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(0))))));
+                    concatChain = SyntaxFactory.ArrayCreationExpression(arrayType).WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space));
+                }
+
+                if (targetType.TypeKind == TypeKind.Array ||
+                    (targetType.Name == "Span" || targetType.Name == "ReadOnlySpan"))
+                {
+                    var toArrayMethod = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
+                       SyntaxFactory.ParseName("global::System.Linq.Enumerable"),
+                       SyntaxFactory.GenericName("ToArray")
+                           .WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(elementTypeSyntax))));
+
+                    return Visit(SyntaxFactory.InvocationExpression(toArrayMethod,
+                       SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(concatChain))))
+                       .WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia()));
+                }
+                else
+                {
+                    TypeSyntax targetTypeSyntax = SyntaxHelper.GenerateTypeSyntax(targetType, semanticModel, node.SpanStart, this);
+
+                    if (targetType.TypeKind == TypeKind.Interface && targetType is INamedTypeSymbol namedTarget && namedTarget.IsGenericType)
+                    {
+                         var ns = namedTarget.ContainingNamespace?.ToDisplayString();
+                         if (ns == "System.Collections.Generic" &&
+                            (namedTarget.Name == "IEnumerable" ||
+                             namedTarget.Name == "ICollection" ||
+                             namedTarget.Name == "IList" ||
+                             namedTarget.Name == "IReadOnlyCollection" ||
+                             namedTarget.Name == "IReadOnlyList"))
+                         {
+                              targetTypeSyntax = SyntaxFactory.QualifiedName(
+                                  SyntaxFactory.ParseName("global::System.Collections.Generic"),
+                                  SyntaxFactory.GenericName("List").WithTypeArgumentList(SyntaxFactory.TypeArgumentList(SyntaxFactory.SingletonSeparatedList(elementTypeSyntax))));
+                         }
+                    }
+
+                    var objectCreation = SyntaxFactory.ObjectCreationExpression(targetTypeSyntax)
+                        .WithNewKeyword(SyntaxFactory.Token(SyntaxKind.NewKeyword).WithTrailingTrivia(SyntaxFactory.Space))
+                        .WithArgumentList(SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(concatChain))));
+
+                    return Visit(objectCreation.WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia()));
+                }
+            }
+        }
+
         public override SyntaxNode VisitSwitchExpression(SwitchExpressionSyntax node)
         {
             if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)

@@ -399,6 +399,11 @@ namespace H5.Translator
                         throw new TranslatorException("Unmanaged constraint is not supported");
                     }
 
+                    if (d.Id == "CS0227")
+                    {
+                        throw new TranslatorException("Unsafe code is not supported");
+                    }
+
                     var filePath = d.Location?.SourceTree?.FilePath ?? "";
 
                     if (filePath.StartsWith(baseDir))

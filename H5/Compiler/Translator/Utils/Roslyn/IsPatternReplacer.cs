@@ -340,8 +340,36 @@ namespace H5.Translator
                 {
                     foreach (var sub in recursivePattern.PropertyPatternClause.Subpatterns)
                     {
-                        var propAccess = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, typedExpression, sub.NameColon.Name);
-                        var subCheck = MakeCheck(propAccess, sub.Pattern, model);
+                        ExpressionSyntax currentExpr = typedExpression;
+                        var chain = new List<SimpleNameSyntax>();
+
+                        if (sub.ExpressionColon != null)
+                        {
+                            var e = sub.ExpressionColon.Expression;
+                            while (e is MemberAccessExpressionSyntax ma)
+                            {
+                                chain.Insert(0, ma.Name);
+                                e = ma.Expression;
+                            }
+                            if (e is SimpleNameSyntax sn) chain.Insert(0, sn);
+                        }
+                        else
+                        {
+                            chain.Add(sub.NameColon.Name);
+                        }
+
+                        foreach (var propName in chain)
+                        {
+                            currentExpr = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, currentExpr, propName);
+
+                            if (propName != chain.Last())
+                            {
+                                var nullCheck = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, currentExpr, SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+                                condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, nullCheck);
+                            }
+                        }
+
+                        var subCheck = MakeCheck(currentExpr, sub.Pattern, model);
                         condition = SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression, condition, subCheck);
                     }
                 }

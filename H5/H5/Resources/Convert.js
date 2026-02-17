@@ -713,6 +713,106 @@
             return bytes;
         },
 
+
+        toHexString: function (byteArray) {
+            if (byteArray == null) {
+                throw new System.ArgumentNullException.$ctor1("byteArray");
+            }
+
+            return scope.convert.toHexStringRange(byteArray, 0, byteArray.length);
+        },
+
+        toHexStringRange: function (byteArray, offset, length) {
+            if (byteArray == null) {
+                throw new System.ArgumentNullException.$ctor1("byteArray");
+            }
+
+            if (offset < 0) {
+                throw new System.ArgumentOutOfRangeException.$ctor4("offset", "Value must be positive.");
+            }
+
+            if (length < 0) {
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Value must be positive.");
+            }
+
+            if (offset > byteArray.length - length) {
+                throw new System.ArgumentOutOfRangeException.$ctor4("length+offset",
+                    "Offset and length were out of bounds for the array"
+                );
+            }
+
+            if (length === 0) {
+                return "";
+            }
+
+            let hex = "";
+            for (let i = offset; i < offset + length; i++) {
+                hex += byteArray[i].toString(16).padStart(2, "0").toUpperCase();
+            }
+
+            return hex;
+        },
+
+        fromHexString: function (s) {
+            if (s == null) {
+                throw new System.ArgumentNullException.$ctor1("s");
+            }
+
+            if (s.length % 2 !== 0) {
+                throw new System.ArgumentOutOfRangeException.$ctor4("s", "The input string must have an even number of hex characters.");
+            }
+
+            const bytes = new Uint8Array(s.length / 2);
+
+            for (let i = 0; i < bytes.length; i++) {
+                const hex = s.substring(i * 2, i * 2 + 2);
+
+                try {
+                    bytes[i] = scope.convert.parseHexByte(hex);
+                } catch (err) {
+                    throw new System.ArgumentException.$ctor1("The string contains invalid hex characters.");
+                }
+            }
+
+            return bytes;
+        },
+
+        parseHexByte: function (input) {
+            if (input == null) {
+                throw new System.ArgumentNullException.$ctor1("input");
+            }
+
+            if (input.length === 0) {
+                throw new System.ArgumentException.$ctor1("Input string was not in a correct format.");
+            }
+
+            let result = 0;
+
+            for (let i = 0; i < input.length; i++) {
+                const c = input[i];
+                let value;
+
+                if (c >= "0" && c <= "9") {
+                    value = c.charCodeAt(0) - "0".charCodeAt(0);
+                } else if (c >= "A" && c <= "F") {
+                    value = c.charCodeAt(0) - "A".charCodeAt(0) + 10;
+                } else if (c >= "a" && c <= "f") {
+                    value = c.charCodeAt(0) - "a".charCodeAt(0) + 10;
+                } else {
+                    throw new System.ArgumentException.$ctor1("Input string was not in a correct format.");
+                }
+
+                result = (result << 4) | value;
+
+                if (result > 255) {
+                    throw new System.ArgumentOutOfRangeException.$ctor4("result", "Value was either too large or too small for a byte.");
+                }
+            }
+
+            return result;
+        },
+
+
         getTypeCode: function (t) {
             if (t == null) {
                 return System.TypeCode.Object;

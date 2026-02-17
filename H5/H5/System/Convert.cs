@@ -3,7 +3,7 @@
 namespace System
 {
     [H5.Convention(Member = H5.ConventionMember.Field | H5.ConventionMember.Method, Notation = H5.Notation.CamelCase)]
-    [H5.Reflectable]
+    [H5.External]
     public static class Convert
     {
         #region ToBoolean
@@ -567,120 +567,18 @@ namespace System
 
         #region ToHexString
 
-        public static string ToHexString(byte[] inArray)
-        {
-            if (inArray == null)
-            {
-                throw new ArgumentNullException(nameof(inArray));
-            }
+        [H5.Template("System.Convert.toHexString({inArray})")]
+        public static extern string ToHexString(byte[] inArray);
 
-            return ToHexString(inArray, 0, inArray.Length);
-        }
-
-        public static string ToHexString(byte[] inArray, int offset, int length)
-        {
-            if (inArray == null)
-            {
-                throw new ArgumentNullException(nameof(inArray));
-            }
-
-            if (offset < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
-
-            if (length < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(length));
-            }
-
-            if (offset > inArray.Length - length)
-            {
-                throw new ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
-            }
-
-            if (length == 0)
-            {
-                return string.Empty;
-            }
-
-            // BitConverter.ToString returns hyphenated hex. Remove hyphens.
-            return BitConverter.ToString(inArray, offset, length).Replace("-", "");
-        }
+        [H5.Template("System.Convert.toHexStringRange({inArray}, {offset}, {length})")]
+        public static extern string ToHexString(byte[] inArray, int offset, int length);
 
         #endregion ToHexString
 
         #region FromHexString
 
-        public static byte[] FromHexString(string s)
-        {
-            if (s == null)
-            {
-                throw new ArgumentNullException(nameof(s));
-            }
-
-            if (s.Length % 2 != 0)
-            {
-                throw new FormatException("The input string must have an even number of hex characters.");
-            }
-
-            byte[] bytes = new byte[s.Length / 2];
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                string hex = s.Substring(i * 2, 2);
-                try
-                {
-                    bytes[i] = ParseHexByte(hex);
-                }
-                catch (FormatException)
-                {
-                    throw new FormatException("The string contains invalid hex characters.");
-                }
-            }
-
-            return bytes;
-        }
-
-        private static byte ParseHexByte(string input)
-        {
-            if (input == null)
-                throw new ArgumentNullException(nameof(input));
-
-            if (input.Length == 0)
-                throw new FormatException("Input string was not in a correct format.");
-
-            int result = 0;
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                char c = input[i];
-                int value;
-
-                if (c >= '0' && c <= '9')
-                {
-                    value = c - '0';
-                }
-                else if (c >= 'A' && c <= 'F')
-                {
-                    value = c - 'A' + 10;
-                }
-                else if (c >= 'a' && c <= 'f')
-                {
-                    value = c - 'a' + 10;
-                }
-                else
-                {
-                    throw new FormatException("Input string was not in a correct format.");
-                }
-
-                result = (result << 4) | value;
-
-                if (result > byte.MaxValue)
-                    throw new OverflowException("Value was either too large or too small for a byte.");
-            }
-
-            return (byte)result;
-        }
+        [H5.Template("System.Convert.fromHexString({s})")]
+        public static extern byte[] FromHexString(string s);
 
         #endregion FromHexString
 

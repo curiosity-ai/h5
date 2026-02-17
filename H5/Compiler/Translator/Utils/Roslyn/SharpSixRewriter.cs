@@ -2752,7 +2752,10 @@ namespace H5.Translator
 
                     if (symbol is IMethodSymbol ms && ms.IsGenericMethod && ms.TypeArguments.Length > 0 && !ms.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                     {
-                        return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, nodeSpanStart, false), node.GetTrailingTrivia()), ms.TypeArguments, semanticModel, nodeSpanStart, this);
+                        var typeSyntax = SyntaxHelper.GenerateTypeSyntax(symbol.ContainingType, semanticModel, nodeSpanStart, this);
+                        var genericName = SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), ms.Name, node.GetTrailingTrivia()), ms.TypeArguments, semanticModel, nodeSpanStart, this);
+
+                        return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, typeSyntax, genericName);
                     }
 
                     return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, nodeSpanStart), node.GetTrailingTrivia()));

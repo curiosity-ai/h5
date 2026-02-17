@@ -1,3 +1,4 @@
+using H5.Contract;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
@@ -12,7 +13,7 @@ namespace H5.Compiler.IntegrationTests
         {
         }
 
-        protected async Task<string> RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false, string overrideRoslynCode = null, bool includeCorePackages = false, [System.Runtime.CompilerServices.CallerMemberName] string membName = "", [System.Runtime.CompilerServices.CallerFilePath] string filePath = "")
+        protected async Task<string> RunTest(string csharpCode, string? waitForOutput = null, bool skipRoslyn = false, string overrideRoslynCode = null, bool includeCorePackages = false, ModuleLoaderType loaderType = ModuleLoaderType.Global, [System.Runtime.CompilerServices.CallerMemberName] string membName = "", [System.Runtime.CompilerServices.CallerFilePath] string filePath = "")
         {
             string roslynOutput = "";
 
@@ -31,10 +32,65 @@ namespace H5.Compiler.IntegrationTests
             string h5Js = "";
             try
             {
-                h5Js = await H5Compiler.CompileToJs(csharpCode, includeCorePackages);
+                h5Js = await H5Compiler.CompileToJs(csharpCode, includeCorePackages, loaderType);
+
+                string mocks = "";
+                if (loaderType == ModuleLoaderType.AMD)
+                {
+                    mocks = @"
+var definedModules = {};
+function define(name, deps, factory) {
+    if (typeof name !== 'string') { factory = deps; deps = name; name = null; }
+    if (!Array.isArray(deps)) { factory = deps; deps = []; }
+    var args = [];
+    deps.forEach(function(d) {
+        if (d === 'my-lib') {
+             args.push({ DoWork: function() { console.log('MyLib.DoWork'); } });
+        } else {
+             args.push({});
+        }
+    });
+    if (factory) factory.apply(null, args);
+}
+define.amd = {};
+window.require = define;
+";
+                }
+                else if (loaderType == ModuleLoaderType.CommonJS)
+                {
+                    mocks = @"
+window.require = function(name) {
+    if (name === 'my-lib') {
+        return { DoWork: function() { console.log('MyLib.DoWork'); } };
+    }
+    console.log('require unknown: ' + name);
+    return {};
+};
+window.module = { exports: {} };
+window.global = window;
+";
+                }
+                else
+                {
+                    // Global loader
+                    mocks = @"
+window.MyLib = { DoWork: function() { console.log('MyLib.DoWork'); } };
+";
+                }
 
                 var appJsMarker = "// File: App.js";
                 var index = h5Js.IndexOf(appJsMarker);
+                if (index >= 0)
+                {
+                    h5Js = h5Js.Insert(index, mocks);
+                }
+                else
+                {
+                    h5Js = mocks + h5Js;
+                }
+
+                // Recalculate index after insertion
+                index = h5Js.IndexOf(appJsMarker);
                 if (index >= 0)
                 {
                     var extractedJs = h5Js.Substring(index);

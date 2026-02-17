@@ -330,6 +330,14 @@ namespace H5.Translator
             else
             {
                 output = new EmitterOutput(fileName) { IsMetadata = isMeta };
+                if (Emitter.AssemblyInfo.Dependencies.Count > 0)
+                {
+                    if (output.NonModuleDependencies == null)
+                    {
+                        output.NonModuleDependencies = new List<IModuleDependency>();
+                    }
+                    output.NonModuleDependencies.AddRange(Emitter.AssemblyInfo.Dependencies);
+                }
                 Emitter.Outputs.Add(fileName, output);
             }
 
@@ -342,6 +350,12 @@ namespace H5.Translator
                     output.NonModuleDependencies = new List<IModuleDependency>();
                 }
                 Emitter.CurrentDependencies = output.NonModuleDependencies;
+
+                if (typeInfo != null && typeInfo.Dependencies.Count > 0)
+                {
+                    output.NonModuleDependencies.AddRange(typeInfo.Dependencies);
+                }
+
                 return output.NonModuletOutput;
             }
 

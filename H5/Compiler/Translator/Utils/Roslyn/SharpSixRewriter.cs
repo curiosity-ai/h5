@@ -2348,6 +2348,21 @@ namespace H5.Translator
                         {
                             var target = ma.Expression;
                             var clsName = method.ContainingType.GetFullyQualifiedNameAndValidate(semanticModel, spanStart);
+
+                            if (method.IsGenericMethod && method.TypeArguments.Length == 1 && method.Parameters.Length > 0 && SymbolEqualityComparer.Default.Equals(method.Parameters[0].Type, method.TypeArguments[0]))
+                            {
+                                var targetExpression = (node.Expression as MemberAccessExpressionSyntax)?.Expression;
+                                if (targetExpression != null)
+                                {
+                                    var targetType = semanticModel.GetTypeInfo(targetExpression).Type;
+                                    if (targetType != null && targetType.Kind != SymbolKind.ErrorType && !SymbolEqualityComparer.Default.Equals(targetType, method.TypeArguments[0]))
+                                    {
+                                        genericName = SyntaxHelper.GenerateGenericName(name.Identifier, new[] { targetType }, semanticModel, pos, this);
+                                        genericName = genericName.WithLeadingTrivia(name.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(name.GetTrailingTrivia().ExcludeDirectivies());
+                                    }
+                                }
+                            }
+
                             ma = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName(clsName), genericName);
                             node = node.WithArgumentList(node.ArgumentList.WithArguments(node.ArgumentList.Arguments.Insert(0, SyntaxFactory.Argument(target))));
                         }

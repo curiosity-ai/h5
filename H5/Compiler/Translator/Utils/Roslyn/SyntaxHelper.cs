@@ -307,7 +307,7 @@ namespace H5.Translator
                 return GenerateGenericName(name, genericArguments, model, pos);
             }
 
-            return SyntaxFactory.ParseTypeName(name);
+            return FixAliasQualifiedName(SyntaxFactory.ParseTypeName(name));
         }
 
         public static TypeSyntax GenerateTypeSyntax(ITypeSymbol type)
@@ -348,6 +348,8 @@ namespace H5.Translator
                 var openName = type.ToDisplayString(format);
                 var openTypeSyntax = SyntaxFactory.ParseTypeName(openName);
 
+                openTypeSyntax = FixAliasQualifiedName(openTypeSyntax);
+
                 if (openTypeSyntax is QualifiedNameSyntax qns)
                 {
                     var right = qns.Right;
@@ -373,7 +375,7 @@ namespace H5.Translator
 
             var displayFormat = SymbolDisplayFormat.FullyQualifiedFormat
                 .WithMiscellaneousOptions(SymbolDisplayFormat.FullyQualifiedFormat.MiscellaneousOptions & ~SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier);
-            return SyntaxFactory.ParseTypeName(type.ToDisplayString(displayFormat)).WithoutTrivia();
+            return FixAliasQualifiedName(SyntaxFactory.ParseTypeName(type.ToDisplayString(displayFormat)).WithoutTrivia());
         }
 
         public static TypeSyntax GenerateTypeSyntax(ITypeSymbol type, SemanticModel model, int pos, SharpSixRewriter rewriter)

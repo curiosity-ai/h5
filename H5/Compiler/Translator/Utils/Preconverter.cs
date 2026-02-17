@@ -492,7 +492,7 @@ namespace H5.Translator
                                 return base.VisitInvocationExpression(invocationExpression);
                             }
 
-                            result[i - 1] = orig[map[i] - 1];
+                            result[i - 1] = (Expression)orig[map[i] - 1].Clone();
                         }
                     }
                     else
@@ -509,7 +509,7 @@ namespace H5.Translator
                                 return base.VisitInvocationExpression(invocationExpression);
                             }
 
-                            result[i] = orig[map[i]];
+                            result[i] =  (Expression)orig[map[i]].Clone();
                         }
                     }
 

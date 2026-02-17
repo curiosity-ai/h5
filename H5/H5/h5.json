@@ -206,7 +206,6 @@
             "Resources/Text/RegularExpressions/RegexEngineParser.js",
 
             "Resources/.generated/System/BitConverter.js",
-            "Resources/.generated/System/Convert.js",
 
             "Resources/.generated/System/Collections/BitArray.js",
             "Resources/.generated/System/Collections/BitArray/BitArrayEnumeratorSimple.js",

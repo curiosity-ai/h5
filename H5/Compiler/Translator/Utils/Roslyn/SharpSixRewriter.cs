@@ -928,6 +928,8 @@ namespace H5.Translator
             for (int i = 0; i < statements.Count; i++)
             {
                 var stmt = statements[i];
+                var fs = stmt.ToFullString();
+
                 var visitedStmt = Visit(stmt) as StatementSyntax;
 
                 if (visitedStmt == null)
@@ -2743,13 +2745,20 @@ namespace H5.Translator
                 var aliasSymbol = semanticModel.GetAliasInfo(node);
                 var target = aliasSymbol.Target;
 
-                if (target is INamespaceSymbol ns)
+                if (target.CanBeReferencedByName)
                 {
-                    return SyntaxFactory.ParseName(ns.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                    if (target is INamespaceSymbol ns)
+                    {
+                        return SyntaxFactory.ParseName(ns.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                    }
+                    else if (target is ITypeSymbol ts)
+                    {
+                        return SyntaxHelper.GenerateTypeSyntax(ts, semanticModel, node.SpanStart, this).WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                    }
                 }
-                else if (target is ITypeSymbol ts)
+                else
                 {
-                    return SyntaxHelper.GenerateTypeSyntax(ts, semanticModel, node.SpanStart, this).WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+                    //Happens for global:: aliases, don't replace otherwise we'll end up with a "::" node
                 }
             }
 

@@ -476,17 +476,12 @@ namespace H5.Translator
 
             result = FixAliasQualifiedName(result);
 
-            if (result.ToString().StartsWith("::"))
-            {
-                result = SyntaxFactory.ParseTypeName(CS.NS.GLOBAL + result.ToString().Substring(2));
-            }
-
             return result;
         }
 
         private static TypeSyntax FixAliasQualifiedName(TypeSyntax node)
         {
-            if (node is AliasQualifiedNameSyntax aq && aq.Alias.IsMissing)
+            if (node is AliasQualifiedNameSyntax aq && (aq.Alias.IsMissing || aq.Alias.Identifier.IsMissing))
             {
                 return aq.WithAlias(SyntaxFactory.IdentifierName(SyntaxFactory.Token(SyntaxKind.GlobalKeyword)));
             }

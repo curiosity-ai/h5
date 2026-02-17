@@ -1,5 +1,6 @@
 using H5.Compiler;
 using H5.Compiler.Hosted;
+using H5.Contract;
 using H5.Translator;
 using NuGet.Versioning;
 using System;
@@ -192,7 +193,7 @@ namespace H5.Compiler.IntegrationTests
             catch { /* Ignore */ }
         }
 
-        public static async Task<string> CompileToJs(string csharpCode, bool includeCorePackages)
+        public static async Task<string> CompileToJs(string csharpCode, bool includeCorePackages, ModuleLoaderType loaderType = ModuleLoaderType.Global)
         {
             var latestVersion = await GetLatestVersionAsync();
 
@@ -205,6 +206,8 @@ namespace H5.Compiler.IntegrationTests
                 },
                 IgnoreDuplicateTypes = true // Allow shadowing polyfilled types
             };
+
+            settings.Loader.Type = loaderType;
 
             var request = new CompilationRequest("App", settings)
                             //.NoPackageResources() // Comment this out to get resources

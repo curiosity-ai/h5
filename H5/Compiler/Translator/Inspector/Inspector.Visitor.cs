@@ -88,6 +88,16 @@ namespace H5.Translator
 
             if ((external || ignored || IsNonScriptable(typeDeclaration)) && !IsObjectLiteral(typeDeclaration))
             {
+                foreach (var section in typeDeclaration.Attributes)
+                {
+                    foreach (var attr in section.Attributes)
+                    {
+                        var name = attr.Type.ToString();
+                        var resolveResult = Resolver.ResolveNode(attr);
+                        ReadModuleDependency(attr, name, resolveResult);
+                    }
+                }
+
                 if (partialType != null)
                 {
                     Types.Remove(partialType);

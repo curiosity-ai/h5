@@ -19,7 +19,7 @@ namespace H5.Compiler.IntegrationTests
 
             page.Console += (_, msg) =>
             {
-                if (msg.Type == "log")
+                if (msg.Type == "log" || msg.Type == "error")
                 {
                     var text = msg.Text;
                     consoleOutput.AppendLine(text);

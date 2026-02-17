@@ -486,7 +486,7 @@ namespace H5.Translator
 
         private static TypeSyntax FixAliasQualifiedName(TypeSyntax node)
         {
-            if (node is AliasQualifiedNameSyntax aq && aq.Alias.IsMissing)
+            if (node is AliasQualifiedNameSyntax aq && (aq.Alias.IsMissing || aq.Alias.Identifier.IsMissing))
             {
                 return aq.WithAlias(SyntaxFactory.IdentifierName(SyntaxFactory.Token(SyntaxKind.GlobalKeyword)));
             }

@@ -2354,7 +2354,7 @@ namespace H5.Translator
                             if (method.IsGenericMethod && method.TypeArguments.Length == 1 && method.Parameters.Length > 0 && SymbolEqualityComparer.Default.Equals(method.Parameters[0].Type, method.TypeArguments[0]))
                             {
                                 var targetExpression = (originalNode.Expression as MemberAccessExpressionSyntax)?.Expression;
-                                if (targetExpression != null)
+                                if (targetExpression != null && targetExpression.SyntaxTree == semanticModel.SyntaxTree)
                                 {
                                     var targetType = semanticModel.GetTypeInfo(targetExpression).Type;
                                     if (targetType != null && targetType.Kind != SymbolKind.ErrorType && !SymbolEqualityComparer.Default.Equals(targetType, method.TypeArguments[0]))

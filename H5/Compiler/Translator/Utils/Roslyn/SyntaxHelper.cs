@@ -61,6 +61,19 @@ namespace H5.Translator
             var type = typeInfo.ConvertedType ?? typeInfo.Type;
             if (type == null || !type.IsDelegateType())
             {
+                if (lambda is LambdaExpressionSyntax lex && lex.Body is ExpressionSyntax expr)
+                {
+                    if (expr is BinaryExpressionSyntax ||
+                        expr is IsPatternExpressionSyntax ||
+                        expr is LiteralExpressionSyntax ||
+                        expr is ConditionalExpressionSyntax ||
+                        expr is CastExpressionSyntax ||
+                        expr is ParenthesizedExpressionSyntax)
+                    {
+                        return true;
+                    }
+                }
+
                 return false;
             }
 

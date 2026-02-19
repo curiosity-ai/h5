@@ -195,6 +195,10 @@ namespace H5.Fuzzer
                             var extractedJs = h5Js.Substring(index);
                             await File.WriteAllTextAsync(jsFilename, extractedJs);
                         }
+                        else
+                        {
+                            await File.WriteAllTextAsync(jsFilename, h5Js);
+                        }
                     }
 
                     await File.WriteAllTextAsync(filename, code);

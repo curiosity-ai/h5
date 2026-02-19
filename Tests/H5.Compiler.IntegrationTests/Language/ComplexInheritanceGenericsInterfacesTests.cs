@@ -160,5 +160,173 @@ Processing item...
 Data: B";
             Assert.AreEqual(expectedOutput, output.Trim());
         }
+
+        [TestMethod]
+        public async Task DeeplyNestedNamespacesAndGenerics()
+        {
+            var code = @"
+using System;
+using Level1.Level2.Level3;
+
+namespace Level1
+{
+    namespace Level2
+    {
+        namespace Level3
+        {
+            public interface IDeep<T>
+            {
+                T Value { get; }
+            }
+
+            public class DeepContainer<T> : IDeep<T>
+            {
+                public T Value { get; private set; }
+                public DeepContainer(T value)
+                {
+                    Value = value;
+                }
+            }
+
+            public class DeepProcessor<T>
+            {
+                public void Process(IDeep<T> item)
+                {
+                    Console.WriteLine(""Processed: "" + item.Value);
+                }
+            }
+        }
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var container = new DeepContainer<string>(""Deep Value"");
+        var processor = new DeepProcessor<string>();
+        processor.Process(container);
+    }
+}
+";
+            var output = await RunTest(code, skipRoslyn: true);
+            Assert.AreEqual("Processed: Deep Value", output.Trim());
+        }
+
+        [TestMethod]
+        public async Task ComplexGenericConstraintsInInheritanceChain()
+        {
+            var code = @"
+using System;
+
+public interface IEntity
+{
+    int Id { get; set; }
+}
+
+public class Entity : IEntity
+{
+    public int Id { get; set; }
+    public Entity() { Id = 0; }
+}
+
+public class BaseService<T> where T : IEntity
+{
+    public virtual void Handle(T entity)
+    {
+        Console.WriteLine(""Base Handle: "" + entity.Id);
+    }
+}
+
+public class SpecializedService<T> : BaseService<T> where T : IEntity, new()
+{
+    public T CreateAndHandle()
+    {
+        T entity = new T();
+        entity.Id = 100;
+        Handle(entity);
+        return entity;
+    }
+
+    public override void Handle(T entity)
+    {
+        Console.WriteLine(""Specialized Handle: "" + entity.Id);
+        base.Handle(entity);
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var service = new SpecializedService<Entity>();
+        service.CreateAndHandle();
+    }
+}
+";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task CrossNamespaceInheritanceAndExtensions()
+        {
+            var code = @"
+using System;
+using LibA;
+using LibB;
+using LibExtensions;
+
+namespace LibA
+{
+    public class BaseComponent<T>
+    {
+        public T Data { get; set; }
+        public BaseComponent(T data) { Data = data; }
+        public virtual void Display() => Console.WriteLine(""Base: "" + Data);
+    }
+}
+
+namespace LibB
+{
+    public class DerivedComponent : BaseComponent<int>
+    {
+        public DerivedComponent(int data) : base(data) { }
+        public override void Display()
+        {
+            Console.WriteLine(""Derived: "" + Data);
+            base.Display();
+        }
+    }
+}
+
+namespace LibExtensions
+{
+    public static class ComponentExtensions
+    {
+        public static void ExtendedDisplay<T>(this BaseComponent<T> component)
+        {
+            Console.WriteLine(""Extended Start"");
+            component.Display();
+            Console.WriteLine(""Extended End"");
+        }
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var comp = new DerivedComponent(99);
+        comp.ExtendedDisplay();
+    }
+}
+";
+            var output = await RunTest(code, skipRoslyn: true);
+            var expected = @"Extended Start
+Derived: 99
+Base: 99
+Extended End";
+            Assert.AreEqual(expected, output.Trim());
+        }
     }
 }

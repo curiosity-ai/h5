@@ -1347,6 +1347,9 @@ namespace H5.Translator
                     cursor = nextLineEnd + 1;
                 }
 
+                sb.AppendLine();
+                sb.AppendLine("This is often due to type resolution issues. Specifying the type fully using the namespace usually solves the issue.");
+
                 throw new TranslatorException(sb.ToString());
             }
         }

@@ -32,6 +32,23 @@ namespace H5.Compiler.Service.Next
             return _sb.ToString();
         }
 
+        // We do not want to automatically emit namespace nodes as text.
+        public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
+        {
+            foreach (var member in node.Members)
+            {
+                Visit(member);
+            }
+        }
+
+        public override void VisitFileScopedNamespaceDeclaration(FileScopedNamespaceDeclarationSyntax node)
+        {
+            foreach (var member in node.Members)
+            {
+                Visit(member);
+            }
+        }
+
         public override void VisitClassDeclaration(ClassDeclarationSyntax node)
         {
             EmitTypeDeclaration(node);
@@ -211,13 +228,36 @@ namespace H5.Compiler.Service.Next
                     _sb.AppendLine();
                 }
             }
+            else if (node.ExpressionBody != null)
+            {
+                 _sb.Append("                return ");
+                 Visit(node.ExpressionBody.Expression);
+                 _sb.AppendLine(";");
+            }
             _sb.AppendLine($"            }},");
+        }
+
+        public override void VisitReturnStatement(ReturnStatementSyntax node)
+        {
+            _sb.Append("return ");
+            if (node.Expression != null)
+            {
+                Visit(node.Expression);
+            }
+            _sb.Append(";");
         }
 
         public override void VisitExpressionStatement(ExpressionStatementSyntax node)
         {
             Visit(node.Expression);
             _sb.Append(";");
+        }
+
+        public override void VisitBinaryExpression(BinaryExpressionSyntax node)
+        {
+            Visit(node.Left);
+            _sb.Append($" {node.OperatorToken.Text} ");
+            Visit(node.Right);
         }
 
         public override void VisitInvocationExpression(InvocationExpressionSyntax node)
@@ -257,7 +297,6 @@ namespace H5.Compiler.Service.Next
         {
             if (_semanticModel == null) return;
             var symbol = _semanticModel.GetSymbolInfo(node).Symbol;
-            // if we are resolving a local variable or a parameter, don't prefix with "this."
             if (symbol is IPropertySymbol || symbol is IFieldSymbol)
             {
                 if (!symbol.IsStatic && symbol.ContainingType != null)

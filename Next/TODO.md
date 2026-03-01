@@ -1,0 +1,5 @@
+- [ ] Implement Roslyn CSharp compilation initialization.
+- [ ] Create a JS emitter (visitor pattern for Roslyn AST).
+- [ ] Implement emission of simple "Hello World" class and method.
+- [ ] Wire up command-line execution or programmatic execution.
+- [ ] Add basic tests.

@@ -32,7 +32,6 @@ namespace H5.Compiler.Service.Next
             return _sb.ToString();
         }
 
-        // We do not want to automatically emit namespace nodes as text.
         public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
         {
             foreach (var member in node.Members)
@@ -91,7 +90,6 @@ namespace H5.Compiler.Service.Next
                 _sb.AppendLine($"    $kind: \"struct\",");
             }
 
-            // Statics
             var staticFields = fields.Where(f => f.Modifiers.Any(SyntaxKind.StaticKeyword)).ToList();
             var staticProps = properties.Where(p => p.Modifiers.Any(SyntaxKind.StaticKeyword)).ToList();
             var staticMethods = methods.Where(m => m.Modifiers.Any(SyntaxKind.StaticKeyword)).ToList();
@@ -124,7 +122,6 @@ namespace H5.Compiler.Service.Next
                 _sb.AppendLine("    },");
             }
 
-            // Instance
             var instanceFields = fields.Where(f => !f.Modifiers.Any(SyntaxKind.StaticKeyword)).ToList();
             var instanceProps = properties.Where(p => !p.Modifiers.Any(SyntaxKind.StaticKeyword)).ToList();
             var instanceMethods = methods.Where(m => !m.Modifiers.Any(SyntaxKind.StaticKeyword)).ToList();
@@ -179,7 +176,6 @@ namespace H5.Compiler.Service.Next
                 }
                 else
                 {
-                    // Emit default value based on type if needed, simplified here
                     _sb.Append("null");
                 }
                 _sb.AppendLine(",");
@@ -199,12 +195,7 @@ namespace H5.Compiler.Service.Next
             _sb.AppendLine($"        init: function ({parameters}) {{");
             if (node.Body != null)
             {
-                foreach (var statement in node.Body.Statements)
-                {
-                    _sb.Append("            ");
-                    Visit(statement);
-                    _sb.AppendLine();
-                }
+                Visit(node.Body);
             }
             _sb.AppendLine($"        }},");
         }
@@ -221,12 +212,7 @@ namespace H5.Compiler.Service.Next
             _sb.AppendLine($"            {methodName}: function ({parameters}) {{");
             if (node.Body != null)
             {
-                foreach (var statement in node.Body.Statements)
-                {
-                    _sb.Append("                ");
-                    Visit(statement);
-                    _sb.AppendLine();
-                }
+                Visit(node.Body);
             }
             else if (node.ExpressionBody != null)
             {
@@ -301,7 +287,12 @@ namespace H5.Compiler.Service.Next
             {
                 if (!symbol.IsStatic && symbol.ContainingType != null)
                 {
-                    _sb.Append("this.");
+                    // Only prefix with this. if it is not part of a member access expression
+                    // e.g. other.Count should not become other.this.Count
+                    if (!(node.Parent is MemberAccessExpressionSyntax memberAccess && memberAccess.Name == node))
+                    {
+                        _sb.Append("this.");
+                    }
                 }
             }
             _sb.Append(node.Identifier.Text);
@@ -317,6 +308,113 @@ namespace H5.Compiler.Service.Next
             {
                  _sb.Append(node.Token.Text);
             }
+        }
+
+        public override void VisitLocalDeclarationStatement(LocalDeclarationStatementSyntax node)
+        {
+            _sb.Append("var ");
+            bool first = true;
+            foreach (var variable in node.Declaration.Variables)
+            {
+                if (!first) _sb.Append(", ");
+                _sb.Append(variable.Identifier.Text);
+                if (variable.Initializer != null)
+                {
+                    _sb.Append(" = ");
+                    Visit(variable.Initializer.Value);
+                }
+                first = false;
+            }
+            _sb.Append(";");
+        }
+
+        public override void VisitIfStatement(IfStatementSyntax node)
+        {
+            _sb.Append("if (");
+            Visit(node.Condition);
+            _sb.Append(") ");
+            Visit(node.Statement);
+
+            if (node.Else != null)
+            {
+                _sb.Append(" else ");
+                Visit(node.Else.Statement);
+            }
+        }
+
+        public override void VisitBlock(BlockSyntax node)
+        {
+            _sb.AppendLine("{");
+            foreach (var statement in node.Statements)
+            {
+                _sb.Append("                ");
+                Visit(statement);
+                _sb.AppendLine();
+            }
+            _sb.Append("            }");
+        }
+
+        public override void VisitForStatement(ForStatementSyntax node)
+        {
+            _sb.Append("for (");
+            if (node.Declaration != null)
+            {
+                _sb.Append("var ");
+                bool first = true;
+                foreach (var variable in node.Declaration.Variables)
+                {
+                    if (!first) _sb.Append(", ");
+                    _sb.Append(variable.Identifier.Text);
+                    if (variable.Initializer != null)
+                    {
+                        _sb.Append(" = ");
+                        Visit(variable.Initializer.Value);
+                    }
+                    first = false;
+                }
+            }
+            else
+            {
+                bool first = true;
+                foreach (var initializer in node.Initializers)
+                {
+                    if (!first) _sb.Append(", ");
+                    Visit(initializer);
+                    first = false;
+                }
+            }
+            _sb.Append("; ");
+
+            if (node.Condition != null)
+            {
+                Visit(node.Condition);
+            }
+            _sb.Append("; ");
+
+            bool firstInc = true;
+            foreach (var incrementor in node.Incrementors)
+            {
+                if (!firstInc) _sb.Append(", ");
+                Visit(incrementor);
+                firstInc = false;
+            }
+            _sb.Append(") ");
+
+            Visit(node.Statement);
+        }
+
+        public override void VisitWhileStatement(WhileStatementSyntax node)
+        {
+            _sb.Append("while (");
+            Visit(node.Condition);
+            _sb.Append(") ");
+            Visit(node.Statement);
+        }
+        public override void VisitMemberAccessExpression(MemberAccessExpressionSyntax node)
+        {
+            Visit(node.Expression);
+            _sb.Append(".");
+            Visit(node.Name);
         }
     }
 }

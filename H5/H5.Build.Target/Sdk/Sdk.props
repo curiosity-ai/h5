@@ -11,4 +11,8 @@
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" Condition=" '$(MicrosoftCommonPropsHasBeenImported)' != 'true' "/>
 
   <Import Project="$(CustomAfterH5Props)" Condition=" '$(CustomAfterH5Props)' != '' And Exists('$(CustomAfterH5Props)') " />
+
+  <Target Name="CheckReSharper" BeforeTargets="PrepareForBuild" Condition="'$(ReSharperBuild)' == 'true'">
+    <Error Text="H5 is not compatible with ReSharper and you should disable it for the project." />
+  </Target>
 </Project>

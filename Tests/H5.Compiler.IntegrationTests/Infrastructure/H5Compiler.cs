@@ -222,7 +222,6 @@ namespace H5.Compiler.IntegrationTests
                 request.WithPackageReference("h5.Newtonsoft.Json", h5JsonVer);
             }
 
-
             var compiledJavascript = await CompilationProcessor.CompileAsync(request);
 
             if (compiledJavascript.Output == null || !compiledJavascript.Output.Any())
@@ -267,18 +266,19 @@ namespace H5.Compiler.IntegrationTests
                 if (File.Exists(h5JsPath))
                 {
                     Console.WriteLine($"Injecting local h5.js from {h5JsPath}");
-                    var content = File.ReadAllText(h5JsPath);
+                    var content = CompilationOutput.GetMemoryStream(h5JsPath);
                     // Insert at beginning
-                    sortedFiles.Insert(0, new KeyValuePair<string, string>("h5.js", content));
+                    sortedFiles.Insert(0, new KeyValuePair<string, MemoryStream>("h5.js", content));
                 }
             }
 
                 var sb = new System.Text.StringBuilder();
                 bool polyfillWritten = false;
+
             foreach (var file in sortedFiles)
             {
                 sb.AppendLine($"// File: {file.Key}");
-                sb.AppendLine(file.Value);
+                sb.AppendLine(CompilationOutput.GetAsText(file.Value));
                 sb.AppendLine();
 
                 var name = System.IO.Path.GetFileName(file.Key).ToLowerInvariant();

@@ -63,6 +63,11 @@ namespace H5.Translator
                     byte[] buffer = null;
                     string content;
 
+                    if (item.OutputType == TranslatorOutputType.JavaScript)
+                    {
+                        CheckForUnknownIdentifier(item);
+                    }
+
                     if (item.OutputType == TranslatorOutputType.TypeScript && item.OutputKind == TranslatorOutputKind.ProjectOutput)
                     {
                         content = item.Content.GetContentAsString();
@@ -1241,6 +1246,111 @@ namespace H5.Translator
                 {
                     Logger.ZLogError(ex.ToString());
                 }
+            }
+        }
+
+        private void CheckForUnknownIdentifier(TranslatorOutputItem item)
+        {
+            if (item.OutputType != TranslatorOutputType.JavaScript)
+            {
+                return;
+            }
+
+            var content = item.Content.GetContentAsString();
+
+            if (string.IsNullOrEmpty(content))
+            {
+                return;
+            }
+
+            const string searchToken = "UnknownIdentifierResolveResult";
+            int index = content.IndexOf(searchToken, StringComparison.Ordinal);
+
+            if (index > -1)
+            {
+                int lineNumber = 1;
+                for (int i = 0; i < index; i++)
+                {
+                    if (content[i] == '\n')
+                    {
+                        lineNumber++;
+                    }
+                }
+
+                int lineStart = content.LastIndexOf('\n', index);
+                if (lineStart == -1)
+                {
+                    lineStart = 0;
+                }
+                else
+                {
+                    lineStart++;
+                }
+
+                int lineEnd = content.IndexOf('\n', index);
+                if (lineEnd == -1)
+                {
+                    lineEnd = content.Length;
+                }
+
+                var sb = new StringBuilder();
+                sb.AppendLine($"Found {searchToken} in {item.Name} at line {lineNumber}:");
+
+                var beforeLines = new List<string>();
+                int cursor = lineStart - 1;
+                for (int i = 0; i < 5; i++)
+                {
+                    if (cursor < 0)
+                    {
+                        break;
+                    }
+
+                    int prevLineStart = -1;
+                    if (cursor > 0)
+                    {
+                        prevLineStart = content.LastIndexOf('\n', cursor - 1);
+                    }
+
+                    int start = prevLineStart + 1;
+                    int length = cursor - start;
+
+                    if (length >= 0)
+                    {
+                        beforeLines.Insert(0, content.Substring(start, length).TrimEnd('\r'));
+                    }
+
+                    cursor = prevLineStart;
+                }
+
+                foreach (var line in beforeLines)
+                {
+                    sb.AppendLine(line);
+                }
+
+                sb.AppendLine(content.Substring(lineStart, lineEnd - lineStart).TrimEnd('\r') + " <--- ERROR");
+
+                cursor = lineEnd + 1;
+                for (int i = 0; i < 5; i++)
+                {
+                    if (cursor >= content.Length)
+                    {
+                        break;
+                    }
+
+                    int nextLineEnd = content.IndexOf('\n', cursor);
+                    if (nextLineEnd == -1)
+                    {
+                        nextLineEnd = content.Length;
+                    }
+
+                    sb.AppendLine(content.Substring(cursor, nextLineEnd - cursor).TrimEnd('\r'));
+                    cursor = nextLineEnd + 1;
+                }
+
+                sb.AppendLine();
+                sb.AppendLine("This is often due to type resolution issues. Specifying the type fully using the namespace usually solves the issue.");
+
+                throw new TranslatorException(sb.ToString());
             }
         }
     }

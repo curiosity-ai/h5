@@ -372,6 +372,131 @@ public class Program
     }
 
     [TestMethod]
+    public async Task DictionaryWithTupleKey_Tests()
+    {
+        var code = """
+using System;
+using System.Collections.Generic;
+public class Program
+{
+    public static void Main()
+    {
+        var dict = new Dictionary<(string v1, int v2), string>();
+
+        var t1 = ("Hello", 42);
+        dict.Add(t1, "World");
+
+        var t2 = ("Hello", 43);
+        dict.Add(t2, "World2");
+
+        var t3 = ("World", 42);
+        dict.Add(t3, "World3");
+
+        Console.WriteLine(dict.Count);
+
+        var t4 = ("Hello", 42);
+        Console.WriteLine(dict.ContainsKey(t4));
+        Console.WriteLine(dict[t4]);
+
+        try {
+            dict.Add(t4, "Error");
+            Console.WriteLine("Should have thrown");
+        } catch (ArgumentException) {
+            Console.WriteLine("Threw correctly");
+        }
+
+        dict.Remove(("Hello", 43));
+        Console.WriteLine(dict.Count);
+
+        var structDict = new Dictionary<MyStruct, string>();
+        structDict.Add(new MyStruct { A = "A", B = 1 }, "B");
+        Console.WriteLine(structDict.Count);
+        Console.WriteLine(structDict.ContainsKey(new MyStruct { A = "A", B = 1 }));
+        Console.WriteLine(structDict[new MyStruct { A = "A", B = 1 }]);
+
+        var eq = EqualityComparer<(string, int)>.Default;
+        Console.WriteLine(eq.Equals(("Hello", 42), ("Hello", 42)));
+        Console.WriteLine(eq.GetHashCode(("Hello", 42)) == eq.GetHashCode(("Hello", 42)));
+    }
+}
+public struct MyStruct {
+    public string A;
+    public int B;
+}
+""";
+        await RunTest(code, skipRoslyn: true);
+    }
+
+    [TestMethod]
+    public async Task DictionaryWithTupleKey8_Tests()
+    {
+        var code = """
+using System;
+using System.Collections.Generic;
+public class Program
+{
+    public static void Main()
+    {
+        var t8dict = new Dictionary<(string v1, int v2, bool v3, double v4, string v5, int v6, object v7, short v8), string>();
+
+        var o = new object();
+        var t8 = ("Hello", 42, true, 3.14, "World", 100, o, (short)1);
+        try {
+            t8dict.Add(t8, "World");
+            Console.WriteLine(t8dict.Count);
+            Console.WriteLine(t8dict.ContainsKey(t8));
+        } catch (Exception ex) {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
+    public async Task DictionaryWithClassTupleKey_Tests()
+    {
+        var code = """
+using System;
+using System.Collections.Generic;
+public class Program
+{
+    public static void Main()
+    {
+        var dict = new Dictionary<Tuple<string, int>, string>();
+
+        var t1 = Tuple.Create("Hello", 42);
+        dict.Add(t1, "World");
+
+        var t2 = Tuple.Create("Hello", 43);
+        dict.Add(t2, "World2");
+
+        var t3 = Tuple.Create("World", 42);
+        dict.Add(t3, "World3");
+
+        Console.WriteLine(dict.Count);
+
+        var t4 = Tuple.Create("Hello", 42);
+        Console.WriteLine(dict.ContainsKey(t4));
+        Console.WriteLine(dict[t4]);
+
+        try {
+            dict.Add(t4, "Error");
+            Console.WriteLine("Should have thrown");
+        } catch (ArgumentException) {
+            Console.WriteLine("Threw correctly");
+        }
+
+        dict.Remove(Tuple.Create("Hello", 43));
+        Console.WriteLine(dict.Count);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
     public async Task Dictionary_Tests()
     {
         var code = """

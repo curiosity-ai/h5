@@ -497,6 +497,41 @@ public class Program
     }
 
     [TestMethod]
+    public async Task DictionaryWithImplicitTupleKey_Tests()
+    {
+        var code = """
+using System;
+using System.Collections.Generic;
+public class Program
+{
+    public static void Main()
+    {
+        var dict = new Dictionary<(string name, int age), string>();
+
+        dict.Add((name: "John", age: 30), "Person1");
+        dict.Add((name: "Jane", age: 25), "Person2");
+
+        Console.WriteLine(dict.Count);
+
+        Console.WriteLine(dict.ContainsKey((name: "John", age: 30)));
+        Console.WriteLine(dict[(name: "John", age: 30)]);
+
+        try {
+            dict.Add((name: "John", age: 30), "Error");
+            Console.WriteLine("Should have thrown");
+        } catch (ArgumentException) {
+            Console.WriteLine("Threw correctly");
+        }
+
+        dict.Remove((name: "Jane", age: 25));
+        Console.WriteLine(dict.Count);
+    }
+}
+""";
+        await RunTest(code);
+    }
+
+    [TestMethod]
     public async Task Dictionary_Tests()
     {
         var code = """

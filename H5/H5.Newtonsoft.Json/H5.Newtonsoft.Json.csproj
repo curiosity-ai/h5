@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="h5" Version="26.2.64451" />
+    <PackageReference Include="h5" Version="26.2.64514" />
   </ItemGroup>
 
   <ItemGroup>

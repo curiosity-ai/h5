@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="5.3.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.58.0" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     <PackageReference Include="NuGet.Versioning" Version="7.3.0" />
@@ -20,7 +20,7 @@
          H5Compiler uses H5.Compiler.Service which handles references.
          RoslynCompiler uses Microsoft.CodeAnalysis.Scripting with explicit references.
          So we might not need h5 here unless we use types from it directly. -->
-    <PackageReference Include="h5" Version="26.2.64451" ExcludeAssets="all" />
+    <PackageReference Include="h5" Version="26.2.64514" ExcludeAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

@@ -784,12 +784,15 @@ namespace H5.Translator
                 var name = attr.Type.ToString();
                 var resolveResult = Resolver.ResolveNode(attr);
 
-                ReadModuleInfo(attr, name, resolveResult);
-                ReadFileNameInfo(attr, name, resolveResult);
-                ReadOutputPathInfo(attr, name, resolveResult);
-                ReadOutputByInfo(attr, name, resolveResult);
-                ReadModuleDependency(attr, name, resolveResult);
-                ReadReflectionInfo(attr, name, resolveResult);
+                lock (AssemblyInfo)
+                {
+                    ReadModuleInfo(attr, name, resolveResult);
+                    ReadFileNameInfo(attr, name, resolveResult);
+                    ReadOutputPathInfo(attr, name, resolveResult);
+                    ReadOutputByInfo(attr, name, resolveResult);
+                    ReadModuleDependency(attr, name, resolveResult);
+                    ReadReflectionInfo(attr, name, resolveResult);
+                }
             }
         }
 

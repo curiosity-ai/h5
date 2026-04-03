@@ -275,7 +275,7 @@ namespace ICSharpCode.NRefactory.CSharp.Resolver
             public override string ToString()
             {
                 StringBuilder b = new StringBuilder();
-                b.Append(ReturnType + " operator(");
+                b.Append($"{ReturnType} operator(");
                 for (int i = 0; i < parameters.Count; i++) {
                     if (i > 0)
                         b.Append(", ");

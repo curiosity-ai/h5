@@ -149,25 +149,25 @@ namespace H5.Translator
 
             if (!string.IsNullOrWhiteSpace(description))
             {
-                WriteNewLine(tmp, " * " + description);
+                WriteNewLine(tmp, $" * {description}");
             }
 
             if (!string.IsNullOrWhiteSpace(version))
             {
-                WriteNewLine(tmp, " * @version " + version);
+                WriteNewLine(tmp, $" * @version {version}");
             }
 
             if (!string.IsNullOrWhiteSpace(author))
             {
-                WriteNewLine(tmp, " * @author " + author);
+                WriteNewLine(tmp, $" * @author {author}");
             }
 
             if (!string.IsNullOrWhiteSpace(copyright))
             {
-                WriteNewLine(tmp, " * @copyright " + copyright);
+                WriteNewLine(tmp, $" * @copyright {copyright}");
             }
 
-            WriteNewLine(tmp, " * @compiler " + compiler);
+            WriteNewLine(tmp, $" * @compiler {compiler}");
 
             WriteNewLine(tmp, " */");
 
@@ -200,21 +200,13 @@ namespace H5.Translator
                                          Translator.ProjectProperties.AssemblyName;
 
                         OutputAssemblyComment(tmp);
-                        if(!string.IsNullOrEmpty(Translator.ProjectProperties.AssemblyVersion))
+                        if (!string.IsNullOrEmpty(Translator.ProjectProperties.AssemblyVersion))
                         {
-                            tmp.Append(JS.Types.H5.ASSEMBLYVERSION + "(");
-                            tmp.AppendFormat("\"{0}\"", asmName);
-                            tmp.Append(",");
-                            tmp.AppendFormat("\"{0}\"", Translator.ProjectProperties.AssemblyVersion);
-                            tmp.Append(");");
+                            tmp.Append($"{JS.Types.H5.ASSEMBLYVERSION}(\"{asmName}\",\"{Translator.ProjectProperties.AssemblyVersion}\");");
                             WriteNewLine(tmp);
                         }
 
-                        tmp.Append(JS.Types.H5.ASSEMBLY + "(");
-
-                        tmp.AppendFormat("\"{0}\"", asmName);
-
-                        tmp.Append(",");
+                        tmp.Append($"{JS.Types.H5.ASSEMBLY}(\"{asmName}\",");
 
                         if (!metaDataWritten && (MetaDataOutputName == null || fileName == MetaDataOutputName))
                         {
@@ -222,16 +214,13 @@ namespace H5.Translator
 
                             if (res != null)
                             {
-                                tmp.Append(" ");
-                                tmp.Append(res);
-                                tmp.Append(",");
+                                tmp.Append($" {res},");
                             }
 
                             metaDataWritten = true;
                         }
 
-                        tmp.Append(" ");
-                        tmp.Append("function ($asm, globals) {");
+                        tmp.Append(" function ($asm, globals) {");
                         WriteNewLine(tmp);
                         WriteIndent(tmp, level);
                         tmp.Append(GetOutputHeader());
@@ -314,21 +303,18 @@ namespace H5.Translator
                 if (amd.Count > 0)
                 {
                     WriteIndent(tmp, level);
-                    tmp.Append(loader.FunctionName ?? "require");
-                    tmp.Append("([");
+                    tmp.Append($"{loader.FunctionName ?? "require"}([");
 
                     amd.Each(md =>
                     {
-                        tmp.Append(ToJavaScript(md.DependencyName));
-                        tmp.Append(", ");
+                        tmp.Append($"{ToJavaScript(md.DependencyName)}, ");
                     });
                     tmp.Remove(tmp.Length - 2, 2); // remove trailing comma
                     tmp.Append("], function (");
 
                     amd.Each(md =>
                     {
-                        tmp.Append(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName);
-                        tmp.Append(", ");
+                        tmp.Append($"{(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName)}, ");
                     });
                     tmp.Remove(tmp.Length - 2, 2); // remove trailing comma
 
@@ -346,7 +332,7 @@ namespace H5.Translator
                     cjs.Each(md =>
                     {
                         WriteIndent(tmp, level);
-                        tmp.AppendFormat("var {0} = require(\"{1}\");", md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName, md.DependencyName);
+                        tmp.Append($"var {(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName)} = require(\"{md.DependencyName}\");");
                         WriteNewLine(tmp);
                     });
 
@@ -361,7 +347,7 @@ namespace H5.Translator
                     es6.Each(md =>
                     {
                         WriteIndent(tmp, level);
-                        WriteNewLine(tmp, "import " + (md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName) + " from " + ToJavaScript(md.DependencyName) + ";");
+                        WriteNewLine(tmp, $"import {(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName)} from {ToJavaScript(md.DependencyName)};");
                     });
 
                     WriteNewLine(tmp);

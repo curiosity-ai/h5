@@ -123,7 +123,7 @@ namespace H5.Contract
             StringBuilder sb = new StringBuilder();
             foreach (var c in comments)
             {
-                sb.Append(c.Content + newLine);
+                sb.Append($"{c.Content}{newLine}");
             }
 
             return sb.ToString();
@@ -139,7 +139,7 @@ namespace H5.Contract
 
         private static string ReadComment(string source, ResolveResult rr, IEmitter emitter, JsDocComment comment)
         {
-            var xml = new StringBuilder("<comment>" + newLine);
+            var xml = new StringBuilder($"<comment>{newLine}");
             if (source != null)
             {
                 foreach (var line in source.Split(newLine))
@@ -151,7 +151,7 @@ namespace H5.Contract
                         continue;
                     }
 
-                    xml.Append(System.Text.RegularExpressions.Regex.Replace(line, @"\/\/\/\s*", "") + newLine);
+                    xml.Append($"{System.Text.RegularExpressions.Regex.Replace(line, @"\/\/\/\s*", "")}{newLine}");
                 }
 
                 xml.Append("</comment>");
@@ -297,7 +297,7 @@ namespace H5.Contract
 
                     foreach (XmlNode codeNode in codeNodes)
                     {
-                        sb.Append(codeNode.InnerText + newLine);
+                        sb.Append($"{codeNode.InnerText}{newLine}");
                         node.RemoveChild(codeNode);
                     }
 
@@ -389,7 +389,7 @@ namespace H5.Contract
             foreach (XmlNode cNode in cNodes)
             {
                 var attr = node.Attributes["cref"];
-                XmlText p = node.OwnerDocument.CreateTextNode(string.Format("{{@link {0}}}", attr != null ? attr.InnerText : ""));
+                XmlText p = node.OwnerDocument.CreateTextNode($"{{@link {(attr != null ? attr.InnerText : "")}}}");
                 node.ReplaceChild(p, cNode);
             }
 
@@ -524,7 +524,7 @@ namespace H5.Contract
 
                 if (member is IEvent ev)
                 {
-                    comment.Event = XmlToJsDoc.ToJavascriptName(member.DeclaringType, emitter) + "#" + member.Name;
+                    comment.Event = $"{XmlToJsDoc.ToJavascriptName(member.DeclaringType, emitter)}#{member.Name}";
                 }
 
                 comment.MemberOf = XmlToJsDoc.ToJavascriptName(member.DeclaringType, emitter);
@@ -551,7 +551,7 @@ namespace H5.Contract
                 var rr = emitter.Resolver.ResolveNode(t);
                 if (rr.Type.Kind == TypeKind.Interface)
                 {
-                    name = "+" + name;
+                    name = $"+{name}";
                 }
 
                 list.Add(name);
@@ -641,7 +641,7 @@ namespace H5.Contract
 
             if (astType is ComposedType composedType && composedType.ArraySpecifiers != null && composedType.ArraySpecifiers.Count > 0)
             {
-                return JS.Types.ARRAY + ".<" + H5Types.ToTypeScriptName(composedType.BaseType, emitter) + ">";
+                return $"{JS.Types.ARRAY}.<{H5Types.ToTypeScriptName(composedType.BaseType, emitter)}>";
             }
 
             if (astType is SimpleType simpleType && simpleType.Identifier == "dynamic")
@@ -694,7 +694,7 @@ namespace H5.Contract
 
                     emitter.JsDoc.Callbacks.Add(delegateName);
 
-                    emitter.WriteIndented(comment.ToString() + newLine + newLine, 0);
+                    emitter.WriteIndented($"{comment}{newLine}{newLine}", 0);
                 }
 
                 return delegateName;
@@ -731,7 +731,7 @@ namespace H5.Contract
             if (type.Kind == TypeKind.Array)
             {
                 ICSharpCode.NRefactory.TypeSystem.ArrayType arrayType = (ICSharpCode.NRefactory.TypeSystem.ArrayType)type;
-                return JS.Types.ARRAY + ".<" + XmlToJsDoc.ToJavascriptName(arrayType.ElementType, emitter) + ">";
+                return $"{JS.Types.ARRAY}.<{XmlToJsDoc.ToJavascriptName(arrayType.ElementType, emitter)}>";
             }
 
             if (type.Kind == TypeKind.Dynamic)
@@ -746,7 +746,7 @@ namespace H5.Contract
 
             if (NullableType.IsNullable(type))
             {
-                return "?" + XmlToJsDoc.ToJavascriptName(NullableType.GetUnderlyingType(type), emitter);
+                return $"?{XmlToJsDoc.ToJavascriptName(NullableType.GetUnderlyingType(type), emitter)}";
             }
 
             H5Type h5Type = emitter.H5Types.Get(type, true);
@@ -761,17 +761,17 @@ namespace H5.Contract
                 var typeDef = h5Type.TypeDefinition;
                 if (typeDef.IsNested)
                 {
-                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.GetParentNames(emitter, typeDef);
+                    name = $"{(string.IsNullOrEmpty(name) ? "" : $"{name}.")}{H5Types.GetParentNames(emitter, typeDef)}";
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(typeDef.Name);
+                name = $"{(string.IsNullOrEmpty(name) ? "" : $"{name}.")}{H5Types.ConvertName(typeDef.Name)}";
             }
             else
             {
                 if (type.DeclaringType != null)
                 {
-                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.GetParentNames(emitter, type);
+                    name = $"{(string.IsNullOrEmpty(name) ? "" : $"{name}.")}{H5Types.GetParentNames(emitter, type)}";
 
                     if (type.DeclaringType.TypeArguments.Count > 0)
                     {
@@ -780,7 +780,7 @@ namespace H5.Contract
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + H5Types.ConvertName(type.Name);
+                name = $"{(string.IsNullOrEmpty(name) ? "" : $"{name}.")}{H5Types.ConvertName(type.Name)}";
             }
 
             bool isCustomName = false;
@@ -899,10 +899,10 @@ namespace H5.Contract
 
             if (!string.IsNullOrEmpty((Namespace)))
             {
-                comment.Append("/** @namespace " + Namespace + " */" + newLine + newLine);
+                comment.Append($"/** @namespace {Namespace} */{newLine}{newLine}");
             }
 
-            comment.Append("/**" + newLine);
+            comment.Append($"/**{newLine}");
 
             var nameColumnWidth = 0;
             var typeColumnWidth = 0;
@@ -927,71 +927,71 @@ namespace H5.Contract
 
             if (Descriptions.Count > 0 && Descriptions.Any(v => !string.IsNullOrWhiteSpace(v)))
             {
-                comment.Append(" * " + string.Join(newLine + " * ", Descriptions.ToArray()) + newLine + " *" + newLine);
+                comment.Append($" * {string.Join($"{newLine} * ", Descriptions.ToArray())}{newLine} *{newLine}");
             }
 
             if (Remarks.Count > 0 && Remarks.Any(v => !string.IsNullOrWhiteSpace(v)))
             {
-                comment.Append(" * " + string.Join(newLine + " * ", Remarks) + newLine + " *" + newLine);
+                comment.Append($" * {string.Join($"{newLine} * ", Remarks)}{newLine} *{newLine}");
             }
 
             if (IsStatic)
             {
-                comment.Append(" * @static" + newLine);
+                comment.Append($" * @static{newLine}");
             }
             else if (string.IsNullOrEmpty(Class) && string.IsNullOrEmpty(Callback))
             {
-                comment.Append(" * @instance" + newLine);
+                comment.Append($" * @instance{newLine}");
             }
 
             if (IsAbstract)
             {
-                comment.Append(" * @abstract" + newLine);
+                comment.Append($" * @abstract{newLine}");
             }
 
             if (IsPublic)
             {
-                comment.Append(" * @public" + newLine);
+                comment.Append($" * @public{newLine}");
             }
 
             if (IsProtected)
             {
-                comment.Append(" * @protected" + newLine);
+                comment.Append($" * @protected{newLine}");
             }
 
             if (IsPrivate)
             {
-                comment.Append(" * @private" + newLine);
+                comment.Append($" * @private{newLine}");
             }
 
             if (Override)
             {
-                comment.Append(" * @override" + newLine);
+                comment.Append($" * @override{newLine}");
             }
 
             if (ReadOnly)
             {
-                comment.Append(" * @readonly" + newLine);
+                comment.Append($" * @readonly{newLine}");
             }
 
             if (!string.IsNullOrEmpty(This))
             {
-                comment.Append(" * @this ").Append(This + newLine);
+                comment.Append($" * @this ").Append($"{This}{newLine}");
             }
 
             if (!string.IsNullOrEmpty(MemberOf))
             {
-                comment.Append(" * @memberof ").Append(MemberOf + newLine);
+                comment.Append($" * @memberof ").Append($"{MemberOf}{newLine}");
             }
 
             if (!string.IsNullOrEmpty(Class))
             {
-                comment.Append(" * @class " + Class + newLine);
+                comment.Append($" * @class {Class}{newLine}");
             }
 
             if (!string.IsNullOrEmpty(Event))
             {
-                comment.Append(" * @event " + Event + newLine);
+                comment.Append($" * @event {Event}{newLine}");
             }
 
             /*if (!string.IsNullOrEmpty(this.Constructs))
@@ -1006,27 +1006,27 @@ namespace H5.Contract
 
             if (Const)
             {
-                comment.Append(" * @constant" + newLine);
+                comment.Append($" * @constant{newLine}");
             }
 
             if (Default != null)
             {
-                comment.Append(" * @default " + JsonConvert.SerializeObject(Default) + newLine);
+                comment.Append($" * @default {JsonConvert.SerializeObject(Default)}{newLine}");
             }
 
             if (!string.IsNullOrEmpty(Callback))
             {
-                comment.Append(" * @callback " + Callback + newLine);
+                comment.Append($" * @callback {Callback}{newLine}");
             }
 
             if (!string.IsNullOrEmpty(Function))
             {
-                comment.Append(" * @function " + Function + newLine);
+                comment.Append($" * @function {Function}{newLine}");
             }
 
             if (!string.IsNullOrEmpty(MemberType))
             {
-                comment.Append(" * @type " + MemberType + newLine);
+                comment.Append($" * @type {MemberType}{newLine}");
             }
 
             if (Augments != null && Augments.Length > 0)
@@ -1035,11 +1035,11 @@ namespace H5.Contract
                 {
                     if (augment.StartsWith("+"))
                     {
-                        comment.Append(" * @implements  " + augment.Substring(1) + newLine);
+                        comment.Append($" * @implements  {augment.Substring(1)}{newLine}");
                     }
                     else
                     {
-                        comment.Append(" * @augments " + augment + newLine);
+                        comment.Append($" * @augments {augment}{newLine}");
                     }
                 }
             }
@@ -1048,34 +1048,34 @@ namespace H5.Contract
             {
                 if (!string.IsNullOrEmpty(example.Item1))
                 {
-                    comment.Append(" * @example " + example.Item1 + newLine);
+                    comment.Append($" * @example {example.Item1}{newLine}");
                 }
                 else
                 {
-                    comment.Append(" * @example" + newLine);
+                    comment.Append($" * @example{newLine}");
                 }
 
-                comment.Append(" *" + string.Join(newLine + " *", example.Item2.Split(newLine)) + newLine + " *" + newLine);
+                comment.Append($" *{string.Join($"{newLine} *", example.Item2.Split(newLine))}{newLine} *{newLine}");
             }
 
             foreach (var exception in Throws)
             {
                 if (!string.IsNullOrEmpty(exception.Item2))
                 {
-                    comment.Append(" * @throws {" + exception.Item2 + "} ");
+                    comment.Append($" * @throws {{{exception.Item2}}} ");
                 }
                 else
                 {
                     comment.Append(" * @throws ");
                 }
 
-                comment.Append(exception.Item1 + newLine);
+                comment.Append($"{exception.Item1}{newLine}");
             }
 
             int argCount = 0;
             foreach (JsDocParam param in Parameters)
             {
-                comment.Append(" * @param   {" + param.Type + "}");
+                comment.Append($" * @param   {{{param.Type}}}");
 
                 comment.Append(new String(' ', typeColumnWidth - (param.Type != null ? param.Type.Length : 0)));
                 comment.Append(param.Name);
@@ -1093,13 +1093,13 @@ namespace H5.Contract
                     comment.Append(new String(' ', nameColumnWidth - param.Name.Length));
                 }
 
-                comment.Append(desc + newLine);
+                comment.Append($"{desc}{newLine}");
             }
 
             argCount = 0;
             foreach (JsDocParam param in Returns)
             {
-                comment.Append(" * @return  {" + param.Type + "}");
+                comment.Append($" * @return  {{{param.Type}}}");
 
                 var desc = param.Desc;
                 if (desc != null)
@@ -1115,12 +1115,12 @@ namespace H5.Contract
                     comment.Append(new String(' ', nameColumnWidth));
                 }
 
-                comment.Append(desc + newLine);
+                comment.Append($"{desc}{newLine}");
             }
 
             foreach (var see in SeeAlso)
             {
-                comment.Append(" * @see {@link " + see + "}" + newLine);
+                comment.Append($" * @see {{@link {see}}}{newLine}");
             }
 
             comment.Append(" */");

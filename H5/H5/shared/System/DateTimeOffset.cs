@@ -766,6 +766,33 @@ namespace System {
         //    return parsed;
         //}
 
+        public static bool TryParseExact(string input, string format, IFormatProvider formatProvider, System.Globalization.DateTimeStyles styles, out DateTimeOffset result) {
+            if (DateTime.TryParseExact(input, format, formatProvider, styles, out var d)) {
+                result = new DateTimeOffset(d);
+                return true;
+            }
+            result = default(DateTimeOffset);
+            return false;
+        }
+
+        public static bool TryParseExact(string input, string[] formats, IFormatProvider formatProvider, System.Globalization.DateTimeStyles styles, out DateTimeOffset result) {
+            if (DateTime.TryParseExact(input, formats, formatProvider, styles, out var d)) {
+                result = new DateTimeOffset(d);
+                return true;
+            }
+            result = default(DateTimeOffset);
+            return false;
+        }
+
+
+
+        public static DateTimeOffset ParseExact(string input, string[] formats, IFormatProvider formatProvider, System.Globalization.DateTimeStyles styles) {
+            if (TryParseExact(input, formats, formatProvider, styles, out var d)) {
+                return d;
+            }
+            throw new FormatException("String was not recognized as a valid DateTimeOffset.");
+        }
+
         // Ensures the TimeSpan is valid to go in a DateTimeOffset.
         private static short ValidateOffset(TimeSpan offset) {
             long ticks = offset.Ticks;

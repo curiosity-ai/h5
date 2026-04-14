@@ -205,8 +205,20 @@ namespace System
         [H5.Template("System.DateTime.parseExact({0}, {1}, {2})")]
         public static extern DateTime ParseExact(string s, string format, IFormatProvider provider);
 
+        [H5.Template("System.DateTime.parseExact({0}, {1}, {2}, {3} === 8)")]
+        public static extern DateTime ParseExact(string s, string format, IFormatProvider provider, System.Globalization.DateTimeStyles style);
+
+        [H5.Template("System.DateTime.parseExact({0}, {1}, {2}, {3} === 8)")]
+        public static extern DateTime ParseExact(string s, string[] formats, IFormatProvider provider, System.Globalization.DateTimeStyles style);
+
         [H5.Template("System.DateTime.tryParseExact({0}, {1}, {2}, {3})")]
         public static extern bool TryParseExact(string s, string format, IFormatProvider provider, out DateTime result);
+
+        [H5.Template("System.DateTime.tryParseExact({0}, {1}, {2}, {result}, {3} === 8)")]
+        public static extern bool TryParseExact(string s, string format, IFormatProvider provider, System.Globalization.DateTimeStyles style, out DateTime result);
+
+        [H5.Template("System.DateTime.tryParseExact({0}, {1}, {2}, {result}, {3} === 8)")]
+        public static extern bool TryParseExact(string s, string[] formats, IFormatProvider provider, System.Globalization.DateTimeStyles style, out DateTime result);
 
         [H5.Template("System.DateTime.subdt({0}, {1})")]
         public static extern DateTime operator -(DateTime d, TimeSpan t);

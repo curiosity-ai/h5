@@ -17,6 +17,105 @@ namespace H5.Core
 
         [CombinedClass]
         [FormerInterface]
+        public class NavigatorUABrandVersion : IObject
+        {
+            public virtual string brand
+            {
+                get;
+            }
+
+            public virtual string version
+            {
+                get;
+            }
+        }
+
+        [CombinedClass]
+        [FormerInterface]
+        public class UADataValues : IObject
+        {
+            public virtual es5.ReadonlyArray<dom.NavigatorUABrandVersion> brands
+            {
+                get;
+            }
+
+            public virtual bool mobile
+            {
+                get;
+            }
+
+            public virtual string platform
+            {
+                get;
+            }
+
+            public virtual string architecture
+            {
+                get;
+            }
+
+            public virtual string bitness
+            {
+                get;
+            }
+
+            public virtual es5.ReadonlyArray<string> formFactors
+            {
+                get;
+            }
+
+            public virtual es5.ReadonlyArray<dom.NavigatorUABrandVersion> fullVersionList
+            {
+                get;
+            }
+
+            public virtual string model
+            {
+                get;
+            }
+
+            public virtual string platformVersion
+            {
+                get;
+            }
+
+            public virtual string uaFullVersion
+            {
+                get;
+            }
+
+            public virtual bool wow64
+            {
+                get;
+            }
+        }
+
+        [CombinedClass]
+        [FormerInterface]
+        public class NavigatorUAData : IObject
+        {
+            public virtual es5.ReadonlyArray<dom.NavigatorUABrandVersion> brands
+            {
+                get;
+            }
+
+            public virtual bool mobile
+            {
+                get;
+            }
+
+            public virtual string platform
+            {
+                get;
+            }
+
+            public virtual extern es5.Promise<dom.UADataValues> getHighEntropyValues(string[] hints);
+
+            public virtual extern object toJSON();
+        }
+
+        [CombinedClass]
+        [FormerInterface]
         public class Clipboard : IObject
         {
             public static dom.Clipboard prototype
@@ -90,6 +189,11 @@ namespace H5.Core
             }
 
             public virtual string doNotTrack
+            {
+                get;
+            }
+
+            public virtual dom.NavigatorUAData userAgentData
             {
                 get;
             }

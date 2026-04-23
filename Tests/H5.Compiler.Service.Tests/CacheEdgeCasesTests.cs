@@ -65,7 +65,7 @@ namespace H5.Compiler.Service.Tests
                 Assert.AreEqual(1, stats["ReusedFiles"], "Should invalidate App. (2 source files - 1 emitted type = 1 'reused' count artifact)");
 
                 // Verify content to be sure
-                var js = result2.Output.Values.FirstOrDefault(v => v.Contains("Changed"));
+                var js = result2.Output.Values.FirstOrDefault(v => System.Text.Encoding.UTF8.GetString(v.ToArray()).Contains("Changed"));
                 Assert.IsNotNull(js, "Output should contain the changed string");
             }
         }

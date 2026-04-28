@@ -184,7 +184,8 @@ namespace H5.Translator
                         {
                             try
                             {
-                                constValue = Convert.ChangeType(constValue, ReflectionHelper.GetTypeCode(expectedType));
+                                var targetType = NullableType.IsNullable(expectedType) ? NullableType.GetUnderlyingType(expectedType) : expectedType;
+                                constValue = Convert.ChangeType(constValue, ReflectionHelper.GetTypeCode(targetType));
                             }
                             catch (Exception)
                             {

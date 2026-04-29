@@ -186,10 +186,11 @@ namespace H5.Translator.Utils
                                 var fullBasePath = Path.GetFullPath(parts[0]).TrimEnd(Path.DirectorySeparatorChar);
                                 foreach (var file in Directory.EnumerateFiles(fullBasePath, "*" + parts[1], SearchOption.AllDirectories))
                                 {
-                                    //if (!Path.GetFileName(file).Contains('.'))
-                                    //{
-                                    //    throw new Exception($"Error parsing resource {item.Name}: Extensionless files not supported: {file}, add an extension and try again.");
-                                    //}
+                                    var fileName = Path.GetFileName(file);
+                                    if (fileName != "CNAME" && !fileName.Contains('.'))
+                                    {
+                                       throw new Exception($"Error parsing resource {item.Name}: Extensionless files not supported: {file}, add an extension and try again.");
+                                    }
 
                                     if (file.EndsWith(".DS_Store", StringComparison.OrdinalIgnoreCase)) continue;
                                     if (file.EndsWith("desktop.ini", StringComparison.OrdinalIgnoreCase)) continue;

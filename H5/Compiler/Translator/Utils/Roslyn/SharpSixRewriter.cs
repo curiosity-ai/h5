@@ -5886,5 +5886,48 @@ namespace H5.Translator
 
             return rewrittenNode.WithMembers(SyntaxFactory.List(newMembers));
         }
+
+        public override SyntaxNode VisitNullableType(NullableTypeSyntax node)
+        {
+            if (node.SyntaxTree == null || node.SyntaxTree != semanticModel.SyntaxTree)
+            {
+                return base.VisitNullableType(node);
+            }
+
+            var typeInfo = semanticModel.GetTypeInfo(node.ElementType);
+            var type = typeInfo.Type ?? typeInfo.ConvertedType;
+
+            if (type != null && type.IsReferenceType)
+            {
+                return Visit(node.ElementType).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+
+            return base.VisitNullableType(node);
+        }
+
+        public override SyntaxToken VisitToken(SyntaxToken token)
+        {
+            var visitedToken = base.VisitToken(token);
+
+            if (visitedToken.HasLeadingTrivia)
+            {
+                var newTrivia = visitedToken.LeadingTrivia.Where(t => !t.IsKind(SyntaxKind.NullableDirectiveTrivia));
+                if (newTrivia.Count() != visitedToken.LeadingTrivia.Count)
+                {
+                    visitedToken = visitedToken.WithLeadingTrivia(newTrivia);
+                }
+            }
+
+            if (visitedToken.HasTrailingTrivia)
+            {
+                var newTrivia = visitedToken.TrailingTrivia.Where(t => !t.IsKind(SyntaxKind.NullableDirectiveTrivia));
+                if (newTrivia.Count() != visitedToken.TrailingTrivia.Count)
+                {
+                    visitedToken = visitedToken.WithTrailingTrivia(newTrivia);
+                }
+            }
+
+            return visitedToken;
+        }
     }
 }

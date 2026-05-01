@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using ZLogger;
 using Mosaik.Core;
 using System.Threading;
+using System.Threading.Tasks;
 using NUglify.JavaScript;
 
 namespace H5.Translator
@@ -222,29 +223,30 @@ namespace H5.Translator
 
         protected virtual MemberResolver Preconvert(MemberResolver resolver, IH5DotJson_AssemblySettings config, CancellationToken cancellationToken)
         {
-            bool needRecompile = false;
+            int needRecompile = 0;
 
-            foreach (var sourceFile in ParsedSourceFiles)
+            Parallel.For(0, ParsedSourceFiles.Length, i =>
             {
+                var sourceFile = ParsedSourceFiles[i];
                 cancellationToken.ThrowIfCancellationRequested();
 
                 Logger.ZLogTrace("Preconvert {0}", sourceFile.ParsedFile.FileName);
-                var syntaxTree  = sourceFile.SyntaxTree;
+                var syntaxTree = sourceFile.SyntaxTree;
                 var tempEmitter = new TempEmitter { AssemblyInfo = config };
-                var detecter    = new PreconverterDetecter(resolver, tempEmitter);
+                var detecter = new PreconverterDetecter(resolver, tempEmitter);
                 syntaxTree.AcceptVisitor(detecter);
 
                 if (detecter.Found)
                 {
-                    var fixer   = new PreconverterFixer(resolver, tempEmitter);
+                    var fixer = new PreconverterFixer(resolver, tempEmitter);
                     var astNode = syntaxTree.AcceptVisitor(fixer);
-                    syntaxTree            = astNode != null ? (SyntaxTree)astNode : syntaxTree;
+                    syntaxTree = astNode != null ? (SyntaxTree)astNode : syntaxTree;
                     sourceFile.SyntaxTree = syntaxTree;
-                    needRecompile         = true;
+                    Interlocked.Exchange(ref needRecompile, 1);
                 }
-            }
+            });
 
-            if (needRecompile)
+            if (needRecompile == 1)
             {
                 return new MemberResolver(ParsedSourceFiles, resolver.Assemblies, AssemblyDefinition);
             }

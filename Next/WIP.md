@@ -1,0 +1,1 @@
+- Currently setting up the initial solution, projects, and basic Hello World compiler capability.

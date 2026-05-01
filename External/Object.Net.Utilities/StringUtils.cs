@@ -89,7 +89,7 @@ namespace Object.Net.Utilities
     public static string FormatWith(this string format, params object[] args)
     {
       if (args == null)
-        throw new ArgumentNullException(string.Format("The args parameter can not be null when calling {0}.FormatWith().", (object) format));
+        throw new ArgumentNullException($"The args parameter can not be null when calling {format}.FormatWith().");
       return string.Format(format, args);
     }
 
@@ -178,7 +178,7 @@ namespace Object.Net.Utilities
     public static string ConcatWith(this string instance, params object[] args)
     {
       if (args == null)
-        throw new ArgumentNullException(string.Format("The args parameter can not be null when calling {0}.Format().", (object) instance));
+        throw new ArgumentNullException($"The args parameter can not be null when calling {instance}.Format().");
       return instance + string.Concat(args);
     }
 
@@ -235,9 +235,9 @@ namespace Object.Net.Utilities
     public static string[] Subarray(this string[] items, int start, int length)
     {
       if (start > items.Length)
-        throw new ArgumentException(string.Format("The start index [{0}] is greater than the length [{1}] of the array.", (object) start, (object) items.Length));
+        throw new ArgumentException($"The start index [{start}] is greater than the length [{items.Length}] of the array.");
       if (start + length > items.Length)
-        throw new ArgumentException(string.Format("The length [{0}] to return is greater than the length [{1}] of the array.", (object) length, (object) items.Length));
+        throw new ArgumentException($"The length [{length}] to return is greater than the length [{items.Length}] of the array.");
       string[] strArray = new string[length];
       int index1 = 0;
       for (int index2 = start; index2 < start + length; ++index2)
@@ -419,7 +419,7 @@ namespace Object.Net.Utilities
     {
       string str = "";
       foreach (string text in values)
-        str = str + separator + text.ToCamelCase();
+        str = $"{str}{separator}{text.ToCamelCase()}";
       return str;
     }
 
@@ -603,7 +603,7 @@ namespace Object.Net.Utilities
     /// <returns></returns>
     public static string ReplaceLastInstanceOf(this string text, string oldValue, string newValue)
     {
-      return text.IsEmpty() ? text : string.Format("{0}{1}{2}", (object) text.LeftOfRightmostOf(oldValue), (object) newValue, (object) text.RightOfRightmostOf(oldValue));
+      return text.IsEmpty() ? text : $"{text.LeftOfRightmostOf(oldValue)}{newValue}{text.RightOfRightmostOf(oldValue)}";
     }
 
     /// <summary>
@@ -624,7 +624,7 @@ namespace Object.Net.Utilities
           str += (string) (object) separator;
         str += matchCollection[index].ToString().ToLowerInvariant();
       }
-      return string.Format(string.IsNullOrEmpty(extension) ? "{0}{1}" : "{0}.{1}", (object) str, (object) extension);
+      return string.IsNullOrEmpty(extension) ? $"{str}{extension}" : $"{str}.{extension}";
     }
 
     /// <summary>
@@ -670,7 +670,7 @@ namespace Object.Net.Utilities
             if (c < ' ')
             {
               string str = "000" + (object) int.Parse(new string(c, 1), NumberStyles.HexNumber);
-              stringBuilder.Append("\\u" + str.Substring(str.Length - 4));
+              stringBuilder.Append($"\\u{str.Substring(str.Length - 4)}");
               break;
             }
             stringBuilder.Append(c);
@@ -799,9 +799,9 @@ namespace Object.Net.Utilities
     {
       bool flag = !regex.StartsWith("new RegExp");
       if (!regex.StartsWith("/", StringComparison.InvariantCulture) && flag)
-        regex = "/{0}".FormatWith((object) regex);
+        regex = $"/{regex}";
       if (!regex.EndsWith("/", StringComparison.InvariantCulture) && flag)
-        regex = "{0}/".FormatWith((object) regex);
+        regex = $"{regex}/";
       return regex;
     }
 

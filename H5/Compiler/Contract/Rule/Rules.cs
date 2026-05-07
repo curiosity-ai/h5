@@ -25,6 +25,11 @@ namespace H5.Contract
 
         public static CompilerRule Get(IEmitter emitter, IEntity entity)
         {
+            if (emitter != null && emitter.MemberCompilerRuleCache.TryGetValue(entity, out var cached))
+            {
+                return cached;
+            }
+
             CompilerRule memberRule = null;
             CompilerRule[] classRules = null;
             CompilerRule[] assemblyRules = null;
@@ -107,7 +112,9 @@ namespace H5.Contract
                 rules.Add(CompilerRule.DefaultIfNotH5());
             }
 
-            return MergeRules(rules);
+            var result = MergeRules(rules);
+            if (emitter != null) emitter.MemberCompilerRuleCache[entity] = result;
+            return result;
         }
 
         private static CompilerRule MergeRules(List<CompilerRule> rules)

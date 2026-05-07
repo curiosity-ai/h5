@@ -181,8 +181,16 @@ namespace H5.Translator
 
                 BuildSyntaxTree(cancellationToken);
 
-                var resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references), AssemblyDefinition);
-                resolver = Preconvert(resolver, config, cancellationToken);
+                MemberResolver resolver;
+                using (new Measure(Logger, "Building member resolver"))
+                {
+                    resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references), AssemblyDefinition);
+                }
+
+                using (new Measure(Logger, "Preconverting syntax trees"))
+                {
+                    resolver = Preconvert(resolver, config, cancellationToken);
+                }
 
                 InspectTypes(resolver, config);
 

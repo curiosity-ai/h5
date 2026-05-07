@@ -459,10 +459,12 @@ namespace H5.Translator
 
                     if (cachedEmittedData.ConfigHash == configHash)
                     {
+                        var fileHashes = new Dictionary<string, (UID128 hash, FileInfo info)>(Emitter.SourceFiles.Count, StringComparer.Ordinal);
                         foreach (var file in Emitter.SourceFiles)
                         {
                             var fileInfo = new FileInfo(file);
                             var hash = ComputeFileHash(file);
+                            fileHashes[file] = (hash, fileInfo);
 
                             if (cachedEmittedData.FileInfo.TryGetValue(file, out var prevInfo))
                             {
@@ -518,11 +520,10 @@ namespace H5.Translator
                             cachedEmittedData.Dependencies.Remove(file);
                         }
 
-                        // Update FileInfo for all source files to current state so next run has correct info
+                        // Update FileInfo for all source files using cached hashes from the first pass
                         foreach (var file in Emitter.SourceFiles)
                         {
-                            var fileInfo = new FileInfo(file);
-                            var hash = ComputeFileHash(file);
+                            var (hash, fileInfo) = fileHashes[file];
                             cachedEmittedData.FileInfo[file] = new CacheFileInfo { Hash = hash, Size = fileInfo.Length, Timestamp = (DateTimeOffset)fileInfo.LastWriteTimeUtc };
                         }
                     }
@@ -543,9 +544,16 @@ namespace H5.Translator
             var nsCache = new Dictionary<string, Dictionary<string, int>>();
 
             var reflectedTypes = Emitter.ReflectableTypes = GetReflectableTypes();
+            var reflectedTypesSet = new HashSet<IType>(reflectedTypes);
 
             int reusedFiles = 0;
             var emittedFiles = new HashSet<string>();
+
+            var sourceFileIndexMap = new Dictionary<string, int>(Emitter.SourceFiles.Count, StringComparer.Ordinal);
+            for (int i = 0; i < Emitter.SourceFiles.Count; i++)
+            {
+                sourceFileIndexMap[Emitter.SourceFiles[i]] = i;
+            }
 
             using (new Measure(Logger, "Emitting types to javascript"))
             {
@@ -599,7 +607,7 @@ namespace H5.Translator
                     }
 
                     Emitter.SourceFileName = type.TypeDeclaration.GetParent<SyntaxTree>().FileName;
-                    Emitter.SourceFileNameIndex = Emitter.SourceFiles.IndexOf(Emitter.SourceFileName);
+                    Emitter.SourceFileNameIndex = sourceFileIndexMap.TryGetValue(Emitter.SourceFileName, out var sfIdx) ? sfIdx : -1;
 
                     Emitter.Output = GetOutputForType(typeInfo, null);
                     Emitter.TypeInfo = type;
@@ -642,7 +650,7 @@ namespace H5.Translator
                         }
 
                         var name = H5Types.ToJsName(type.Type, Emitter, true, true, true);
-                        if (type.Type.DeclaringType != null && JS.Reserved.StaticNames.Any(n => String.Equals(name, n, StringComparison.InvariantCulture)))
+                        if (type.Type.DeclaringType != null && JS.Reserved.StaticNamesSet.Contains(name))
                         {
                             throw new EmitterException(type.TypeDeclaration, $"Invalid nested class name: {name}. Please rename it.");
                         }
@@ -715,7 +723,7 @@ namespace H5.Translator
                             continue;
                         }
 
-                        if (isGlobal || Emitter.TypeInfo.Module != null || reflectedTypes.Any(t => t == type.Type))
+                        if (isGlobal || Emitter.TypeInfo.Module != null || reflectedTypesSet.Contains(type.Type))
                         {
                             continue;
                         }
@@ -746,6 +754,12 @@ namespace H5.Translator
                             metasOutput[fn].Add(type.Type, meta);
                         }
                     }
+                }
+
+                var typeInfoByType = new Dictionary<IType, ITypeInfo>(Emitter.Types.Count);
+                foreach (var t in Emitter.Types)
+                {
+                    if (t.Type != null) typeInfoByType[t.Type] = t;
                 }
 
                 using (new Measure(Logger, "Emitting types reflection metadata to javascript"))
@@ -784,7 +798,7 @@ namespace H5.Translator
 
                         if (typeDef != null)
                         {
-                            var tInfo = Emitter.Types.FirstOrDefault(t => t.Type == reflectedType);
+                            typeInfoByType.TryGetValue(reflectedType, out var tInfo);
                             SyntaxTree tree = null;
 
                             if (tInfo != null && tInfo.TypeDeclaration != null)

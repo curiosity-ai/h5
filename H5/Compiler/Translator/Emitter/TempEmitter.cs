@@ -16,6 +16,7 @@ namespace H5.Translator
         {
             AssemblyCompilerRuleCache = new Dictionary<IAssembly, CompilerRule[]>();
             ClassCompilerRuleCache = new Dictionary<ITypeDefinition, CompilerRule[]>();
+            MemberCompilerRuleCache = new Dictionary<IEntity, CompilerRule>();
 
         }
 
@@ -178,6 +179,8 @@ namespace H5.Translator
         }
 
         public Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache { get; set; }
+
+        public Dictionary<IEntity, CompilerRule> MemberCompilerRuleCache { get; set; }
 
         public Dictionary<ITypeDefinition, NameRule[]> ClassNameRuleCache
         {

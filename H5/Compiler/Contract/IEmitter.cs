@@ -247,6 +247,8 @@ namespace H5.Contract
 
         Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache { get; }
 
+        Dictionary<IEntity, CompilerRule> MemberCompilerRuleCache { get; }
+
         bool InConstructor { get; set; }
         CompilerRule Rules { get; set; }
         bool HasModules { get; set; }

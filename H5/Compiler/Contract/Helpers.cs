@@ -1298,7 +1298,7 @@ namespace H5.Contract
 
         public static bool IsReservedStaticName(string name, bool ignoreCase = true)
         {
-            return JS.Reserved.StaticNames.Any(n => String.Equals(name, n, ignoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture));
+            return ignoreCase ? JS.Reserved.StaticNamesIgnoreCaseSet.Contains(name) : JS.Reserved.StaticNamesSet.Contains(name);
         }
 
         public static bool HasThis(string template)

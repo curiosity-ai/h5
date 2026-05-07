@@ -1,6 +1,7 @@
 ﻿namespace H5.Contract.Constants
 {
     using System.Collections.Generic;
+    using System;
 
     public class JS
     {
@@ -362,6 +363,8 @@
         public class Reserved
         {
             public static readonly List<string> StaticNames = new List<string> { "name", "arguments", "caller", "length", "prototype", "ctor" };
+            public static readonly HashSet<string> StaticNamesSet = new HashSet<string>(StaticNames, StringComparer.Ordinal);
+            public static readonly HashSet<string> StaticNamesIgnoreCaseSet = new HashSet<string>(StaticNames, StringComparer.OrdinalIgnoreCase);
             public static readonly string[] Words = new string[]
             {
                 "H5", "__proto__", "abstract", "arguments", "as", "boolean", "break", "byte", "case", "catch", "char",

@@ -267,6 +267,8 @@ namespace H5.Translator
 
         public Dictionary<ITypeDefinition, CompilerRule[]> ClassCompilerRuleCache { get; }
 
+        public Dictionary<IEntity, CompilerRule> MemberCompilerRuleCache { get; }
+
         public string SourceFileName { get; set; }
 
         public int SourceFileNameIndex { get; set; }

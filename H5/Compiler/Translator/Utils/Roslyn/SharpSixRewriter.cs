@@ -241,7 +241,7 @@ namespace H5.Translator
             var syntaxTree = compilation.SyntaxTrees[index];
             semanticModel = compilation.GetSemanticModel(syntaxTree, true);
 
-            SyntaxTree newTree = null;
+            SyntaxTree newTree = syntaxTree;
 
             Func<SyntaxNode, Tuple<SyntaxTree, SemanticModel>> modelUpdater = (root) => {
                 newTree = SyntaxFactory.SyntaxTree(root, GetParseOptions());
@@ -251,17 +251,24 @@ namespace H5.Translator
                 return new Tuple<SyntaxTree, SemanticModel>(newTree, semanticModel);
             };
 
-            var result = new ExpressionBodyToStatementRewriter(semanticModel).Visit(syntaxTree.GetRoot());
-            modelUpdater(result);
+            SyntaxNode currentRoot;
+            SyntaxNode result;
 
-            result = new NameofReplacer(semanticModel).Visit(syntaxTree.GetRoot());
-            modelUpdater(result);
+            currentRoot = syntaxTree.GetRoot();
+            result = new ExpressionBodyToStatementRewriter(semanticModel).Visit(currentRoot);
+            if (!ReferenceEquals(result, currentRoot)) { modelUpdater(result); }
 
-            result = new DiscardReplacer().Replace(syntaxTree.GetRoot(), semanticModel, modelUpdater, this);
-            modelUpdater(result);
+            currentRoot = syntaxTree.GetRoot();
+            result = new NameofReplacer(semanticModel).Visit(currentRoot);
+            if (!ReferenceEquals(result, currentRoot)) { modelUpdater(result); }
 
-            result = new DeconstructionReplacer().Replace(syntaxTree.GetRoot(), semanticModel, modelUpdater, this);
-            modelUpdater(result);
+            currentRoot = syntaxTree.GetRoot();
+            result = new DiscardReplacer().Replace(currentRoot, semanticModel, modelUpdater, this);
+            if (!ReferenceEquals(result, syntaxTree.GetRoot())) { modelUpdater(result); }
+
+            currentRoot = syntaxTree.GetRoot();
+            result = new DeconstructionReplacer().Replace(currentRoot, semanticModel, modelUpdater, this);
+            if (!ReferenceEquals(result, syntaxTree.GetRoot())) { modelUpdater(result); }
 
             result = Visit(syntaxTree.GetRoot());
 
@@ -295,7 +302,7 @@ namespace H5.Translator
 
             foreach (var replacer in replacers)
             {
-                modelUpdater(result);
+                if (!ReferenceEquals(result, syntaxTree.GetRoot())) { modelUpdater(result); }
 
                 try
                 {
@@ -308,7 +315,7 @@ namespace H5.Translator
                 }
             }
 
-            modelUpdater(result);
+            if (!ReferenceEquals(result, syntaxTree.GetRoot())) { modelUpdater(result); }
 
             var rewritten = newTree.GetRoot().ToFullString();
             AddToCache(index, rewritten, sourceHash);

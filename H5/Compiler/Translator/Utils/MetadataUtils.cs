@@ -33,7 +33,8 @@ namespace H5.Translator
             if (type.Kind == TypeKind.Class || type.Kind == TypeKind.Struct || type.Kind == TypeKind.Interface || type.Kind == TypeKind.Enum)
             {
                 var reflectable = type.Members.Where(m => IsReflectable(m, emitter, ifHasAttribute, tree))
-                                          .OrderBy(m => m, MemberOrderer.Instance);
+                                          .OrderBy(m => m, MemberOrderer.Instance)
+                                          .ToList();
 
                 var members = reflectable.Select(m => ConstructMemberInfo(m, emitter, false, false, tree)).ToList();
 
@@ -49,7 +50,8 @@ namespace H5.Translator
                     properties.Add("m", new JArray(members));
                 }
 
-                var aua = type.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "System.AttributeUsageAttribute");
+                IAttribute aua = null;
+                foreach (var a in type.Attributes) { if (a.AttributeType.FullName == "System.AttributeUsageAttribute") { aua = a; break; } }
                 if (aua != null)
                 {
                     var inherited = true;
@@ -272,10 +274,7 @@ namespace H5.Translator
                 return false;
             }
 
-            if (member.Attributes.Any(a => a.AttributeType.FullName == "H5.NonScriptableAttribute"))
-            {
-                return false;
-            }
+            foreach (var a in member.Attributes) { if (a.AttributeType.FullName == "H5.NonScriptableAttribute") { return false; } }
 
             bool? reflectable = ReflectableValue(member.Attributes, member, emitter);
 
@@ -316,7 +315,8 @@ namespace H5.Translator
 
         private static bool? ReflectableValue(IList<IAttribute> attributes, IMember member, IEmitter emitter)
         {
-            var attr = attributes.FirstOrDefault(a => a.AttributeType.FullName == "H5.ReflectableAttribute");
+            IAttribute attr = null;
+            foreach (var a in attributes) { if (a.AttributeType.FullName == "H5.ReflectableAttribute") { attr = a; break; } }
 
             if (attr == null)
             {
@@ -324,9 +324,10 @@ namespace H5.Translator
 
                 if (attr != null)
                 {
-                    if (attr.NamedArguments.Count > 0 && attr.NamedArguments.Any(arg => arg.Key.Name == "Inherits"))
+                    KeyValuePair<IMember, ResolveResult> inherits = default;
+                    foreach (var arg in attr.NamedArguments) { if (arg.Key.Name == "Inherits") { inherits = arg; break; } }
+                    if (attr.NamedArguments.Count > 0 && inherits.Key != null)
                     {
-                        var inherits = attr.NamedArguments.First(arg => arg.Key.Name == "Inherits");
 
                         if (!(bool)inherits.Value.ConstantValue)
                         {

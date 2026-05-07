@@ -5030,7 +5030,8 @@ namespace H5.Translator
                                      || node.Parent is CastExpressionSyntax
                                      || node.Parent is AwaitExpressionSyntax
                                      || node.Parent is PostfixUnaryExpressionSyntax
-                                     || node.Parent is PrefixUnaryExpressionSyntax;
+                                     || node.Parent is PrefixUnaryExpressionSyntax
+                                     || node.Parent is IsPatternExpressionSyntax;
 
             node = (ConditionalAccessExpressionSyntax)base.VisitConditionalAccessExpression(node);
             var idx = 0;

@@ -36,6 +36,35 @@ public class Program
         }
 
         [TestMethod]
+        public async Task ConditionalAccessWithIsPattern()
+        {
+            var code = """
+using System;
+
+public class Program
+{
+    class Stats {
+        public object DetailedStats { get; set; }
+    }
+
+    public static void Main()
+    {
+        Stats stats = null;
+        if (stats?.DetailedStats is null) {
+            Console.WriteLine("Null");
+        }
+        stats = new Stats();
+        if (stats?.DetailedStats is null) {
+            Console.WriteLine("Null2");
+        }
+    }
+}
+""";
+            var output = await RunTest(code);
+            Assert.AreEqual("Null\nNull2", output);
+        }
+
+        [TestMethod]
         public async Task Records_2()
         {
             var code = """

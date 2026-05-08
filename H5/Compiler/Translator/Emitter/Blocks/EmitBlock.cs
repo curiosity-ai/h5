@@ -611,7 +611,6 @@ namespace H5.Translator
 
                     Emitter.Output = GetOutputForType(typeInfo, null);
                     Emitter.TypeInfo = type;
-                    type.JsName = H5Types.ToJsName(type.Type, Emitter, true, removeScope: false);
 
                     if (Emitter.Output.Length > 0)
                     {
@@ -637,12 +636,14 @@ namespace H5.Translator
                         }
                     }
 
-                    if (cachedEmittedData is object && !isInvalidated && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.Key ?? type.JsName, out var cachedCode))
+                    if (cachedEmittedData is object && !isInvalidated && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.Key, out var cachedCode))
                     {
                         tmpBuffer.Append(cachedCode);
                     }
                     else
                     {
+                        // JsName is only needed for the ClassBlock emitter path (cache miss).
+                        type.JsName = H5Types.ToJsName(type.Type, Emitter, true, removeScope: false);
                         emittedFiles.Add(Emitter.SourceFileName);
                         if (Emitter.TypeInfo.Module is object)
                         {
@@ -662,7 +663,7 @@ namespace H5.Translator
 
                     if (cachedEmittedData != null)
                     {
-                        cachedEmittedData.AddToCache(Emitter.SourceFileName, type.Key ?? type.JsName, finalCode);
+                        cachedEmittedData.AddToCache(Emitter.SourceFileName, type.Key, finalCode);
                     }
                     
                     currentOutput.Append(finalCode);

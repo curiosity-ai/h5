@@ -637,7 +637,7 @@ namespace H5.Translator
                         }
                     }
 
-                    if (cachedEmittedData is object && !isInvalidated && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.JsName, out var cachedCode))
+                    if (cachedEmittedData is object && !isInvalidated && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.Key ?? type.JsName, out var cachedCode))
                     {
                         tmpBuffer.Append(cachedCode);
                     }
@@ -662,7 +662,7 @@ namespace H5.Translator
 
                     if (cachedEmittedData != null)
                     {
-                        cachedEmittedData.AddToCache(Emitter.SourceFileName, type.JsName, finalCode);
+                        cachedEmittedData.AddToCache(Emitter.SourceFileName, type.Key ?? type.JsName, finalCode);
                     }
                     
                     currentOutput.Append(finalCode);

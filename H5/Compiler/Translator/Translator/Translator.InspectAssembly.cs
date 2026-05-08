@@ -387,6 +387,14 @@ namespace H5.Translator
         {
             using (var m = new Measure(Logger, $"Rewritting code for {SourceFiles.Count} files"))
             {
+                // Fast path: if every source file has a valid cache entry, skip Roslyn compilation entirely.
+                if (SharpSixRewriter.TryGetAllFromCache(this, out var cachedAll))
+                {
+                    Logger.ZLogInformation("All {0} files served from rewriter cache (skipped Roslyn compilation)", SourceFiles.Count);
+                    m.SetOperations(cachedAll.Length);
+                    return cachedAll;
+                }
+
                 var rewriter = new SharpSixRewriter(this);
                 var result   = new string[SourceFiles.Count];
 

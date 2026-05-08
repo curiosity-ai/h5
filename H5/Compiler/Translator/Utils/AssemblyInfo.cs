@@ -211,6 +211,6 @@ namespace H5.Translator
         /// </summary>
         public bool IgnoreDuplicateTypes { get; set; }
 
-        public bool EnableCache { get; set; }
+        public bool EnableCache { get; set; } = true;
     }
 }

@@ -69,7 +69,6 @@ namespace H5.Translator
         public SharpSixRewriter(ITranslator translator)
         {
             this.translator = translator;
-            compilation = CreateCompilation();
             isParent = true;
             _cachedRewrittenData = LoadCache();
 
@@ -77,19 +76,11 @@ namespace H5.Translator
             //     THERE IS ALSO A POSSIBLE PROBLEMATIC ISSUE WITH THE ORDER THAT TYPES METHODS ARE EMITTED.
             //     Example: ctor vs. ctor$1, which will break this assumption and lead to bad-code being emitted when reusing cached code
 
-            var configHash = JsonConvert.SerializeObject(translator.AssemblyInfo).Hash128();
-
-            foreach (var reference in translator.References.OrderBy(r => r.MainModule.FileName))
-            {
-                var fi = new FileInfo(reference.MainModule.FileName);
-                configHash = Hashes.Combine(configHash, reference.FullName.Hash128(), $"{fi.Length}/{fi.LastWriteTime}".Hash128());
-            }
-
-            var context = translator.GetVersionContext();
-
-            configHash = Hashes.Combine(configHash, $"{context.Compiler.Version}/{context.H5.Version}".Hash128());
+            var configHash = ComputeConfigHash(translator);
 
             _cachedRewrittenData.ClearIfConfigHashChanged(configHash, force: !translator.AssemblyInfo.EnableCache || translator.Rebuild);
+
+            compilation = CreateCompilation();
         }
 
         public SharpSixRewriter Clone()
@@ -139,9 +130,96 @@ namespace H5.Translator
             File.WriteAllText(tempFilePath, rewrittenCode);
         }
 
-        private string GetCacheFile()
+        private static string GetCacheFile(ITranslator translator)
         {
             return translator.AssemblyLocation.Replace(@"\bin\", @"\obj\").Replace(@"/bin/", @"/obj/") + ".h5.rewriter.cache";
+        }
+
+        private string GetCacheFile() => GetCacheFile(translator);
+
+        private static UID128 ComputeConfigHash(ITranslator translator)
+        {
+            var configHash = JsonConvert.SerializeObject(translator.AssemblyInfo).Hash128();
+
+            foreach (var reference in translator.References.OrderBy(r => r.MainModule.FileName))
+            {
+                var fi = new FileInfo(reference.MainModule.FileName);
+                configHash = Hashes.Combine(configHash, reference.FullName.Hash128(), $"{fi.Length}/{fi.LastWriteTime}".Hash128());
+            }
+
+            var context = translator.GetVersionContext();
+            configHash = Hashes.Combine(configHash, $"{context.Compiler.Version}/{context.H5.Version}".Hash128());
+            return configHash;
+        }
+
+        /// <summary>
+        /// Attempts to satisfy all rewrite results from the on-disk cache without creating a
+        /// Roslyn compilation. Returns true (and populates <paramref name="results"/>) only when
+        /// every source file has a valid cached entry whose content hash matches the file on disk.
+        /// </summary>
+        public static bool TryGetAllFromCache(ITranslator translator, out string[] results)
+        {
+            results = null;
+
+#if DEBUG
+            return false;
+#endif
+
+            if (!translator.AssemblyInfo.EnableCache || translator.Rebuild)
+                return false;
+
+            var cacheFile = GetCacheFile(translator);
+            if (!File.Exists(cacheFile))
+                return false;
+
+            SharpSixRewriterCachedOutput cachedData;
+            try
+            {
+                using (var f = File.OpenRead(cacheFile))
+                {
+                    cachedData = MessagePackSerializer.Deserialize<SharpSixRewriterCachedOutput>(f);
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            var configHash = ComputeConfigHash(translator);
+            if (cachedData.ConfigHash != configHash)
+                return false;
+
+            var sourceFiles = translator.SourceFiles;
+            if (cachedData.CachedCompilation.Count < sourceFiles.Count)
+                return false;
+
+            var tempResults = new string[sourceFiles.Count];
+            int failures = 0;
+
+            System.Threading.Tasks.Parallel.For(0, sourceFiles.Count, i =>
+            {
+                if (System.Threading.Volatile.Read(ref failures) > 0) return;
+
+                string sourceText;
+                try { sourceText = File.ReadAllText(sourceFiles[i]); }
+                catch { System.Threading.Interlocked.Increment(ref failures); return; }
+
+                var sourceHash = sourceText.Hash128();
+                if (cachedData.CachedCompilation.TryGetValue(sourceFiles[i], out var entry) && entry.hash == sourceHash)
+                {
+                    tempResults[i] = entry.code;
+                }
+                else
+                {
+                    System.Threading.Interlocked.Increment(ref failures);
+                }
+            });
+
+            if (failures > 0)
+                return false;
+
+            results = tempResults;
+            return true;
         }
 
         public SharpSixRewriterCachedOutput LoadCache()
@@ -149,7 +227,7 @@ namespace H5.Translator
             if (!isParent) throw new InvalidOperationException("Can only be called on parent Rewriter");
 
             var cf = GetCacheFile();
-            
+
             Directory.CreateDirectory(Path.GetDirectoryName(cf));
 
             if (File.Exists(cf))

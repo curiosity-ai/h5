@@ -6,7 +6,7 @@
       <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <DefineConstants>DEBUG;H5_COMPILER</DefineConstants>
+    <DefineConstants>$(DefineConstants);H5_COMPILER</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <DebugType>full</DebugType>

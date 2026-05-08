@@ -638,7 +638,8 @@ namespace H5.Translator
 
                     if (cachedEmittedData is object && !isInvalidated && cachedEmittedData.TryGetCached(Emitter.SourceFileName, type.Key, out var cachedCode))
                     {
-                        tmpBuffer.Append(cachedCode);
+                        // Cache hit: skip ClassBlock.Emit() and buffer round-trip entirely.
+                        currentOutput.Append(cachedCode);
                     }
                     else
                     {
@@ -657,16 +658,16 @@ namespace H5.Translator
                         }
 
                         new ClassBlock(Emitter, Emitter.TypeInfo).Emit();
-                    }
 
-                    var finalCode = tmpBuffer.ToString();
+                        var finalCode = tmpBuffer.ToString();
 
-                    if (cachedEmittedData != null)
-                    {
-                        cachedEmittedData.AddToCache(Emitter.SourceFileName, type.Key, finalCode);
+                        if (cachedEmittedData != null)
+                        {
+                            cachedEmittedData.AddToCache(Emitter.SourceFileName, type.Key, finalCode);
+                        }
+
+                        currentOutput.Append(finalCode);
                     }
-                    
-                    currentOutput.Append(finalCode);
 
                     //Switch back the emitter output to the previous StringBuilder
                     Emitter.Output = currentOutput;

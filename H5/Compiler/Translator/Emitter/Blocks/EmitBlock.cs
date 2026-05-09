@@ -730,6 +730,10 @@ namespace H5.Translator
                             continue;
                         }
 
+                        Emitter.TypeInfo = type;
+                        if (type.JsName == null)
+                            type.JsName = H5Types.ToJsName(type.Type, Emitter, true, removeScope: false);
+
                         GetOutputForType(type, null);
 
                         var fn = Path.GetFileNameWithoutExtension(Emitter.EmitterOutput.FileName);

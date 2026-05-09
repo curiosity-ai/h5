@@ -750,7 +750,7 @@ namespace H5.Contract
 
         public static bool IsReservedWord(IEmitter emitter, string word)
         {
-            if (emitter != null && (emitter.TypeInfo.JsName == word || emitter.TypeInfo.JsName.StartsWith(word + ".")))
+            if (emitter != null && emitter.TypeInfo?.JsName != null && (emitter.TypeInfo.JsName == word || emitter.TypeInfo.JsName.StartsWith(word + ".")))
             {
                 return true;
             }

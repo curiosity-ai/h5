@@ -181,8 +181,16 @@ namespace H5.Translator
 
                 BuildSyntaxTree(cancellationToken);
 
-                var resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references), AssemblyDefinition);
-                resolver = Preconvert(resolver, config, cancellationToken);
+                MemberResolver resolver;
+                using (new Measure(Logger, "Building member resolver"))
+                {
+                    resolver = new MemberResolver(ParsedSourceFiles, Emitter.ToAssemblyReferences(references), AssemblyDefinition);
+                }
+
+                using (new Measure(Logger, "Preconverting syntax trees"))
+                {
+                    resolver = Preconvert(resolver, config, cancellationToken);
+                }
 
                 InspectTypes(resolver, config);
 
@@ -224,19 +232,22 @@ namespace H5.Translator
         {
             bool needRecompile = false;
 
+            // Reuse one TempEmitter across all files - the Detecter/Fixer only read from it,
+            // and the rule caches accumulate across files improving performance.
+            var sharedTempEmitter = new TempEmitter { AssemblyInfo = config };
+
             foreach (var sourceFile in ParsedSourceFiles)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
                 Logger.ZLogTrace("Preconvert {0}", sourceFile.ParsedFile.FileName);
                 var syntaxTree  = sourceFile.SyntaxTree;
-                var tempEmitter = new TempEmitter { AssemblyInfo = config };
-                var detecter    = new PreconverterDetecter(resolver, tempEmitter);
+                var detecter    = new PreconverterDetecter(resolver, sharedTempEmitter);
                 syntaxTree.AcceptVisitor(detecter);
 
                 if (detecter.Found)
                 {
-                    var fixer   = new PreconverterFixer(resolver, tempEmitter);
+                    var fixer   = new PreconverterFixer(resolver, sharedTempEmitter);
                     var astNode = syntaxTree.AcceptVisitor(fixer);
                     syntaxTree            = astNode != null ? (SyntaxTree)astNode : syntaxTree;
                     sourceFile.SyntaxTree = syntaxTree;

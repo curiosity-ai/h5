@@ -42,6 +42,7 @@ namespace H5.Translator
             ClassNameRuleCache = new Dictionary<ITypeDefinition, NameRule[]>();
             AssemblyCompilerRuleCache = new Dictionary<IAssembly, CompilerRule[]>();
             ClassCompilerRuleCache = new Dictionary<ITypeDefinition, CompilerRule[]>();
+            MemberCompilerRuleCache = new Dictionary<IEntity, CompilerRule>();
         }
 
         public List<TranslatorOutputItem> Emit()

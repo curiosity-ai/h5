@@ -362,6 +362,9 @@ namespace H5.Translator
         }
 
         Dictionary<IEntity, NameSemantic> entityNameCache = new Dictionary<IEntity, NameSemantic>();
+        // Cache for GetInline results on fields and methods (entities whose result doesn't vary with IsAssignment state)
+        Dictionary<IEntity, string> _inlineCache = new Dictionary<IEntity, string>();
+        static readonly string _inlineCacheNullSentinel = "\0";
         public NameSemantic GetNameSemantic(IEntity member)
         {
             NameSemantic result;
@@ -490,11 +493,21 @@ namespace H5.Translator
 
         public string GetInline(IEntity entity)
         {
-            string attrName = H5.Translator.Translator.H5_ASSEMBLY + ".TemplateAttribute";
+            const string attrName = H5.Translator.Translator.H5_ASSEMBLY + ".TemplateAttribute";
             // Moving these two `is` into the end of the methos (where it's actually used) leads
             // to incorrect JavaScript being generated
             bool isProp = entity is IProperty;
             bool isEvent = entity is IEvent;
+
+            // Properties and events redirect to an accessor that depends on IsAssignment/AssignmentType,
+            // so their result is context-sensitive. Fields and methods have a stable result we can cache.
+            bool canCache = !isProp && !isEvent;
+            if (canCache && _inlineCache.TryGetValue(entity, out var cachedResult))
+            {
+                return ReferenceEquals(cachedResult, _inlineCacheNullSentinel) ? null : cachedResult;
+            }
+
+            var originalEntity = entity;
 
             if (entity.SymbolKind == SymbolKind.Property)
             {
@@ -509,10 +522,11 @@ namespace H5.Translator
 
             if (entity != null)
             {
-                var attr = entity.Attributes.FirstOrDefault(a =>
+                IAttribute attr = null;
+                foreach (var a in entity.Attributes)
                 {
-                    return a.AttributeType.FullName == attrName;
-                });
+                    if (a.AttributeType.FullName == attrName) { attr = a; break; }
+                }
 
                 string inlineCode = null;
                 if (attr != null && entity is IMethod method && attr.PositionalArguments.Count == 0 && attr.NamedArguments.Count > 0)
@@ -539,9 +553,17 @@ namespace H5.Translator
                     inlineCode = inlineCode.Replace("{value}", "{0}");
                 }
 
+                if (canCache)
+                {
+                    _inlineCache[originalEntity] = inlineCode ?? _inlineCacheNullSentinel;
+                }
                 return inlineCode;
             }
 
+            if (canCache)
+            {
+                _inlineCache[originalEntity] = _inlineCacheNullSentinel;
+            }
             return null;
         }
 
@@ -551,12 +573,13 @@ namespace H5.Translator
 
             if (entity != null)
             {
-                var attr = entity.Attributes.FirstOrDefault(a =>
+                foreach (var a in entity.Attributes)
                 {
-                    return a.AttributeType.FullName == attrName;
-                });
-
-                return attr != null && attr.PositionalArguments.Count == 0 && attr.NamedArguments.Count == 0;
+                    if (a.AttributeType.FullName == attrName)
+                    {
+                        return a.PositionalArguments.Count == 0 && a.NamedArguments.Count == 0;
+                    }
+                }
             }
 
             return false;

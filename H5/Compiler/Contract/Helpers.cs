@@ -750,7 +750,7 @@ namespace H5.Contract
 
         public static bool IsReservedWord(IEmitter emitter, string word)
         {
-            if (emitter != null && (emitter.TypeInfo.JsName == word || emitter.TypeInfo.JsName.StartsWith(word + ".")))
+            if (emitter != null && emitter.TypeInfo?.JsName != null && (emitter.TypeInfo.JsName == word || emitter.TypeInfo.JsName.StartsWith(word + ".")))
             {
                 return true;
             }
@@ -1298,7 +1298,7 @@ namespace H5.Contract
 
         public static bool IsReservedStaticName(string name, bool ignoreCase = true)
         {
-            return JS.Reserved.StaticNames.Any(n => String.Equals(name, n, ignoreCase ? StringComparison.InvariantCultureIgnoreCase : StringComparison.InvariantCulture));
+            return ignoreCase ? JS.Reserved.StaticNamesIgnoreCaseSet.Contains(name) : JS.Reserved.StaticNamesSet.Contains(name);
         }
 
         public static bool HasThis(string template)

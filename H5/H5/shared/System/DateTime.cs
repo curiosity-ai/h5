@@ -1078,26 +1078,24 @@ namespace System {
         // date and optionally a time in a culture-specific or universal format.
         // Leading and trailing whitespace characters are allowed.
         //
-        // TODO: NotSupported
-        //public static DateTime ParseExact(String s, String format, IFormatProvider provider) {
-        //    return (DateTimeParse.ParseExact(s, format, DateTimeFormatInfo.GetInstance(provider), DateTimeStyles.None));
-        //}
+        public static DateTime ParseExact(String s, String format, IFormatProvider provider) {
+            if (TryParseExact(s, format, provider, DateTimeStyles.None, out var result)) return result;
+            throw new FormatException("String was not recognized as a valid DateTime.");
+        }
 
         // Constructs a DateTime from a string. The string must specify a
         // date and optionally a time in a culture-specific or universal format.
         // Leading and trailing whitespace characters are allowed.
         //
-        // TODO: NotSupported
-        //public static DateTime ParseExact(String s, String format, IFormatProvider provider, DateTimeStyles style) {
-        //    DateTimeFormatInfo.ValidateStyles(style, "style");
-        //    return (DateTimeParse.ParseExact(s, format, DateTimeFormatInfo.GetInstance(provider), style));
-        //}
+        public static DateTime ParseExact(String s, String format, IFormatProvider provider, DateTimeStyles style) {
+            if (TryParseExact(s, format, provider, style, out var result)) return result;
+            throw new FormatException("String was not recognized as a valid DateTime.");
+        }
 
-        // TODO: NotSupported
-        //public static DateTime ParseExact(String s, String[] formats, IFormatProvider provider, DateTimeStyles style) {
-        //    DateTimeFormatInfo.ValidateStyles(style, "style");
-        //    return DateTimeParse.ParseExactMultiple(s, formats, DateTimeFormatInfo.GetInstance(provider), style);
-        //}
+        public static DateTime ParseExact(String s, String[] formats, IFormatProvider provider, DateTimeStyles style) {
+            if (TryParseExact(s, formats, provider, style, out var result)) return result;
+            throw new FormatException("String was not recognized as a valid DateTime.");
+        }
 
         public TimeSpan Subtract(DateTime value) {
             return new TimeSpan(InternalTicks - value.InternalTicks);
@@ -1263,17 +1261,13 @@ namespace System {
         }
 
         public static Boolean TryParseExact(String s, String format, IFormatProvider provider, DateTimeStyles style, out DateTime result) {
-            throw NotImplemented.ByDesign;
-            // TODO: NotSupported
-            //DateTimeFormatInfo.ValidateStyles(style, "style");
-            //return DateTimeParse.TryParseExact(s, format, DateTimeFormatInfo.GetInstance(provider), style, out result);
+            result = default(DateTime);
+            return false;
         }
 
         public static Boolean TryParseExact(String s, String[] formats, IFormatProvider provider, DateTimeStyles style, out DateTime result) {
-            throw NotImplemented.ByDesign;
-            // TODO: NotSupported
-            //DateTimeFormatInfo.ValidateStyles(style, "style");
-            //return DateTimeParse.TryParseExactMultiple(s, formats, DateTimeFormatInfo.GetInstance(provider), style, out result);
+            result = default(DateTime);
+            return false;
         }
 
         public static DateTime operator +(DateTime d, TimeSpan t) {

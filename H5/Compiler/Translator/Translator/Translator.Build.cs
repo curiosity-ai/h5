@@ -127,7 +127,7 @@ namespace H5.Translator
                     AddNestedReferences(pathToReferencesInProject, refPath);
                 }
 
-                IList<SyntaxTree> trees = new List<SyntaxTree>(SourceFiles.Count);
+                SyntaxTree[] trees = new SyntaxTree[SourceFiles.Count];
 
                 LanguageVersion languageVersion = LanguageVersion.CSharp7_2;
 
@@ -143,10 +143,11 @@ namespace H5.Translator
                     }
                 }
 
-                foreach (var file in SourceFiles)
+                Parallel.For(0, SourceFiles.Count, i =>
                 {
+                    var file = SourceFiles[i];
                     cancellationToken.ThrowIfCancellationRequested();
-                    var filePath   = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
+                    var filePath = Path.IsPathRooted(file) ? file : Path.GetFullPath((new Uri(Path.Combine(baseDir, file))).LocalPath);
                     var syntaxTree = SyntaxFactory.ParseSyntaxTree(File.ReadAllText(filePath), new CSharpParseOptions(languageVersion, Microsoft.CodeAnalysis.DocumentationMode.Parse, SourceCodeKind.Regular, DefineConstants), filePath, Encoding.Default);
 
                     if (syntaxTree.GetRoot().DescendantNodes().OfType<GlobalStatementSyntax>().Any())
@@ -181,8 +182,8 @@ namespace H5.Translator
                         syntaxTree = syntaxTree.WithRootAndOptions(newRoot, syntaxTree.Options);
                     }
 
-                    trees.Add(syntaxTree);
-                }
+                    trees[i] = syntaxTree;
+                });
 
                 var references = new List<MetadataReference>();
                 var outputDir  = Path.GetDirectoryName(AssemblyLocation);
@@ -192,6 +193,7 @@ namespace H5.Translator
 
                 var updateH5Location = string.IsNullOrWhiteSpace(H5Location) || !File.Exists(H5Location);
 
+                var copyTasks = new List<Task>();
                 foreach (var path in pathToReferencesInProject)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -200,7 +202,7 @@ namespace H5.Translator
 
                     if (string.Compare(newPath, path, true) != 0)
                     {
-                        CopyFileAsync(path, newPath).Wait(cancellationToken);
+                        copyTasks.Add(CopyFileAsync(path, newPath));
                     }
 
                     if (updateH5Location && string.Compare(Path.GetFileName(path), "h5.dll", true) == 0)
@@ -210,9 +212,10 @@ namespace H5.Translator
 
                     references.Add(MetadataReference.CreateFromFile(path, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
                 }
+                Task.WaitAll(copyTasks.ToArray(), cancellationToken);
 
                 // Rewriting Covariant Return Types
-                if (trees.Count > 0)
+                if (trees.Length > 0)
                 {
                     var tempCompilation = CSharpCompilation.Create(ProjectProperties.AssemblyName ?? "Temp", trees, references.Concat(referencesFromPackages), new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
@@ -263,25 +266,26 @@ namespace H5.Translator
 
                     if (covariantSymbols.Count > 0)
                     {
-                        var newTrees = new List<SyntaxTree>();
+                        var newTrees = new SyntaxTree[trees.Length];
                         bool anyRewritten = false;
 
-                        foreach (var tree in trees)
+                        Parallel.For(0, trees.Length, i =>
                         {
+                            var tree = trees[i];
                             var model = tempCompilation.GetSemanticModel(tree);
                             var rewriter = new CovariantReturnTypeRewriter(model, covariantSymbols);
                             var newRoot = rewriter.Visit(tree.GetRoot());
 
                             if (newRoot != tree.GetRoot())
                             {
-                                newTrees.Add(tree.WithRootAndOptions(newRoot, tree.Options));
+                                newTrees[i] = tree.WithRootAndOptions(newRoot, tree.Options);
                                 anyRewritten = true;
                             }
                             else
                             {
-                                newTrees.Add(tree);
+                                newTrees[i] = tree;
                             }
-                        }
+                        });
 
                         if (anyRewritten)
                         {
@@ -467,7 +471,7 @@ namespace H5.Translator
 
         private EmitResult CompileAndEmit(List<MetadataReference> referencesFromPackages, IList<SyntaxTree> trees, List<MetadataReference> references, CancellationToken cancellationToken)
         {
-            var compilation = CSharpCompilation.Create(ProjectProperties.AssemblyName ?? new DirectoryInfo(Location).Name, trees, null, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+            var compilation = CSharpCompilation.Create(ProjectProperties.AssemblyName ?? new DirectoryInfo(Location).Name, trees, null, new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, concurrentBuild: true))
                .AddReferences(references)
                .AddReferences(referencesFromPackages);
 

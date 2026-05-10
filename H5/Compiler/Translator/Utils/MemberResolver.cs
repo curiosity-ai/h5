@@ -8,6 +8,7 @@ using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Mono.Cecil;
 using Mosaik.Core;
@@ -20,10 +21,15 @@ namespace H5.Translator
     {
         private static ILogger Logger = ApplicationLogging.CreateLogger<MemberResolver>();
 
-        private string lastFileName;
+        private class ResolverContext
+        {
+            public string FileName;
+            public CSharpAstResolver Resolver;
+        }
+
+        private readonly ThreadLocal<ResolverContext> _context = new ThreadLocal<ResolverContext>(() => new ResolverContext());
         private IList<ParsedSourceFile> sourceFiles;
         private ICompilation compilation;
-        private CSharpAstResolver resolver;
         private IProjectContent project;
         private readonly ConcurrentDictionary<SyntaxTree, CSharpUnresolvedFile> typeSystemCache;
 
@@ -33,7 +39,7 @@ namespace H5.Translator
         {
             get
             {
-                return resolver;
+                return _context.Value.Resolver;
             }
         }
 
@@ -50,7 +56,6 @@ namespace H5.Translator
         public MemberResolver(IList<ParsedSourceFile> sourceFiles, IEnumerable<IAssemblyReference> assemblies, AssemblyDefinition assemblyDefinition)
         {
             project = null;
-            lastFileName = null;
             this.sourceFiles = sourceFiles;
             Assemblies = assemblies;
             MainAssembly = assemblyDefinition;
@@ -81,11 +86,12 @@ namespace H5.Translator
 
         private void InitResolver(SyntaxTree syntaxTree)
         {
-            if (lastFileName != syntaxTree.FileName || string.IsNullOrEmpty(syntaxTree.FileName))
+            var ctx = _context.Value;
+            if (ctx.FileName != syntaxTree.FileName || string.IsNullOrEmpty(syntaxTree.FileName) || ctx.Resolver == null)
             {
-                lastFileName = syntaxTree.FileName;
+                ctx.FileName = syntaxTree.FileName;
                 var typeSystem = GetTypeSystem(syntaxTree);
-                resolver = new CSharpAstResolver(compilation, syntaxTree, typeSystem);
+                ctx.Resolver = new CSharpAstResolver(compilation, syntaxTree, typeSystem);
             }
         }
 
@@ -110,7 +116,7 @@ namespace H5.Translator
             var syntaxTree = node.GetParent<SyntaxTree>();
             InitResolver(syntaxTree);
 
-            var result = resolver.Resolve(node);
+            var result = Resolver.Resolve(node);
 
             if (result is MethodGroupResolveResult resolveResult && node.Parent != null)
             {

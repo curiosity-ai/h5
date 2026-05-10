@@ -206,7 +206,7 @@ namespace H5.Translator
                         }
                         else
                         {
-                            sb.Append("\\x" + ((int)ch).ToString("x"));
+                            sb.Append($"\\x{((int)ch).ToString("x")}");
                         }
                         break;
                 }

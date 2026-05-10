@@ -494,12 +494,12 @@ namespace H5.Contract
             if (nullable)
             {
                 block.Emitter.Output.Insert(insertPosition,
-                    JS.Types.SYSTEM_NULLABLE + "." + JS.Funcs.Math.LIFT1 + "(\"" + JS.Funcs.CLONE + "\", ");
+                    $"{JS.Types.SYSTEM_NULLABLE}.{JS.Funcs.Math.LIFT1}(\"{JS.Funcs.CLONE}\", ");
                 block.WriteCloseParentheses();
             }
             else
             {
-                block.Write("." + JS.Funcs.CLONE + "()");
+                block.Write($".{JS.Funcs.CLONE}()");
             }
         }
 
@@ -580,7 +580,7 @@ namespace H5.Contract
 
         public static string GetAddOrRemove(bool isAdd, string name = null)
         {
-            return (isAdd ? JS.Funcs.Event.ADD : JS.Funcs.Event.REMOVE) + name;
+            return $"{(isAdd ? JS.Funcs.Event.ADD : JS.Funcs.Event.REMOVE)}{name}";
         }
 
         public static string GetEventRef(CustomEventDeclaration property, IEmitter emitter, bool remove = false, bool noOverload = false, bool ignoreInterface = false, bool withoutTypeParams = false)
@@ -621,7 +621,7 @@ namespace H5.Contract
 
         public static string GetSetOrGet(bool isSetter, string name = null)
         {
-            return (isSetter ? JS.Funcs.Property.SET : JS.Funcs.Property.GET) + name;
+            return $"{(isSetter ? JS.Funcs.Property.SET : JS.Funcs.Property.GET)}{name}";
         }
 
         public static string GetPropertyRef(PropertyDeclaration property, IEmitter emitter, bool isSetter = false, bool noOverload = false, bool ignoreInterface = false, bool withoutTypeParams = false, bool skipPrefix = true)
@@ -1101,7 +1101,7 @@ namespace H5.Contract
 
         public static string PrefixDollar(params object[] parts)
         {
-            return JS.Vars.D + String.Join("", parts);
+            return $"{JS.Vars.D}{String.Join("", parts)}";
         }
 
         public static string ReplaceFirstDollar(string s)
@@ -1309,7 +1309,7 @@ namespace H5.Contract
         public static string ConvertTokens(IEmitter emitter, string template, IMember member)
         {
             string name = OverloadsCollection.Create(emitter, member).GetOverloadName(true);
-            return template.Replace("{@}", name).Replace("{$}", "{this}." + name);
+            return template.Replace("{@}", name).Replace("{$}", $"{{this}}.{name}");
         }
 
         public static string ConvertNameTokens(string name, string replacer)

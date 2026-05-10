@@ -60,7 +60,7 @@ namespace Object.Net.Utilities
                 if (c < ' ')
                 {
                   string str = "000" + (object) int.Parse(new string(c, 1), NumberStyles.HexNumber);
-                  stringBuilder.Append("\\u" + str.Substring(str.Length - 4));
+                  stringBuilder.Append($"\\u{str.Substring(str.Length - 4)}");
                   break;
                 }
                 stringBuilder.Append(c);

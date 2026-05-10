@@ -68,13 +68,13 @@ namespace Object.Net.Utilities.Inflatr
       string text1 = this.Between("'");
       if (text1.IsNotEmpty())
       {
-        this.Append("'" + text1 + "'");
+        this.Append($"'{text1}'");
         return true;
       }
       string text2 = this.Between("\"");
       if (!text2.IsNotEmpty())
         return false;
-      this.Append("\"" + text2 + "\"");
+      this.Append($"\"{text2}\"");
       return true;
     }
 
@@ -89,7 +89,7 @@ namespace Object.Net.Utilities.Inflatr
         string text = this.Between("/");
         if (text.IsNotEmpty())
         {
-          this.Append("/" + text + "/");
+          this.Append($"/{text}/");
           return true;
         }
       }
@@ -105,7 +105,7 @@ namespace Object.Net.Utilities.Inflatr
       string text = this.Scan("(instanceof|typeof|>>>=|===|<<=|>>=|>>>|!==|!=|>=|\\*=|<=|\\+\\+|\\-=|==|&&|>>|<<|/=|\\|\\||\\+=|\\^=|\\|=|&=|\\-\\-|\\||&|\\^|>|<|!|=|\\?|:|%|/|\\*|\\-|\\+)");
       if (!text.IsNotEmpty())
         return false;
-      this.Append(" " + text + " ");
+      this.Append($" {text} ");
       return true;
     }
 

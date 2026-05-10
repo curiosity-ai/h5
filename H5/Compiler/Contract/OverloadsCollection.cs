@@ -1032,7 +1032,7 @@ namespace H5.Contract
             {
                 if (interfaceName.EndsWith(")"))
                 {
-                    return interfaceName + " + \"" + JS.Vars.D + interfaceMemberName + "\"";
+                    return $"{interfaceName} + \"{JS.Vars.D}{interfaceMemberName}\"";
                 }
 
                 if (interfaceName.EndsWith("\""))
@@ -1040,10 +1040,10 @@ namespace H5.Contract
                     interfaceName = interfaceName.Substring(0, interfaceName.Length - 1);
                 }
 
-                return interfaceName + JS.Vars.D + interfaceMemberName + "\"";
+                return $"{interfaceName}{JS.Vars.D}{interfaceMemberName}\"";
             }
 
-            return interfaceName + (interfaceName.EndsWith(JS.Vars.D.ToString()) ? "" : JS.Vars.D.ToString()) + interfaceMemberName;
+            return $"{interfaceName}{(interfaceName.EndsWith(JS.Vars.D.ToString()) ? "" : JS.Vars.D.ToString())}{interfaceMemberName}";
         }
 
         public static bool ExcludeTypeParameterForDefinition(MemberResolveResult rr)
@@ -1173,7 +1173,7 @@ namespace H5.Contract
 
             if (attr != null || skipSuffix)
             {
-                return prefix != null ? prefix + name : name;
+                return prefix != null ? $"{prefix}{name}" : name;
             }
 
             var isCtor = definition is IMethod iDefinition && iDefinition.IsConstructor;
@@ -1189,7 +1189,7 @@ namespace H5.Contract
             {
                 if (isCtor)
                 {
-                    name = JS.Vars.D + name + index;
+                    name = $"{JS.Vars.D}{name}{index}";
                 }
                 else
                 {
@@ -1198,7 +1198,7 @@ namespace H5.Contract
                 }
             }
 
-            return prefix != null ? prefix + name : name;
+            return prefix != null ? $"{prefix}{name}" : name;
         }
 
         protected virtual IMember FindMember(EntityDeclaration entity)

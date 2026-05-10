@@ -93,7 +93,7 @@ namespace H5.Translator.TypeScript
                         output.Append("declare ");
                     }
 
-                    output.Append("namespace " + ns + " ");
+                    output.Append($"namespace {ns} ");
                     BeginBlock();
                 }
 
@@ -111,11 +111,11 @@ namespace H5.Translator.TypeScript
                 StringBuilder depSb = new StringBuilder();
                 foreach (var d in Emitter.CurrentDependencies)
                 {
-                    depSb.Append(@"/// <reference path=""./" + d.DependencyName + @".d.ts"" />");
+                    depSb.Append($@"/// <reference path=""./{d.DependencyName}.d.ts"" />");
                     depSb.Append(newLine);
                 }
 
-                sb.Insert(0, depSb.ToString() + newLine);
+                sb.Insert(0, $"{depSb}{newLine}");
                 Emitter.CurrentDependencies.Clear();
             }
         }
@@ -135,17 +135,17 @@ namespace H5.Translator.TypeScript
 
             if (Emitter.AssemblyInfo.OutputBy == OutputBy.Project)
             {
-                var fileName = Path.GetFileNameWithoutExtension(Emitter.Outputs.First().Key) + Files.Extensions.DTS;
+                var fileName = $"{Path.GetFileNameWithoutExtension(Emitter.Outputs.First().Key)}{Files.Extensions.DTS}";
                 var e = new EmitterOutput(fileName);
 
                 foreach (var item in nonModuleOutputs)
                 {
-                    e.NonModuletOutput.Append(item.Value.ToString() + newLine);
+                    e.NonModuletOutput.Append($"{item.Value}{newLine}");
                 }
 
                 foreach (var item in outputs)
                 {
-                    e.NonModuletOutput.Append(WrapModule(item) + newLine);
+                    e.NonModuletOutput.Append($"{WrapModule(item)}{newLine}");
                 }
 
                 Emitter.Outputs.Add(fileName, e);
@@ -154,7 +154,7 @@ namespace H5.Translator.TypeScript
             {
                 foreach (var item in nonModuleOutputs)
                 {
-                    var fileName = item.Key + Files.Extensions.DTS;
+                    var fileName = $"{item.Key}{Files.Extensions.DTS}";
                     var e = new EmitterOutput(fileName);
                     e.NonModuletOutput.Append(item.Value.ToString());
                     Emitter.Outputs.Add(fileName, e);
@@ -162,7 +162,7 @@ namespace H5.Translator.TypeScript
 
                 foreach (var item in outputs)
                 {
-                    var fileName = item.Key.ExportAsNamespace + Files.Extensions.DTS;
+                    var fileName = $"{item.Key.ExportAsNamespace}{Files.Extensions.DTS}";
                     var e = new EmitterOutput(fileName);
                     e.NonModuletOutput.Append(WrapModule(item));
                     Emitter.Outputs.Add(fileName, e);
@@ -176,9 +176,9 @@ namespace H5.Translator.TypeScript
 
             if (item.Key.Type == ModuleType.AMD || item.Key.Type == ModuleType.CommonJS)
             {
-                sb.Append("declare module \"" + item.Key.ExportAsNamespace + "\" {");
+                sb.Append($"declare module \"{item.Key.ExportAsNamespace}\" {{");
                 sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("    " + WriteIndentToString(item.Value, 1));
+                sb.Append($"    {WriteIndentToString(item.Value, 1)}");
                 sb.Append(H5.Translator.Emitter.NEW_LINE);
                 sb.Append("}");
             }
@@ -186,9 +186,9 @@ namespace H5.Translator.TypeScript
             {
                 sb.Append(item.Value);
                 sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("declare module \"" + item.Key.ExportAsNamespace + "\" {");
+                sb.Append($"declare module \"{item.Key.ExportAsNamespace}\" {{");
                 sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("    export = " + item.Key.ExportAsNamespace + ";");
+                sb.Append($"    export = {item.Key.ExportAsNamespace};");
                 sb.Append(H5.Translator.Emitter.NEW_LINE);
                 sb.Append("}");
             }

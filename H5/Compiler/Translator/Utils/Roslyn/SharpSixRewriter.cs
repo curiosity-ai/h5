@@ -2720,6 +2720,40 @@ namespace H5.Translator
                 .WithTrailingTrivia(node.GetTrailingTrivia());
             }
 
+            if (hasStaticUsingOrAliases)
+            {
+                var nodeParent = node.Parent;
+                ITypeSymbol currentThisType = currentType.Count == 0 ? null : currentType.Peek();
+
+                bool isMemberAccessName = nodeParent is MemberAccessExpressionSyntax mae && mae.Name == node;
+                bool isQualifiedNameRight = nodeParent is QualifiedNameSyntax qn && qn.Right == node;
+                bool isAliasQualifiedNameRight = nodeParent is AliasQualifiedNameSyntax aqn && aqn.Name == node;
+
+                if (symbol != null && symbol.IsStatic && symbol.ContainingType != null
+                    && currentThisType != null && (!currentThisType.InheritsFromOrEquals(symbol.ContainingType) || node.Parent != null && node.Parent.Parent is GenericNameSyntax)
+                    && !SymbolEqualityComparer.Default.Equals(currentThisType, symbol)
+                    && !isMemberAccessName && !isQualifiedNameRight && !isAliasQualifiedNameRight
+                    && (
+                        symbol is IMethodSymbol
+                        || symbol is IPropertySymbol
+                        || symbol is IFieldSymbol
+                        || symbol is IEventSymbol)
+                    )
+                {
+                    var nodeSpanStart = node.SpanStart;
+
+                    if (symbol is IMethodSymbol ms && ms.IsGenericMethod && ms.TypeArguments.Length > 0 && !ms.TypeArguments.Any(SyntaxHelper.IsAnonymous))
+                    {
+                        var typeSyntax = SyntaxHelper.GenerateTypeSyntax(symbol.ContainingType, semanticModel, nodeSpanStart, this);
+                        var genericName = SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), ms.Name, node.GetTrailingTrivia()), ms.TypeArguments, semanticModel, nodeSpanStart, this);
+
+                        return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, typeSyntax, genericName);
+                    }
+
+                    return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(semanticModel, nodeSpanStart), node.GetTrailingTrivia()));
+                }
+            }
+
             bool isRef = false;
             if (symbol != null && symbol is ILocalSymbol ls && ls.IsRef && !(node.Parent is RefExpressionSyntax))
             {

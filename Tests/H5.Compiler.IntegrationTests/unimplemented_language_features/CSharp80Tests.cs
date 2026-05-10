@@ -327,29 +327,6 @@ public class Program
         }
 
         [TestMethod]
-        public async Task NullableReferenceTypes()
-        {
-            var code = """
-using System;
-
-#nullable enable
-
-public class Program
-{
-    public static void Main()
-    {
-        string? name = null;
-        if (name == null)
-        {
-            Console.WriteLine("Name is null");
-        }
-    }
-}
-""";
-            await RunTestExpectingError(code, "Wrong preprocessor directive");
-        }
-
-        [TestMethod]
         public async Task AsyncStreams()
         {
             // Requires IAsyncEnumerable<T>

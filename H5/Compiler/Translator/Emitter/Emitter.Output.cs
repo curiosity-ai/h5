@@ -189,6 +189,7 @@ namespace H5.Translator
 
             var level = InitialLevel;
             StringBuilder endOutput = new StringBuilder();
+            var isEsm = AssemblyInfo.OutputModuleType == OutputModuleType.ESM;
 
             if (output.NonModuletOutput.Length > 0 || output.ModuleOutput.Count > 0)
             {
@@ -200,6 +201,13 @@ namespace H5.Translator
                                          Translator.ProjectProperties.AssemblyName;
 
                         OutputAssemblyComment(tmp);
+
+                        if (isEsm)
+                        {
+                            WriteNewLine(tmp, "import { H5 } from \"./h5.mjs\";");
+                            WriteNewLine(tmp);
+                        }
+
                         if(!string.IsNullOrEmpty(Translator.ProjectProperties.AssemblyVersion))
                         {
                             tmp.Append(JS.Types.H5.ASSEMBLYVERSION + "(");
@@ -271,6 +279,12 @@ namespace H5.Translator
                 {
                     tmp.Append("});");
                     WriteNewLine(tmp);
+
+                    if (isEsm)
+                    {
+                        WriteNewLine(tmp);
+                        WriteNewLine(tmp, "export { H5 };");
+                    }
                 }
             }
 
@@ -306,59 +320,13 @@ namespace H5.Translator
                     WriteNewLine(tmp);
                 }
 
-                var type = loader.Type;
-                var amd = dependencies.Where(d => d.Type == ModuleType.AMD || ((d.Type == null || d.Type == ModuleType.UMD) && type == ModuleLoaderType.AMD)).ToList();
-                var cjs = dependencies.Where(d => d.Type == ModuleType.CommonJS || ((d.Type == null || d.Type == ModuleType.UMD) && type == ModuleLoaderType.CommonJS)).ToList();
-                var es6 = dependencies.Where(d => d.Type == ModuleType.ES6 || (d.Type == null && type == ModuleLoaderType.ES6)).ToList();
-
-                if (amd.Count > 0)
+                // When the user opted into ES module output via h5.json, emit standard
+                // top-level `import` statements for every tracked dependency. Otherwise
+                // the legacy h5.define / H5.assembly wrapping handles dependencies
+                // implicitly, so nothing extra needs to be emitted here.
+                if (AssemblyInfo.OutputModuleType == OutputModuleType.ESM && dependencies.Count > 0)
                 {
-                    WriteIndent(tmp, level);
-                    tmp.Append(loader.FunctionName ?? "require");
-                    tmp.Append("([");
-
-                    amd.Each(md =>
-                    {
-                        tmp.Append(ToJavaScript(md.DependencyName));
-                        tmp.Append(", ");
-                    });
-                    tmp.Remove(tmp.Length - 2, 2); // remove trailing comma
-                    tmp.Append("], function (");
-
-                    amd.Each(md =>
-                    {
-                        tmp.Append(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName);
-                        tmp.Append(", ");
-                    });
-                    tmp.Remove(tmp.Length - 2, 2); // remove trailing comma
-
-                    WriteNewLine(tmp, ") {");
-
-                    WriteIndent(endOutput, level);
-                    WriteNewLine(endOutput, JS.Types.H5.INIT + "();");
-                    WriteIndent(endOutput, level);
-                    WriteNewLine(endOutput, "});");
-                    level++;
-                }
-
-                if (cjs.Count > 0)
-                {
-                    cjs.Each(md =>
-                    {
-                        WriteIndent(tmp, level);
-                        tmp.AppendFormat("var {0} = require(\"{1}\");", md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName, md.DependencyName);
-                        WriteNewLine(tmp);
-                    });
-
-                    if (es6.Count == 0)
-                    {
-                        WriteNewLine(tmp);
-                    }
-                }
-
-                if (es6.Count > 0)
-                {
-                    es6.Each(md =>
+                    dependencies.Each(md =>
                     {
                         WriteIndent(tmp, level);
                         WriteNewLine(tmp, "import " + (md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName) + " from " + ToJavaScript(md.DependencyName) + ";");

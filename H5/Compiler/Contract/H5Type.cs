@@ -1176,22 +1176,10 @@ namespace H5.Contract
             var module = typeInfo.Module;
             string moduleName = null;
 
-            if (module != null && module.Type == ModuleType.UMD)
-            {
-                if (!module.PreventModuleName)
-                {
-                    moduleName = module.ExportAsNamespace;
-                }
-
-                if (!String.IsNullOrEmpty(moduleName))
-                {
-                    ns = string.IsNullOrWhiteSpace(ns) ? moduleName : (moduleName + "." + ns);
-                }
-                else
-                {
-                    module = null;
-                }
-            }
+            // The legacy UMD-specific filename prefixing was removed along with the
+            // AMD / CommonJS / UMD module types. Named modules are now emitted via
+            // OutputModuleType=ESM (h5.json) and rely on the module's own
+            // ExportAsNamespace / file-grouping rules below.
 
             switch (emitter.AssemblyInfo.FileNameCasing)
             {

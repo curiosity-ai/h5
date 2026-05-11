@@ -2,6 +2,13 @@
 {
   "output": "$(OutDir)/h5/",
   "fileName": "app.js",
+
+  // outputModuleType:
+  //   "Default" (or omit)  => historical H5.define output, files end in .js
+  //   "ESM"                => modern ES modules, files end in .mjs and are wrapped in
+  //                           top-level `import { H5 } from "./h5.mjs"; ... export { H5 };`
+  "outputModuleType": "ESM",
+
   "html": {
     "disabled": false,
     "title": "Placeholder"
@@ -16,9 +23,8 @@
     // that builds are more reliable - it's not possible for artifacts from previous builds to exist). A compromise is to use "cleanOutputFolderBeforeBuildPattern": "*.js|*.css" so we can
     // let VS copy in other asset types, such as images, instead of us having to include EVERY additional image and other file in the resources list here).
   ],
-  "cleanOutputFolderBeforeBuildPattern": "*.js|*.css|*.dontload", // See warning above about not using "cleanOutputFolderBeforeBuildPattern": "*.*"
+  "cleanOutputFolderBeforeBuildPattern": "*.js|*.mjs|*.css|*.dontload", // See warning above about not using "cleanOutputFolderBeforeBuildPattern": "*.*". The .mjs entry covers ESM output.
   "console": { "enabled": false },
-  "loader": { "type": "Global" },
   "sourceMap": { "enabled": true },
   "reflection": { "disabled": false },
   "generateTypeScript": false,

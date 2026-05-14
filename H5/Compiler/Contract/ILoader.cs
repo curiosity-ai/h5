@@ -1,11 +1,14 @@
 namespace H5.Contract
 {
+    /// <summary>
+    /// Retained for source compatibility. The legacy AMD / CommonJS / ES6 loader
+    /// selectors have been removed; the packaging of generated JavaScript is now
+    /// controlled via <c>OutputModuleType</c> in <c>h5.json</c>.
+    /// </summary>
     public enum ModuleLoaderType
     {
-        AMD,
-        CommonJS,
-        ES6,
-        Global
+        /// <summary>The only supported value.</summary>
+        Global = 0,
     }
 
     public interface IModuleLoader

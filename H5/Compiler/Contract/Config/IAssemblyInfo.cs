@@ -20,6 +20,9 @@ namespace H5.Contract
         [JsonConverter(typeof(StringEnumConverter))]
         JavaScriptOutputType OutputFormatting{ get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
+        OutputModuleType OutputModuleType{ get; set; }
+
         Module Module{ get; set; }
 
         string Output{ get; set; }

@@ -2,13 +2,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <DefineConstants>H5</DefineConstants>
-    <AssemblyName>Placeholder</AssemblyName>
-    <AssemblyVersion>123.456.789</AssemblyVersion>
-    <RootNamespace>Placeholder</RootNamespace>
+    <AssemblyName>PlaceholderLib</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <RootNamespace>PlaceholderLib</RootNamespace>
     <LangVersion>7.2</LangVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <DebugType>None</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <SkipHtmlGeneration>true</SkipHtmlGeneration>
     <UpdateH5>false</UpdateH5>
     <SkipOnlineCheck>true</SkipOnlineCheck>
   </PropertyGroup>
@@ -16,10 +17,5 @@
   <ItemGroup>
     <PackageReference Include="h5" Version="26.2.64514" />
     <PackageReference Include="h5.core" Version="26.2.64455" />
-    <PackageReference Include="h5.Newtonsoft.Json" Version="26.2.64456" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PlaceholderLib\PlaceholderLib.csproj" />
   </ItemGroup>
 </Project>

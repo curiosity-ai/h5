@@ -96,6 +96,13 @@ namespace H5.Translator
         }
 
         /// <summary>
+        /// Selects how the generated JavaScript is packaged. <see cref="Contract.OutputModuleType.Default"/>
+        /// keeps the historical <c>H5.define</c> output written as <c>.js</c>. <see cref="Contract.OutputModuleType.ESM"/>
+        /// emits ES modules with a <c>.mjs</c> extension.
+        /// </summary>
+        public OutputModuleType OutputModuleType { get; set; } = OutputModuleType.Default;
+
+        /// <summary>
         /// Substrings the file name starting with the defined index.
         /// For example, it might be useful to get rid of the first namespace in the chain if use ByFullName or ByNamespace FilesHierarchy.
         /// </summary>

@@ -88,7 +88,7 @@ namespace H5.Translator.TypeScript
 
                 if (ns != null)
                 {
-                    if (module == null || module.Type == ModuleType.UMD)
+                    if (module == null)
                     {
                         output.Append("declare ");
                     }
@@ -172,31 +172,17 @@ namespace H5.Translator.TypeScript
 
         private string WrapModule(KeyValuePair<Module, string> item)
         {
+            // Named modules emit a `declare module "name" { ... }` block so generated
+            // .d.ts files describe the ES module shape that h5 produces when
+            // OutputModuleType=ESM is selected. The legacy AMD / CommonJS / UMD
+            // variants have been removed — only the ESM-style declaration remains.
             StringBuilder sb = new StringBuilder();
 
-            if (item.Key.Type == ModuleType.AMD || item.Key.Type == ModuleType.CommonJS)
-            {
-                sb.Append("declare module \"" + item.Key.ExportAsNamespace + "\" {");
-                sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("    " + WriteIndentToString(item.Value, 1));
-                sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("}");
-            }
-            else if (item.Key.Type == ModuleType.UMD)
-            {
-                sb.Append(item.Value);
-                sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("declare module \"" + item.Key.ExportAsNamespace + "\" {");
-                sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("    export = " + item.Key.ExportAsNamespace + ";");
-                sb.Append(H5.Translator.Emitter.NEW_LINE);
-                sb.Append("}");
-            }
-            else
-            {
-                sb.Append(item.Value);
-            }
-
+            sb.Append("declare module \"" + item.Key.ExportAsNamespace + "\" {");
+            sb.Append(H5.Translator.Emitter.NEW_LINE);
+            sb.Append("    " + WriteIndentToString(item.Value, 1));
+            sb.Append(H5.Translator.Emitter.NEW_LINE);
+            sb.Append("}");
             sb.Append(H5.Translator.Emitter.NEW_LINE);
 
             return sb.ToString();

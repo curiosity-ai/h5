@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Placeholder ESM Test</title>
+</head>
+<body>
+    <p>Loading...</p>
+    <script type="module">
+      // The h5 runtime, generated assemblies and per-file reflection metadata are
+      // all loaded as ES modules from the h5 output directory. The runtime shim
+      // (h5.mjs) re-exports the global H5 binding so downstream `.mjs` files can
+      // `import { H5 } from "./h5.mjs"`.
+      import { H5 } from "./h5.mjs";
+      await import("./PlaceholderLib.mjs");
+      await import("./app.mjs");
+      await import("./app.meta.mjs");
+
+      // The H5 runtime invokes Main() of every class flagged as an entry point
+      // (via $entryPoint metadata) once H5.init() is ready, so nothing else needs
+      // to run from here.
+      H5.init();
+    </script>
+</body>
+</html>

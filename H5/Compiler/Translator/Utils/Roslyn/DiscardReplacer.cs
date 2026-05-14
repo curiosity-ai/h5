@@ -185,6 +185,15 @@ namespace H5.Translator
                 }
             }
 
+            // Track names already claimed in each hoist-target scope so that two `out var X`
+            // declarations hoisted into the same block don't produce a duplicate-name
+            // declaration. When a collision is detected, the second occurrence is renamed
+            // (e.g. `t` -> `t1`) and any references that resolve to the renamed symbol are
+            // rewritten to match.
+            var scopeClaimedNames = new Dictionary<SyntaxNode, HashSet<string>>();
+            var outVarFinalNames = new Dictionary<ArgumentSyntax, string>();
+            var referencesToRename = new Dictionary<IdentifierNameSyntax, string>();
+
             foreach (var outVar in outVars)
             {
                 try
@@ -205,9 +214,58 @@ namespace H5.Translator
                             {
                                 if (de.Designation is SingleVariableDesignationSyntax designation)
                                 {
+                                    var scope = (SyntaxNode)beforeStatement.Parent ?? beforeStatement;
+                                    if (!scopeClaimedNames.TryGetValue(scope, out var claimed))
+                                    {
+                                        claimed = new HashSet<string>();
+                                        var info = LocalUsageGatherer.GatherInfo(model, scope);
+                                        foreach (var n in info.Names)
+                                        {
+                                            claimed.Add(n);
+                                        }
+                                        scopeClaimedNames[scope] = claimed;
+                                    }
+
+                                    var originalName = designation.Identifier.ValueText;
+                                    var finalName = originalName;
+
+                                    if (claimed.Contains(finalName))
+                                    {
+                                        int i = 1;
+                                        while (claimed.Contains(originalName + i))
+                                        {
+                                            i++;
+                                        }
+                                        finalName = originalName + i;
+
+                                        // The C# semantic model can produce unreliable symbol info for
+                                        // duplicate-name locals (it tends to fold subsequent declarations
+                                        // onto the first symbol). Use a syntactic rewrite that renames any
+                                        // matching identifier within the statement that declares the
+                                        // out-var. That covers the typical case (`if (TryGet(out var t))
+                                        // ... use t ...`) without depending on the semantic model.
+                                        foreach (var idName in beforeStatement.DescendantNodes().OfType<IdentifierNameSyntax>())
+                                        {
+                                            if (idName.Identifier.ValueText != originalName)
+                                            {
+                                                continue;
+                                            }
+
+                                            if (idName == outVar.Expression)
+                                            {
+                                                continue;
+                                            }
+
+                                            referencesToRename[idName] = finalName;
+                                        }
+                                    }
+
+                                    claimed.Add(finalName);
+                                    outVarFinalNames[outVar] = finalName;
+
                                     var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
                                     var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, outVar.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList(
-                                        SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
+                                        SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(finalName))
                                     ));
 
                                     locals.Add(SyntaxFactory.LocalDeclarationStatement(varDecl).NormalizeWhitespace().WithTrailingTrivia(SyntaxFactory.Whitespace("\n")));
@@ -229,12 +287,16 @@ namespace H5.Translator
             var annotatedDiscardVars = new Dictionary<SyntaxAnnotation, string>();
             var annotatedAssigments = new List<SyntaxAnnotation>();
             var annotatedMembers = new Dictionary<SyntaxAnnotation, string>();
+            var annotatedOutVars = new Dictionary<SyntaxAnnotation, string>();
+            var annotatedRenames = new Dictionary<SyntaxAnnotation, string>();
 
             var keys = updatedStatements.Keys.Cast<SyntaxNode>()
                             .Concat(updatedDiscards.Keys.Cast<SyntaxNode>())
                             .Concat(updatedDiscardVars.Keys.Cast<SyntaxNode>())
                             .Concat(discardAssigments)
-                            .Concat(updatedMembers.Keys.Cast<SyntaxNode>());
+                            .Concat(updatedMembers.Keys.Cast<SyntaxNode>())
+                            .Concat(outVarFinalNames.Keys.Cast<SyntaxNode>())
+                            .Concat(referencesToRename.Keys.Cast<SyntaxNode>());
 
             root = root.ReplaceNodes(keys, (n1, n2) =>
             {
@@ -248,9 +310,20 @@ namespace H5.Translator
                 {
                     annotatedDiscards[annotation] = updatedDiscards[(DiscardDesignationSyntax)n1];
                 }
-                else if (n1 is ArgumentSyntax)
+                else if (n1 is ArgumentSyntax argSyn)
                 {
-                    annotatedDiscardVars[annotation] = updatedDiscardVars[(ArgumentSyntax)n1];
+                    if (outVarFinalNames.TryGetValue(argSyn, out var outVarName))
+                    {
+                        annotatedOutVars[annotation] = outVarName;
+                    }
+                    else
+                    {
+                        annotatedDiscardVars[annotation] = updatedDiscardVars[argSyn];
+                    }
+                }
+                else if (n1 is IdentifierNameSyntax idSyn && referencesToRename.TryGetValue(idSyn, out var renameTo))
+                {
+                    annotatedRenames[annotation] = renameTo;
                 }
                 else if (n1 is MemberAccessExpressionSyntax)
                 {
@@ -287,6 +360,26 @@ namespace H5.Translator
                 root = root.ReplaceNode(annotatedNode, ((AssignmentExpressionSyntax)annotatedNode).WithLeft(SyntaxFactory.IdentifierName("H5.Script.Discard")));
             }
 
+            foreach (var annotation in annotatedOutVars.Keys)
+            {
+                var annotatedNode = root.GetAnnotatedNodes(annotation).First();
+                var argNode = (ArgumentSyntax)annotatedNode;
+                if (!(((DeclarationExpressionSyntax)argNode.Expression).Designation is SingleVariableDesignationSyntax))
+                {
+                    continue;
+                }
+
+                var finalName = annotatedOutVars[annotation];
+                var replacement = SyntaxFactory.Argument(SyntaxFactory.IdentifierName(finalName))
+                    .WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.OutKeyword))
+                    .WithRefOrOutKeyword(SyntaxFactory.Token(SyntaxKind.OutKeyword))
+                    .NormalizeWhitespace();
+                root = root.ReplaceNode(annotatedNode, replacement);
+            }
+
+            // Any out-var arguments that weren't annotated above (e.g. ones introduced by other
+            // rewrites running before this pass) still need the existing flat replacement so the
+            // generated code uses `out X` instead of `out var X`.
             outVars = root
                .DescendantNodes()
                .OfType<ArgumentSyntax>()
@@ -301,6 +394,18 @@ namespace H5.Translator
 
                 return SyntaxFactory.Argument(SyntaxFactory.IdentifierName(designation.Identifier)).WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.OutKeyword)).WithRefOrOutKeyword(SyntaxFactory.Token(SyntaxKind.OutKeyword)).NormalizeWhitespace();
             });
+
+            foreach (var annotation in annotatedRenames.Keys)
+            {
+                var annotatedNode = root.GetAnnotatedNodes(annotation).FirstOrDefault();
+                if (annotatedNode == null)
+                {
+                    continue;
+                }
+
+                var newName = annotatedRenames[annotation];
+                root = root.ReplaceNode(annotatedNode, SyntaxFactory.IdentifierName(newName).WithTriviaFrom(annotatedNode));
+            }
 
             foreach (var annotation in annotatedStatemnts.Keys)
             {

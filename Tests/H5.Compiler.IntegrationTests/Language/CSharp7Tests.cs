@@ -39,6 +39,73 @@ public class Program
         }
 
         [TestMethod]
+        public async Task OutVariables_RepeatedNameInSameScope()
+        {
+            // The H5 SharpSixRewriter hoists each `out var X` to a `var X;` declaration in the
+            // enclosing block. When the same name is reused for several `out var X` in what would
+            // be the same enclosing block after hoisting, the rewriter previously produced two
+            // sibling declarations with the same name, which then failed compilation with CS0128
+            // ("A local variable named 't' is already defined").
+            //
+            // This is not valid C# on its own (Roslyn rejects it too), so we feed Roslyn an
+            // equivalent program with unique names via `overrideRoslynCode` and verify that
+            // H5 produces the same output when compiling the version with repeated names.
+            var h5Code = """
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static string Lookup(Dictionary<string, string> dict)
+    {
+        if (dict.TryGetValue("a", out var t)) return t;
+        if (dict.TryGetValue("b", out var t)) return t;
+        return "none";
+    }
+
+    public static void Main()
+    {
+        var d = new Dictionary<string, string> { { "a", "Alpha" }, { "b", "Beta" } };
+        Console.WriteLine(Lookup(d));
+
+        var d2 = new Dictionary<string, string> { { "b", "Beta" } };
+        Console.WriteLine(Lookup(d2));
+
+        var d3 = new Dictionary<string, string>();
+        Console.WriteLine(Lookup(d3));
+    }
+}
+""";
+            var roslynCode = """
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static string Lookup(Dictionary<string, string> dict)
+    {
+        if (dict.TryGetValue("a", out var t1)) return t1;
+        if (dict.TryGetValue("b", out var t2)) return t2;
+        return "none";
+    }
+
+    public static void Main()
+    {
+        var d = new Dictionary<string, string> { { "a", "Alpha" }, { "b", "Beta" } };
+        Console.WriteLine(Lookup(d));
+
+        var d2 = new Dictionary<string, string> { { "b", "Beta" } };
+        Console.WriteLine(Lookup(d2));
+
+        var d3 = new Dictionary<string, string>();
+        Console.WriteLine(Lookup(d3));
+    }
+}
+""";
+            await RunTest(h5Code, overrideRoslynCode: roslynCode);
+        }
+
+        [TestMethod]
         public async Task Tuples()
         {
             var code = """

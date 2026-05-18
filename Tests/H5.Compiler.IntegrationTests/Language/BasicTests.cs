@@ -59,5 +59,24 @@ public class Program
 """;
             await RunTest(code);
         }
+
+        [TestMethod]
+        public async Task UnaryNotWrapsBinaryOperand()
+        {
+            var code = """
+using System;
+public class Program
+{
+    public static void Main()
+    {
+        ushort nodeType = 1;
+        if (!(nodeType == 1)) { Console.WriteLine("a"); } else { Console.WriteLine("b"); }
+        nodeType = 3;
+        if (!(nodeType == 1)) { Console.WriteLine("c"); } else { Console.WriteLine("d"); }
+    }
+}
+""";
+            await RunTest(code);
+        }
     }
 }

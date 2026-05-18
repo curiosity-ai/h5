@@ -176,6 +176,8 @@ namespace H5.Translator
 
             Emitter.UnaryOperatorType = op;
 
+            bool operandNeedsParens = OperandNeedsParentheses(unaryOperatorExpression.Expression);
+
             if ((isAccessor) &&
                 (op == UnaryOperatorType.Increment ||
                  op == UnaryOperatorType.Decrement ||
@@ -221,7 +223,9 @@ namespace H5.Translator
                         else
                         {
                             Write("~");
+                            if (operandNeedsParens) WriteOpenParentheses();
                             unaryOperatorExpression.Expression.AcceptVisitor(Emitter);
+                            if (operandNeedsParens) WriteCloseParentheses();
                         }
                         break;
 
@@ -271,7 +275,9 @@ namespace H5.Translator
                         else
                         {
                             Write("-");
+                            if (operandNeedsParens) WriteOpenParentheses();
                             unaryOperatorExpression.Expression.AcceptVisitor(Emitter);
+                            if (operandNeedsParens) WriteCloseParentheses();
                         }
                         break;
 
@@ -285,7 +291,9 @@ namespace H5.Translator
                         else
                         {
                             Write("!");
+                            if (operandNeedsParens) WriteOpenParentheses();
                             unaryOperatorExpression.Expression.AcceptVisitor(Emitter);
+                            if (operandNeedsParens) WriteCloseParentheses();
                         }
                         break;
 
@@ -381,6 +389,18 @@ namespace H5.Translator
             }
 
             Emitter.UnaryOperatorType = oldType;
+        }
+
+        private static bool OperandNeedsParentheses(Expression expression)
+        {
+            // JS unary operators bind tighter than these, so without parens the operand would re-associate.
+            return expression is BinaryOperatorExpression
+                || expression is ConditionalExpression
+                || expression is AssignmentExpression
+                || expression is LambdaExpression
+                || expression is AnonymousMethodExpression
+                || expression is IsExpression
+                || expression is AsExpression;
         }
 
         private void AddOveflowFlag(KnownTypeCode typeCode, string op_name, bool lifted)

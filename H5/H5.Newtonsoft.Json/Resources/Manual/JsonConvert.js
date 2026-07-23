@@ -13,13 +13,6 @@
                     try {
                         return JSON.parse(value);
                     } catch (e) {
-                        if (e instanceof SyntaxError) {
-                            try {
-                                return eval('(' + value + ')');
-                            } catch (e) {
-                                throw new Newtonsoft.Json.JsonException.$ctor1(e.message);
-                            }
-                        }
                         throw new Newtonsoft.Json.JsonException.$ctor1(e.message);
                     }
                 },

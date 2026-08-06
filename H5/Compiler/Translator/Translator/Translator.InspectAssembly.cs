@@ -361,21 +361,101 @@ namespace H5.Translator
         {
             using (new Measure(Logger, "Inspecting types"))
             {
-                var inspector = CreateInspector(config);
-                inspector.AssemblyInfo = config;
-                inspector.Resolver     = resolver;
+                var inspectors = new ConcurrentBag<Inspector>();
 
-                for (int i = 0; i < ParsedSourceFiles.Length; i++)
+                Parallel.For(0, ParsedSourceFiles.Length, i =>
                 {
                     var sourceFile = ParsedSourceFiles[i];
                     Logger.ZLogTrace("Visiting syntax tree {0}", (sourceFile != null && sourceFile.ParsedFile != null && sourceFile.ParsedFile.FileName != null ? sourceFile.ParsedFile.FileName : ""));
 
+                    var inspector = CreateInspector(config);
+                    inspector.AssemblyInfo = config;
+                    inspector.Resolver = resolver;
                     inspector.VisitSyntaxTree(sourceFile.SyntaxTree);
+                    inspectors.Add(inspector);
+                });
+
+                AssemblyInfo = config;
+
+                var allTypes = inspectors.SelectMany(x => x.Types).ToList();
+                var allIgnored = inspectors.SelectMany(x => x.IgnoredTypes).ToHashSet();
+
+                var mergedTypes = new Dictionary<string, ITypeInfo>();
+
+                foreach (var type in allTypes)
+                {
+                    if (allIgnored.Contains(type.Key)) continue;
+
+                    if (mergedTypes.TryGetValue(type.Key, out var existing))
+                    {
+                        MergeTypeInfo((TypeInfo)existing, (TypeInfo)type);
+                    }
+                    else
+                    {
+                        mergedTypes[type.Key] = type;
+                    }
                 }
 
-                AssemblyInfo = inspector.AssemblyInfo;
-                Types        = inspector.Types.Where(t => !CompilerBuiltInTypes.IsBuiltIn(t.Type.FullName)).ToList();
+                Types = mergedTypes.Values.Where(t => !CompilerBuiltInTypes.IsBuiltIn(t.Type.FullName)).ToList();
             }
+        }
+
+        private void MergeTypeInfo(TypeInfo target, TypeInfo source)
+        {
+            // If target is partial, add to it. If source is partial, add its declaration to target.
+            // Actually target might be the "primary" TypeInfo created by one inspector.
+            // source is another TypeInfo created by another inspector.
+            // We accumulate source into target.
+
+            if (target.PartialTypeDeclarations == null) target.PartialTypeDeclarations = new List<TypeDeclaration>();
+
+            target.PartialTypeDeclarations.Add(source.TypeDeclaration);
+
+            if (source.PartialTypeDeclarations != null)
+            {
+                target.PartialTypeDeclarations.AddRange(source.PartialTypeDeclarations);
+            }
+
+            MergeDictList(target.StaticMethods, source.StaticMethods);
+            MergeDictList(target.InstanceMethods, source.InstanceMethods);
+            MergeDictList(target.StaticProperties, source.StaticProperties);
+            MergeDictList(target.InstanceProperties, source.InstanceProperties);
+            MergeDictList(target.Operators, source.Operators);
+
+            foreach(var kvp in source.FieldsDeclarations) target.FieldsDeclarations[kvp.Key] = kvp.Value;
+            foreach(var kvp in source.EventsDeclarations) target.EventsDeclarations[kvp.Key] = kvp.Value;
+
+            target.Ctors.AddRange(source.Ctors);
+            target.Dependencies.AddRange(source.Dependencies);
+
+            if (source.StaticCtor != null) target.StaticCtor = source.StaticCtor;
+
+            MergeTypeConfig(target.StaticConfig, source.StaticConfig);
+            MergeTypeConfig(target.InstanceConfig, source.InstanceConfig);
+        }
+
+        private void MergeDictList<K, V>(Dictionary<K, List<V>> target, Dictionary<K, List<V>> source)
+        {
+            foreach (var kvp in source)
+            {
+                if (target.TryGetValue(kvp.Key, out var list))
+                {
+                    list.AddRange(kvp.Value);
+                }
+                else
+                {
+                    target[kvp.Key] = kvp.Value;
+                }
+            }
+        }
+
+        private void MergeTypeConfig(TypeConfigInfo target, TypeConfigInfo source)
+        {
+             target.Fields.AddRange(source.Fields);
+             target.Properties.AddRange(source.Properties);
+             target.Events.AddRange(source.Events);
+             target.Alias.AddRange(source.Alias);
+             target.AutoPropertyInitializers.AddRange(source.AutoPropertyInitializers);
         }
 
         protected virtual Inspector CreateInspector(IH5DotJson_AssemblySettings config = null)
@@ -390,39 +470,11 @@ namespace H5.Translator
                 var rewriter = new SharpSixRewriter(this);
                 var result   = new string[SourceFiles.Count];
 
-                var queue      = new ConcurrentQueue<int>(Enumerable.Range(0, SourceFiles.Count));
-                var exceptions = new ConcurrentStack<Exception>();
-
-                var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
+                Parallel.For(0, SourceFiles.Count, i =>
                 {
-                    var t = new Thread(() =>
-                    {
-                        while (queue.TryDequeue(out var index))
-                        {
-                            Logger.LogTrace("Rewriting {0} using thread {1}", SourceFiles[index], Thread.CurrentThread.ManagedThreadId);
-
-                            try
-                            {
-                                result[index] = rewriter.Clone().Rewrite(index);
-                            }
-                            catch (Exception ex)
-                            {
-                                exceptions.Push(ex);
-                                return;
-                            }
-                        }
-                    });
-                    t.IsBackground = true;
-                    t.Start();
-                    return t;
-                }).ToArray();
-
-                Array.ForEach(threads, t => t.Join());
-
-                if (exceptions.Any())
-                {
-                    throw new AggregateException("Compilation failed", exceptions);
-                }
+                    Logger.LogTrace("Rewriting {0} using thread {1}", SourceFiles[i], Thread.CurrentThread.ManagedThreadId);
+                    result[i] = rewriter.Clone().Rewrite(i);
+                });
 
                 rewriter.CommitCache();
 
@@ -438,46 +490,17 @@ namespace H5.Translator
 
             using (var m = new Measure(Logger, "Building syntax tree"))
             {
-                var queue = new ConcurrentQueue<int>(Enumerable.Range(0, rewriten.Length));
-
-                var exceptions = new ConcurrentStack<Exception>();
-
-                var threads = Enumerable.Range(0, Environment.ProcessorCount).Select(i =>
+                Parallel.For(0, rewriten.Length, i =>
                 {
-                    var t = new Thread(() =>
-                    {
-                        while (queue.TryDequeue(out var index) && !cancellationToken.IsCancellationRequested)
-                        {
-                            try
-                            {
-                                BuildSyntaxTreeForFile(index, ref rewriten);
-                            }
-                            catch (Exception ex)
-                            {
-                                exceptions.Push(ex);
-                                return;
-                            }
-                        }
-                    });
-                    t.IsBackground = true;
-                    t.Start();
-                    return t;
-                }).ToArray();
-
-                Array.ForEach(threads, t => t.Join());
-
-                cancellationToken.ThrowIfCancellationRequested();
-
-                if (exceptions.Any())
-                {
-                    throw new AggregateException("Compilation failed", exceptions);
-                }
+                    cancellationToken.ThrowIfCancellationRequested();
+                    BuildSyntaxTreeForFile(i, rewriten);
+                });
 
                 m.SetOperations(rewriten.Length);
             }
         }
 
-        private void BuildSyntaxTreeForFile(int index, ref string[] rewriten)
+        private void BuildSyntaxTreeForFile(int index, string[] rewriten)
         {
             var fileName = SourceFiles[index];
 

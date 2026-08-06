@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../H5/H5/H5.csproj" />
+  <Project Path="H5.Compiler.Next.Tests/H5.Compiler.Next.Tests.csproj" />
+  <Project Path="H5.Compiler.Next/H5.Compiler.Next.csproj" />
+  <Project Path="H5.Compiler.Service.Next/H5.Compiler.Service.Next.csproj" />
+</Solution>

@@ -1,0 +1,13 @@
+- [x] Implement Roslyn CSharp compilation initialization.
+- [x] Create a JS emitter (visitor pattern for Roslyn AST).
+- [x] Implement emission of simple "Hello World" class and method.
+- [x] Implement complex types (classes, structs, generics, fields, properties).
+- [x] Wire up command-line execution or programmatic execution.
+- [x] Add basic tests and Javascript integration test execution using Jint.
+- [ ] Implement local variables (LocalDeclarationStatement).
+- [ ] Implement control flow statements (If, For, While, Do-While, Switch).
+- [ ] Implement exception handling (Try, Catch, Finally, Throw).
+- [ ] Implement asynchronous programming (async, await, Task).
+- [ ] Implement advanced properties (custom get/set, indexers).
+- [ ] Implement LINQ expressions parsing.
+- [ ] Build mapping system for base class libraries (BCL) to browser APIs.

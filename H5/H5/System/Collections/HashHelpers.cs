@@ -4,7 +4,12 @@ namespace System.Collections
     {
         private const int HashPrime = 101;
 
-        public static readonly int RandomSeed = Guid.NewGuid().GetHashCode();
+        public static readonly int RandomSeed;
+
+        static HashHelpers()
+        {
+            RandomSeed = Guid.NewGuid().GetHashCode();
+        }
 
         public static int Combine(int h1, int h2)
         {

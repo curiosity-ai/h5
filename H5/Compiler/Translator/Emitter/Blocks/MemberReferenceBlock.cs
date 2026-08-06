@@ -89,14 +89,6 @@ namespace H5.Translator
             var target = H5Types.ToJsName(member.Member.DeclaringType, Emitter, ignoreLiteralName: false);
             NoTarget = string.IsNullOrWhiteSpace(target);
 
-            if (member.Member.IsStatic
-                && target != CS.NS.H5
-                && !Validator.IsTypeFromH5ButNotFromH5Core(target)
-                && MemberReferenceExpression.Target.ToString().StartsWith(CS.NS.GLOBAL))
-            {
-                Write(JS.Types.H5.Global.DOTNAME);
-            }
-
             Write(target);
         }
 

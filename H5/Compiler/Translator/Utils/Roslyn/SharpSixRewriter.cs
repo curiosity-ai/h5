@@ -2231,8 +2231,17 @@ namespace H5.Translator
                 return base.VisitInvocationExpression(node);
             }
 
-            var method = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
-            
+            IMethodSymbol method;
+            try
+            {
+                method = semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
+            }
+            catch (ArgumentException)
+            {
+                // This node is detached (e.g. from a rewrite), so semantic model won't work.
+                return base.VisitInvocationExpression(node);
+            }
+
             var isRef = false;
             var toAwait = false;
 

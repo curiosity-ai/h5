@@ -1,0 +1,13 @@
+{
+  "name": "placeholder-esm-test",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright validation harness for h5's ESM output mode (Tests/Placeholder).",
+  "type": "module",
+  "scripts": {
+    "test": "node test-esm.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.52.0"
+  }
+}

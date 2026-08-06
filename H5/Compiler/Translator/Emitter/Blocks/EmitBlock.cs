@@ -292,11 +292,21 @@ namespace H5.Translator
                 }
             }
 
-            // Append '.js' extension to file name at translator.Outputs level: this aids in code grouping on files
-            // when filesystem is not case sensitive.
+            // Append '.js' (or '.mjs' when ESM output is selected) extension to file name at translator.Outputs
+            // level: this aids in code grouping on files when filesystem is not case sensitive.
+            var isEsmOutput = Emitter.AssemblyInfo.OutputModuleType == OutputModuleType.ESM;
+            var jsExtension = isEsmOutput ? Files.Extensions.MJS : Files.Extensions.JS;
+
             if (!FileHelper.IsJS(fileName))
             {
-                fileName += Files.Extensions.JS;
+                fileName += jsExtension;
+            }
+            else if (isEsmOutput && fileName.EndsWith(Files.Extensions.JS, System.StringComparison.OrdinalIgnoreCase) && !fileName.EndsWith(Files.Extensions.MJS, System.StringComparison.OrdinalIgnoreCase))
+            {
+                // The user specified a `.js` file name in h5.json / FileName attribute,
+                // but ESM output was requested — swap the extension so the emitted file
+                // matches the module format.
+                fileName = fileName.Substring(0, fileName.Length - Files.Extensions.JS.Length) + Files.Extensions.MJS;
             }
 
             switch (Emitter.AssemblyInfo.FileNameCasing)

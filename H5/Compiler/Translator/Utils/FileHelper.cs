@@ -29,6 +29,12 @@ namespace H5.Translator
                 return fileName;
             }
 
+            if (IsMJS(fileName))
+            {
+                // ESM output keeps the `.mjs` extension and inserts `.min` before it.
+                return fileName.ReplaceLastInstanceOf(Files.Extensions.MJS, ".min" + Files.Extensions.MJS);
+            }
+
             var s = fileName.ReplaceLastInstanceOf(Files.Extensions.JS, Files.Extensions.MinJS);
 
             if (!IsMinJS(s))
@@ -63,7 +69,18 @@ namespace H5.Translator
                 return false;
             }
 
-            return fileName.EndsWith(Files.Extensions.JS, StringComparison.InvariantCultureIgnoreCase);
+            return fileName.EndsWith(Files.Extensions.JS, StringComparison.InvariantCultureIgnoreCase)
+                || fileName.EndsWith(Files.Extensions.MJS, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public bool IsMJS(string fileName)
+        {
+            if (fileName == null)
+            {
+                return false;
+            }
+
+            return fileName.EndsWith(Files.Extensions.MJS, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public bool IsMinJS(string fileName)

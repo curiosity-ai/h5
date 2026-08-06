@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using H5;
+using PlaceholderLib;
 using static H5.Core.dom;
 
 namespace Placeholder
@@ -8,37 +9,18 @@ namespace Placeholder
     {
         private static void Main()
         {
-            if (true)
-            {
-                void Test() { }
+            var greeting = Greeter.Greet("h5");
+            var sum = Greeter.Add(40, 2);
+            var sumString = sum.ToString();
+            var message = greeting + " (" + sumString + ")";
 
-                if (true)
-                {
-                    void Test1() { }
-                    Test1();
+            document.body.innerHTML = "<h1 id=\"hello\">" + message + "</h1>";
 
-                    if (true)
-                    {
-                        void Test2() { }
-                        Test2();
-                        if (true)
-                        {
-                            void Test3() { }
-                            Test3();
-                            
-                            if (true)
-                            {
-                                void Test4() { }
-                                Test4();
-                            }
-                        }
-                    }
-                }
-            }
-            //var hello = "Hello";
-            //var world = World();
-            //document.body.innerHTML = $"{hello} {world}!";
-            //string World() => "World";
+            // Stash strings under window for Playwright to read back without
+            // dealing with how H5 boxes value types into JS objects.
+            window["__h5_test_greeting"] = greeting;
+            window["__h5_test_sum"]      = sumString;
+            window["__h5_test_message"]  = message;
         }
     }
 }

@@ -49,11 +49,15 @@ namespace H5
         }
     }
 
+    /// <summary>
+    /// Retained for source compatibility with the historical <c>[Module]</c> attribute.
+    /// The packaging of generated JavaScript is now driven by <c>OutputModuleType</c> in
+    /// <c>h5.json</c> (either the default <c>H5.define</c> output or modern ES modules
+    /// emitted as <c>.mjs</c>), so <c>[Module]</c> only carries naming information.
+    /// </summary>
     public enum ModuleType
     {
-        AMD,
-        CommonJS,
-        UMD,
-        ES6
+        /// <summary>Default / unspecified.</summary>
+        ESM = 0,
     }
 }

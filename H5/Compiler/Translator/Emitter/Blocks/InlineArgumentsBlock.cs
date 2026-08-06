@@ -433,8 +433,7 @@ namespace H5.Translator
 
                     if (exprs.Count > 0)
                     {
-                        var amd = new List<string>();
-                        var cjs = new List<string>();
+                        var moduleNames = new List<string>();
                         foreach (var expr in exprs)
                         {
                             if (!(Emitter.Resolver.ResolveNode(expr) is TypeOfResolveResult rr))
@@ -455,39 +454,33 @@ namespace H5.Translator
                                 module = h5Type.TypeInfo.Module;
                             }
 
-                            AddModuleByType(amd, cjs, module);
+                            if (module != null)
+                            {
+                                moduleNames.Add(module.Name);
+                            }
                         }
 
                         Write("{");
 
-                        if (amd.Count > 0)
+                        if (moduleNames.Count > 0)
                         {
-                            Write("amd: ");
-                            Write(Emitter.ToJavaScript(amd.ToArray()));
-                            if (cjs.Count > 0)
-                            {
-                                Write(", ");
-                            }
-                        }
-
-                        if (cjs.Count > 0)
-                        {
-                            Write("cjs: ");
-                            Write(Emitter.ToJavaScript(cjs.ToArray()));
+                            Write("modules: ");
+                            Write(Emitter.ToJavaScript(moduleNames.ToArray()));
                         }
 
                         if (!string.IsNullOrWhiteSpace(Emitter.AssemblyInfo.Loader.FunctionName))
                         {
-                            Write(", ");
+                            if (moduleNames.Count > 0)
+                            {
+                                Write(", ");
+                            }
                             Write(Emitter.ToJavaScript(Emitter.AssemblyInfo.Loader.FunctionName));
                         }
 
                         Write("}, function () { ");
 
                         var idx = 0;
-                        var list = amd.Concat(cjs);
-
-                        foreach (var moduleName in list)
+                        foreach (var moduleName in moduleNames)
                         {
                             Write(moduleName);
                             Write(" = arguments[");
@@ -1191,26 +1184,6 @@ namespace H5.Translator
             }
 
             return H5Types.ToJsName(enumType, Emitter);
-        }
-
-        public void AddModuleByType(List<string> amd, List<string> cjs, Module module)
-        {
-            if (module != null)
-            {
-                if (!(module.Type == ModuleType.UMD &&
-                     Emitter.AssemblyInfo.Loader.Type == ModuleLoaderType.Global))
-                {
-                    if (module.Type == ModuleType.AMD
-                        || (module.Type == ModuleType.UMD && Emitter.AssemblyInfo.Loader.Type == ModuleLoaderType.AMD))
-                    {
-                        amd.Add(module.Name);
-                    }
-                    else
-                    {
-                        cjs.Add(module.Name);
-                    }
-                }
-            }
         }
 
         private void WriteGetType(bool needName, IType type, AstNode node, string modifier)

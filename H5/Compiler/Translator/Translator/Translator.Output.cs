@@ -465,6 +465,44 @@ namespace H5.Translator
             {
                 ExtractResources(outputPath, projectPath);
                 ExtractLocales(outputPath);
+                ExtractEsmShimsIfNeeded();
+            }
+        }
+
+        /// <summary>
+        /// When the project requests ES module output (h5.json
+        /// <c>"outputModuleType": "ESM"</c>) the generated <c>.mjs</c> files use
+        /// top-level <c>import { H5 } from "./h5.mjs"</c>. The H5 runtime itself
+        /// (<c>h5.js</c>) is still a plain IIFE that installs the global <c>H5</c>
+        /// object, so emit a tiny <c>h5.mjs</c> shim alongside it that re-exports
+        /// the global as a real ES module binding.
+        /// </summary>
+        private void ExtractEsmShimsIfNeeded()
+        {
+            if (AssemblyInfo.OutputModuleType != H5.Contract.OutputModuleType.ESM)
+            {
+                return;
+            }
+
+            var shimFiles = new (string Name, string Global)[]
+            {
+                ("h5.mjs", "H5"),
+                ("h5.min.mjs", "H5"),
+            };
+
+            // The shim deliberately imports h5.js for its side effects (installing
+            // the global H5 binding) and then re-exports it as an ES module export
+            // so the generated assembly bundles can use a clean
+            // `import { H5 } from "./h5.mjs"`.
+            foreach (var (fileName, globalName) in shimFiles)
+            {
+                var jsCounterpart = fileName.EndsWith(".min.mjs", StringComparison.OrdinalIgnoreCase) ? "h5.min.js" : "h5.js";
+
+                var shim = "import \"./" + jsCounterpart + "\";\n" +
+                           "const " + globalName + " = globalThis." + globalName + ";\n" +
+                           "export { " + globalName + " };\n";
+
+                Emitter.AddOutputItem(Outputs.References, fileName, new StringBuilder(shim), TranslatorOutputKind.Reference, location: null);
             }
         }
 

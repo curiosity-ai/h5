@@ -1,0 +1,12 @@
+{
+  "output": "$(OutDir)/h5/",
+  "fileName": "PlaceholderLib.js",
+  "outputModuleType": "ESM",
+  "html": { "disabled": true },
+  "cleanOutputFolderBeforeBuildPattern": "*.js|*.mjs|*.css|*.dontload",
+  "console": { "enabled": false },
+  "sourceMap": { "enabled": false },
+  "reflection": { "disabled": true },
+  "generateTypeScript": false,
+  "report": { "enabled": false }
+}

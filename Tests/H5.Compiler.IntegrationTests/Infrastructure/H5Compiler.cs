@@ -5,6 +5,7 @@ using NuGet.Versioning;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Net.Http;
 using System.Text.Json;
 using System.Collections.Generic;
@@ -17,16 +18,18 @@ namespace H5.Compiler.IntegrationTests
     {
         private static readonly HttpClient _httpClient = new HttpClient();
         private static Dictionary<string, NuGetVersion> _cachedLatestVersion = new Dictionary<string, NuGetVersion>();
+        private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
         private static async Task<NuGetVersion> GetLatestVersionAsync(string package = "h5")
         {
-            if (_cachedLatestVersion.TryGetValue(package, out var cachedVersion))
-            {
-                return cachedVersion;
-            }
-
+            await _semaphore.WaitAsync();
             try
             {
+                if (_cachedLatestVersion.TryGetValue(package, out var cachedVersion))
+                {
+                    return cachedVersion;
+                }
+
                 if (package == "h5")
                 {
                     var repoRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));
@@ -81,6 +84,10 @@ namespace H5.Compiler.IntegrationTests
             catch (Exception ex)
             {
                 throw new Exception("Failed to fetch or restore latest h5 version.", ex);
+            }
+            finally
+            {
+                _semaphore.Release();
             }
         }
 

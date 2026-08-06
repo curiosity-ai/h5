@@ -43,18 +43,9 @@ namespace H5.Translator
             {
                 memberRef.Target.AcceptVisitor(Emitter);
             }
-            else if (target.HasChildren)
+            else
             {
-                var first = target.Children.ElementAt(0);
-
-                if (first is Expression expression)
-                {
-                    expression.AcceptVisitor(Emitter);
-                }
-                else
-                {
-                    WriteThis();
-                }
+                target.AcceptVisitor(Emitter);
             }
         }
 

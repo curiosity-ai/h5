@@ -9,6 +9,53 @@ namespace H5.Compiler.IntegrationTests
     public class DateAndTimeTests : IntegrationTestBase
     {
         [TestMethod]
+        public async Task DateTime_Parsing()
+        {
+            var code = """
+using System;
+using System.Globalization;
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine(DateTime.TryParse("2023-10-05", out var res1) && res1.Year == 2023);
+
+        Console.WriteLine(DateTime.TryParseExact("20231005", "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var res2) && res2.Month == 10);
+
+        Console.WriteLine(DateTime.TryParseExact("2023-10-05 14:30:15", new[] { "yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out var res3) && res3.Hour == 14);
+
+        try { DateTime.ParseExact("invalid", "yyyyMMdd", CultureInfo.InvariantCulture); Console.WriteLine(false); } catch { Console.WriteLine(true); }
+        try { DateTime.Parse("invalid"); Console.WriteLine(false); } catch { Console.WriteLine(true); }
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
+        public async Task DateTimeOffset_Parsing()
+        {
+            var code = """
+using System;
+using System.Globalization;
+
+public class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine(DateTimeOffset.TryParse("2023-10-05T14:30:00+02:00", out var res1) && res1.Offset.TotalHours == 2);
+
+        Console.WriteLine(DateTimeOffset.TryParseExact("20231005", "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var res2) && res2.Month == 10);
+
+        Console.WriteLine(DateTimeOffset.TryParseExact("2023-10-05 14:30:15", new[] { "yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out var res3) && res3.Hour == 14);
+    }
+}
+""";
+            await RunTest(code);
+        }
+
+        [TestMethod]
         public async Task DateTime_Tests()
         {
             var code = """

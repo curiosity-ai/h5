@@ -62,12 +62,11 @@ namespace H5.Translator
             moduleOutput.Length = 0;
 
             WriteIndent(moduleOutput, InitialLevel);
-            moduleOutput.Append(JS.Funcs.DEFINE + "(");
+            moduleOutput.Append($"{JS.Funcs.DEFINE}(");
 
             if (!module.NoName)
             {
-                moduleOutput.Append(ToJavaScript(module.OriginalName));
-                moduleOutput.Append(", ");
+                moduleOutput.Append($"{ToJavaScript(module.OriginalName)}, ");
             }
 
             var enabledDependecies = GetEnabledDependecies(module, output);
@@ -77,8 +76,7 @@ namespace H5.Translator
                 moduleOutput.Append("[");
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append(ToJavaScript(md.DependencyName));
-                    moduleOutput.Append(", ");
+                    moduleOutput.Append($"{ToJavaScript(md.DependencyName)}, ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
                 moduleOutput.Append("], ");
@@ -90,8 +88,7 @@ namespace H5.Translator
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName);
-                    moduleOutput.Append(", ");
+                    moduleOutput.Append($"{(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName)}, ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
@@ -99,7 +96,7 @@ namespace H5.Translator
             WriteNewLine(moduleOutput, ") {");
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, INDENT + "var " + module.Name + " = { };");
+            WriteNewLine(moduleOutput, $"{INDENT}var {module.Name} = {{ }};");
             moduleOutput.Append(str);
 
             if (!str.Trim().EndsWith(NEW_LINE))
@@ -108,10 +105,10 @@ namespace H5.Translator
             }
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, INDENT + "H5.init();");
+            WriteNewLine(moduleOutput, $"{INDENT}H5.init();");
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, INDENT + "return " + module.Name + ";");
+            WriteNewLine(moduleOutput, $"{INDENT}return {module.Name};");
             WriteIndent(moduleOutput, InitialLevel);
             WriteNewLine(moduleOutput, "});");
         }
@@ -142,8 +139,7 @@ namespace H5.Translator
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName);
-                    moduleOutput.Append(", ");
+                    moduleOutput.Append($"{(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName)}, ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
@@ -151,7 +147,7 @@ namespace H5.Translator
             WriteNewLine(moduleOutput, ") {");
             moduleOutput.Append(INDENT);
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
+            WriteNewLine(moduleOutput, $"var {module.Name} = {{ }};");
             moduleOutput.Append(str);
 
             if (!str.Trim().EndsWith(NEW_LINE))
@@ -160,7 +156,7 @@ namespace H5.Translator
             }
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, INDENT + "module.exports." + module.Name + " = " + module.Name + ";");
+            WriteNewLine(moduleOutput, $"{INDENT}module.exports.{module.Name} = {module.Name};");
             WriteIndent(moduleOutput, InitialLevel);
             moduleOutput.Append("}) (");
 
@@ -168,7 +164,7 @@ namespace H5.Translator
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append("require(" + ToJavaScript(md.DependencyName) + "), ");
+                    moduleOutput.Append($"require({ToJavaScript(md.DependencyName)}), ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
@@ -186,11 +182,10 @@ namespace H5.Translator
             WriteIndent(moduleOutput, 2);
             WriteNewLine(moduleOutput, "if (typeof define === 'function' && define.amd) {");
             WriteIndent(moduleOutput, 3);
-            moduleOutput.Append(JS.Funcs.DEFINE + "(");
+            moduleOutput.Append($"{JS.Funcs.DEFINE}(");
             if (!module.NoName)
             {
-                moduleOutput.Append(ToJavaScript(module.OriginalName));
-                moduleOutput.Append(", ");
+                moduleOutput.Append($"{ToJavaScript(module.OriginalName)}, ");
             }
 
             var enabledDependecies = GetEnabledDependecies(module, output);
@@ -200,8 +195,7 @@ namespace H5.Translator
                 moduleOutput.Append("[");
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append(ToJavaScript(md.DependencyName));
-                    moduleOutput.Append(", ");
+                    moduleOutput.Append($"{ToJavaScript(md.DependencyName)}, ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
                 moduleOutput.Append("], ");
@@ -216,7 +210,7 @@ namespace H5.Translator
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append("require(" + ToJavaScript(md.DependencyName) + "), ");
+                    moduleOutput.Append($"require({ToJavaScript(md.DependencyName)}), ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2);
             }
@@ -226,13 +220,13 @@ namespace H5.Translator
             WriteIndent(moduleOutput, 2);
             WriteNewLine(moduleOutput, "} else {");
             WriteIndent(moduleOutput, 3);
-            moduleOutput.Append("root[" + ToJavaScript(module.OriginalName) + "] = factory(");
+            moduleOutput.Append($"root[{ToJavaScript(module.OriginalName)}] = factory(");
 
             if (enabledDependecies.Count > 0)
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append("root[" + ToJavaScript(md.DependencyName) + "], ");
+                    moduleOutput.Append($"root[{ToJavaScript(md.DependencyName)}], ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
@@ -248,8 +242,7 @@ namespace H5.Translator
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append(md.VariableName ?? md.DependencyName);
-                    moduleOutput.Append(", ");
+                    moduleOutput.Append($"{(md.VariableName ?? md.DependencyName)}, ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }
@@ -258,7 +251,7 @@ namespace H5.Translator
             WriteNewLine(moduleOutput);
 
             WriteIndent(moduleOutput, 2);
-            WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
+            WriteNewLine(moduleOutput, $"var {module.Name} = {{ }};");
             moduleOutput.Append(str);
 
             if (!str.Trim().EndsWith(NEW_LINE))
@@ -270,7 +263,7 @@ namespace H5.Translator
             WriteNewLine(moduleOutput, "H5.init();");
 
             WriteIndent(moduleOutput, 2);
-            WriteNewLine(moduleOutput, "return " + module.Name + ";");
+            WriteNewLine(moduleOutput, $"return {module.Name};");
 
             WriteIndent(moduleOutput, 1);
             WriteNewLine(moduleOutput, "}));");
@@ -286,7 +279,7 @@ namespace H5.Translator
 
             moduleOutput.Append(INDENT);
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, "var " + module.Name + " = { };");
+            WriteNewLine(moduleOutput, $"var {module.Name} = {{ }};");
 
             var enabledDependecies = GetEnabledDependecies(module, output);
 
@@ -296,7 +289,7 @@ namespace H5.Translator
                 {
                     moduleOutput.Append(INDENT);
                     WriteIndent(moduleOutput, InitialLevel);
-                    WriteNewLine(moduleOutput, "import " + (md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName) + " from " + ToJavaScript(md.DependencyName) + ";");
+                    WriteNewLine(moduleOutput, $"import {(md.VariableName.IsNotEmpty() ? md.VariableName : md.DependencyName)} from {ToJavaScript(md.DependencyName)};");
                 });
             }
 
@@ -308,7 +301,7 @@ namespace H5.Translator
             }
 
             WriteIndent(moduleOutput, InitialLevel);
-            WriteNewLine(moduleOutput, INDENT + "export {" + module.Name + "};");
+            WriteNewLine(moduleOutput, $"{INDENT}export {{{module.Name}}};");
             WriteIndent(moduleOutput, InitialLevel);
             moduleOutput.Append("}) (");
 

@@ -458,33 +458,33 @@ namespace ICSharpCode.NRefactory.CSharp
                     result.Append(" ");
                     result.Append("{");
                     result.Append(textEditorOptions.EolMarker);
-                    result.Append(nodeIndent + "\t");
+                    result.Append($"{nodeIndent}\t");
                     break;
                 case BraceStyle.EndOfLineWithoutSpace:
                     result.Append("{");
                     result.Append(textEditorOptions.EolMarker);
-                    result.Append(nodeIndent + "\t");
+                    result.Append($"{nodeIndent}\t");
                     break;
                 case BraceStyle.NextLine:
                     result.Append(textEditorOptions.EolMarker);
                     result.Append(nodeIndent);
                     result.Append("{");
                     result.Append(textEditorOptions.EolMarker);
-                    result.Append(nodeIndent + "\t");
+                    result.Append($"{nodeIndent}\t");
                     break;
                 case BraceStyle.NextLineShifted:
                     result.Append(textEditorOptions.EolMarker);
-                    result.Append(nodeIndent + "\t");
+                    result.Append($"{nodeIndent}\t");
                     result.Append("{");
                     result.Append(textEditorOptions.EolMarker);
-                    result.Append(nodeIndent + "\t");
+                    result.Append($"{nodeIndent}\t");
                     break;
                 case BraceStyle.NextLineShifted2:
                     result.Append(textEditorOptions.EolMarker);
-                    result.Append(nodeIndent + "\t");
+                    result.Append($"{nodeIndent}\t");
                     result.Append("{");
                     result.Append(textEditorOptions.EolMarker);
-                    result.Append(nodeIndent + "\t" + "\t");
+                    result.Append($"{nodeIndent}\t\t");
                     break;
             }
 

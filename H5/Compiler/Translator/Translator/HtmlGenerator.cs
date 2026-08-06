@@ -89,9 +89,6 @@ namespace H5.Translator
             var indexCss    = htmlTemplate.IndexOf(HtmlTokens.CSS, StringComparison.InvariantCultureIgnoreCase);
             var indexScript = htmlTemplate.IndexOf(HtmlTokens.SCRIPT, StringComparison.InvariantCultureIgnoreCase);
 
-            var cssLinkTemplate = "<link rel=\"stylesheet\" href=\"{0}\">";
-            var scriptTemplate = "<script src=\"{0}\" defer></script>";
-
             var indentCss = GetIndent(htmlTemplate, indexCss);
             var indentScript = GetIndent(htmlTemplate, indexScript);
 
@@ -119,14 +116,14 @@ namespace H5.Translator
                         {
                             jsMinBuffer.Append(Emitter.NEW_LINE);
                             jsMinBuffer.Append(indentScript);
-                            jsMinBuffer.Append(string.Format(scriptTemplate, RemapToCDN(path)));
+                            jsMinBuffer.Append($"<script src=\"{RemapToCDN(path)}\" defer></script>");
                         }
                     }
                     else
                     {
                         jsBuffer.Append(Emitter.NEW_LINE);
                         jsBuffer.Append(indentScript);
-                        jsBuffer.Append(string.Format(scriptTemplate, RemapToCDN(output.GetOutputPath(outputPath, true))));
+                        jsBuffer.Append($"<script src=\"{RemapToCDN(output.GetOutputPath(outputPath, true))}\" defer></script>");
 
                         if (!output.IsEmpty && output.MinifiedVersion is object && output.MinifiedVersion.OutputType == TranslatorOutputType.JavaScript)
                         {
@@ -135,7 +132,7 @@ namespace H5.Translator
                             {
                                 jsMinBuffer.Append(Emitter.NEW_LINE);
                                 jsMinBuffer.Append(indentScript);
-                                jsMinBuffer.Append(string.Format(scriptTemplate, RemapToCDN(path)));
+                                jsMinBuffer.Append($"<script src=\"{RemapToCDN(path)}\" defer></script>");
                             }
                         }
                     }
@@ -144,7 +141,7 @@ namespace H5.Translator
                 {
                     cssBuffer.Append(Emitter.NEW_LINE);
                     cssBuffer.Append(indentCss);
-                    cssBuffer.Append(string.Format(cssLinkTemplate, RemapToCDN(output.GetOutputPath(outputPath, true))));
+                    cssBuffer.Append($"<link rel=\"stylesheet\" href=\"{RemapToCDN(output.GetOutputPath(outputPath, true))}\">");
                 }
             }
 

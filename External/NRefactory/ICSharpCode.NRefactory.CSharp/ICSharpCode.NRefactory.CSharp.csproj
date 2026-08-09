@@ -16,6 +16,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Lokad.ILPack" Version="0.3.1" />
+        <PackageReference Include="MessagePack" Version="3.1.7" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" />
         <PackageReference Include="Mosaik.Core" Version="25.10.62118" />
         <PackageReference Include="System.CodeDom" Version="10.0.8" />
